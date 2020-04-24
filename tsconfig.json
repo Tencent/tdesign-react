@@ -1,0 +1,26 @@
+﻿{
+  "compilerOptions": {
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es5",
+    "rootDir": ".",
+    "lib": ["es2017", "dom"],
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "outDir": ".ts-out",
+    "sourceMap": true,
+    "paths": {
+      "@tdesign/react/*": ["./src/*"],
+      "@test/*": ["./test/*"]
+    },
+    "allowJs": true,
+    "checkJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true
+  },
+  "include": ["src", "test", "global.d.ts"],
+  "compileOnSave": false
+}
