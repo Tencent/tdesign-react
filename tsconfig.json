@@ -19,7 +19,8 @@
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": ["src", "test", "global.d.ts"],
   "compileOnSave": false
