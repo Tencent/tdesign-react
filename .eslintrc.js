@@ -46,6 +46,7 @@ module.exports = {
     ],
     'func-style': 'off',
     'function-paren-newline': 'off',
+    'implicit-arrow-linebreak': 'off',
     'import/prefer-default-export': 'off',
     'prettier/prettier': ['error', { trailingComma: 'es5' }],
     'react/display-name': 'off',
