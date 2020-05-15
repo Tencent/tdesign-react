@@ -27,6 +27,16 @@ module.exports = {
         '@typescript-eslint/indent': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'react/display-name': 'off',
-        'max-len': ['error', 140]
-    }
+        'max-len': ['error', 140],
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'indent': ["error", 4]
+    },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx'],
+            rules: {
+            '@typescript-eslint/explicit-function-return-type': ['error']
+          }
+        }
+    ]
 }

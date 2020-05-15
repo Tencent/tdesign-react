@@ -66,76 +66,76 @@ export interface ButtonProps
  * @see https://tdesign.tencent.com/react/button
  */
 export const Button = forwardRef((props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
-  const {
-    disabled,
-    loading: _loading,
-    icon: _icon,
-    type: _type,
-    className,
-    style,
-    onClick,
-    children,
-    htmlType,
-    ...buttonProps
-  } = props;
+    const {
+        disabled,
+        loading: _loading,
+        icon: _icon,
+        type: _type,
+        className,
+        style,
+        onClick,
+        children,
+        htmlType,
+        ...buttonProps
+    } = props;
 
-  const { classPrefix } = useConfig();
+    const { classPrefix } = useConfig();
 
-  let [loading, icon, type] = [_loading, _icon, _type];
+    let [loading, icon, type] = [_loading, _icon, _type];
 
-  // 指定了图标的话，
-  if (!type) {
-    type = icon ? 'icon' : 'weak';
-  }
+    // 指定了图标的话，
+    if (!type) {
+        type = icon ? 'icon' : 'weak';
+    }
 
-  // 只有下面三种类型的按钮支持 loading
-  if (
-    ['primary', 'weak', 'pay'].indexOf(type) === -1 &&
+    // 只有下面三种类型的按钮支持 loading
+    if (
+        ['primary', 'weak', 'pay'].indexOf(type) === -1 &&
       typeof loading !== 'undefined'
-  ) {
-    loading = false;
-  }
+    ) {
+        loading = false;
+    }
 
-  // 计算类名
-  const btnClassName = `${classPrefix}-btn`;
-  const classList: (string | object)[] = [`${classPrefix}-btn`];
+    // 计算类名
+    const btnClassName = `${classPrefix}-btn`;
+    const classList: (string | object)[] = [`${classPrefix}-btn`];
 
-  // 类型类名
-  if (type !== 'primary') {
-    classList.push(`${btnClassName}--${type}`);
-  }
+    // 类型类名
+    if (type !== 'primary') {
+        classList.push(`${btnClassName}--${type}`);
+    }
 
-  // 状态类名
-  classList.push({
-    'is-disabled': disabled,
-    'is-loading': loading,
-  });
+    // 状态类名
+    classList.push({
+        'is-disabled': disabled,
+        'is-loading': loading,
+    });
 
-  // 用户自定义类名
-  if (className) {
-    classList.push(className);
-  }
+    // 用户自定义类名
+    if (className) {
+        classList.push(className);
+    }
 
-  // loading 态的按钮，规范是只有一个 loading 图标
-  if (loading) {
-    icon = 'loading';
-  }
+    // loading 态的按钮，规范是只有一个 loading 图标
+    if (loading) {
+        icon = 'loading';
+    }
 
-  const button: JSX.Element = (
-    <button
-      ref={ref}
-      className={classNames(...classList)}
-      onClick={(!disabled && !loading && onClick) || null}
-      style={style || {}}
-      type={htmlType}
-      disabled={disabled}
-      {...buttonProps}
-    >
-      {icon ? <Icon type={icon} /> : children}
-    </button>
-  );
+    const button: JSX.Element = (
+        <button
+            ref={ref}
+            className={classNames(...classList)}
+            onClick={(!disabled && !loading && onClick) || null}
+            style={style || {}}
+            type={htmlType}
+            disabled={disabled}
+            {...buttonProps}
+        >
+            {icon ? <Icon type={icon} /> : children}
+        </button>
+    );
 
-  return button;
+    return button;
 });
 
 Button.displayName = 'TDesingButton';
