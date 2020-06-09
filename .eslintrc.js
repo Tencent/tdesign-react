@@ -14,6 +14,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    jest: true,
   },
   settings: {
     react: {
@@ -53,5 +54,6 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'max-len': ['error', 140],
+    'arrow-parens': ['error', 'always'],
   },
 };
