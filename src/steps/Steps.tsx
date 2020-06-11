@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { StepsProps } from './StepsProps';
 import { useConfig } from '../_util/use-config';
 import { StepsContext } from './StepsContext';
+import Step from './Step';
 
 /**
  * 步骤条组件
@@ -57,4 +58,5 @@ export default function Steps(props: StepsProps) {
   );
 }
 
+Steps.Step = Step;
 Steps.displayName = 'Steps';
