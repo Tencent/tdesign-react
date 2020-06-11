@@ -20,7 +20,9 @@ export interface Config {
   locale?: 'zh-CN';
 }
 
-export const ConfigContext = createContext<Config>({
+const ConfigContext = createContext<Config>({
   classPrefix: DEFAULT_CLASS_PREFIX,
   locale: DEFAULT_LOCALE,
 });
+
+export default ConfigContext;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
-import { Popup } from '../Popup';
+import Popup from '../Popup';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
