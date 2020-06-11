@@ -89,3 +89,5 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
     </div>
   );
 }
+
+Step.displayName = 'Step';
