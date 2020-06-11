@@ -56,3 +56,5 @@ export default function Steps(props: StepsProps) {
     </StepsContext.Provider>
   );
 }
+
+Steps.displayName = 'Steps';
