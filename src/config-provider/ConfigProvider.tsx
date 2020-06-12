@@ -1,12 +1,11 @@
 import React from 'react';
-import { ConfigContext, Config } from './ConfigContext';
+import ConfigContext, { Config } from './ConfigContext';
 
-// ConfigProvider
 export interface ConfigProviderProps extends Config {
   children: React.ReactNode;
 }
 
-export function ConfigProvider({
+export default function ConfigProvider({
   children,
   ...configProps
 }: ConfigProviderProps) {
@@ -16,3 +15,5 @@ export function ConfigProvider({
     </ConfigContext.Provider>
   );
 }
+
+ConfigProvider.displayName = 'ConfigProvider';

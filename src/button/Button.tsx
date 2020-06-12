@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { noop } from '../_util/noop';
-import { useConfig } from '../_util/use-config';
-import { Icon } from '../icon';
+import noop from '../_util/noop';
+import useConfig from '../_util/useConfig';
+import Icon from '../icon';
 
 /**
  * Button 组件支持的属性。
@@ -64,7 +64,7 @@ export interface ButtonProps
 /**
  * 按钮组件
  */
-export const Button = forwardRef(
+const Button = forwardRef(
   (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
     const {
       theme = 'line',
@@ -103,7 +103,7 @@ export const Button = forwardRef(
       >
         {icon ? (
           <span className={`${classPrefix}-button__inner`}>
-            {typeof icon === 'string' ? <Icon type={icon} /> : icon}
+            {typeof icon === 'string' ? <Icon name={icon} /> : icon}
             {hasChildren && (
               <span className={`${classPrefix}-button__text`}>{children}</span>
             )}
@@ -117,3 +117,5 @@ export const Button = forwardRef(
 );
 
 Button.displayName = 'Button';
+
+export default Button;

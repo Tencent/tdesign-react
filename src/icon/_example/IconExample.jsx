@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '@tdesign/react/iconfont';
+import { Icon } from '@tdesign/react';
 
 const iconNameList = [
   'bulletpoint',
@@ -29,7 +29,7 @@ export default function IconExample() {
         flexWrap: 'wrap',
       }}
     >
-      {iconNameList.map(icon => (
+      {iconNameList.map((icon) => (
         <div
           key={icon}
           style={{ width: 150, height: 150, textAlign: 'center' }}

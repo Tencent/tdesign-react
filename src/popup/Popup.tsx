@@ -11,10 +11,10 @@ import React, {
   ReactChild,
 } from 'react';
 import { usePopper } from 'react-popper';
-import { useConfig } from '../_util/use-config';
-import { composeRefs } from '../_util/compose-refs';
+import useConfig from '../_util/useConfig';
+import composeRefs from '../_util/composeRefs';
 import Portal from './Portal';
-import useTriggerProps from './use-trigger-props';
+import useTriggerProps from './useTriggerProps';
 
 export type PopupTrigger =
   | 'hover'
@@ -78,7 +78,7 @@ export interface PopupProps {
 
 export type PopupRef = Ref<HTMLDivElement>;
 
-export const Popup: FunctionComponent<PopupProps> = forwardRef(
+const Popup: FunctionComponent<PopupProps> = forwardRef(
   (props, ref: PopupRef) => {
     const {
       trigger = 'hover',
@@ -171,3 +171,5 @@ export const Popup: FunctionComponent<PopupProps> = forwardRef(
 );
 
 Popup.displayName = 'Popup';
+
+export default Popup;

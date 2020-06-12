@@ -1,7 +1,7 @@
 import { Ref } from 'react';
 
 // 同时处理多个 ref
-export function composeRefs<T>(...refs: Ref<T>[]) {
+export default function composeRefs<T>(...refs: Ref<T>[]) {
   return (instance: T) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const ref of refs) {

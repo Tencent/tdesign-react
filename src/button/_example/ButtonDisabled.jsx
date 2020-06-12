@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button } from '@tdesign/react/button';
+import { Button } from '@tdesign/react';
 
 export default function ButtonExample() {
   return (

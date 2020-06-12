@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 
-export function useClickOutside<T extends HTMLElement>(
+export default function useClickOutside<T extends HTMLElement>(
   ref: MutableRefObject<T>,
   handler: (event: MouseEvent | TouchEvent) => void
 ) {

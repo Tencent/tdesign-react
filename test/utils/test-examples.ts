@@ -23,7 +23,7 @@ export function testExamples(
 
   // eslint-disable-next-line no-restricted-syntax
   for (const exampleFilename of fs.readdirSync(exampleDir)) {
-    if (!/Example\.jsx$/.test(exampleFilename)) {
+    if (!/\.jsx$/.test(exampleFilename)) {
       // eslint-disable-next-line no-continue
       continue;
     }

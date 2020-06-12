@@ -1,6 +1,6 @@
 import { HTMLAttributes, useCallback, MutableRefObject } from 'react';
 import { PopupTrigger } from './Popup';
-import { useClickOutside } from '../_util/use-click-outside';
+import useClickOutside from '../_util/useClickOutside';
 
 export type TriggerProps = HTMLAttributes<HTMLDivElement>;
 export type PopupProps = HTMLAttributes<HTMLDivElement>;
