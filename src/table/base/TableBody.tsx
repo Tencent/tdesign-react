@@ -1,10 +1,10 @@
 import React, { forwardRef, Fragment } from 'react';
 import { TableProps, TableColumn } from '../TableProps';
 import { TableBox } from './TableBox';
-import { useConfig } from '../../_util/use-config';
+import useConfig from '../../_util/useConfig';
 import getRowKeyFromRowKey from '../util/getRowKeyFromRowKey';
 import classNames from 'classnames';
-import { isCallable } from '../../_util/is-callable';
+import isCallable from '../../_util/isCallable';
 
 export const TableBody = forwardRef(
   (props: TableProps, ref: React.Ref<HTMLDivElement>) => {

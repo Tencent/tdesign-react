@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { TableProps } from '../TableProps';
 import { TableHeader } from './TableHeader';
 import { TableBody } from './TableBody';
-import { useConfig } from '../../_util/use-config';
+import useConfig from '../../_util/useConfig';
 import classNames from 'classnames';
 
 export default function Table<T>(props: TableProps<T>): any {

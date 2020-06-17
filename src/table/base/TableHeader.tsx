@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import { TableProps, TableColumn } from '../TableProps';
 import { TableBox } from './TableBox';
-import { isCallable } from '../../_util/is-callable';
-import { useConfig } from '../../_util/use-config';
+import isCallable from '../../_util/isCallable';
+import useConfig from '../../_util/useConfig';
 import classNames from 'classnames';
 
 export const TableHeader = forwardRef(
