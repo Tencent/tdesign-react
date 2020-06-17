@@ -13,8 +13,8 @@
     "outDir": ".ts-out",
     "sourceMap": true,
     "paths": {
-      "@tdesign/react/*": ["./src/*"],
-      "@test/*": ["./test/*"]
+      "@tdesign/react": ["./src"],
+      "@test/*": ["./test/*"],
     },
     "allowJs": true,
     "checkJs": true,

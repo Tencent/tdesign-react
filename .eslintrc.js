@@ -14,6 +14,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    jest: true,
   },
   settings: {
     react: {
@@ -34,6 +35,7 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+    'arrow-parens': ['error', 'always'],
     'comma-dangle': [
       'error',
       {
@@ -48,10 +50,11 @@ module.exports = {
     'function-paren-newline': 'off',
     'implicit-arrow-linebreak': 'off',
     'import/prefer-default-export': 'off',
+    'max-len': ['error', 140],
+    'no-duplicate-imports': ['error', { includeExports: false }],
     'prettier/prettier': ['error', { trailingComma: 'es5' }],
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
-    'max-len': ['error', 140],
   },
 };
