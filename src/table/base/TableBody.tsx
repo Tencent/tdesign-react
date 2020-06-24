@@ -1,15 +1,25 @@
-import React, { forwardRef, Fragment } from 'react';
+import React, { forwardRef, Fragment, useContext } from 'react';
 import { TableProps, TableColumn } from '../TableProps';
-import { TableBox } from './TableBox';
 import useConfig from '../../_util/useConfig';
 import getRowKeyFromRowKey from '../util/getRowKeyFromRowKey';
 import classNames from 'classnames';
 import isCallable from '../../_util/isCallable';
+import { TableBox } from './TableBox';
+import { TableContext } from './TableContext';
 
 export const TableBody = forwardRef(
   (props: TableProps, ref: React.Ref<HTMLDivElement>) => {
     const { classPrefix } = useConfig();
-    const { columns, records, rowKey, rowClassName } = props;
+    const {
+      columns,
+      records = [],
+      rowKey,
+      rowClassName,
+      height,
+      loading = false,
+      empty = '暂无数据',
+    } = props;
+    const { separate } = useContext(TableContext);
 
     // 键值的获取方式
     const getRowKey = getRowKeyFromRowKey(rowKey);
@@ -41,7 +51,7 @@ export const TableBody = forwardRef(
 
       // typeof null => 'object'
       if (typeof content !== 'object') {
-        content = <span>{content}</span>;
+        content = content;
       }
 
       return content;
@@ -100,18 +110,53 @@ export const TableBody = forwardRef(
       return renderRow(record, rowKey, recordIndex, columns);
     };
 
-    return (
-      <div className={`${classPrefix}-table__body`} ref={ref}>
-        <TableBox columns={columns} classPrefix={classPrefix}>
-          <tbody>
-            {(records || []).map((record, index) => (
-              <Fragment key={getRowKey(record, index)}>
-                {renderRecord(record, index)}
-              </Fragment>
-            ))}
-          </tbody>
-        </TableBox>
-      </div>
+    // 表体渲染的最终元素
+    let bodyContent: any = null;
+
+    // priority: 1 加载状态时，不展示body的内容
+    if (loading) {
+      bodyContent = <noscript />;
+    }
+
+    // priority: 2 展示空白数据
+    if (records.length === 0 && !bodyContent) {
+      bodyContent = (
+        <tbody>
+          <p>{empty}</p>
+        </tbody>
+      );
+    }
+
+    // priority: 3 表体渲染的基础元素
+    const baseBodyContent: React.ReactChild = (
+      <tbody>
+        {(records || []).map((record, index) => (
+          <Fragment key={getRowKey(record, index)}>
+            {renderRecord(record, index)}
+          </Fragment>
+        ))}
+      </tbody>
     );
+
+    // 当bodyContetn为null时，才展示baseBodyContent
+    if (!bodyContent) {
+      if (separate) {
+        bodyContent = (
+          <div
+            className={`${classPrefix}-table__body`}
+            style={height ? { maxHeight: height } : {}}
+            ref={ref}
+          >
+            <TableBox columns={columns} classPrefix={classPrefix}>
+              {baseBodyContent}
+            </TableBox>
+          </div>
+        );
+      } else {
+        bodyContent = baseBodyContent;
+      }
+    }
+
+    return bodyContent;
   }
 );
