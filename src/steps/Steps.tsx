@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { StepsProps } from './StepsProps';
-import { useConfig } from '../_util/use-config';
+import useConfig from '../_util/useConfig';
 import { StepsContext } from './StepsContext';
 import Step from './Step';
 
