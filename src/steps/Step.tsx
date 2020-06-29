@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { StepProps } from './StepsProps';
 import { StepsContext } from './StepsContext';
-import { useConfig } from '../_util/use-config';
-import { Icon } from '../icon/IconFont';
+import useConfig from '../_util/useConfig';
+import Icon from '../icon/IconFont';
 
 export default function Step(props: StepProps & { stepNumber?: number }) {
   const { icon, title, content, stepNumber, children, style } = props;
