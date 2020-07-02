@@ -12,8 +12,8 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     header,
     footer,
-    loading = '',
-    size = 'default',
+    loading,
+    size = 'middle',
     split = true,
     stripe = false,
     actionLayout = 'horizontal',
@@ -40,7 +40,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
   };
 
   const loadElement =
-    loading === '' ? (
+    loading === undefined ? (
       ''
     ) : (
       <div
