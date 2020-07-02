@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddonBasic.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-addon"
+  >
+    <span
+      class="t-addon__prepend"
+    >
+      http://
+    </span>
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        type="text"
+        value="qq.com"
+      />
+    </div>
+  </div>
+  <div
+    class="t-addon"
+  >
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        type="text"
+      />
+    </div>
+    <span
+      class="t-addon__append"
+    >
+      .com
+    </span>
+  </div>
+</DocumentFragment>
+`;
