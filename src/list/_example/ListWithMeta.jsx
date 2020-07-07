@@ -9,18 +9,16 @@ export default function BasicList() {
     { id: 4, content: '列表内容列表内容列表内容' },
   ];
   return (
-    <>
-      <List size="small">
-        {listData.map((item) => (
-          <ListItem key={item.id}>
-            <ListItemMeta
-              avatar={<Icon name={'bulletpoint'} />}
-              title="列表主内容"
-              description="列表内容列表内容列表内容"
-            ></ListItemMeta>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <List size="small">
+      {listData.map((item) => (
+        <ListItem key={item.id}>
+          <ListItemMeta
+            avatar={<Icon name={'bulletpoint'} />}
+            title="列表主内容"
+            description="列表内容列表内容列表内容"
+          />
+        </ListItem>
+      ))}
+    </List>
   );
 }

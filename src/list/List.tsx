@@ -20,7 +20,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
     children,
     className,
     loadMore = noop,
-    scroll = noop,
+    onScroll = noop,
     style = {},
   } = props;
 
@@ -36,7 +36,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
     const { currentTarget } = event;
     const { scrollTop, offsetHeight, scrollHeight } = currentTarget;
     const scrollBottom = scrollHeight - scrollTop - offsetHeight;
-    scroll(event, { scrollTop, scrollBottom });
+    onScroll(event, { scrollTop, scrollBottom });
   };
 
   const loadElement =

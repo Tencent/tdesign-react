@@ -18,7 +18,7 @@ export default function BasicList() {
       </List>
 
       <h4>尺寸-中（默认）</h4>
-      <List size="default">
+      <List>
         {listData.map((item) => (
           <ListItem key={item.id}>{item.content}</ListItem>
         ))}
