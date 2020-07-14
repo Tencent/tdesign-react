@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:9999",
+  "baseUrl": "http://127.0.0.1:9999",
   "integrationFolder": "test/e2e",
   "testFiles": "**/*.spec.js",
   "fileServerFolder": "test/scripts/cypress",
