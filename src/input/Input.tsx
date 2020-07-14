@@ -2,12 +2,12 @@ import React, { forwardRef, ReactNode, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import Icon from '../icon';
+import { Icon } from '@tdesign/react';
 
 /**
  * Input 组件支持的属性。
  *
- * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
+ * 除表格中列出的属性外，支持透传原生 `<input>` 标签支持的属性。
  */
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
