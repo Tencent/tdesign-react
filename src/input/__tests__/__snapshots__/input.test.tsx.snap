@@ -150,10 +150,10 @@ exports[`InputIcon.jsx 1`] = `
       class="t-input__prefix"
     >
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-icon t-icon-middle"
       >
         <svg
-          class="icon svg-icon"
+          class="t-icon t-icon-search"
         >
           <use
             xlink:href="#t-icon-search"
@@ -170,10 +170,10 @@ exports[`InputIcon.jsx 1`] = `
       class="t-input__suffix"
     >
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-icon t-icon-middle"
       >
         <svg
-          class="icon svg-icon"
+          class="t-icon t-icon-prompt-fill"
         >
           <use
             xlink:href="#t-icon-prompt-fill"
@@ -201,10 +201,10 @@ exports[`InputIcon.jsx 1`] = `
       class="t-input__suffix"
     >
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-icon t-icon-middle"
       >
         <svg
-          class="icon svg-icon"
+          class="t-icon t-icon-prompt-fill"
         >
           <use
             xlink:href="#t-icon-prompt-fill"
