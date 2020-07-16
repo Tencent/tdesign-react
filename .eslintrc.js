@@ -35,6 +35,7 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+    '@typescript-eslint/no-var-requires': 'off',
     'arrow-parens': ['error', 'always'], // prettier conflict
     'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
     'operator-linebreak': 'off', // prettier conflict
