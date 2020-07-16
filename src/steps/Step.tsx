@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import Icon from '../icon';
+import { Icon } from '../icon';
 import StepsContext from './StepsContext';
 import { StepProps } from './StepsProps';
 
