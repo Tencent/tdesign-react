@@ -9,7 +9,7 @@ export default function useTriggerProps(
   ref: MutableRefObject<HTMLElement>,
   triggers: PopupTrigger[],
   visible: boolean,
-  setVisible: (visible: boolean) => void
+  setVisible: (visible: boolean) => void,
 ): [TriggerProps, PopupProps] {
   const triggerProps: TriggerProps = {};
   const popupProps: PopupProps = {};
@@ -48,10 +48,9 @@ export default function useTriggerProps(
   // click outside 用于处理点击其他地方隐藏
   useClickOutside(ref, () => {
     if (
+      // eslint-disable-next-line operator-linebreak
       visible &&
-      (triggers.includes('click') ||
-        triggers.includes('focus') ||
-        triggers.includes('contextMenu'))
+      (triggers.includes('click') || triggers.includes('focus') || triggers.includes('contextMenu'))
     ) {
       hide();
     }

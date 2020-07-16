@@ -12,12 +12,9 @@ describe('Popup 组件测试', () => {
 
   test('hover 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 鼠标进入前，没有元素存在
@@ -60,7 +57,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 鼠标进入前，没有元素存在
@@ -115,7 +112,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 鼠标进入前，没有元素存在
@@ -158,7 +155,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 鼠标进入前，没有元素存在
@@ -227,7 +224,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 鼠标进入前，没有元素存在
@@ -270,7 +267,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 模拟鼠标进入
@@ -309,7 +306,7 @@ describe('Popup 组件测试', () => {
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 弹出层的父元素的 id 为 SPECIAL_ID
@@ -322,7 +319,7 @@ describe('Popup 组件测试', () => {
       // └-> .t-popup-container
       //   └-> div popper 定位层
       //     └-> div[data-testid="popup-test-id"]
-      popupElement.parentElement.parentElement.parentElement
+      popupElement.parentElement.parentElement.parentElement,
     ).toHaveAttribute('id', specialId);
   });
 
@@ -340,16 +337,8 @@ describe('Popup 组件测试', () => {
 
       return (
         <>
-          <Popup
-            destroyOnHide
-            trigger="manual"
-            visible={visible}
-            content={$content}
-          >
-            <button
-              data-testid={testShowButton}
-              onClick={() => setVisible(true)}
-            >
+          <Popup destroyOnHide trigger="manual" visible={visible} content={$content}>
+            <button data-testid={testShowButton} onClick={() => setVisible(true)}>
               显示
             </button>
           </Popup>
@@ -395,7 +384,7 @@ describe('Popup 组件测试', () => {
         overlayClassName={testClassName}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 模拟鼠标进入
@@ -405,9 +394,7 @@ describe('Popup 组件测试', () => {
     });
 
     // 鼠标进入后，有元素，而且内容为空
-    const popupContainer = await waitFor(() =>
-      document.querySelector(`.${testClassName}`)
-    );
+    const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
     expect(popupContainer).not.toBeNull();
     expect(popupContainer).toHaveTextContent('');
     expect(popupContainer).toHaveStyle(testStyle);
@@ -418,7 +405,7 @@ describe('Popup 组件测试', () => {
     render(
       <Popup placement="top" overlayClassName={testClassName}>
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 浮层隐藏时，随便点击
@@ -428,9 +415,7 @@ describe('Popup 组件测试', () => {
     });
 
     // 鼠标进入后，有元素，而且内容为空
-    const popupContainer = await waitFor(() =>
-      document.querySelector(`.${testClassName}`)
-    );
+    const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
     expect(popupContainer).toBeNull();
   });
 
@@ -444,7 +429,7 @@ describe('Popup 组件测试', () => {
         getPopupContainer={() => 'xxx' as any}
       >
         {triggerElement}
-      </Popup>
+      </Popup>,
     );
 
     // 浮层隐藏时，随便点击
@@ -454,9 +439,7 @@ describe('Popup 组件测试', () => {
     });
 
     // 有元素，并且是渲染在 body 上
-    const popupContainer = await waitFor(() =>
-      document.querySelector(`.${testClassName}`)
-    );
+    const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
     expect(popupContainer.parentElement.parentElement).toBe(document.body);
   });
 });
