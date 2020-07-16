@@ -5,8 +5,6 @@ import useConfig from '../_util/useConfig';
 import { Icon } from '../icon';
 
 /**
- * Button 组件支持的属性。
- *
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

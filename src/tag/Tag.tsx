@@ -11,47 +11,52 @@ export interface TagProps
   extends Combine<StyledProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'>> {
   /**
    * 标签类型
-  /*
-   * theme?: 'default'|'primary'|'info'|'warning'|'danger'|'success'
    *
-   *  @default "middle"
+   *  @default 'middle'
    */
   theme?: string;
+
   /**
    * 按钮大小
    *
-   * @default "middle"
+   * @default 'middle'
    */
   size?: 'large' | 'middle' | 'small';
+
   /**
    * 设置按钮为禁用状态
    *
    * @default false
    * */
   disabled?: boolean;
+
   /**
    * 设置按钮为禁用状态
    *
    *@default false
    * */
   closable?: boolean;
+
   /**
    * 最大长度
    *
    */
   maxWidth?: string | number;
+
   /**
    * 形状
    *
    * @default 'square'
    */
   shape?: 'square' | 'round' | 'mark';
+
   /**
    * 样式模式
    *
    * @default 'dark'
    */
   effect?: 'dark' | 'light' | 'plain';
+
   /**
    * 点击回调函数
    */

@@ -1,15 +1,13 @@
-import React, { forwardRef, ReactNode, FunctionComponent } from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { Icon } from '@tdesign/react';
 
 /**
- * Input 组件支持的属性。
- *
  * 除表格中列出的属性外，支持透传原生 `<input>` 标签支持的属性。
  */
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /**
    * 是否为禁用状态
    * @default false
@@ -32,17 +30,17 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
    * 前置图标
    * @default ''
    */
-  prefixIcon?: number | string | ReactNode | FunctionComponent;
+  prefixIcon?: React.ReactNode;
 
   /**
    * 后置图标
    * @default ''
    */
-  suffixIcon?: number | string | ReactNode | FunctionComponent;
+  suffixIcon?: React.ReactNode;
 }
 
 const renderIcon = (classPrefix, type, Content) => {
-  let result: ReactNode;
+  let result: React.ReactNode;
 
   if (typeof Content === 'string' && Content) {
     result = <Icon name={Content} />;
