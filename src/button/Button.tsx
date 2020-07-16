@@ -96,10 +96,10 @@ const Button = forwardRef((props: ButtonProps, ref: React.Ref<HTMLButtonElement>
       {...buttonProps}
     >
       {icon ? (
-        <span className={`${classPrefix}-button__inner`}>
+        <>
           {typeof icon === 'string' ? <Icon name={icon} /> : icon}
           {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
-        </span>
+        </>
       ) : (
         children
       )}
