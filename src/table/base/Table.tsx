@@ -1,17 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { TableProps } from '../TableProps';
-import { TableHeader } from './TableHeader';
-import { TableBody } from './TableBody';
-import useConfig from '../../_util/useConfig';
 import classNames from 'classnames';
-import { TableLoadingBody } from './TableLoadingBody';
+import { TableProps } from '../TableProps';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
+import useConfig from '../../_util/useConfig';
+import TableLoadingBody from './TableLoadingBody';
 import { TableContextValue, TableContext } from './TableContext';
 
 export default function Table<T>(props: TableProps<T>): any {
   const { classPrefix } = useConfig();
-  const [separate, setSeparate] = useState<TableContextValue['separate']>(
-    false
-  );
+  const [separate, setSeparate] = useState<TableContextValue['separate']>(false);
 
   const {
     bordered = true,
@@ -29,10 +27,7 @@ export default function Table<T>(props: TableProps<T>): any {
   const bodyRef = useRef<HTMLDivElement>(null);
 
   // 判断header、body是否需要独立的table
-  if (
-    !separate &&
-    (height || columns.filter((column) => column.fixed).length > 0)
-  ) {
+  if (!separate && (height || columns.filter((column) => column.fixed).length > 0)) {
     setSeparate(true);
   }
 
@@ -57,7 +52,7 @@ export default function Table<T>(props: TableProps<T>): any {
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-table--hoverable`]: hover,
           [`${classPrefix}-table-valign__${verticalAlign}`]: verticalAlign,
-        }
+        },
       )}
     >
       <div className={`${classPrefix}-table-content`}>

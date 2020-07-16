@@ -9,8 +9,7 @@ import { Icon } from '@tdesign/react';
  *
  * 除表格中列出的属性外，支持透传原生 `<input>` 标签支持的属性。
  */
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * 是否为禁用状态
    * @default false
@@ -63,75 +62,70 @@ const renderIcon = (classPrefix, type, Content) => {
 /**
  * 组件
  */
-const Input = forwardRef(
-  (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
-    const {
-      value = '',
-      placeholder,
-      disabled,
-      readOnly,
-      autoComplete,
-      status,
-      size,
-      className,
-      prefixIcon,
-      suffixIcon,
-      onInput = noop,
-      onBlur = noop,
-      onFocus = noop,
-      onChange = noop,
-      onKeyDown = noop,
-      onKeyUp = noop,
-      onKeyPress = noop,
-      name,
-      type,
-      ...wrapperProps
-    } = props;
+const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
+  const {
+    value = '',
+    placeholder,
+    disabled,
+    readOnly,
+    autoComplete,
+    status,
+    size,
+    className,
+    prefixIcon,
+    suffixIcon,
+    onInput = noop,
+    onBlur = noop,
+    onFocus = noop,
+    onChange = noop,
+    onKeyDown = noop,
+    onKeyUp = noop,
+    onKeyPress = noop,
+    name,
+    type,
+    ...wrapperProps
+  } = props;
 
-    const { classPrefix } = useConfig();
-    const componentType = 'input';
-    const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-    const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIcon);
+  const { classPrefix } = useConfig();
+  const componentType = 'input';
+  const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIcon);
 
-    return (
-      <div
-        ref={ref}
-        className={classNames(className, `${classPrefix}-${componentType}`, {
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-is-${status}`]: status,
-          [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
-          [`${classPrefix}-${componentType}--suffix`]: suffixIcon,
-        })}
-        {...wrapperProps}
-      >
-        {prefixIconContent}
-        <input
-          name={name}
-          type={type}
-          className={classNames(
-            className,
-            `${classPrefix}-${componentType}__inner`
-          )}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          readOnly={readOnly}
-          autoComplete={autoComplete}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onInput={onInput}
-          onKeyDown={onKeyDown}
-          onKeyUp={onKeyUp}
-          onKeyPress={onKeyPress}
-        />
-        {suffixIconContent}
-      </div>
-    );
-  }
-);
+  return (
+    <div
+      ref={ref}
+      className={classNames(className, `${classPrefix}-${componentType}`, {
+        [`${classPrefix}-is-disabled`]: disabled,
+        [`${classPrefix}-size-s`]: size === 'small',
+        [`${classPrefix}-size-l`]: size === 'large',
+        [`${classPrefix}-is-${status}`]: status,
+        [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
+        [`${classPrefix}-${componentType}--suffix`]: suffixIcon,
+      })}
+      {...wrapperProps}
+    >
+      {prefixIconContent}
+      <input
+        name={name}
+        type={type}
+        className={classNames(className, `${classPrefix}-${componentType}__inner`)}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        readOnly={readOnly}
+        autoComplete={autoComplete}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onInput={onInput}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        onKeyPress={onKeyPress}
+      />
+      {suffixIconContent}
+    </div>
+  );
+});
 
 Input.displayName = 'Input';
 

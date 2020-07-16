@@ -35,7 +35,9 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
-    'function-paren-newline': ['error', 'multiline-arguments'],
+    'arrow-parens': ['error', 'always'], // prettier conflict
+    'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
+    'operator-linebreak': 'off', // prettier conflict
     'prettier/prettier': 'error',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',

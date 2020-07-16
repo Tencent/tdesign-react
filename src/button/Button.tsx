@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 /**
  * Button 组件支持的属性。

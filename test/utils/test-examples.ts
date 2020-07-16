@@ -26,9 +26,8 @@ export function testExamples(dirname: string, overrides: TestExampleOverrides = 
     }
 
     const Example = require(path.join(exampleDir, exampleFilename)).default;
-    // eslint-disable-next-line operator-linebreak
+
     const runner =
-      // eslint-disable-next-line operator-linebreak
       overrides[exampleFilename] ||
       (() => {
         const { asFragment } = render(React.createElement(Example));

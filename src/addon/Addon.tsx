@@ -28,23 +28,17 @@ const renderAddon = (type, classPrefix, Content) => {
   return result;
 };
 
-const Addon = forwardRef(
-  (props: AddonProps, ref: React.Ref<HTMLDivElement>) => {
-    const { classPrefix } = useConfig();
-    const { prepend, append, children, className, ...wrapperProps } = props;
-    return (
-      <div
-        ref={ref}
-        className={classNames(className, `${classPrefix}-addon`)}
-        {...wrapperProps}
-      >
-        {renderAddon('prepend', classPrefix, prepend)}
-        {children}
-        {renderAddon('append', classPrefix, append)}
-      </div>
-    );
-  }
-);
+const Addon = forwardRef((props: AddonProps, ref: React.Ref<HTMLDivElement>) => {
+  const { classPrefix } = useConfig();
+  const { prepend, append, children, className, ...wrapperProps } = props;
+  return (
+    <div ref={ref} className={classNames(className, `${classPrefix}-addon`)} {...wrapperProps}>
+      {renderAddon('prepend', classPrefix, prepend)}
+      {children}
+      {renderAddon('append', classPrefix, append)}
+    </div>
+  );
+});
 
 Addon.displayName = 'Addon';
 
