@@ -8,4 +8,7 @@
 
 [Example: 基本功能](./_example/AddonBasic.jsx)
 
+## 组件属性
+
+[Interface: AddonProps](./Addon.tsx)
 
