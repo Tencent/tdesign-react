@@ -1,3 +1,8 @@
 node_modules
 .DS_Store
 coverage
+test/scripts/cypress/screenshots
+test/scripts/cypress/videos
+test/scripts/cypress/results
+test/scripts/cypress/support
+results/
