@@ -6,3 +6,4 @@ test/scripts/cypress/videos
 test/scripts/cypress/results
 test/scripts/cypress/support
 results/
+site/dist
