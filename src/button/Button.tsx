@@ -83,7 +83,7 @@ const Button = forwardRef((props: ButtonProps, ref: React.Ref<HTMLButtonElement>
     <button
       ref={ref}
       className={classNames(className, `${classPrefix}-button`, {
-        [`${classPrefix}-button--${theme}`]: hasChildren,
+        [`${classPrefix}-button--${theme}`]: hasChildren || icon,
         [`${classPrefix}-button--icon`]: !hasChildren && icon && theme !== 'primary',
         [`${classPrefix}-button--icon-primary`]: !hasChildren && icon && theme === 'primary',
         [`${classPrefix}-is-disabled`]: disabled,
