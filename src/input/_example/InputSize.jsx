@@ -4,7 +4,7 @@ import { Input } from '@tdesign/react';
 export default function InputExample() {
   const [value, onChange] = useState('');
   return (
-    <>
+    <div className="tdesign-demo-item--input__input-box">
       <Input
         placeholder="请输入内容"
         value={value}
@@ -13,8 +13,6 @@ export default function InputExample() {
         }}
         size="large"
       />
-      <br />
-      <br />
       <Input
         placeholder="请输入内容"
         value={value}
@@ -23,6 +21,6 @@ export default function InputExample() {
         }}
         size="default"
       />
-    </>
+    </div>
   );
 }
