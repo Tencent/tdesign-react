@@ -5,5 +5,6 @@ export { default as InputGroup } from './input-group';
 export { default as ConfigProvider } from './config-provider';
 export * from './icon';
 export { default as Popup } from './popup';
+export { default as Steps } from './steps';
 export { default as Table } from './table';
 export { List, ListItem, ListItemMeta } from './list';
