@@ -2,11 +2,13 @@ import Notification from './Notification';
 
 export {
   NotificationTheme,
+  NotificationPlacement,
+  NotificationInstance,
   NotificationProps,
   NotificationOpenOptions,
-  NotificationInstance,
   NotificationOpen,
   NotificationMethods,
+  NotificationComponent,
 } from './Notification';
 
 export default Notification;

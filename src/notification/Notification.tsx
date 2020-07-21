@@ -1,30 +1,40 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { IconFont, PromptFillIcon, SuccessFillIcon } from '../icon';
+import { fetchListInstance, listMap } from './NotificationList';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import { StyledProps } from '../_type/StyledProps';
 
-export type NotificationTheme = '' | 'info' | 'success' | 'warning' | 'error';
+export type NotificationTheme = 'info' | 'success' | 'warning' | 'error';
 
-export interface NotificationProps {
+export type NotificationPlacement =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+
+export interface NotificationInstance {
+  /**
+   * 关闭当前通知提醒框
+   */
+  close?: () => void;
+}
+
+export interface NotificationProps extends StyledProps {
   /**
    * 通知标题
-   * @default ''
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * 自定义内容
-   * @default ''
    */
   content?: React.ReactNode;
   /**
    * 消息类型 info/success/warning/error
-   * @default ''
    */
   theme?: NotificationTheme;
   /**
    * 自定义图标。当 theme 存在，取默认图标
-   * @default ''
    */
   icon?: React.ReactNode;
   /**
@@ -34,7 +44,6 @@ export interface NotificationProps {
   closeBtn?: boolean | React.ReactNode;
   /**
    * 自定义底部详情
-   * @default ''
    */
   footer?: React.ReactNode;
   /**
@@ -43,25 +52,17 @@ export interface NotificationProps {
    */
   duration?: number;
   /**
-   * 内部仅触发事件，不处理关闭
-   * @default noop
+   * 关闭按钮点击时触发
    */
   onClickCloseBtn?: (
     event: React.MouseEvent,
-    instance: { close: () => void }
+    instance: NotificationInstance
   ) => void;
   /**
-   * 内部仅触发事件，不处理关闭
-   * @default noop
+   * 计时结束的时候触发
    */
-  onDurationEnd?: (instance: { close: () => void }) => void;
+  onDurationEnd?: (instance: NotificationInstance) => void;
 }
-
-export type NotificationPlacement =
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right';
 
 export interface NotificationOpenOptions extends NotificationProps {
   /**
@@ -84,13 +85,9 @@ export interface NotificationOpenOptions extends NotificationProps {
   zIndex?: number;
 }
 
-export interface NotificationInstance {
-  close: () => void;
-}
-
 export type NotificationOpen = (
   options?: NotificationOpenOptions
-) => Promise<{ close: () => void }>;
+) => Promise<NotificationInstance>;
 
 export interface NotificationMethods {
   /**
@@ -116,200 +113,142 @@ export interface NotificationMethods {
   /**
    * 关闭指定的通知提醒框，传入Promise<NotificationInstance>
    */
-  close?: (promise: Promise<{ close: () => void }>) => void;
+  close?: (promise: Promise<NotificationInstance>) => void;
   /**
    * 关闭所有通知提醒框
    */
   closeAll?: () => void;
 }
 
-type NotificationComponent = React.ForwardRefExoticComponent<
-  NotificationProps & React.RefAttributes<NotificationInstance>
+export type NotificationRef = React.RefObject<React.ElementRef<'div'>> &
+  React.RefObject<NotificationInstance>;
+
+interface NotificationPropsWithClose extends NotificationProps {
+  close?: () => void;
+}
+
+export type NotificationComponent = React.ForwardRefExoticComponent<
+  NotificationPropsWithClose & React.RefAttributes<HTMLDivElement>
 > &
   NotificationMethods;
 
-const Notification: NotificationComponent = React.forwardRef((props, ref) => {
-  const {
-    title,
-    content,
-    theme,
-    icon,
-    closeBtn,
-    footer,
-    duration,
-    onClickCloseBtn,
-    onDurationEnd,
-    close,
-    style,
-  } = props as NotificationProps & NotificationInstance & { style: object };
+const blockName = 'notification';
 
-  const { classPrefix } = useConfig();
-  const blockName = React.useMemo<string>(() => 'notification', []);
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix]
-  );
+const Notification: NotificationComponent = React.forwardRef(
+  (props, ref: NotificationRef) => {
+    const {
+      className = '',
+      style = {},
+      title = null,
+      content = null,
+      theme = null,
+      icon = null,
+      closeBtn = true,
+      footer = null,
+      duration = 0,
+      onClickCloseBtn = noop,
+      onDurationEnd = noop,
+      close = noop,
+    } = props;
 
-  const onClose = React.useCallback(
-    (event: React.MouseEvent) => onClickCloseBtn(event, { close }),
-    [onClickCloseBtn, close]
-  );
-
-  React.useImperativeHandle(ref, () => ({ close }), [close]);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  React.useEffect(() => {
-    if (duration > 0) {
-      const timer = setTimeout(() => {
-        clearTimeout(timer);
-        onDurationEnd({ close });
-        close();
-      }, duration);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  return (
-    <div ref={ref as any} className={prefixCls(blockName)} style={style}>
-      {((): React.ReactNode => {
-        if (theme && theme === 'success') {
-          return <SuccessFillIcon className={prefixCls('is-success')} />;
-        }
-        if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
-          return <PromptFillIcon className={prefixCls(`is-${theme}`)} />;
-        }
-        if (React.isValidElement(icon)) return icon;
-        return null;
-      })()}
-      <div className={prefixCls([blockName, 'main'])}>
-        <div className={prefixCls([blockName, 'title__wrap'])}>
-          <span className={prefixCls([blockName, 'title'])}>{title}</span>
-          {((): React.ReactNode => {
-            if (typeof closeBtn === 'boolean' && closeBtn) {
-              return <IconFont name="close" onClick={onClose} />;
-            }
-            if (typeof closeBtn === 'string') {
-              return <div onClick={onClose}>{closeBtn}</div>;
-            }
-            if (React.isValidElement(closeBtn)) return closeBtn;
-            return null;
-          })()}
-        </div>
-        {((): React.ReactNode => {
-          if (typeof content === 'string') {
-            return (
-              <div className={prefixCls([blockName, 'content'])}>{content}</div>
-            );
+    const { classPrefix } = useConfig();
+    const prefixCls = React.useCallback(
+      (...args: (string | [string, string?, string?])[]) => {
+        let className = '';
+        args.forEach((item, index) => {
+          if (item && index > 0) className = className.concat(' ');
+          if (item instanceof Array) {
+            const [block, element, modifier] = item;
+            className = className.concat(classPrefix, '-', block);
+            if (element) className = className.concat('__', element);
+            if (modifier) className = className.concat('--', modifier);
+          } else if (typeof item === 'string') {
+            className = className.concat(classPrefix, '-', item);
           }
-          if (React.isValidElement(content)) return content;
+        });
+        return className;
+      },
+      [classPrefix]
+    );
+
+    const onClose = React.useCallback(
+      (event: React.MouseEvent) => onClickCloseBtn(event, { close }),
+      [onClickCloseBtn, close]
+    );
+
+    React.useImperativeHandle(
+      ref as React.Ref<NotificationInstance>,
+      () => ({ close }),
+      [close]
+    );
+
+    /* eslint-disable react-hooks/exhaustive-deps */
+    React.useEffect(() => {
+      let timer;
+      if (duration > 0) {
+        timer = setTimeout(() => {
+          clearTimeout(timer);
+          onDurationEnd({ close });
+          close();
+        }, duration);
+      }
+      return () => {
+        if (timer) clearTimeout(timer);
+      };
+    }, []);
+
+    return (
+      <div
+        ref={ref}
+        className={prefixCls(blockName).concat(' ', className)}
+        style={style}
+      >
+        {((): React.ReactNode => {
+          if (theme && theme === 'success') {
+            return <SuccessFillIcon className={prefixCls('is-success')} />;
+          }
+          if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
+            return <PromptFillIcon className={prefixCls(`is-${theme}`)} />;
+          }
+          if (React.isValidElement(icon)) return icon;
           return null;
         })()}
-        {React.isValidElement(footer) && (
-          <div className={prefixCls([blockName, 'detail'])}>{footer}</div>
-        )}
-        {typeof footer === 'function' && (
-          <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>
-        )}
+        <div className={prefixCls([blockName, 'main'])}>
+          <div className={prefixCls([blockName, 'title__wrap'])}>
+            <span className={prefixCls([blockName, 'title'])}>{title}</span>
+            {((): React.ReactNode => {
+              if (typeof closeBtn === 'boolean' && closeBtn) {
+                return <IconFont name="close" onClick={onClose} />;
+              }
+              if (typeof closeBtn === 'string') {
+                return <div onClick={onClose}>{closeBtn}</div>;
+              }
+              if (React.isValidElement(closeBtn)) return closeBtn;
+              return null;
+            })()}
+          </div>
+          {((): React.ReactNode => {
+            if (typeof content === 'string') {
+              return (
+                <div className={prefixCls([blockName, 'content'])}>
+                  {content}
+                </div>
+              );
+            }
+            if (React.isValidElement(content)) return content;
+            return null;
+          })()}
+          {React.isValidElement(footer) && (
+            <div className={prefixCls([blockName, 'detail'])}>{footer}</div>
+          )}
+          {typeof footer === 'function' && (
+            <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>
+          )}
+        </div>
       </div>
-    </div>
-  );
-});
-
-Notification.defaultProps = {
-  title: '',
-  content: '',
-  theme: '',
-  icon: '',
-  closeBtn: true,
-  footer: '',
-  duration: 0,
-  onClickCloseBtn: noop,
-  onDurationEnd: noop,
-};
-
-class NotificationList extends React.Component<
-  { attach: HTMLElement; placement: NotificationPlacement },
-  { list: NotificationProps[] }
-> {
-  static seed = 0;
-  static listMap: Map<NotificationPlacement, NotificationList> = new Map();
-
-  public state = { list: [] };
-  public notificationMap: Map<
-    string,
-    React.RefObject<NotificationInstance>
-  > = new Map();
-
-  public push = (props: NotificationOpenOptions) =>
-    new Promise((resolve) => {
-      const { notificationMap } = this;
-      const { list } = this.state;
-      const key = String((NotificationList.seed += 1));
-      const style = (() => {
-        const offset = Object.assign(
-          { top: 16, bottom: 16, left: 16, right: 16 },
-          props.offset
-        );
-        return {
-          marginTop: `${offset.top}px`,
-          marginBottom: `${offset.bottom}px`,
-          marginLeft: `${offset.left}px`,
-          marginRight: `${offset.right}px`,
-        };
-      })();
-      list.push({ ...props, key, style });
-      notificationMap.set(key, React.createRef());
-      this.setState({ list: [...list] }, () => {
-        if (notificationMap.get(key) && notificationMap.get(key).current) {
-          resolve(notificationMap.get(key).current);
-        }
-      });
-    });
-
-  public remove = (key: string) => {
-    const { list } = this.state;
-    for (let i = 0; i < list.length; i += 1) {
-      if (list[i].key === key) {
-        list.splice(i, 1);
-        this.setState({ list: [...list] });
-        this.notificationMap.delete(key);
-        if (this.notificationMap.size === 0) {
-          NotificationList.listMap.delete(this.props.placement);
-        }
-        break;
-      }
-    }
-  };
-
-  public render() {
-    return (
-      <>
-        {this.state.list.map((props) => (
-          <Notification
-            ref={this.notificationMap.get(props.key)}
-            key={props.key}
-            {...props}
-            close={() => this.remove(props.key)}
-          />
-        ))}
-      </>
     );
   }
-}
+);
 
 Notification.open = (options: NotificationOpenOptions = {}) => {
   if (typeof options !== 'object') return;
@@ -327,45 +266,28 @@ Notification.open = (options: NotificationOpenOptions = {}) => {
 
   const attach: HTMLElement = (() => {
     if (options.attach && typeof options.attach === 'string') {
-      return document.querySelector(options.attach) as HTMLElement;
+      const element: Element = document.querySelector(options.attach);
+      if (element instanceof HTMLElement) return element;
     }
 
     if (options.attach instanceof HTMLElement) return options.attach;
 
-    const listClassName = `.t-notification__show--${placement}`;
-    if (document.querySelector(listClassName) instanceof HTMLElement) {
-      return document.querySelector(listClassName) as HTMLElement;
+    const containerId = `tdesign-notification-${placement}`;
+    const container = document.querySelector(`#${containerId}`);
+    if (container && container instanceof HTMLElement) {
+      return container;
     }
 
-    const div: HTMLDivElement = document.createElement('div');
-    div.setAttribute('class', listClassName.slice(1));
-    document.body.appendChild(div);
-    return div;
+    const element: HTMLDivElement = document.createElement('div');
+    element.setAttribute('id', containerId);
+    document.body.appendChild(element);
+    return element;
   })();
 
-  attach.style['z-index'] = String(options.zIndex || 6000);
-
-  const fetchListInstance = (): Promise<NotificationList> =>
-    new Promise((resolve) => {
-      if (NotificationList.listMap.has(placement)) {
-        resolve(NotificationList.listMap.get(placement));
-      } else {
-        ReactDOM.render(
-          <NotificationList
-            attach={attach}
-            placement={placement}
-            ref={(instance) => {
-              NotificationList.listMap.set(placement, instance);
-              resolve(instance);
-            }}
-          />,
-          attach
-        );
-      }
-    });
+  const zIndex = options.zIndex || 6000;
 
   return new Promise((resolve) => {
-    fetchListInstance().then((listInstance) => {
+    fetchListInstance(placement, attach, zIndex).then((listInstance) => {
       listInstance.push(options).then(resolve);
     });
   });
@@ -378,14 +300,6 @@ Notification.open = (options: NotificationOpenOptions = {}) => {
 
 Notification.close = (promise) => promise.then((instance) => instance.close());
 
-Notification.closeAll = () => {
-  NotificationList.listMap.forEach((list) => {
-    list.notificationMap.forEach((notification) => {
-      if (notification && notification.current && notification.current.close) {
-        notification.current.close();
-      }
-    });
-  });
-};
+Notification.closeAll = () => listMap.forEach((list) => list.removeAll());
 
 export default Notification;
