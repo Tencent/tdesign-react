@@ -1,54 +1,67 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { StyledProps, Combine, Omit } from '../_type';
+import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
+import { StyledProps } from '../_type';
 
 /**
  * CheckTag 组件支持的属性。
- *
  */
-export interface CheckTagProps
-  extends Combine<StyledProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'>> {
+export interface CheckTagProps extends StyledProps {
   /**
    * 设置按钮为禁用状态
    *
    *@default false
    * */
   disabled?: boolean;
+
   /**
-   * 选中状态
+   * 默认选中状态
    *
    * @default false
    */
+  defaultChecked?: boolean;
+
+  /**
+   * 选中状态
+   */
   checked?: boolean;
+
+  /**
+   * 选中状态变化回调
+   */
+  onChange?: (checked?: boolean) => void;
+
+  /**
+   * 标签内容
+   */
+  children?: React.ReactNode;
 }
 
-export const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLButtonElement>) => {
-  const { checked, disabled, children, style, className, ...tagOtherProps } = props;
+const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElement>) => {
+  const { checked, onChange, disabled, children, className, ...tagOtherProps } = props;
+  const [value, onValueChange] = useDefault(checked, false, onChange);
 
-  // 前缀声明
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
-  // 属性判断
-  const classList = {
+  const checkTagClassNames = classNames(tagClassPrefix, className, `${tagClassPrefix}--default`, {
     [`${tagClassPrefix}--disabled`]: disabled,
-    [`${tagClassPrefix}--checked`]: checked,
-  };
+    [`${tagClassPrefix}--checked`]: value,
+  });
 
-  // 添加默认属性
-  const checkTagClassNames = classNames(tagClassPrefix, `${tagClassPrefix}--default`, classList);
-
-  // 合并用户自定义className
-  const mergedClassName = `${checkTagClassNames} ${className || ''}`;
-
-  const checkTag: JSX.Element = (
-    <span ref={ref} className={mergedClassName} style={style} {...tagOtherProps}>
+  return (
+    <span
+      ref={ref}
+      className={checkTagClassNames}
+      {...tagOtherProps}
+      onClick={() => onValueChange(!value)}
+    >
       {children}
     </span>
   );
-
-  return checkTag;
 });
 
-CheckTag.displayName = 'TDesingCheckTag';
+CheckTag.displayName = 'CheckTag';
+
+export default CheckTag;
