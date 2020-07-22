@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import { Icon } from '../icon';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { ListProps } from './ListProps';
-import { Icon } from '@tdesign/react';
 
 /**
  * 列表组件
