@@ -1,6 +1,6 @@
 import useDefault from '../_util/useDefault';
-import noop from './noop';
 import { ControlledProps } from '../_type';
+import noop from './noop';
 
 export default function useDefaultValue<T, P extends ControlledProps<T>>(
   props: P,
