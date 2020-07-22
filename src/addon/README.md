@@ -1,6 +1,6 @@
 # Addon 附加
 
-提供标准的附加组件样式。
+可以在组件前后添加附加内容。
 
 ## 使用示例
 
@@ -8,4 +8,7 @@
 
 [Example: 基本功能](./_example/AddonBasic.jsx)
 
+## 组件属性
+
+[Interface: AddonProps](./Addon.tsx)
 

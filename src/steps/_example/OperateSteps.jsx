@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Steps, Step } from '@tdesign/react/steps';
+import { Steps } from '@tdesign/react';
+
+const { Step } = Steps;
 
 export default function OperateSteps() {
   const [current, setCurrent] = useState(1);
@@ -18,10 +20,7 @@ export default function OperateSteps() {
 
   return (
     <>
-      <button
-        className="t-button t-button--primary t-size-s"
-        onClick={goPreviousStep}
-      >
+      <button className="t-button t-button--primary t-size-s" onClick={goPreviousStep}>
         上一步
       </button>
       <button className="t-button t-button--line t-size-s" onClick={goNextStep}>

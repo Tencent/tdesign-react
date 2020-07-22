@@ -20,16 +20,12 @@ export default function ButtonExample() {
       <Button disabled theme="link">
         link
       </Button>
-      <div
-        style={{ background: '#ddd', padding: '0 8px 8px 8px', marginTop: 8 }}
-      >
-        <Button disabled theme="ghost">
-          ghost
-        </Button>
-        <Button disabled theme="ghost-line">
-          ghost-line
-        </Button>
-      </div>
+      <Button disabled theme="ghost">
+        ghost
+      </Button>
+      <Button disabled theme="ghost-line">
+        ghost-line
+      </Button>
     </>
   );
 }

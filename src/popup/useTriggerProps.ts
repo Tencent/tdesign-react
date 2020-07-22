@@ -1,6 +1,6 @@
 import { HTMLAttributes, useCallback, MutableRefObject } from 'react';
-import { PopupTrigger } from './Popup';
 import useClickOutside from '../_util/useClickOutside';
+import { PopupTrigger } from './Popup';
 
 export type TriggerProps = HTMLAttributes<HTMLDivElement>;
 export type PopupProps = HTMLAttributes<HTMLDivElement>;
@@ -9,7 +9,7 @@ export default function useTriggerProps(
   ref: MutableRefObject<HTMLElement>,
   triggers: PopupTrigger[],
   visible: boolean,
-  setVisible: (visible: boolean) => void
+  setVisible: (visible: boolean) => void,
 ): [TriggerProps, PopupProps] {
   const triggerProps: TriggerProps = {};
   const popupProps: PopupProps = {};
@@ -49,9 +49,7 @@ export default function useTriggerProps(
   useClickOutside(ref, () => {
     if (
       visible &&
-      (triggers.includes('click') ||
-        triggers.includes('focus') ||
-        triggers.includes('contextMenu'))
+      (triggers.includes('click') || triggers.includes('focus') || triggers.includes('contextMenu'))
     ) {
       hide();
     }

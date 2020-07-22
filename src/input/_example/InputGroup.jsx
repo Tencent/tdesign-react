@@ -5,7 +5,7 @@ export default function InputExample() {
   const [value1, onChange1] = useState('');
   const [value2, onChange2] = useState('');
   return (
-    <>
+    <div className="tdesign-demo-item--input__input-box">
       <InputGroup>
         <Input
           placeholder="姓"
@@ -22,8 +22,6 @@ export default function InputExample() {
           }}
         />
       </InputGroup>
-      <br />
-      <br />
       <InputGroup seperate>
         <Input
           placeholder="姓"
@@ -39,7 +37,7 @@ export default function InputExample() {
             onChange2(event.target.value);
           }}
         />
-      </InputGroup>{' '}
-    </>
+      </InputGroup>
+    </div>
   );
 }

@@ -1,19 +1,14 @@
-import React, { forwardRef, ReactNode, FunctionComponent } from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 
-/**
- * Addon 组件支持的属性。
- *
- * 除表格中列出的属性外，支持透传原生 `<div>` 标签支持的属性。
- */
 export interface AddonProps extends React.HTMLAttributes<HTMLDivElement> {
-  prepend?: number | string | ReactNode | FunctionComponent;
-  append?: number | string | ReactNode | FunctionComponent;
+  prepend?: React.ReactNode;
+  append?: React.ReactNode;
 }
 
 const renderAddon = (type, classPrefix, Content) => {
-  let result: ReactNode;
+  let result: React.ReactNode;
 
   if (typeof Content === 'function') {
     result = <Content />;
@@ -28,23 +23,17 @@ const renderAddon = (type, classPrefix, Content) => {
   return result;
 };
 
-const Addon = forwardRef(
-  (props: AddonProps, ref: React.Ref<HTMLDivElement>) => {
-    const { classPrefix } = useConfig();
-    const { prepend, append, children, className, ...wrapperProps } = props;
-    return (
-      <div
-        ref={ref}
-        className={classNames(className, `${classPrefix}-addon`)}
-        {...wrapperProps}
-      >
-        {renderAddon('prepend', classPrefix, prepend)}
-        {children}
-        {renderAddon('append', classPrefix, append)}
-      </div>
-    );
-  }
-);
+const Addon = forwardRef((props: AddonProps, ref: React.Ref<HTMLDivElement>) => {
+  const { classPrefix } = useConfig();
+  const { prepend, append, children, className, ...wrapperProps } = props;
+  return (
+    <div ref={ref} className={classNames(className, `${classPrefix}-addon`)} {...wrapperProps}>
+      {renderAddon('prepend', classPrefix, prepend)}
+      {children}
+      {renderAddon('append', classPrefix, append)}
+    </div>
+  );
+});
 
 Addon.displayName = 'Addon';
 

@@ -5,9 +5,7 @@ export interface TableColGroupProps {
   columns: TableColumn[];
 }
 
-export const TableColGroup = function TableColGroup({
-  columns,
-}: TableColGroupProps): any {
+export const TableColGroup = function TableColGroup({ columns }: TableColGroupProps): any {
   return (
     <colgroup>
       {columns.map(({ key, width, minWidth, className }) => (

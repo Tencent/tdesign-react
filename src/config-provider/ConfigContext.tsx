@@ -8,14 +8,14 @@ export interface Config {
   /**
    * 组件类名前缀
    *
-   * @default "tdesign"
+   * @default 'tdesign'
    */
   classPrefix?: string;
 
   /**
    * 组件语言版本
    *
-   * @default "zh-CN"
+   * @default 'zh-CN'
    */
   locale?: 'zh-CN';
 }

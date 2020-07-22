@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef } from 'react';
 
 export default function useClickOutside<T extends HTMLElement>(
   ref: MutableRefObject<T>,
-  handler: (event: MouseEvent | TouchEvent) => void
+  handler: (event: MouseEvent | TouchEvent) => void,
 ) {
   // 用 ref 存起来，防止无限刷新
   const handlerRef = useRef(handler);
