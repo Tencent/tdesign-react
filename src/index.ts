@@ -1,4 +1,5 @@
 export { default as Addon } from './addon';
+export { default as Alert } from './alert';
 export { default as Button } from './button';
 export { default as Input } from './input';
 export { default as InputGroup } from './input_group';
