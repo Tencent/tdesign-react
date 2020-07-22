@@ -3,45 +3,49 @@
 exports[`InputAddon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-addon"
+    class="tdesign-demo-item--input__input-box"
   >
-    <span
-      class="t-addon__prepend"
-    >
-      http://
-    </span>
     <div
-      class="t-input"
+      class="t-addon"
     >
-      <input
-        class="t-input__inner"
-        placeholder="请输入域名"
-        value=""
-      />
+      <span
+        class="t-addon__prepend"
+      >
+        http://
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="请输入域名"
+          value=""
+        />
+      </div>
     </div>
-  </div>
-  <div
-    class="t-addon"
-  >
-    <span
-      class="t-addon__prepend"
-    >
-      http://
-    </span>
     <div
-      class="t-input"
+      class="t-addon"
     >
-      <input
-        class="t-input__inner"
-        placeholder="请输入域名"
-        value=""
-      />
+      <span
+        class="t-addon__prepend"
+      >
+        http://
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="请输入域名"
+          value=""
+        />
+      </div>
+      <span
+        class="t-addon__append"
+      >
+        .com
+      </span>
     </div>
-    <span
-      class="t-addon__append"
-    >
-      .com
-    </span>
   </div>
 </DocumentFragment>
 `;
@@ -49,13 +53,17 @@ exports[`InputAddon.jsx 1`] = `
 exports[`InputBasic.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input"
+    class="tdesign-demo-item--input__input-box"
   >
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+        value=""
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -63,14 +71,17 @@ exports[`InputBasic.jsx 1`] = `
 exports[`InputDisabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-is-disabled"
+    class="tdesign-demo-item--input__input-box"
   >
-    <input
-      class="t-input__inner"
-      disabled=""
-      placeholder="请输入内容"
-      value="禁用状态"
-    />
+    <div
+      class="t-input t-is-disabled"
+    >
+      <input
+        class="t-input__inner"
+        disabled=""
+        value="禁用状态"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -78,13 +89,16 @@ exports[`InputDisabled.jsx 1`] = `
 exports[`InputFocus.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input"
+    class="tdesign-demo-item--input__input-box"
   >
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -92,126 +106,139 @@ exports[`InputFocus.jsx 1`] = `
 exports[`InputGroup.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input-group"
+    class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input"
+      class="t-input-group"
     >
-      <input
-        class="t-input__inner"
-        placeholder="姓"
-        value=""
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="姓"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="名"
+          value=""
+        />
+      </div>
     </div>
     <div
-      class="t-input"
+      class="t-input-group t-input-group--seperate"
     >
-      <input
-        class="t-input__inner"
-        placeholder="名"
-        value=""
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="姓"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="名"
+          value=""
+        />
+      </div>
     </div>
   </div>
-  <br />
-  <br />
-  <div
-    class="t-input-group t-input-group--seperate"
-  >
-    <div
-      class="t-input"
-    >
-      <input
-        class="t-input__inner"
-        placeholder="姓"
-        value=""
-      />
-    </div>
-    <div
-      class="t-input"
-    >
-      <input
-        class="t-input__inner"
-        placeholder="名"
-        value=""
-      />
-    </div>
-  </div>
-   
 </DocumentFragment>
 `;
 
 exports[`InputIcon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-input--prefix t-input--suffix"
+    class="tdesign-demo-item--input__input-box"
   >
-    <span
-      class="t-input__prefix"
+    <div
+      class="t-input t-input--prefix t-input--suffix"
     >
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-input__prefix"
       >
-        <svg
-          class="icon svg-icon"
+        <span
+          class="t-icon t-icon-middle"
         >
-          <use
-            xlink:href="#t-icon-search"
-          />
-        </svg>
+          <svg
+            class="t-icon t-icon-search"
+          >
+            <use
+              xlink:href="#t-icon-search"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
-    <span
-      class="t-input__suffix"
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+        value=""
+      />
+      <span
+        class="t-input__suffix"
+      >
+        <span
+          class="t-icon t-icon-middle"
+        >
+          <svg
+            class="t-icon t-icon-prompt_fill"
+          >
+            <use
+              xlink:href="#t-icon-prompt_fill"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+    <div
+      class="t-input t-input--prefix t-input--suffix"
     >
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-input__prefix"
       >
-        <svg
-          class="icon svg-icon"
+        <span
+          class="t-icon t-icon-middle"
         >
-          <use
-            xlink:href="#t-icon-prompt-fill"
-          />
-        </svg>
+          <svg
+            class="t-icon t-icon-search"
+          >
+            <use
+              xlink:href="#t-icon-search"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
-  </div>
-  <br />
-  <br />
-  <div
-    class="t-input t-input--prefix t-input--suffix"
-  >
-    <span
-      class="t-input__prefix"
-    >
-      icon
-    </span>
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
-    <span
-      class="t-input__suffix"
-    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+        value=""
+      />
       <span
-        class="t-icon t-icon-svg t-icon-middle"
+        class="t-input__suffix"
       >
-        <svg
-          class="icon svg-icon"
+        <span
+          class="t-icon t-icon-middle"
         >
-          <use
-            xlink:href="#t-icon-prompt-fill"
-          />
-        </svg>
+          <svg
+            class="t-icon t-icon-prompt_fill"
+          >
+            <use
+              xlink:href="#t-icon-prompt_fill"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -219,24 +246,26 @@ exports[`InputIcon.jsx 1`] = `
 exports[`InputSize.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-size-l"
+    class="tdesign-demo-item--input__input-box"
   >
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
-  </div>
-  <br />
-  <br />
-  <div
-    class="t-input"
-  >
-    <input
-      class="t-input__inner"
-      placeholder="请输入内容"
-      value=""
-    />
+    <div
+      class="t-input t-size-l"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+        value=""
+      />
+    </div>
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容"
+        value=""
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -244,35 +273,35 @@ exports[`InputSize.jsx 1`] = `
 exports[`InputStatus.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-is-success"
+    class="tdesign-demo-item--input__input-box"
   >
-    <input
-      class="t-input__inner"
-      placeholder="成功状态"
-      value=""
-    />
-  </div>
-  <br />
-  <br />
-  <div
-    class="t-input t-is-warning"
-  >
-    <input
-      class="t-input__inner"
-      placeholder="警告状态"
-      value=""
-    />
-  </div>
-  <br />
-  <br />
-  <div
-    class="t-input t-is-error"
-  >
-    <input
-      class="t-input__inner"
-      placeholder="错误状态"
-      value=""
-    />
+    <div
+      class="t-input t-is-success"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="成功状态"
+        value=""
+      />
+    </div>
+    <div
+      class="t-input t-is-warning"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="警告状态"
+        value=""
+      />
+    </div>
+    <div
+      class="t-input t-is-error"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="错误状态"
+        value=""
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;

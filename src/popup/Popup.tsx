@@ -16,12 +16,7 @@ import composeRefs from '../_util/composeRefs';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export type PopupTrigger =
-  | 'hover'
-  | 'click'
-  | 'focus'
-  | 'contextMenu'
-  | 'manual';
+export type PopupTrigger = 'hover' | 'click' | 'focus' | 'contextMenu' | 'manual';
 
 export interface PopupProps {
   /**
@@ -78,97 +73,90 @@ export interface PopupProps {
 
 export type PopupRef = Ref<HTMLDivElement>;
 
-const Popup: FunctionComponent<PopupProps> = forwardRef(
-  (props, ref: PopupRef) => {
-    const {
-      trigger = 'hover',
-      content = null,
-      placement = 'top',
-      getPopupContainer,
-      destroyOnHide = false,
-      overlayStyle,
-      overlayClassName,
-      children,
-    } = props;
-    const { classPrefix } = useConfig();
-    const [visible, setVisible] = useState(props.visible || false);
+const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) => {
+  const {
+    trigger = 'hover',
+    content = null,
+    placement = 'top',
+    getPopupContainer,
+    destroyOnHide = false,
+    overlayStyle,
+    overlayClassName,
+    children,
+  } = props;
+  const { classPrefix } = useConfig();
+  const [visible, setVisible] = useState(props.visible || false);
 
-    // refs
-    const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
-    const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
-    const { styles, attributes } = usePopper(triggerRef, overlayRef, {
-      placement,
-    });
+  // refs
+  const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
+  const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
+  const { styles, attributes } = usePopper(triggerRef, overlayRef, {
+    placement,
+  });
 
-    // 设置 style 决定展示与隐藏
-    const overlayVisibleStyle: CSSProperties = visible
-      ? { ...overlayStyle }
-      : { ...overlayStyle, display: 'none' };
+  // 设置 style 决定展示与隐藏
+  const overlayVisibleStyle: CSSProperties = visible
+    ? { ...overlayStyle }
+    : { ...overlayStyle, display: 'none' };
 
-    // 响应 props 变化
-    useEffect(() => setVisible(props.visible), [props.visible]);
+  // 响应 props 变化
+  useEffect(() => setVisible(props.visible), [props.visible]);
 
-    // 处理 trigger
-    const [triggerProps, popupProps] = useTriggerProps(
-      { current: overlayRef },
-      Array.isArray(trigger) ? trigger : [trigger],
-      visible,
-      setVisible
-    );
+  // 处理 trigger
+  const [triggerProps, popupProps] = useTriggerProps(
+    { current: overlayRef },
+    Array.isArray(trigger) ? trigger : [trigger],
+    visible,
+    setVisible,
+  );
 
-    // 触发器只能有一个元素
-    let triggerNode: ReactChild;
-    const [triggerChildNode] = React.Children.toArray(children);
-    if (
-      React.Children.count(children) === 1 &&
-      isValidElement(triggerChildNode)
-    ) {
-      triggerNode = triggerChildNode;
-    } else {
-      triggerNode = (
-        <span className={`${classPrefix}-trigger`}>{children}</span>
-      );
-    }
+  // 触发器只能有一个元素
+  let triggerNode: ReactChild;
+  const [triggerChildNode] = React.Children.toArray(children);
+  if (React.Children.count(children) === 1 && isValidElement(triggerChildNode)) {
+    triggerNode = triggerChildNode;
+  } else {
+    triggerNode = <span className={`${classPrefix}-trigger`}>{children}</span>;
+  }
 
-    // 代理 trigger 的 ref
-    triggerNode = cloneElement(triggerNode, {
-      ref: composeRefs((triggerNode as any).ref, setTriggerRef),
-      ...triggerProps,
-    });
+  // 代理 trigger 的 ref
+  triggerNode = cloneElement(triggerNode, {
+    ref: composeRefs((triggerNode as any).ref, setTriggerRef),
+    ...triggerProps,
+  });
 
-    // portal
-    let $portal: React.ReactElement = null;
+  // portal
+  let $portal: React.ReactElement = null;
 
-    // 如果要展示，或者已经渲染过，默认不销毁
-    if (visible || overlayRef) {
-      $portal = (
-        <Portal classPrefix={classPrefix} getContainer={getPopupContainer}>
-          <div
-            ref={composeRefs(setOverlayRef, ref)}
-            style={{ ...styles.popper, ...overlayVisibleStyle }}
-            className={overlayClassName}
-            {...attributes.popper}
-            {...popupProps}
-          >
-            {content}
-          </div>
-        </Portal>
-      );
-    }
-
-    // 强制销毁
-    if (!visible && destroyOnHide) {
-      $portal = null;
-    }
-
-    return (
-      <>
-        {triggerNode}
-        {$portal}
-      </>
+  // 如果要展示，或者已经渲染过，默认不销毁
+  if (visible || overlayRef) {
+    $portal = (
+      <Portal classPrefix={classPrefix} getContainer={getPopupContainer}>
+        <div
+          ref={composeRefs(setOverlayRef, ref)}
+          style={{ ...styles.popper, ...overlayVisibleStyle }}
+          className={overlayClassName}
+          {...attributes.popper}
+          {...popupProps}
+        >
+          {content}
+        </div>
+      </Portal>
     );
   }
-);
+
+  // 强制销毁
+  if (!visible && destroyOnHide) {
+    $portal = null;
+  }
+
+  return (
+    <>
+      {triggerNode}
+      {$portal}
+    </>
+  );
+});
 
 Popup.displayName = 'Popup';
 

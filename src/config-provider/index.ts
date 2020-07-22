@@ -1,8 +1,6 @@
-import ConfigProvider from './ConfigProvider';
-import ConfigContext from './ConfigContext';
+import ConfigProvider, { ConfigProviderProps } from './ConfigProvider';
+import ConfigContext, { Config } from './ConfigContext';
 
-export { Config } from './ConfigContext';
-export { ConfigProviderProps } from './ConfigProvider';
-export { ConfigContext };
+export { Config, ConfigProviderProps, ConfigContext };
 
 export default ConfigProvider;

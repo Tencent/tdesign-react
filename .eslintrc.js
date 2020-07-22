@@ -35,26 +35,15 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
-    'arrow-parens': ['error', 'always'],
-    'comma-dangle': [
-      'error',
-      {
-        arrays: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'never',
-        imports: 'always-multiline',
-        objects: 'always-multiline',
-      },
-    ],
-    'func-style': 'off',
-    'function-paren-newline': 'off',
-    'implicit-arrow-linebreak': 'off',
-    'import/prefer-default-export': 'off',
-    'max-len': ['error', 140],
-    'no-duplicate-imports': ['error', { includeExports: false }],
-    'prettier/prettier': ['error', { trailingComma: 'es5' }],
+    '@typescript-eslint/no-var-requires': 'off',
+    'arrow-parens': ['error', 'always'], // prettier conflict
+    'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
+    'operator-linebreak': 'off', // prettier conflict
+    'prettier/prettier': 'error',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
+    'react/prop-types': 'off',
+    'func-style': ['error', 'declaration', { 'allowArrowFunctions': true }]
   },
 };

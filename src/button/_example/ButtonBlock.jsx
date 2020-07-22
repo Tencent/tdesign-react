@@ -20,14 +20,12 @@ export default function ButtonExample() {
       <Button block theme="link">
         link
       </Button>
-      <div style={{ background: '#ddd', padding: 8, marginTop: 8 }}>
-        <Button block theme="ghost">
-          ghost
-        </Button>
-        <Button block theme="ghost-line">
-          ghost-line
-        </Button>
-      </div>
+      <Button block theme="ghost">
+        ghost
+      </Button>
+      <Button block theme="ghost-line">
+        ghost-line
+      </Button>
     </>
   );
 }

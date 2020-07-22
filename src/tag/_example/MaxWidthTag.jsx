@@ -5,17 +5,11 @@ export default function MaxWidthExample() {
   const style = { marginRight: 5, marginBottom: 10 };
   return (
     <>
-      <Tag maxWidth={150} theme="primary" style={style}>
-        数字{150}************
+      <Tag maxWidth={150} style={style}>
+        超长省略文本标签超长省略文本标签
       </Tag>
-      <Tag maxWidth="150" theme="primary" style={style}>
-        数字字符150********
-      </Tag>
-      <Tag maxWidth="150px" theme="primary" style={style}>
-        像素字符150px******
-      </Tag>
-      <Tag maxWidth="30%" theme="primary" style={style}>
-        百分比30%******
+      <Tag maxWidth="10%" theme="primary" style={style}>
+        超长省略文本标签超长省略文本标签
       </Tag>
     </>
   );
