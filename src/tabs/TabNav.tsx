@@ -1,4 +1,10 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+} from 'react';
 import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
 import { TabsProps } from './TabProps';
@@ -6,6 +12,7 @@ import { Combine } from 'src/_type';
 import { TabPanelProps } from './TabPanel';
 import TabBar from './TabBar';
 import { IconFont } from '../icon';
+import noop from '../_util/noop';
 
 const TabNav: React.FC<Combine<
   TabsProps,
@@ -16,7 +23,10 @@ const TabNav: React.FC<Combine<
   }
 >> = (props) => {
   const { classPrefix } = useConfig();
+  const [wrapTranslateX, setWrapTranslateX] = useState<number>(0);
   const navContainerRef = useRef<HTMLDivElement>(null);
+  const navScrollRef = useRef<HTMLDivElement>(null);
+  const wrapDifference = useRef<number>(0);
   const tabsClassPrefix = `${classPrefix}-tabs`;
   const navClassPrefix = `${tabsClassPrefix}__nav`;
 
@@ -28,22 +38,11 @@ const TabNav: React.FC<Combine<
     theme,
     onClick,
     addable,
-    // onClose,
-    // onAdd,
+    onClose,
+    onAdd = noop,
   } = props;
 
   const [isScroll, setIsScroll] = useState<boolean>(false);
-
-  useEffect(() => {
-    /**
-     * scroll 处理逻辑
-     */
-
-    if (theme === 'card') {
-    } else {
-      setIsScroll(false);
-    }
-  }, [panels, tabPosition, theme]);
 
   const tabNavClick = useCallback(
     (idx: number) => {
@@ -52,12 +51,68 @@ const TabNav: React.FC<Combine<
     [onClick]
   );
 
-  // const handleScroll = useCallback(() => {}, []);
+  const handleScroll = useCallback(
+    ({ position }: { position: 'left' | 'right' }) => {
+      if (!isScroll) return;
+      const absWrapTranslateX = Math.abs(wrapTranslateX);
+      let delt = 0;
+      if (position === 'left') {
+        delt = absWrapTranslateX < 0 ? 0 : Math.min(absWrapTranslateX, 100);
+        setWrapTranslateX(() => wrapTranslateX + delt);
+      } else if (position === 'right') {
+        delt =
+          absWrapTranslateX >= wrapDifference.current
+            ? 0
+            : Math.min(wrapDifference.current - absWrapTranslateX, 100);
+        setWrapTranslateX(() => wrapTranslateX - delt);
+      }
+    },
+    [isScroll, wrapTranslateX]
+  );
+
+  const wrapStyle = useMemo(
+    () => ({
+      transform: `translateX(${wrapTranslateX}px)`,
+    }),
+    [wrapTranslateX]
+  );
+
+  const checkScroll = useCallback(() => {
+    if (theme === 'card' && ['bottom', 'top'].includes(tabPosition)) {
+      if (navScrollRef.current && navContainerRef.current) {
+        wrapDifference.current =
+          navContainerRef.current.offsetWidth -
+          navScrollRef.current.offsetWidth;
+        if (wrapDifference.current > 0) {
+          setIsScroll(true);
+        }
+      }
+    } else {
+      setIsScroll(false);
+    }
+  }, [theme, tabPosition]);
 
   useEffect(() => {
+    /**
+     * scroll 处理逻辑
+     */
+    checkScroll();
+  }, [panels, tabPosition, theme, checkScroll]);
+
+  useEffect(() => {
+    let timer = null;
     // 处理变动
-    // setInterval(() => {}, 500);
-  }, []);
+    if (theme === 'card') {
+      timer = setInterval(() => {
+        checkScroll();
+      }, 500);
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+  }, [checkScroll, theme]);
 
   return (
     <div
@@ -66,7 +121,11 @@ const TabNav: React.FC<Combine<
       })}
     >
       <div className={classNames(`${navClassPrefix}`)}>
-        <span className="t-tabs__add-btn t-size-m"> + </span>
+        {theme === 'card' && addable && (
+          <span className="t-tabs__add-btn t-size-m" onClick={onAdd}>
+            +
+          </span>
+        )}
         <div
           className={classNames({
             [`${navClassPrefix}-container`]: true,
@@ -76,6 +135,7 @@ const TabNav: React.FC<Combine<
         >
           {isScroll && (
             <span
+              onClick={() => handleScroll({ position: 'left' })}
               className={classNames({
                 ['t-tabs__scroll-btn']: true,
                 ['t-tabs__scroll-btn--left']: true,
@@ -88,6 +148,7 @@ const TabNav: React.FC<Combine<
           )}
           {isScroll && (
             <span
+              onClick={() => handleScroll({ position: 'right' })}
               className={classNames({
                 ['t-tabs__scroll-btn']: true,
                 ['t-tabs__scroll-btn--right']: true,
@@ -103,9 +164,11 @@ const TabNav: React.FC<Combine<
               ['t-tabs__nav-scroll']: true,
               ['t-is-scrollable']: isScroll,
             })}
+            ref={navScrollRef}
           >
             <div
               className={classNames(`${tabsClassPrefix}__nav-wrap`)}
+              style={wrapStyle}
               ref={navContainerRef}
             >
               <TabBar
@@ -136,7 +199,7 @@ const TabNav: React.FC<Combine<
                   {panel.label}
                   {panel.closable && theme === 'card' && (
                     <svg
-                      onClick={null}
+                      onClick={() => onClose(null, index)}
                       viewBox="0 0 16 16"
                       className={classNames({
                         ['remove-btn']: true,

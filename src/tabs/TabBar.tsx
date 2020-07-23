@@ -15,15 +15,10 @@ const TabBar: React.FC<TabBarProps> = (props) => {
   const tabsClassPrefix = `${classPrefix}-tabs`;
 
   useEffect(() => {
-    const transformPosition = ['bottom', 'top'].includes(tabPosition)
-      ? 'translateX'
-      : 'translateY';
-    const itemProp = ['bottom', 'top'].includes(tabPosition)
-      ? 'width'
-      : 'height';
-    const barBorderProp = ['bottom', 'top'].includes(tabPosition)
-      ? 'width'
-      : 'height';
+    const isHorizontal = ['bottom', 'top'].includes(tabPosition);
+    const transformPosition = isHorizontal ? 'translateX' : 'translateY';
+    const itemProp = isHorizontal ? 'width' : 'height';
+    const barBorderProp = isHorizontal ? 'width' : 'height';
 
     let offset = 0;
     if (containerRef.current) {
