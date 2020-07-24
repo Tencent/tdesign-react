@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { TableProps } from '../TableProps';
+import useConfig from '../../_util/useConfig';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
-import useConfig from '../../_util/useConfig';
 import TableLoadingBody from './TableLoadingBody';
 import { TableContextValue, TableContext } from './TableContext';
 

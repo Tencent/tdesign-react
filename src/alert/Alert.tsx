@@ -1,19 +1,19 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { replaceElement } from '../_util/reactNode';
 import { CloseIcon, PromptFillIcon, SuccessFillIcon, WarningFillIcon } from '../icon';
 
 export interface AlertProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   /**
    * 告警主要内容
    */
-  message: string | React.ReactNode | Array<string | React.ReactNode>;
+  message: React.ReactNode;
 
   /**
    * 告警内容主题
    */
-  title?: string | React.ReactNode;
+  title?: React.ReactNode;
 
   /**
    * 跟在告警内容后面的操作区
@@ -60,7 +60,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
     close,
     maxLine,
     beforeClose,
-    onClose,
+    onClose = noop,
     ...alertProps
   } = props;
 
@@ -97,15 +97,11 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 
   const renderIconNode = () => {
     if (React.isValidElement(icon)) {
-      return replaceElement(
-        icon,
-        <span className={`${classPrefix}-alert__icon`}>{icon}</span>,
-        () => ({
-          className: classNames(`${classPrefix}-alert__icon`, {
-            [(icon as any).props.className]: (icon as any).props.className,
-          }),
+      return React.cloneElement(icon, {
+        className: classNames(`${classPrefix}-alert__icon`, {
+          [(icon as any).props.className]: (icon as any).props.className,
         }),
-      );
+      });
     }
     return React.createElement(iconMap[theme], {
       className: `${classPrefix}-alert__icon`,
