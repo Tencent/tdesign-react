@@ -1,6 +1,6 @@
-import React, { FunctionComponent, ComponentClass } from 'react';
 import * as fs from 'fs';
 import * as path from 'path';
+import React, { FunctionComponent, ComponentClass } from 'react';
 import { render } from '@testing-library/react';
 
 export interface TestExampleOverrides {
