@@ -69,10 +69,10 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
               options.offset,
             );
             return {
-              marginTop: `${offset.top}px`,
-              marginBottom: `${offset.bottom}px`,
-              marginLeft: `${offset.left}px`,
-              marginRight: `${offset.right}px`,
+              marginTop: offset.top,
+              marginBottom: offset.bottom,
+              marginLeft: offset.left,
+              marginRight: offset.right,
             };
           })();
           notificationMap.set(key, React.createRef());
