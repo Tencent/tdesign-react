@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import cls from 'classnames';
-import { prefix, prefixWrapper, THEME_LIST, PLACEMENT_OFFSET } from './const';
+import classNames from 'classnames';
+import { StyledProps } from '../_type';
+import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
-import { MessageProps, ConfigProps } from './Props';
 import {
   PromptFillIcon,
   SuccessFillIcon,
@@ -11,8 +11,11 @@ import {
   HelpFillIcon,
   LoadingIcon,
   CloseIcon,
-} from '@tdesign/react';
-const Components = {
+} from '../icon';
+import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
+import { MessageProps, MessageConfig, MessageMethods } from './MessageProps';
+
+const IconMap = {
   info: PromptFillIcon,
   success: SuccessFillIcon,
   warning: WarningFillIcon,
@@ -20,13 +23,10 @@ const Components = {
   question: HelpFillIcon,
   loading: LoadingIcon,
 };
-function RenderIcon({ theme }) {
-  const Comp = Components[theme];
-  return Comp ? <Comp /> : null;
-}
 
 let MessageList: MessageInstanceProps[] = [];
 let keyIndex = 1;
+
 const Top = 'top';
 
 const globalConfig = {
@@ -35,20 +35,22 @@ const globalConfig = {
   top: 32,
 };
 
-function createContainer(params) {
-  const { attach, zIndex, placement = 'top' } = params;
+function createContainer({ attach, zIndex, placement = 'top' }: MessageConfig) {
   let mountedDom = document.body as HTMLElement;
   if (React.isValidElement(attach)) {
     mountedDom = attach;
   }
+
   const container = Array.from(mountedDom.querySelectorAll(`.${prefixWrapper}`));
   if (container.length < 1) {
     const div = document.createElement('div');
-    div.className = cls(prefixWrapper);
-    div.style.zIndex = zIndex;
-    Object.keys(PLACEMENT_OFFSET[placement]).forEach((key) => {
-      div.style[key] = PLACEMENT_OFFSET[placement][key];
+    div.className = classNames(prefixWrapper);
+    div.style.zIndex = String(zIndex);
+
+    Object.keys(PlacementOffset[placement]).forEach((key) => {
+      div.style[key] = PlacementOffset[placement][key];
     });
+
     if (placement.includes(Top)) {
       div.style[Top] = `${globalConfig.top}px`;
     }
@@ -62,13 +64,23 @@ interface MessageInstanceProps {
   key: number;
   remove: () => void;
 }
-function renderElement(theme, config: ConfigProps) {
+
+function renderElement(theme, config: MessageConfig) {
   const container = createContainer(config) as HTMLElement;
   const { content, offset } = config;
   const div = document.createElement('div');
+
   keyIndex += 1;
-  const message = {};
-  let style = {};
+
+  const message = {
+    remove: () => {
+      ReactDOM.unmountComponentAtNode(div);
+      div.remove();
+    },
+    key: keyIndex,
+  };
+
+  let style: React.CSSProperties = {};
   if (offset) {
     style = {
       ...offset,
@@ -76,6 +88,7 @@ function renderElement(theme, config: ConfigProps) {
       width: 'auto',
     };
   }
+
   ReactDOM.render(
     <Message
       theme={theme}
@@ -93,34 +106,65 @@ function renderElement(theme, config: ConfigProps) {
     </Message>,
     div,
   );
+
   container.appendChild(div);
-  message.remove = () => {
-    ReactDOM.unmountComponentAtNode(div);
-    div.remove();
-  };
-  message.key = keyIndex;
   MessageList.push(message);
+
   return keyIndex;
 }
-function RenderClose(props) {
-  const { closeBtn, onClickCloseBtn } = props;
+
+function MessageIcon({ theme }: MessageProps) {
+  const Icon = IconMap[theme];
+  return Icon ? <Icon /> : null;
+}
+
+function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   const { classPrefix } = useConfig();
-  if (typeof closeBtn === 'string') {
+
+  if (!closeBtn) {
+    return null;
+  }
+
+  if (closeBtn === true) {
+    return <CloseIcon className={`${classPrefix}-message-close`} />;
+  }
+
+  const button = injectValue(closeBtn)(onClickCloseBtn);
+
+  if (typeof button === 'string' || typeof button === 'number') {
     return (
       <span className={`${classPrefix}-message-close`} onClick={onClickCloseBtn}>
         {closeBtn}
       </span>
     );
   }
-  if (React.isValidElement(closeBtn)) return closeBtn;
-  if (typeof closeBtn === 'function') return closeBtn(onClickCloseBtn);
-  if (!closeBtn) return null;
+
+  if (React.isValidElement<StyledProps>(button)) {
+    return React.cloneElement(button, {
+      className: classNames(button.props.className, `${classPrefix}-message-close`),
+    });
+  }
+
   return <CloseIcon className={`${classPrefix}-message-close`} />;
 }
-const Message = (props: MessageProps) => {
-  const timerRef = useRef(0);
-  const { theme, children, closeBtn, className, style, duration, onDurationEnd, onClosed } = props;
+
+export type MessageComponent = React.FunctionComponent<MessageProps> & MessageMethods;
+
+const Message: MessageComponent = (props) => {
+  const {
+    theme = 'info',
+    closeBtn = false,
+    duration,
+    onDurationEnd,
+    onClosed,
+    children,
+    className,
+    style,
+  } = props;
+
   const { classPrefix } = useConfig();
+  const timerRef = useRef(0);
+
   useEffect(() => {
     if (duration) {
       clearTimeout(timerRef.current);
@@ -134,40 +178,44 @@ const Message = (props: MessageProps) => {
       typeof onClosed === 'function' && onClosed();
     };
   }, [duration, onDurationEnd, onClosed]);
+
   return (
     <div
       key="message"
-      className={cls(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
+      className={classNames(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
         [`${classPrefix}-is-closable`]: closeBtn,
       })}
       style={style}
     >
-      <RenderIcon theme={theme} />
+      <MessageIcon {...props} />
       {children}
-      <RenderClose {...props} />
+      <MessageClose {...props} />
     </div>
   );
 };
 
-Message.defaultProps = {
-  okText: 'Ok',
-  cancelText: 'Cancel',
-  theme: 'info',
-  closeBtn: false,
-};
+function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
+  return (
+    Object.prototype.toString.call(content) === '[object Object]' &&
+    !!(content as MessageConfig).content
+  );
+}
 
-THEME_LIST.forEach((theme) => {
-  Message[theme] = (args, duration = globalConfig.duration) => {
-    let config = {} as ConfigProps;
-    if (typeof args === 'string') {
+ThemeList.forEach((theme) => {
+  Message[theme] = (
+    content: MessageConfig | React.ReactNode,
+    duration: number = globalConfig.duration,
+  ) => {
+    let config = {} as MessageConfig;
+    if (isConfig(content)) {
       config = {
-        content: args,
         duration,
+        ...content,
       };
-    } else if (typeof args === 'object') {
+    } else {
       config = {
+        content,
         duration,
-        ...args,
       };
     }
     config = {
@@ -178,8 +226,8 @@ THEME_LIST.forEach((theme) => {
   };
 });
 
-Message.close = function (keyIndex) {
-  const index = MessageList.findIndex((item) => item.key === keyIndex);
+Message.close = function (key: number) {
+  const index = MessageList.findIndex((item) => item.key === key);
   if (index > -1) {
     const [message] = MessageList.splice(index, 1);
     typeof message.remove === 'function' && message.remove();

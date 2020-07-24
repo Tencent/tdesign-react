@@ -1,61 +1,47 @@
-export const THEME_LIST: string[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
-// export const PLACEMENT_LIST = [
-//   'top',
-//   'center',
-//   'left',
-//   'left-top',
-//   'right-top',
-//   'right',
-//   'right-bottom',
-//   'bottom',
-//   'left-bottom',
-// ];
-const DISTANCE = '32px';
-export const PLACEMENT_OFFSET = {
+const Distance = '32px';
+export const ThemeList: string[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
+export const PlacementOffset = {
   center: {
     left: '50%',
     top: '50%',
     transform: 'translateX(-50%) translateY(-50%)',
   },
   left: {
-    left: DISTANCE,
+    left: Distance,
     top: '50%',
     transform: 'translateY(-50%)',
   },
   bottom: {
-    bottom: DISTANCE,
+    bottom: Distance,
     left: '50%',
     transform: 'translateX(-50%)',
   },
   right: {
-    right: DISTANCE,
+    right: Distance,
     top: '50%',
     transform: 'translateY(-50%)',
   },
   top: {
-    top: DISTANCE,
+    top: Distance,
     left: '50%',
     transform: 'translateX(-50%)',
   },
   'left-top': {
-    left: DISTANCE,
-    top: DISTANCE,
+    left: Distance,
+    top: Distance,
   },
   'right-top': {
-    right: DISTANCE,
-    top: DISTANCE,
+    right: Distance,
+    top: Distance,
   },
   'right-bottom': {
-    right: DISTANCE,
-    bottom: DISTANCE,
+    right: Distance,
+    bottom: Distance,
   },
   'left-bottom': {
-    left: DISTANCE,
-    bottom: DISTANCE,
+    left: Distance,
+    bottom: Distance,
   },
-};
-export default {
-  THEME_LIST,
 };
 export const prefix = 't-message';
 export const prefixWrapper = `${prefix}-list`;
