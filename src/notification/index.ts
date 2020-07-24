@@ -5,8 +5,8 @@ export {
   NotificationPlacement,
   NotificationInstance,
   NotificationProps,
-  NotificationOpenOptions,
-  NotificationOpen,
+  NotificationConfig,
+  NotificationMethod,
   NotificationMethods,
   NotificationComponent,
 } from './Notification';

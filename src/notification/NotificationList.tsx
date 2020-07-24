@@ -4,16 +4,16 @@ import useConfig from '../_util/useConfig';
 import Notification, {
   NotificationPlacement,
   NotificationInstance,
-  NotificationOpenOptions,
+  NotificationConfig,
 } from './Notification';
 
 interface NotificationListInstance {
-  push: (options: NotificationOpenOptions) => Promise<NotificationInstance>;
+  push: (options: NotificationConfig) => Promise<NotificationInstance>;
   remove: (key: string) => void;
   removeAll: () => void;
 }
 
-interface NotificationListOpenOption extends NotificationOpenOptions {
+interface NotificationListConfig extends NotificationConfig {
   key: string;
 }
 
@@ -28,118 +28,108 @@ type NotificationRef = React.RefObject<React.ElementRef<'div'>> &
 
 let seed = 0;
 
-export const listMap: Map<
-  NotificationPlacement,
-  NotificationListInstance
-> = new Map();
+export const listMap: Map<NotificationPlacement, NotificationListInstance> = new Map();
 
-const NotificationList = React.forwardRef<
-  NotificationListInstance,
-  NotificationListProps
->((props, ref) => {
-  const { attach, placement, zIndex } = props;
-  const { classPrefix } = useConfig();
-  const [list, dispatchList] = React.useReducer(
-    (
-      state: NotificationListOpenOption[],
-      action: {
-        type: string;
-        key?: string;
-        value?: NotificationListOpenOption;
+const NotificationList = React.forwardRef<NotificationListInstance, NotificationListProps>(
+  (props, ref) => {
+    const { attach, placement, zIndex } = props;
+    const { classPrefix } = useConfig();
+    const [list, dispatchList] = React.useReducer(
+      (
+        state: NotificationListConfig[],
+        action: {
+          type: string;
+          key?: string;
+          value?: NotificationListConfig;
+        },
+      ) => {
+        switch (action.type) {
+          case 'push':
+            return [...state, action.value];
+          case 'remove':
+            return state.filter((item) => item.key !== action.key).map((item) => item);
+          case 'removeAll':
+            return [];
+          default:
+            return state;
+        }
+      },
+      [],
+    );
+    const notificationMap = React.useMemo<Map<string, NotificationRef>>(() => new Map(), []);
+
+    const push = React.useCallback(
+      (options: NotificationConfig): Promise<NotificationInstance> =>
+        // eslint-disable-next-line implicit-arrow-linebreak
+        new Promise((resolve) => {
+          const key = String((seed += 1));
+          const style: React.CSSProperties = (() => {
+            const offset = Object.assign(
+              { top: 16, bottom: 16, left: 16, right: 16 },
+              options.offset,
+            );
+            return {
+              marginTop: `${offset.top}px`,
+              marginBottom: `${offset.bottom}px`,
+              marginLeft: `${offset.left}px`,
+              marginRight: `${offset.right}px`,
+            };
+          })();
+          notificationMap.set(key, React.createRef());
+          dispatchList({ type: 'push', value: { ...options, key, style } });
+          resolve(notificationMap.get(key).current);
+        }),
+      [notificationMap],
+    );
+
+    const remove = React.useCallback(
+      (key: string): void => {
+        dispatchList({ type: 'remove', key });
+        notificationMap.delete(key);
+      },
+      [notificationMap],
+    );
+
+    const removeAll = React.useCallback(() => {
+      dispatchList({ type: 'removeAll' });
+      notificationMap.clear();
+    }, [notificationMap]);
+
+    React.useImperativeHandle(ref, () => ({
+      push,
+      remove,
+      removeAll,
+    }));
+
+    React.useEffect(() => {
+      if (list.length === 0 && notificationMap.size === 0) {
+        listMap.delete(placement);
+        ReactDOM.unmountComponentAtNode(attach);
+        attach.remove();
       }
-    ) => {
-      switch (action.type) {
-        case 'push':
-          return [...state, action.value];
-        case 'remove':
-          return state
-            .filter((item) => item.key !== action.key)
-            .map((item) => item);
-        case 'removeAll':
-          return [];
-        default:
-          return state;
-      }
-    },
-    []
-  );
-  const notificationMap = React.useMemo<Map<string, NotificationRef>>(
-    () => new Map(),
-    []
-  );
+    }, [list, attach, placement, notificationMap]);
 
-  const push = React.useCallback(
-    (options: NotificationOpenOptions): Promise<NotificationInstance> =>
-      new Promise((resolve) => {
-        const key = String((seed += 1));
-        const style: React.CSSProperties = (() => {
-          const offset = Object.assign(
-            { top: 16, bottom: 16, left: 16, right: 16 },
-            options.offset
-          );
-          return {
-            marginTop: `${offset.top}px`,
-            marginBottom: `${offset.bottom}px`,
-            marginLeft: `${offset.left}px`,
-            marginRight: `${offset.right}px`,
-          };
-        })();
-        notificationMap.set(key, React.createRef());
-        dispatchList({ type: 'push', value: { ...options, key, style } });
-        resolve(notificationMap.get(key).current);
-      }),
-    [notificationMap]
-  );
-
-  const remove = React.useCallback(
-    (key: string): void => {
-      dispatchList({ type: 'remove', key });
-      notificationMap.delete(key);
-    },
-    [notificationMap]
-  );
-
-  const removeAll = React.useCallback(() => {
-    dispatchList({ type: 'removeAll' });
-    notificationMap.clear();
-  }, [notificationMap]);
-
-  React.useImperativeHandle(ref, () => ({
-    push,
-    remove,
-    removeAll,
-  }));
-
-  React.useEffect(() => {
-    if (list.length === 0 && notificationMap.size === 0) {
-      listMap.delete(placement);
-      ReactDOM.unmountComponentAtNode(attach);
-      attach.remove();
-    }
-  }, [list, attach, placement, notificationMap]);
-
-  return (
-    <div
-      className={`${classPrefix}-notification__show--${placement}`}
-      style={{ zIndex }}
-    >
-      {list.map((props) => (
-        <Notification
-          ref={notificationMap.get(props.key)}
-          key={props.key}
-          {...props}
-          close={() => remove(props.key)}
-        />
-      ))}
-    </div>
-  );
-});
+    return (
+      <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
+        {list.map((props) => (
+          <Notification
+            ref={notificationMap.get(props.key)}
+            key={props.key}
+            {...props}
+            close={() => remove(props.key)}
+          />
+        ))}
+      </div>
+    );
+  },
+);
 
 export const fetchListInstance = (
   placement: NotificationPlacement,
   attach: HTMLElement,
-  zIndex: number
+  zIndex: number,
 ): Promise<NotificationListInstance> =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   new Promise((resolve) => {
     if (listMap.has(placement)) {
       resolve(listMap.get(placement));
@@ -158,7 +148,7 @@ export const fetchListInstance = (
             }
           }}
         />,
-        attach
+        attach,
       );
     }
   });
