@@ -1,13 +1,5 @@
 import React from 'react';
-
-export interface TabPanelProps {
-  forceRender?: boolean;
-  name: string | number;
-  label: string | number | React.ReactNode;
-  disabled?: boolean;
-  closable?: boolean;
-  active?: boolean;
-}
+import { TabPanelProps } from './TabProps';
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
   const { active, forceRender } = props;

@@ -7,9 +7,8 @@ import React, {
 } from 'react';
 import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
-import { TabsProps } from './TabProps';
+import { TabsProps, TabPanelProps } from './TabProps';
 import { Combine } from 'src/_type';
-import { TabPanelProps } from './TabPanel';
 import TabBar from './TabBar';
 import { IconFont } from '../icon';
 import noop from '../_util/noop';
@@ -19,7 +18,7 @@ const TabNav: React.FC<Combine<
   {
     panels: Combine<TabPanelProps, { key: string }>[];
     activeId: any;
-    onClick: (idx: number) => any;
+    onClick: (e, idx: number) => any;
   }
 >> = (props) => {
   const { classPrefix } = useConfig();
@@ -45,8 +44,8 @@ const TabNav: React.FC<Combine<
   const [isScroll, setIsScroll] = useState<boolean>(false);
 
   const tabNavClick = useCallback(
-    (idx: number) => {
-      onClick(idx);
+    (event, idx: number) => {
+      onClick(event, idx);
     },
     [onClick]
   );
@@ -92,6 +91,29 @@ const TabNav: React.FC<Combine<
     }
   }, [theme, tabPosition]);
 
+  const scrollToActiveItem = () => {
+    if (!isScroll) return;
+    const $navScroll = navScrollRef.current as any;
+    const $navWrap = navContainerRef.current as any;
+    const $tabActive = $navWrap.querySelector('.t-is-active');
+    if (!$tabActive) return;
+    const navScrollBounding = $navScroll.getBoundingClientRect();
+    const tabActiveBounding = $tabActive.getBoundingClientRect();
+    const currOffset = wrapTranslateX;
+    let newOffset = currOffset;
+
+    if (tabActiveBounding.left < navScrollBounding.left) {
+      newOffset =
+        currOffset + (navScrollBounding.left - tabActiveBounding.left);
+    }
+    if (tabActiveBounding.right > navScrollBounding.right) {
+      newOffset =
+        currOffset - (tabActiveBounding.right - navScrollBounding.right);
+    }
+    newOffset = Math.min(newOffset, 0);
+    setWrapTranslateX(newOffset);
+  };
+
   useEffect(() => {
     /**
      * scroll 处理逻辑
@@ -122,7 +144,13 @@ const TabNav: React.FC<Combine<
     >
       <div className={classNames(`${navClassPrefix}`)}>
         {theme === 'card' && addable && (
-          <span className="t-tabs__add-btn t-size-m" onClick={onAdd}>
+          <span
+            className="t-tabs__add-btn t-size-m"
+            onClick={(e) => {
+              scrollToActiveItem();
+              onAdd(e);
+            }}
+          >
             +
           </span>
         )}
@@ -179,11 +207,11 @@ const TabNav: React.FC<Combine<
               {panels.map((panel, index) => (
                 <div
                   key={index}
-                  onClick={() => {
+                  onClick={(event) => {
                     if (panel.disabled) {
                       return;
                     }
-                    tabNavClick(index);
+                    tabNavClick(event, index);
                   }}
                   className={classNames({
                     [`${navClassPrefix}-item`]: true,
@@ -199,7 +227,7 @@ const TabNav: React.FC<Combine<
                   {panel.label}
                   {panel.closable && theme === 'card' && (
                     <svg
-                      onClick={() => onClose(null, index)}
+                      onClick={(e) => onClose(e, index)}
                       viewBox="0 0 16 16"
                       className={classNames({
                         ['remove-btn']: true,

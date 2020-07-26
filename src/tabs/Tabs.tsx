@@ -2,9 +2,9 @@ import React, { forwardRef, useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import '../../common/style/web/components/tabs/_index.less';
-import TabPanel, { TabPanelProps } from './TabPanel';
+import TabPanel from './TabPanel';
 import TabNav from './TabNav';
-import { TabsProps } from './TabProps';
+import { TabsProps, TabPanelProps } from './TabProps';
 import { Combine } from 'src/_type';
 import noop from '../_util/noop';
 
@@ -111,11 +111,11 @@ const Tabs: React.FC<TabsProps> = forwardRef(
         onAdd={onAdd}
         onClose={onClose}
         closable={closable}
-        onClick={(index) => {
+        onClick={(event, index) => {
           if (!activeName) {
             setActiveId(index);
           }
-          onChange(null, tabPanels[index].name);
+          onChange(event, tabPanels[index].name);
         }}
         {...props}
       />
