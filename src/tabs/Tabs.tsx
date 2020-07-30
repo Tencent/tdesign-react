@@ -1,4 +1,10 @@
-import React, { forwardRef, useEffect, useState, useCallback } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+} from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import '../../common/style/web/components/tabs/_index.less';
@@ -30,6 +36,9 @@ const Tabs: React.FC<TabsProps> = forwardRef(
     >([]);
     const [activeId, setActiveId] = useState<string | number>('');
     const [parsedChildren, setParsedChildren] = useState<React.ReactNode>(null);
+
+    // 判断是否 init ，如果 init ，active Tab不应再改变
+    const isInit = useRef<boolean>(false);
 
     const parseTabs = useCallback(
       (children: React.ReactNode) => {
@@ -68,6 +77,8 @@ const Tabs: React.FC<TabsProps> = forwardRef(
     // 设定 activeId
     useEffect(() => {
       const targetName = activeName || defaultActiveName;
+      if (isInit.current && !activeName) return;
+      if (!isInit.current) isInit.current = true;
       if (
         targetName &&
         tabPanels.filter((panel) => panel.name === targetName).length > 0
@@ -102,22 +113,40 @@ const Tabs: React.FC<TabsProps> = forwardRef(
       );
     }, [activeId, tabPanels, children]);
 
+    const handleChange = (event, index) => {
+      if (!activeName) {
+        setActiveId(index);
+      }
+      onChange(event, String(tabPanels[index].name));
+    };
+
+    const handleClose = (event, an) => {
+      if (!activeName) {
+        if (tabPanels.length === 1) {
+          setActiveId('');
+        } else if (activeId >= tabPanels.length - 1) {
+          // close 时的处理
+          const nextActiveId =
+            tabPanels.length - 2 >= 0 ? tabPanels.length - 2 : '';
+          setActiveId(nextActiveId);
+        } else {
+          setActiveId(activeId);
+        }
+      }
+      onClose(event, an);
+    };
+
     const tabNav = (
       <TabNav
+        {...props}
         tabPosition={tabPosition}
         panels={tabPanels}
         activeId={activeId}
         addable={addable}
         onAdd={onAdd}
-        onClose={onClose}
+        onClose={handleClose}
         closable={closable}
-        onClick={(event, index) => {
-          if (!activeName) {
-            setActiveId(index);
-          }
-          onChange(event, tabPanels[index].name);
-        }}
-        {...props}
+        onClick={handleChange}
       />
     );
 

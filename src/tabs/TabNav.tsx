@@ -227,7 +227,10 @@ const TabNav: React.FC<Combine<
                   {panel.label}
                   {panel.closable && theme === 'card' && (
                     <svg
-                      onClick={(e) => onClose(e, index)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClose(e, String(panel.name));
+                      }}
                       viewBox="0 0 16 16"
                       className={classNames({
                         ['remove-btn']: true,
