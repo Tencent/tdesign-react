@@ -15,13 +15,11 @@ export default function ThemeTabs() {
           theme={theme}
           disabled={false}
         >
-          <TabPanel name={'123'} label={'12323122321112'}>
-            <div>
-              123<div>234</div>
-            </div>
+          <TabPanel name={'1'} label={'1'}>
+            <div>这是一个Tabs</div>
           </TabPanel>
-          <TabPanel name={'456'} label={<div>123</div>}>
-            <div>456</div>
+          <TabPanel name={'2'} label={<div>2</div>}>
+            这是一个Tabs
           </TabPanel>
         </Tabs>
       </div>

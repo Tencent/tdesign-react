@@ -22,12 +22,14 @@ const Tabs: React.FC<TabsProps> = forwardRef(
       disabled,
       closable,
       activeName,
+      className,
       defaultActiveName,
       tabPosition,
       addable,
       onChange = noop,
       onAdd = noop,
       onClose = noop,
+      style = {},
     } = props;
     const tabsClassPrefix = `${classPrefix}-tabs`;
 
@@ -151,7 +153,11 @@ const Tabs: React.FC<TabsProps> = forwardRef(
     );
 
     return (
-      <div className={classNames(tabsClassPrefix)} ref={ref}>
+      <div
+        className={classNames(className, tabsClassPrefix)}
+        style={style}
+        ref={ref}
+      >
         {tabPosition !== 'bottom' && tabNav}
         <div className={`${tabsClassPrefix}__content`}>{parsedChildren}</div>
         {tabPosition === 'bottom' && tabNav}
