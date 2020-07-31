@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import '../../common/style/web/components/tabs/_index.less';
 import TabPanel from './TabPanel';
 import TabNav from './TabNav';
 import { TabsProps, TabPanelProps } from './TabProps';
