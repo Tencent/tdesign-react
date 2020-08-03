@@ -12,6 +12,7 @@ export { default as Steps } from './steps';
 export { default as Message } from './message';
 export { default as Table } from './table';
 export { default as Tag } from './tag';
+export { default as Select } from './select';
 export { List, ListItem, ListItemMeta } from './list';
 export { Tabs } from './tabs';
 export { default as Notification } from './notification';
