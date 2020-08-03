@@ -193,736 +193,736 @@ export default function IconExample() {
         flexWrap: 'wrap',
       }}
     >
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ArrowDownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ArrowDownIcon size="2em" />
         <div style={{ marginTop: 12 }}>ArrowDownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ArrowLeftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ArrowLeftIcon size="2em" />
         <div style={{ marginTop: 12 }}>ArrowLeftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ArrowRightIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ArrowRightIcon size="2em" />
         <div style={{ marginTop: 12 }}>ArrowRightIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AddIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AddIcon size="2em" />
         <div style={{ marginTop: 12 }}>AddIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AndroidIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AndroidIcon size="2em" />
         <div style={{ marginTop: 12 }}>AndroidIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AppleIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AppleIcon size="2em" />
         <div style={{ marginTop: 12 }}>AppleIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AppIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AppIcon size="2em" />
         <div style={{ marginTop: 12 }}>AppIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LeftArrowIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LeftArrowIcon size="2em" />
         <div style={{ marginTop: 12 }}>LeftArrowIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DownArrowIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DownArrowIcon size="2em" />
         <div style={{ marginTop: 12 }}>DownArrowIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RightArrowIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RightArrowIcon size="2em" />
         <div style={{ marginTop: 12 }}>RightArrowIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UpArrowIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UpArrowIcon size="2em" />
         <div style={{ marginTop: 12 }}>UpArrowIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AscendingOrderIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AscendingOrderIcon size="2em" />
         <div style={{ marginTop: 12 }}>AscendingOrderIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AttachIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AttachIcon size="2em" />
         <div style={{ marginTop: 12 }}>AttachIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BacktopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BacktopIcon size="2em" />
         <div style={{ marginTop: 12 }}>BacktopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BackwardIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BackwardIcon size="2em" />
         <div style={{ marginTop: 12 }}>BackwardIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BarcodeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BarcodeIcon size="2em" />
         <div style={{ marginTop: 12 }}>BarcodeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BooksIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BooksIcon size="2em" />
         <div style={{ marginTop: 12 }}>BooksIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BulletpointIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BulletpointIcon size="2em" />
         <div style={{ marginTop: 12 }}>BulletpointIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CallIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CallIcon size="2em" />
         <div style={{ marginTop: 12 }}>CallIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CalendarIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CalendarIcon size="2em" />
         <div style={{ marginTop: 12 }}>CalendarIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CarretDownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CarretDownIcon size="2em" />
         <div style={{ marginTop: 12 }}>CarretDownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CarretLeftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CarretLeftIcon size="2em" />
         <div style={{ marginTop: 12 }}>CarretLeftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CarretRightIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CarretRightIcon size="2em" />
         <div style={{ marginTop: 12 }}>CarretRightIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CarretUpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CarretUpIcon size="2em" />
         <div style={{ marginTop: 12 }}>CarretUpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChartBarIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChartBarIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChartBarIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CartIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CartIcon size="2em" />
         <div style={{ marginTop: 12 }}>CartIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChartBubbleIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChartBubbleIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChartBubbleIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChartPitIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChartPitIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChartPitIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChartIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChartIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChartIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChromeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChromeIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChromeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircieIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircieIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircieIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleBacktopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleBacktopIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleBacktopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleClearIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleClearIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleClearIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleLeftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleLeftIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleLeftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CirclePlayIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CirclePlayIcon size="2em" />
         <div style={{ marginTop: 12 }}>CirclePlayIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleMoneyIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleMoneyIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleMoneyIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleRemoveIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleRemoveIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleRemoveIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleStopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleStopIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleStopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleTimeFullIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleTimeFullIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleTimeFullIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleTimeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleTimeIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleTimeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CloseFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CloseFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>CloseFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CircleUpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CircleUpIcon size="2em" />
         <div style={{ marginTop: 12 }}>CircleUpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CloseIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CloseIcon size="2em" />
         <div style={{ marginTop: 12 }}>CloseIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CloudDownloadIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CloudDownloadIcon size="2em" />
         <div style={{ marginTop: 12 }}>CloudDownloadIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CloudIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CloudIcon size="2em" />
         <div style={{ marginTop: 12 }}>CloudIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CodeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CodeIcon size="2em" />
         <div style={{ marginTop: 12 }}>CodeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ContactIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ContactIcon size="2em" />
         <div style={{ marginTop: 12 }}>ContactIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CreditcardIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CreditcardIcon size="2em" />
         <div style={{ marginTop: 12 }}>CreditcardIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <CustomerserviceIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <CustomerserviceIcon size="2em" />
         <div style={{ marginTop: 12 }}>CustomerserviceIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DeleteIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DeleteIcon size="2em" />
         <div style={{ marginTop: 12 }}>DeleteIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DescendingOrderIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DescendingOrderIcon size="2em" />
         <div style={{ marginTop: 12 }}>DescendingOrderIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DesktopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DesktopIcon size="2em" />
         <div style={{ marginTop: 12 }}>DesktopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DiscountFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DiscountFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>DiscountFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DiscountIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DiscountIcon size="2em" />
         <div style={{ marginTop: 12 }}>DiscountIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DoubleLeftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DoubleLeftIcon size="2em" />
         <div style={{ marginTop: 12 }}>DoubleLeftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DoubleArrowRightIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DoubleArrowRightIcon size="2em" />
         <div style={{ marginTop: 12 }}>DoubleArrowRightIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DownloadIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DownloadIcon size="2em" />
         <div style={{ marginTop: 12 }}>DownloadIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <DropDownFilterIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <DropDownFilterIcon size="2em" />
         <div style={{ marginTop: 12 }}>DropDownFilterIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <EditIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <EditIcon size="2em" />
         <div style={{ marginTop: 12 }}>EditIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <EnterIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <EnterIcon size="2em" />
         <div style={{ marginTop: 12 }}>EnterIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FemaleIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FemaleIcon size="2em" />
         <div style={{ marginTop: 12 }}>FemaleIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileCopyIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileCopyIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileCopyIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileExelIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileExelIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileExelIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileJpgIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileJpgIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileJpgIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileOpenIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileOpenIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileOpenIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileNewIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileNewIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileNewIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FilePasteIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FilePasteIcon size="2em" />
         <div style={{ marginTop: 12 }}>FilePasteIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FilePdfIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FilePdfIcon size="2em" />
         <div style={{ marginTop: 12 }}>FilePdfIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FilePptIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FilePptIcon size="2em" />
         <div style={{ marginTop: 12 }}>FilePptIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileWordIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileWordIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileWordIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileUnknownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileUnknownIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileUnknownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FileIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FileIcon size="2em" />
         <div style={{ marginTop: 12 }}>FileIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FilterIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FilterIcon size="2em" />
         <div style={{ marginTop: 12 }}>FilterIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FirstPageIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FirstPageIcon size="2em" />
         <div style={{ marginTop: 12 }}>FirstPageIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FolderNewIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FolderNewIcon size="2em" />
         <div style={{ marginTop: 12 }}>FolderNewIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FlagIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FlagIcon size="2em" />
         <div style={{ marginTop: 12 }}>FlagIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ForkIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ForkIcon size="2em" />
         <div style={{ marginTop: 12 }}>ForkIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ForwardIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ForwardIcon size="2em" />
         <div style={{ marginTop: 12 }}>ForwardIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FullsreenExitIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FullsreenExitIcon size="2em" />
         <div style={{ marginTop: 12 }}>FullsreenExitIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <GiftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <GiftIcon size="2em" />
         <div style={{ marginTop: 12 }}>GiftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <FullsreenIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <FullsreenIcon size="2em" />
         <div style={{ marginTop: 12 }}>FullsreenIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <GithubIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <GithubIcon size="2em" />
         <div style={{ marginTop: 12 }}>GithubIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HeartFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HeartFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>HeartFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HeartIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HeartIcon size="2em" />
         <div style={{ marginTop: 12 }}>HeartIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HelpFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HelpFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>HelpFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HelpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HelpIcon size="2em" />
         <div style={{ marginTop: 12 }}>HelpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HistoryIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HistoryIcon size="2em" />
         <div style={{ marginTop: 12 }}>HistoryIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <IeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IeIcon size="2em" />
         <div style={{ marginTop: 12 }}>IeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HomeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HomeIcon size="2em" />
         <div style={{ marginTop: 12 }}>HomeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ImageIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ImageIcon size="2em" />
         <div style={{ marginTop: 12 }}>ImageIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <InboxIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <InboxIcon size="2em" />
         <div style={{ marginTop: 12 }}>InboxIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <InternetIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <InternetIcon size="2em" />
         <div style={{ marginTop: 12 }}>InternetIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <IrcleRightIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IrcleRightIcon size="2em" />
         <div style={{ marginTop: 12 }}>IrcleRightIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <JumpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <JumpIcon size="2em" />
         <div style={{ marginTop: 12 }}>JumpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LaptopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LaptopIcon size="2em" />
         <div style={{ marginTop: 12 }}>LaptopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LastPageIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LastPageIcon size="2em" />
         <div style={{ marginTop: 12 }}>LastPageIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LinkUnlinkIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LinkUnlinkIcon size="2em" />
         <div style={{ marginTop: 12 }}>LinkUnlinkIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LinkIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LinkIcon size="2em" />
         <div style={{ marginTop: 12 }}>LinkIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LoadingIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LoadingIcon size="2em" />
         <div style={{ marginTop: 12 }}>LoadingIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <HourglassIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <HourglassIcon size="2em" />
         <div style={{ marginTop: 12 }}>HourglassIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LocationIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LocationIcon size="2em" />
         <div style={{ marginTop: 12 }}>LocationIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LockOffIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LockOffIcon size="2em" />
         <div style={{ marginTop: 12 }}>LockOffIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LockOnIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LockOnIcon size="2em" />
         <div style={{ marginTop: 12 }}>LockOnIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <LoginIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <LoginIcon size="2em" />
         <div style={{ marginTop: 12 }}>LoginIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MailIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MailIcon size="2em" />
         <div style={{ marginTop: 12 }}>MailIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MaleIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MaleIcon size="2em" />
         <div style={{ marginTop: 12 }}>MaleIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MenuFoldIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MenuFoldIcon size="2em" />
         <div style={{ marginTop: 12 }}>MenuFoldIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MenuUnfoldIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MenuUnfoldIcon size="2em" />
         <div style={{ marginTop: 12 }}>MenuUnfoldIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MobileVibrateIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MobileVibrateIcon size="2em" />
         <div style={{ marginTop: 12 }}>MobileVibrateIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MobileIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MobileIcon size="2em" />
         <div style={{ marginTop: 12 }}>MobileIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <NextIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <NextIcon size="2em" />
         <div style={{ marginTop: 12 }}>NextIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <OrderHorizontalBottomupIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <OrderHorizontalBottomupIcon size="2em" />
         <div style={{ marginTop: 12 }}>OrderHorizontalBottomupIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <OrderHorizontalNormalIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <OrderHorizontalNormalIcon size="2em" />
         <div style={{ marginTop: 12 }}>OrderHorizontalNormalIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <NotificationIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <NotificationIcon size="2em" />
         <div style={{ marginTop: 12 }}>NotificationIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <OrderVerticleBottomupIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <OrderVerticleBottomupIcon size="2em" />
         <div style={{ marginTop: 12 }}>OrderVerticleBottomupIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <OrderVerticleNormalIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <OrderVerticleNormalIcon size="2em" />
         <div style={{ marginTop: 12 }}>OrderVerticleNormalIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <OrderVerticleUpdownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <OrderVerticleUpdownIcon size="2em" />
         <div style={{ marginTop: 12 }}>OrderVerticleUpdownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PhotoIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PhotoIcon size="2em" />
         <div style={{ marginTop: 12 }}>PhotoIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PinIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PinIcon size="2em" />
         <div style={{ marginTop: 12 }}>PinIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PreviousIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PreviousIcon size="2em" />
         <div style={{ marginTop: 12 }}>PreviousIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PrintIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PrintIcon size="2em" />
         <div style={{ marginTop: 12 }}>PrintIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PromptFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PromptFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>PromptFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <PromptIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <PromptIcon size="2em" />
         <div style={{ marginTop: 12 }}>PromptIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <QrcodeIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <QrcodeIcon size="2em" />
         <div style={{ marginTop: 12 }}>QrcodeIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <QueueIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <QueueIcon size="2em" />
         <div style={{ marginTop: 12 }}>QueueIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleUpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleUpIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleUpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleAddIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleAddIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleAddIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleClearIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleClearIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleClearIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleDownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleDownIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleDownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleRemoveIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleRemoveIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleRemoveIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleLeftrectangleLeftIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleLeftrectangleLeftIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleLeftrectangleLeftIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleRightIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleRightIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleRightIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RectangleTickIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RectangleTickIcon size="2em" />
         <div style={{ marginTop: 12 }}>RectangleTickIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RefreshIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RefreshIcon size="2em" />
         <div style={{ marginTop: 12 }}>RefreshIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RemoveIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RemoveIcon size="2em" />
         <div style={{ marginTop: 12 }}>RemoveIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <RollbackIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <RollbackIcon size="2em" />
         <div style={{ marginTop: 12 }}>RollbackIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SaveIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SaveIcon size="2em" />
         <div style={{ marginTop: 12 }}>SaveIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ScanIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ScanIcon size="2em" />
         <div style={{ marginTop: 12 }}>ScanIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SearchIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SearchIcon size="2em" />
         <div style={{ marginTop: 12 }}>SearchIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SecuredIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SecuredIcon size="2em" />
         <div style={{ marginTop: 12 }}>SecuredIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SettingIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SettingIcon size="2em" />
         <div style={{ marginTop: 12 }}>SettingIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ServerIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ServerIcon size="2em" />
         <div style={{ marginTop: 12 }}>ServerIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ShareAltIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ShareAltIcon size="2em" />
         <div style={{ marginTop: 12 }}>ShareAltIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ShareIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ShareIcon size="2em" />
         <div style={{ marginTop: 12 }}>ShareIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ShopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ShopIcon size="2em" />
         <div style={{ marginTop: 12 }}>ShopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SlashIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SlashIcon size="2em" />
         <div style={{ marginTop: 12 }}>SlashIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <StarFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <StarFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>StarFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <StarIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <StarIcon size="2em" />
         <div style={{ marginTop: 12 }}>StarIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SoundIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SoundIcon size="2em" />
         <div style={{ marginTop: 12 }}>SoundIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <StopIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <StopIcon size="2em" />
         <div style={{ marginTop: 12 }}>StopIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SuccessFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SuccessFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>SuccessFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <SuccessIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <SuccessIcon size="2em" />
         <div style={{ marginTop: 12 }}>SuccessIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ThumbDownIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ThumbDownIcon size="2em" />
         <div style={{ marginTop: 12 }}>ThumbDownIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ThumbUpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ThumbUpIcon size="2em" />
         <div style={{ marginTop: 12 }}>ThumbUpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <TipsIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <TipsIcon size="2em" />
         <div style={{ marginTop: 12 }}>TipsIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <TickIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <TickIcon size="2em" />
         <div style={{ marginTop: 12 }}>TickIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ToolsIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ToolsIcon size="2em" />
         <div style={{ marginTop: 12 }}>ToolsIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ArrowUpIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ArrowUpIcon size="2em" />
         <div style={{ marginTop: 12 }}>ArrowUpIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UploadIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UploadIcon size="2em" />
         <div style={{ marginTop: 12 }}>UploadIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UsbIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UsbIcon size="2em" />
         <div style={{ marginTop: 12 }}>UsbIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UserAddIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UserAddIcon size="2em" />
         <div style={{ marginTop: 12 }}>UserAddIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UserDeleteIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UserDeleteIcon size="2em" />
         <div style={{ marginTop: 12 }}>UserDeleteIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UserIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UserIcon size="2em" />
         <div style={{ marginTop: 12 }}>UserIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UsergroupDeleteIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UsergroupDeleteIcon size="2em" />
         <div style={{ marginTop: 12 }}>UsergroupDeleteIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <VideoIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <VideoIcon size="2em" />
         <div style={{ marginTop: 12 }}>VideoIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <UsergroupIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <UsergroupIcon size="2em" />
         <div style={{ marginTop: 12 }}>UsergroupIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ViewColumnIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ViewColumnIcon size="2em" />
         <div style={{ marginTop: 12 }}>ViewColumnIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ViewListIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ViewListIcon size="2em" />
         <div style={{ marginTop: 12 }}>ViewListIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ViewModuleIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ViewModuleIcon size="2em" />
         <div style={{ marginTop: 12 }}>ViewModuleIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <WalletIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <WalletIcon size="2em" />
         <div style={{ marginTop: 12 }}>WalletIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <WarningIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <WarningIcon size="2em" />
         <div style={{ marginTop: 12 }}>WarningIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <WarningFillIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <WarningFillIcon size="2em" />
         <div style={{ marginTop: 12 }}>WarningFillIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <WifiIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <WifiIcon size="2em" />
         <div style={{ marginTop: 12 }}>WifiIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <WindowsIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <WindowsIcon size="2em" />
         <div style={{ marginTop: 12 }}>WindowsIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ZoomInIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ZoomInIcon size="2em" />
         <div style={{ marginTop: 12 }}>ZoomInIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ZoomOutIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ZoomOutIcon size="2em" />
         <div style={{ marginTop: 12 }}>ZoomOutIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <AdjustmentIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <AdjustmentIcon size="2em" />
         <div style={{ marginTop: 12 }}>AdjustmentIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <ChatIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ChatIcon size="2em" />
         <div style={{ marginTop: 12 }}>ChatIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BrowseOffIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BrowseOffIcon size="2em" />
         <div style={{ marginTop: 12 }}>BrowseOffIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <BrowseIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <BrowseIcon size="2em" />
         <div style={{ marginTop: 12 }}>BrowseIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <NotificationFullIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <NotificationFullIcon size="2em" />
         <div style={{ marginTop: 12 }}>NotificationFullIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <MoreIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <MoreIcon size="2em" />
         <div style={{ marginTop: 12 }}>MoreIcon</div>
       </div>
-      <div style={{ width: 120, height: 120, textAlign: 'center' }}>
-        <EllipsisIcon />
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <EllipsisIcon size="2em" />
         <div style={{ marginTop: 12 }}>EllipsisIcon</div>
       </div>
     </div>
