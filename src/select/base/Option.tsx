@@ -5,16 +5,19 @@ import { SelectOption } from '../SelectProps';
 
 const Option = (props: SelectOption) => {
   const { classPrefix } = useConfig();
+  const { disabled, size, value, label } = props;
   const componentType = 'select';
 
   return (
     <li
       className={classNames(props.className, `${classPrefix}-${componentType}-option`, {
-        [`${classPrefix}-is-disabled`]: props.disabled,
+        [`${classPrefix}-is-disabled`]: disabled,
+        't-size-s': size === 'small',
+        't-size-l': size === 'large',
       })}
-      key={props.value}
+      key={value}
     >
-      {props.label}
+      {label}
     </li>
   );
 };

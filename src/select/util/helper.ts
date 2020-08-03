@@ -37,3 +37,14 @@ export const getValue = (children, label) => {
   }
   return selectedValue;
 };
+
+export const getHeight = (size) => {
+  let height = '32px';
+  if (size === 'small') {
+    height = '24px';
+  }
+  if (size === 'large') {
+    height = '48px';
+  }
+  return height;
+};
