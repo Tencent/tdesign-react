@@ -2,19 +2,32 @@ import { ReactElement } from 'react';
 import { SelectValue } from '../SelectProps';
 import types from '../util/types';
 
-export const getLabel = (children, value) => {
+export const getLabel = (children, value, optionGroup) => {
   let selectedLabel = '';
+  if (optionGroup) {
+    optionGroup.some((group) => {
+      const selected = group.options.some((option) => {
+        if (option.value === value || option.value === value.value) {
+          selectedLabel = option.label;
+          return true;
+        }
+        return false;
+      });
+      return selected;
+    });
+    return selectedLabel;
+  }
+
   if (types.isObject(children)) {
     selectedLabel = children.props.label;
   }
-
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
-      if (types.isObject(item.props)) {
-        if (item.props.value === value) {
-          selectedLabel = item.props.label;
-        }
+    children.some((item: ReactElement) => {
+      if (types.isObject(item.props) && item.props.value === value) {
+        selectedLabel = item.props.label;
+        return true;
       }
+      return false;
     });
   }
   return selectedLabel;
@@ -28,12 +41,12 @@ export const getValue = (children, label) => {
   }
 
   if (Array.isArray(children)) {
-    children.forEach((item: ReactElement) => {
-      if (types.isObject(item.props) && !item.props.disabled) {
-        if (item.props.label === label) {
-          selectedValue = item.props.value;
-        }
+    children.some((item: ReactElement) => {
+      if (types.isObject(item.props) && !item.props.disabled && item.props.label === label) {
+        selectedValue = item.props.value;
+        return true;
       }
+      return false;
     });
   }
   return selectedValue;
