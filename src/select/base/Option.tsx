@@ -10,6 +10,7 @@ const Option = (props: SelectOption) => {
   const label = props.label || value;
   const componentType = 'select';
   let selected = value === selectedValue;
+
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
