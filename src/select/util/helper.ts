@@ -2,8 +2,9 @@ import { ReactElement } from 'react';
 import { SelectValue } from '../SelectProps';
 import types from '../util/types';
 
-export const getLabel = (children, value, optionGroup) => {
+export const getLabel = (children, value, optionGroup, options) => {
   let selectedLabel = '';
+  // 处理有分组的情况
   if (optionGroup) {
     optionGroup.some((group) => {
       const selected = group.options.some((option) => {
@@ -14,6 +15,18 @@ export const getLabel = (children, value, optionGroup) => {
         return false;
       });
       return selected;
+    });
+    return selectedLabel;
+  }
+
+  // 处理带 options 属性的情况
+  if (Array.isArray(options)) {
+    options.some((option) => {
+      if (option.value === value || option.value === value.value) {
+        selectedLabel = option.label;
+        return true;
+      }
+      return false;
     });
     return selectedLabel;
   }
@@ -50,17 +63,6 @@ export const getValue = (children, label) => {
     });
   }
   return selectedValue;
-};
-
-export const getHeight = (size) => {
-  let height = '32px';
-  if (size === 'small') {
-    height = '24px';
-  }
-  if (size === 'large') {
-    height = '48px';
-  }
-  return height;
 };
 
 export const getMultipleTags = (value: SelectValue[]) => {

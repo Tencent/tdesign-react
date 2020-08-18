@@ -10,18 +10,16 @@ const PrefixIconSelect = () => {
     setValue(value);
   };
   return (
-    <div style={{ display: 'flex' }}>
-      <Select
-        value={value}
-        change={onChange}
-        style={{ width: '40%' }}
-        prefixIcon={() => <Icon name="github" />}
-      >
-        <Option key="apple" label="Apple" value="apple" />
-        <Option key="orange" label="Orange" value="orange" disabled />
-        <Option key="banana" label="Banana" value="banana" />
-      </Select>
-    </div>
+    <Select
+      value={value}
+      change={onChange}
+      style={{ width: '40%' }}
+      prefixIcon={() => <Icon name="github" />}
+    >
+      <Option key="apple" label="Apple" value="apple" />
+      <Option key="orange" label="Orange" value="orange" disabled />
+      <Option key="banana" label="Banana" value="banana" />
+    </Select>
   );
 };
 

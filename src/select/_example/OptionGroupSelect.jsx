@@ -45,7 +45,7 @@ const OptionGroupSelect = () => {
     },
   ];
 
-  return <Select value={value} change={onChange} optionGroup={optionGroup} />;
+  return <Select value={value} change={onChange} optionGroup={optionGroup} style={{ width: '40%' }} />;
 };
 
 export default OptionGroupSelect;
