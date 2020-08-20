@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { Select } from '@tdesign/react';
 
+const { Option } = Select;
+
 const FilterableSelect = () => {
   const [value, setValue] = useState();
 
@@ -34,9 +36,12 @@ const FilterableSelect = () => {
       value={value}
       change={onChange}
       style={{ width: '40%' }}
-      options={options}
       filterMethod={handleFilter}
-    />
+    >
+      {options.map((item, index) => (
+        <Option key={index} label={item.label} value={item.value} />
+      ))}
+    </Select>
   );
 };
 
