@@ -46,6 +46,5 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react/prop-types': 'off',
-    'func-style': ['error', 'declaration', { 'allowArrowFunctions': true }]
   },
 };
