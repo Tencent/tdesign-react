@@ -68,7 +68,12 @@ export interface NotificationConfig extends NotificationProps {
   /**
    * 偏移量（结合属性 `placement`）
    */
-  offset?: { left?: number; top?: number; bottom?: number; right?: number };
+  offset?: {
+    left?: React.CSSProperties['left'];
+    top?: React.CSSProperties['top'];
+    bottom?: React.CSSProperties['bottom'];
+    right?: React.CSSProperties['right'];
+  };
   /**
    * 指定弹框挂载节点，字符串类型表示 DOM 选择器（querySelector）
    */

@@ -167,17 +167,13 @@ exports[`InputIcon.jsx 1`] = `
       <span
         class="t-input__prefix"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-search"
         >
-          <svg
-            class="t-icon t-icon-search"
-          >
-            <use
-              xlink:href="#t-icon-search"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-search"
+          />
+        </svg>
       </span>
       <input
         class="t-input__inner"
@@ -187,17 +183,13 @@ exports[`InputIcon.jsx 1`] = `
       <span
         class="t-input__suffix"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-prompt_fill"
         >
-          <svg
-            class="t-icon t-icon-prompt_fill"
-          >
-            <use
-              xlink:href="#t-icon-prompt_fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
       </span>
     </div>
     <div
@@ -206,17 +198,13 @@ exports[`InputIcon.jsx 1`] = `
       <span
         class="t-input__prefix"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-search"
         >
-          <svg
-            class="t-icon t-icon-search"
-          >
-            <use
-              xlink:href="#t-icon-search"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-search"
+          />
+        </svg>
       </span>
       <input
         class="t-input__inner"
@@ -226,17 +214,13 @@ exports[`InputIcon.jsx 1`] = `
       <span
         class="t-input__suffix"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-prompt_fill"
         >
-          <svg
-            class="t-icon t-icon-prompt_fill"
-          >
-            <use
-              xlink:href="#t-icon-prompt_fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
       </span>
     </div>
   </div>

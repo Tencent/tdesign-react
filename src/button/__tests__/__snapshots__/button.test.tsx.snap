@@ -103,17 +103,13 @@ exports[`ButtonIcon.jsx 1`] = `
   <button
     class="t-button t-button--line"
   >
-    <span
-      class="t-icon t-icon-middle"
+    <svg
+      class="t-icon t-icon-search"
     >
-      <svg
-        class="t-icon t-icon-search"
-      >
-        <use
-          xlink:href="#t-icon-search"
-        />
-      </svg>
-    </span>
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
     <span
       class="t-button__text"
     >
@@ -123,17 +119,13 @@ exports[`ButtonIcon.jsx 1`] = `
   <button
     class="t-button t-button--primary"
   >
-    <span
-      class="t-icon t-icon-middle"
+    <svg
+      class="t-icon t-icon-search"
     >
-      <svg
-        class="t-icon t-icon-search"
-      >
-        <use
-          xlink:href="#t-icon-search"
-        />
-      </svg>
-    </span>
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
     <span
       class="t-button__text"
     >
@@ -143,32 +135,24 @@ exports[`ButtonIcon.jsx 1`] = `
   <button
     class="t-button t-button--line t-button--icon"
   >
-    <span
-      class="t-icon t-icon-middle"
+    <svg
+      class="t-icon t-icon-search"
     >
-      <svg
-        class="t-icon t-icon-search"
-      >
-        <use
-          xlink:href="#t-icon-search"
-        />
-      </svg>
-    </span>
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
   </button>
   <button
     class="t-button t-button--primary t-button--icon-primary"
   >
-    <span
-      class="t-icon t-icon-middle"
+    <svg
+      class="t-icon t-icon-search"
     >
-      <svg
-        class="t-icon t-icon-search"
-      >
-        <use
-          xlink:href="#t-icon-search"
-        />
-      </svg>
-    </span>
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
   </button>
 </DocumentFragment>
 `;
