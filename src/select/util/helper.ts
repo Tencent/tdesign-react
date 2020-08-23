@@ -36,7 +36,8 @@ export const getLabel = (children, value, optionGroup, options) => {
   }
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
-      if (types.isObject(item.props) && item.props.value === value) {
+      const selectedValue = types.isObject(value) ? value.value : value;
+      if (types.isObject(item.props) && item.props.value === selectedValue) {
         selectedLabel = item.props.label;
         return true;
       }
