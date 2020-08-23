@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
-import { StepProps } from './StepsProps';
-import { StepsContext } from './StepsContext';
 import useConfig from '../_util/useConfig';
-import Icon from '../icon/IconFont';
+import { Icon } from '../icon';
+import StepsContext from './StepsContext';
+import { StepProps } from './StepsProps';
 
 export default function Step(props: StepProps & { stepNumber?: number }) {
   const { icon, title, content, stepNumber, children, style } = props;
@@ -62,11 +62,7 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
           break;
         case 'wait':
         case 'process':
-          iconEle = (
-            <span className={`${classPrefix}-steps-item-icon__number`}>
-              {stepNumber}
-            </span>
-          );
+          iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{stepNumber}</span>;
           break;
       }
     }
@@ -78,12 +74,8 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
         <div className={`${classPrefix}-steps-item-icon`}>{iconEle}</div>
         <div className={`${classPrefix}-steps-item-content`}>
           <div className={`${classPrefix}-steps-item-title`}>{title}</div>
-          <div className={`${classPrefix}-steps-item-description`}>
-            {content}
-          </div>
-          {children ? (
-            <div className={`${classPrefix}-steps-item-extra`}>{children}</div>
-          ) : null}
+          <div className={`${classPrefix}-steps-item-description`}>{content}</div>
+          {children ? <div className={`${classPrefix}-steps-item-extra`}>{children}</div> : null}
         </div>
       </div>
     </div>

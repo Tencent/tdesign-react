@@ -4,12 +4,12 @@ import { Button } from '@tdesign/react';
 export default function ButtonExample() {
   return (
     <>
-      <Button icon="demo">line</Button>
-      <Button theme="primary" icon="demo">
+      <Button icon="search">line</Button>
+      <Button theme="primary" icon="search">
         primary
       </Button>
-      <Button icon="demo" />
-      <Button theme="primary" icon="demo" />
+      <Button icon="search" />
+      <Button theme="primary" icon="search" />
     </>
   );
 }

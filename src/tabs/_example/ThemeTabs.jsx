@@ -9,12 +9,7 @@ export default function ThemeTabs() {
       <div>
         <Button onClick={() => setTheme('default')}>default</Button>
         <Button onClick={() => setTheme('card')}>card</Button>
-        <Tabs
-          tabPosition={'top'}
-          size={'middle'}
-          theme={theme}
-          disabled={false}
-        >
+        <Tabs tabPosition={'top'} size={'middle'} theme={theme} disabled={false}>
           <TabPanel name={'1'} label={'1'}>
             <div>这是一个Tabs</div>
           </TabPanel>

@@ -1,5 +1,7 @@
-import React from "react";
-import { Steps, Step } from "@tdesign/react/steps";
+import React from 'react';
+import { Steps } from '@tdesign/react';
+
+const { Step } = Steps;
 
 export default function HorizontalStepsWithNumbers() {
   return (

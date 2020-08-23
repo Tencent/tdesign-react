@@ -1,0 +1,536 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    Hover展示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`ButtonTextExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--line"
+  >
+    Hover me
+  </button>
+</DocumentFragment>
+`;
+
+exports[`ContentExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+  >
+    Hover展示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`ExtendsExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    点击展示
+  </button>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    浮层在右边
+  </button>
+</DocumentFragment>
+`;
+
+exports[`IconUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    使用String
+  </button>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    使用VNode
+  </button>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    使用Function
+  </button>
+</DocumentFragment>
+`;
+
+exports[`PlacementExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    Left
+  </button>
+  <button
+    class="t-button t-button--line"
+    style="margin-left: 8px;"
+  >
+    Top
+  </button>
+  <button
+    class="t-button t-button--line"
+    style="margin-left: 8px;"
+  >
+    Bottom
+  </button>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-prompt_fill"
+          style="color: rgb(255, 62, 0);"
+        >
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-prompt_fill"
+          style="color: rgb(255, 170, 0);"
+        >
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-prompt_fill"
+          style="color: rgb(0, 82, 217);"
+        >
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-success-fill"
+          style="color: rgb(255, 62, 0);"
+        >
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <i
+          style="color: rgb(255, 62, 0);"
+        >
+          <span>
+            CustomIcon
+          </span>
+        </i>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-success-fill"
+          style="color: rgb(0, 82, 217);"
+        >
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <svg
+          class="t-icon t-icon-success-fill"
+          style="color: rgb(0, 82, 217);"
+        >
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm"
+  >
+    <div
+      class="t-popconfirm__content"
+    >
+      <div
+        class="t-popconfirm__body"
+      >
+        <span>
+          CustomIcon
+        </span>
+        <div
+          class="t-popconfirm__inner"
+        >
+          弹出层描述
+        </div>
+      </div>
+      <div
+        class="t-popconfirm__buttons"
+      >
+        <button
+          class="t-button t-size-s"
+          style="color: rgb(34, 34, 34);"
+        />
+        <button
+          class="t-button t-size-s"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 hover 触发测试 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    触发元素
+  </span>
+</DocumentFragment>
+`;
+
+exports[`PopConfirm 组件测试 hover 触发测试 2`] = `
+<div
+  class="t-popconfirm"
+>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-prompt_fill"
+        style="color: rgb(255, 170, 0);"
+      >
+        <use
+          xlink:href="#t-icon-prompt_fill"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        <div
+          data-testid="popup-test-id"
+        >
+          弹出层描述
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <button
+        class="t-button t-button--link t-size-s"
+        style="color: rgb(34, 34, 34);"
+      >
+        取消
+      </button>
+      <button
+        class="t-button t-button--link t-size-s"
+      >
+        确定
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ThemeExample.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--line"
+    style="margin-left: 8px;"
+  >
+    默认
+  </button>
+  <button
+    class="t-button t-button--primary"
+    style="margin-left: 8px;"
+  >
+    提示
+  </button>
+  <button
+    class="t-button t-button--warning"
+    style="margin-left: 8px;"
+  >
+    警告
+  </button>
+  <button
+    class="t-button t-button--line"
+    style="margin-left: 8px;"
+  >
+    错误
+  </button>
+</DocumentFragment>
+`;

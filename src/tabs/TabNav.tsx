@@ -1,17 +1,11 @@
-import React, {
-  useCallback,
-  useRef,
-  useState,
-  useEffect,
-  useMemo,
-} from 'react';
-import useConfig from '../_util/useConfig';
+import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { TabsProps, TabPanelProps } from './TabProps';
 import { Combine } from 'src/_type';
-import TabBar from './TabBar';
+import useConfig from '../_util/useConfig';
 import { IconFont } from '../icon';
 import noop from '../_util/noop';
+import { TabsProps, TabPanelProps } from './TabProps';
+import TabBar from './TabBar';
 
 const TabNav: React.FC<Combine<
   TabsProps,
@@ -47,7 +41,7 @@ const TabNav: React.FC<Combine<
     (event, idx: number) => {
       onClick(event, idx);
     },
-    [onClick]
+    [onClick],
   );
 
   const handleScroll = useCallback(
@@ -66,22 +60,21 @@ const TabNav: React.FC<Combine<
         setWrapTranslateX(() => wrapTranslateX - delt);
       }
     },
-    [isScroll, wrapTranslateX]
+    [isScroll, wrapTranslateX],
   );
 
   const wrapStyle = useMemo(
     () => ({
       transform: `translateX(${wrapTranslateX}px)`,
     }),
-    [wrapTranslateX]
+    [wrapTranslateX],
   );
 
   const checkScroll = useCallback(() => {
     if (theme === 'card' && ['bottom', 'top'].includes(tabPosition)) {
       if (navScrollRef.current && navContainerRef.current) {
         wrapDifference.current =
-          navContainerRef.current.offsetWidth -
-          navScrollRef.current.offsetWidth;
+          navContainerRef.current.offsetWidth - navScrollRef.current.offsetWidth;
         if (wrapDifference.current > 0) {
           setIsScroll(true);
         }
@@ -103,12 +96,10 @@ const TabNav: React.FC<Combine<
     let newOffset = currOffset;
 
     if (tabActiveBounding.left < navScrollBounding.left) {
-      newOffset =
-        currOffset + (navScrollBounding.left - tabActiveBounding.left);
+      newOffset = currOffset + (navScrollBounding.left - tabActiveBounding.left);
     }
     if (tabActiveBounding.right > navScrollBounding.right) {
-      newOffset =
-        currOffset - (tabActiveBounding.right - navScrollBounding.right);
+      newOffset = currOffset - (tabActiveBounding.right - navScrollBounding.right);
     }
     newOffset = Math.min(newOffset, 0);
     setWrapTranslateX(newOffset);

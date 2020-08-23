@@ -1,6 +1,6 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
-import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
+import useConfig from '../_util/useConfig';
 
 interface TabBarProps {
   tabPosition: string;
@@ -22,16 +22,12 @@ const TabBar: React.FC<TabBarProps> = (props) => {
 
     let offset = 0;
     if (containerRef.current) {
-      const itemsRef = containerRef.current.querySelectorAll(
-        '.t-tabs__nav-item'
-      );
+      const itemsRef = containerRef.current.querySelectorAll('.t-tabs__nav-item');
 
       if (itemsRef.length - 1 >= activeId) {
         itemsRef.forEach((item, itemIndex) => {
           if (itemIndex < activeId) {
-            offset += Number(
-              getComputedStyle(item)[itemProp].replace('px', '')
-            );
+            offset += Number(getComputedStyle(item)[itemProp].replace('px', ''));
           }
         });
         const computedItem = itemsRef[activeId];
