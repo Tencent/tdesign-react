@@ -7,3 +7,4 @@ test/scripts/cypress/results
 test/scripts/cypress/support
 results/
 site/dist
+.idea
