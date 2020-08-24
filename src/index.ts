@@ -14,3 +14,4 @@ export { default as Table } from './table';
 export { default as Tag } from './tag';
 export { List, ListItem, ListItemMeta } from './list';
 export { default as Notification } from './notification';
+export { default as Dialog } from './dialog';
