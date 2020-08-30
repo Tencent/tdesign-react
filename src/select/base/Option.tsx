@@ -1,7 +1,7 @@
-import { isNumber, isString } from 'util';
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
+import types from '../util/types';
 import { SelectOption } from '../SelectProps';
 
 const Option = (props: SelectOption) => {
@@ -13,7 +13,7 @@ const Option = (props: SelectOption) => {
 
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
-      if (isNumber(item) || isString(item)) {
+      if (types.isNumber(item) || types.isString(item)) {
         return item === value;
       }
       return item.value === value;
