@@ -1,0 +1,467 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterableSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请选择"
+        style="border: 0px; padding: 0px;"
+        value=""
+      />
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`LabelInValueSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      style="width: 40%;"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-placeholder"
+          style="color: rgb(0, 0, 0);"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-arrow-down t-select-right-icon"
+        >
+          <use
+            xlink:href="#t-icon-arrow-down"
+          />
+        </svg>
+      </div>
+      <span
+        class="t-trigger"
+      />
+    </div>
+    <div
+      style="width: 40%; margin-left: 10%;"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-tag t-tag--default t-tag--dark"
+        >
+          Apple
+          <svg
+            class="t-icon t-icon-close"
+          >
+            <use
+              xlink:href="#t-icon-close"
+            />
+          </svg>
+        </span>
+        <svg
+          class="t-icon t-icon-arrow-down t-select-right-icon"
+        >
+          <use
+            xlink:href="#t-icon-arrow-down"
+          />
+        </svg>
+      </div>
+      <span
+        class="t-trigger"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MultipleSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark"
+      >
+        Apple
+        <svg
+          class="t-icon t-icon-close"
+        >
+          <use
+            xlink:href="#t-icon-close"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`OptionGroupSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <span
+        class="t-select-placeholder"
+        style="color: rgb(0, 0, 0);"
+      >
+        Apple
+      </span>
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PrefixIconSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <svg
+        class="t-icon t-icon-github"
+      >
+        <use
+          xlink:href="#t-icon-github"
+        />
+      </svg>
+      <span
+        class="t-select-placeholder"
+        style="color: rgb(0, 0, 0); margin-left: 6px;"
+      >
+        Apple
+      </span>
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RemoteSearchSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请选择"
+        style="border: 0px; padding: 0px;"
+        value=""
+      />
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SelectSizes.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      style="display: flex; margin-bottom: 24px;"
+    >
+      <h4
+        style="width: 80px;"
+      >
+        Small
+      </h4>
+      <div
+        style="width: 30%;"
+      >
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-icon t-icon-arrow-down t-select-right-icon"
+          >
+            <use
+              xlink:href="#t-icon-arrow-down"
+            />
+          </svg>
+        </div>
+        <span
+          class="t-trigger"
+        />
+      </div>
+    </div>
+    <div
+      style="display: flex; margin-bottom: 24px;"
+    >
+      <h4
+        style="width: 80px;"
+      >
+        Default
+      </h4>
+      <div
+        style="width: 30%;"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-icon t-icon-arrow-down t-select-right-icon"
+          >
+            <use
+              xlink:href="#t-icon-arrow-down"
+            />
+          </svg>
+        </div>
+        <span
+          class="t-trigger"
+        />
+      </div>
+    </div>
+    <div
+      style="display: flex; margin-bottom: 24px;"
+    >
+      <h4
+        style="width: 80px;"
+      >
+        Large
+      </h4>
+      <div
+        style="width: 30%;"
+      >
+        <div
+          class="t-select t-size-l"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-icon t-icon-arrow-down t-select-right-icon"
+          >
+            <use
+              xlink:href="#t-icon-arrow-down"
+            />
+          </svg>
+        </div>
+        <span
+          class="t-trigger"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SelectWithOptions.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <span
+        class="t-select-placeholder"
+        style="color: rgb(0, 0, 0);"
+      >
+        Apple
+      </span>
+      <svg
+        class="t-icon t-icon-arrow-down t-select-right-icon"
+      >
+        <use
+          xlink:href="#t-icon-arrow-down"
+        />
+      </svg>
+    </div>
+    <span
+      class="t-trigger"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SelectWithRef.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      style="width: 40%;"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-placeholder"
+          style="color: rgb(0, 0, 0);"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-arrow-down t-select-right-icon"
+        >
+          <use
+            xlink:href="#t-icon-arrow-down"
+          />
+        </svg>
+      </div>
+      <span
+        class="t-trigger"
+      />
+    </div>
+    <button
+      class="t-button t-button--line"
+      style="margin-left: 24px;"
+    >
+      打印ref
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SingleSelect.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      style="width: 40%;"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-placeholder"
+          style="color: rgb(0, 0, 0);"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-close t-select-right-icon"
+        >
+          <use
+            xlink:href="#t-icon-close"
+          />
+        </svg>
+      </div>
+      <span
+        class="t-trigger"
+      />
+    </div>
+    <div
+      style="width: 40%; margin-left: 10%;"
+    >
+      <div
+        class="t-select t-is-disabled"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-placeholder"
+          style="color: rgb(0, 0, 0);"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-arrow-down t-select-right-icon"
+        >
+          <use
+            xlink:href="#t-icon-arrow-down"
+          />
+        </svg>
+      </div>
+      <span
+        class="t-trigger"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
