@@ -19,7 +19,7 @@ const SelectSizes = () => {
   };
   return (
     <div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', marginBottom: '24px' }}>
         <h4 style={{ width: '80px' }}>Small</h4>
         <Select value={value1} change={onChangeValue1} size="small" style={{ width: '30%' }}>
           <Option key="apple" label="Apple" value="apple" />
@@ -27,7 +27,7 @@ const SelectSizes = () => {
           <Option key="banana" label="Banana" value="banana" />
         </Select>
       </div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', marginBottom: '24px' }}>
         <h4 style={{ width: '80px' }}>Default</h4>
         <Select value={value2} change={onChangeValue2} style={{ width: '30%' }}>
           <Option key="apple" label="Apple" value="apple" />
@@ -35,7 +35,7 @@ const SelectSizes = () => {
           <Option key="banana" label="Banana" value="banana" />
         </Select>
       </div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', marginBottom: '24px' }}>
         <h4 style={{ width: '80px' }}>Large</h4>
         <Select value={value3} change={onChangeValue3} size="large" style={{ width: '30%' }}>
           <Option key="apple" label="Apple" value="apple" />
