@@ -2,22 +2,8 @@ import { ReactElement } from 'react';
 import { SelectValue } from '../SelectProps';
 import types from '../util/types';
 
-export const getLabel = (children, value, optionGroup, options) => {
+export const getLabel = (children, value, options) => {
   let selectedLabel = '';
-  // 处理有分组的情况
-  if (optionGroup) {
-    optionGroup.some((group) => {
-      const selected = group.options.some((option) => {
-        if (option.value === value || option.value === value.value) {
-          selectedLabel = option.label;
-          return true;
-        }
-        return false;
-      });
-      return selected;
-    });
-    return selectedLabel;
-  }
 
   // 处理带 options 属性的情况
   if (Array.isArray(options)) {
@@ -36,6 +22,21 @@ export const getLabel = (children, value, optionGroup, options) => {
   }
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
+      // 处理分组
+      if (item.type.name === 'OptionGroup') {
+        const groupChildren = item.props.children;
+        if (Array.isArray(groupChildren)) {
+          const isSelected = groupChildren.some((item) => {
+            const selectedValue = types.isObject(value) ? value.value : value;
+            if (types.isObject(item.props) && item.props.value === selectedValue) {
+              selectedLabel = item.props.label;
+              return true;
+            }
+            return false;
+          });
+          return isSelected;
+        }
+      }
       const selectedValue = types.isObject(value) ? value.value : value;
       if (types.isObject(item.props) && item.props.value === selectedValue) {
         selectedLabel = item.props.label;

@@ -2,50 +2,58 @@ import React, { useState } from 'react';
 
 import { Select } from '@tdesign/react';
 
+const { Option, OptionGroup } = Select;
+
 const OptionGroupSelect = () => {
-  const [value, setValue] = useState({ label: 'Apple', value: 'apple' });
+  const [value, setValue] = useState('apple');
   const onChange = (value) => {
     setValue(value);
   };
 
-  const optionGroup = [
+  const options1 = [
     {
-      label: 'Fruit',
-      options: [
-        {
-          label: 'Apple',
-          value: 'apple',
-        },
-        {
-          label: 'Banana',
-          value: 'banana',
-        },
-        {
-          label: 'Orange',
-          value: 'orange',
-        },
-      ],
+      label: 'Apple',
+      value: 'apple',
     },
     {
-      label: 'Vegetable',
-      options: [
-        {
-          label: 'Potato',
-          value: 'potato',
-        },
-        {
-          label: 'Tomato',
-          value: 'tomato',
-        },
-        {
-          label: 'Cabbage',
-          value: 'cabbage',
-        },
-      ],
+      label: 'Banana',
+      value: 'banana',
+    },
+    {
+      label: 'Orange',
+      value: 'orange',
     },
   ];
 
-  return <Select value={value} change={onChange} optionGroup={optionGroup} style={{ width: '40%' }} />;
+  const options2 = [
+    {
+      label: 'Potato',
+      value: 'potato',
+    },
+    {
+      label: 'Tomato',
+      value: 'tomato',
+    },
+    {
+      label: 'Cabbage',
+      value: 'cabbage',
+    },
+  ];
+
+  return (
+    <Select value={value} change={onChange} style={{ width: '40%' }} test="1">
+      <OptionGroup label="Fruit">
+        {options1.map((item, index) => (
+          <Option label={item.label} value={item.value} key={index} />
+        ))}
+      </OptionGroup>
+      <OptionGroup label="Vegetable">
+        {options2.map((item, index) => (
+          <Option label={item.label} value={item.value} key={index} />
+        ))}
+      </OptionGroup>
+    </Select>
+  );
 };
 
 export default OptionGroupSelect;
