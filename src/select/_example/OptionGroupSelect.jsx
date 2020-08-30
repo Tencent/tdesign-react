@@ -41,7 +41,7 @@ const OptionGroupSelect = () => {
   ];
 
   return (
-    <Select value={value} change={onChange} style={{ width: '40%' }} test="1">
+    <Select value={value} change={onChange} style={{ width: '40%' }}>
       <OptionGroup label="Fruit">
         {options1.map((item, index) => (
           <Option label={item.label} value={item.value} key={index} />

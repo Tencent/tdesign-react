@@ -19,7 +19,21 @@ export const getLabel = (children, value, options) => {
 
   if (types.isObject(children)) {
     selectedLabel = children.props.label;
+    if (children.type.name === 'OptionGroup') {
+      const groupChildren = children.props.children;
+      if (Array.isArray(groupChildren)) {
+        groupChildren.some((item) => {
+          const selectedValue = types.isObject(value) ? value.value : value;
+          if (types.isObject(item.props) && item.props.value === selectedValue) {
+            selectedLabel = item.props.label;
+            return true;
+          }
+          return false;
+        });
+      }
+    }
   }
+
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
       // 处理分组
