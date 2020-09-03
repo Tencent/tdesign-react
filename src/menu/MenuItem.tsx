@@ -1,12 +1,10 @@
-import React, { FunctionComponent, isValidElement } from 'react';
+import React, { FunctionComponent, isValidElement, useContext } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import noop from '../_util/noop';
+import { MenuContext } from './MenuContext';
+import { MenuStaticProps, MenuBlockType } from './_util/type';
 
-/**
- *
- */
 export interface MenuItemProps extends StyledProps {
   /**
    * 菜单项的唯一标识
@@ -27,26 +25,13 @@ export interface MenuItemProps extends StyledProps {
    */
   disabled?: boolean;
 }
-export interface PrivateMenuItemProps {
-  /**
-   * 内部props，透传Menu的onChange
-   */
-  onClick?: (menuName: string) => void;
-}
-const MenuItem: FunctionComponent<MenuItemProps & PrivateMenuItemProps> = (
+
+const MenuItem: FunctionComponent<MenuItemProps> & MenuStaticProps = (
   props
 ) => {
+  const { name, route, target, disabled, children, className, style } = props;
   const { classPrefix } = useConfig();
-  const {
-    name,
-    route,
-    target,
-    disabled,
-    children,
-    className,
-    style,
-    onClick = noop,
-  } = props;
+  const { active, height, mode, onChange, setState } = useContext(MenuContext);
   const renderChildren = () => {
     if (typeof route === 'string') {
       return (
@@ -60,16 +45,31 @@ const MenuItem: FunctionComponent<MenuItemProps & PrivateMenuItemProps> = (
     }
     return children;
   };
+  const itemOnClick = () => {
+    if (!disabled) {
+      onChange(name);
+      setState((state) => ({ ...state, active: name }));
+    }
+  };
   return (
     <li
       className={classNames(className, `${classPrefix}-menu__item`, {
         [`${classPrefix}-is-disabled`]: disabled,
+        [`${classPrefix}-is-active`]: name === active,
       })}
-      style={style}
-      onClick={!disabled ? () => onClick(name) : undefined}
+      style={{ height, lineHeight: height, ...style }}
+      onClick={(e) => {
+        itemOnClick();
+        // 左侧常规模式点击不收起
+        mode === 'accordion' ? e.stopPropagation() : undefined;
+      }}
     >
       {renderChildren()}
     </li>
   );
 };
+
+MenuItem.blockType = MenuBlockType.MenuItem;
+MenuItem.displayName = 'MenuItem';
+
 export default MenuItem;
