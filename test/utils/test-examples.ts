@@ -4,9 +4,7 @@ import React, { FunctionComponent, ComponentClass } from 'react';
 import { render } from '@testing-library/react';
 
 export interface TestExampleOverrides {
-  [exampleFileName: string]: (
-    Component: FunctionComponent<unknown> | ComponentClass<unknown>,
-  ) => void | Promise<void>;
+  [exampleFileName: string]: (Component: FunctionComponent<unknown> | ComponentClass<unknown>) => void | Promise<void>;
 }
 
 /**
@@ -27,9 +25,9 @@ export function testExamples(dirname: string, overrides: TestExampleOverrides = 
 
     const Example = require(path.join(exampleDir, exampleFilename)).default;
 
-    const runner =
-      overrides[exampleFilename] ||
-      (() => {
+    // prettier-ignore
+    const runner = overrides[exampleFilename]
+      || (() => {
         const { asFragment } = render(React.createElement(Example));
         expect(asFragment()).toMatchSnapshot();
       });
