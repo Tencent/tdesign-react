@@ -51,11 +51,7 @@ describe('Popup 组件测试', () => {
 
   test('click 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        trigger="click"
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup trigger="click" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -106,11 +102,7 @@ describe('Popup 组件测试', () => {
 
   test('focus 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        trigger="focus"
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup trigger="focus" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -149,11 +141,7 @@ describe('Popup 组件测试', () => {
 
   test('多个触发方式测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        trigger={['click', 'hover']}
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup trigger={['click', 'hover']} placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -218,11 +206,7 @@ describe('Popup 组件测试', () => {
 
   test('contextMenu 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        trigger="contextMenu"
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup trigger="contextMenu" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -261,11 +245,7 @@ describe('Popup 组件测试', () => {
 
   test('测试隐藏后销毁', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup
-        destroyOnHide
-        placement="top"
-        content={<div data-testid={popupTestId}>{popupText}</div>}
-      >
+      <Popup destroyOnHide placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -377,12 +357,7 @@ describe('Popup 组件测试', () => {
     const testClassName = 'test-class-name';
     const testStyle = { color: '#ff0000' };
     const { getByText } = render(
-      <Popup
-        destroyOnHide
-        placement="top"
-        overlayStyle={testStyle}
-        overlayClassName={testClassName}
-      >
+      <Popup destroyOnHide placement="top" overlayStyle={testStyle} overlayClassName={testClassName}>
         {triggerElement}
       </Popup>,
     );
@@ -422,12 +397,7 @@ describe('Popup 组件测试', () => {
   test('异常情况：getPopupContainer 传了非 HTMLElement 的元素', async () => {
     const testClassName = 'test-class-name';
     const { getByText } = render(
-      <Popup
-        visible
-        placement="top"
-        overlayClassName={testClassName}
-        getPopupContainer={() => 'xxx' as any}
-      >
+      <Popup visible placement="top" overlayClassName={testClassName} getPopupContainer={() => 'xxx' as any}>
         {triggerElement}
       </Popup>,
     );

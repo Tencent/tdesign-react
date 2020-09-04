@@ -40,7 +40,7 @@ module.exports = {
     'arrow-parens': ['error', 'always'], // prettier conflict
     'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
     'import/order': 'error',
-    'operator-linebreak': 'off', // prettier conflict
+    // 'operator-linebreak': 'off', // prettier conflict
     'prettier/prettier': 'error',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
