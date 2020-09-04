@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useState, useRef, Ref, useEffect 
 import classNames from 'classnames';
 import { IconFont } from '@tdesign/react';
 import { v4 as uuidv4 } from 'uuid';
-import { insertCSS } from '../_util/insertCSS';
+import insertCSS from '../_util/insertCSS';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { MenuContext } from './MenuContext';
@@ -41,7 +41,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
   const subMenuRef = useRef<HTMLUListElement | HTMLDivElement>(null);
   const menuItemRef = useRef<HTMLLIElement | HTMLDivElement>(null);
   const insertCSSId = `${classPrefix}-submenu-${uuidv4()}`;
-  // 动态插入::before，使得hover时menu不消失
+  // 动态插入::before，使得在Menu和SubMenu空隙hover时menu不消失
   useEffect(() => {
     if (
       ['dropdown', 'popup'].includes(mode) &&

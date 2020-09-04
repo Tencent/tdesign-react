@@ -3,7 +3,7 @@
  */
 
 const prefix = 't-dynamic-css-';
-export function insertCSS(id: string, cssText: string) {
+export default function insertCSS(id: string, cssText: string) {
   let style: HTMLStyleElement;
   style = document.getElementById(prefix + id) as HTMLStyleElement;
   if (!style) {
@@ -15,6 +15,5 @@ export function insertCSS(id: string, cssText: string) {
   if (style.textContent !== cssText) {
     style.textContent = cssText;
   }
-  console.log('style', style);
   return style;
 }
