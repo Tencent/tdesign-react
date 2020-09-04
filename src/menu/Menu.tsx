@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useState } from 'react';
 import classNames from 'classnames';
-import { MenuContext } from './MenuContext';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import noop from '../_util/noop';
+import { MenuContext } from './MenuContext';
 import { MenuNameType } from './_util/type';
 
 interface MenuProps extends StyledProps {
   /**
-   * 主题，可选值为 light、dark，支持扩展颜色
+   * 主题，可选值为 light、dark（待支持）
    * @default light
    */
   theme?: 'light' | 'dark';
@@ -30,15 +30,7 @@ interface MenuProps extends StyledProps {
    * 侧边宽度，宽度范围200-256px，中间宽度以8的倍数为档位变化
    * @default 256px
    */
-  width?:
-    | '200px'
-    | '208px'
-    | '216px'
-    | '224px'
-    | '232px'
-    | '240px'
-    | '248px'
-    | '256px';
+  width?: '200px' | '208px' | '216px' | '224px' | '232px' | '240px' | '248px' | '256px';
   /**
    * 是否收起
    * @default false
@@ -70,31 +62,24 @@ interface MenuProps extends StyledProps {
    * 当 展开/收起 子菜单时触发
    */
   onExpand?: (menuName?: MenuNameType, allExpand?: MenuNameType[]) => void;
-  /**
-   * 收起/展开时触发，返回是否收起状态
-   */
-  onCollapsed?: (menuName?: boolean) => void;
 }
 export interface MenuState {
   active?: MenuNameType;
   expand?: MenuNameType[];
-  collapsed?: boolean;
 }
 const Menu: FunctionComponent<MenuProps> = (props) => {
   const {
-    // theme = 'light',
     active,
     expand = [],
     multiple = false,
     width = '256px',
     collapsed = false,
-    // collapsedWidth = '64px',
+    collapsedWidth = '64px',
     mode = 'accordion',
     logo,
     options,
     onChange = noop,
     onExpand = noop,
-    // onCollapsed = noop,
     children,
     className,
     style,
@@ -103,7 +88,6 @@ const Menu: FunctionComponent<MenuProps> = (props) => {
   const [state, setState] = useState<MenuState>({
     active: null,
     expand: [],
-    collapsed: false,
   });
   const contextExpand = (() => {
     if (props.expand === undefined) {
@@ -111,8 +95,6 @@ const Menu: FunctionComponent<MenuProps> = (props) => {
     }
     return expand && expand.length && multiple ? expand.slice(0, 1) : expand;
   })();
-  // const contextCollapsed =
-  //   props.collapsed !== undefined ? collapsed : state.collapsed;
 
   return (
     <MenuContext.Provider
@@ -128,29 +110,14 @@ const Menu: FunctionComponent<MenuProps> = (props) => {
     >
       <div
         className={classNames(className, `${classPrefix}-default-menu`, {
-          [`${classPrefix}-is-collapsed`]:
-            props.collapsed !== undefined ? collapsed : state.collapsed,
+          [`${classPrefix}-is-collapsed`]: collapsed,
         })}
-        style={{ width, ...style }}
+        style={{ width: collapsed ? collapsedWidth : width, ...style }}
       >
         <div className={`${classPrefix}-default-menu__inner`}>
           {logo && <div className={`${classPrefix}-menu__logo`}>{logo} </div>}
           <ul className={`${classPrefix}-menu`}>{children}</ul>
-          {options && (
-            <div className={`${classPrefix}-menu__options`}>{options} </div>
-          )}
-          {/* <div className={`${classPrefix}-menu__options`}>
-            <Icon.Font
-              name="arrow-right"
-              onClick={() => {
-                setState((state) => ({
-                  ...state,
-                  collapsed: !contextCollapsed,
-                }));
-                onCollapsed(contextCollapsed);
-              }}
-            />
-          </div> */}
+          {options && <div className={`${classPrefix}-menu__options`}>{options} </div>}
         </div>
       </div>
     </MenuContext.Provider>

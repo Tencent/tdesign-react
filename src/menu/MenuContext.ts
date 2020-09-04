@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { MenuState } from './Menu';
 import noop from '../_util/noop';
+import { MenuState } from './Menu';
 import { MenuNameType } from './_util/type';
 
 export interface MenuContextType {

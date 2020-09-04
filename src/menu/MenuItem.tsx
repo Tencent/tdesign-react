@@ -11,6 +11,10 @@ export interface MenuItemProps extends StyledProps {
    */
   name: string;
   /**
+   * 菜单项icon
+   */
+  icon?: React.ReactNode;
+  /**
    * 跳转的链接，支持React-Router对象
    */
   route?: string | React.ReactNode;
@@ -26,10 +30,8 @@ export interface MenuItemProps extends StyledProps {
   disabled?: boolean;
 }
 
-const MenuItem: FunctionComponent<MenuItemProps> & MenuStaticProps = (
-  props
-) => {
-  const { name, route, target, disabled, children, className, style } = props;
+const MenuItem: FunctionComponent<MenuItemProps> & MenuStaticProps = (props) => {
+  const { name, icon, route, target, disabled, children, className, style } = props;
   const { classPrefix } = useConfig();
   const { active, height, mode, onChange, setState } = useContext(MenuContext);
   const renderChildren = () => {
@@ -64,7 +66,8 @@ const MenuItem: FunctionComponent<MenuItemProps> & MenuStaticProps = (
         mode === 'accordion' ? e.stopPropagation() : undefined;
       }}
     >
-      {renderChildren()}
+      {icon}
+      <span>{renderChildren()}</span>
     </li>
   );
 };

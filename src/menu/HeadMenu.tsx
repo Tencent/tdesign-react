@@ -9,7 +9,7 @@ import { MenuNameType } from './_util/type';
 
 interface HeadMenuProps extends StyledProps {
   /**
-   * 主题，可选值为 light、dark，支持扩展颜色
+   * 主题，可选值为 light、dark
    * @default light
    */
   theme?: 'light' | 'dark';
@@ -20,7 +20,7 @@ interface HeadMenuProps extends StyledProps {
   mode?: 'dropdown' | 'title';
   /**
    * 顶部导航自定义高度
-   * @default 64px
+   * @default 60px
    */
   height?: string | number;
   /**
@@ -45,7 +45,7 @@ const HeadMenu: FunctionComponent<HeadMenuProps> = (props) => {
   const {
     theme = 'light',
     mode = 'dropdown',
-    height = '64px',
+    height = '60px',
     logo,
     options,
     active,
@@ -72,15 +72,14 @@ const HeadMenu: FunctionComponent<HeadMenuProps> = (props) => {
           [`${classPrefix}-menu--dark`]: theme === 'dark',
           [`${classPrefix}-menu--light`]: theme === 'light',
           [`${classPrefix}-menu-mode__tile`]: mode === 'title',
+          [`${classPrefix}-menu-mode__dropdown`]: mode === 'dropdown',
         })}
         style={{ height, lineHeight: height, ...style }}
       >
         <div className={`${classPrefix}-head-menu__inner`}>
           {logo && <div className={`${classPrefix}-menu__logo`}>{logo} </div>}
           <ul className={`${classPrefix}-menu`}>{children}</ul>
-          {options && (
-            <div className={`${classPrefix}-menu__options`}>{options} </div>
-          )}
+          {options && <div className={`${classPrefix}-menu__options`}>{options} </div>}
         </div>
       </div>
     </MenuContext.Provider>
