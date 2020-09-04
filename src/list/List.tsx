@@ -39,27 +39,27 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
     onScroll(event, { scrollTop, scrollBottom });
   };
 
-  const loadElement =
-    loading === undefined ? (
-      ''
-    ) : (
-      <div
-        className={classNames(`${classPrefix}-list__load`, {
-          [`${classPrefix}-list__load--loading`]: loading === 'loading',
-          [`${classPrefix}-list__load--load-more`]: loading === 'load-more',
-        })}
-        onClick={handleClickLoad}
-      >
-        {loading === 'loading' ? (
-          <>
-            <Icon name="loading" />
-            <span>正在加载中，请稍等</span>
-          </>
-        ) : (
-          <span>点击加载更多</span>
-        )}
-      </div>
-    );
+  // prettier-ignore
+  const loadElement = loading === undefined ? (
+    ''
+  ) : (
+    <div
+      className={classNames(`${classPrefix}-list__load`, {
+        [`${classPrefix}-list__load--loading`]: loading === 'loading',
+        [`${classPrefix}-list__load--load-more`]: loading === 'load-more',
+      })}
+      onClick={handleClickLoad}
+    >
+      {loading === 'loading' ? (
+        <>
+          <Icon name="loading" />
+          <span>正在加载中，请稍等</span>
+        </>
+      ) : (
+        <span>点击加载更多</span>
+      )}
+    </div>
+  );
 
   return (
     <div

@@ -43,13 +43,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
   const insertCSSId = `${classPrefix}-submenu-${uuidv4()}`;
   // 动态插入::before，使得在Menu和SubMenu空隙hover时menu不消失
   useEffect(() => {
-    if (
-      ['dropdown', 'popup'].includes(mode) &&
-      menuItemRef &&
-      menuItemRef.current &&
-      subMenuRef &&
-      subMenuRef.current
-    ) {
+    if (['dropdown', 'popup'].includes(mode) && menuItemRef?.current && subMenuRef?.current) {
       const {
         top: menuItemTop,
         bottom: menuItemBottom,
@@ -59,6 +53,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
       const { top: subMenuTop, left: subMenuLeft } = subMenuRef.current.getBoundingClientRect();
       // 考虑兼容性，不用width/height
       const menuHeight = menuItemBottom - menuItemTop;
+      // eslint-disable-next-line operator-linebreak
       const insertStyle =
         mode === 'dropdown'
           ? `#${insertCSSId}::before {
@@ -128,10 +123,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
               {mode === 'title' && (
                 <ul
                   id={insertCSSId}
-                  className={classNames(
-                    `${classPrefix}-head-menu__inner`,
-                    `${classPrefix}-submenu`,
-                  )}
+                  className={classNames(`${classPrefix}-head-menu__inner`, `${classPrefix}-submenu`)}
                   style={{ top: height, ...subMenuStyle }}
                   onClick={(e) => {
                     setSubMenuVisible(false);
@@ -139,12 +131,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
                   }}
                 >
                   <div className={`${classPrefix}-menu`}>
-                    <ul
-                      className={classNames(
-                        `${classPrefix}-head-menu__inner`,
-                        `${classPrefix}-head-submenu`,
-                      )}
-                    >
+                    <ul className={classNames(`${classPrefix}-head-menu__inner`, `${classPrefix}-head-submenu`)}>
                       <ul className={`${classPrefix}-menu`}>{children}</ul>
                     </ul>
                   </div>
