@@ -1,8 +1,5 @@
-import OriginModal from './Modal';
+import Dialog from './Dialog';
 
-export { ModalProps } from './Modal';
+export { DialogProps } from './Dialog';
 
-type Modal = typeof OriginModal & { destroyAll: () => void };
-const Modal = OriginModal as Modal;
-
-export default Modal;
+export default Dialog;

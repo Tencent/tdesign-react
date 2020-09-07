@@ -17,11 +17,11 @@ export default function PositionExample() {
   return (
     <div>
       <div>
-        <Button theme="primary" onClick={() => handleClick()} style={{ marginRight: 16 }}>
+        <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
           默认
         </Button>
-        <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
-          居中
+        <Button theme="primary" onClick={() => handleClick('top')} style={{ marginRight: 16 }}>
+          顶部
         </Button>
         <Button
           theme="primary"
@@ -48,6 +48,9 @@ export default function PositionExample() {
         onClickCloseBtn={handleClose}
         onOpened={() => {
           console.log('dialog is open');
+        }}
+        onClosed={() => {
+          console.log('dialog is closed');
         }}
       >
         <p>This is a dialog</p>
