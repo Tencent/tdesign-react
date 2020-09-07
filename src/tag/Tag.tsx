@@ -125,7 +125,7 @@ const Tag = forwardRefWithStatics(
       <span
         ref={ref}
         className={tagClassNames}
-        onClick={onClick}
+        onClick={!disabled && onClick}
         style={{ ...(style || {}), ...{ maxWidth } }}
         {...otherTagProps}
       >
