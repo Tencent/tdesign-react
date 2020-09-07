@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default"
+    style="margin-right: 5px;"
+  >
+    标签1
+  </span>
+  <span
+    class="t-tag t-tag--default"
+    style="margin-right: 5px;"
+  >
+    标签2
+  </span>
+  <span
+    class="t-tag t-tag--default"
+    style="margin-right: 5px;"
+  >
+    标签3
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ClosableTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    style="margin-right: 5px;"
+  >
+    点击关闭0
+    <i
+      class="t-icon t-icon-close"
+    />
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    style="margin-right: 5px;"
+  >
+    点击关闭1
+    <i
+      class="t-icon t-icon-close"
+    />
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    style="margin-right: 5px;"
+  >
+    点击关闭2
+    <i
+      class="t-icon t-icon-close"
+    />
+  </span>
+</DocumentFragment>
+`;
+
+exports[`DisableTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default"
+    style="margin-right: 5px;"
+  >
+    有效标签
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--disabled"
+    style="margin-right: 5px;"
+  >
+    无效标签
+  </span>
+</DocumentFragment>
+`;
+
+exports[`MaxWidthTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
+    style="margin-right: 5px; margin-bottom: 10px; max-width: 150px;"
+  >
+    超长省略文本标签超长省略文本标签
+  </span>
+  <span
+    class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
+    style="margin-right: 5px; margin-bottom: 10px; max-width: 10%;"
+  >
+    超长省略文本标签超长省略文本标签
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ShapeTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
+    style="margin-right: 5px;"
+  >
+    mark
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--round"
+    style="margin-right: 5px;"
+  >
+    round
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    style="margin-right: 5px;"
+  >
+    square
+  </span>
+</DocumentFragment>
+`;
+
+exports[`SizeTag.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+    style="margin-right: 5px;"
+  >
+    large
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    style="margin-right: 5px;"
+  >
+    middle
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+    style="margin-right: 5px;"
+  >
+    small
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ThemeTag.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <span>
+      默认：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      default
+    </span>
+  </div>
+  <div>
+    <span>
+      深色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      浅色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      朴素：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+      style="margin-right: 10px; margin-bottom: 10px;"
+    >
+      success
+    </span>
+  </div>
+</DocumentFragment>
+`;
