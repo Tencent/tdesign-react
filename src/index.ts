@@ -15,4 +15,5 @@ export { default as Tag } from './tag';
 export { List, ListItem, ListItemMeta } from './list';
 export { Tabs } from './tabs';
 export { default as Notification } from './notification';
+export { default as Pagination } from './pagination';
 export { Menu, HeadMenu, MenuItem, SubMenu, MenuItemGroup } from './menu';
