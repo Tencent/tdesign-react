@@ -9,28 +9,14 @@ import { TableContext } from './TableContext';
 
 const TableBody = forwardRef((props: TableProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
-  const {
-    columns,
-    records = [],
-    rowKey,
-    rowClassName,
-    height,
-    loading = false,
-    empty = '暂无数据',
-  } = props;
+  const { columns, records = [], rowKey, rowClassName, height, loading = false, empty = '暂无数据' } = props;
   const { separate } = useContext(TableContext);
 
   // 键值的获取方式
   const getRowKey = getRowKeyFromRowKey(rowKey);
 
   // 行内每一个元素的渲染
-  const renderBodyCell = (
-    record,
-    rowKey: string,
-    recordIndex: number,
-    column: TableColumn,
-    columnIndex: number,
-  ) => {
+  const renderBodyCell = (record, rowKey: string, recordIndex: number, column: TableColumn, columnIndex: number) => {
     let content: React.ReactNode = null;
     if (isCallable(column.render)) {
       content = column.render(record, rowKey, recordIndex, column, columnIndex);
@@ -52,9 +38,7 @@ const TableBody = forwardRef((props: TableProps, ref: React.Ref<HTMLDivElement>)
 
   // 行渲染
   const renderRow = (record: any, rowKey: string, recordIndex: number, columns: TableColumn[]) => {
-    const className = classNames(
-      isCallable(rowClassName) ? rowClassName(record, recordIndex) : null,
-    );
+    const className = classNames(isCallable(rowClassName) ? rowClassName(record, recordIndex) : null);
     return (
       <tr key={rowKey} className={className || null}>
         {columns.map((column, index) => {
@@ -118,11 +102,7 @@ const TableBody = forwardRef((props: TableProps, ref: React.Ref<HTMLDivElement>)
   if (!bodyContent) {
     if (separate) {
       bodyContent = (
-        <div
-          className={`${classPrefix}-table__body`}
-          style={height ? { maxHeight: height } : {}}
-          ref={ref}
-        >
+        <div className={`${classPrefix}-table__body`} style={height ? { maxHeight: height } : {}} ref={ref}>
           <TableBox columns={columns} classPrefix={classPrefix}>
             {baseBodyContent}
           </TableBox>

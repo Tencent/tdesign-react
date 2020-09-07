@@ -47,10 +47,7 @@ export default function useTriggerProps(
 
   // click outside 用于处理点击其他地方隐藏
   useClickOutside(ref, () => {
-    if (
-      visible &&
-      (triggers.includes('click') || triggers.includes('focus') || triggers.includes('contextMenu'))
-    ) {
+    if (visible && (triggers.includes('click') || triggers.includes('focus') || triggers.includes('contextMenu'))) {
       hide();
     }
   });

@@ -95,9 +95,7 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
   });
 
   // 设置 style 决定展示与隐藏
-  const overlayVisibleStyle: CSSProperties = visible
-    ? { ...overlayStyle }
-    : { ...overlayStyle, display: 'none' };
+  const overlayVisibleStyle: CSSProperties = visible ? { ...overlayStyle } : { ...overlayStyle, display: 'none' };
 
   // 响应 props 变化
   useEffect(() => setVisible(props.visible), [props.visible]);

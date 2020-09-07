@@ -6,9 +6,7 @@ import { CheckboxGroup } from './CheckboxGroup';
 export interface CheckboxProps extends Omit<CheckProps, 'type'> {}
 
 const Checkbox = forwardRefWithStatics(
-  (props: CheckboxProps, ref: Ref<HTMLLabelElement>) => (
-    <Check ref={ref} type="checkbox" {...props} />
-  ),
+  (props: CheckboxProps, ref: Ref<HTMLLabelElement>) => <Check ref={ref} type="checkbox" {...props} />,
   // statics
   {
     Group: CheckboxGroup,

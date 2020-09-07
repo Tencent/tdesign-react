@@ -118,8 +118,7 @@ export interface NotificationMethods {
   closeAll?: () => void;
 }
 
-export type NotificationRef = React.RefObject<React.ElementRef<'div'>> &
-  React.RefObject<NotificationInstance>;
+export type NotificationRef = React.RefObject<React.ElementRef<'div'>> & React.RefObject<NotificationInstance>;
 
 interface NotificationPropsWithClose extends NotificationProps {
   close?: () => void;
@@ -168,10 +167,10 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     [classPrefix],
   );
 
-  const onClose = React.useCallback(
-    (event: React.MouseEvent) => onClickCloseBtn(event, { close }),
-    [onClickCloseBtn, close],
-  );
+  const onClose = React.useCallback((event: React.MouseEvent) => onClickCloseBtn(event, { close }), [
+    onClickCloseBtn,
+    close,
+  ]);
 
   React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), [close]);
 
@@ -223,12 +222,8 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
           if (React.isValidElement(content)) return content;
           return null;
         })()}
-        {React.isValidElement(footer) && (
-          <div className={prefixCls([blockName, 'detail'])}>{footer}</div>
-        )}
-        {typeof footer === 'function' && (
-          <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>
-        )}
+        {React.isValidElement(footer) && <div className={prefixCls([blockName, 'detail'])}>{footer}</div>}
+        {typeof footer === 'function' && <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>}
       </div>
     </div>
   );
