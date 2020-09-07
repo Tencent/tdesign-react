@@ -157,11 +157,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
 
   let { header } = props;
   if (typeof header === 'string') {
-    header = (
-      <h5 className={`${prefixCls ? `${prefixCls}-` : ''}title`} id={this.titleId}>
-        {props.header}
-      </h5>
-    );
+    header = <h5 className={`${prefixCls ? `${prefixCls}-` : ''}title`}>{props.header}</h5>;
   }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
