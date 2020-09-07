@@ -173,7 +173,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialog = (
-      <div className={`${prefixCls}-ctx`}>
+      <div className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}>
         {mode === 'modal' && renderMaskElement()}
         <div
           onKeyDown={onKeyDown}

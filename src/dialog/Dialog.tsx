@@ -152,7 +152,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
     ...restProps
   } = props;
 
-  const prefixCls = `${props.class ? `${props.class} ` : ''}${classPrefix}-dialog`;
+  const prefixCls = `${classPrefix}-dialog`;
   const closeIcon = closeBtn || <Icon name="close" style={{ verticalAlign: 'unset' }} />;
 
   let { header } = props;
