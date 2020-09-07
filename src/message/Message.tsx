@@ -166,7 +166,7 @@ const Message: MessageComponent = (props) => {
   const timerRef = useRef(0);
 
   useEffect(() => {
-    if (duration) {
+    if (typeof duration === 'number') {
       clearTimeout(timerRef.current);
       timerRef.current = window.setTimeout(() => {
         console.log('durationEnd....');
