@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import useConfig from '../_util/useConfig';
-import Notification, { NotificationPlacement, NotificationInstance, NotificationConfig } from './Notification';
+import Notification from './Notification';
+import { NotificationOpenOptions, NotificationInstance, NotificationPlacement } from './NotificationInterface';
 
 interface NotificationListInstance {
-  push: (options: NotificationConfig) => Promise<NotificationInstance>;
+  push: (options: NotificationOpenOptions) => Promise<NotificationInstance>;
   remove: (key: string) => void;
   removeAll: () => void;
 }
 
-interface NotificationListConfig extends NotificationConfig {
+interface NotificationListOpenOption extends NotificationOpenOptions {
   key: string;
 }
 
@@ -30,11 +31,11 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
   const { classPrefix } = useConfig();
   const [list, dispatchList] = React.useReducer(
     (
-      state: NotificationListConfig[],
+      state: NotificationListOpenOption[],
       action: {
         type: string;
         key?: string;
-        value?: NotificationListConfig;
+        value?: NotificationListOpenOption;
       },
     ) => {
       switch (action.type) {
@@ -52,18 +53,18 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
   );
   const notificationMap = React.useMemo<Map<string, NotificationRef>>(() => new Map(), []);
 
+  /* eslint-disable implicit-arrow-linebreak */
   const push = React.useCallback(
-    (options: NotificationConfig): Promise<NotificationInstance> =>
-      // eslint-disable-next-line implicit-arrow-linebreak
+    (options: NotificationOpenOptions): Promise<NotificationInstance> =>
       new Promise((resolve) => {
         const key = String((seed += 1));
         const style: React.CSSProperties = (() => {
           const offset = Object.assign({ top: 16, bottom: 16, left: 16, right: 16 }, options.offset);
           return {
-            marginTop: offset.top,
-            marginBottom: offset.bottom,
-            marginLeft: offset.left,
-            marginRight: offset.right,
+            marginTop: `${offset.top}px`,
+            marginBottom: `${offset.bottom}px`,
+            marginLeft: `${offset.left}px`,
+            marginRight: `${offset.right}px`,
           };
         })();
         notificationMap.set(key, React.createRef());
@@ -114,7 +115,6 @@ export const fetchListInstance = (
   attach: HTMLElement,
   zIndex: number,
 ): Promise<NotificationListInstance> =>
-  // eslint-disable-next-line implicit-arrow-linebreak
   new Promise((resolve) => {
     if (listMap.has(placement)) {
       resolve(listMap.get(placement));

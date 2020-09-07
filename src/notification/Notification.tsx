@@ -2,132 +2,15 @@ import * as React from 'react';
 import { IconFont, PromptFillIcon, SuccessFillIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type/StyledProps';
+import {
+  NotificationRef,
+  NotificationTheme,
+  NotificationPlacement,
+  NotificationInstance,
+  NotificationComponent,
+  NotificationOpenOptions,
+} from './NotificationInterface';
 import { fetchListInstance, listMap } from './NotificationList';
-
-export type NotificationTheme = 'info' | 'success' | 'warning' | 'error';
-
-export type NotificationPlacement = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-
-export interface NotificationInstance {
-  /**
-   * 关闭当前通知提醒框
-   */
-  close?: () => void;
-}
-
-export interface NotificationProps extends StyledProps {
-  /**
-   * 通知标题
-   */
-  title?: React.ReactNode;
-  /**
-   * 自定义内容
-   */
-  content?: React.ReactNode;
-  /**
-   * 消息类型
-   */
-  theme?: NotificationTheme;
-  /**
-   * 自定义图标
-   *
-   * （当 `theme` 存在，取默认图标）
-   */
-  icon?: React.ReactNode;
-  /**
-   * 是否显示关闭按钮/自定义关闭图标
-   * @default true
-   */
-  closeBtn?: boolean | React.ReactNode;
-  /**
-   * 自定义底部详情
-   */
-  footer?: React.ReactNode;
-  /**
-   * 显示时间，毫秒，置 0 则不会自动关闭
-   * @default 0
-   */
-  duration?: number;
-  /**
-   * 关闭按钮点击时触发
-   */
-  onClickCloseBtn?: (event: React.MouseEvent, instance: NotificationInstance) => void;
-  /**
-   * 计时结束的时候触发
-   */
-  onDurationEnd?: (instance: NotificationInstance) => void;
-}
-
-export interface NotificationConfig extends NotificationProps {
-  /**
-   * 消息提示的位置
-   * @default 'top-right'
-   */
-  placement?: NotificationPlacement;
-  /**
-   * 偏移量（结合属性 `placement`）
-   */
-  offset?: {
-    left?: React.CSSProperties['left'];
-    top?: React.CSSProperties['top'];
-    bottom?: React.CSSProperties['bottom'];
-    right?: React.CSSProperties['right'];
-  };
-  /**
-   * 指定弹框挂载节点，字符串类型表示 DOM 选择器（querySelector）
-   */
-  attach?: HTMLElement | string;
-  /**
-   * 自定义层级
-   * @default 6000
-   */
-  zIndex?: number;
-}
-
-export type NotificationMethod = (config?: NotificationConfig) => Promise<NotificationInstance>;
-
-export interface NotificationMethods {
-  /**
-   * 打开通知提醒框，返回 Promise<NotificationInstance>
-   */
-  open?: NotificationMethod;
-  /**
-   * 打开 info 主题通知提醒框，返回 Promise<NotificationInstance>
-   */
-  info?: NotificationMethod;
-  /**
-   * 打开 success 主题通知提醒框，返回 Promise<NotificationInstance>
-   */
-  success?: NotificationMethod;
-  /**
-   * 打开 warning 主题通知提醒框，返回 Promise<NotificationInstance>
-   */
-  warning?: NotificationMethod;
-  /**
-   * 打开 error 主题通知提醒框，返回 Promise<NotificationInstance>
-   */
-  error?: NotificationMethod;
-  /**
-   * 关闭指定的通知提醒框，传入 Promise<NotificationInstance>
-   */
-  close?: (promise: Promise<NotificationInstance>) => void;
-  /**
-   * 关闭所有通知提醒框
-   */
-  closeAll?: () => void;
-}
-
-export type NotificationRef = React.RefObject<React.ElementRef<'div'>> & React.RefObject<NotificationInstance>;
-
-interface NotificationPropsWithClose extends NotificationProps {
-  close?: () => void;
-}
-
-export type NotificationComponent = React.ForwardRefExoticComponent<
-  NotificationPropsWithClose & React.RefAttributes<HTMLDivElement>
-> &
-  NotificationMethods;
 
 const blockName = 'notification';
 
@@ -142,7 +25,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     closeBtn = true,
     footer = null,
     duration = 0,
-    onClickCloseBtn = noop,
+    onClickCloseBtn,
     onDurationEnd = noop,
     close = noop,
   } = props;
@@ -167,10 +50,16 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     [classPrefix],
   );
 
-  const onClose = React.useCallback((event: React.MouseEvent) => onClickCloseBtn(event, { close }), [
-    onClickCloseBtn,
-    close,
-  ]);
+  const onClose = React.useCallback(
+    (event: React.MouseEvent) => {
+      if (typeof onClickCloseBtn === 'function') {
+        onClickCloseBtn(event, { close });
+      } else {
+        close();
+      }
+    },
+    [onClickCloseBtn, close],
+  );
 
   React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), [close]);
 
@@ -208,10 +97,9 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
             if (typeof closeBtn === 'boolean' && closeBtn) {
               return <IconFont name="close" onClick={onClose} />;
             }
-            if (typeof closeBtn === 'string') {
+            if (React.isValidElement(closeBtn)) {
               return <div onClick={onClose}>{closeBtn}</div>;
             }
-            if (React.isValidElement(closeBtn)) return closeBtn;
             return null;
           })()}
         </div>
@@ -229,7 +117,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
   );
 });
 
-Notification.open = (options: NotificationConfig = {}) => {
+Notification.open = (options: NotificationOpenOptions = {}) => {
   if (typeof options !== 'object') return;
 
   const placement: NotificationPlacement = (() => {
@@ -269,9 +157,7 @@ Notification.open = (options: NotificationConfig = {}) => {
 };
 
 ['info', 'success', 'warning', 'error'].forEach((theme: NotificationTheme) => {
-  Notification[theme] = (options: NotificationConfig) =>
-    // eslint-disable-next-line implicit-arrow-linebreak
-    Notification.open({ ...options, theme });
+  Notification[theme] = (options: NotificationOpenOptions) => Notification.open({ ...options, theme });
 });
 
 Notification.close = (promise) => promise.then((instance) => instance.close());
