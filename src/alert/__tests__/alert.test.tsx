@@ -29,9 +29,7 @@ describe('Alert 组件测试', () => {
     const { asFragment: asFragment5 } = render(<Alert {...props} theme="error" icon />);
     expect(asFragment5()).toMatchSnapshot();
 
-    const { asFragment: asFragment6 } = render(
-      <Alert {...props} theme="error" icon={<span>CustomIcon</span>} />,
-    );
+    const { asFragment: asFragment6 } = render(<Alert {...props} theme="error" icon={<span>CustomIcon</span>} />);
     expect(asFragment6()).toMatchSnapshot();
   });
 
@@ -39,12 +37,7 @@ describe('Alert 组件测试', () => {
     const ref = React.createRef<AlertProps>();
 
     const { queryByTestId } = render(
-      <Alert
-        ref={ref}
-        theme="error"
-        meassage={text}
-        close={<div data-testid={testId}>{text}</div>}
-      />,
+      <Alert ref={ref} theme="error" meassage={text} close={<div data-testid={testId}>{text}</div>} />,
     );
 
     act(() => {
@@ -62,9 +55,7 @@ describe('Alert 组件测试', () => {
         {text}
       </div>,
     ];
-    const { queryByText, queryByTestId } = render(
-      <Alert theme="error" message={massage} maxLine={2} />,
-    );
+    const { queryByText, queryByTestId } = render(<Alert theme="error" message={massage} maxLine={2} />);
     const element = await waitFor(() => queryByTestId(testId));
     expect(element).toBeNull();
 

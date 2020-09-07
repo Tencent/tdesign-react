@@ -53,14 +53,7 @@ export interface RadioGroupTarget {
  */
 const RadioGroup: FunctionComponent<RadioGroupProps> = (props) => {
   const { classPrefix } = useConfig();
-  const {
-    disabled,
-    children,
-    value,
-    onChange,
-    size = 'default',
-    buttonStyle = 'outline',
-  } = useDefaultValue(props);
+  const { disabled, children, value, onChange, size = 'default', buttonStyle = 'outline' } = useDefaultValue(props);
 
   const context: CheckContextValue = {
     inject: (checkProps) => {

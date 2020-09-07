@@ -23,17 +23,7 @@ const TabNav: React.FC<Combine<
   const tabsClassPrefix = `${classPrefix}-tabs`;
   const navClassPrefix = `${tabsClassPrefix}__nav`;
 
-  const {
-    panels,
-    tabPosition,
-    size,
-    activeId,
-    theme,
-    onClick,
-    addable,
-    onClose,
-    onAdd = noop,
-  } = props;
+  const { panels, tabPosition, size, activeId, theme, onClick, addable, onClose, onAdd = noop } = props;
 
   const [isScroll, setIsScroll] = useState<boolean>(false);
 
@@ -53,10 +43,10 @@ const TabNav: React.FC<Combine<
         delt = absWrapTranslateX < 0 ? 0 : Math.min(absWrapTranslateX, 100);
         setWrapTranslateX(() => wrapTranslateX + delt);
       } else if (position === 'right') {
-        delt =
-          absWrapTranslateX >= wrapDifference.current
-            ? 0
-            : Math.min(wrapDifference.current - absWrapTranslateX, 100);
+        // prettier-ignore
+        delt = (
+          absWrapTranslateX >= wrapDifference.current ? 0 : Math.min(wrapDifference.current - absWrapTranslateX, 100)
+        );
         setWrapTranslateX(() => wrapTranslateX - delt);
       }
     },
@@ -73,8 +63,7 @@ const TabNav: React.FC<Combine<
   const checkScroll = useCallback(() => {
     if (theme === 'card' && ['bottom', 'top'].includes(tabPosition)) {
       if (navScrollRef.current && navContainerRef.current) {
-        wrapDifference.current =
-          navContainerRef.current.offsetWidth - navScrollRef.current.offsetWidth;
+        wrapDifference.current = navContainerRef.current.offsetWidth - navScrollRef.current.offsetWidth;
         if (wrapDifference.current > 0) {
           setIsScroll(true);
         }
@@ -185,16 +174,8 @@ const TabNav: React.FC<Combine<
             })}
             ref={navScrollRef}
           >
-            <div
-              className={classNames(`${tabsClassPrefix}__nav-wrap`)}
-              style={wrapStyle}
-              ref={navContainerRef}
-            >
-              <TabBar
-                tabPosition={tabPosition}
-                activeId={activeId}
-                containerRef={navContainerRef}
-              />
+            <div className={classNames(`${tabsClassPrefix}__nav-wrap`)} style={wrapStyle} ref={navContainerRef}>
+              <TabBar tabPosition={tabPosition} activeId={activeId} containerRef={navContainerRef} />
               {panels.map((panel, index) => (
                 <div
                   key={index}
@@ -231,10 +212,7 @@ const TabNav: React.FC<Combine<
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M9 8L13 12 12 13 8 9 4 13 3 12 7 8 3 4 4 3 8 7 12 3 13 4z"
-                      />
+                      <path fillRule="evenodd" d="M9 8L13 12 12 13 8 9 4 13 3 12 7 8 3 4 4 3 8 7 12 3 13 4z" />
                     </svg>
                   )}
                 </div>

@@ -38,10 +38,7 @@ export interface CheckboxGroupProps extends Combine<StyledProps, ControlledProps
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
   const { classPrefix } = useConfig();
-  const { value, onChange, disabled, layout, className, style, children } = useDefaultValue(
-    props,
-    [],
-  );
+  const { value, onChange, disabled, layout, className, style, children } = useDefaultValue(props, []);
 
   const checkedSet = new Set(value || []);
 
@@ -73,9 +70,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
             }
           }
           if (typeof onChange === 'function') {
-            const newValue = checked
-              ? [...value, checkName]
-              : (checkedSet.delete(checkName), Array.from(checkedSet));
+            const newValue = checked ? [...value, checkName] : (checkedSet.delete(checkName), Array.from(checkedSet));
             onChange(newValue, event);
           }
         },

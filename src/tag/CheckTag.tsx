@@ -51,12 +51,7 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
   });
 
   return (
-    <span
-      ref={ref}
-      className={checkTagClassNames}
-      {...tagOtherProps}
-      onClick={() => onValueChange(!value)}
-    >
+    <span ref={ref} className={checkTagClassNames} {...tagOtherProps} onClick={() => onValueChange(!value)}>
       {children}
     </span>
   );
