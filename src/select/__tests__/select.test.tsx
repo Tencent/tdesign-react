@@ -271,14 +271,7 @@ describe('Select 组件测试', () => {
         };
 
         return (
-          <Select
-            filterable
-            remote
-            value={value}
-            change={onChange}
-            loading={loading}
-            remoteMethod={handleRemoteSearch}
-          >
+          <Select filterable remote value={value} change={onChange} loading={loading} remoteMethod={handleRemoteSearch}>
             {options.map((item) => (
               <Option key={item.value} label={item.label} value={item.value} />
             ))}
