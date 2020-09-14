@@ -4,14 +4,7 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
-import {
-  PromptFillIcon,
-  SuccessFillIcon,
-  WarningFillIcon,
-  HelpFillIcon,
-  LoadingIcon,
-  CloseIcon,
-} from '../icon';
+import { PromptFillIcon, SuccessFillIcon, WarningFillIcon, HelpFillIcon, LoadingIcon, CloseIcon } from '../icon';
 import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
 import { MessageProps, MessageConfig, MessageMethods } from './MessageProps';
 
@@ -151,16 +144,7 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
 export type MessageComponent = React.FunctionComponent<MessageProps> & MessageMethods;
 
 const Message: MessageComponent = (props) => {
-  const {
-    theme = 'info',
-    closeBtn = false,
-    duration,
-    onDurationEnd,
-    onClosed,
-    children,
-    className,
-    style,
-  } = props;
+  const { theme = 'info', closeBtn = false, duration, onDurationEnd, onClosed, children, className, style } = props;
 
   const { classPrefix } = useConfig();
   const timerRef = useRef(0);
@@ -195,17 +179,11 @@ const Message: MessageComponent = (props) => {
 };
 
 function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
-  return (
-    Object.prototype.toString.call(content) === '[object Object]' &&
-    !!(content as MessageConfig).content
-  );
+  return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageConfig).content;
 }
 
 ThemeList.forEach((theme) => {
-  Message[theme] = (
-    content: MessageConfig | React.ReactNode,
-    duration: number = globalConfig.duration,
-  ) => {
+  Message[theme] = (content: MessageConfig | React.ReactNode, duration: number = globalConfig.duration) => {
     let config = {} as MessageConfig;
     if (isConfig(content)) {
       config = {

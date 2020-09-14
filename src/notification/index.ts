@@ -5,10 +5,10 @@ export {
   NotificationPlacement,
   NotificationInstance,
   NotificationProps,
-  NotificationConfig,
-  NotificationMethod,
+  NotificationOpenOptions,
+  NotificationOpen,
   NotificationMethods,
   NotificationComponent,
-} from './Notification';
+} from './NotificationInterface';
 
 export default Notification;

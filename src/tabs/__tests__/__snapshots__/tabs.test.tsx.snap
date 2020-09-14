@@ -1,0 +1,551 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTabs.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="max-width: 400px;"
+  >
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <span
+            class="t-tabs__add-btn t-size-m"
+          >
+            +
+          </span>
+          <div
+            class="t-tabs__nav-container t-is-top t-is-addable"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-tabs__nav--card t-is-active t-size-m"
+                >
+                  1
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          1
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BasicTabs.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="max-width: 400px;"
+  >
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-is-active t-size-m"
+                >
+                  a
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  b
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          <div>
+            a
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CloseableTabs.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="max-width: 400px;"
+  >
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <span
+            class="t-tabs__add-btn t-size-m"
+          >
+            +
+          </span>
+          <div
+            class="t-tabs__nav-container t-is-top t-is-addable"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-tabs__nav--card t-is-active t-size-m"
+                >
+                  1
+                  <svg
+                    class="remove-btn t-icon t-icon-close"
+                    version="1.1"
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9 8L13 12 12 13 8 9 4 13 3 12 7 8 3 4 4 3 8 7 12 3 13 4z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          1
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PositionExamples.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--line"
+    >
+      top
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      bottom
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      left
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      right
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top t-is-addable"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-is-active t-size-m"
+                >
+                  1
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    2
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  3
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  4
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    5
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    6
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    7
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+          style="display: block;"
+        >
+          <div>
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PositionTabs.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--line"
+    >
+      top
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      bottom
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      left
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      right
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top t-is-addable"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-is-active t-size-m"
+                >
+                  1
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    2
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  3
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  4
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    5
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    6
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    7
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+          style="display: block;"
+        >
+          <div>
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SizeTabs.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--line"
+    >
+      small
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      middle
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      large
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top t-is-addable"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-is-active"
+                >
+                  1
+                </div>
+                <div
+                  class="t-tabs__nav-item"
+                >
+                  <div>
+                    2
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+          style="display: block;"
+        >
+          <div>
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ThemeTabs.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--line"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      card
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+                style="transform: translateX(0px);"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__nav-item t-is-active t-size-m"
+                >
+                  1
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m"
+                >
+                  <div>
+                    2
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          <div>
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
