@@ -33,12 +33,19 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
+  const bodyOverflow = useRef<string>(document.body.style.overflow);
 
   useLayoutEffect(() => {
     if (!!getContainer === false && !visible && wrap) {
       wrap.current.style.display = 'none';
     }
-  });
+    // 隐藏body的滚动条
+    if (visible) {
+      if (bodyOverflow.current !== 'hidden') {
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  }, [getContainer, visible]);
 
   const close = (e: any) => {
     const { onClose } = props;
@@ -49,6 +56,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (wrap.current) {
       wrap.current.style.display = 'none';
     }
+    // 还原body的滚动条
+    document.body.style.overflow = bodyOverflow.current;
     onClosed && onClosed(null);
   };
 
@@ -70,7 +79,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
   };
 
-  const renderDialogElement = () => {
+  const renderDialog = () => {
     const dest: any = {};
     const { offset } = props;
     if (props.width !== undefined) {
@@ -131,7 +140,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     return style;
   };
 
-  const renderMaskElement = () => {
+  const renderMask = () => {
     let maskElement;
     if (showOverlay) {
       maskElement = (
@@ -165,7 +174,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const dialog = (
       <div className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}>
-        {mode === 'modal' && renderMaskElement()}
+        {mode === 'modal' && renderMask()}
         <div
           onKeyDown={onKeyDown}
           ref={wrap}
@@ -174,7 +183,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           className={`${prefixCls}-wrap ${offset ? '' : ` ${prefixCls}--${props.placement}`}`}
           style={{ ...style, ...wrapStyle }}
         >
-          {renderDialogElement()}
+          {renderDialog()}
         </div>
       </div>
     );
