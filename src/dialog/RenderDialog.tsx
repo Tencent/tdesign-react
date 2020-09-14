@@ -84,13 +84,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       dest.marginLeft = props.offset.left || 0;
     }
 
-    const footer = props.footer ? (
-      <div className={`${prefixCls}__footer`}>{props.footer}</div>
-    ) : null;
+    const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
-    const header = props.header ? (
-      <div className={`${prefixCls}__header`}>{props.header}</div>
-    ) : null;
+    const header = props.header ? <div className={`${prefixCls}__header`}>{props.header}</div> : null;
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
@@ -102,12 +98,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const style = { ...dest, ...props.style };
     const dialogElement = (
-      <div
-        role="document"
-        ref={dialog}
-        style={style}
-        className={`${prefixCls}${` ${prefixCls}--default`}`}
-      >
+      <div role="document" ref={dialog} style={style} className={`${prefixCls}${` ${prefixCls}--default`}`}>
         {closer}
         {header}
         {body}
