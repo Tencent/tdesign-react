@@ -234,6 +234,7 @@ Dialog.defaultProps = {
   placement: 'center',
   mode: 'modal',
   showOverlay: true,
+  destroyOnClose: false,
 };
 
 export default Dialog;

@@ -3,7 +3,7 @@ import { Dialog, Button } from '@tdesign/react';
 
 export default function PositionExample() {
   const [visible, setVisible] = useState(false);
-  const [placement, setPlacement] = useState(false);
+  const [placement, setPlacement] = useState('center');
   const [offset, setOffset] = useState();
 
   const handleClick = (placement) => {
@@ -27,6 +27,7 @@ export default function PositionExample() {
           theme="primary"
           onClick={() => {
             setVisible(true);
+            setPlacement('center');
             setOffset({
               top: '30%',
               left: '20%',

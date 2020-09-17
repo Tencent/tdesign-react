@@ -19,20 +19,8 @@ export interface RenderDialogProps extends DialogProps {
 
 const transitionTime = 300;
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
-  const {
-    prefixCls,
-    getContainer,
-    visible,
-    mode,
-    zIndex,
-    showOverlay,
-    onKeydownEsc,
-    classPrefix,
-    onClosed,
-    offset,
-  } = props;
+  const { prefixCls, getContainer, visible, mode, zIndex, showOverlay, onKeydownEsc, classPrefix, onClosed } = props;
   const wrap = useRef<HTMLDivElement>();
-  const dialog = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
 
   useLayoutEffect(() => {
@@ -40,12 +28,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       wrap.current.style.display = 'none';
     }
     // 隐藏body的滚动条
-    if (visible) {
+    if (visible && mode === 'modal') {
       if (bodyOverflow.current !== 'hidden') {
         document.body.style.overflow = 'hidden';
       }
     }
-  }, [getContainer, visible]);
+  }, [getContainer, visible, mode]);
 
   const close = (e: any) => {
     const { onClose } = props;
@@ -79,7 +67,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
   };
 
-  const renderDialog = () => {
+  const renderDialog = (styles, classNames) => {
     const dest: any = {};
     const { offset } = props;
     if (props.width !== undefined) {
@@ -107,7 +95,11 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const style = { ...dest, ...props.style };
     const dialogElement = (
-      <div ref={dialog} style={style} className={`${prefixCls}${` ${prefixCls}--default`}`}>
+      <div
+        ref={wrap}
+        style={{ ...style, ...styles }}
+        className={`${classNames} ${prefixCls}${` ${prefixCls}--default`}`}
+      >
         {closer}
         {header}
         {body}
@@ -140,7 +132,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     return style;
   };
 
-  const renderMask = () => {
+  const renderMask = (children) => {
     let maskElement;
     if (showOverlay) {
       maskElement = (
@@ -153,7 +145,15 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           unmountOnExit
           key="mask"
         >
-          <div style={getZIndex()} key="mask" className={`${prefixCls}-mask`} />
+          <div
+            style={getZIndex()}
+            key="mask"
+            onKeyDown={onKeyDown}
+            onClick={onMaskClick}
+            className={`${prefixCls}-mask ${props.placement === 'center' ? `${prefixCls}-mask--center` : ''}`}
+          >
+            {children}
+          </div>
         </CSSTransition>
       );
     }
@@ -163,27 +163,17 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const render = () => {
     const style = getZIndex();
     if (visible) {
-      style.display = 'block';
+      style.display = 'inline-block';
     }
-
     const wrapStyle = {
-      position: (mode === 'modal' ? 'fixed' : 'relative') as CSSProperties['position'],
       zIndex,
       ...style,
     };
 
+    const dialogBody = renderDialog(wrapStyle, `${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
     const dialog = (
       <div className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}>
-        {mode === 'modal' && renderMask()}
-        <div
-          onKeyDown={onKeyDown}
-          ref={wrap}
-          onClick={mode === 'modal' ? onMaskClick : null}
-          className={`${prefixCls}-wrap ${offset ? '' : ` ${prefixCls}--${props.placement}`}`}
-          style={{ ...style, ...wrapStyle }}
-        >
-          {renderDialog()}
-        </div>
+        {mode === 'modal' ? renderMask(dialogBody) : dialogBody}
       </div>
     );
 
