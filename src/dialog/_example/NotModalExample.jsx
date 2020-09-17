@@ -19,7 +19,6 @@ export default function NotModalExample() {
         mode="not-modal"
         header="非模态框"
         visible={visible}
-        showOverlay
         onClickCancel={handleClose}
         onClickConfirm={handleClose}
         onClickCloseBtn={handleClose}
