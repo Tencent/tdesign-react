@@ -57,18 +57,14 @@ describe('Message Component props test', () => {
 
     it(':closeBtn is a tring, equal "关闭".', () => {
       const closeBtnTxt = '关闭';
-      const { container, getByText } = render(
-        <Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>,
-      );
+      const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);
       expect(container.getElementsByClassName('t-message-close').length).toBe(1);
       expect(getByText(closeBtnTxt).textContent).toBe(closeBtnTxt);
       expect(container).toMatchSnapshot();
     });
 
     it(':closeBtn is a function, () => VNode.', () => {
-      const { container, getByText } = render(
-        <Message closeBtn={() => <b>x</b>}>{defaultMessage}</Message>,
-      );
+      const { container, getByText } = render(<Message closeBtn={() => <b>x</b>}>{defaultMessage}</Message>);
       expect(container.getElementsByClassName('t-message-close').length).toBe(1);
       expect(getByText('x')).toBeInTheDocument();
       expect(container).toMatchSnapshot();
@@ -81,9 +77,7 @@ describe('Message Component props test', () => {
     });
 
     it(':icon is a funtion, () => TIconMore', () => {
-      const { container } = render(
-        <Message icon={() => <HelpIcon></HelpIcon>}>{defaultMessage}</Message>,
-      );
+      const { container } = render(<Message icon={() => <HelpIcon></HelpIcon>}>{defaultMessage}</Message>);
       // t-icon
       expect(container.firstChild).not.toHaveClass('t-icon');
       expect(container).toMatchSnapshot();
