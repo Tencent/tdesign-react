@@ -107,7 +107,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const style = { ...dest, ...props.style };
     const dialogElement = (
-      <div role="document" ref={dialog} style={style} className={`${prefixCls}${` ${prefixCls}--default`}`}>
+      <div ref={dialog} style={style} className={`${prefixCls}${` ${prefixCls}--default`}`}>
         {closer}
         {header}
         {body}
@@ -179,7 +179,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           onKeyDown={onKeyDown}
           ref={wrap}
           onClick={mode === 'modal' ? onMaskClick : null}
-          role="dialog"
           className={`${prefixCls}-wrap ${offset ? '' : ` ${prefixCls}--${props.placement}`}`}
           style={{ ...style, ...wrapStyle }}
         >
