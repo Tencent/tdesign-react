@@ -114,7 +114,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         appear
         mountOnEnter
         unmountOnExit={props.destroyOnClose}
-        timeout={14000}
+        timeout={transitionTime}
         classNames={`${prefixCls}-zoom`}
         onEntered={props.onOpened}
         onExited={onAnimateLeave}
