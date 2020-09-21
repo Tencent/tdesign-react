@@ -22,10 +22,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const { prefixCls, getContainer, visible, mode, zIndex, showOverlay, onKeydownEsc, classPrefix, onClosed } = props;
   const wrap = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
-  const isModal = mode === 'modal';
 
   useLayoutEffect(() => {
-    if (visible && isModal) {
+    if (visible) {
       if (bodyOverflow.current !== 'hidden') {
         document.body.style.overflow = 'hidden';
       }
@@ -33,7 +32,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         wrap.current.focus();
       }
     }
-  }, [getContainer, visible, mode, isModal]);
+  }, [getContainer, visible, mode]);
 
   const close = (e: any) => {
     const { onClose } = props;
@@ -151,12 +150,11 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const render = () => {
     const style = getZIndex();
     if (visible) {
-      style.display = 'block';
+      style.display = 'flex';
     }
     const wrapStyle = {
       ...style,
       zIndex,
-      position: (mode === 'modal' ? 'fixed' : 'relative') as CSSProperties['position'],
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
