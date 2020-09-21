@@ -29,8 +29,8 @@ export default function PositionExample() {
             setVisible(true);
             setPlacement('center');
             setOffset({
-              top: '30%',
-              left: '20%',
+              top: '100px',
+              left: '100px',
             });
           }}
         >
