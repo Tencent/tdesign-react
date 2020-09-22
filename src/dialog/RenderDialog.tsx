@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, SyntheticEvent, CSSProperties } from 'react';
+import React, { useLayoutEffect, useRef, CSSProperties } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import DialogPortal from './DialogPortal';
 import { DialogProps } from './Dialog';
@@ -13,7 +13,6 @@ export interface RenderDialogProps extends DialogProps {
   prefixCls?: string;
   height?: number;
   classPrefix: string;
-  onClose: (e: SyntheticEvent<HTMLElement>) => any;
   getContainer?: StringOrElement | (() => StringOrElement) | false;
 }
 
@@ -21,18 +20,23 @@ const transitionTime = 300;
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const { prefixCls, getContainer, visible, mode, zIndex, showOverlay, onKeydownEsc, classPrefix, onClosed } = props;
   const wrap = useRef<HTMLDivElement>();
+  const dialog = useRef<HTMLDivElement>();
+  const focusNode = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
+  const isModal = mode === 'modal';
+  const canDraggable = props.draggable && mode === 'not-modal';
 
   useLayoutEffect(() => {
     if (visible) {
-      if (bodyOverflow.current !== 'hidden') {
+      if (isModal && bodyOverflow.current !== 'hidden') {
         document.body.style.overflow = 'hidden';
       }
+      console.log('121312');
       if (wrap.current) {
         wrap.current.focus();
       }
     }
-  }, [getContainer, visible, mode]);
+  }, [getContainer, visible, mode, isModal]);
 
   const close = (e: any) => {
     const { onClose } = props;
@@ -44,25 +48,26 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       wrap.current.style.display = 'none';
     }
     // 还原body的滚动条
-    document.body.style.overflow = bodyOverflow.current;
+    isModal && (document.body.style.overflow = bodyOverflow.current);
     onClosed && onClosed(null);
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       const { onClickOverlay } = props;
-      onClickOverlay && onClickOverlay();
-      close(e);
+      (onClickOverlay || close)(e);
     }
+  };
+
+  const onCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { onClickCloseBtn } = props;
+    (onClickCloseBtn || close)(e);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === KEY_CODE.ESC) {
       e.stopPropagation();
-      if (onKeydownEsc) {
-        onKeydownEsc(e);
-      }
-      close(e);
+      (onKeydownEsc || close)(e);
     }
   };
 
@@ -82,19 +87,81 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
-    const header = props.header ? <div className={`${prefixCls}__header`}>{props.header}</div> : null;
+    const header = <div className={`${prefixCls}__header`}>{props.header}</div>;
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
     const closer = (
-      <span onClick={close} className={`${classPrefix}-icon-close`}>
+      <span onClick={onCloseBtnClick} className={`${classPrefix}-icon-close`}>
         {props.closeBtn}
       </span>
     );
 
     const style = { ...dest, ...props.style };
+    let dialogOffset = { x: 0, y: 0 };
+    const onDialogMove = (e: MouseEvent) => {
+      const { style, offsetWidth, offsetHeight } = dialog.current;
+      let diffX = e.clientX - dialogOffset.x;
+      let diffY = e.clientY - dialogOffset.y;
+      if (diffX < 0) {
+        diffX = 0;
+      }
+
+      if (diffX > window.innerWidth - offsetWidth) {
+        diffX = window.innerWidth - offsetWidth;
+      }
+
+      if (diffY < 0) {
+        diffY = 0;
+      }
+
+      const overflowBottom = window.innerHeight - offsetHeight;
+      if (diffY > overflowBottom) {
+        diffY = overflowBottom;
+      }
+
+      style.position = 'absolute';
+      style.left = `${diffX}px`;
+      style.top = `${diffY}px`;
+      style.margin = 'unset';
+    };
+
+    const onDialogMoveEnd = () => {
+      dialog.current.style.cursor = 'default';
+      document.removeEventListener('mousemove', onDialogMove);
+      document.removeEventListener('mouseup', onDialogMoveEnd);
+    };
+
+    const onDialogMoveStart = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (canDraggable) {
+        const { offsetLeft, offsetTop } = dialog.current;
+        dialog.current.style.cursor = 'move';
+        const diffX = e.clientX - offsetLeft;
+        const diffY = e.clientY - offsetTop;
+        dialogOffset = {
+          x: diffX,
+          y: diffY,
+        };
+
+        document.addEventListener('mousemove', onDialogMove);
+        document.addEventListener('mouseup', onDialogMoveEnd);
+      }
+    };
+
     const dialogElement = (
-      <div style={style} className={`${prefixCls}${` ${prefixCls}--default`} ${classNames}`}>
+      <div
+        ref={dialog}
+        style={style}
+        className={`${prefixCls}${` ${prefixCls}--default`} ${classNames}`}
+        onKeyDown={onKeyDown}
+        onMouseDown={onDialogMoveStart}
+      >
+        <div
+          tabIndex={0}
+          ref={focusNode}
+          style={{ width: 0, height: 0, overflow: 'hidden', outline: 'none' }}
+          aria-hidden="true"
+        />
         {closer}
         {header}
         {body}
@@ -162,8 +229,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       <div
         ref={wrap}
         style={wrapStyle}
-        onKeyDown={onKeyDown}
         tabIndex={-1}
+        onKeyDown={onKeyDown}
         className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}
       >
         {mode === 'modal' && renderMask()}

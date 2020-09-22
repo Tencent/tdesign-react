@@ -95,6 +95,11 @@ export interface DialogProps {
    */
   zIndex?: number;
   /**
+   * 是否可以拖拽（模态框下）
+   * @default false
+   */
+  draggable?: boolean;
+  /**
    * 按下Esc
    * @default () => void
    */
@@ -115,7 +120,12 @@ export interface DialogProps {
    */
   onClickConfirm?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
-   * 关闭触发事件
+   * 关闭对话框
+   * @default () => void
+   */
+  onClose?: (e?: SyntheticEvent<HTMLElement>) => void;
+  /**
+   * 关闭后要执行的事情
    * @default () => void
    */
   onClosed?: (e?: SyntheticEvent<HTMLElement>) => void;
@@ -142,13 +152,13 @@ const Dialog: React.FC<DialogProps> = (props) => {
   const {
     attach: getContainer = 'body',
     closeBtn,
-    onClickCloseBtn,
     footer,
     loading,
     onClickCancel,
     onClickConfirm,
     cancelContent = '取消',
     confirmContent = '确定',
+    onClose,
     ...restProps
   } = props;
 
@@ -161,15 +171,11 @@ const Dialog: React.FC<DialogProps> = (props) => {
   }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClickCancel) {
-      onClickCancel(e);
-    }
+    (onClickCancel || onClose)(e);
   };
 
   const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClickConfirm) {
-      onClickConfirm(e);
-    }
+    (onClickConfirm || onClose)(e);
   };
 
   const defaultFooter = () => {
@@ -221,7 +227,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
       closeBtn={closeIcon}
       header={header}
       classPrefix={classPrefix}
-      onClose={onClickCloseBtn || handleCancel}
+      onClose={onClose}
       footer={footer === undefined ? defaultFooter() : footer}
     />
   );
@@ -235,6 +241,7 @@ Dialog.defaultProps = {
   mode: 'modal',
   showOverlay: true,
   destroyOnClose: false,
+  draggable: true,
 };
 
 export default Dialog;

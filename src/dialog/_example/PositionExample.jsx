@@ -44,9 +44,7 @@ export default function PositionExample() {
         zIndex={2000}
         placement={placement}
         offset={offset}
-        onClickCancel={handleClose}
-        onClickConfirm={handleClose}
-        onClickCloseBtn={handleClose}
+        onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');
         }}
