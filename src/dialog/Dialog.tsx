@@ -110,12 +110,12 @@ export interface DialogProps {
    */
   onClickCloseBtn?: (e: React.MouseEvent<HTMLElement>) => void;
   /**
-   * 点击关闭按钮
+   * 点击取消按钮
    * @default (e: React.MouseEvent<HTMLButtonElement>) => void
    */
   onClickCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
-   * 点击关闭按钮
+   * 点击确认按钮
    * @default (e: React.MouseEvent<HTMLButtonElement>) => void
    */
   onClickConfirm?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -130,7 +130,7 @@ export interface DialogProps {
    */
   onClosed?: (e?: SyntheticEvent<HTMLElement>) => void;
   /**
-   * 打开触发事件
+   * 打开后触发事件
    * @default () => void
    */
   onOpened?: () => void;
