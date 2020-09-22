@@ -32,8 +32,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         document.body.style.overflow = 'hidden';
       }
       console.log('121312');
-      if (wrap.current) {
-        wrap.current.focus();
+      if (focusNode.current) {
+        focusNode.current.focus();
       }
     }
   }, [getContainer, visible, mode, isModal]);
@@ -51,10 +51,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     isModal && (document.body.style.overflow = bodyOverflow.current);
     if (!isModal) {
       const { style } = dialog.current;
-      style.position = 'relative';
-      style.left = 'unset';
-      style.top = 'unset';
-      style.margin = 'unset';
+      style.left = '50%';
+      style.top = '50%';
     }
     onClosed && onClosed(null);
   };
@@ -107,30 +105,28 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const style = { ...dest, ...props.style };
     let dialogOffset = { x: 0, y: 0 };
     const onDialogMove = (e: MouseEvent) => {
-      const { style, offsetWidth, offsetHeight } = dialog.current;
+      const { style, offsetWidth, offsetHeight, clientHeight, clientWidth } = dialog.current;
       let diffX = e.clientX - dialogOffset.x;
       let diffY = e.clientY - dialogOffset.y;
-      if (diffX < 0) {
-        diffX = 0;
+      if (diffX < clientWidth / 2) {
+        diffX = clientWidth / 2;
       }
 
-      if (diffX > window.innerWidth - offsetWidth) {
-        diffX = window.innerWidth - offsetWidth;
+      const halfWidth = clientWidth / 2;
+      const halfHeight = clientHeight / 2;
+      if (diffX > window.innerWidth - offsetWidth + halfWidth) {
+        diffX = window.innerWidth - offsetWidth + halfWidth;
       }
 
-      if (diffY < 0) {
-        diffY = 0;
+      if (diffY < clientHeight / 2) {
+        diffY = clientHeight / 2;
       }
 
-      const overflowBottom = window.innerHeight - offsetHeight;
-      if (diffY > overflowBottom) {
-        diffY = overflowBottom;
+      if (diffY > window.innerHeight - offsetHeight + halfHeight) {
+        diffY = window.innerHeight - offsetHeight + halfHeight;
       }
-
-      style.position = 'absolute';
       style.left = `${diffX}px`;
       style.top = `${diffY}px`;
-      style.margin = 'unset';
     };
 
     const onDialogMoveEnd = () => {
