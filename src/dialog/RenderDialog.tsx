@@ -110,7 +110,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       let diffX = e.clientX - dialogOffset.x;
       let diffY = e.clientY - dialogOffset.y;
 
-      console.log(diffX);
       if (diffX < 0) {
         diffX = 0;
       }
