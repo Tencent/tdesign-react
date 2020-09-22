@@ -31,7 +31,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       if (isModal && bodyOverflow.current !== 'hidden') {
         document.body.style.overflow = 'hidden';
       }
-      console.log('121312');
       if (focusNode.current) {
         focusNode.current.focus();
       }
