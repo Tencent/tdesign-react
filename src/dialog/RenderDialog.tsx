@@ -21,7 +21,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const { prefixCls, getContainer, visible, mode, zIndex, showOverlay, onKeydownEsc, classPrefix, onClosed } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
-  const focusNode = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'not-modal';
@@ -31,8 +30,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       if (isModal && bodyOverflow.current !== 'hidden') {
         document.body.style.overflow = 'hidden';
       }
-      if (focusNode.current) {
-        focusNode.current.focus();
+      if (wrap.current) {
+        wrap.current.focus();
       }
     }
   }, [getContainer, visible, mode, isModal]);
@@ -50,8 +49,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     isModal && (document.body.style.overflow = bodyOverflow.current);
     if (!isModal) {
       const { style } = dialog.current;
-      style.left = '50%';
+      style.left = '0px';
       style.top = '50%';
+      style.margin = 'auto';
     }
     onClosed && onClosed(null);
   };
@@ -104,21 +104,22 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const style = { ...dest, ...props.style };
     let dialogOffset = { x: 0, y: 0 };
     const onDialogMove = (e: MouseEvent) => {
-      const { style, offsetWidth, offsetHeight, clientHeight, clientWidth } = dialog.current;
+      const { style, offsetWidth, offsetHeight, clientHeight } = dialog.current;
+      const halfHeight = clientHeight / 2;
+
       let diffX = e.clientX - dialogOffset.x;
       let diffY = e.clientY - dialogOffset.y;
-      if (diffX < clientWidth / 2) {
-        diffX = clientWidth / 2;
+
+      console.log(diffX);
+      if (diffX < 0) {
+        diffX = 0;
+      }
+      if (diffX > window.innerWidth - offsetWidth) {
+        diffX = window.innerWidth - offsetWidth;
       }
 
-      const halfWidth = clientWidth / 2;
-      const halfHeight = clientHeight / 2;
-      if (diffX > window.innerWidth - offsetWidth + halfWidth) {
-        diffX = window.innerWidth - offsetWidth + halfWidth;
-      }
-
-      if (diffY < clientHeight / 2) {
-        diffY = clientHeight / 2;
+      if (diffY < halfHeight) {
+        diffY = halfHeight;
       }
 
       if (diffY > window.innerHeight - offsetHeight + halfHeight) {
@@ -126,6 +127,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       }
       style.left = `${diffX}px`;
       style.top = `${diffY}px`;
+      style.margin = 'unset';
     };
 
     const onDialogMoveEnd = () => {
@@ -157,12 +159,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         className={`${prefixCls}${` ${prefixCls}--default`} ${classNames}`}
         onMouseDown={onDialogMoveStart}
       >
-        <div
-          tabIndex={0}
-          ref={focusNode}
-          style={{ width: 0, height: 0, overflow: 'hidden', outline: 'none' }}
-          aria-hidden="true"
-        />
         {closer}
         {header}
         {body}
