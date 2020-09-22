@@ -13,6 +13,7 @@ import React, {
 import { usePopper } from 'react-popper';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
+import usePrevious from '../_util/usePrevious';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
@@ -86,11 +87,12 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
   } = props;
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useState(props.visible || false);
+  const preVisible = usePrevious(visible);
 
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
-  const { styles, attributes } = usePopper(triggerRef, overlayRef, {
+  const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement,
   });
 
@@ -147,6 +149,13 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
   if (!visible && destroyOnHide) {
     $portal = null;
   }
+
+  // 弹出框展示的时候，重新计算一下位置
+  useEffect(() => {
+    if (visible !== preVisible && visible && update) {
+      update();
+    }
+  }, [visible, preVisible, update]);
 
   return (
     <>
