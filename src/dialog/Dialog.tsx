@@ -56,12 +56,12 @@ export interface DialogProps {
   footer?: React.ReactNode;
   /**
    * 取消按钮的展示内容
-   * @default -
+   * @default 取消
    */
   cancelContent?: boolean | React.ReactNode;
   /**
    * 确认按钮的展示内容
-   * @default -
+   * @default 确定
    */
   confirmContent?: React.ReactNode;
   /**
