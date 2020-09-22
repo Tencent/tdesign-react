@@ -49,6 +49,13 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
     // 还原body的滚动条
     isModal && (document.body.style.overflow = bodyOverflow.current);
+    if (!isModal) {
+      const { style } = dialog.current;
+      style.position = 'relative';
+      style.left = 'unset';
+      style.top = 'unset';
+      style.margin = 'unset';
+    }
     onClosed && onClosed(null);
   };
 
@@ -153,7 +160,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         ref={dialog}
         style={style}
         className={`${prefixCls}${` ${prefixCls}--default`} ${classNames}`}
-        onKeyDown={onKeyDown}
         onMouseDown={onDialogMoveStart}
       >
         <div
