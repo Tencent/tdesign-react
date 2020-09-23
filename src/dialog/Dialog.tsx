@@ -85,6 +85,11 @@ export interface DialogProps {
    */
   showOverlay?: boolean;
   /**
+   * 是否防止滚动穿透
+   * @default true
+   */
+  preventScrollThrough?: boolean;
+  /**
    * 挂载点
    * @default body
    */
@@ -242,6 +247,7 @@ Dialog.defaultProps = {
   showOverlay: true,
   destroyOnClose: false,
   draggable: true,
+  preventScrollThrough: true,
 };
 
 export default Dialog;

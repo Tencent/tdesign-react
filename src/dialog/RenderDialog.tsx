@@ -18,7 +18,18 @@ export interface RenderDialogProps extends DialogProps {
 
 const transitionTime = 300;
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
-  const { prefixCls, getContainer, visible, mode, zIndex, showOverlay, onKeydownEsc, classPrefix, onClosed } = props;
+  const {
+    prefixCls,
+    getContainer,
+    visible,
+    mode,
+    zIndex,
+    showOverlay,
+    onKeydownEsc,
+    classPrefix,
+    onClosed,
+    preventScrollThrough,
+  } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
@@ -27,14 +38,14 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
   useLayoutEffect(() => {
     if (visible) {
-      if (isModal && bodyOverflow.current !== 'hidden') {
+      if (isModal && bodyOverflow.current !== 'hidden' && preventScrollThrough) {
         document.body.style.overflow = 'hidden';
       }
       if (wrap.current) {
         wrap.current.focus();
       }
     }
-  }, [getContainer, visible, mode, isModal]);
+  }, [preventScrollThrough, getContainer, visible, mode, isModal]);
 
   const close = (e: any) => {
     const { onClose } = props;
@@ -45,13 +56,14 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (wrap.current) {
       wrap.current.style.display = 'none';
     }
-    // 还原body的滚动条
-    isModal && (document.body.style.overflow = bodyOverflow.current);
+    if (isModal && preventScrollThrough) {
+      // 还原body的滚动条
+      isModal && (document.body.style.overflow = bodyOverflow.current);
+    }
     if (!isModal) {
       const { style } = dialog.current;
-      style.left = '0px';
+      style.left = '50%';
       style.top = '50%';
-      style.margin = 'auto';
     }
     onClosed && onClosed(null);
   };
@@ -104,17 +116,18 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const style = { ...dest, ...props.style };
     let dialogOffset = { x: 0, y: 0 };
     const onDialogMove = (e: MouseEvent) => {
-      const { style, offsetWidth, offsetHeight, clientHeight } = dialog.current;
+      const { style, offsetWidth, offsetHeight, clientHeight, clientWidth } = dialog.current;
       const halfHeight = clientHeight / 2;
+      const halfWidth = clientWidth / 2;
 
       let diffX = e.clientX - dialogOffset.x;
       let diffY = e.clientY - dialogOffset.y;
 
-      if (diffX < 0) {
-        diffX = 0;
+      if (diffX < halfWidth) {
+        diffX = halfWidth;
       }
-      if (diffX > window.innerWidth - offsetWidth) {
-        diffX = window.innerWidth - offsetWidth;
+      if (diffX > window.innerWidth - offsetWidth + halfWidth) {
+        diffX = window.innerWidth - offsetWidth + halfWidth;
       }
 
       if (diffY < halfHeight) {
@@ -126,7 +139,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       }
       style.left = `${diffX}px`;
       style.top = `${diffY}px`;
-      style.margin = 'unset';
     };
 
     const onDialogMoveEnd = () => {
@@ -182,14 +194,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     );
   };
 
-  const getZIndex = () => {
-    const style: CSSProperties = {};
-    if (zIndex !== undefined) {
-      style.zIndex = zIndex;
-    }
-    return style;
-  };
-
   const renderMask = () => {
     let maskElement;
     if (showOverlay) {
@@ -211,7 +215,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   const render = () => {
-    const style = getZIndex();
+    const style: CSSProperties = {};
     if (visible) {
       style.display = 'flex';
     }
