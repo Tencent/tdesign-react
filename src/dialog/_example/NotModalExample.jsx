@@ -19,9 +19,7 @@ export default function NotModalExample() {
         mode="not-modal"
         header="非模态框"
         visible={visible}
-        onClickCancel={handleClose}
-        onClickConfirm={handleClose}
-        onClickCloseBtn={handleClose}
+        onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');
         }}

@@ -29,8 +29,8 @@ export default function PositionExample() {
             setVisible(true);
             setPlacement('center');
             setOffset({
-              top: '30%',
-              left: '20%',
+              top: '100px',
+              left: '100px',
             });
           }}
         >
@@ -44,9 +44,7 @@ export default function PositionExample() {
         zIndex={2000}
         placement={placement}
         offset={offset}
-        onClickCancel={handleClose}
-        onClickConfirm={handleClose}
-        onClickCloseBtn={handleClose}
+        onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');
         }}
