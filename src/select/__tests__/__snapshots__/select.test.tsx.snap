@@ -23,9 +23,6 @@ exports[`FilterableSelect.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -56,9 +53,6 @@ exports[`LabelInValueSelect.jsx 1`] = `
           />
         </svg>
       </div>
-      <span
-        class="t-trigger"
-      />
     </div>
     <div
       style="width: 40%; margin-left: 10%;"
@@ -87,9 +81,6 @@ exports[`LabelInValueSelect.jsx 1`] = `
           />
         </svg>
       </div>
-      <span
-        class="t-trigger"
-      />
     </div>
   </div>
 </DocumentFragment>
@@ -124,9 +115,6 @@ exports[`MultipleSelect.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -154,9 +142,6 @@ exports[`OptionGroupSelect.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -191,9 +176,6 @@ exports[`PrefixIconSelect.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -221,9 +203,6 @@ exports[`RemoteSearchSelect.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -260,9 +239,6 @@ exports[`SelectSizes.jsx 1`] = `
             />
           </svg>
         </div>
-        <span
-          class="t-trigger"
-        />
       </div>
     </div>
     <div
@@ -294,9 +270,6 @@ exports[`SelectSizes.jsx 1`] = `
             />
           </svg>
         </div>
-        <span
-          class="t-trigger"
-        />
       </div>
     </div>
     <div
@@ -328,9 +301,6 @@ exports[`SelectSizes.jsx 1`] = `
             />
           </svg>
         </div>
-        <span
-          class="t-trigger"
-        />
       </div>
     </div>
   </div>
@@ -360,9 +330,6 @@ exports[`SelectWithOptions.jsx 1`] = `
         />
       </svg>
     </div>
-    <span
-      class="t-trigger"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -393,9 +360,6 @@ exports[`SelectWithRef.jsx 1`] = `
           />
         </svg>
       </div>
-      <span
-        class="t-trigger"
-      />
     </div>
     <button
       class="t-button t-button--line"
@@ -433,9 +397,6 @@ exports[`SingleSelect.jsx 1`] = `
           />
         </svg>
       </div>
-      <span
-        class="t-trigger"
-      />
     </div>
     <div
       style="width: 40%; margin-left: 10%;"
@@ -458,9 +419,6 @@ exports[`SingleSelect.jsx 1`] = `
           />
         </svg>
       </div>
-      <span
-        class="t-trigger"
-      />
     </div>
   </div>
 </DocumentFragment>
