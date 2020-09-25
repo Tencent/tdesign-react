@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import types from '../util/types';
-import { SelectOption } from '../SelectProps';
+import { SelectOption, LabeledValue } from '../SelectProps';
 
 const Option = (props: SelectOption) => {
   const { classPrefix } = useConfig();
@@ -16,7 +16,7 @@ const Option = (props: SelectOption) => {
       if (types.isNumber(item) || types.isString(item)) {
         return item === value;
       }
-      return item.value === value;
+      return (item as LabeledValue).value === value;
     });
   }
 
