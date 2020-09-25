@@ -90,7 +90,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         {...restProps}
         type="button"
         role="switch"
-        disabled={disabled}
+        disabled={disabled || loading}
         className={switchClassName}
         ref={ref}
         onClick={onInternalClick}
