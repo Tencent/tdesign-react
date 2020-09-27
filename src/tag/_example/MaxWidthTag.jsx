@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from '@tdesign/react';
+import { Tag } from '@tencent/tdesign-react';
 
 export default function MaxWidthExample() {
   const style = { marginRight: 5, marginBottom: 10 };

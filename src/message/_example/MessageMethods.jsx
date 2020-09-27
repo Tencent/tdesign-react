@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Message } from '@tdesign/react';
+import { Button, Message } from '@tencent/tdesign-react';
 
 const ThemeList = ['info', 'success', 'warning', 'error', 'question', 'loading'];
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message } from '@tdesign/react';
+import { Message } from '@tencent/tdesign-react';
 
 export default function () {
   return (

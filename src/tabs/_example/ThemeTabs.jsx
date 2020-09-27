@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Button } from '@tdesign/react';
+import { Tabs, Button } from '@tencent/tdesign-react';
 import TabPanel from '../TabPanel';
 
 export default function ThemeTabs() {

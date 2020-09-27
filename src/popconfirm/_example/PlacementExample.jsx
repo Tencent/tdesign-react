@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function PlacementExample() {
@@ -7,9 +7,10 @@ export default function PlacementExample() {
   return (
     <>
       <PopConfirm content={$content} placement="left">
-        <Button style={{ marginLeft: 8 }} theme="primary">Left</Button>
+        <Button style={{ marginLeft: 8 }} theme="primary">
+          Left
+        </Button>
       </PopConfirm>
-
 
       <PopConfirm content={$content} placement="top">
         <Button style={{ marginLeft: 8 }}>Top</Button>
