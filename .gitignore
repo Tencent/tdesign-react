@@ -8,3 +8,6 @@ test/scripts/cypress/support
 results/
 site/dist
 .idea
+es
+lib
+dist

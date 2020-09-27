@@ -49,7 +49,11 @@ exports[`AddTabs.jsx 1`] = `
         <div
           class="t-tab-panel"
         >
-          1
+          <div
+            style="margin: 20px;"
+          >
+            1
+          </div>
         </div>
       </div>
     </div>
@@ -106,7 +110,9 @@ exports[`BasicTabs.jsx 1`] = `
         <div
           class="t-tab-panel"
         >
-          <div>
+          <div
+            style="margin: 20px;"
+          >
             a
           </div>
         </div>
@@ -176,117 +182,10 @@ exports[`CloseableTabs.jsx 1`] = `
         <div
           class="t-tab-panel"
         >
-          1
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`PositionExamples.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--line"
-    >
-      top
-    </button>
-    <button
-      class="t-button t-button--line"
-    >
-      bottom
-    </button>
-    <button
-      class="t-button t-button--line"
-    >
-      left
-    </button>
-    <button
-      class="t-button t-button--line"
-    >
-      right
-    </button>
-    <div
-      class="t-tabs"
-    >
-      <div
-        class="t-tabs__header t-is-top"
-      >
-        <div
-          class="t-tabs__nav"
-        >
           <div
-            class="t-tabs__nav-container t-is-top t-is-addable"
+            style="margin: 20px;"
           >
-            <div
-              class="t-tabs__nav-scroll"
-            >
-              <div
-                class="t-tabs__nav-wrap"
-                style="transform: translateX(0px);"
-              >
-                <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__nav-item t-is-active t-size-m"
-                >
-                  1
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  <div>
-                    2
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  3
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  4
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  <div>
-                    5
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  <div>
-                    6
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m"
-                >
-                  <div>
-                    7
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-tabs__content"
-      >
-        <div
-          class="t-tab-panel"
-          style="display: block;"
-        >
-          <div>
-            这是一个Tabs
+            1
           </div>
         </div>
       </div>
@@ -396,7 +295,9 @@ exports[`PositionTabs.jsx 1`] = `
           class="t-tab-panel"
           style="display: block;"
         >
-          <div>
+          <div
+            style="margin: 20px;"
+          >
             这是一个Tabs
           </div>
         </div>
@@ -448,12 +349,12 @@ exports[`SizeTabs.jsx 1`] = `
                   style="transform: translateX(0px);"
                 />
                 <div
-                  class="t-tabs__nav-item t-is-active"
+                  class="t-tabs__nav-item t-is-active t-size-m"
                 >
                   1
                 </div>
                 <div
-                  class="t-tabs__nav-item"
+                  class="t-tabs__nav-item t-size-m"
                 >
                   <div>
                     2
@@ -471,7 +372,9 @@ exports[`SizeTabs.jsx 1`] = `
           class="t-tab-panel"
           style="display: block;"
         >
-          <div>
+          <div
+            style="margin: 20px;"
+          >
             这是一个Tabs
           </div>
         </div>
@@ -540,7 +443,9 @@ exports[`ThemeTabs.jsx 1`] = `
         <div
           class="t-tab-panel"
         >
-          <div>
+          <div
+            style="margin: 20px;"
+          >
             这是一个Tabs
           </div>
         </div>
