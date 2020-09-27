@@ -9,7 +9,6 @@ export default function ButtonExample() {
         primary
       </Button>
       <Button icon="search" />
-      <Button theme="primary" icon="search" />
     </>
   );
 }
