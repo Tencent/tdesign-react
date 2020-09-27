@@ -11,7 +11,6 @@ describe('Alert 组件测试', () => {
 
   test('Alert 主题图标显示', () => {
     const props = {
-      classPrefix: 't',
       message: text,
     };
     const { asFragment } = render(<Alert {...props} theme="error" />);
