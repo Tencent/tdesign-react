@@ -13,7 +13,7 @@
     "outDir": ".ts-out",
     "sourceMap": true,
     "paths": {
-      "@tdesign/react": ["./src"],
+      "@tencent/tdesign-react": ["./src"],
       "@test/*": ["./test/*"],
     },
     "allowJs": true,

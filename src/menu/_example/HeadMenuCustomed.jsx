@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HeadMenu, MenuItem } from '@tdesign/react';
+import { HeadMenu, MenuItem } from '@tencent/tdesign-react';
 
 const Logo = () => (
   <img

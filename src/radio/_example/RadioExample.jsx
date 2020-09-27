@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio } from '@tdesign/react';
+import { Radio } from '@tencent/tdesign-react';
 
 export default function RadioExample() {
   const [gender, setGender] = useState('male');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, fireEvent } from '@test/utils';
-import { Pagination } from '@tdesign/react';
+import { Pagination } from '@tencent/tdesign-react';
 
 testExamples(__dirname);
 

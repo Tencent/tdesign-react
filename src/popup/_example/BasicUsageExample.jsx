@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popup } from '@tdesign/react';
+import { Button, Popup } from '@tencent/tdesign-react';
 
 export default function BasicUsage() {
   const $content = (

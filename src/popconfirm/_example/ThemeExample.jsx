@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function ThemeExample() {
@@ -9,11 +9,15 @@ export default function ThemeExample() {
       <PopConfirm content={$content}>
         <Button style={{ marginLeft: 8 }}>默认</Button>
       </PopConfirm>
-      <PopConfirm content={$content} theme="info" >
-        <Button theme="primary" style={{ marginLeft: 8 }}>提示</Button>
+      <PopConfirm content={$content} theme="info">
+        <Button theme="primary" style={{ marginLeft: 8 }}>
+          提示
+        </Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="warning">
-        <Button theme="warning" style={{ marginLeft: 8 }}>警告</Button>
+        <Button theme="warning" style={{ marginLeft: 8 }}>
+          警告
+        </Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="error">
         <Button style={{ marginLeft: 8 }}>错误</Button>

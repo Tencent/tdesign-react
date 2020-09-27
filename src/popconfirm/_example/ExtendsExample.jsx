@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function BasicUsageExample() {
@@ -26,15 +26,14 @@ export default function BasicUsageExample() {
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       >
-        <Button
-          theme="primary"
-          onClick={() => setVisible(true)} style={{ marginLeft: 8 }}>
+        <Button theme="primary" onClick={() => setVisible(true)} style={{ marginLeft: 8 }}>
           点击展示
         </Button>
       </PopConfirm>
       <PopConfirm content={$content} placement="right">
-        <Button
-          theme="primary" style={{ marginLeft: 8 }}>浮层在右边</Button>
+        <Button theme="primary" style={{ marginLeft: 8 }}>
+          浮层在右边
+        </Button>
       </PopConfirm>
     </>
   );
