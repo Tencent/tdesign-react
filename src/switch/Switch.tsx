@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import classNames from 'classnames';
-import { Icon } from '@tdesign/react';
+import { Icon } from '../icon';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';

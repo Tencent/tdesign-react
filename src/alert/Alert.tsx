@@ -1,14 +1,15 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import { StyledProps } from '../_type';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { CloseIcon, PromptFillIcon, SuccessFillIcon, WarningFillIcon } from '../icon';
 
-export interface AlertProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+export interface AlertProps extends StyledProps {
   /**
    * 告警主要内容
    */
-  message: React.ReactNode;
+  message: React.ReactNode[];
 
   /**
    * 告警内容主题
@@ -48,6 +49,12 @@ export interface AlertProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
    * @default () => true
    */
   beforeClose?: (resolve) => void;
+
+  /**
+   * 点击关闭时回调
+   * @default () => true
+   */
+  onClose?: () => void;
 }
 
 const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
