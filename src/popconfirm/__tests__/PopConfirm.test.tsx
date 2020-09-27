@@ -15,12 +15,7 @@ describe('PopConfirm 组件测试', () => {
     const ref = React.createRef<PopConfirmRef>();
 
     const { getByText, queryByTestId, asFragment, queryByText } = render(
-      <PopConfirm
-        placement="top"
-        content={<div data-testid={testId}>{text}</div>}
-        theme="warning"
-        ref={ref}
-      >
+      <PopConfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning" ref={ref}>
         {triggerElement}
       </PopConfirm>,
     );
@@ -118,21 +113,15 @@ describe('PopConfirm 组件测试', () => {
     expect(asFragment4()).toMatchSnapshot();
 
     // theme 生效
-    const { asFragment: asFragment5 } = render(
-      <PopContent {...props} theme="error" icon="success-fill" />,
-    );
+    const { asFragment: asFragment5 } = render(<PopContent {...props} theme="error" icon="success-fill" />);
     expect(asFragment5()).toMatchSnapshot();
 
     // icon 生效
-    const { asFragment: asFragment6 } = render(
-      <PopContent {...props} theme="error" icon={<span>CustomIcon</span>} />,
-    );
+    const { asFragment: asFragment6 } = render(<PopContent {...props} theme="error" icon={<span>CustomIcon</span>} />);
     expect(asFragment6()).toMatchSnapshot();
 
     // icon 生效
-    const { asFragment: asFragment7 } = render(
-      <PopContent {...props} theme="default" icon="success-fill" />,
-    );
+    const { asFragment: asFragment7 } = render(<PopContent {...props} theme="default" icon="success-fill" />);
     expect(asFragment7()).toMatchSnapshot();
 
     // icon 生效
@@ -141,9 +130,7 @@ describe('PopConfirm 组件测试', () => {
 
     // icon 生效
     const CustomIcon = () => <span>CustomIcon</span>;
-    const { asFragment: asFragment9 } = render(
-      <PopContent {...props} theme="error" icon={CustomIcon} />,
-    );
+    const { asFragment: asFragment9 } = render(<PopContent {...props} theme="error" icon={CustomIcon} />);
     expect(asFragment9()).toMatchSnapshot();
   });
 

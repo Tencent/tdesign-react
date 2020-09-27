@@ -105,18 +105,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-prompt_fill"
           style="color: rgb(255, 62, 0);"
         >
-          <svg
-            class="t-icon t-icon-prompt_fill"
-          >
-            <use
-              xlink:href="#t-icon-prompt_fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -150,18 +146,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-prompt_fill"
           style="color: rgb(255, 170, 0);"
         >
-          <svg
-            class="t-icon t-icon-prompt_fill"
-          >
-            <use
-              xlink:href="#t-icon-prompt_fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -195,18 +187,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-prompt_fill"
           style="color: rgb(0, 82, 217);"
         >
-          <svg
-            class="t-icon t-icon-prompt_fill"
-          >
-            <use
-              xlink:href="#t-icon-prompt_fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-prompt_fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -273,18 +261,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-success-fill"
           style="color: rgb(255, 62, 0);"
         >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -358,18 +342,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-success-fill"
           style="color: rgb(0, 82, 217);"
         >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -403,18 +383,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       <div
         class="t-popconfirm__body"
       >
-        <span
-          class="t-icon t-icon-middle"
+        <svg
+          class="t-icon t-icon-success-fill"
           style="color: rgb(0, 82, 217);"
         >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </span>
+          <use
+            xlink:href="#t-icon-success-fill"
+          />
+        </svg>
         <div
           class="t-popconfirm__inner"
         >
@@ -493,18 +469,14 @@ exports[`PopConfirm 组件测试 hover 触发测试 2`] = `
     <div
       class="t-popconfirm__body"
     >
-      <span
-        class="t-icon t-icon-middle"
+      <svg
+        class="t-icon t-icon-prompt_fill"
         style="color: rgb(255, 170, 0);"
       >
-        <svg
-          class="t-icon t-icon-prompt_fill"
-        >
-          <use
-            xlink:href="#t-icon-prompt_fill"
-          />
-        </svg>
-      </span>
+        <use
+          xlink:href="#t-icon-prompt_fill"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >

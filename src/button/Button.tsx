@@ -12,15 +12,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * 按钮类型
    * @default 'line'
    */
-  theme?:
-    | 'line'
-    | 'primary'
-    | 'dashed'
-    | 'warning'
-    | 'warning-line'
-    | 'link'
-    | 'ghost'
-    | 'ghost-line';
+  theme?: 'line' | 'primary' | 'dashed' | 'warning' | 'warning-line' | 'link' | 'ghost' | 'ghost-line';
 
   /**
    * 按钮是否为禁用状态
