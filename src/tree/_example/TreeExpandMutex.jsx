@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Tree from '../Tree';
 
 export default function TreeExample() {
@@ -34,7 +34,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data} checkable={true} />
+      <Tree data={data} expandMutex={true} />
     </>
   );
 }

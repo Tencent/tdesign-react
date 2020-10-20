@@ -1,5 +1,12 @@
-﻿import React from 'react';
+import React from 'react';
 import Tree from '../Tree';
+
+const filter = (value, data) => {
+  if (value || value.length < 0) {
+    return true;
+  }
+  return data.label.indexOf(value) !== 1;
+};
 
 export default function TreeExample() {
   const data = [
@@ -34,7 +41,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data} checkable={true} />
+      <Tree data={data} filter={filter} />
     </>
   );
 }
