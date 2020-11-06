@@ -8,16 +8,26 @@ import { Icon } from '../icon';
  */
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /**
-   * 是否为禁用状态
-   * @default false
+   * 输入框的值
    */
-  disabled?: boolean;
+  value?: string;
+
+  /**
+   * 输入框的默认值
+   */
+  defaultValue?: string;
 
   /**
    * 大小
    * @default 'default'
    */
   size?: 'large' | 'default' | 'small';
+  
+  /**
+   * 是否为禁用状态
+   * @default false
+   */
+  disabled?: boolean;
 
   /**
    * 状态
