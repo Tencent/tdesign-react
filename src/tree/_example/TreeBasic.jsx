@@ -57,7 +57,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data}></Tree>
+      <Tree data={data} expandKeys={['1', '1-2']} expandLevel={1}></Tree>
     </>
   );
 }

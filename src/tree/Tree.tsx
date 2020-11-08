@@ -4,7 +4,7 @@ import React, { forwardRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TreeProps } from './TreeProps';
-import TreeNode from './TreeNode';
+import generateTree from './TreeGenerator';
 
 /**
  * 树组件
@@ -43,50 +43,16 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
 
   const { classPrefix } = useConfig();
 
-  const [expendState, setExpendState] = useState(true);
   const [treeNodes, setTreeNodes] = useState([]);
 
   // componentDidMount
   useEffect(() => {
-    console.log('data:', data);
-    const renderTreeNodes = [];
-    renderTree(data, renderTreeNodes);
-    setTreeNodes(renderTreeNodes);
+    const generateTreeNodes = [];
+    generateTree('basic', data, generateTreeNodes, expandKeys, expandLevel);
+    setTreeNodes(generateTreeNodes);
   }, []);
 
-  // 初始化渲染
-  const renderTree = (data, arr) => {
-    data.forEach((item, index) => {
-      const { value, children, label, parent } = item;
-      // 内部自定义节点id
-      if (!parent) {
-        // 0层节点
-        item.id = `${index}`;
-      } else {
-        // 其他节点
-        item.id = `${parent}-${index}`;
-      }
-      arr.push(
-        <TreeNode
-          value={item.id}
-          children={children}
-          parent={parent}
-          label={label}
-          key={item.id}
-          expand={expendState}
-        />,
-      );
-      // 当前节点具有子节点
-      if (Array.isArray(children) && children.length > 0) {
-        children.forEach((childItem) => {
-          childItem.parent = item.id;
-        });
-        renderTree(children, arr);
-      }
-    });
-  };
-
-  console.log('treeNodes:', treeNodes);
+  // console.log('treeNodes:', treeNodes);
 
   return (
     <div ref={ref} className={classNames(`${classPrefix}-tree`, {})}>
