@@ -1,0 +1,1424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlignGrid.jsx 1`] = `
+<DocumentFragment>
+  <p>
+    align top
+  </p>
+  <div
+    class="t-row t-row-center t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    Align Middle
+  </p>
+  <div
+    class="t-row t-row-space-around t-row-middle"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    Align Bottom
+  </p>
+  <div
+    class="t-row t-row-space-between t-row-bottom"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 80px;"
+      >
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div
+        style="height: 40px;"
+      >
+        col-4
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BasicGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+    <div
+      class="t-col t-col-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        6
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        8
+      </div>
+    </div>
+    <div
+      class="t-col t-col-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        8
+      </div>
+    </div>
+    <div
+      class="t-col t-col-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        8
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-12"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        12
+      </div>
+    </div>
+    <div
+      class="t-col t-col-12"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        12
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-24"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        24
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DisplayGrid.jsx 1`] = `
+<DocumentFragment>
+  <p>
+    align left
+  </p>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    align center
+  </p>
+  <div
+    class="t-row t-row-center t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    align right
+  </p>
+  <div
+    class="t-row t-row-end t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    space-between
+  </p>
+  <div
+    class="t-row t-row-space-between t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+  </div>
+  <p>
+    space-around
+  </p>
+  <div
+    class="t-row t-row-space-around t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-4
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`FlexGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 2 2 auto;"
+    >
+      <div>
+        2 / 5
+      </div>
+    </div>
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 3 3 auto;"
+    >
+      <div>
+        3 / 5
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 0 0 100px;"
+    >
+      <div>
+        100px
+      </div>
+    </div>
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex-basis: auto;"
+    >
+      <div>
+        Fill Rest
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 1 1 200px;"
+    >
+      <div>
+        1 1 200px
+      </div>
+    </div>
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 0 1 300px;"
+    >
+      <div>
+        0 1 300px
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex: 0 0 auto;"
+    >
+      <div
+        style="padding: 0px 16px;"
+      >
+        none
+      </div>
+    </div>
+    <div
+      class="t-col"
+      gutter="0"
+      style="padding: 0px 0px; flex-basis: auto;"
+    >
+      <div>
+        auto with no-wrap
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`OffsetGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-8
+      </div>
+    </div>
+    <div
+      class="t-col t-col-8 t-col-offset-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-8
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-6 t-col-offset-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-6 col-offset-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-offset-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-6 col-offset-6
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-12 t-col-offset-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-12 col-offset-6
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`OrderGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-6 t-col-order-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1 col-order-4
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-order-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2 col-order-3
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-order-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3 col-order-2
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-order-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4 col-order-1
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-6 t-col-xs-order-1 t-col-sm-order-2 t-col-md-order-3 t-col-lg-order-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        1 col-order-responsive
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-xs-order-2 t-col-sm-order-1 t-col-md-order-4 t-col-lg-order-3"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        2 col-order-responsive
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-xs-order-3 t-col-sm-order-4 t-col-md-order-2 t-col-lg-order-1"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        3 col-order-responsive
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-xs-order-4 t-col-sm-order-3 t-col-md-order-1 t-col-lg-order-2"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        4 col-order-responsive
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ResponseGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-xs-2 t-col-sm-4 t-col-md-6 t-col-lg-8 t-col-xl-10"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        Col
+      </div>
+    </div>
+    <div
+      class="t-col t-col-xs-20 t-col-sm-16 t-col-md-12 t-col-lg-8 t-col-xl-4"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        Col
+      </div>
+    </div>
+    <div
+      class="t-col t-col-xs-2 t-col-sm-4 t-col-md-6 t-col-lg-8 t-col-xl-10"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        Col
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpaceGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -8px;"
+  >
+    <div
+      class="t-col t-col-6"
+      gutter="16"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -12px;"
+  >
+    <div
+      class="t-col t-col-6"
+      gutter="[object Object]"
+      style="padding: 0px 12px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="[object Object]"
+      style="padding: 0px 12px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="[object Object]"
+      style="padding: 0px 12px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="[object Object]"
+      style="padding: 0px 12px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -8px;"
+  >
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6"
+      gutter="16,24"
+      style="padding: 0px 8px;"
+    >
+      <div>
+        col-6
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

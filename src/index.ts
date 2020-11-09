@@ -20,3 +20,4 @@ export { default as Pagination } from './pagination';
 export { Menu, HeadMenu, MenuItem, SubMenu, MenuItemGroup } from './menu';
 export { default as Dialog } from './dialog';
 export { default as Switch } from './switch';
+export { Col, Row } from './grid';
