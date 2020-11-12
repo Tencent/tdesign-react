@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Steps } from '@tdesign/react';
+import { Steps } from '@tencent/tdesign-react';
 
 const { Step } = Steps;
 

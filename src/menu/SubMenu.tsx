@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState, useRef, Ref, useEffect } from 'react';
 import classNames from 'classnames';
-import { IconFont } from '@tdesign/react';
 import { v4 as uuidv4 } from 'uuid';
+import { IconFont } from '../icon';
 import insertCSS from '../_util/insertCSS';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent } from '@test/utils';
-import { Message } from '@tdesign/react';
+import { Message } from '@tencent/tdesign-react';
 import {
   PromptFillIcon,
   SuccessFillIcon,
@@ -8,7 +8,7 @@ import {
   HelpFillIcon,
   HelpIcon,
   LoadingIcon,
-} from '@tdesign/react/icon';
+} from '@tencent/tdesign-react/icon';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);

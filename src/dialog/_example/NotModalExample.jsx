@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from '@tdesign/react';
+import { Dialog, Button } from '@tencent/tdesign-react';
 
 export default function NotModalExample() {
   const [visible, setVisible] = useState(false);
@@ -19,9 +19,7 @@ export default function NotModalExample() {
         mode="not-modal"
         header="非模态框"
         visible={visible}
-        onClickCancel={handleClose}
-        onClickConfirm={handleClose}
-        onClickCloseBtn={handleClose}
+        onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');
         }}

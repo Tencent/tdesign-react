@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 
 export default function ButtonExample() {
   return (
@@ -9,7 +9,6 @@ export default function ButtonExample() {
         primary
       </Button>
       <Button icon="search" />
-      <Button theme="primary" icon="search" />
     </>
   );
 }

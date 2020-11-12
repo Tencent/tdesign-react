@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AsyncExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open Modal
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BasicUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open Modal
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CustomFooterExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+      style="margin-right: 16px;"
+    >
+      只显示确认按钮
+    </button>
+    <button
+      class="t-button t-button--primary"
+      style="margin-right: 16px;"
+    >
+      自定义按钮内容
+    </button>
+    <button
+      class="t-button t-button--primary"
+      style="margin-right: 16px;"
+    >
+      自定义内容
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NotModalExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open Modal
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PositionExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <button
+        class="t-button t-button--primary"
+        style="margin-right: 16px;"
+      >
+        默认
+      </button>
+      <button
+        class="t-button t-button--primary"
+        style="margin-right: 16px;"
+      >
+        顶部
+      </button>
+      <button
+        class="t-button t-button--primary"
+      >
+        自定义
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { Combine } from 'src/_type';
+import { Combine } from '../_type';
 import useConfig from '../_util/useConfig';
 import { IconFont } from '../icon';
 import noop from '../_util/noop';

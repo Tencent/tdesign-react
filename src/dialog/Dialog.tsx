@@ -56,12 +56,12 @@ export interface DialogProps {
   footer?: React.ReactNode;
   /**
    * 取消按钮的展示内容
-   * @default -
+   * @default 取消
    */
   cancelContent?: boolean | React.ReactNode;
   /**
    * 确认按钮的展示内容
-   * @default -
+   * @default 确定
    */
   confirmContent?: React.ReactNode;
   /**
@@ -85,6 +85,11 @@ export interface DialogProps {
    */
   showOverlay?: boolean;
   /**
+   * 是否防止滚动穿透
+   * @default true
+   */
+  preventScrollThrough?: boolean;
+  /**
    * 挂载点
    * @default body
    */
@@ -94,6 +99,11 @@ export interface DialogProps {
    * @default 2500
    */
   zIndex?: number;
+  /**
+   * 是否可以拖拽（模态框下）
+   * @default false
+   */
+  draggable?: boolean;
   /**
    * 按下Esc
    * @default () => void
@@ -105,22 +115,27 @@ export interface DialogProps {
    */
   onClickCloseBtn?: (e: React.MouseEvent<HTMLElement>) => void;
   /**
-   * 点击关闭按钮
+   * 点击取消按钮
    * @default (e: React.MouseEvent<HTMLButtonElement>) => void
    */
   onClickCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
-   * 点击关闭按钮
+   * 点击确认按钮
    * @default (e: React.MouseEvent<HTMLButtonElement>) => void
    */
   onClickConfirm?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
-   * 关闭触发事件
+   * 关闭对话框
+   * @default () => void
+   */
+  onClose?: (e?: SyntheticEvent<HTMLElement>) => void;
+  /**
+   * 关闭后要执行的事情
    * @default () => void
    */
   onClosed?: (e?: SyntheticEvent<HTMLElement>) => void;
   /**
-   * 打开触发事件
+   * 打开后触发事件
    * @default () => void
    */
   onOpened?: () => void;
@@ -142,13 +157,13 @@ const Dialog: React.FC<DialogProps> = (props) => {
   const {
     attach: getContainer = 'body',
     closeBtn,
-    onClickCloseBtn,
     footer,
     loading,
     onClickCancel,
     onClickConfirm,
     cancelContent = '取消',
     confirmContent = '确定',
+    onClose,
     ...restProps
   } = props;
 
@@ -161,15 +176,11 @@ const Dialog: React.FC<DialogProps> = (props) => {
   }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClickCancel) {
-      onClickCancel(e);
-    }
+    (onClickCancel || onClose)(e);
   };
 
   const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClickConfirm) {
-      onClickConfirm(e);
-    }
+    (onClickConfirm || onClose)(e);
   };
 
   const defaultFooter = () => {
@@ -221,7 +232,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
       closeBtn={closeIcon}
       header={header}
       classPrefix={classPrefix}
-      onClose={onClickCloseBtn || handleCancel}
+      onClose={onClose}
       footer={footer === undefined ? defaultFooter() : footer}
     />
   );
@@ -235,6 +246,8 @@ Dialog.defaultProps = {
   mode: 'modal',
   showOverlay: true,
   destroyOnClose: false,
+  draggable: true,
+  preventScrollThrough: true,
 };
 
 export default Dialog;

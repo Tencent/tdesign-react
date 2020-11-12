@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from '@tdesign/react';
+import { Dialog, Button } from '@tencent/tdesign-react';
 
 export default function PositionExample() {
   const [visible, setVisible] = useState(false);
@@ -29,8 +29,8 @@ export default function PositionExample() {
             setVisible(true);
             setPlacement('center');
             setOffset({
-              top: '30%',
-              left: '20%',
+              top: '100px',
+              left: '100px',
             });
           }}
         >
@@ -44,9 +44,7 @@ export default function PositionExample() {
         zIndex={2000}
         placement={placement}
         offset={offset}
-        onClickCancel={handleClose}
-        onClickConfirm={handleClose}
-        onClickCloseBtn={handleClose}
+        onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');
         }}

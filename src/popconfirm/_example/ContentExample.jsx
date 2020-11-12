@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function ContentExample() {
