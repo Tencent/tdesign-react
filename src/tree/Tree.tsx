@@ -80,7 +80,11 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   }
 
   const onChange = (node: TreeNode) => {
-    // to do...
+    if (disabled || !node || node.disabled ) {
+      return;
+    }
+    node.toggleChecked();
+    updateNodes();
   }
 
   const updateNodes = () => {

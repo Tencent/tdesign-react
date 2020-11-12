@@ -10,7 +10,7 @@ import { TreeItemProps } from './TreeItemProps';
 function renderItemIcon(node: TreeNode) {
   let icon = null;
   // 当前节点是叶子节点，不渲染 icon
-  if (node.children && Array.isArray(node.children) && node.children.length === 0) {
+  if (node.children && Array.isArray(node.children) && node.children.length > 0) {
     // 当前展开且需要加载状态
     if (node.loading && node.expanded) {
       icon = (
@@ -52,13 +52,13 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   }
 
   const onCheckboxChange = () => {
-    onchange && onChange(node);
+    onChange && onChange(node);
   }
 
   const renderItemContent = (classNames: string, node: TreeNode) => {
     if (node.checkable) {
       return (
-        <Checkbox value={node.checked} indeterminate={node.indeterminate} disabled={node.disabled} name={node.value} onChange={onCheckboxChange}>
+        <Checkbox value={node.isChecked()} indeterminate={node.isIndeterminate()} disabled={node.disabled} name={node.value} onChange={onCheckboxChange}>
           {node.label}
         </Checkbox>
       );
