@@ -31,7 +31,7 @@ exports[`DividerWithText.jsx 1`] = `
     <span
       class="t-divider-inner-text"
     >
-      腾讯左
+      TDesign
     </span>
   </div>
   <p>
@@ -43,7 +43,7 @@ exports[`DividerWithText.jsx 1`] = `
     <span
       class="t-divider-inner-text"
     >
-      腾讯中
+      TDesign
     </span>
   </div>
   <p>
@@ -55,7 +55,7 @@ exports[`DividerWithText.jsx 1`] = `
     <span
       class="t-divider-inner-text"
     >
-      腾讯右
+      TDesign
     </span>
   </div>
   <p>
