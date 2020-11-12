@@ -1,0 +1,653 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CurrentDOMModeUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="position: relative; height: 400px; overflow: hidden; text-align: center; background: rgb(250, 250, 250); border: 1px solid #ebedf0; border-radius: 2px;"
+  >
+    <div
+      style="height: 100%; padding: 48px;"
+    >
+      渲染在当前元素中。
+      <div
+        style="margin-top: 16px;"
+      >
+        <div
+          class="t-radio-group t-radio-group-outline t-radio-group-default"
+        >
+          <label
+            class="t-radio-button"
+            name="left"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              left
+            </span>
+          </label>
+          <label
+            class="t-radio-button t-is-checked"
+            name="right"
+          >
+            <input
+              checked=""
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              right
+            </span>
+          </label>
+          <label
+            class="t-radio-button"
+            name="top"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              top
+            </span>
+          </label>
+          <label
+            class="t-radio-button"
+            name="bottom"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              bottom
+            </span>
+          </label>
+        </div>
+        <button
+          class="t-button t-button--primary"
+          style="margin-left: 16px;"
+        >
+          Open
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CurrentDOMUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="position: relative; height: 400px; overflow: hidden; text-align: center; background: rgb(250, 250, 250); border: 1px solid #ebedf0; border-radius: 2px;"
+  >
+    <div
+      style="height: 100%; padding: 48px;"
+    >
+      渲染在当前元素中。
+      <div
+        style="margin-top: 16px;"
+      >
+        <div
+          class="t-radio-group t-radio-group-outline t-radio-group-default"
+        >
+          <label
+            class="t-radio-button"
+            name="left"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              left
+            </span>
+          </label>
+          <label
+            class="t-radio-button t-is-checked"
+            name="right"
+          >
+            <input
+              checked=""
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              right
+            </span>
+          </label>
+          <label
+            class="t-radio-button"
+            name="top"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              top
+            </span>
+          </label>
+          <label
+            class="t-radio-button"
+            name="bottom"
+          >
+            <input
+              class="t-radio-button__former"
+              readonly=""
+              type="radio"
+            />
+            <span
+              class="t-radio-button__input"
+            />
+            <span
+              class="t-radio-button__label"
+            >
+              bottom
+            </span>
+          </label>
+        </div>
+        <button
+          class="t-button t-button--primary"
+          style="margin-left: 16px;"
+        >
+          Open
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DestroyOnCloseUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`FooterUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ForceRenderUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ModeUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-default"
+    >
+      <label
+        class="t-radio-button"
+        name="left"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          left
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-checked"
+        name="right"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          right
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="top"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          top
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="bottom"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          bottom
+        </span>
+      </label>
+    </div>
+    <button
+      class="t-button t-button--primary"
+      style="margin-left: 16px;"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NoMaskUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--primary"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PlacementUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-default"
+    >
+      <label
+        class="t-radio-button"
+        name="left"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          left
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-checked"
+        name="right"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          right
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="top"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          top
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="bottom"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          bottom
+        </span>
+      </label>
+    </div>
+    <button
+      class="t-button t-button--primary"
+      style="margin-left: 16px;"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SizeUsageExample.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-default"
+    >
+      <label
+        class="t-radio-button"
+        name="left"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          left
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-checked"
+        name="right"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          right
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="top"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          top
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="bottom"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          bottom
+        </span>
+      </label>
+    </div>
+    <div
+      style="margin-top: 16px;"
+    >
+      <div
+        class="t-radio-group t-radio-group-outline t-radio-group-default"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+          name="small"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            small(300px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          name="middle"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            middle(500px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          name="large"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            large(760px)
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          name="200"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            200
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          name="400px"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            400px
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          name="50%"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            50%
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      style="margin-top: 16px;"
+    >
+      <button
+        class="t-button t-button--primary"
+      >
+        Open
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
