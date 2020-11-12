@@ -22,7 +22,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
    * @default 'default'
    */
   size?: 'large' | 'default' | 'small';
-  
+
   /**
    * 是否为禁用状态
    * @default false
