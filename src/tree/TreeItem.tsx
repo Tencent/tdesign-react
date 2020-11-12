@@ -58,7 +58,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   const renderItemContent = (classNames: string, node: TreeNode) => {
     if (node.checkable) {
       return (
-        <Checkbox value={node.isChecked()} indeterminate={node.isIndeterminate()} disabled={node.disabled} name={node.value} onChange={onCheckboxChange}>
+        <Checkbox value={node.checked} indeterminate={node.indeterminate} disabled={node.disabled} name={node.value} onChange={onCheckboxChange}>
           {node.label}
         </Checkbox>
       );
