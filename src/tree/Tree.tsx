@@ -1,10 +1,12 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState } from 'react';
 // import noop from '../_util/noop';
 // import { Icon } from '../icon';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
+import { TreeStore } from '../../common/js/tree/TreeStore';
+import { TreeNode } from '../../common/js/tree/TreeNode';
 import { TreeProps } from './TreeProps';
-import generateTree from './TreeGenerator';
+import TreeItem from './TreeItem';
 
 /**
  * 树组件
@@ -42,17 +44,94 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   } = props;
 
   const { classPrefix } = useConfig();
-
   const [treeNodes, setTreeNodes] = useState([]);
+  let [store, setStore] = useState(null);
 
-  // componentDidMount
-  useEffect(() => {
-    const generateTreeNodes = [];
-    generateTree('basic', data, generateTreeNodes, expandKeys, expandLevel);
-    setTreeNodes(generateTreeNodes);
-  }, []);
+  if (!store) {
+    store = new TreeStore({
+      keys,
+      activable,
+      activeMultiple,
+      checkable,
+      checkStrictly,
+      expandAll,
+      expandLevel,
+      expandMutex,
+      disabled,
+      load,
+      lazy,
+      onReflow: () => {
+        updateNodes();
+      }
+    });
 
-  // console.log('treeNodes:', treeNodes);
+    if (data && data.length > 0) {
+      store.append(data);
+    }
+    setStore(store);
+  }
+
+  const onClick = (node: TreeNode) => {
+    if (disabled || !node || node.disabled ) {
+      return;
+    }
+    node.toggleExpand();
+    updateNodes();
+  }
+
+  const onChange = (node: TreeNode) => {
+    // to do...
+  }
+
+  const updateNodes = () => {
+    const map = {};
+    const updateNodes = Array.from(treeNodes);
+
+    let index = 0;
+    while (index < updateNodes.length) {
+      const node = updateNodes[index];
+      const nodeItem = node.componentInstance.node;
+      if (!nodeItem.visible) {
+        updateNodes.splice(index, 1);
+      } else {
+        map[nodeItem.value] = true;
+        index += 1;
+      }
+    }
+
+    index = 0;
+    const nodes = store.getNodes();
+    nodes.forEach((node: TreeNode) => {
+      if (node.visible) {
+        const nodeView = updateNodes[index];
+        let nodeItem = null;
+        let shouldInsert = false;
+        if (nodeView) {
+          nodeItem = nodeView.componentInstance.node;
+          if (nodeItem.value !== node.value) {
+            shouldInsert = true;
+          }
+        } else {
+          shouldInsert = true;
+        }
+        if (shouldInsert) {
+          const insertNode = (
+            <TreeItem
+              node={node}
+              onClick={onClick}
+              onChange={onChange}
+            />
+          );
+          if (!map[node.value]) {
+            map[node.value] = true;
+            updateNodes.splice(index, 0, insertNode);
+          }
+        }
+        index += 1;
+      }
+    });
+    setTreeNodes(updateNodes);
+  }
 
   return (
     <div ref={ref} className={classNames(`${classPrefix}-tree`, {})}>
