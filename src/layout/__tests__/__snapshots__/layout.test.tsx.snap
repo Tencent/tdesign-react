@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicLayout.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-layout"
+  >
+    <header
+      class="t-layout--header"
+    >
+      Header
+    </header>
+    <main
+      class="t-layout--content"
+    >
+      <div>
+        Content
+      </div>
+    </main>
+    <footer
+      class="t-layout--footer"
+    >
+      Copyright @ 2019-2020 Tencent. All Rights Reserved
+    </footer>
+  </div>
+  <br />
+  <div
+    class="t-layout"
+  >
+    <header
+      class="t-layout--header"
+    >
+      Header
+    </header>
+    <div
+      class="t-layout t-layout-has-sider"
+    >
+      <aside
+        class="t-layout--sider"
+        style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
+      >
+        <h2
+          class="logo"
+        >
+          LOGO
+        </h2>
+      </aside>
+      <div
+        class="t-layout"
+      >
+        <main
+          class="t-layout--content"
+        >
+          <div>
+            Content
+          </div>
+        </main>
+        <footer
+          class="t-layout--footer"
+        >
+          Copyright @ 2019-2020 Tencent. All Rights Reserved
+        </footer>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div
+    class="t-layout"
+  >
+    <header
+      class="t-layout--header"
+    >
+      Header
+    </header>
+    <div
+      class="t-layout t-layout-has-sider"
+    >
+      <div
+        class="t-layout"
+      >
+        <main
+          class="t-layout--content"
+        >
+          <div>
+            Content
+          </div>
+        </main>
+        <footer
+          class="t-layout--footer"
+        >
+          Copyright @ 2019-2020 Tencent. All Rights Reserved
+        </footer>
+      </div>
+      <aside
+        class="t-layout--sider"
+        style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
+      >
+        <h2
+          class="logo"
+        >
+          LOGO
+        </h2>
+      </aside>
+    </div>
+  </div>
+  <br />
+  <div
+    class="t-layout t-layout-has-sider"
+  >
+    <aside
+      class="t-layout--sider"
+      style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
+    >
+      <h2
+        class="logo"
+      >
+        LOGO
+      </h2>
+    </aside>
+    <div
+      class="t-layout"
+    >
+      <main
+        class="t-layout--content"
+      >
+        <div>
+          Content
+        </div>
+      </main>
+      <footer
+        class="t-layout--footer"
+      >
+        Copyright @ 2019-2020 Tencent. All Rights Reserved
+      </footer>
+    </div>
+  </div>
+  <br />
+  <div
+    class="t-layout"
+  >
+    <header
+      class="t-layout--header"
+    >
+      Header
+    </header>
+    <div
+      class="t-layout t-layout-has-sider"
+    >
+      <aside
+        class="t-layout--sider"
+        style="width: 80px; max-width: 80px; min-width: 80px; flex: 0 0 80px;"
+      >
+        <h2
+          class="logo"
+        >
+          LOGO
+        </h2>
+      </aside>
+      <div
+        class="t-layout"
+      >
+        <main
+          class="t-layout--content"
+        >
+          <div>
+            Content
+          </div>
+        </main>
+        <footer
+          class="t-layout--footer"
+        >
+          Copyright @ 2019-2020 Tencent. All Rights Reserved
+        </footer>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
