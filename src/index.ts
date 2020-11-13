@@ -1,5 +1,6 @@
 export { default as Addon } from './addon';
 export { default as Alert } from './alert';
+export { default as Badge } from './badge';
 export { default as Button } from './button';
 export { default as Checkbox } from './checkbox';
 export { default as Input } from './input';
