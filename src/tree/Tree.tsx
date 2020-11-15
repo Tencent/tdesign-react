@@ -79,7 +79,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
         store.append(data);
       }
     }
-  }, []);
+  }, [props]);
 
   const onClick = (node: TreeNode) => {
     if (disabled || !node || node.disabled) {
