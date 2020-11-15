@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 // import noop from '../_util/noop';
 // import { Icon } from '../icon';
 import classNames from 'classnames';
@@ -43,58 +43,79 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     // className, // 待定
   } = props;
 
+  let store = null;
   const { classPrefix } = useConfig();
   const [treeNodes, setTreeNodes] = useState([]);
-  let [store, setStore] = useState(null);
 
-  if (!store) {
-    store = new TreeStore({
-      keys,
-      activable,
-      activeMultiple,
-      checkable,
-      checkStrictly,
-      expandAll,
-      expandLevel,
-      expandMutex,
-      disabled,
-      load,
-      lazy,
-      onReflow: () => {
-        updateNodes();
+  // 组件初始化，创建 store
+  useEffect(() => {
+    if (!store) {
+      store = new TreeStore({
+        keys,
+        activable,
+        activeMultiple,
+        checkable,
+        checkStrictly,
+        expandAll,
+        expandLevel,
+        expandMutex,
+        disabled,
+        load,
+        lazy,
+        // valueMode, // 待定
+        // filter, // 待定
+        // 更改节点的组成，如异步加载、需要插入新节点
+        onReflow: () => {
+          console.log('onReflowonReflowonReflow');
+          updateNodes();
+        },
+        // 更改节点的属性，节点排列不变，TreeNode 的任意属性更改
+        // onUpdate: () => {
+        //   console.log('update nodes');
+        // },
+      });
+
+      if (data && data.length > 0) {
+        store.append(data);
       }
-    });
-
-    if (data && data.length > 0) {
-      store.append(data);
     }
-    setStore(store);
-  }
+  }, []);
 
   const onClick = (node: TreeNode) => {
-    if (disabled || !node || node.disabled ) {
+    if (disabled || !node || node.disabled) {
       return;
     }
+    // []
+    // console.log('onClick treeNodes', treeNodes)
     node.toggleExpand();
     updateNodes();
-  }
+  };
 
   const onChange = (node: TreeNode) => {
-    if (disabled || !node || node.disabled ) {
+    // []
+    // console.log('onChange treeNodes', treeNodes)
+    if (disabled || !node || node.disabled) {
       return;
     }
-    node.toggleChecked();
+    const checkedValues = node.toggleChecked();
+    store.setChecked(checkedValues);
     updateNodes();
-  }
+  };
 
+  // 【待修改】拿到的 treeNodes 一直为[]，这里存在些逻辑问题
   const updateNodes = () => {
     const map = {};
+
+    // []
+    console.log('updateNodes treeNodes:', treeNodes)
+
     const updateNodes = Array.from(treeNodes);
 
+    // 移除不能呈现的节点
     let index = 0;
     while (index < updateNodes.length) {
-      const node = updateNodes[index];
-      const nodeItem = node.componentInstance.node;
+      const treeItem = updateNodes[index];
+      const nodeItem = treeItem.props.node;
       if (!nodeItem.visible) {
         updateNodes.splice(index, 1);
       } else {
@@ -103,15 +124,16 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       }
     }
 
+    // 插入需要呈现的节点
     index = 0;
     const nodes = store.getNodes();
     nodes.forEach((node: TreeNode) => {
       if (node.visible) {
-        const nodeView = updateNodes[index];
+        const treeItem = updateNodes[index];
         let nodeItem = null;
         let shouldInsert = false;
-        if (nodeView) {
-          nodeItem = nodeView.componentInstance.node;
+        if (treeItem) {
+          nodeItem = treeItem.props.node;
           if (nodeItem.value !== node.value) {
             shouldInsert = true;
           }
@@ -119,13 +141,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
           shouldInsert = true;
         }
         if (shouldInsert) {
-          const insertNode = (
-            <TreeItem
-              node={node}
-              onClick={onClick}
-              onChange={onChange}
-            />
-          );
+          const insertNode = <TreeItem key={node.value} node={node} empty={empty} onClick={onClick} onChange={onChange} />;
           if (!map[node.value]) {
             map[node.value] = true;
             updateNodes.splice(index, 0, insertNode);
@@ -135,7 +151,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       }
     });
     setTreeNodes(updateNodes);
-  }
+  };
 
   return (
     <div ref={ref} className={classNames(`${classPrefix}-tree`, {})}>

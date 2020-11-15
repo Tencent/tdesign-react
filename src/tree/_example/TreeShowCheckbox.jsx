@@ -23,6 +23,16 @@ export default function TreeExample() {
         {
           value: '2-1',
           label: '我是节点2-1',
+          children: [
+            {
+              value: '2-1-1',
+              label: '我是节点2-1-1',
+            },
+            {
+              value: '2-1-2',
+              label: '我是节点2-1-2',
+            },
+          ],
         },
         {
           value: '2-2',

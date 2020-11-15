@@ -7,7 +7,7 @@ import { ArrowRightIcon, LoadingIcon } from '../icon';
 import { TreeNode } from '../../common/js/tree/TreeNode';
 import { TreeItemProps } from './TreeItemProps';
 
-function renderItemIcon(node: TreeNode) {
+function renderItemIcon(node: TreeNode, onItemClick) {
   let icon = null;
   // 当前节点是叶子节点，不渲染 icon
   if (node.children && Array.isArray(node.children) && node.children.length > 0) {
@@ -20,7 +20,7 @@ function renderItemIcon(node: TreeNode) {
       );
     } else {
       icon = (
-        <span className="t-tree__icon">
+        <span className="t-tree__icon" onClick={onItemClick}>
           <ArrowRightIcon />
         </span>
       );
@@ -35,46 +35,49 @@ function renderItemIcon(node: TreeNode) {
  * 树节点组件
  */
 const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement>) => {
-  /* eslint-disable */
-  const {
-    node,
-    onClick,
-    onChange,
-  } = props;
+  const { node, onClick, onChange } = props;
 
   const { classPrefix } = useConfig();
 
-  // value: 1, 1-1, 1-1-1
-  const level = node.value.split('-').length - 1;
-
   const onItemClick = () => {
     onClick && onClick(node);
-  }
+  };
 
   const onCheckboxChange = () => {
     onChange && onChange(node);
-  }
+  };
 
   const renderItemContent = (classNames: string, node: TreeNode) => {
     if (node.checkable) {
       return (
-        <Checkbox value={node.checked} indeterminate={node.indeterminate} disabled={node.disabled} name={node.value} onChange={onCheckboxChange}>
+        <Checkbox
+          value={node.checked}
+          indeterminate={node.indeterminate}
+          disabled={node.disabled}
+          name={node.value}
+          role="label"
+          onChange={onCheckboxChange}
+        >
           {node.label}
         </Checkbox>
       );
     }
     return <span className={classNames}> {node.label}</span>;
-  }
+  };
 
   const treeNode = (
     <div
       ref={ref}
-      className={classNames(`${classPrefix}-tree__item`, { [`${classPrefix}-tree__item--open`]: node.expand })}
+      className={classNames(`${classPrefix}-tree__item`, { [`${classPrefix}-tree__item--open`]: node.expanded })}
+      // className={classNames(
+      //   `${classPrefix}-tree__item ${classPrefix}-tree-toggle-enter-active ${classPrefix}-tree-toggle-leave-active`,
+      //   { [`${classPrefix}-tree__item--open ${classPrefix}-tree--fx`]: node.expanded },
+      // )}
+      /* eslint-disable */
       // @ts-ignore
-      style={{ '--level': level }}
-      onClick={onItemClick}
+      style={{ '--level': node.level }}
     >
-      {renderItemIcon(node)}
+      {renderItemIcon(node, onItemClick)}
       {renderItemContent(`${classPrefix}-tree__label`, node)}
     </div>
   );

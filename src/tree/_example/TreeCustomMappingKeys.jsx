@@ -34,15 +34,14 @@ export default function TreeExample() {
   ];
   return (
     <>
-      这里还要再看看
-      {/* <Tree
+      <Tree
         data={data}
         keys={{
           value: 'id',
           children: 'list',
           label: 'text',
         }}
-      /> */}
+      />
     </>
   );
 }
