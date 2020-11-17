@@ -21,5 +21,5 @@ export { Menu, HeadMenu, MenuItem, SubMenu, MenuItemGroup } from './menu';
 export { default as Dialog } from './dialog';
 export { default as Divider } from './divider';
 export { default as Switch } from './switch';
-
 export { Anchor, AnchorProps, AnchorLink } from './anchor';
+export { Col, Row } from './grid';
