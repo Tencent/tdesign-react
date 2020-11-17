@@ -1,10 +1,8 @@
-import React, { forwardRef } from 'react';
+import React, { FunctionComponent, useState } from 'react';
+import 'tslib';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
-import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
-import { CloseIcon, PromptFillIcon, SuccessFillIcon, WarningFillIcon } from '../icon';
-import { Interface } from 'readline';
+import { AnchorContext, Link } from './AnchorContext';
 
 export interface AnchorProps extends StyledProps {
   /**
@@ -46,33 +44,11 @@ export interface AnchorProps extends StyledProps {
   /**
    * 点击锚点时触发事件
    */
-  Onclick?: (e: Event, link: Link) => void;
+  onclick?: (e: React.MouseEvent, link: Link) => void;
   /**
    * 切换锚点时触发事件
    */
-  onChange?: (e: Event, link: Link) => void;
-}
-
-interface Link {
-  /**
-   * 锚点链接
-   */
-  href: string;
-  /**
-   * 锚点描述
-   */
-  title: string;
-}
-
-export interface AnchorLink extends Link {
-  /**
-   * 原生a标签的target属性
-   */
-  target?: string;
-  /**
-   * 子元素，可以是嵌套的AnchorLink
-   */
-  chirldren?: string;
+  onChange?: (currentLink: Link, prefLink: Link) => void;
 }
 
 export interface AnchorTarget {
@@ -90,37 +66,36 @@ export interface AnchorTarget {
   tag?: string;
 }
 
-const Anchor = forwardRef((props: AnchorProps, ref: React.Ref<HTMLDivElement>) => {
-  const { ...anchorProps } = props;
+const Anchor: FunctionComponent<AnchorProps> = (props) => {
+  const [actLink, setActLink] = useState<Link>({ href: '', title: '' });
+  const { affix = false, children, onclick, onChange } = props;
 
-  const [closed, setClosed] = React.useState(false);
+  const handleClick = (e: React.MouseEvent<HTMLElement>, link: Link) => {
+    console.log('handleClick', e, link);
+    onclick && onclick(e, link);
+  };
+  const handleScrollTo = (link: Link) => {
+    setActLink(link);
+  };
 
   return (
-    <div className="t-anchor t-affix">
-        <div className="t-anchor__line">
+    <AnchorContext.Provider
+      value={{
+        onChange,
+        onClick: handleClick,
+        scrollTo: handleScrollTo,
+        actLink,
+      }}
+    >
+      <div className={classNames('t-anchor', { 't-affix': affix })}>
+        <div className="t-anchor_line">
           <div className="point"></div>
         </div>
-        <div className="t-anchor__content">
-          <div className="t-anchor__item">
-            <a href="#default" title="默认">默认</a>
-          </div>
-          <div className="t-anchor__item">
-            <a href="#leveln" title="多级锚点">多级锚点</a>
-          </div>
-          <div className="t-anchor__item"><a href="#act" title="状态">状态</a></div>
-          <div className="t-anchor__item">
-            <a href="#size" title="尺寸">尺寸</a>
-            <div className="t-anchor__item">
-              <a href="#size-l" title="尺寸">尺寸-大</a>
-            </div>
-            <div className="t-anchor__item">
-              <a href="#size-s" title="尺寸">尺寸-小</a>
-            </div>
-          </div>
-        </div>
+        <div className="t-anchor__content">{children}</div>
       </div>
+    </AnchorContext.Provider>
   );
-});
+};
 
 Anchor.displayName = 'Anchor';
 

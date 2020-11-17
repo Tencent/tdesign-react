@@ -1,5 +1,3 @@
 import Anchor, { AnchorProps } from './Anchor';
-
-export { AnchorProps };
-
-export default Anchor;
+import AnchorLink from './AnchorLink';
+export { AnchorProps, AnchorLink, Anchor };
