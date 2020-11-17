@@ -1,5 +1,21 @@
 import React from 'react';
-import { Layout } from '@tencent/tdesign-react';
+import { Layout, Menu, MenuItem } from '@tencent/tdesign-react';
+
+const Logo = (props) => (
+  <img {...props} src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
+);
+
+function BasicUsage(props) {
+  return (
+    <Menu style={{ width: '100%', height: '100%', boxShadow: 'none' }} logo={<Logo />} {...props}>
+      <MenuItem name="1">侧边内容一</MenuItem>
+      <MenuItem name="2">侧边内容二</MenuItem>
+      <MenuItem name="3">侧边内容三</MenuItem>
+      <MenuItem name="4">侧边内容四</MenuItem>
+      <MenuItem name="5">侧边内容无</MenuItem>
+    </Menu>
+  );
+}
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -20,7 +36,7 @@ export default function BasicDivider() {
         <Header>Header</Header>
         <Layout>
           <Sider>
-            <h2 className="logo">LOGO</h2>
+            <BasicUsage />
           </Sider>
           <Layout>
             <Content>
@@ -43,7 +59,7 @@ export default function BasicDivider() {
             <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
           </Layout>
           <Sider>
-            <h2 className="logo">LOGO</h2>
+            <BasicUsage />
           </Sider>
         </Layout>
       </Layout>
@@ -52,7 +68,7 @@ export default function BasicDivider() {
 
       <Layout>
         <Sider>
-          <h2 className="logo">LOGO</h2>
+          <BasicUsage />
         </Sider>
         <Layout>
           <Content>
@@ -68,7 +84,8 @@ export default function BasicDivider() {
         <Header>Header</Header>
         <Layout>
           <Sider width={80}>
-            <h2 className="logo">LOGO</h2>
+            <BasicUsage collapsed={true} />
+            {/* <Logo width={56} style={{ margin: '12px' }} /> */}
           </Sider>
           <Layout>
             <Content>
