@@ -6,6 +6,15 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import Col from './Col';
 
+type Gutter = {
+  xs?: number | number[];
+  sm?: number | number[];
+  md?: number | number[];
+  lg?: number | number[];
+  xl?: number | number[];
+  xxl?: number | number[];
+};
+
 /**
  * Row 组件支持的属性。
  */
@@ -30,7 +39,7 @@ export interface RowProps extends StyledProps {
    * @default 0
    */
 
-  gutter?: number | object | number[];
+  gutter?: number | Gutter | number[];
 
   /**
    * flex 布局下的水平排列方式

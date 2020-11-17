@@ -63,12 +63,12 @@ export interface ColProps extends StyledProps {
    * 响应式栅格
    *
    */
-  xs?: number | object;
-  sm?: number | object;
-  md?: number | object;
-  lg?: number | object;
-  xl?: number | object;
-  xxl?: number | object;
+  xs?: number | number[];
+  sm?: number | number[];
+  md?: number | number[];
+  lg?: number | number[];
+  xl?: number | number[];
+  xxl?: number | number[];
 
   /**
    * 文本内容
