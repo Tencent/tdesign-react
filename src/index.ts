@@ -19,5 +19,6 @@ export { default as Notification } from './notification';
 export { default as Pagination } from './pagination';
 export { Menu, HeadMenu, MenuItem, SubMenu, MenuItemGroup } from './menu';
 export { default as Dialog } from './dialog';
+export { default as Divider } from './divider';
 export { default as Switch } from './switch';
 export { default as Layout } from './layout';
