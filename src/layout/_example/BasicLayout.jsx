@@ -22,6 +22,7 @@ const { Header, Content, Footer, Sider } = Layout;
 export default function BasicDivider() {
   return (
     <>
+      <h4>顶部导航布局</h4>
       <Layout>
         <Header>Header</Header>
         <Content>
@@ -32,40 +33,7 @@ export default function BasicDivider() {
 
       <br />
 
-      <Layout>
-        <Header>Header</Header>
-        <Layout>
-          <Sider>
-            <BasicUsage />
-          </Sider>
-          <Layout>
-            <Content>
-              <div>Content</div>
-            </Content>
-            <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
-          </Layout>
-        </Layout>
-      </Layout>
-
-      <br />
-
-      <Layout>
-        <Header>Header</Header>
-        <Layout>
-          <Layout>
-            <Content>
-              <div>Content</div>
-            </Content>
-            <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
-          </Layout>
-          <Sider>
-            <BasicUsage />
-          </Sider>
-        </Layout>
-      </Layout>
-
-      <br />
-
+      <h4>侧边导航布局</h4>
       <Layout>
         <Sider>
           <BasicUsage />
@@ -80,12 +48,46 @@ export default function BasicDivider() {
 
       <br />
 
+      <h4>组合导航布局</h4>
+      <Layout>
+        <Header>Header</Header>
+        <Layout>
+          <Sider>
+            <BasicUsage />
+          </Sider>
+          <Layout>
+            <Content>
+              <div>Content</div>
+            </Content>
+            <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
+          </Layout>
+        </Layout>
+      </Layout>
+
+      <br />
+
+      <Layout>
+        <Header>Header</Header>
+        <Layout>
+          <Layout>
+            <Content>
+              <div>Content</div>
+            </Content>
+            <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
+          </Layout>
+          <Sider>
+            <BasicUsage />
+          </Sider>
+        </Layout>
+      </Layout>
+
+      <br />
+
       <Layout>
         <Header>Header</Header>
         <Layout>
           <Sider width={80}>
             <BasicUsage collapsed={true} />
-            {/* <Logo width={56} style={{ margin: '12px' }} /> */}
           </Sider>
           <Layout>
             <Content>
