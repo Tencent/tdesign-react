@@ -1,5 +1,5 @@
 import Tree from './Tree';
 
-export { TreeProps } from './TreeProps';
+export { TreeProps } from './interface/TreeProps';
 
 export default Tree;
