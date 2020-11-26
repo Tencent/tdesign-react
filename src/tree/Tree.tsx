@@ -7,9 +7,79 @@ import { TreeNode } from '../../common/js/tree/TreeNode';
 import { TreeStore } from '../../common/js/tree/TreeStore';
 import { TreeProps } from './interface/TreeProps';
 import TreeItem from './TreeItem';
-import { EventState } from './EventState';
+import { EventState } from './interface/EventState';
+import { eventMap } from './constants';
 // import useRefresh from './hooks/useRefresh';
 // import useInit from './hooks/useInit';
+
+function setStatus(node: TreeNode, status: boolean, props: TreeProps, type: string) {
+  const eventObj = eventMap[type];
+  const callback = props[eventObj.callback];
+  const activeStatusArr = node[eventObj.set](status);
+  const event = new Event(type);
+  const state: EventState = {
+    event,
+    node,
+  };
+  callback && callback(activeStatusArr, state);
+  return activeStatusArr;
+}
+
+function toggleStatus(node: TreeNode, props: TreeProps, type: string) {
+  const { status } = eventMap[type];
+  return setStatus(node, !node[status](), props, type);
+}
+
+function handleUpdate(info: EventState, props: TreeProps, refresh: (updatedMap?: Map<string, boolean>) => void) {
+  const event = new Event('update');
+  const { nodes, map } = info;
+  const state: EventState = {
+    event,
+    nodes,
+  };
+  const { onUpdate } = props;
+  // 触发开发者的 @update 事件监听，并回传 state
+  onUpdate && onUpdate(state);
+  refresh(map);
+}
+
+function handleLoad(info: any, props: TreeProps) {
+  const { onLoad } = props;
+  const event = new Event('load');
+  const { node, data } = info;
+  const state: EventState = {
+    event,
+    node,
+    data,
+  };
+  onLoad && onLoad(state);
+}
+
+function handleChange(node: TreeNode, props: TreeProps, store: TreeStore) {
+  const { disabled } = props;
+  if (!node || disabled || node.disabled) {
+    return;
+  }
+  const checkedArr = toggleStatus(node, props, 'check');
+  store.replaceChecked(checkedArr);
+}
+
+function handleClick(node: TreeNode, props: TreeProps, store: TreeStore) {
+  const { onClick, disabled } = props;
+  if (!node || disabled || node.disabled) {
+    return;
+  }
+  const event = new Event('click');
+  const state: EventState = {
+    event,
+    node,
+  };
+  const expandArr = toggleStatus(node, props, 'expand');
+  const activedArr = toggleStatus(node, props, 'active');
+  store.replaceExpanded(expandArr);
+  store.replaceActived(activedArr);
+  onClick && onClick(state);
+}
 
 /**
  * 树组件
@@ -61,7 +131,9 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       onLoad: (info: any) => {
         handleLoad(info, props);
       },
-      onUpdate: handleUpdate,
+      onUpdate: (info: EventState) => {
+        handleUpdate(info, props, refresh);
+      },
     }),
   );
 
@@ -140,8 +212,8 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
             line={line}
             expandOnClickNode={expandOnClickNode}
             operations={operations}
-            onClick={handleClick}
-            onChange={handleChange}
+            onClick={(node: TreeNode) => handleClick(node, props, store)}
+            onChange={(node: TreeNode) => handleChange(node, props, store)}
           />
         );
         if (treeItem) {
@@ -169,98 +241,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     });
     // 注意改变引用地址。否则不会触发 re-render
     setTreeItems([...treeItems]);
-  }
-
-  function handleLoad(info: any, props: TreeProps) {
-    const { onLoad } = props;
-    const event = new Event('load');
-    const { node, data } = info;
-    const state: EventState = {
-      event,
-      node,
-      data,
-    };
-    onLoad && onLoad(state);
-  }
-
-  function handleUpdate(info: EventState) {
-    const event = new Event('update');
-    const { nodes, map } = info;
-    const state: EventState = {
-      event,
-      nodes,
-    };
-    const { onUpdate } = props;
-    // 触发开发者的 @update 事件监听，并回传 state
-    onUpdate && onUpdate(state);
-    refresh(map);
-  }
-
-  function setChecked(node: TreeNode, isChecked: boolean) {
-    const checked = node.setChecked(isChecked);
-    return checked;
-  }
-
-  function toggleChecked(node: TreeNode) {
-    return setChecked(node, !node.isChecked());
-  }
-
-  function setExpanded(node: TreeNode, isExpanded: boolean) {
-    const { onExpand } = props;
-    const expanded = node.setExpanded(isExpanded);
-    const event = new Event('expand');
-    const state: EventState = {
-      event,
-      node,
-    };
-    onExpand && onExpand(expanded, state);
-    return expanded;
-  }
-
-  function toggleExpanded(node: TreeNode) {
-    return setExpanded(node, !node.isExpanded());
-  }
-
-  function handleChange(state: EventState) {
-    const { onChange, disabled } = props;
-    const store = initStore.current;
-    const { node } = state;
-    if (!node || disabled || node.disabled) {
-      return;
-    }
-    const checkedArr = toggleChecked(node);
-    store.replaceChecked(checkedArr);
-    onChange && onChange(checkedArr, state);
-  }
-
-  function handleClick(state: EventState) {
-    const { onClick, disabled } = props;
-    const store = initStore.current;
-    const { node } = state;
-    if (!node || disabled || node.disabled) {
-      return;
-    }
-    const expandArr = toggleExpanded(node);
-    const activedArr = toggleActived(node);
-    store.replaceExpanded(expandArr);
-    store.replaceActived(activedArr);
-    onClick && onClick(state);
-  }
-
-  function setActived(node: TreeNode, isActived: boolean) {
-    const { onActive } = props;
-    const actived = node.setActived(isActived);
-    const event = new Event('active');
-    const state: EventState = {
-      event,
-      node,
-    };
-    onActive && onActive(actived, state);
-    return actived;
-  }
-
-  function toggleActived(node: TreeNode) {
-    return setActived(node, !node.isActived());
   }
 
   return (

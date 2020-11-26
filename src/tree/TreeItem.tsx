@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TreeItemProps } from './interface/TreeItemProps';
 import { CLASS_NAMES } from './constants';
-import { EventState } from './EventState';
 import TreeItemIcon from './components/TreeItemIcon';
 import TreeItemContent from './components/TreeItemContent';
 
@@ -19,21 +18,11 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
   /** *** methods **** **/
   const handleItemClick = () => {
-    const event = new Event('click');
-    const state: EventState = {
-      event,
-      node,
-    };
-    props.onClick(state);
+    props.onClick(node);
   };
 
   const handleCheckboxChange = () => {
-    const event = new Event('checkbox-change');
-    const state: EventState = {
-      event,
-      node,
-    };
-    props.onChange(state);
+    props.onChange(node);
   };
 
   const treeNode = (
