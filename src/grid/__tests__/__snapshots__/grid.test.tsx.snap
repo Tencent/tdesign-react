@@ -1222,6 +1222,57 @@ exports[`OrderGrid.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`PullPushGrid.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-18 t-col-push-6"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-18 col-push-6
+      </div>
+    </div>
+    <div
+      class="t-col t-col-6 t-col-pull-18"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-6 col-pull-18
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-row t-row-start t-row-top"
+    style="margin: 0px -0px;"
+  >
+    <div
+      class="t-col t-col-16 t-col-push-8"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-16 col-push-8
+      </div>
+    </div>
+    <div
+      class="t-col t-col-8 t-col-pull-16"
+      gutter="0"
+      style="padding: 0px 0px;"
+    >
+      <div>
+        col-8 col-pull-16
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`ResponseGrid.jsx 1`] = `
 <DocumentFragment>
   <div
