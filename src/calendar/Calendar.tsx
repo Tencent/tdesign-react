@@ -1,6 +1,6 @@
 import * as React from 'react';
 import dayjs from 'dayjs';
-import Button from '../Button';
+import Button from '../button';
 import Select from '../select';
 import Radio from '../radio';
 import noop from '../_util/noop';
