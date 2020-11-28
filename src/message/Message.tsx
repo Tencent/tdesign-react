@@ -6,7 +6,7 @@ import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
 import { PromptFillIcon, SuccessFillIcon, WarningFillIcon, HelpFillIcon, LoadingIcon, CloseIcon } from '../icon';
 import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
-import { MessageProps, MessageConfig, MessageMethods } from './MessageProps';
+import { MessageProps, MessageConfig, MessageMethods, MessageInstanceProps } from './MessageProps';
 
 const IconMap = {
   info: PromptFillIcon,
@@ -28,7 +28,7 @@ const globalConfig = {
   top: 32,
 };
 
-function createContainer({ attach, zIndex, placement = 'top' }: MessageConfig) {
+function createContainer({ attach, zIndex, placement = Top }: MessageConfig) {
   let mountedDom = document.body as HTMLElement;
   if (React.isValidElement(attach)) {
     mountedDom = attach;
@@ -53,11 +53,6 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageConfig) {
   return container[0];
 }
 
-interface MessageInstanceProps {
-  key: number;
-  remove: () => void;
-}
-
 function renderElement(theme, config: MessageConfig) {
   const container = createContainer(config) as HTMLElement;
   const { content, offset } = config;
@@ -66,7 +61,7 @@ function renderElement(theme, config: MessageConfig) {
   keyIndex += 1;
 
   const message = {
-    remove: () => {
+    close: () => {
       ReactDOM.unmountComponentAtNode(div);
       div.remove();
     },
@@ -82,28 +77,33 @@ function renderElement(theme, config: MessageConfig) {
     };
   }
 
-  ReactDOM.render(
-    <Message
-      theme={theme}
-      style={style}
-      {...config}
-      onDurationEnd={() => {
-        message.remove();
-      }}
-      onClickCloseBtn={() => {
-        message.remove();
-      }}
-      key={keyIndex}
-    >
-      {content}
-    </Message>,
-    div,
-  );
+  const promise = new Promise((res) => {
+    ReactDOM.render(
+      <Message
+        theme={theme}
+        style={style}
+        {...config}
+        onDurationEnd={() => {
+          message.close();
+          res();
+        }}
+        onClickCloseBtn={() => {
+          message.close();
+          res();
+        }}
+        key={keyIndex}
+      >
+        {content}
+      </Message>,
+      div,
+    );
+    container.appendChild(div);
+    MessageList.push(message);
+  }) as any;
 
-  container.appendChild(div);
-  MessageList.push(message);
+  promise.close = message.close;
 
-  return keyIndex;
+  return promise;
 }
 
 function MessageIcon({ theme }: MessageProps) {
@@ -119,7 +119,7 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   }
 
   if (closeBtn === true) {
-    return <CloseIcon className={`${classPrefix}-message-close`} />;
+    return <CloseIcon className={`${prefix}-message-close`} />;
   }
 
   const button = injectValue(closeBtn)(onClickCloseBtn);
@@ -204,17 +204,13 @@ ThemeList.forEach((theme) => {
   };
 });
 
-Message.close = function (key: number) {
-  const index = MessageList.findIndex((item) => item.key === key);
-  if (index > -1) {
-    const [message] = MessageList.splice(index, 1);
-    typeof message.remove === 'function' && message.remove();
-  }
+Message.close = (message: MessageInstanceProps) => {
+  typeof message.close === 'function' && message.close();
 };
 
 Message.closeAll = function () {
   MessageList.forEach((message) => {
-    typeof message.remove === 'function' && message.remove();
+    typeof message.close === 'function' && message.close();
   });
   MessageList = [];
 };
