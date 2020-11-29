@@ -4,9 +4,10 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
+import noop from '../_util/noop';
 import { PromptFillIcon, SuccessFillIcon, WarningFillIcon, HelpFillIcon, LoadingIcon, CloseIcon } from '../icon';
 import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
-import { MessageProps, MessageConfig, MessageMethods, MessageInstanceProps } from './MessageProps';
+import { MessageProps, MessageConfig, MessageInstance, MessageRef, MessageComponent } from './MessageProps';
 
 const IconMap = {
   info: PromptFillIcon,
@@ -17,7 +18,7 @@ const IconMap = {
   loading: LoadingIcon,
 };
 
-let MessageList: MessageInstanceProps[] = [];
+let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
 
 const Top = 'top';
@@ -77,7 +78,7 @@ function renderElement(theme, config: MessageConfig) {
     };
   }
 
-  const promise = new Promise((res) => {
+  return new Promise((res) => {
     ReactDOM.render(
       <Message
         theme={theme}
@@ -85,11 +86,12 @@ function renderElement(theme, config: MessageConfig) {
         {...config}
         onDurationEnd={() => {
           message.close();
-          res();
+        }}
+        ref={() => {
+          res(message);
         }}
         onClickCloseBtn={() => {
           message.close();
-          res();
         }}
         key={keyIndex}
       >
@@ -99,11 +101,7 @@ function renderElement(theme, config: MessageConfig) {
     );
     container.appendChild(div);
     MessageList.push(message);
-  }) as any;
-
-  promise.close = message.close;
-
-  return promise;
+  });
 }
 
 function MessageIcon({ theme }: MessageProps) {
@@ -141,10 +139,17 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   return <CloseIcon className={`${classPrefix}-message-close`} />;
 }
 
-export type MessageComponent = React.FunctionComponent<MessageProps> & MessageMethods;
-
-const Message: MessageComponent = (props) => {
-  const { theme = 'info', closeBtn = false, duration, onDurationEnd, onClosed, children, className, style } = props;
+const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
+  const {
+    theme = 'info',
+    closeBtn = false,
+    duration,
+    onDurationEnd,
+    onClosed = noop,
+    children,
+    className,
+    style,
+  } = props;
 
   const { classPrefix } = useConfig();
   const timerRef = useRef(0);
@@ -162,13 +167,14 @@ const Message: MessageComponent = (props) => {
       typeof onClosed === 'function' && onClosed();
     };
   }, [duration, onDurationEnd, onClosed]);
-
+  // useImperativeHandle(ref as React.Ref<MessageInstance>, () => ({ close }), [close]);
   return (
     <div
       key="message"
       className={classNames(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
         [`${classPrefix}-is-closable`]: closeBtn,
       })}
+      ref={ref}
       style={style}
     >
       <MessageIcon {...props} />
@@ -176,7 +182,7 @@ const Message: MessageComponent = (props) => {
       <MessageClose {...props} />
     </div>
   );
-};
+});
 
 function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageConfig).content;
@@ -204,8 +210,8 @@ ThemeList.forEach((theme) => {
   };
 });
 
-Message.close = (message: MessageInstanceProps) => {
-  typeof message.close === 'function' && message.close();
+Message.close = (message) => {
+  message.then((instance) => instance.close());
 };
 
 Message.closeAll = function () {
