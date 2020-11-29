@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
@@ -154,19 +154,22 @@ const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
   const { classPrefix } = useConfig();
   const timerRef = useRef(0);
 
+  const startDuration = useCallback(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => {
+      typeof onDurationEnd === 'function' && onDurationEnd();
+    }, duration);
+  }, [duration, onDurationEnd]);
+
   useEffect(() => {
     if (typeof duration === 'number') {
-      clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => {
-        console.log('durationEnd....');
-        typeof onDurationEnd === 'function' && onDurationEnd();
-      }, duration);
+      startDuration();
     }
     return () => {
       clearTimeout(timerRef.current);
       typeof onClosed === 'function' && onClosed();
     };
-  }, [duration, onDurationEnd, onClosed]);
+  }, [duration, onDurationEnd, onClosed, startDuration]);
   // useImperativeHandle(ref as React.Ref<MessageInstance>, () => ({ close }), [close]);
   return (
     <div
@@ -176,6 +179,12 @@ const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
       })}
       ref={ref}
       style={style}
+      onMouseEnter={() => {
+        clearTimeout(timerRef.current);
+      }}
+      onMouseLeave={() => {
+        startDuration();
+      }}
     >
       <MessageIcon {...props} />
       {children}
