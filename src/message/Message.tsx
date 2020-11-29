@@ -83,17 +83,12 @@ function renderElement(theme, config: MessageConfig) {
       <Message
         theme={theme}
         style={style}
-        {...config}
-        onDurationEnd={() => {
-          message.close();
-        }}
         ref={() => {
           res(message);
         }}
-        onClickCloseBtn={() => {
-          message.close();
-        }}
         key={keyIndex}
+        {...config}
+        close={() => message.close()}
       >
         {content}
       </Message>,
@@ -144,11 +139,12 @@ const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
     theme = 'info',
     closeBtn = false,
     duration,
-    onDurationEnd,
+    onDurationEnd = noop,
     onClosed = noop,
     children,
     className,
     style,
+    close = noop,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -157,9 +153,10 @@ const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
   const startDuration = useCallback(() => {
     clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => {
-      typeof onDurationEnd === 'function' && onDurationEnd();
+      onDurationEnd({ close });
+      close();
     }, duration);
-  }, [duration, onDurationEnd]);
+  }, [duration, onDurationEnd, close]);
 
   useEffect(() => {
     if (typeof duration === 'number') {
