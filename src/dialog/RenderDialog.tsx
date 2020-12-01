@@ -26,7 +26,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     zIndex,
     showOverlay,
     onKeydownEsc,
-    classPrefix,
     onClosed,
     preventScrollThrough,
   } = props;
@@ -108,7 +107,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
     const closer = (
-      <span onClick={onCloseBtnClick} className={`${classPrefix}-icon-close`}>
+      <span onClick={onCloseBtnClick} className={`${prefixCls}__close`}>
         {props.closeBtn}
       </span>
     );
