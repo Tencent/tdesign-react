@@ -21,8 +21,8 @@ const loadNode = (node, resolve) => {
   setTimeout(() => {
     resolve([
       {
-        value: node.value + '-1',
-        label: node.label + '-1',
+        value: `${node.value}-1`,
+        label: `${node.label}-1`,
       },
     ]);
   }, 500);
