@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Popup } from '@tdesign/react';
+import { Button, Popup } from '@tencent/tdesign-react';
 
 export default function Controlled() {
   const [visible, setVisible] = useState(false);

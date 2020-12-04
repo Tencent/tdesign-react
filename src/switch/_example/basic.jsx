@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch } from '@tdesign/react';
+import { Switch } from '@tencent/tdesign-react';
 
 export default function SwitchBasic() {
   const [checked, setChecked] = useState(true);

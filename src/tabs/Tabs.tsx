@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
-import { Combine } from 'src/_type';
+import { Combine } from '../_type';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import TabPanel from './TabPanel';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconFont } from '@tdesign/react';
+import { IconFont } from '@tencent/tdesign-react';
 
 export default function IconFontExample() {
   return (
@@ -86,20 +86,20 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>call</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-down" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-down</div>
+        <IconFont name="caret-down" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-down</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-left" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-left</div>
+        <IconFont name="caret-left" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-left</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-right" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-right</div>
+        <IconFont name="caret-right" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-right</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-up" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-up</div>
+        <IconFont name="caret-up" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-up</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="chart-bar" size="2em" />

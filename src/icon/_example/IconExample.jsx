@@ -19,10 +19,10 @@ import {
   BooksIcon,
   BulletpointIcon,
   CallIcon,
-  CarretDownIcon,
-  CarretLeftIcon,
-  CarretRightIcon,
-  CarretUpIcon,
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CaretUpIcon,
   ChartBarIcon,
   CartIcon,
   ChartBubbleIcon,
@@ -189,7 +189,7 @@ import {
   CalendarIcon,
   ServerIcon,
   MailIcon
-} from '@tdesign/react';
+} from '@tencent/tdesign-react';
 
 export default function IconExample() {
   return (
@@ -276,20 +276,20 @@ export default function IconExample() {
         <div style={{ marginTop: 12 }}>CallIcon</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <CarretDownIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CarretDownIcon</div>
+        <CaretDownIcon size="2em" />
+        <div style={{ marginTop: 12 }}>CaretDownIcon</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <CarretLeftIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CarretLeftIcon</div>
+        <CaretLeftIcon size="2em" />
+        <div style={{ marginTop: 12 }}>CaretLeftIcon</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <CarretRightIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CarretRightIcon</div>
+        <CaretRightIcon size="2em" />
+        <div style={{ marginTop: 12 }}>CaretRightIcon</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <CarretUpIcon size="2em" />
-        <div style={{ marginTop: 12 }}>CarretUpIcon</div>
+        <CaretUpIcon size="2em" />
+        <div style={{ marginTop: 12 }}>CaretUpIcon</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <ChartBarIcon size="2em" />

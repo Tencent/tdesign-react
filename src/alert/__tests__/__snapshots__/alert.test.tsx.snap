@@ -1,164 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Alert 组件测试 Alert - icon & theme snapshots 1`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--error"
-    classprefix="t"
-  >
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Alert 组件测试 Alert - icon & theme snapshots 2`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--warning"
-    classprefix="t"
-  >
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Alert 组件测试 Alert - icon & theme snapshots 3`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--info"
-    classprefix="t"
-  >
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Alert 组件测试 Alert - icon & theme snapshots 4`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--default"
-    classprefix="t"
-  >
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Alert 组件测试 Alert - icon & theme snapshots 5`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--error"
-    classprefix="t"
-  >
-    <svg
-      class="t-icon t-alert__icon"
-      version="1.1"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M8,1.5 C11.5898509,1.5 14.5,4.41014913 14.5,8 C14.5,11.5898509 11.5898509,14.5 8,14.5 C4.41014913,14.5 1.5,11.5898509 1.5,8 C1.5,4.41014913 4.41014913,1.5 8,1.5 Z M8.5,10.5 L7.5,10.5 L7.5,11.5 L8.5,11.5 L8.5,10.5 Z M8.5,4.5 L7.5,4.5 L7.5,9.5 L8.5,9.5 L8.5,4.5 Z"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Alert 组件测试 Alert - icon & theme snapshots 6`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--error"
-    classprefix="t"
-  >
-    <span
-      class="t-alert__icon"
-    >
-      CustomIcon
-    </span>
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          Alert内容
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`Alert 组件测试 Alert 主题图标显示 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--error"
-    classprefix="t"
   >
     <div
       class="t-alert__content"
@@ -181,7 +26,6 @@ exports[`Alert 组件测试 Alert 主题图标显示 2`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--warning"
-    classprefix="t"
   >
     <div
       class="t-alert__content"
@@ -204,7 +48,6 @@ exports[`Alert 组件测试 Alert 主题图标显示 3`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--info"
-    classprefix="t"
   >
     <div
       class="t-alert__content"
@@ -227,7 +70,6 @@ exports[`Alert 组件测试 Alert 主题图标显示 4`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--success"
-    classprefix="t"
   >
     <div
       class="t-alert__content"
@@ -250,7 +92,6 @@ exports[`Alert 组件测试 Alert 主题图标显示 5`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--error"
-    classprefix="t"
   >
     <svg
       class="t-icon t-alert__icon"
@@ -284,7 +125,6 @@ exports[`Alert 组件测试 Alert 主题图标显示 6`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--error"
-    classprefix="t"
   >
     <span
       class="t-alert__icon"

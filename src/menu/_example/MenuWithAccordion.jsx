@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, MenuItem, SubMenu, MenuItemGroup } from '@tdesign/react';
+import { Menu, MenuItem, SubMenu, MenuItemGroup } from '@tencent/tdesign-react';
 const Logo = () => (
-  <img
-    src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
-    alt="logo"
-  />
+  <img src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
 );
 export default function BasicUsage() {
   const [active, setActive] = useState(null);

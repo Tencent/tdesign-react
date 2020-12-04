@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, MenuItem } from '@tdesign/react';
+import { Menu, MenuItem } from '@tencent/tdesign-react';
 export default function BasicUsage() {
   const [active, setActive] = useState('1');
   return (
