@@ -1,33 +1,26 @@
 import React from 'react';
 import Tree from '../Tree';
 
-const loadNode = (node, resolve) => {
-  if (node.value === '2') {
-    return resolve([]);
-  }
-  if (node.value === '1-2') {
-    return resolve([
-      {
-        value: '1-2-1',
-        label: '我是节点1-2-1',
-      },
-      {
-        value: '1-2-2',
-        label: '我是节点1-2-2',
-      },
-    ]);
-  }
-
-  setTimeout(() => {
-    resolve([
-      {
-        value: `${node.value}-1`,
-        label: `${node.label}-1`,
-      },
-    ]);
-  }, 500);
-};
-
+const loadNode = (node) =>
+  // console.log('node:', node);
+  new Promise((resolve) => {
+    setTimeout(() => {
+      let nodes = [];
+      if (node.level < 2) {
+        nodes = [
+          {
+            label: `${node.label}-1`,
+            children: true,
+          },
+          {
+            label: `${node.label}-2`,
+            children: true,
+          },
+        ];
+      }
+      resolve(nodes);
+    }, 2000);
+  });
 export default function TreeExample() {
   const data = [
     {
@@ -51,11 +44,12 @@ export default function TreeExample() {
     {
       value: '2',
       label: '我是节点2',
+      children: true,
     },
   ];
   return (
     <>
-      <Tree data={data} lazy={true} load={loadNode} />
+      <Tree data={data} load={loadNode} lazy={true} />
     </>
   );
 }

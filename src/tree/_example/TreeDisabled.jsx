@@ -34,7 +34,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data} disabled={true} />
+      <Tree data={data} disabled={true} checkable={true} />
     </>
   );
 }
