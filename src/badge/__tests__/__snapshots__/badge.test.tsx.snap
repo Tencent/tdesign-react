@@ -128,7 +128,6 @@ exports[`BadgeDot.jsx 1`] = `
     </button>
     <span
       class="t-badge--dot"
-      style="right: 1px; margin-top: 1px;"
     />
   </span>
   <span
@@ -137,7 +136,6 @@ exports[`BadgeDot.jsx 1`] = `
     解锁新徽章
     <span
       class="t-badge--dot"
-      style="right: 1px; margin-top: 1px;"
     />
   </span>
   <span
@@ -157,7 +155,6 @@ exports[`BadgeDot.jsx 1`] = `
     </svg>
     <span
       class="t-badge--dot"
-      style="right: 1px; margin-top: 1px;"
     />
   </span>
 </DocumentFragment>
