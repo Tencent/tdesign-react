@@ -112,7 +112,7 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   }
 
   if (closeBtn === true) {
-    return <CloseIcon className={`${prefix}-message-close`} />;
+    return <CloseIcon className={`${prefix}-close`} />;
   }
 
   const button = injectValue(closeBtn)(onClickCloseBtn);
