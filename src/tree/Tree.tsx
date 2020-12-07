@@ -19,8 +19,8 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
   const [treeItems, setTreeItems] = useState([]);
-
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+
   /* eslint-disable */ 
   const {
     data,

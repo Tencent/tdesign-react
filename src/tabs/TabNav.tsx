@@ -7,14 +7,16 @@ import noop from '../_util/noop';
 import { TabsProps, TabPanelProps } from './TabProps';
 import TabBar from './TabBar';
 
-const TabNav: React.FC<Combine<
-  TabsProps,
-  {
-    panels: Combine<TabPanelProps, { key: string }>[];
-    activeId: any;
-    onClick: (e, idx: number) => any;
-  }
->> = (props) => {
+const TabNav: React.FC<
+  Combine<
+    TabsProps,
+    {
+      panels: Combine<TabPanelProps, { key: string }>[];
+      activeId: any;
+      onClick: (e, idx: number) => any;
+    }
+  >
+> = (props) => {
   const { classPrefix } = useConfig();
   const [wrapTranslateX, setWrapTranslateX] = useState<number>(0);
   const navContainerRef = useRef<HTMLDivElement>(null);
