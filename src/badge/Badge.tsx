@@ -25,7 +25,7 @@ export interface BadgeProps extends StyledProps {
   /**
    * 自定义文字，优先于 count
    */
-  content?: string | React.ReactNode;
+  content?: React.ReactNode;
   /**
    * 尺寸
    * @default medium
