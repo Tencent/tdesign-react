@@ -10,7 +10,7 @@ const MultipleSelect = () => {
     setValue(value);
   };
   return (
-    <Select value={value} change={onChange} multiple style={{ width: '40%' }}>
+    <Select value={value} onChange={onChange} multiple style={{ width: '40%' }}>
       <Option key="apple" label="Apple" value="apple" />
       <Option key="orange" label="Orange" value="orange" disabled />
       <Option key="banana" label="Banana" value="banana" />

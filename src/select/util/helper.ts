@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { SelectValue, LabeledValue } from '../SelectProps';
+import { SelectValue, SelectLabeledValue } from '../SelectProps';
 import types from '../util/types';
 
 export const getLabel = (children, value, options) => {
@@ -84,7 +84,7 @@ export const getValue = (children, label) => {
 
 export const getMultipleTags = (value: SelectValue[]) => {
   const tags = value.map((item) => {
-    let { label, value } = item as LabeledValue;
+    let { label, value } = item as SelectLabeledValue;
     if (types.isNumber(item) || types.isString(item)) {
       label = item.toString();
       value = item as string;
@@ -100,24 +100,24 @@ export const getMultipleTags = (value: SelectValue[]) => {
 export const getSelectValueArr = (
   values: SelectValue | SelectValue[],
   activeValue: SelectValue,
-  activeLabel?: string | number,
+  activeLabel?: React.ReactNode,
   selected?: boolean,
 ) => {
   if (Array.isArray(values)) {
     let currentValues = [...values];
     const isValueObj = types.isObject(currentValues[0]);
     if (selected) {
-      currentValues = currentValues.filter((item: LabeledValue) => {
+      currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
           if (types.isObject(activeValue)) {
-            return item.value !== (activeValue as LabeledValue).value;
+            return item.value !== (activeValue as SelectLabeledValue).value;
           }
           return item.value !== activeValue;
         }
         return item !== activeValue;
       });
     } else {
-      const label = types.isObject(activeValue) ? (activeValue as LabeledValue).label : activeLabel;
+      const label = types.isObject(activeValue) ? (activeValue as SelectLabeledValue).label : activeLabel;
       const item = isValueObj ? { label, value: activeValue } : activeValue;
       currentValues.push(item as SelectValue);
     }
