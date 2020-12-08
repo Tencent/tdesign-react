@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState, useRef, Ref, useEffect } from 'react';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
-import { IconFont } from '../icon';
+import { ChevronDownIcon } from '../icon';
 import insertCSS from '../_util/insertCSS';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
@@ -171,7 +171,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
       >
         <li className={`${classPrefix}-menu__item`}>
           {icon} <span>{title}</span>
-          <IconFont name="arrow-down" className={`${classPrefix}-submenu-icon`} />
+          <ChevronDownIcon className={`${classPrefix}-submenu-icon`} />
         </li>
         <ul
           className={classNames({
@@ -204,7 +204,7 @@ const SubMenu: FunctionComponent<SubMenuProps> & MenuStaticProps = (props) => {
       >
         <li className={`${classPrefix}-menu__item`}>
           {icon} <span>{title}</span>
-          <IconFont name="arrow-down" className={`${classPrefix}-submenu-icon`} />
+          <ChevronDownIcon className={`${classPrefix}-submenu-icon`} />
         </li>
         {subMenuVisible && (
           <ul

@@ -5,16 +5,23 @@ import { StyledProps } from '../_type';
 import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { PromptFillIcon, SuccessFillIcon, WarningFillIcon, HelpFillIcon, LoadingIcon, CloseIcon } from '../icon';
+import {
+  InfoCircleFilledIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  HelpCircleFilledIcon,
+  LoadingIcon,
+  CloseIcon,
+} from '../icon';
 import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
 import { MessageProps, MessageConfig, MessageInstance, MessageRef, MessageComponent } from './MessageProps';
 
 const IconMap = {
-  info: PromptFillIcon,
-  success: SuccessFillIcon,
-  warning: WarningFillIcon,
-  error: WarningFillIcon,
-  question: HelpFillIcon,
+  info: InfoCircleFilledIcon,
+  success: CheckCircleFilledIcon,
+  warning: ErrorCircleFilledIcon,
+  error: ErrorCircleFilledIcon,
+  question: HelpCircleFilledIcon,
   loading: LoadingIcon,
 };
 
