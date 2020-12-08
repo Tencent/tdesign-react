@@ -296,10 +296,11 @@ describe('Popup 组件测试', () => {
     expect(
       // 注意，这里层级有点多
       // #SPECIAL_ID
-      // └-> .t-popup-container
-      //   └-> div popper 定位层
-      //     └-> div[data-testid="popup-test-id"]
-      popupElement.parentElement.parentElement.parentElement,
+      // └-> .div
+      //   └-> .t-popup
+      //     └-> div popper 定位层
+      //       └-> div[data-testid="popup-test-id"]
+      popupElement.parentElement.parentElement.parentElement.parentElement,
     ).toHaveAttribute('id', specialId);
   });
 
@@ -410,6 +411,6 @@ describe('Popup 组件测试', () => {
 
     // 有元素，并且是渲染在 body 上
     const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
-    expect(popupContainer.parentElement.parentElement).toBe(document.body);
+    expect(popupContainer.parentElement.parentElement.parentElement).toBe(document.body);
   });
 });
