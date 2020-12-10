@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import {
-  SuccessFillIcon,
-  WarningFillIcon,
-  CloseFillIcon,
+  CheckLineIcon,
+  ClearLineIcon,
+  ErrorLineIcon,
   CheckCircleFilledIcon,
   ClearCircleFilledIcon,
   ErrorCircleFilledIcon,
@@ -29,11 +29,10 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     status = percentage >= 100 ? 'success' : 'normal';
   }
   let iconMap = {
-    success: SuccessFillIcon,
-    error: CloseFillIcon,
-    warning: WarningFillIcon,
+    success: CheckCircleFilledIcon,
+    error: ClearCircleFilledIcon,
+    warning: ErrorCircleFilledIcon,
   };
-
   const { classPrefix } = useConfig();
   // 进度条展示内容
   const getInfoContent = () => {
@@ -60,9 +59,9 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
   let progressDom;
   if (theme === 'circle') {
     iconMap = {
-      success: CheckCircleFilledIcon,
-      error: ClearCircleFilledIcon,
-      warning: ErrorCircleFilledIcon,
+      success: CheckLineIcon,
+      error: ClearLineIcon,
+      warning: ErrorLineIcon,
     };
     // 获取直径
     const getDiameter = (): number => {
