@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from '@tdesign/react';
+import { Checkbox } from '@tencent/tdesign-react';
 
 export default function CheckboxControlledExample() {
   return (

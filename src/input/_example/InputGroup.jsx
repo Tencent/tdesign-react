@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, InputGroup } from '@tdesign/react';
+import { Input, InputGroup } from '@tencent/tdesign-react';
 
 export default function InputExample() {
   const [value1, onChange1] = useState('');

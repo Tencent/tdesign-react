@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tdesign/react';
+import { Select } from '@tencent/tdesign-react';
 
 const SelectWithOptions = () => {
   const [value, setValue] = useState('apple');
@@ -21,7 +21,7 @@ const SelectWithOptions = () => {
       value: 'orange',
     },
   ];
-  return <Select value={value} change={onChange} style={{ width: '40%' }} options={options} />;
+  return <Select value={value} onChange={onChange} style={{ width: '40%' }} options={options} />;
 };
 
 export default SelectWithOptions;

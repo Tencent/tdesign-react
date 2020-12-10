@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tdesign/react';
+import { Select } from '@tencent/tdesign-react';
 
 const { Option, OptionGroup } = Select;
 
@@ -41,7 +41,7 @@ const OptionGroupSelect = () => {
   ];
 
   return (
-    <Select value={value} change={onChange} style={{ width: '40%' }}>
+    <Select value={value} onChange={onChange} style={{ width: '40%' }}>
       <OptionGroup label="Fruit">
         {options1.map((item, index) => (
           <Option label={item.label} value={item.value} key={index} />

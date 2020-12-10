@@ -143,17 +143,6 @@ exports[`ButtonIcon.jsx 1`] = `
       />
     </svg>
   </button>
-  <button
-    class="t-button t-button--primary t-button--icon-primary"
-  >
-    <svg
-      class="t-icon t-icon-search"
-    >
-      <use
-        xlink:href="#t-icon-search"
-      />
-    </svg>
-  </button>
 </DocumentFragment>
 `;
 

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { SelectValue } from '../SelectProps';
+import { SelectValue, SelectLabeledValue } from '../SelectProps';
 import types from '../util/types';
 
 export const getLabel = (children, value, options) => {
@@ -37,7 +37,8 @@ export const getLabel = (children, value, options) => {
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
       // 处理分组
-      if (item.type.name === 'OptionGroup') {
+      const { name } = item.type as { name: string };
+      if (name === 'OptionGroup') {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           const isSelected = groupChildren.some((item) => {
@@ -83,10 +84,10 @@ export const getValue = (children, label) => {
 
 export const getMultipleTags = (value: SelectValue[]) => {
   const tags = value.map((item) => {
-    let { label, value } = item;
+    let { label, value } = item as SelectLabeledValue;
     if (types.isNumber(item) || types.isString(item)) {
       label = item.toString();
-      value = item;
+      value = item as string;
     }
     return {
       label,
@@ -99,26 +100,26 @@ export const getMultipleTags = (value: SelectValue[]) => {
 export const getSelectValueArr = (
   values: SelectValue | SelectValue[],
   activeValue: SelectValue,
-  activeLabel?: string | number,
+  activeLabel?: React.ReactNode,
   selected?: boolean,
 ) => {
   if (Array.isArray(values)) {
     let currentValues = [...values];
     const isValueObj = types.isObject(currentValues[0]);
     if (selected) {
-      currentValues = currentValues.filter((item) => {
+      currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
           if (types.isObject(activeValue)) {
-            return item.value !== activeValue.value;
+            return item.value !== (activeValue as SelectLabeledValue).value;
           }
           return item.value !== activeValue;
         }
         return item !== activeValue;
       });
     } else {
-      const label = types.isObject(activeValue) ? activeValue.label : activeLabel;
+      const label = types.isObject(activeValue) ? (activeValue as SelectLabeledValue).label : activeLabel;
       const item = isValueObj ? { label, value: activeValue } : activeValue;
-      currentValues.push(item);
+      currentValues.push(item as SelectValue);
     }
     return currentValues;
   }

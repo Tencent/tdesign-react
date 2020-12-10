@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconFont } from '@tdesign/react';
+import { IconFont } from '@tencent/tdesign-react';
 
 export default function IconFontExample() {
   return (
@@ -9,6 +9,26 @@ export default function IconFontExample() {
         flexWrap: 'wrap',
       }}
     >
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="add-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>add-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="add-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>add-rectangle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="add" size="2em" />
+        <div style={{ marginTop: 12 }}>add</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="app" size="2em" />
+        <div style={{ marginTop: 12 }}>app</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="arrow-down-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>arrow-down-rectangle</div>
+      </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="arrow-down" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-down</div>
@@ -22,44 +42,16 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>arrow-right</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="add" size="2em" />
-        <div style={{ marginTop: 12 }}>add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="android" size="2em" />
-        <div style={{ marginTop: 12 }}>android</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="apple" size="2em" />
-        <div style={{ marginTop: 12 }}>apple</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="app" size="2em" />
-        <div style={{ marginTop: 12 }}>app</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="left-arrow" size="2em" />
-        <div style={{ marginTop: 12 }}>left-arrow</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="down-arrow" size="2em" />
-        <div style={{ marginTop: 12 }}>down-arrow</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="right-arrow" size="2em" />
-        <div style={{ marginTop: 12 }}>right-arrow</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="up-arrow" size="2em" />
-        <div style={{ marginTop: 12 }}>up-arrow</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="ascending-order" size="2em" />
-        <div style={{ marginTop: 12 }}>ascending-order</div>
+        <IconFont name="arrow-up" size="2em" />
+        <div style={{ marginTop: 12 }}>arrow-up</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="attach" size="2em" />
         <div style={{ marginTop: 12 }}>attach</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="backtop-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>backtop-rectangle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="backtop" size="2em" />
@@ -78,104 +70,148 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>books</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="bulletpoint" size="2em" />
-        <div style={{ marginTop: 12 }}>bulletpoint</div>
+        <IconFont name="browse-off" size="2em" />
+        <div style={{ marginTop: 12 }}>browse-off</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="call" size="2em" />
-        <div style={{ marginTop: 12 }}>call</div>
+        <IconFont name="browse" size="2em" />
+        <div style={{ marginTop: 12 }}>browse</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="bulletpoint" size="2em" />
+        <div style={{ marginTop: 12 }}>bulletpoint</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="calendar" size="2em" />
         <div style={{ marginTop: 12 }}>calendar</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-down" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-down</div>
+        <IconFont name="call" size="2em" />
+        <div style={{ marginTop: 12 }}>call</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-left" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-left</div>
+        <IconFont name="caret-down" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-down</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-right" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-right</div>
+        <IconFont name="caret-left" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-left</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="carret-up" size="2em" />
-        <div style={{ marginTop: 12 }}>carret-up</div>
+        <IconFont name="caret-right" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-right</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="chart-bar" size="2em" />
-        <div style={{ marginTop: 12 }}>chart-bar</div>
+        <IconFont name="caret-up" size="2em" />
+        <div style={{ marginTop: 12 }}>caret-up</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="cart" size="2em" />
         <div style={{ marginTop: 12 }}>cart</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chart-bar" size="2em" />
+        <div style={{ marginTop: 12 }}>chart-bar</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="chart-bubble" size="2em" />
         <div style={{ marginTop: 12 }}>chart-bubble</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="chart-pit" size="2em" />
-        <div style={{ marginTop: 12 }}>chart-pit</div>
+        <IconFont name="chart-pie" size="2em" />
+        <div style={{ marginTop: 12 }}>chart-pie</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="chart" size="2em" />
         <div style={{ marginTop: 12 }}>chart</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="chrome" size="2em" />
-        <div style={{ marginTop: 12 }}>chrome</div>
+        <IconFont name="chat" size="2em" />
+        <div style={{ marginTop: 12 }}>chat</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circie" size="2em" />
-        <div style={{ marginTop: 12 }}>circie</div>
+        <IconFont name="check-circle-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>check-circle-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-backtop" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-backtop</div>
+        <IconFont name="check-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>check-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-clear" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-clear</div>
+        <IconFont name="check-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>check-rectangle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-left" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-left</div>
+        <IconFont name="check" size="2em" />
+        <div style={{ marginTop: 12 }}>check</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-play" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-play</div>
+        <IconFont name="chevron-down-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-down-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-money" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-money</div>
+        <IconFont name="chevron-down-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-down-rectangle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-remove" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-remove</div>
+        <IconFont name="chevron-down" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-down</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-stop" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-stop</div>
+        <IconFont name="chevron-left-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-left-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-time_full" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-time_full</div>
+        <IconFont name="chevron-left-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-left-rectangle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-time" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-time</div>
+        <IconFont name="chevron-left-double" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-left-double</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="close_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>close_fill</div>
+        <IconFont name="chevron-left" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-left</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="circle-up" size="2em" />
-        <div style={{ marginTop: 12 }}>circle-up</div>
+        <IconFont name="chevron-right-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-right-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-right-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-right-rectangle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-right-double" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-right-double</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-right" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-right</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-up-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-up-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-up-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-up-rectangle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="chevron-up" size="2em" />
+        <div style={{ marginTop: 12 }}>chevron-up</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="clear-circle-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>clear-circle-filled</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="clear-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>clear-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="clear-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>clear-rectangle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="close" size="2em" />
@@ -186,6 +222,10 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>cloud-download</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="cloud-upload" size="2em" />
+        <div style={{ marginTop: 12 }}>cloud-upload</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="cloud" size="2em" />
         <div style={{ marginTop: 12 }}>cloud</div>
       </div>
@@ -194,84 +234,64 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>code</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="contact" size="2em" />
-        <div style={{ marginTop: 12 }}>contact</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="creditcard" size="2em" />
         <div style={{ marginTop: 12 }}>creditcard</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="customerservice" size="2em" />
-        <div style={{ marginTop: 12 }}>customerservice</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="delete" size="2em" />
         <div style={{ marginTop: 12 }}>delete</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="descending-order" size="2em" />
-        <div style={{ marginTop: 12 }}>descending-order</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="desktop" size="2em" />
         <div style={{ marginTop: 12 }}>desktop</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="discount_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>discount_fill</div>
+        <IconFont name="discount-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>discount-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="discount" size="2em" />
         <div style={{ marginTop: 12 }}>discount</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="double-left" size="2em" />
-        <div style={{ marginTop: 12 }}>double-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="double-arrow-right" size="2em" />
-        <div style={{ marginTop: 12 }}>double-arrow-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="download" size="2em" />
         <div style={{ marginTop: 12 }}>download</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="drop-down-filter" size="2em" />
-        <div style={{ marginTop: 12 }}>drop-down-filter</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="edit" size="2em" />
         <div style={{ marginTop: 12 }}>edit</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="ellipsis" size="2em" />
+        <div style={{ marginTop: 12 }}>ellipsis</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="enter" size="2em" />
         <div style={{ marginTop: 12 }}>enter</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="female" size="2em" />
-        <div style={{ marginTop: 12 }}>female</div>
+        <IconFont name="error-circle-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>error-circle-filled</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="error-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>error-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="file-add" size="2em" />
+        <div style={{ marginTop: 12 }}>file-add</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="file-copy" size="2em" />
         <div style={{ marginTop: 12 }}>file-copy</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-exel" size="2em" />
-        <div style={{ marginTop: 12 }}>file-exel</div>
+        <IconFont name="file-excel" size="2em" />
+        <div style={{ marginTop: 12 }}>file-excel</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-jpg" size="2em" />
-        <div style={{ marginTop: 12 }}>file-jpg</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-open" size="2em" />
-        <div style={{ marginTop: 12 }}>file-open</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-new" size="2em" />
-        <div style={{ marginTop: 12 }}>file-new</div>
+        <IconFont name="file-image" size="2em" />
+        <div style={{ marginTop: 12 }}>file-image</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="file-paste" size="2em" />
@@ -282,16 +302,16 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>file-pdf</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-ppt" size="2em" />
-        <div style={{ marginTop: 12 }}>file-ppt</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="file-word" size="2em" />
-        <div style={{ marginTop: 12 }}>file-word</div>
+        <IconFont name="file-powerpoint" size="2em" />
+        <div style={{ marginTop: 12 }}>file-powerpoint</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="file-unknown" size="2em" />
         <div style={{ marginTop: 12 }}>file-unknown</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="file-word" size="2em" />
+        <div style={{ marginTop: 12 }}>file-word</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="file" size="2em" />
@@ -302,20 +322,48 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>filter</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="first-page" size="2em" />
-        <div style={{ marginTop: 12 }}>first-page</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="folder-new" size="2em" />
-        <div style={{ marginTop: 12 }}>folder-new</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="flag" size="2em" />
         <div style={{ marginTop: 12 }}>flag</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="folder-add" size="2em" />
+        <div style={{ marginTop: 12 }}>folder-add</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="folder-open" size="2em" />
+        <div style={{ marginTop: 12 }}>folder-open</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="folder" size="2em" />
+        <div style={{ marginTop: 12 }}>folder</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="fork" size="2em" />
         <div style={{ marginTop: 12 }}>fork</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-horizontal-align-bottom" size="2em" />
+        <div style={{ marginTop: 12 }}>format-horizontal-align-bottom</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-horizontal-align-center" size="2em" />
+        <div style={{ marginTop: 12 }}>format-horizontal-align-center</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-horizontal-align-top" size="2em" />
+        <div style={{ marginTop: 12 }}>format-horizontal-align-top</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-vertical-align-center" size="2em" />
+        <div style={{ marginTop: 12 }}>format-vertical-align-center</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-vertical-align-left" size="2em" />
+        <div style={{ marginTop: 12 }}>format-vertical-align-left</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="format-vertical-align-right" size="2em" />
+        <div style={{ marginTop: 12 }}>format-vertical-align-right</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="forward" size="2em" />
@@ -326,28 +374,36 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>fullsreen-exit</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="gift" size="2em" />
-        <div style={{ marginTop: 12 }}>gift</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="fullsreen" size="2em" />
         <div style={{ marginTop: 12 }}>fullsreen</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="github" size="2em" />
-        <div style={{ marginTop: 12 }}>github</div>
+        <IconFont name="gender-female" size="2em" />
+        <div style={{ marginTop: 12 }}>gender-female</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="heart_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>heart_fill</div>
+        <IconFont name="gender-male" size="2em" />
+        <div style={{ marginTop: 12 }}>gender-male</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="gift" size="2em" />
+        <div style={{ marginTop: 12 }}>gift</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="heart-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>heart-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="heart" size="2em" />
         <div style={{ marginTop: 12 }}>heart</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="help_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>help_fill</div>
+        <IconFont name="help-circle-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>help-circle-filled</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="help-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>help-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="help" size="2em" />
@@ -358,28 +414,28 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>history</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="ie" size="2em" />
-        <div style={{ marginTop: 12 }}>ie</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="home" size="2em" />
         <div style={{ marginTop: 12 }}>home</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="hourglass" size="2em" />
+        <div style={{ marginTop: 12 }}>hourglass</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="image" size="2em" />
         <div style={{ marginTop: 12 }}>image</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="inbox" size="2em" />
-        <div style={{ marginTop: 12 }}>inbox</div>
+        <IconFont name="info-circle-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>info-circle-filled</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="info-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>info-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="internet" size="2em" />
         <div style={{ marginTop: 12 }}>internet</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="ircle-right" size="2em" />
-        <div style={{ marginTop: 12 }}>ircle-right</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="jump" size="2em" />
@@ -390,8 +446,8 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>laptop</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="last-page" size="2em" />
-        <div style={{ marginTop: 12 }}>last-page</div>
+        <IconFont name="layers" size="2em" />
+        <div style={{ marginTop: 12 }}>layers</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="link-unlink" size="2em" />
@@ -404,10 +460,6 @@ export default function IconFontExample() {
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="loading" size="2em" />
         <div style={{ marginTop: 12 }}>loading</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="hourglass" size="2em" />
-        <div style={{ marginTop: 12 }}>hourglass</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="location" size="2em" />
@@ -426,12 +478,32 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>login</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="mail" size="2em" />
-        <div style={{ marginTop: 12 }}>mail</div>
+        <IconFont name="logo-android" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-android</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="male" size="2em" />
-        <div style={{ marginTop: 12 }}>male</div>
+        <IconFont name="logo-apple" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-apple</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="logo-chrome" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-chrome</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="logo-github" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-github</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="logo-ie" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-ie</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="logo-windows" size="2em" />
+        <div style={{ marginTop: 12 }}>logo-windows</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="mail" size="2em" />
+        <div style={{ marginTop: 12 }}>mail</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="menu-fold" size="2em" />
@@ -442,6 +514,14 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>menu-unfold</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="minus-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>minus-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="minus-rectangle" size="2em" />
+        <div style={{ marginTop: 12 }}>minus-rectangle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="mobile-vibrate" size="2em" />
         <div style={{ marginTop: 12 }}>mobile-vibrate</div>
       </div>
@@ -450,32 +530,44 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>mobile</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="money-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>money-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="more" size="2em" />
+        <div style={{ marginTop: 12 }}>more</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="next" size="2em" />
         <div style={{ marginTop: 12 }}>next</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="order-horizontal-bottomup" size="2em" />
-        <div style={{ marginTop: 12 }}>order-horizontal-bottomup</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="order-horizontal-normal" size="2em" />
-        <div style={{ marginTop: 12 }}>order-horizontal-normal</div>
+        <IconFont name="notification-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>notification-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="notification" size="2em" />
         <div style={{ marginTop: 12 }}>notification</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="order-verticle-bottomup" size="2em" />
-        <div style={{ marginTop: 12 }}>order-verticle-bottomup</div>
+        <IconFont name="order-adjustment-column" size="2em" />
+        <div style={{ marginTop: 12 }}>order-adjustment-column</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="order-verticle-normal" size="2em" />
-        <div style={{ marginTop: 12 }}>order-verticle-normal</div>
+        <IconFont name="order-ascending" size="2em" />
+        <div style={{ marginTop: 12 }}>order-ascending</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="order-verticle-updown" size="2em" />
-        <div style={{ marginTop: 12 }}>order-verticle-updown</div>
+        <IconFont name="order-descending" size="2em" />
+        <div style={{ marginTop: 12 }}>order-descending</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="page-first" size="2em" />
+        <div style={{ marginTop: 12 }}>page-first</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="page-last" size="2em" />
+        <div style={{ marginTop: 12 }}>page-last</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="photo" size="2em" />
@@ -486,6 +578,14 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>pin</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="play-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>play-circle</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="poweroff" size="2em" />
+        <div style={{ marginTop: 12 }}>poweroff</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="previous" size="2em" />
         <div style={{ marginTop: 12 }}>previous</div>
       </div>
@@ -494,52 +594,12 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>print</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="prompt_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>prompt_fill</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="prompt" size="2em" />
-        <div style={{ marginTop: 12 }}>prompt</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="qrcode" size="2em" />
         <div style={{ marginTop: 12 }}>qrcode</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="queue" size="2em" />
         <div style={{ marginTop: 12 }}>queue</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-up" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-up</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-add" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-clear" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-clear</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-down" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-down</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-remove" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-remove</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-leftrectangle-left" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-leftrectangle-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-right" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="rectangle-tick" size="2em" />
-        <div style={{ marginTop: 12 }}>rectangle-tick</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="refresh" size="2em" />
@@ -570,16 +630,16 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>secured</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="setting" size="2em" />
-        <div style={{ marginTop: 12 }}>setting</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="server" size="2em" />
         <div style={{ marginTop: 12 }}>server</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="share-alt" size="2em" />
-        <div style={{ marginTop: 12 }}>share-alt</div>
+        <IconFont name="service" size="2em" />
+        <div style={{ marginTop: 12 }}>service</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="setting" size="2em" />
+        <div style={{ marginTop: 12 }}>setting</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="share" size="2em" />
@@ -594,28 +654,36 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>slash</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="star_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>star_fill</div>
+        <IconFont name="sound" size="2em" />
+        <div style={{ marginTop: 12 }}>sound</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="star-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>star-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="star" size="2em" />
         <div style={{ marginTop: 12 }}>star</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="sound" size="2em" />
-        <div style={{ marginTop: 12 }}>sound</div>
+        <IconFont name="stop-circle" size="2em" />
+        <div style={{ marginTop: 12 }}>stop-circle</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="stop" size="2em" />
         <div style={{ marginTop: 12 }}>stop</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="success_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>success_fill</div>
+        <IconFont name="swap-left" size="2em" />
+        <div style={{ marginTop: 12 }}>swap-left</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="success" size="2em" />
-        <div style={{ marginTop: 12 }}>success</div>
+        <IconFont name="swap-right" size="2em" />
+        <div style={{ marginTop: 12 }}>swap-right</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="swap" size="2em" />
+        <div style={{ marginTop: 12 }}>swap</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="thumb-down" size="2em" />
@@ -626,20 +694,28 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>thumb-up</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="tips" size="2em" />
-        <div style={{ marginTop: 12 }}>tips</div>
+        <IconFont name="time-filled" size="2em" />
+        <div style={{ marginTop: 12 }}>time-filled</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="tick" size="2em" />
-        <div style={{ marginTop: 12 }}>tick</div>
+        <IconFont name="time" size="2em" />
+        <div style={{ marginTop: 12 }}>time</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="tips" size="2em" />
+        <div style={{ marginTop: 12 }}>tips</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="tools" size="2em" />
         <div style={{ marginTop: 12 }}>tools</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="arrow-up" size="2em" />
-        <div style={{ marginTop: 12 }}>arrow-up</div>
+        <IconFont name="unfold-less" size="2em" />
+        <div style={{ marginTop: 12 }}>unfold-less</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="unfold-more" size="2em" />
+        <div style={{ marginTop: 12 }}>unfold-more</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="upload" size="2em" />
@@ -654,24 +730,32 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>user-add</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="user-delete" size="2em" />
-        <div style={{ marginTop: 12 }}>user-delete</div>
+        <IconFont name="user-avatar" size="2em" />
+        <div style={{ marginTop: 12 }}>user-avatar</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="user-clear" size="2em" />
+        <div style={{ marginTop: 12 }}>user-clear</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="user" size="2em" />
         <div style={{ marginTop: 12 }}>user</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="usergroup-delete" size="2em" />
-        <div style={{ marginTop: 12 }}>usergroup-delete</div>
+        <IconFont name="usergroup-add" size="2em" />
+        <div style={{ marginTop: 12 }}>usergroup-add</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="video" size="2em" />
-        <div style={{ marginTop: 12 }}>video</div>
+        <IconFont name="usergroup-clear" size="2em" />
+        <div style={{ marginTop: 12 }}>usergroup-clear</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="usergroup" size="2em" />
         <div style={{ marginTop: 12 }}>usergroup</div>
+      </div>
+      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <IconFont name="video" size="2em" />
+        <div style={{ marginTop: 12 }}>video</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="view-column" size="2em" />
@@ -690,20 +774,8 @@ export default function IconFontExample() {
         <div style={{ marginTop: 12 }}>wallet</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="warning" size="2em" />
-        <div style={{ marginTop: 12 }}>warning</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="warning_fill" size="2em" />
-        <div style={{ marginTop: 12 }}>warning_fill</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="wifi" size="2em" />
         <div style={{ marginTop: 12 }}>wifi</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="windows" size="2em" />
-        <div style={{ marginTop: 12 }}>windows</div>
       </div>
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="zoom-in" size="2em" />
@@ -712,34 +784,6 @@ export default function IconFontExample() {
       <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <IconFont name="zoom-out" size="2em" />
         <div style={{ marginTop: 12 }}>zoom-out</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="adjustment" size="2em" />
-        <div style={{ marginTop: 12 }}>adjustment</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="chat" size="2em" />
-        <div style={{ marginTop: 12 }}>chat</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="browse-off" size="2em" />
-        <div style={{ marginTop: 12 }}>browse-off</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="browse" size="2em" />
-        <div style={{ marginTop: 12 }}>browse</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="notification_full" size="2em" />
-        <div style={{ marginTop: 12 }}>notification_full</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="more" size="2em" />
-        <div style={{ marginTop: 12 }}>more</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <IconFont name="ellipsis" size="2em" />
-        <div style={{ marginTop: 12 }}>ellipsis</div>
       </div>
     </div>
   );

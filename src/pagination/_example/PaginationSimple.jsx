@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination } from '@tdesign/react';
+import { Pagination } from '@tencent/tdesign-react';
 
 export default function PaginationExample() {
   const onChange = React.useCallback((index, event) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tdesign/react';
+import { Select } from '@tencent/tdesign-react';
 
 const { Option } = Select;
 
@@ -31,13 +31,7 @@ const FilterableSelect = () => {
   };
 
   return (
-    <Select
-      filterable
-      value={value}
-      change={onChange}
-      style={{ width: '40%' }}
-      filterMethod={handleFilter}
-    >
+    <Select filterable value={value} onChange={onChange} style={{ width: '40%' }} filterMethod={handleFilter}>
       {options.map((item, index) => (
         <Option key={index} label={item.label} value={item.value} />
       ))}

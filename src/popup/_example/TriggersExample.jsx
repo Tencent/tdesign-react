@@ -1,33 +1,19 @@
 import React from 'react';
-import { Button, Popup } from '@tdesign/react';
+import { Button, Popup } from '@tencent/tdesign-react';
 
 export default function Triggers() {
-  const $content = (
-    <div
-      style={{
-        background: 'rgba(0, 0, 0, 0.8)',
-        color: '#fff',
-        padding: 8,
-        borderRadius: 4,
-        fontSize: 12,
-      }}
-    >
-      这是一个弹出框
-    </div>
-  );
-
   return (
     <>
-      <Popup trigger="hover" content={$content}>
+      <Popup trigger="hover" content="这是一个弹出框">
         <Button>Hover me</Button>
       </Popup>
-      <Popup trigger="focus" content={$content}>
+      <Popup trigger="focus" content="这是一个弹出框">
         <Button style={{ marginLeft: 8 }}>Focus me</Button>
       </Popup>
-      <Popup trigger="click" content={$content}>
+      <Popup trigger="click" content="这是一个弹出框">
         <Button style={{ marginLeft: 8 }}>Click me</Button>
       </Popup>
-      <Popup trigger="contextMenu" content={$content}>
+      <Popup trigger="contextMenu" content="这是一个弹出框">
         <Button style={{ marginLeft: 8 }}>Right Click me</Button>
       </Popup>
     </>

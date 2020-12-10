@@ -17,7 +17,7 @@ export interface RadioGroupProps extends ControlledProps<string> {
   /**
    * 值变更时回调
    */
-  onChange?: (value: string, event: MouseEvent<HTMLInputElement>) => void;
+  onChange?: (value: string, context: { event: MouseEvent<HTMLInputElement> }) => void;
 
   /**
    * 禁用组件
@@ -73,9 +73,9 @@ const RadioGroup: FunctionComponent<RadioGroupProps> = (props) => {
         ...checkProps,
         value: value === checkProps.name,
         disabled: checkProps.disabled || disabled,
-        onChange(checked, event) {
+        onChange(checked, { event }) {
           if (typeof checkProps.onChange === 'function') {
-            checkProps.onChange(checked, event);
+            checkProps.onChange(checked, { event });
 
             if (event.defaultPrevented) {
               return;
@@ -83,7 +83,7 @@ const RadioGroup: FunctionComponent<RadioGroupProps> = (props) => {
           }
 
           if (typeof onChange === 'function') {
-            onChange(checkName, event);
+            onChange(checkName, { event });
           }
         },
       };

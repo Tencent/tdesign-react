@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@tdesign/react';
+import { Button } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function ContentExample() {
@@ -11,7 +11,7 @@ export default function ContentExample() {
   );
   return (
     <PopConfirm content={$content} confirmText="确认删除" cancelText="关闭">
-      <Button theme="primary">Hover展示</Button>
+      <Button theme="primary">操作</Button>
     </PopConfirm>
   );
 }

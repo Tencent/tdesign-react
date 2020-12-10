@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconFont, PromptFillIcon, SuccessFillIcon } from '../icon';
+import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import {
@@ -82,10 +82,10 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     <div ref={ref} className={prefixCls(blockName).concat(' ', className)} style={style}>
       {((): React.ReactNode => {
         if (theme && theme === 'success') {
-          return <SuccessFillIcon className={prefixCls('is-success')} />;
+          return <CheckCircleFilledIcon className={prefixCls('is-success')} />;
         }
         if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
-          return <PromptFillIcon className={prefixCls(`is-${theme}`)} />;
+          return <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />;
         }
         if (React.isValidElement(icon)) return icon;
         return null;
@@ -95,7 +95,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
           <span className={prefixCls([blockName, 'title'])}>{title}</span>
           {((): React.ReactNode => {
             if (typeof closeBtn === 'boolean' && closeBtn) {
-              return <IconFont name="close" onClick={onClose} />;
+              return <CloseIcon className={prefixCls('icon-close')} onClick={onClose} />;
             }
             if (React.isValidElement(closeBtn)) {
               return <div onClick={onClose}>{closeBtn}</div>;

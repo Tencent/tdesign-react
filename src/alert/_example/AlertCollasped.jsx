@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '@tdesign/react';
+import { Alert } from '@tencent/tdesign-react';
 
 export default function AlertCollasped() {
   const message = [
