@@ -17,7 +17,7 @@ export default function ExtendsExample() {
     <>
       <PopConfirm content={$content} onConfirm={handleConfirm} onCancel={handleCancel}>
         <Button theme="primary" style={{ marginLeft: 8 }}>
-          Hover展示
+          提交
         </Button>
       </PopConfirm>
     </>

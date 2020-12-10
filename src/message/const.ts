@@ -1,3 +1,4 @@
+import { DEFAULT_CLASS_PREFIX } from '../config-provider/ConfigContext';
 const Distance = '32px';
 export const ThemeList: string[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
 export const PlacementOffset = {
@@ -26,22 +27,22 @@ export const PlacementOffset = {
     left: '50%',
     transform: 'translateX(-50%)',
   },
-  'left-top': {
+  'top-left': {
     left: Distance,
     top: Distance,
   },
-  'right-top': {
+  'top-right': {
     right: Distance,
     top: Distance,
   },
-  'right-bottom': {
+  'bottom-left': {
     right: Distance,
     bottom: Distance,
   },
-  'left-bottom': {
+  'bottom-righ': {
     left: Distance,
     bottom: Distance,
   },
 };
-export const prefix = 't-message';
+export const prefix = `${DEFAULT_CLASS_PREFIX}-message`;
 export const prefixWrapper = `${prefix}-list`;

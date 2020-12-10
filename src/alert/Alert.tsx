@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { CloseIcon, PromptFillIcon, SuccessFillIcon, WarningFillIcon } from '../icon';
+import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
 
 export interface AlertProps extends StyledProps {
   /**
@@ -75,10 +75,10 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   const [collapsed, setCollapsed] = React.useState(false);
   const { classPrefix } = useConfig();
   const iconMap = {
-    success: SuccessFillIcon,
-    info: PromptFillIcon,
-    error: WarningFillIcon,
-    warning: WarningFillIcon,
+    success: CheckCircleFilledIcon,
+    info: InfoCircleFilledIcon,
+    error: ErrorCircleFilledIcon,
+    warning: ErrorCircleFilledIcon,
   };
 
   const handleClose = () => {

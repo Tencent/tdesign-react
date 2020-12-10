@@ -1,7 +1,5 @@
 import React, {
   forwardRef,
-  Ref,
-  FunctionComponent,
   ReactNode,
   CSSProperties,
   useState,
@@ -10,7 +8,9 @@ import React, {
   isValidElement,
   ReactChild,
 } from 'react';
+import classNames from 'classnames';
 import { usePopper } from 'react-popper';
+import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
 import usePrevious from '../_util/usePrevious';
@@ -39,6 +39,11 @@ export interface PopupProps {
   visible?: boolean;
 
   /**
+   * 浮层状态改变的回调
+   */
+  onVisibleChange?: (visible: boolean) => void;
+
+  /**
    * 浮层弹出的触发方式
    * @default 'hover'
    */
@@ -46,9 +51,14 @@ export interface PopupProps {
 
   /**
    * 浮层内容
-   * @default null
    */
   content?: ReactNode;
+
+  /**
+   * 浮层是否显示箭头
+   * @default false
+   */
+  showArrow?: boolean;
 
   /**
    * 设置渲染的父节点
@@ -70,37 +80,40 @@ export interface PopupProps {
    * @default false
    */
   destroyOnHide?: boolean;
+
+  /**
+   * 触发元素
+   */
+  children?: React.ReactNode;
 }
 
-export type PopupRef = Ref<HTMLDivElement>;
-
-const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) => {
+const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const {
     trigger = 'hover',
     content = null,
     placement = 'top',
     getPopupContainer,
+    showArrow = false,
     destroyOnHide = false,
     overlayStyle,
     overlayClassName,
     children,
   } = props;
   const { classPrefix } = useConfig();
-  const [visible, setVisible] = useState(props.visible || false);
+  const [visible, setVisible] = useDefault(props.visible, false, props.onVisibleChange);
   const preVisible = usePrevious(visible);
 
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
+  const [arrowRef, setArrowRef] = useState<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement,
+    modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = visible ? { ...overlayStyle } : { ...overlayStyle, display: 'none' };
-
-  // 响应 props 变化
-  useEffect(() => setVisible(props.visible), [props.visible]);
 
   // 处理 trigger
   const [triggerProps, popupProps] = useTriggerProps(
@@ -126,20 +139,28 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
   });
 
   // portal
-  let $portal: React.ReactElement = null;
+  let portal: React.ReactElement = null;
 
   // 如果要展示，或者已经渲染过，默认不销毁
   if (visible || overlayRef) {
-    $portal = (
-      <Portal classPrefix={classPrefix} getContainer={getPopupContainer}>
+    portal = (
+      <Portal getContainer={getPopupContainer}>
         <div
           ref={composeRefs(setOverlayRef, ref)}
-          style={{ ...styles.popper, ...overlayVisibleStyle }}
-          className={overlayClassName}
+          style={styles.popper}
+          className={`${classPrefix}-popup`}
           {...attributes.popper}
           {...popupProps}
         >
-          {content}
+          <div
+            className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
+              [`${classPrefix}-popup-content--arrow`]: showArrow,
+            })}
+            style={overlayVisibleStyle}
+          >
+            {showArrow && <div ref={setArrowRef} style={styles.arrow} className={`${classPrefix}-popup__arrow`} />}
+            {content}
+          </div>
         </div>
       </Portal>
     );
@@ -147,7 +168,7 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
 
   // 强制销毁
   if (!visible && destroyOnHide) {
-    $portal = null;
+    portal = null;
   }
 
   // 弹出框展示的时候，重新计算一下位置
@@ -160,7 +181,7 @@ const Popup: FunctionComponent<PopupProps> = forwardRef((props, ref: PopupRef) =
   return (
     <>
       {triggerNode}
-      {$portal}
+      {portal}
     </>
   );
 });

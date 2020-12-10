@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import types from '../util/types';
-import { SelectOption, LabeledValue } from '../SelectProps';
+import { SelectOption, SelectLabeledValue } from '../SelectProps';
 
 const Option = (props: SelectOption) => {
   const { classPrefix } = useConfig();
@@ -16,13 +16,13 @@ const Option = (props: SelectOption) => {
       if (types.isNumber(item) || types.isString(item)) {
         return item === value;
       }
-      return (item as LabeledValue).value === value;
+      return (item as SelectLabeledValue).value === value;
     });
   }
 
-  const handleSelect = () => {
+  const handleSelect = (event: React.MouseEvent) => {
     if (!disabled) {
-      onSelect(value, label, selected);
+      onSelect(value, { label, selected, event });
     }
   };
 
