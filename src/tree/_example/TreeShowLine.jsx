@@ -22,9 +22,9 @@ export default function TreeExample() {
             },
           ],
         },
-        {
-          label: '我是节点1-3',
-        },
+        // {
+        //   label: '我是节点1-3',
+        // },
       ],
       label: '我是节点1',
     },

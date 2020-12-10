@@ -1,8 +1,9 @@
 import React, { forwardRef, useState, useEffect, useRef, useReducer, useImperativeHandle } from 'react';
+// import { Transition } from 'react-transition-group';
 // import noop from '../_util/noop';
 // import { Icon } from '../icon';
-// import classNames from 'classnames';
 // import useConfig from '../_util/useConfig';
+import classNames from 'classnames';
 import TreeNode from '../../common/js/tree/TreeNode';
 import { TreeStore, TreeFilterOptions, TreeNodeProps } from '../../common/js/tree/TreeStore';
 import { TreeProps } from './interface/TreeProps';
@@ -18,10 +19,11 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
  */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
+  // 可见节点集合
   const [treeItems, setTreeItems] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  /* eslint-disable */ 
+  /* eslint-disable */
   const {
     data,
     empty,
@@ -49,7 +51,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     valueMode,
     label,
     operations,
-    transition,
+    transition = true, // 动画默认开启
     expandOnClickNode,
     children,
     filter,
@@ -138,26 +140,31 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     if (store) {
       const nodes = store.getNodes();
       // console.log('nodes:', nodes);
-      const newTreeItems = nodes.map((node) => (
-        <TreeItem
-          key={node.value}
-          node={node}
-          empty={empty}
-          icon={icon}
-          label={label}
-          line={line}
-          hover={hover}
-          transition={transition}
-          expandOnClickNode={expandOnClickNode}
-          operations={operations}
-          onClick={(node: TreeNode) => {
-            handleClick(node, props, store);
-          }}
-          onChange={(node: TreeNode) => {
-            handleChange(node, props, store);
-          }}
-        />
-      ));
+      const newTreeItems = nodes.map((node) => {
+        // if (node.visible) {
+        console.log('node:', node);
+        return (
+          <TreeItem
+            key={node.value}
+            node={node}
+            empty={empty}
+            icon={icon}
+            label={label}
+            line={line}
+            hover={hover}
+            transition={transition}
+            expandOnClickNode={expandOnClickNode}
+            operations={operations}
+            onClick={(node: TreeNode) => {
+              handleClick(node, props, store);
+            }}
+            onChange={(node: TreeNode) => {
+              handleChange(node, props, store);
+            }}
+          />
+        );
+        // }
+      });
       // console.log('newTreeItems:', newTreeItems);
       setTreeItems(newTreeItems);
     }
@@ -266,9 +273,26 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   }));
 
   return (
-    <div ref={ref} className={CLASS_NAMES.tree}>
+    <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
       {treeItems}
     </div>
+    // 【暂勿删】
+    // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
+    // <Transition in={true} timeout={duration}>
+    //   {(state) => (
+    //     <div
+    //       ref={ref}
+    //       className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}
+    //       // style={{
+    //       //   ...defaultStyle,
+    //       //   ...transitionStyles[state],
+    //       // }}
+    //     >
+    //       {treeItems}
+    //     </div>
+    //   )}
+    // </Transition>
+    // </div>
   );
 });
 
