@@ -17,13 +17,13 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
 /**
  * 树组件
  */
+/* eslint-disable */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
   // 可见节点集合
   const [treeItems, setTreeItems] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  /* eslint-disable */
   const {
     data,
     empty,
