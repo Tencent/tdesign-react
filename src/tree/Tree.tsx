@@ -20,11 +20,11 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
 /* eslint-disable */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
-  // const [treeItems, setTreeItems] = useState([]);
   // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  // const [treeItems, setTreeItems] = useState([]);
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-  // const [isTransition, setIsTransition] = useState(false);
+  const [isTransition, setIsTransition] = useState(false);
 
   const {
     data,
@@ -70,7 +70,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     remove,
     getIndex,
   } = props;
-
   // 创建 store
   const store = useRef(
     new TreeStore({
@@ -240,29 +239,48 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
     //   {treeItems}
     // </div>
-    <TransitionGroup ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
-      {visibleNodes.map((node) => (
-        <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
-          <TreeItem
-            node={node}
-            empty={empty}
-            icon={icon}
-            label={label}
-            line={line}
-            hover={hover}
-            transition={transition}
-            expandOnClickNode={expandOnClickNode}
-            operations={operations}
-            onClick={(node: TreeNode) => {
-              handleClick(node, props, store);
+    <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
+      <TransitionGroup>
+        {visibleNodes.map((node) => (
+          <CSSTransition
+            key={node.value}
+            timeout={transitionDuration}
+            classNames={transitionClassNames}
+            onEnter={() => {
+              setIsTransition(true);
             }}
-            onChange={(node: TreeNode) => {
-              handleChange(node, props, store);
+            onEntered={() => {
+              setIsTransition(false);
             }}
-          />
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
+            onExit={() => {
+              setIsTransition(true);
+            }}
+            onExited={() => {
+              setIsTransition(false);
+            }}
+          >
+            <TreeItem
+              node={node}
+              empty={empty}
+              icon={icon}
+              label={label}
+              line={line}
+              hover={hover}
+              transition={transition}
+              isTransition={isTransition}
+              expandOnClickNode={expandOnClickNode}
+              operations={operations}
+              onClick={(node: TreeNode) => {
+                handleClick(node, props, store);
+              }}
+              onChange={(node: TreeNode) => {
+                handleChange(node, props, store);
+              }}
+            />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    </div>
   );
 });
 
