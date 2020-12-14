@@ -1,5 +1,5 @@
-import React, { forwardRef, useState, useEffect, useRef, useReducer, useImperativeHandle } from 'react';
-// import { Transition } from 'react-transition-group';
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 // import noop from '../_util/noop';
 // import { Icon } from '../icon';
 // import useConfig from '../_util/useConfig';
@@ -9,7 +9,7 @@ import { TreeStore, TreeFilterOptions, TreeNodeProps } from '../../common/js/tre
 import { TreeProps } from './interface/TreeProps';
 import { EventState } from './interface/EventState';
 
-import { CLASS_NAMES } from './constants';
+import { CLASS_NAMES, transitionClassNames, transitionDuration } from './constants';
 
 import TreeItem from './components/TreeItem';
 import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setActived, setChecked } from './util';
@@ -20,9 +20,11 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
 /* eslint-disable */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
+  // const [treeItems, setTreeItems] = useState([]);
+  // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   // 可见节点集合
-  const [treeItems, setTreeItems] = useState([]);
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [visibleNodes, setVisibleNodes] = useState([]);
+  // const [isTransition, setIsTransition] = useState(false);
 
   const {
     data,
@@ -69,11 +71,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     getIndex,
   } = props;
 
-  // 触发树节点重新渲染
-  const refresh = useRef(() => {
-    forceUpdate();
-  }).current;
-
   // 创建 store
   const store = useRef(
     new TreeStore({
@@ -97,8 +94,9 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       },
       onUpdate: (info: EventState) => {
         handleUpdate(info, props);
-        // console.log('onUpdate');
-        refresh();
+        const nodes = store.getNodes();
+        const newVisibleNodes = nodes.filter((node) => node.visible);
+        setVisibleNodes(newVisibleNodes);
       },
     }),
   ).current;
@@ -134,41 +132,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       store.refreshNodes();
     }
   }, []);
-
-  // 渲染树节点
-  useEffect(() => {
-    if (store) {
-      const nodes = store.getNodes();
-      // console.log('nodes:', nodes);
-      const newTreeItems = nodes.map((node) => {
-        // if (node.visible) {
-        console.log('node:', node);
-        return (
-          <TreeItem
-            key={node.value}
-            node={node}
-            empty={empty}
-            icon={icon}
-            label={label}
-            line={line}
-            hover={hover}
-            transition={transition}
-            expandOnClickNode={expandOnClickNode}
-            operations={operations}
-            onClick={(node: TreeNode) => {
-              handleClick(node, props, store);
-            }}
-            onChange={(node: TreeNode) => {
-              handleChange(node, props, store);
-            }}
-          />
-        );
-        // }
-      });
-      // console.log('newTreeItems:', newTreeItems);
-      setTreeItems(newTreeItems);
-    }
-  }, [ignored]);
 
   /**  监听开发者的各个 props 变化 **/
   useEffect(() => {
@@ -273,26 +236,33 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   }));
 
   return (
-    <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
-      {treeItems}
-    </div>
     // 【暂勿删】
     // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
-    // <Transition in={true} timeout={duration}>
-    //   {(state) => (
-    //     <div
-    //       ref={ref}
-    //       className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}
-    //       // style={{
-    //       //   ...defaultStyle,
-    //       //   ...transitionStyles[state],
-    //       // }}
-    //     >
-    //       {treeItems}
-    //     </div>
-    //   )}
-    // </Transition>
+    //   {treeItems}
     // </div>
+    <TransitionGroup ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
+      {visibleNodes.map((node) => (
+        <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+          <TreeItem
+            node={node}
+            empty={empty}
+            icon={icon}
+            label={label}
+            line={line}
+            hover={hover}
+            transition={transition}
+            expandOnClickNode={expandOnClickNode}
+            operations={operations}
+            onClick={(node: TreeNode) => {
+              handleClick(node, props, store);
+            }}
+            onChange={(node: TreeNode) => {
+              handleChange(node, props, store);
+            }}
+          />
+        </CSSTransition>
+      ))}
+    </TransitionGroup>
   );
 });
 

@@ -33,6 +33,35 @@ export default function TreeExample() {
       children: [
         {
           label: '我是节点2-1',
+          children: [
+            {
+              label: '我是节点2-1-1',
+              children: [
+                {
+                  label: '我是节点2-1-1-1',
+                },
+                {
+                  label: '我是节点2-1-1-2',
+                  children: [
+                    {
+                      label: '我是节点2-1-1-2-1',
+                      children: [
+                        {
+                          label: '我是节点2-1-1-2-1-1',
+                        },
+                        {
+                          label: '我是节点2-1-1-2-1-2',
+                        },
+                      ],
+                    },
+                    {
+                      label: '我是节点2-1-1-2-2',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           label: '我是节点2-2',
