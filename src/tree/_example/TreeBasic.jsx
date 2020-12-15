@@ -75,7 +75,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data} defaultExpanded={['1', '1-2']} expandLevel={1} expandOnClickNode={true} />
+      <Tree data={data} defaultExpanded={['1', '1-2']} expandLevel={1} />
     </>
   );
 }

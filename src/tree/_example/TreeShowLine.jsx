@@ -99,7 +99,7 @@ export default function TreeExample() {
   ];
   return (
     <>
-      <Tree data={data} line={true} />
+      <Tree data={data} line={true} expandOnClickNode={true} />
     </>
   );
 }

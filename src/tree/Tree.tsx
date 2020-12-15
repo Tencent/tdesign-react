@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 // import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
 import TreeNode from '../../common/js/tree/TreeNode';
-import { TreeStore, TreeFilterOptions, TreeNodeProps } from '../../common/js/tree/TreeStore';
+import { TreeStore, TreeFilterOptions } from '../../common/js/tree/TreeStore';
 import { TreeProps } from './interface/TreeProps';
 import { EventState } from './interface/EventState';
 
@@ -22,9 +22,10 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
   // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   // const [treeItems, setTreeItems] = useState([]);
+  // const [isTransition, setIsTransition] = useState(false);
+
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-  const [isTransition, setIsTransition] = useState(false);
 
   const {
     data,
@@ -242,23 +243,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
       <TransitionGroup>
         {visibleNodes.map((node) => (
-          <CSSTransition
-            key={node.value}
-            timeout={transitionDuration}
-            classNames={transitionClassNames}
-            onEnter={() => {
-              setIsTransition(true);
-            }}
-            onEntered={() => {
-              setIsTransition(false);
-            }}
-            onExit={() => {
-              setIsTransition(true);
-            }}
-            onExited={() => {
-              setIsTransition(false);
-            }}
-          >
+          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
             <TreeItem
               node={node}
               empty={empty}
@@ -267,7 +252,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
               line={line}
               hover={hover}
               transition={transition}
-              isTransition={isTransition}
               expandOnClickNode={expandOnClickNode}
               operations={operations}
               onClick={(node: TreeNode) => {
