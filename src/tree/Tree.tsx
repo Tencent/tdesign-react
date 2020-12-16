@@ -1,7 +1,6 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 // import noop from '../_util/noop';
-// import { Icon } from '../icon';
 // import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
 import TreeNode from '../../common/js/tree/TreeNode';
@@ -238,7 +237,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   return (
     // 【暂勿删】
     // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
-    //   {treeItems}
+    //   {icon}
     // </div>
     <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
       <TransitionGroup>
