@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 // import noop from '../_util/noop';
 // import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
-import TreeNode from '../../common/js/tree/TreeNode';
+import TreeNode, { TreeNodeProps } from '../../common/js/tree/TreeNode';
 import { TreeStore, TreeFilterOptions } from '../../common/js/tree/TreeStore';
 import { TreeProps } from './interface/TreeProps';
 import { EventState } from './interface/EventState';
@@ -19,9 +19,6 @@ import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setAc
 /* eslint-disable */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   // const { classPrefix } = useConfig();
-  // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-  // const [treeItems, setTreeItems] = useState([]);
-  // const [isTransition, setIsTransition] = useState(false);
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
@@ -57,19 +54,15 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     expandOnClickNode,
     children,
     filter,
-    scrollTo,
-    setItem,
-    getItems,
-    getActived,
-    getChecked,
-    append,
-    insertBefore,
-    insertAfter,
-    getParent,
-    getParents,
-    remove,
-    getIndex,
   } = props;
+
+  // 类名计算
+  const className = classNames(CLASS_NAMES.tree, [
+    transition ? CLASS_NAMES.treeFx : '',
+    hover ? CLASS_NAMES.treeHoverable : '',
+    disabled ? CLASS_NAMES.disabled : '',
+  ]);
+
   // 创建 store
   const store = useRef(
     new TreeStore({
@@ -169,14 +162,15 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
 
   /** 对外暴露的公共方法 **/
   useImperativeHandle(ref, (): any => ({
-    filterItems(fn: Function): void {
+    store,
+    filterItems(fn: (node: TreeNode) => boolean): void {
       store.setConfig({
         filter: fn,
       });
       store.updateAll();
     },
     scrollTo(): void {
-      // todo
+      // TODO
     },
     setItem(value: string | TreeNode, options: TreeNodeProps): void {
       const node = this.getItem(value);
@@ -239,7 +233,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
     //   {icon}
     // </div>
-    <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
+    <div ref={ref} className={className}>
       <TransitionGroup>
         {visibleNodes.map((node) => (
           <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
@@ -249,12 +243,11 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
               icon={icon}
               label={label}
               line={line}
-              hover={hover}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
               operations={operations}
-              onClick={(node: TreeNode) => {
-                handleClick(node, props, store);
+              onClick={(node: TreeNode, options: { expand: boolean }) => {
+                handleClick(node, props, store, options);
               }}
               onChange={(node: TreeNode) => {
                 handleChange(node, props, store);

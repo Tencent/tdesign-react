@@ -2,6 +2,7 @@
 // import { Tree } from '@tdesign/react';
 import Tree from '../Tree';
 import Switch from '../../switch';
+import Input from '../../input';
 
 const data = [
   {
@@ -92,20 +93,65 @@ const data = [
   },
 ];
 
+const activedNodeKeys = ['2'];
+
 export default function TreeExample() {
+  const [expandOnClickNode, setExpandOnClickNode] = useState(false);
+  const [hoverable, setHoverable] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const handleSwitchChange = useCallback((value) => {
-    setDisabled(value);
+  const [selectLabel, setSelectLabel] = useState('');
+
+  const handleClick = useCallback(({ event, node }) => {
+    if (node.actived) {
+      setSelectLabel(node.label);
+    } else {
+      setSelectLabel('');
+    }
+  }, []);
+
+  const handleSwitchChange = useCallback((value, type) => {
+    switch (type) {
+      case 'expandOnClickNode':
+        setExpandOnClickNode(value);
+        break;
+      case 'hoverable':
+        setHoverable(value);
+        break;
+      case 'disabled':
+        setDisabled(value);
+        break;
+    }
+  }, []);
+
+  const handleInput = useCallback(() => {
+    return;
   }, []);
 
   return (
     <>
       <div>
+        <span style={{ marginRight: '10px' }}>点击文字，展开节点</span>
+        <Switch value={expandOnClickNode} onChange={(value) => handleSwitchChange(value, 'expandOnClickNode')} />
+      </div>
+      <div>
+        <span style={{ marginRight: '10px' }}>开启hover态</span>
+        <Switch value={hoverable} onChange={(value) => handleSwitchChange(value, 'hoverable')} />
+      </div>
+      <div>
         <span style={{ marginRight: '10px' }}>树禁用</span>
-        <Switch value={disabled} onChange={handleSwitchChange} />
+        <Switch value={disabled} onChange={(value) => handleSwitchChange(value, 'disabled')} />
       </div>
 
-      <Tree data={data} disabled={disabled} />
+      <Input style={{ margin: '10px 0' }} value={selectLabel} onChange={handleInput} />
+      <Tree
+        data={data}
+        hover={hoverable}
+        disabled={disabled}
+        activable={true}
+        actived={activedNodeKeys}
+        expandOnClickNode={expandOnClickNode}
+        onClick={handleClick}
+      />
     </>
   );
 }

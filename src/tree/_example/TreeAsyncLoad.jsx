@@ -1,6 +1,32 @@
 import React from 'react';
 import Tree from '../Tree';
 
+const data = [
+  {
+    value: '1',
+    children: [
+      {
+        value: '1-1',
+        label: '我是节点1-1',
+      },
+      {
+        value: '1-2',
+        label: '我是节点1-2',
+      },
+      {
+        value: '1-3',
+        label: '我是节点1-3',
+      },
+    ],
+    label: '我是节点1',
+  },
+  {
+    value: '2',
+    label: '我是节点2',
+    children: true,
+  },
+];
+
 const loadNode = (node) =>
   // console.log('node:', node);
   new Promise((resolve) => {
@@ -22,31 +48,6 @@ const loadNode = (node) =>
     }, 2000);
   });
 export default function TreeExample() {
-  const data = [
-    {
-      value: '1',
-      children: [
-        {
-          value: '1-1',
-          label: '我是节点1-1',
-        },
-        {
-          value: '1-2',
-          label: '我是节点1-2',
-        },
-        {
-          value: '1-3',
-          label: '我是节点1-3',
-        },
-      ],
-      label: '我是节点1',
-    },
-    {
-      value: '2',
-      label: '我是节点2',
-      children: true,
-    },
-  ];
   return (
     <>
       <Tree data={data} load={loadNode} lazy={true} />
