@@ -129,6 +129,7 @@ export default function TreeExample() {
         activeMultiple={true}
         actived={activedNodeKeys}
         expandOnClickNode={checked}
+        checkable={true}
         onClick={handleClick}
       />
     </>
