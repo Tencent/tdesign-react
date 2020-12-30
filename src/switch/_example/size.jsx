@@ -3,7 +3,7 @@ import { Switch } from '@tencent/tdesign-react';
 
 export default function SwitchBasic() {
   return (
-    <div style={{ margin: 20 }}>
+    <div className="tdegsin-demo-switch">
       <Switch size="large" />
       <Switch defaultValue size="large" />
       <br />

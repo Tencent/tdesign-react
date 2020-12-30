@@ -5,7 +5,7 @@ export default function SwitchBasic() {
   const renderActiveContent = () => <Icon name="tick" />;
   const renderInactiveContent = () => <Icon name="close" />;
   return (
-    <div style={{ margin: 20 }}>
+    <div className="tdegsin-demo-switch">
       <Switch activeContent="开" inactiveContent="关" />
       <Switch defaultValue activeContent="开" inactiveContent="关" />
       <br />
