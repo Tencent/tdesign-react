@@ -4,8 +4,8 @@ import PopConfirm from '../PopConfirm';
 
 export default function IconUsageExample() {
   const $content = '请确认您要进行此操作';
-  const iconComponent = <Icon name="notification_full" style={{ 'margin-right': '8px' }} />;
-  const iconElement = () => <Icon name="success_fill" style={{ 'margin-right': '8px' }} />;
+  const iconComponent = <Icon name="info-circle-filled" style={{ marginRight: '8px' }} />;
+  const iconElement = () => <Icon name="logo-github" style={{ marginRight: '8px' }} />;
   return (
     <>
       <PopConfirm content={$content} icon="success">

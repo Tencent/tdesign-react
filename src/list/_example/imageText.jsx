@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { List, ListItem, ListItemMeta, Icon } from '@tencent/tdesign-react';
 
 export default function BasicList() {
