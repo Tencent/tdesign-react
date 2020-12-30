@@ -6,7 +6,7 @@ export default function InputExample() {
   return (
     <div className="tdesign-demo-item--input__input-box">
       <Input
-        prefixIcon="search"
+        prefixIcon="lock-on"
         suffixIcon="prompt_fill"
         placeholder="请输入内容"
         value={value}
@@ -15,7 +15,7 @@ export default function InputExample() {
         }}
       />
       <Input
-        prefixIcon={<Icon name="search" />}
+        prefixIcon={<Icon name="lock-on" />}
         suffixIcon="prompt_fill"
         placeholder="请输入内容"
         value={value}

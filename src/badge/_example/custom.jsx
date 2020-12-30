@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Badge, Button } from '@tencent/tdesign-react';
 
 export default function BadgeExample() {
