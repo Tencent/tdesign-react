@@ -4,6 +4,7 @@ import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
+import { Icon } from '../icon';
 import CheckTag from './CheckTag';
 
 /**
@@ -119,7 +120,7 @@ const Tag = forwardRefWithStatics(
     /**
      * 删除 Icon
      */
-    const deleteIcon = <i className="t-icon t-icon-close" onClick={onClose}></i>;
+    const deleteIcon = <Icon name="close" onClick={onClose} />;
 
     const tag: JSX.Element = (
       <span

@@ -16,7 +16,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     iconName = icon;
   } else {
     // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
-    iconName = theme === 'default' ? '' : 'prompt_fill';
+    iconName = theme === 'default' ? '' : 'info-circle-filled';
   }
 
   switch (theme) {

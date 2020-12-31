@@ -5,7 +5,7 @@ export default function AddTabs() {
   const [panels, setPanels] = useState([
     {
       name: 1,
-      label: 1,
+      label: '选项卡1',
     },
   ]);
   return (
@@ -22,7 +22,7 @@ export default function AddTabs() {
             setPanels((panels) => {
               panels.push({
                 name: panels.length + 1,
-                label: panels.length + 1,
+                label: `选项卡${panels.length + 1}`,
               });
               return [...panels];
             });

@@ -5,7 +5,7 @@ export default function CloseableTabs() {
   const [panels, setPanels] = useState([
     {
       name: 1,
-      label: 1,
+      label: '选项卡1',
     },
   ]);
   return (
@@ -33,14 +33,14 @@ export default function CloseableTabs() {
             setPanels((panels) => {
               panels.push({
                 name: panels.length + 1,
-                label: panels.length + 1,
+                label: `选项卡${panels.length + 1}`,
               });
               return [...panels];
             });
           }}
         >
           {panels.map(({ name, label }) => (
-            <TabPanel closable key={name} name={name} label={label}>
+            <TabPanel closable={panels.length > 1} key={name} name={name} label={label}>
               <div style={{ margin: 20 }}>{label}</div>
             </TabPanel>
           ))}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel, Button } from '@tencent/tdesign-react';
+import { Tabs, TabPanel, DiscountIcon, Button } from '@tencent/tdesign-react';
 
 export default function IconTabs() {
   const [isCard, setIsCard] = useState(false);
@@ -8,6 +8,12 @@ export default function IconTabs() {
   const toggle = () => {
     setIsCard(!isCard);
   };
+  const label = (
+    <div>
+      <DiscountIcon />
+      选项卡
+    </div>
+  );
   return (
     <>
       <div className="tdegsin-demo-tabs">
@@ -15,11 +21,14 @@ export default function IconTabs() {
           {desc}
         </Button>
         <Tabs tabPosition={'top'} size={'middle'} theme={theme}>
-          <TabPanel name={'a'} label={'a'}>
-            <div className="tabs-content">a</div>
+          <TabPanel name="a" label={label}>
+            <div className="tabs-content">选项卡1</div>
           </TabPanel>
-          <TabPanel name={'b'} label={'b'}>
-            <div className="tabs-content">b</div>
+          <TabPanel name="b" label={label}>
+            <div className="tabs-content">选项卡2</div>
+          </TabPanel>
+          <TabPanel name="c" label={label}>
+            <div className="tabs-content">选项卡3</div>
           </TabPanel>
         </Tabs>
       </div>

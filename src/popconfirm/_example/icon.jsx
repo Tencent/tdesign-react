@@ -8,7 +8,7 @@ export default function IconUsageExample() {
   const iconElement = () => <Icon name="logo-github" style={{ marginRight: '8px' }} />;
   return (
     <>
-      <PopConfirm content={$content} icon="success">
+      <PopConfirm content={$content} icon="check-circle-filled">
         <Button style={{ marginLeft: 8 }} theme="primary">
           使用String
         </Button>
