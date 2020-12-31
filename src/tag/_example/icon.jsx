@@ -2,69 +2,59 @@ import React from 'react';
 import { Tag } from '@tencent/tdesign-react';
 
 export default function ThemeTagExample() {
-  const style = { marginRight: 10, marginBottom: 10 };
-
   return (
     <>
       <div>
         <span>默认：</span>
-        <Tag theme="default" style={style}>
-          default
-        </Tag>
+        <Tag theme="default">default</Tag>
       </div>
       <div>
         <span>深色：</span>
-        <Tag theme="primary" style={style}>
-          primary
-        </Tag>
-        <Tag theme="info" style={style}>
-          info
-        </Tag>
-        <Tag theme="warning" style={style}>
-          warning
-        </Tag>
-        <Tag theme="danger" effect="dark" style={style}>
+        <Tag theme="primary">primary</Tag>
+        <Tag theme="info">info</Tag>
+        <Tag theme="warning">warning</Tag>
+        <Tag theme="danger" effect="dark">
           danger
         </Tag>
-        <Tag theme="success" effect="dark" style={style}>
+        <Tag theme="success" effect="dark">
           success
         </Tag>
       </div>
 
       <div>
         <span>浅色：</span>
-        <Tag theme="primary" effect="light" style={style}>
+        <Tag theme="primary" effect="light">
           primary
         </Tag>
-        <Tag theme="info" effect="light" style={style}>
+        <Tag theme="info" effect="light">
           info
         </Tag>
-        <Tag theme="warning" effect="light" style={style}>
+        <Tag theme="warning" effect="light">
           warning
         </Tag>
-        <Tag theme="danger" effect="light" style={style}>
+        <Tag theme="danger" effect="light">
           danger
         </Tag>
-        <Tag theme="success" effect="light" style={style}>
+        <Tag theme="success" effect="light">
           success
         </Tag>
       </div>
 
       <div>
         <span>朴素：</span>
-        <Tag theme="primary" effect="plain" style={style}>
+        <Tag theme="primary" effect="plain">
           primary
         </Tag>
-        <Tag theme="info" effect="plain" style={style}>
+        <Tag theme="info" effect="plain">
           info
         </Tag>
-        <Tag theme="warning" effect="plain" style={style}>
+        <Tag theme="warning" effect="plain">
           warning
         </Tag>
-        <Tag theme="danger" effect="plain" style={style}>
+        <Tag theme="danger" effect="plain">
           danger
         </Tag>
-        <Tag theme="success" effect="plain" style={style}>
+        <Tag theme="success" effect="plain">
           success
         </Tag>
       </div>

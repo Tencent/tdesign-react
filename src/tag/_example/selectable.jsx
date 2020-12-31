@@ -8,11 +8,9 @@ export default function CheckTagExample() {
 
   return (
     <>
-      <CheckTag style={{ marginRight: 5 }}>标签1</CheckTag>
-      <CheckTag style={{ marginRight: 5 }} defaultChecked={true}>
-        标签2
-      </CheckTag>
-      <CheckTag style={{ marginRight: 5 }} checked={checked} onChange={onChange}>
+      <CheckTag>标签1</CheckTag>
+      <CheckTag defaultChecked={true}>标签2</CheckTag>
+      <CheckTag checked={checked} onChange={onChange}>
         标签3
       </CheckTag>
     </>
