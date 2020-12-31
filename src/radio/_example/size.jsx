@@ -7,18 +7,24 @@ export default function RadioExample() {
   return (
     <>
       <Radio.Group size="small" value={gender} onChange={(value) => setGender(value)}>
-        <Radio name="male">男性</Radio>
-        <Radio name="female">女性</Radio>
+        <Radio.Button name="bj">北京</Radio.Button>
+        <Radio.Button name="sh">上海</Radio.Button>
+        <Radio.Button name="gz">广州</Radio.Button>
+        <Radio.Button name="sz">深圳</Radio.Button>
       </Radio.Group>
       <br />
       <Radio.Group value={gender} onChange={(value) => setGender(value)}>
-        <Radio name="male1">男性</Radio>
-        <Radio name="female1">女性</Radio>
+        <Radio.Button name="bj1">北京</Radio.Button>
+        <Radio.Button name="sh1">上海</Radio.Button>
+        <Radio.Button name="gz1">广州</Radio.Button>
+        <Radio.Button name="sz1">深圳</Radio.Button>
       </Radio.Group>
       <br />
       <Radio.Group size="large" value={gender} onChange={(value) => setGender(value)}>
-        <Radio name="male2">男性</Radio>
-        <Radio name="female3">女性</Radio>
+        <Radio.Button name="bj2">北京</Radio.Button>
+        <Radio.Button name="sh2">上海</Radio.Button>
+        <Radio.Button name="gz2">广州</Radio.Button>
+        <Radio.Button name="sz2">深圳</Radio.Button>
       </Radio.Group>
     </>
   );

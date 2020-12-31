@@ -78,18 +78,29 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     };
   }, []);
 
+  const renderIcon = () => {
+    const IconWrapper = ({ children }) => <div className={`${classPrefix}-notification__icon`}>{children}</div>;
+    if (theme && theme === 'success') {
+      return (
+        <IconWrapper>
+          <CheckCircleFilledIcon className={prefixCls('is-success')} />
+        </IconWrapper>
+      );
+    }
+    if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
+      return (
+        <IconWrapper>
+          <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />;
+        </IconWrapper>
+      );
+    }
+    if (React.isValidElement(icon)) return icon;
+    return null;
+  };
+
   return (
     <div ref={ref} className={prefixCls(blockName).concat(' ', className)} style={style}>
-      {((): React.ReactNode => {
-        if (theme && theme === 'success') {
-          return <CheckCircleFilledIcon className={prefixCls('is-success')} />;
-        }
-        if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
-          return <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />;
-        }
-        if (React.isValidElement(icon)) return icon;
-        return null;
-      })()}
+      {renderIcon()}
       <div className={prefixCls([blockName, 'main'])}>
         <div className={prefixCls([blockName, 'title__wrap'])}>
           <span className={prefixCls([blockName, 'title'])}>{title}</span>

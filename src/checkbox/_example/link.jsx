@@ -1,21 +1,20 @@
-import React from 'react';
-import { Checkbox } from '@tencent/tdesign-react';
+import React, { useState } from 'react';
+import { Checkbox, Button } from '@tencent/tdesign-react';
 
 export default function CheckboxControlledExample() {
+  const [value, setValue] = useState(false);
   return (
     <>
-      <Checkbox value={false}>未选中</Checkbox>
-      <Checkbox value>已选中</Checkbox>
-      <Checkbox value={false} disabled>
-        禁用未选中
-      </Checkbox>
-      <Checkbox value disabled>
-        禁用已选中
-      </Checkbox>
-      <Checkbox indeterminate>半选状态</Checkbox>
-      <Checkbox indeterminate disabled>
-        半选状态已禁用
-      </Checkbox>
+      <Checkbox value={value}>腾讯云A</Checkbox>
+      <Checkbox value={value}>腾讯云B</Checkbox>
+      <Checkbox value={value}>腾讯云C</Checkbox>
+
+      <div style={{ margin: '16px 0' }}>
+        <Button onClick={() => setValue(false)}>删除</Button>
+        <Button style={{ marginLeft: 16 }} onClick={() => setValue(true)}>
+          开启
+        </Button>
+      </div>
     </>
   );
 }
