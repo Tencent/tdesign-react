@@ -10,11 +10,7 @@ export default function AddTabs() {
   ]);
   return (
     <>
-      <div
-        style={{
-          maxWidth: '400px',
-        }}
-      >
+      <div className="tdegsin-demo-tabs">
         <Tabs
           tabPosition={'top'}
           size={'middle'}
@@ -34,7 +30,7 @@ export default function AddTabs() {
         >
           {panels.map(({ name, label }) => (
             <TabPanel key={name} name={name} label={label}>
-              <div style={{ margin: 20 }}>{label}</div>
+              <div className="tabs-content">{label}</div>
             </TabPanel>
           ))}
         </Tabs>

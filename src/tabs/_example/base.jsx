@@ -4,17 +4,13 @@ import { Tabs, TabPanel } from '@tencent/tdesign-react';
 export default function BasicTabs() {
   return (
     <>
-      <div
-        style={{
-          maxWidth: '400px',
-        }}
-      >
+      <div className="tdegsin-demo-tabs">
         <Tabs tabPosition={'top'} size={'middle'}>
           <TabPanel name={'a'} label={'a'}>
-            <div style={{ margin: 20 }}>a</div>
+            <div className="tabs-content">a</div>
           </TabPanel>
           <TabPanel name={'b'} label={'b'}>
-            <div style={{ margin: 20 }}>b</div>
+            <div className="tabs-content">b</div>
           </TabPanel>
         </Tabs>
       </div>

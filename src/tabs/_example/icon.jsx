@@ -10,17 +10,19 @@ export default function IconTabs() {
   };
   return (
     <>
-      <Button theme="line" onClick={toggle}>
-        {desc}
-      </Button>
-      <Tabs tabPosition={'top'} size={'middle'} theme={theme}>
-        <TabPanel name={'a'} label={'a'}>
-          <div style={{ margin: 20 }}>a</div>
-        </TabPanel>
-        <TabPanel name={'b'} label={'b'}>
-          <div style={{ margin: 20 }}>b</div>
-        </TabPanel>
-      </Tabs>
+      <div className="tdegsin-demo-tabs">
+        <Button theme="line" onClick={toggle}>
+          {desc}
+        </Button>
+        <Tabs tabPosition={'top'} size={'middle'} theme={theme}>
+          <TabPanel name={'a'} label={'a'}>
+            <div className="tabs-content">a</div>
+          </TabPanel>
+          <TabPanel name={'b'} label={'b'}>
+            <div className="tabs-content">b</div>
+          </TabPanel>
+        </Tabs>
+      </div>
     </>
   );
 }
