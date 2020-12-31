@@ -90,7 +90,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
       return (
         <IconWrapper>
-          <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />;
+          <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />
         </IconWrapper>
       );
     }
