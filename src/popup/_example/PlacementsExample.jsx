@@ -8,13 +8,13 @@ export default function Placements() {
         <Button>Left</Button>
       </Popup>
       <Popup placement="top" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Top</Button>
+        <Button>Top</Button>
       </Popup>
       <Popup placement="bottom" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Bottom</Button>
+        <Button>Bottom</Button>
       </Popup>
       <Popup placement="right" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Right</Button>
+        <Button>Right</Button>
       </Popup>
     </>
   );

@@ -16,9 +16,7 @@ export default function ExtendsExample() {
   return (
     <>
       <PopConfirm content={$content} onConfirm={handleConfirm} onCancel={handleCancel}>
-        <Button theme="primary" style={{ marginLeft: 8 }}>
-          提交
-        </Button>
+        <Button theme="primary">提交</Button>
       </PopConfirm>
     </>
   );

@@ -8,13 +8,13 @@ export default function Triggers() {
         <Button>Hover me</Button>
       </Popup>
       <Popup trigger="focus" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Focus me</Button>
+        <Button>Focus me</Button>
       </Popup>
       <Popup trigger="click" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Click me</Button>
+        <Button>Click me</Button>
       </Popup>
       <Popup trigger="contextMenu" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Right Click me</Button>
+        <Button>Right Click me</Button>
       </Popup>
     </>
   );

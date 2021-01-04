@@ -9,19 +9,13 @@ export default function IconUsageExample() {
   return (
     <>
       <PopConfirm content={$content} icon="check-circle-filled">
-        <Button style={{ marginLeft: 8 }} theme="primary">
-          使用String
-        </Button>
+        <Button theme="primary">使用String</Button>
       </PopConfirm>
       <PopConfirm content={$content} icon={iconComponent}>
-        <Button style={{ marginLeft: 8 }} theme="primary">
-          使用VNode
-        </Button>
+        <Button theme="primary">使用VNode</Button>
       </PopConfirm>
       <PopConfirm content={$content} icon={iconElement}>
-        <Button style={{ marginLeft: 8 }} theme="primary">
-          使用Function
-        </Button>
+        <Button theme="primary">使用Function</Button>
       </PopConfirm>
     </>
   );
