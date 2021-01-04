@@ -149,7 +149,56 @@ exports[`Alert 组件测试 Alert 主题图标显示 6`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertBase.jsx 1`] = `
+exports[`AlertSelfClose.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-alert t-alert--info"
+  >
+    <div
+      class="t-alert__content"
+    >
+      <div
+        class="t-alert__message"
+      >
+        <div
+          class="t-alert__description"
+        >
+          这是一条普通的消息提示
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-alert__close"
+    >
+      知道了
+    </div>
+  </div>
+  <div
+    class="t-alert t-alert--info"
+  >
+    <div
+      class="t-alert__content"
+    >
+      <div
+        class="t-alert__message"
+      >
+        <div
+          class="t-alert__description"
+        >
+          这是一条普通的消息提示
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-alert__close"
+    >
+      不再提醒
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--success"
@@ -222,7 +271,7 @@ exports[`AlertBase.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertClose.jsx 1`] = `
+exports[`close.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--success"
@@ -276,18 +325,7 @@ exports[`AlertClose.jsx 1`] = `
     <div
       class="t-alert__close"
     >
-      <svg
-        class="t-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+      关闭
     </div>
   </div>
   <div
@@ -309,18 +347,7 @@ exports[`AlertClose.jsx 1`] = `
     <div
       class="t-alert__close"
     >
-      <svg
-        class="t-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+      知道了
     </div>
   </div>
   <div
@@ -342,24 +369,15 @@ exports[`AlertClose.jsx 1`] = `
     <div
       class="t-alert__close"
     >
-      <svg
-        class="t-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+      <span>
+        自定义关闭
+      </span>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`AlertCollasped.jsx 1`] = `
+exports[`collapse.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--info"
@@ -403,46 +421,7 @@ exports[`AlertCollasped.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertDescription.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__title"
-      >
-        这是一条普通的消息提示
-      </div>
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          这是一条普通的消息提示描述，这是一条普通的消息提示描述
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`AlertIcon.jsx 1`] = `
+exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--success"
@@ -563,7 +542,7 @@ exports[`AlertIcon.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertOperation.jsx 1`] = `
+exports[`operation.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-alert t-alert--success"
@@ -728,10 +707,10 @@ exports[`AlertOperation.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertSelfClose.jsx 1`] = `
+exports[`swiper.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--info"
+    class="t-alert t-alert--success"
   >
     <div
       class="t-alert__content"
@@ -742,14 +721,9 @@ exports[`AlertSelfClose.jsx 1`] = `
         <div
           class="t-alert__description"
         >
-          这是一条普通的消息提示
+          这是一条成功的消息提示
         </div>
       </div>
-    </div>
-    <div
-      class="t-alert__close"
-    >
-      知道了
     </div>
   </div>
   <div
@@ -768,10 +742,78 @@ exports[`AlertSelfClose.jsx 1`] = `
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="t-alert t-alert--warning"
+  >
     <div
-      class="t-alert__close"
+      class="t-alert__content"
     >
-      不再提醒
+      <div
+        class="t-alert__message"
+      >
+        <div
+          class="t-alert__description"
+        >
+          这是一条警示消息
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-alert t-alert--error"
+  >
+    <div
+      class="t-alert__content"
+    >
+      <div
+        class="t-alert__message"
+      >
+        <div
+          class="t-alert__description"
+        >
+          高危操作/出错信息提示
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`title.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-alert t-alert--info"
+  >
+    <svg
+      class="t-icon t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="t-alert__content"
+    >
+      <div
+        class="t-alert__title"
+      >
+        这是一条普通的消息提示
+      </div>
+      <div
+        class="t-alert__message"
+      >
+        <div
+          class="t-alert__description"
+        >
+          这是一条普通的消息提示描述，这是一条普通的消息提示描述
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

@@ -106,120 +106,6 @@ exports[`LabelInValueSelect.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MultipleSelect.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-tag t-tag--default t-tag--dark"
-      >
-        Apple
-        <svg
-          class="t-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </span>
-      <svg
-        class="t-icon t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`OptionGroupSelect.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-placeholder"
-        style="color: rgb(0, 0, 0);"
-      >
-        Apple
-      </span>
-      <svg
-        class="t-icon t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`PrefixIconSelect.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <svg
-        class="t-icon t-icon-github"
-      >
-        <use
-          xlink:href="#t-icon-github"
-        />
-      </svg>
-      <span
-        class="t-select-placeholder"
-        style="color: rgb(0, 0, 0); margin-left: 6px;"
-      >
-        Apple
-      </span>
-      <svg
-        class="t-icon t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`RemoteSearchSelect.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -441,7 +327,7 @@ exports[`SelectWithRef.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SingleSelect.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"
@@ -499,6 +385,120 @@ exports[`SingleSelect.jsx 1`] = `
           />
         </svg>
       </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <svg
+        class="t-icon t-icon-github"
+      >
+        <use
+          xlink:href="#t-icon-github"
+        />
+      </svg>
+      <span
+        class="t-select-placeholder"
+        style="color: rgb(0, 0, 0); margin-left: 6px;"
+      >
+        Apple
+      </span>
+      <svg
+        class="t-icon t-select-right-icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`group.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <span
+        class="t-select-placeholder"
+        style="color: rgb(0, 0, 0);"
+      >
+        Apple
+      </span>
+      <svg
+        class="t-icon t-select-right-icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 40%;"
+  >
+    <div
+      class="t-select"
+      style="user-select: none;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark"
+      >
+        Apple
+        <svg
+          class="t-icon"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-icon t-select-right-icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>

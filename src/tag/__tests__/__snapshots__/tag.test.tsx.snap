@@ -30,27 +30,39 @@ exports[`ClosableTag.jsx 1`] = `
     style="margin-right: 5px;"
   >
     点击关闭0
-    <i
+    <svg
       class="t-icon t-icon-close"
-    />
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     style="margin-right: 5px;"
   >
     点击关闭1
-    <i
+    <svg
       class="t-icon t-icon-close"
-    />
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     style="margin-right: 5px;"
   >
     点击关闭2
-    <i
+    <svg
       class="t-icon t-icon-close"
-    />
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
   </span>
 </DocumentFragment>
 `;
@@ -253,5 +265,276 @@ exports[`ThemeTag.jsx 1`] = `
       success
     </span>
   </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <span>
+      默认：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      default
+    </span>
+  </div>
+  <div>
+    <span>
+      深色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      浅色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      朴素：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`delete.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  >
+    点击关闭0
+    <svg
+      class="t-icon t-icon-close"
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  >
+    点击关闭1
+    <svg
+      class="t-icon t-icon-close"
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  >
+    点击关闭2
+    <svg
+      class="t-icon t-icon-close"
+    >
+      <use
+        xlink:href="#t-icon-close"
+      />
+    </svg>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <span>
+      默认：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      default
+    </span>
+  </div>
+  <div>
+    <span>
+      深色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      浅色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      朴素：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`selectable.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default"
+  >
+    标签1
+  </span>
+  <span
+    class="t-tag t-tag--default"
+  >
+    标签2
+  </span>
+  <span
+    class="t-tag t-tag--default"
+  >
+    标签3
+  </span>
 </DocumentFragment>
 `;

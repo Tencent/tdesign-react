@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from '@tencent/tdesign-react';
-import { ErrorCircleFilledIcon } from '@tencent/tdesign-react';
+import { Dialog, Button, ErrorCircleFilledIcon } from '@tencent/tdesign-react';
+
 export default function BasicUsage() {
   const [visible, setVisible] = useState(false);
 
@@ -18,7 +18,7 @@ export default function BasicUsage() {
       <Dialog
         header={
           <>
-            <ErrorCircleFilledIcon size="2em" />
+            <ErrorCircleFilledIcon />
             <span>我是主要信息，我是主要信息</span>
           </>
         }

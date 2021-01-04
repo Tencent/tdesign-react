@@ -1,66 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    提交
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ButtonTextExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--line"
-  >
-    Hover me
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ContentExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-  >
-    操作
-  </button>
-</DocumentFragment>
-`;
-
 exports[`ExtendsExample.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--primary"
-    style="margin-left: 8px;"
   >
     浮层在右边
-  </button>
-</DocumentFragment>
-`;
-
-exports[`IconUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用String
-  </button>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用VNode
-  </button>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用Function
   </button>
 </DocumentFragment>
 `;
@@ -69,19 +14,16 @@ exports[`PlacementExample.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--primary"
-    style="margin-left: 8px;"
   >
     Left
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Top
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Bottom
   </button>
@@ -97,11 +39,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-prompt_fill"
+        class="t-icon t-icon-info-circle-filled"
         style="color: rgb(255, 62, 0);"
       >
         <use
-          xlink:href="#t-icon-prompt_fill"
+          xlink:href="#t-icon-info-circle-filled"
         />
       </svg>
       <div
@@ -134,11 +76,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-prompt_fill"
+        class="t-icon t-icon-info-circle-filled"
         style="color: rgb(255, 170, 0);"
       >
         <use
-          xlink:href="#t-icon-prompt_fill"
+          xlink:href="#t-icon-info-circle-filled"
         />
       </svg>
       <div
@@ -171,11 +113,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-prompt_fill"
+        class="t-icon t-icon-info-circle-filled"
         style="color: rgb(0, 82, 217);"
       >
         <use
-          xlink:href="#t-icon-prompt_fill"
+          xlink:href="#t-icon-info-circle-filled"
         />
       </svg>
       <div
@@ -411,27 +353,63 @@ exports[`ThemeExample.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     默认
   </button>
   <button
     class="t-button t-button--primary"
-    style="margin-left: 8px;"
   >
     提示
   </button>
   <button
     class="t-button t-button--warning"
-    style="margin-left: 8px;"
   >
     警告
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     错误
+  </button>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+  >
+    提交
+  </button>
+</DocumentFragment>
+`;
+
+exports[`describe.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+  >
+    操作
+  </button>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--primary"
+  >
+    使用String
+  </button>
+  <button
+    class="t-button t-button--primary"
+  >
+    使用VNode
+  </button>
+  <button
+    class="t-button t-button--primary"
+  >
+    使用Function
   </button>
 </DocumentFragment>
 `;

@@ -6,10 +6,10 @@ const ThemeList = ['info', 'success', 'warning', 'error', 'question', 'loading']
 export default function () {
   return (
     <div className="message-element">
-      {ThemeList.map((theme) => (
+      {ThemeList.map((theme, index) => (
         <>
           <Button
-            key={theme}
+            key={index}
             onClick={() => {
               Message[theme]({
                 content: `This is ${theme} Message`,
