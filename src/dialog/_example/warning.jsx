@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { ErrorCircleFilledIcon, CheckIcon, ClearCircleFilledIcon } from '@tencent/tdesign-react';
-import { Dialog, Button } from '@tencent/tdesign-react';
+import {
+  ErrorCircleFilledIcon,
+  CheckCircleFilledIcon,
+  ClearCircleFilledIcon,
+  Dialog,
+  Button,
+} from '@tencent/tdesign-react';
 
 export default function warningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);
@@ -50,7 +55,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <ErrorCircleFilledIcon size="2em" />
+            <ErrorCircleFilledIcon style={{ color: '#3881E8' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }
@@ -61,7 +66,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <CheckIcon size="2em" />
+            <CheckCircleFilledIcon style={{ color: '#3881E8' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }
@@ -71,7 +76,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <ErrorCircleFilledIcon size="2em" />
+            <ErrorCircleFilledIcon style={{ color: '#3881E8' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }
@@ -81,7 +86,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <ClearCircleFilledIcon size="2em" />
+            <ClearCircleFilledIcon style={{ color: 'rgb(227, 77, 89)' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }
