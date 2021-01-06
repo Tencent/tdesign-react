@@ -196,6 +196,19 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
     [total, current, changeCurrent, onPageSizeChange],
   );
 
+  const onCurrentChange = React.useCallback(
+    (nextCurrent: number) => {
+      if (disabled || max < nextCurrent || nextCurrent < min) return;
+      setCurrent(nextCurrent);
+      onChange(nextCurrent, {
+        curr: nextCurrent,
+        prev: current,
+        pageSize,
+      });
+    },
+    [disabled, min, max, current, pageSize, onChange],
+  );
+
   const onPageInputChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { target } = event;
@@ -238,7 +251,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
       )}
       {showSizer && pageSizeOption instanceof Array && (
         <div className={prefixCls([blockName, 'select'])}>
-          <Select value={pageSize} disabled={disabled} onChange={changePageSize}>
+          <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
             {pageSizeOption.map((item) => (
               <Option key={item} label={`${item}条/页`} value={item}>
                 {item}条/页
@@ -287,15 +300,17 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         </ul>
       )}
       {theme === 'simple' && (
-        <div className={prefixCls('input', disabled && 'is-disabled')}>
-          <input
-            ref={simpleInputRef}
-            className={prefixCls(['input', 'inner'])}
-            disabled={disabled}
-            defaultValue={current}
-            onChange={onPageInputChange}
-            onKeyUp={onPageInputKeyUp}
-          />
+        <div className={prefixCls([blockName, 'select'])}>
+          <Select size={size} value={current} disabled={disabled} onChange={onCurrentChange}>
+            {Array(max)
+              .fill(0)
+              .map((_, i) => i + 1)
+              .map((item) => (
+                <Option key={item} label={`${item}/${max}`} value={item}>
+                  {item}/{max}
+                </Option>
+              ))}
+          </Select>
         </div>
       )}
       <div
