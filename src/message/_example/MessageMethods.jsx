@@ -7,9 +7,8 @@ export default function () {
   return (
     <div className="message-element">
       {ThemeList.map((theme, index) => (
-        <>
+        <div key={index}>
           <Button
-            key={index}
             onClick={() => {
               Message[theme]({
                 content: `This is ${theme} Message`,
@@ -19,8 +18,7 @@ export default function () {
           >
             Display a {theme} indicator
           </Button>
-          <br />
-        </>
+        </div>
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem } from '@tencent/tdesign-react';
+import { List, ListItem, ListItemMeta } from '@tencent/tdesign-react';
 
 export default function BasicList() {
   const listData = [
@@ -11,7 +11,9 @@ export default function BasicList() {
   return (
     <List loading="load-more">
       {listData.map((item) => (
-        <ListItem key={item.id}>{item.content}</ListItem>
+        <ListItem key={item.id}>
+          <ListItemMeta title="列表主内容" description={item.content} />
+        </ListItem>
       ))}
     </List>
   );
