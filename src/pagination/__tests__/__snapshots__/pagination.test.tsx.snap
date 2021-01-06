@@ -9,7 +9,7 @@ exports[`base.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -45,7 +45,7 @@ exports[`base.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -61,7 +61,7 @@ exports[`jump.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -109,7 +109,7 @@ exports[`jump.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
     <div
@@ -138,7 +138,7 @@ exports[`mini.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -186,7 +186,7 @@ exports[`mini.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -202,7 +202,7 @@ exports[`more.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -250,7 +250,7 @@ exports[`more.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -262,35 +262,40 @@ exports[`pageNum.jsx 1`] = `
   <div
     class="t-pagination"
   >
-    <select
-      style="margin-right: 20px; height: 32px;"
+    <div
+      class="t-pagination__select"
     >
-      <option
-        value="20"
-      >
-        20
-      </option>
-      <option
-        value="30"
-      >
-        30
-      </option>
-      <option
-        value="100"
-      >
-        100
-      </option>
-      <option
-        value="200"
-      >
-        200
-      </option>
-    </select>
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            20条/页
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -338,7 +343,7 @@ exports[`pageNum.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -354,22 +359,43 @@ exports[`simple.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <div
-      class="t-input"
+      class="t-pagination__select"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -385,22 +411,43 @@ exports[`simpleMini.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <div
-      class="t-input"
+      class="t-pagination__select"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div>
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
@@ -421,7 +468,7 @@ exports[`total.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -469,7 +516,7 @@ exports[`total.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>

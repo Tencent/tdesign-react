@@ -9,7 +9,6 @@ const Option = (props: SelectOption) => {
   const { disabled, size, value, multiple, selectedValue, onSelect, children } = props;
   const label = props.label || value;
   const componentType = 'select';
-  console.log(value, selectedValue);
   let selected = value === selectedValue;
 
   if (multiple && Array.isArray(selectedValue)) {
