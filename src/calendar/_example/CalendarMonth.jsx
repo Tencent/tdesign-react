@@ -19,7 +19,7 @@ export default function CalendarExample() {
             { label: '月历', value: 'year' },
             { label: '日历', value: 'month' },
           ]}
-          change={(value) => setMode(value)}
+          onChange={(value) => setMode(value)}
         />
       </div>
       <Calendar mode={mode} />

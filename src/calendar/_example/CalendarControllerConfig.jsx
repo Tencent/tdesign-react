@@ -95,7 +95,7 @@ export default function CalendarExample() {
                 visible: yearVisible,
                 selectProps: {
                   disabled: yearDisabled,
-                  style: { width: '110px' },
+                  style: { minWidth: '110px' },
                   prefixIcon: () => <Icon name="discount_fill" />,
                 },
               },
@@ -103,7 +103,7 @@ export default function CalendarExample() {
                 visible: monthVisible,
                 selectProps: {
                   disabled: monthDisabled,
-                  style: { width: '90px' },
+                  style: { minWidth: '90px' },
                   prefixIcon: () => <Icon name="discount" />,
                 },
               },

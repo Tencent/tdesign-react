@@ -324,11 +324,11 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
               {visibleForYear && (
                 <Select
                   size="small"
-                  style={{ width: '90px' }}
+                  style={{ width: '100px' }}
                   disabled={disabled}
                   value={year}
                   options={yearSelectList.map((item) => ({ label: `${item}年`, value: item }))}
-                  change={(selectYear) => setYear(selectYear as number)}
+                  onChange={(selectYear) => setYear(selectYear as number)}
                   {...selectPropsForYear}
                 />
               )}
@@ -337,11 +337,11 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
               {visibleForMonth && mode === 'month' && (
                 <Select
                   size="small"
-                  style={{ width: '70px' }}
+                  style={{ width: '80px' }}
                   disabled={disabled}
                   value={month}
                   options={monthSelectList.map((item) => ({ label: `${item}月`, value: item }))}
-                  change={(selectMonth) => setMonth(selectMonth as number)}
+                  onChange={(selectMonth) => setMonth(selectMonth as number)}
                   {...selectPropsForMonth}
                 />
               )}
