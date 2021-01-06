@@ -11,7 +11,7 @@ const SingleSelect = () => {
   };
   return (
     <div style={{ display: 'flex' }}>
-      <Select value={value} onChange={onChange} style={{ width: '40%' }} clearable>
+      <Select value={value} onChange={onChange} style={{ width: '40%' }}>
         <Option key="apple" label="Apple" value="apple" />
         <Option key="orange" label="Orange" value="orange" disabled />
         <Option key="banana" label="Banana" value="banana" />
