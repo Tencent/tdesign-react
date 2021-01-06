@@ -2,6 +2,9 @@ import * as React from 'react';
 import { IconFont } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import Select from '../select';
+
+const { Option } = Select;
 
 export interface PaginationProps {
   /**
@@ -88,14 +91,6 @@ export interface PaginationProps {
    */
   onPageSizeChange?: (pageSize: number, event: { curr: number; prev: number; pageSize: number }) => void;
 }
-
-// 等待Select组件完成后再合入
-const Select = (props: any) => (
-  <select style={{ marginRight: '20px', height: '32px' }} disabled={props.disabled} onChange={props.onChange}>
-    {props.children}
-  </select>
-);
-Select.Option = (props: any) => <option value={props.value}>{props.children}</option>;
 
 enum KEY_CODE {
   ENTER = 13,
@@ -220,14 +215,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
     [changeCurrent],
   );
 
-  const onSizerChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = Number(event.target.value);
-      if (!isNaN(value) && value > 0) changePageSize(value);
-    },
-    [changePageSize],
-  );
-
   React.useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
   React.useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
@@ -250,13 +237,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         </div>
       )}
       {showSizer && pageSizeOption instanceof Array && (
-        <Select disabled={disabled} onChange={onSizerChange}>
-          {pageSizeOption.map((item) => (
-            <Select.Option key={item} value={item}>
-              {item}
-            </Select.Option>
-          ))}
-        </Select>
+        <div className={prefixCls([blockName, 'select'])}>
+          <Select value={pageSize} disabled={disabled} onChange={changePageSize}>
+            {pageSizeOption.map((item) => (
+              <Option key={item} label={`${item}条/页`} value={item}>
+                {item}条/页
+              </Option>
+            ))}
+          </Select>
+        </div>
       )}
       <div
         className={prefixCls(
@@ -266,7 +255,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current - 1)}
       >
-        <IconFont name="arrow-left" />
+        <IconFont name="chevron-left" />
       </div>
       {theme === 'default' && (
         <ul className={prefixCls([blockName, 'pager'])}>
@@ -317,7 +306,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current + 1)}
       >
-        <IconFont name="arrow-right" />
+        <IconFont name="chevron-right" />
       </div>
       {showJumper && (
         <div className={prefixCls([blockName, 'jump'])}>
