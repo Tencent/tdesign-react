@@ -5,6 +5,7 @@ export default function SwitchBasic() {
   const [checked, setChecked] = useState(true);
 
   const onChange = (value) => {
+    console.log('value', value);
     setChecked(value);
   };
 
