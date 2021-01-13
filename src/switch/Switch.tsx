@@ -56,21 +56,11 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     const { classPrefix } = useConfig();
     const [innerChecked, setInnerChecked] = useState(defaultValue || value);
 
-    function triggerChange(newChecked: boolean, event: React.MouseEvent<HTMLButtonElement>) {
-      let mergedChecked = innerChecked;
-
-      if (!disabled) {
-        mergedChecked = newChecked;
-        setInnerChecked(mergedChecked);
-        onChange?.(mergedChecked, event);
-      }
-
-      return mergedChecked;
-    }
-
     function onInternalClick(e: React.MouseEvent<HTMLButtonElement>) {
-      const ret = triggerChange(!innerChecked, e);
-      onChange?.(ret, e);
+      if (disabled) return;
+
+      setInnerChecked(!innerChecked);
+      onChange?.(!innerChecked, e);
     }
 
     const { SIZE, STATUS } = useCommonClassName();

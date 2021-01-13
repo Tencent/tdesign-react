@@ -17,7 +17,7 @@ export default function ClosableTagExample() {
     <>
       {tagList.map((tag, i) => (
         <Tag
-          key={i}
+          key={tag}
           closable
           onClose={() => {
             deleteTag(i);

@@ -416,106 +416,42 @@ exports[`delete.jsx 1`] = `
 
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <span>
-      默认：
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  >
+    <svg
+      class="t-icon t-icon-call"
     >
-      default
-    </span>
-  </div>
-  <div>
-    <span>
-      深色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+      <use
+        xlink:href="#t-icon-call"
+      />
+    </svg>
+    default
+  </span>
+  <span
+    class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+  >
+    <svg
+      class="t-icon t-icon-print"
     >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+      <use
+        xlink:href="#t-icon-print"
+      />
+    </svg>
+    primary
+  </span>
+  <span
+    class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+  >
+    <svg
+      class="t-icon t-icon-logo-github"
     >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      浅色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
-    >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      朴素：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
-    >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
+      <use
+        xlink:href="#t-icon-logo-github"
+      />
+    </svg>
+    info
+  </span>
 </DocumentFragment>
 `;
 
