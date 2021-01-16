@@ -66,7 +66,7 @@ export default function TreeExample() {
 
   return (
     <>
-      <Tree data={data} expandLevel={1} expandOnClickNode={true} icon={icon} checkable={true} />
+      <Tree data={data} expandLevel={1} icon={icon} checkable={true} />
     </>
   );
 }

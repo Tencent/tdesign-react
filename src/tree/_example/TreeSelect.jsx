@@ -93,7 +93,7 @@ const data = [
   },
 ];
 
-const activedNodeKeys = ['2'];
+const activedNodeKeys = ['1-1'];
 
 export default function TreeExample() {
   const [expandOnClickNode, setExpandOnClickNode] = useState(false);

@@ -1,25 +1,20 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-// import noop from '../_util/noop';
-// import useConfig from '../_util/useConfig';
 import classNames from 'classnames';
-import TreeNode, { TreeNodeProps } from '../../common/js/tree/TreeNode';
-import { TreeStore, TreeFilterOptions } from '../../common/js/tree/TreeStore';
+import { TreeStore } from '../../common/js/tree/TreeStore';
+import { TreeNode } from '../../common/js/tree/TreeNode';
+import { TreeNodeValueType, TreeNodeModel, TreeNodeState } from '../../common/js/tree/interface';
+import { TreeOptionData } from '../_type';
 import { TreeProps } from './interface/TreeProps';
-import { EventState } from './interface/EventState';
-
 import { CLASS_NAMES, transitionClassNames, transitionDuration } from './constants';
 
 import TreeItem from './components/TreeItem';
-import { handleUpdate, handleLoad, handleChange, handleClick, setExpanded, setActived, setChecked } from './util';
+import { handleLoad, handleChange, handleClick, setExpanded, setActived, setChecked } from './util';
 
 /**
  * 树组件
  */
-/* eslint-disable */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
-  // const { classPrefix } = useConfig();
-
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
 
@@ -29,7 +24,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     keys,
     expandAll,
     expandParent,
-    defaultExpanded,
+    // defaultExpanded,
     expanded,
     expandLevel,
     expandMutex,
@@ -38,7 +33,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     actived,
     disabled,
     checkable,
-    defaultValue,
+    // defaultValue,
     value,
     checkProps,
     checkStrictly,
@@ -52,7 +47,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     operations,
     transition = true, // 动画默认开启
     expandOnClickNode,
-    children,
     filter,
   } = props;
 
@@ -80,12 +74,10 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       lazy,
       valueMode,
       filter,
-      scopedSlots: children,
       onLoad: (info: any) => {
         handleLoad(info, props);
       },
-      onUpdate: (info: EventState) => {
-        handleUpdate(info, props);
+      onUpdate: () => {
         const nodes = store.getNodes();
         const newVisibleNodes = nodes.filter((node) => node.visible);
         setVisibleNodes(newVisibleNodes);
@@ -106,7 +98,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
         const expandedMap = new Map();
         expanded.forEach((val) => {
           expandedMap.set(val, true);
-          if (expandParent === 'auto') {
+          if (expandParent) {
             const node = store.getNode(val);
             node.getParents().forEach((tn) => {
               expandedMap.set(tn.value, true);
@@ -123,7 +115,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       // 树的数据初始化之后，需要立即进行一次视图刷新
       store.refreshNodes();
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   /**  监听开发者的各个 props 变化 **/
   useEffect(() => {
@@ -131,25 +123,25 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       store.removeAll();
       store.append(data);
     }
-  }, [data]);
+  }, [data, store]);
 
   useEffect(() => {
     if (value && Array.isArray(value)) {
       store.replaceChecked(value);
     }
-  }, [value]);
+  }, [value, store]);
 
   useEffect(() => {
     if (expanded && Array.isArray(expanded)) {
       store.replaceExpanded(expanded);
     }
-  }, [expanded]);
+  }, [expanded, store]);
 
   useEffect(() => {
     if (actived && Array.isArray(actived)) {
       store.replaceActived(actived);
     }
-  }, [actived]);
+  }, [actived, store]);
 
   useEffect(() => {
     if (filter) {
@@ -158,21 +150,22 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
       });
       store.updateAll();
     }
-  }, [filter]);
+  }, [filter, store]);
 
   /** 对外暴露的公共方法 **/
   useImperativeHandle(ref, (): any => ({
     store,
-    filterItems(fn: (node: TreeNode) => boolean): void {
-      store.setConfig({
-        filter: fn,
-      });
-      store.updateAll();
-    },
+    // 【待确定】需要对齐，是否确认去掉这个方法
+    // filterItems(fn: (node: TreeNode) => boolean): void {
+    //   store.setConfig({
+    //     filter: fn,
+    //   });
+    //   store.updateAll();
+    // },
     scrollTo(): void {
       // TODO
     },
-    setItem(value: string | TreeNode, options: TreeNodeProps): void {
+    setItem(value: TreeNodeValueType, options: TreeNodeState): void {
       const node = this.getItem(value);
       const spec = options;
       if (node) {
@@ -193,46 +186,52 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
         node.set(spec);
       }
     },
-    getItem(value: string | TreeNode): TreeNode {
-      return store.getNode(value);
+    getItem(value: TreeNodeValueType): TreeNodeModel {
+      const node = store.getNode(value);
+      const nodeModel = store.getTreeNodeModelFromTreeNode(node);
+      return nodeModel;
     },
-    getItems(value?: string | TreeNode, options?: TreeFilterOptions): TreeNode[] {
-      return this.store.getNodes(value, options);
+    // 【待确定】需要对齐，是否确认去掉这3个方法
+    // getItems(value?: string | TreeNode, options?: TreeFilterOptions): TreeNode[] {
+    //   return this.store.getNodes(value, options);
+    // },
+    // getActived(value?: string | TreeNode): TreeNode[] {
+    //   return this.store.getActivedNodes(value);
+    // },
+    // getChecked(item?: string | TreeNode): TreeNode[] {
+    //   return this.store.getCheckedNodes(item);
+    // },
+    // append(para?: any, item?: any): void {
+    //   return this.store.appendNodes(para, item);
+    // },
+    appendTo(value: TreeNodeValueType, newData: TreeOptionData): void {
+      return this.store.appendNodes(value, newData);
     },
-    getActived(value?: string | TreeNode): TreeNode[] {
-      return this.store.getActivedNodes(value);
+    insertBefore(value: TreeNodeValueType, newData: TreeOptionData): void {
+      return this.store.insertBefore(value, newData);
     },
-    getChecked(item?: string | TreeNode): TreeNode[] {
-      return this.store.getCheckedNodes(item);
+    insertAfter(value: TreeNodeValueType, newData: TreeOptionData): void {
+      return this.store.insertAfter(value, newData);
     },
-    append(para?: any, item?: any): void {
-      return this.store.appendNodes(para, item);
+    getParent(value: TreeNodeValueType): TreeNodeModel<TreeOptionData> {
+      const node = this.store.getParent(value);
+      const nodeModel = store.getTreeNodeModelFromTreeNode(node);
+      return nodeModel;
     },
-    insertBefore(value: string | TreeNode, item: any): void {
-      return this.store.insertBefore(value, item);
+    getParents(value: TreeNodeValueType): TreeNodeModel<TreeOptionData>[] {
+      const nodes = this.store.getParents(value);
+      const nodeModels = nodes.map((node) => store.getTreeNodeModelFromTreeNode(node));
+      return nodeModels;
     },
-    insertAfter(value: string | TreeNode, item: any): void {
-      return this.store.insertAfter(value, item);
+    remove(value: TreeNodeValueType): void {
+      this.store.remove(value);
     },
-    getParent(value: string | TreeNode): TreeNode {
-      return this.store.getParent(value);
-    },
-    getParents(value: string | TreeNode): TreeNode {
-      return this.store.getParents(value);
-    },
-    remove(value?: string | TreeNode): void {
-      return this.store.remove(value);
-    },
-    getIndex(value: string | TreeNode): number {
+    getIndex(value: TreeNodeValueType): number {
       return this.store.getNodeIndex(value);
     },
   }));
 
   return (
-    // 【暂勿删】
-    // <div ref={ref} className={classNames(CLASS_NAMES.tree, [transition ? CLASS_NAMES.treeFx : ''])}>
-    //   {icon}
-    // </div>
     <div ref={ref} className={className}>
       <TransitionGroup>
         {visibleNodes.map((node) => (
@@ -245,11 +244,13 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
               line={line}
               transition={transition}
               expandOnClickNode={expandOnClickNode}
+              activable={activable}
               operations={operations}
-              onClick={(node: TreeNode, options: { expand: boolean }) => {
+              checkProps={checkProps}
+              onClick={(node: TreeNode<TreeOptionData>, options: { expand: boolean; active: boolean }) => {
                 handleClick(node, props, store, options);
               }}
-              onChange={(node: TreeNode) => {
+              onChange={(node: TreeNode<TreeOptionData>) => {
                 handleChange(node, props, store);
               }}
             />

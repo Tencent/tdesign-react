@@ -100,7 +100,7 @@ const data = [
 export default function TreeExample() {
   return (
     <>
-      <Tree data={data} line={true} expandOnClickNode={true} />
+      <Tree data={data} line={true} />
     </>
   );
 }

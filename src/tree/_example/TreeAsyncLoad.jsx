@@ -28,7 +28,7 @@ const data = [
 ];
 
 const loadNode = (node) =>
-  // console.log('node:', node);
+  // console.log('loadNode:', node);
   new Promise((resolve) => {
     setTimeout(() => {
       let nodes = [];
@@ -50,7 +50,7 @@ const loadNode = (node) =>
 export default function TreeExample() {
   return (
     <>
-      <Tree data={data} load={loadNode} lazy={true} />
+      <Tree data={data} load={loadNode} lazy={true} expandAll={true} />
     </>
   );
 }
