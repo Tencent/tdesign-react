@@ -3,6 +3,7 @@
 import Tree from '../Tree';
 import Switch from '../../switch';
 import Input from '../../input';
+import Tag from '../../Tag';
 
 const data = [
   {
@@ -94,35 +95,66 @@ const data = [
 ];
 
 const activedNodeKeys = ['2'];
-const activedNodeLabel = '我是节点2';
+const activedNode = { value: '2', label: '我是节点2' };
 
 export default function TreeExample() {
+  const [value, setValue] = useState('');
   const [checked, setChecked] = useState(false);
-  const [selectArr, setSelectArr] = useState([activedNodeLabel]);
-
-  const handleClick = useCallback(({ event, node }) => {
-    const index = selectArr.indexOf(node.label);
-    if (node.actived) {
-      if (index === -1) {
-        selectArr.push(node.label);
-      }
-    } else {
-      selectArr.splice(index, 1);
-    }
-    setSelectArr([...selectArr]);
-  }, []);
+  const [selectArr, setSelectArr] = useState([activedNode]);
 
   const handleSwitchChange = useCallback((value) => {
     setChecked(value);
   }, []);
 
-  const handleInput = useCallback(() => null, []);
+  const handleClick = useCallback(({ event, node }) => {
+    const index = selectArr.indexOf(node.data);
+    if (node.actived) {
+      if (index === -1) {
+        selectArr.push(node.data);
+      }
+    } else {
+      selectArr.splice(index, 1);
+    }
+    setSelectArr([...selectArr]);
+    setValue('');
+  }, []);
+
+  const handleInput = (event) => {
+    setValue(event.target.value);
+    setSelectArr([]);
+  };
+
+  const deleteTag = (index) => {
+    const newSetSelectArr = [...selectArr];
+    newSetSelectArr.splice(index, 1);
+    setSelectArr(newSetSelectArr);
+  };
 
   return (
     <>
       <span style={{ marginRight: '10px' }}>点击文字，展开节点</span>
       <Switch value={checked} onChange={handleSwitchChange} />
-      <Input style={{ margin: '10px 0' }} value={selectArr.join('，')} onChange={handleInput} />
+
+      {selectArr.length === 0 ? (
+        <Input style={{ margin: '10px 0' }} value={value} onChange={handleInput} />
+      ) : (
+        <div style={{ border: '1px solid #bbb', padding: '3px', margin: '10px 0' }}>
+          <span>
+            {selectArr.map((selectNode, index) => (
+              <Tag
+                key={index}
+                closable
+                onClose={() => {
+                  deleteTag(index);
+                }}
+              >
+                {selectNode.label}
+              </Tag>
+            ))}
+          </span>
+        </div>
+      )}
+
       <Tree
         data={data}
         activable={true}
