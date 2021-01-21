@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+﻿import React, { useState } from 'react';
 // import { Tree } from '@tdesign/react';
 import Tree from '../Tree';
 import Switch from '../../switch';
@@ -94,16 +94,17 @@ const data = [
   },
 ];
 
-const activedNodeKeys = ['2'];
+const initActivedNode = { value: '2', label: '我是节点2' };
 
 export default function TreeExample() {
   const [expandOnClickNode, setExpandOnClickNode] = useState(false);
+  const [activedNodeKeys, setActivedNodeKeys] = useState(['2']);
   const [value, setValue] = useState('');
   const [hoverable, setHoverable] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [selectLabel, setSelectLabel] = useState('');
+  const [selectNode, setSelectNode] = useState(initActivedNode);
 
-  const handleSwitchChange = useCallback((value, type) => {
+  const handleSwitchChange = (value, type) => {
     switch (type) {
       case 'expandOnClickNode':
         setExpandOnClickNode(value);
@@ -115,25 +116,26 @@ export default function TreeExample() {
         setDisabled(value);
         break;
     }
-  }, []);
+  };
 
-  const handleClick = useCallback(({ event, node }) => {
+  const handleClick = ({ event, node }) => {
     if (node.actived && node.data) {
-      setSelectLabel(node.data.label);
-    } else {
-      setSelectLabel('');
+      setSelectNode(node.data);
+    } else if (!node.actived && node.data && selectNode.value === node.data.value) {
+      setSelectNode(null);
     }
     setValue('');
-  }, []);
+  };
 
-  const handleInput = useCallback((event) => {
+  const handleInput = (event) => {
     setValue(event.target.value);
-    setSelectLabel('');
-  }, []);
+    setSelectNode(null);
+  };
 
-  const deleteTag = useCallback(() => {
-    setSelectLabel('');
-  }, []);
+  const deleteTag = () => {
+    setSelectNode(null);
+    setActivedNodeKeys([]);
+  };
 
   return (
     <>
@@ -150,8 +152,7 @@ export default function TreeExample() {
         <Switch value={disabled} onChange={(value) => handleSwitchChange(value, 'disabled')} />
       </div>
 
-      {/* <Input style={{ margin: '10px 0' }} value={selectLabel} onChange={handleInput} /> */}
-      {!selectLabel ? (
+      {!selectNode ? (
         <Input style={{ margin: '10px 0' }} value={value} onChange={handleInput} />
       ) : (
         <div style={{ border: '1px solid #bbb', padding: '3px', margin: '10px 0' }}>
@@ -162,7 +163,7 @@ export default function TreeExample() {
                 deleteTag();
               }}
             >
-              {selectLabel}
+              {selectNode.label}
             </Tag>
           </span>
         </div>

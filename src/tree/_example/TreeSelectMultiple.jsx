@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+﻿import React, { useState } from 'react';
 // import { Tree } from '@tdesign/react';
 import Tree from '../Tree';
 import Switch from '../../switch';
@@ -94,40 +94,44 @@ const data = [
   },
 ];
 
-const activedNodeKeys = ['2'];
-const activedNode = { value: '2', label: '我是节点2' };
+const initActivedNodes = [
+  { value: '2', label: '我是节点2' },
+  { value: '2-3', label: '我是节点2-3' },
+];
+const initActivedMap = new Map();
+initActivedNodes.forEach((activedNode) => {
+  initActivedMap.set(activedNode.value, activedNode);
+});
 
 export default function TreeExample() {
+  const [activedNodeKeys, setActivedNodeKeys] = useState([...initActivedMap.keys()]);
   const [value, setValue] = useState('');
   const [checked, setChecked] = useState(false);
-  const [selectArr, setSelectArr] = useState([activedNode]);
+  const [activedMap, setActivedMap] = useState(initActivedMap);
 
-  const handleSwitchChange = useCallback((value) => {
+  const handleSwitchChange = (value) => {
     setChecked(value);
-  }, []);
+  };
 
-  const handleClick = useCallback(({ event, node }) => {
-    const index = selectArr.indexOf(node.data);
-    if (node.actived) {
-      if (index === -1) {
-        selectArr.push(node.data);
-      }
-    } else {
-      selectArr.splice(index, 1);
+  const handleClick = ({ event, node }) => {
+    if (node.actived && node.data && !activedMap.get(node.data.value)) {
+      activedMap.set(node.data.value, node.data);
+    } else if (!node.actived && activedMap.get(node.data.value)) {
+      activedMap.delete(node.data.value);
     }
-    setSelectArr([...selectArr]);
+    setActivedMap(new Map(activedMap));
     setValue('');
-  }, []);
+  };
 
   const handleInput = (event) => {
     setValue(event.target.value);
-    setSelectArr([]);
+    setActivedMap(new Map());
   };
 
-  const deleteTag = (index) => {
-    const newSetSelectArr = [...selectArr];
-    newSetSelectArr.splice(index, 1);
-    setSelectArr(newSetSelectArr);
+  const deleteTag = (value) => {
+    activedMap.delete(value);
+    setActivedMap(new Map(activedMap));
+    setActivedNodeKeys([...activedMap.keys()]);
   };
 
   return (
@@ -135,17 +139,17 @@ export default function TreeExample() {
       <span style={{ marginRight: '10px' }}>点击文字，展开节点</span>
       <Switch value={checked} onChange={handleSwitchChange} />
 
-      {selectArr.length === 0 ? (
+      {activedMap.size === 0 ? (
         <Input style={{ margin: '10px 0' }} value={value} onChange={handleInput} />
       ) : (
         <div style={{ border: '1px solid #bbb', padding: '3px', margin: '10px 0' }}>
           <span>
-            {selectArr.map((selectNode, index) => (
+            {[...activedMap.values()].map((selectNode) => (
               <Tag
-                key={index}
+                key={selectNode.value}
                 closable
                 onClose={() => {
-                  deleteTag(index);
+                  deleteTag(selectNode.value);
                 }}
               >
                 {selectNode.label}

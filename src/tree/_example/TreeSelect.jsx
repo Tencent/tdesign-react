@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+﻿import React, { useState } from 'react';
 // import { Tree } from '@tdesign/react';
 import Tree from '../Tree';
 import Switch from '../../switch';
@@ -94,35 +94,38 @@ const data = [
   },
 ];
 
-const activedNodeKeys = ['1-1'];
-const activedNodeLabel = '我是节点1-1';
+const initActivedNode = { value: '1-1', label: '我是节点1-1' };
 
 export default function TreeExample() {
   const [expandOnClickNode, setExpandOnClickNode] = useState(false);
+  const [activedNodeKeys, setActivedNodeKeys] = useState([initActivedNode.value]);
   const [value, setValue] = useState('');
-  const [selectLabel, setSelectLabel] = useState(activedNodeLabel);
+  const [selectNode, setSelectNode] = useState(initActivedNode);
 
-  const handleSwitchChange = useCallback((value) => {
+  const handleSwitchChange = (value) => {
     setExpandOnClickNode(value);
-  }, []);
+  };
 
-  const handleClick = useCallback(({ event, node }) => {
+  const handleClick = ({ event, node }) => {
+    console.log('node:', node);
+    console.log('selectNode:', selectNode);
     if (node.actived && node.data) {
-      setSelectLabel(node.data.label);
-    } else {
-      setSelectLabel('');
+      setSelectNode(node.data);
+    } else if (!node.actived && node.data && selectNode.value === node.data.value) {
+      setSelectNode(null);
     }
     setValue('');
-  }, []);
+  };
 
   const handleInput = (event) => {
     setValue(event.target.value);
-    setSelectLabel('');
+    setSelectNode(null);
   };
 
-  const deleteTag = useCallback(() => {
-    setSelectLabel('');
-  }, []);
+  const deleteTag = () => {
+    setSelectNode(null);
+    setActivedNodeKeys([]);
+  };
 
   return (
     <>
@@ -131,7 +134,7 @@ export default function TreeExample() {
         <Switch value={expandOnClickNode} onChange={handleSwitchChange} />
       </div>
 
-      {!selectLabel ? (
+      {!selectNode ? (
         <Input style={{ margin: '10px 0' }} value={value} onChange={handleInput} />
       ) : (
         <div style={{ border: '1px solid #bbb', padding: '3px', margin: '10px 0' }}>
@@ -142,7 +145,7 @@ export default function TreeExample() {
                 deleteTag();
               }}
             >
-              {selectLabel}
+              {selectNode.label}
             </Tag>
           </span>
         </div>
