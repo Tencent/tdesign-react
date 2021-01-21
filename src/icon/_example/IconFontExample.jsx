@@ -1,6 +1,21 @@
 import React from 'react';
 import { IconFont } from '@tencent/tdesign-react';
 
+const Wrapper = (props) => (
+  <div
+    style={{
+      width: 140,
+      height: 140,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    }}
+  >
+    {props.children}
+  </div>
+);
+
 export default function IconFontExample() {
   return (
     <div
@@ -9,782 +24,975 @@ export default function IconFontExample() {
         flexWrap: 'wrap',
       }}
     >
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      <Wrapper>
         <IconFont name="add-circle" size="2em" />
         <div style={{ marginTop: 12 }}>add-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="add-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>add-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="add" size="2em" />
         <div style={{ marginTop: 12 }}>add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="app" size="2em" />
         <div style={{ marginTop: 12 }}>app</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="arrow-down-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-down-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="arrow-down" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-down</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="arrow-left" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="arrow-right" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="arrow-up" size="2em" />
         <div style={{ marginTop: 12 }}>arrow-up</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="attach" size="2em" />
         <div style={{ marginTop: 12 }}>attach</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="backtop-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>backtop-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="backtop" size="2em" />
         <div style={{ marginTop: 12 }}>backtop</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="backward" size="2em" />
         <div style={{ marginTop: 12 }}>backward</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="barcode" size="2em" />
         <div style={{ marginTop: 12 }}>barcode</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="books" size="2em" />
         <div style={{ marginTop: 12 }}>books</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="browse-off" size="2em" />
         <div style={{ marginTop: 12 }}>browse-off</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="browse" size="2em" />
         <div style={{ marginTop: 12 }}>browse</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="bulletpoint" size="2em" />
         <div style={{ marginTop: 12 }}>bulletpoint</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="calendar" size="2em" />
         <div style={{ marginTop: 12 }}>calendar</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="call" size="2em" />
         <div style={{ marginTop: 12 }}>call</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="caret-down" size="2em" />
         <div style={{ marginTop: 12 }}>caret-down</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="caret-left" size="2em" />
         <div style={{ marginTop: 12 }}>caret-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="caret-right" size="2em" />
         <div style={{ marginTop: 12 }}>caret-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="caret-up" size="2em" />
         <div style={{ marginTop: 12 }}>caret-up</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="cart" size="2em" />
         <div style={{ marginTop: 12 }}>cart</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chart-bar" size="2em" />
         <div style={{ marginTop: 12 }}>chart-bar</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chart-bubble" size="2em" />
         <div style={{ marginTop: 12 }}>chart-bubble</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chart-pie" size="2em" />
         <div style={{ marginTop: 12 }}>chart-pie</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chart" size="2em" />
         <div style={{ marginTop: 12 }}>chart</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chat" size="2em" />
         <div style={{ marginTop: 12 }}>chat</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="check-circle-filled" size="2em" />
         <div style={{ marginTop: 12 }}>check-circle-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="check-circle" size="2em" />
         <div style={{ marginTop: 12 }}>check-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="check-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>check-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="check" size="2em" />
         <div style={{ marginTop: 12 }}>check</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-down-circle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-down-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-down-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-down-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-down" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-down</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-left-circle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-left-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-left-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-left-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-left-double" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-left-double</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-left" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-right-circle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-right-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-right-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-right-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-right-double" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-right-double</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-right" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-up-circle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-up-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-up-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-up-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="chevron-up" size="2em" />
         <div style={{ marginTop: 12 }}>chevron-up</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="clear-circle-filled" size="2em" />
         <div style={{ marginTop: 12 }}>clear-circle-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="clear-circle" size="2em" />
         <div style={{ marginTop: 12 }}>clear-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="clear-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>clear-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="close" size="2em" />
         <div style={{ marginTop: 12 }}>close</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="cloud-download" size="2em" />
         <div style={{ marginTop: 12 }}>cloud-download</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="cloud-upload" size="2em" />
         <div style={{ marginTop: 12 }}>cloud-upload</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="cloud" size="2em" />
         <div style={{ marginTop: 12 }}>cloud</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="code" size="2em" />
         <div style={{ marginTop: 12 }}>code</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="creditcard" size="2em" />
         <div style={{ marginTop: 12 }}>creditcard</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="delete" size="2em" />
         <div style={{ marginTop: 12 }}>delete</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="desktop" size="2em" />
         <div style={{ marginTop: 12 }}>desktop</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="discount-filled" size="2em" />
         <div style={{ marginTop: 12 }}>discount-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="discount" size="2em" />
         <div style={{ marginTop: 12 }}>discount</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="download" size="2em" />
         <div style={{ marginTop: 12 }}>download</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="edit" size="2em" />
         <div style={{ marginTop: 12 }}>edit</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="ellipsis" size="2em" />
         <div style={{ marginTop: 12 }}>ellipsis</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="enter" size="2em" />
         <div style={{ marginTop: 12 }}>enter</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="error-circle-filled" size="2em" />
         <div style={{ marginTop: 12 }}>error-circle-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="error-circle" size="2em" />
         <div style={{ marginTop: 12 }}>error-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-add" size="2em" />
         <div style={{ marginTop: 12 }}>file-add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-copy" size="2em" />
         <div style={{ marginTop: 12 }}>file-copy</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-excel" size="2em" />
         <div style={{ marginTop: 12 }}>file-excel</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-image" size="2em" />
         <div style={{ marginTop: 12 }}>file-image</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-paste" size="2em" />
         <div style={{ marginTop: 12 }}>file-paste</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-pdf" size="2em" />
         <div style={{ marginTop: 12 }}>file-pdf</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-powerpoint" size="2em" />
         <div style={{ marginTop: 12 }}>file-powerpoint</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-unknown" size="2em" />
         <div style={{ marginTop: 12 }}>file-unknown</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file-word" size="2em" />
         <div style={{ marginTop: 12 }}>file-word</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="file" size="2em" />
         <div style={{ marginTop: 12 }}>file</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="filter" size="2em" />
         <div style={{ marginTop: 12 }}>filter</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="flag" size="2em" />
         <div style={{ marginTop: 12 }}>flag</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="folder-add" size="2em" />
         <div style={{ marginTop: 12 }}>folder-add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="folder-open" size="2em" />
         <div style={{ marginTop: 12 }}>folder-open</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="folder" size="2em" />
         <div style={{ marginTop: 12 }}>folder</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="fork" size="2em" />
         <div style={{ marginTop: 12 }}>fork</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-horizontal-align-bottom" size="2em" />
         <div style={{ marginTop: 12 }}>format-horizontal-align-bottom</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-horizontal-align-center" size="2em" />
         <div style={{ marginTop: 12 }}>format-horizontal-align-center</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-horizontal-align-top" size="2em" />
         <div style={{ marginTop: 12 }}>format-horizontal-align-top</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-vertical-align-center" size="2em" />
         <div style={{ marginTop: 12 }}>format-vertical-align-center</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-vertical-align-left" size="2em" />
         <div style={{ marginTop: 12 }}>format-vertical-align-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="format-vertical-align-right" size="2em" />
         <div style={{ marginTop: 12 }}>format-vertical-align-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="forward" size="2em" />
         <div style={{ marginTop: 12 }}>forward</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="fullsreen-exit" size="2em" />
         <div style={{ marginTop: 12 }}>fullsreen-exit</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="fullsreen" size="2em" />
         <div style={{ marginTop: 12 }}>fullsreen</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="gender-female" size="2em" />
         <div style={{ marginTop: 12 }}>gender-female</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="gender-male" size="2em" />
         <div style={{ marginTop: 12 }}>gender-male</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="gift" size="2em" />
         <div style={{ marginTop: 12 }}>gift</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="heart-filled" size="2em" />
         <div style={{ marginTop: 12 }}>heart-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="heart" size="2em" />
         <div style={{ marginTop: 12 }}>heart</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="help-circle-filled" size="2em" />
         <div style={{ marginTop: 12 }}>help-circle-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="help-circle" size="2em" />
         <div style={{ marginTop: 12 }}>help-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="help" size="2em" />
         <div style={{ marginTop: 12 }}>help</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="history" size="2em" />
         <div style={{ marginTop: 12 }}>history</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="home" size="2em" />
         <div style={{ marginTop: 12 }}>home</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="hourglass" size="2em" />
         <div style={{ marginTop: 12 }}>hourglass</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="image" size="2em" />
         <div style={{ marginTop: 12 }}>image</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="info-circle-filled" size="2em" />
         <div style={{ marginTop: 12 }}>info-circle-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="info-circle" size="2em" />
         <div style={{ marginTop: 12 }}>info-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="internet" size="2em" />
         <div style={{ marginTop: 12 }}>internet</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="jump" size="2em" />
         <div style={{ marginTop: 12 }}>jump</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="laptop" size="2em" />
         <div style={{ marginTop: 12 }}>laptop</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="layers" size="2em" />
         <div style={{ marginTop: 12 }}>layers</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="link-unlink" size="2em" />
         <div style={{ marginTop: 12 }}>link-unlink</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="link" size="2em" />
         <div style={{ marginTop: 12 }}>link</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="loading" size="2em" />
         <div style={{ marginTop: 12 }}>loading</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="location" size="2em" />
         <div style={{ marginTop: 12 }}>location</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="lock-off" size="2em" />
         <div style={{ marginTop: 12 }}>lock-off</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="lock-on" size="2em" />
         <div style={{ marginTop: 12 }}>lock-on</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="login" size="2em" />
         <div style={{ marginTop: 12 }}>login</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-android" size="2em" />
         <div style={{ marginTop: 12 }}>logo-android</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-apple" size="2em" />
         <div style={{ marginTop: 12 }}>logo-apple</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-chrome" size="2em" />
         <div style={{ marginTop: 12 }}>logo-chrome</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-github" size="2em" />
         <div style={{ marginTop: 12 }}>logo-github</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-ie" size="2em" />
         <div style={{ marginTop: 12 }}>logo-ie</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="logo-windows" size="2em" />
         <div style={{ marginTop: 12 }}>logo-windows</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="mail" size="2em" />
         <div style={{ marginTop: 12 }}>mail</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="menu-fold" size="2em" />
         <div style={{ marginTop: 12 }}>menu-fold</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="menu-unfold" size="2em" />
         <div style={{ marginTop: 12 }}>menu-unfold</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="minus-circle" size="2em" />
         <div style={{ marginTop: 12 }}>minus-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="minus-rectangle" size="2em" />
         <div style={{ marginTop: 12 }}>minus-rectangle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="mobile-vibrate" size="2em" />
         <div style={{ marginTop: 12 }}>mobile-vibrate</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="mobile" size="2em" />
         <div style={{ marginTop: 12 }}>mobile</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="money-circle" size="2em" />
         <div style={{ marginTop: 12 }}>money-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="more" size="2em" />
         <div style={{ marginTop: 12 }}>more</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="next" size="2em" />
         <div style={{ marginTop: 12 }}>next</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="notification-filled" size="2em" />
         <div style={{ marginTop: 12 }}>notification-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="notification" size="2em" />
         <div style={{ marginTop: 12 }}>notification</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="order-adjustment-column" size="2em" />
         <div style={{ marginTop: 12 }}>order-adjustment-column</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="order-ascending" size="2em" />
         <div style={{ marginTop: 12 }}>order-ascending</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="order-descending" size="2em" />
         <div style={{ marginTop: 12 }}>order-descending</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="page-first" size="2em" />
         <div style={{ marginTop: 12 }}>page-first</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="page-last" size="2em" />
         <div style={{ marginTop: 12 }}>page-last</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="photo" size="2em" />
         <div style={{ marginTop: 12 }}>photo</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="pin" size="2em" />
         <div style={{ marginTop: 12 }}>pin</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="play-circle" size="2em" />
         <div style={{ marginTop: 12 }}>play-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="poweroff" size="2em" />
         <div style={{ marginTop: 12 }}>poweroff</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="previous" size="2em" />
         <div style={{ marginTop: 12 }}>previous</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="print" size="2em" />
         <div style={{ marginTop: 12 }}>print</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="qrcode" size="2em" />
         <div style={{ marginTop: 12 }}>qrcode</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="queue" size="2em" />
         <div style={{ marginTop: 12 }}>queue</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="refresh" size="2em" />
         <div style={{ marginTop: 12 }}>refresh</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="remove" size="2em" />
         <div style={{ marginTop: 12 }}>remove</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="rollback" size="2em" />
         <div style={{ marginTop: 12 }}>rollback</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="save" size="2em" />
         <div style={{ marginTop: 12 }}>save</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="scan" size="2em" />
         <div style={{ marginTop: 12 }}>scan</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="search" size="2em" />
         <div style={{ marginTop: 12 }}>search</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="secured" size="2em" />
         <div style={{ marginTop: 12 }}>secured</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="server" size="2em" />
         <div style={{ marginTop: 12 }}>server</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="service" size="2em" />
         <div style={{ marginTop: 12 }}>service</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="setting" size="2em" />
         <div style={{ marginTop: 12 }}>setting</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="share" size="2em" />
         <div style={{ marginTop: 12 }}>share</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="shop" size="2em" />
         <div style={{ marginTop: 12 }}>shop</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="slash" size="2em" />
         <div style={{ marginTop: 12 }}>slash</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="sound" size="2em" />
         <div style={{ marginTop: 12 }}>sound</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="star-filled" size="2em" />
         <div style={{ marginTop: 12 }}>star-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="star" size="2em" />
         <div style={{ marginTop: 12 }}>star</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="stop-circle" size="2em" />
         <div style={{ marginTop: 12 }}>stop-circle</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="stop" size="2em" />
         <div style={{ marginTop: 12 }}>stop</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="swap-left" size="2em" />
         <div style={{ marginTop: 12 }}>swap-left</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="swap-right" size="2em" />
         <div style={{ marginTop: 12 }}>swap-right</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="swap" size="2em" />
         <div style={{ marginTop: 12 }}>swap</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="thumb-down" size="2em" />
         <div style={{ marginTop: 12 }}>thumb-down</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="thumb-up" size="2em" />
         <div style={{ marginTop: 12 }}>thumb-up</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="time-filled" size="2em" />
         <div style={{ marginTop: 12 }}>time-filled</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="time" size="2em" />
         <div style={{ marginTop: 12 }}>time</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="tips" size="2em" />
         <div style={{ marginTop: 12 }}>tips</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="tools" size="2em" />
         <div style={{ marginTop: 12 }}>tools</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="unfold-less" size="2em" />
         <div style={{ marginTop: 12 }}>unfold-less</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="unfold-more" size="2em" />
         <div style={{ marginTop: 12 }}>unfold-more</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="upload" size="2em" />
         <div style={{ marginTop: 12 }}>upload</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="usb" size="2em" />
         <div style={{ marginTop: 12 }}>usb</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="user-add" size="2em" />
         <div style={{ marginTop: 12 }}>user-add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="user-avatar" size="2em" />
         <div style={{ marginTop: 12 }}>user-avatar</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="user-clear" size="2em" />
         <div style={{ marginTop: 12 }}>user-clear</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="user" size="2em" />
         <div style={{ marginTop: 12 }}>user</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="usergroup-add" size="2em" />
         <div style={{ marginTop: 12 }}>usergroup-add</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="usergroup-clear" size="2em" />
         <div style={{ marginTop: 12 }}>usergroup-clear</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="usergroup" size="2em" />
         <div style={{ marginTop: 12 }}>usergroup</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="video" size="2em" />
         <div style={{ marginTop: 12 }}>video</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="view-column" size="2em" />
         <div style={{ marginTop: 12 }}>view-column</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="view-list" size="2em" />
         <div style={{ marginTop: 12 }}>view-list</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="view-module" size="2em" />
         <div style={{ marginTop: 12 }}>view-module</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="wallet" size="2em" />
         <div style={{ marginTop: 12 }}>wallet</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="wifi" size="2em" />
         <div style={{ marginTop: 12 }}>wifi</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="zoom-in" size="2em" />
         <div style={{ marginTop: 12 }}>zoom-in</div>
-      </div>
-      <div style={{ width: 140, height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      </Wrapper>
+
+      <Wrapper>
         <IconFont name="zoom-out" size="2em" />
         <div style={{ marginTop: 12 }}>zoom-out</div>
-      </div>
+      </Wrapper>
     </div>
   );
 }

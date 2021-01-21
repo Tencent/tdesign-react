@@ -1,151 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ButtonBlock.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--line t-size-full-width"
-  >
-    line
-  </button>
-  <button
-    class="t-button t-button--primary t-size-full-width"
-  >
-    primary
-  </button>
-  <button
-    class="t-button t-button--dashed t-size-full-width"
-  >
-    dashed
-  </button>
-  <button
-    class="t-button t-button--warning t-size-full-width"
-  >
-    warning
-  </button>
-  <button
-    class="t-button t-button--warning-line t-size-full-width"
-  >
-    warning-line
-  </button>
-  <button
-    class="t-button t-button--link t-size-full-width"
-  >
-    link
-  </button>
-  <button
-    class="t-button t-button--ghost t-size-full-width"
-  >
-    ghost
-  </button>
-  <button
-    class="t-button t-button--ghost-line t-size-full-width"
-  >
-    ghost-line
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ButtonDisabled.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--line t-is-disabled"
-    disabled=""
-  >
-    line
-  </button>
-  <button
-    class="t-button t-button--primary t-is-disabled"
-    disabled=""
-  >
-    primary
-  </button>
-  <button
-    class="t-button t-button--dashed t-is-disabled"
-    disabled=""
-  >
-    dashed
-  </button>
-  <button
-    class="t-button t-button--warning t-is-disabled"
-    disabled=""
-  >
-    warning
-  </button>
-  <button
-    class="t-button t-button--warning-line t-is-disabled"
-    disabled=""
-  >
-    warning-line
-  </button>
-  <button
-    class="t-button t-button--link t-is-disabled"
-    disabled=""
-  >
-    link
-  </button>
-  <button
-    class="t-button t-button--ghost t-is-disabled"
-    disabled=""
-  >
-    ghost
-  </button>
-  <button
-    class="t-button t-button--ghost-line t-is-disabled"
-    disabled=""
-  >
-    ghost-line
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ButtonIcon.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--line"
-  >
-    <svg
-      class="t-icon t-icon-search"
-    >
-      <use
-        xlink:href="#t-icon-search"
-      />
-    </svg>
-    <span
-      class="t-button__text"
-    >
-      line
-    </span>
-  </button>
-  <button
-    class="t-button t-button--primary"
-  >
-    <svg
-      class="t-icon t-icon-search"
-    >
-      <use
-        xlink:href="#t-icon-search"
-      />
-    </svg>
-    <span
-      class="t-button__text"
-    >
-      primary
-    </span>
-  </button>
-  <button
-    class="t-button t-button--line t-button--icon"
-  >
-    <svg
-      class="t-icon t-icon-search"
-    >
-      <use
-        xlink:href="#t-icon-search"
-      />
-    </svg>
-  </button>
-</DocumentFragment>
-`;
-
 exports[`ButtonSize.jsx 1`] = `
 <DocumentFragment>
   <section>
@@ -258,6 +112,234 @@ exports[`ButtonTheme.jsx 1`] = `
     class="t-button t-button--ghost-line"
   >
     ghost-line
+  </button>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--line"
+  >
+    line
+  </button>
+  <button
+    class="t-button t-button--primary"
+  >
+    primary
+  </button>
+  <button
+    class="t-button t-button--dashed"
+  >
+    dashed
+  </button>
+  <button
+    class="t-button t-button--warning"
+  >
+    warning
+  </button>
+  <button
+    class="t-button t-button--warning-line"
+  >
+    warning-line
+  </button>
+  <button
+    class="t-button t-button--link"
+  >
+    link
+  </button>
+  <button
+    class="t-button t-button--ghost"
+  >
+    ghost
+  </button>
+  <button
+    class="t-button t-button--ghost-line"
+  >
+    ghost-line
+  </button>
+</DocumentFragment>
+`;
+
+exports[`block.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      style="display: flex; flex-direction: column; width: 40%; margin-right: 32px;"
+    >
+      <button
+        class="t-button t-button--line t-size-full-width"
+      >
+        line
+      </button>
+      <button
+        class="t-button t-button--primary t-size-full-width"
+      >
+        primary
+      </button>
+      <button
+        class="t-button t-button--dashed t-size-full-width"
+      >
+        dashed
+      </button>
+      <button
+        class="t-button t-button--warning t-size-full-width"
+      >
+        warning
+      </button>
+    </div>
+    <div
+      style="display: flex; flex-direction: column; width: 40%;"
+    >
+      <button
+        class="t-button t-button--warning-line t-size-full-width"
+      >
+        warning-line
+      </button>
+      <button
+        class="t-button t-button--link t-size-full-width"
+      >
+        link
+      </button>
+      <button
+        class="t-button t-button--ghost t-size-full-width"
+      >
+        ghost
+      </button>
+      <button
+        class="t-button t-button--ghost-line t-size-full-width"
+      >
+        ghost-line
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ghost.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--ghost"
+  >
+    ghost
+  </button>
+  <button
+    class="t-button t-button--ghost-line"
+  >
+    ghost-line
+  </button>
+</DocumentFragment>
+`;
+
+exports[`group.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="button-wrap"
+  >
+    <button
+      class="t-button t-button--primary"
+    >
+      确定
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      取消
+    </button>
+  </div>
+  <div
+    class="button-wrap"
+  >
+    <button
+      class="t-button t-button--primary"
+    >
+      下一步
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      上一步
+    </button>
+  </div>
+  <div
+    class="button-wrap"
+  >
+    <button
+      class="t-button t-button--primary"
+    >
+      新建主机
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      重装系统
+    </button>
+    <button
+      class="t-button t-button--line"
+    >
+      批量续费
+    </button>
+    <button
+      class="t-button t-button--line t-button--icon"
+    >
+      <svg
+        class="t-icon t-icon-more"
+      >
+        <use
+          xlink:href="#t-icon-more"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--line"
+  >
+    <svg
+      class="t-icon t-icon-search"
+    >
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
+    <span
+      class="t-button__text"
+    >
+      line
+    </span>
+  </button>
+  <button
+    class="t-button t-button--primary"
+  >
+    <svg
+      class="t-icon t-icon-search"
+    >
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
+    <span
+      class="t-button__text"
+    >
+      primary
+    </span>
+  </button>
+  <button
+    class="t-button t-button--line t-button--icon"
+  >
+    <svg
+      class="t-icon t-icon-search"
+    >
+      <use
+        xlink:href="#t-icon-search"
+      />
+    </svg>
   </button>
 </DocumentFragment>
 `;

@@ -7,17 +7,15 @@ export default function PlacementExample() {
   return (
     <>
       <PopConfirm content={$content} placement="left">
-        <Button style={{ marginLeft: 8 }} theme="primary">
-          Left
-        </Button>
+        <Button theme="primary">Left</Button>
       </PopConfirm>
 
       <PopConfirm content={$content} placement="top">
-        <Button style={{ marginLeft: 8 }}>Top</Button>
+        <Button>Top</Button>
       </PopConfirm>
 
       <PopConfirm content={$content} placement="bottom">
-        <Button style={{ marginLeft: 8 }}>Bottom</Button>
+        <Button>Bottom</Button>
       </PopConfirm>
     </>
   );

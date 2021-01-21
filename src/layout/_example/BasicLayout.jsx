@@ -1,9 +1,7 @@
 import React from 'react';
 import { Layout, Menu, MenuItem } from '@tencent/tdesign-react';
 
-const Logo = (props) => (
-  <img {...props} src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
-);
+const Logo = () => <span>LOGO</span>;
 
 function BasicUsage(props) {
   return (

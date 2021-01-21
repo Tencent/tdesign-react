@@ -6,10 +6,9 @@ const ThemeList = ['info', 'success', 'warning', 'error', 'question', 'loading']
 export default function () {
   return (
     <div className="message-element">
-      {ThemeList.map((theme) => (
-        <>
+      {ThemeList.map((theme, index) => (
+        <div key={index}>
           <Button
-            key={theme}
             onClick={() => {
               Message[theme]({
                 content: `This is ${theme} Message`,
@@ -19,8 +18,7 @@ export default function () {
           >
             Display a {theme} indicator
           </Button>
-          <br />
-        </>
+        </div>
       ))}
     </div>
   );

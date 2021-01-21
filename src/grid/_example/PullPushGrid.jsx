@@ -5,19 +5,19 @@ export default function PullPushGrid() {
   return (
     <>
       <Row>
-        <Col span={18} push={6}>
-          <div>col-18 col-push-6</div>
+        <Col span={9} push={3}>
+          <div>col-9 col-push-3</div>
         </Col>
-        <Col span={6} pull={18}>
-          <div>col-6 col-pull-18</div>
+        <Col span={3} pull={9}>
+          <div>col-3 col-pull-9</div>
         </Col>
       </Row>
       <Row>
-        <Col span={16} push={8}>
-          <div>col-16 col-push-8</div>
+        <Col span={8} push={4}>
+          <div>col-8 col-push-4</div>
         </Col>
-        <Col span={8} pull={16}>
-          <div>col-8 col-pull-16</div>
+        <Col span={4} pull={8}>
+          <div>col-4 col-pull-8</div>
         </Col>
       </Row>
     </>

@@ -11,7 +11,7 @@ const ListItemMeta = forwardRef((props: ListItemMetaProps, ref: React.Ref<HTMLDi
 
   return (
     <div ref={ref} className={`${classPrefix}-list-item__meta`}>
-      <div className={`${classPrefix}-list-item__meta-avatar`}>{avatar}</div>
+      {avatar && <div className={`${classPrefix}-list-item__meta-avatar`}>{avatar}</div>}
       <div className={`${classPrefix}-list-item__meta-content`}>
         <h3 className={`${classPrefix}-list-item__meta-title`}>{title}</h3>
         <div className={`${classPrefix}-list-item__meta-description`}>

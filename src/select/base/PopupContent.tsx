@@ -13,6 +13,7 @@ const PopupContent = (props: SelectPopupProps) => {
       if (multiple) {
         const values = getSelectValueArr(value, selectedValue, label, selected);
         onChange(values, { event });
+        requestAnimationFrame(() => setShowPopup(true));
       } else {
         onChange(selectedValue, { label, event });
         setShowPopup(!showPopup);

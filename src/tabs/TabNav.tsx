@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react'
 import classNames from 'classnames';
 import { Combine } from '../_type';
 import useConfig from '../_util/useConfig';
-import { IconFont } from '../icon';
+import { CloseIcon, ChevronRightIcon, ChevronLeftIcon } from '../icon';
 import noop from '../_util/noop';
 import { TabsProps, TabPanelProps } from './TabProps';
 import TabBar from './TabBar';
@@ -93,6 +93,7 @@ const TabNav: React.FC<
       newOffset = currOffset - (tabActiveBounding.right - navScrollBounding.right);
     }
     newOffset = Math.min(newOffset, 0);
+
     setWrapTranslateX(newOffset);
   };
 
@@ -153,7 +154,7 @@ const TabNav: React.FC<
                 ['t-size-l']: size === 'large',
               })}
             >
-              <IconFont name={'arrow-left'} />
+              <ChevronLeftIcon name={'chevron-left'} />
             </span>
           )}
           {isScroll && (
@@ -166,7 +167,7 @@ const TabNav: React.FC<
                 ['t-size-l']: size === 'large',
               })}
             >
-              <IconFont name={'arrow-right'} />
+              <ChevronRightIcon name={'chevron-right'} />
             </span>
           )}
           <div
@@ -200,22 +201,12 @@ const TabNav: React.FC<
                 >
                   {panel.label}
                   {panel.closable && theme === 'card' && (
-                    <svg
+                    <CloseIcon
                       onClick={(e) => {
                         e.stopPropagation();
                         onClose(e, String(panel.name));
                       }}
-                      viewBox="0 0 16 16"
-                      className={classNames({
-                        ['remove-btn']: true,
-                        ['t-icon']: true,
-                        ['t-icon-close']: true,
-                      })}
-                      version="1.1"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fillRule="evenodd" d="M9 8L13 12 12 13 8 9 4 13 3 12 7 8 3 4 4 3 8 7 12 3 13 4z" />
-                    </svg>
+                    />
                   )}
                 </div>
               ))}

@@ -4,17 +4,17 @@ import { Button, Popup } from '@tencent/tdesign-react';
 export default function Triggers() {
   return (
     <>
-      <Popup trigger="hover" content="这是一个弹出框">
+      <Popup trigger="hover" showArrow content="这是一个弹出框">
         <Button>Hover me</Button>
       </Popup>
-      <Popup trigger="focus" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Focus me</Button>
+      <Popup trigger="focus" showArrow content="这是一个弹出框">
+        <Button>Focus me</Button>
       </Popup>
-      <Popup trigger="click" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Click me</Button>
+      <Popup trigger="click" showArrow content="这是一个弹出框">
+        <Button>Click me</Button>
       </Popup>
-      <Popup trigger="contextMenu" content="这是一个弹出框">
-        <Button style={{ marginLeft: 8 }}>Right Click me</Button>
+      <Popup trigger="contextMenu" showArrow content="这是一个弹出框">
+        <Button>Right Click me</Button>
       </Popup>
     </>
   );

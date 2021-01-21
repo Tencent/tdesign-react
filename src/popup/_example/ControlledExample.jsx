@@ -5,10 +5,13 @@ export default function Controlled() {
   const [visible, setVisible] = useState(false);
 
   return (
-    <>
-      <Popup trigger="manual" visible={visible} content={<Button onClick={() => setVisible(false)}>隐藏</Button>}>
-        <Button onClick={() => setVisible(true)}>点击</Button>
-      </Popup>
-    </>
+    <Popup
+      showArrow
+      trigger="manual"
+      visible={visible}
+      content={<Button onClick={() => setVisible(false)}>隐藏</Button>}
+    >
+      <Button onClick={() => setVisible(true)}>点击</Button>
+    </Popup>
   );
 }

@@ -18,9 +18,7 @@ export default function BasicUsageExample() {
 
   return (
     <PopConfirm content={$content} placement="right">
-      <Button theme="primary" style={{ marginLeft: 8 }}>
-        浮层在右边
-      </Button>
+      <Button theme="primary">浮层在右边</Button>
     </PopConfirm>
   );
 }
