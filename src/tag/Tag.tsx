@@ -4,6 +4,7 @@ import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
+import { Icon } from '../icon';
 import CheckTag from './CheckTag';
 
 /**
@@ -63,6 +64,11 @@ export interface TagProps extends StyledProps {
   onClick?: (e?: React.MouseEvent) => void;
 
   /**
+   * 标签中的图标，可自定义图标呈现。类型为 String 表示可以传入“x”或“关闭”等文本内容。TS 类型：String | TNode。
+   */
+  icon?: string | React.ReactNode;
+
+  /**
    * 关闭回调函数
    */
   onClose?: (e?: React.MouseEvent) => void;
@@ -86,6 +92,7 @@ const Tag = forwardRefWithStatics(
       closable,
       disabled,
       maxWidth,
+      icon,
       onClick = noop,
       onClose = noop,
       className,
@@ -116,10 +123,17 @@ const Tag = forwardRefWithStatics(
       className,
     );
 
+    const renderIcon = () => {
+      if (typeof icon === 'string') {
+        return <Icon name={icon} />;
+      }
+      return icon;
+    };
+
     /**
      * 删除 Icon
      */
-    const deleteIcon = <i className="t-icon t-icon-close" onClick={onClose}></i>;
+    const deleteIcon = <Icon name="close" onClick={onClose} />;
 
     const tag: JSX.Element = (
       <span
@@ -129,6 +143,7 @@ const Tag = forwardRefWithStatics(
         style={{ ...(style || {}), ...{ maxWidth } }}
         {...otherTagProps}
       >
+        {renderIcon()}
         {children}
         {closable && deleteIcon}
       </span>

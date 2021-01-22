@@ -1,12 +1,13 @@
-import React, { FunctionComponent, ReactNode, MouseEvent, forwardRef, Ref } from 'react';
+import React, { ReactNode, MouseEvent, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Popup, { PopupProps } from '../popup/Popup';
 import noop from '../_util/noop';
+import useConfig from '../_util/useConfig';
+import useDefault from '../_util/useDefault';
 import PopContent from './PopContent';
 
-export type PopConfirmRef = HTMLDivElement;
-
-export interface PopConfirmProps extends PopupProps {
+export interface PopConfirmProps extends Omit<PopupProps, 'showArrow' | 'trigger'> {
   /**
    * 取消按钮文字
    * @default '取消'
@@ -47,20 +48,24 @@ export interface PopConfirmProps extends PopupProps {
    * @default
    */
   onCancel?: (event: MouseEvent) => void;
-
-  /**
-   * 指向浮窗最外层div元素的ref
-   */
-  ref?: Ref<HTMLDivElement>;
 }
 
-const PopConfirm: FunctionComponent<PopConfirmProps> = forwardRef<HTMLDivElement, PopConfirmProps>(
-  (props: PopConfirmProps & { children: HTMLElement }, ref: Ref<PopConfirmRef>) => (
-    <Popup {...props} content={<PopContent {...props} ref={ref} />}>
-      {props.children}
-    </Popup>
-  ),
-);
+const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ overlayClassName, ...props }, ref) => {
+  const { classPrefix } = useConfig();
+  const [visible, setVisible] = useDefault(props.visible, false, props.onVisibleChange);
+  return (
+    <Popup
+      {...props}
+      ref={ref}
+      visible={visible}
+      onVisibleChange={setVisible}
+      showArrow
+      trigger="click"
+      overlayClassName={classNames(`${classPrefix}-popconfirm`, overlayClassName)}
+      content={<PopContent {...props} onClose={() => setVisible(false)} />}
+    />
+  );
+});
 
 PopConfirm.displayName = 'PopConfirm';
 PopConfirm.propTypes = {

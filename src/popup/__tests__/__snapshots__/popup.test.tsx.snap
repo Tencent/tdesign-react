@@ -29,19 +29,16 @@ exports[`PlacementsExample.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Top
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Bottom
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Right
   </button>
@@ -57,19 +54,16 @@ exports[`TriggersExample.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Focus me
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Click me
   </button>
   <button
     class="t-button t-button--line"
-    style="margin-left: 8px;"
   >
     Right Click me
   </button>

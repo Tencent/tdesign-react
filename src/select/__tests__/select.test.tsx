@@ -10,7 +10,7 @@ testExamples(__dirname);
 
 describe('Select 组件测试', () => {
   const selectSelector = '.t-select';
-  const popupSelector = '.t-popup-container';
+  const popupSelector = '.t-popup';
   const options = [
     {
       label: 'Apple',
@@ -34,7 +34,7 @@ describe('Select 组件测试', () => {
           setValue(value);
         };
         return (
-          <Select value={value} change={onChange} style={{ width: '40%' }}>
+          <Select value={value} onChange={onChange} style={{ width: '40%' }}>
             <Option key="apple" label="Apple" value="apple" />
             <Option key="orange" label="Orange" value="orange" />
             <Option key="banana" label="Banana" value="banana" />
@@ -80,7 +80,7 @@ describe('Select 组件测试', () => {
           setValue(value);
         };
         return (
-          <Select value={value} change={onChange} multiple style={{ width: '40%' }}>
+          <Select value={value} onChange={onChange} multiple style={{ width: '40%' }}>
             <Option key="apple" label="Apple" value="apple" />
             <Option key="orange" label="Orange" value="orange" />
             <Option key="banana" label="Banana" value="banana" />
@@ -128,7 +128,7 @@ describe('Select 组件测试', () => {
       };
 
       return (
-        <Select value={value} change={onChange} style={{ width: '40%' }}>
+        <Select value={value} onChange={onChange} style={{ width: '40%' }}>
           <OptionGroup label="Fruit">
             {options.map((item, index) => (
               <Option label={item.label} value={item.value} key={index} />
@@ -177,7 +177,7 @@ describe('Select 组件测试', () => {
         };
 
         return (
-          <Select filterable value={value} change={onChange}>
+          <Select filterable value={value} onChange={onChange}>
             {options.map((item, index) => (
               <Option key={index} label={item.label} value={item.value} />
             ))}
@@ -272,7 +272,14 @@ describe('Select 组件测试', () => {
         };
 
         return (
-          <Select filterable remote value={value} change={onChange} loading={loading} remoteMethod={handleRemoteSearch}>
+          <Select
+            filterable
+            remote
+            value={value}
+            onChange={onChange}
+            loading={loading}
+            remoteMethod={handleRemoteSearch}
+          >
             {options.map((item) => (
               <Option key={item.value} label={item.label} value={item.value} />
             ))}
