@@ -458,39 +458,39 @@ exports[`DisplayGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
   </div>
@@ -502,39 +502,39 @@ exports[`DisplayGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
   </div>
@@ -546,39 +546,39 @@ exports[`DisplayGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
   </div>
@@ -590,39 +590,39 @@ exports[`DisplayGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
   </div>
@@ -634,39 +634,39 @@ exports[`DisplayGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
     <div
-      class="t-col t-col-3"
+      class="t-col t-col-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-3
+        col-2
       </div>
     </div>
   </div>
@@ -825,12 +825,12 @@ exports[`OffsetGrid.jsx 1`] = `
     style="margin: 0px -0px;"
   >
     <div
-      class="t-col t-col-6 t-col-offset-3"
+      class="t-col t-col-6 t-col-offset-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
       <div>
-        col-6 col-offset-3
+        col-6 col-offset-2
       </div>
     </div>
   </div>
@@ -991,16 +991,7 @@ exports[`ResponseGrid.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-col t-col-xs-20 t-col-sm-16 t-col-md-12 t-col-lg-8 t-col-xl-4"
-      gutter="0"
-      style="padding: 0px 0px;"
-    >
-      <div>
-        Col
-      </div>
-    </div>
-    <div
-      class="t-col t-col-xs-2 t-col-sm-4 t-col-md-6 t-col-lg-8 t-col-xl-10"
+      class="t-col t-col-xs-10 t-col-sm-8 t-col-md-6 t-col-lg-4 t-col-xl-2"
       gutter="0"
       style="padding: 0px 0px;"
     >
@@ -1016,12 +1007,12 @@ exports[`SpaceGrid.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-row t-row-start t-row-top"
-    style="margin: 0px -4px;"
+    style="margin: 0px -8px;"
   >
     <div
       class="t-col t-col-3"
-      gutter="8"
-      style="padding: 0px 4px;"
+      gutter="16"
+      style="padding: 0px 8px;"
     >
       <div>
         col-3
@@ -1029,8 +1020,8 @@ exports[`SpaceGrid.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="8"
-      style="padding: 0px 4px;"
+      gutter="16"
+      style="padding: 0px 8px;"
     >
       <div>
         col-3
@@ -1038,8 +1029,8 @@ exports[`SpaceGrid.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="8"
-      style="padding: 0px 4px;"
+      gutter="16"
+      style="padding: 0px 8px;"
     >
       <div>
         col-3
@@ -1047,8 +1038,8 @@ exports[`SpaceGrid.jsx 1`] = `
     </div>
     <div
       class="t-col t-col-3"
-      gutter="8"
-      style="padding: 0px 4px;"
+      gutter="16"
+      style="padding: 0px 8px;"
     >
       <div>
         col-3
