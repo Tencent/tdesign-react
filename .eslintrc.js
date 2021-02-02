@@ -6,10 +6,10 @@ module.exports = {
     'prettier/react',
     'prettier/@typescript-eslint',
     'plugin:react/recommended',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     '@tencent/eslint-config-tencent',
+    'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
   env: {
