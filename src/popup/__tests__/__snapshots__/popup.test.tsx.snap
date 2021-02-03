@@ -3,7 +3,7 @@
 exports[`BasicUsageExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Hover me
   </button>
@@ -13,7 +13,7 @@ exports[`BasicUsageExample.jsx 1`] = `
 exports[`ControlledExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     点击
   </button>
@@ -23,22 +23,22 @@ exports[`ControlledExample.jsx 1`] = `
 exports[`PlacementsExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Left
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Top
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Bottom
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Right
   </button>
@@ -48,22 +48,22 @@ exports[`PlacementsExample.jsx 1`] = `
 exports[`TriggersExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Hover me
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Focus me
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Click me
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Right Click me
   </button>

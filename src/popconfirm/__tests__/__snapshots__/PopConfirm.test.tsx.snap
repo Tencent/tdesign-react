@@ -3,7 +3,7 @@
 exports[`ExtendsExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     浮层在右边
   </button>
@@ -13,17 +13,17 @@ exports[`ExtendsExample.jsx 1`] = `
 exports[`PlacementExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     Left
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Top
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Bottom
   </button>
@@ -56,11 +56,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -93,11 +93,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -130,11 +130,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -159,11 +159,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -196,11 +196,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -232,11 +232,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -269,11 +269,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -306,11 +306,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -338,11 +338,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-link t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -352,22 +352,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 exports[`ThemeExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     默认
   </button>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     提示
   </button>
   <button
-    class="t-button t-button--warning"
+    class="t-button t-button--theme-warning t-button--variant-base"
   >
     警告
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     错误
   </button>
@@ -377,7 +377,7 @@ exports[`ThemeExample.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     提交
   </button>
@@ -387,7 +387,7 @@ exports[`base.jsx 1`] = `
 exports[`describe.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     操作
   </button>
@@ -397,17 +397,17 @@ exports[`describe.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     使用String
   </button>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     使用VNode
   </button>
   <button
-    class="t-button t-button--primary"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     使用Function
   </button>

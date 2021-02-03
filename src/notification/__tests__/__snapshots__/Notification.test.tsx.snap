@@ -117,12 +117,12 @@ exports[`NotificationClose.jsx 1`] = `
   </div>
   <br />
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     处理开关事件
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     处理定时关闭事件（3s）
   </button>
@@ -306,7 +306,7 @@ exports[`NotificationIcon.jsx 1`] = `
 exports[`NotificationOffset.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     偏移的信息
   </button>
@@ -316,23 +316,23 @@ exports[`NotificationOffset.jsx 1`] = `
 exports[`NotificationPlacement.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     左上角
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     右上角
   </button>
   <br />
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     左下角
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     右下角
   </button>
@@ -417,17 +417,17 @@ exports[`NotificationSize.jsx 1`] = `
 exports[`NotificationToggle.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     自由控制关闭时机
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     点击打开多个消息
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     点击关闭多个消息
   </button>
@@ -680,22 +680,22 @@ exports[`NotificationType.jsx 1`] = `
 exports[`NotificationType4Fn.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     信息
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     成功
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     警告
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     错误
   </button>

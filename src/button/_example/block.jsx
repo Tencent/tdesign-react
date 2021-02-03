@@ -8,39 +8,21 @@ export default function ButtonExample() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          width: '40%',
-          marginRight: 32,
+          width: '50%',
+          margin: 'auto',
         }}
       >
-        <Button block>line</Button>
-        <Button block theme="primary">
-          primary
+        <Button block variant="base">
+          主按钮
         </Button>
-        <Button block theme="dashed">
-          dashed
+        <Button block variant="outline">
+          次要按钮
         </Button>
-        <Button block theme="warning">
-          warning
+        <Button block variant="dashed">
+          虚框按钮
         </Button>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '40%',
-        }}
-      >
-        <Button block theme="warning-line">
-          warning-line
-        </Button>
-        <Button block theme="link">
-          link
-        </Button>
-        <Button block theme="ghost">
-          ghost
-        </Button>
-        <Button block theme="ghost-line">
-          ghost-line
+        <Button block variant="text">
+          文字按钮
         </Button>
       </div>
     </div>

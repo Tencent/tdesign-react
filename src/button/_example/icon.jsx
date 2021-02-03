@@ -5,7 +5,7 @@ export default function ButtonExample() {
   return (
     <>
       <Button icon="search">line</Button>
-      <Button theme="primary" icon="search">
+      <Button variant="outline" icon="search">
         primary
       </Button>
       <Button icon="search" />

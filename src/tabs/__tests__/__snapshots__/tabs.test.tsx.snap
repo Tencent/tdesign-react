@@ -199,22 +199,22 @@ exports[`PositionTabs.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       top
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       bottom
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       left
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       right
     </button>
@@ -312,17 +312,17 @@ exports[`SizeTabs.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       small
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       middle
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       large
     </button>
@@ -389,12 +389,12 @@ exports[`ThemeTabs.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       default
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       card
     </button>
@@ -650,7 +650,7 @@ exports[`icon.jsx 1`] = `
     class="tdegsin-demo-tabs"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-line t-button--variant-base"
     >
       切换到卡片型
     </button>
@@ -824,22 +824,22 @@ exports[`position.jsx 1`] = `
     class="tdegsin-demo-tabs"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       top
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       bottom
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       left
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       right
     </button>

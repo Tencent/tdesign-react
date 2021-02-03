@@ -123,12 +123,12 @@ exports[`link.jsx 1`] = `
     style="margin: 16px 0px;"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       删除
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
       style="margin-left: 16px;"
     >
       开启

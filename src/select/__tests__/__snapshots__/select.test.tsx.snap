@@ -313,7 +313,7 @@ exports[`SelectWithRef.jsx 1`] = `
       </div>
     </div>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
       style="margin-left: 24px;"
     >
       打印ref
