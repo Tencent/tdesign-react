@@ -650,7 +650,7 @@ exports[`icon.jsx 1`] = `
     class="tdegsin-demo-tabs"
   >
     <button
-      class="t-button t-button--theme-line t-button--variant-base"
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
       切换到卡片型
     </button>

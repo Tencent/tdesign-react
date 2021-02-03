@@ -17,7 +17,7 @@ export default function IconTabs() {
   return (
     <>
       <div className="tdegsin-demo-tabs">
-        <Button theme="line" onClick={toggle}>
+        <Button variant="outline" onClick={toggle}>
           {desc}
         </Button>
         <Tabs tabPosition={'top'} size={'middle'} theme={theme}>
