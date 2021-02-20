@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import useConfig from 'src/_util/useConfig';
+import useConfig from '../_util/useConfig';
 
 const FormItem = forwardRef(() => {
   const { classPrefix } = useConfig();
