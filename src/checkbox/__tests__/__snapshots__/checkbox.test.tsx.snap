@@ -1,118 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckboxControlledExample.jsx 1`] = `
-<DocumentFragment>
-  <label
-    class="t-checkbox"
-  >
-    <input
-      class="t-checkbox__former"
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      未选中
-    </span>
-  </label>
-  <label
-    class="t-checkbox t-is-checked"
-  >
-    <input
-      checked=""
-      class="t-checkbox__former"
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      已选中
-    </span>
-  </label>
-  <label
-    class="t-checkbox t-is-disabled"
-  >
-    <input
-      class="t-checkbox__former"
-      disabled=""
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      禁用未选中
-    </span>
-  </label>
-  <label
-    class="t-checkbox t-is-checked t-is-disabled"
-  >
-    <input
-      checked=""
-      class="t-checkbox__former"
-      disabled=""
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      禁用已选中
-    </span>
-  </label>
-  <label
-    class="t-checkbox t-is-indeterminate"
-  >
-    <input
-      class="t-checkbox__former"
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      半选状态
-    </span>
-  </label>
-  <label
-    class="t-checkbox t-is-disabled t-is-indeterminate"
-  >
-    <input
-      class="t-checkbox__former"
-      disabled=""
-      readonly=""
-      type="checkbox"
-    />
-    <span
-      class="t-checkbox__input"
-    />
-    <span
-      class="t-checkbox__label"
-    >
-      半选状态已禁用
-    </span>
-  </label>
-</DocumentFragment>
-`;
-
-exports[`CheckboxExample.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-form-check-group"
@@ -174,6 +62,77 @@ exports[`CheckboxExample.jsx 1`] = `
         不要葱花
       </span>
     </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`link.jsx 1`] = `
+<DocumentFragment>
+  <label
+    class="t-checkbox"
+  >
+    <input
+      class="t-checkbox__former"
+      readonly=""
+      type="checkbox"
+    />
+    <span
+      class="t-checkbox__input"
+    />
+    <span
+      class="t-checkbox__label"
+    >
+      腾讯云A
+    </span>
+  </label>
+  <label
+    class="t-checkbox"
+  >
+    <input
+      class="t-checkbox__former"
+      readonly=""
+      type="checkbox"
+    />
+    <span
+      class="t-checkbox__input"
+    />
+    <span
+      class="t-checkbox__label"
+    >
+      腾讯云B
+    </span>
+  </label>
+  <label
+    class="t-checkbox"
+  >
+    <input
+      class="t-checkbox__former"
+      readonly=""
+      type="checkbox"
+    />
+    <span
+      class="t-checkbox__input"
+    />
+    <span
+      class="t-checkbox__label"
+    >
+      腾讯云C
+    </span>
+  </label>
+  <div
+    style="margin: 16px 0px;"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      删除
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="margin-left: 16px;"
+    >
+      开启
+    </button>
   </div>
 </DocumentFragment>
 `;

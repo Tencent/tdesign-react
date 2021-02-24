@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicDivider.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <p>
     通过高效广告平台，协助品牌和市场营销者触达数以亿计的中国消费者通过金融科技及企业服务，促进合作伙伴业务发展，助力实现数字化升级，我们大力投资于人才队伍和推动科技创新，积极参与互联网行业协同发展。
@@ -20,7 +20,7 @@ exports[`BasicDivider.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DividerWithText.jsx 1`] = `
+exports[`text.jsx 1`] = `
 <DocumentFragment>
   <p>
     通过高效广告平台，协助品牌和市场营销者触达数以亿计的中国消费者通过金融科技及企业服务，促进合作伙伴业务发展，助力实现数字化升级，我们大力投资于人才队伍和推动科技创新，积极参与互联网行业协同发展。
@@ -64,7 +64,7 @@ exports[`DividerWithText.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`VerticalDivider.jsx 1`] = `
+exports[`vertical.jsx 1`] = `
 <DocumentFragment>
   <span>
     正直

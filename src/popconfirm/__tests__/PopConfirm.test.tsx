@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
-import PopConfirm, { PopConfirmRef } from '../PopConfirm';
+import PopConfirm from '../PopConfirm';
 import PopContent from '../PopContent';
 
 // 测试组件代码 Example 快照
@@ -11,40 +11,40 @@ describe('PopConfirm 组件测试', () => {
   const triggerElement = '触发元素';
   const text = '弹出层描述';
 
-  test('hover 触发测试', async () => {
-    const ref = React.createRef<PopConfirmRef>();
+  // test('hover 触发测试', async () => {
+  //   const ref = React.createRef<PopConfirmRef>();
 
-    const { getByText, queryByTestId, asFragment, queryByText } = render(
-      <PopConfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning" ref={ref}>
-        {triggerElement}
-      </PopConfirm>,
-    );
+  //   const { getByText, queryByTestId, asFragment, queryByText } = render(
+  //     <PopConfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning" ref={ref}>
+  //       {triggerElement}
+  //     </PopConfirm>,
+  //   );
 
-    // 鼠标进入前，没有元素存在
-    const element1 = await waitFor(() => queryByTestId(testId));
-    expect(element1).toBeNull();
-    expect(ref.current).toBeNull();
+  //   // 鼠标进入前，没有元素存在
+  //   const element1 = await waitFor(() => queryByTestId(testId));
+  //   expect(element1).toBeNull();
+  //   expect(ref.current).toBeNull();
 
-    // 模拟鼠标进入
-    act(() => {
-      fireEvent.mouseEnter(getByText(triggerElement));
-      jest.runAllTimers();
-    });
+  //   // 模拟鼠标进入
+  //   act(() => {
+  //     fireEvent.mouseEnter(getByText(triggerElement));
+  //     jest.runAllTimers();
+  //   });
 
-    expect(ref.current).not.toBeNull();
+  //   expect(ref.current).not.toBeNull();
 
-    // 鼠标进入后，有元素，而且内容为 popupText + 两个按钮
-    const element2 = await waitFor(() => queryByTestId(testId));
-    expect(element2).not.toBeNull();
-    expect(asFragment()).toMatchSnapshot();
+  //   // 鼠标进入后，有元素，而且内容为 popupText + 两个按钮
+  //   const element2 = await waitFor(() => queryByTestId(testId));
+  //   expect(element2).not.toBeNull();
+  //   expect(asFragment()).toMatchSnapshot();
 
-    const cancelBtn = await waitFor(() => queryByText('取消'));
-    expect(cancelBtn).not.toBeNull();
-    const confirmBtn = await waitFor(() => queryByText('确定'));
-    expect(confirmBtn).not.toBeNull();
+  //   const cancelBtn = await waitFor(() => queryByText('取消'));
+  //   expect(cancelBtn).not.toBeNull();
+  //   const confirmBtn = await waitFor(() => queryByText('确定'));
+  //   expect(confirmBtn).not.toBeNull();
 
-    expect(ref.current).toMatchSnapshot();
-  });
+  //   expect(ref.current).toMatchSnapshot();
+  // });
 
   test('click 触发测试', async () => {
     const onCancelMock = jest.fn();
@@ -53,7 +53,6 @@ describe('PopConfirm 组件测试', () => {
       <PopConfirm
         placement="top"
         content={<div data-testid={testId}>{text}</div>}
-        trigger="click"
         onCancel={onCancelMock}
         onConfirm={onConfirmMock}
         confirmText="确认提交"

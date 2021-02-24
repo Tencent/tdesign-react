@@ -40,18 +40,18 @@ describe('Pagination test', () => {
     expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
   });
 
-  test('select', () => {
-    render(<Pagination showSizer total={600} pageSize={20} pageSizeOption={[20, 30, 100, 200]} />);
-    expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('30');
+  // test('select', () => {
+  //   render(<Pagination showSizer total={600} pageSize={20} pageSizeOption={[20, 30, 100, 200]} />);
+  //   expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('30');
 
-    fireEvent.change(document.querySelector('select'), { target: { value: 30 } });
-    expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('20');
+  //   fireEvent.change(document.querySelector('select'), { target: { value: 30 } });
+  //   expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('20');
 
-    fireEvent.click(document.querySelector('.t-pagination__pager').lastElementChild);
-    expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
+  //   fireEvent.click(document.querySelector('.t-pagination__pager').lastElementChild);
+  //   expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
 
-    fireEvent.change(document.querySelector('select'), { target: { value: 200 } });
-    expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('3');
-    expect(document.querySelector('.t-is-current')).toHaveTextContent('3');
-  });
+  //   fireEvent.change(document.querySelector('select'), { target: { value: 200 } });
+  //   expect(document.querySelector('.t-pagination__pager').lastElementChild).toHaveTextContent('3');
+  //   expect(document.querySelector('.t-is-current')).toHaveTextContent('3');
+  // });
 });

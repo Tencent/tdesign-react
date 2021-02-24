@@ -14,7 +14,7 @@ export interface CheckboxGroupProps extends Combine<StyledProps, ControlledProps
   /**
    * 值变更时回调
    */
-  onChange?: (value: string[], event: MouseEvent<HTMLInputElement>) => void;
+  onChange?: (value: string[], context: { event: MouseEvent<HTMLInputElement> }) => void;
 
   /**
    * 禁用组件
@@ -61,17 +61,17 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
         value: checkedSet.has(checkName),
         disabled: checkProps.disabled || disabled,
         display: layout === 'column' ? 'block' : 'inline',
-        onChange(checked, event) {
+        onChange(checked, { event }) {
           // 支持 checkbox 上的 onChange 处理时阻止默认的处理行为
           if (typeof checkProps.onChange === 'function') {
-            checkProps.onChange(checked, event);
+            checkProps.onChange(checked, { event });
             if (event.defaultPrevented) {
               return;
             }
           }
           if (typeof onChange === 'function') {
             const newValue = checked ? [...value, checkName] : (checkedSet.delete(checkName), Array.from(checkedSet));
-            onChange(newValue, event);
+            onChange(newValue, { event });
           }
         },
       };

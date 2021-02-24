@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Icon } from '../icon';
 import useConfig from '../_util/useConfig';
@@ -56,22 +56,17 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     const { classPrefix } = useConfig();
     const [innerChecked, setInnerChecked] = useState(defaultValue || value);
 
-    function triggerChange(newChecked: boolean, event: React.MouseEvent<HTMLButtonElement>) {
-      let mergedChecked = innerChecked;
-
-      if (!disabled) {
-        mergedChecked = newChecked;
-        setInnerChecked(mergedChecked);
-        onChange?.(mergedChecked, event);
-      }
-
-      return mergedChecked;
-    }
-
     function onInternalClick(e: React.MouseEvent<HTMLButtonElement>) {
-      const ret = triggerChange(!innerChecked, e);
-      onChange?.(ret, e);
+      if (disabled) return;
+
+      const isUnderControl = typeof value !== 'undefined';
+      !isUnderControl && setInnerChecked(!innerChecked);
+      onChange?.(!innerChecked, e);
     }
+
+    useEffect(() => {
+      setInnerChecked(value);
+    }, [value]);
 
     const { SIZE, STATUS } = useCommonClassName();
     const switchClassName = classNames(

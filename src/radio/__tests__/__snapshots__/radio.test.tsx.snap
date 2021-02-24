@@ -1,6 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RadioButtonExample.jsx 1`] = `
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <label
+    class="t-radio"
+  >
+    <span
+      class="t-radio-wrap"
+    >
+      <input
+        class="t-radio__former"
+        readonly=""
+        type="radio"
+      />
+      <i
+        class="t-radio__dot"
+      />
+    </span>
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      未选中
+    </span>
+  </label>
+  <label
+    class="t-radio t-is-checked"
+  >
+    <span
+      class="t-radio-wrap"
+    >
+      <input
+        checked=""
+        class="t-radio__former"
+        readonly=""
+        type="radio"
+      />
+      <i
+        class="t-radio__dot"
+      />
+    </span>
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      已选中
+    </span>
+  </label>
+  <label
+    class="t-radio t-is-disabled"
+  >
+    <span
+      class="t-radio-wrap"
+    >
+      <input
+        class="t-radio__former"
+        disabled=""
+        readonly=""
+        type="radio"
+      />
+      <i
+        class="t-radio__dot"
+      />
+    </span>
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      禁用未选中
+    </span>
+  </label>
+  <label
+    class="t-radio t-is-checked t-is-disabled"
+  >
+    <span
+      class="t-radio-wrap"
+    >
+      <input
+        checked=""
+        class="t-radio__former"
+        disabled=""
+        readonly=""
+        type="radio"
+      />
+      <i
+        class="t-radio__dot"
+      />
+    </span>
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      禁用已选中
+    </span>
+  </label>
+</DocumentFragment>
+`;
+
+exports[`button.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-radio-group t-radio-group-outline t-radio-group-default"
@@ -25,11 +130,12 @@ exports[`RadioButtonExample.jsx 1`] = `
       </span>
     </label>
     <label
-      class="t-radio-button"
+      class="t-radio-button t-is-disabled"
       name="usa"
     >
       <input
         class="t-radio-button__former"
+        disabled=""
         readonly=""
         type="radio"
       />
@@ -121,11 +227,12 @@ exports[`RadioButtonExample.jsx 1`] = `
       </span>
     </label>
     <label
-      class="t-radio-button"
+      class="t-radio-button t-is-disabled"
       name="sh"
     >
       <input
         class="t-radio-button__former"
+        disabled=""
         readonly=""
         type="radio"
       />
@@ -196,116 +303,7 @@ exports[`RadioButtonExample.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`RadioControlledExample.jsx 1`] = `
-<DocumentFragment>
-  <label
-    class="t-radio"
-    display="block"
-  >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        class="t-radio__former"
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
-    <span
-      class="t-radio__input"
-    />
-    <span
-      class="t-radio__label"
-    >
-      未选中
-    </span>
-  </label>
-  <label
-    class="t-radio t-is-checked"
-    display="block"
-  >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        checked=""
-        class="t-radio__former"
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
-    <span
-      class="t-radio__input"
-    />
-    <span
-      class="t-radio__label"
-    >
-      已选中
-    </span>
-  </label>
-  <label
-    class="t-radio t-is-disabled"
-    display="block"
-  >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        class="t-radio__former"
-        disabled=""
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
-    <span
-      class="t-radio__input"
-    />
-    <span
-      class="t-radio__label"
-    >
-      禁用未选中
-    </span>
-  </label>
-  <label
-    class="t-radio t-is-checked t-is-disabled"
-    display="block"
-  >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        checked=""
-        class="t-radio__former"
-        disabled=""
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
-    <span
-      class="t-radio__input"
-    />
-    <span
-      class="t-radio__label"
-    >
-      禁用已选中
-    </span>
-  </label>
-</DocumentFragment>
-`;
-
-exports[`RadioExample.jsx 1`] = `
+exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-radio-group t-radio-group-outline t-radio-group-default"
@@ -361,6 +359,572 @@ exports[`RadioExample.jsx 1`] = `
         女性
       </span>
     </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-radio-group t-radio-group-outline t-radio-group-small"
+  >
+    <label
+      class="t-radio-button"
+      name="bj"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sh"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        上海
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="gz"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        广州
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sz"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        深圳
+      </span>
+    </label>
+  </div>
+  <br />
+  <div
+    class="t-radio-group t-radio-group-outline t-radio-group-default"
+  >
+    <label
+      class="t-radio-button"
+      name="bj1"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sh1"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        上海
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="gz1"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        广州
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sz1"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        深圳
+      </span>
+    </label>
+  </div>
+  <br />
+  <div
+    class="t-radio-group t-radio-group-outline t-radio-group-large"
+  >
+    <label
+      class="t-radio-button"
+      name="bj2"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        北京
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sh2"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        上海
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="gz2"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        广州
+      </span>
+    </label>
+    <label
+      class="t-radio-button"
+      name="sz2"
+    >
+      <input
+        class="t-radio-button__former"
+        readonly=""
+        type="radio"
+      />
+      <span
+        class="t-radio-button__input"
+      />
+      <span
+        class="t-radio-button__label"
+      >
+        深圳
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`type.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <h5>
+      普通单选按钮
+    </h5>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-large"
+    >
+      <label
+        class="t-radio"
+        name="bj"
+      >
+        <span
+          class="t-radio-wrap"
+        >
+          <input
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+          />
+          <i
+            class="t-radio__dot"
+          />
+        </span>
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          选项一
+        </span>
+      </label>
+      <label
+        class="t-radio"
+        name="sh"
+      >
+        <span
+          class="t-radio-wrap"
+        >
+          <input
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+          />
+          <i
+            class="t-radio__dot"
+          />
+        </span>
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          选项二
+        </span>
+      </label>
+      <label
+        class="t-radio t-is-checked"
+        name="gz"
+      >
+        <span
+          class="t-radio-wrap"
+        >
+          <input
+            checked=""
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+          />
+          <i
+            class="t-radio__dot"
+          />
+        </span>
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          选项三
+        </span>
+      </label>
+      <label
+        class="t-radio"
+        name="sz"
+      >
+        <span
+          class="t-radio-wrap"
+        >
+          <input
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+          />
+          <i
+            class="t-radio__dot"
+          />
+        </span>
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          选项四
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    style="margin: 16px 0px;"
+  >
+    <h5>
+      边框型单选按钮
+    </h5>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-large"
+    >
+      <label
+        class="t-radio-button t-is-checked"
+        name="1"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项一
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="2"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项二
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="3"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项三
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-large"
+    >
+      <label
+        class="t-radio-button t-is-checked t-is-disabled"
+        name="1"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          disabled=""
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选中禁用态
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-disabled"
+        name="2"
+      >
+        <input
+          class="t-radio-button__former"
+          disabled=""
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          未选中禁用态
+        </span>
+      </label>
+    </div>
+  </div>
+  <div>
+    <h5>
+      填充型单选按钮
+    </h5>
+    <div
+      class="t-radio-group t-radio-group-solid t-radio-group-large"
+    >
+      <label
+        class="t-radio-button"
+        name="bj"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项一
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-checked"
+        name="gz"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项二
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+        name="sz"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选项三
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-radio-group t-radio-group-solid t-radio-group-large"
+    >
+      <label
+        class="t-radio-button t-is-checked t-is-disabled"
+        name="bj"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          disabled=""
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          选中禁用态
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-disabled"
+        name="gz"
+      >
+        <input
+          class="t-radio-button__former"
+          disabled=""
+          readonly=""
+          type="radio"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          未选中禁用态
+        </span>
+      </label>
+    </div>
   </div>
 </DocumentFragment>
 `;

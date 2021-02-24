@@ -1,109 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PaginationDisabled.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-pagination"
-  >
-    <select
-      disabled=""
-      style="margin-right: 20px; height: 32px;"
-    >
-      <option
-        value="5"
-      >
-        5
-      </option>
-      <option
-        value="10"
-      >
-        10
-      </option>
-      <option
-        value="20"
-      >
-        20
-      </option>
-      <option
-        value="50"
-      >
-        50
-      </option>
-    </select>
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current t-is-disabled"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more t-is-disabled"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        20
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
-    </div>
-    <div
-      class="t-pagination__jump"
-    >
-      跳转
-      <div
-        class="t-input t-is-disabled"
-      >
-        <input
-          class="t-input__inner"
-          disabled=""
-        />
-      </div>
-      页
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`PaginationFew.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -112,7 +9,7 @@ exports[`PaginationFew.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -148,14 +45,14 @@ exports[`PaginationFew.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationGoto.jsx 1`] = `
+exports[`jump.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -164,7 +61,7 @@ exports[`PaginationGoto.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -212,7 +109,7 @@ exports[`PaginationGoto.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
     <div
@@ -232,16 +129,16 @@ exports[`PaginationGoto.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PaginationLarge.jsx 1`] = `
+exports[`mini.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-pagination"
+    class="t-pagination t-size-s"
   >
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -289,47 +186,116 @@ exports[`PaginationLarge.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSelect.jsx 1`] = `
+exports[`more.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
   >
-    <select
-      style="margin-right: 20px; height: 32px;"
-    >
-      <option
-        value="20"
-      >
-        20
-      </option>
-      <option
-        value="30"
-      >
-        30
-      </option>
-      <option
-        value="100"
-      >
-        100
-      </option>
-      <option
-        value="200"
-      >
-        200
-      </option>
-    </select>
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
+      />
+    </div>
+    <ul
+      class="t-pagination__pager"
+    >
+      <li
+        class="t-pagination__number t-is-current"
+      >
+        1
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        2
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        3
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        4
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <i
+          class="t-icon t-icon-more t-size-m"
+        />
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        20
+      </li>
+    </ul>
+    <div
+      class="t-pagination__btn t-pagination__btn--next"
+    >
+      <i
+        class="t-icon t-icon-chevron-right t-size-m"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`pageNum.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-pagination"
+  >
+    <div
+      class="t-pagination__select"
+    >
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            20条/页
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+    >
+      <i
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -377,14 +343,14 @@ exports[`PaginationSelect.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSimple.jsx 1`] = `
+exports[`simple.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -393,29 +359,50 @@ exports[`PaginationSimple.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <div
-      class="t-input"
+      class="t-pagination__select"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSize.jsx 1`] = `
+exports[`simpleMini.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination t-size-s"
@@ -424,62 +411,50 @@ exports[`PaginationSize.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
-    <ul
-      class="t-pagination__pager"
+    <div
+      class="t-pagination__select"
     >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        20
-      </li>
-    </ul>
+      <div>
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationTotal.jsx 1`] = `
+exports[`total.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -493,7 +468,7 @@ exports[`PaginationTotal.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <i
-        class="t-icon t-icon-arrow-left t-size-m"
+        class="t-icon t-icon-chevron-left t-size-m"
       />
     </div>
     <ul
@@ -541,74 +516,7 @@ exports[`PaginationTotal.jsx 1`] = `
       class="t-pagination__btn t-pagination__btn--next"
     >
       <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-pagination"
-  >
-    <div
-      class="t-pagination__total"
-    >
-      <span>
-        共 685 项数据 1 - 15
-      </span>
-    </div>
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        46
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next"
-    >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
+        class="t-icon t-icon-chevron-right t-size-m"
       />
     </div>
   </div>

@@ -16,9 +16,18 @@ exports[`NotificationBase.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -108,12 +117,12 @@ exports[`NotificationClose.jsx 1`] = `
   </div>
   <br />
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     处理开关事件
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     处理定时关闭事件（3s）
   </button>
@@ -139,9 +148,18 @@ exports[`NotificationContent.jsx 1`] = `
         >
           自定义内容（字符串）
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -165,9 +183,18 @@ exports[`NotificationContent.jsx 1`] = `
         >
           自定义内容
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div>
         这是一条消息通知
@@ -193,9 +220,18 @@ exports[`NotificationFooter.jsx 1`] = `
         >
           自定义底部详情
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -244,9 +280,18 @@ exports[`NotificationIcon.jsx 1`] = `
         >
           自定义icon
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -261,7 +306,7 @@ exports[`NotificationIcon.jsx 1`] = `
 exports[`NotificationOffset.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     偏移的信息
   </button>
@@ -271,23 +316,23 @@ exports[`NotificationOffset.jsx 1`] = `
 exports[`NotificationPlacement.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     左上角
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     右上角
   </button>
   <br />
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     左下角
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     右下角
   </button>
@@ -310,9 +355,18 @@ exports[`NotificationSize.jsx 1`] = `
         >
           宽度固定400px
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -336,9 +390,18 @@ exports[`NotificationSize.jsx 1`] = `
         >
           文本内容最多支持三行
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -354,17 +417,17 @@ exports[`NotificationSize.jsx 1`] = `
 exports[`NotificationToggle.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     自由控制关闭时机
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     点击打开多个消息
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     点击关闭多个消息
   </button>
@@ -387,9 +450,18 @@ exports[`NotificationType.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -402,17 +474,22 @@ exports[`NotificationType.jsx 1`] = `
   <div
     class="t-notification "
   >
-    <svg
-      class="t-icon t-is-info"
-      version="1.1"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="t-notification__icon"
     >
-      <path
-        d="M8,1.5 C11.5898509,1.5 14.5,4.41014913 14.5,8 C14.5,11.5898509 11.5898509,14.5 8,14.5 C4.41014913,14.5 1.5,11.5898509 1.5,8 C1.5,4.41014913 4.41014913,1.5 8,1.5 Z M8.5,6.5 L6.5,6.5 L6.5,7.5 L7.5,7.5 L7.5,11.5 L9.5,11.5 L9.5,10.5 L8.5,10.5 L8.5,6.5 Z M8.5,4.5 L7.5,4.5 L7.5,5.5 L8.5,5.5 L8.5,4.5 Z"
-        fill-rule="evenodd"
-      />
-    </svg>
+      <svg
+        class="t-icon t-is-info"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
     <div
       class="t-notification__main"
     >
@@ -424,9 +501,18 @@ exports[`NotificationType.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -439,17 +525,22 @@ exports[`NotificationType.jsx 1`] = `
   <div
     class="t-notification "
   >
-    <svg
-      class="t-icon t-is-warning"
-      version="1.1"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="t-notification__icon"
     >
-      <path
-        d="M8,1.5 C11.5898509,1.5 14.5,4.41014913 14.5,8 C14.5,11.5898509 11.5898509,14.5 8,14.5 C4.41014913,14.5 1.5,11.5898509 1.5,8 C1.5,4.41014913 4.41014913,1.5 8,1.5 Z M8.5,6.5 L6.5,6.5 L6.5,7.5 L7.5,7.5 L7.5,11.5 L9.5,11.5 L9.5,10.5 L8.5,10.5 L8.5,6.5 Z M8.5,4.5 L7.5,4.5 L7.5,5.5 L8.5,5.5 L8.5,4.5 Z"
-        fill-rule="evenodd"
-      />
-    </svg>
+      <svg
+        class="t-icon t-is-warning"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
     <div
       class="t-notification__main"
     >
@@ -461,9 +552,18 @@ exports[`NotificationType.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -476,17 +576,22 @@ exports[`NotificationType.jsx 1`] = `
   <div
     class="t-notification "
   >
-    <svg
-      class="t-icon t-is-success"
-      version="1.1"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="t-notification__icon"
     >
-      <path
-        d="M8,1.5 C11.5898509,1.5 14.5,4.41014913 14.5,8 C14.5,11.5898509 11.5898509,14.5 8,14.5 C4.41014913,14.5 1.5,11.5898509 1.5,8 C1.5,4.41014913 4.41014913,1.5 8,1.5 Z M10.7947737,5.52481537 L7.25881266,9.05981537 L5.13791944,6.93902893 L4.43081266,7.64613571 L7.25923978,10.4745628 L7.96634656,9.76745605 L11.5018805,6.23192215 L10.7947737,5.52481537 Z"
-        fill-rule="evenodd"
-      />
-    </svg>
+      <svg
+        class="t-icon t-is-success"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
     <div
       class="t-notification__main"
     >
@@ -498,9 +603,18 @@ exports[`NotificationType.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -513,17 +627,22 @@ exports[`NotificationType.jsx 1`] = `
   <div
     class="t-notification "
   >
-    <svg
-      class="t-icon t-is-error"
-      version="1.1"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="t-notification__icon"
     >
-      <path
-        d="M8,1.5 C11.5898509,1.5 14.5,4.41014913 14.5,8 C14.5,11.5898509 11.5898509,14.5 8,14.5 C4.41014913,14.5 1.5,11.5898509 1.5,8 C1.5,4.41014913 4.41014913,1.5 8,1.5 Z M8.5,6.5 L6.5,6.5 L6.5,7.5 L7.5,7.5 L7.5,11.5 L9.5,11.5 L9.5,10.5 L8.5,10.5 L8.5,6.5 Z M8.5,4.5 L7.5,4.5 L7.5,5.5 L8.5,5.5 L8.5,4.5 Z"
-        fill-rule="evenodd"
-      />
-    </svg>
+      <svg
+        class="t-icon t-is-error"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
     <div
       class="t-notification__main"
     >
@@ -535,9 +654,18 @@ exports[`NotificationType.jsx 1`] = `
         >
           标题名称
         </span>
-        <i
-          class="t-icon t-icon-close t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -552,24 +680,162 @@ exports[`NotificationType.jsx 1`] = `
 exports[`NotificationType4Fn.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     信息
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     成功
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     警告
   </button>
   <button
-    class="t-button t-button--line"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     错误
   </button>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-notification "
+  >
+    <div
+      class="t-notification__main"
+    >
+      <div
+        class="t-notification__title__wrap"
+      >
+        <span
+          class="t-notification__title"
+        >
+          标题名称
+        </span>
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__content"
+      >
+        这是一条消息通知
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-notification "
+  >
+    <i
+      class="t-icon t-icon-more t-size-m"
+    />
+    <div
+      class="t-notification__main"
+    >
+      <div
+        class="t-notification__title__wrap"
+      >
+        <span
+          class="t-notification__title"
+        >
+          自定义icon
+        </span>
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__content"
+      >
+        这是一条消息通知
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`operation.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-notification "
+  >
+    <div
+      class="t-notification__main"
+    >
+      <div
+        class="t-notification__title__wrap"
+      >
+        <span
+          class="t-notification__title"
+        >
+          自定义底部详情
+        </span>
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__content"
+      >
+        这是一条消息通知
+      </div>
+      <div
+        class="t-notification__detail"
+      >
+        <div
+          class="t-notification__detail"
+        >
+          <span
+            class="t-notification__detail--item"
+          >
+            重启
+          </span>
+          <span
+            class="t-notification__detail--item t-is-active"
+          >
+            查看详情
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

@@ -55,10 +55,10 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
     } else {
       switch (status) {
         case 'error':
-          iconEle = <Icon name="close-fill" />;
+          iconEle = <Icon name="clear-circle" />;
           break;
         case 'finish':
-          iconEle = <Icon name="success-fill" />;
+          iconEle = <Icon name="check-circle-filled" />;
           break;
         case 'wait':
         case 'process':

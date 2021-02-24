@@ -17,14 +17,14 @@ export default function BasicList() {
         ))}
       </List>
 
-      <h4>尺寸-中（默认）</h4>
+      <h4 style={{ marginTop: 32 }}>尺寸-中（默认）</h4>
       <List>
         {listData.map((item) => (
           <ListItem key={item.id}>{item.content}</ListItem>
         ))}
       </List>
 
-      <h4>尺寸-大</h4>
+      <h4 style={{ marginTop: 32 }}>尺寸-大</h4>
       <List size="large">
         {listData.map((item) => (
           <ListItem key={item.id}>{item.content}</ListItem>

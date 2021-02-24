@@ -1,5 +1,5 @@
 {
-  "eslint.enable": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
   "eslint.validate": [
     "javascript",
     "javascriptreact",

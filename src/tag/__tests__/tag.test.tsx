@@ -27,7 +27,7 @@ describe('Tag 组件测试', () => {
     const { queryAllByText, getByText } = render(<ClosableTag></ClosableTag>);
     // 点击i标签后，关闭一个，3个变2个
     expect(queryAllByText(tagRegExp).length).toEqual(3);
-    fireEvent.click(getByText('点击关闭0').querySelector('i'));
+    fireEvent.click(getByText('点击关闭0').querySelector('.t-icon-close'));
     expect(queryAllByText(tagRegExp).length).toEqual(2);
   });
 
