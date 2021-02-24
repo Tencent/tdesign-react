@@ -10,9 +10,9 @@ import { Icon } from '../icon';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 按钮类型
-   * @default 'line'
+   * @default 'default'
    */
-  theme?: 'line' | 'primary' | 'dashed' | 'warning' | 'warning-line' | 'link' | 'ghost' | 'ghost-line';
+  theme?: 'default' | 'primary' | 'danger';
 
   /**
    * 按钮是否为禁用状态
@@ -33,9 +33,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
   /**
    * 按钮大小
-   * @default 'default'
+   * @default 'medium'
    */
-  size?: 'large' | 'default' | 'small';
+  size?: 'small' | 'medium' | 'large';
 
   /**
    * 按钮是否为块级元素
@@ -43,11 +43,23 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   block?: boolean;
 
-  // /**
-  //  * 按钮形状
-  //  * @default false
-  //  */
-  // round?: boolean;
+  /**
+   * 组件类型
+   * @default 'base'
+   */
+  variant?: 'base' | 'outline' | 'dashed' | 'text';
+
+  /**
+   * 按钮是否为幽灵按钮
+   * @default 'false'
+   */
+  ghost?: boolean;
+  /** 按钮形状，有三种：方形、圆角方形、圆形 */
+  /**
+   * 按钮形状，有三种：方形、圆角方形、圆形
+   * @default 'square'
+   */
+  shape?: 'square' | 'round' | 'circle';
 }
 
 /**
@@ -56,12 +68,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = forwardRef(
   (
     {
-      theme = 'line',
+      theme = 'default',
+      variant = 'base',
       icon,
       disabled,
       loading,
       size,
       block,
+      ghost,
+      shape = 'square',
       children,
       className,
       onClick = noop,
@@ -81,16 +96,24 @@ const Button = forwardRef(
     return (
       <button
         ref={ref}
-        className={classNames(className, `${classPrefix}-button`, {
-          [`${classPrefix}-button--${theme}`]: hasChildren || icon,
-          [`${classPrefix}-button--icon`]: !hasChildren && icon && theme !== 'primary',
-          [`${classPrefix}-button--icon-primary`]: !hasChildren && icon && theme === 'primary',
-          [`${classPrefix}-is-loading`]: loading,
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-size-full-width`]: block,
-        })}
+        className={classNames(
+          className,
+          [
+            `${classPrefix}-button`,
+            `${classPrefix}-button--theme-${theme}`,
+            `${classPrefix}-button--variant-${variant}`,
+          ],
+          {
+            [`${classPrefix}-button--icon-only`]: icon && !hasChildren,
+            [`${classPrefix}-button--shape-${shape}`]: shape !== 'square',
+            [`${classPrefix}-button--ghost`]: ghost,
+            [`${classPrefix}-is-loading`]: loading,
+            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-size-s`]: size === 'small',
+            [`${classPrefix}-size-l`]: size === 'large',
+            [`${classPrefix}-size-full-width`]: block,
+          },
+        )}
         onClick={!disabled && !loading ? onClick : undefined}
         disabled={disabled}
         {...buttonProps}

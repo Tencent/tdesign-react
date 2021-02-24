@@ -185,7 +185,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
 
   const defaultFooter = () => {
     let cancelBtn = (
-      <Button theme="line" onClick={handleCancel}>
+      <Button variant="outline" onClick={handleCancel}>
         {cancelContent}
       </Button>
     );

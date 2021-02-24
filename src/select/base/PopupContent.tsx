@@ -1,21 +1,21 @@
-import { isFunction } from 'util';
 import React, { Children, isValidElement, cloneElement } from 'react';
 import { getSelectValueArr } from '../util/helper';
-import { PopupProps } from '../SelectProps';
+import { SelectPopupProps, SelectOption } from '../SelectProps';
 import Option from './Option';
 
-const PopupContent = (props: PopupProps) => {
-  const { change, value, size, multiple, showPopup, setShowPopup, options, notFoundContent } = props;
+const PopupContent = (props: SelectPopupProps) => {
+  const { onChange, value, size, multiple, showPopup, setShowPopup, options, notFoundContent } = props;
 
   if (!props.children && !props.options) return null;
 
-  const onSelect = (selectedValue: string | number, label?: string, selected?: boolean) => {
+  const onSelect: SelectOption['onSelect'] = (selectedValue, { label, selected, event }) => {
     if (selectedValue) {
       if (multiple) {
         const values = getSelectValueArr(value, selectedValue, label, selected);
-        change(values);
+        onChange(values, { event });
+        requestAnimationFrame(() => setShowPopup(true));
       } else {
-        change(selectedValue, label);
+        onChange(selectedValue, { label, event });
         setShowPopup(!showPopup);
       }
     }
@@ -34,12 +34,12 @@ const PopupContent = (props: PopupProps) => {
     if (options) {
       return (
         <ul>
-          {options.map((item, index) => (
+          {options.map(({ value, label }, index) => (
             <Option
               key={index}
-              label={item.label}
-              value={item.value}
-              onSelect={() => onSelect(item.value, item.label)}
+              label={label}
+              value={value}
+              onSelect={(_, { event }) => onSelect(value, { label, event })}
               selectedValue={value}
             />
           ))}
@@ -50,7 +50,7 @@ const PopupContent = (props: PopupProps) => {
   };
 
   const renderEmptyData = () => {
-    if (isFunction(notFoundContent)) {
+    if (typeof notFoundContent === 'function') {
       return notFoundContent();
     }
     return <p>无数据</p>;

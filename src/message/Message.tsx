@@ -1,23 +1,31 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import injectValue from '../_util/injectValue';
 import useConfig from '../_util/useConfig';
-import { PromptFillIcon, SuccessFillIcon, WarningFillIcon, HelpFillIcon, LoadingIcon, CloseIcon } from '../icon';
+import noop from '../_util/noop';
+import {
+  InfoCircleFilledIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  HelpCircleFilledIcon,
+  LoadingIcon,
+  CloseIcon,
+} from '../icon';
 import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
-import { MessageProps, MessageConfig, MessageMethods } from './MessageProps';
+import { MessageProps, MessageConfig, MessageInstance, MessageRef, MessageComponent } from './MessageProps';
 
 const IconMap = {
-  info: PromptFillIcon,
-  success: SuccessFillIcon,
-  warning: WarningFillIcon,
-  error: WarningFillIcon,
-  question: HelpFillIcon,
+  info: InfoCircleFilledIcon,
+  success: CheckCircleFilledIcon,
+  warning: ErrorCircleFilledIcon,
+  error: ErrorCircleFilledIcon,
+  question: HelpCircleFilledIcon,
   loading: LoadingIcon,
 };
 
-let MessageList: MessageInstanceProps[] = [];
+let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
 
 const Top = 'top';
@@ -28,7 +36,7 @@ const globalConfig = {
   top: 32,
 };
 
-function createContainer({ attach, zIndex, placement = 'top' }: MessageConfig) {
+function createContainer({ attach, zIndex, placement = Top }: MessageConfig) {
   let mountedDom = document.body as HTMLElement;
   if (React.isValidElement(attach)) {
     mountedDom = attach;
@@ -53,11 +61,6 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageConfig) {
   return container[0];
 }
 
-interface MessageInstanceProps {
-  key: number;
-  remove: () => void;
-}
-
 function renderElement(theme, config: MessageConfig) {
   const container = createContainer(config) as HTMLElement;
   const { content, offset } = config;
@@ -66,7 +69,7 @@ function renderElement(theme, config: MessageConfig) {
   keyIndex += 1;
 
   const message = {
-    remove: () => {
+    close: () => {
       ReactDOM.unmountComponentAtNode(div);
       div.remove();
     },
@@ -82,28 +85,25 @@ function renderElement(theme, config: MessageConfig) {
     };
   }
 
-  ReactDOM.render(
-    <Message
-      theme={theme}
-      style={style}
-      {...config}
-      onDurationEnd={() => {
-        message.remove();
-      }}
-      onClickCloseBtn={() => {
-        message.remove();
-      }}
-      key={keyIndex}
-    >
-      {content}
-    </Message>,
-    div,
-  );
-
-  container.appendChild(div);
-  MessageList.push(message);
-
-  return keyIndex;
+  return new Promise((res) => {
+    ReactDOM.render(
+      <Message
+        theme={theme}
+        style={style}
+        ref={() => {
+          res(message);
+        }}
+        key={keyIndex}
+        {...config}
+        close={() => message.close()}
+      >
+        {content}
+      </Message>,
+      div,
+    );
+    container.appendChild(div);
+    MessageList.push(message);
+  });
 }
 
 function MessageIcon({ theme }: MessageProps) {
@@ -119,7 +119,7 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   }
 
   if (closeBtn === true) {
-    return <CloseIcon className={`${classPrefix}-message-close`} />;
+    return <CloseIcon className={`${prefix}-close`} />;
   }
 
   const button = injectValue(closeBtn)(onClickCloseBtn);
@@ -141,42 +141,61 @@ function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
   return <CloseIcon className={`${classPrefix}-message-close`} />;
 }
 
-export type MessageComponent = React.FunctionComponent<MessageProps> & MessageMethods;
-
-const Message: MessageComponent = (props) => {
-  const { theme = 'info', closeBtn = false, duration, onDurationEnd, onClosed, children, className, style } = props;
+const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
+  const {
+    theme = 'info',
+    closeBtn = false,
+    duration,
+    onDurationEnd = noop,
+    onClosed = noop,
+    children,
+    className,
+    style,
+    close = noop,
+  } = props;
 
   const { classPrefix } = useConfig();
   const timerRef = useRef(0);
 
+  const startDuration = useCallback(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => {
+      onDurationEnd({ close });
+      close();
+    }, duration);
+  }, [duration, onDurationEnd, close]);
+
   useEffect(() => {
     if (typeof duration === 'number') {
-      clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => {
-        console.log('durationEnd....');
-        typeof onDurationEnd === 'function' && onDurationEnd();
-      }, duration);
+      startDuration();
     }
     return () => {
       clearTimeout(timerRef.current);
       typeof onClosed === 'function' && onClosed();
     };
-  }, [duration, onDurationEnd, onClosed]);
-
+  }, [duration, onDurationEnd, onClosed, startDuration]);
+  // useImperativeHandle(ref as React.Ref<MessageInstance>, () => ({ close }), [close]);
   return (
     <div
       key="message"
       className={classNames(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
         [`${classPrefix}-is-closable`]: closeBtn,
       })}
+      ref={ref}
       style={style}
+      onMouseEnter={() => {
+        clearTimeout(timerRef.current);
+      }}
+      onMouseLeave={() => {
+        startDuration();
+      }}
     >
       <MessageIcon {...props} />
       {children}
       <MessageClose {...props} />
     </div>
   );
-};
+});
 
 function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageConfig).content;
@@ -204,17 +223,13 @@ ThemeList.forEach((theme) => {
   };
 });
 
-Message.close = function (key: number) {
-  const index = MessageList.findIndex((item) => item.key === key);
-  if (index > -1) {
-    const [message] = MessageList.splice(index, 1);
-    typeof message.remove === 'function' && message.remove();
-  }
+Message.close = (message) => {
+  message.then((instance) => instance.close());
 };
 
 Message.closeAll = function () {
   MessageList.forEach((message) => {
-    typeof message.remove === 'function' && message.remove();
+    typeof message.close === 'function' && message.close();
   });
   MessageList = [];
 };

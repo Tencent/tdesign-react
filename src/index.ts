@@ -1,5 +1,6 @@
 export { default as Addon } from './addon';
 export { default as Alert } from './alert';
+export { default as Badge } from './badge';
 export { default as Button } from './button';
 export { default as Checkbox } from './checkbox';
 export { default as Input } from './input';
@@ -22,4 +23,6 @@ export { default as Dialog } from './dialog';
 export { default as Divider } from './divider';
 export { default as Switch } from './switch';
 export { Anchor, AnchorProps, AnchorLink } from './anchor';
+export { default as Layout } from './layout';
 export { Col, Row } from './grid';
+export { default as Calendar } from './calendar';

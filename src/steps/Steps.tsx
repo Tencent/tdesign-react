@@ -16,7 +16,7 @@ export default function Steps(props: StepsProps) {
     direction = 'horizontal',
     status,
     type = 'default',
-    sequence,
+    sequence = 'positive',
     children,
     onChange,
   } = props;
@@ -27,6 +27,8 @@ export default function Steps(props: StepsProps) {
     [`${classPrefix}-steps--horizontal`]: direction === 'horizontal',
     [`${classPrefix}-steps--vertical`]: direction === 'vertical',
     [`${classPrefix}-steps--default-anchor`]: type === 'default',
+    [`${classPrefix}-steps--positive`]: sequence === 'positive',
+    [`${classPrefix}-steps--reverse`]: sequence === 'reverse',
     [`${classPrefix}-steps--dot-anchor`]: type === 'dot',
     [props.className]: !!props.className,
   });

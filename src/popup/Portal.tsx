@@ -1,20 +1,17 @@
-import React, { FunctionComponent, useEffect, ReactNode, useRef } from 'react';
+import React, { useEffect, ReactNode, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface PortalProps {
   // 子元素
   children: ReactNode;
 
-  // 前缀
-  classPrefix: string;
-
   // 自定义 container 的方法
   getContainer: () => HTMLDivElement;
 }
 
 // 将 children 渲染到正常的 DOM 树外面
-const Portal: FunctionComponent<PortalProps> = (props) => {
-  const { children, classPrefix, getContainer } = props;
+const Portal = (props: PortalProps) => {
+  const { children, getContainer } = props;
 
   // 缓存 getContainer
   const ref = useRef(getContainer);
@@ -24,7 +21,6 @@ const Portal: FunctionComponent<PortalProps> = (props) => {
 
   const [container] = React.useState(() => {
     const el = document.createElement('div');
-    el.classList.add(`${classPrefix}-popup-container`);
     return el;
   });
 

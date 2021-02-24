@@ -6,81 +6,81 @@ export default function OrderGrid() {
     <>
       <p>align left</p>
       <Row justify="start">
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
       </Row>
 
       <p>align center</p>
       <Row justify="center">
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
       </Row>
 
       <p>align right</p>
       <Row justify="end">
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
       </Row>
 
       <p>space-between</p>
       <Row justify="space-between">
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
       </Row>
 
       <p>space-around</p>
       <Row justify="space-around">
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
-        <Col span={4}>
-          <div>col-4</div>
+        <Col span={2}>
+          <div>col-2</div>
         </Col>
       </Row>
     </>

@@ -7,20 +7,16 @@ export default function ThemeExample() {
   return (
     <>
       <PopConfirm content={$content}>
-        <Button style={{ marginLeft: 8 }}>默认</Button>
+        <Button>默认</Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="info">
-        <Button theme="primary" style={{ marginLeft: 8 }}>
-          提示
-        </Button>
+        <Button theme="primary">提示</Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="warning">
-        <Button theme="warning" style={{ marginLeft: 8 }}>
-          警告
-        </Button>
+        <Button theme="warning">警告</Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="error">
-        <Button style={{ marginLeft: 8 }}>错误</Button>
+        <Button>错误</Button>
       </PopConfirm>
     </>
   );

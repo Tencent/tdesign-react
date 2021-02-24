@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { CloseIcon, PromptFillIcon, SuccessFillIcon, WarningFillIcon } from '../icon';
+import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
 
 export interface AlertProps extends StyledProps {
   /**
    * 告警主要内容
    */
-  message: React.ReactNode[];
+  message: string | React.ReactNode[];
 
   /**
    * 告警内容主题
@@ -75,10 +75,10 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   const [collapsed, setCollapsed] = React.useState(false);
   const { classPrefix } = useConfig();
   const iconMap = {
-    success: SuccessFillIcon,
-    info: PromptFillIcon,
-    error: WarningFillIcon,
-    warning: WarningFillIcon,
+    success: CheckCircleFilledIcon,
+    info: InfoCircleFilledIcon,
+    error: ErrorCircleFilledIcon,
+    warning: ErrorCircleFilledIcon,
   };
 
   const handleClose = () => {
@@ -116,7 +116,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   };
 
   const renderMessage = () => {
-    if (+maxLine > 0 && Object.prototype.toString.call(message) === '[object Array]') {
+    if (+maxLine > 0 && Array.isArray(message)) {
       return (
         <div className={`${classPrefix}-alert__description`}>
           {message.map((item, index) => {
