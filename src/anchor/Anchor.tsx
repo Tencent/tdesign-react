@@ -91,7 +91,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         <div className="t-anchor_line">
           <div className="point"></div>
         </div>
-        <div className="t-anchor__content">{children}</div>
+        {children}
       </div>
     </AnchorContext.Provider>
   );

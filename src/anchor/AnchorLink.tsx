@@ -25,10 +25,11 @@ const AnchorLink: FunctionComponent<AnchorLinkProp> & AnchorStaticProps = (props
   };
   const { href, title, target, children = [] } = props;
   return (
-    <div className={classNames('t-anchor_item', { act: actLink.href === href })}>
-      <a href={href} className="t-anchor_link" title={title} target={target} onClick={(e) => handleClick(e)}>
+    <div className={classNames('t-anchor-item', { act: actLink.href === href })}>
+      <a href={href} className="t-anchor-item_link" title={title} target={target} onClick={(e) => handleClick(e)}>
         {title}
       </a>
+      {/* itmes */}
       {children}
     </div>
   );

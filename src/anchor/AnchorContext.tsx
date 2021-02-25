@@ -18,6 +18,7 @@ export interface AnchorContextType {
   scrollTo: (link: Link) => void;
   onChange: (currentLink: Link, prefLink: Link) => void;
 }
+
 export const AnchorContext = createContext<AnchorContextType>({
   onClick: noop,
   onChange: noop,
