@@ -3,8 +3,8 @@ import { Button, Tooltip } from '@tencent/tdesign-react';
 
 export default function BasicUsage() {
   return (
-    <Tooltip trigger="hover" showArrow content="这是一个弹出框">
-      <Button>Hover me</Button>
+    <Tooltip content="文字提示仅展示文本内容" showArrow={false}>
+      <Button variant="outline">不带箭头等文字提示</Button>
     </Tooltip>
   );
 }

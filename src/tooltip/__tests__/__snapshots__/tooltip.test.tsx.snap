@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    默认文字提示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <span>
+      默认：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      default
+    </span>
+  </div>
+  <div>
+    <span>
+      深色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      浅色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+  <div>
+    <span>
+      朴素：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+    >
+      primary
+    </span>
+    <span
+      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
+    >
+      info
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+    >
+      warning
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+    >
+      danger
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+    >
+      success
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`customize.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      primary
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      success
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      danger
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      warning
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`noArrow.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    不带箭头等文字提示
+  </button>
+</DocumentFragment>
+`;
