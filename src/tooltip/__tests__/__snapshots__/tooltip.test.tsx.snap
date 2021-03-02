@@ -158,3 +158,56 @@ exports[`noArrow.jsx 1`] = `
   </button>
 </DocumentFragment>
 `;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      top
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      bottom
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      left
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      right
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`trigger.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      悬浮时触发（默认）
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      点击时触发
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      右击时触发
+    </button>
+  </div>
+</DocumentFragment>
+`;
