@@ -25,3 +25,4 @@ export { default as Switch } from './switch';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
 export { default as Calendar } from './calendar';
+export { default as Tooltip } from './tooltip';
