@@ -5,7 +5,7 @@ export default function AnchorBase() {
   return (
     <>
       <div style={{ marginBottom: '20px' }}>
-        <h4 id="default">基础</h4>{' '}
+        <h4 id="default">基础</h4>
         <Anchor>
           <AnchorItem href="/#/components/anchor/#default" title="默认" />
           <AnchorItem href="/#/components/anchor/#leveln" title="多级锚点" />
