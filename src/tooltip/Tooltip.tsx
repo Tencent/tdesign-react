@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Popup, { PopupProps } from '../popup';
 import useConfig from '../_util/useConfig';
 export interface TooltipProps extends PopupProps {
@@ -16,16 +17,18 @@ export interface TooltipProps extends PopupProps {
 }
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
-  const { theme, showArrow = true, children } = props;
+  const { theme, showArrow = true, overlayClassName, children, ...restProps } = props;
   const { classPrefix } = useConfig();
+  const toolTipClass = classNames(
+    `${classPrefix}-tooltip`,
+    {
+      [`${classPrefix}-tooltip-${theme}`]: theme,
+    },
+    overlayClassName,
+  );
   return (
     <>
-      <Popup
-        ref={ref}
-        {...props}
-        showArrow={showArrow}
-        overlayClassName={`${classPrefix}-tooltip ${theme ? `${classPrefix}-tooltip-${theme}` : ''}`}
-      >
+      <Popup ref={ref} {...restProps} showArrow={showArrow} overlayClassName={toolTipClass}>
         {children}
       </Popup>
     </>
