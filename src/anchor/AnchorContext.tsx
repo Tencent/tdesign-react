@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import noop from '../_util/noop';
 
-export interface Link {
+export interface Item {
   /**
    * 锚点链接
    */
@@ -13,15 +13,15 @@ export interface Link {
 }
 
 export interface AnchorContextType {
-  onClick: (e: React.MouseEvent<HTMLElement>, link: Link) => void;
-  actLink: Link;
-  scrollTo: (link: Link) => void;
-  onChange: (currentLink: Link, prefLink: Link) => void;
+  onClick: (e: React.MouseEvent<HTMLElement>, link: Item) => void;
+  activeItem: Item;
+  scrollTo: (link: Item) => void;
+  onChange: (currentLink: Item, prefLink: Item) => void;
 }
 
 export const AnchorContext = createContext<AnchorContextType>({
   onClick: noop,
   onChange: noop,
   scrollTo: noop,
-  actLink: { href: '', title: '' },
+  activeItem: { href: '', title: '' },
 });

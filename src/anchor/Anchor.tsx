@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useRef } from 'react';
 import 'tslib';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
-import { AnchorContext, Link } from './AnchorContext';
+import { AnchorContext, Item } from './AnchorContext';
 
 export interface AnchorProps extends StyledProps {
   /**
@@ -44,11 +44,11 @@ export interface AnchorProps extends StyledProps {
   /**
    * 点击锚点时触发事件
    */
-  onclick?: (e: React.MouseEvent, link: Link) => void;
+  onClick?: (e: React.MouseEvent, item: Item) => void;
   /**
    * 切换锚点时触发事件
    */
-  onChange?: (currentLink: Link, prefLink: Link) => void;
+  onChange?: (currentLink: Item, prevItem: Item) => void;
 }
 
 export interface AnchorTarget {
@@ -67,15 +67,18 @@ export interface AnchorTarget {
 }
 
 const Anchor: FunctionComponent<AnchorProps> = (props) => {
-  const [actLink, setActLink] = useState<Link>({ href: '', title: '' });
-  const { affix = false, children, onclick, onChange } = props;
+  const [activeItem, setActiveItem] = useState<Item>({ href: '', title: '' });
+  const [pointTop, setPointTop] = useState<number | null>(null);
+  const { affix = false, children, onClick, onChange } = props;
+  const anchorEl = useRef(null);
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>, link: Link) => {
-    console.log('handleClick', e, link);
-    onclick && onclick(e, link);
+  const handleClick = (e: React.MouseEvent<HTMLElement>, item: Item) => {
+    // console.log('handleClick', e, item);
+    setPointTop(e.currentTarget.offsetTop);
+    onClick && onClick(e, item);
   };
-  const handleScrollTo = (link: Link) => {
-    setActLink(link);
+  const handleScrollTo = (item: Item) => {
+    setActiveItem(item);
   };
 
   return (
@@ -84,12 +87,12 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         onChange,
         onClick: handleClick,
         scrollTo: handleScrollTo,
-        actLink,
+        activeItem,
       }}
     >
-      <div className={classNames('t-anchor', { 't-affix': affix })}>
+      <div className={classNames('t-anchor', { 't-affix': affix })} ref={anchorEl}>
         <div className="t-anchor_line">
-          <div className="point"></div>
+          <div className="point" style={{ top: `${pointTop}px`, left: '0px' }}></div>
         </div>
         {children}
       </div>

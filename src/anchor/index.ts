@@ -1,3 +1,3 @@
 import Anchor, { AnchorProps } from './Anchor';
-import AnchorLink from './AnchorLink';
-export { AnchorProps, AnchorLink, Anchor };
+import AnchorItem from './AnchorItem';
+export { AnchorProps, AnchorItem, Anchor };
