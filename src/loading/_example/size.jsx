@@ -1,7 +1,7 @@
 import React from 'react';
 import { Loading } from '@tencent/tdesign-react';
 
-export default function ThemeTagExample() {
+export default function LoadingSize() {
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ position: 'relative', width: '100px' }}>

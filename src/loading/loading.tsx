@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { addClass, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import { Icon } from '../icon';
+import { Icon } from '../icon/Icon';
 
 enum SIZE {
   LARGE = 'large',
@@ -80,7 +80,7 @@ const Loading = (props: LoadingProps) => {
     children,
   } = props;
 
-  const [showLoading, setShowLoading] = useState();
+  const [showLoading, setShowLoading] = useState(false);
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-loading`;
@@ -114,10 +114,11 @@ const Loading = (props: LoadingProps) => {
   const loadingSlot = children;
   const loadingFucValue = typeof indicator === 'function' ? indicator() : '';
   const loadingContent = loadingFucValue || loadingSlot || <Icon name="loading"></Icon>;
+  const textDom = text ? <span>{text}</span> : '';
   const loadingDefaultDom = (
     <span className={classnames(itemClass)}>
       {loadingContent}
-      {text}
+      {textDom}
     </span>
   );
 
@@ -139,10 +140,9 @@ const Loading = (props: LoadingProps) => {
     }
   }, [delay, loading]);
   if (showLoading) {
-    if (fullscreen || showOverlay !== false) {
+    if (fullscreen || showOverlay) {
       return (
         <div className={classnames(parentClasses)}>
-          {loadingSlot}
           <div className={classnames(wrapperList)}>{loadingDefaultDom}</div>
         </div>
       );
