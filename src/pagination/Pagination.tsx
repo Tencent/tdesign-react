@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconFont } from '../icon';
+import { ChevronLeftIcon, MoreIcon, ChevronRightIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
@@ -268,7 +268,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current - 1)}
       >
-        <IconFont name="chevron-left" />
+        <ChevronLeftIcon />
       </div>
       {theme === 'default' && (
         <ul className={prefixCls([blockName, 'pager'])}>
@@ -293,7 +293,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
                 key={item.concat(String(index))}
                 className={prefixCls([blockName, 'number'], [blockName, 'number', 'more'], disabled && 'is-disabled')}
               >
-                <IconFont name="more" />
+                <MoreIcon />
               </li>
             );
           })}
@@ -321,7 +321,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current + 1)}
       >
-        <IconFont name="chevron-right" />
+        <ChevronRightIcon />
       </div>
       {showJumper && (
         <div className={prefixCls([blockName, 'jump'])}>

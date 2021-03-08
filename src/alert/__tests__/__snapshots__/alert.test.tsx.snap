@@ -94,7 +94,7 @@ exports[`Alert 组件测试 Alert 主题图标显示 5`] = `
     class="t-alert t-alert--error"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -293,7 +293,7 @@ exports[`close.jsx 1`] = `
       class="t-alert__close"
     >
       <svg
-        class="t-icon"
+        class="t-icon t-icon-close"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -383,7 +383,7 @@ exports[`collapse.jsx 1`] = `
     class="t-alert t-alert--info"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +427,7 @@ exports[`icon.jsx 1`] = `
     class="t-alert t-alert--success"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -456,7 +456,7 @@ exports[`icon.jsx 1`] = `
     class="t-alert t-alert--info"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -485,7 +485,7 @@ exports[`icon.jsx 1`] = `
     class="t-alert t-alert--warning"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -514,7 +514,7 @@ exports[`icon.jsx 1`] = `
     class="t-alert t-alert--error"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -571,7 +571,7 @@ exports[`operation.jsx 1`] = `
       class="t-alert__close"
     >
       <svg
-        class="t-icon"
+        class="t-icon t-icon-close"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -611,7 +611,7 @@ exports[`operation.jsx 1`] = `
       class="t-alert__close"
     >
       <svg
-        class="t-icon"
+        class="t-icon t-icon-close"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -651,7 +651,7 @@ exports[`operation.jsx 1`] = `
       class="t-alert__close"
     >
       <svg
-        class="t-icon"
+        class="t-icon t-icon-close"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -691,7 +691,7 @@ exports[`operation.jsx 1`] = `
       class="t-alert__close"
     >
       <svg
-        class="t-icon"
+        class="t-icon t-icon-close"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -786,7 +786,7 @@ exports[`title.jsx 1`] = `
     class="t-alert t-alert--info"
   >
     <svg
-      class="t-icon t-alert__icon"
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"

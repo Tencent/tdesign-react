@@ -17,7 +17,7 @@ exports[`NotificationBase.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +149,7 @@ exports[`NotificationContent.jsx 1`] = `
           自定义内容（字符串）
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +184,7 @@ exports[`NotificationContent.jsx 1`] = `
           自定义内容
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +221,7 @@ exports[`NotificationFooter.jsx 1`] = `
           自定义底部详情
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -281,7 +281,7 @@ exports[`NotificationIcon.jsx 1`] = `
           自定义icon
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -356,7 +356,7 @@ exports[`NotificationSize.jsx 1`] = `
           宽度固定400px
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -391,7 +391,7 @@ exports[`NotificationSize.jsx 1`] = `
           文本内容最多支持三行
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -451,7 +451,7 @@ exports[`NotificationType.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -478,7 +478,7 @@ exports[`NotificationType.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-is-info"
+        class="t-icon t-icon-info-circle-filled t-is-info"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -502,7 +502,7 @@ exports[`NotificationType.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -529,7 +529,7 @@ exports[`NotificationType.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-is-warning"
+        class="t-icon t-icon-info-circle-filled t-is-warning"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -553,7 +553,7 @@ exports[`NotificationType.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -580,7 +580,7 @@ exports[`NotificationType.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-is-success"
+        class="t-icon t-icon-check-circle-filled t-is-success"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -604,7 +604,7 @@ exports[`NotificationType.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -631,7 +631,7 @@ exports[`NotificationType.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-is-error"
+        class="t-icon t-icon-info-circle-filled t-is-error"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -655,7 +655,7 @@ exports[`NotificationType.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -719,7 +719,7 @@ exports[`base.jsx 1`] = `
           标题名称
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -761,7 +761,7 @@ exports[`icon.jsx 1`] = `
           自定义icon
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -800,7 +800,7 @@ exports[`operation.jsx 1`] = `
           自定义底部详情
         </span>
         <svg
-          class="t-icon t-icon-close"
+          class="t-icon t-icon-close t-icon-close"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"

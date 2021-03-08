@@ -1,4 +1,4 @@
-import React, { ReactNode, MouseEvent, forwardRef } from 'react';
+import React, { ReactNode, MouseEvent, forwardRef, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popup, { PopupProps } from '../popup/Popup';
@@ -29,7 +29,7 @@ export interface PopConfirmProps extends Omit<PopupProps, 'showArrow' | 'trigger
   /**
    * 自定义弹出气泡 Icon
    */
-  icon?: ReactNode | string;
+  icon?: ReactElement;
 
   /**
    * 自定义 Icon 风格
