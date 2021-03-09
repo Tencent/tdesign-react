@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { addClass, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import { Icon } from '../icon/Icon';
+import { LoadingIcon } from '../icon';
 
 enum SIZE {
   LARGE = 'large',
@@ -113,7 +113,7 @@ const Loading = (props: LoadingProps) => {
 
   const loadingSlot = children;
   const loadingFucValue = typeof indicator === 'function' ? indicator() : '';
-  const loadingContent = loadingFucValue || loadingSlot || <Icon name="loading"></Icon>;
+  const loadingContent = loadingFucValue || loadingSlot || <LoadingIcon />;
   const textDom = text ? <span>{text}</span> : '';
   const loadingDefaultDom = (
     <span className={classnames(itemClass)}>
