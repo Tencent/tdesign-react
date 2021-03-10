@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import {
-  CheckLineIcon,
-  ClearLineIcon,
-  ErrorLineIcon,
+  CheckCircleIcon,
+  ClearCircleIcon,
+  ErrorCircleIcon,
   CheckCircleFilledIcon,
   ClearCircleFilledIcon,
   ErrorCircleFilledIcon,
@@ -59,9 +59,9 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
   let progressDom;
   if (theme === 'circle') {
     iconMap = {
-      success: CheckLineIcon,
-      error: ClearLineIcon,
-      warning: ErrorLineIcon,
+      success: CheckCircleIcon,
+      error: ClearCircleIcon,
+      warning: ErrorCircleIcon,
     };
     // 获取直径
     const getDiameter = (): number => {

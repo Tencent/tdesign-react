@@ -431,11 +431,6 @@ exports[`icon.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    使用String
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
     使用VNode
   </button>
   <button
