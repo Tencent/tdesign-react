@@ -4,13 +4,13 @@ import { Badge, Button } from '@tencent/tdesign-react';
 export default function BadgeExample() {
   return (
     <>
-      <Badge count={2}>
+      <Badge content={2}>
         <Button size="large"> </Button>
       </Badge>
-      <Badge count={99}>
+      <Badge content={99}>
         <Button size="large"> </Button>
       </Badge>
-      <Badge count={100}>
+      <Badge content={100}>
         <Button size="large"> </Button>
       </Badge>
     </>
