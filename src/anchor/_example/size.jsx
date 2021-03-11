@@ -1,8 +1,7 @@
 import React from 'react';
 import { Anchor, AnchorItem } from '@tencent/tdesign-react';
 
-export default function Size() {
-  console.log('Size');
+export default function Affix() {
   return (
     <div>
       <h4>尺寸大小</h4>
