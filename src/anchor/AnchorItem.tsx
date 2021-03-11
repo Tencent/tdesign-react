@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { AnchorContext, Item } from './AnchorContext';
 import { AnchorBlockType, AnchorStaticProps } from './_util/type';
@@ -15,17 +15,24 @@ export interface AnchorItemProp extends Item {
 }
 
 const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props) => {
-  const { onClick, scrollTo, activeItem } = useContext(AnchorContext);
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    const { href, title } = props;
-    if (onClick) {
-      onClick(e, { title, href });
-    }
-    scrollTo({ href, title });
-  };
+  const { onClick, scrollTo, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
   const { href, title, target, children = [] } = props;
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    onClick(e, { title, href });
+    scrollTo(href);
+  };
+
+  useEffect(() => {
+    registerItem(href);
+    return () => unregisterItem(href);
+  }, [href, registerItem, unregisterItem]);
+
+  // const isActived = useMemo(() => activeItem === href, [activeItem, href]);
+
   return (
-    <div className={classNames('t-anchor-item', { 't-is-active': activeItem.href === href })}>
+    <div className={classNames('t-anchor-item', { 't-is-active': activeItem === href })}>
       <a href={href} className="t-anchor-item_link" title={title} target={target} onClick={(e) => handleClick(e)}>
         {title}
       </a>
