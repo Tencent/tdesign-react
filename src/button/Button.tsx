@@ -3,64 +3,12 @@ import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { LoadingIcon } from '../icon';
+import { TdButtonProps } from '../_type/components/button';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
  */
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /**
-   * 按钮类型
-   * @default 'default'
-   */
-  theme?: 'default' | 'primary' | 'danger';
-
-  /**
-   * 按钮是否为禁用状态
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 按钮是否为加载状态
-   * @default false
-   */
-  loading?: boolean;
-
-  /**
-   * 图标
-   */
-  icon?: React.ReactElement;
-
-  /**
-   * 按钮大小
-   * @default 'medium'
-   */
-  size?: 'small' | 'medium' | 'large';
-
-  /**
-   * 按钮是否为块级元素
-   * @default false
-   */
-  block?: boolean;
-
-  /**
-   * 组件类型
-   * @default 'base'
-   */
-  variant?: 'base' | 'outline' | 'dashed' | 'text';
-
-  /**
-   * 按钮是否为幽灵按钮
-   * @default 'false'
-   */
-  ghost?: boolean;
-  /** 按钮形状，有三种：方形、圆角方形、圆形 */
-  /**
-   * 按钮形状，有三种：方形、圆角方形、圆形
-   * @default 'square'
-   */
-  shape?: 'square' | 'round' | 'circle';
-}
+export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 /**
  * 按钮组件
@@ -88,10 +36,8 @@ const Button = forwardRef(
 
     const hasChildren = typeof children !== 'undefined';
 
-    if (loading) {
-      // eslint-disable-next-line no-param-reassign
-      icon = <LoadingIcon />;
-    }
+    let iconNode = icon;
+    if (loading) iconNode = <LoadingIcon />;
 
     return (
       <button
@@ -104,7 +50,7 @@ const Button = forwardRef(
             `${classPrefix}-button--variant-${variant}`,
           ],
           {
-            [`${classPrefix}-button--icon-only`]: icon && !hasChildren,
+            [`${classPrefix}-button--icon-only`]: iconNode && !hasChildren,
             [`${classPrefix}-button--shape-${shape}`]: shape !== 'square',
             [`${classPrefix}-button--ghost`]: ghost,
             [`${classPrefix}-is-loading`]: loading,
@@ -118,9 +64,9 @@ const Button = forwardRef(
         disabled={disabled}
         {...buttonProps}
       >
-        {icon ? (
+        {iconNode ? (
           <>
-            {icon}
+            {iconNode}
             {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
           </>
         ) : (
