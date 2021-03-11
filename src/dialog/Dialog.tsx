@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { Icon } from '../icon';
+import { CloseIcon } from '../icon';
 import { ConfigContext } from '../config-provider';
 import { Button } from '../index';
 import RenderDialog from './RenderDialog';
@@ -76,7 +76,7 @@ export interface DialogProps {
   body?: React.ReactNode;
   /**
    * 关闭按钮
-   * @default <Icon name="close" />
+   * @default <CloseIcon />
    */
   closeBtn?: React.ReactNode;
   /**
@@ -168,7 +168,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
   } = props;
 
   const prefixCls = `${classPrefix}-dialog`;
-  const closeIcon = closeBtn || <Icon name="close" style={{ verticalAlign: 'unset' }} />;
+  const closeIcon = closeBtn || <CloseIcon style={{ verticalAlign: 'unset' }} />;
 
   let { header } = props;
   if (typeof header === 'string') {

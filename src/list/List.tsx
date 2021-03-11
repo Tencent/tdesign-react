@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { Icon } from '../icon';
+import { LoadingIcon } from '../icon';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { ListProps } from './ListProps';
@@ -52,7 +52,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
     >
       {loading === 'loading' ? (
         <>
-          <Icon name="loading" />
+          <LoadingIcon />
           <span>正在加载中，请稍等</span>
         </>
       ) : (

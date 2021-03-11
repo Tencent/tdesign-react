@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button, Icon } from '@tencent/tdesign-react';
+import { Button, CheckCircleFilledIcon, InfoCircleFilledIcon, LogoGithubIcon } from '@tencent/tdesign-react';
 import PopConfirm from '../PopConfirm';
 
 export default function IconUsageExample() {
   const $content = '请确认您要进行此操作';
-  const iconComponent = <Icon name="info-circle-filled" style={{ marginRight: '8px' }} />;
-  const iconElement = () => <Icon name="logo-github" style={{ marginRight: '8px' }} />;
+  const iconComponent = <InfoCircleFilledIcon style={{ marginRight: '8px' }} />;
+  const iconElement = () => <LogoGithubIcon style={{ marginRight: '8px' }} />;
   return (
     <>
-      <PopConfirm content={$content} icon="check-circle-filled">
+      <PopConfirm content={$content} icon={<CheckCircleFilledIcon />}>
         <Button theme="primary">使用String</Button>
       </PopConfirm>
       <PopConfirm content={$content} icon={iconComponent}>

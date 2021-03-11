@@ -1,16 +1,16 @@
 import React from 'react';
-import { Tag, Icon } from '@tencent/tdesign-react';
+import { Tag, PrintIcon, CallIcon, LogoGithubIcon } from '@tencent/tdesign-react';
 
 export default function ThemeTagExample() {
   return (
     <>
-      <Tag icon="call" theme="default">
+      <Tag icon={<CallIcon />} theme="default">
         default
       </Tag>
-      <Tag icon="print" theme="primary">
+      <Tag icon={<PrintIcon />} theme="primary">
         primary
       </Tag>
-      <Tag icon={<Icon name="logo-github" />} theme="info">
+      <Tag icon={<LogoGithubIcon />} theme="info">
         info
       </Tag>
     </>

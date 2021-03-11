@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { Icon } from '../icon';
+import { LoadingIcon } from '../icon';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';
@@ -90,7 +90,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         ref={ref}
         onClick={onInternalClick}
       >
-        <span className={`${classPrefix}-switch__handle`}>{loading && <Icon name="loading" />}</span>
+        <span className={`${classPrefix}-switch__handle`}>{loading && <LoadingIcon />}</span>
         <div className={`${classPrefix}-switch__content`}>{innerChecked ? activeContent : inactiveContent}</div>
       </button>
     );

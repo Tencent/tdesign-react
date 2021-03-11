@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { Icon } from '../icon';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<input>` 标签支持的属性。
@@ -38,20 +37,20 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   /**
    * 前置图标
    */
-  prefixIcon?: React.ReactNode;
+  prefixIcon?: React.ReactElement;
 
   /**
    * 后置图标
    */
-  suffixIcon?: React.ReactNode;
+  suffixIcon?: React.ReactElement;
 }
 
-const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: React.ReactNode) => {
-  let result: React.ReactNode = icon;
-  if (typeof icon === 'string' && icon) {
-    result = <Icon name={icon} />;
+const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: React.ReactElement) => {
+  let result: React.ReactNode = null;
+  if (icon) {
+    result = icon;
   }
-  if (result || typeof result === 'number') {
+  if (result) {
     result = <span className={`${classPrefix}-input__${type}`}>{result}</span>;
   }
   return result;
