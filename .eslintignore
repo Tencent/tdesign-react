@@ -10,4 +10,4 @@ script/test/cypress
 _site
 temp*
 static/
-_type
+src/_type/components/**
