@@ -30,7 +30,19 @@ export interface PopupProps {
    * 浮层出现时相对目标元素的位置
    * @default 'top'
    */
-  placement?: 'top' | 'left' | 'bottom' | 'right';
+  placement?:
+    | 'top'
+    | 'left'
+    | 'bottom'
+    | 'right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-top'
+    | 'left-bottom'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'right-top'
+    | 'right-bottom';
 
   /**
    * 是否显示浮层，受控
@@ -86,6 +98,24 @@ export interface PopupProps {
    */
   children?: React.ReactNode;
 }
+/**
+ * 修复popper.js 组件展示方向，与TD组件定义有差异
+ * @param placement
+ */
+const placementMap = {
+  top: 'top',
+  'top-left': 'top-start',
+  'top-right': 'top-end',
+  bottom: 'bottom',
+  'bottom-left': 'bottom-start',
+  'bottom-right': 'bottom-end',
+  left: 'left',
+  'left-top': 'left-start',
+  'left-bottom': 'left-end',
+  right: 'right',
+  'right-top': 'right-start',
+  'right-bottom': 'right-end',
+};
 
 const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const {
@@ -108,7 +138,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
   const [arrowRef, setArrowRef] = useState<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
-    placement,
+    placement: placementMap[placement],
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
