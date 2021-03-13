@@ -64,35 +64,6 @@ export default function Placements() {
       >
         <Button className="placement-right-bottom">right-bottom</Button>
       </Popup>
-
-      {/* <Popup placement="left" showArrow content="这是一个弹出框">
-        <Button>Left</Button>
-      </Popup>
-      <Popup placement="top" showArrow content="这是一个弹出框">
-        <Button>Top</Button>
-      </Popup>
-      <Popup placement="bottom" showArrow content="这是一个弹出框">
-        <Button>Bottom</Button>
-      </Popup>
-      <Popup placement="right" showArrow content="这是一个弹出框">
-        <Button>Right</Button>
-      </Popup>
-      <Popup
-        placement="left-top"
-        showArrow
-        content="这是一个弹出框这是一个弹出框这是一个  \n弹出框这是一个弹出框这是一个弹出框"
-        overlayStyle={{ width: '100px' }}
-      >
-        <Button>Left</Button>
-      </Popup>
-      <Popup
-        placement="left-bottom"
-        showArrow
-        content="这是一个弹出框这是一个弹出框这是一个  \n弹出框这是一个弹出框这是一个弹出框"
-        overlayStyle={{ width: '100px' }}
-      >
-        <Button>Left</Button>
-      </Popup> */}
     </div>
   );
 }
