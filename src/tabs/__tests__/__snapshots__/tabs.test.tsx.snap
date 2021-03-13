@@ -160,7 +160,7 @@ exports[`CloseableTabs.jsx 1`] = `
                 >
                   1
                   <svg
-                    class="t-icon"
+                    class="t-icon t-icon-close"
                     version="1.1"
                     viewBox="0 0 1024 1024"
                     xmlns="http://www.w3.org/2000/svg"
@@ -682,7 +682,7 @@ exports[`icon.jsx 1`] = `
                 >
                   <div>
                     <svg
-                      class="t-icon"
+                      class="t-icon t-icon-discount"
                       version="1.1"
                       viewBox="0 0 1024 1024"
                       xmlns="http://www.w3.org/2000/svg"
@@ -701,7 +701,7 @@ exports[`icon.jsx 1`] = `
                 >
                   <div>
                     <svg
-                      class="t-icon"
+                      class="t-icon t-icon-discount"
                       version="1.1"
                       viewBox="0 0 1024 1024"
                       xmlns="http://www.w3.org/2000/svg"
@@ -720,7 +720,7 @@ exports[`icon.jsx 1`] = `
                 >
                   <div>
                     <svg
-                      class="t-icon"
+                      class="t-icon t-icon-discount"
                       version="1.1"
                       viewBox="0 0 1024 1024"
                       xmlns="http://www.w3.org/2000/svg"

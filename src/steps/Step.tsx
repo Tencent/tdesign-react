@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { Icon } from '../icon';
+import { ClearCircleIcon, CheckCircleFilledIcon } from '../icon';
 import StepsContext from './StepsContext';
 import { StepProps } from './StepsProps';
 
@@ -43,22 +43,18 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
   });
 
   // 步骤条每一步展示的图标
-  let iconEle: React.ReactNode = null;
+  let iconEle: React.ReactElement = null;
   if (type === 'default') {
     // 1. 主动
     if (icon) {
-      if (typeof icon === 'string') {
-        iconEle = <Icon name={icon} />;
-      } else {
-        iconEle = icon;
-      }
+      iconEle = icon;
     } else {
       switch (status) {
         case 'error':
-          iconEle = <Icon name="clear-circle" />;
+          iconEle = <ClearCircleIcon />;
           break;
         case 'finish':
-          iconEle = <Icon name="check-circle-filled" />;
+          iconEle = <CheckCircleFilledIcon />;
           break;
         case 'wait':
         case 'process':
