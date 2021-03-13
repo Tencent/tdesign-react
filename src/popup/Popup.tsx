@@ -99,8 +99,7 @@ export interface PopupProps {
   children?: React.ReactNode;
 }
 /**
- * 修复popper.js 组件展示方向，与TD组件定义有差异
- * @param placement
+ * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
 const placementMap = {
   top: 'top',
