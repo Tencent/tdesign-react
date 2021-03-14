@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import FormContext from './FormContext';
 import { TdFormProps } from './FormProps';
@@ -7,21 +8,23 @@ const Form: React.FC<TdFormProps> = forwardRef((props, ref: React.Ref<HTMLFormEl
   const {
     form,
     className,
-    style,
     labelWidth,
     statusIcon,
-    labelAlign,
-    layout,
-    form,
-    size,
-    colon,
-    requiredMark,
-    scrollToFirstError,
-    showErrorMessage,
+    labelAlign = 'right',
+    layout = 'vertical',
+    size = 'medium',
+    colon = false,
+    requiredMark = true,
+    scrollToFirstError = '',
+    showErrorMessage = true,
     children,
   } = props;
   const { classPrefix } = useConfig();
-  const formClassPrefix = `${classPrefix}-form`;
+  const formClass = classNames(className, {
+    [`${classPrefix}-form-inline`]: layout === 'inline',
+    [`${classPrefix}-form`]: layout !== 'inline',
+  });
+
   return (
     <FormContext.Provider
       value={{
@@ -36,7 +39,7 @@ const Form: React.FC<TdFormProps> = forwardRef((props, ref: React.Ref<HTMLFormEl
         scrollToFirstError,
       }}
     >
-      <form className={formClassPrefix} ref={ref}>
+      <form className={formClass} ref={ref}>
         {children}
       </form>
     </FormContext.Provider>
