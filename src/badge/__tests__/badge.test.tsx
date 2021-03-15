@@ -12,7 +12,7 @@ describe('Badge 组件测试', () => {
   }
 
   test('默认 DOM 结构', async () => {
-    const badge = renderBadge(<Badge count={1}>test</Badge>);
+    const badge = renderBadge(<Badge content={1}>test</Badge>);
     expect(badge.firstChild.textContent).toBe('test');
     expect(badge.lastChild.textContent).toBe('1');
     expect(badge.lastChild).toHaveClass('t-badge--circle');
@@ -20,51 +20,51 @@ describe('Badge 组件测试', () => {
   });
 
   test('class', async () => {
-    expect(renderBadge(<Badge count={1}>test</Badge>).lastChild).toHaveClass('t-badge--circle');
+    expect(renderBadge(<Badge content={1}>test</Badge>).lastChild).toHaveClass('t-badge--circle');
     expect(
       renderBadge(
-        <Badge shape="round" count={1}>
+        <Badge shape="round" content={1}>
           test
         </Badge>,
       ).lastChild,
     ).toHaveClass('t-badge--round');
     expect(
       renderBadge(
-        <Badge dot count={1}>
+        <Badge dot content={1}>
           test
         </Badge>,
       ).lastChild,
     ).toHaveClass('t-badge--dot');
     expect(
       renderBadge(
-        <Badge size="small" count={1}>
+        <Badge size="small" content={1}>
           test
         </Badge>,
       ).lastChild,
     ).toHaveClass('t-badge--circle', 't-size-s');
 
     // not a wrapper
-    expect(renderBadge(<Badge count={1} />)).toHaveClass('t-badge-static', 't-badge--circle');
+    expect(renderBadge(<Badge content={1} />)).toHaveClass('t-badge-static', 't-badge--circle');
   });
 
   test('content', async () => {
     // count 0
     expect(renderBadge(<Badge />)).toBeNull();
-    expect(renderBadge(<Badge showZero count={0} />)).toBeTruthy();
+    expect(renderBadge(<Badge showZero content={0} />)).toBeTruthy();
 
     // maxCount
-    expect(renderBadge(<Badge count={100} />)).toHaveTextContent('99+');
-    expect(renderBadge(<Badge count={100} maxCount={100} />)).toHaveTextContent('100');
+    expect(renderBadge(<Badge content={100} />)).toHaveTextContent('99+');
+    expect(renderBadge(<Badge content={100} maxCount={100} />)).toHaveTextContent('100');
 
     // content vs count
-    expect(renderBadge(<Badge count={1} content={2} />)).toHaveTextContent('2');
+    expect(renderBadge(<Badge content={2} />)).toHaveTextContent('2');
   });
 
   test('offset', async () => {
-    expect(renderBadge(<Badge offset={[1, 2]} count={1} />)).toHaveStyle({ right: '-1px', marginTop: '-2px' });
+    expect(renderBadge(<Badge offset={[1, 2]} content={1} />)).toHaveStyle({ right: '-1px', marginTop: '-2px' });
   });
 
   test('color', async () => {
-    expect(renderBadge(<Badge color="red" count={1} />)).toHaveStyle({ backgroundColor: 'red' });
+    expect(renderBadge(<Badge color="red" content={1} />)).toHaveStyle({ backgroundColor: 'red' });
   });
 });
