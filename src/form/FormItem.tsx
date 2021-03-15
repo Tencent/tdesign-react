@@ -11,7 +11,7 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props) => {
   const { colon, requiredMark, layout, labelAlign, labelWidth, showErrorMessage } = useFormContext();
   const formItemClass = classNames(
     `${classPrefix}-form__item`,
-    `${classPrefix}-form-row`,
+    `${classPrefix}-row`,
     `${classPrefix}-form-item__${name}`,
   );
   const formItemLabelClass = classNames(`${classPrefix}-col`, `${classPrefix}-form__label`, {
