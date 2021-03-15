@@ -8,7 +8,7 @@ export default function SwitchBasic() {
       <Switch defaultValue size="large" />
       <br />
       <br />
-      <Switch size="default" />
+      <Switch />
       <Switch defaultValue />
       <br />
       <br />
