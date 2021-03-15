@@ -148,7 +148,7 @@ exports[`SizeTag.jsx 1`] = `
     large
   </span>
   <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
     style="margin-right: 5px;"
   >
     middle
