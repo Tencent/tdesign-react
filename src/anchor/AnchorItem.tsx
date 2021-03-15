@@ -15,21 +15,17 @@ export interface AnchorItemProp extends Item {
 }
 
 const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props) => {
-  const { onClick, scrollTo, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
+  const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
   const { href, title, target, children = [] } = props;
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
     onClick(e, { title, href });
-    scrollTo(href);
   };
 
   useEffect(() => {
     registerItem(href);
     return () => unregisterItem(href);
   }, [href, registerItem, unregisterItem]);
-
-  // const isActived = useMemo(() => activeItem === href, [activeItem, href]);
 
   return (
     <div className={classNames('t-anchor-item', { 't-is-active': activeItem === href })}>

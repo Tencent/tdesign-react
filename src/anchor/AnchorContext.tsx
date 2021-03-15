@@ -14,8 +14,6 @@ export interface Item {
 
 export interface AnchorContextType {
   onClick: (e: React.MouseEvent<HTMLElement>, link: Item) => void;
-  onChange: (currentLink: Item, prefLink: Item) => void;
-  scrollTo: (href: string) => void;
   activeItem: string;
   registerItem: (href: string) => void;
   unregisterItem: (href: string) => void;
@@ -23,8 +21,6 @@ export interface AnchorContextType {
 
 export const AnchorContext = createContext<AnchorContextType>({
   onClick: noop,
-  onChange: noop,
-  scrollTo: noop,
   activeItem: '',
   registerItem: noop,
   unregisterItem: noop,
