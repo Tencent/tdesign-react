@@ -3,73 +3,14 @@ import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
+import { TdColProps } from '../_type/components/grid';
 
 type FlexType = number | 'none' | 'auto' | string;
 
 /**
  * Divider 组件支持的属性。
  */
-export interface ColProps extends StyledProps {
-  /**
-   * flex 布局填充
-   *
-   *  @default
-   */
-  flex?: FlexType;
-
-  /**
-   * 栅格左侧的间隔格数，间隔内不可以有栅格
-   *
-   * @default 0
-   */
-  offset?: number;
-
-  /**
-   * 栅格向左移动格数
-   *
-   * @default 0
-   */
-  pull?: number;
-
-  /**
-   * 栅格向右移动格数
-   *
-   * @default 0
-   */
-  push?: number;
-
-  /**
-   * 栅格所占位格数，为 0 时相当于 display: none
-   *
-   * @default 0
-   */
-  span?: number;
-
-  /**
-   * 栅格所占位格数，为 0 时相当于 display: none
-   *
-   * @default 0
-   */
-  order?: number;
-
-  /**
-   * 自定义元素标签
-   *
-   * @default div
-   */
-  tag?: string;
-
-  /**
-   * 响应式栅格
-   *
-   */
-  xs?: number | number[];
-  sm?: number | number[];
-  md?: number | number[];
-  lg?: number | number[];
-  xl?: number | number[];
-  xxl?: number | number[];
-
+export interface ColProps extends TdColProps, StyledProps {
   /**
    * 文本内容
    */

@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
+import { TdRowProps } from '../_type/components/grid';
 import Col from './Col';
 
 type Gutter = {
@@ -18,43 +19,7 @@ type Gutter = {
 /**
  * Row 组件支持的属性。
  */
-export interface RowProps extends StyledProps {
-  // /**
-  //  * 布局模式，flex
-  //  *
-  //  *  @default 'flex'
-  //  */
-  // type?: string;
-
-  /**
-   * flex 布局下的垂直对齐方式
-   *
-   * @default top
-   */
-  align?: 'top' | 'middle' | 'bottom';
-
-  /**
-   * 栅格间隔 {xs: 8, sm: 16, md: 24} [水平间距， 垂直间距]
-   *
-   * @default 0
-   */
-
-  gutter?: number | Gutter | number[];
-
-  /**
-   * flex 布局下的水平排列方式
-   *
-   * @default start
-   */
-  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
-
-  /**
-   * 自定义元素标签
-   *
-   * @default div
-   */
-  tag?: string;
-
+export interface RowProps extends TdRowProps, StyledProps {
   /**
    * 默认子元素内容
    */
