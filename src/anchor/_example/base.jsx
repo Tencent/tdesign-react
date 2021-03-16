@@ -11,7 +11,7 @@ export default function AnchorBase() {
   return (
     <>
       <div id="/components/anchor/#default">
-        <Anchor onClick={handleClick} onChange={handleChange}>
+        <Anchor onClick={handleClick} onChange={handleChange} bounds={100}>
           <AnchorItem href="/#/components/anchor/#default" title="定义" />
           <AnchorItem href="/#/components/anchor/#multiple" title="服务功能" />
         </Anchor>

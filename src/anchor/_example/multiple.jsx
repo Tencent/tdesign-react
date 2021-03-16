@@ -10,7 +10,7 @@ export default function AnchorMutiple() {
   return (
     <>
       <div id="/components/anchor/#multiple">
-        <Anchor onChange={handleChange}>
+        <Anchor onChange={handleChange} bounds={100} targetOffset={100}>
           <AnchorItem href="/#/components/anchor/#default" title="定义" />
           <AnchorItem href="/#/components/anchor/#multiple" title="服务功能" />
         </Anchor>

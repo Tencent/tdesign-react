@@ -14,10 +14,6 @@ export function getOffsetTop(target: HTMLElement, container: ANCHOR_CONTAINER) {
   return top - (container as HTMLElement).getBoundingClientRect().top;
 }
 
-type AttachNodeReturnValue = HTMLDocument | HTMLElement | Element | Document;
-type AttachNode = string | (() => AttachNodeReturnValue);
-type SuperAttachNode = Function | AttachNode;
-
 export const getAttach = (attach: Function | string) => {
   let r: any;
   if (typeof attach === 'string') {

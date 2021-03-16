@@ -44,27 +44,34 @@ export interface AnchorTarget {
 }
 
 interface IntervalRef {
+  // 收集 anchor-item
   items: string[];
+  // 当前选中的
   activeItem: string;
+  // 容器
   scrollContainer: ANCHOR_CONTAINER;
+  // 收集各项 item 的信息与节点
+  handleScrollLock: boolean;
 }
-
-// 收集各项 item 的信息与节点
-let handleScrollLock = false;
 
 const Anchor: FunctionComponent<AnchorProps> = (props) => {
   const { affix = false, bounds = 5, targetOffset = 0, attach = '', children, onClick, onChange } = props;
-  const [activeItem, setActiveItem] = useState<string>('');
 
+  const [activeItem, setActiveItem] = useState<string>('');
   const [pointStyle, setPointStyle] = useState<{ top: string; height?: string }>({ top: '0px', height: '0px' });
+
+  const anchorEl = useRef(null);
   const intervalRef = useRef<IntervalRef>({
     items: [],
     activeItem,
-    scrollContainer: getAttach(attach),
+    scrollContainer: window,
+    handleScrollLock: false,
   });
 
-  const anchorEl = useRef(null);
-
+  /**
+   * 注册锚点
+   * @param href 链接
+   */
   const registerItem = (href: string): void => {
     const { items } = intervalRef.current;
     if (ANCHOR_SHARP_REGEXP.test(href) && items.indexOf(href) < 0) items.push(href);
@@ -77,20 +84,15 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
 
   const getAnchorTarget = (href: string): HTMLElement => {
     const matcher = href.match(ANCHOR_SHARP_REGEXP);
-    if (!matcher) {
-      return;
-    }
-    const anchor = document.getElementById(matcher[1]);
-    if (!anchor) {
-      return;
-    }
-    return anchor;
+    if (!matcher) return;
+    return document.getElementById(matcher[1]);
   };
+
   const handleScrollTo = async (link: string): Promise<void> => {
     const anchor = getAnchorTarget(link);
-    setActiveItem(link);
     if (!anchor) return;
-    handleScrollLock = true;
+    setActiveItem(link);
+    intervalRef.current.handleScrollLock = true;
     const { scrollContainer } = intervalRef.current;
     const scrollTop = getScroll(scrollContainer);
     const offsetTop = getOffsetTop(anchor, scrollContainer);
@@ -98,11 +100,12 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     await scrollTo(top, {
       container: scrollContainer,
     });
-    handleScrollLock = false;
+    intervalRef.current.handleScrollLock = false;
   };
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, item: Item) => {
     onClick && onClick(e, item);
+    console.log(item.href);
     handleScrollTo(item.href);
   };
 
@@ -114,13 +117,12 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     } else {
       const { offsetTop: top, offsetHeight: height } = pointEl;
       setPointStyle({ top: `${top}px`, height: `${height}px` });
-      handleScrollLock = false;
     }
   }, [activeItem]);
 
   useEffect(() => {
-    intervalRef.current.scrollContainer = getAttach(attach) || window;
-    const { scrollContainer } = intervalRef.current;
+    intervalRef.current.scrollContainer = getAttach(attach);
+    const { scrollContainer, handleScrollLock } = intervalRef.current;
     const handleScroll = () => {
       if (handleScrollLock) return;
       const { items } = intervalRef.current;
@@ -144,7 +146,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         const latest = filters.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
         active = latest.href;
       }
-
+      console.log('active', active);
       if (active !== intervalRef.current.activeItem) {
         // 当前选中的 上一个
         onChange && onChange(active, intervalRef.current.activeItem);
