@@ -9,7 +9,10 @@ import {
 } from '../icon';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
-import { ProgressProps } from './ProgressProps';
+import { StyledProps } from '../_type';
+import { TdProgressProps } from '../_type/components/progress';
+
+export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**
  * 按钮组件
  */
@@ -25,8 +28,8 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     className,
   } = props;
   let { status } = props;
-  if (!status) {
-    status = percentage >= 100 ? 'success' : 'normal';
+  if (!status && percentage >= 100) {
+    status = 'success';
   }
   let iconMap = {
     success: CheckCircleFilledIcon,
@@ -39,7 +42,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     if (!label) {
       return '';
     }
-    let info;
+    let info: React.ReactNode;
     // 为布尔值，默认百分百展示，否则之间展示label内容
     if (typeof label === 'boolean') {
       info = <div className={`${classPrefix}-progress--info`}>{`${percentage}%`}</div>;
