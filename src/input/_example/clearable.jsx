@@ -9,8 +9,8 @@ export default function InputExample() {
         placeholder="请输入内容"
         value={value}
         type="search"
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
       />
     </div>
