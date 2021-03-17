@@ -88,7 +88,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     return document.getElementById(matcher[1]);
   };
 
-  const handleScrollTo = async (link: string): Promise<void> => {
+  const handleScrollTo = (link: string) => {
     const anchor = getAnchorTarget(link);
     if (!anchor) return;
     setActiveItem(link);
@@ -97,15 +97,15 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     const scrollTop = getScroll(scrollContainer);
     const offsetTop = getOffsetTop(anchor, scrollContainer);
     const top = scrollTop + offsetTop - targetOffset;
-    await scrollTo(top, {
+    scrollTo(top, {
       container: scrollContainer,
+    }).then(() => {
+      intervalRef.current.handleScrollLock = false;
     });
-    intervalRef.current.handleScrollLock = false;
   };
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, item: Item) => {
     onClick && onClick(e, item);
-    console.log(item.href);
     handleScrollTo(item.href);
   };
 
@@ -146,7 +146,6 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         const latest = filters.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
         active = latest.href;
       }
-      console.log('active', active);
       if (active !== intervalRef.current.activeItem) {
         // 当前选中的 上一个
         onChange && onChange(active, intervalRef.current.activeItem);
