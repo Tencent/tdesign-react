@@ -259,7 +259,7 @@ exports[`base.jsx 1`] = `
     class="t-badge"
   >
     <svg
-      class="t-icon"
+      class="t-icon t-icon-user"
       style="font-size: 24px;"
       version="1.1"
       viewBox="0 0 1024 1024"

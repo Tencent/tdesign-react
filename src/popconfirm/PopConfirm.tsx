@@ -1,5 +1,4 @@
-import React, { ReactNode, MouseEvent, forwardRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode, MouseEvent, forwardRef, ReactElement, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import Popup, { PopupProps } from '../popup/Popup';
 import noop from '../_util/noop';
@@ -29,7 +28,7 @@ export interface PopConfirmProps extends Omit<PopupProps, 'showArrow' | 'trigger
   /**
    * 自定义弹出气泡 Icon
    */
-  icon?: ReactNode | string;
+  icon?: ReactElement | FunctionComponent;
 
   /**
    * 自定义 Icon 风格
@@ -68,15 +67,6 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ overlayClassNa
 });
 
 PopConfirm.displayName = 'PopConfirm';
-PopConfirm.propTypes = {
-  cancelText: PropTypes.string,
-  confirmText: PropTypes.string,
-  theme: PropTypes.oneOf(['default', 'info', 'warning', 'error']),
-  onCancel: PropTypes.func,
-  onConfirm: PropTypes.func,
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  icon: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.element]),
-};
 
 PopConfirm.defaultProps = {
   cancelText: '取消',

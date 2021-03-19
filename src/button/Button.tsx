@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { Icon } from '../icon';
+import { LoadingIcon } from '../icon';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
@@ -29,7 +29,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * 图标
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactElement;
 
   /**
    * 按钮大小
@@ -90,7 +90,7 @@ const Button = forwardRef(
 
     if (loading) {
       // eslint-disable-next-line no-param-reassign
-      icon = 'loading';
+      icon = <LoadingIcon />;
     }
 
     return (
@@ -120,7 +120,7 @@ const Button = forwardRef(
       >
         {icon ? (
           <>
-            {typeof icon === 'string' ? <Icon name={icon} /> : icon}
+            {icon}
             {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
           </>
         ) : (

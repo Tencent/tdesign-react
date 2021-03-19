@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { List, ListItem, ListItemMeta, Icon } from '@tencent/tdesign-react';
+import { List, ListItem, ListItemMeta, BulletpointIcon } from '@tencent/tdesign-react';
 
 export default function BasicList() {
   const listData = [
@@ -22,11 +22,7 @@ export default function BasicList() {
     <List size="small" style={style} onScroll={handleScroll}>
       {listData.map((item) => (
         <ListItem key={item.id}>
-          <ListItemMeta
-            avatar={<Icon name={'bulletpoint'} />}
-            title="列表主内容"
-            description="列表内容列表内容列表内容"
-          />
+          <ListItemMeta avatar={<BulletpointIcon />} title="列表主内容" description="列表内容列表内容列表内容" />
         </ListItem>
       ))}
     </List>
