@@ -2,8 +2,9 @@ import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import 'tslib';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
+import { ANCHOR_CONTAINER } from './_util/type';
 import { AnchorContext, Item } from './AnchorContext';
-import { ANCHOR_SHARP_REGEXP, getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './utils';
+import { ANCHOR_SHARP_REGEXP, getOffsetTop, getAttach, getScroll, scrollTo } from './_util/dom';
 
 export interface AnchorProps extends StyledProps {
   /**
