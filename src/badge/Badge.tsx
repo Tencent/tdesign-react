@@ -2,54 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import useConfig from '../_util/useConfig';
+import { TdBadgeProps } from '../_type/components/badge';
 
-export interface BadgeProps extends StyledProps {
-  /**
-   * 自定义颜色
-   */
-  color?: string;
-  /**
-   * 展示的数字
-   */
-  count?: number;
-  /**
-   * 是否为红点
-   * @default false
-   */
-  dot?: boolean;
-  /**
-   * 封顶数字值
-   * @default 99
-   */
-  maxCount?: number;
-  /**
-   * 自定义文字，优先于 count
-   */
-  content?: React.ReactNode;
-  /**
-   * 尺寸
-   * @default medium
-   */
-  size?: 'medium' | 'small';
-  /**
-   * 形状
-   * @default circle
-   */
-  shape?: 'circle' | 'round';
-  /**
-   * 数值为 0 时是否展示
-   * @default false
-   */
-  showZero?: boolean;
-  /**
-   * 设置状态点的位置偏移，格式 [x, y]
-   */
-  offset?: [number, number];
-}
+export interface BadgeProps extends TdBadgeProps, StyledProps {}
 
 const Badge: React.FC<BadgeProps> = ({
   color,
-  count = null,
   dot = false,
   maxCount = 99,
   content,
@@ -70,9 +28,17 @@ const Badge: React.FC<BadgeProps> = ({
     size === 'small' && `${classPrefix}-size-s`,
     !children && className,
   );
-  const getDisplayCount = () => ((count as number) > maxCount ? `${maxCount}+` : count);
+  const getDisplayCount = () => {
+    if (typeof content === 'number' && content > maxCount) {
+      return `${maxCount}+`;
+    }
+    return content;
+  };
 
-  const isHidden = !content && (typeof count !== 'number' || (count < 1 && !showZero));
+  let isHidden = !content;
+  if (typeof content === 'number') {
+    isHidden = content < 1 && !showZero;
+  }
 
   const getStyle = () => {
     const mergedStyle: React.CSSProperties = { ...style };
@@ -90,7 +56,7 @@ const Badge: React.FC<BadgeProps> = ({
 
   const badge = !isHidden ? (
     <span {...(children ? {} : restProps)} className={badgeClassName} style={getStyle()}>
-      {!dot ? content || getDisplayCount() : null}
+      {!dot ? getDisplayCount() : null}
     </span>
   ) : null;
 

@@ -32,7 +32,6 @@ export default function LineProgress() {
           <Progress
             theme={'circle'}
             status={'error'}
-            size={120}
             strokeWidth={20}
             color={'#00f'}
             trackColor={'#0f0'}
@@ -56,7 +55,7 @@ export default function LineProgress() {
         </div>
         <div style={style}>
           <div>自定义尺寸</div>
-          <Progress theme={'circle'} percentage={30} size={340} strokeWidth={50}></Progress>
+          <Progress theme={'circle'} percentage={30} strokeWidth={50}></Progress>
         </div>
       </div>
     </>

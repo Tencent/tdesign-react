@@ -1,13 +1,13 @@
 import React from 'react';
-import { Badge, UserIcon, Button } from '@tencent/tdesign-react';
+import { Badge, Button } from '@tencent/tdesign-react';
 
 export default function BadgeExample() {
   return (
     <>
-      <Badge shape={'circle'} count={2}>
+      <Badge shape={'circle'} content={2}>
         <Button> circle</Button>
       </Badge>
-      <Badge shape={'round'} count={99}>
+      <Badge shape={'round'} content={99}>
         <Button>round</Button>
       </Badge>
     </>

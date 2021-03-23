@@ -13,48 +13,48 @@ export default function ThemeTagExample() {
         <Tag theme="primary">primary</Tag>
         <Tag theme="info">info</Tag>
         <Tag theme="warning">warning</Tag>
-        <Tag theme="danger" effect="dark">
+        <Tag theme="danger" variant="dark">
           danger
         </Tag>
-        <Tag theme="success" effect="dark">
+        <Tag theme="success" variant="dark">
           success
         </Tag>
       </div>
 
       <div>
         <span>浅色：</span>
-        <Tag theme="primary" effect="light">
+        <Tag theme="primary" variant="light">
           primary
         </Tag>
-        <Tag theme="info" effect="light">
+        <Tag theme="info" variant="light">
           info
         </Tag>
-        <Tag theme="warning" effect="light">
+        <Tag theme="warning" variant="light">
           warning
         </Tag>
-        <Tag theme="danger" effect="light">
+        <Tag theme="danger" variant="light">
           danger
         </Tag>
-        <Tag theme="success" effect="light">
+        <Tag theme="success" variant="light">
           success
         </Tag>
       </div>
 
       <div>
         <span>朴素：</span>
-        <Tag theme="primary" effect="plain">
+        <Tag theme="primary" variant="plain">
           primary
         </Tag>
-        <Tag theme="info" effect="plain">
+        <Tag theme="info" variant="plain">
           info
         </Tag>
-        <Tag theme="warning" effect="plain">
+        <Tag theme="warning" variant="plain">
           warning
         </Tag>
-        <Tag theme="danger" effect="plain">
+        <Tag theme="danger" variant="plain">
           danger
         </Tag>
-        <Tag theme="success" effect="plain">
+        <Tag theme="success" variant="plain">
           success
         </Tag>
       </div>
