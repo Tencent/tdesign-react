@@ -1,0 +1,287 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`affix.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-anchor"
+  >
+    <div
+      class="t-anchor_line"
+    >
+      <div
+        class="point"
+        style=""
+      />
+    </div>
+    <div
+      class="t-anchor-item"
+    >
+      <a
+        class="t-anchor-item_link"
+        href="/#/components/anchor/#default"
+        title="默认"
+      >
+        默认
+      </a>
+    </div>
+    <div
+      class="t-anchor-item"
+    >
+      <a
+        class="t-anchor-item_link"
+        href="/#/components/anchor/#leveln"
+        title="多级锚点"
+      >
+        多级锚点
+      </a>
+    </div>
+    <div
+      class="t-anchor-item"
+    >
+      <a
+        class="t-anchor-item_link"
+        href="/#/components/anchor/#size"
+        title="尺寸大小"
+      >
+        尺寸大小
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`attach.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="anchor-demo-attach"
+    id="/components/anchor/#default"
+  >
+    <div
+      class="t-anchor"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-1"
+          title="content-1"
+        >
+          content-1
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-2"
+          title="content-2"
+        >
+          content-2
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-3"
+          title="content-3"
+        >
+          content-3
+        </a>
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-4"
+          title="content-4"
+        >
+          content-4
+        </a>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--anchor-container"
+      id="attach"
+    >
+      <div
+        class="anchor-demo-attach-item-1"
+        id="/components/anchor/#content-1"
+      >
+        content-1
+      </div>
+      <div
+        class="anchor-demo-attach-item-2"
+        id="/components/anchor/#content-2"
+      >
+        content-2
+      </div>
+      <div
+        class="anchor-demo-attach-item-3"
+        id="/components/anchor/#content-3"
+      >
+        content-3
+      </div>
+      <div
+        class="anchor-demo-attach-item-4"
+        id="/components/anchor/#content-4"
+      >
+        content-4
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#default"
+  >
+    <div
+      class="t-anchor"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="定义"
+        >
+          定义
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="服务功能"
+        >
+          服务功能
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#multiple"
+  >
+    <div
+      class="t-anchor"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="定义"
+        >
+          定义
+        </a>
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="服务功能"
+        >
+          服务功能
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <h4>
+      尺寸大小
+    </h4>
+    <div
+      class="t-anchor"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style=""
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="默认"
+        >
+          默认
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#leveln"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#size"
+          title="尺寸大小"
+        >
+          尺寸大小
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

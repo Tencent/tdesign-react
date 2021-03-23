@@ -13,7 +13,7 @@ export interface Item {
 }
 
 export interface AnchorContextType {
-  onClick: (e: React.MouseEvent<HTMLElement>, link: Item) => void;
+  onClick: (link: Item, e: React.MouseEvent<HTMLElement>) => void;
   activeItem: string;
   registerItem: (href: string) => void;
   unregisterItem: (href: string) => void;

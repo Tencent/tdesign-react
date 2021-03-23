@@ -1,48 +1,12 @@
 import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
-import 'tslib';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
+import { TdAnchorProps } from '../_type/components/anchor';
 import { ANCHOR_CONTAINER } from './_util/type';
 import { AnchorContext, Item } from './AnchorContext';
 import { ANCHOR_SHARP_REGEXP, getOffsetTop, getAttach, getScroll, scrollTo } from './_util/dom';
 
-export interface AnchorProps extends StyledProps {
-  /**
-   * 用于固定Anchor, 依赖Affix组件
-   */
-  affix?: boolean;
-  /**
-   * 判定锚点激活的区域边界
-   */
-  bounds?: number;
-  /**
-   * 锚点定位时候的偏移（距离顶部n时，切换到当前锚点）
-   */
-  targetOffset?: number;
-  /**
-   * 指定滚动容器
-   */
-  attach?: string | Function;
-  /**
-   * 切换锚点时触发事件
-   */
-  onChange?: (currentLink: string, prevLink: string) => void;
-  /**
-   * 点击锚点时触发事件
-   */
-  onClick?: (e: React.MouseEvent, item: Item) => void;
-}
-
-export interface AnchorTarget {
-  /**
-   * 原生属性ID
-   */
-  id: string;
-  /**
-   * 渲染标签
-   */
-  tag?: string;
-}
+export interface AnchorProps extends TdAnchorProps, StyledProps {}
 
 interface IntervalRef {
   // 收集 anchor-item
@@ -105,8 +69,8 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     });
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>, item: Item) => {
-    onClick && onClick(e, item);
+  const handleClick = (item: Item, e: React.MouseEvent<HTMLDivElement>) => {
+    onClick && onClick(item, e);
     handleScrollTo(item.href);
   };
 
