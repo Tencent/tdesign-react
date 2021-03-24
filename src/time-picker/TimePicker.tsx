@@ -250,19 +250,26 @@ const TimePanel: React.FC<TimePickerProps> = (props) => {
     const result: Array<JSX.Element> = [];
 
     if (formatParser.getUseHour(format)) {
-      result.push(<PanelCol count={24} step={Number(steps[0])} time={time} timeType={'hour'} setTime={setTime} />);
+      result.push(
+        <PanelCol key="hour" count={24} step={Number(steps[0])} time={time} timeType={'hour'} setTime={setTime} />,
+      );
     }
     if (formatParser.getUseMinute(format)) {
-      result.push(<PanelCol count={60} step={Number(steps[1])} time={time} timeType={'minute'} setTime={setTime} />);
+      result.push(
+        <PanelCol key="minute" count={60} step={Number(steps[1])} time={time} timeType={'minute'} setTime={setTime} />,
+      );
     }
 
     if (formatParser.getUseSecond(format)) {
-      result.push(<PanelCol count={60} step={Number(steps[2])} time={time} timeType={'second'} setTime={setTime} />);
+      result.push(
+        <PanelCol key="second" count={60} step={Number(steps[2])} time={time} timeType={'second'} setTime={setTime} />,
+      );
     }
 
     if (formatParser.getUseMeridiem(format)) {
+      // TODO 上午下午时间选择
       result.push(
-        <ul className={prefixCls(['time-picker-panel', 'body-scroll'])}>
+        <ul key="meridian" className={prefixCls(['time-picker-panel', 'body-scroll'])}>
           <li className={prefixCls(['time-picker-panel', 'body-scroll-item'])}>am</li>
           <li className={prefixCls(['time-picker-panel', 'body-scroll-item'])}>pm</li>
         </ul>,
@@ -431,7 +438,7 @@ const TimeRange: React.FC<TimePickerProps> = (props) => {
   const [time1, setTime1] = React.useState<string>('');
   const [time2, setTime2] = React.useState<string>('');
 
-  React.useEffect(() => onChange([time1, time2]), [time1, time2, onChange]);
+  React.useEffect(() => onChange([time1, time2] as any), [time1, time2, onChange]);
 
   React.useEffect(() => {
     setTime1(value[0]);
