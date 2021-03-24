@@ -39,10 +39,9 @@ export default function () {
         </div>
         <Drawer
           title="Drawer"
-          size={200}
+          size={'200px'}
           visible={visible}
           onClose={handleClose}
-          attach={false}
           placement={placement}
           style={{ textAlign: 'left' }}
         >
