@@ -15,7 +15,7 @@ export default function () {
       <Button theme="primary" onClick={handleClick}>
         Open
       </Button>
-      <Drawer title="Drawer" visible={visible} onClose={handleClose} destroyOnClose>
+      <Drawer visible={visible} onClose={handleClose} destroyOnClose>
         <p>This is a drawer</p>
       </Drawer>
     </div>

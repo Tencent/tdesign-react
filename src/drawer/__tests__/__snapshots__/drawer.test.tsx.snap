@@ -13,7 +13,7 @@ exports[`CurrentDOMModeUsageExample.jsx 1`] = `
         style="margin-top: 16px;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-default"
+          class="t-radio-group t-radio-group-outline t-radio-group-small"
         >
           <label
             class="t-radio-button"
@@ -114,7 +114,7 @@ exports[`CurrentDOMUsageExample.jsx 1`] = `
         style="margin-top: 16px;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-default"
+          class="t-radio-group t-radio-group-outline t-radio-group-small"
         >
           <label
             class="t-radio-button"
@@ -234,6 +234,51 @@ exports[`ForceRenderUsageExample.jsx 1`] = `
     >
       Open
     </button>
+    <span>
+      <div
+        class="t-drawer t-drawer-right"
+        style="z-index: 1500;"
+        tabindex="-1"
+      >
+        <div
+          class="t-drawer__mask"
+          style="transition-duration: 300ms;"
+        />
+        <div
+          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          style="transition-duration: 300ms; width: 300px;"
+        >
+          <h5
+            class="t-drawer__header"
+          >
+            Drawer
+          </h5>
+          <div
+            class="t-drawer__close-btn"
+          >
+            <svg
+              class="t-icon t-icon-close"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-drawer__body"
+          >
+            <p>
+              This is a drawer
+            </p>
+          </div>
+        </div>
+      </div>
+    </span>
   </div>
 </DocumentFragment>
 `;
@@ -242,7 +287,7 @@ exports[`ModeUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-radio-group t-radio-group-outline t-radio-group-default"
+      class="t-radio-group t-radio-group-outline t-radio-group-small"
     >
       <label
         class="t-radio-button"
@@ -344,7 +389,7 @@ exports[`PlacementUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-radio-group t-radio-group-outline t-radio-group-default"
+      class="t-radio-group t-radio-group-outline t-radio-group-small"
     >
       <label
         class="t-radio-button"
@@ -434,7 +479,7 @@ exports[`SizeUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-radio-group t-radio-group-outline t-radio-group-default"
+      class="t-radio-group t-radio-group-outline t-radio-group-small"
     >
       <label
         class="t-radio-button"
@@ -514,7 +559,7 @@ exports[`SizeUsageExample.jsx 1`] = `
       style="margin-top: 16px;"
     >
       <div
-        class="t-radio-group t-radio-group-outline t-radio-group-default"
+        class="t-radio-group t-radio-group-outline t-radio-group-small"
       >
         <label
           class="t-radio-button t-is-checked"
@@ -573,7 +618,7 @@ exports[`SizeUsageExample.jsx 1`] = `
         </label>
         <label
           class="t-radio-button"
-          name="200"
+          name="200px"
         >
           <input
             class="t-radio-button__former"

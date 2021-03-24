@@ -15,7 +15,7 @@ export default function () {
       <Button theme="primary" onClick={handleClick}>
         Open
       </Button>
-      <Drawer title="Drawer" visible={visible} onClose={handleClose}>
+      <Drawer visible={visible} onClose={handleClose}>
         <div>
           <span>Label A</span>
           <Input />

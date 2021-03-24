@@ -16,7 +16,6 @@ export default function () {
         Open
       </Button>
       <Drawer
-        title="Drawer"
         footer={
           <>
             <Button theme="primary" onClick={handleClose}>
