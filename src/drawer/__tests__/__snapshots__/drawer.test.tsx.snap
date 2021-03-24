@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--primary"
-    >
-      Open
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`CurrentDOMModeUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -102,7 +90,7 @@ exports[`CurrentDOMModeUsageExample.jsx 1`] = `
           </label>
         </div>
         <button
-          class="t-button t-button--primary"
+          class="t-button t-button--theme-primary t-button--variant-base"
           style="margin-left: 16px;"
         >
           Open
@@ -203,7 +191,7 @@ exports[`CurrentDOMUsageExample.jsx 1`] = `
           </label>
         </div>
         <button
-          class="t-button t-button--primary"
+          class="t-button t-button--theme-primary t-button--variant-base"
           style="margin-left: 16px;"
         >
           Open
@@ -218,7 +206,7 @@ exports[`DestroyOnCloseUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open
     </button>
@@ -230,7 +218,7 @@ exports[`FooterUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open
     </button>
@@ -242,7 +230,7 @@ exports[`ForceRenderUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open
     </button>
@@ -331,7 +319,7 @@ exports[`ModeUsageExample.jsx 1`] = `
       </label>
     </div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-left: 16px;"
     >
       Open
@@ -344,7 +332,7 @@ exports[`NoMaskUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open
     </button>
@@ -433,7 +421,7 @@ exports[`PlacementUsageExample.jsx 1`] = `
       </label>
     </div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-left: 16px;"
     >
       Open
@@ -643,11 +631,35 @@ exports[`SizeUsageExample.jsx 1`] = `
       style="margin-top: 16px;"
     >
       <button
-        class="t-button t-button--primary"
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
         Open
       </button>
     </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      Open
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`operation.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      Open
+    </button>
   </div>
 </DocumentFragment>
 `;

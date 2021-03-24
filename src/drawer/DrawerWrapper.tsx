@@ -15,7 +15,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
   let portal = null;
 
   useImperativeHandle(ref, () => {
-    if (attach === false && portalRef.current) {
+    if (!attach && portalRef.current) {
       return portalRef.current.parentNode;
     }
 
@@ -23,7 +23,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
   });
 
   if (forceRender || visible || portalRef.current) {
-    if (attach === false) {
+    if (!attach) {
       // 如果 attach === false,渲染在当前组件节点中。
       portal = <span ref={portalRef}>{cloneElement(children)}</span>;
     } else {
