@@ -27,4 +27,4 @@ export { Col, Row } from './grid';
 export { default as Calendar } from './calendar';
 export { default as Loading } from './loading';
 export { default as Tooltip } from './tooltip';
-export { default as TimePicker } from './timepicker';
+export { default as TimePicker } from './time-picker';
