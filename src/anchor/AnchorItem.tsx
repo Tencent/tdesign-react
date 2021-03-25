@@ -3,11 +3,10 @@ import classNames from 'classnames';
 import { TdAnchorItemProps } from '../_type/components/anchor-item';
 import useConfig from '../_util/useConfig';
 import { AnchorContext } from './AnchorContext';
-import { AnchorBlockType, AnchorStaticProps } from './_util/type';
 
 export interface AnchorItemProp extends TdAnchorItemProps {}
 
-const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props) => {
+const AnchorItem: FunctionComponent<AnchorItemProp> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
   const { href, title, target, children = [] } = props;
 
@@ -33,7 +32,5 @@ const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props
     </div>
   );
 };
-AnchorItem.blockType = AnchorBlockType.AnchorItem;
-AnchorItem.displayName = 'AnchorItem';
 
 export default AnchorItem;

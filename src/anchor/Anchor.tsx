@@ -3,9 +3,8 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
-import { ANCHOR_CONTAINER } from './_util/type';
 import { AnchorContext, Item } from './AnchorContext';
-import { ANCHOR_SHARP_REGEXP, getOffsetTop, getAttach, getScroll, scrollTo } from './_util/dom';
+import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {}
 
@@ -19,6 +18,8 @@ interface IntervalRef {
   // 收集各项 item 的信息与节点
   handleScrollLock: boolean;
 }
+
+const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
 const Anchor: FunctionComponent<AnchorProps> = (props) => {
   const { affix = false, bounds = 5, targetOffset = 0, attach = '', children, onClick, onChange } = props;

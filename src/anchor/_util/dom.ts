@@ -1,8 +1,7 @@
 import raf from 'raf';
 import { easeInOutCubic, EasingFunction } from './easing';
-import { ANCHOR_CONTAINER } from './type';
 
-export const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
+export type ANCHOR_CONTAINER = HTMLElement | Window;
 
 export function getOffsetTop(target: HTMLElement, container: ANCHOR_CONTAINER) {
   const { top } = target.getBoundingClientRect();
