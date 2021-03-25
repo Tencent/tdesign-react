@@ -327,7 +327,7 @@ const TimePanel: React.FC<TimePickerProps> = (props) => {
 
   return (
     <>
-      <span
+      <div
         className={prefixCls(blockName).concat(' ', className)}
         style={style}
         onClick={(e) => {
@@ -371,7 +371,7 @@ const TimePanel: React.FC<TimePickerProps> = (props) => {
             )}
           </span>
         </div>
-      </span>
+      </div>
       <div
         className={prefixCls(['time-picker-panel'], ['time-picker-panel', 'container'])}
         ref={setPopperElement}
