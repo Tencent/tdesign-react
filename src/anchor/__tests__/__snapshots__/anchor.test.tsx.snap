@@ -55,6 +55,7 @@ exports[`attach.jsx 1`] = `
   <div
     class="anchor-demo-attach"
     id="/components/anchor/#default"
+    style="display: flex;"
   >
     <div
       class="t-anchor"
@@ -117,28 +118,34 @@ exports[`attach.jsx 1`] = `
       id="attach"
     >
       <div
-        class="anchor-demo-attach-item-1"
         id="/components/anchor/#content-1"
+        style="background: rgb(223, 239, 255);"
       >
         content-1
       </div>
       <div
-        class="anchor-demo-attach-item-2"
         id="/components/anchor/#content-2"
+        style="background: rgb(191, 219, 247);"
       >
         content-2
       </div>
       <div
-        class="anchor-demo-attach-item-3"
         id="/components/anchor/#content-3"
+        style="background: rgb(155, 197, 242);"
       >
         content-3
       </div>
       <div
-        class="anchor-demo-attach-item-4"
         id="/components/anchor/#content-4"
+        style="background: rgb(123, 175, 237);"
       >
         content-4
+      </div>
+      <div
+        id="/components/anchor/#content-5"
+        style="background: rgb(92, 153, 235);"
+      >
+        content-5
       </div>
     </div>
   </div>

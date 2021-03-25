@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
+import useConfig from '../_util/useConfig';
 import { ANCHOR_CONTAINER } from './_util/type';
 import { AnchorContext, Item } from './AnchorContext';
 import { ANCHOR_SHARP_REGEXP, getOffsetTop, getAttach, getScroll, scrollTo } from './_util/dom';
@@ -21,6 +22,8 @@ interface IntervalRef {
 
 const Anchor: FunctionComponent<AnchorProps> = (props) => {
   const { affix = false, bounds = 5, targetOffset = 0, attach = '', children, onClick, onChange } = props;
+
+  const { classPrefix } = useConfig();
 
   const [activeItem, setActiveItem] = useState<string>('');
   const [pointStyle, setPointStyle] = useState<{ top: string; height?: string }>({ top: '0px', height: '0px' });
@@ -136,7 +139,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         unregisterItem,
       }}
     >
-      <div className={classNames('t-anchor', { 't--affix': affix })} ref={anchorEl}>
+      <div className={classNames(`${classPrefix}-anchor`, { [`${classPrefix}--affix`]: affix })} ref={anchorEl}>
         <div className="t-anchor_line">
           <div className="point" style={pointStyle}></div>
         </div>

@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { TdAnchorItemProps } from '../_type/components/anchor-item';
+import useConfig from '../_util/useConfig';
 import { AnchorContext } from './AnchorContext';
 import { AnchorBlockType, AnchorStaticProps } from './_util/type';
 
@@ -9,6 +10,8 @@ export interface AnchorItemProp extends TdAnchorItemProps {}
 const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
   const { href, title, target, children = [] } = props;
+
+  const { classPrefix } = useConfig();
 
   const titleAttr = typeof title === 'string' ? title : null;
 
@@ -22,7 +25,7 @@ const AnchorItem: FunctionComponent<AnchorItemProp> & AnchorStaticProps = (props
   }, [href, registerItem, unregisterItem]);
 
   return (
-    <div className={classNames('t-anchor-item', { 't-is-active': activeItem === href })}>
+    <div className={classNames(`${classPrefix}-anchor-item`, { [`${classPrefix}-is-active`]: activeItem === href })}>
       <a href={href} className="t-anchor-item_link" title={titleAttr} target={target} onClick={(e) => handleClick(e)}>
         {title}
       </a>
