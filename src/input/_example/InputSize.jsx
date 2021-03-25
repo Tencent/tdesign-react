@@ -8,18 +8,17 @@ export default function InputExample() {
       <Input
         placeholder="请输入内容"
         value={value}
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
         size="large"
       />
       <Input
         placeholder="请输入内容"
         value={value}
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
-        size="default"
       />
     </div>
   );
