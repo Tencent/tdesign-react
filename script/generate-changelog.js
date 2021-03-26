@@ -51,6 +51,7 @@ async function updateChangeLog() {
   console.log('\x1B[32m%s\x1B[0m', '正在生成 changeLog... \n');
 
   const lastCommit = getLastChangeLogCommit();
+  // const lastCommit = 'ae055f62';
   let initialChangelogStr = fs.readFileSync('CHANGELOG.md', 'utf8');
   initialChangelogStr = initialChangelogStr.replace(/## (\d+\.\d+\.\d+)/, '### $1');
 
