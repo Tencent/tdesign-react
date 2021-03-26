@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
+import React, { FunctionComponent, useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
@@ -89,47 +89,48 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     }
   }, [activeItem]);
 
+  const handleScroll = useCallback(() => {
+    const { scrollContainer, handleScrollLock } = intervalRef.current;
+    if (handleScrollLock) return;
+    const { items } = intervalRef.current;
+    const filters: { top: number; href: string }[] = [];
+    let active = '';
+    // 找出所有当前top小于预设值
+    items.forEach((href) => {
+      const anchor = getAnchorTarget(href);
+      if (!anchor) return;
+      const top = getOffsetTop(anchor, scrollContainer);
+      if (top <= bounds + targetOffset) {
+        filters.push({
+          href,
+          top,
+        });
+      }
+    });
+
+    // 找出小于预设值集合中top最大的
+    if (filters.length) {
+      const latest = filters.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
+      active = latest.href;
+    }
+    if (active !== intervalRef.current.activeItem) {
+      // 当前选中的 上一个
+      onChange && onChange(active, intervalRef.current.activeItem);
+      intervalRef.current.activeItem = active;
+      setActiveItem(active);
+    }
+  }, [bounds, onChange, targetOffset]);
+
   useEffect(() => {
     intervalRef.current.scrollContainer = getAttach(attach);
-    const { scrollContainer, handleScrollLock } = intervalRef.current;
-    const handleScroll = () => {
-      if (handleScrollLock) return;
-      const { items } = intervalRef.current;
-      const filters: { top: number; href: string }[] = [];
-      let active = '';
-      // 找出所有当前top小于预设值
-      items.forEach((href) => {
-        const anchor = getAnchorTarget(href);
-        if (!anchor) return;
-        const top = getOffsetTop(anchor, scrollContainer);
-        if (top <= bounds + targetOffset) {
-          filters.push({
-            href,
-            top,
-          });
-        }
-      });
-
-      // 找出小于预设值集合中top最大的
-      if (filters.length) {
-        const latest = filters.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
-        active = latest.href;
-      }
-      if (active !== intervalRef.current.activeItem) {
-        // 当前选中的 上一个
-        onChange && onChange(active, intervalRef.current.activeItem);
-        intervalRef.current.activeItem = active;
-        setActiveItem(active);
-      }
-    };
+    const { scrollContainer } = intervalRef.current;
 
     handleScroll();
-
     scrollContainer.addEventListener('scroll', handleScroll);
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
     };
-  }, [attach, bounds, onChange, targetOffset]);
+  }, [attach, handleScroll]);
 
   return (
     <AnchorContext.Provider

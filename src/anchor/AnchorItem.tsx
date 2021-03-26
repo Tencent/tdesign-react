@@ -25,7 +25,13 @@ const AnchorItem: FunctionComponent<AnchorItemProp> = (props) => {
 
   return (
     <div className={classNames(`${classPrefix}-anchor-item`, { [`${classPrefix}-is-active`]: activeItem === href })}>
-      <a href={href} className="t-anchor-item_link" title={titleAttr} target={target} onClick={(e) => handleClick(e)}>
+      <a
+        href={href}
+        className={classNames(`${classPrefix}-anchor-item_link`)}
+        title={titleAttr}
+        target={target}
+        onClick={(e) => handleClick(e)}
+      >
         {title}
       </a>
       {children}
