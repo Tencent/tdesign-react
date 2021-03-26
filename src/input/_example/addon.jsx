@@ -9,8 +9,8 @@ export default function InputExample() {
         <Input
           placeholder="请输入域名"
           value={value}
-          onChange={(event) => {
-            onChange(event.target.value);
+          onChange={(value) => {
+            onChange(value);
           }}
         />
       </Addon>
@@ -18,8 +18,8 @@ export default function InputExample() {
         <Input
           placeholder="请输入域名"
           value={value}
-          onChange={(event) => {
-            onChange(event.target.value);
+          onChange={(value) => {
+            onChange(value);
           }}
         />
       </Addon>
