@@ -1,13 +1,13 @@
 import { HTMLAttributes, useCallback, MutableRefObject } from 'react';
 import useClickOutside from '../_util/useClickOutside';
-import { PopupTrigger } from './Popup';
+import { TdPopupProps } from '../_type/components/popup';
 
 export type TriggerProps = HTMLAttributes<HTMLDivElement>;
 export type PopupProps = HTMLAttributes<HTMLDivElement>;
 
 export default function useTriggerProps(
   ref: MutableRefObject<HTMLElement>,
-  triggers: PopupTrigger[],
+  triggers: Array<TdPopupProps['trigger']>,
   visible: boolean,
   setVisible: (visible: boolean) => void,
 ): [TriggerProps, PopupProps] {
@@ -40,14 +40,14 @@ export default function useTriggerProps(
     }
 
     // contextMenu 触发
-    if (trigger === 'contextMenu') {
+    if (trigger === 'context-menu') {
       triggerProps.onContextMenu = show;
     }
   }
 
   // click outside 用于处理点击其他地方隐藏
   useClickOutside(ref, () => {
-    if (visible && (triggers.includes('click') || triggers.includes('focus') || triggers.includes('contextMenu'))) {
+    if (visible && (triggers.includes('click') || triggers.includes('focus') || triggers.includes('context-menu'))) {
       hide();
     }
   });
