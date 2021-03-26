@@ -5,6 +5,18 @@ exports[`Alert 组件测试 Alert 主题图标显示 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -27,6 +39,18 @@ exports[`Alert 组件测试 Alert 主题图标显示 2`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -49,6 +73,18 @@ exports[`Alert 组件测试 Alert 主题图标显示 3`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -71,6 +107,18 @@ exports[`Alert 组件测试 Alert 主题图标显示 4`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -93,6 +141,18 @@ exports[`Alert 组件测试 Alert 主题图标显示 5`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -142,6 +202,18 @@ exports[`AlertSelfClose.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -164,6 +236,18 @@ exports[`AlertSelfClose.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -191,6 +275,18 @@ exports[`base.jsx 1`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -208,6 +304,18 @@ exports[`base.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -225,6 +333,18 @@ exports[`base.jsx 1`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -242,6 +362,18 @@ exports[`base.jsx 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -264,6 +396,18 @@ exports[`close.jsx 1`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -297,6 +441,18 @@ exports[`close.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -319,6 +475,18 @@ exports[`close.jsx 1`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -341,6 +509,18 @@ exports[`close.jsx 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -370,6 +550,18 @@ exports[`collapse.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -402,6 +594,18 @@ exports[`icon.jsx 1`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -419,6 +623,18 @@ exports[`icon.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -436,6 +652,18 @@ exports[`icon.jsx 1`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -453,6 +681,18 @@ exports[`icon.jsx 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -475,6 +715,18 @@ exports[`operation.jsx 1`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -515,6 +767,18 @@ exports[`operation.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -555,6 +819,18 @@ exports[`operation.jsx 1`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -595,6 +871,18 @@ exports[`operation.jsx 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -640,6 +928,18 @@ exports[`swiper.jsx 1`] = `
   <div
     class="t-alert t-alert--success"
   >
+    <svg
+      class="t-icon t-icon-check-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -657,6 +957,18 @@ exports[`swiper.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -674,6 +986,18 @@ exports[`swiper.jsx 1`] = `
   <div
     class="t-alert t-alert--warning"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -691,6 +1015,18 @@ exports[`swiper.jsx 1`] = `
   <div
     class="t-alert t-alert--error"
   >
+    <svg
+      class="t-icon t-icon-error-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
@@ -713,6 +1049,18 @@ exports[`title.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
+    <svg
+      class="t-icon t-icon-info-circle-filled t-alert__icon"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
     <div
       class="t-alert__content"
     >
