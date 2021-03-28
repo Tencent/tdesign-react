@@ -1,9 +1,9 @@
 import React from 'react';
 import { Anchor, AnchorItem } from '@tencent/tdesign-react';
 
-export default function AnchorSize() {
+export default function AnchorSizeLarge() {
   return (
-    <div id="/components/anchor/#size">
+    <div id="/components/anchor/#size-large">
       <Anchor bounds={100} targetOffset={50}>
         <AnchorItem href="/#/components/anchor/#default" title="基础锚点" />
         <AnchorItem href="/#/components/anchor/#multiple" title="多级锚点" />

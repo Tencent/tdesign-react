@@ -11,9 +11,14 @@ export default function AnchorBase() {
   return (
     <>
       <div id="/components/anchor/#default">
-        <Anchor onClick={handleClick} onChange={handleChange} bounds={100}>
-          <AnchorItem href="/#/components/anchor/#default" title="定义" />
-          <AnchorItem href="/#/components/anchor/#multiple" title="服务功能" />
+        <Anchor onClick={handleClick} onChange={handleChange} bounds={100} targetOffset={50}>
+          <AnchorItem href="/#/components/anchor/#default" title="基础锚点" />
+          <AnchorItem href="/#/components/anchor/#multiple" title="多级锚点" />
+          <AnchorItem href="/#/components/anchor/#size" title="尺寸大小">
+            <AnchorItem href="/#/components/anchor/#size" title="size-medium"></AnchorItem>
+            <AnchorItem href="/#/components/anchor/#size-large" title="size-large"></AnchorItem>
+          </AnchorItem>
+          <AnchorItem href="/#/components/anchor/#attach" title="指定容器" />
         </Anchor>
       </div>
     </>

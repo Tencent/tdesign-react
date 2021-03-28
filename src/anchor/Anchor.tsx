@@ -22,7 +22,16 @@ interface IntervalRef {
 const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
 const Anchor: FunctionComponent<AnchorProps> = (props) => {
-  const { affix = false, bounds = 5, targetOffset = 0, attach = '', children, onClick, onChange } = props;
+  const {
+    affix = false,
+    bounds = 5,
+    targetOffset = 0,
+    attach = '',
+    size = 'medium',
+    children,
+    onClick,
+    onChange,
+  } = props;
 
   const { classPrefix } = useConfig();
 
@@ -132,6 +141,13 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     };
   }, [attach, handleScroll]);
 
+  const anchorClass = classNames(`${classPrefix}-anchor`, {
+    [`${classPrefix}--affix`]: affix,
+    [`${classPrefix}-size-s`]: size === 'small',
+    [`${classPrefix}-size-m`]: size === 'medium',
+    [`${classPrefix}-size-l`]: size === 'large',
+  });
+
   return (
     <AnchorContext.Provider
       value={{
@@ -141,8 +157,8 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
         unregisterItem,
       }}
     >
-      <div className={classNames(`${classPrefix}-anchor`, { [`${classPrefix}--affix`]: affix })} ref={anchorEl}>
-        <div className="t-anchor_line">
+      <div className={anchorClass} ref={anchorEl}>
+        <div className={`${classPrefix}-anchor_line`}>
           <div className="point" style={pointStyle}></div>
         </div>
         {children}

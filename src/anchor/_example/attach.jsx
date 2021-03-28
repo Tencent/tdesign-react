@@ -1,17 +1,11 @@
 import React from 'react';
 import { Anchor, AnchorItem } from '@tencent/tdesign-react';
 
-export default function AnchorBase() {
-  const handleClick = () => {
-    console.log('handleClick');
-  };
-  const handleChange = (currentLink, prevLink) => {
-    console.log('currentLink', currentLink, 'prevLink', prevLink);
-  };
+export default function AnchorAttach() {
   return (
     <>
-      <div style={{ display: 'flex' }} id="/components/anchor/#default" className="anchor-demo-attach">
-        <Anchor onClick={handleClick} onChange={handleChange} attach="#attach">
+      <div style={{ display: 'flex' }} id="/components/anchor/#attach" className="anchor-demo-attach">
+        <Anchor attach="#attach">
           <AnchorItem href="/#/components/anchor/#content-1" title="content-1" />
           <AnchorItem href="/#/components/anchor/#content-2" title="content-2" />
           <AnchorItem href="/#/components/anchor/#content-3" title="content-3" />
