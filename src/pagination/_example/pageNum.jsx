@@ -11,6 +11,7 @@ export default function PaginationExample() {
   }, []);
 
   const onPageSizeChange = React.useCallback((index, event) => {
+    debugger
     setPageSize(index);
     console.log(`pageSize: ${index}`, event);
   }, []);

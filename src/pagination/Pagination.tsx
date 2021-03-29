@@ -6,6 +6,45 @@ import Select from '../select';
 
 const { Option } = Select;
 
+/**
+ * @author kenzyyang
+ * @date 2021-03-29
+ * @desc 判定当前 pageSize 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
+ * @param pageSize any 任意类型
+ * @return boolean 是否合法
+ * */
+const pageSizeValidator = (pageSize: any): boolean => {
+  let pageSizeNumber: number;
+  if (typeof pageSize !== 'number') {
+    pageSizeNumber = pageSize - 0;
+  } else {
+    pageSizeNumber = pageSize;
+  }
+
+  return !isFinite(pageSizeNumber) && pageSizeNumber > 0;
+};
+
+/**
+ * @author kenzyyang
+ * @date 2021-03-29
+ * @desc 判定当前 pageSizeOptions 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
+ * @param pageSizeOptions any 任意类型
+ * @return boolean 是否合法
+ * */
+const pageSizeOptionsValidator = (pageSizeOptions: any): boolean => {
+  // 不为数组或长度为 0 时，为非法值
+  if (!Array.isArray(pageSizeOptions) || pageSizeOptions.length === 0) {
+    return false;
+  }
+  for (let i = 1; i <= pageSizeOptions.length; i++) {
+    const v = pageSizeOptions[i - 1];
+    if (typeof v !== 'number' || v <= 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export interface PaginationProps {
   /**
    * 当前页数
@@ -124,7 +163,18 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
   const simpleInputRef = React.useRef<HTMLInputElement>(null);
 
   const min = React.useMemo<number>(() => 1, []);
-  const max = React.useMemo<number>(() => Math.max(Math.ceil(total / pageSize), 1), [total, pageSize]);
+  const max = React.useMemo<number>(() => {
+    /**
+     * @author kenzyyang
+     * @date 2021-03-29
+     * @desc 判断 total pageSize 是否为合法的数字，避免 pageSize 为空时，total/0 造成 max 无限大的情况
+     **/
+    // if (!pageSizeValidator(pageSize)) {
+    //   throw '[pagination]pageSize invalid';
+    // }
+
+    return Math.max(Math.ceil(total / pageSize), 1);
+  }, [total, pageSize]);
 
   const prefixCls = React.useCallback(
     (...args: (string | [string, string?, string?])[]) => {
@@ -148,6 +198,11 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
   const pageList = React.useMemo<(string | number)[]>(() => {
     const gap = 2;
     const list = [] as (string | number)[];
+    /**
+     * @author kenzyyang
+     * @date 2021-03-29
+     * @desc :todo 此处逻辑需要做优化,应该可以不使用此种方式进行循环判断，避免死循环
+     **/
     /* eslint operator-linebreak: ["error", "after"] */
     for (let i = min; i <= max; i += 1) {
       if (
@@ -168,6 +223,19 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
 
   const changeCurrent = React.useCallback(
     (nextCurrent: number, nextPageSize?: number) => {
+      /**
+       * @author kenzyyang
+       * @date 2021-03-29
+       * @desc currentChange 时判断 size 是否合法
+       **/
+      if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
+        if (!pageSizeOptionsValidator(pageSizeOption)) {
+          throw '[pagination]pageSize invalid and pageSizeOption invalid';
+        } else {
+          nextPageSize = pageSizeOption[0];
+        }
+      }
+
       if (disabled || max < nextCurrent || nextCurrent < min) return;
       setCurrent(nextCurrent);
       if (simpleInputRef.current) {
@@ -191,6 +259,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         prev: current,
         pageSize: nextPageSize,
       });
+
       if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
     },
     [total, current, changeCurrent, onPageSizeChange],
