@@ -9,7 +9,7 @@ import { TdSwitchProps } from '../_type/components/switch';
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
 
-interface SwitchProps extends TdSwitchProps, StyledProps {}
+export interface SwitchProps extends TdSwitchProps, StyledProps {}
 
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps }, ref) => {

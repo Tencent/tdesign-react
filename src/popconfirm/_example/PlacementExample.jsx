@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@tencent/tdesign-react';
-import PopConfirm from '../PopConfirm';
+import { Button, PopConfirm } from '@tencent/tdesign-react';
 
 export default function PlacementExample() {
   const $content = '请确认您要进行此操作';

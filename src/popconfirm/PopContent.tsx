@@ -47,7 +47,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
       <div className={`${classPrefix}-popconfirm__buttons`}>
         <Button
           size="small"
-          variant="text"
+          variant="outline"
           style={{ color: '#222' }}
           onClick={(event) => {
             onCancel(event);
@@ -62,7 +62,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
             onClose();
           }}
           size="small"
-          variant="text"
+          theme="primary"
         >
           {confirmText}
         </Button>

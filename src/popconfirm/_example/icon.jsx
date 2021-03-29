@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, InfoCircleFilledIcon, LogoGithubIcon } from '@tencent/tdesign-react';
-import PopConfirm from '../PopConfirm';
+import { Button, InfoCircleFilledIcon, LogoGithubIcon, PopConfirm } from '@tencent/tdesign-react';
 
 export default function IconUsageExample() {
   const $content = '请确认您要进行此操作';
