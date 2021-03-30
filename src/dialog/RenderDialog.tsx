@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, CSSProperties } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classnames from 'classnames';
 import DialogPortal from './DialogPortal';
 import { DialogProps } from './Dialog';
 
@@ -216,7 +217,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const render = () => {
     const style: CSSProperties = {};
     if (visible) {
-      style.display = 'flex';
+      style.display = 'block';
     }
     const wrapStyle = {
       ...style,
@@ -224,14 +225,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
+    const wrapClass = classnames(props.class, `${prefixCls}-ctx`, `${prefixCls}-ctx--fixed`);
     const dialog = (
-      <div
-        ref={wrap}
-        style={wrapStyle}
-        tabIndex={-1}
-        onKeyDown={onKeyDown}
-        className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}
-      >
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={onKeyDown}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
