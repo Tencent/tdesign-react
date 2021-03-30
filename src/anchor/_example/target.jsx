@@ -2,7 +2,6 @@ import React from 'react';
 import { AnchorTarget } from '@tencent/tdesign-react';
 
 export default function AnchorTargetExample() {
-  // return <AnchorTarget id="#test">hello world</AnchorTarget>;
   return (
     <div id="/components/anchor/#anchor-target" className="anchor-demo">
       <AnchorTarget id="/components/anchor/#default" tag="h1">
