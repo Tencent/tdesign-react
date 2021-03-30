@@ -1,6 +1,5 @@
 import Select from './base/Select';
-import { SelectProps } from './SelectProps';
 
-export { SelectProps };
+export type { SelectProps } from './SelectProps';
 
 export default Select;

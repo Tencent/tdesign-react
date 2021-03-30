@@ -6,12 +6,12 @@ export default function SwitchBasic() {
   const renderInactiveContent = () => <Icon name="close" />;
   return (
     <div className="tdegsin-demo-switch">
-      <Switch activeContent="开" inactiveContent="关" />
-      <Switch defaultValue activeContent="开" inactiveContent="关" />
+      <Switch label={['开', '关']} />
+      <Switch defaultValue label={['开', '关']} />
       <br />
       <br />
-      <Switch activeContent={renderActiveContent()} inactiveContent={renderInactiveContent()} />
-      <Switch defaultValue activeContent={renderActiveContent()} inactiveContent={renderInactiveContent()} />
+      <Switch label={[renderActiveContent(), renderInactiveContent()]} />
+      <Switch defaultValue label={[renderActiveContent(), renderInactiveContent()]} />
     </div>
   );
 }

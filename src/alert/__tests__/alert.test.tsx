@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
-import Alert, { AlertProps } from '../Alert';
+import Alert from '../Alert';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -25,7 +25,7 @@ describe('Alert 组件测试', () => {
     const { asFragment: asFragment4 } = render(<Alert {...props} theme="success" />);
     expect(asFragment4()).toMatchSnapshot();
 
-    const { asFragment: asFragment5 } = render(<Alert {...props} theme="error" icon />);
+    const { asFragment: asFragment5 } = render(<Alert {...props} theme="error" />);
     expect(asFragment5()).toMatchSnapshot();
 
     const { asFragment: asFragment6 } = render(<Alert {...props} theme="error" icon={<span>CustomIcon</span>} />);
@@ -33,10 +33,10 @@ describe('Alert 组件测试', () => {
   });
 
   test('Alert 关闭操作', async () => {
-    const ref = React.createRef<AlertProps>();
+    const ref = React.createRef<HTMLDivElement>();
 
     const { queryByTestId } = render(
-      <Alert ref={ref} theme="error" meassage={text} close={<div data-testid={testId}>{text}</div>} />,
+      <Alert ref={ref} theme="error" message={text} close={<div data-testid={testId}>{text}</div>} />,
     );
 
     act(() => {

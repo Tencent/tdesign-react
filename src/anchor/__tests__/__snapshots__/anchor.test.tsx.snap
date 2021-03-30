@@ -1,0 +1,513 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attach.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="anchor-demo-attach"
+    id="/components/anchor/#attach"
+    style="display: flex;"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-1"
+          title="content-1"
+        >
+          content-1
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-2"
+          title="content-2"
+        >
+          content-2
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-3"
+          title="content-3"
+        >
+          content-3
+        </a>
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#content-4"
+          title="content-4"
+        >
+          content-4
+        </a>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--anchor-container"
+      id="attach"
+    >
+      <div
+        id="/components/anchor/#content-1"
+        style="background: rgb(223, 239, 255);"
+      >
+        content-1
+      </div>
+      <div
+        id="/components/anchor/#content-2"
+        style="background: rgb(191, 219, 247);"
+      >
+        content-2
+      </div>
+      <div
+        id="/components/anchor/#content-3"
+        style="background: rgb(155, 197, 242);"
+      >
+        content-3
+      </div>
+      <div
+        id="/components/anchor/#content-4"
+        style="background: rgb(123, 175, 237);"
+      >
+        content-4
+      </div>
+      <div
+        id="/components/anchor/#content-5"
+        style="background: rgb(92, 153, 235);"
+      >
+        content-5
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#default"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="基础锚点"
+        >
+          基础锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#size"
+          title="尺寸大小"
+        >
+          尺寸大小
+        </a>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size"
+            title="size-medium"
+          >
+            size-medium
+          </a>
+        </div>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size-large"
+            title="size-large"
+          >
+            size-large
+          </a>
+        </div>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#attach"
+          title="指定容器"
+        >
+          指定容器
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#multiple"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="基础锚点"
+        >
+          基础锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#size"
+          title="尺寸大小"
+        >
+          尺寸大小
+        </a>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size"
+            title="size-medium"
+          >
+            size-medium
+          </a>
+        </div>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size-large"
+            title="size-large"
+          >
+            size-large
+          </a>
+        </div>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#attach"
+          title="指定容器"
+        >
+          指定容器
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#size"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="基础锚点"
+        >
+          基础锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item t-is-active"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#size"
+          title="尺寸大小"
+        >
+          尺寸大小
+        </a>
+        <div
+          class="t-anchor-item t-is-active"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size"
+            title="size-medium"
+          >
+            size-medium
+          </a>
+        </div>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size-large"
+            title="size-large"
+          >
+            size-large
+          </a>
+        </div>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#attach"
+          title="指定容器"
+        >
+          指定容器
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`sizeLarge.jsx 1`] = `
+<DocumentFragment>
+  <div
+    id="/components/anchor/#size-large"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="point"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#default"
+          title="基础锚点"
+        >
+          基础锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#multiple"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#size"
+          title="尺寸大小"
+        >
+          尺寸大小
+        </a>
+        <div
+          class="t-anchor-item"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size"
+            title="size-medium"
+          >
+            size-medium
+          </a>
+        </div>
+        <div
+          class="t-anchor-item t-is-active"
+        >
+          <a
+            class="t-anchor-item_link"
+            href="/#/components/anchor/#size-large"
+            title="size-large"
+          >
+            size-large
+          </a>
+        </div>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="/#/components/anchor/#attach"
+          title="指定容器"
+        >
+          指定容器
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`target.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="anchor-demo"
+    id="/components/anchor/#anchor-target"
+  >
+    <h1
+      class="t-anchor-target"
+      id="/components/anchor/#default"
+    >
+      基础锚点
+      <svg
+        class="t-icon t-icon-file-copy t-copy"
+      >
+        <use
+          xlink:href="#t-icon-file-copy"
+        />
+      </svg>
+    </h1>
+    <h1
+      class="t-anchor-target"
+      id="/components/anchor/#multiple"
+    >
+      多级锚点
+      <svg
+        class="t-icon t-icon-file-copy t-copy"
+      >
+        <use
+          xlink:href="#t-icon-file-copy"
+        />
+      </svg>
+    </h1>
+    <h1
+      class="t-anchor-target"
+      id="/components/anchor/#size"
+    >
+      尺寸大小
+      <svg
+        class="t-icon t-icon-file-copy t-copy"
+      >
+        <use
+          xlink:href="#t-icon-file-copy"
+        />
+      </svg>
+    </h1>
+    <h1
+      class="t-anchor-target"
+      id="/components/anchor/#attach"
+    >
+      指定容器
+      <svg
+        class="t-icon t-icon-file-copy t-copy"
+      >
+        <use
+          xlink:href="#t-icon-file-copy"
+        />
+      </svg>
+    </h1>
+  </div>
+</DocumentFragment>
+`;

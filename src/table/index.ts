@@ -2,7 +2,7 @@ import SimpleTable from './base/Table';
 // import Primary from './primary/Table';
 // import Enhanced from './enhanced/Table';
 
-export { TableProps, TableColumn } from './TableProps';
+export type { TableProps, TableColumn } from './TableProps';
 export { SimpleTable };
 
 export default SimpleTable;

@@ -13,7 +13,7 @@ export default function Triggers() {
       <Popup trigger="click" showArrow content="这是一个弹出框">
         <Button>Click me</Button>
       </Popup>
-      <Popup trigger="contextMenu" showArrow content="这是一个弹出框">
+      <Popup trigger="context-menu" showArrow content="这是一个弹出框">
         <Button>Right Click me</Button>
       </Popup>
     </>

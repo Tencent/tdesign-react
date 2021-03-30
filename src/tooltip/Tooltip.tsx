@@ -1,20 +1,11 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popup, { PopupProps } from '../popup';
+import Popup from '../popup';
 import useConfig from '../_util/useConfig';
-export interface TooltipProps extends PopupProps {
-  /**
-   * 文字提示风格
-   * @default default
-   */
-  theme?: 'default' | 'primary' | 'success' | 'danger' | 'warning';
-  /**
-   * 浮层是否显示箭头
-   * @default true
-   */
-  showArrow?: boolean;
-}
+import { TdTooltipProps } from '../_type/components/tooltip';
+
+export interface TooltipProps extends TdTooltipProps {}
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   const { theme, showArrow = true, overlayClassName, children, ...restProps } = props;

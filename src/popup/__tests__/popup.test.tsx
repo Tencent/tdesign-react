@@ -139,74 +139,9 @@ describe('Popup 组件测试', () => {
     });
   });
 
-  test('多个触发方式测试', async () => {
-    const { getByText, queryByTestId } = render(
-      <Popup trigger={['click', 'hover']} placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
-        {triggerElement}
-      </Popup>,
-    );
-
-    // 鼠标进入前，没有元素存在
-    const popupElement1 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement1).toBeNull();
-
-    // 模拟鼠标右键
-    act(() => {
-      fireEvent.mouseEnter(getByText(triggerElement));
-      jest.runAllTimers();
-    });
-
-    // 鼠标进入后，有元素，而且内容为 popupText
-    const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement2).not.toBeNull();
-    expect(popupElement2).toHaveTextContent(popupText);
-    expect(popupElement2.parentElement).toHaveStyle({
-      display: 'block',
-    });
-
-    // 模拟鼠标点击其他地方
-    act(() => {
-      fireEvent.mouseLeave(getByText(triggerElement));
-      jest.runAllTimers();
-    });
-
-    // 鼠标离开，style 的 display 应该为 none
-    const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement).toHaveStyle({
-      display: 'none',
-    });
-
-    // 模拟鼠标点击
-    act(() => {
-      fireEvent.click(getByText(triggerElement));
-      jest.runAllTimers();
-    });
-
-    // 鼠标进入后，有元素，而且内容为 popupText
-    const popupElement4 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement4).not.toBeNull();
-    expect(popupElement4.parentElement).toHaveStyle({
-      display: 'block',
-    });
-
-    // 模拟鼠标点击其他地方
-    act(() => {
-      fireEvent.click(document);
-      jest.runAllTimers();
-    });
-
-    // 鼠标离开，style 的 display 应该为 none
-    const popupElement5 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement5).not.toBeNull();
-    expect(popupElement5.parentElement).toHaveStyle({
-      display: 'none',
-    });
-  });
-
   test('contextMenu 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup trigger="contextMenu" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
+      <Popup trigger="context-menu" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -282,7 +217,7 @@ describe('Popup 组件测试', () => {
       <Popup
         visible
         placement="top"
-        getPopupContainer={() => $container}
+        attach={() => $container}
         content={<div data-testid={popupTestId}>{popupText}</div>}
       >
         {triggerElement}
@@ -398,7 +333,7 @@ describe('Popup 组件测试', () => {
   test('异常情况：getPopupContainer 传了非 HTMLElement 的元素', async () => {
     const testClassName = 'test-class-name';
     const { getByText } = render(
-      <Popup visible placement="top" overlayClassName={testClassName} getPopupContainer={() => 'xxx' as any}>
+      <Popup visible placement="top" overlayClassName={testClassName} attach={() => 'xxx' as any}>
         {triggerElement}
       </Popup>,
     );

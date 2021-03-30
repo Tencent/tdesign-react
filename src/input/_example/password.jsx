@@ -11,8 +11,8 @@ export default function InputExample() {
         placeholder="请输入内容"
         value={value}
         type="password"
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
       />
       <Input
@@ -21,8 +21,8 @@ export default function InputExample() {
         placeholder="请输入内容"
         value={value}
         type="password"
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
       />
     </div>

@@ -10,15 +10,15 @@ export default function InputExample() {
         <Input
           placeholder="姓"
           value={value1}
-          onChange={(event) => {
-            onChange1(event.target.value);
+          onChange={(value) => {
+            onChange1(value);
           }}
         />
         <Input
           placeholder="名"
           value={value2}
-          onChange={(event) => {
-            onChange2(event.target.value);
+          onChange={(value) => {
+            onChange2(value);
           }}
         />
       </InputGroup>
@@ -26,15 +26,15 @@ export default function InputExample() {
         <Input
           placeholder="姓"
           value={value1}
-          onChange={(event) => {
-            onChange1(event.target.value);
+          onChange={(value) => {
+            onChange1(value);
           }}
         />
         <Input
           placeholder="名"
           value={value2}
-          onChange={(event) => {
-            onChange2(event.target.value);
+          onChange={(value) => {
+            onChange2(value);
           }}
         />
       </InputGroup>
