@@ -163,18 +163,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
   const simpleInputRef = React.useRef<HTMLInputElement>(null);
 
   const min = React.useMemo<number>(() => 1, []);
-  const max = React.useMemo<number>(() => {
-    /**
-     * @author kenzyyang
-     * @date 2021-03-29
-     * @desc 判断 total pageSize 是否为合法的数字，避免 pageSize 为空时，total/0 造成 max 无限大的情况
-     **/
-    // if (!pageSizeValidator(pageSize)) {
-    //   throw '[pagination]pageSize invalid';
-    // }
-
-    return Math.max(Math.ceil(total / pageSize), 1);
-  }, [total, pageSize]);
+  const max = React.useMemo<number>(() => Math.max(Math.ceil(total / pageSize), 1), [total, pageSize]);
 
   const prefixCls = React.useCallback(
     (...args: (string | [string, string?, string?])[]) => {
@@ -232,6 +221,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         if (!pageSizeOptionsValidator(pageSizeOption)) {
           throw '[pagination]pageSize invalid and pageSizeOption invalid';
         } else {
+          // eslint-disable-next-line
           nextPageSize = pageSizeOption[0];
         }
       }
@@ -247,7 +237,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         pageSize: nextPageSize || pageSize,
       });
     },
-    [disabled, min, max, current, pageSize, onChange],
+    [disabled, max, min, onChange, current, pageSize, pageSizeOption],
   );
 
   const changePageSize = React.useCallback(
