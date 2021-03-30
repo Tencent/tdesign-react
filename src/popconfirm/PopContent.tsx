@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../button/Button';
-import { Icon } from '../icon/Icon';
+import { InfoCircleFilledIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
@@ -10,14 +10,8 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
   const { classPrefix } = useConfig();
 
   let color = '';
-  let iconName = '';
-
-  if (typeof icon === 'string') {
-    iconName = icon;
-  } else {
-    // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
-    iconName = theme === 'default' ? '' : 'prompt_fill';
-  }
+  // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
+  const defaultIcon = theme === 'default' ? null : <InfoCircleFilledIcon />;
 
   switch (theme) {
     case 'warning': // 黄色
@@ -40,8 +34,8 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     const CustomIcon = icon;
     iconComponent = <CustomIcon />;
     // icon 是 Icon 组件的 name
-  } else if (iconName) {
-    iconComponent = <Icon name={iconName} style={{ color }}></Icon>;
+  } else if (defaultIcon) {
+    iconComponent = <i style={{ color }}>{defaultIcon}</i>;
   }
 
   return (
@@ -53,7 +47,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
       <div className={`${classPrefix}-popconfirm__buttons`}>
         <Button
           size="small"
-          theme="link"
+          variant="outline"
           style={{ color: '#222' }}
           onClick={(event) => {
             onCancel(event);
@@ -68,7 +62,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
             onClose();
           }}
           size="small"
-          theme="link"
+          theme="primary"
         >
           {confirmText}
         </Button>

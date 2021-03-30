@@ -1,7 +1,49 @@
 import * as React from 'react';
-import { IconFont } from '../icon';
+import { ChevronLeftIcon, MoreIcon, ChevronRightIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import Select from '../select';
+
+const { Option } = Select;
+
+/**
+ * @author kenzyyang
+ * @date 2021-03-29
+ * @desc 判定当前 pageSize 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
+ * @param pageSize any 任意类型
+ * @return boolean 是否合法
+ * */
+const pageSizeValidator = (pageSize: any): boolean => {
+  let pageSizeNumber: number;
+  if (typeof pageSize !== 'number') {
+    pageSizeNumber = pageSize - 0;
+  } else {
+    pageSizeNumber = pageSize;
+  }
+
+  return !isFinite(pageSizeNumber) && pageSizeNumber > 0;
+};
+
+/**
+ * @author kenzyyang
+ * @date 2021-03-29
+ * @desc 判定当前 pageSizeOptions 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
+ * @param pageSizeOptions any 任意类型
+ * @return boolean 是否合法
+ * */
+const pageSizeOptionsValidator = (pageSizeOptions: any): boolean => {
+  // 不为数组或长度为 0 时，为非法值
+  if (!Array.isArray(pageSizeOptions) || pageSizeOptions.length === 0) {
+    return false;
+  }
+  for (let i = 1; i <= pageSizeOptions.length; i++) {
+    const v = pageSizeOptions[i - 1];
+    if (typeof v !== 'number' || v <= 0) {
+      return false;
+    }
+  }
+  return true;
+};
 
 export interface PaginationProps {
   /**
@@ -89,14 +131,6 @@ export interface PaginationProps {
   onPageSizeChange?: (pageSize: number, event: { curr: number; prev: number; pageSize: number }) => void;
 }
 
-// 等待Select组件完成后再合入
-const Select = (props: any) => (
-  <select style={{ marginRight: '20px', height: '32px' }} disabled={props.disabled} onChange={props.onChange}>
-    {props.children}
-  </select>
-);
-Select.Option = (props: any) => <option value={props.value}>{props.children}</option>;
-
 enum KEY_CODE {
   ENTER = 13,
 }
@@ -153,6 +187,11 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
   const pageList = React.useMemo<(string | number)[]>(() => {
     const gap = 2;
     const list = [] as (string | number)[];
+    /**
+     * @author kenzyyang
+     * @date 2021-03-29
+     * @desc :todo 此处逻辑需要做优化,应该可以不使用此种方式进行循环判断，避免死循环
+     **/
     /* eslint operator-linebreak: ["error", "after"] */
     for (let i = min; i <= max; i += 1) {
       if (
@@ -173,6 +212,20 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
 
   const changeCurrent = React.useCallback(
     (nextCurrent: number, nextPageSize?: number) => {
+      /**
+       * @author kenzyyang
+       * @date 2021-03-29
+       * @desc currentChange 时判断 size 是否合法
+       **/
+      if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
+        if (!pageSizeOptionsValidator(pageSizeOption)) {
+          throw '[pagination]pageSize invalid and pageSizeOption invalid';
+        } else {
+          // eslint-disable-next-line
+          nextPageSize = pageSizeOption[0];
+        }
+      }
+
       if (disabled || max < nextCurrent || nextCurrent < min) return;
       setCurrent(nextCurrent);
       if (simpleInputRef.current) {
@@ -184,7 +237,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         pageSize: nextPageSize || pageSize,
       });
     },
-    [disabled, min, max, current, pageSize, onChange],
+    [disabled, max, min, onChange, current, pageSize, pageSizeOption],
   );
 
   const changePageSize = React.useCallback(
@@ -196,9 +249,23 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         prev: current,
         pageSize: nextPageSize,
       });
+
       if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
     },
     [total, current, changeCurrent, onPageSizeChange],
+  );
+
+  const onCurrentChange = React.useCallback(
+    (nextCurrent: number) => {
+      if (disabled || max < nextCurrent || nextCurrent < min) return;
+      setCurrent(nextCurrent);
+      onChange(nextCurrent, {
+        curr: nextCurrent,
+        prev: current,
+        pageSize,
+      });
+    },
+    [disabled, min, max, current, pageSize, onChange],
   );
 
   const onPageInputChange = React.useCallback(
@@ -218,14 +285,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
       if (!isNaN(value)) changeCurrent(value);
     },
     [changeCurrent],
-  );
-
-  const onSizerChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = Number(event.target.value);
-      if (!isNaN(value) && value > 0) changePageSize(value);
-    },
-    [changePageSize],
   );
 
   React.useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
@@ -250,13 +309,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         </div>
       )}
       {showSizer && pageSizeOption instanceof Array && (
-        <Select disabled={disabled} onChange={onSizerChange}>
-          {pageSizeOption.map((item) => (
-            <Select.Option key={item} value={item}>
-              {item}
-            </Select.Option>
-          ))}
-        </Select>
+        <div className={prefixCls([blockName, 'select'])}>
+          <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+            {pageSizeOption.map((item) => (
+              <Option key={item} label={`${item}条/页`} value={item}>
+                {item}条/页
+              </Option>
+            ))}
+          </Select>
+        </div>
       )}
       <div
         className={prefixCls(
@@ -266,7 +327,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current - 1)}
       >
-        <IconFont name="arrow-left" />
+        <ChevronLeftIcon />
       </div>
       {theme === 'default' && (
         <ul className={prefixCls([blockName, 'pager'])}>
@@ -291,22 +352,24 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
                 key={item.concat(String(index))}
                 className={prefixCls([blockName, 'number'], [blockName, 'number', 'more'], disabled && 'is-disabled')}
               >
-                <IconFont name="more" />
+                <MoreIcon />
               </li>
             );
           })}
         </ul>
       )}
       {theme === 'simple' && (
-        <div className={prefixCls('input', disabled && 'is-disabled')}>
-          <input
-            ref={simpleInputRef}
-            className={prefixCls(['input', 'inner'])}
-            disabled={disabled}
-            defaultValue={current}
-            onChange={onPageInputChange}
-            onKeyUp={onPageInputKeyUp}
-          />
+        <div className={prefixCls([blockName, 'select'])}>
+          <Select size={size} value={current} disabled={disabled} onChange={onCurrentChange}>
+            {Array(max)
+              .fill(0)
+              .map((_, i) => i + 1)
+              .map((item) => (
+                <Option key={item} label={`${item}/${max}`} value={item}>
+                  {item}/{max}
+                </Option>
+              ))}
+          </Select>
         </div>
       )}
       <div
@@ -317,7 +380,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         )}
         onClick={() => changeCurrent(current + 1)}
       >
-        <IconFont name="arrow-right" />
+        <ChevronRightIcon />
       </div>
       {showJumper && (
         <div className={prefixCls([blockName, 'jump'])}>

@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    默认文字提示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`customize.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      primary
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      success
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      danger
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      warning
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`noArrow.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    不带箭头等文字提示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; top: 0px; left: 42%;"
+    >
+      top
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; top: 0px; left: 70px;"
+    >
+      top-left
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; top: 0px; right: 70px;"
+    >
+      top-right
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; bottom: 0px; left: 42%;"
+    >
+      bottom
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
+    >
+      bottom-left
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; bottom: 0px; right: 70px;"
+    >
+      bottom-right
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; left: 0px; top: 42%;"
+    >
+      left
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; left: 0px; top: 50px;"
+    >
+      left-top
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; left: 0px; bottom: 50px;"
+    >
+      left-bottom
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; right: 0px; top: 42%;"
+    >
+      right
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; right: 0px; top: 50px;"
+    >
+      right-top
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+      style="position: absolute; right: 0px; bottom: 50px;"
+    >
+      right-bottom
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`trigger.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      悬浮时触发（默认）
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      点击时触发
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      右击时触发
+    </button>
+  </div>
+</DocumentFragment>
+`;

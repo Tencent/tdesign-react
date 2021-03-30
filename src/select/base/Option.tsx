@@ -6,7 +6,7 @@ import { SelectOption, SelectLabeledValue } from '../SelectProps';
 
 const Option = (props: SelectOption) => {
   const { classPrefix } = useConfig();
-  const { disabled, size, value, multiple, selectedValue, onSelect } = props;
+  const { disabled, size, value, multiple, selectedValue, onSelect, children } = props;
   const label = props.label || value;
   const componentType = 'select';
   let selected = value === selectedValue;
@@ -26,7 +26,7 @@ const Option = (props: SelectOption) => {
     }
   };
 
-  const renderItem = () => {
+  const renderItem = (children) => {
     if (multiple) {
       return (
         <label
@@ -43,11 +43,11 @@ const Option = (props: SelectOption) => {
             onClick={(e) => e.stopPropagation()}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{label}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || label}</span>
         </label>
       );
     }
-    return <React.Fragment>{label}</React.Fragment>;
+    return <>{children || label}</>;
   };
 
   return (
@@ -61,7 +61,7 @@ const Option = (props: SelectOption) => {
       key={value}
       onClick={handleSelect}
     >
-      {renderItem()}
+      {renderItem(children)}
     </li>
   );
 };

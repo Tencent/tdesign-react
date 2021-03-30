@@ -1,77 +1,41 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { Icon } from '../icon';
+import { LoadingIcon } from '../icon';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';
+import { TdSwitchProps } from '../_type/components/switch';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
 
-interface SwitchProps extends StyledProps {
-  /**
-   * 当前开关值
-   * @default false
-   */
-  value?: boolean;
-  /**
-   * 初始开关值
-   * @default false
-   */
-  defaultValue?: boolean;
-  /**
-   * 禁用
-   * @default false
-   */
-  disabled?: boolean;
-  /**
-   * 加载中的开关
-   * @default false
-   */
-  loading?: boolean;
-  /**
-   * 尺寸，大、中（默认）、小，可选值为 large/ default/small
-   * @default default
-   */
-  size?: string;
-  /**
-   * switch打开时显示的内容
-   */
-  activeContent?: string | React.ReactNode;
-  /**
-   * switch关闭时显示的内容
-   */
-  inactiveContent?: string | React.ReactNode;
-  /**
-   * 选择变化时触发
-   */
-  onChange?: SwitchChangeEventHandler;
-}
+export interface SwitchProps extends TdSwitchProps, StyledProps {}
 
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  (
-    { className, value, defaultValue, disabled, loading, size, activeContent, inactiveContent, onChange, ...restProps },
-    ref,
-  ) => {
+  ({ className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps }, ref) => {
     const { classPrefix } = useConfig();
-    const [innerChecked, setInnerChecked] = useState(defaultValue || value);
+    const [activeContent = '', inactiveContent = ''] = label || [];
+    const [activeValue = true, inactiveValue = false] = customValue || [];
 
-    function triggerChange(newChecked: boolean, event: React.MouseEvent<HTMLButtonElement>) {
-      let mergedChecked = innerChecked;
+    const isControlled = typeof value !== 'undefined';
+    const initChecked = defaultValue === activeValue || value === activeValue;
+    const [innerChecked, setInnerChecked] = useState(initChecked);
 
-      if (!disabled) {
-        mergedChecked = newChecked;
-        setInnerChecked(mergedChecked);
-        onChange?.(mergedChecked, event);
+    function onInternalClick() {
+      if (disabled) return;
+
+      !isControlled && setInnerChecked(!innerChecked);
+
+      const changedValue = !innerChecked ? activeValue : inactiveValue;
+      onChange?.(changedValue);
+    }
+
+    useEffect(() => {
+      if (Array.isArray(customValue) && !customValue.includes(value)) {
+        throw `value is not in customValue: ${JSON.stringify(customValue)}`;
       }
-
-      return mergedChecked;
-    }
-
-    function onInternalClick(e: React.MouseEvent<HTMLButtonElement>) {
-      const ret = triggerChange(!innerChecked, e);
-      onChange?.(ret, e);
-    }
+      isControlled && setInnerChecked(value === activeValue);
+    }, [value, customValue, activeValue, isControlled]);
 
     const { SIZE, STATUS } = useCommonClassName();
     const switchClassName = classNames(
@@ -95,7 +59,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         ref={ref}
         onClick={onInternalClick}
       >
-        <span className={`${classPrefix}-switch__handle`}>{loading && <Icon name="loading" />}</span>
+        <span className={`${classPrefix}-switch__handle`}>{loading && <LoadingIcon />}</span>
         <div className={`${classPrefix}-switch__content`}>{innerChecked ? activeContent : inactiveContent}</div>
       </button>
     );

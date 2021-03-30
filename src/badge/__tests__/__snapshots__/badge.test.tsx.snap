@@ -97,32 +97,13 @@ exports[`BadgeColor.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BadgeContent.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      new
-    </span>
-  </span>
-</DocumentFragment>
-`;
-
-exports[`BadgeDot.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -142,7 +123,7 @@ exports[`BadgeDot.jsx 1`] = `
     class="t-badge"
   >
     <svg
-      class="t-icon"
+      class="t-icon t-icon-user"
       style="font-size: 24px;"
       version="1.1"
       viewBox="0 0 1024 1024"
@@ -161,102 +142,32 @@ exports[`BadgeDot.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BadgeShape.jsx 1`] = `
+exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      99
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      99+
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
     <span
       class="t-badge--round"
     >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      99
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      99+
+      new
     </span>
   </span>
 </DocumentFragment>
 `;
 
-exports[`BadgeSize.jsx 1`] = `
+exports[`number.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -270,7 +181,7 @@ exports[`BadgeSize.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -284,7 +195,7 @@ exports[`BadgeSize.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -297,15 +208,179 @@ exports[`BadgeSize.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BadgeSizeSmall.jsx 1`] = `
+exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
-       
+      默认
+    </button>
+    <span
+      class="t-badge--circle"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      [10,10]
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: -10px; margin-top: -10px;"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      [-10,10]
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: 10px; margin-top: -10px;"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      [-10,-10]
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: 10px; margin-top: 10px;"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      [10,-10]
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: -10px; margin-top: 10px;"
+    >
+      2
+    </span>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`shape.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+       circle
+    </button>
+    <span
+      class="t-badge--circle"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      round
+    </button>
+    <span
+      class="t-badge--round"
+    >
+      99
+    </span>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <h3
+    style="margin-bottom: 16px;"
+  >
+    1.默认大小
+  </h3>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      按钮
+    </button>
+    <span
+      class="t-badge--circle"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      按钮
+    </button>
+    <span
+      class="t-badge--circle"
+    >
+      99
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      按钮
+    </button>
+    <span
+      class="t-badge--circle"
+    >
+      99+
+    </span>
+  </span>
+  <h3
+    style="margin-bottom: 16px; margin-top: 16px;"
+  >
+    2.小
+  </h3>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      按钮
     </button>
     <span
       class="t-badge--circle t-size-s"
@@ -317,9 +392,9 @@ exports[`BadgeSizeSmall.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
-       
+      按钮
     </button>
     <span
       class="t-badge--circle t-size-s"
@@ -331,9 +406,9 @@ exports[`BadgeSizeSmall.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
-       
+      按钮
     </button>
     <span
       class="t-badge--circle t-size-s"

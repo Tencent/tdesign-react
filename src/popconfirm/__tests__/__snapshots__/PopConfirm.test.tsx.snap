@@ -1,66 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    提交
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ButtonTextExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--line"
-  >
-    Hover me
-  </button>
-</DocumentFragment>
-`;
-
-exports[`ContentExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-  >
-    操作
-  </button>
-</DocumentFragment>
-`;
-
 exports[`ExtendsExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     浮层在右边
-  </button>
-</DocumentFragment>
-`;
-
-exports[`IconUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用String
-  </button>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用VNode
-  </button>
-  <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
-  >
-    使用Function
   </button>
 </DocumentFragment>
 `;
@@ -68,20 +13,17 @@ exports[`IconUsageExample.jsx 1`] = `
 exports[`PlacementExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     Left
   </button>
   <button
-    class="t-button t-button--line"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Top
   </button>
   <button
-    class="t-button t-button--line"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     Bottom
   </button>
@@ -96,14 +38,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-prompt_fill"
+      <i
         style="color: rgb(255, 62, 0);"
       >
-        <use
-          xlink:href="#t-icon-prompt_fill"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -114,11 +64,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -133,14 +83,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-prompt_fill"
+      <i
         style="color: rgb(255, 170, 0);"
       >
-        <use
-          xlink:href="#t-icon-prompt_fill"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -151,11 +109,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -170,14 +128,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-prompt_fill"
+      <i
         style="color: rgb(0, 82, 217);"
       >
-        <use
-          xlink:href="#t-icon-prompt_fill"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -188,11 +154,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -217,11 +183,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -236,14 +202,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-success-fill"
+      <i
         style="color: rgb(255, 62, 0);"
       >
-        <use
-          xlink:href="#t-icon-success-fill"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -254,11 +228,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -290,11 +264,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -309,14 +283,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-success-fill"
-        style="color: rgb(0, 82, 217);"
-      >
-        <use
-          xlink:href="#t-icon-success-fill"
-        />
-      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -327,11 +293,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -346,14 +312,22 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
     <div
       class="t-popconfirm__body"
     >
-      <svg
-        class="t-icon t-icon-success-fill"
+      <i
         style="color: rgb(0, 82, 217);"
       >
-        <use
-          xlink:href="#t-icon-success-fill"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -364,11 +338,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -396,11 +370,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
       class="t-popconfirm__buttons"
     >
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="color: rgb(34, 34, 34);"
       />
       <button
-        class="t-button t-size-s"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
       />
     </div>
   </div>
@@ -410,28 +384,59 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 exports[`ThemeExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--line"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     默认
   </button>
   <button
-    class="t-button t-button--primary"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     提示
   </button>
   <button
-    class="t-button t-button--warning"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-danger t-button--variant-base"
   >
     警告
   </button>
   <button
-    class="t-button t-button--line"
-    style="margin-left: 8px;"
+    class="t-button t-button--theme-default t-button--variant-base"
   >
     错误
+  </button>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    提交
+  </button>
+</DocumentFragment>
+`;
+
+exports[`describe.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    操作
+  </button>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    使用VNode
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    使用Function
   </button>
 </DocumentFragment>
 `;

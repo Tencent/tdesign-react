@@ -1,98 +1,48 @@
-import React, {
-  forwardRef,
-  ReactNode,
-  CSSProperties,
-  useState,
-  useEffect,
-  cloneElement,
-  isValidElement,
-  ReactChild,
-} from 'react';
+import React, { forwardRef, CSSProperties, useState, useEffect, cloneElement, isValidElement, ReactChild } from 'react';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
+import Popper from '@popperjs/core';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
 import usePrevious from '../_util/usePrevious';
+import { TdPopupProps } from '../_type/components/popup';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export type PopupTrigger = 'hover' | 'click' | 'focus' | 'contextMenu' | 'manual';
-
-export interface PopupProps {
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 浮层出现时相对目标元素的位置
-   * @default 'top'
-   */
-  placement?: 'top' | 'left' | 'bottom' | 'right';
-
-  /**
-   * 是否显示浮层，受控
-   * @default false
-   */
-  visible?: boolean;
-
-  /**
-   * 浮层状态改变的回调
-   */
-  onVisibleChange?: (visible: boolean) => void;
-
-  /**
-   * 浮层弹出的触发方式
-   * @default 'hover'
-   */
-  trigger?: PopupTrigger | PopupTrigger[];
-
-  /**
-   * 浮层内容
-   */
-  content?: ReactNode;
-
-  /**
-   * 浮层是否显示箭头
-   * @default false
-   */
-  showArrow?: boolean;
-
-  /**
-   * 设置渲染的父节点
-   */
-  getPopupContainer?: () => HTMLDivElement;
-
-  /**
-   * 浮层样式
-   */
-  overlayStyle?: CSSProperties;
-
-  /**
-   * 浮层类名
-   */
-  overlayClassName?: string;
-
-  /**
-   * 隐藏时销毁
-   * @default false
-   */
-  destroyOnHide?: boolean;
-
+export interface PopupProps extends TdPopupProps {
   /**
    * 触发元素
    */
   children?: React.ReactNode;
 }
+/**
+ * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
+ */
+type PlacementDictionary = {
+  [Key in TdPopupProps['placement']]: Popper.Placement;
+};
+const placementMap: PlacementDictionary = {
+  top: 'top',
+  'top-left': 'top-start',
+  'top-right': 'top-end',
+  bottom: 'bottom',
+  'bottom-left': 'bottom-start',
+  'bottom-right': 'bottom-end',
+  left: 'left',
+  'left-top': 'left-start',
+  'left-bottom': 'left-end',
+  right: 'right',
+  'right-top': 'right-start',
+  'right-bottom': 'right-end',
+};
 
 const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const {
     trigger = 'hover',
     content = null,
     placement = 'top',
-    getPopupContainer,
+    attach,
     showArrow = false,
     destroyOnHide = false,
     overlayStyle,
@@ -108,7 +58,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
   const [arrowRef, setArrowRef] = useState<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
-    placement,
+    placement: placementMap[placement],
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
@@ -116,12 +66,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const overlayVisibleStyle: CSSProperties = visible ? { ...overlayStyle } : { ...overlayStyle, display: 'none' };
 
   // 处理 trigger
-  const [triggerProps, popupProps] = useTriggerProps(
-    { current: overlayRef },
-    Array.isArray(trigger) ? trigger : [trigger],
-    visible,
-    setVisible,
-  );
+  const [triggerProps, popupProps] = useTriggerProps({ current: overlayRef }, [trigger], visible, setVisible);
 
   // 触发器只能有一个元素
   let triggerNode: ReactChild;
@@ -144,7 +89,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 如果要展示，或者已经渲染过，默认不销毁
   if (visible || overlayRef) {
     portal = (
-      <Portal getContainer={getPopupContainer}>
+      <Portal getContainer={attach}>
         <div
           ref={composeRefs(setOverlayRef, ref)}
           style={styles.popper}

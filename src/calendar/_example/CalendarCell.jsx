@@ -28,7 +28,7 @@ export default function CalendarExample() {
             { label: '卡片风格', value: 'card' },
             { label: '全屏风格', value: 'full' },
           ]}
-          change={(value) => setTheme(value)}
+          onChange={(value) => setTheme(value)}
         />
       </div>
       <Calendar

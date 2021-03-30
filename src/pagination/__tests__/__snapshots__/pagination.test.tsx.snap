@@ -1,109 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PaginationDisabled.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-pagination"
-  >
-    <select
-      disabled=""
-      style="margin-right: 20px; height: 32px;"
-    >
-      <option
-        value="5"
-      >
-        5
-      </option>
-      <option
-        value="10"
-      >
-        10
-      </option>
-      <option
-        value="20"
-      >
-        20
-      </option>
-      <option
-        value="50"
-      >
-        50
-      </option>
-    </select>
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current t-is-disabled"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more t-is-disabled"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
-      </li>
-      <li
-        class="t-pagination__number t-is-disabled"
-      >
-        20
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
-    </div>
-    <div
-      class="t-pagination__jump"
-    >
-      跳转
-      <div
-        class="t-input t-is-disabled"
-      >
-        <input
-          class="t-input__inner"
-          disabled=""
-        />
-      </div>
-      页
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`PaginationFew.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -111,9 +8,18 @@ exports[`PaginationFew.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <ul
       class="t-pagination__pager"
@@ -147,15 +53,24 @@ exports[`PaginationFew.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationGoto.jsx 1`] = `
+exports[`jump.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -163,9 +78,18 @@ exports[`PaginationGoto.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <ul
       class="t-pagination__pager"
@@ -198,9 +122,17 @@ exports[`PaginationGoto.jsx 1`] = `
       <li
         class="t-pagination__number t-pagination__number--more"
       >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-more"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </li>
       <li
         class="t-pagination__number"
@@ -211,9 +143,18 @@ exports[`PaginationGoto.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <div
       class="t-pagination__jump"
@@ -232,17 +173,26 @@ exports[`PaginationGoto.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PaginationLarge.jsx 1`] = `
+exports[`mini.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-pagination"
+    class="t-pagination t-size-s"
   >
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <ul
       class="t-pagination__pager"
@@ -275,9 +225,17 @@ exports[`PaginationLarge.jsx 1`] = `
       <li
         class="t-pagination__number t-pagination__number--more"
       >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-more"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </li>
       <li
         class="t-pagination__number"
@@ -288,49 +246,43 @@ exports[`PaginationLarge.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSelect.jsx 1`] = `
+exports[`more.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
   >
-    <select
-      style="margin-right: 20px; height: 32px;"
-    >
-      <option
-        value="20"
-      >
-        20
-      </option>
-      <option
-        value="30"
-      >
-        30
-      </option>
-      <option
-        value="100"
-      >
-        100
-      </option>
-      <option
-        value="200"
-      >
-        200
-      </option>
-    </select>
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <ul
       class="t-pagination__pager"
@@ -363,9 +315,136 @@ exports[`PaginationSelect.jsx 1`] = `
       <li
         class="t-pagination__number t-pagination__number--more"
       >
-        <i
-          class="t-icon t-icon-more t-size-m"
+        <svg
+          class="t-icon t-icon-more"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        20
+      </li>
+    </ul>
+    <div
+      class="t-pagination__btn t-pagination__btn--next"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`pageNum.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-pagination"
+  >
+    <div
+      class="t-pagination__select"
+    >
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            20条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <ul
+      class="t-pagination__pager"
+    >
+      <li
+        class="t-pagination__number t-is-current"
+      >
+        1
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        2
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        3
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        4
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <svg
+          class="t-icon t-icon-more"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </li>
       <li
         class="t-pagination__number"
@@ -376,15 +455,24 @@ exports[`PaginationSelect.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSimple.jsx 1`] = `
+exports[`simple.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -392,30 +480,69 @@ exports[`PaginationSimple.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <div
-      class="t-input"
+      class="t-pagination__select"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div>
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationSize.jsx 1`] = `
+exports[`simpleMini.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination t-size-s"
@@ -423,63 +550,69 @@ exports[`PaginationSize.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        20
-      </li>
-    </ul>
+      </svg>
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div>
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-placeholder"
+            style="color: rgb(0, 0, 0);"
+          >
+            1/20
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`PaginationTotal.jsx 1`] = `
+exports[`total.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -492,9 +625,18 @@ exports[`PaginationTotal.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
     </div>
     <ul
       class="t-pagination__pager"
@@ -527,9 +669,17 @@ exports[`PaginationTotal.jsx 1`] = `
       <li
         class="t-pagination__number t-pagination__number--more"
       >
-        <i
-          class="t-icon t-icon-more t-size-m"
-        />
+        <svg
+          class="t-icon t-icon-more"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </li>
       <li
         class="t-pagination__number"
@@ -540,76 +690,18 @@ exports[`PaginationTotal.jsx 1`] = `
     <div
       class="t-pagination__btn t-pagination__btn--next"
     >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-pagination"
-  >
-    <div
-      class="t-pagination__total"
-    >
-      <span>
-        共 685 项数据 1 - 15
-      </span>
-    </div>
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <i
-        class="t-icon t-icon-arrow-left t-size-m"
-      />
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <i
-          class="t-icon t-icon-more t-size-m"
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        46
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next"
-    >
-      <i
-        class="t-icon t-icon-arrow-right t-size-m"
-      />
+      </svg>
     </div>
   </div>
 </DocumentFragment>

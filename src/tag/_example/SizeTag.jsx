@@ -8,7 +8,7 @@ export default function SizeTagExample() {
       <Tag size="large" style={style}>
         large
       </Tag>
-      <Tag size="middle" style={style}>
+      <Tag size="medium" style={style}>
         middle
       </Tag>
       <Tag size="small" style={style}>

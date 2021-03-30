@@ -4,69 +4,14 @@ import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
+import { CloseIcon } from '../icon';
+import { TdTagProps } from '../_type/components/tag';
 import CheckTag from './CheckTag';
 
 /**
  * Tag 组件支持的属性。
  */
-export interface TagProps extends StyledProps {
-  /**
-   * 标签类型
-   *
-   *  @default 'middle'
-   */
-  theme?: string;
-
-  /**
-   * 按钮大小
-   *
-   * @default 'middle'
-   */
-  size?: 'large' | 'middle' | 'small';
-
-  /**
-   * 设置按钮为禁用状态
-   *
-   * @default false
-   * */
-  disabled?: boolean;
-
-  /**
-   * 设置按钮为禁用状态
-   *
-   *@default false
-   * */
-  closable?: boolean;
-
-  /**
-   * 最大长度
-   */
-  maxWidth?: React.CSSProperties['maxWidth'];
-
-  /**
-   * 形状
-   *
-   * @default 'square'
-   */
-  shape?: 'square' | 'round' | 'mark';
-
-  /**
-   * 样式模式
-   *
-   * @default 'dark'
-   */
-  effect?: 'dark' | 'light' | 'plain';
-
-  /**
-   * 点击回调函数
-   */
-  onClick?: (e?: React.MouseEvent) => void;
-
-  /**
-   * 关闭回调函数
-   */
-  onClose?: (e?: React.MouseEvent) => void;
-
+export interface TagProps extends TdTagProps, StyledProps {
   /**
    * 标签内容
    */
@@ -81,11 +26,12 @@ const Tag = forwardRefWithStatics(
     const {
       theme = 'default',
       size = 'middle',
-      effect = 'dark',
       shape = 'square',
+      variant = 'dark',
       closable,
-      disabled,
       maxWidth,
+      icon,
+      content,
       onClick = noop,
       onClose = noop,
       className,
@@ -105,12 +51,11 @@ const Tag = forwardRefWithStatics(
     const tagClassNames = classNames(
       tagClassPrefix,
       `${tagClassPrefix}--${theme}`,
-      `${tagClassPrefix}--${effect}`,
+      `${tagClassPrefix}--${variant}`,
       `${tagClassPrefix}--${size}`,
       `${tagClassPrefix}--${shape}`,
       {
         [`${tagClassPrefix}--ellipsis`]: !!maxWidth,
-        [`${tagClassPrefix}--disabled`]: disabled,
       },
       sizeMap[size],
       className,
@@ -119,17 +64,18 @@ const Tag = forwardRefWithStatics(
     /**
      * 删除 Icon
      */
-    const deleteIcon = <i className="t-icon t-icon-close" onClick={onClose}></i>;
+    const deleteIcon = <CloseIcon onClick={onClose} />;
 
     const tag: JSX.Element = (
       <span
         ref={ref}
         className={tagClassNames}
-        onClick={!disabled && onClick}
+        onClick={onClick}
         style={{ ...(style || {}), ...{ maxWidth } }}
         {...otherTagProps}
       >
-        {children}
+        {icon}
+        {children || content}
         {closable && deleteIcon}
       </span>
     );

@@ -1,146 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicSteps.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor"
-  >
-    <div
-      class="t-steps-item t-steps-item--finish"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            已完成的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--process"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            2
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            进行中的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--error"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <svg
-            class="t-icon t-icon-close-fill"
-          >
-            <use
-              xlink:href="#t-icon-close-fill"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            错误的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            4
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`CustomIconSteps.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--process"
@@ -152,10 +15,15 @@ exports[`CustomIconSteps.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
@@ -185,10 +53,15 @@ exports[`CustomIconSteps.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
@@ -218,10 +91,15 @@ exports[`CustomIconSteps.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
@@ -251,406 +129,18 @@ exports[`CustomIconSteps.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`ExtraContentSteps.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-steps t-steps--vertical t-steps--default-anchor"
-  >
-    <div
-      class="t-steps-item t-steps-item--finish"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            已完成
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-          <div
-            class="t-steps-item-extra"
-          >
-            <button
-              class="t-button t-button--primary t-size-s"
-            >
-              按钮
-            </button>
-            <button
-              class="t-button t-button--line t-size-s"
-            >
-              按钮
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--process"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            2
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            进行中
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            3
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            4
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`HorizontalStepsWithNumbers.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor"
-  >
-    <div
-      class="t-steps-item t-steps-item--finish"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <svg
-            class="t-icon t-icon-success-fill"
-          >
-            <use
-              xlink:href="#t-icon-success-fill"
-            />
-          </svg>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            已完成的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--process"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            2
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            进行中的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            3
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            4
-          </span>
-        </div>
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`HorizontalStepsWithoutNumbers.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-steps t-steps--horizontal t-steps--dot-anchor"
-  >
-    <div
-      class="t-steps-item t-steps-item--finish"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        />
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            已完成的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--process"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        />
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            进行中的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        />
-        <div
-          class="t-steps-item-content"
-        >
-          <div
-            class="t-steps-item-title"
-          >
-            未进行的步骤
-          </div>
-          <div
-            class="t-steps-item-description"
-          >
-            这里是提示文字
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-steps-item t-steps-item--wait"
-    >
-      <div
-        class="t-steps-item__inner"
-      >
-        <div
-          class="t-steps-item-icon"
-        />
         <div
           class="t-steps-item-content"
         >
@@ -686,7 +176,7 @@ exports[`OperateSteps.jsx 1`] = `
   <br />
   <br />
   <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--process"
@@ -814,7 +304,7 @@ exports[`OperateSteps.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--process"
@@ -947,7 +437,7 @@ exports[`OperateSteps.jsx 1`] = `
 exports[`ReverseSteps.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--reverse"
   >
     <div
       class="t-steps-item t-steps-item--wait"
@@ -1052,10 +542,15 @@ exports[`ReverseSteps.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
@@ -1079,10 +574,10 @@ exports[`ReverseSteps.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`VerticalStepsWithNumbers.jsx 1`] = `
+exports[`extra.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -1094,10 +589,278 @@ exports[`VerticalStepsWithNumbers.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            已完成
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+          <div
+            class="t-steps-item-extra"
+          >
+            <button
+              class="t-button t-button--primary t-size-s"
+            >
+              按钮
+            </button>
+            <button
+              class="t-button t-button--line t-size-s"
+            >
+              按钮
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--process"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            2
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            进行中
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            3
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            4
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`noSequence.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-steps t-steps--horizontal t-steps--positive t-steps--dot-anchor"
+  >
+    <div
+      class="t-steps-item t-steps-item--finish"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        />
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            已完成的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--process"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        />
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            进行中的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        />
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        />
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`sequence.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
+  >
+    <div
+      class="t-steps-item t-steps-item--finish"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <svg
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>
@@ -1214,10 +977,10 @@ exports[`VerticalStepsWithNumbers.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`VerticalStepsWithoutNumbers.jsx 1`] = `
+exports[`status.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -1229,10 +992,302 @@ exports[`VerticalStepsWithoutNumbers.jsx 1`] = `
           class="t-steps-item-icon"
         >
           <svg
-            class="t-icon t-icon-success-fill"
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <use
-              xlink:href="#t-icon-success-fill"
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            已完成的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--process"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            2
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            进行中的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--error"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <svg
+            class="t-icon t-icon-clear-circle"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM647.7644992 330.98066432L693.0193344 376.23549824 557.22066432 511.97266432 693.0193344 647.7644992 647.7644992 693.0193344 511.97266432 557.22066432 376.23549824 693.0193344 330.98066432 647.7644992 466.72466432 511.97266432 330.98066432 376.23549824 376.23549824 330.98066432 511.97266432 466.72466432 647.7644992 330.98066432Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            错误的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            4
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`verticalNoSequence.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
+  >
+    <div
+      class="t-steps-item t-steps-item--finish"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <svg
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            已完成的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--process"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            2
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            进行中的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            3
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-steps-item t-steps-item--wait"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <span
+            class="t-steps-item-icon__number"
+          >
+            4
+          </span>
+        </div>
+        <div
+          class="t-steps-item-content"
+        >
+          <div
+            class="t-steps-item-title"
+          >
+            未进行的步骤
+          </div>
+          <div
+            class="t-steps-item-description"
+          >
+            这里是提示文字
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`verticalSequence.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
+  >
+    <div
+      class="t-steps-item t-steps-item--finish"
+    >
+      <div
+        class="t-steps-item__inner"
+      >
+        <div
+          class="t-steps-item-icon"
+        >
+          <svg
+            class="t-icon t-icon-check-circle-filled"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
             />
           </svg>
         </div>

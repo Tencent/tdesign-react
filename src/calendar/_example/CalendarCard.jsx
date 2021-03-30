@@ -25,7 +25,7 @@ export default function CalendarExample() {
             { label: '卡片风格', value: 'card' },
             { label: '全屏风格', value: 'full' },
           ]}
-          change={(value) => setTheme(value)}
+          onChange={(value) => setTheme(value)}
         />
         <label>是否显示周末：</label>
         <Switch value={isShowWeekendDefault} onChange={setIsShowWeekendDefault}></Switch>

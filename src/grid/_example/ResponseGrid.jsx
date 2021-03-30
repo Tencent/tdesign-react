@@ -7,10 +7,7 @@ export default function OrderGrid() {
       <Col xs={2} sm={4} md={6} lg={8} xl={10}>
         <div>Col</div>
       </Col>
-      <Col xs={20} sm={16} md={12} lg={8} xl={4}>
-        <div>Col</div>
-      </Col>
-      <Col xs={2} sm={4} md={6} lg={8} xl={10}>
+      <Col xs={10} sm={8} md={6} lg={4} xl={2}>
         <div>Col</div>
       </Col>
     </Row>

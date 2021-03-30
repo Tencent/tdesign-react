@@ -1,6 +1,6 @@
 import Radio from './Radio';
 
-export { RadioProps } from './Radio';
-export { RadioGroupProps } from './RadioGroup';
+export type { RadioProps } from './Radio';
+export type { RadioGroupProps } from './RadioGroup';
 
 export default Radio;
