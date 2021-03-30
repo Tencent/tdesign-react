@@ -1,5 +1,5 @@
-import Calendar, { CalendarProps, CalendarMethods } from './Calendar';
+import Calendar from './Calendar';
 
-export { CalendarProps, CalendarMethods };
+export type { CalendarProps, CalendarMethods } from './Calendar';
 
 export default Calendar;

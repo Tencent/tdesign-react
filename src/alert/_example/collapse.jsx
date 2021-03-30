@@ -9,5 +9,5 @@ export default function AlertCollasped() {
     '4.这是一条普通的消息提示描述，',
     '5.这是一条普通的消息提示描述，',
   ];
-  return <Alert message={message} maxLine={2} icon />;
+  return <Alert message={message} maxLine={2} />;
 }

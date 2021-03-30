@@ -50,7 +50,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     destroyOnClose,
     mode,
   } = props;
-  const currentAttach = useMemo(() => attach && getAttach(attach), [attach]);
+  const currentAttach = useMemo(() => attach !== '' && getAttach(attach), [attach]);
   const { classPrefix } = useContext(ConfigContext);
   const containerRef = useRef<HTMLDivElement>();
   const contentWrapperRef = useRef<HTMLDivElement>();
@@ -68,7 +68,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     let documentBodyCssText = '';
 
     if (visible) {
-      if (attach && hasScrollBar()) {
+      if (attach !== '' && hasScrollBar()) {
         // 处理滚动条宽度导致晃动的问题。
         const scrollbarWidth = getScrollbarWidth();
         documentBodyCssText = `

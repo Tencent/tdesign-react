@@ -40,6 +40,7 @@ export default function () {
         <Drawer
           title="Drawer"
           size={'200px'}
+          attach={''}
           visible={visible}
           onClose={handleClose}
           placement={placement}

@@ -10,8 +10,8 @@ export default function InputExample() {
         suffixIcon={<ErrorCircleFilledIcon />}
         placeholder="请输入内容"
         value={value}
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          onChange(value);
         }}
       />
     </div>

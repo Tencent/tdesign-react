@@ -1,6 +1,8 @@
-import Tag, { TagProps } from './Tag';
-import CheckTag, { CheckTagProps } from './CheckTag';
+import Tag from './Tag';
+import CheckTag from './CheckTag';
 
-export { CheckTag, TagProps, CheckTagProps };
+export type { TagProps } from './Tag';
+export type { CheckTagProps } from './CheckTag';
+export { CheckTag };
 
 export default Tag;

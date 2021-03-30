@@ -1,5 +1,5 @@
-import Input, { InputProps } from './Input';
+import Input from './Input';
 
-export { InputProps };
+export type { InputProps } from './Input';
 
 export default Input;
