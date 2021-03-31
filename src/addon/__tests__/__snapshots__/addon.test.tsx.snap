@@ -3,7 +3,7 @@
 exports[`AddonBasic.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-addon"
+    class="t-addon t-addon--prepend"
   >
     <span
       class="t-addon__prepend"
@@ -21,7 +21,7 @@ exports[`AddonBasic.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-addon"
+    class="t-addon t-addon--append"
   >
     <div
       class="t-input"
