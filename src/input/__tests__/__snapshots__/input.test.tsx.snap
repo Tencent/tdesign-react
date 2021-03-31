@@ -104,7 +104,7 @@ exports[`addon.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-addon"
+      class="t-addon t-addon--prepend"
     >
       <span
         class="t-addon__prepend"
@@ -122,7 +122,7 @@ exports[`addon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-addon"
+      class="t-addon t-addon--prepend t-addon--append"
     >
       <span
         class="t-addon__prepend"
