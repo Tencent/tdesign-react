@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler } from 'react';
+import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler, useEffect } from 'react';
 import classNames from 'classnames';
 
 import useConfig from '../_util/useConfig';
@@ -6,7 +6,7 @@ import useCommonClassName from '../_util/useCommonClassName';
 import useUpdateEffect from '../_util/useUpdateEffect';
 
 import StepHandler from './StepHandler';
-import { InputNumberChangeAction, InputNumberProps, InputNumberInternalValue } from './InputNumber.types';
+import { ChangeContext, InputNumberProps, InputNumberInternalValue } from './InputNumberProps';
 import * as numberUtils from './utils/numberUtils';
 
 export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
@@ -17,10 +17,11 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
     value,
     disabled = false,
     size = 'medium',
-    mode = 'row',
+    theme = 'row',
     step = 1,
     max = Number.MAX_SAFE_INTEGER,
     min = Number.MIN_SAFE_INTEGER,
+    decimalPlaces,
     formatter,
     onChange,
     onBlur,
@@ -34,22 +35,44 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
   } = props;
 
   const { classPrefix } = useConfig();
-  const CommonClassNames = useCommonClassName();
+  const commonClassNames = useCommonClassName();
   const componentType = 'input-number';
   const inputClassName = `${classPrefix}-${componentType}`;
 
+  const getRangeValue = (value: number) => {
+    if (value < min) return min;
+    if (value > max) return max;
+
+    return value;
+  };
+
   const [internalInputValue, setInternalInputValue] = useState<InputNumberInternalValue>(() => {
-    const initialValue = defaultValue ?? value ?? '';
-    return formatter?.(initialValue) ?? initialValue;
+    let initialValue: InputNumberInternalValue = '';
+    if (!numberUtils.isInvalidNumber(value)) {
+      initialValue = value;
+    }
+    if (!numberUtils.isInvalidNumber(defaultValue)) {
+      initialValue = getRangeValue(Number(defaultValue));
+    }
+
+    if (formatter && initialValue !== '') {
+      return formatter(getRangeValue(Number(initialValue)));
+    }
+
+    return initialValue;
   });
 
   let decimalValue: number = internalInputValue as number;
   if (typeof internalInputValue === 'string') {
-    decimalValue = Number(numberUtils.filterInput(internalInputValue));
+    decimalValue = numberUtils.strToNumber(internalInputValue) || 0;
   }
 
-  const setInputValue = (inputStr) => {
-    const formattedInputValue = formatter?.(inputStr) ?? inputStr;
+  const setInputValue = (inputStr: string) => {
+    if (['', undefined].includes(inputStr)) {
+      return setInternalInputValue('');
+    }
+
+    const formattedInputValue = formatter?.(Number(inputStr)) ?? inputStr;
     setInternalInputValue(formattedInputValue);
   };
 
@@ -59,43 +82,60 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
 
   const isOutOfRange = (number: number): boolean => number > max || number < min;
   const checkInput = (inputStr: InputNumberInternalValue): boolean => {
-    const hasError = numberUtils.isInValidNumber(inputStr) || isOutOfRange(Number(inputStr));
+    if (inputStr === '') {
+      setError(false);
+      return true;
+    }
+
+    const hasError = numberUtils.isInvalidNumber(inputStr) || isOutOfRange(Number(inputStr));
     setError(hasError);
     return !hasError;
   };
 
   const stepPrecision = useMemo(() => numberUtils.getNumberPrecision(step), [step]);
+
   const getPrecision = useCallback(
     (str: InputNumberInternalValue): number => {
       const numberPrecision = numberUtils.getNumberPrecision(str);
-      return Math.max(numberPrecision, stepPrecision);
+
+      return decimalPlaces ?? Math.max(numberPrecision, stepPrecision);
     },
-    [stepPrecision],
+    [stepPrecision, decimalPlaces],
   );
 
+  useEffect(() => {
+    if (value !== undefined) {
+      checkInput(value);
+    }
+  }, [value]); // eslint-disable-line
+
   useUpdateEffect(() => {
-    checkInput(value);
-    setInputValue(value);
+    setInputValue((value ?? '').toString());
   }, [value]);
 
-  const triggerValueUpdate = (action: InputNumberChangeAction) => {
+  const triggerValueUpdate = (action: ChangeContext) => {
     const { value, ...context } = action;
     if (!disabled) {
       onChange?.(value, context);
     }
   };
 
-  const onInternalInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    const inputStr = event.target.value;
-    const filteredInputStr = numberUtils.filterInput(inputStr);
+  const onInternalInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const inputStr = e.target.value;
+    if (inputStr === '') {
+      setInputValue(inputStr);
+      return triggerValueUpdate({ type: 'input', value: undefined, e });
+    }
 
-    setInputValue(filteredInputStr);
+    const filteredInputStr = numberUtils.strToNumber(inputStr);
+
+    setInputValue(filteredInputStr.toString());
     if (!checkInput(filteredInputStr)) return;
-    triggerValueUpdate({ type: 'input', value: Number(filteredInputStr), event });
+    triggerValueUpdate({ type: 'input', value: filteredInputStr, e });
   };
 
-  const onInternalStep = (action: InputNumberChangeAction) => {
-    const { type, event } = action;
+  const onInternalStep = (action: ChangeContext) => {
+    const { type, e } = action;
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
 
@@ -112,10 +152,26 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
     }
 
     setInputValue(updateValue);
-    triggerValueUpdate({ value: updateValue, type, event });
+    triggerValueUpdate({ value: updateValue, type, e });
   };
 
-  const handleBlur: FocusEventHandler<HTMLDivElement> = (e) => onBlur?.(decimalValue, { e });
+  const handleBlur: FocusEventHandler<HTMLDivElement> = (e) => {
+    let updateValue;
+
+    if (internalInputValue === '') {
+      updateValue = undefined;
+    } else {
+      updateValue = getRangeValue(parseFloat(internalInputValue as string));
+    }
+
+    onBlur?.(updateValue, { e });
+    setInputValue((updateValue ?? '').toString());
+    setError(false);
+
+    if (updateValue !== value) {
+      triggerValueUpdate({ value: updateValue, e, type: '' });
+    }
+  };
   const handleFocus: FocusEventHandler<HTMLDivElement> = (e) => onFocus?.(decimalValue, { e });
   const handleKeydownEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
     e.key === 'Enter' && onKeydownEnter?.(decimalValue, { e });
@@ -129,9 +185,9 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
 
   return (
     <div
-      className={classNames(className, inputClassName, CommonClassNames.SIZE[size], {
-        [CommonClassNames.STATUS.disabled]: disabled,
-        't-is-controls-right': mode === 'column',
+      className={classNames(className, inputClassName, commonClassNames.SIZE[size], {
+        [commonClassNames.STATUS.disabled]: disabled,
+        't-is-controls-right': theme === 'column',
       })}
       style={style}
       onBlur={handleBlur}
@@ -140,18 +196,20 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
       onKeyUp={handleKeyup}
       onKeyPress={handleKeypress}
     >
-      <StepHandler
-        prefixCls={inputClassName}
-        mode={mode}
-        disabledDecrease={disabledDecrease}
-        disabledIncrease={disabledIncrease}
-        onStep={onInternalStep}
-      />
+      {theme !== 'normal' && (
+        <StepHandler
+          prefixClassName={inputClassName}
+          theme={theme}
+          disabledDecrease={disabledDecrease}
+          disabledIncrease={disabledIncrease}
+          onStep={onInternalStep}
+        />
+      )}
       <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-is-error`]: isError })}>
         <input
           className={classNames(`${classPrefix}-input__inner`, {
-            [CommonClassNames.STATUS.disabled]: disabled,
-            [`${inputClassName}-text-align`]: mode === 'row',
+            [commonClassNames.STATUS.disabled]: disabled,
+            [`${inputClassName}-text-align`]: theme === 'row',
           })}
           disabled={disabled}
           ref={ref}

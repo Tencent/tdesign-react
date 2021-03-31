@@ -47,4 +47,5 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react/prop-types': 'off',
   },
+  ignorePatterns: ['src/_type/components/*'],
 };

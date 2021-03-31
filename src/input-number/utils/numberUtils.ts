@@ -1,4 +1,4 @@
-export const isInValidNumber = (number: number | string) => {
+export const isInvalidNumber = (number: number | string) => {
   if (typeof number === 'number') {
     return Number.isNaN(number);
   }
@@ -7,14 +7,10 @@ export const isInValidNumber = (number: number | string) => {
     return true;
   }
 
-  return [
-    // 普通数字 1.1 1
-    /^\s*-?\d+(\.\d+)?\s*$/,
-    // 小数点在后 1.
-    /^\s*-?\d+\.\s*$/,
-    // 小数点在后 .1
-    /^\s*-?\.\d+\s*$/,
-  ].every((reg) => reg.test(number));
+  // 普通数字 1.1 1
+  // 小数点在后 1.
+  // 小数点在后 .1
+  return !(/^\s*-?\d+(\.\d+)?\s*$/.test(number) || /^\s*-?\d+\.\s*$/.test(number) || /^\s*-?\.\d+\s*$/.test(number));
 };
 
 export const getNumberPrecision = (number: number | string) => {
@@ -35,10 +31,16 @@ const multiNegative = (s: string) => {
   const m = s.match(/[-]/g);
   return m === null ? false : m.length > 1;
 };
-export const filterInput = (s: string): string => {
+export const strToNumber = (s: string): number => {
+  if (['', undefined].includes(s)) {
+    return 0;
+  }
+
   let filterVal = s.replace(/[^\d.eE。-]/g, '').replace('。', '.');
+
   if (multiE(filterVal) || multiDot(filterVal) || multiNegative(filterVal)) {
     filterVal = filterVal.substr(0, filterVal.length - 1);
   }
-  return filterVal;
+
+  return Number(filterVal);
 };
