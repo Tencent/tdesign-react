@@ -1,5 +1,5 @@
 import React from 'react';
-import { TdFormProps } from './FormProps';
+import { TdFormProps } from '../_type/components/form';
 
 const FormContext = React.createContext<{
   labelWidth?: TdFormProps['labelWidth'];
@@ -11,14 +11,18 @@ const FormContext = React.createContext<{
   requiredMark: TdFormProps['requiredMark'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
+  resetType: TdFormProps['resetType'];
+  rules: TdFormProps['rules'];
 }>({
   labelAlign: 'right',
   layout: 'vertical',
   size: 'medium',
   colon: false,
   requiredMark: true,
-  scrollToFirstError: '',
+  scrollToFirstError: undefined,
   showErrorMessage: true,
+  resetType: 'empty',
+  rules: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

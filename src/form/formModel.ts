@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import isDate from 'validator/lib/isDate';
 import isURL from 'validator/lib/isURL';
 import isEmpty from 'lodash/isEmpty';
-import { ValueType, TdFormRule, CustomValidator, ErrorList } from './FormProps';
+import { ValueType, FormRule, CustomValidator, ErrorList } from '../_type/components/form';
 
 // `{} / [] / '' / undefined / null` 等内容被认为是空； 0 和 false 被认为是正常数据，部分数据的值就是 0 或者 false
 export function isValueEmpty(val: ValueType): boolean {
@@ -22,8 +22,7 @@ function getStringLength(str: string): number {
     if (str.charCodeAt(i) > 127 || str.charCodeAt(i) === 94) {
       len += 2;
     } else {
-      // eslint-disable-next-line no-plusplus
-      len++;
+      len = len + 1;
     }
   }
   return len;
@@ -41,14 +40,14 @@ const VALIDATE_MAP = {
   number: (val: ValueType): boolean => !isNaN(val),
   enum: (val: ValueType, strs: Array<string>): boolean => strs.includes(val),
   idcard: (val: ValueType): boolean => /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i.test(val),
-  telnumber: (val: ValueType): boolean => /^1[3456789]d{9}$/.test(val),
+  telnumber: (val: ValueType): boolean => /^1[3-9]\d{9}$/.test(val),
   pattern: (val: ValueType, regexp: RegExp): boolean => regexp.test(val),
   // 自定义校验规则，可能是异步校验
   validator: (val: ValueType, validate: CustomValidator): boolean | Promise<boolean> => validate(val),
 };
 
 // 校验某一条数据的某一条规则
-export function validateOneRule(value: ValueType, rule: TdFormRule): Promise<boolean | TdFormRule> {
+export function validateOneRule(value: ValueType, rule: FormRule): Promise<boolean | FormRule> {
   return new Promise((resolve) => {
     let r: boolean | Promise<boolean> = true;
     Object.keys(rule).forEach((key) => {
@@ -76,7 +75,7 @@ export function validateOneRule(value: ValueType, rule: TdFormRule): Promise<boo
 }
 
 // 全部数据校验
-export function validate(value: ValueType, rules: Array<TdFormRule>): Promise<ErrorList> {
+export function validate(value: ValueType, rules: Array<FormRule>): Promise<ErrorList> {
   return new Promise((resolve) => {
     const all = rules.map((rule) => validateOneRule(value, rule));
     Promise.all(all).then((arr) => {

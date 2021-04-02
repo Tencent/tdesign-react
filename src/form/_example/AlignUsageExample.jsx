@@ -9,7 +9,7 @@ export default function BasicUsage() {
     <div>
       <Form labelAlign={labelAlign} form={useForm()}>
         <FormItem label="对齐方式" name="labelAlign">
-          <Radio.Group buttonStyle="solid" value={labelAlign} onChange={(value) => setLabelAlign(value)}>
+          <Radio.Group size="small" buttonStyle="solid" value={labelAlign} onChange={(value) => setLabelAlign(value)}>
             <Radio.Button name="left">左对齐</Radio.Button>
             <Radio.Button name="right">右对齐</Radio.Button>
             <Radio.Button name="top">顶部对齐</Radio.Button>
