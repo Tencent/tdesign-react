@@ -8,7 +8,7 @@ import { CheckTag } from '../tag';
 import { validate as validateModal } from './formModel';
 import { useFormContext } from './FormContext';
 
-const enum VALIDATE_STATUS {
+enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
