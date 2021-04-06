@@ -18,7 +18,6 @@ function isFunction(val: unknown) {
 
 const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref<HTMLFormElement>) => {
   const {
-    form,
     className,
     labelWidth,
     statusIcon,
@@ -61,6 +60,22 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
     dom && dom.scrollIntoView({ behavior });
   }
 
+  function submitHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    validate().then((r) => {
+      getFirstError(r);
+      onSubmit?.({ validateResult: r, e });
+    });
+  }
+  function resetHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    formItemsRef.current.forEach((formItemRef) => {
+      if (!isFunction(formItemRef.resetField)) return;
+      formItemRef.resetField();
+    });
+    onReset?.({ e });
+  }
+
   // 对外方法，该方法会触发全部表单组件错误信息显示
   function validate(): Promise<Result> {
     const list = formItemsRef.current
@@ -80,23 +95,25 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
     });
   }
 
-  function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    validate().then((r) => {
-      getFirstError(r);
-      onSubmit?.({ validateResult: r, e });
-    });
-  }
-  function resetHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    formItemsRef.current.forEach((formItemRef) => {
-      if (!isFunction(formItemRef.resetField)) return;
-      formItemRef.resetField();
-    });
-    onReset?.({ e });
+  // 对外方法，获取对应 formItem 的值
+  function getFieldValue(name) {
+    if (!name) return null;
+    const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
+    return target && target.value;
   }
 
-  useImperativeHandle(ref, (): any => ({ validate }));
+  // 对外方法，设置对应 formItem 的值
+  function setFieldsValue(fileds = {}) {
+    const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
+      const { name } = currItem;
+      return { ...acc, [name]: currItem };
+    }, {});
+    Object.keys(fileds).forEach((key) => {
+      formItemsMap[key].setValue(fileds[key]);
+    });
+  }
+
+  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate }));
 
   return (
     <FormContext.Provider

@@ -1,13 +1,12 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import { Form, FormItem, Radio, Input } from '@tencent/tdesign-react';
-import { useForm } from '../useForm';
 
-export default function BasicUsage() {
+export default function AlignForm() {
   const [labelAlign, setLabelAlign] = useState('right');
   return (
     <div>
-      <Form labelAlign={labelAlign} form={useForm()}>
+      <Form labelAlign={labelAlign}>
         <FormItem label="对齐方式" name="labelAlign">
           <Radio.Group size="small" buttonStyle="solid" value={labelAlign} onChange={(value) => setLabelAlign(value)}>
             <Radio.Button name="left">左对齐</Radio.Button>

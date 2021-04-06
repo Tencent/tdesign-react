@@ -3,15 +3,18 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
 import { CheckCircleFilledIcon, ClearCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
+import Checkbox from '../checkbox';
+import { CheckTag } from '../tag';
 import { validate as validateModal } from './formModel';
 import { useFormContext } from './FormContext';
-import { Result } from './form';
 
 const enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
 }
+
+const CHECKED_TYPE = [Checkbox, CheckTag];
 
 const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
@@ -34,53 +37,55 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HT
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(initialData);
 
+  const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
+
   const formItemClass = classNames(
     `${classPrefix}-form__item`,
     `${classPrefix}-row`,
     `${classPrefix}-form-item__${name}`,
   );
   const formItemLabelClass = classNames(`${classPrefix}-col`, `${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]: requiredMark,
-    [`${classPrefix}-form__label--colon`]: colon,
+    [`${classPrefix}-form__label--required`]:
+      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+    [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: layout === 'inline',
     [`${classPrefix}-form__label--${labelAlign}`]: layout !== 'inline',
     [`${classPrefix}-col-12`]: labelAlign === 'top' && layout !== 'inline',
     [`${classPrefix}-col-1`]: labelAlign !== 'top' && layout !== 'inline',
   });
 
-  const labelProps = !labelWidth ? {} : { minWidth: `${labelWidth}px` };
-  const errorClasses = () => {
-    if (!showErrorMessage) return '';
-    if (verifyStatus === VALIDATE_STATUS.SUCCESS) return `${classPrefix}-is-success`;
-    if (!errorList.length) return;
-    const type = errorList[0].type || 'error';
-    return type === 'error' ? `${classPrefix}-is-error` : `${classPrefix}-is-warning`;
-  };
+  const labelProps = labelWidth === undefined ? {} : { minWidth: `${labelWidth}px` };
 
-  const contentClasses = classNames(`${classPrefix}-form__controls`, `${classPrefix}-col`, errorClasses());
+  const contentClasses = classNames(`${classPrefix}-form__controls`, `${classPrefix}-col`, {
+    [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === VALIDATE_STATUS.SUCCESS,
+    [`${classPrefix}-is-warning`]: showErrorMessage && errorList.length && errorList[0].type === 'warning',
+    [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
+  });
 
   const renderTipsInfo = () => {
-    if (help) {
-      return <span className={`${classPrefix}-input__extra`}>{help}</span>;
-    }
-    if (!showErrorMessage) return;
+    if (!showErrorMessage) return null;
+    let tipInfo = (errorList.length && errorList[0].message) || '';
+
+    if (help) tipInfo = help;
+    return <span className={`${classPrefix}-input__extra`}>{tipInfo}</span>;
   };
 
   const renderSuffixIcon = () => {
+    if (statusIconFromProp === false) return null;
+
+    const resultIcon = (iconSlot: ReactNode) => <span className={`${classPrefix}-form__status`}>{iconSlot}</span>;
+
     if (React.isValidElement(statusIconFromProp)) {
-      return statusIconFromProp;
+      return resultIcon(statusIconFromProp);
     }
     if (React.isValidElement(statusIconFromContext)) {
-      return statusIconFromContext;
+      return resultIcon(statusIconFromContext);
     }
     const getDefaultIcon = () => {
       const iconMap = {
-        success: <CheckCircleFilledIcon />,
-        error: <ClearCircleFilledIcon />,
-        warning: <ErrorCircleFilledIcon />,
-      };
-      const resultIcon = (iconSlot: ReactNode) => {
-        <span className={`${classPrefix}-form__status`}>{iconSlot}</span>;
+        success: <CheckCircleFilledIcon size="25px" />,
+        error: <ClearCircleFilledIcon size="25px" />,
+        warning: <ErrorCircleFilledIcon size="25px" />,
       };
       if (verifyStatus === VALIDATE_STATUS.SUCCESS) {
         return resultIcon(iconMap[verifyStatus]);
@@ -97,16 +102,13 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HT
     return null;
   };
 
-  const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
-
-  function validate(): Promise<Result> {
+  function validate() {
     setResetValidating(true);
     return new Promise((resolve) => {
       validateModal(formValue, innerRules).then((r) => {
         setErrorList(r);
-        const nextVerifyStatus = errorList.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
+        const nextVerifyStatus = r.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
         setVerifyStatus(nextVerifyStatus);
-        debugger;
         resolve({ [name]: r.length === 0 ? true : r });
         if (needResetField) {
           resetHandler();
@@ -137,13 +139,11 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HT
       setFormValue(initialData);
     }
 
-    Promise.resolve(() => {
-      if (resetValidating) {
-        setNeedResetField(true);
-      } else {
-        resetHandler();
-      }
-    });
+    if (resetValidating) {
+      setNeedResetField(true);
+    } else {
+      resetHandler();
+    }
   }
 
   function resetHandler() {
@@ -153,7 +153,7 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HT
   }
 
   // 暴露 ref 实例方法
-  useImperativeHandle(ref, (): any => ({ formValue, validate, resetField }));
+  useImperativeHandle(ref, (): any => ({ name, value: formValue, setValue: setFormValue, validate, resetField }));
 
   return (
     <div className={formItemClass} ref={ref}>
@@ -164,13 +164,17 @@ const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HT
         <div className={`${classPrefix}-form__controls--content`}>
           {React.Children.map(children, (child) => {
             let onChangeFromProps = () => ({});
+            let ctrlKey = 'value';
             if (React.isValidElement(child)) {
               if (typeof child.props.onChange === 'function') {
                 onChangeFromProps = child.props.onChange;
               }
+              if (typeof child.type === 'object') {
+                ctrlKey = CHECKED_TYPE.includes(child.type) ? 'checked' : 'value';
+              }
               return React.cloneElement(child, {
                 ...child.props,
-                value: formValue,
+                [ctrlKey]: formValue,
                 onChange: (value) => {
                   onChangeFromProps.call(null, value);
                   setFormValue(value);

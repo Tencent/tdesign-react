@@ -23,6 +23,7 @@ const FormContext = React.createContext<{
   showErrorMessage: true,
   resetType: 'empty',
   rules: undefined,
+  statusIcon: false,
 });
 
 export const useFormContext = () => React.useContext(FormContext);
