@@ -14,9 +14,11 @@ enum VALIDATE_STATUS {
   FAIL = 'fail',
 }
 
+export interface FormItemProps extends TdFormItemProps {}
+
 const CHECKED_TYPE = [Checkbox, CheckTag];
 
-const FormItem: React.FC<TdFormItemProps> = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
+const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
   const { children, label, name, help, statusIcon: statusIconFromProp, rules: rulesFromProp, initialData = '' } = props;
   const {
