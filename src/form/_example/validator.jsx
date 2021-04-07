@@ -54,7 +54,7 @@ export default function BaseForm() {
           </Checkbox.Group>
         </FormItem>
         <FormItem label="入学时间" name="date" rules={[{ date: true, message: '日期格式有误' }]}>
-          <Input v-model="formData.date" />
+          <Input />
         </FormItem>
         <FormItem
           label="个人网站"
