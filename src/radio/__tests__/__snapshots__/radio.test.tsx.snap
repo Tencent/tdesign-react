@@ -108,7 +108,7 @@ exports[`base.jsx 1`] = `
 exports[`button.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio-button t-is-checked"
@@ -306,7 +306,7 @@ exports[`button.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio t-is-checked"
@@ -443,7 +443,7 @@ exports[`size.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio-button"
