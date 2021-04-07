@@ -8,8 +8,9 @@ export default function InputExample() {
       <Input
         placeholder="请输入内容"
         value={value}
-        onChange={(event) => {
-          onChange(event.target.value);
+        onChange={(value) => {
+          console.log(value);
+          onChange(value);
         }}
       />
     </div>

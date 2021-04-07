@@ -5,18 +5,11 @@ exports[`base.jsx 1`] = `
   <label
     class="t-radio"
   >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        class="t-radio__former"
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
+    <input
+      class="t-radio__former"
+      readonly=""
+      type="radio"
+    />
     <span
       class="t-radio__input"
     />
@@ -29,19 +22,12 @@ exports[`base.jsx 1`] = `
   <label
     class="t-radio t-is-checked"
   >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        checked=""
-        class="t-radio__former"
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
+    <input
+      checked=""
+      class="t-radio__former"
+      readonly=""
+      type="radio"
+    />
     <span
       class="t-radio__input"
     />
@@ -54,19 +40,12 @@ exports[`base.jsx 1`] = `
   <label
     class="t-radio t-is-disabled"
   >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        class="t-radio__former"
-        disabled=""
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
+    <input
+      class="t-radio__former"
+      disabled=""
+      readonly=""
+      type="radio"
+    />
     <span
       class="t-radio__input"
     />
@@ -79,20 +58,13 @@ exports[`base.jsx 1`] = `
   <label
     class="t-radio t-is-checked t-is-disabled"
   >
-    <span
-      class="t-radio-wrap"
-    >
-      <input
-        checked=""
-        class="t-radio__former"
-        disabled=""
-        readonly=""
-        type="radio"
-      />
-      <i
-        class="t-radio__dot"
-      />
-    </span>
+    <input
+      checked=""
+      class="t-radio__former"
+      disabled=""
+      readonly=""
+      type="radio"
+    />
     <span
       class="t-radio__input"
     />
@@ -108,7 +80,7 @@ exports[`base.jsx 1`] = `
 exports[`button.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio-button t-is-checked"
@@ -306,25 +278,18 @@ exports[`button.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio t-is-checked"
       name="male"
     >
-      <span
-        class="t-radio-wrap"
-      >
-        <input
-          checked=""
-          class="t-radio__former"
-          readonly=""
-          type="radio"
-        />
-        <i
-          class="t-radio__dot"
-        />
-      </span>
+      <input
+        checked=""
+        class="t-radio__former"
+        readonly=""
+        type="radio"
+      />
       <span
         class="t-radio__input"
       />
@@ -338,18 +303,11 @@ exports[`group.jsx 1`] = `
       class="t-radio"
       name="female"
     >
-      <span
-        class="t-radio-wrap"
-      >
-        <input
-          class="t-radio__former"
-          readonly=""
-          type="radio"
-        />
-        <i
-          class="t-radio__dot"
-        />
-      </span>
+      <input
+        class="t-radio__former"
+        readonly=""
+        type="radio"
+      />
       <span
         class="t-radio__input"
       />
@@ -443,7 +401,7 @@ exports[`size.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-radio-group t-radio-group-outline t-radio-group-default"
+    class="t-radio-group t-radio-group-outline t-radio-group-medium"
   >
     <label
       class="t-radio-button"
@@ -611,18 +569,11 @@ exports[`type.jsx 1`] = `
         class="t-radio"
         name="bj"
       >
-        <span
-          class="t-radio-wrap"
-        >
-          <input
-            class="t-radio__former"
-            readonly=""
-            type="radio"
-          />
-          <i
-            class="t-radio__dot"
-          />
-        </span>
+        <input
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+        />
         <span
           class="t-radio__input"
         />
@@ -636,18 +587,11 @@ exports[`type.jsx 1`] = `
         class="t-radio"
         name="sh"
       >
-        <span
-          class="t-radio-wrap"
-        >
-          <input
-            class="t-radio__former"
-            readonly=""
-            type="radio"
-          />
-          <i
-            class="t-radio__dot"
-          />
-        </span>
+        <input
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+        />
         <span
           class="t-radio__input"
         />
@@ -661,19 +605,12 @@ exports[`type.jsx 1`] = `
         class="t-radio t-is-checked"
         name="gz"
       >
-        <span
-          class="t-radio-wrap"
-        >
-          <input
-            checked=""
-            class="t-radio__former"
-            readonly=""
-            type="radio"
-          />
-          <i
-            class="t-radio__dot"
-          />
-        </span>
+        <input
+          checked=""
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+        />
         <span
           class="t-radio__input"
         />
@@ -687,18 +624,11 @@ exports[`type.jsx 1`] = `
         class="t-radio"
         name="sz"
       >
-        <span
-          class="t-radio-wrap"
-        >
-          <input
-            class="t-radio__former"
-            readonly=""
-            type="radio"
-          />
-          <i
-            class="t-radio__dot"
-          />
-        </span>
+        <input
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+        />
         <span
           class="t-radio__input"
         />
