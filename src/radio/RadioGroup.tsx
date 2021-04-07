@@ -34,7 +34,7 @@ export interface RadioGroupProps extends ControlledProps<string> {
    * 按钮样式的大小
    * @default 'default'
    */
-  size?: 'large' | 'default' | 'small';
+  size?: 'large' | 'medium' | 'small';
 
   /**
    * 按钮样式的风格
@@ -53,7 +53,7 @@ export interface RadioGroupTarget {
  */
 const RadioGroup: FunctionComponent<RadioGroupProps> = (props) => {
   const { classPrefix } = useConfig();
-  const { disabled, children, value, onChange, size = 'default', buttonStyle = 'outline' } = useDefaultValue(props);
+  const { disabled, children, value, onChange, size = 'medium', buttonStyle = 'outline' } = useDefaultValue(props);
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
