@@ -9,7 +9,7 @@ export default function RadioControlledExample() {
       <Radio value={false} disabled>
         禁用未选中
       </Radio>
-      <Radio value disabled>
+      <Radio value={true} disabled>
         禁用已选中
       </Radio>
     </>
