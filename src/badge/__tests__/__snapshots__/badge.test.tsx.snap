@@ -146,13 +146,17 @@ exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
-    content="new"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
+    <span
+      class="t-badge--round"
+    >
+      new
+    </span>
   </span>
 </DocumentFragment>
 `;
