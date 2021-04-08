@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
@@ -77,12 +77,6 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
 
     const resultIcon = (iconSlot: ReactNode) => <span className={`${classPrefix}-form__status`}>{iconSlot}</span>;
 
-    if (React.isValidElement(statusIconFromProp)) {
-      return resultIcon(statusIconFromProp);
-    }
-    if (React.isValidElement(statusIconFromContext)) {
-      return resultIcon(statusIconFromContext);
-    }
     const getDefaultIcon = () => {
       const iconMap = {
         success: <CheckCircleFilledIcon size="25px" />,
@@ -98,9 +92,19 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
       }
       return null;
     };
+
+    if (React.isValidElement(statusIconFromProp)) {
+      return resultIcon(
+        React.cloneElement(statusIconFromProp, { style: { color: 'unset' }, ...statusIconFromProp.props }),
+      );
+    }
     if (statusIconFromContext === true) {
       return getDefaultIcon();
     }
+    if (React.isValidElement(statusIconFromContext)) {
+      return resultIcon(statusIconFromProp);
+    }
+
     return null;
   };
 
@@ -111,7 +115,7 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
         setErrorList(r);
         const nextVerifyStatus = r.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
         setVerifyStatus(nextVerifyStatus);
-        resolve({ [name]: r.length === 0 ? true : r });
+        resolve({ [name]: !r.length ? true : r });
         if (needResetField) {
           resetHandler();
         }
@@ -119,6 +123,11 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
       });
     });
   }
+
+  useEffect(() => {
+    validate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formValue]);
 
   function getEmptyValue(): ValueType {
     const type = Object.prototype.toString.call(initialData);

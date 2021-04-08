@@ -6,8 +6,8 @@ export default function LayoutForm() {
   const [layout, setLayout] = useState('inline');
   return (
     <div>
-      <Row>
-        <Radio.Group size="small" buttonStyle="solid" value={layout} onChange={(value) => setLayout(value)}>
+      <Row style={{ marginBottom: 16 }}>
+        <Radio.Group buttonStyle="solid" value={layout} onChange={(value) => setLayout(value)}>
           <Radio.Button name="vertical">纵向布局</Radio.Button>
           <Radio.Button name="inline">行内布局</Radio.Button>
         </Radio.Group>

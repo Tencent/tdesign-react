@@ -23,7 +23,7 @@ exports[`align.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-radio-group t-radio-group-solid t-radio-group-small"
+              class="t-radio-group t-radio-group-solid t-radio-group-medium"
             >
               <label
                 class="t-radio-button"
@@ -579,10 +579,10 @@ exports[`layout.jsx 1`] = `
   <div>
     <div
       class="t-row t-row-start t-row-top"
-      style="margin: 0px -0px;"
+      style="margin: 0px -0px 16px -0px;"
     >
       <div
-        class="t-radio-group t-radio-group-solid t-radio-group-small"
+        class="t-radio-group t-radio-group-solid t-radio-group-medium"
       >
         <label
           class="t-radio-button"
