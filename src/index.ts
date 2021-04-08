@@ -26,6 +26,7 @@ export { Anchor, AnchorItem, AnchorTarget } from './anchor';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
 export { default as Calendar } from './calendar';
+export { Form, FormItem } from './form';
 export { default as Loading } from './loading';
 export { default as Tooltip } from './tooltip';
 export { default as Drawer } from './drawer';
