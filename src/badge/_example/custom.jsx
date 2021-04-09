@@ -3,7 +3,7 @@ import { Badge, Button } from '@tencent/tdesign-react';
 
 export default function BadgeExample() {
   return (
-    <Badge content="new" shape="round">
+    <Badge count="new" shape="round">
       <Button size="large"> </Button>
     </Badge>
   );

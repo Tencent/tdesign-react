@@ -10,7 +10,7 @@ const Badge: React.FC<BadgeProps> = ({
   color,
   dot = false,
   maxCount = 99,
-  content,
+  count,
   size = 'medium',
   shape = 'circle',
   showZero = false,
@@ -29,15 +29,15 @@ const Badge: React.FC<BadgeProps> = ({
     !children && className,
   );
   const getDisplayCount = () => {
-    if (typeof content === 'number' && content > maxCount) {
+    if (typeof count === 'number' && count > maxCount) {
       return `${maxCount}+`;
     }
-    return content;
+    return count;
   };
 
-  let isHidden = !content;
-  if (typeof content === 'number') {
-    isHidden = content < 1 && !showZero;
+  let isHidden = !count;
+  if (typeof count === 'number') {
+    isHidden = count < 1 && !showZero;
   }
 
   const getStyle = () => {

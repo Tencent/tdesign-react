@@ -1,5 +1,9 @@
-import Anchor, { AnchorProps } from './Anchor';
-import AnchorItem, { AnchorItemProps } from './AnchorItem';
-import AnchorTarget, { AnchorTargetProps } from './AnchorTarget';
+import Anchor from './Anchor';
+import AnchorItem from './AnchorItem';
+import AnchorTarget from './AnchorTarget';
 
-export { AnchorProps, AnchorItemProps, AnchorTargetProps, AnchorItem, Anchor, AnchorTarget };
+export type { AnchorProps } from './Anchor';
+export type { AnchorItemProps } from './AnchorItem';
+export type { AnchorTargetProps } from './AnchorTarget';
+
+export { AnchorItem, Anchor, AnchorTarget };

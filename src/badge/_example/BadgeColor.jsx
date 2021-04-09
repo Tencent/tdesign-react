@@ -32,7 +32,7 @@ export default function BadgeExample() {
       </Checkbox>
       <div>
         {colors.map((color) => (
-          <Badge color={color} dot={dot} key={color} content={100} />
+          <Badge color={color} dot={dot} key={color} count={100} />
         ))}
       </div>
     </>
