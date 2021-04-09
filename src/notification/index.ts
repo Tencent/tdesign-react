@@ -1,6 +1,6 @@
 import Notification from './Notification';
 
-export {
+export type {
   NotificationTheme,
   NotificationPlacement,
   NotificationInstance,
