@@ -1,118 +1,181 @@
 import * as React from 'react';
-import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { usePopper } from 'react-popper';
-import noop from '../_util/noop';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdTimePickerProps } from '../_type/components/time-picker';
-import PanelCol from './panel/Panel';
+import Popup from '../popup/Popup';
+import noop from '../_util/noop';
+import { Icon } from '../icon';
 
 export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 
-enum PHASE {
-  HOUR = 'hour',
-  MINUTE = 'minute',
-  SECOND = 'second',
-  MERIDIEM = 'meridiem',
-}
-
-type Cell = number | string;
-
-export interface Time {
-  [PHASE.HOUR]: number;
-  [PHASE.MINUTE]: number;
-  [PHASE.SECOND]: number;
-  [PHASE.MERIDIEM]: '' | 'am' | 'pm' | 'AM' | 'PM';
-}
-
-const formatParser = {
-  getUseHour: (format: string): 0 | 1 | 2 => {
-    if (/hh|HH/.test(format)) return 2;
-    if (/[hH]/.test(format)) return 1;
-    return 0;
-  },
-  getUseMinute: (format: string): 0 | 1 | 2 => {
-    if (/mm|MM/.test(format)) return 2;
-    if (/[mM]/.test(format)) return 1;
-    return 0;
-  },
-  getUseSecond: (format: string): 0 | 1 | 2 => {
-    if (/ss|SS/.test(format)) return 2;
-    if (/[sS]/.test(format)) return 1;
-    return 0;
-  },
-  getUseMeridiem: (format: string): '' | 'a' | 'A' => {
-    if (format.search('a') >= 0) return 'a';
-    if (format.search('A') >= 0) return 'A';
-    return '';
-  },
-  getFormatIsValid: (format: string): boolean => {
-    const useHour = formatParser.getUseHour(format);
-    const useMinute = formatParser.getUseMinute(format);
-    const useSecond = formatParser.getUseSecond(format);
-
-    if (useHour === 1 && useMinute === 1 && useSecond === 1) return true;
-    if (useHour === 2 && useMinute === 2 && useSecond === 2) return true;
-    if (useHour === 1 && useMinute === 1 && useSecond === 0) return true;
-    if (useHour === 2 && useMinute === 2 && useSecond === 0) return true;
-    if (useHour === 0 && useMinute === 1 && useSecond === 1) return true;
-    return useHour === 0 && useMinute === 2 && useSecond === 2;
-  },
-  getValueIsValid: (value: string, format: string): boolean => {
-    if (!formatParser.getFormatIsValid(format)) return false;
-    const [timePrefix, meridiem] = value.split(' ');
-    const [hour, minute, second] = timePrefix.split(':');
-
-    const validHour = formatParser.getUseHour(format) && Number(hour) >= 0 && Number(hour) <= 59;
-    const validMinute = formatParser.getUseMinute(format) && Number(minute) >= 0 && Number(hour) <= 59;
-    const useSecond = formatParser.getUseSecond(format);
-    const validSecond = !useSecond || (useSecond && Number(second) >= 0 && Number(second) <= 59);
-    const useMeridiem = formatParser.getUseMeridiem(format);
-    const validMeridiem = (() => {
-      if (!useMeridiem && !meridiem) return true;
-      if (useMeridiem === 'a' && ['am', 'pm'].includes(meridiem)) return true;
-      return useMeridiem === 'A' && ['AM', 'PM'].includes(meridiem);
-    })();
-
-    return validHour && validMinute && validSecond && validMeridiem;
-  },
-};
-
-const prefixCell = (cell: Cell): string => {
-  if (cell < 0) return '';
-  return cell <= 9 ? `0${cell}` : String(cell);
-};
-
 const blockName = 'time-picker';
 
-const TimePanel: React.FC<TimePickerProps> = (props) => {
+const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   const {
-    value = '',
-    // inputWidth = '100%',
-    // clearable = false,
+    // value = '',
+    defaultValue = '',
+    clearable = true, // 默认展示清空按钮
     allowInput = false,
     disabled = false,
-    // placeholder = '请选择时间',
-    // hideDisabledHours = false,
-    // hideDisabledMinutes = false,
-    // hideDisabledSeconds = false,
-    // hideDropdown = false,
-    format = 'hh:mm:ss',
-    // hourRange = [],
-    // minuteRange = [],
-    // secondRange = [],
+    disableTime = noop,
+    placeholder = '请选择时间',
+    // format = 'hh:mm:ss',
     steps = [1, 1, 1],
     onChange = noop,
     onOpen = noop,
     onClose = noop,
-    onBlur = noop,
-    onFocus = noop,
+    // onBlur = noop,
+    // onFocus = noop, // todo Popup组件不支持
     className = '',
     style = {},
   } = props;
+  // TimePickerProps={
+  //   allowInput: false,
+  //   className: "",
+  //   clearable: false,
+  //   defaultValue: undefined,
+  //   disableTime(h: number, m: number, s: number): boolean {
+  //     return false;
+  //   },
+  //   disabled: false,
+  //   format: "",
+  //   hideDisabledTime: false,
+  //   multiple: false,
+  //   onBlur(context: { input: string; value: TimePickerValue; e: React.FocusEvent<HTMLDivElement> }): void {
+  //   },
+  //   onChange(value: TimePickerValue): void {
+  //   },
+  //   onClose(context: { e: React.MouseEvent<HTMLDivElement> }): void {
+  //   },
+  //   onFocus(context: { input: string; value: TimePickerValue; e: React.FocusEvent<HTMLDivElement> }): void {
+  //   },
+  //   onInput(context: { input: string; value: TimePickerValue; e: React.FormEvent<HTMLDivElement> }): void {
+  //   },
+  //   onOpen(context: { e: React.MouseEvent<HTMLDivElement> }): void {
+  //   },
+  //   placeholder: "",
+  //   size: undefined,
+  //   steps: undefined,
+  //   style: undefined,
+  //   value: undefined
+  // }
 
   const { classPrefix } = useConfig();
-
+  // 是否使用12小时制
+  // 读取显示格式 如果没有指定就解析value的格式 没有就默认hh:mm:ss
+  const [format] = useState(() => {
+    if (props.format) return props.format;
+    const { value } = props;
+    if (value) {
+      // 如果没有填format 那么通过value生成format
+      if (value instanceof Date) {
+        return 'hh:mm:ss';
+      }
+      if (typeof value === 'string') {
+        let tempValue = value; // 22:33:44
+        let tempFormat = '';
+        const fetchCharIsNumber = (n) => {
+          const i = tempValue.slice(0, n);
+          if (/^\d+$/.test(i)) {
+            tempValue = tempValue.slice(n);
+            return true;
+          }
+          return false;
+        };
+        const fetchChar = () => {
+          const i = tempValue.slice(0, 1); // 取一个字符
+          tempValue = tempValue.slice(1);
+          return i;
+        };
+        const c = 'hms';
+        let t = 0;
+        while (true) {
+          if (tempValue === '') break;
+          if (t < 3) {
+            if (fetchCharIsNumber(2)) {
+              tempFormat += c[t] + c[t];
+              t = t + 1;
+            } else if (fetchCharIsNumber(1)) {
+              tempFormat += c[t];
+              t = t + 1;
+            } else {
+              const c = fetchChar();
+              tempFormat += c;
+            }
+          } else {
+            const v = tempValue.slice(0, 2);
+            if (v === 'am' || v === 'pm') {
+              tempFormat += 'a';
+            } else if (v === 'AM' || v === 'PM') {
+              tempFormat += 'A';
+            } else {
+              const c = fetchChar();
+              tempFormat += c;
+            }
+          }
+        }
+        return tempFormat;
+      }
+    }
+    return 'hh:mm:ss';
+  });
+  // 是否是12小时制显示 true为12小时 false为24小时制
+  const h12format = useMemo(() => format.includes('a') || format.includes('A'), [format]);
+  const getNewTime = useCallback(() => {
+    const newTime = new Date();
+    newTime.setHours(0);
+    newTime.setMinutes(0);
+    newTime.setSeconds(0);
+    newTime.setMilliseconds(0);
+    return newTime;
+  }, []);
+  const getTimeFromValue = useCallback(
+    (value) => {
+      let tempFormat = format;
+      const date = getNewTime();
+      if (value instanceof Date) {
+        date.setTime(value.getTime());
+        return date;
+      }
+      if (typeof value === 'string') {
+        let isAMPM = false; // 是否确定上午还是下午
+        let tempValue = value;
+        while (true) {
+          if (tempFormat.startsWith('hh') || tempFormat.startsWith('HH')) {
+            date.setHours(Number(tempValue.slice(0, 2)));
+            tempFormat = tempFormat.slice(2);
+            tempValue = tempValue.slice(2);
+          } else if (tempFormat.startsWith('mm') || tempFormat.startsWith('MM')) {
+            date.setMinutes(Number(tempValue.slice(0, 2)));
+            tempFormat = tempFormat.slice(2);
+            tempValue = tempValue.slice(2);
+          } else if (tempFormat.startsWith('ss') || tempFormat.startsWith('SS')) {
+            date.setSeconds(Number(tempValue.slice(0, 2)));
+            tempFormat = tempFormat.slice(2);
+            tempValue = tempValue.slice(2);
+          } else if (tempFormat.startsWith('a') || tempFormat.startsWith('A')) {
+            if (isAMPM) continue;
+            isAMPM = true;
+            if (tempValue.startsWith('am') || tempValue.startsWith('AM')) {
+            } else if (tempValue.startsWith('pm') || tempValue.startsWith('PM')) {
+              date.setHours(date.getHours() + 12);
+            } else {
+            }
+            tempFormat = tempFormat.slice(1);
+            tempValue = tempValue.slice(2);
+          } else {
+            tempFormat = tempFormat.slice(1);
+            tempValue = tempValue.slice(1);
+          }
+          if (tempFormat === '') break;
+        }
+      }
+      return date;
+    },
+    [format, getNewTime],
+  );
+  const [time, setTime] = useState<Date>(() => getTimeFromValue(props.value ?? defaultValue));
   const prefixCls = React.useCallback(
     (...args: (string | [string, string?, string?])[]) => {
       let className = '';
@@ -131,337 +194,404 @@ const TimePanel: React.FC<TimePickerProps> = (props) => {
     },
     [classPrefix],
   );
-  const defaultTime = React.useMemo<Time>(() => {
-    const hour = formatParser.getUseHour(format) ? 0 : -1;
-    const minute = formatParser.getUseMinute(format) ? 0 : -1;
-    const second = formatParser.getUseSecond(format) ? 0 : -1;
-    const meridiem = (() => {
-      const useMeridiem = formatParser.getUseMeridiem(format);
-      if (!useMeridiem) return '';
-      if (useMeridiem === 'a') return 'am';
-      if (useMeridiem === 'A') return 'AM';
-    })();
-    return { hour, minute, second, meridiem };
-  }, [format]);
-
-  const [time, setTime] = React.useState<Time>(defaultTime);
-  const display = React.useMemo(() => {
-    const hour: string = (() => {
-      if (formatParser.getUseHour(format) === 2) return prefixCell(time.hour);
-      if (formatParser.getUseHour(format) === 1) return String(time.hour);
-      return '';
-    })();
-
-    const minute: string = (() => {
-      if (formatParser.getUseMinute(format) === 2) return prefixCell(time.minute);
-      if (formatParser.getUseMinute(format) === 1) return String(time.minute);
-      return '';
-    })();
-
-    const second: string = (() => {
-      if (formatParser.getUseSecond(format) === 2) return prefixCell(time.second);
-      if (formatParser.getUseSecond(format) === 1) return String(time.second);
-      return '';
-    })();
-
-    const { meridiem } = time;
-    const result = ''.concat(
-      hour ? `${hour}:` : '',
-      minute ? `${minute}${second ? ':' : ''}` : '',
-      second ? second : '',
-      meridiem ? ` ${meridiem}` : '',
-    );
-    onChange(result);
-    return result;
-  }, [time, onChange, format]);
-  const setTimeByValue = React.useCallback(
-    (data: string) => {
-      if (!data) {
-        setTime(defaultTime);
+  const format00 = useCallback((n: number) => (n < 10 ? `0${n}` : `${n}`), []);
+  const input = useCallback(
+    (n: 0 | 1 | 2 | 3, e) => {
+      if (!allowInput) return;
+      const { keyCode } = e;
+      e.preventDefault(); // 防止方向键控制的时候移动页面
+      if (keyCode === 37) {
+        // left key
+        const elem = e.currentTarget.previousElementSibling;
+        if (elem) elem.getElementsByTagName('input')[0]?.focus();
         return;
       }
-
-      if (!formatParser.getValueIsValid(data, format)) return;
-
-      const [timePrefix, meridiem] = data.split(' ');
-      const [hour, minute, second] = timePrefix.split(':');
-      setTime({
-        hour: Number(hour) ?? 0,
-        minute: Number(minute) ?? 0,
-        second: Number(second) ?? 0,
-        meridiem: (() => {
-          const useMeridiem = formatParser.getUseMeridiem(format);
-          if (useMeridiem && ('am' === meridiem || 'pm' === meridiem || 'AM' === meridiem || 'PM' === meridiem)) {
-            return meridiem;
+      if (keyCode === 39) {
+        // right key
+        const elem = e.currentTarget.nextElementSibling;
+        if (elem) elem.getElementsByTagName('input')[0]?.focus();
+        return;
+      }
+      if (n === 3) {
+        // am pm 单独处理
+        if (keyCode === 65 || keyCode === 38) {
+          // a key up key
+          if (time.getHours() >= 12) {
+            time.setHours(time.getHours() - 12);
+            setTime(new Date(time.valueOf()));
           }
-          return '';
-        })(),
-      });
+        } else if (keyCode === 80 || keyCode === 40) {
+          // p key down key
+          if (time.getHours() < 12) {
+            time.setHours(time.getHours() + 12);
+            setTime(new Date(time.valueOf()));
+          }
+        }
+        return;
+      }
+      let result: number = null;
+      let number: number = null;
+      if (n === 0) {
+        result = time.getHours();
+      } else if (n === 1) {
+        result = time.getMinutes();
+      } else if (n === 2) {
+        result = time.getSeconds();
+      }
+      if (keyCode >= 48 && keyCode <= 57) {
+        // 输入数值 拼接到后面
+        number = keyCode - 48;
+        result = Number(`${result}${number}`);
+      } else if (keyCode === 38) {
+        // up key
+        result = result - 1;
+      } else if (keyCode === 40) {
+        // down key
+        result = result + 1;
+      } else return;
+
+      if (n === 0) {
+        if (result < 24 && result >= 0) {
+          time.setHours(result);
+          setTime(new Date(time.valueOf()));
+        } else {
+          if (number !== null) {
+            time.setHours(number);
+            setTime(new Date(time.valueOf()));
+          }
+        }
+      } else if (n === 1) {
+        if (result < 60 && result >= 0) {
+          time.setMinutes(result);
+          setTime(new Date(time.valueOf()));
+        } else {
+          if (number !== null) {
+            time.setMinutes(number);
+            setTime(new Date(time.valueOf()));
+          }
+        }
+      } else if (n === 2) {
+        if (result < 60 && result >= 0) {
+          time.setSeconds(result);
+          setTime(new Date(time.valueOf()));
+        } else {
+          if (number !== null) {
+            time.setSeconds(number);
+            setTime(new Date(time.valueOf()));
+          }
+        }
+      }
     },
-    [defaultTime, format, setTime],
+    [allowInput, time],
   );
-  /**
-   * 通过value字符串初始值转为time结构体
-   */
-  useEffect(() => {
-    setTimeByValue(value as string);
-  }, [setTimeByValue, value]);
+  const displayTime = useMemo(() => {
+    const result = [];
+    let tempFormat = format;
+    let i = 0;
+    while (true) {
+      i = i + 1;
+      if (tempFormat.startsWith('hh') || tempFormat.startsWith('HH')) {
+        let hour = time.getHours();
+        if (h12format) {
+          if (hour >= 12) hour -= 12;
+        }
+        result.push(
+          <span
+            key={`timeItem${i}_${format}`}
+            className={prefixCls([blockName, 'input-item'])}
+            onKeyDown={(e) => input(0, e)}
+          >
+            <input
+              className={prefixCls([blockName, 'input-item-input'])}
+              value={format00(hour)}
+              onChange={noop}
+              disabled={disabled}
+            />
+          </span>,
+        );
+        tempFormat = tempFormat.slice(2);
+      } else if (tempFormat.startsWith('mm') || tempFormat.startsWith('MM')) {
+        result.push(
+          <span
+            key={`timeItem${i}_${format}`}
+            className={prefixCls([blockName, 'input-item'])}
+            onKeyDown={(e) => input(1, e)}
+          >
+            <input
+              className={prefixCls([blockName, 'input-item-input'])}
+              value={format00(time.getMinutes())}
+              disabled={disabled}
+              readOnly
+            />
+          </span>,
+        );
+        tempFormat = tempFormat.slice(2);
+      } else if (tempFormat.startsWith('ss') || tempFormat.startsWith('SS')) {
+        result.push(
+          <span
+            key={`timeItem${i}_${format}`}
+            className={prefixCls([blockName, 'input-item'])}
+            onKeyDown={(e) => input(2, e)}
+          >
+            <input
+              className={prefixCls([blockName, 'input-item-input'])}
+              value={format00(time.getSeconds())}
+              disabled={disabled}
+              readOnly
+            />
+          </span>,
+        );
+        tempFormat = tempFormat.slice(2);
+      } else if (tempFormat.startsWith('A') || tempFormat.startsWith('a')) {
+        let meridiem = time.getHours() >= 12 ? 'pm' : 'am';
+        if (tempFormat.startsWith('A')) meridiem = meridiem.toUpperCase(); // 大写显示
+        result.push(
+          <span
+            key={`timeItem${i}_${format}`}
+            className={prefixCls([blockName, 'input-item'])}
+            onKeyDown={(e) => input(3, e)}
+          >
+            <input className={prefixCls([blockName, 'input-item-input'])} value={meridiem} readOnly />
+          </span>,
+        );
+        tempFormat = tempFormat.slice(1);
+      } else {
+        result.push(tempFormat.slice(0, 1));
+        tempFormat = tempFormat.slice(1);
+      }
+      if (tempFormat === '') break;
+    }
+    return result;
+  }, [format, time, h12format, prefixCls, input, format00, disabled]);
 
-  const [showPanel, setShowPanel] = useState(false);
-  const makeSure = () => {
-    setShowPanel(false);
-  };
-  const nowAction = () => {
-    const t = new Date();
-    setTime({
-      hour: t.getHours(),
-      minute: t.getMinutes(),
-      second: t.getSeconds(),
-      meridiem: t.getHours() <= 12 ? 'am' : 'pm',
-    });
-    setShowPanel(false);
-  };
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [popperElement, setPopperElement] = useState(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'bottom-start',
-  });
-  const closePanel = (e) => {
-    document.removeEventListener('click', closePanel);
-    setShowPanel(false);
-    onClose(e);
-  };
+  const generateCol = useCallback(
+    (begin, end, step, cur, type, click) => {
+      let h = time.getHours();
+      let m = time.getMinutes();
+      let s = time.getSeconds();
+      const lis = [];
+      for (let i = begin; i <= end; i += step) {
+        if (type === 0) h = i;
+        else if (type === 1) m = i;
+        else if (type === 2) s = i;
+        if (disableTime(h, m, s)) {
+          lis.push(
+            <li
+              className={`${classPrefix}-time-picker-panel__body-scroll-item ${
+                i === cur ? `${classPrefix}-is-current` : ''
+              } ${classPrefix}-is-disabled`}
+              key={i}
+            >
+              {i < 10 ? `0${i}` : i}
+            </li>,
+          );
+        } else {
+          lis.push(
+            <li
+              className={`${classPrefix}-time-picker-panel__body-scroll-item ${
+                i === cur ? `${classPrefix}-is-current` : ''
+              }`}
+              key={i}
+              onClick={disableTime(h, m, s) ? noop : () => click(i)}
+            >
+              {i < 10 ? `0${i}` : i}
+            </li>,
+          );
+        }
+      }
+      return lis;
+    },
+    [classPrefix, disableTime, time],
+  );
+  const panel = useMemo(() => {
+    const result = [];
+    if (format.includes('h') || format.includes('H')) {
+      let col;
+      if (h12format) {
+        if (time.getHours() >= 12) {
+          col = generateCol(12, 23, steps[0], time.getHours(), 0, (n) => {
+            if (disabled) return;
+            if (disableTime(n, time.getMinutes(), time.getSeconds())) return;
+            time.setHours(n);
+            setTime(new Date(time.valueOf()));
+          });
+        } else {
+          col = generateCol(0, 11, steps[0], time.getHours(), 0, (n) => {
+            if (disabled) return;
+            if (disableTime(n, time.getMinutes(), time.getSeconds())) return;
+            time.setHours(n);
+            setTime(new Date(time.valueOf()));
+          });
+        }
+      } else {
+        col = generateCol(0, 23, steps[0], time.getHours(), 0, (n) => {
+          if (disabled) return;
+          if (disableTime(n, time.getMinutes(), time.getSeconds())) return;
 
-  const openPanel = (e) => {
-    onOpen(e);
-    if (disabled) return;
-    document.addEventListener('click', closePanel);
-    setShowPanel(true);
-    setTimeout(() => {
-      setTime({ ...time });
-    });
-  };
-  /**
-   * 数字前面加0
-   */
-  const add0 = useCallback((value) => (value <= 9 ? `0${value}` : value), []);
-
-  const renderPopperList = useCallback(() => {
-    const result: Array<JSX.Element> = [];
-
-    if (formatParser.getUseHour(format)) {
+          time.setHours(n);
+          setTime(new Date(time.valueOf()));
+        });
+      }
       result.push(
-        <PanelCol key="hour" count={24} step={Number(steps[0])} time={time} timeType={'hour'} setTime={setTime} />,
+        <ul className={`${classPrefix}-time-picker-panel__body-scroll`} key={'h'}>
+          {col}
+        </ul>,
       );
     }
-    if (formatParser.getUseMinute(format)) {
+    if (format.includes('m') || format.includes('M')) {
+      const col = generateCol(0, 59, steps[1], time.getMinutes(), 1, (n) => {
+        if (disabled) return;
+        if (disableTime(time.getHours(), n, time.getSeconds())) return;
+
+        time.setMinutes(n);
+        setTime(new Date(time.valueOf()));
+      });
       result.push(
-        <PanelCol key="minute" count={60} step={Number(steps[1])} time={time} timeType={'minute'} setTime={setTime} />,
+        <ul className={`${classPrefix}-time-picker-panel__body-scroll`} key={'m'}>
+          {col}
+        </ul>,
       );
     }
+    if (format.includes('s') || format.includes('S')) {
+      const col = generateCol(0, 59, steps[2], time.getSeconds(), 2, (n) => {
+        if (disabled) return;
+        if (disableTime(time.getHours(), time.getMinutes(), n)) return;
 
-    if (formatParser.getUseSecond(format)) {
+        time.setSeconds(n);
+        setTime(new Date(time.valueOf()));
+      });
       result.push(
-        <PanelCol key="second" count={60} step={Number(steps[2])} time={time} timeType={'second'} setTime={setTime} />,
+        <ul className={`${classPrefix}-time-picker-panel__body-scroll`} key={'s'}>
+          {col}
+        </ul>,
       );
     }
-
-    if (formatParser.getUseMeridiem(format)) {
-      // TODO 上午下午时间选择
+    if (format.includes('a') || format.includes('A')) {
+      const col = (
+        <>
+          <li
+            className={`${classPrefix}-time-picker-panel__body-scroll-item${
+              time.getHours() < 12 ? ` ${classPrefix}-is-current` : ''
+            }`}
+            onClick={() => {
+              if (disabled) return;
+              if (time.getHours() >= 12) {
+                time.setHours(time.getHours() - 12);
+                setTime(new Date(time.valueOf()));
+              }
+            }}
+          >
+            {format.includes('a') ? 'am' : 'AM'}
+          </li>
+          <li
+            className={`${classPrefix}-time-picker-panel__body-scroll-item${
+              time.getHours() >= 12 ? ` ${classPrefix}-is-current` : ''
+            }`}
+            onClick={() => {
+              if (disabled) return;
+              if (time.getHours() < 12) {
+                time.setHours(time.getHours() + 12);
+                setTime(new Date(time.valueOf()));
+              }
+            }}
+          >
+            {format.includes('a') ? 'pm' : 'PM'}
+          </li>
+        </>
+      );
       result.push(
-        <ul key="meridian" className={prefixCls(['time-picker-panel', 'body-scroll'])}>
-          <li className={prefixCls(['time-picker-panel', 'body-scroll-item'])}>am</li>
-          <li className={prefixCls(['time-picker-panel', 'body-scroll-item'])}>pm</li>
+        <ul className={`${classPrefix}-time-picker-panel__body-scroll`} key={'a'}>
+          {col}
         </ul>,
       );
     }
     return result;
-  }, [format, prefixCls, time, steps]);
+  }, [classPrefix, disableTime, disabled, format, generateCol, h12format, steps, time]);
+  const panelRef = useRef<HTMLElement>();
+  const autoScroll = useCallback(() => {
+    if (disabled) return;
+    if (!panelRef || !panelRef.current) return;
+    const parent = panelRef.current.children;
+    for (let i = 0; i < parent.length; i++) {
+      const item = parent.item(i);
+      const current = item.getElementsByClassName(`${classPrefix}-is-current`).item(0);
+      if (!current) continue; // 没找到就跳过
+      let value = (current as any).offsetTop;
+      value -= (item.clientHeight - current.clientHeight) / 2;
+      item.scrollTo({
+        top: value,
+        behavior: 'smooth',
+      });
+    }
+  }, [classPrefix, disabled]);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (!visible) return;
+    autoScroll();
+  }, [autoScroll, time, visible]);
 
-  /**
-   * 渲染当前时间为字符串形式
-   */
-  const displayTime = useCallback(
-    (timeType) => {
-      let type: number;
-      if (timeType === 'hour') {
-        type = formatParser.getUseHour(format);
-      } else if (timeType === 'minute') {
-        type = formatParser.getUseMinute(format);
-      } else if (timeType === 'second') {
-        type = formatParser.getUseSecond(format);
-      } else {
-      }
-      if (type === 2) {
-        return add0(time[timeType]);
-      }
-      return time[timeType];
-    },
-    [add0, format, time],
-  );
-  const timeInput = useCallback(
-    (e: FormEvent, timeType: string) => {
-      if (disabled) return;
-      const input = e.target as any;
-      if (!allowInput) return;
-      // e.persist();
-      const value: string = (e.nativeEvent as any).data;
-      if (value >= '0' && value <= '9') {
-        const inputValue = input.value.slice(0, -1) | 0; // 输入之前的
-        const keyValue = Number(value); // 键入的值
-        if (inputValue < 10) {
-          let value2 = inputValue * 10;
-          value2 += keyValue;
-          if (value2 >= 60) return;
-          if (timeType === 'hour' && value2 >= 24) return;
-          time[timeType] = value2;
-          setTimeout(() => setTime({ ...time }));
-        } else {
-          time[timeType] = keyValue;
-          setTimeout(() => setTime({ ...time }));
-        }
-      }
-    },
-    [allowInput, disabled, time],
-  );
-
+  // useEffect(() => {
+  //   const newTime = getTimeFromValue(props.value);
+  //
+  //   console.log(newTime.getTime(), time.getTime());
+  //   setTime(newTime);
+  // }, [getTimeFromValue, props.value, time]);
+  // useEffect(() => {
+  //   if (typeof props.value === 'string') {
+  //     const newTime = getTimeFromValue(props.value);
+  //     if (newTime.getTime() === time.getTime()) return; // 说明没变 不需要进行更新
+  //     setTime(newTime);
+  //   } else if (props.value instanceof Date) {
+  //     setTime(props.value);
+  //   }
+  // }, [getTimeFromValue, props.value, time]);
+  useEffect(() => {
+    if (disabled) return;
+    onChange(time);
+  }, [disabled, onChange, time]);
+  const timeIsEmpty = useCallback((time) => {
+    if (!time) return true;
+    return time.getHours() === 0 && time.getMinutes() === 0 && time.getSeconds() === 0;
+  }, []);
   return (
-    <>
-      <div
-        className={prefixCls(blockName).concat(' ', className)}
-        style={style}
-        onClick={(e) => {
-          openPanel(e);
-          e.nativeEvent.stopImmediatePropagation();
-        }}
-        ref={setReferenceElement}
-        onBlur={onBlur}
-        onFocus={onFocus}
-      >
-        <div className={prefixCls([blockName, 'group']) + (disabled ? ' disabled' : '')}>
-          <span className={prefixCls([blockName, 'input'])}>
-            {!!formatParser.getUseHour(format) && (
-              <span className={prefixCls([blockName, 'input-item'])}>
-                <input
-                  className={prefixCls([blockName, 'input-item-input'])}
-                  value={displayTime('hour')}
-                  onInput={(e) => timeInput(e, 'hour')}
-                />
-                :
-              </span>
-            )}
-            {!!formatParser.getUseMinute(format) && (
-              <span className={prefixCls([blockName, 'input-item'])}>
-                <input
-                  className={prefixCls([blockName, 'input-item-input'])}
-                  value={displayTime('minute')}
-                  onInput={(e) => timeInput(e, 'minute')}
-                />
-              </span>
-            )}
-            {!!formatParser.getUseSecond(format) && (
-              <span className={prefixCls([blockName, 'input-item'])}>
-                :
-                <input
-                  className={prefixCls([blockName, 'input-item-input'])}
-                  value={displayTime('second')}
-                  onInput={(e) => timeInput(e, 'second')}
-                />
-              </span>
-            )}
-          </span>
-        </div>
-      </div>
-      <div
-        className={prefixCls(['time-picker-panel'], ['time-picker-panel', 'container'])}
-        ref={setPopperElement}
-        style={{ ...styles.popper, display: showPanel ? 'block' : 'none' }}
-        onClick={(e) => e.nativeEvent.stopImmediatePropagation()}
-        {...attributes.popper}
-      >
-        <div className={prefixCls(['time-picker-panel-section', 'body'])}>
-          <div className={prefixCls('time-picker-panel')}>
-            <div className={prefixCls(['time-picker-panel', 'header'])}>{display}</div>
-            <div className={prefixCls(['time-picker-panel', 'body'])}>{renderPopperList()}</div>
+    <Popup
+      disabled={disabled} // todo 不起作用
+      trigger="click"
+      content={
+        <div className={`${classPrefix}-time-picker`}>
+          <div className={`${classPrefix}-time-picker-panel__body`} ref={(ref) => (panelRef.current = ref)}>
+            {panel}
           </div>
         </div>
-        <div className={prefixCls(['time-picker-panel-section', 'footer'])}>
-          <button
-            onClick={nowAction.bind(this)}
-            type="button"
-            className={prefixCls('button', 'size-m', 'button--variant-base', 'button--theme-default')}
-          >
-            此刻
-          </button>
-          <button
-            onClick={makeSure.bind(this)}
-            type="button"
-            className={prefixCls(
-              'button',
-              'size-m',
-              'button--variant-base',
-              'button--theme-default',
-              'time-picker-panel-section__footer-button',
-            )}
-          >
-            确定
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
-// TODO: timeRangePicker api还未定稿 暂不实现
-const TimeRange: React.FC<TimePickerProps> = (props) => {
-  const { value = [], onChange = noop } = props;
-  const { classPrefix } = useConfig();
-
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
+      }
+      placement="bottom"
+      onVisibleChange={(visible) => {
+        setVisible(visible);
+        if (visible) {
+          setTimeout(() => autoScroll());
+          onOpen({ e: null }); // todo 传入点击事件
+        } else {
+          onClose({ e: null }); // todo 传入点击事件
         }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
-
-  const [time1, setTime1] = React.useState<string>('');
-  const [time2, setTime2] = React.useState<string>('');
-
-  React.useEffect(() => onChange([time1, time2] as any), [time1, time2, onChange]);
-
-  React.useEffect(() => {
-    setTime1(value[0]);
-    setTime2(value[1]);
-  }, [value]);
-
-  return (
-    <div className={prefixCls(`${blockName}-section`)}>
-      <div className={prefixCls([`${blockName}-section`, 'body'])}>
-        <TimePanel {...props} value={value[0]} onChange={(time: string) => setTime1(time)} />
-        <div className={prefixCls([blockName, 'gap'])}>
-          <div className={prefixCls([blockName, 'gap-top'])}>至</div>
+      }}
+    >
+      <div className={`${classPrefix}-time-picker ${className}`} style={style}>
+        <div className={prefixCls([blockName, 'group'])}>
+          <span className={prefixCls([blockName, 'input'])}>{displayTime}</span>
+          <div
+            style={{ display: clearable && !timeIsEmpty(time) ? 'block' : 'none' }}
+            onClick={() => {
+              if (disabled) return;
+              setTime(getNewTime());
+            }}
+          >
+            <Icon name="close" style={{ cursor: 'pointer' }} />
+          </div>
+          <div style={{ display: timeIsEmpty(time) ? 'block' : 'none', color: '#dddddd' }}>{placeholder}</div>
         </div>
-        <TimePanel {...props} value={value[1]} onChange={(time: string) => setTime2(time)} />
       </div>
-    </div>
+    </Popup>
   );
-};
-
-const TimePicker: React.FC<TimePickerProps> = (props) => {
-  if (typeof props.value === 'string') return <TimePanel {...props} />;
-  if (props.value instanceof Array) return <TimeRange {...props} />;
-  return null;
 };
 
 export default TimePicker;
