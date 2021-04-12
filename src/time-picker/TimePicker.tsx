@@ -20,7 +20,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     disabled = false,
     disableTime = noop,
     placeholder = '',
-    // format = 'hh:mm:ss', // 使用props.value获取
+    // format = 'HH:mm:ss', // 使用props.value获取
     // size = 'medium', // todo size
     steps = [1, 1, 1],
     onChange = noop,
@@ -36,15 +36,14 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   } = props;
 
   const { classPrefix } = useConfig();
-  // 是否使用12小时制
-  // 读取显示格式 如果没有指定就解析value的格式 没有就默认hh:mm:ss
+  // 读取显示格式 如果没有指定就解析value的格式 没有就默认HH:mm:ss
   const [format] = useState(() => {
     if (props.format) return props.format;
     const { value } = props;
     if (value) {
       // 如果没有填format 那么通过value生成format
       if (value instanceof Date) {
-        return 'hh:mm:ss';
+        return 'HH:mm:ss';
       }
       if (typeof value === 'string') {
         let tempValue = value; // 22:33:44
@@ -92,7 +91,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
         return tempFormat;
       }
     }
-    return 'hh:mm:ss';
+    return 'HH:mm:ss';
   });
   // 是否是12小时制显示 true为12小时 false为24小时制
   const h12format = useMemo(() => format.includes('a') || format.includes('A'), [format]);
@@ -168,7 +167,10 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     },
     [classPrefix],
   );
-  const format00 = useCallback((n: number) => (n < 10 ? `0${n}` : `${n}`), []);
+  const format00 = useCallback((n: number, isFormat = false) => {
+    if (!isFormat) return `${n}`;
+    return n < 10 ? `0${n}` : `${n}`;
+  }, []);
   const input = useCallback(
     (n: 0 | 1 | 2 | 3, e) => {
       if (!allowInput) return;
@@ -280,7 +282,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     let i = 0;
     while (true) {
       i = i + 1;
-      if (tempFormat.startsWith('hh') || tempFormat.startsWith('HH')) {
+      if (tempFormat.startsWith('h') || tempFormat.startsWith('H')) {
         let hour = time.getHours();
         if (h12format) {
           if (hour >= 12) hour -= 12;
@@ -293,14 +295,15 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
           >
             <input
               className={prefixCls([blockName, 'input-item-input'])}
-              value={format00(hour)}
+              value={format00(hour, tempFormat.startsWith('hh') || tempFormat.startsWith('HH'))}
               onChange={noop}
               disabled={disabled}
             />
           </span>,
         );
-        tempFormat = tempFormat.slice(2);
-      } else if (tempFormat.startsWith('mm') || tempFormat.startsWith('MM')) {
+        if (tempFormat.startsWith('hh') || tempFormat.startsWith('HH')) tempFormat = tempFormat.slice(2);
+        else tempFormat = tempFormat.slice(1);
+      } else if (tempFormat.startsWith('m') || tempFormat.startsWith('M')) {
         result.push(
           <span
             key={`timeItem${i}_${format}`}
@@ -309,14 +312,15 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
           >
             <input
               className={prefixCls([blockName, 'input-item-input'])}
-              value={format00(time.getMinutes())}
+              value={format00(time.getMinutes(), tempFormat.startsWith('mm') || tempFormat.startsWith('MM'))}
               disabled={disabled}
               readOnly
             />
           </span>,
         );
-        tempFormat = tempFormat.slice(2);
-      } else if (tempFormat.startsWith('ss') || tempFormat.startsWith('SS')) {
+        if (tempFormat.startsWith('mm') || tempFormat.startsWith('MM')) tempFormat = tempFormat.slice(2);
+        else tempFormat = tempFormat.slice(1);
+      } else if (tempFormat.startsWith('s') || tempFormat.startsWith('S')) {
         result.push(
           <span
             key={`timeItem${i}_${format}`}
@@ -325,13 +329,14 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
           >
             <input
               className={prefixCls([blockName, 'input-item-input'])}
-              value={format00(time.getSeconds())}
+              value={format00(time.getSeconds(), tempFormat.startsWith('ss') || tempFormat.startsWith('SS'))}
               disabled={disabled}
               readOnly
             />
           </span>,
         );
-        tempFormat = tempFormat.slice(2);
+        if (tempFormat.startsWith('ss') || tempFormat.startsWith('SS')) tempFormat = tempFormat.slice(2);
+        else tempFormat = tempFormat.slice(1);
       } else if (tempFormat.startsWith('A') || tempFormat.startsWith('a')) {
         let meridiem = time.getHours() >= 12 ? 'pm' : 'am';
         if (tempFormat.startsWith('A')) meridiem = meridiem.toUpperCase(); // 大写显示
