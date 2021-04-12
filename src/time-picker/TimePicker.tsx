@@ -13,22 +13,26 @@ const blockName = 'time-picker';
 
 const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   const {
-    // value = '',
+    value = '',
     defaultValue = '',
     clearable = true, // 默认展示清空按钮
     allowInput = false,
     disabled = false,
     disableTime = noop,
     placeholder = '请选择时间',
-    // format = 'hh:mm:ss',
+    // format = 'hh:mm:ss', // 使用props.value获取
+    // size = 'medium', // todo size
     steps = [1, 1, 1],
     onChange = noop,
     onOpen = noop,
     onClose = noop,
-    // onBlur = noop,
+    onInput = noop,
+    // onBlur = noop, // todo Popup组件不支持
     // onFocus = noop, // todo Popup组件不支持
     className = '',
     style = {},
+    // multiple = false, // todo 多选
+    hideDisabledTime = true,
   } = props;
   // TimePickerProps={
   //   allowInput: false,
@@ -175,7 +179,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     },
     [format, getNewTime],
   );
-  const [time, setTime] = useState<Date>(() => getTimeFromValue(props.value ?? defaultValue));
+  const [time, setTime] = useState<Date>(() => getTimeFromValue(value ?? defaultValue));
   const prefixCls = React.useCallback(
     (...args: (string | [string, string?, string?])[]) => {
       let className = '';
@@ -198,6 +202,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   const input = useCallback(
     (n: 0 | 1 | 2 | 3, e) => {
       if (!allowInput) return;
+      onInput({ input: `${n}`, value: time, e });
       const { keyCode } = e;
       e.preventDefault(); // 防止方向键控制的时候移动页面
       if (keyCode === 37) {
@@ -282,7 +287,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
         }
       }
     },
-    [allowInput, time],
+    [allowInput, onInput, time],
   );
   const displayTime = useMemo(() => {
     const result = [];
@@ -375,16 +380,18 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
         else if (type === 1) m = i;
         else if (type === 2) s = i;
         if (disableTime(h, m, s)) {
-          lis.push(
-            <li
-              className={`${classPrefix}-time-picker-panel__body-scroll-item ${
-                i === cur ? `${classPrefix}-is-current` : ''
-              } ${classPrefix}-is-disabled`}
-              key={i}
-            >
-              {i < 10 ? `0${i}` : i}
-            </li>,
-          );
+          if (!hideDisabledTime) {
+            lis.push(
+              <li
+                className={`${classPrefix}-time-picker-panel__body-scroll-item ${
+                  i === cur ? `${classPrefix}-is-current` : ''
+                } ${classPrefix}-is-disabled`}
+                key={i}
+              >
+                {i < 10 ? `0${i}` : i}
+              </li>,
+            );
+          }
         } else {
           lis.push(
             <li
@@ -401,7 +408,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
       }
       return lis;
     },
-    [classPrefix, disableTime, time],
+    [classPrefix, disableTime, hideDisabledTime, time],
   );
   const panel = useMemo(() => {
     const result = [];
@@ -555,7 +562,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   }, []);
   return (
     <Popup
-      disabled={disabled} // todo 不起作用
+      disabled={disabled} // todo Popup的disabled属性不起作用
       trigger="click"
       content={
         <div className={`${classPrefix}-time-picker`}>
