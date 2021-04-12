@@ -204,6 +204,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
       if (!allowInput) return;
       onInput({ input: `${n}`, value: time, e });
       const { keyCode } = e;
+      // console.log(keyCode);
       e.preventDefault(); // 防止方向键控制的时候移动页面
       if (keyCode === 37) {
         // left key
@@ -217,10 +218,21 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
         if (elem) elem.getElementsByTagName('input')[0]?.focus();
         return;
       }
+      if (keyCode === 9) {
+        // tab key
+        const elem = e.currentTarget.nextElementSibling;
+        if (elem) elem.getElementsByTagName('input')[0]?.focus();
+        else {
+          // back first elem
+          const [elem] = e.currentTarget.parentNode.children;
+          if (elem) elem.getElementsByTagName('input')[0]?.focus();
+        }
+        return;
+      }
       if (n === 3) {
         // am pm 单独处理
-        if (keyCode === 65 || keyCode === 38) {
-          // a key up key
+        if (keyCode === 65 || keyCode === 38 || keyCode === 8 || keyCode === 46) {
+          // a key up key backspace key delete key
           if (time.getHours() >= 12) {
             time.setHours(time.getHours() - 12);
             setTime(new Date(time.valueOf()));
@@ -243,7 +255,10 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
       } else if (n === 2) {
         result = time.getSeconds();
       }
-      if (keyCode >= 48 && keyCode <= 57) {
+      if (keyCode === 8 || keyCode === 46) {
+        // backspace key delete key
+        result = 0;
+      } else if (keyCode >= 48 && keyCode <= 57) {
         // 输入数值 拼接到后面
         number = keyCode - 48;
         result = Number(`${result}${number}`);
