@@ -5,7 +5,7 @@ import { StyledProps } from '../_type';
 import { TdTimePickerProps } from '../_type/components/time-picker';
 import Popup from '../popup/Popup';
 import noop from '../_util/noop';
-import { Icon } from '../icon';
+import { CloseIcon } from '../icon';
 
 export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 
@@ -34,36 +34,6 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     // multiple = false, // todo 多选
     hideDisabledTime = true,
   } = props;
-  // TimePickerProps={
-  //   allowInput: false,
-  //   className: "",
-  //   clearable: false,
-  //   defaultValue: undefined,
-  //   disableTime(h: number, m: number, s: number): boolean {
-  //     return false;
-  //   },
-  //   disabled: false,
-  //   format: "",
-  //   hideDisabledTime: false,
-  //   multiple: false,
-  //   onBlur(context: { input: string; value: TimePickerValue; e: React.FocusEvent<HTMLDivElement> }): void {
-  //   },
-  //   onChange(value: TimePickerValue): void {
-  //   },
-  //   onClose(context: { e: React.MouseEvent<HTMLDivElement> }): void {
-  //   },
-  //   onFocus(context: { input: string; value: TimePickerValue; e: React.FocusEvent<HTMLDivElement> }): void {
-  //   },
-  //   onInput(context: { input: string; value: TimePickerValue; e: React.FormEvent<HTMLDivElement> }): void {
-  //   },
-  //   onOpen(context: { e: React.MouseEvent<HTMLDivElement> }): void {
-  //   },
-  //   placeholder: "",
-  //   size: undefined,
-  //   steps: undefined,
-  //   style: undefined,
-  //   value: undefined
-  // }
 
   const { classPrefix } = useConfig();
   // 是否使用12小时制
@@ -551,22 +521,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     if (!visible) return;
     autoScroll();
   }, [autoScroll, time, visible]);
-
-  // useEffect(() => {
-  //   const newTime = getTimeFromValue(props.value);
-  //
-  //   console.log(newTime.getTime(), time.getTime());
-  //   setTime(newTime);
-  // }, [getTimeFromValue, props.value, time]);
-  // useEffect(() => {
-  //   if (typeof props.value === 'string') {
-  //     const newTime = getTimeFromValue(props.value);
-  //     if (newTime.getTime() === time.getTime()) return; // 说明没变 不需要进行更新
-  //     setTime(newTime);
-  //   } else if (props.value instanceof Date) {
-  //     setTime(props.value);
-  //   }
-  // }, [getTimeFromValue, props.value, time]);
+  // todo 当props.value变化时应该触发当前组件时间当改变
   useEffect(() => {
     if (disabled) return;
     onChange(time);
@@ -607,7 +562,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
               setTime(getNewTime());
             }}
           >
-            <Icon name="close" style={{ cursor: 'pointer' }} />
+            <CloseIcon style={{ cursor: 'pointer' }} />
           </div>
           <div style={{ display: timeIsEmpty(time) ? 'block' : 'none', color: '#dddddd', userSelect: 'none' }}>
             {placeholder}
