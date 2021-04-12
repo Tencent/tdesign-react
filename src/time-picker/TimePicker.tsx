@@ -19,7 +19,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     allowInput = false,
     disabled = false,
     disableTime = noop,
-    placeholder = '请选择时间',
+    placeholder = '',
     // format = 'hh:mm:ss', // 使用props.value获取
     // size = 'medium', // todo size
     steps = [1, 1, 1],
