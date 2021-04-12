@@ -609,7 +609,9 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
           >
             <Icon name="close" style={{ cursor: 'pointer' }} />
           </div>
-          <div style={{ display: timeIsEmpty(time) ? 'block' : 'none', color: '#dddddd' }}>{placeholder}</div>
+          <div style={{ display: timeIsEmpty(time) ? 'block' : 'none', color: '#dddddd', userSelect: 'none' }}>
+            {placeholder}
+          </div>
         </div>
       </div>
     </Popup>
