@@ -1,7 +1,5 @@
 import Pagination from './Pagination';
 
-export type { PaginationProps } from './Pagination';
-
-export * from '../../src/_type/components/pagination';
+export type { PaginationProps, PageInfo } from './Pagination';
 
 export default Pagination;
