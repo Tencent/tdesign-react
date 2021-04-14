@@ -2,25 +2,31 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { ClearCircleIcon, CheckCircleFilledIcon } from '../icon';
+import { TdStepItemProps } from '../_type/components/steps';
+import { StyledProps } from '../_type';
 import StepsContext from './StepsContext';
-import { StepProps } from './StepsProps';
 
-export default function Step(props: StepProps & { stepNumber?: number }) {
-  const { icon, title, content, stepNumber, children, style } = props;
+export interface StepItemProps extends TdStepItemProps, StyledProps {
+  /**
+   * Step的额外的内容以子元素的形式传入
+   */
+  children?: React.ReactNode;
+}
+
+export default function StepItem(props: StepItemProps) {
+  const { icon, title, content, value, children, style } = props;
   let { status } = props;
 
-  const { current, currentStatus, type } = useContext(StepsContext);
+  const { current, currentStatus, theme } = useContext(StepsContext);
   const { classPrefix } = useConfig();
 
   // 本步骤组件主动设定了状态，那么以此为准
   if (!status) {
-    if (stepNumber < current) {
+    if (value < current) {
       // 1. 本步骤序号小于当前步骤并且没有设定任何步骤序号，设定状态为 finish
-
       status = 'finish';
-    } else if (stepNumber === current) {
+    } else if (value === current) {
       // 2. 本步骤序号等于当前步骤. 默认为process
-
       if (currentStatus) {
         status = currentStatus;
       } else {
@@ -28,7 +34,6 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
       }
     } else {
       // 3. 本步骤序号大于当前步骤，默认为wait
-
       status = 'wait';
     }
   }
@@ -44,7 +49,7 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
 
   // 步骤条每一步展示的图标
   let iconEle: React.ReactElement = null;
-  if (type === 'default') {
+  if (theme === 'default') {
     // 1. 主动
     if (icon) {
       iconEle = icon;
@@ -58,7 +63,7 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
           break;
         case 'wait':
         case 'process':
-          iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{stepNumber}</span>;
+          iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{value}</span>;
           break;
       }
     }
@@ -78,4 +83,4 @@ export default function Step(props: StepProps & { stepNumber?: number }) {
   );
 }
 
-Step.displayName = 'Step';
+StepItem.displayName = 'StepItem';

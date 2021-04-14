@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Steps } from '@tencent/tdesign-react';
 
-const { Step } = Steps;
+const { StepItem } = Steps;
 
 export default function OperateSteps() {
   const [current, setCurrent] = useState(1);
@@ -29,17 +29,17 @@ export default function OperateSteps() {
       <br />
       <br />
       <Steps current={current} onChange={onChange}>
-        <Step title="步骤1" content="这里是提示文字"></Step>
-        <Step title="步骤2" content="这里是提示文字"></Step>
-        <Step title="步骤3" content="这里是提示文字"></Step>
-        <Step title="步骤4" content="这里是提示文字"></Step>
+        <StepItem title="步骤1" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤2" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤3" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤4" content="这里是提示文字"></StepItem>
       </Steps>
 
       <Steps direction="vertical" current={current}>
-        <Step title="步骤1" content="这里是提示文字"></Step>
-        <Step title="步骤3" content="这里是提示文字"></Step>
-        <Step title="步骤4" content="这里是提示文字"></Step>
-        <Step title="步骤5" content="这里是提示文字"></Step>
+        <StepItem title="步骤1" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤3" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤4" content="这里是提示文字"></StepItem>
+        <StepItem title="步骤5" content="这里是提示文字"></StepItem>
       </Steps>
     </>
   );

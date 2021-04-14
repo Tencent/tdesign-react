@@ -1,9 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import Step from './Step';
+import { TdStepsProps } from '../_type/components/steps';
+import { StyledProps } from '../_type';
+import StepItem from './StepItem';
 import StepsContext from './StepsContext';
-import { StepsProps } from './StepsProps';
+
+export interface StepsProps extends TdStepsProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 /**
  * 步骤条组件
@@ -14,8 +19,8 @@ export default function Steps(props: StepsProps) {
     style,
     current = 1,
     direction = 'horizontal',
-    status,
-    type = 'default',
+    status = 'process',
+    theme = 'default',
     sequence = 'positive',
     children,
     onChange,
@@ -26,14 +31,14 @@ export default function Steps(props: StepsProps) {
     [`${classPrefix}-steps`]: true,
     [`${classPrefix}-steps--horizontal`]: direction === 'horizontal',
     [`${classPrefix}-steps--vertical`]: direction === 'vertical',
-    [`${classPrefix}-steps--default-anchor`]: type === 'default',
+    [`${classPrefix}-steps--default-anchor`]: theme === 'default',
     [`${classPrefix}-steps--positive`]: sequence === 'positive',
     [`${classPrefix}-steps--reverse`]: sequence === 'reverse',
-    [`${classPrefix}-steps--dot-anchor`]: type === 'dot',
+    [`${classPrefix}-steps--dot-anchor`]: theme === 'dot',
     [props.className]: !!props.className,
   });
 
-  const previousRef = useRef<number>(current);
+  const previousRef = useRef<number | string>(current);
 
   // 监听步骤变化
   useEffect(() => {
@@ -44,21 +49,21 @@ export default function Steps(props: StepsProps) {
   }, [current, onChange]);
 
   return (
-    <StepsContext.Provider value={{ current, currentStatus: status, type }}>
+    <StepsContext.Provider value={{ current, currentStatus: status, theme }}>
       <div className={className} style={style}>
         {React.Children.map(children, (child: JSX.Element, index: number) => {
-          let stepNumber = index + 1;
+          let value = index + 1;
           // 垂直状态下、反序
           if (sequence === 'reverse' && direction === 'vertical') {
             const childs = children as any;
-            stepNumber = childs.length - index;
+            value = childs.length - index;
           }
-          return React.cloneElement(child, { stepNumber });
+          return React.cloneElement(child, { value, ...child.props });
         })}
       </div>
     </StepsContext.Provider>
   );
 }
 
-Steps.Step = Step;
+Steps.StepItem = StepItem;
 Steps.displayName = 'Steps';

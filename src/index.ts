@@ -9,7 +9,7 @@ export { default as ConfigProvider } from './config-provider';
 export * from './icon';
 export { default as Popup } from './popup';
 export { default as Radio } from './radio';
-export { default as Steps } from './steps';
+export { default as Steps, StepItem } from './steps';
 export { default as Message } from './message';
 export { default as Table } from './table';
 export { default as Tag } from './tag';
