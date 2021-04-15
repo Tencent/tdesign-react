@@ -6,16 +6,16 @@ export default function ThemeExample() {
   return (
     <>
       <PopConfirm content={$content}>
-        <Button>默认</Button>
+        <Button variant="outline">默认</Button>
       </PopConfirm>
-      <PopConfirm content={$content} theme="info">
+      <PopConfirm content={$content} theme="default">
         <Button theme="primary">提示</Button>
       </PopConfirm>
       <PopConfirm content={$content} theme="warning">
         <Button theme="danger">警告</Button>
       </PopConfirm>
-      <PopConfirm content={$content} theme="error">
-        <Button>错误</Button>
+      <PopConfirm content={$content} theme="danger">
+        <Button theme="danger">错误</Button>
       </PopConfirm>
     </>
   );
