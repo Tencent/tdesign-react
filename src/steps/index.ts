@@ -1,8 +1,8 @@
-import Step from './Step';
 import Steps from './Steps';
+import StepItem from './StepItem';
 
-export type { StepProps, StepsProps, StepStatus } from './StepsProps';
+export type { StepsProps } from './Steps';
+export type { StepItemProps } from './StepItem';
 
-export { Step };
-
+export { StepItem };
 export default Steps;

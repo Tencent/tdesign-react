@@ -4,6 +4,8 @@ import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
 
+export type { PageInfo } from '../_type/components/pagination';
+
 const { Option } = Select;
 
 /**
