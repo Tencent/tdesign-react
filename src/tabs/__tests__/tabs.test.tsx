@@ -10,11 +10,11 @@ describe('Tabs 组件测试', () => {
     const testId = 'tab bar test id';
     const { getByTestId } = render(
       <div data-testid={testId}>
-        <Tabs tabPosition={'top'} data-testid={testId} size={'middle'}>
-          <TabPanel name={'a'} label={'a'}>
+        <Tabs placement={'top'} data-testid={testId} size={'medium'}>
+          <TabPanel value={'a'} label={'a'}>
             <div>a</div>
           </TabPanel>
-          <TabPanel name={'b'} label={'b'}>
+          <TabPanel value={'b'} label={'b'}>
             <div>b</div>
           </TabPanel>
         </Tabs>
@@ -30,11 +30,11 @@ describe('Tabs 组件测试', () => {
     const testId = 'tab card theme test id';
     const { getByTestId } = render(
       <div data-testid={testId}>
-        <Tabs tabPosition={'top'} size={'middle'}>
-          <TabPanel name={'a'} label={'a'}>
+        <Tabs placement={'top'} size={'medium'}>
+          <TabPanel value={'a'} label={'a'}>
             <div>a</div>
           </TabPanel>
-          <TabPanel name={'b'} label={'b'}>
+          <TabPanel value={'b'} label={'b'}>
             <div>b</div>
           </TabPanel>
         </Tabs>
@@ -50,11 +50,11 @@ describe('Tabs 组件测试', () => {
     const testId = 'tab position test id';
     const { getByTestId } = render(
       <div data-testid={testId}>
-        <Tabs tabPosition={'top'} size={'middle'}>
-          <TabPanel name={'a'} label={'a'}>
+        <Tabs placement={'top'} size={'medium'}>
+          <TabPanel value={'a'} label={'a'}>
             <div>a</div>
           </TabPanel>
-          <TabPanel name={'b'} label={'b'}>
+          <TabPanel value={'b'} label={'b'}>
             <div>b</div>
           </TabPanel>
         </Tabs>
