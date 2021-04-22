@@ -16,7 +16,7 @@ export default function NotModalExample() {
         Open Modal
       </Button>
       <Dialog
-        mode="not-modal"
+        mode="modeless"
         header="非模态框"
         visible={visible}
         onClose={handleClose}
