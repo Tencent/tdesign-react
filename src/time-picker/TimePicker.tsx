@@ -535,29 +535,81 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     if (!time) return true;
     return time.getHours() === 0 && time.getMinutes() === 0 && time.getSeconds() === 0;
   }, []);
+  const ref = useRef<HTMLElement>();
+  const popupRef = useRef<HTMLElement>();
+
+  const contains = useCallback((root: HTMLElement, n: HTMLElement) => {
+    let node = n;
+    while (node) {
+      if (node === root) {
+        return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }, []);
+  const click = useCallback(
+    (event: Event) => {
+      if (!ref.current || !popupRef.current) return;
+      if (!contains(ref.current, event.target as HTMLElement)) {
+        if (!contains(popupRef.current, event.target as HTMLElement)) setVisible(false);
+      }
+    },
+    [contains],
+  );
+
+  useEffect(() => {
+    window.addEventListener('click', click);
+    return () => {
+      window.removeEventListener('click', click);
+    };
+  }, [click]);
+  const setNowTime = useCallback(() => {
+    setTime(new Date());
+  }, []);
+  useEffect(() => {
+    if (visible) onOpen(null);
+    else onClose(null);
+  }, [onClose, onOpen, visible]);
   return (
     <Popup
-      disabled={disabled} // todo Popup的disabled属性不起作用
-      trigger="click"
+      trigger="manual"
       content={
         <div className={`${classPrefix}-time-picker`}>
           <div className={`${classPrefix}-time-picker-panel__body`} ref={(ref) => (panelRef.current = ref)}>
             {panel}
           </div>
+          <div className={`${classPrefix}-time-picker-panel-section__footer`}>
+            <div
+              className={`${classPrefix}-time-picker-panel-section__footer-button`}
+              style={{ left: 24, right: 'auto' }}
+              onClick={() => {
+                setNowTime();
+                setVisible(false);
+              }}
+            >
+              此刻
+            </div>
+            <div
+              className={`${classPrefix}-time-picker-panel-section__footer-button`}
+              onClick={() => setVisible(false)}
+            >
+              确定
+            </div>
+          </div>
         </div>
       }
       placement="bottom"
-      onVisibleChange={(visible) => {
-        setVisible(visible);
-        if (visible) {
-          setTimeout(() => autoScroll());
-          onOpen({ e: null }); // todo 传入点击事件
-        } else {
-          onClose({ e: null }); // todo 传入点击事件
-        }
-      }}
+      visible={visible}
+      onVisibleChange={console.log}
+      ref={(r) => (popupRef.current = r)}
     >
-      <div className={`${classPrefix}-time-picker ${className}`} style={style}>
+      <div
+        className={`${classPrefix}-time-picker ${className}`}
+        style={style}
+        onClick={() => setVisible(true)}
+        ref={(r) => (ref.current = r)}
+      >
         <div className={prefixCls([blockName, 'group'])}>
           <span className={prefixCls([blockName, 'input'])}>{displayTime}</span>
           <div
