@@ -10,7 +10,7 @@ export default function TimePickerExample() {
         onChange={setValue}
         format="hh:mm:ss"
         timeType="time"
-        disableTime={(h, m, s) => h < 15 || m < 30 || s > 45}
+        disabled
       />
     </div>
   );
