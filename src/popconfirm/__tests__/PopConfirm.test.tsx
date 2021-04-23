@@ -1,5 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
+import { CheckCircleIcon } from '@tencent/tdesign-react/icon';
 import PopConfirm from '../PopConfirm';
 import PopContent from '../PopContent';
 
@@ -55,8 +56,8 @@ describe('PopConfirm 组件测试', () => {
         content={<div data-testid={testId}>{text}</div>}
         onCancel={onCancelMock}
         onConfirm={onConfirmMock}
-        confirmText="确认提交"
-        cancelText="取消操作"
+        confirmBtn="确认提交"
+        cancelBtn="取消操作"
       >
         {triggerElement}
       </PopConfirm>,
@@ -99,37 +100,37 @@ describe('PopConfirm 组件测试', () => {
       classPrefix: 't',
       content: text,
     };
-    const { asFragment } = render(<PopContent {...props} theme="error" />);
+    const { asFragment } = render(<PopContent {...props} theme="danger" />);
     expect(asFragment()).toMatchSnapshot();
 
     const { asFragment: asFragment2 } = render(<PopContent {...props} theme="warning" />);
     expect(asFragment2()).toMatchSnapshot();
 
-    const { asFragment: asFragment3 } = render(<PopContent {...props} theme="info" />);
+    const { asFragment: asFragment3 } = render(<PopContent {...props} theme="default" />);
     expect(asFragment3()).toMatchSnapshot();
 
     const { asFragment: asFragment4 } = render(<PopContent {...props} theme="default" />);
     expect(asFragment4()).toMatchSnapshot();
 
     // theme 生效
-    const { asFragment: asFragment5 } = render(<PopContent {...props} theme="error" icon="success-fill" />);
+    const { asFragment: asFragment5 } = render(<PopContent {...props} theme="danger" icon={<CheckCircleIcon />} />);
     expect(asFragment5()).toMatchSnapshot();
 
     // icon 生效
-    const { asFragment: asFragment6 } = render(<PopContent {...props} theme="error" icon={<span>CustomIcon</span>} />);
+    const { asFragment: asFragment6 } = render(<PopContent {...props} theme="danger" icon={<span>CustomIcon</span>} />);
     expect(asFragment6()).toMatchSnapshot();
 
     // icon 生效
-    const { asFragment: asFragment7 } = render(<PopContent {...props} theme="default" icon="success-fill" />);
+    const { asFragment: asFragment7 } = render(<PopContent {...props} theme="default" icon={<CheckCircleIcon />} />);
     expect(asFragment7()).toMatchSnapshot();
 
     // icon 生效
-    const { asFragment: asFragment8 } = render(<PopContent {...props} icon="success-fill" />);
+    const { asFragment: asFragment8 } = render(<PopContent {...props} icon={<CheckCircleIcon />} />);
     expect(asFragment8()).toMatchSnapshot();
 
     // icon 生效
     const CustomIcon = () => <span>CustomIcon</span>;
-    const { asFragment: asFragment9 } = render(<PopContent {...props} theme="error" icon={CustomIcon} />);
+    const { asFragment: asFragment9 } = render(<PopContent {...props} theme="danger" icon={CustomIcon} />);
     expect(asFragment9()).toMatchSnapshot();
   });
 

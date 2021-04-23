@@ -4,43 +4,34 @@ import { Tabs, TabPanel } from '@tencent/tdesign-react';
 export default function CloseableTabs() {
   const [panels, setPanels] = useState([
     {
-      name: 1,
+      value: 1,
       label: '选项卡1',
     },
   ]);
   return (
     <>
-      <div
-        style={{
-          maxWidth: '400px',
-        }}
-      >
+      <div>
         <Tabs
-          tabPosition={'top'}
-          size={'middle'}
+          placement={'top'}
+          size={'medium'}
           disabled={false}
           theme={'card'}
-          defaultActiveName={'2'}
-          addable={true}
-          onClose={(event, activeName) => {
-            const targetPanelIndex = panels.findIndex((panel) => String(panel.name) === activeName);
-            if (targetPanelIndex !== -1) {
-              panels.splice(targetPanelIndex, 1);
-              setPanels([...panels]);
-            }
+          defaultValue={1}
+          addable
+          onRemove={({ value }) => {
+            const newPanels = panels.filter((panel) => panel.value !== value);
+            setPanels(newPanels);
           }}
           onAdd={() => {
-            setPanels((panels) => {
-              panels.push({
-                name: panels.length + 1,
-                label: `选项卡${panels.length + 1}`,
-              });
-              return [...panels];
+            const newPanels = panels.concat({
+              value: panels.length + 1,
+              label: `选项卡${panels.length + 1}`,
             });
+            setPanels(newPanels);
           }}
         >
-          {panels.map(({ name, label }) => (
-            <TabPanel closable={panels.length > 1} key={name} name={name} label={label}>
+          {panels.map(({ value, label }) => (
+            <TabPanel removable key={value} value={value} label={label}>
               <div style={{ margin: 20 }}>{label}</div>
             </TabPanel>
           ))}

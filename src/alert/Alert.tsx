@@ -5,7 +5,6 @@ import useConfig from '../_util/useConfig';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
 import { TdAlertProps } from '../_type/components/alert';
 import { StyledProps } from '../_type';
-import { TElement } from '../_type/common';
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
@@ -33,9 +32,9 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 
   const renderIconNode = () => {
     if (React.isValidElement(icon)) {
-      return React.cloneElement(icon as TElement, {
+      return React.cloneElement(icon as React.ReactElement, {
         className: classNames(`${classPrefix}-alert__icon`, {
-          [(icon as TElement).props.className]: (icon as TElement).props.className,
+          [icon.props.className]: icon.props.className,
         }),
       });
     }

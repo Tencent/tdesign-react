@@ -23,7 +23,6 @@ module.exports = {
   arrowParens: 'always',
   // 每个文件格式化的范围是文件的全部内容
   rangeStart: 0,
-  // 每个文件格式化的范围是文件的全部内容
   rangeEnd: Infinity,
   // 不需要写文件开头的 @prettier
   requirePragma: false,

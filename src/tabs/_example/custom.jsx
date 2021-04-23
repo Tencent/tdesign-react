@@ -4,7 +4,7 @@ import { Tabs, TabPanel } from '@tencent/tdesign-react';
 export default function AddTabs() {
   const [panels, setPanels] = useState([
     {
-      name: 1,
+      value: 0,
       label: '选项卡1',
     },
   ]);
@@ -12,24 +12,33 @@ export default function AddTabs() {
     <>
       <div className="tdegsin-demo-tabs">
         <Tabs
-          tabPosition={'top'}
-          size={'middle'}
+          placement={'top'}
+          size={'medium'}
           disabled={false}
           theme={'card'}
-          defaultActiveName={'2'}
-          addable={true}
+          defaultValue={0}
+          addable
           onAdd={() => {
-            setPanels((panels) => {
-              panels.push({
-                name: panels.length + 1,
-                label: `选项卡${panels.length + 1}`,
-              });
-              return [...panels];
+            const newPanels = panels.concat({
+              value: panels.length + 1,
+              label: `选项卡${panels.length + 1}`,
             });
+            setPanels(newPanels);
           }}
         >
-          {panels.map(({ name, label }) => (
-            <TabPanel key={name} name={name} label={label}>
+          {panels.map(({ value, label }, index) => (
+            <TabPanel
+              key={value}
+              value={value}
+              label={label}
+              removable={panels.length > 1}
+              onRemove={() => {
+                setPanels((panels) => {
+                  panels.splice(index, 1);
+                  return panels;
+                });
+              }}
+            >
               <div className="tabs-content">{label}</div>
             </TabPanel>
           ))}

@@ -38,22 +38,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
+      <svg
+        class="t-icon t-icon-info-circle-filled"
         style="color: rgb(255, 62, 0);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          class="t-icon t-icon-info-circle-filled"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </i>
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -65,11 +62,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -83,22 +83,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
+      <svg
+        class="t-icon t-icon-info-circle-filled"
         style="color: rgb(255, 170, 0);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          class="t-icon t-icon-info-circle-filled"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </i>
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -110,11 +107,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -128,22 +128,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
-        style="color: rgb(0, 82, 217);"
-      >
-        <svg
-          class="t-icon t-icon-info-circle-filled"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </i>
       <div
         class="t-popconfirm__inner"
       >
@@ -155,11 +139,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -184,11 +171,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -202,22 +192,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
+      <svg
+        class="t-icon t-icon-check-circle"
         style="color: rgb(255, 62, 0);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          class="t-icon t-icon-info-circle-filled"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </i>
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM690.8655168 353.58818368L736.120352 398.8430176 509.84617984 625.1171872 464.59134592 670.3720192 419.336512 625.1171872 283.57201024 489.35268544 328.82684416 444.09785152 464.576 579.84 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -229,11 +216,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -247,13 +237,11 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
+      <span
         style="color: rgb(255, 62, 0);"
       >
-        <span>
-          CustomIcon
-        </span>
-      </i>
+        CustomIcon
+      </span>
       <div
         class="t-popconfirm__inner"
       >
@@ -265,11 +253,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -283,6 +274,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
     <div
       class="t-popconfirm__body"
     >
+      <svg
+        class="t-icon t-icon-check-circle"
+        style="color: rgb(0, 82, 217);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM690.8655168 353.58818368L736.120352 398.8430176 509.84617984 625.1171872 464.59134592 670.3720192 419.336512 625.1171872 283.57201024 489.35268544 328.82684416 444.09785152 464.576 579.84 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -294,11 +298,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -312,22 +319,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
     <div
       class="t-popconfirm__body"
     >
-      <i
+      <svg
+        class="t-icon t-icon-check-circle"
         style="color: rgb(0, 82, 217);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          class="t-icon t-icon-info-circle-filled"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </i>
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM690.8655168 353.58818368L736.120352 398.8430176 509.84617984 625.1171872 464.59134592 670.3720192 419.336512 625.1171872 283.57201024 489.35268544 328.82684416 444.09785152 464.576 579.84 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -339,11 +343,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -371,11 +378,14 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="color: rgb(34, 34, 34);"
-      />
+      >
+        取消
+      </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-      />
+      >
+        确定
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -384,7 +394,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 exports[`ThemeExample.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-default t-button--variant-outline"
   >
     默认
   </button>
@@ -399,7 +409,7 @@ exports[`ThemeExample.jsx 1`] = `
     警告
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-danger t-button--variant-base"
   >
     错误
   </button>

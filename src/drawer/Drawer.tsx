@@ -40,11 +40,9 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     onKeydownEsc,
     closeOnClickOverlay,
     closeOnKeydownEsc,
-    forceRender,
     children,
     header,
     footer,
-    duration,
     closeBtn,
     zIndex,
     destroyOnClose,
@@ -101,7 +99,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
           drawerWrapperRef.current.style.cssText = `
             ${documentBodyCssText};
             ${drawerWrapperRefCssText};
-            transition: margin ${duration}ms cubic-bezier(0.7, 0.3, 0.1, 1);
+            transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1);
             margin: ${margin};
           `;
         }
@@ -118,7 +116,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
       contentWrapperRef.current.style.transform = transform;
     }
-  }, [attach, currentAttach, duration, height, isTopOrBottom, isTopOrLeft, mode, transform, visible, width]);
+  }, [attach, currentAttach, height, isTopOrBottom, isTopOrLeft, mode, transform, visible, width]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
@@ -147,7 +145,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   }
 
   return (
-    <DrawerWrapper visible={visible} attach={attach} forceRender={forceRender} ref={drawerWrapperRef}>
+    <DrawerWrapper visible={visible} attach={attach} ref={drawerWrapperRef}>
       <div
         className={classnames(prefixCls, className, `${prefixCls}-${placement}`, {
           [`${prefixCls}-open`]: visible,
@@ -166,7 +164,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
             className={`${prefixCls}__mask`}
             onClick={closeOnClickOverlay ? onMaskClick : undefined}
             style={{
-              transitionDuration: `${duration}ms`,
+              transitionDuration: '300ms',
             }}
           />
         )}
@@ -174,7 +172,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
           className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper-${placement}`)}
           ref={contentWrapperRef}
           style={{
-            transitionDuration: `${duration}ms`,
+            transitionDuration: '300ms',
             width,
             height,
           }}
@@ -212,7 +210,6 @@ function Header(props: { className?: string; title?: React.ReactNode; header: Dr
 
 Drawer.defaultProps = {
   closeBtn: true,
-  duration: 300,
   closeOnClickOverlay: true,
   closeOnKeydownEsc: true,
   zIndex: 1500,
@@ -220,7 +217,6 @@ Drawer.defaultProps = {
   placement: 'right',
   mode: 'overlay',
   destroyOnClose: false,
-  forceRender: false,
   showOverlay: true,
   header: true,
 };

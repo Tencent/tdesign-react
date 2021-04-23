@@ -4,13 +4,12 @@ import Portal, { PortalProps } from './Portal';
 
 export interface DrawerWrapperProps extends PortalProps {
   attach?: DrawerProps['attach'];
-  forceRender?: DrawerProps['forceRender'];
   visible?: DrawerProps['visible'];
   children: React.ReactElement;
 }
 
 const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
-  const { children, attach, forceRender, visible } = props;
+  const { children, attach, visible } = props;
   const portalRef = useRef<HTMLElement>();
   let portal = null;
 
@@ -22,7 +21,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
     return portalRef.current;
   });
 
-  if (forceRender || visible || portalRef.current) {
+  if (visible || portalRef.current) {
     if (attach === '') {
       // 如果 attach === '',渲染在当前组件节点中。
       portal = <span ref={portalRef}>{cloneElement(children)}</span>;
