@@ -22,7 +22,7 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
     max = Number.MAX_SAFE_INTEGER,
     min = Number.MIN_SAFE_INTEGER,
     decimalPlaces,
-    formatter,
+    format,
     onChange,
     onBlur,
     onFocus,
@@ -55,8 +55,8 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
       initialValue = getRangeValue(Number(defaultValue));
     }
 
-    if (formatter && initialValue !== '') {
-      return formatter(getRangeValue(Number(initialValue)));
+    if (format && initialValue !== '') {
+      return format(getRangeValue(Number(initialValue)));
     }
 
     return initialValue;
@@ -72,7 +72,7 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
       return setInternalInputValue('');
     }
 
-    const formattedInputValue = formatter?.(Number(inputStr)) ?? inputStr;
+    const formattedInputValue = format?.(Number(inputStr)) ?? inputStr;
     setInternalInputValue(formattedInputValue);
   };
 

@@ -48,7 +48,7 @@ export default function StepItem(props: StepItemProps) {
   });
 
   // 步骤条每一步展示的图标
-  let iconEle: React.ReactElement = null;
+  let iconEle = null;
   if (theme === 'default') {
     // 1. 主动
     if (icon) {

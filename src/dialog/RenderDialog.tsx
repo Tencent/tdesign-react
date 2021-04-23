@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
 import { AttachNode } from '../_type/common';
+import noop from '../_util/noop';
 import { DialogProps } from './Dialog';
 
 enum KEY_CODE {
@@ -26,6 +27,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     showOverlay,
     onKeydownEsc,
     onClosed,
+    onClose,
+    onClickCloseBtn = noop,
+    onClickOverlay = noop,
     preventScrollThrough,
     closeBtn,
   } = props;
@@ -46,11 +50,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
   }, [preventScrollThrough, getContainer, visible, mode, isModal]);
 
-  const close = (e: any) => {
-    const { onClose } = props;
-    onClose && onClose(e);
-  };
-
   const onAnimateLeave = () => {
     if (wrap.current) {
       wrap.current.style.display = 'none';
@@ -69,20 +68,21 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      const { onClickOverlay } = props;
-      (onClickOverlay || close)(e);
+      onClickOverlay(e);
+      onClose({ e, trigger: 'clickOverlay' });
     }
   };
 
   const onCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { onClickCloseBtn } = props;
-    (onClickCloseBtn || close)(e);
+    onClickCloseBtn(e);
+    onClose({ e, trigger: 'clickCloseBtn' });
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === KEY_CODE.ESC) {
       e.stopPropagation();
-      (onKeydownEsc || close)(e);
+      onKeydownEsc(e);
+      onClose({ e, trigger: 'keydownEsc' });
     }
   };
 

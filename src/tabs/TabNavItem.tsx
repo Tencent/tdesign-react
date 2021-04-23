@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
-import { CloseIcon } from '@tencent/tdesign-react';
 import classNames from 'classnames';
-import { TdTabPanelProps } from '../_type/components/tabs';
+import { CloseIcon } from '../icon';
+import { TdTabPanelProps, TdTabsProps } from '../_type/components/tabs';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 
@@ -13,6 +13,8 @@ export interface TabNavItemProps extends TdTabPanelProps {
   theme: 'normal' | 'card';
   placement: string;
   size?: 'medium' | 'large';
+  index: number;
+  onTabsRemove: TdTabsProps['onRemove'];
 }
 
 const TabNavItem: React.FC<TabNavItemProps> = (props) => {
@@ -23,10 +25,12 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     onClick = noop,
     theme,
     placement,
+    onTabsRemove = noop,
     onRemove = noop,
     value,
     size = 'medium',
     disabled = false,
+    index,
   } = props;
 
   // 样式变量和常量定义
@@ -54,6 +58,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
               return;
             }
             e.stopPropagation();
+            onTabsRemove({ value, e, index });
             onRemove({ value, e });
           }}
         />

@@ -51,12 +51,11 @@ const Dialog: React.FC<DialogProps> = (props) => {
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClickCancel(e);
-    onClose({ e });
+    onClose({ e, trigger: 'clickCancel' });
   };
 
   const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClickConfirm(e);
-    onClose({ e });
   };
 
   const defaultFooter = () => {
@@ -69,7 +68,6 @@ const Dialog: React.FC<DialogProps> = (props) => {
     }
 
     if (React.isValidElement(confirmBtn)) {
-      console.log('renderConfirmBtn', renderConfirmBtn);
       renderConfirmBtn = confirmBtn;
     }
 

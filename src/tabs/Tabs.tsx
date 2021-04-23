@@ -8,7 +8,7 @@ import TabPanel from './TabPanel';
 export interface TabsProps extends TdTabsProps {}
 
 const Tabs: React.FC<TabsProps> = (props) => {
-  const { children, defaultValue, placement } = props;
+  const { children, defaultValue, placement, onRemove } = props;
 
   // 样式工具引入
   const { tdTabPanelClassPrefix, tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
@@ -22,19 +22,13 @@ const Tabs: React.FC<TabsProps> = (props) => {
     return null;
   });
 
+  const renderTabNav = () => (
+    <TabNav {...props} activeValue={value} onRemove={onRemove} itemList={itemList} tabClick={setValue} />
+  );
+
   return (
     <div className={classNames(tdTabsClassPrefix)}>
-      {placement !== 'bottom' ? (
-        <TabNav
-          {...props}
-          activeValue={value}
-          itemList={itemList}
-          tabClick={(v) => {
-            setValue(v);
-          }}
-        />
-      ) : null}
-      {/* :todo 后续做 children 的结构校验，保证一定是 tabPanel 类型 */}
+      {placement !== 'bottom' ? renderTabNav() : null}
       <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
         <div className={classNames(tdTabPanelClassPrefix)}>
           {React.Children.map(children, (child: any) => {
@@ -45,16 +39,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
           })}
         </div>
       </div>
-      {placement === 'bottom' ? (
-        <TabNav
-          {...props}
-          activeValue={value}
-          itemList={itemList}
-          tabClick={(v) => {
-            setValue(v);
-          }}
-        />
-      ) : null}
+      {placement === 'bottom' ? renderTabNav() : null}
     </div>
   );
 };

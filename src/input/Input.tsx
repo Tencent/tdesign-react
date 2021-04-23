@@ -3,17 +3,21 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdInputProps } from '../_type/components/input';
 import { StyledProps } from '../_type';
+import { TElement } from '../_type/common';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
-const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: React.ReactElement) => {
+const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TElement) => {
   let result: React.ReactNode = null;
-  if (icon) {
-    result = icon;
-  }
+
+  if (icon) result = icon;
+
+  if (typeof icon === 'function') result = icon();
+
   if (result) {
     result = <span className={`${classPrefix}-input__${type}`}>{result}</span>;
   }
+
   return result;
 };
 

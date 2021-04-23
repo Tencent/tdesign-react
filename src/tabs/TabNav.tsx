@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@tencent/tdesign-react';
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '../icon';
 import { TdTabsProps, TdTabPanelProps, TabValue } from '../_type/components/tabs';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
@@ -25,6 +25,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     onAdd,
     size = 'medium',
     disabled = false,
+    onRemove,
   } = props;
 
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
@@ -140,7 +141,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             <div className={classNames(tdTabsClassGenerator('nav-wrap'))} ref={navContainerRef}>
               {placement !== 'bottom' ? TabBarCom : null}
               <div className={classNames(tdTabsClassGenerator('bar'), tdClassGenerator(`is-${placement}`))} />
-              {itemList.map((v) => (
+              {itemList.map((v, index) => (
                 <TabNavItem
                   {...props}
                   {...v}
@@ -149,6 +150,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                   isActive={activeValue === v.value}
                   theme={theme}
                   placement={placement}
+                  onTabsRemove={onRemove}
+                  index={index}
                   disabled={disabled || v.disabled}
                   onClick={() => {
                     tabClick(v.value);
