@@ -226,18 +226,6 @@ exports[`FooterUsageExample.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ForceRenderUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-    >
-      Open
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`ModeUsageExample.jsx 1`] = `
 <DocumentFragment>
   <div>
