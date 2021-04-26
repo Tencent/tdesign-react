@@ -1,90 +1,45 @@
-import React, { ReactNode, MouseEvent, FunctionComponent } from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
-import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
-import { ControlledProps } from '../_type';
-import { CheckContext, CheckContextValue } from '../check';
+import { TdRadioGroupProps } from '../_type/components/radio';
+import useDefault from '../_util/useDefault';
+import { CheckContext, CheckContextValue } from '../common/Check';
 
 /**
  * RadioGroup 组件所接收的属性
  */
-export interface RadioGroupProps extends ControlledProps<string> {
-  /**
-   * 当前选中的 Radio 的 name
-   */
-  value?: string;
-
-  /**
-   * 值变更时回调
-   */
-  onChange?: (value: string, context: { event: MouseEvent<HTMLInputElement> }) => void;
-
-  /**
-   * 禁用组件
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 单选按钮内容
-   */
+export interface RadioGroupProps extends TdRadioGroupProps {
   children?: ReactNode;
-
-  /**
-   * 按钮样式的大小
-   * @default 'default'
-   */
-  size?: 'large' | 'medium' | 'small';
-
-  /**
-   * 按钮样式的风格
-   * @default 'outline'
-   */
-  buttonStyle?: 'outline' | 'solid';
-}
-
-export interface RadioGroupTarget {
-  /** 当前选中的 Radio 的值 */
-  value: string;
 }
 
 /**
  * 单选选项组，里面可以嵌套 <Radio />
  */
-const RadioGroup: FunctionComponent<RadioGroupProps> = (props) => {
+const RadioGroup = (props: RadioGroupProps) => {
   const { classPrefix } = useConfig();
-  const { disabled, children, value, onChange, size = 'medium', buttonStyle = 'outline' } = useDefaultValue(props);
+  const { disabled, children, value, defaultValue, onChange, size = 'medium', buttonStyle = 'outline' } = props;
+
+  const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
-      // 只为 radio 提供
-      if (checkProps.type === 'checkbox') {
-        return checkProps;
-      }
-
       // 如果已经受控，则不注入
-      if (typeof checkProps.value === 'boolean') {
+      if (typeof checkProps.checked !== 'undefined') {
         return checkProps;
       }
 
-      const checkName = checkProps.name;
+      const { value: checkValue } = checkProps;
 
       return {
         ...checkProps,
-        value: value === checkProps.name,
+        checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
-        onChange(checked, { event }) {
+        onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
-            checkProps.onChange(checked, { event });
-
-            if (event.defaultPrevented) {
-              return;
-            }
+            checkProps.onChange(checked, { e });
           }
 
-          if (typeof onChange === 'function') {
-            onChange(checkName, { event });
-          }
+          setInternalValue(checkValue, { e });
         },
       };
     },
