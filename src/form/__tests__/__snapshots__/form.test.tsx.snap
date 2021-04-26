@@ -27,12 +27,13 @@ exports[`align.jsx 1`] = `
             >
               <label
                 class="t-radio-button"
-                name="left"
               >
                 <input
                   class="t-radio-button__former"
+                  name="left"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -45,12 +46,13 @@ exports[`align.jsx 1`] = `
               </label>
               <label
                 class="t-radio-button"
-                name="right"
               >
                 <input
                   class="t-radio-button__former"
+                  name="right"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -63,12 +65,13 @@ exports[`align.jsx 1`] = `
               </label>
               <label
                 class="t-radio-button"
-                name="top"
               >
                 <input
                   class="t-radio-button__former"
+                  name="top"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -238,12 +241,13 @@ exports[`base.jsx 1`] = `
             >
               <label
                 class="t-radio"
-                name="male"
               >
                 <input
                   class="t-radio__former"
+                  name="male"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -256,12 +260,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-radio"
-                name="female"
               >
                 <input
                   class="t-radio__former"
+                  name="female"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -586,12 +591,13 @@ exports[`layout.jsx 1`] = `
       >
         <label
           class="t-radio-button"
-          name="vertical"
         >
           <input
             class="t-radio-button__former"
+            name="vertical"
             readonly=""
             type="radio"
+            value=""
           />
           <span
             class="t-radio-button__input"
@@ -603,14 +609,14 @@ exports[`layout.jsx 1`] = `
           </span>
         </label>
         <label
-          class="t-radio-button t-is-checked"
-          name="inline"
+          class="t-radio-button"
         >
           <input
-            checked=""
             class="t-radio-button__former"
+            name="inline"
             readonly=""
             type="radio"
+            value=""
           />
           <span
             class="t-radio-button__input"
@@ -948,12 +954,13 @@ exports[`validator.jsx 1`] = `
             >
               <label
                 class="t-radio"
-                name="male"
               >
                 <input
                   class="t-radio__former"
+                  name="male"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -966,12 +973,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-radio"
-                name="femal"
               >
                 <input
                   class="t-radio__former"
+                  name="femal"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"

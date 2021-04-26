@@ -9,6 +9,7 @@ exports[`base.jsx 1`] = `
       class="t-radio__former"
       readonly=""
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -27,6 +28,7 @@ exports[`base.jsx 1`] = `
       class="t-radio__former"
       readonly=""
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -45,6 +47,7 @@ exports[`base.jsx 1`] = `
       disabled=""
       readonly=""
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -64,6 +67,7 @@ exports[`base.jsx 1`] = `
       disabled=""
       readonly=""
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -84,13 +88,13 @@ exports[`button.jsx 1`] = `
   >
     <label
       class="t-radio-button t-is-checked"
-      name="china"
     >
       <input
         checked=""
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="china"
       />
       <span
         class="t-radio-button__input"
@@ -103,13 +107,13 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button t-is-disabled"
-      name="usa"
     >
       <input
         class="t-radio-button__former"
         disabled=""
         readonly=""
         type="radio"
+        value="usa"
       />
       <span
         class="t-radio-button__input"
@@ -122,12 +126,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="england"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="england"
       />
       <span
         class="t-radio-button__input"
@@ -140,12 +144,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="japan"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="japan"
       />
       <span
         class="t-radio-button__input"
@@ -158,12 +162,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="korea"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="korea"
       />
       <span
         class="t-radio-button__input"
@@ -181,13 +185,13 @@ exports[`button.jsx 1`] = `
   >
     <label
       class="t-radio-button t-is-checked"
-      name="bj"
     >
       <input
         checked=""
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="bj"
       />
       <span
         class="t-radio-button__input"
@@ -200,13 +204,13 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button t-is-disabled"
-      name="sh"
     >
       <input
         class="t-radio-button__former"
         disabled=""
         readonly=""
         type="radio"
+        value="sh"
       />
       <span
         class="t-radio-button__input"
@@ -219,12 +223,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="gz"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="gz"
       />
       <span
         class="t-radio-button__input"
@@ -237,12 +241,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sz"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sz"
       />
       <span
         class="t-radio-button__input"
@@ -255,12 +259,12 @@ exports[`button.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="xm"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="xm"
       />
       <span
         class="t-radio-button__input"
@@ -282,13 +286,13 @@ exports[`group.jsx 1`] = `
   >
     <label
       class="t-radio t-is-checked"
-      name="male"
     >
       <input
         checked=""
         class="t-radio__former"
         readonly=""
         type="radio"
+        value="male"
       />
       <span
         class="t-radio__input"
@@ -301,12 +305,12 @@ exports[`group.jsx 1`] = `
     </label>
     <label
       class="t-radio"
-      name="female"
     >
       <input
         class="t-radio__former"
         readonly=""
         type="radio"
+        value="female"
       />
       <span
         class="t-radio__input"
@@ -327,13 +331,14 @@ exports[`size.jsx 1`] = `
     class="t-radio-group t-radio-group-outline t-radio-group-small"
   >
     <label
-      class="t-radio-button"
-      name="bj"
+      class="t-radio-button t-is-checked"
     >
       <input
+        checked=""
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="bj"
       />
       <span
         class="t-radio-button__input"
@@ -346,12 +351,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sh"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sh"
       />
       <span
         class="t-radio-button__input"
@@ -364,12 +369,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="gz"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="gz"
       />
       <span
         class="t-radio-button__input"
@@ -382,12 +387,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sz"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sz"
       />
       <span
         class="t-radio-button__input"
@@ -405,12 +410,12 @@ exports[`size.jsx 1`] = `
   >
     <label
       class="t-radio-button"
-      name="bj1"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="bj1"
       />
       <span
         class="t-radio-button__input"
@@ -422,13 +427,14 @@ exports[`size.jsx 1`] = `
       </span>
     </label>
     <label
-      class="t-radio-button"
-      name="sh1"
+      class="t-radio-button t-is-checked"
     >
       <input
+        checked=""
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sh1"
       />
       <span
         class="t-radio-button__input"
@@ -441,12 +447,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="gz1"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="gz1"
       />
       <span
         class="t-radio-button__input"
@@ -459,12 +465,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sz1"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sz1"
       />
       <span
         class="t-radio-button__input"
@@ -482,12 +488,12 @@ exports[`size.jsx 1`] = `
   >
     <label
       class="t-radio-button"
-      name="bj2"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="bj2"
       />
       <span
         class="t-radio-button__input"
@@ -500,12 +506,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sh2"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sh2"
       />
       <span
         class="t-radio-button__input"
@@ -517,13 +523,14 @@ exports[`size.jsx 1`] = `
       </span>
     </label>
     <label
-      class="t-radio-button"
-      name="gz2"
+      class="t-radio-button t-is-checked"
     >
       <input
+        checked=""
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="gz2"
       />
       <span
         class="t-radio-button__input"
@@ -536,12 +543,12 @@ exports[`size.jsx 1`] = `
     </label>
     <label
       class="t-radio-button"
-      name="sz2"
     >
       <input
         class="t-radio-button__former"
         readonly=""
         type="radio"
+        value="sz2"
       />
       <span
         class="t-radio-button__input"
@@ -567,12 +574,12 @@ exports[`type.jsx 1`] = `
     >
       <label
         class="t-radio"
-        name="bj"
       >
         <input
           class="t-radio__former"
           readonly=""
           type="radio"
+          value="bj"
         />
         <span
           class="t-radio__input"
@@ -585,12 +592,12 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio"
-        name="sh"
       >
         <input
           class="t-radio__former"
           readonly=""
           type="radio"
+          value="sh"
         />
         <span
           class="t-radio__input"
@@ -603,13 +610,13 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio t-is-checked"
-        name="gz"
       >
         <input
           checked=""
           class="t-radio__former"
           readonly=""
           type="radio"
+          value="gz"
         />
         <span
           class="t-radio__input"
@@ -622,12 +629,12 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio"
-        name="sz"
       >
         <input
           class="t-radio__former"
           readonly=""
           type="radio"
+          value="sz"
         />
         <span
           class="t-radio__input"
@@ -651,13 +658,13 @@ exports[`type.jsx 1`] = `
     >
       <label
         class="t-radio-button t-is-checked"
-        name="1"
       >
         <input
           checked=""
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="1"
         />
         <span
           class="t-radio-button__input"
@@ -670,12 +677,12 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button"
-        name="2"
       >
         <input
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="2"
         />
         <span
           class="t-radio-button__input"
@@ -688,12 +695,12 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button"
-        name="3"
       >
         <input
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="3"
         />
         <span
           class="t-radio-button__input"
@@ -710,7 +717,6 @@ exports[`type.jsx 1`] = `
     >
       <label
         class="t-radio-button t-is-checked t-is-disabled"
-        name="1"
       >
         <input
           checked=""
@@ -718,6 +724,7 @@ exports[`type.jsx 1`] = `
           disabled=""
           readonly=""
           type="radio"
+          value="1"
         />
         <span
           class="t-radio-button__input"
@@ -730,13 +737,13 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button t-is-disabled"
-        name="2"
       >
         <input
           class="t-radio-button__former"
           disabled=""
           readonly=""
           type="radio"
+          value="2"
         />
         <span
           class="t-radio-button__input"
@@ -758,12 +765,12 @@ exports[`type.jsx 1`] = `
     >
       <label
         class="t-radio-button"
-        name="bj"
       >
         <input
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="bj"
         />
         <span
           class="t-radio-button__input"
@@ -776,13 +783,13 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button t-is-checked"
-        name="gz"
       >
         <input
           checked=""
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="gz"
         />
         <span
           class="t-radio-button__input"
@@ -795,12 +802,12 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button"
-        name="sz"
       >
         <input
           class="t-radio-button__former"
           readonly=""
           type="radio"
+          value="sz"
         />
         <span
           class="t-radio-button__input"
@@ -817,7 +824,6 @@ exports[`type.jsx 1`] = `
     >
       <label
         class="t-radio-button t-is-checked t-is-disabled"
-        name="bj"
       >
         <input
           checked=""
@@ -825,6 +831,7 @@ exports[`type.jsx 1`] = `
           disabled=""
           readonly=""
           type="radio"
+          value="bj"
         />
         <span
           class="t-radio-button__input"
@@ -837,13 +844,13 @@ exports[`type.jsx 1`] = `
       </label>
       <label
         class="t-radio-button t-is-disabled"
-        name="gz"
       >
         <input
           class="t-radio-button__former"
           disabled=""
           readonly=""
           type="radio"
+          value="gz"
         />
         <span
           class="t-radio-button__input"
