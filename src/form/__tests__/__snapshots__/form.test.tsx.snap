@@ -305,13 +305,13 @@ exports[`base.jsx 1`] = `
             >
               <label
                 class="t-checkbox"
-                display="inline"
-                name="la"
               >
                 <input
                   class="t-checkbox__former"
+                  name="la"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -324,13 +324,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="ma"
               >
                 <input
                   class="t-checkbox__former"
+                  name="ma"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -343,13 +343,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="nocong"
               >
                 <input
                   class="t-checkbox__former"
+                  name="nocong"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1018,13 +1018,13 @@ exports[`validator.jsx 1`] = `
             >
               <label
                 class="t-checkbox"
-                display="inline"
-                name="1"
               >
                 <input
                   class="t-checkbox__former"
+                  name="1"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1037,13 +1037,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="2"
               >
                 <input
                   class="t-checkbox__former"
+                  name="2"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1056,13 +1056,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="3"
               >
                 <input
                   class="t-checkbox__former"
+                  name="3"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1075,13 +1075,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="4"
               >
                 <input
                   class="t-checkbox__former"
+                  name="4"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
