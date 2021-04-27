@@ -37,7 +37,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
   const eventPropsNames = Object.keys(props).filter((key) => /^on[A-Z]/.test(key));
   const eventProps = eventPropsNames.reduce((eventProps, key) => {
     Object.assign(eventProps, {
-      [key]: (e) => props[key](e.target.value, e),
+      [key]: (e) => props[key](e.currentTarget.value, { e }),
     });
     return eventProps;
   }, {});

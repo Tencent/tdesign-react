@@ -741,7 +741,6 @@ exports[`login.jsx 1`] = `
               </span>
               <input
                 class="t-input__inner"
-                clearable="true"
                 placeholder="请输入账户名"
                 value=""
               />
@@ -788,7 +787,6 @@ exports[`login.jsx 1`] = `
               </span>
               <input
                 class="t-input__inner"
-                clearable="true"
                 placeholder="请输入密码"
                 type="password"
                 value=""

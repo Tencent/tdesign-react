@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`blur.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`disabled.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner t-is-disabled"
+        disabled=""
+        placeholder="请输入内容"
+      >
+        禁用状态
+      </textarea>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`keypress.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`maxlength.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner t-resize-none"
+        maxlength="20"
+        placeholder="请输入内容"
+      />
+      <span
+        class="t-textarea__limit"
+      >
+        0/20
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`readonly.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容"
+        readonly=""
+      >
+        只读状态
+      </textarea>
+    </div>
+  </div>
+</DocumentFragment>
+`;
