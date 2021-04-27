@@ -584,6 +584,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
               className={`${classPrefix}-time-picker-panel-section__footer-button`}
               style={{ left: 24, right: 'auto' }}
               onClick={() => {
+                if (disabled) return;
                 setNowTime();
                 setVisible(false);
               }}
@@ -601,13 +602,14 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
       }
       placement="bottom"
       visible={visible}
-      onVisibleChange={console.log}
+      // onVisibleChange={console.log}
       ref={(r) => (popupRef.current = r)}
+      disabled={disabled}
     >
       <div
         className={`${classPrefix}-time-picker ${className}`}
         style={style}
-        onClick={() => setVisible(true)}
+        onClick={() => !disabled && setVisible(true)}
         ref={(r) => (ref.current = r)}
       >
         <div className={prefixCls([blockName, 'group'])}>
