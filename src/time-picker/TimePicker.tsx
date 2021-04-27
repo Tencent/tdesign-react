@@ -42,9 +42,9 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
     const { value } = props;
     if (value) {
       // 如果没有填format 那么通过value生成format
-      if (value instanceof Date) {
-        return 'HH:mm:ss';
-      }
+      // if (value instanceof Date) {
+      //   return 'HH:mm:ss';
+      // }
       if (typeof value === 'string') {
         let tempValue = value; // 22:33:44
         let tempFormat = '';
@@ -174,7 +174,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   const input = useCallback(
     (n: 0 | 1 | 2 | 3, e) => {
       if (!allowInput) return;
-      onInput({ input: `${n}`, value: time, e });
+      onInput({ input: `${n}`, value: time.toString(), e });
       const { keyCode } = e;
       // console.log(keyCode);
       e.preventDefault(); // 防止方向键控制的时候移动页面
@@ -529,7 +529,7 @@ const TimePicker: React.FC<TimePickerProps> = (props: TimePickerProps) => {
   // todo 当props.value变化时应该触发当前组件时间当改变
   useEffect(() => {
     if (disabled) return;
-    onChange(time);
+    onChange(time.toString());
   }, [disabled, onChange, time]);
   const timeIsEmpty = useCallback((time) => {
     if (!time) return true;
