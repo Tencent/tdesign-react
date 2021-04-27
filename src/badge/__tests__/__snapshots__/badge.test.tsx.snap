@@ -3,13 +3,13 @@
 exports[`BadgeColor.jsx 1`] = `
 <DocumentFragment>
   <label
-    class="t-checkbox t-is-checked"
+    class="t-checkbox"
   >
     <input
-      checked=""
       class="t-checkbox__former"
       readonly=""
       type="checkbox"
+      value="true"
     />
     <span
       class="t-checkbox__input"

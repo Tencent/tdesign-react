@@ -5,10 +5,10 @@ export default function CheckboxExample() {
   const [taste, setTaste] = useState([]);
 
   return (
-    <Checkbox.Group value={taste} onChange={setTaste}>
-      <Checkbox name="la">加辣</Checkbox>
-      <Checkbox name="ma">加麻</Checkbox>
-      <Checkbox name="nocong">不要葱花</Checkbox>
+    <Checkbox.Group value={taste} onChange={(value) => setTaste(value)}>
+      <Checkbox value="la">加辣</Checkbox>
+      <Checkbox value="ma">加麻</Checkbox>
+      <Checkbox value="nocong">不要葱花</Checkbox>
     </Checkbox.Group>
   );
 }

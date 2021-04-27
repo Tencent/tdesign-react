@@ -33,3 +33,4 @@ export { default as TimePicker } from './time-picker';
 export { default as Drawer } from './drawer';
 export { default as Progress } from './progress';
 export { default as PopConfirm } from './popconfirm';
+export { default as Textarea } from './textarea';

@@ -1,35 +1,12 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import useDefaultValue from '../_util/useDefaultValue';
-import { Combine, StyledProps, ControlledProps } from '../_type';
-import { CheckContext, CheckContextValue } from '../check';
+import { CheckContext, CheckContextValue } from '../common/Check';
+import { TdCheckboxGroupProps } from '../_type/components/checkbox';
+import { StyledProps } from '../_type';
+import useDefault from '../_util/useDefault';
 
-export interface CheckboxGroupProps extends Combine<StyledProps, ControlledProps<string[]>> {
-  /**
-   * 已选中的值集合，由 `value = true` 的 `<Checkbox />` 的 `name` 属性组成
-   */
-  value?: string[];
-
-  /**
-   * 值变更时回调
-   */
-  onChange?: (value: string[], context: { event: MouseEvent<HTMLInputElement> }) => void;
-
-  /**
-   * 禁用组件
-   * */
-  disabled?: boolean;
-
-  /**
-   * 使用水平布局（`inline`）还是纵向排列布局（`column`）
-   * @default "inline"
-   */
-  layout?: 'inline' | 'column';
-
-  /**
-   * 复选框内容
-   */
+export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -38,41 +15,37 @@ export interface CheckboxGroupProps extends Combine<StyledProps, ControlledProps
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
   const { classPrefix } = useConfig();
-  const { value, onChange, disabled, layout, className, style, children } = useDefaultValue(props, []);
+  const { value, defaultValue, onChange, disabled, className, style, children } = props;
 
-  const checkedSet = new Set(value || []);
+  const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
+
+  const checkedSet = new Set([].concat(internalValue));
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
-      // 只为 checkbox 提供
-      if (checkProps.type !== 'checkbox') {
-        return checkProps;
-      }
-
       // 如果已经受控，则不注入
-      if (typeof checkProps.value === 'boolean') {
+      if (typeof checkProps.checked !== 'undefined') {
         return checkProps;
       }
 
-      const checkName = checkProps.name;
+      const { value: checkValue } = checkProps;
 
       return {
         ...checkProps,
-        value: checkedSet.has(checkName),
+        checked: checkedSet.has(checkValue),
         disabled: checkProps.disabled || disabled,
-        display: layout === 'column' ? 'block' : 'inline',
-        onChange(checked, { event }) {
-          // 支持 checkbox 上的 onChange 处理时阻止默认的处理行为
+        onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
-            checkProps.onChange(checked, { event });
-            if (event.defaultPrevented) {
-              return;
-            }
+            checkProps.onChange(checked, { e });
           }
-          if (typeof onChange === 'function') {
-            const newValue = checked ? [...value, checkName] : (checkedSet.delete(checkName), Array.from(checkedSet));
-            onChange(newValue, { event });
+
+          if (checked) {
+            checkedSet.add(checkValue);
+          } else {
+            checkedSet.delete(checkValue);
           }
+
+          setInternalValue(Array.from(checkedSet), { e });
         },
       };
     },

@@ -27,12 +27,13 @@ exports[`align.jsx 1`] = `
             >
               <label
                 class="t-radio-button"
-                name="left"
               >
                 <input
                   class="t-radio-button__former"
+                  name="left"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -45,12 +46,13 @@ exports[`align.jsx 1`] = `
               </label>
               <label
                 class="t-radio-button"
-                name="right"
               >
                 <input
                   class="t-radio-button__former"
+                  name="right"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -63,12 +65,13 @@ exports[`align.jsx 1`] = `
               </label>
               <label
                 class="t-radio-button"
-                name="top"
               >
                 <input
                   class="t-radio-button__former"
+                  name="top"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio-button__input"
@@ -238,12 +241,13 @@ exports[`base.jsx 1`] = `
             >
               <label
                 class="t-radio"
-                name="male"
               >
                 <input
                   class="t-radio__former"
+                  name="male"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -256,12 +260,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-radio"
-                name="female"
               >
                 <input
                   class="t-radio__former"
+                  name="female"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -300,13 +305,13 @@ exports[`base.jsx 1`] = `
             >
               <label
                 class="t-checkbox"
-                display="inline"
-                name="la"
               >
                 <input
                   class="t-checkbox__former"
+                  name="la"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -319,13 +324,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="ma"
               >
                 <input
                   class="t-checkbox__former"
+                  name="ma"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -338,13 +343,13 @@ exports[`base.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="nocong"
               >
                 <input
                   class="t-checkbox__former"
+                  name="nocong"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -586,12 +591,13 @@ exports[`layout.jsx 1`] = `
       >
         <label
           class="t-radio-button"
-          name="vertical"
         >
           <input
             class="t-radio-button__former"
+            name="vertical"
             readonly=""
             type="radio"
+            value=""
           />
           <span
             class="t-radio-button__input"
@@ -603,14 +609,14 @@ exports[`layout.jsx 1`] = `
           </span>
         </label>
         <label
-          class="t-radio-button t-is-checked"
-          name="inline"
+          class="t-radio-button"
         >
           <input
-            checked=""
             class="t-radio-button__former"
+            name="inline"
             readonly=""
             type="radio"
+            value=""
           />
           <span
             class="t-radio-button__input"
@@ -735,7 +741,6 @@ exports[`login.jsx 1`] = `
               </span>
               <input
                 class="t-input__inner"
-                clearable="true"
                 placeholder="请输入账户名"
                 value=""
               />
@@ -782,7 +787,6 @@ exports[`login.jsx 1`] = `
               </span>
               <input
                 class="t-input__inner"
-                clearable="true"
                 placeholder="请输入密码"
                 type="password"
                 value=""
@@ -948,12 +952,13 @@ exports[`validator.jsx 1`] = `
             >
               <label
                 class="t-radio"
-                name="male"
               >
                 <input
                   class="t-radio__former"
+                  name="male"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -966,12 +971,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-radio"
-                name="femal"
               >
                 <input
                   class="t-radio__former"
+                  name="femal"
                   readonly=""
                   type="radio"
+                  value=""
                 />
                 <span
                   class="t-radio__input"
@@ -1010,13 +1016,13 @@ exports[`validator.jsx 1`] = `
             >
               <label
                 class="t-checkbox"
-                display="inline"
-                name="1"
               >
                 <input
                   class="t-checkbox__former"
+                  name="1"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1029,13 +1035,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="2"
               >
                 <input
                   class="t-checkbox__former"
+                  name="2"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1048,13 +1054,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="3"
               >
                 <input
                   class="t-checkbox__former"
+                  name="3"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
@@ -1067,13 +1073,13 @@ exports[`validator.jsx 1`] = `
               </label>
               <label
                 class="t-checkbox"
-                display="inline"
-                name="4"
               >
                 <input
                   class="t-checkbox__former"
+                  name="4"
                   readonly=""
                   type="checkbox"
+                  value=""
                 />
                 <span
                   class="t-checkbox__input"
