@@ -20,7 +20,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
     onClickConfirm = noop,
     cancelBtn = '取消',
     confirmBtn = '确定',
-    onClose,
+    onClose = noop,
     ...restProps
   } = props;
 
