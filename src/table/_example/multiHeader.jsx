@@ -29,7 +29,7 @@ const columns = [
         minWidth: '100',
         className: 'test',
         ellipsis: true,
-        Key: 'platform',
+        colKey: 'platform',
         title: '平台',
       },
       {
@@ -41,7 +41,7 @@ const columns = [
             minWidth: '100',
             className: 'row',
             ellipsis: true,
-            Key: 'type',
+            colKey: 'type',
             title: '类型',
           },
           {
@@ -50,7 +50,7 @@ const columns = [
             minWidth: '100',
             className: 'test4',
             ellipsis: true,
-            Key: 'default',
+            colKey: 'default',
             title: '默认值',
           },
           {
@@ -59,7 +59,7 @@ const columns = [
             minWidth: '100',
             className: 'test3',
             ellipsis: true,
-            Key: 'needed',
+            colKey: 'needed',
             title: '是否必传',
           },
         ],
@@ -92,9 +92,11 @@ const columns = [
 ];
 
 export default function TableExample() {
+  return null;
+
   return (
     <Table
-      records={data}
+      data={data}
       // height={100}
       bordered={true}
       // loading={true}
