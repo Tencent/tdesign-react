@@ -1,10 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
+import { StyledProps } from '../_type/StyledProps';
+import { TdHeaderProps, TdFooterProps } from '../_type/components/layout';
 import Sider from './Sider';
-import { LayoutProps, HeaderProps as BasicProps } from './LayoutInterface';
 
-const Header = (props: BasicProps) => {
+export interface LayoutProps extends StyledProps {
+  children?: React.ReactNode;
+}
+export interface HeaderProps extends TdHeaderProps, StyledProps {
+  children?: React.ReactNode;
+}
+export interface ContentProps extends StyledProps {
+  children?: React.ReactNode;
+}
+export interface FooterProps extends TdFooterProps, StyledProps {
+  children?: React.ReactNode;
+}
+
+const Header = (props: HeaderProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
   const headerClassNames = classNames(`${classPrefix}-layout--header`, className);
@@ -15,7 +29,7 @@ const Header = (props: BasicProps) => {
   );
 };
 
-const Footer = (props: BasicProps) => {
+const Footer = (props: FooterProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
   const footerClassNames = classNames(`${classPrefix}-layout--footer`, className);
@@ -26,7 +40,7 @@ const Footer = (props: BasicProps) => {
   );
 };
 
-const Content = (props: BasicProps) => {
+const Content = (props: ContentProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
   const contentClassNames = classNames(`${classPrefix}-layout--content`, className);
@@ -41,7 +55,7 @@ const Content = (props: BasicProps) => {
  * 布局组件
  */
 const Layout = (props: LayoutProps) => {
-  const { hasSider, className, style, children, ...otherLayoutProps } = props;
+  const { className, style, children, ...otherLayoutProps } = props;
   const [siders, setSiders] = useState([]);
 
   useEffect(() => {
@@ -54,7 +68,7 @@ const Layout = (props: LayoutProps) => {
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout-has-sider`]: typeof hasSider === 'boolean' ? hasSider : !!siders.length,
+      [`${classPrefix}-layout-has-sider`]: !!siders.length,
     },
     className,
   );
