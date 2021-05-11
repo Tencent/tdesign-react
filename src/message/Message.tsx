@@ -1,29 +1,10 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { StyledProps } from '../_type';
-import injectValue from '../_util/injectValue';
-import useConfig from '../_util/useConfig';
-import noop from '../_util/noop';
-import {
-  InfoCircleFilledIcon,
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  HelpCircleFilledIcon,
-  LoadingIcon,
-  CloseIcon,
-} from '../icon';
-import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
-import { MessageProps, MessageConfig, MessageInstance, MessageRef, MessageComponent } from './MessageProps';
 
-const IconMap = {
-  info: InfoCircleFilledIcon,
-  success: CheckCircleFilledIcon,
-  warning: ErrorCircleFilledIcon,
-  error: ErrorCircleFilledIcon,
-  question: HelpCircleFilledIcon,
-  loading: LoadingIcon,
-};
+import { prefixWrapper, ThemeList, PlacementOffset } from './const';
+import { MessageConfig, MessageInstance, MessageComponent } from './MessageProps';
+import MessageKen from './Messages';
 
 let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
@@ -106,96 +87,9 @@ function renderElement(theme, config: MessageConfig) {
   });
 }
 
-function MessageIcon({ theme }: MessageProps) {
-  const Icon = IconMap[theme];
-  return Icon ? <Icon /> : null;
-}
-
-function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
-  const { classPrefix } = useConfig();
-
-  if (!closeBtn) {
-    return null;
-  }
-
-  if (closeBtn === true) {
-    return <CloseIcon className={`${prefix}-close`} />;
-  }
-
-  const button = injectValue(closeBtn)(onClickCloseBtn);
-
-  if (typeof button === 'string' || typeof button === 'number') {
-    return (
-      <span className={`${classPrefix}-message-close`} onClick={onClickCloseBtn}>
-        {closeBtn}
-      </span>
-    );
-  }
-
-  if (React.isValidElement<StyledProps>(button)) {
-    return React.cloneElement(button, {
-      className: classNames(button.props.className, `${classPrefix}-message-close`),
-    });
-  }
-
-  return <CloseIcon className={`${classPrefix}-message-close`} />;
-}
-
-const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
-  const {
-    theme = 'info',
-    closeBtn = false,
-    duration,
-    onDurationEnd = noop,
-    onClosed = noop,
-    children,
-    className,
-    style,
-    close = noop,
-  } = props;
-
-  const { classPrefix } = useConfig();
-  const timerRef = useRef(0);
-
-  const startDuration = useCallback(() => {
-    clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => {
-      onDurationEnd({ close });
-      close();
-    }, duration);
-  }, [duration, onDurationEnd, close]);
-
-  useEffect(() => {
-    if (typeof duration === 'number') {
-      startDuration();
-    }
-    return () => {
-      clearTimeout(timerRef.current);
-      typeof onClosed === 'function' && onClosed();
-    };
-  }, [duration, onDurationEnd, onClosed, startDuration]);
-  // useImperativeHandle(ref as React.Ref<MessageInstance>, () => ({ close }), [close]);
-  return (
-    <div
-      key="message"
-      className={classNames(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
-        [`${classPrefix}-is-closable`]: closeBtn,
-      })}
-      ref={ref}
-      style={style}
-      onMouseEnter={() => {
-        clearTimeout(timerRef.current);
-      }}
-      onMouseLeave={() => {
-        startDuration();
-      }}
-    >
-      <MessageIcon {...props} />
-      {children}
-      <MessageClose {...props} />
-    </div>
-  );
-});
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const Message: MessageComponent = MessageKen;
 
 function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageConfig).content;
