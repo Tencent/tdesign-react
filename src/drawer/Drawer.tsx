@@ -5,18 +5,18 @@ import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
 import { CloseIcon } from '../icon';
-import { TdDrawerProps } from '../_type/components/drawer';
+import { TdDrawerProps, EventSource } from '../_type/components/drawer';
 import { StyledProps } from '../_type';
+import { getAttach } from '../common/Portal';
 import DrawerWrapper from './DrawerWrapper';
-import { getAttach } from './Portal';
 import { getWidthOrHeightBySize } from './_util';
 
-export enum CloseTriggerType {
-  CLICK_OVERLAY = 'clickOverlay',
-  CLICK_CLOSE_BTN = 'clickCloseBtn',
-  CLICK_CANCEL_BTN = 'clickCancel',
-  KEYDOWN_ESC = 'keydownEsc',
-}
+export const CloseTriggerType: { [key: string]: EventSource } = {
+  CLICK_OVERLAY: 'overlay',
+  CLICK_CLOSE_BTN: 'close-btn',
+  CLICK_CANCEL_BTN: 'cancel',
+  KEYDOWN_ESC: 'esc',
+};
 
 export interface DrawerProps extends TdDrawerProps, StyledProps {
   /**
@@ -35,11 +35,11 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     size,
     placement,
     onClose,
-    onClickCloseBtn,
-    onClickOverlay,
-    onKeydownEsc,
-    closeOnClickOverlay,
-    closeOnKeydownEsc,
+    onCloseBtnClick,
+    onOverlayClick,
+    onEscKeydown,
+    closeOnOverlayClick,
+    closeOnEscKeydown,
     children,
     header,
     footer,
@@ -120,17 +120,17 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
-    onClickOverlay?.(e);
+    onOverlayClick?.({ e });
   }
-  function onCloseBtnClick(e: React.MouseEvent<HTMLDivElement>) {
+  function onClickCloseBtn(e: React.MouseEvent<HTMLDivElement>) {
     onClose?.({ e, trigger: CloseTriggerType.CLICK_CLOSE_BTN });
-    onClickCloseBtn?.(e);
+    onCloseBtnClick?.({ e });
   }
   function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Escape') {
       e.stopPropagation();
       onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });
-      onKeydownEsc?.(e);
+      onEscKeydown?.({ e });
     }
   }
   function onTransitionEnd() {
@@ -156,13 +156,13 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
         ref={containerRef}
         // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
         tabIndex={-1}
-        onKeyDown={closeOnKeydownEsc && visible ? onKeyDown : undefined}
+        onKeyDown={closeOnEscKeydown && visible ? onKeyDown : undefined}
         onTransitionEnd={onTransitionEnd}
       >
         {showOverlay && (
           <div
             className={`${prefixCls}__mask`}
-            onClick={closeOnClickOverlay ? onMaskClick : undefined}
+            onClick={closeOnOverlayClick ? onMaskClick : undefined}
             style={{
               transitionDuration: '300ms',
             }}
@@ -179,7 +179,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
         >
           <Header className={`${prefixCls}__header`} header={header} />
           {closeBtn && (
-            <div onClick={onCloseBtnClick} className={`${prefixCls}__close-btn`}>
+            <div onClick={onClickCloseBtn} className={`${prefixCls}__close-btn`}>
               {closeIcon}
             </div>
           )}
@@ -210,8 +210,8 @@ function Header(props: { className?: string; title?: React.ReactNode; header: Dr
 
 Drawer.defaultProps = {
   closeBtn: true,
-  closeOnClickOverlay: true,
-  closeOnKeydownEsc: true,
+  closeOnOverlayClick: true,
+  closeOnEscKeydown: true,
   zIndex: 1500,
   size: 'small',
   placement: 'right',

@@ -16,19 +16,19 @@ export default function () {
   return (
     <div>
       <Radio.Group size="small" value={placement} onChange={(value) => setPlacement(value)}>
-        <Radio.Button name="left">left</Radio.Button>
-        <Radio.Button name="right">right</Radio.Button>
-        <Radio.Button name="top">top</Radio.Button>
-        <Radio.Button name="bottom">bottom</Radio.Button>
+        <Radio.Button value="left">left</Radio.Button>
+        <Radio.Button value="right">right</Radio.Button>
+        <Radio.Button value="top">top</Radio.Button>
+        <Radio.Button value="bottom">bottom</Radio.Button>
       </Radio.Group>
       <div style={{ marginTop: 16 }}>
         <Radio.Group size="small" value={size} onChange={(value) => setSzie(value)}>
-          <Radio.Button name="small">small(300px)</Radio.Button>
-          <Radio.Button name="middle">middle(500px)</Radio.Button>
-          <Radio.Button name="large">large(760px)</Radio.Button>
-          <Radio.Button name={'200px'}>200</Radio.Button>
-          <Radio.Button name="400px">400px</Radio.Button>
-          <Radio.Button name="50%">50%</Radio.Button>
+          <Radio.Button value="small">small(300px)</Radio.Button>
+          <Radio.Button value="middle">middle(500px)</Radio.Button>
+          <Radio.Button value="large">large(760px)</Radio.Button>
+          <Radio.Button value={'200px'}>200</Radio.Button>
+          <Radio.Button value="400px">400px</Radio.Button>
+          <Radio.Button value="50%">50%</Radio.Button>
         </Radio.Group>
       </div>
       <div style={{ marginTop: 16 }}>

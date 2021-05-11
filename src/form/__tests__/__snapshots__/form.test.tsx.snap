@@ -30,10 +30,9 @@ exports[`align.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  name="left"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="left"
                 />
                 <span
                   class="t-radio-button__input"
@@ -49,10 +48,9 @@ exports[`align.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  name="right"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="right"
                 />
                 <span
                   class="t-radio-button__input"
@@ -68,10 +66,9 @@ exports[`align.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  name="top"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="top"
                 />
                 <span
                   class="t-radio-button__input"
@@ -594,10 +591,9 @@ exports[`layout.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            name="vertical"
             readonly=""
             type="radio"
-            value=""
+            value="vertical"
           />
           <span
             class="t-radio-button__input"
@@ -609,14 +605,14 @@ exports[`layout.jsx 1`] = `
           </span>
         </label>
         <label
-          class="t-radio-button"
+          class="t-radio-button t-is-checked"
         >
           <input
+            checked=""
             class="t-radio-button__former"
-            name="inline"
             readonly=""
             type="radio"
-            value=""
+            value="inline"
           />
           <span
             class="t-radio-button__input"

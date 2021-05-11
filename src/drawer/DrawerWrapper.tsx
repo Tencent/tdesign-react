@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useImperativeHandle, cloneElement } from 'react';
+import Portal, { PortalProps } from '../common/Portal';
 import { DrawerProps } from './Drawer';
-import Portal, { PortalProps } from './Portal';
 
 export interface DrawerWrapperProps extends PortalProps {
   attach?: DrawerProps['attach'];

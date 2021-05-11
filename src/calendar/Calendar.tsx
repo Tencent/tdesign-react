@@ -357,8 +357,8 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
                   onChange={(value) => setMode(String(value))}
                   {...radioGroupPropsForMode}
                 >
-                  <Radio.Button name="month">月</Radio.Button>
-                  <Radio.Button name="year">年</Radio.Button>
+                  <Radio.Button value="month">月</Radio.Button>
+                  <Radio.Button value="year">年</Radio.Button>
                 </Radio.Group>
               )}
             </div>

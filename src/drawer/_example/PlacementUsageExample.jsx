@@ -14,10 +14,10 @@ export default function () {
   return (
     <div>
       <Radio.Group size="small" value={placement} onChange={(value) => setPlacement(value)}>
-        <Radio.Button name="left">left</Radio.Button>
-        <Radio.Button name="right">right</Radio.Button>
-        <Radio.Button name="top">top</Radio.Button>
-        <Radio.Button name="bottom">bottom</Radio.Button>
+        <Radio.Button value="left">left</Radio.Button>
+        <Radio.Button value="right">right</Radio.Button>
+        <Radio.Button value="top">top</Radio.Button>
+        <Radio.Button value="bottom">bottom</Radio.Button>
       </Radio.Group>
 
       <Button theme="primary" onClick={handleClick} style={{ marginLeft: 16 }}>
