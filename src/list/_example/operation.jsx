@@ -13,14 +13,20 @@ export default function BasicList() {
       {listData.map((item) => (
         <ListItem
           key={item.id}
-          action={[
-            <a href="" key="operate-one">
-              操作1
-            </a>,
-            <a href="" key="operate-two">
-              操作2
-            </a>,
-          ]}
+          action={
+            <>
+              <li>
+                <a href="" key="operate-one">
+                  操作1
+                </a>
+              </li>
+              <li>
+                <a href="" key="operate-two">
+                  操作2
+                </a>
+              </li>
+            </>
+          }
         >
           {item.content}
         </ListItem>
