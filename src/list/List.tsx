@@ -1,9 +1,18 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
+
 import { LoadingIcon } from '../icon';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { ListProps } from './ListProps';
+import { TdListProps } from '../_type/components/list';
+import { StyledProps } from '../_type';
+
+export interface ListProps extends TdListProps, StyledProps {
+  /**
+   * 文本内容
+   */
+  children?: React.ReactNode;
+}
 
 /**
  * 列表组件
@@ -12,45 +21,45 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     header,
     footer,
-    loading,
+    asyncLoading,
     size = 'middle',
     split = true,
     stripe = false,
-    actionLayout = 'horizontal',
+    layout = 'horizontal',
     children,
     className,
-    loadMore = noop,
+    onLoadMore = noop,
     onScroll = noop,
     style = {},
   } = props;
 
   const { classPrefix } = useConfig();
 
-  const handleClickLoad = (): void => {
-    if (loading === 'load-more') {
-      loadMore();
+  const handleClickLoad = (e: MouseEvent<HTMLDivElement>) => {
+    if (asyncLoading === 'load-more') {
+      onLoadMore({ e });
     }
   };
 
-  const handleScroll = (event: React.UIEvent<HTMLElement>): void => {
+  const handleScroll = (event: WheelEvent<HTMLDivElement>): void => {
     const { currentTarget } = event;
     const { scrollTop, offsetHeight, scrollHeight } = currentTarget;
     const scrollBottom = scrollHeight - scrollTop - offsetHeight;
-    onScroll(event, { scrollTop, scrollBottom });
+    onScroll({ e: event, scrollTop, scrollBottom });
   };
 
   // prettier-ignore
-  const loadElement = loading === undefined ? (
+  const loadElement = asyncLoading === undefined ? (
     ''
   ) : (
     <div
       className={classNames(`${classPrefix}-list__load`, {
-        [`${classPrefix}-list__load--loading`]: loading === 'loading',
-        [`${classPrefix}-list__load--load-more`]: loading === 'load-more',
+        [`${classPrefix}-list__load--loading`]: asyncLoading === 'loading',
+        [`${classPrefix}-list__load--load-more`]: asyncLoading === 'load-more',
       })}
       onClick={handleClickLoad}
     >
-      {loading === 'loading' ? (
+      {asyncLoading === 'loading' ? (
         <>
           <LoadingIcon />
           <span>正在加载中，请稍等</span>
@@ -69,7 +78,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
       className={classNames(className, 't-list', {
         [`${classPrefix}-list--split`]: split,
         [`${classPrefix}-list--stripe`]: stripe,
-        [`${classPrefix}-list--vertical-action`]: actionLayout === 'vertical',
+        [`${classPrefix}-list--vertical-action`]: layout === 'vertical',
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-l`]: size === 'large',
       })}

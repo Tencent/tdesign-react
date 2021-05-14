@@ -1,7 +1,8 @@
 import React from 'react';
-import { List, ListItem, ListItemMeta, BulletpointIcon } from '@tencent/tdesign-react';
+import { List, ListItem, ListItemMeta } from '@tencent/tdesign-react';
 
 export default function BasicList() {
+  const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
   const listData = [
     { id: 1, content: '列表内容列表内容列表内容' },
     { id: 2, content: '列表内容列表内容列表内容' },
@@ -12,7 +13,7 @@ export default function BasicList() {
     <List size="small">
       {listData.map((item) => (
         <ListItem key={item.id}>
-          <ListItemMeta avatar={<BulletpointIcon />} title="列表主内容" description="列表内容列表内容列表内容" />
+          <ListItemMeta avatar={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
         </ListItem>
       ))}
     </List>
