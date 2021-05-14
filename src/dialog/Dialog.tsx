@@ -16,8 +16,8 @@ const Dialog: React.FC<DialogProps> = (props) => {
     attach: getContainer = 'body',
     closeBtn,
     footer,
-    onClickCancel = noop,
-    onClickConfirm = noop,
+    onCancel = noop,
+    onConfirm = noop,
     cancelBtn = '取消',
     confirmBtn = '确定',
     onClose = noop,
@@ -50,12 +50,12 @@ const Dialog: React.FC<DialogProps> = (props) => {
   };
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onClickCancel(e);
-    onClose({ e, trigger: 'clickCancel' });
+    onCancel({ e });
+    onClose({ e, trigger: 'cancel' });
   };
 
   const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onClickConfirm(e);
+    onConfirm({ e });
   };
 
   const defaultFooter = () => {

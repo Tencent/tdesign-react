@@ -64,13 +64,13 @@ const Tag = forwardRefWithStatics(
     /**
      * 删除 Icon
      */
-    const deleteIcon = <CloseIcon onClick={onClose} />;
+    const deleteIcon = <CloseIcon onClick={(e) => onClose({ e })} />;
 
     const tag: JSX.Element = (
       <span
         ref={ref}
         className={tagClassNames}
-        onClick={onClick}
+        onClick={(e) => onClick({ e })}
         style={{ ...(style || {}), ...{ maxWidth } }}
         {...otherTagProps}
       >

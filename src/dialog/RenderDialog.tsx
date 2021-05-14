@@ -25,11 +25,11 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     mode,
     zIndex,
     showOverlay,
-    onKeydownEsc = noop,
+    onEscKeydown = noop,
     onClosed = noop,
     onClose = noop,
-    onClickCloseBtn = noop,
-    onClickOverlay = noop,
+    onCloseBtnClick = noop,
+    onOverlayClick = noop,
     preventScrollThrough,
     closeBtn,
   } = props;
@@ -68,21 +68,21 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      onClickOverlay(e);
-      onClose({ e, trigger: 'clickOverlay' });
+      onOverlayClick({ e });
+      onClose({ e, trigger: 'overlay' });
     }
   };
 
-  const onCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    onClickCloseBtn(e);
-    onClose({ e, trigger: 'clickCloseBtn' });
+  const handleCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onCloseBtnClick({ e });
+    onClose({ e, trigger: 'close-btn' });
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === KEY_CODE.ESC) {
       e.stopPropagation();
-      onKeydownEsc(e);
-      onClose({ e, trigger: 'keydownEsc' });
+      onEscKeydown({ e });
+      onClose({ e, trigger: 'esc' });
     }
   };
 
@@ -99,7 +99,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
     const closer = closeBtn && (
-      <span onClick={onCloseBtnClick} className={`${prefixCls}__close`}>
+      <span onClick={handleCloseBtnClick} className={`${prefixCls}__close`}>
         {closeBtn}
       </span>
     );
@@ -218,7 +218,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
     const wrapClass = classnames(props.className, `${prefixCls}-ctx`, `${prefixCls}-ctx--fixed`);
     const dialog = (
-      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={onKeyDown}>
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>

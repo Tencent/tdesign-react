@@ -26,7 +26,7 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
     onChange,
     onBlur,
     onFocus,
-    onKeydownEnter,
+    onEnter,
     onKeydown,
     onKeyup,
     onKeypress,
@@ -56,7 +56,7 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
     }
 
     if (format && initialValue !== '') {
-      return format(getRangeValue(Number(initialValue)));
+      return format(getRangeValue(Number(initialValue))) || '';
     }
 
     return initialValue;
@@ -174,7 +174,7 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
   };
   const handleFocus: FocusEventHandler<HTMLDivElement> = (e) => onFocus?.(decimalValue, { e });
   const handleKeydownEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    e.key === 'Enter' && onKeydownEnter?.(decimalValue, { e });
+    e.key === 'Enter' && onEnter?.(decimalValue, { e });
   };
   const handleKeydown: KeyboardEventHandler<HTMLDivElement> = (e) => {
     onKeydown?.(decimalValue, { e });

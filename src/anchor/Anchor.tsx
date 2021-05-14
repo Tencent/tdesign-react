@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
+import noop from '../_util/noop';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
 
@@ -29,8 +30,8 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     attach = '',
     size = 'medium',
     children,
-    onClick,
-    onChange,
+    onClick = noop,
+    onChange = noop,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -83,7 +84,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
   };
 
   const handleClick = (item: Item, e: React.MouseEvent<HTMLDivElement>) => {
-    onClick && onClick(item, e);
+    onClick({ e, ...item });
     handleScrollTo(item.href);
   };
 
@@ -124,7 +125,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     }
     if (active !== intervalRef.current.activeItem) {
       // 当前选中的 上一个
-      onChange && onChange(active, intervalRef.current.activeItem);
+      onChange(active, intervalRef.current.activeItem);
       intervalRef.current.activeItem = active;
       setActiveItem(active);
     }

@@ -11,3 +11,4 @@ site/dist
 es
 lib
 dist
+yarn.lock
