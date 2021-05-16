@@ -1,6 +1,6 @@
-import { DEFAULT_CLASS_PREFIX } from '../config-provider/ConfigContext';
+import { ThemeList } from '../_type/components/message';
 const Distance = '32px';
-export const ThemeList: string[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
+export const ThemeArray: ThemeList[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
 export const PlacementOffset = {
   center: {
     left: '50%',
@@ -44,5 +44,3 @@ export const PlacementOffset = {
     bottom: Distance,
   },
 };
-export const prefix = `${DEFAULT_CLASS_PREFIX}-message`;
-export const prefixWrapper = `${prefix}-list`;

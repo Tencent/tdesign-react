@@ -7,13 +7,17 @@ import useConfig from '../_util/useConfig';
  */
 export function useMessageClass() {
   const { classPrefix } = useConfig();
+  // message 样式前缀
   const tdMessagePrefix = `${classPrefix}-message`;
-  const classIsGenerator = (append: string) => `${classPrefix}-is-${append}`;
-  const tdMessageClassGenerator = (append: string) => `${classPrefix}-${append}`;
+  // message list(message 内容区的样式名)
+  const tdMessageListClass = `${tdMessagePrefix}-list`;
+  const tdClassIsGenerator = (append: string) => `${classPrefix}-is-${append}`;
+  const tdMessageClassGenerator = (append: string) => `${tdMessagePrefix}-${append}`;
 
   return {
     tdMessagePrefix,
-    classIsGenerator,
+    tdMessageListClass,
+    tdClassIsGenerator,
     tdMessageClassGenerator,
   };
 }
