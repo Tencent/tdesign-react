@@ -3,7 +3,7 @@ import useConfig from '../_util/useConfig';
 /**
  * @author kenzyyang
  * @date 2021-05-11 19:55:58
- * @desc 部分描述
+ * @desc message 组件相关的样式生成函数
  */
 export function useMessageClass() {
   const { classPrefix } = useConfig();
