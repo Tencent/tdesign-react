@@ -3,7 +3,7 @@ import useConfig from '../_util/useConfig';
 
 /**
  * @author kenzyyang
- * @date 2021-04-07 17:40:06
+ * @date 2021-04-07 17:40
  * @desc tabs 相关的所有样式常量和样式生成器
  */
 export const useTabClass = () => {

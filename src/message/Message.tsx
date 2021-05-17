@@ -1,59 +1,84 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { StyledProps } from '../_type';
-import injectValue from '../_util/injectValue';
-import useConfig from '../_util/useConfig';
-import noop from '../_util/noop';
+
 import {
-  InfoCircleFilledIcon,
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  HelpCircleFilledIcon,
-  LoadingIcon,
-  CloseIcon,
-} from '../icon';
-import { prefix, prefixWrapper, ThemeList, PlacementOffset } from './const';
-import { MessageProps, MessageConfig, MessageInstance, MessageRef, MessageComponent } from './MessageProps';
+  MessageCloseAllMethod,
+  MessageErrorMethod,
+  MessageInfoMethod,
+  MessageInstance,
+  MessageLoadingMethod,
+  MessageMethod,
+  MessageOptions,
+  MessageQuestionMethod,
+  MessageSuccessMethod,
+  MessageWarningMethod,
+  TdMessageProps,
+  ThemeList,
+} from '../_type/components/message';
+import { AttachNodeReturnValue } from '../_type/common';
+import { PlacementOffset, ThemeArray } from './const';
+import MessageComponent from './MessageComponent';
 
-const IconMap = {
-  info: InfoCircleFilledIcon,
-  success: CheckCircleFilledIcon,
-  warning: ErrorCircleFilledIcon,
-  error: ErrorCircleFilledIcon,
-  question: HelpCircleFilledIcon,
-  loading: LoadingIcon,
-};
-
+// 定义全局的 message 列表，closeAll 函数需要使用
 let MessageList: MessageInstance[] = [];
 let keyIndex = 1;
 
-const Top = 'top';
-
+// 全局默认配置，zIndex 为 5000，默认关闭事件 3000
 const globalConfig = {
-  zIndex: 6000,
+  zIndex: 5000,
   duration: 3000,
   top: 32,
 };
 
-function createContainer({ attach, zIndex, placement = Top }: MessageConfig) {
-  let mountedDom = document.body as HTMLElement;
-  if (React.isValidElement(attach)) {
-    mountedDom = attach;
+interface MessageProps extends React.FC<TdMessageProps> {
+  info: MessageInfoMethod;
+  success: MessageSuccessMethod;
+  warning: MessageWarningMethod;
+  error: MessageErrorMethod;
+  question: MessageQuestionMethod;
+  loading: MessageLoadingMethod;
+  closeAll: MessageCloseAllMethod;
+  close: (message: Promise<MessageInstance>) => void;
+}
+
+/**
+ * @author kenzyyang
+ * @date 2021-05-11 20:36:52
+ * @desc 创建容器，所有的 message 会填充到容器中
+ */
+function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) {
+  // 默认注入到 body 中，如果用户有制定，以用户指定的为准
+  let mountedDom: AttachNodeReturnValue = document.body;
+
+  // attach 为字符串时认为是选择器
+  if (typeof attach === 'string') {
+    const result = document.querySelectorAll(attach);
+    if (result.length >= 1) {
+      // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable -- kenzyyang
+      // eslint-disable-next-line prefer-destructuring
+      mountedDom = result[0];
+    }
+  } else if (typeof attach === 'function') {
+    mountedDom = attach();
   }
 
-  const container = Array.from(mountedDom.querySelectorAll(`.${prefixWrapper}`));
+  // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀 -- kenzyyang
+  const tdMessageListClass = 't-message-list';
+
+  // 选择器找到一个挂载 message 的容器，不存在则创建
+  const container = Array.from(mountedDom.querySelectorAll(`.${tdMessageListClass}`));
   if (container.length < 1) {
     const div = document.createElement('div');
-    div.className = classNames(prefixWrapper);
-    div.style.zIndex = String(zIndex);
+    div.className = classNames(tdMessageListClass);
+    div.style.zIndex = String(zIndex || globalConfig.zIndex);
 
     Object.keys(PlacementOffset[placement]).forEach((key) => {
       div.style[key] = PlacementOffset[placement][key];
     });
 
-    if (placement.includes(Top)) {
-      div.style[Top] = `${globalConfig.top}px`;
+    if (placement.includes('top')) {
+      div.style.top = `${globalConfig.top}px`;
     }
     mountedDom.appendChild(div);
     return div;
@@ -61,8 +86,14 @@ function createContainer({ attach, zIndex, placement = Top }: MessageConfig) {
   return container[0];
 }
 
-function renderElement(theme, config: MessageConfig) {
+/**
+ * @author kenzyyang
+ * @date 2021-05-16 13:02:59
+ * @desc 函数式调用时的 message 渲染函数
+ */
+function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
   const container = createContainer(config) as HTMLElement;
+  let { duration = globalConfig.duration } = config;
   const { content, offset } = config;
   const div = document.createElement('div');
 
@@ -76,162 +107,100 @@ function renderElement(theme, config: MessageConfig) {
     key: keyIndex,
   };
 
+  // 校验duration 合法性
+  if (duration < 0) {
+    duration = 3000;
+  }
+  if (duration !== 0) {
+    setTimeout(() => {
+      message.close();
+    }, duration);
+  }
+
   let style: React.CSSProperties = {};
-  if (offset) {
+  if (Array.isArray(offset) && offset.length === 2) {
+    const [left, top] = offset;
     style = {
-      ...offset,
+      left,
+      top,
       position: 'absolute',
       width: 'auto',
     };
   }
 
-  return new Promise((res) => {
+  return new Promise((resolve) => {
+    // 渲染组件
     ReactDOM.render(
-      <Message
-        theme={theme}
-        style={style}
-        ref={() => {
-          res(message);
-        }}
-        key={keyIndex}
-        {...config}
-        close={() => message.close()}
-      >
+      <MessageComponent theme={theme} style={style} key={keyIndex} {...config}>
         {content}
-      </Message>,
+      </MessageComponent>,
       div,
     );
+
+    // 将当前渲染的 message 挂载到指定的容器中
     container.appendChild(div);
+    // message 推入 message 列表
     MessageList.push(message);
+    // 将 message 实例通过 resolve 返回给 promise 调用方
+    resolve(message);
   });
 }
 
-function MessageIcon({ theme }: MessageProps) {
-  const Icon = IconMap[theme];
-  return Icon ? <Icon /> : null;
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const Message: MessageProps = MessageComponent;
+
+// 判断是否是 messageOptions
+function isConfig(content: MessageOptions | React.ReactNode): content is MessageOptions {
+  return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
 }
 
-function MessageClose({ closeBtn, onClickCloseBtn }: MessageProps) {
-  const { classPrefix } = useConfig();
-
-  if (!closeBtn) {
-    return null;
-  }
-
-  if (closeBtn === true) {
-    return <CloseIcon className={`${prefix}-close`} />;
-  }
-
-  const button = injectValue(closeBtn)(onClickCloseBtn);
-
-  if (typeof button === 'string' || typeof button === 'number') {
-    return (
-      <span className={`${classPrefix}-message-close`} onClick={onClickCloseBtn}>
-        {closeBtn}
-      </span>
-    );
-  }
-
-  if (React.isValidElement<StyledProps>(button)) {
-    return React.cloneElement(button, {
-      className: classNames(button.props.className, `${classPrefix}-message-close`),
-    });
-  }
-
-  return <CloseIcon className={`${classPrefix}-message-close`} />;
-}
-
-const Message: MessageComponent = React.forwardRef((props, ref: MessageRef) => {
-  const {
-    theme = 'info',
-    closeBtn = false,
-    duration,
-    onDurationEnd = noop,
-    onClosed = noop,
-    children,
-    className,
-    style,
-    close = noop,
-  } = props;
-
-  const { classPrefix } = useConfig();
-  const timerRef = useRef(0);
-
-  const startDuration = useCallback(() => {
-    clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => {
-      onDurationEnd({ close });
-      close();
-    }, duration);
-  }, [duration, onDurationEnd, close]);
-
-  useEffect(() => {
-    if (typeof duration === 'number') {
-      startDuration();
-    }
-    return () => {
-      clearTimeout(timerRef.current);
-      typeof onClosed === 'function' && onClosed();
-    };
-  }, [duration, onDurationEnd, onClosed, startDuration]);
-  // useImperativeHandle(ref as React.Ref<MessageInstance>, () => ({ close }), [close]);
-  return (
-    <div
-      key="message"
-      className={classNames(`${prefix}`, className, `${classPrefix}-is-${theme}`, {
-        [`${classPrefix}-is-closable`]: closeBtn,
-      })}
-      ref={ref}
-      style={style}
-      onMouseEnter={() => {
-        clearTimeout(timerRef.current);
-      }}
-      onMouseLeave={() => {
-        startDuration();
-      }}
-    >
-      <MessageIcon {...props} />
-      {children}
-      <MessageClose {...props} />
-    </div>
-  );
-});
-
-function isConfig(content: MessageConfig | React.ReactNode): content is MessageConfig {
-  return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageConfig).content;
-}
-
-ThemeList.forEach((theme) => {
-  Message[theme] = (content: MessageConfig | React.ReactNode, duration: number = globalConfig.duration) => {
-    let config = {} as MessageConfig;
-    if (isConfig(content)) {
-      config = {
-        duration,
-        ...content,
-      };
-    } else {
-      config = {
-        content,
-        duration,
-      };
-    }
+const messageMethod: MessageMethod = (theme: ThemeList, content, duration: number = globalConfig.duration) => {
+  let config = {} as MessageOptions;
+  if (isConfig(content)) {
     config = {
-      ...config,
-      zIndex: config.zIndex || globalConfig.zIndex,
+      duration,
+      ...content,
     };
-    return renderElement(theme, config);
+  } else {
+    config = {
+      content,
+      duration,
+    };
+  }
+  config = {
+    ...config,
+    zIndex: config.zIndex || globalConfig.zIndex,
   };
-});
-
-Message.close = (message) => {
-  message.then((instance) => instance.close());
+  return renderElement(theme, config);
 };
 
-Message.closeAll = function () {
+ThemeArray.forEach((theme) => {
+  Message[theme] = (content, duration) => messageMethod(theme, content, duration);
+});
+
+/**
+ * @author kenzyyang
+ * @date 2021-05-16 13:11:24
+ * @desc Message 顶层内置函数，传入 message promise，关闭传入的 message.
+ */
+Message.close = (message) => {
+  message.then((instance) => instance.close);
+};
+
+/**
+ * @author kenzyyang
+ * @date 2021-05-16 13:11:24
+ * @desc 关闭所有的 message
+ * :todo 需明确关闭范围，目前 message 中暂无 namespace 类似概念，暂时做全 message 关闭
+ * 可预见到的扩展: 根据不同的 attach 做关闭,根据不同的类型做关闭，根据不同的 namespace 做关闭等等
+ */
+Message.closeAll = (): MessageCloseAllMethod => {
   MessageList.forEach((message) => {
     typeof message.close === 'function' && message.close();
   });
   MessageList = [];
+  return;
 };
 
 export default Message;

@@ -1,4 +1,5 @@
 import Message from './Message';
-export type { MessageProps, MessageConfig } from './MessageProps';
+
+export { TdMessageProps, MessageOptions } from '../_type/components/message';
 
 export default Message;
