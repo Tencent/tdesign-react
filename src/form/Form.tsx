@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import { TdFormProps, FormValidateResult } from '../_type/components/form';
 import { StyledProps } from '../_type';
@@ -51,7 +52,7 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
     if (scrollToFirstError) {
       scrollTo(`.${FORM_ITEM_CLASS_PREFIX + firstKey}`);
     }
-    return r[firstKey][0].message;
+    return r[firstKey][0]?.message;
   }
   // 校验不通过时，滚动到第一个错误表单
   function scrollTo(selector: string) {
@@ -83,15 +84,17 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
       .map((formItemRef) => formItemRef.validate());
 
     return new Promise((resolve) => {
-      Promise.all(list).then((arr) => {
-        const r = arr.reduce((r, err) => Object.assign(r || {}, err));
-        Object.keys(r).forEach((key) => {
-          if (r[key] === true) {
-            delete r[key];
-          }
-        });
-        resolve(isEmpty(r) ? true : r);
-      });
+      Promise.all(flatten(list))
+        .then((arr) => {
+          const r = arr.reduce((r, err) => Object.assign(r || {}, err));
+          Object.keys(r).forEach((key) => {
+            if (r[key] === true) {
+              delete r[key];
+            }
+          });
+          resolve(isEmpty(r) ? true : r);
+        })
+        .catch(console.error);
     });
   }
 

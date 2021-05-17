@@ -404,11 +404,6 @@ exports[`base.jsx 1`] = `
         class="t-form__item t-row t-form-item__undefined"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-        >
-          <label />
-        </div>
-        <div
           class="t-form__controls t-col"
         >
           <div
@@ -539,11 +534,6 @@ exports[`customValidator.jsx 1`] = `
       <div
         class="t-form__item t-row t-form-item__undefined"
       >
-        <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-        >
-          <label />
-        </div>
         <div
           class="t-form__controls t-col"
         >
@@ -705,12 +695,6 @@ exports[`login.jsx 1`] = `
         class="t-form__item t-row t-form-item__account"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-          style="min-width: 0px;"
-        >
-          <label />
-        </div>
-        <div
           class="t-form__controls t-col"
         >
           <div
@@ -750,12 +734,6 @@ exports[`login.jsx 1`] = `
       <div
         class="t-form__item t-row t-form-item__password"
       >
-        <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-          style="min-width: 0px;"
-        >
-          <label />
-        </div>
         <div
           class="t-form__controls t-col"
         >
@@ -797,12 +775,6 @@ exports[`login.jsx 1`] = `
       <div
         class="t-form__item t-row t-form-item__undefined"
       >
-        <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-          style="min-width: 0px;"
-        >
-          <label />
-        </div>
         <div
           class="t-form__controls t-col"
         >
@@ -1157,11 +1129,6 @@ exports[`validator.jsx 1`] = `
         class="t-form__item t-row t-form-item__undefined"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-        >
-          <label />
-        </div>
-        <div
           class="t-form__controls t-col"
         >
           <div
@@ -1504,11 +1471,6 @@ exports[`validatorStatus.jsx 1`] = `
       <div
         class="t-form__item t-row t-form-item__undefined"
       >
-        <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-        >
-          <label />
-        </div>
         <div
           class="t-form__controls t-col"
         >

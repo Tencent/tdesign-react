@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect } from 'react';
+import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
@@ -38,6 +38,8 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(initialData);
+
+  const innerFormItemsRef = useRef([]);
 
   const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
 
@@ -109,6 +111,9 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
   };
 
   function validate() {
+    if (innerFormItemsRef.current.length) {
+      return innerFormItemsRef.current.map((innerFormItem) => innerFormItem?.validate());
+    }
     setResetValidating(true);
     return new Promise((resolve) => {
       validateModal(formValue, innerRules).then((r) => {
@@ -168,15 +173,25 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
 
   return (
     <div className={formItemClass} ref={ref}>
-      <div className={formItemLabelClass} style={labelProps}>
-        <label htmlFor={props?.for}>{label}</label>
-      </div>
+      {label && (
+        <div className={formItemLabelClass} style={labelProps}>
+          <label htmlFor={props?.for}>{label}</label>
+        </div>
+      )}
       <div className={contentClasses}>
         <div className={`${classPrefix}-form__controls--content`}>
-          {React.Children.map(children, (child) => {
+          {React.Children.map(children, (child, index) => {
             let onChangeFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {
+              if (child.type === FormItem) {
+                return React.cloneElement(child, {
+                  ref: (el) => {
+                    if (!el) return;
+                    innerFormItemsRef.current[index] = el;
+                  },
+                });
+              }
               if (typeof child.props.onChange === 'function') {
                 onChangeFromProps = child.props.onChange;
               }
