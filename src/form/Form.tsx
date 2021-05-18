@@ -85,7 +85,7 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
 
     return new Promise((resolve) => {
       Promise.all(flatten(list))
-        .then((arr) => {
+        .then((arr: any) => {
           const r = arr.reduce((r, err) => Object.assign(r || {}, err));
           Object.keys(r).forEach((key) => {
             if (r[key] === true) {
