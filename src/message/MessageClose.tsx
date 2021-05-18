@@ -10,7 +10,7 @@ import { CloseIcon } from '@tencent/tdesign-react';
 import { TdMessageProps } from '../_type/components/message';
 import { useMessageClass } from './useMessageClass';
 
-export default function MessageClose({ closeBtn, onClickCloseBtn }: TdMessageProps) {
+export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessageProps) {
   const { tdMessageClassGenerator } = useMessageClass();
 
   // falseLike 类型表明不展示 close
@@ -21,7 +21,7 @@ export default function MessageClose({ closeBtn, onClickCloseBtn }: TdMessagePro
   // 数字 字符串类型封装 span 标签
   if (typeof closeBtn === 'string' || typeof closeBtn === 'number') {
     return (
-      <span className={tdMessageClassGenerator('close')} onClick={onClickCloseBtn}>
+      <span className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick({ e })}>
         {closeBtn}
       </span>
     );

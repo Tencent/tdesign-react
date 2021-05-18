@@ -24,7 +24,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
   // 样式相关变量和函数
   const { tdMessagePrefix, tdClassIsGenerator } = useMessageClass();
 
-  const { theme, children, closeBtn, onClickCloseBtn = noop, style } = props;
+  const { theme, children, closeBtn, onCloseBtnClick = noop, style } = props;
 
   return (
     <div
@@ -36,7 +36,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         closeBtn ? tdClassIsGenerator('closable') : '',
       )}
     >
-      <MessageIcon theme={theme} onClickCloseBtn={onClickCloseBtn} />
+      <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />
       {children}
       <MessageClose {...props} />
     </div>

@@ -31,7 +31,7 @@ const globalConfig = {
   top: 32,
 };
 
-interface MessageProps extends React.FC<TdMessageProps> {
+export interface MessageProps extends React.FC<TdMessageProps> {
   info: MessageInfoMethod;
   success: MessageSuccessMethod;
   warning: MessageWarningMethod;
@@ -114,6 +114,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   if (duration !== 0) {
     setTimeout(() => {
       message.close();
+      onDurationEnd?.();
     }, duration);
   }
 

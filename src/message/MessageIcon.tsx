@@ -24,10 +24,10 @@ const iconMap = {
   loading: LoadingIcon,
 };
 
-export default function MessageIcon({ theme, onClickCloseBtn }: TdMessageProps) {
+export default function MessageIcon({ theme, onCloseBtnClick }: TdMessageProps) {
   const Icon = iconMap[theme];
   // :todo 关闭按钮是 Icon， 但接口定义的关闭事件类型是 divClick,需要 pmc 确定是否修改接口 -- kenzyyang
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  return Icon ? <Icon onClick={onClickCloseBtn} /> : null;
+  return Icon ? <Icon onClick={(e) => onCloseBtnClick({ e })} /> : null;
 }
