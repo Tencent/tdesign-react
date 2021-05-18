@@ -14,9 +14,10 @@ import {
   MessageSuccessMethod,
   MessageWarningMethod,
   TdMessageProps,
-  ThemeList,
+  MessageThemeList,
 } from '../_type/components/message';
 import { AttachNodeReturnValue } from '../_type/common';
+import noop from '../_util/noop';
 import { PlacementOffset, ThemeArray } from './const';
 import MessageComponent from './MessageComponent';
 
@@ -94,7 +95,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
 function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
   const container = createContainer(config) as HTMLElement;
   let { duration = globalConfig.duration } = config;
-  const { content, offset } = config;
+  const { content, offset, onDurationEnd = noop } = config;
   const div = document.createElement('div');
 
   keyIndex += 1;
@@ -114,7 +115,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   if (duration !== 0) {
     setTimeout(() => {
       message.close();
-      onDurationEnd?.();
+      onDurationEnd();
     }, duration);
   }
 
@@ -149,6 +150,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
+// :todo 需要 api 定义完全的 message 格式，否则用户使用时没法得到 message.info 的提示.
 const Message: MessageProps = MessageComponent;
 
 // 判断是否是 messageOptions
@@ -156,7 +158,7 @@ function isConfig(content: MessageOptions | React.ReactNode): content is Message
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
 }
 
-const messageMethod: MessageMethod = (theme: ThemeList, content, duration: number = globalConfig.duration) => {
+const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration: number = globalConfig.duration) => {
   let config = {} as MessageOptions;
   if (isConfig(content)) {
     config = {

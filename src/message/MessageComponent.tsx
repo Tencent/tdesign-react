@@ -16,7 +16,7 @@ import { useMessageClass } from './useMessageClass';
 
 // Message 组件参数，需在 api 定义上做部分扩展
 interface MessageComponentProps extends TdMessageProps {
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 // message 直接作为组件使用时
@@ -24,7 +24,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
   // 样式相关变量和函数
   const { tdMessagePrefix, tdClassIsGenerator } = useMessageClass();
 
-  const { theme, children, closeBtn, onCloseBtnClick = noop, style } = props;
+  const { theme, children, closeBtn, onCloseBtnClick = noop, style, icon, content } = props;
 
   return (
     <div
@@ -36,8 +36,11 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         closeBtn ? tdClassIsGenerator('closable') : '',
       )}
     >
-      <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />
-      {children}
+      {
+        icon ? icon : <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />
+      }
+      {/* :todo 优先级问题，content 优先 or children 优先 */}
+      {content ? content : children}
       <MessageClose {...props} />
     </div>
   );

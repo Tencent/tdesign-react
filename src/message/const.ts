@@ -1,6 +1,6 @@
-import { ThemeList } from '../_type/components/message';
+import { MessageThemeList } from '../_type/components/message';
 const Distance = '32px';
-export const ThemeArray: ThemeList[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
+export const ThemeArray: MessageThemeList[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];
 export const PlacementOffset = {
   center: {
     left: '50%',
