@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
+import { isPlainObject, isNumber, isString } from 'lodash';
 import { SelectLabeledValue } from '../SelectProps';
 import { SelectValue } from '../../_type/components/select';
-import types from '../util/types';
 
 export const getLabel = (children, value, options) => {
   let selectedLabel = '';
@@ -18,14 +18,14 @@ export const getLabel = (children, value, options) => {
     return selectedLabel;
   }
 
-  if (types.isObject(children)) {
+  if (isPlainObject(children)) {
     selectedLabel = children.props.label;
     if (children.type.name === 'OptionGroup') {
       const groupChildren = children.props.children;
       if (Array.isArray(groupChildren)) {
         groupChildren.some((item) => {
-          const selectedValue = types.isObject(value) ? value.value : value;
-          if (types.isObject(item.props) && item.props.value === selectedValue) {
+          const selectedValue = isPlainObject(value) ? value.value : value;
+          if (isPlainObject(item.props) && item.props.value === selectedValue) {
             selectedLabel = item.props.label;
             return true;
           }
@@ -43,8 +43,8 @@ export const getLabel = (children, value, options) => {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           const isSelected = groupChildren.some((item) => {
-            const selectedValue = types.isObject(value) ? value.value : value;
-            if (types.isObject(item.props) && item.props.value === selectedValue) {
+            const selectedValue = isPlainObject(value) ? value.value : value;
+            if (isPlainObject(item.props) && item.props.value === selectedValue) {
               selectedLabel = item.props.label;
               return true;
             }
@@ -53,8 +53,8 @@ export const getLabel = (children, value, options) => {
           return isSelected;
         }
       }
-      const selectedValue = types.isObject(value) ? value.value : value;
-      if (types.isObject(item.props) && item.props.value === selectedValue) {
+      const selectedValue = isPlainObject(value) ? value.value : value;
+      if (isPlainObject(item.props) && item.props.value === selectedValue) {
         selectedLabel = item.props.label;
         return true;
       }
@@ -67,13 +67,13 @@ export const getLabel = (children, value, options) => {
 export const getValue = (children, label) => {
   let selectedValue = '';
 
-  if (types.isObject(children)) {
+  if (isPlainObject(children)) {
     selectedValue = children.props.value;
   }
 
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
-      if (types.isObject(item.props) && !item.props.disabled && item.props.label === label) {
+      if (isPlainObject(item.props) && !item.props.disabled && item.props.label === label) {
         selectedValue = item.props.value;
         return true;
       }
@@ -86,7 +86,7 @@ export const getValue = (children, label) => {
 export const getMultipleTags = (value: SelectValue[]) => {
   const tags = value.map((item) => {
     let { label, value } = item as SelectLabeledValue;
-    if (types.isNumber(item) || types.isString(item)) {
+    if (isNumber(item) || isString(item)) {
       label = item.toString();
       value = item as string;
     }
@@ -106,11 +106,11 @@ export const getSelectValueArr = (
 ) => {
   if (Array.isArray(values)) {
     let currentValues = [...values];
-    const isValueObj = types.isObject(currentValues[0]);
+    const isValueObj = isPlainObject(currentValues[0]);
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
-          if (types.isObject(activeValue)) {
+          if (isPlainObject(activeValue)) {
             return item.value !== (activeValue as SelectLabeledValue).value;
           }
           return item.value !== activeValue;
@@ -118,7 +118,7 @@ export const getSelectValueArr = (
         return item !== activeValue;
       });
     } else {
-      const label = types.isObject(activeValue) ? (activeValue as SelectLabeledValue).label : activeLabel;
+      const label = isPlainObject(activeValue) ? (activeValue as SelectLabeledValue).label : activeLabel;
       const item = isValueObj ? { label, value: activeValue } : activeValue;
       currentValues.push(item as SelectValue);
     }

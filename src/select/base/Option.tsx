@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isNumber, isString } from 'lodash';
 import useConfig from '../../_util/useConfig';
-import types from '../util/types';
 import { SelectLabeledValue } from '../SelectProps';
 import { StyledProps } from '../../_type/StyledProps';
 import { SelectValue, TdOptionProps, TdSelectProps } from '../../_type/components/select';
@@ -32,7 +32,7 @@ const Option = (props: SelectOptionProps) => {
 
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
-      if (types.isNumber(item) || types.isString(item)) {
+      if (isNumber(item) || isString(item)) {
         // 如果非object类型
         return item === value;
       }
