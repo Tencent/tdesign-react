@@ -2,13 +2,13 @@ import React from 'react';
 import { testExamples, render, act, fireEvent } from '@test/utils';
 import { Message } from '@tencent/tdesign-react';
 import {
-  PromptFillIcon,
-  SuccessFillIcon,
-  WarningFillIcon,
-  HelpFillIcon,
+  InfoCircleFilledIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  HelpCircleFilledIcon,
   HelpIcon,
   LoadingIcon,
-} from '@tencent/tdesign-react/icon';
+} from '../../icon';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -16,11 +16,11 @@ const defaultMessage = '默认的message';
 
 describe('Message Component props test', () => {
   const THEME_MAP = {
-    info: PromptFillIcon,
-    success: SuccessFillIcon,
-    warning: WarningFillIcon,
-    error: WarningFillIcon,
-    question: HelpFillIcon,
+    info: InfoCircleFilledIcon,
+    success: CheckCircleFilledIcon,
+    warning: ErrorCircleFilledIcon,
+    error: ErrorCircleFilledIcon,
+    question: HelpCircleFilledIcon,
     loading: LoadingIcon,
   };
   const THEME_LIST = Object.keys(THEME_MAP);
