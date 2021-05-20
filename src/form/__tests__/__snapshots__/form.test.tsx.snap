@@ -241,10 +241,9 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  name="male"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="male"
                 />
                 <span
                   class="t-radio__input"
@@ -260,10 +259,9 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  name="female"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="female"
                 />
                 <span
                   class="t-radio__input"
@@ -305,10 +303,9 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="la"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="la"
                 />
                 <span
                   class="t-checkbox__input"
@@ -324,10 +321,9 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="ma"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="ma"
                 />
                 <span
                   class="t-checkbox__input"
@@ -343,10 +339,9 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="nocong"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="nocong"
                 />
                 <span
                   class="t-checkbox__input"
@@ -923,10 +918,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  name="male"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="male"
                 />
                 <span
                   class="t-radio__input"
@@ -942,10 +936,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  name="femal"
                   readonly=""
                   type="radio"
-                  value=""
+                  value="femal"
                 />
                 <span
                   class="t-radio__input"
@@ -987,10 +980,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="1"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="1"
                 />
                 <span
                   class="t-checkbox__input"
@@ -1006,10 +998,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="2"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="2"
                 />
                 <span
                   class="t-checkbox__input"
@@ -1025,10 +1016,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="3"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="3"
                 />
                 <span
                   class="t-checkbox__input"
@@ -1044,10 +1034,9 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  name="4"
                   readonly=""
                   type="checkbox"
-                  value=""
+                  value="4"
                 />
                 <span
                   class="t-checkbox__input"

@@ -25,15 +25,15 @@ export default function BaseForm() {
         </FormItem>
         <FormItem label="性别" name="gender">
           <Radio.Group>
-            <Radio name="male">男性</Radio>
-            <Radio name="female">女性</Radio>
+            <Radio value="male">男性</Radio>
+            <Radio value="female">女性</Radio>
           </Radio.Group>
         </FormItem>
         <FormItem label="课程" name="course">
           <Checkbox.Group>
-            <Checkbox name="la">加辣</Checkbox>
-            <Checkbox name="ma">加麻</Checkbox>
-            <Checkbox name="nocong">不要葱花</Checkbox>
+            <Checkbox value="la">加辣</Checkbox>
+            <Checkbox value="ma">加麻</Checkbox>
+            <Checkbox value="nocong">不要葱花</Checkbox>
           </Checkbox.Group>
         </FormItem>
         <FormItem label="状态" name="status" for="status">

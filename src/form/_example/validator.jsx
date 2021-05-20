@@ -41,16 +41,16 @@ export default function BaseForm() {
         </FormItem>
         <FormItem label="性别" name="gender" rules={[{ required: true, message: '性别必填', type: 'warning' }]}>
           <Radio.Group buttonStyle="solid">
-            <Radio name="male">男</Radio>
-            <Radio name="femal">女</Radio>
+            <Radio value="male">男</Radio>
+            <Radio value="femal">女</Radio>
           </Radio.Group>
         </FormItem>
         <FormItem label="课程" name="course" rules={[{ required: true, message: '课程必填', type: 'warning' }]}>
           <Checkbox.Group>
-            <Checkbox name="1">语文</Checkbox>
-            <Checkbox name="2">数学</Checkbox>
-            <Checkbox name="3">英语</Checkbox>
-            <Checkbox name="4">体育</Checkbox>
+            <Checkbox value="1">语文</Checkbox>
+            <Checkbox value="2">数学</Checkbox>
+            <Checkbox value="3">英语</Checkbox>
+            <Checkbox value="4">体育</Checkbox>
           </Checkbox.Group>
         </FormItem>
         <FormItem label="入学时间" name="date" rules={[{ date: true, message: '日期格式有误' }]}>
