@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tencent/tdesign-react';
+import { Select, BrowseIcon } from '@tencent/tdesign-react';
 
 const { Option } = Select;
 
-const MultipleSelect = () => {
-  const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
+const SelectPrefix = () => {
+  const [value, setValue] = useState('apple');
   const onChange = (value) => {
     setValue(value);
   };
   return (
-    <Select value={value} onChange={onChange} multiple style={{ width: '40%' }} valueType="object">
+    <Select value={value} onChange={onChange} style={{ width: '40%' }} prefixIcon={<BrowseIcon />}>
       <Option key="apple" label="Apple" value="apple" />
       <Option key="orange" label="Orange" value="orange" disabled />
       <Option key="banana" label="Banana" value="banana" />
@@ -18,4 +18,4 @@ const MultipleSelect = () => {
   );
 };
 
-export default MultipleSelect;
+export default SelectPrefix;

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
-import { SelectValue, SelectLabeledValue } from '../SelectProps';
+import { SelectLabeledValue } from '../SelectProps';
+import { SelectValue } from '../../_type/components/select';
 import types from '../util/types';
 
 export const getLabel = (children, value, options) => {

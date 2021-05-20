@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import { Select } from '@tencent/tdesign-react';
 
-const { Option } = Select;
-
 const FilterableSelect = () => {
   const [value, setValue] = useState();
 
@@ -25,18 +23,7 @@ const FilterableSelect = () => {
       value: 'orange',
     },
   ];
-
-  const handleFilter = () => {
-    console.log('Filter');
-  };
-
-  return (
-    <Select filterable value={value} onChange={onChange} style={{ width: '40%' }} filterMethod={handleFilter}>
-      {options.map((item, index) => (
-        <Option key={index} label={item.label} value={item.value} />
-      ))}
-    </Select>
-  );
+  return <Select filterable value={value} onChange={onChange} style={{ width: '40%' }} options={options} />;
 };
 
 export default FilterableSelect;

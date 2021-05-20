@@ -2,18 +2,38 @@ import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import types from '../util/types';
-import { SelectOption, SelectLabeledValue } from '../SelectProps';
+import { SelectLabeledValue } from '../SelectProps';
+import { StyledProps } from '../../_type/StyledProps';
+import { SelectValue, TdOptionProps, TdSelectProps } from '../../_type/components/select';
 
-const Option = (props: SelectOption) => {
+/**
+ * Option 组件属性
+ */
+export interface SelectOptionProps
+  extends StyledProps,
+    TdOptionProps,
+    Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
+  selectedValue?: SelectValue;
+  children?: React.ReactNode;
+  onSelect?: (
+    value: string | number,
+    context: { label?: string | number; selected?: boolean; event: React.MouseEvent },
+  ) => void;
+}
+
+const Option = (props: SelectOptionProps) => {
   const { classPrefix } = useConfig();
-  const { disabled, size, value, multiple, selectedValue, onSelect, children } = props;
+  const { disabled: propDisabled, size, max, value, multiple, selectedValue, onSelect, children } = props;
   const label = props.label || value;
   const componentType = 'select';
   let selected = value === selectedValue;
 
+  const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (types.isNumber(item) || types.isString(item)) {
+        // 如果非object类型
         return item === value;
       }
       return (item as SelectLabeledValue).value === value;
