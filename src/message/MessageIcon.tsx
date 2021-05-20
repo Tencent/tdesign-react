@@ -26,5 +26,5 @@ const iconMap = {
 
 export default function MessageIcon({ theme, onCloseBtnClick }: TdMessageProps) {
   const Icon = iconMap[theme];
-  return Icon ? <Icon onClick={(e) => onCloseBtnClick({ e })} /> : null;
+  return Icon ? <Icon onClick={(e) => onCloseBtnClick?.({ e })} /> : null;
 }

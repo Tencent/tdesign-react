@@ -3,7 +3,7 @@
  * @date 2021-05-11 19:25:08
  * @desc Message 纯组件实现.(Message.info Message.close 等函数用法封装在 message.tsx)
  */
-import React from 'react';
+import React, { useState } from 'react';
 
 import classNames from 'classnames';
 import { TdMessageProps } from '../_type/components/message';
@@ -23,10 +23,28 @@ interface MessageComponentProps extends TdMessageProps {
 const MessageComponent: React.FC<MessageComponentProps> = (props) => {
   // 样式相关变量和函数
   const { tdMessagePrefix, tdClassIsGenerator } = useMessageClass();
+  const [mount, setMount] = useState(true);
 
-  const { theme, children, closeBtn, onCloseBtnClick = noop, style, icon, content } = props;
+  const {
+    theme = 'info',
+    children,
+    closeBtn,
+    onCloseBtnClick = noop,
+    style,
+    icon,
+    content,
+    onDurationEnd = noop,
+    duration = 3000,
+  } = props;
 
-  return (
+  if (duration > 0) {
+    setTimeout(() => {
+      setMount(false);
+      onDurationEnd();
+    }, duration);
+  }
+
+  return mount ? (
     <div
       key="message"
       style={style}
@@ -36,14 +54,11 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         closeBtn ? tdClassIsGenerator('closable') : '',
       )}
     >
-      {
-        icon ? icon : <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />
-      }
-      {/* :todo 优先级问题，content 优先 or children 优先 */}
+      {icon ? icon : <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />}
       {content ? content : children}
       <MessageClose {...props} />
     </div>
-  );
+  ) : null;
 };
 
 export default MessageComponent;

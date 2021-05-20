@@ -18,10 +18,16 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
     return null;
   }
 
+  if (typeof closeBtn === 'function') {
+    return React.cloneElement(closeBtn(), {
+      className: classNames(closeBtn().props.className, tdMessageClassGenerator('close')),
+    });
+  }
+
   // 数字 字符串类型封装 span 标签
   if (typeof closeBtn === 'string' || typeof closeBtn === 'number') {
     return (
-      <span className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick({ e })}>
+      <span className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick?.({ e })}>
         {closeBtn}
       </span>
     );
