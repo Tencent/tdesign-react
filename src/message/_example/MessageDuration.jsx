@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Button, Message } from '@tencent/tdesign-react';
 
 let message = null;
 
 export default function () {
+  const list = useState([]);
+
   return (
     <div className="message-element">
       <Button
         onClick={() => {
           message = Message.info('I am duration 20s Message', 20 * 1000);
+          list.unshift(message);
         }}
       >
         I am duration 20s Message
       </Button>
       <Button
         onClick={() => {
-          Message.close(message);
+          if (list.length !== 0) {
+            Message.close(list.shift());
+          }
         }}
       >
         close latest duration 20s Message
