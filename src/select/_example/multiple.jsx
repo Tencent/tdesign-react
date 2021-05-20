@@ -2,19 +2,33 @@ import React, { useState } from 'react';
 
 import { Select } from '@tencent/tdesign-react';
 
-const { Option } = Select;
-
 const MultipleSelect = () => {
   const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
   const onChange = (value) => {
     setValue(value);
   };
   return (
-    <Select value={value} onChange={onChange} multiple style={{ width: '40%' }} valueType="object">
-      <Option key="apple" label="Apple" value="apple" />
-      <Option key="orange" label="Orange" value="orange" disabled />
-      <Option key="banana" label="Banana" value="banana" />
-    </Select>
+    <Select
+      value={value}
+      onChange={onChange}
+      multiple
+      style={{ width: '40%' }}
+      valueType="object"
+      options={[
+        {
+          label: 'Apple',
+          value: 'apple',
+        },
+        {
+          label: 'Banana',
+          value: 'banana',
+        },
+        {
+          label: 'Orange',
+          value: 'orange',
+        },
+      ]}
+    />
   );
 };
 

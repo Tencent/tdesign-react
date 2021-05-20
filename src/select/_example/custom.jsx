@@ -2,26 +2,12 @@ import React, { useState } from 'react';
 
 import { Select } from '@tencent/tdesign-react';
 
-const { Option } = Select;
-
 const RemoteSearchSelect = () => {
-  const defaultOptions = [
-    {
-      label: 'Apple',
-      value: 'apple',
-    },
-    {
-      label: 'Banana',
-      value: 'banana',
-    },
-    {
-      label: 'Orange',
-      value: 'orange',
-    },
-  ];
+  const defaultOptions = [];
   const [value, setValue] = useState();
+
   const [loading, setLoading] = useState(false);
-  const [options, setOptions] = useState(defaultOptions);
+  const [options, setOptions] = useState([]);
 
   const onChange = (value) => {
     setValue(value);
@@ -29,6 +15,7 @@ const RemoteSearchSelect = () => {
 
   const handleRemoteSearch = (search) => {
     setLoading(true);
+
     setTimeout(() => {
       setLoading(false);
       let options = [];
@@ -50,21 +37,23 @@ const RemoteSearchSelect = () => {
       } else {
         options = defaultOptions;
       }
-      console.log(options, 'options');
+
       setOptions(options);
-    }, 300);
+    }, 1000);
   };
 
   return (
-    <Select
-      filterable
-      value={value}
-      onChange={onChange}
-      style={{ width: '40%' }}
-      loading={loading}
-      onSearch={handleRemoteSearch}
-      options={options}
-    />
+    <>
+      <Select
+        filterable
+        value={value}
+        onChange={onChange}
+        style={{ width: '40%' }}
+        loading={loading}
+        onSearch={handleRemoteSearch}
+        options={options}
+      />
+    </>
   );
 };
 
