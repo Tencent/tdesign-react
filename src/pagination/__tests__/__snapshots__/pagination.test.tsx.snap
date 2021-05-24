@@ -361,7 +361,9 @@ exports[`pageNum.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select"
           style="user-select: none;"
@@ -498,7 +500,9 @@ exports[`simple.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select"
           style="user-select: none;"
@@ -570,7 +574,9 @@ exports[`simpleMini.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select t-size-s"
           style="user-select: none;"

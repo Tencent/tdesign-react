@@ -6,6 +6,7 @@ exports[`base.jsx 1`] = `
     style="display: flex;"
   >
     <div
+      class="t-select-wrap"
       style="width: 40%;"
     >
       <div
@@ -44,6 +45,7 @@ exports[`creatable.jsx 1`] = `
     style="display: flex;"
   >
     <div
+      class="t-select-wrap"
       style="width: 40%;"
     >
       <div
@@ -83,6 +85,7 @@ exports[`creatable.jsx 1`] = `
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -124,6 +127,7 @@ exports[`disabled.jsx 1`] = `
     style="display: flex;"
   >
     <div
+      class="t-select-wrap"
       style="width: 40%;"
     >
       <div
@@ -159,6 +163,7 @@ exports[`disabled.jsx 1`] = `
 exports[`filterable.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -197,6 +202,7 @@ exports[`filterable.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -234,6 +240,7 @@ exports[`labelInValue.jsx 1`] = `
     style="display: flex;"
   >
     <div
+      class="t-select-wrap"
       style="width: 40%;"
     >
       <div
@@ -263,6 +270,7 @@ exports[`labelInValue.jsx 1`] = `
       </div>
     </div>
     <div
+      class="t-select-wrap"
       style="width: 40%; margin-left: 10%;"
     >
       <div
@@ -310,6 +318,7 @@ exports[`labelInValue.jsx 1`] = `
 exports[`max.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -356,6 +365,7 @@ exports[`max.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -402,6 +412,7 @@ exports[`multiple.jsx 1`] = `
 exports[`noborder.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -436,6 +447,7 @@ exports[`noborder.jsx 1`] = `
 exports[`options.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -477,6 +489,7 @@ exports[`popupProps.jsx 1`] = `
     style="display: flex;"
   >
     <div
+      class="t-select-wrap"
       style="width: 40%;"
     >
       <div
@@ -512,6 +525,7 @@ exports[`popupProps.jsx 1`] = `
 exports[`prefIx.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 40%;"
   >
     <div
@@ -559,6 +573,7 @@ exports[`prefIx.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-select-wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
@@ -588,6 +603,7 @@ exports[`size.jsx 1`] = `
     </div>
   </div>
   <div
+    class="t-select-wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
@@ -617,6 +633,7 @@ exports[`size.jsx 1`] = `
     </div>
   </div>
   <div
+    class="t-select-wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div

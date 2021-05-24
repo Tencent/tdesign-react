@@ -85,7 +85,6 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   // portal
   let portal: React.ReactElement = null;
-
   // 如果要展示，或者已经渲染过，默认不销毁
   if (visible || overlayRef) {
     portal = (
