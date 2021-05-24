@@ -1,190 +1,53 @@
-import * as React from 'react';
+import React from 'react';
+import classNames from 'classnames';
+
 import { ChevronLeftIcon, MoreIcon, ChevronRightIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
 
+import { TdPaginationProps } from '../_type/components/pagination';
+import { StyledProps } from '../_type/StyledProps';
+import { pageSizeValidator, pageSizeOptionsValidator } from './validators';
+
 export type { PageInfo } from '../_type/components/pagination';
 
+export interface PaginationProps extends TdPaginationProps, StyledProps {}
+
 const { Option } = Select;
-
-/**
- * @author kenzyyang
- * @date 2021-03-29
- * @desc 判定当前 pageSize 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
- * @param pageSize any 任意类型
- * @return boolean 是否合法
- * */
-const pageSizeValidator = (pageSize: any): boolean => {
-  let pageSizeNumber: number;
-  if (typeof pageSize !== 'number') {
-    pageSizeNumber = pageSize - 0;
-  } else {
-    pageSizeNumber = pageSize;
-  }
-
-  return !isFinite(pageSizeNumber) && pageSizeNumber > 0;
-};
-
-/**
- * @author kenzyyang
- * @date 2021-03-29
- * @desc 判定当前 pageSizeOptions 是否是合法的值,目前仅校验合法性，若后续有逻辑校验可在此处扩展
- * @param pageSizeOptions any 任意类型
- * @return boolean 是否合法
- * */
-const pageSizeOptionsValidator = (pageSizeOptions: any): boolean => {
-  // 不为数组或长度为 0 时，为非法值
-  if (!Array.isArray(pageSizeOptions) || pageSizeOptions.length === 0) {
-    return false;
-  }
-  for (let i = 1; i <= pageSizeOptions.length; i++) {
-    const v = pageSizeOptions[i - 1];
-    if (typeof v !== 'number' || v <= 0) {
-      return false;
-    }
-  }
-  return true;
-};
-
-export interface PaginationProps {
-  /**
-   * 当前页数
-   * @default 1
-   */
-  current?: number;
-
-  /**
-   * 显示模式
-   * @default "default"
-   */
-  theme?: 'default' | 'simple';
-
-  /**
-   * 分页组件尺寸
-   * @default "default"
-   */
-  size?: 'default' | 'small';
-
-  /**
-   * 数据总数
-   * @default 0
-   */
-  total?: number;
-
-  /**
-   * 分页大小
-   * @default 10
-   */
-  pageSize?: number;
-
-  /**
-   * 显示分页大小控制器
-   * @default false
-   */
-  showSizer?: boolean;
-
-  /**
-   * 显示页面跳转输入框
-   * @default false
-   */
-  showJumper?: boolean;
-
-  /**
-   * 显示数据总量和当前数据顺序
-   * @default false
-   */
-  showTotal?: boolean;
-
-  /**
-   * 禁用分页功能
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 使用返回值作为内容，可用于渲染来自列表的已选中数量
-   * @default "共xxx项数据"
-   */
-  totalContent?: string | ((total: number, range: [number, number]) => React.ReactNode);
-
-  /**
-   * 只有一页时，是否显示分页
-   * @default true
-   */
-  visibleWithOnePage?: boolean;
-
-  /**
-   * 指定每页可以显示多少条
-   * @default [5, 10, 20 ,50]
-   */
-  pageSizeOption?: number[];
-
-  /**
-   * 页码变化后的回调，参数是改变后的页码
-   * @default noop
-   */
-  onChange?: (current: number, event: { curr: number; prev: number; pageSize: number }) => void;
-
-  /**
-   * 每页条数变化后的回调，参数是改变后每页条数
-   * @default noop
-   */
-  onPageSizeChange?: (pageSize: number, event: { curr: number; prev: number; pageSize: number }) => void;
-}
 
 enum KEY_CODE {
   ENTER = 13,
 }
 
-const blockName = 'pagination';
-
 const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.ReactElement => {
   const {
     current: currentFromProps = 1,
     theme = 'default',
-    size = 'default',
+    size = 'medium',
     total = 0,
     pageSize: pageSizeFromProps = 10,
-    showSizer = false,
     showJumper = false,
-    showTotal = false,
     disabled = false,
+    foldedMaxPageBtn = 5,
+    maxPageBtn = 10,
     totalContent = '',
-    visibleWithOnePage = true,
-    pageSizeOption = [5, 10, 20, 50],
+    pageSizeOptions = [5, 10, 20, 50],
     onChange = noop,
+    // onCurrentChange = noop,
     onPageSizeChange = noop,
   } = props;
 
-  const [current, setCurrent] = React.useState<number>(currentFromProps);
-  const [pageSize, setPageSize] = React.useState<number>(pageSizeFromProps);
+  const [current, setCurrent] = React.useState(currentFromProps);
+  const [pageSize, setPageSize] = React.useState(pageSizeFromProps);
 
   const { classPrefix } = useConfig();
 
+  const name = `${classPrefix}-pagination`;
   const simpleInputRef = React.useRef<HTMLInputElement>(null);
 
-  const min = React.useMemo<number>(() => 1, []);
-  const max = React.useMemo<number>(() => Math.max(Math.ceil(total / pageSize), 1), [total, pageSize]);
-
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
+  const min = 1;
+  const max = Math.max(Math.ceil(total / pageSize), 1);
 
   const pageList = React.useMemo<(string | number)[]>(() => {
     const gap = 2;
@@ -220,11 +83,11 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
        * @desc currentChange 时判断 size 是否合法
        **/
       if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
-        if (!pageSizeOptionsValidator(pageSizeOption)) {
+        if (!pageSizeOptionsValidator(pageSizeOptions)) {
           throw '[pagination]pageSize invalid and pageSizeOption invalid';
         } else {
           // eslint-disable-next-line
-          nextPageSize = pageSizeOption[0];
+          nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
         }
       }
 
@@ -233,13 +96,13 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
       if (simpleInputRef.current) {
         simpleInputRef.current.value = String(nextCurrent);
       }
-      onChange(nextCurrent, {
-        curr: nextCurrent,
-        prev: current,
+      onChange({
+        current: nextCurrent,
+        previous: current,
         pageSize: nextPageSize || pageSize,
       });
     },
-    [disabled, max, min, onChange, current, pageSize, pageSizeOption],
+    [disabled, max, min, onChange, current, pageSize, pageSizeOptions],
   );
 
   const changePageSize = React.useCallback(
@@ -247,8 +110,8 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
       setPageSize(nextPageSize);
       const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
       onPageSizeChange(nextPageSize, {
-        curr: nextCurrent,
-        prev: current,
+        current: nextCurrent,
+        previous: current,
         pageSize: nextPageSize,
       });
 
@@ -261,9 +124,9 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
     (nextCurrent: number) => {
       if (disabled || max < nextCurrent || nextCurrent < min) return;
       setCurrent(nextCurrent);
-      onChange(nextCurrent, {
-        curr: nextCurrent,
-        prev: current,
+      onChange({
+        current: nextCurrent,
+        previous: current,
         pageSize,
       });
     },
@@ -292,14 +155,18 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
   React.useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
   React.useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
-  if (!visibleWithOnePage && max === 1) return null;
+  if (max === 1) return null;
 
   return (
-    <div className={prefixCls(blockName, size === 'small' && 'size-s')}>
-      {(showTotal || totalContent) && (
-        <div className={prefixCls([blockName, 'total'])}>
+    <div
+      className={classNames(name, {
+        [`${name}__size-s`]: size === 'small',
+      })}
+    >
+      {totalContent && (
+        <div className={`${name}__total`}>
           {((): React.ReactNode => {
-            if (showTotal && !totalContent) return `共 ${total} 项数据`;
+            if (!totalContent) return `共 ${total} 项数据`;
             if (typeof totalContent === 'string') return totalContent;
             if (typeof totalContent === 'function') {
               const start: number = (current - min) * pageSize;
@@ -310,39 +177,38 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
           })()}
         </div>
       )}
-      {showSizer && pageSizeOption instanceof Array && (
-        <div className={prefixCls([blockName, 'select'])}>
+      {pageSizeOptions instanceof Array && (
+        <div className={`${name}__select`}>
           <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
-            {pageSizeOption.map((item) => (
-              <Option key={item} label={`${item}条/页`} value={item}>
-                {item}条/页
-              </Option>
-            ))}
+            {pageSizeOptions.map((item) =>
+              typeof item === 'number' ? (
+                <Option key={item} label={`${item}条/页`} value={item} />
+              ) : (
+                <Option key={item.value} label={item.label} value={item.value} />
+              ),
+            )}
           </Select>
         </div>
       )}
       <div
-        className={prefixCls(
-          [blockName, 'btn'],
-          [blockName, 'btn', 'prev'],
-          (disabled || current === min) && 'is-disabled',
-        )}
+        className={classNames(`${name}__btn`, `${name}__btn--prev`, {
+          [`${classPrefix}-is-disabled`]: disabled || current === min,
+        })}
         onClick={() => changeCurrent(current - 1)}
       >
         <ChevronLeftIcon />
       </div>
       {theme === 'default' && (
-        <ul className={prefixCls([blockName, 'pager'])}>
+        <ul className={`${name}__pager`}>
           {pageList.map((item, index) => {
             if (typeof item === 'number') {
               return (
                 <li
                   key={item}
-                  className={prefixCls(
-                    [blockName, 'number'],
-                    current === item && 'is-current',
-                    disabled && 'is-disabled',
-                  )}
+                  className={classNames(`${name}__number`, {
+                    [`${classPrefix}-is-disabled`]: disabled,
+                    [`${classPrefix}-is-current`]: current === item,
+                  })}
                   onClick={() => changeCurrent(item)}
                 >
                   {item}
@@ -352,7 +218,9 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
             return (
               <li
                 key={item.concat(String(index))}
-                className={prefixCls([blockName, 'number'], [blockName, 'number', 'more'], disabled && 'is-disabled')}
+                className={classNames(`${name}__number`, `${name}__number--more`, {
+                  [`${classPrefix}-is-disabled`]: disabled,
+                })}
               >
                 <MoreIcon />
               </li>
@@ -361,7 +229,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         </ul>
       )}
       {theme === 'simple' && (
-        <div className={prefixCls([blockName, 'select'])}>
+        <div className={`${name}__select`}>
           <Select size={size} value={current} disabled={disabled} onChange={onCurrentChange}>
             {Array(max)
               .fill(0)
@@ -375,21 +243,19 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
         </div>
       )}
       <div
-        className={prefixCls(
-          [blockName, 'btn'],
-          [blockName, 'btn', 'next'],
-          (disabled || current === max) && 'is-disabled',
-        )}
+        className={classNames(`${name}__btn`, `${name}__btn--next`, {
+          [`${classPrefix}-is-disabled`]: disabled || current === max,
+        })}
         onClick={() => changeCurrent(current + 1)}
       >
         <ChevronRightIcon />
       </div>
       {showJumper && (
-        <div className={prefixCls([blockName, 'jump'])}>
+        <div className={`${name}__jump`}>
           跳转
-          <div className={prefixCls('input', disabled && 'is-disabled')}>
+          <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-input__is-disabled`]: disabled })}>
             <input
-              className={prefixCls(['input', 'inner'])}
+              className={`${classPrefix}-input__inner`}
               disabled={disabled}
               onChange={onPageInputChange}
               onKeyUp={onPageInputKeyUp}
