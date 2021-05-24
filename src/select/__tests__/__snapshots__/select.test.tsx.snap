@@ -55,7 +55,6 @@ exports[`creatable.jsx 1`] = `
         />
         <div
           class="t-select-input t-input"
-          style="border: 0px; padding: 0px;"
         >
           <input
             class="t-select-input t-input__inner"
@@ -95,7 +94,6 @@ exports[`custom.jsx 1`] = `
       />
       <div
         class="t-select-input t-input"
-        style="border: 0px; padding: 0px;"
       >
         <input
           class="t-select-input t-input__inner"
@@ -172,7 +170,6 @@ exports[`filterable.jsx 1`] = `
       />
       <div
         class="t-select-input t-input"
-        style="border: 0px; padding: 0px;"
       >
         <input
           class="t-select-input t-input__inner"
@@ -450,7 +447,6 @@ exports[`options.jsx 1`] = `
       />
       <div
         class="t-select-input t-input"
-        style="border: 0px; padding: 0px;"
       >
         <input
           class="t-select-input t-input__inner"
