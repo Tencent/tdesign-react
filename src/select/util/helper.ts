@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 import { isPlainObject, isNumber, isString } from 'lodash';
-import { SelectLabeledValue } from '../SelectProps';
-import { SelectValue } from '../../_type/components/select';
+import { SelectValue, Options } from '../../_type/components/select';
+
+type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
 
 export const getLabel = (children, value, options) => {
   let selectedLabel = '';

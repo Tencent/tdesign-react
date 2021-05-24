@@ -7,9 +7,15 @@ import Option, { SelectOptionProps } from './Option';
 interface SelectPopupProps
   extends Pick<TdSelectProps, 'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading'> {
   onChange?: (value: SelectValue, context?: { label?: string | number }) => void;
-  children?: React.ReactNode;
+  /**
+   * 是否展示popup
+   */
   showPopup: boolean;
+  /**
+   * 控制popup展示的函数
+   */
   setShowPopup: (show: boolean) => void;
+  children?: React.ReactNode;
 }
 
 const PopupContent = (props: SelectPopupProps) => {

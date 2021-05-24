@@ -2,9 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { isNumber, isString } from 'lodash';
 import useConfig from '../../_util/useConfig';
-import { SelectLabeledValue } from '../SelectProps';
 import { StyledProps } from '../../_type/StyledProps';
-import { SelectValue, TdOptionProps, TdSelectProps } from '../../_type/components/select';
+import { SelectValue, TdOptionProps, TdSelectProps, Options } from '../../_type/components/select';
 
 /**
  * Option 组件属性
@@ -20,6 +19,8 @@ export interface SelectOptionProps
     context: { label?: string | number; selected?: boolean; event: React.MouseEvent },
   ) => void;
 }
+
+type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
 
 const Option = (props: SelectOptionProps) => {
   const { classPrefix } = useConfig();
