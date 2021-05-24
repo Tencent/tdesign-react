@@ -4,7 +4,7 @@ exports[`attach.jsx 1`] = `
 <DocumentFragment>
   <div
     class="anchor-demo-attach"
-    id="/components/anchor/#attach"
+    id="attach"
     style="display: flex;"
   >
     <div
@@ -23,7 +23,7 @@ exports[`attach.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#content-1"
+          href="#content-1"
           title="content-1"
         >
           content-1
@@ -34,7 +34,7 @@ exports[`attach.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#content-2"
+          href="#content-2"
           title="content-2"
         >
           content-2
@@ -45,7 +45,7 @@ exports[`attach.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#content-3"
+          href="#content-3"
           title="content-3"
         >
           content-3
@@ -56,7 +56,7 @@ exports[`attach.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#content-4"
+          href="#content-4"
           title="content-4"
         >
           content-4
@@ -64,36 +64,36 @@ exports[`attach.jsx 1`] = `
       </div>
     </div>
     <div
-      class="tdesign-demo-item--anchor-container"
-      id="attach"
+      id="anchor-container"
+      style="width: 100%; height: 200px; overflow: auto; text-align: center; font-size: 22px;"
     >
       <div
-        id="/components/anchor/#content-1"
-        style="background: rgb(223, 239, 255);"
+        id="content-1"
+        style="background: rgb(223, 239, 255); line-height: 100px;"
       >
         content-1
       </div>
       <div
-        id="/components/anchor/#content-2"
-        style="background: rgb(191, 219, 247);"
+        id="content-2"
+        style="background: rgb(191, 219, 247); line-height: 100px;"
       >
         content-2
       </div>
       <div
-        id="/components/anchor/#content-3"
-        style="background: rgb(155, 197, 242);"
+        id="content-3"
+        style="background: rgb(155, 197, 242); line-height: 100px;"
       >
         content-3
       </div>
       <div
-        id="/components/anchor/#content-4"
-        style="background: rgb(123, 175, 237);"
+        id="content-4"
+        style="background: rgb(123, 175, 237); line-height: 100px;"
       >
         content-4
       </div>
       <div
-        id="/components/anchor/#content-5"
-        style="background: rgb(92, 153, 235);"
+        id="content-5"
+        style="background: rgb(92, 153, 235); line-height: 100px;"
       >
         content-5
       </div>
@@ -105,7 +105,7 @@ exports[`attach.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="/components/anchor/#default"
+    id="default"
   >
     <div
       class="t-anchor t-size-m"
@@ -123,7 +123,7 @@ exports[`base.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#default"
+          href="#default"
           title="基础锚点"
         >
           基础锚点
@@ -134,7 +134,7 @@ exports[`base.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#multiple"
+          href="#multiple"
           title="多级锚点"
         >
           多级锚点
@@ -145,7 +145,7 @@ exports[`base.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#size"
+          href="#size"
           title="尺寸大小"
         >
           尺寸大小
@@ -155,7 +155,7 @@ exports[`base.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size"
+            href="#size"
             title="size-medium"
           >
             size-medium
@@ -166,7 +166,7 @@ exports[`base.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size-large"
+            href="#size-large"
             title="size-large"
           >
             size-large
@@ -178,7 +178,7 @@ exports[`base.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#attach"
+          href="#attach"
           title="指定容器"
         >
           指定容器
@@ -192,7 +192,7 @@ exports[`base.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="/components/anchor/#multiple"
+    id="multiple"
   >
     <div
       class="t-anchor t-size-m"
@@ -210,7 +210,7 @@ exports[`multiple.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#default"
+          href="#default"
           title="基础锚点"
         >
           基础锚点
@@ -221,7 +221,7 @@ exports[`multiple.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#multiple"
+          href="#multiple"
           title="多级锚点"
         >
           多级锚点
@@ -232,7 +232,7 @@ exports[`multiple.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#size"
+          href="#size"
           title="尺寸大小"
         >
           尺寸大小
@@ -242,7 +242,7 @@ exports[`multiple.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size"
+            href="#size"
             title="size-medium"
           >
             size-medium
@@ -253,7 +253,7 @@ exports[`multiple.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size-large"
+            href="#size-large"
             title="size-large"
           >
             size-large
@@ -265,7 +265,7 @@ exports[`multiple.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#attach"
+          href="#attach"
           title="指定容器"
         >
           指定容器
@@ -279,7 +279,7 @@ exports[`multiple.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="/components/anchor/#size"
+    id="size"
   >
     <div
       class="t-anchor t-size-m"
@@ -297,7 +297,7 @@ exports[`size.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#default"
+          href="#default"
           title="基础锚点"
         >
           基础锚点
@@ -308,7 +308,7 @@ exports[`size.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#multiple"
+          href="#multiple"
           title="多级锚点"
         >
           多级锚点
@@ -319,7 +319,7 @@ exports[`size.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#size"
+          href="#size"
           title="尺寸大小"
         >
           尺寸大小
@@ -329,7 +329,7 @@ exports[`size.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size"
+            href="#size"
             title="size-medium"
           >
             size-medium
@@ -340,7 +340,7 @@ exports[`size.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size-large"
+            href="#size-large"
             title="size-large"
           >
             size-large
@@ -352,7 +352,7 @@ exports[`size.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#attach"
+          href="#attach"
           title="指定容器"
         >
           指定容器
@@ -366,7 +366,7 @@ exports[`size.jsx 1`] = `
 exports[`sizeLarge.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="/components/anchor/#size-large"
+    id="size-large"
   >
     <div
       class="t-anchor t-size-m"
@@ -384,7 +384,7 @@ exports[`sizeLarge.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#default"
+          href="#default"
           title="基础锚点"
         >
           基础锚点
@@ -395,7 +395,7 @@ exports[`sizeLarge.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#multiple"
+          href="#multiple"
           title="多级锚点"
         >
           多级锚点
@@ -406,7 +406,7 @@ exports[`sizeLarge.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#size"
+          href="#size"
           title="尺寸大小"
         >
           尺寸大小
@@ -416,7 +416,7 @@ exports[`sizeLarge.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size"
+            href="#size"
             title="size-medium"
           >
             size-medium
@@ -427,7 +427,7 @@ exports[`sizeLarge.jsx 1`] = `
         >
           <a
             class="t-anchor-item_link"
-            href="/#/components/anchor/#size-large"
+            href="#size-large"
             title="size-large"
           >
             size-large
@@ -439,7 +439,7 @@ exports[`sizeLarge.jsx 1`] = `
       >
         <a
           class="t-anchor-item_link"
-          href="/#/components/anchor/#attach"
+          href="#attach"
           title="指定容器"
         >
           指定容器
