@@ -107,7 +107,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       }
     }
 
-    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
+    if (disabled) return;
+    if (pageCount < nextCurrent) {
+      setCurrent(pageCount);
+      return;
+    }
+    if (nextCurrent < min) {
+      setCurrent(min);
+      return;
+    }
     setCurrent(nextCurrent);
     if (simpleInputRef.current) {
       simpleInputRef.current.value = String(nextCurrent);
