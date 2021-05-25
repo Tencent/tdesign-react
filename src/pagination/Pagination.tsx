@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash';
 
 import { ChevronLeftIcon, MoreIcon, ChevronRightIcon } from '../icon';
 import noop from '../_util/noop';
@@ -20,7 +21,7 @@ enum KEY_CODE {
   ENTER = 13,
 }
 
-const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.ReactElement => {
+const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const {
     current: currentFromProps = 1,
     theme = 'default',
@@ -34,22 +35,25 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
     totalContent = '',
     pageSizeOptions = [5, 10, 20, 50],
     onChange = noop,
-    // onCurrentChange = noop,
+    onCurrentChange = noop,
     onPageSizeChange = noop,
   } = props;
 
-  const [current, setCurrent] = React.useState(currentFromProps);
-  const [pageSize, setPageSize] = React.useState(pageSizeFromProps);
+  const [current, setCurrent] = useState(currentFromProps);
+  const [pageSize, setPageSize] = useState(pageSizeFromProps);
+
+  const simpleInputRef = useRef<HTMLInputElement>(null);
 
   const { classPrefix } = useConfig();
 
-  const name = `${classPrefix}-pagination`;
-  const simpleInputRef = React.useRef<HTMLInputElement>(null);
+  useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
+  useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
+  const name = `${classPrefix}-pagination`; // t-pagination
   const min = 1;
   const max = Math.max(Math.ceil(total / pageSize), 1);
 
-  const pageList = React.useMemo<(string | number)[]>(() => {
+  const pageList = useMemo<(string | number)[]>(() => {
     const gap = 2;
     const list = [] as (string | number)[];
     /**
@@ -75,108 +79,93 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
     return list;
   }, [current, min, max]);
 
-  const changeCurrent = React.useCallback(
-    (nextCurrent: number, nextPageSize?: number) => {
-      /**
-       * @author kenzyyang
-       * @date 2021-03-29
-       * @desc currentChange 时判断 size 是否合法
-       **/
-      if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
-        if (!pageSizeOptionsValidator(pageSizeOptions)) {
-          throw '[pagination]pageSize invalid and pageSizeOption invalid';
-        } else {
-          // eslint-disable-next-line
-          nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
-        }
+  // 处理改变当前页的逻辑
+  const changeCurrent = (nextCurrent: number, nextPageSize?: number) => {
+    /**
+     * @author kenzyyang
+     * @date 2021-03-29
+     * @desc currentChange 时判断 size 是否合法
+     **/
+    if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
+      if (!pageSizeOptionsValidator(pageSizeOptions)) {
+        throw '[pagination]pageSize invalid and pageSizeOption invalid';
+      } else {
+        // eslint-disable-next-line
+        nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
       }
+    }
 
-      if (disabled || max < nextCurrent || nextCurrent < min) return;
-      setCurrent(nextCurrent);
-      if (simpleInputRef.current) {
-        simpleInputRef.current.value = String(nextCurrent);
-      }
-      onChange({
-        current: nextCurrent,
-        previous: current,
-        pageSize: nextPageSize || pageSize,
-      });
-    },
-    [disabled, max, min, onChange, current, pageSize, pageSizeOptions],
-  );
+    if (disabled || max < nextCurrent || nextCurrent < min) return;
+    setCurrent(nextCurrent);
+    if (simpleInputRef.current) {
+      simpleInputRef.current.value = String(nextCurrent);
+    }
+    onChange({
+      current: nextCurrent,
+      previous: current,
+      pageSize: nextPageSize || pageSize,
+    });
+    if (isFunction(onCurrentChange)) onCurrentChange();
+  };
 
-  const changePageSize = React.useCallback(
-    (nextPageSize: number) => {
-      setPageSize(nextPageSize);
-      const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
-      onPageSizeChange(nextPageSize, {
-        current: nextCurrent,
-        previous: current,
-        pageSize: nextPageSize,
-      });
+  // 处理改变pageSize的逻辑
+  const changePageSize = (nextPageSize: number) => {
+    setPageSize(nextPageSize);
+    const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
+    onPageSizeChange(nextPageSize, {
+      current: nextCurrent,
+      previous: current,
+      pageSize: nextPageSize,
+    });
 
-      if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
-    },
-    [total, current, changeCurrent, onPageSizeChange],
-  );
+    if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
+  };
 
-  const onCurrentChange = React.useCallback(
-    (nextCurrent: number) => {
-      if (disabled || max < nextCurrent || nextCurrent < min) return;
-      setCurrent(nextCurrent);
-      onChange({
-        current: nextCurrent,
-        previous: current,
-        pageSize,
-      });
-    },
-    [disabled, min, max, current, pageSize, onChange],
-  );
+  // 处理极简版的当前页ga的逻辑
+  const onSimpleCurrentChange = (nextCurrent: number) => {
+    if (disabled || max < nextCurrent || nextCurrent < min) return;
+    setCurrent(nextCurrent);
+    onChange({
+      current: nextCurrent,
+      previous: current,
+      pageSize,
+    });
+  };
 
-  const onPageInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { target } = event;
-      const value = Number(target.value);
-      if (isNaN(value) || value < min) target.value = '';
-      else if (value > max) target.value = String(max);
-    },
-    [min, max],
-  );
+  const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    const value = Number(target.value);
+    if (isNaN(value) || value < min) target.value = '';
+    else if (value > max) target.value = String(max);
+  };
 
-  const onPageInputKeyUp = React.useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.keyCode !== KEY_CODE.ENTER) return;
-      const value = Number((event.target as HTMLInputElement).value);
-      if (!isNaN(value)) changeCurrent(value);
-    },
-    [changeCurrent],
-  );
+  const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode !== KEY_CODE.ENTER) return;
+    const value = Number((event.target as HTMLInputElement).value);
+    if (!isNaN(value)) changeCurrent(value);
+  };
 
-  React.useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
-  React.useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
+  // 渲染total相关逻辑
+  const renderTotalContent = () => {
+    if (!totalContent) return `共 ${total} 项数据`;
+    if (typeof totalContent === 'string') return totalContent;
+    if (typeof totalContent === 'function') {
+      const start: number = (current - min) * pageSize;
+      const end: number = Math.min(total, start + pageSize);
+      return totalContent(total, [start + min, end]);
+    }
+    return null;
+  };
 
   if (max === 1) return null;
 
   return (
     <div
       className={classNames(name, {
-        [`${name}__size-s`]: size === 'small',
+        [`${classPrefix}-size-s`]: size === 'small',
       })}
     >
-      {totalContent && (
-        <div className={`${name}__total`}>
-          {((): React.ReactNode => {
-            if (!totalContent) return `共 ${total} 项数据`;
-            if (typeof totalContent === 'string') return totalContent;
-            if (typeof totalContent === 'function') {
-              const start: number = (current - min) * pageSize;
-              const end: number = Math.min(total, start + pageSize);
-              return totalContent(total, [start + min, end]);
-            }
-            return null;
-          })()}
-        </div>
-      )}
+      {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
       {pageSizeOptions instanceof Array && (
         <div className={`${name}__select`}>
           <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
@@ -228,9 +217,10 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.Re
           })}
         </ul>
       )}
+      {/* 极简版 */}
       {theme === 'simple' && (
         <div className={`${name}__select`}>
-          <Select size={size} value={current} disabled={disabled} onChange={onCurrentChange}>
+          <Select size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
             {Array(max)
               .fill(0)
               .map((_, i) => i + 1)
