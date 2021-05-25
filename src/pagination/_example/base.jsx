@@ -6,5 +6,5 @@ export default function PaginationExample() {
     console.log(`current: ${index}`, event);
   }, []);
 
-  return <Pagination total={49} onChange={onChange} />;
+  return <Pagination total={100} onChange={onChange} pageSize={5} />;
 }

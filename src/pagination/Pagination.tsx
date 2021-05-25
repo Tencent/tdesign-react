@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction } from 'lodash';
 
-import { ChevronLeftIcon, MoreIcon, ChevronRightIcon } from '../icon';
+import {
+  ChevronLeftIcon,
+  ChevronLeftDoubleIcon,
+  ChevronRightIcon,
+  ChevronRightDoubleIcon,
+  EllipsisIcon,
+} from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
@@ -32,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     disabled = false,
     foldedMaxPageBtn = 5,
     maxPageBtn = 10,
-    totalContent = '',
+    totalContent = true,
     pageSizeOptions = [5, 10, 20, 50],
     onChange = noop,
     onCurrentChange = noop,
@@ -41,43 +46,50 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   const [current, setCurrent] = useState(currentFromProps);
   const [pageSize, setPageSize] = useState(pageSizeFromProps);
-
+  const [pageCount, setPageCount] = useState(1);
+  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
+  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
   const simpleInputRef = useRef<HTMLInputElement>(null);
 
+  const min = 1;
+  const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
   const { classPrefix } = useConfig();
+  const name = `${classPrefix}-pagination`; // t-pagination
 
   useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
   useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
-  const name = `${classPrefix}-pagination`; // t-pagination
-  const min = 1;
-  const max = Math.max(Math.ceil(total / pageSize), 1);
+  useEffect(() => {
+    const calCount = Math.ceil(total / pageSize);
+    setPageCount(calCount > 0 ? calCount : 1);
+  }, [pageSize, total]);
 
-  const pageList = useMemo<(string | number)[]>(() => {
-    const gap = 2;
-    const list = [] as (string | number)[];
-    /**
-     * @author kenzyyang
-     * @date 2021-03-29
-     * @desc :todo 此处逻辑需要做优化,应该可以不使用此种方式进行循环判断，避免死循环
-     **/
-    /* eslint operator-linebreak: ["error", "after"] */
-    for (let i = min; i <= max; i += 1) {
-      if (
-        i === min ||
-        i === max ||
-        (current - gap <= i && i <= current + gap) ||
-        (current - min < 2 * gap && i - min <= 2 * gap) ||
-        (max - current < 2 * gap && max - i <= 2 * gap)
-      ) {
-        list.push(i);
-      } else if (list[list.length - 1] !== '...') {
-        list.push('...');
+  // 计算pageList的逻辑，用memo避免每次重复计算的消耗
+  const pageList = useMemo<Array<number>>(() => {
+    const isPrevMoreShow = 2 + pivot < current;
+    const isNextMoreShow = pageCount - 1 - pivot > current;
+    const array: Array<number> = [];
+    let start: number;
+    let end: number;
+
+    if (pageCount > maxPageBtn) {
+      if (isPrevMoreShow && isNextMoreShow) {
+        start = current - pivot;
+        end = current + pivot;
+      } else {
+        start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : 2;
+        end = isPrevMoreShow ? pageCount - 1 : foldedMaxPageBtn;
       }
+    } else {
+      start = 1;
+      end = pageCount;
     }
 
-    return list;
-  }, [current, min, max]);
+    for (let i = start; i <= end; i++) {
+      array.push(i);
+    }
+    return array;
+  }, [current, pageCount, foldedMaxPageBtn, maxPageBtn, pivot]);
 
   // 处理改变当前页的逻辑
   const changeCurrent = (nextCurrent: number, nextPageSize?: number) => {
@@ -95,7 +107,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       }
     }
 
-    if (disabled || max < nextCurrent || nextCurrent < min) return;
+    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
     setCurrent(nextCurrent);
     if (simpleInputRef.current) {
       simpleInputRef.current.value = String(nextCurrent);
@@ -105,7 +117,9 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       previous: current,
       pageSize: nextPageSize || pageSize,
     });
-    if (isFunction(onCurrentChange)) onCurrentChange();
+
+    // currentPageChange的回调
+    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
   };
 
   // 处理改变pageSize的逻辑
@@ -123,20 +137,26 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   // 处理极简版的当前页ga的逻辑
   const onSimpleCurrentChange = (nextCurrent: number) => {
-    if (disabled || max < nextCurrent || nextCurrent < min) return;
+    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
     setCurrent(nextCurrent);
     onChange({
       current: nextCurrent,
       previous: current,
       pageSize,
     });
+
+    // currentPageChange的回调
+    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize });
   };
 
   const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
     const value = Number(target.value);
     if (isNaN(value) || value < min) target.value = '';
-    else if (value > max) target.value = String(max);
+    else if (value > pageCount) target.value = String(pageCount);
+
+    // currentPageChange的回调
+    onCurrentChange(value, { current: value, previous: current, pageSize });
   };
 
   const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -147,17 +167,91 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   // 渲染total相关逻辑
   const renderTotalContent = () => {
-    if (!totalContent) return `共 ${total} 项数据`;
+    if (typeof totalContent === 'boolean') {
+      return totalContent ? `共 ${total} 项数据` : null;
+    }
     if (typeof totalContent === 'string') return totalContent;
     if (typeof totalContent === 'function') {
-      const start: number = (current - min) * pageSize;
-      const end: number = Math.min(total, start + pageSize);
+      const start = (current - min) * pageSize;
+      const end = Math.min(total, start + pageSize);
       return totalContent(total, [start + min, end]);
     }
-    return null;
   };
 
-  if (max === 1) return null;
+  const renderPaginationBtns = () => {
+    const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
+
+    return (
+      <>
+        {isFolded && (
+          <>
+            <li
+              key={1}
+              className={classNames(`${name}__number`, {
+                [`${classPrefix}-is-disabled`]: disabled,
+                [`${classPrefix}-is-current`]: current === 1,
+              })}
+              onClick={() => changeCurrent(1)}
+            >
+              1
+            </li>
+            {2 + pivot < current && (
+              <li
+                className={classNames(`${name}__number`, `${name}__number--more`, {
+                  [`${classPrefix}-is-disabled`]: disabled,
+                })}
+                onMouseOver={() => toggleHoverPreMore(true)}
+                onMouseOut={() => toggleHoverPreMore(false)}
+                onClick={() => changeCurrent(current - foldedMaxPageBtn)}
+              >
+                {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
+              </li>
+            )}
+          </>
+        )}
+        {pageList.map((item) => (
+          <li
+            key={item}
+            className={classNames(`${name}__number`, {
+              [`${classPrefix}-is-disabled`]: disabled,
+              [`${classPrefix}-is-current`]: current === item,
+            })}
+            onClick={() => changeCurrent(item)}
+          >
+            {item}
+          </li>
+        ))}
+        {isFolded && (
+          <>
+            {pageCount - 1 - pivot > current && (
+              <li
+                className={classNames(`${name}__number`, `${name}__number--more`, {
+                  [`${classPrefix}-is-disabled`]: disabled,
+                })}
+                onMouseOver={() => toggleHoverNextMore(true)}
+                onMouseOut={() => toggleHoverNextMore(false)}
+                onClick={() => changeCurrent(current + foldedMaxPageBtn)}
+              >
+                {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}
+              </li>
+            )}
+            <li
+              key={pageCount}
+              className={classNames(`${name}__number`, {
+                [`${classPrefix}-is-disabled`]: disabled,
+                [`${classPrefix}-is-current`]: current === pageCount,
+              })}
+              onClick={() => changeCurrent(pageCount)}
+            >
+              {pageCount}
+            </li>
+          </>
+        )}
+      </>
+    );
+  };
+
+  if (pageCount === 1) return null;
 
   return (
     <div
@@ -169,12 +263,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       {pageSizeOptions instanceof Array && (
         <div className={`${name}__select`}>
           <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
-            {pageSizeOptions.map((item) =>
-              typeof item === 'number' ? (
-                <Option key={item} label={`${item}条/页`} value={item} />
-              ) : (
-                <Option key={item.value} label={item.label} value={item.value} />
-              ),
+            {pageSizeOptions.map(
+              // eslint-disable-next-line no-confusing-arrow
+              (item) =>
+                // eslint-disable-next-line implicit-arrow-linebreak
+                typeof item === 'number' ? (
+                  <Option key={item} label={`${item}条/页`} value={item} />
+                ) : (
+                  <Option key={item.value} label={item.label} value={item.value} />
+                ),
             )}
           </Select>
         </div>
@@ -187,46 +284,17 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       >
         <ChevronLeftIcon />
       </div>
-      {theme === 'default' && (
-        <ul className={`${name}__pager`}>
-          {pageList.map((item, index) => {
-            if (typeof item === 'number') {
-              return (
-                <li
-                  key={item}
-                  className={classNames(`${name}__number`, {
-                    [`${classPrefix}-is-disabled`]: disabled,
-                    [`${classPrefix}-is-current`]: current === item,
-                  })}
-                  onClick={() => changeCurrent(item)}
-                >
-                  {item}
-                </li>
-              );
-            }
-            return (
-              <li
-                key={item.concat(String(index))}
-                className={classNames(`${name}__number`, `${name}__number--more`, {
-                  [`${classPrefix}-is-disabled`]: disabled,
-                })}
-              >
-                <MoreIcon />
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns()}</ul>}
       {/* 极简版 */}
       {theme === 'simple' && (
         <div className={`${name}__select`}>
           <Select size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
-            {Array(max)
+            {Array(pageCount)
               .fill(0)
               .map((_, i) => i + 1)
               .map((item) => (
-                <Option key={item} label={`${item}/${max}`} value={item}>
-                  {item}/{max}
+                <Option key={item} label={`${item}/${pageCount}`} value={item}>
+                  {item}/{pageCount}
                 </Option>
               ))}
           </Select>
@@ -234,7 +302,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       )}
       <div
         className={classNames(`${name}__btn`, `${name}__btn--next`, {
-          [`${classPrefix}-is-disabled`]: disabled || current === max,
+          [`${classPrefix}-is-disabled`]: disabled || current === pageCount,
         })}
         onClick={() => changeCurrent(current + 1)}
       >
