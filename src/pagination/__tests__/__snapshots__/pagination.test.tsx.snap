@@ -361,14 +361,18 @@ exports[`pageNum.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-placeholder"
-            style="color: rgb(0, 0, 0);"
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
           >
             20条/页
           </span>
@@ -496,14 +500,18 @@ exports[`simple.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-placeholder"
-            style="color: rgb(0, 0, 0);"
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
           >
             1/20
           </span>
@@ -566,14 +574,18 @@ exports[`simpleMini.jsx 1`] = `
     <div
       class="t-pagination__select"
     >
-      <div>
+      <div
+        class="t-select-wrap"
+      >
         <div
           class="t-select t-size-s"
           style="user-select: none;"
         >
           <span
-            class="t-select-placeholder"
-            style="color: rgb(0, 0, 0);"
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
           >
             1/20
           </span>

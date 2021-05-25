@@ -21,7 +21,7 @@ const SelectWithOptions = () => {
       value: 'orange',
     },
   ];
-  return <Select value={value} onChange={onChange} style={{ width: '40%' }} options={options} />;
+  return <Select value={value} onChange={onChange} style={{ width: '40%' }} options={options} filterable />;
 };
 
 export default SelectWithOptions;

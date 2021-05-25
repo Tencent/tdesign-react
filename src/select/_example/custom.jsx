@@ -1,27 +1,60 @@
 import React, { useState } from 'react';
 
-import { Select, Icon } from '@tencent/tdesign-react';
+import { Select } from '@tencent/tdesign-react';
 
-const { Option } = Select;
+const RemoteSearchSelect = () => {
+  const defaultOptions = [];
+  const [value, setValue] = useState();
 
-const PrefixIconSelect = () => {
-  const [value, setValue] = useState('apple');
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+
   const onChange = (value) => {
     setValue(value);
   };
+
+  const handleRemoteSearch = (search) => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      let options = [];
+      if (search) {
+        options = [
+          {
+            value: `${search}_test1`,
+            label: `${search}_test1`,
+          },
+          {
+            value: `${search}_test2`,
+            label: `${search}_test2`,
+          },
+          {
+            value: `${search}_test3`,
+            label: `${search}_test3`,
+          },
+        ];
+      } else {
+        options = defaultOptions;
+      }
+
+      setOptions(options);
+    }, 1000);
+  };
+
   return (
-    <Select value={value} onChange={onChange} style={{ width: '40%' }} prefixIcon={() => <Icon name="desktop" />}>
-      <Option key="apple" label="apple" value="apple">
-        apple
-      </Option>
-      <Option key="orange" label="Orange" value="orange" disabled>
-        Orange
-      </Option>
-      <Option key="banana" label="Banana" value="banana">
-        Banana
-      </Option>
-    </Select>
+    <>
+      <Select
+        filterable
+        value={value}
+        onChange={onChange}
+        style={{ width: '40%' }}
+        loading={loading}
+        onSearch={handleRemoteSearch}
+        options={options}
+      />
+    </>
   );
 };
 
-export default PrefixIconSelect;
+export default RemoteSearchSelect;
