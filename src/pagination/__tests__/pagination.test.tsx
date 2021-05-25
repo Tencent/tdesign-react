@@ -37,7 +37,7 @@ describe('Pagination test', () => {
 
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '-1' } });
     fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
-    expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
+    expect(document.querySelector('.t-is-current')).toHaveTextContent('1');
   });
 
   // test('select', () => {

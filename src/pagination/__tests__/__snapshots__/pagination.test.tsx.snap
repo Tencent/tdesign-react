@@ -6,6 +6,44 @@ exports[`base.jsx 1`] = `
     class="t-pagination"
   >
     <div
+      class="t-pagination__total"
+    >
+      共 100 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            5条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <svg
@@ -48,6 +86,27 @@ exports[`base.jsx 1`] = `
         class="t-pagination__number"
       >
         5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <svg
+          class="t-icon t-icon-ellipsis"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        20
       </li>
     </ul>
     <div
@@ -76,288 +135,10 @@ exports[`jump.jsx 1`] = `
     class="t-pagination"
   >
     <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+      class="t-pagination__total"
     >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+      共 645 项数据
     </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <svg
-          class="t-icon t-icon-more"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        33
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next"
-    >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-pagination__jump"
-    >
-      跳转
-      <div
-        class="t-input"
-      >
-        <input
-          class="t-input__inner"
-        />
-      </div>
-      页
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`mini.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-pagination t-size-s"
-  >
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <svg
-          class="t-icon t-icon-more"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        20
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next"
-    >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`more.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-pagination"
-  >
-    <div
-      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
-    >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <ul
-      class="t-pagination__pager"
-    >
-      <li
-        class="t-pagination__number t-is-current"
-      >
-        1
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        2
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        3
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        4
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        5
-      </li>
-      <li
-        class="t-pagination__number t-pagination__number--more"
-      >
-        <svg
-          class="t-icon t-icon-more"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </li>
-      <li
-        class="t-pagination__number"
-      >
-        20
-      </li>
-    </ul>
-    <div
-      class="t-pagination__btn t-pagination__btn--next"
-    >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`pageNum.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-pagination"
-  >
     <div
       class="t-pagination__select"
     >
@@ -439,13 +220,414 @@ exports[`pageNum.jsx 1`] = `
         class="t-pagination__number t-pagination__number--more"
       >
         <svg
-          class="t-icon t-icon-more"
+          class="t-icon t-icon-ellipsis"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        33
+      </li>
+    </ul>
+    <div
+      class="t-pagination__btn t-pagination__btn--next"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <div
+      class="t-pagination__jump"
+    >
+      跳转
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+        />
+      </div>
+      页
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`mini.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-pagination t-size-s"
+  >
+    <div
+      class="t-pagination__total"
+    >
+      共 100 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            5条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <ul
+      class="t-pagination__pager"
+    >
+      <li
+        class="t-pagination__number t-is-current"
+      >
+        1
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        2
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        3
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        4
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <svg
+          class="t-icon t-icon-ellipsis"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        20
+      </li>
+    </ul>
+    <div
+      class="t-pagination__btn t-pagination__btn--next"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`more.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-pagination"
+  >
+    <div
+      class="t-pagination__total"
+    >
+      共 100 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            5条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <ul
+      class="t-pagination__pager"
+    >
+      <li
+        class="t-pagination__number t-is-current"
+      >
+        1
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        2
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        3
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        4
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <svg
+          class="t-icon t-icon-ellipsis"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        20
+      </li>
+    </ul>
+    <div
+      class="t-pagination__btn t-pagination__btn--next"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`pageNum.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-pagination"
+  >
+    <div
+      class="t-pagination__total"
+    >
+      共 645 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            20条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M266.45122048 489.6415328C253.98241280000002 502.1382944 254.00507328000003 522.37688704 266.50183488 534.84569536L266.50183488 534.84569536 641.5903552 909.0951936 686.8451904 863.8403584 334.4904192 512.2516633600001 686.8451904 160.83449728 641.5903552 115.57966336000001 267.2264192 488.89166336 266.50183488 489.59088959999997 266.47651392 489.6162112Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <ul
+      class="t-pagination__pager"
+    >
+      <li
+        class="t-pagination__number t-is-current"
+      >
+        1
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        2
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        3
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        4
+      </li>
+      <li
+        class="t-pagination__number"
+      >
+        5
+      </li>
+      <li
+        class="t-pagination__number t-pagination__number--more"
+      >
+        <svg
+          class="t-icon t-icon-ellipsis"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
             fill-rule="evenodd"
           />
         </svg>
@@ -481,6 +663,44 @@ exports[`simple.jsx 1`] = `
   <div
     class="t-pagination"
   >
+    <div
+      class="t-pagination__total"
+    >
+      共 100 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            5条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
@@ -555,6 +775,44 @@ exports[`simpleMini.jsx 1`] = `
   <div
     class="t-pagination t-size-s"
   >
+    <div
+      class="t-pagination__total"
+    >
+      共 100 项数据
+    </div>
+    <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select t-size-s"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            5条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
@@ -635,6 +893,39 @@ exports[`total.jsx 1`] = `
       共 685 项数据
     </div>
     <div
+      class="t-pagination__select"
+    >
+      <div
+        class="t-select-wrap"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-placeholder t-select-selectedSingle"
+          >
+            10条/页
+          </span>
+          <svg
+            class="t-icon t-icon-chevron-down t-select-right-icon"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
       class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
     >
       <svg
@@ -682,13 +973,14 @@ exports[`total.jsx 1`] = `
         class="t-pagination__number t-pagination__number--more"
       >
         <svg
-          class="t-icon t-icon-more"
+          class="t-icon t-icon-ellipsis"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M576 192.00000000000003C576 227.34622400000003 547.346224 256.00000000000006 512 256.00000000000006 476.653776 256.00000000000006 448 227.34622400000003 448 192.00000000000003 448 156.65377600000002 476.653776 128.00000000000003 512 128.00000000000003 547.346224 128.00000000000003 576 156.65377600000002 576 192.00000000000003ZM576 512C576 547.346224 547.3462240000001 576 512 576 476.653776 576 448 547.346224 448 512 448 476.65377600000005 476.653776 448.00000000000006 512 448.00000000000006 547.346224 448.00000000000006 576 476.653776 576 512ZM576 832C576 867.3462208 547.3462240000001 896 512 896 476.653776 896 448 867.3462208 448 832 448 796.6537792 476.653776 768 512 768 547.3462240000001 768 576 796.6537792 576 832Z"
+            d="M192 448C227.346224 448 256 476.653776 256 512 256 547.346224 227.346224 576 192 576 156.653776 576 128 547.346224 128 512 128 476.653776 156.653776 448 192 448ZM512 448C547.346224 448 576 476.653776 576 512 576 547.346224 547.346224 576 512 576 476.653776 576 448 547.346224 448 512 448 476.653776 476.653776 448 512 448ZM832 448C867.3462208 448 896 476.653776 896 512 896 547.346224 867.3462208 576 832 576 796.6537792 576 768 547.346224 768 512 768 476.653776 796.6537792 448 832 448Z"
+            fill-opacity=".9"
             fill-rule="evenodd"
           />
         </svg>
@@ -696,7 +988,7 @@ exports[`total.jsx 1`] = `
       <li
         class="t-pagination__number"
       >
-        46
+        69
       </li>
     </ul>
     <div
