@@ -14,7 +14,7 @@
     "sourceMap": true,
     "paths": {
       "@tencent/tdesign-react": ["./src"],
-      "@test/*": ["./test/*"],
+      "@test/*": ["./test/*"]
     },
     "allowJs": true,
     "checkJs": true,

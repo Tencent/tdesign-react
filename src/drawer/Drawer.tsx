@@ -5,13 +5,13 @@ import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
 import { CloseIcon } from '../icon';
-import { TdDrawerProps, EventSource } from '../_type/components/drawer';
+import { TdDrawerProps, DrawerEventSource } from '../_type/components/drawer';
 import { StyledProps } from '../_type';
 import { getAttach } from '../common/Portal';
 import DrawerWrapper from './DrawerWrapper';
 import { getWidthOrHeightBySize } from './_util';
 
-export const CloseTriggerType: { [key: string]: EventSource } = {
+export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
   CLICK_CLOSE_BTN: 'close-btn',
   CLICK_CANCEL_BTN: 'cancel',
