@@ -188,7 +188,7 @@ ThemeArray.forEach((theme) => {
  * @desc Message 顶层内置函数，传入 message promise，关闭传入的 message.
  */
 Message.close = (message) => {
-  message.then((instance) => instance.close);
+  message.then((instance) => instance.close());
 };
 
 /**
