@@ -26,6 +26,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     size = 'medium',
     disabled = false,
     onRemove,
+    onChange = noop,
   } = props;
 
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
@@ -155,6 +156,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                   disabled={disabled || v.disabled}
                   onClick={() => {
                     tabClick(v.value);
+                    onChange(v.value);
                     setActiveIndex(getIndex(v.value));
                   }}
                 />
