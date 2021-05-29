@@ -5,15 +5,15 @@ import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
 
-export interface TabsProps extends TdTabsProps {}
+export interface TabsProps extends TdTabsProps {
+}
 
 const Tabs: React.FC<TabsProps> = (props) => {
-  const { children, defaultValue, placement, onRemove } = props;
+  const { children, placement, onRemove } = props;
+  let { defaultValue } = props;
 
   // 样式工具引入
-  const { tdTabPanelClassPrefix, tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
-
-  const [value, setValue] = useState<TabValue>(defaultValue);
+  const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
 
   const itemList = React.Children.map(children, (child: any) => {
     if (child && child.type === TabPanel) {
@@ -21,6 +21,13 @@ const Tabs: React.FC<TabsProps> = (props) => {
     }
     return null;
   });
+
+  // 当未设置默认值时，默认选中第一个。
+  if (defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0) {
+    defaultValue = itemList[0].value;
+  }
+
+  const [value, setValue] = useState<TabValue>(defaultValue);
 
   const renderTabNav = () => (
     <TabNav {...props} activeValue={value} onRemove={onRemove} itemList={itemList} tabClick={setValue} />
@@ -30,14 +37,18 @@ const Tabs: React.FC<TabsProps> = (props) => {
     <div className={classNames(tdTabsClassPrefix)}>
       {placement !== 'bottom' ? renderTabNav() : null}
       <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
-        <div className={classNames(tdTabPanelClassPrefix)}>
-          {React.Children.map(children, (child: any) => {
-            if (child && child.type === TabPanel && child.props.value === value) {
+        {React.Children.map(children, (child: any) => {
+          if (child && child.type === TabPanel) {
+            if (child.props.value === value) {
               return child;
             }
-            return null;
-          })}
-        </div>
+            // 实现 renderOnHide
+            if (child.props.renderOnHide) {
+              return <TabPanel style={{ display: 'none' }}>{child.props.children}</TabPanel>;
+            }
+          }
+          return null;
+        })}
       </div>
       {placement === 'bottom' ? renderTabNav() : null}
     </div>
