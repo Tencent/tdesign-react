@@ -1,21 +1,14 @@
 import React from 'react';
-import { TabPanelProps } from './TabProps';
+import classNames from 'classnames';
+import { TdTabPanelProps } from '../_type/components/tabs';
+import { useTabClass } from './useTabClass';
+
+export interface TabPanelProps extends TdTabPanelProps {}
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
-  const { active, forceRender } = props;
-  if (forceRender) {
-    return (
-      <div
-        className={'t-tab-panel'}
-        style={{
-          display: active ? 'block' : 'none',
-        }}
-      >
-        {props.children}
-      </div>
-    );
-  }
-  return active && <div className={'t-tab-panel'}>{props.children}</div>;
+  const { tdTabPanelClassPrefix } = useTabClass();
+
+  return <div className={classNames(tdTabPanelClassPrefix)}>{props.children}</div>;
 };
 
 TabPanel.displayName = 'TabPanel';

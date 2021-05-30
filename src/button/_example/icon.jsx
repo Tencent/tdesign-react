@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button } from '@tencent/tdesign-react';
+import { Button, SearchIcon } from '@tencent/tdesign-react';
 
 export default function ButtonExample() {
   return (
     <>
-      <Button icon="search">line</Button>
-      <Button theme="primary" icon="search">
+      <Button icon={<SearchIcon />}>line</Button>
+      <Button variant="outline" icon={<SearchIcon />}>
         primary
       </Button>
-      <Button icon="search" />
+      <Button icon={<SearchIcon />} />
     </>
   );
 }

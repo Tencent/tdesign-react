@@ -7,13 +7,12 @@ exports[`base.jsx 1`] = `
   >
     <label
       class="t-checkbox"
-      display="inline"
-      name="la"
     >
       <input
         class="t-checkbox__former"
         readonly=""
         type="checkbox"
+        value="la"
       />
       <span
         class="t-checkbox__input"
@@ -26,13 +25,12 @@ exports[`base.jsx 1`] = `
     </label>
     <label
       class="t-checkbox"
-      display="inline"
-      name="ma"
     >
       <input
         class="t-checkbox__former"
         readonly=""
         type="checkbox"
+        value="ma"
       />
       <span
         class="t-checkbox__input"
@@ -45,13 +43,12 @@ exports[`base.jsx 1`] = `
     </label>
     <label
       class="t-checkbox"
-      display="inline"
-      name="nocong"
     >
       <input
         class="t-checkbox__former"
         readonly=""
         type="checkbox"
+        value="nocong"
       />
       <span
         class="t-checkbox__input"
@@ -75,6 +72,7 @@ exports[`link.jsx 1`] = `
       class="t-checkbox__former"
       readonly=""
       type="checkbox"
+      value=""
     />
     <span
       class="t-checkbox__input"
@@ -92,6 +90,7 @@ exports[`link.jsx 1`] = `
       class="t-checkbox__former"
       readonly=""
       type="checkbox"
+      value=""
     />
     <span
       class="t-checkbox__input"
@@ -109,6 +108,7 @@ exports[`link.jsx 1`] = `
       class="t-checkbox__former"
       readonly=""
       type="checkbox"
+      value=""
     />
     <span
       class="t-checkbox__input"
@@ -123,12 +123,12 @@ exports[`link.jsx 1`] = `
     style="margin: 16px 0px;"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       删除
     </button>
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
       style="margin-left: 16px;"
     >
       开启

@@ -1,4 +1,5 @@
 import Message from './Message';
-export { MessageProps, MessageConfig } from './MessageProps';
+
+export type { MessageProps } from './Message';
 
 export default Message;

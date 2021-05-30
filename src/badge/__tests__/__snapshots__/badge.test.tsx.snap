@@ -3,13 +3,13 @@
 exports[`BadgeColor.jsx 1`] = `
 <DocumentFragment>
   <label
-    class="t-checkbox t-is-checked"
+    class="t-checkbox"
   >
     <input
-      checked=""
       class="t-checkbox__former"
       readonly=""
       type="checkbox"
+      value="true"
     />
     <span
       class="t-checkbox__input"
@@ -97,149 +97,13 @@ exports[`BadgeColor.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BadgeShape.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      99
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle"
-    >
-      99+
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      99
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--round"
-    >
-      99+
-    </span>
-  </span>
-</DocumentFragment>
-`;
-
-exports[`BadgeSizeSmall.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle t-size-s"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle t-size-s"
-    >
-      99
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--line t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--circle t-size-s"
-    >
-      99+
-    </span>
-  </span>
-</DocumentFragment>
-`;
-
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -259,7 +123,7 @@ exports[`base.jsx 1`] = `
     class="t-badge"
   >
     <svg
-      class="t-icon"
+      class="t-icon t-icon-user"
       style="font-size: 24px;"
       version="1.1"
       viewBox="0 0 1024 1024"
@@ -284,7 +148,7 @@ exports[`custom.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -303,7 +167,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -317,7 +181,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -331,7 +195,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line t-size-l"
+      class="t-button t-button--theme-default t-button--variant-base t-size-l"
     >
        
     </button>
@@ -350,7 +214,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       默认
     </button>
@@ -364,7 +228,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       [10,10]
     </button>
@@ -379,7 +243,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       [-10,10]
     </button>
@@ -394,7 +258,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       [-10,-10]
     </button>
@@ -409,7 +273,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       [10,-10]
     </button>
@@ -429,7 +293,7 @@ exports[`shape.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
        circle
     </button>
@@ -443,7 +307,7 @@ exports[`shape.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       round
     </button>
@@ -467,7 +331,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>
@@ -481,7 +345,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>
@@ -495,7 +359,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>
@@ -514,7 +378,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>
@@ -528,7 +392,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>
@@ -542,7 +406,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--line"
+      class="t-button t-button--theme-default t-button--variant-base"
     >
       按钮
     </button>

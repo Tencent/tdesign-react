@@ -1,7 +1,9 @@
 ﻿import React from 'react';
-import { List, ListItem, ListItemMeta, Icon } from '@tencent/tdesign-react';
+import { List, ListItem, ListItemMeta } from '@tencent/tdesign-react';
 
 export default function BasicList() {
+  const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
+
   const listData = [
     { id: 1, content: '列表内容列表内容列表内容' },
     { id: 2, content: '列表内容列表内容列表内容' },
@@ -14,7 +16,7 @@ export default function BasicList() {
     overflow: 'auto',
   };
 
-  const handleScroll = (event, { scrollTop, scrollBottom }) => {
+  const handleScroll = ({ e: event, scrollTop, scrollBottom }) => {
     console.log(event, scrollTop, scrollBottom);
   };
 
@@ -22,11 +24,7 @@ export default function BasicList() {
     <List size="small" style={style} onScroll={handleScroll}>
       {listData.map((item) => (
         <ListItem key={item.id}>
-          <ListItemMeta
-            avatar={<Icon name={'bulletpoint'} />}
-            title="列表主内容"
-            description="列表内容列表内容列表内容"
-          />
+          <ListItemMeta avatar={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
         </ListItem>
       ))}
     </List>

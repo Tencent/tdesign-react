@@ -37,14 +37,14 @@ export default function CustomFooterExample() {
       <Button theme="primary" onClick={handleFooterClick} style={{ marginRight: 16 }}>
         自定义内容
       </Button>
-      <Dialog header="只显示确认按钮" visible={visibleConfirm} cancelContent={false} onClose={handleConfirmClose}>
+      <Dialog header="只显示确认按钮" visible={visibleConfirm} cancelBtn={false} onClose={handleConfirmClose}>
         <p>This is a dialog</p>
       </Dialog>
       <Dialog
         header="自定义按钮内容"
         visible={visibleBtn}
-        confirmContent="去意已决"
-        cancelContent="我再想想"
+        confirmBtn="去意已决"
+        cancelBtn="我再想想"
         onClose={handleBtnClose}
       >
         <p>This is a dialog</p>

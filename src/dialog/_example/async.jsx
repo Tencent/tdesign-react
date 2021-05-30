@@ -3,7 +3,7 @@ import { Dialog, Button } from '@tencent/tdesign-react';
 
 export default function BasicUsage() {
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleClick = () => {
     setVisible(true);
@@ -26,7 +26,7 @@ export default function BasicUsage() {
       <Dialog
         header="Basic Modal"
         visible={visible}
-        loading={loading}
+        confirmBtn={<Button loading={loading}>保存中...</Button>}
         onClose={handleClose}
         onClickConfirm={handleCloseAsync}
       >

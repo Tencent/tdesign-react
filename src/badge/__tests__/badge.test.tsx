@@ -57,7 +57,7 @@ describe('Badge 组件测试', () => {
     expect(renderBadge(<Badge count={100} maxCount={100} />)).toHaveTextContent('100');
 
     // content vs count
-    expect(renderBadge(<Badge count={1} content={2} />)).toHaveTextContent('2');
+    expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
   });
 
   test('offset', async () => {

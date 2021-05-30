@@ -1,19 +1,19 @@
 import React, { useLayoutEffect, useRef, CSSProperties } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import DialogPortal from './DialogPortal';
+import classnames from 'classnames';
+import Portal from '../common/Portal';
+import { AttachNode } from '../_type/common';
+import noop from '../_util/noop';
 import { DialogProps } from './Dialog';
 
 enum KEY_CODE {
   ESC = 27,
 }
 
-export type StringOrElement = string | HTMLElement;
-
 export interface RenderDialogProps extends DialogProps {
   prefixCls?: string;
-  height?: number;
   classPrefix: string;
-  getContainer?: StringOrElement | (() => StringOrElement) | false;
+  getContainer?: React.ReactElement | AttachNode | boolean;
 }
 
 const transitionTime = 300;
@@ -25,15 +25,19 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     mode,
     zIndex,
     showOverlay,
-    onKeydownEsc,
-    onClosed,
+    onEscKeydown = noop,
+    onClosed = noop,
+    onClose = noop,
+    onCloseBtnClick = noop,
+    onOverlayClick = noop,
     preventScrollThrough,
+    closeBtn,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
   const isModal = mode === 'modal';
-  const canDraggable = props.draggable && mode === 'not-modal';
+  const canDraggable = props.draggable && mode === 'modeless';
 
   useLayoutEffect(() => {
     if (visible) {
@@ -45,11 +49,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       }
     }
   }, [preventScrollThrough, getContainer, visible, mode, isModal]);
-
-  const close = (e: any) => {
-    const { onClose } = props;
-    onClose && onClose(e);
-  };
 
   const onAnimateLeave = () => {
     if (wrap.current) {
@@ -64,40 +63,33 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       style.left = '50%';
       style.top = '50%';
     }
-    onClosed && onClosed(null);
+    onClosed && onClosed();
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      const { onClickOverlay } = props;
-      (onClickOverlay || close)(e);
+      onOverlayClick({ e });
+      onClose({ e, trigger: 'overlay' });
     }
   };
 
-  const onCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { onClickCloseBtn } = props;
-    (onClickCloseBtn || close)(e);
+  const handleCloseBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onCloseBtnClick({ e });
+    onClose({ e, trigger: 'close-btn' });
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === KEY_CODE.ESC) {
       e.stopPropagation();
-      (onKeydownEsc || close)(e);
+      onEscKeydown({ e });
+      onClose({ e, trigger: 'esc' });
     }
   };
 
   const renderDialog = (classNames) => {
     const dest: any = {};
-    const { offset } = props;
     if (props.width !== undefined) {
       dest.width = props.width;
-    }
-    if (props.height !== undefined) {
-      dest.height = props.height;
-    }
-    if (offset) {
-      dest.marginTop = offset.top || 0;
-      dest.marginLeft = props.offset.left || 0;
     }
 
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
@@ -106,9 +98,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
-    const closer = (
-      <span onClick={onCloseBtnClick} className={`${prefixCls}__close`}>
-        {props.closeBtn}
+    const closer = closeBtn && (
+      <span onClick={handleCloseBtnClick} className={`${prefixCls}__close`}>
+        {closeBtn}
       </span>
     );
 
@@ -216,7 +208,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const render = () => {
     const style: CSSProperties = {};
     if (visible) {
-      style.display = 'flex';
+      style.display = 'block';
     }
     const wrapStyle = {
       ...style,
@@ -224,14 +216,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
+    const wrapClass = classnames(props.className, `${prefixCls}-ctx`, `${prefixCls}-ctx--fixed`);
     const dialog = (
-      <div
-        ref={wrap}
-        style={wrapStyle}
-        tabIndex={-1}
-        onKeyDown={onKeyDown}
-        className={`${props.class ? `${props.class} ` : ''}${prefixCls}-ctx`}
-      >
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
@@ -243,7 +230,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       if (getContainer === false) {
         dom = dialog;
       } else {
-        dom = <DialogPortal getContainer={getContainer}>{dialog}</DialogPortal>;
+        dom = <Portal getContainer={getContainer}>{dialog}</Portal>;
       }
     }
 

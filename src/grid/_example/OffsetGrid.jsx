@@ -21,8 +21,8 @@ export default function OffsetGrid() {
         </Col>
       </Row>
       <Row>
-        <Col span={6} offset={3}>
-          <div>col-6 col-offset-3</div>
+        <Col span={6} offset={2}>
+          <div>col-6 col-offset-2</div>
         </Col>
       </Row>
     </>

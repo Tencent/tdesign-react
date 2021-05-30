@@ -2,53 +2,13 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { Icon } from '../icon';
+import { LoadingIcon } from '../icon';
+import { TdButtonProps } from '../_type/components/button';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
  */
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /**
-   * 按钮类型
-   * @default 'line'
-   */
-  theme?: 'line' | 'primary' | 'dashed' | 'warning' | 'warning-line' | 'link' | 'ghost' | 'ghost-line';
-
-  /**
-   * 按钮是否为禁用状态
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 按钮是否为加载状态
-   * @default false
-   */
-  loading?: boolean;
-
-  /**
-   * 图标
-   */
-  icon?: React.ReactNode;
-
-  /**
-   * 按钮大小
-   * @default 'default'
-   */
-  size?: 'large' | 'default' | 'small';
-
-  /**
-   * 按钮是否为块级元素
-   * @default false
-   */
-  block?: boolean;
-
-  // /**
-  //  * 按钮形状
-  //  * @default false
-  //  */
-  // round?: boolean;
-}
+export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 /**
  * 按钮组件
@@ -56,12 +16,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = forwardRef(
   (
     {
-      theme = 'line',
+      theme = 'default',
+      variant = 'base',
       icon,
       disabled,
       loading,
       size,
       block,
+      ghost,
+      shape = 'square',
       children,
       className,
       onClick = noop,
@@ -73,31 +36,37 @@ const Button = forwardRef(
 
     const hasChildren = typeof children !== 'undefined';
 
-    if (loading) {
-      // eslint-disable-next-line no-param-reassign
-      icon = 'loading';
-    }
+    let iconNode = icon;
+    if (loading) iconNode = <LoadingIcon />;
 
     return (
       <button
         ref={ref}
-        className={classNames(className, `${classPrefix}-button`, {
-          [`${classPrefix}-button--${theme}`]: hasChildren || icon,
-          [`${classPrefix}-button--icon`]: !hasChildren && icon && theme !== 'primary',
-          [`${classPrefix}-button--icon-primary`]: !hasChildren && icon && theme === 'primary',
-          [`${classPrefix}-is-loading`]: loading,
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-size-full-width`]: block,
-        })}
+        className={classNames(
+          className,
+          [
+            `${classPrefix}-button`,
+            `${classPrefix}-button--theme-${theme}`,
+            `${classPrefix}-button--variant-${variant}`,
+          ],
+          {
+            [`${classPrefix}-button--icon-only`]: iconNode && !hasChildren,
+            [`${classPrefix}-button--shape-${shape}`]: shape !== 'square',
+            [`${classPrefix}-button--ghost`]: ghost,
+            [`${classPrefix}-is-loading`]: loading,
+            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-size-s`]: size === 'small',
+            [`${classPrefix}-size-l`]: size === 'large',
+            [`${classPrefix}-size-full-width`]: block,
+          },
+        )}
         onClick={!disabled && !loading ? onClick : undefined}
         disabled={disabled}
         {...buttonProps}
       >
-        {icon ? (
+        {iconNode ? (
           <>
-            {typeof icon === 'string' ? <Icon name={icon} /> : icon}
+            {iconNode}
             {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
           </>
         ) : (

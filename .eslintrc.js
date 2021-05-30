@@ -1,17 +1,13 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'prettier',
-    'prettier/standard',
-    'prettier/react',
-    'prettier/@typescript-eslint',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     '@tencent/eslint-config-tencent',
     'plugin:prettier/recommended',
   ],
-  plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react-hooks'],
   env: {
     browser: true,
     node: true,
@@ -41,10 +37,10 @@ module.exports = {
     'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
     'import/order': 'error',
     // 'operator-linebreak': 'off', // prettier conflict
-    'prettier/prettier': 'error',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react/prop-types': 'off',
+    'max-len': 'off',
   },
 };

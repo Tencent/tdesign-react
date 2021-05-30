@@ -1,7 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { SiderProps } from './LayoutInterface';
+import { TdAsideProps } from '../_type/components/layout';
+import { StyledProps } from '../_type/StyledProps';
+
+export interface SiderProps extends TdAsideProps, StyledProps {
+  /**
+   * 文本内容
+   */
+  children?: React.ReactNode;
+}
 
 /**
  * Sider 组件

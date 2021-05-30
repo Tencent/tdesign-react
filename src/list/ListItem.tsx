@@ -1,24 +1,24 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { ListItemProps } from './ListProps';
+import { TdListItemProps } from '../_type/components/list';
+import { StyledProps } from '../_type';
+
+export interface ListItemProps extends TdListItemProps, StyledProps {
+  /**
+   * 文本内容
+   */
+  children?: React.ReactNode;
+}
 
 /**
  * 列表组件
  */
 const ListItem = forwardRef((props: ListItemProps, ref: React.Ref<HTMLLIElement>) => {
-  const { children, className, action, extra } = props;
+  const { children, className, action } = props;
   const { classPrefix } = useConfig();
 
-  const actionElement = action && action.length > 0 && (
-    <ul className={`${classPrefix}-list-item__action`}>
-      {action.map((actionItem, index) => (
-        <li key={index}>{actionItem}</li>
-      ))}
-    </ul>
-  );
-
-  const extraElement = extra && <div className={`${classPrefix}-list-item__extra`}>{extra}</div>;
+  const actionElement = action && <ul className={`${classPrefix}-list-item__action`}>{action}</ul>;
 
   return (
     <li ref={ref} className={classNames(className, `${classPrefix}-list-item`)}>
@@ -26,7 +26,6 @@ const ListItem = forwardRef((props: ListItemProps, ref: React.Ref<HTMLLIElement>
         {children}
         {actionElement}
       </div>
-      {extraElement}
     </li>
   );
 });

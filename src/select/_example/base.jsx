@@ -16,9 +16,6 @@ const SingleSelect = () => {
         <Option key="orange" label="Orange" value="orange" disabled />
         <Option key="banana" label="Banana" value="banana" />
       </Select>
-      <Select value="apple" style={{ width: '40%', marginLeft: '10%' }} disabled>
-        <Option key="apple" label="Apple" value="apple" />
-      </Select>
     </div>
   );
 };

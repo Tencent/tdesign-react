@@ -1,334 +1,327 @@
-import * as React from 'react';
-import { IconFont } from '../icon';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import classNames from 'classnames';
+
+import {
+  ChevronLeftIcon,
+  ChevronLeftDoubleIcon,
+  ChevronRightIcon,
+  ChevronRightDoubleIcon,
+  EllipsisIcon,
+} from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
 
+import { TdPaginationProps } from '../_type/components/pagination';
+import { StyledProps } from '../_type/StyledProps';
+import { pageSizeValidator, pageSizeOptionsValidator } from './validators';
+
+export type { PageInfo } from '../_type/components/pagination';
+
+export interface PaginationProps extends TdPaginationProps, StyledProps {}
+
 const { Option } = Select;
-
-export interface PaginationProps {
-  /**
-   * 当前页数
-   * @default 1
-   */
-  current?: number;
-
-  /**
-   * 显示模式
-   * @default "default"
-   */
-  theme?: 'default' | 'simple';
-
-  /**
-   * 分页组件尺寸
-   * @default "default"
-   */
-  size?: 'default' | 'small';
-
-  /**
-   * 数据总数
-   * @default 0
-   */
-  total?: number;
-
-  /**
-   * 分页大小
-   * @default 10
-   */
-  pageSize?: number;
-
-  /**
-   * 显示分页大小控制器
-   * @default false
-   */
-  showSizer?: boolean;
-
-  /**
-   * 显示页面跳转输入框
-   * @default false
-   */
-  showJumper?: boolean;
-
-  /**
-   * 显示数据总量和当前数据顺序
-   * @default false
-   */
-  showTotal?: boolean;
-
-  /**
-   * 禁用分页功能
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 使用返回值作为内容，可用于渲染来自列表的已选中数量
-   * @default "共xxx项数据"
-   */
-  totalContent?: string | ((total: number, range: [number, number]) => React.ReactNode);
-
-  /**
-   * 只有一页时，是否显示分页
-   * @default true
-   */
-  visibleWithOnePage?: boolean;
-
-  /**
-   * 指定每页可以显示多少条
-   * @default [5, 10, 20 ,50]
-   */
-  pageSizeOption?: number[];
-
-  /**
-   * 页码变化后的回调，参数是改变后的页码
-   * @default noop
-   */
-  onChange?: (current: number, event: { curr: number; prev: number; pageSize: number }) => void;
-
-  /**
-   * 每页条数变化后的回调，参数是改变后每页条数
-   * @default noop
-   */
-  onPageSizeChange?: (pageSize: number, event: { curr: number; prev: number; pageSize: number }) => void;
-}
 
 enum KEY_CODE {
   ENTER = 13,
 }
 
-const blockName = 'pagination';
-
-const Pagination: React.FC<PaginationProps> = (props: PaginationProps): React.ReactElement => {
+const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const {
     current: currentFromProps = 1,
     theme = 'default',
-    size = 'default',
+    size = 'medium',
     total = 0,
     pageSize: pageSizeFromProps = 10,
-    showSizer = false,
     showJumper = false,
-    showTotal = false,
     disabled = false,
-    totalContent = '',
-    visibleWithOnePage = true,
-    pageSizeOption = [5, 10, 20, 50],
+    foldedMaxPageBtn = 5,
+    maxPageBtn = 10,
+    totalContent = true,
+    pageSizeOptions = [5, 10, 20, 50],
     onChange = noop,
+    onCurrentChange = noop,
     onPageSizeChange = noop,
   } = props;
 
-  const [current, setCurrent] = React.useState<number>(currentFromProps);
-  const [pageSize, setPageSize] = React.useState<number>(pageSizeFromProps);
+  const [current, setCurrent] = useState(currentFromProps);
+  const [pageSize, setPageSize] = useState(pageSizeFromProps);
+  const [pageCount, setPageCount] = useState(1);
+  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
+  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
+  const simpleInputRef = useRef<HTMLInputElement>(null);
 
+  const min = 1;
+  const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
   const { classPrefix } = useConfig();
+  const name = `${classPrefix}-pagination`; // t-pagination
 
-  const simpleInputRef = React.useRef<HTMLInputElement>(null);
+  useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
+  useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
-  const min = React.useMemo<number>(() => 1, []);
-  const max = React.useMemo<number>(() => Math.max(Math.ceil(total / pageSize), 1), [total, pageSize]);
+  useEffect(() => {
+    const calCount = Math.ceil(total / pageSize);
+    setPageCount(calCount > 0 ? calCount : 1);
+  }, [pageSize, total]);
 
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
+  // 计算pageList的逻辑，用memo避免每次重复计算的消耗
+  const pageList = useMemo<Array<number>>(() => {
+    const isPrevMoreShow = 2 + pivot < current;
+    const isNextMoreShow = pageCount - 1 - pivot > current;
+    const array: Array<number> = [];
+    let start: number;
+    let end: number;
 
-  const pageList = React.useMemo<(string | number)[]>(() => {
-    const gap = 2;
-    const list = [] as (string | number)[];
-    /* eslint operator-linebreak: ["error", "after"] */
-    for (let i = min; i <= max; i += 1) {
-      if (
-        i === min ||
-        i === max ||
-        (current - gap <= i && i <= current + gap) ||
-        (current - min < 2 * gap && i - min <= 2 * gap) ||
-        (max - current < 2 * gap && max - i <= 2 * gap)
-      ) {
-        list.push(i);
-      } else if (list[list.length - 1] !== '...') {
-        list.push('...');
+    if (pageCount > maxPageBtn) {
+      if (isPrevMoreShow && isNextMoreShow) {
+        start = current - pivot;
+        end = current + pivot;
+      } else {
+        start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : 2;
+        end = isPrevMoreShow ? pageCount - 1 : foldedMaxPageBtn;
+      }
+    } else {
+      start = 1;
+      end = pageCount;
+    }
+
+    for (let i = start; i <= end; i++) {
+      array.push(i);
+    }
+    return array;
+  }, [current, pageCount, foldedMaxPageBtn, maxPageBtn, pivot]);
+
+  // 处理改变当前页的逻辑
+  const changeCurrent = (nextCurrent: number, nextPageSize?: number) => {
+    /**
+     * @author kenzyyang
+     * @date 2021-03-29
+     * @desc currentChange 时判断 size 是否合法
+     **/
+    if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
+      if (!pageSizeOptionsValidator(pageSizeOptions)) {
+        throw '[pagination]pageSize invalid and pageSizeOption invalid';
+      } else {
+        // eslint-disable-next-line
+        nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
       }
     }
 
-    return list;
-  }, [current, min, max]);
+    if (disabled) return;
+    if (pageCount < nextCurrent) {
+      setCurrent(pageCount);
+      return;
+    }
+    if (nextCurrent < min) {
+      setCurrent(min);
+      return;
+    }
+    setCurrent(nextCurrent);
+    if (simpleInputRef.current) {
+      simpleInputRef.current.value = String(nextCurrent);
+    }
+    onChange({
+      current: nextCurrent,
+      previous: current,
+      pageSize: nextPageSize || pageSize,
+    });
 
-  const changeCurrent = React.useCallback(
-    (nextCurrent: number, nextPageSize?: number) => {
-      if (disabled || max < nextCurrent || nextCurrent < min) return;
-      setCurrent(nextCurrent);
-      if (simpleInputRef.current) {
-        simpleInputRef.current.value = String(nextCurrent);
-      }
-      onChange(nextCurrent, {
-        curr: nextCurrent,
-        prev: current,
-        pageSize: nextPageSize || pageSize,
-      });
-    },
-    [disabled, min, max, current, pageSize, onChange],
-  );
+    // currentPageChange的回调
+    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
+  };
 
-  const changePageSize = React.useCallback(
-    (nextPageSize: number) => {
-      setPageSize(nextPageSize);
-      const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
-      onPageSizeChange(nextPageSize, {
-        curr: nextCurrent,
-        prev: current,
-        pageSize: nextPageSize,
-      });
-      if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
-    },
-    [total, current, changeCurrent, onPageSizeChange],
-  );
+  // 处理改变pageSize的逻辑
+  const changePageSize = (nextPageSize: number) => {
+    setPageSize(nextPageSize);
+    const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
+    onPageSizeChange(nextPageSize, {
+      current: nextCurrent,
+      previous: current,
+      pageSize: nextPageSize,
+    });
 
-  const onCurrentChange = React.useCallback(
-    (nextCurrent: number) => {
-      if (disabled || max < nextCurrent || nextCurrent < min) return;
-      setCurrent(nextCurrent);
-      onChange(nextCurrent, {
-        curr: nextCurrent,
-        prev: current,
-        pageSize,
-      });
-    },
-    [disabled, min, max, current, pageSize, onChange],
-  );
+    if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
+  };
 
-  const onPageInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { target } = event;
-      const value = Number(target.value);
-      if (isNaN(value) || value < min) target.value = '';
-      else if (value > max) target.value = String(max);
-    },
-    [min, max],
-  );
+  // 处理极简版的当前页ga的逻辑
+  const onSimpleCurrentChange = (nextCurrent: number) => {
+    if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
+    setCurrent(nextCurrent);
+    onChange({
+      current: nextCurrent,
+      previous: current,
+      pageSize,
+    });
 
-  const onPageInputKeyUp = React.useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.keyCode !== KEY_CODE.ENTER) return;
-      const value = Number((event.target as HTMLInputElement).value);
-      if (!isNaN(value)) changeCurrent(value);
-    },
-    [changeCurrent],
-  );
+    // currentPageChange的回调
+    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize });
+  };
 
-  React.useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
-  React.useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
+  const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    const value = Number(target.value);
+    if (isNaN(value) || value < min) target.value = '';
+    else if (value > pageCount) target.value = String(pageCount);
 
-  if (!visibleWithOnePage && max === 1) return null;
+    // currentPageChange的回调
+    onCurrentChange(value, { current: value, previous: current, pageSize });
+  };
+
+  const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode !== KEY_CODE.ENTER) return;
+    const value = Number((event.target as HTMLInputElement).value);
+    if (!isNaN(value)) changeCurrent(value);
+  };
+
+  // 渲染total相关逻辑
+  const renderTotalContent = () => {
+    if (typeof totalContent === 'boolean') {
+      return totalContent ? `共 ${total} 项数据` : null;
+    }
+    if (typeof totalContent === 'string') return totalContent;
+    if (typeof totalContent === 'function') {
+      const start = (current - min) * pageSize;
+      const end = Math.min(total, start + pageSize);
+      return totalContent(total, [start + min, end]);
+    }
+  };
+
+  const renderPaginationBtns = () => {
+    const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
+
+    return (
+      <>
+        {isFolded && (
+          <>
+            <li
+              key={1}
+              className={classNames(`${name}__number`, {
+                [`${classPrefix}-is-disabled`]: disabled,
+                [`${classPrefix}-is-current`]: current === 1,
+              })}
+              onClick={() => changeCurrent(1)}
+            >
+              1
+            </li>
+            {2 + pivot < current && (
+              <li
+                className={classNames(`${name}__number`, `${name}__number--more`, {
+                  [`${classPrefix}-is-disabled`]: disabled,
+                })}
+                onMouseOver={() => toggleHoverPreMore(true)}
+                onMouseOut={() => toggleHoverPreMore(false)}
+                onClick={() => changeCurrent(current - foldedMaxPageBtn)}
+              >
+                {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
+              </li>
+            )}
+          </>
+        )}
+        {pageList.map((item) => (
+          <li
+            key={item}
+            className={classNames(`${name}__number`, {
+              [`${classPrefix}-is-disabled`]: disabled,
+              [`${classPrefix}-is-current`]: current === item,
+            })}
+            onClick={() => changeCurrent(item)}
+          >
+            {item}
+          </li>
+        ))}
+        {isFolded && (
+          <>
+            {pageCount - 1 - pivot > current && (
+              <li
+                className={classNames(`${name}__number`, `${name}__number--more`, {
+                  [`${classPrefix}-is-disabled`]: disabled,
+                })}
+                onMouseOver={() => toggleHoverNextMore(true)}
+                onMouseOut={() => toggleHoverNextMore(false)}
+                onClick={() => changeCurrent(current + foldedMaxPageBtn)}
+              >
+                {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}
+              </li>
+            )}
+            <li
+              key={pageCount}
+              className={classNames(`${name}__number`, {
+                [`${classPrefix}-is-disabled`]: disabled,
+                [`${classPrefix}-is-current`]: current === pageCount,
+              })}
+              onClick={() => changeCurrent(pageCount)}
+            >
+              {pageCount}
+            </li>
+          </>
+        )}
+      </>
+    );
+  };
+
+  if (pageCount === 1) return null;
 
   return (
-    <div className={prefixCls(blockName, size === 'small' && 'size-s')}>
-      {(showTotal || totalContent) && (
-        <div className={prefixCls([blockName, 'total'])}>
-          {((): React.ReactNode => {
-            if (showTotal && !totalContent) return `共 ${total} 项数据`;
-            if (typeof totalContent === 'string') return totalContent;
-            if (typeof totalContent === 'function') {
-              const start: number = (current - min) * pageSize;
-              const end: number = Math.min(total, start + pageSize);
-              return totalContent(total, [start + min, end]);
-            }
-            return null;
-          })()}
-        </div>
-      )}
-      {showSizer && pageSizeOption instanceof Array && (
-        <div className={prefixCls([blockName, 'select'])}>
+    <div
+      className={classNames(name, {
+        [`${classPrefix}-size-s`]: size === 'small',
+      })}
+    >
+      {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
+      {pageSizeOptions instanceof Array && (
+        <div className={`${name}__select`}>
           <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
-            {pageSizeOption.map((item) => (
-              <Option key={item} label={`${item}条/页`} value={item}>
-                {item}条/页
-              </Option>
-            ))}
+            {pageSizeOptions.map(
+              // eslint-disable-next-line no-confusing-arrow
+              (item) =>
+                // eslint-disable-next-line implicit-arrow-linebreak
+                typeof item === 'number' ? (
+                  <Option key={item} label={`${item}条/页`} value={item} />
+                ) : (
+                  <Option key={item.value} label={item.label} value={item.value} />
+                ),
+            )}
           </Select>
         </div>
       )}
       <div
-        className={prefixCls(
-          [blockName, 'btn'],
-          [blockName, 'btn', 'prev'],
-          (disabled || current === min) && 'is-disabled',
-        )}
+        className={classNames(`${name}__btn`, `${name}__btn--prev`, {
+          [`${classPrefix}-is-disabled`]: disabled || current === min,
+        })}
         onClick={() => changeCurrent(current - 1)}
       >
-        <IconFont name="chevron-left" />
+        <ChevronLeftIcon />
       </div>
-      {theme === 'default' && (
-        <ul className={prefixCls([blockName, 'pager'])}>
-          {pageList.map((item, index) => {
-            if (typeof item === 'number') {
-              return (
-                <li
-                  key={item}
-                  className={prefixCls(
-                    [blockName, 'number'],
-                    current === item && 'is-current',
-                    disabled && 'is-disabled',
-                  )}
-                  onClick={() => changeCurrent(item)}
-                >
-                  {item}
-                </li>
-              );
-            }
-            return (
-              <li
-                key={item.concat(String(index))}
-                className={prefixCls([blockName, 'number'], [blockName, 'number', 'more'], disabled && 'is-disabled')}
-              >
-                <IconFont name="more" />
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns()}</ul>}
+      {/* 极简版 */}
       {theme === 'simple' && (
-        <div className={prefixCls([blockName, 'select'])}>
-          <Select size={size} value={current} disabled={disabled} onChange={onCurrentChange}>
-            {Array(max)
+        <div className={`${name}__select`}>
+          <Select size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
+            {Array(pageCount)
               .fill(0)
               .map((_, i) => i + 1)
               .map((item) => (
-                <Option key={item} label={`${item}/${max}`} value={item}>
-                  {item}/{max}
+                <Option key={item} label={`${item}/${pageCount}`} value={item}>
+                  {item}/{pageCount}
                 </Option>
               ))}
           </Select>
         </div>
       )}
       <div
-        className={prefixCls(
-          [blockName, 'btn'],
-          [blockName, 'btn', 'next'],
-          (disabled || current === max) && 'is-disabled',
-        )}
+        className={classNames(`${name}__btn`, `${name}__btn--next`, {
+          [`${classPrefix}-is-disabled`]: disabled || current === pageCount,
+        })}
         onClick={() => changeCurrent(current + 1)}
       >
-        <IconFont name="chevron-right" />
+        <ChevronRightIcon />
       </div>
       {showJumper && (
-        <div className={prefixCls([blockName, 'jump'])}>
+        <div className={`${name}__jump`}>
           跳转
-          <div className={prefixCls('input', disabled && 'is-disabled')}>
+          <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-input__is-disabled`]: disabled })}>
             <input
-              className={prefixCls(['input', 'inner'])}
+              className={`${classPrefix}-input__inner`}
               disabled={disabled}
               onChange={onPageInputChange}
               onKeyUp={onPageInputKeyUp}

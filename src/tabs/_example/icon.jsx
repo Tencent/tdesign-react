@@ -17,17 +17,17 @@ export default function IconTabs() {
   return (
     <>
       <div className="tdegsin-demo-tabs">
-        <Button theme="line" onClick={toggle}>
+        <Button variant="outline" onClick={toggle}>
           {desc}
         </Button>
-        <Tabs tabPosition={'top'} size={'middle'} theme={theme}>
-          <TabPanel name="a" label={label}>
+        <Tabs placement={'top'} defaultValue={'a'} theme={theme}>
+          <TabPanel value="a" label={label}>
             <div className="tabs-content">选项卡1</div>
           </TabPanel>
-          <TabPanel name="b" label={label}>
+          <TabPanel value="b" label={label}>
             <div className="tabs-content">选项卡2</div>
           </TabPanel>
-          <TabPanel name="c" label={label}>
+          <TabPanel value="c" label={label}>
             <div className="tabs-content">选项卡3</div>
           </TabPanel>
         </Tabs>

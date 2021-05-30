@@ -6,8 +6,8 @@ export default function RadioExample() {
 
   return (
     <Radio.Group value={gender} onChange={(value) => setGender(value)}>
-      <Radio name="male">男性</Radio>
-      <Radio name="female">女性</Radio>
+      <Radio value="male">男性</Radio>
+      <Radio value="female">女性</Radio>
     </Radio.Group>
   );
 }

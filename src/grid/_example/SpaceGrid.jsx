@@ -4,7 +4,7 @@ import { Row, Col } from '@tencent/tdesign-react';
 export default function SpaceGrid() {
   return (
     <>
-      <Row gutter={8}>
+      <Row gutter={16}>
         <Col span={3}>
           <div>col-3</div>
         </Col>

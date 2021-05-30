@@ -7,7 +7,7 @@ import {
   Button,
 } from '@tencent/tdesign-react';
 
-export default function warningExample() {
+export default function WarningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
   const [visibleWaring, setVisibleWaring] = useState(false);
@@ -66,7 +66,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <CheckCircleFilledIcon style={{ color: '#3881E8' }} />
+            <CheckCircleFilledIcon style={{ color: '#00A870' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }
@@ -76,7 +76,7 @@ export default function warningExample() {
       <Dialog
         header={
           <>
-            <ErrorCircleFilledIcon style={{ color: '#3881E8' }} />
+            <ErrorCircleFilledIcon style={{ color: '#ED7B2F' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }

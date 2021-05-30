@@ -4,12 +4,10 @@ import { Dialog, Button } from '@tencent/tdesign-react';
 export default function PositionExample() {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState('center');
-  const [offset, setOffset] = useState();
 
   const handleClick = (placement) => {
     setVisible(true);
     setPlacement(placement);
-    setOffset(undefined);
   };
   const handleClose = () => {
     setVisible(false);
@@ -28,10 +26,6 @@ export default function PositionExample() {
           onClick={() => {
             setVisible(true);
             setPlacement('center');
-            setOffset({
-              top: '100px',
-              left: '100px',
-            });
           }}
         >
           自定义
@@ -43,7 +37,6 @@ export default function PositionExample() {
         showOverlay
         zIndex={2000}
         placement={placement}
-        offset={offset}
         onClose={handleClose}
         onOpened={() => {
           console.log('dialog is open');

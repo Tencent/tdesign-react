@@ -8,11 +8,8 @@ export default function () {
           Message.info({
             content: '用户表示普通操作信息提示',
             placement: 'top',
-            offset: {
-              top: 50,
-              left: -300,
-            },
-          });
+            offset: [-300, 50],
+          }, 30000);
         }}
       >
         带 offset 信息位置

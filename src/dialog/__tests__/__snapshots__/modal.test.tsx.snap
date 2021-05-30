@@ -1,59 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AsyncExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--primary"
-    >
-      Open Modal
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`BasicUsageExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--primary"
-    >
-      Open Modal
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`CustomFooterExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--primary"
-      style="margin-right: 16px;"
-    >
-      只显示确认按钮
-    </button>
-    <button
-      class="t-button t-button--primary"
-      style="margin-right: 16px;"
-    >
-      自定义按钮内容
-    </button>
-    <button
-      class="t-button t-button--primary"
-      style="margin-right: 16px;"
-    >
-      自定义内容
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`NotModalExample.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open Modal
     </button>
@@ -66,19 +17,19 @@ exports[`PositionExample.jsx 1`] = `
   <div>
     <div>
       <button
-        class="t-button t-button--primary"
+        class="t-button t-button--theme-primary t-button--variant-base"
         style="margin-right: 16px;"
       >
         默认
       </button>
       <button
-        class="t-button t-button--primary"
+        class="t-button t-button--theme-primary t-button--variant-base"
         style="margin-right: 16px;"
       >
         顶部
       </button>
       <button
-        class="t-button t-button--primary"
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
         自定义
       </button>
@@ -91,7 +42,7 @@ exports[`async.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open Modal
     </button>
@@ -103,7 +54,7 @@ exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open Modal
     </button>
@@ -115,19 +66,19 @@ exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       只显示确认按钮
     </button>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       自定义按钮内容
     </button>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       自定义内容
@@ -140,7 +91,7 @@ exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       Open Modal
     </button>
@@ -152,25 +103,25 @@ exports[`warning.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       提示反馈
     </button>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       成功反馈
     </button>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       警示反馈
     </button>
     <button
-      class="t-button t-button--primary"
+      class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px;"
     >
       错误反馈
