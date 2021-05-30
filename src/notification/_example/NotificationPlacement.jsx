@@ -3,7 +3,7 @@ import { Notification, Button } from '@tencent/tdesign-react';
 
 export default function NotificationExample() {
   const openNotification = React.useCallback((placement) => {
-    Notification.open({
+    Notification.info({
       title: '标题名称',
       content: '这是一条可以自动关闭的消息通知',
       placement,
