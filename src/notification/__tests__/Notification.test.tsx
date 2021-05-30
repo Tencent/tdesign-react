@@ -43,7 +43,7 @@ describe('Notification test', () => {
   });
 
   test('open and close', async () => {
-    const notification = await Notification.open();
+    const notification = await Notification.info();
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
 
@@ -51,7 +51,7 @@ describe('Notification test', () => {
 
     expect(document.querySelectorAll('.t-notification').length).toBe(0);
 
-    const notificationPromise = Notification.open();
+    const notificationPromise = Notification.info();
 
     await notificationPromise;
 
@@ -79,10 +79,10 @@ describe('Notification test', () => {
   test('open with placement', async () => {
     Notification.closeAll();
 
-    await Notification.open({ placement: 'top-left' });
-    await Notification.open({ placement: 'top-right' });
-    await Notification.open({ placement: 'bottom-left' });
-    await Notification.open({ placement: 'bottom-right' });
+    await Notification.info({ placement: 'top-left' });
+    await Notification.info({ placement: 'top-right' });
+    await Notification.info({ placement: 'bottom-left' });
+    await Notification.info({ placement: 'bottom-right' });
 
     expect(document.querySelectorAll('.t-notification__show--top-left').length).toBe(1);
     expect(document.querySelectorAll('.t-notification__show--top-right').length).toBe(1);
@@ -93,7 +93,7 @@ describe('Notification test', () => {
   test('auto close', async () => {
     Notification.closeAll();
 
-    await Notification.open({ duration: 3000 });
+    await Notification.info({ duration: 3000 });
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
 
@@ -105,7 +105,7 @@ describe('Notification test', () => {
   test('click close button', async () => {
     Notification.closeAll();
 
-    await Notification.open({
+    await Notification.info({
       closeBtn: <span id="close_button">关闭</span>,
     });
 

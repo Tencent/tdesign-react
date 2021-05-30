@@ -1,14 +1,12 @@
 import Notification from './Notification';
 
 export type {
-  NotificationTheme,
-  NotificationPlacement,
+  NotificationThemeList,
+  NotificationPlacementList,
   NotificationInstance,
-  NotificationProps,
-  NotificationOpenOptions,
-  NotificationOpen,
-  NotificationMethods,
-  NotificationComponent,
-} from './NotificationInterface';
+  TdNotificationProps,
+  NotificationInfoOptions,
+  NotificationMethod,
+} from '../_type/components/notification';
 
 export default Notification;
