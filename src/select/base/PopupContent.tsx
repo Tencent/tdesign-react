@@ -51,7 +51,7 @@ const PopupContent = (props: SelectPopupProps) => {
       // 通过options API配置的
       return (
         <ul>
-          {options.map(({ value: optionValue, label }, index) => (
+          {options.map(({ value: optionValue, label, disabled }, index) => (
             <Option
               key={index}
               max={max}
@@ -61,6 +61,7 @@ const PopupContent = (props: SelectPopupProps) => {
               selectedValue={value}
               multiple={multiple}
               size={size}
+              disabled={disabled}
             />
           ))}
         </ul>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Select } from '@tencent/tdesign-react';
 
 const FilterableSelect = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('apple');
 
   const onChange = (value) => {
     setValue(value);
@@ -17,6 +17,7 @@ const FilterableSelect = () => {
     {
       label: 'Banana',
       value: 'banana',
+      disabled: true,
     },
     {
       label: 'Orange',
