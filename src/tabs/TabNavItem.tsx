@@ -14,7 +14,7 @@ export interface TabNavItemProps extends TdTabPanelProps {
   placement: string;
   size?: 'medium' | 'large';
   index: number;
-  onRemove: TdTabsProps['onRemove'];
+  onTabRemove: TdTabsProps['onRemove'];
 }
 
 const TabNavItem: React.FC<TabNavItemProps> = (props) => {
@@ -30,6 +30,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     size = 'medium',
     disabled = false,
     index,
+    onTabRemove = noop,
   } = props;
 
   // 样式变量和常量定义
@@ -57,7 +58,8 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
               return;
             }
             e.stopPropagation();
-            onRemove({ value, e, index });
+            onRemove({ value, e });
+            onTabRemove({ value, e, index });
           }}
         />
       ) : null}

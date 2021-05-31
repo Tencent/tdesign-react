@@ -146,6 +146,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 <TabNavItem
                   {...props}
                   {...v}
+                  // 显式给 onRemove 赋值，防止 props 的 onRemove 事件透传
+                  onRemove={v.onRemove}
                   key={v.value}
                   label={v.label}
                   isActive={activeValue === v.value}
@@ -158,7 +160,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                     onChange(v.value);
                     setActiveIndex(getIndex(v.value));
                   }}
-                  onRemove={onRemove}
+                  onTabRemove={onRemove}
                 />
               ))}
               {placement === 'bottom' ? TabBarCom : null}
