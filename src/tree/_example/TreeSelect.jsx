@@ -1,9 +1,8 @@
 ﻿import React, { useState } from 'react';
-// import { Tree } from '@tdesign/react';
 import Tree from '../Tree';
 import Switch from '../../switch';
 import Input from '../../input';
-import Tag from '../../Tag';
+import Tag from '../../tag';
 
 const data = [
   {
