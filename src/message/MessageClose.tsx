@@ -6,7 +6,7 @@
 import React from 'react';
 
 import classNames from 'classnames';
-import { CloseIcon } from '@tencent/tdesign-react';
+import { CloseIcon } from '../icon';
 import { TdMessageProps } from '../_type/components/message';
 import { useMessageClass } from './useMessageClass';
 

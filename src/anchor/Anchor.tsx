@@ -27,7 +27,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     affix = false,
     bounds = 5,
     targetOffset = 0,
-    attach = '',
+    container = '',
     size = 'medium',
     children,
     onClick = noop,
@@ -132,7 +132,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
   }, [bounds, onChange, targetOffset]);
 
   useEffect(() => {
-    intervalRef.current.scrollContainer = getAttach(attach);
+    intervalRef.current.scrollContainer = getAttach(container);
     const { scrollContainer } = intervalRef.current;
 
     handleScroll();
@@ -140,7 +140,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
     };
-  }, [attach, handleScroll]);
+  }, [container, handleScroll]);
 
   const anchorClass = classNames(`${classPrefix}-anchor`, {
     [`${classPrefix}--affix`]: affix,
