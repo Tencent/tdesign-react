@@ -1,5 +1,4 @@
-import React from 'react';
-// import { Tree } from '@tdesign/react';
+import React, { useRef } from 'react';
 import Tree from '../Tree';
 import Button from '../../button';
 
@@ -57,25 +56,24 @@ function handleInsertAfter(node) {
   };
   node.insertAfter(treeData);
 }
-function handleDelete(node) {
-  node.remove();
-}
-
-function renderOperations(node) {
-  return (
-    <>
-      <Button onClick={() => handleInsertBefore(node)}>insertBefore</Button>
-      <Button onClick={() => handleInsertAfter(node)}>insertAfter</Button>
-      <Button onClick={() => handleDelete(node)}>remove</Button>
-    </>
-  );
+function handleDelete(node, tree) {
+  tree.current.remove(node.value);
 }
 
 export default function TreeExample() {
-  const operations = renderOperations;
+  const treeRef = useRef(null);
+  const operations = (node) => {
+    return (
+      <>
+        <Button onClick={() => handleInsertBefore(node)}>insertBefore</Button>
+        <Button onClick={() => handleInsertAfter(node)}>insertAfter</Button>
+        <Button onClick={() => handleDelete(node, treeRef)}>remove</Button>
+      </>
+    );
+  };
   return (
     <>
-      <Tree data={data} expandLevel={1} expandOnClickNode={true} operations={operations} />
+      <Tree ref={treeRef} data={data} expandLevel={1} expandOnClickNode={true} operations={operations} />
     </>
   );
 }

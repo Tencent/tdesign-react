@@ -73,7 +73,7 @@ const initData = [
 function filter(node, value) {
   if (!value) {
     // 没有关键字时，仅显示根节点
-    if (!node.getParentData()) {
+    if (!node.getParent()) {
       return true;
     }
     return false;
@@ -82,15 +82,15 @@ function filter(node, value) {
 }
 
 export default function TreeExample() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(undefined);
 
   return (
     <>
       <Input
         placeholder="请输入内容"
         value={value}
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(value) => {
+          setValue(value);
         }}
       />
       <Tree data={initData} filter={(node) => filter(node, value)} valueMode="all" />

@@ -1,9 +1,9 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeStore } from '../../common/js/tree/TreeStore';
-import { TreeNode } from '../../common/js/tree/TreeNode';
-import { TreeNodeValueType, TreeNodeModel, TreeNodeState } from '../../common/js/tree/interface';
+import { TreeStore } from '../../common/js/tree/tree-store';
+import { TreeNode } from '../../common/js/tree/tree-node';
+import { TreeNodeValue, TypeTreeNodeModel, TreeNodeState } from '../../common/js/tree/types';
 import { TreeOptionData } from '../_type';
 import { TreeProps } from './interface/TreeProps';
 import { CLASS_NAMES, transitionClassNames, transitionDuration } from './constants';
@@ -165,31 +165,28 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     scrollTo(): void {
       // TODO
     },
-    setItem(value: TreeNodeValueType, options: TreeNodeState): void {
-      const node = this.getItem(value);
+    setItem(value: TreeNodeValue, options: TreeNodeState): void {
+      const node: TreeNode = this.store.getNode(value);
       const spec = options;
-      if (node) {
-        if (spec) {
-          if ('expanded' in options) {
-            setExpanded(node, spec.expanded, props);
-            delete spec.expanded;
-          }
-          if ('actived' in options) {
-            setActived(node, spec.actived, props);
-            delete spec.actived;
-          }
-          if ('checked' in options) {
-            setChecked(node, spec.checked, props);
-            delete spec.checked;
-          }
+      if (node && spec) {
+        if ('expanded' in options) {
+          setExpanded(node, spec.expanded, props);
+          delete spec.expanded;
+        }
+        if ('actived' in options) {
+          setActived(node, spec.actived, props);
+          delete spec.actived;
+        }
+        if ('checked' in options) {
+          setChecked(node, spec.checked, props);
+          delete spec.checked;
         }
         node.set(spec);
       }
     },
-    getItem(value: TreeNodeValueType): TreeNodeModel {
-      const node = store.getNode(value);
-      const nodeModel = store.getTreeNodeModelFromTreeNode(node);
-      return nodeModel;
+    getItem(value: TreeNodeValue): TypeTreeNodeModel {
+      const node = this.store.getNode(value);
+      return node?.getModel();
     },
     // 【待确定】需要对齐，是否确认去掉这3个方法
     // getItems(value?: string | TreeNode, options?: TreeFilterOptions): TreeNode[] {
@@ -204,59 +201,59 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     // append(para?: any, item?: any): void {
     //   return this.store.appendNodes(para, item);
     // },
-    appendTo(value: TreeNodeValueType, newData: TreeOptionData): void {
+    appendTo(value: TreeNodeValue, newData: TreeOptionData): void {
       return this.store.appendNodes(value, newData);
     },
-    insertBefore(value: TreeNodeValueType, newData: TreeOptionData): void {
+    insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
       return this.store.insertBefore(value, newData);
     },
-    insertAfter(value: TreeNodeValueType, newData: TreeOptionData): void {
+    insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
       return this.store.insertAfter(value, newData);
     },
-    getParent(value: TreeNodeValueType): TreeNodeModel<TreeOptionData> {
+    getParent(value: TreeNodeValue): TypeTreeNodeModel {
       const node = this.store.getParent(value);
-      const nodeModel = store.getTreeNodeModelFromTreeNode(node);
-      return nodeModel;
+      return node?.getModel();
     },
-    getParents(value: TreeNodeValueType): TreeNodeModel<TreeOptionData>[] {
+    getParents(value: TreeNodeValue): TypeTreeNodeModel[] {
       const nodes = this.store.getParents(value);
-      const nodeModels = nodes.map((node) => store.getTreeNodeModelFromTreeNode(node));
-      return nodeModels;
+      return nodes.map((node: TreeNode) => node.getModel());
     },
-    remove(value: TreeNodeValueType): void {
+    remove(value: TreeNodeValue): void {
       this.store.remove(value);
     },
-    getIndex(value: TreeNodeValueType): number {
+    getIndex(value: TreeNodeValue): number {
       return this.store.getNodeIndex(value);
     },
   }));
 
+  const treeItems = visibleNodes.map((node) => {
+    return (
+      <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+        <TreeItem
+          node={node}
+          empty={empty}
+          icon={icon}
+          label={label}
+          line={line}
+          transition={transition}
+          expandOnClickNode={expandOnClickNode}
+          activable={activable}
+          operations={operations}
+          checkProps={checkProps}
+          onClick={(node: TreeNode, options: { expand: boolean; active: boolean }) => {
+            handleClick(node, props, store, options);
+          }}
+          onChange={(node: TreeNode) => {
+            handleChange(node, props, store);
+          }}
+        />
+      </CSSTransition>
+    );
+  });
+
   return (
     <div ref={ref} className={className}>
-      <TransitionGroup>
-        {visibleNodes.map((node) => (
-          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
-            <TreeItem
-              node={node}
-              empty={empty}
-              icon={icon}
-              label={label}
-              line={line}
-              transition={transition}
-              expandOnClickNode={expandOnClickNode}
-              activable={activable}
-              operations={operations}
-              checkProps={checkProps}
-              onClick={(node: TreeNode<TreeOptionData>, options: { expand: boolean; active: boolean }) => {
-                handleClick(node, props, store, options);
-              }}
-              onChange={(node: TreeNode<TreeOptionData>) => {
-                handleChange(node, props, store);
-              }}
-            />
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
+      <TransitionGroup>{treeItems}</TransitionGroup>
     </div>
   );
 });
