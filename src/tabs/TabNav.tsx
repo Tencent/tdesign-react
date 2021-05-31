@@ -18,14 +18,15 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const {
     placement = 'top',
     itemList,
-    activeValue,
     tabClick = noop,
     theme,
     addable,
     onAdd,
     size = 'medium',
     disabled = false,
-    onRemove,
+    onRemove = noop,
+    onChange = noop,
+    activeValue,
   } = props;
 
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
@@ -150,13 +151,14 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                   isActive={activeValue === v.value}
                   theme={theme}
                   placement={placement}
-                  onTabsRemove={onRemove}
                   index={index}
                   disabled={disabled || v.disabled}
                   onClick={() => {
                     tabClick(v.value);
+                    onChange(v.value);
                     setActiveIndex(getIndex(v.value));
                   }}
+                  onRemove={onRemove}
                 />
               ))}
               {placement === 'bottom' ? TabBarCom : null}

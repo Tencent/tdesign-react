@@ -39,7 +39,7 @@ exports[`ThemeTabs.jsx 1`] = `
                   class="t-tabs__bar t-is-top"
                 />
                 <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
+                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
                   1
                 </div>
@@ -60,7 +60,13 @@ exports[`ThemeTabs.jsx 1`] = `
       >
         <div
           class="t-tab-panel"
-        />
+        >
+          <div
+            style="margin: 20px;"
+          >
+            这是一个Tabs
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -124,13 +130,9 @@ exports[`base.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -198,13 +200,9 @@ exports[`combination.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -272,13 +270,9 @@ exports[`custom.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -337,13 +331,9 @@ exports[`disabledTabs.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -456,13 +446,9 @@ exports[`icon.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -541,13 +527,9 @@ exports[`operation.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -661,13 +643,9 @@ exports[`position.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -736,13 +714,9 @@ exports[`size.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -790,13 +764,9 @@ exports[`size.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
