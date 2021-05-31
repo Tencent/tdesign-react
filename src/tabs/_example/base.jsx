@@ -6,7 +6,7 @@ export default function BasicTabs() {
     <>
       <div className="tdegsin-demo-tabs">
         <Tabs placement={'top'} size={'medium'} defaultValue={'a'}>
-          <TabPanel value="a" label="选项卡1" removable >
+          <TabPanel value="a" label="选项卡1">
             <div className="tabs-content">选项卡1</div>
           </TabPanel>
           <TabPanel value="b" label="选项卡2">
