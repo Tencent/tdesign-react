@@ -18,7 +18,7 @@ export interface FormItemProps extends TdFormItemProps {}
 
 const CHECKED_TYPE = [Checkbox, CheckTag];
 
-const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
+const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const { children, label, name, help, statusIcon: statusIconFromProp, rules: rulesFromProp, initialData = '' } = props;
   const {
