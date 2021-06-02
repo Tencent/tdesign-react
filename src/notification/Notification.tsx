@@ -14,6 +14,7 @@ import {
   NotificationInfoOptions,
   NotificationInstance,
   NotificationPlacementList,
+  NotificationCloseAllMethod,
 } from '../_type/components/notification';
 import { Styles } from '../_type/common';
 import { fetchListInstance, listMap } from './NotificationList';
@@ -26,11 +27,11 @@ interface Notification extends React.FC<TdNotificationProps> {
   success: NotificationSuccessMethod;
   warning: NotificationWarningMethod;
   error: NotificationErrorMethod;
-  closeAll: NotificationCloseMethod;
-  close: (message: Promise<NotificationInstance>) => void;
+  closeAll: NotificationCloseAllMethod;
+  close: NotificationCloseMethod;
 }
 
-interface NotificationProps extends TdNotificationProps{
+interface NotificationProps extends TdNotificationProps {
   style?: Styles;
 }
 

@@ -12,7 +12,6 @@ describe('Notification test', () => {
   });
 
   test('set props', async () => {
-    const titleId = 'title';
     const titleText = '标题';
     const contentId = 'content';
     const contentText = '内容';
@@ -22,7 +21,7 @@ describe('Notification test', () => {
 
     const wrapper = render(
       <Notification
-        title={<div data-testid={titleId}>{titleText}</div>}
+        title={titleText}
         content={<div data-testid={contentId}>{contentText}</div>}
         theme="success"
         icon={<IconFont name="more" />}
@@ -32,43 +31,45 @@ describe('Notification test', () => {
             <span className="t-notification__detail--item">确定</span>
           </div>
         }
-        onClickCloseBtn={(event, instance) => instance.close()}
       />,
     );
 
-    expect(wrapper.queryByTestId(titleId)).toHaveTextContent(titleText);
+    /**
+     * @author kenzyyang
+     * @date 2021-06-02 17:06:44
+     * @desc 更改 title 的断言测试。新的 api title 只接受纯字符串，需要修改测试方法
+     */
+    const title = document.querySelectorAll('.t-notification__title');
+    expect(title.length).toBe(1);
+    expect(title[0].innerHTML).toBe(titleText);
+
     expect(wrapper.queryByTestId(contentId)).toHaveTextContent(contentText);
     expect(wrapper.queryByTestId(closeBtnId)).toHaveTextContent(closeBtnText);
     expect(wrapper.queryByTestId(footerId)).not.toBeNull();
   });
 
   test('open and close', async () => {
-    const notification = await Notification.info();
-
+    const notification = await Notification.info({});
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
-
     notification.close();
-
     expect(document.querySelectorAll('.t-notification').length).toBe(0);
 
-    const notificationPromise = Notification.info();
+    const notificationPromise = Notification.info({});
 
     await notificationPromise;
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
-
     await Notification.close(notificationPromise);
-
     expect(document.querySelectorAll('.t-notification').length).toBe(0);
   });
 
   test('open with theme', async () => {
     Notification.closeAll();
 
-    await Notification.info();
-    await Notification.success();
-    await Notification.warning();
-    await Notification.error();
+    await Notification.info({});
+    await Notification.success({});
+    await Notification.warning({});
+    await Notification.error({});
 
     expect(document.querySelectorAll('.t-notification .t-is-info').length).toBe(1);
     expect(document.querySelectorAll('.t-notification .t-is-success').length).toBe(1);

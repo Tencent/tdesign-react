@@ -12,7 +12,7 @@ import { Styles } from '../_type/common';
 import noop from '../_util/noop';
 import { NotificationComponent } from './Notification';
 
-interface NotificationListInstance extends TdNotificationProps{
+interface NotificationListInstance extends TdNotificationProps {
   push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;
   remove: (key: string) => void;
   removeAll: () => void;
@@ -88,10 +88,12 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
         })();
         notificationMap.set(key, React.createRef());
         dispatchList({ type: 'push', value: { ...options, key, theme, style } });
-        notificationMap.get(key).current.close = noop;
+        notificationMap.get(key).current.close = () => {
+          remove(key);
+        };
         resolve(notificationMap.get(key).current);
       }),
-    [notificationMap],
+    [notificationMap, remove],
   );
 
   const removeAll = React.useCallback(() => {
