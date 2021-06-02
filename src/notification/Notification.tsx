@@ -116,9 +116,6 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
               return <CloseIcon
                 className={prefixCls('icon-close')}
                 onClick={(e) => {
-                  // :todo api api设计问题 -- kenzyyang
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                  // @ts-ignore
                   onCloseBtnClick({ e });
                 }} />;
             }
