@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InputNumber } from '../InputNumber';
+import { InputNumber } from '@tencent/tdesign-react';
 
 export default function InputNumberExample() {
   const [value, setValue] = useState(3.2);

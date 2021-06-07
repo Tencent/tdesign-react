@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InputNumber } from '../InputNumber';
+import { InputNumber } from '@tencent/tdesign-react';
 
 export default function InputNumberExample() {
   const [value, setValue] = useState(18.0);
@@ -10,7 +10,7 @@ export default function InputNumberExample() {
       size="medium"
       max={10}
       min={-1}
-      defaultValue={30}
+      defaultValue={5}
       value={value}
       onChange={(value) => {
         console.log(value);
