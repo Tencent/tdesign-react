@@ -1,8 +1,9 @@
 import React, { useMemo, useState, useCallback, ReactNode } from 'react';
 import classNames from 'classnames';
+import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
 import { TdBaseTableProps, DataType } from '../../_type/components/base-table';
-import Pagination from '../../pagination';
+import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 
 import TableEmptyBody from './TableEmptyBody';
@@ -37,34 +38,36 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   // ==================== 翻页 ====================
   let hasPagination = false;
-  const [current, setInnerCurrentPagination] = useState(pagination?.current ?? 0);
+  const [innerCurrent, setInnerCurrentPagination] = useState<number>(pagination?.current ?? 0);
+  const [innerPageSize, setInnerPageSize] = useState(pagination?.pageSize ?? 10);
+
+  useUpdateEffect(() => {
+    setInnerPageSize(pagination?.current);
+    setInnerPageSize(pagination?.pageSize);
+  }, [pagination]);
 
   const onInnerPaginationChange = useCallback(
-    (current, pageInfo) => {
-      setInnerCurrentPagination(current);
-      onPageChange?.(pageInfo);
-    },
-    [onPageChange],
-  );
-
-  const [innerPageSize, setInnerPageSize] = useState(pagination?.pageSize ?? 10);
-  const onInnerPageSizeChange = useCallback(
-    (pageSize, pageInfo) => {
-      setInnerPageSize(pageSize);
+    (pageInfo: PageInfo) => {
+      setInnerCurrentPagination(pageInfo.current);
+      setInnerPageSize(pageInfo.pageSize);
       onPageChange?.(pageInfo);
     },
     [onPageChange],
   );
 
   if (pagination) {
-    const { total, visibleWithOnePage } = pagination;
-    hasPagination = total > innerPageSize || (visibleWithOnePage && total <= innerPageSize);
+    const { total, showJumper } = pagination;
+    hasPagination = total > innerPageSize || (showJumper && total <= innerPageSize);
   }
   // ==================== 数据 ====================
   const pageData = useMemo(() => {
     if (!hasPagination) return data;
-    if (data.length > innerPageSize) return data.slice((current - 1) * innerPageSize, current * innerPageSize);
-  }, [data, innerPageSize, hasPagination, current]);
+    if (data.length > innerPageSize) {
+      const pageStart = (innerCurrent - 1) * innerPageSize;
+      const pageEnd = innerCurrent * innerPageSize;
+      return data.slice(pageStart, pageEnd);
+    }
+  }, [data, innerPageSize, hasPagination, innerCurrent]);
   const isEmpty = !data.length;
 
   // ==================== 固定头 ====================
@@ -101,9 +104,9 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       <div className={`${classPrefix}-table-pagination`}>
         <Pagination
           {...pagination}
+          current={innerCurrent}
           pageSize={innerPageSize}
           onChange={onInnerPaginationChange}
-          onPageSizeChange={onInnerPageSizeChange}
         />
       </div>
     );
