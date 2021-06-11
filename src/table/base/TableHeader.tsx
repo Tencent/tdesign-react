@@ -1,60 +1,57 @@
-import React, { forwardRef, useContext } from 'react';
-import classNames from 'classnames';
-import { TableProps, TableColumn } from '../TableProps';
+import React, { CSSProperties } from 'react';
 import isCallable from '../../_util/isCallable';
-import useConfig from '../../_util/useConfig';
-import TableBox from './TableBox';
-import { TableContext } from './TableContext';
+import { BaseTableCol, DataType } from '../../_type/components/base-table';
+import { useTableContext } from './TableContext';
+import TableCell from './TableCell';
 
-const TableHeader = forwardRef((props: TableProps, ref: React.Ref<HTMLDivElement>) => {
-  const { classPrefix } = useConfig();
+interface TableHeaderProps<D extends DataType> {
+  columns: BaseTableCol<D>[];
+}
+const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
+  const { stickyHeader } = useTableContext();
   const { columns } = props;
-  const { separate } = useContext(TableContext);
 
-  // 表头每一项的渲染
-  const renderHeadCell = (column: TableColumn, index: number) => {
-    const { title, key, align = 'left' } = column;
-    let content: React.ReactNode = title;
-
-    // @pre header is render function
-    if (isCallable(title)) {
-      content = title(column);
-    }
-
-    return (
-      <th
-        key={key || index}
-        className={classNames({
-          [`${classPrefix}-text-${align}`]: align,
-        })}
-      >
-        {content}
-      </th>
-    );
-  };
-
-  // 表头渲染的最终内容
-  let headContent: any;
-  // 表头渲染的基础内容
-  const baseHeadContent: React.ReactChild = (
+  return (
     <thead>
-      <tr>{columns.map((column, index) => renderHeadCell(column, index))}</tr>
+      <tr>
+        {columns.map((column: BaseTableCol, index: number) => {
+          const { title, colKey, fixed } = column;
+          let content: React.ReactNode = title;
+
+          if (isCallable(title)) {
+            content = title({ col: column, colIndex: index });
+          }
+
+          const style: CSSProperties = {};
+          if (stickyHeader) {
+            style.position = 'sticky';
+            style.top = 0;
+            style.background = '#FFF';
+            style.zIndex = 1;
+            style.borderBottom = 'solid 1px #e7e7e7';
+          }
+          if (fixed) {
+            style.zIndex = ((style.zIndex as number) || 0) + 1;
+          }
+
+          return (
+            <TableCell<D>
+              type="title"
+              key={colKey}
+              colKey={colKey}
+              colIndex={index}
+              render={() => content}
+              style={style}
+              fixed={fixed}
+              columns={columns}
+            >
+              {content}
+            </TableCell>
+          );
+        })}
+      </tr>
     </thead>
   );
-
-  if (separate) {
-    headContent = (
-      <div className={`${classPrefix}-table__header`} ref={ref}>
-        <TableBox columns={columns} classPrefix={classPrefix}>
-          {baseHeadContent}
-        </TableBox>
-      </div>
-    );
-  } else {
-    headContent = baseHeadContent;
-  }
-
-  return headContent;
-});
+};
 
 export default TableHeader;
