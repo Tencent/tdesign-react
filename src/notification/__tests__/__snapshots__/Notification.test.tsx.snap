@@ -3,7 +3,7 @@
 exports[`NotificationBase.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -42,7 +42,7 @@ exports[`NotificationBase.jsx 1`] = `
 exports[`NotificationClose.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -65,7 +65,7 @@ exports[`NotificationClose.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -89,7 +89,7 @@ exports[`NotificationClose.jsx 1`] = `
   <br />
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -135,7 +135,7 @@ exports[`NotificationClose.jsx 1`] = `
 exports[`NotificationContent.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -170,7 +170,7 @@ exports[`NotificationContent.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -207,7 +207,7 @@ exports[`NotificationContent.jsx 1`] = `
 exports[`NotificationFooter.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -264,7 +264,7 @@ exports[`NotificationFooter.jsx 1`] = `
 exports[`NotificationIcon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <i
       class="t-icon t-icon-more t-size-m"
@@ -342,7 +342,7 @@ exports[`NotificationPlacement.jsx 1`] = `
 exports[`NotificationSize.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -377,7 +377,7 @@ exports[`NotificationSize.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -437,7 +437,7 @@ exports[`NotificationToggle.jsx 1`] = `
 exports[`NotificationType.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -472,7 +472,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -523,7 +523,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -574,7 +574,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -625,7 +625,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -705,7 +705,7 @@ exports[`NotificationType4Fn.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -744,7 +744,7 @@ exports[`base.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <i
       class="t-icon t-icon-more t-size-m"
@@ -786,7 +786,7 @@ exports[`icon.jsx 1`] = `
 exports[`operation.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"

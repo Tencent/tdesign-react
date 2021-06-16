@@ -1,30 +1,40 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import useConfig from '../_util/useConfig';
-import Notification from './Notification';
-import { NotificationOpenOptions, NotificationInstance, NotificationPlacement } from './NotificationInterface';
+import {
+  NotificationInfoOptions,
+  NotificationInstance,
+  NotificationPlacementList,
+  NotificationThemeList,
+  TdNotificationProps,
+} from '../_type/components/notification';
+import { Styles } from '../_type/common';
+import noop from '../_util/noop';
+import { NotificationComponent } from './Notification';
 
-interface NotificationListInstance {
-  push: (options: NotificationOpenOptions) => Promise<NotificationInstance>;
+interface NotificationListInstance extends TdNotificationProps {
+  push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;
   remove: (key: string) => void;
   removeAll: () => void;
 }
 
-interface NotificationListOpenOption extends NotificationOpenOptions {
+interface NotificationListOpenOption extends NotificationInfoOptions {
   key: string;
+  theme: NotificationThemeList;
+  style: Styles;
 }
 
 interface NotificationListProps {
   attach: HTMLElement;
   zIndex: number;
-  placement: NotificationPlacement;
+  placement: NotificationPlacementList;
 }
 
 type NotificationRef = React.RefObject<React.ElementRef<'div'>> & React.RefObject<NotificationInstance>;
 
 let seed = 0;
 
-export const listMap: Map<NotificationPlacement, NotificationListInstance> = new Map();
+export const listMap: Map<NotificationPlacementList, NotificationListInstance> = new Map();
 
 const NotificationList = React.forwardRef<NotificationListInstance, NotificationListProps>((props, ref) => {
   const { attach, placement, zIndex } = props;
@@ -53,9 +63,17 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
   );
   const notificationMap = React.useMemo<Map<string, NotificationRef>>(() => new Map(), []);
 
+  const remove = React.useCallback(
+    (key: string): void => {
+      dispatchList({ type: 'remove', key });
+      notificationMap.delete(key);
+    },
+    [notificationMap],
+  );
+
   /* eslint-disable implicit-arrow-linebreak */
   const push = React.useCallback(
-    (options: NotificationOpenOptions): Promise<NotificationInstance> =>
+    (theme: NotificationThemeList, options: NotificationInfoOptions): Promise<NotificationInstance> =>
       new Promise((resolve) => {
         const key = String((seed += 1));
         const style: React.CSSProperties = (() => {
@@ -68,18 +86,13 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
           };
         })();
         notificationMap.set(key, React.createRef());
-        dispatchList({ type: 'push', value: { ...options, key, style } });
+        dispatchList({ type: 'push', value: { ...options, key, theme, style } });
+        notificationMap.get(key).current.close = () => {
+          remove(key);
+        };
         resolve(notificationMap.get(key).current);
       }),
-    [notificationMap],
-  );
-
-  const remove = React.useCallback(
-    (key: string): void => {
-      dispatchList({ type: 'remove', key });
-      notificationMap.delete(key);
-    },
-    [notificationMap],
+    [notificationMap, remove],
   );
 
   const removeAll = React.useCallback(() => {
@@ -103,15 +116,32 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
 
   return (
     <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
-      {list.map((props) => (
-        <Notification ref={notificationMap.get(props.key)} key={props.key} {...props} close={() => remove(props.key)} />
-      ))}
+      {list.map((props) => {
+        const { onDurationEnd = noop, onCloseBtnClick = noop } = props;
+
+        return (
+          <NotificationComponent
+            theme={'warning'}
+            ref={notificationMap.get(props.key)}
+            key={props.key}
+            {...props}
+            onDurationEnd={() => {
+              remove(props.key);
+              onDurationEnd();
+            }}
+            onCloseBtnClick={(e) => {
+              remove(props.key);
+              onCloseBtnClick(e);
+            }}
+          />
+        );
+      })}
     </div>
   );
 });
 
 export const fetchListInstance = (
-  placement: NotificationPlacement,
+  placement: NotificationPlacementList,
   attach: HTMLElement,
   zIndex: number,
 ): Promise<NotificationListInstance> =>

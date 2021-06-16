@@ -2,32 +2,51 @@ import * as React from 'react';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '../icon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+
 import {
-  NotificationRef,
-  NotificationTheme,
-  NotificationPlacement,
+  NotificationCloseMethod,
+  NotificationErrorMethod,
+  NotificationInfoMethod,
+  NotificationSuccessMethod,
+  NotificationWarningMethod,
+  TdNotificationProps,
+  NotificationThemeList,
+  NotificationInfoOptions,
   NotificationInstance,
-  NotificationComponent,
-  NotificationOpenOptions,
-} from './NotificationInterface';
+  NotificationPlacementList,
+  NotificationCloseAllMethod,
+} from '../_type/components/notification';
+import { Styles } from '../_type/common';
 import { fetchListInstance, listMap } from './NotificationList';
 
 const blockName = 'notification';
 
-const Notification: NotificationComponent = React.forwardRef((props, ref: NotificationRef) => {
+// 扩展接口声明的结构，用户使用时可得到 .info 的 ts 提示
+interface Notification extends React.FC<TdNotificationProps> {
+  info: NotificationInfoMethod;
+  success: NotificationSuccessMethod;
+  warning: NotificationWarningMethod;
+  error: NotificationErrorMethod;
+  closeAll: NotificationCloseAllMethod;
+  close: NotificationCloseMethod;
+}
+
+interface NotificationProps extends TdNotificationProps {
+  style?: Styles;
+}
+
+export const NotificationComponent = React.forwardRef<any, NotificationProps>((props, ref) => {
   const {
-    className = '',
-    style = {},
     title = null,
     content = null,
     theme = null,
     icon = null,
     closeBtn = true,
     footer = null,
-    duration = 0,
-    onClickCloseBtn,
+    duration = 3000,
+    onCloseBtnClick = noop,
     onDurationEnd = noop,
-    close = noop,
+    style,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -50,18 +69,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     [classPrefix],
   );
 
-  const onClose = React.useCallback(
-    (event: React.MouseEvent) => {
-      if (typeof onClickCloseBtn === 'function') {
-        onClickCloseBtn(event, { close });
-      } else {
-        close();
-      }
-    },
-    [onClickCloseBtn, close],
-  );
-
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), [close]);
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), []);
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
@@ -69,8 +77,7 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
     if (duration > 0) {
       timer = setTimeout(() => {
         clearTimeout(timer);
-        onDurationEnd({ close });
-        close();
+        onDurationEnd();
       }, duration);
     }
     return () => {
@@ -99,17 +106,32 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
   };
 
   return (
-    <div ref={ref} className={prefixCls(blockName).concat(' ', className)} style={style}>
+    <div ref={ref} className={prefixCls(blockName)} style={style}>
       {renderIcon()}
       <div className={prefixCls([blockName, 'main'])}>
         <div className={prefixCls([blockName, 'title__wrap'])}>
           <span className={prefixCls([blockName, 'title'])}>{title}</span>
           {((): React.ReactNode => {
             if (typeof closeBtn === 'boolean' && closeBtn) {
-              return <CloseIcon className={prefixCls('icon-close')} onClick={onClose} />;
+              return (
+                <CloseIcon
+                  className={prefixCls('icon-close')}
+                  onClick={(e) => {
+                    onCloseBtnClick({ e });
+                  }}
+                />
+              );
             }
             if (React.isValidElement(closeBtn)) {
-              return <div onClick={onClose}>{closeBtn}</div>;
+              return (
+                <div
+                  onClick={(e) => {
+                    onCloseBtnClick({ e });
+                  }}
+                >
+                  {closeBtn}
+                </div>
+              );
             }
             return null;
           })()}
@@ -128,10 +150,17 @@ const Notification: NotificationComponent = React.forwardRef((props, ref: Notifi
   );
 });
 
-Notification.open = (options: NotificationOpenOptions = {}) => {
+/**
+ * @author kenzyyang
+ * @date 2021-05-30 22:54:39
+ * @desc 函数调用时的渲染函数
+ * @param theme 主题类型
+ * @param options 通知的参数
+ */
+const renderNotification = (theme: NotificationThemeList, options: NotificationInfoOptions) => {
   if (typeof options !== 'object') return;
 
-  const placement: NotificationPlacement = (() => {
+  const placement: NotificationPlacementList = (() => {
     if (['top-left', 'top-right', 'bottom-left', 'bottom-right'].indexOf(options.placement) >= 0) {
       return options.placement;
     }
@@ -160,15 +189,15 @@ Notification.open = (options: NotificationOpenOptions = {}) => {
 
   const zIndex = options.zIndex || 6000;
 
-  return new Promise((resolve) => {
-    fetchListInstance(placement, attach, zIndex).then((listInstance) => {
-      listInstance.push(options).then(resolve);
-    });
-  });
+  return fetchListInstance(placement, attach, zIndex).then((listInstance) => listInstance.push(theme, options));
 };
 
-['info', 'success', 'warning', 'error'].forEach((theme: NotificationTheme) => {
-  Notification[theme] = (options: NotificationOpenOptions) => Notification.open({ ...options, theme });
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const Notification: Notification = NotificationComponent;
+
+['info', 'success', 'warning', 'error'].forEach((theme: NotificationThemeList) => {
+  Notification[theme] = (options) => renderNotification(theme, options);
 });
 
 Notification.close = (promise) => promise.then((instance) => instance.close());
