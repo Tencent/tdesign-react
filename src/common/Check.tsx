@@ -6,7 +6,7 @@ import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import { TdCheckboxProps } from '../_type/components/checkbox';
 
-export interface CheckProps extends TdRadioProps, TdCheckboxProps, StyledProps {
+export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   children?: React.ReactNode;
 }

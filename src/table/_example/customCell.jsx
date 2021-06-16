@@ -1,46 +1,25 @@
 import React from 'react';
 import { Table, ViewModuleIcon, AttachIcon } from '@tencent/tdesign-react';
 
-const exampleList = [
-  {
+const data = Array(5)
+  .fill(1)
+  .map((_, i) => ({
+    index: i,
     projectName: 'TDesign Wonderful',
     manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
     company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-];
+  }));
 
 export default function TableFixHeader() {
   return (
     <Table
-      records={exampleList}
-      height={200}
-      bordered={false}
+      bordered
+      data={data}
       columns={[
         {
-          key: 'project',
-          fixed: 'left',
+          colKey: 'project',
           width: '150px',
-          render: (x) => x.projectName,
+          render: ({ row }) => row.projectName,
           title: (
             <span>
               <ViewModuleIcon></ViewModuleIcon>类型
@@ -48,11 +27,10 @@ export default function TableFixHeader() {
           ),
         },
         {
-          key: 'memeber',
+          colKey: 'member',
           title: '管理员',
-          fixed: 'right',
           width: '300px',
-          render: (x) => (
+          render: () => (
             <span>
               <AttachIcon></AttachIcon>
               <a href="#">公有</a>
@@ -60,13 +38,13 @@ export default function TableFixHeader() {
           ),
         },
         {
-          key: 'company',
+          colKey: 'company',
           title: '所属公司',
           width: '150px',
-          render: (x) => x.company,
+          render: ({ row }) => row.company,
         },
       ]}
-      rowKey="projectName"
+      rowKey="index"
     />
   );
 }

@@ -1,61 +1,96 @@
 import React from 'react';
 import { Table } from '@tencent/tdesign-react';
 
-const exampleList = [
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-];
+const data = [];
+const total = 30;
+for (let i = 0; i < total; i++) {
+  data.push({
+    index: i,
+    platform: '公有',
+    type: 'any[]',
+    default: '[]',
+    needed: 'Y',
+    description: '数据源',
+    property: 'any',
+    detail: {
+      name: '嵌套信息读取',
+    },
+  });
+}
 
 export default function TableFixHeader() {
   return (
     <Table
-      records={exampleList}
-      height={200}
-      bordered={false}
+      data={data}
+      maxHeight={200}
+      bordered
+      stripe
       columns={[
         {
-          key: 'project',
-          title: '项目名称',
-          width: '150px',
-          render: (x) => x.projectName,
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'row',
+          ellipsis: true,
+          colKey: 'index',
+          title: 'index',
         },
         {
-          key: 'memeber',
-          title: '管理员',
-          width: '300px',
-          render: (x) => x.manager.join(','),
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'row',
+          ellipsis: true,
+          colKey: 'type',
+          title: '类型',
         },
         {
-          key: 'company',
-          title: '所属公司',
-          width: '150px',
-          render: (x) => x.company,
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'test',
+          ellipsis: true,
+          colKey: 'platform',
+          title: '平台',
+        },
+        {
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'test2',
+          ellipsis: true,
+          colKey: 'property',
+          title: '属性',
+        },
+        {
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'test4',
+          ellipsis: true,
+          colKey: 'default',
+          title: '默认值',
+        },
+        {
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'test3',
+          ellipsis: true,
+          colKey: 'needed',
+          title: '是否必传',
+        },
+        {
+          align: 'left',
+          width: '100',
+          minWidth: '100',
+          className: 'row',
+          ellipsis: true,
+          colKey: 'description',
+          title: '说明',
         },
       ]}
-      rowKey="projectName"
+      rowKey="index"
     />
   );
 }

@@ -1,12 +1,21 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
+import { BaseTableCol } from '../../_type/components/base-table';
 
 export interface TableContextValue {
   /**
-   * thead、tbody是否放入到不同的table当中
+   * 表头是否固定
    */
-  separate: boolean;
+  stickyHeader: boolean;
+  /**
+   * 扁平后的Columns
+   */
+  flattenColumns: BaseTableCol[];
 }
 
 export const TableContext = createContext<TableContextValue>({
-  separate: false,
+  stickyHeader: false,
+  flattenColumns: [],
 });
+
+export const useTableContext = () => useContext(TableContext);
+export const TableContextProvider = TableContext.Provider;

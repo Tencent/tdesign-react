@@ -30,30 +30,32 @@ const exampleList = [
 ];
 
 export default function TableExample() {
+  return null;
+
   return (
     <Table
-      records={exampleList}
+      data={exampleList}
       // height={100}
       // bordered={false}
       // loading={true}
       columns={[
         {
-          key: 'project',
+          colKey: 'project',
           title: '项目名称',
           width: '150px',
-          render: (x) => x.projectName,
+          render: ({ row }) => row.projectName,
         },
         {
-          key: 'memeber',
+          colKey: 'memeber',
           title: '管理员',
           width: '300px',
-          render: (x) => x.manager.join(','),
+          render: ({ row }) => row.manager.join(','),
         },
         {
-          key: 'company',
+          colKey: 'company',
           title: '所属公司',
           width: '150px',
-          render: (x) => x.company,
+          render: ({ row }) => row.company,
         },
       ]}
       rowKey="projectName"

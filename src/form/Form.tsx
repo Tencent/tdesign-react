@@ -17,7 +17,7 @@ function isFunction(val: unknown) {
   return typeof val === 'function';
 }
 
-const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref<HTMLFormElement>) => {
+const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const {
     className,
     labelWidth,
