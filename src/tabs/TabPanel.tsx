@@ -13,13 +13,8 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
 
   const { style } = props;
 
-  debugger;
-
   return (
-    <div
-      className={classNames(tdTabPanelClassPrefix)}
-      style={style}
-    >
+    <div className={classNames(tdTabPanelClassPrefix)} style={style}>
       {props.children}
     </div>
   );

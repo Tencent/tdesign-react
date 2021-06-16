@@ -113,16 +113,25 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
           <span className={prefixCls([blockName, 'title'])}>{title}</span>
           {((): React.ReactNode => {
             if (typeof closeBtn === 'boolean' && closeBtn) {
-              return <CloseIcon
-                className={prefixCls('icon-close')}
-                onClick={(e) => {
-                  onCloseBtnClick({ e });
-                }} />;
+              return (
+                <CloseIcon
+                  className={prefixCls('icon-close')}
+                  onClick={(e) => {
+                    onCloseBtnClick({ e });
+                  }}
+                />
+              );
             }
             if (React.isValidElement(closeBtn)) {
-              return <div onClick={(e) => {
-                onCloseBtnClick({ e });
-              }}>{closeBtn}</div>;
+              return (
+                <div
+                  onClick={(e) => {
+                    onCloseBtnClick({ e });
+                  }}
+                >
+                  {closeBtn}
+                </div>
+              );
             }
             return null;
           })()}
@@ -180,8 +189,7 @@ const renderNotification = (theme: NotificationThemeList, options: NotificationI
 
   const zIndex = options.zIndex || 6000;
 
-  return fetchListInstance(placement, attach, zIndex)
-    .then((listInstance) => listInstance.push(theme, options));
+  return fetchListInstance(placement, attach, zIndex).then((listInstance) => listInstance.push(theme, options));
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

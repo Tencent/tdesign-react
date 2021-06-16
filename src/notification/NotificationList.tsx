@@ -52,8 +52,7 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
         case 'push':
           return [...state, action.value];
         case 'remove':
-          return state.filter((item) => item.key !== action.key)
-            .map((item) => item);
+          return state.filter((item) => item.key !== action.key).map((item) => item);
         case 'removeAll':
           return [];
         default:
@@ -118,15 +117,13 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
   return (
     <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
       {list.map((props) => {
-        const {
-          onDurationEnd = noop,
-          onCloseBtnClick = noop,
-        } = props;
+        const { onDurationEnd = noop, onCloseBtnClick = noop } = props;
 
         return (
           <NotificationComponent
             theme={'warning'}
-            ref={notificationMap.get(props.key)} key={props.key}
+            ref={notificationMap.get(props.key)}
+            key={props.key}
             {...props}
             onDurationEnd={() => {
               remove(props.key);
@@ -135,7 +132,8 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
             onCloseBtnClick={(e) => {
               remove(props.key);
               onCloseBtnClick(e);
-            }} />
+            }}
+          />
         );
       })}
     </div>
