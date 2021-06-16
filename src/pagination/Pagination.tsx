@@ -103,7 +103,8 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
         throw '[pagination]pageSize invalid and pageSizeOption invalid';
       } else {
         // eslint-disable-next-line
-        nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
+        nextPageSize =
+          pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
       }
     }
 
@@ -123,7 +124,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     onChange({
       current: nextCurrent,
       previous: current,
-      pageSize: nextPageSize || pageSize,
+      pageSize: nextPageSize,
     });
 
     // currentPageChange的回调
