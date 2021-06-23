@@ -1,46 +1,55 @@
+// @ts-nocheck
 import React, { useState } from 'react';
-import { Menu, MenuItem, SubMenu, MenuItemGroup } from '@tencent/tdesign-react';
-const Logo = () => (
-  <img src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
-);
-export default function BasicUsage() {
-  const [active, setActive] = useState(null);
-  const [expand, setExpand] = useState([]);
+import { Menu, SubMenu, MenuItem, IconFont } from '@tencent/tdesign-react';
+
+function MultiSide() {
+  const [active, setActive] = useState('0');
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Menu
       theme="dark"
-      active={active}
+      value={active}
+      expandType="popup"
+      collapsed={collapsed}
+      onCollapsed={({ collapsed }) => setCollapsed(collapsed)}
+      expandMutex
+      width={265}
       onChange={(v) => setActive(v)}
-      onExpand={(name, allExpand) => {
-        if (allExpand.includes(name)) {
-          setExpand([...allExpand.filter((x) => x !== name)]);
-        } else {
-          setExpand([...expand, name]);
-        }
-      }}
-      expand={expand}
-      logo={<Logo />}
-      options="自定义"
+      logo={
+        collapsed ? null : (
+          <img src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
+        )
+      }
     >
-      <MenuItem name="1">菜单一</MenuItem>
-      <MenuItemGroup title="分组一">
-        <SubMenu name="sub-1" title="菜单二">
-          <MenuItem name="3">子菜单2-1</MenuItem>
-          <MenuItem name="4">子菜单2-2</MenuItem>
-        </SubMenu>
-        <SubMenu name="sub-2" title="菜单三">
-          <MenuItem name="5">子菜单3-1</MenuItem>
-          <MenuItem name="6">子菜单3-2</MenuItem>
-        </SubMenu>
-      </MenuItemGroup>
-      <SubMenu name="sub-3" title="菜单四">
-        <MenuItem name="7">子菜单4-1</MenuItem>
-        <MenuItem name="8">子菜单4-2</MenuItem>
+      <SubMenu value="0" title={<span>菜单1</span>} icon={<IconFont name="layers" />}>
+        <MenuItem value="0-1">
+          <span>子菜单1</span>
+        </MenuItem>
+        <MenuItem value="0-2">
+          <span>子菜单2</span>
+        </MenuItem>
       </SubMenu>
-      <MenuItem name="9" disabled>
-        菜单五
+      <MenuItem value="7" disabled>
+        <span>菜单二</span>
+      </MenuItem>
+      <SubMenu value="sub-2" title={<span>菜单三</span>} icon={<IconFont name="user" />}>
+        <SubMenu value="sub-3" title={<span>二级菜单-1</span>} icon={<IconFont name="user" />}>
+          <MenuItem value="5">
+            <span>三级菜单-1</span>
+          </MenuItem>
+        </SubMenu>
+        <SubMenu value="sub-4" title={<span>二级菜单-2</span>} icon={<IconFont name="InternetIcon" />}>
+          <MenuItem value="6">
+            <span>三级菜单-2</span>
+          </MenuItem>
+        </SubMenu>
+      </SubMenu>
+      <MenuItem value="9">
+        <span>菜单四</span>
       </MenuItem>
     </Menu>
   );
 }
+
+export default MultiSide;

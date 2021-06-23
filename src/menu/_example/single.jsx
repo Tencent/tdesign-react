@@ -1,20 +1,44 @@
+// @ts-nocheck
 import React, { useState } from 'react';
-import { HeadMenu, MenuItem } from '@tencent/tdesign-react';
+import { HeadMenu, MenuItem, UserAddIcon, AppIcon, CallIcon } from '@tencent/tdesign-react';
 
-export default function BasicUsage() {
-  const [active, setActive] = useState('1');
+function Single() {
+  const [active, setActive] = useState('0');
+
   return (
     <HeadMenu
-      active={active}
-      onChange={(v) => {
-        setActive(String(v));
-      }}
+      theme="light"
+      value={active}
+      onChange={(v) => setActive(v)}
+      logo={
+        <img
+          className="tdesign-demo-menu__logo"
+          src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
+          alt="logo"
+        />
+      }
+      operations={
+        <div>
+          <UserAddIcon />
+          <AppIcon />
+          <CallIcon />
+        </div>
+      }
     >
-      <MenuItem name="1">菜单一</MenuItem>
-      <MenuItem name="2">菜单二</MenuItem>
-      <MenuItem name="3" disabled>
-        菜单三
+      <MenuItem value={'0'}>
+        <span>菜单1</span>
+      </MenuItem>
+      <MenuItem value={'1'}>
+        <span>菜单2</span>
+      </MenuItem>
+      <MenuItem value={'2'}>
+        <span>菜单3</span>
+      </MenuItem>
+      <MenuItem value={'3'}>
+        <span>菜单4</span>
       </MenuItem>
     </HeadMenu>
   );
 }
+
+export default Single;

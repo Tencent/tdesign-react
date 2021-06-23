@@ -1,21 +1,36 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { Menu, MenuItem } from '@tencent/tdesign-react';
 
-const Logo = () => (
-  <img src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
-);
+function SingleSide() {
+  const [active, setActive] = useState('0');
+  const [collapsed, setCollapsed] = useState(false);
 
-export default function BasicUsage() {
-  const [active, setActive] = useState('1');
   return (
-    <Menu theme="dark" logo={<Logo />} options="自定义" active={active} onChange={(v) => setActive(String(v))}>
-      <MenuItem name="1">菜单一</MenuItem>
-      <MenuItem name="2">菜单二</MenuItem>
-      <MenuItem name="3" disabled>
-        菜单三
+    <Menu
+      value={active}
+      onChange={(v) => setActive(v)}
+      onCollapsed={({ collapsed }) => setCollapsed(collapsed)}
+      logo={
+        collapsed ? null : (
+          <img src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png" alt="logo" />
+        )
+      }
+    >
+      <MenuItem value={'0'}>
+        <span>菜单1</span>
       </MenuItem>
-      <MenuItem name="2">菜单四</MenuItem>
-      <MenuItem name="2">菜单五</MenuItem>
+      <MenuItem value={'1'}>
+        <span>菜单2</span>
+      </MenuItem>
+      <MenuItem value={'2'}>
+        <span>菜单3</span>
+      </MenuItem>
+      <MenuItem value={'3'}>
+        <span>菜单4</span>
+      </MenuItem>
     </Menu>
   );
 }
+
+export default SingleSide;

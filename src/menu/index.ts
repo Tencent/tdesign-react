@@ -1,7 +1,9 @@
-import Menu from './Menu';
-import HeadMenu from './HeadMenu';
-import SubMenu from './SubMenu';
-import MenuItem from './MenuItem';
-import MenuItemGroup from './MenuItemGroup';
+export { default as Menu } from './Menu';
+export { default as HeadMenu } from './HeadMenu';
+export { default as SubMenu } from './SubMenu';
+export { default as MenuItem } from './MenuItem';
 
-export { Menu, HeadMenu, SubMenu, MenuItem, MenuItemGroup };
+export type { MenuProps } from './Menu';
+export type { HeadMenuProps } from './HeadMenu';
+export type { SubMenuProps } from './SubMenu';
+export type { MenuItemProps } from './MenuItem';

@@ -39,7 +39,7 @@ exports[`BasicLayout.jsx 1`] = `
     >
       <div
         class="t-default-menu"
-        style="width: 100%; height: 100%; box-shadow: none;"
+        style="width: 232px;"
       >
         <div
           class="t-default-menu__inner"
@@ -50,47 +50,43 @@ exports[`BasicLayout.jsx 1`] = `
             <span>
               LOGO
             </span>
-             
           </div>
           <ul
             class="t-menu"
           >
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容一
-              </span>
+              侧边内容一
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容二
-              </span>
+              侧边内容二
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容三
-              </span>
+              侧边内容三
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容四
-              </span>
+              侧边内容四
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容无
-              </span>
+              侧边内容无
             </li>
           </ul>
+        </div>
+        <div
+          class="t-menu__options"
+        >
+          <i
+            class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+          />
         </div>
       </div>
     </aside>
@@ -132,7 +128,7 @@ exports[`BasicLayout.jsx 1`] = `
       >
         <div
           class="t-default-menu"
-          style="width: 100%; height: 100%; box-shadow: none;"
+          style="width: 232px;"
         >
           <div
             class="t-default-menu__inner"
@@ -143,47 +139,43 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容一
-                </span>
+                侧边内容一
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容二
-                </span>
+                侧边内容二
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容三
-                </span>
+                侧边内容三
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容四
-                </span>
+                侧边内容四
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容无
-                </span>
+                侧边内容无
               </li>
             </ul>
+          </div>
+          <div
+            class="t-menu__options"
+          >
+            <i
+              class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+            />
           </div>
         </div>
       </aside>
@@ -239,7 +231,7 @@ exports[`BasicLayout.jsx 1`] = `
       >
         <div
           class="t-default-menu"
-          style="width: 100%; height: 100%; box-shadow: none;"
+          style="width: 232px;"
         >
           <div
             class="t-default-menu__inner"
@@ -250,47 +242,43 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容一
-                </span>
+                侧边内容一
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容二
-                </span>
+                侧边内容二
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容三
-                </span>
+                侧边内容三
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容四
-                </span>
+                侧边内容四
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容无
-                </span>
+                侧边内容无
               </li>
             </ul>
+          </div>
+          <div
+            class="t-menu__options"
+          >
+            <i
+              class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+            />
           </div>
         </div>
       </aside>
@@ -314,7 +302,7 @@ exports[`BasicLayout.jsx 1`] = `
       >
         <div
           class="t-default-menu t-is-collapsed"
-          style="width: 100%; height: 100%; box-shadow: none;"
+          style="width: 64px;"
         >
           <div
             class="t-default-menu__inner"
@@ -325,47 +313,43 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容一
-                </span>
+                侧边内容一
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容二
-                </span>
+                侧边内容二
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容三
-                </span>
+                侧边内容三
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容四
-                </span>
+                侧边内容四
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容无
-                </span>
+                侧边内容无
               </li>
             </ul>
+          </div>
+          <div
+            class="t-menu__options"
+          >
+            <i
+              class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+            />
           </div>
         </div>
       </aside>
@@ -404,7 +388,7 @@ exports[`aside.jsx 1`] = `
     >
       <div
         class="t-default-menu"
-        style="width: 100%; height: 100%; box-shadow: none;"
+        style="width: 232px;"
       >
         <div
           class="t-default-menu__inner"
@@ -415,47 +399,43 @@ exports[`aside.jsx 1`] = `
             <span>
               LOGO
             </span>
-             
           </div>
           <ul
             class="t-menu"
           >
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容一
-              </span>
+              侧边内容一
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容二
-              </span>
+              侧边内容二
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容三
-              </span>
+              侧边内容三
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容四
-              </span>
+              侧边内容四
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active"
             >
-              <span>
-                侧边内容无
-              </span>
+              侧边内容无
             </li>
           </ul>
+        </div>
+        <div
+          class="t-menu__options"
+        >
+          <i
+            class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+          />
         </div>
       </div>
     </aside>
@@ -501,7 +481,7 @@ exports[`combine.jsx 1`] = `
       >
         <div
           class="t-default-menu"
-          style="width: 100%; height: 100%; box-shadow: none;"
+          style="width: 232px;"
         >
           <div
             class="t-default-menu__inner"
@@ -512,47 +492,43 @@ exports[`combine.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容一
-                </span>
+                侧边内容一
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容二
-                </span>
+                侧边内容二
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容三
-                </span>
+                侧边内容三
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容四
-                </span>
+                侧边内容四
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active"
               >
-                <span>
-                  侧边内容无
-                </span>
+                侧边内容无
               </li>
             </ul>
+          </div>
+          <div
+            class="t-menu__options"
+          >
+            <i
+              class="t-icon t-icon-view-list t-size-m t-collapsed-icon"
+            />
           </div>
         </div>
       </aside>

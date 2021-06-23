@@ -1,54 +1,38 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { HeadMenu, MenuItem } from '@tencent/tdesign-react';
 
-const Logo = () => (
-  <img
-    style={{
-      width: '140px',
-      height: '30px',
-      position: 'relative',
-      top: '17px',
-      left: '24px',
-      background: '#5b6270',
-      borderRadius: '3px',
-    }}
-    src="https://main.qcloudimg.com/raw/4927884bb0c43e726c5915d5bef49ef3/head-logo-dark.png"
-    alt="logo"
-  />
-);
-const Options = () => (
-  <div
-    style={{
-      width: '70px',
-      height: '40px',
-      lineHeight: '40px',
-      margin: '12px',
-      background: 'hsla(0,0%,100%,.2)',
-      textAlign: 'center',
-      color: '#fff',
-    }}
-  >
-    自定义
-  </div>
-);
-export default function BasicUsage() {
-  const [active, setActive] = useState('1');
+function Single() {
+  const [active, setActive] = useState('0');
+
   return (
     <HeadMenu
       theme="dark"
-      active={active}
-      logo={<Logo />}
-      options={<Options />}
-      onChange={(v) => {
-        setActive(String(v));
-      }}
+      value={active}
+      onChange={(v) => setActive(v)}
+      logo={
+        <img
+          className="tdesign-demo-menu__logo"
+          src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
+          alt="logo"
+        />
+      }
+      operations={<div className="tdesign-demo-menu__block">自定义内容区域</div>}
     >
-      <MenuItem name="1">菜单一</MenuItem>
-
-      <MenuItem name="2">菜单二</MenuItem>
-      <MenuItem name="3" disabled>
-        菜单三
+      <MenuItem value={'0'}>
+        <span>菜单1</span>
+      </MenuItem>
+      <MenuItem value={'1'}>
+        <span>菜单2</span>
+      </MenuItem>
+      <MenuItem value={'2'}>
+        <span>菜单3</span>
+      </MenuItem>
+      <MenuItem value={'3'}>
+        <span>菜单4</span>
       </MenuItem>
     </HeadMenu>
   );
 }
+
+export default Single;
