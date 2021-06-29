@@ -50,7 +50,7 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
-          title: 'Grid 姗格',
+          title: 'Grid 栅格',
           name: 'grid',
           path: '/react/components/grid',
           component: () => import('@tencent/tdesign-react/grid/README.md'),
