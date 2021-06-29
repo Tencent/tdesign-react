@@ -51,7 +51,23 @@ export default function transforms() {
 
       return source;
     },
-    after(_, __, renderInfo) {
+    after(_, id, renderInfo, md) {
+      const reg = id.match(/src\/(\w+-?\w+)\/\w+\.md/);
+      const name = reg && reg[1];
+
+      // 新增设计指南内容
+      let designMd = '';
+      let designResult = '';
+      const designDocPath = path.resolve(__dirname, `../../common/docs/web/design/${name}.md`);
+
+      if (fs.existsSync(designDocPath)) {
+        designMd = fs.readFileSync(designDocPath, 'utf-8');
+      } else {
+        designMd = '<h3>文档 (🚧建设中）...</h3>';
+      }
+
+      designResult = md.render(`\${toc}\r\n${designMd}`);
+
       const demoDefsStr = Object.keys(demoImports)
         .map((key) => demoImports[key])
         .join('\n');
@@ -62,34 +78,47 @@ export default function transforms() {
       const { title, description, content, api } = renderInfo;
 
       const reactSource = `
-          import Demo from '@components/Demo';\n
+        import React, { useEffect, useRef, useState } from 'react';\n
           ${demoDefsStr}
-          import React, { useEffect } from 'react';\n
           ${demoCodesStr}
 
-          export default React.forwardRef((props, ref) => {
-            const { setComponentInfo } = props;
-            
+          export default function TdDoc(props) {
+            const tdDocHeader = useRef();
+            const tdDocTabs = useRef();
+            const { isComponent, contributors } = props;
+            const [tab, setTab] = useState('demo');
+
             useEffect(() => {
-              setComponentInfo({
-                title: '${title}',
-                description: \`${description}\`,
-              });
+              tdDocHeader.current.contributors = contributors;
+              tdDocHeader.current.docInfo = {
+                title: \`${title}\`,
+                desc:  \`${description}\`.split(/<br\\s*\\/?>/g)
+              }
+              if (tdDocTabs.current) {
+                tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
+              }
             }, []);
 
+            function isShow(currentTab) {
+              return currentTab === tab ? { display: 'block' } : { display: 'none' };
+            }
+
             return (
-              <div ref={ref}>
-                <div name="DEMO" className='tdesign-document'>
-                  ${content.replace(/class=/g, 'className=')}
-                </div>
-                ${
-                  api
-                    ? `<div style={{ display: 'none' }} name="API" className='tdesign-document' dangerouslySetInnerHTML={{ __html: \`${api}\` }}></div>`
-                    : ''
+              <>
+                <td-doc-header slot="doc-header" ref={tdDocHeader}></td-doc-header>
+                {
+                  isComponent ? (
+                    <>
+                      <td-doc-tabs ref={tdDocTabs} tab={tab}></td-doc-tabs>
+                      <div style={isShow('demo')} name="DEMO">${content.replace(/class=/g, 'className=')}</div>
+                      <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${api}\` }}></div>
+                      <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${designResult}\` }}></div>
+                    </>
+                  ) : <div name="DOC">${content.replace(/class=/g, 'className=')}</div>
                 }
-              </div>
+              </>
             )
-          })
+          }
         `;
       const result = transformSync(reactSource, {
         babelrc: false,

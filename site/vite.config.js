@@ -27,7 +27,6 @@ export default {
   plugins: [
     reactRefresh(),
     tdocPlugin({
-      extension: '.jsx',
       transforms: transforms(),
     }),
   ],

@@ -19,10 +19,10 @@ export default function BaseForm() {
     <div style={{ width: 350 }}>
       <Form statusIcon={true} onSubmit={onSubmit} onReset={onReset} colon={true} labelWidth={0}>
         <FormItem name="account">
-          <Input clearable prefixIcon={<DesktopIcon />} placeholder="请输入账户名" />
+          <Input clearable={true} prefixIcon={<DesktopIcon />} placeholder="请输入账户名" />
         </FormItem>
         <FormItem name="password">
-          <Input type="password" prefixIcon={<LockOnIcon />} clearable placeholder="请输入密码" />
+          <Input type="password" prefixIcon={<LockOnIcon />} clearable={true} placeholder="请输入密码" />
         </FormItem>
         <FormItem statusIcon={false}>
           <Button theme="primary" type="submit" block>
