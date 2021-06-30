@@ -80,7 +80,7 @@ describe('Select 组件测试', () => {
           setValue(value);
         };
         return (
-          <Select value={value} onChange={onChange} multiple style={{ width: '40%' }}>
+          <Select value={value} onChange={onChange} multiple style={{ width: '40%' }} valueType="object">
             <Option key="apple" label="Apple" value="apple" />
             <Option key="orange" label="Orange" value="orange" />
             <Option key="banana" label="Banana" value="banana" />
