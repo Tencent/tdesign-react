@@ -30,7 +30,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
       onClick={handleClick}
     >
       {href ? (
-        <a href={href} target={target}>
+        <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
           {children}
         </a>
       ) : (

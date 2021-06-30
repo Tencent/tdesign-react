@@ -13,7 +13,7 @@ exports[`customHeader.jsx 1`] = `
       >
         <img
           alt="logo"
-          class="tdesign-demo-menu__logo"
+          class="tdesign-demo-menu__logo margin_0"
           src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
         />
       </div>
@@ -76,7 +76,7 @@ exports[`double.jsx 1`] = `
       >
         <img
           alt="logo"
-          class="tdesign-demo-menu__logo"
+          class="tdesign-demo-menu__logo margin_0"
           src="https://main.qcloudimg.com/raw/4927884bb0c43e726c5915d5bef49ef3/head-logo-dark.png"
         />
       </div>
@@ -137,7 +137,7 @@ exports[`double.jsx 1`] = `
 exports[`multiSide.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-default-menu t-menu-dark"
+    class="t-default-menu"
     style="width: 265px;"
   >
     <div
@@ -170,20 +170,20 @@ exports[`multiSide.jsx 1`] = `
               </span>
             </span>
             <svg
-              class="t-icon t-icon-chevron-right t-submenu-icon"
+              class="t-icon t-icon-chevron-down t-submenu-icon"
               version="1.1"
               viewBox="0 0 1024 1024"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+                d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
                 fill-opacity=".9"
                 fill-rule="evenodd"
               />
             </svg>
           </li>
           <ul
-            class="t-menu__popup t-menu__popup-scale"
+            class="t-menu__dropdown"
             style="max-height: 0;"
           >
             <li
@@ -225,20 +225,20 @@ exports[`multiSide.jsx 1`] = `
               </span>
             </span>
             <svg
-              class="t-icon t-icon-chevron-right t-submenu-icon"
+              class="t-icon t-icon-chevron-down t-submenu-icon"
               version="1.1"
               viewBox="0 0 1024 1024"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+                d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
                 fill-opacity=".9"
                 fill-rule="evenodd"
               />
             </svg>
           </li>
           <ul
-            class="t-menu__popup t-menu__popup-scale"
+            class="t-menu__dropdown"
             style="max-height: 0;"
           >
             <div
@@ -257,20 +257,20 @@ exports[`multiSide.jsx 1`] = `
                   </span>
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-right t-submenu-icon"
+                  class="t-icon t-icon-chevron-down t-submenu-icon"
                   version="1.1"
                   viewBox="0 0 1024 1024"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+                    d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
                     fill-opacity=".9"
                     fill-rule="evenodd"
                   />
                 </svg>
               </li>
               <ul
-                class="t-menu__popup t-menu__popup-scale"
+                class="t-menu__dropdown"
                 style="max-height: 0;"
               >
                 <li
@@ -298,20 +298,20 @@ exports[`multiSide.jsx 1`] = `
                   </span>
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-right t-submenu-icon"
+                  class="t-icon t-icon-chevron-down t-submenu-icon"
                   version="1.1"
                   viewBox="0 0 1024 1024"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M758.8081664000001 489.6127065600001C771.27697472 502.10946816 771.2543136 522.34806144 758.757552 534.8168691200001L758.757552 534.8168691200001 383.6690304000001 909.0663616 338.4141952 863.8115328 690.7689683200001 512.20006272 338.4141952 160.8056710400001 383.6690304 115.5508371200001 758.41696832 489.22406272 758.757552 489.56206336Z"
+                    d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
                     fill-opacity=".9"
                     fill-rule="evenodd"
                   />
                 </svg>
               </li>
               <ul
-                class="t-menu__popup t-menu__popup-scale"
+                class="t-menu__dropdown"
                 style="max-height: 0;"
               >
                 <li
@@ -358,7 +358,7 @@ exports[`multiple.jsx 1`] = `
       >
         <img
           alt="logo"
-          class="tdesign-demo-menu__logo"
+          class="tdesign-demo-menu__logo margin_0"
           src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
         />
       </div>
@@ -512,7 +512,7 @@ exports[`single.jsx 1`] = `
       >
         <img
           alt="logo"
-          class="tdesign-demo-menu__logo"
+          class="tdesign-demo-menu__logo margin_0"
           src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
         />
       </div>

@@ -12,7 +12,7 @@ function Multiple() {
       onChange={(v) => setActive(v)}
       logo={
         <img
-          className="tdesign-demo-menu__logo"
+          className="tdesign-demo-menu__logo margin_0"
           src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
           alt="logo"
         />

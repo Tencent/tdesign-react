@@ -8,9 +8,8 @@ function MultiSide() {
 
   return (
     <Menu
-      theme="dark"
       value={active}
-      expandType="popup"
+      // expandType="popup"
       collapsed={collapsed}
       onCollapsed={({ collapsed }) => setCollapsed(collapsed)}
       expandMutex

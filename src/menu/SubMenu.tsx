@@ -13,10 +13,12 @@ export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 const SubAccordion: FC<SubMenuProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style } = props;
   const { classPrefix } = useConfig();
+  // popup 状态下控制开关
   const [open, setOpen] = useState(false);
   const { expanded = [], onExpand, active, expandType } = useContext(MenuContext);
 
   const isPopUp = expandType === 'popup';
+  // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -57,7 +59,7 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
           [`${classPrefix}-is-opened`]: isPopUp && open,
         })}
         // 计算有多少子节点并设置最大高度，为做出动画效果
-        style={{ maxHeight: open && (isExpand || isPopUp) ? getSubMenuMaxHight(children) * 50 : 0 }}
+        style={{ maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHight(children) * 50 : 0 }}
       >
         {children}
       </ul>
