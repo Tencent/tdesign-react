@@ -14,8 +14,10 @@ enum VALIDATE_STATUS {
   SUCCESS = 'success',
   FAIL = 'fail',
 }
-
-export interface FormItemProps extends TdFormItemProps, StyledProps {}
+export interface FormItemProps extends TdFormItemProps, StyledProps {
+  // 子节点
+  children?: React.ReactNode;
+}
 
 const CHECKED_TYPE = [Checkbox, CheckTag];
 
