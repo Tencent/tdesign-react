@@ -84,8 +84,8 @@ export const getValue = (children, label) => {
   return selectedValue;
 };
 
-export const getMultipleTags = (value: SelectValue[]) => {
-  const tags = value.map((item) => {
+export const getMultipleTags = (values: SelectValue[]) => {
+  const tags = values.map((item) => {
     let { label, value } = item as SelectLabeledValue;
     if (isNumber(item) || isString(item)) {
       label = item.toString();
@@ -104,10 +104,14 @@ export const getSelectValueArr = (
   activeValue: SelectValue,
   activeLabel?: React.ReactNode,
   selected?: boolean,
+  valueType?: 'object' | 'value',
 ) => {
+  // eslint-disable-next-line no-param-reassign
+  values = Array.isArray(values) ? values : [];
+
   if (Array.isArray(values)) {
     let currentValues = [...values];
-    const isValueObj = isPlainObject(currentValues[0]);
+    const isValueObj = valueType === 'object';
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
@@ -125,5 +129,4 @@ export const getSelectValueArr = (
     }
     return currentValues;
   }
-  return [];
 };
