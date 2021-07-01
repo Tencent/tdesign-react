@@ -19,7 +19,7 @@ export default {
     include: ['prismjs', 'clipboard'],
   },
   server: {
-    host: '127.0.0.1',
+    host: '0.0.0.0',
     port: 15000,
     open: '/',
     https: false,
