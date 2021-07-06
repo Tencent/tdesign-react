@@ -47,9 +47,7 @@ function Components(props) {
   return (
     <td-doc-layout>
       <td-header ref={tdHeaderRef} slot="header"></td-header>
-      <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web">
-        <td-doc-platforms slot="platforms"></td-doc-platforms>
-      </td-doc-aside>
+      <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
       <td-doc-content ref={tdDocContentRef} slot="doc-content">
         {renderRouter}
