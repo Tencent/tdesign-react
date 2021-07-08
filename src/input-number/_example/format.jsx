@@ -9,7 +9,7 @@ export default function InputNumberExample() {
       max={15}
       min={-12}
       step={1.2}
-      formatter={(value) => value + '%'}
+      format={(value) => value + '%'}
       value={value}
       onChange={(value) => {
         console.log(value);

@@ -21,7 +21,6 @@ export default function InputNumberExample() {
         max={15}
         min={-12}
         value={value}
-        formatter={(value) => value + '%'}
         onChange={(value) => {
           console.log(value);
           setValue(value);
