@@ -4,6 +4,7 @@ import { Row, Col } from '@tencent/tdesign-react';
 export default function PullPushGrid() {
   return (
     <>
+      <Row>通过 `pull` `push` 进行排序</Row>
       <Row>
         <Col span={9} push={3}>
           <div>col-9 col-push-3</div>

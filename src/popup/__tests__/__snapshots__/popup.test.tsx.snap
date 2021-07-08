@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicUsageExample.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-default t-button--variant-base"
@@ -10,7 +10,7 @@ exports[`BasicUsageExample.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ControlledExample.jsx 1`] = `
+exports[`controlled.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-default t-button--variant-base"
@@ -20,7 +20,7 @@ exports[`ControlledExample.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PlacementsExample.jsx 1`] = `
+exports[`placements.jsx 1`] = `
 <DocumentFragment>
   <div
     style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
@@ -101,7 +101,7 @@ exports[`PlacementsExample.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`TriggersExample.jsx 1`] = `
+exports[`triggers.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-default t-button--variant-base"

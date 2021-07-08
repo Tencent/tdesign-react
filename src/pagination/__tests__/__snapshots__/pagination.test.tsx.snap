@@ -529,7 +529,7 @@ exports[`more.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`pageNum.jsx 1`] = `
+exports[`page-num.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination"
@@ -770,7 +770,7 @@ exports[`simple.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`simpleMini.jsx 1`] = `
+exports[`simple-mini.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-pagination t-size-s"

@@ -4,6 +4,7 @@ import { Row, Col } from '@tencent/tdesign-react';
 export default function OrderGrid() {
   return (
     <>
+      <Row>通过 `order` 来改变元素的排序。</Row>
       <Row>
         <Col span={3} order={4}>
           <div>1 col-order-4</div>

@@ -10,51 +10,7 @@ exports[`arrow.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`customize.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-tooltip-demo"
-  >
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      default
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      primary
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      success
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      danger
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      warning
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`noArrow.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
-  >
-    不带箭头等文字提示
-  </button>
-</DocumentFragment>
-`;
-
-exports[`placement.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
@@ -130,6 +86,50 @@ exports[`placement.jsx 1`] = `
       style="position: absolute; right: 0px; bottom: 50px;"
     >
       right-bottom
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`no-arrow.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    不带箭头等文字提示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      primary
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      success
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      danger
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      warning
     </button>
   </div>
 </DocumentFragment>

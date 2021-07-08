@@ -29,7 +29,6 @@ export default function transforms() {
 
       // 替换成对应 demo 文件
       source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
-        demoFileName = demoFileName.replace(/-(\w)/g, (all, letter) => letter.toUpperCase());
         const demoPath = path.resolve(resouceDir, `./_example/${demoFileName}.jsx`);
         if (!fs.existsSync(demoPath)) return '\n<h3>DEMO (🚧建设中）...</h3>';
 

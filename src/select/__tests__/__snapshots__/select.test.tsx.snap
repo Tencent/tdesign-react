@@ -297,7 +297,7 @@ exports[`keys.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`labelInValue.jsx 1`] = `
+exports[`label-in-value.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"
@@ -545,7 +545,7 @@ exports[`options.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`popupProps.jsx 1`] = `
+exports[`popup-props.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"

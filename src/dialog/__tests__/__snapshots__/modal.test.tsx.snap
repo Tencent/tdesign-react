@@ -1,43 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotModalExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-    >
-      Open Modal
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`PositionExample.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-      >
-        默认
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-      >
-        顶部
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-      >
-        自定义
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`async.jsx 1`] = `
 <DocumentFragment>
   <div>
@@ -95,6 +57,44 @@ exports[`icon.jsx 1`] = `
     >
       Open Modal
     </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`modal.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      Open Modal
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`position.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px;"
+      >
+        默认
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px;"
+      >
+        顶部
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        自定义
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

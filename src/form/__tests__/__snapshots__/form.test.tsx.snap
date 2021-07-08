@@ -430,7 +430,7 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`customValidator.jsx 1`] = `
+exports[`custom-validator.jsx 1`] = `
 <DocumentFragment>
   <div>
     <form
@@ -1149,7 +1149,7 @@ exports[`validator.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`validatorStatus.jsx 1`] = `
+exports[`validator-status.jsx 1`] = `
 <DocumentFragment>
   <div>
     <form

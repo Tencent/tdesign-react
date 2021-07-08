@@ -1,78 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ThemeTabs.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      default
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      card
-    </button>
-    <div
-      class="t-tabs"
-    >
-      <div
-        class="t-tabs__header t-is-top"
-      >
-        <div
-          class="t-tabs__nav"
-        >
-          <div
-            class="t-tabs__nav-container t-is-top"
-          >
-            <div
-              class="t-tabs__nav-scroll"
-            >
-              <div
-                class="t-tabs__nav-wrap"
-              >
-                <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
-                >
-                  1
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div>
-                    2
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-tabs__content t-is-top"
-      >
-        <div
-          class="t-tab-panel"
-        >
-          <div
-            style="margin: 20px;"
-          >
-            这是一个Tabs
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -281,7 +208,7 @@ exports[`custom.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`disabledTabs.jsx 1`] = `
+exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -751,6 +678,79 @@ exports[`size.jsx 1`] = `
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
                 >
                   选项卡二
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content t-is-top"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          <div
+            style="margin: 20px;"
+          >
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-base"
+    >
+      card
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__nav-container t-is-top"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__bar t-is-top"
+                />
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                >
+                  1
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div>
+                    2
+                  </div>
                 </div>
               </div>
             </div>

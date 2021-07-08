@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customHeader.jsx 1`] = `
+exports[`custom-header.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-head-menu t-menu--dark"
@@ -134,7 +134,7 @@ exports[`double.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`multiSide.jsx 1`] = `
+exports[`multi-side.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-default-menu"
@@ -595,7 +595,7 @@ exports[`single.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`singleSide.jsx 1`] = `
+exports[`single-side.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-default-menu"
