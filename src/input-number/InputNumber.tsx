@@ -48,11 +48,11 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
 
   const [internalInputValue, setInternalInputValue] = useState<InputNumberInternalValue>(() => {
     let initialValue: InputNumberInternalValue = '';
-    if (!numberUtils.isInvalidNumber(value)) {
-      initialValue = value;
-    }
     if (!numberUtils.isInvalidNumber(defaultValue)) {
       initialValue = getRangeValue(Number(defaultValue));
+    }
+    if (!numberUtils.isInvalidNumber(value)) {
+      initialValue = value;
     }
 
     if (format && initialValue !== '') {
