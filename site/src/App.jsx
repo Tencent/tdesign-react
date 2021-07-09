@@ -7,9 +7,6 @@ import { getRoute, getContributors } from './utils/index';
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
 function Components(props) {
-  const componentName = props.match.params['0'];
-  const isComponentPath = !['install', 'changelog'].includes(componentName);
-
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
@@ -25,6 +22,7 @@ function Components(props) {
         component={dynamic(nav.component, {
           contributors: getContributors(nav.name) || [],
           isComponent: !['install', 'changelog'].includes(nav.name),
+          docType: nav.docType,
         })}
       ></Route>
     ));
@@ -39,10 +37,6 @@ function Components(props) {
       window.scrollTo(0, 0);
     };
   }, []);
-
-  useEffect(() => {
-    tdDocContentRef.current.isComponent = isComponentPath;
-  }, [isComponentPath]);
 
   return (
     <td-doc-layout>

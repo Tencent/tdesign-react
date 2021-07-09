@@ -84,10 +84,11 @@ export default function transforms() {
           export default function TdDoc(props) {
             const tdDocHeader = useRef();
             const tdDocTabs = useRef();
-            const { isComponent, contributors } = props;
+            const { isComponent, contributors, docType } = props;
             const [tab, setTab] = useState('demo');
 
             useEffect(() => {
+              tdDocHeader.current.docType = docType;
               tdDocHeader.current.contributors = contributors;
               tdDocHeader.current.docInfo = {
                 title: \`${title}\`,
