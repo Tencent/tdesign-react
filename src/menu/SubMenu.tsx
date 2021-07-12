@@ -1,5 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
-import { ChevronDownIcon, ChevronRightIcon } from '@tencent/tdesign-react';
+import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
+import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdSubmenuProps } from '../_type/components/menu';

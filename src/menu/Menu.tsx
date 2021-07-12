@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ViewListIcon } from '@tencent/tdesign-react';
+import ViewListIcon from '../icon/icons/ViewListIcon';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
