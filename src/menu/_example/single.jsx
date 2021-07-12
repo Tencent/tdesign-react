@@ -13,7 +13,8 @@ function Single() {
       logo={
         <img
           className="margin_0"
-          src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
           alt="logo"
         />
       }

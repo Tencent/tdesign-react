@@ -13,7 +13,8 @@ function Double() {
       logo={
         <img
           className="margin_0"
-          src="https://main.qcloudimg.com/raw/4927884bb0c43e726c5915d5bef49ef3/head-logo-dark.png"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
           alt="logo"
         />
       }
