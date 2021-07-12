@@ -19,11 +19,11 @@ function Single() {
         />
       }
       operations={
-        <div>
+        <>
           <UserAddIcon />
           <AppIcon />
           <CallIcon />
-        </div>
+        </>
       }
     >
       <MenuItem value={'0'}>
