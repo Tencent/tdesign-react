@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import ViewListIcon from '../icon/icons/ViewListIcon';
 import classNames from 'classnames';
+import ViewListIcon from '../icon/icons/ViewListIcon';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdMenuProps } from '../_type/components/menu';

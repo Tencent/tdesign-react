@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
+import classNames from 'classnames';
 import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
 import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
-import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdSubmenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
