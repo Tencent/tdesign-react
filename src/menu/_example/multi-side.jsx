@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Menu, SubMenu, MenuItem, IconFont } from '@tencent/tdesign-react';
+import { Menu, SubMenu, MenuItem, UserIcon, InternetIcon } from '@tencent/tdesign-react';
 
 function MultiSide() {
   const [active, setActive] = useState('0');
@@ -21,7 +21,7 @@ function MultiSide() {
         )
       }
     >
-      <SubMenu value="0" title={<span>菜单1</span>} icon={<IconFont name="layers" />}>
+      <SubMenu value="0" title={<span>菜单1</span>} icon={<UserIcon />}>
         <MenuItem value="0-1">
           <span>子菜单1</span>
         </MenuItem>
@@ -32,13 +32,13 @@ function MultiSide() {
       <MenuItem value="7" disabled>
         <span>菜单二</span>
       </MenuItem>
-      <SubMenu value="sub-2" title={<span>菜单三</span>} icon={<IconFont name="user" />}>
-        <SubMenu value="sub-3" title={<span>二级菜单-1</span>} icon={<IconFont name="user" />}>
+      <SubMenu value="sub-2" title={<span>菜单三</span>} icon={<UserIcon />}>
+        <SubMenu value="sub-3" title={<span>二级菜单-1</span>} icon={<UserIcon />}>
           <MenuItem value="5">
             <span>三级菜单-1</span>
           </MenuItem>
         </SubMenu>
-        <SubMenu value="sub-4" title={<span>二级菜单-2</span>} icon={<IconFont name="InternetIcon" />}>
+        <SubMenu value="sub-4" title={<span>二级菜单-2</span>} icon={<InternetIcon />}>
           <MenuItem value="6">
             <span>三级菜单-2</span>
           </MenuItem>

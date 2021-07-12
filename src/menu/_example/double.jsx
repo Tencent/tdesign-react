@@ -12,7 +12,7 @@ function Double() {
       onChange={(v) => setActive(v)}
       logo={
         <img
-          className="tdesign-demo-menu__logo margin_0"
+          className="margin_0"
           src="https://main.qcloudimg.com/raw/4927884bb0c43e726c5915d5bef49ef3/head-logo-dark.png"
           alt="logo"
         />

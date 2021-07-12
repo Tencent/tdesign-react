@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IconFont } from '@tencent/tdesign-react';
+import { ViewListIcon } from '@tencent/tdesign-react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
@@ -7,7 +7,6 @@ import { TdMenuProps } from '../_type/components/menu';
 import { MenuContext } from './MenuContext';
 import { DEFAULT_MENU_WIDTH } from './_util/constant';
 import useMenuContext from './hooks/useMenuContext';
-
 export interface MenuProps extends TdMenuProps, StyledProps {}
 
 const Menu: FC<MenuProps> = (props) => {
@@ -34,10 +33,9 @@ const Menu: FC<MenuProps> = (props) => {
           <ul className={`${classPrefix}-menu`}>{children}</ul>
         </div>
         <div className={`${classPrefix}-menu__options`}>
-          <IconFont
-            name="view-list"
+          <ViewListIcon
             className={`${classPrefix}-collapsed-icon`}
-            onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => onCollapsed({ collapsed: !collapsed, e })}
+            onClick={(e: React.MouseEvent<SVGSVGElement, MouseEvent>) => onCollapsed({ collapsed: !collapsed, e })}
           />
         </div>
       </div>

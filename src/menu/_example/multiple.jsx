@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { HeadMenu, SubMenu, MenuItem, IconFont } from '@tencent/tdesign-react';
+import { HeadMenu, SubMenu, MenuItem, InternetIcon, UserIcon } from '@tencent/tdesign-react';
 
 function Multiple() {
   const [active, setActive] = useState('0');
@@ -12,7 +12,7 @@ function Multiple() {
       onChange={(v) => setActive(v)}
       logo={
         <img
-          className="tdesign-demo-menu__logo margin_0"
+          className="margin_0"
           src="https://main.qcloudimg.com/raw/9fe1217de2bd7eb623f70648a046e341/head-logo.png"
           alt="logo"
         />
@@ -29,13 +29,13 @@ function Multiple() {
       <MenuItem value="7" disabled>
         女装
       </MenuItem>
-      <SubMenu value="sub-2" title="水果蔬菜" icon={<IconFont name="user" />}>
-        <SubMenu value="sub-3" title="水果" icon={<IconFont name="user" />}>
+      <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
+        <SubMenu value="sub-3" title="水果" icon={<UserIcon />}>
           <MenuItem value="5">
             <span>苹果</span>
           </MenuItem>
         </SubMenu>
-        <SubMenu value="sub-4" title="蔬菜" icon={<IconFont name="InternetIcon" />}>
+        <SubMenu value="sub-4" title="蔬菜" icon={<InternetIcon />}>
           <MenuItem value="6">黄瓜</MenuItem>
         </SubMenu>
       </SubMenu>
