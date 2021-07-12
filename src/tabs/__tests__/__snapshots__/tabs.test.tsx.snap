@@ -706,12 +706,12 @@ exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       default
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       card
     </button>

@@ -412,7 +412,7 @@ exports[`base.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-left: 12px;"
               type="reset"
               value=""
@@ -544,7 +544,7 @@ exports[`custom-validator.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >
@@ -1132,7 +1132,7 @@ exports[`validator.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >
@@ -1475,7 +1475,7 @@ exports[`validator-status.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >

@@ -16,7 +16,7 @@ export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<H
 const Button = forwardRef(
   (
     {
-      theme = 'default',
+      theme,
       variant = 'base',
       icon,
       disabled,
@@ -39,6 +39,16 @@ const Button = forwardRef(
     let iconNode = icon;
     if (loading) iconNode = <LoadingIcon />;
 
+    let renderTheme = theme;
+
+    if (!theme) {
+      if (variant === 'base') {
+        renderTheme = 'primary';
+      } else {
+        renderTheme = 'default';
+      }
+    }
+
     return (
       <button
         ref={ref}
@@ -46,7 +56,7 @@ const Button = forwardRef(
           className,
           [
             `${classPrefix}-button`,
-            `${classPrefix}-button--theme-${theme}`,
+            `${classPrefix}-button--theme-${renderTheme}`,
             `${classPrefix}-button--variant-${variant}`,
           ],
           {

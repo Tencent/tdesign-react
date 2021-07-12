@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-block"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       主要按钮
     </button>
@@ -86,7 +86,7 @@ exports[`block.jsx 1`] = `
       style="display: flex; flex-direction: column; width: 50%; margin: auto;"
     >
       <button
-        class="t-button t-button--theme-default t-button--variant-base t-size-full-width"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
       >
         主按钮
       </button>
@@ -113,16 +113,11 @@ exports[`block.jsx 1`] = `
 exports[`ghost.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="background: rgb(221, 221, 221); padding: 24px;"
+    style="background: rgb(36, 36, 36); padding: 24px;"
   >
     <div
       class="tdesign-demo-block"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-base t-button--ghost"
-      >
-        幽灵按钮
-      </button>
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--ghost"
       >
@@ -143,11 +138,6 @@ exports[`ghost.jsx 1`] = `
       class="tdesign-demo-block"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base t-button--ghost"
-      >
-        幽灵按钮
-      </button>
-      <button
         class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost"
       >
         幽灵按钮
@@ -166,11 +156,6 @@ exports[`ghost.jsx 1`] = `
     <div
       class="tdesign-demo-block"
     >
-      <button
-        class="t-button t-button--theme-danger t-button--variant-base t-button--ghost"
-      >
-        幽灵按钮
-      </button>
       <button
         class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost"
       >
@@ -197,7 +182,7 @@ exports[`group.jsx 1`] = `
     class="button-wrap"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       确定
     </button>
@@ -211,7 +196,7 @@ exports[`group.jsx 1`] = `
     class="button-wrap"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       下一步
     </button>
@@ -225,12 +210,12 @@ exports[`group.jsx 1`] = `
     class="button-wrap"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       新建主机
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       重装系统
     </button>
@@ -261,7 +246,7 @@ exports[`group.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     <svg
       class="t-icon t-icon-search"
@@ -303,7 +288,7 @@ exports[`icon.jsx 1`] = `
     </span>
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base t-button--icon-only"
+    class="t-button t-button--theme-primary t-button--variant-base t-button--icon-only"
   >
     <svg
       class="t-icon t-icon-search"
@@ -327,17 +312,17 @@ exports[`shape.jsx 1`] = `
     class="tdesign-demo-block"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       主按钮
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-button--shape-round"
+      class="t-button t-button--theme-primary t-button--variant-base t-button--shape-round"
     >
       主按钮
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-button--shape-circle"
+      class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
     >
       i
     </button>
@@ -408,7 +393,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-s"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-s"
     >
       主按钮
     </button>
@@ -432,7 +417,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       主按钮
     </button>
@@ -456,7 +441,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
     >
       主按钮
     </button>

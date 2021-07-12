@@ -414,12 +414,12 @@ exports[`placement.jsx 1`] = `
     Left
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     Top
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     Bottom
   </button>

@@ -117,12 +117,12 @@ exports[`close.jsx 1`] = `
   </div>
   <br />
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     处理开关事件
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     处理定时关闭事件（3s）
   </button>
@@ -306,7 +306,7 @@ exports[`icon.jsx 1`] = `
 exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     偏移的信息
   </button>
@@ -373,23 +373,23 @@ exports[`operation.jsx 1`] = `
 exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     左上角
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     右上角
   </button>
   <br />
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     左下角
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     右下角
   </button>
@@ -399,22 +399,22 @@ exports[`placement.jsx 1`] = `
 exports[`plugin.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     信息
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     成功
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     警告
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     错误
   </button>
@@ -499,17 +499,17 @@ exports[`size.jsx 1`] = `
 exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     自由控制关闭时机
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     点击打开多个消息
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     点击关闭多个消息
   </button>
