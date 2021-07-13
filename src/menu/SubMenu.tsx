@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState, ReactElement } from 'react';
 import classNames from 'classnames';
 import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
 import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
@@ -22,7 +22,7 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation();
     onExpand(value, expanded);
   };
@@ -35,11 +35,20 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
 
   const Icon = isPopUp ? ChevronRightIcon : ChevronDownIcon;
 
+  const childrens = React.Children.map(children, (child) => React.cloneElement(child as ReactElement, {
+    className: classNames(
+      `${classPrefix}-menu__item--plain`,
+      `${classPrefix}-submenu__item`,
+      `${classPrefix}-submenu__item--icon`,
+    ),
+  }));
+
+  // 计算有多少子节点并设置最大高度，为做出动画效果
+  const childStyle = { maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHight(children) * 50 : 0 };
+
   return (
-    <div
+    <li
       className={classNames(className, `${classPrefix}-submenu`, {
-        [`${classPrefix}-is-opened`]: isExpand && !disabled,
-        [`${classPrefix}-is-active`]: checkSubMenuChildrenActive(children, active),
         [`${classPrefix}-is-disabled`]: disabled,
       })}
       onClick={handleClick}
@@ -47,24 +56,31 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
       onMouseEnter={() => handleMouseEvent('enter')}
       onMouseLeave={() => handleMouseEvent('leave')}
     >
-      <li className={`${classPrefix}-menu__item`}>
-        {icon} <span>{title}</span>
-        <Icon className={`${classPrefix}-submenu-icon`} />
-      </li>
-      <ul
-        className={classNames({
-          [`${classPrefix}-menu__dropdown`]: !isPopUp,
-          [`${classPrefix}-menu__dropdown--show`]: isExpand && !isPopUp,
-          [`${classPrefix}-menu__popup`]: isPopUp,
-          [`${classPrefix}-menu__popup-scale`]: isPopUp,
-          [`${classPrefix}-is-opened`]: isPopUp && open,
+      <div
+        className={classNames(`${classPrefix}-menu__item`, {
+          [`${classPrefix}-is-opened`]: isExpand && !disabled,
+          [`${classPrefix}-is-active`]: checkSubMenuChildrenActive(children, active),
         })}
-        // 计算有多少子节点并设置最大高度，为做出动画效果
-        style={{ maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHight(children) * 50 : 0 }}
       >
-        {children}
-      </ul>
-    </div>
+        {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
+        <Icon className={`${classPrefix}-submenu-icon`} />
+      </div>
+      {isPopUp ? (
+        <ul
+          className={classNames(`${classPrefix}-menu__popup`, `${classPrefix}-menu__popup-scale`, {
+            [`${classPrefix}-is-opened`]: isPopUp && open,
+          })}
+          key="popup"
+          style={childStyle}
+        >
+          {childrens}
+        </ul>
+      ) : (
+        <ul key="normal" style={childStyle} className={`${classPrefix}-menu__sub`}>
+          {childrens}
+        </ul>
+      )}
+    </li>
   );
 };
 
@@ -115,7 +131,6 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
           </ul>
         )}
       </li>
-      {isActive && !isPopUp && <ul className={`${classPrefix}-head-menu__submenu-box`}>{children}</ul>}
     </>
   );
 };

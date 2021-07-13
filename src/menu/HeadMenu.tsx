@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React, { FC, useMemo } from 'react';
+import React, { FC, ReactElement, useMemo } from 'react';
+import { Tabs, TabPanel } from '@tencent/tdesign-react';
+import isObject from 'lodash/isObject';
 import { StyledProps } from '../_type';
 import { TdHeadMenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
@@ -14,10 +16,15 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
   const { classPrefix } = useConfig();
   const { value } = useMenuContext({ ...props, children, mode: 'title' });
 
-  const needPlaceholder = useMemo(
-    () => value.expandType !== 'popup' && checkSubMenuActive(children, value.active),
-    [children, value.expandType, value.active],
-  );
+  const childs: ReactElement[] | null = useMemo(() => {
+    if (value.expandType === 'popup') return null;
+    const activeMenu: ReactElement = checkSubMenuActive(children, value.active);
+    if (!activeMenu) return null;
+    const child = activeMenu.props.children;
+    if (Array.isArray(child)) return child;
+    if (isObject(child)) return [child];
+    return activeMenu.props.children;
+  }, [children, value.expandType, value.active]);
 
   return (
     <MenuContext.Provider value={value}>
@@ -30,7 +37,15 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
           <ul className={`${classPrefix}-menu`}>{children}</ul>
           {operations && <div className={`${classPrefix}-menu__options`}>{operations}</div>}
         </div>
-        {needPlaceholder && <ul className={`${classPrefix}-head-menu__submenu`}></ul>}
+        {childs?.length > 0 && (
+          <ul className={`${classPrefix}-head-menu__submenu ${classPrefix}-submenu`}>
+            <Tabs value={value.active} onChange={value.onChange}>
+              {childs.map(({ props }) => (
+                <TabPanel value={props.value} key={props.value} label={props.children}></TabPanel>
+              ))}
+            </Tabs>
+          </ul>
+        )}
       </div>
     </MenuContext.Provider>
   );
