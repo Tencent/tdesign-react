@@ -86,52 +86,103 @@ exports[`double.jsx 1`] = `
         class="t-menu"
       >
         <li
-          class="t-menu__item t-is-active"
+          class="t-submenu"
         >
-          <span>
-            菜单1
-          </span>
-        </li>
-        <ul
-          class="t-head-menu__submenu-box"
-        >
-          <li
+          <div
             class="t-menu__item t-is-active"
           >
-            子菜单1
-          </li>
-          <li
+            <span>
+              菜单1
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
             class="t-menu__item"
           >
-            子菜单2
-          </li>
-        </ul>
-        <li
-          class="t-menu__item"
-        >
-          <span>
-            菜单2
-          </span>
+            <span>
+              菜单2
+            </span>
+          </div>
         </li>
         <li
-          class="t-menu__item"
+          class="t-submenu"
         >
-          <span>
-            菜单3
-          </span>
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单3
+            </span>
+          </div>
         </li>
         <li
-          class="t-menu__item"
+          class="t-submenu"
         >
-          <span>
-            菜单4
-          </span>
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单4
+            </span>
+          </div>
         </li>
       </ul>
     </div>
     <ul
-      class="t-head-menu__submenu"
-    />
+      class="t-head-menu__submenu t-submenu"
+    >
+      <div
+        class="t-tabs"
+      >
+        <div
+          class="t-tabs__header t-is-top"
+        >
+          <div
+            class="t-tabs__nav"
+          >
+            <div
+              class="t-tabs__nav-container t-is-top"
+            >
+              <div
+                class="t-tabs__nav-scroll"
+              >
+                <div
+                  class="t-tabs__nav-wrap"
+                >
+                  <div
+                    class="t-tabs__bar t-is-top"
+                    style="transform: translateX(0px);"
+                  />
+                  <div
+                    class="t-tabs__bar t-is-top"
+                  />
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                  >
+                    子菜单1
+                  </div>
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-top"
+                  >
+                    子菜单2
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-tabs__content t-is-undefined"
+        >
+          <div
+            class="t-tab-panel"
+          />
+        </div>
+      </div>
+    </ul>
   </div>
 </DocumentFragment>
 `;
@@ -157,74 +208,187 @@ exports[`multi-side.jsx 1`] = `
       <ul
         class="t-menu"
       >
-        <div
+        <li
           class="t-submenu"
         >
-          <li
+          <div
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user"
+              class="t-icon t-icon-app"
               version="1.1"
               viewBox="0 0 1024 1024"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+                d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
                 fill-opacity=".9"
                 fill-rule="evenodd"
               />
             </svg>
              
-            <span>
-              <span>
-                菜单1
-              </span>
+            <span
+              class="t-menu__content"
+            >
+              仪表盘
             </span>
             <svg
-              class="t-icon t-icon-chevron-down t-submenu-icon"
-              version="1.1"
-              viewBox="0 0 1024 1024"
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                fill-opacity=".9"
-                fill-rule="evenodd"
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
               />
             </svg>
-          </li>
+          </div>
           <ul
-            class="t-menu__dropdown"
+            class="t-menu__sub"
             style="max-height: 0;"
           >
             <li
-              class="t-menu__item"
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
             >
               <span>
                 子菜单1
               </span>
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
             >
               <span>
                 子菜单2
               </span>
             </li>
           </ul>
-        </div>
-        <li
-          class="t-menu__item t-is-disabled"
-        >
-          <span>
-            菜单二
-          </span>
         </li>
-        <div
+        <li
           class="t-submenu"
         >
-          <li
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-code"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M582.32658048 127.91995584L644.1458304 144.48437504 445.3728064 886.3154112 383.55355392 869.7509888 582.32658048 127.91995584ZM751.9765632 238.60743936L937.1946176 450.51445824C966.5849088 484.13974144 968.67616 533.17379968 943.3876992 568.997456L937.5496384 576.46132416 752.0949056 791.068896 703.67072 749.2227712C836.840224 599.94243008 901.1253312 521.42316608 896.5260416 513.66497984L703.789056 280.72589376 751.9765632 238.60743936ZM247.8902304 239.23559808L299.1055264 277.61519488 128.77083328 512C125.29200256 519.09518592 182.0702336 598.33344128 299.1055264 749.7147648L299.1055264 749.7147648 247.8902304 788.0943616 85.38020864 571.23437504 79.93347072 563.1451648C59.962098496 529.97418112 61.77767776 487.59176128 85.38020864 456.095584L85.38020864 456.095584 247.8902304 239.23559808Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                菜单1
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled"
+            >
+              <span>
+                菜单二
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-file"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 192C192 156.653776 220.653776 128 256 128L578.16149952 128C594.96967168 128 611.10319232 134.61220032 623.07685632 146.40821632L812.91536 333.43016064C825.1251648 345.45881728 832 361.8822816 832 379.02194368L832 832ZM512 448L512 192 256 192 256 832 768 832 768 448 512 448ZM576.12484096 192L576 192 576 384 768 384 576.12484096 192Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                菜单三
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
+            >
+              <span>
+                三级菜单-1
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
+            >
+              <span>
+                三级菜单-2
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
             class="t-menu__item"
           >
             <svg
@@ -240,136 +404,48 @@ exports[`multi-side.jsx 1`] = `
               />
             </svg>
              
-            <span>
+            <span
+              class="t-menu__content"
+            >
               <span>
                 菜单三
               </span>
             </span>
             <svg
-              class="t-icon t-icon-chevron-down t-submenu-icon"
-              version="1.1"
-              viewBox="0 0 1024 1024"
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                fill-opacity=".9"
-                fill-rule="evenodd"
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
               />
             </svg>
-          </li>
+          </div>
           <ul
-            class="t-menu__dropdown"
+            class="t-menu__sub"
             style="max-height: 0;"
           >
-            <div
-              class="t-submenu"
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
             >
-              <li
-                class="t-menu__item"
-              >
-                <svg
-                  class="t-icon t-icon-user"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                 
-                <span>
-                  <span>
-                    二级菜单-1
-                  </span>
-                </span>
-                <svg
-                  class="t-icon t-icon-chevron-down t-submenu-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </li>
-              <ul
-                class="t-menu__dropdown"
-                style="max-height: 0;"
-              >
-                <li
-                  class="t-menu__item"
-                >
-                  <span>
-                    三级菜单-1
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div
-              class="t-submenu"
+              <span>
+                三级菜单-1
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item"
             >
-              <li
-                class="t-menu__item"
-              >
-                <svg
-                  class="t-icon t-icon-internet"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M512 64C759.4235648 64 960 264.576432 960 512 960 759.4235648 759.4235648 960 512 960 264.576432 960 64 759.4235648 64 512 64 264.576432 264.576432 64 512 64ZM638.22606848 576.07419008L385.77393152 576.07419008C395.94045184 757.6513408 448.58471552 896 512 896 575.41528448 896 628.05954816 757.6513408 638.22606848 576.07419008ZM321.5474016 576.06637184L133.31800704 576.05163904C157.1124672 717.7622208 258.52469632 833.1461568 392.34098048 876.989728 351.65557696 807.4389952 327.64014848 699.8928 321.5474016 576.06637184ZM890.6819904 576.05163904L702.4525952 576.06637184C696.3598528 699.8928 672.3444224 807.4389952 631.63928064 876.9521984 765.4753024 833.1461568 866.8875328 717.7622208 890.6819904 576.05163904ZM392.38911808 146.9993152L388.02937024 148.451472C236.7837056 200.01202112 128 343.30211264 128 512L128 512 320 512 320.11929088 493.99317824C322.02325312 350.91520448 346.69427584 224.99882432 392.38911808 146.9993152ZM512 128L505.9744512 128.4179616C438.07961664 137.8569312 384 305.98200896 384 512L384 512 640 512C640 299.922656 582.692448 128 512 128L512 128ZM631.65901952 147.01027328L636.96861568 156.54154496C681.0717504 238.46589504 704 367.26339264 704 512L704 512 896 512C896 341.70330368 785.1445632 197.29828224 631.65901952 147.01027328Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                 
-                <span>
-                  <span>
-                    二级菜单-2
-                  </span>
-                </span>
-                <svg
-                  class="t-icon t-icon-chevron-down t-submenu-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </li>
-              <ul
-                class="t-menu__dropdown"
-                style="max-height: 0;"
-              >
-                <li
-                  class="t-menu__item"
-                >
-                  <span>
-                    三级菜单-2
-                  </span>
-                </li>
-              </ul>
-            </div>
+              <span>
+                三级菜单-2
+              </span>
+            </li>
           </ul>
-        </div>
-        <li
-          class="t-menu__item"
-        >
-          <span>
-            菜单四
-          </span>
         </li>
       </ul>
     </div>
@@ -415,41 +491,53 @@ exports[`multiple.jsx 1`] = `
         class="t-menu"
       >
         <li
-          class="t-menu__item t-is-active"
+          class="t-submenu"
         >
-          <span>
-            电器
-          </span>
-          <svg
-            class="t-icon t-icon-chevron-down t-submenu-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="t-menu__item t-is-active"
           >
-            <path
-              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <ul
-            class="t-menu__popup t-menu__popup-scale t-menu__popup-inner"
+            <span>
+              电器
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
           >
-            <li
-              class="t-menu__item"
+            <ul
+              class="t-menu__popup-wrapper"
             >
-              <span>
-                电视
-              </span>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                冰箱
-              </span>
-            </li>
-          </ul>
+              <li
+                class="t-menu__item"
+              >
+                <span>
+                  电视
+                </span>
+              </li>
+              <li
+                class="t-menu__item"
+              >
+                <span>
+                  冰箱
+                </span>
+              </li>
+            </ul>
+          </div>
         </li>
         <li
           class="t-menu__item t-is-disabled"
@@ -457,85 +545,51 @@ exports[`multiple.jsx 1`] = `
           女装
         </li>
         <li
-          class="t-menu__item"
+          class="t-submenu"
         >
-          <span>
-            水果蔬菜
-          </span>
-          <svg
-            class="t-icon t-icon-chevron-down t-submenu-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="t-menu__item"
           >
-            <path
-              d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <ul
-            class="t-menu__popup t-menu__popup-scale t-menu__popup-inner"
+            <span>
+              水果蔬菜
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
           >
-            <li
-              class="t-menu__item"
+            <ul
+              class="t-menu__popup-wrapper"
             >
-              <span>
-                水果
-              </span>
-              <svg
-                class="t-icon t-icon-chevron-down t-submenu-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
+              <li
+                class="t-menu__item"
               >
-                <path
-                  d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              <ul
-                class="t-menu__popup t-menu__popup-scale t-menu__popup-inner"
+                <span>
+                  苹果
+                </span>
+              </li>
+              <li
+                class="t-menu__item"
               >
-                <li
-                  class="t-menu__item"
-                >
-                  <span>
-                    苹果
-                  </span>
-                </li>
-              </ul>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                蔬菜
-              </span>
-              <svg
-                class="t-icon t-icon-chevron-down t-submenu-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              <ul
-                class="t-menu__popup t-menu__popup-scale t-menu__popup-inner"
-              >
-                <li
-                  class="t-menu__item"
-                >
-                  黄瓜
-                </li>
-              </ul>
-            </li>
-          </ul>
+                黄瓜
+              </li>
+            </ul>
+          </div>
         </li>
         <li
           class="t-menu__item"
@@ -668,28 +722,49 @@ exports[`single-side.jsx 1`] = `
           class="t-menu__item t-is-active"
         >
           <span>
-            菜单1
+            仪表盘
           </span>
         </li>
         <li
           class="t-menu__item"
         >
           <span>
-            菜单2
+            资源列表
           </span>
         </li>
         <li
           class="t-menu__item"
         >
           <span>
-            菜单3
+            视频区
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+        >
+          <span>
+            根目录
           </span>
         </li>
         <li
           class="t-menu__item"
         >
           <span>
-            菜单4
+            调度平台
+          </span>
+        </li>
+        <li
+          class="t-menu__item"
+        >
+          <span>
+            精准监控
+          </span>
+        </li>
+        <li
+          class="t-menu__item"
+        >
+          <span>
+            个人中心
           </span>
         </li>
       </ul>
