@@ -8,6 +8,7 @@ import './demo.less';
 
 import '../../common/site/lib/site.es.js';
 import '../../common/site/lib/style.css';
+// import '../../common/site/src/styles/docs.less'; // debug site style
 
 ReactDOM.render(
   <React.StrictMode>
