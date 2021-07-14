@@ -2,11 +2,11 @@ import React from 'react';
 import { SubMenu } from '..';
 import { MenuBlockType } from './type';
 
-export const getSubMenuMaxHight = (children: React.ReactNode) => {
+export const getSubMenuChildCount = (children: React.ReactNode) => {
   let count = 0;
   React.Children.forEach(children, (child: React.ReactElement) => {
     if ((child.type as typeof SubMenu).displayName === MenuBlockType.SubMenu) {
-      count += getSubMenuMaxHight(child.props.children) + 1;
+      count += getSubMenuChildCount(child.props.children) + 1;
     } else {
       count += 1;
     }
@@ -14,3 +14,6 @@ export const getSubMenuMaxHight = (children: React.ReactNode) => {
 
   return count;
 };
+
+const MENU_ITEM_HEIGHT = 50;
+export const getSubMenuMaxHeight = (children: React.ReactNode) => `${getSubMenuChildCount(children) * MENU_ITEM_HEIGHT}px`;

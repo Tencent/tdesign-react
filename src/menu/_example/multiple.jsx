@@ -11,12 +11,7 @@ function Multiple() {
       expandType="popup"
       onChange={(v) => setActive(v)}
       logo={
-        <img
-          className="margin_0"
-          src="https://www.tencent.com/img/index/menu_logo_hover.png"
-          width="136"
-          alt="logo"
-        />
+        <img className="margin_0" src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
       }
     >
       <SubMenu value="0" title="电器">
@@ -31,14 +26,10 @@ function Multiple() {
         女装
       </MenuItem>
       <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
-        <SubMenu value="sub-3" title="水果" icon={<UserIcon />}>
-          <MenuItem value="5">
-            <span>苹果</span>
-          </MenuItem>
-        </SubMenu>
-        <SubMenu value="sub-4" title="蔬菜" icon={<InternetIcon />}>
-          <MenuItem value="6">黄瓜</MenuItem>
-        </SubMenu>
+        <MenuItem value="5">
+          <span>苹果</span>
+        </MenuItem>
+        <MenuItem value="6">黄瓜</MenuItem>
       </SubMenu>
       <MenuItem value="9">其他</MenuItem>
     </HeadMenu>

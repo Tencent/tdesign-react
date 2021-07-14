@@ -12,22 +12,29 @@ function SingleSide() {
       onChange={(v) => setActive(v)}
       onCollapsed={({ collapsed }) => setCollapsed(collapsed)}
       logo={
-        collapsed ? null : (
-          <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
-        )
+        collapsed ? null : <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
       }
     >
       <MenuItem value={'0'}>
-        <span>菜单1</span>
+        <span>仪表盘</span>
       </MenuItem>
       <MenuItem value={'1'}>
-        <span>菜单2</span>
+        <span>资源列表</span>
       </MenuItem>
       <MenuItem value={'2'}>
-        <span>菜单3</span>
+        <span>视频区</span>
       </MenuItem>
-      <MenuItem value={'3'}>
-        <span>菜单4</span>
+      <MenuItem value={'3'} disabled>
+        <span>根目录</span>
+      </MenuItem>
+      <MenuItem value={'4'}>
+        <span>调度平台</span>
+      </MenuItem>
+      <MenuItem value={'5'}>
+        <span>精准监控</span>
+      </MenuItem>
+      <MenuItem value={'6'}>
+        <span>个人中心</span>
       </MenuItem>
     </Menu>
   );
