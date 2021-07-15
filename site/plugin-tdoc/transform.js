@@ -97,6 +97,11 @@ export default function transforms() {
               if (tdDocTabs.current) {
                 tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
               }
+              document.querySelector('td-doc-content').initAnchorHighlight();
+
+              return () => {
+                document.querySelector('td-doc-content').resetAnchorHighlight();
+              };
             }, []);
 
             function isShow(currentTab) {
