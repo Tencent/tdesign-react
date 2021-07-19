@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import isBoolean from 'lodash/isBoolean';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import { TdFormProps, FormValidateResult } from '../_type/components/form';
@@ -15,6 +16,14 @@ export type Result = FormValidateResult<FormData>;
 
 function isFunction(val: unknown) {
   return typeof val === 'function';
+}
+
+/**
+ * 判断是否空值 布尔值总不为空
+ * @param val
+ */
+function isValueEmpty(val: unknown) {
+  return isBoolean(val) ? false : isEmpty(val);
 }
 
 const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
@@ -98,6 +107,19 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
     });
   }
 
+  // 对外方法，获取整个表单的值
+  function getAllFieldsValue() {
+    const fieldsValue = {};
+    formItemsRef.current.forEach((formItemRef) => {
+      // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
+      if (formItemRef?.name && !isValueEmpty(formItemRef.value)) {
+        fieldsValue[formItemRef.name] = formItemRef.value;
+      }
+    });
+
+    return fieldsValue;
+  }
+
   // 对外方法，获取对应 formItem 的值
   function getFieldValue(name) {
     if (!name) return null;
@@ -116,7 +138,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
     });
   }
 
-  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate }));
+  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate, getAllFieldsValue }));
 
   return (
     <FormContext.Provider
