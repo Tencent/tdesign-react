@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, ReactElement, useMemo } from 'react';
-import { Tabs, TabPanel } from '@tencent/tdesign-react';
 import isObject from 'lodash/isObject';
+import { Tabs, TabPanel } from '../tabs';
 import { StyledProps } from '../_type';
 import { TdHeadMenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
