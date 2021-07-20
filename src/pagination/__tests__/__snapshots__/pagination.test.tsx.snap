@@ -24,7 +24,7 @@ exports[`base.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             5条/页
           </span>
@@ -153,7 +153,7 @@ exports[`jump.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             20条/页
           </span>
@@ -295,7 +295,7 @@ exports[`mini.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             5条/页
           </span>
@@ -424,7 +424,7 @@ exports[`more.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             5条/页
           </span>
@@ -553,7 +553,7 @@ exports[`page-num.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             20条/页
           </span>
@@ -682,7 +682,7 @@ exports[`simple.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             5条/页
           </span>
@@ -731,7 +731,7 @@ exports[`simple.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             1/20
           </span>
@@ -794,7 +794,7 @@ exports[`simple-mini.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             5条/页
           </span>
@@ -843,7 +843,7 @@ exports[`simple-mini.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             1/20
           </span>
@@ -906,7 +906,7 @@ exports[`total.jsx 1`] = `
             class="t-select-left-icon"
           />
           <span
-            class="t-select-placeholder t-select-selectedSingle"
+            class="t-select-selectedSingle"
           >
             10条/页
           </span>
