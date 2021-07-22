@@ -41,6 +41,7 @@ export default function ClosableTagExample() {
           icon={tag.icon}
         >
           {tag.name}
+          {i}
         </Tag>
       ))}
     </div>

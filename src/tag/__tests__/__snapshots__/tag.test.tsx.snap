@@ -1,97 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckTag.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <span
-    class="t-tag t-tag--default"
-    style="margin-right: 5px;"
-  >
-    标签1
-  </span>
-  <span
-    class="t-tag t-tag--default"
-    style="margin-right: 5px;"
-  >
-    标签2
-  </span>
-  <span
-    class="t-tag t-tag--default"
-    style="margin-right: 5px;"
-  >
-    标签3
-  </span>
+  <div>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      默认
+    </span>
+    <a
+      href="https://www.tencent.com/zh-cn"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      >
+        超链接
+      </span>
+    </a>
+  </div>
 </DocumentFragment>
 `;
 
-exports[`ClosableTag.jsx 1`] = `
+exports[`delete.jsx 1`] = `
 <DocumentFragment>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-    style="margin-right: 5px;"
+  <div
+    style="display: flex;"
   >
-    点击关闭0
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
+    <span
+      style="margin-right: 10px;"
     >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-    style="margin-right: 5px;"
-  >
-    点击关闭1
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
+      可删除
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-    style="margin-right: 5px;"
-  >
-    点击关闭2
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
+      可删除标签0
+      <svg
+        class="t-icon t-icon-close"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
+      <svg
+        class="t-icon t-icon-discount"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+      可删除标签1
+      <svg
+        class="t-icon t-icon-close"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      可删除标签2
+      <svg
+        class="t-icon t-icon-close"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+  </div>
 </DocumentFragment>
 `;
 
-exports[`DisableTag.jsx 1`] = `
+exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <span
-    class="t-tag t-tag--default"
+    class="t-tag t-tag--default t-tag--check"
     style="margin-right: 5px;"
   >
     有效标签
   </span>
   <span
-    class="t-tag t-tag--default t-tag--disabled"
+    class="t-tag t-tag--default t-tag--check t-tag--disabled"
     style="margin-right: 5px;"
   >
     无效标签
@@ -99,7 +117,29 @@ exports[`DisableTag.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MaxWidthTag.jsx 1`] = `
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+  >
+    <svg
+      class="t-icon t-icon-discount"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
+    默认标签
+  </span>
+</DocumentFragment>
+`;
+
+exports[`long-text.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
@@ -107,16 +147,33 @@ exports[`MaxWidthTag.jsx 1`] = `
   >
     超长省略文本标签超长省略文本标签
   </span>
+</DocumentFragment>
+`;
+
+exports[`selectable.jsx 1`] = `
+<DocumentFragment>
   <span
-    class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
-    style="margin-right: 5px; margin-bottom: 10px; max-width: 10%;"
+    class="t-tag t-tag--default t-tag--check t-tag--checked"
+    style="margin-right: 5px;"
   >
-    超长省略文本标签超长省略文本标签
+    选中
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--check"
+    style="margin-right: 5px;"
+  >
+    未选
+  </span>
+  <span
+    class="t-tag t-tag--default t-tag--check t-tag--disabled"
+    style="margin-right: 5px;"
+  >
+    Disabled
   </span>
 </DocumentFragment>
 `;
 
-exports[`ShapeTag.jsx 1`] = `
+exports[`shape.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
@@ -139,151 +196,30 @@ exports[`ShapeTag.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SizeTag.jsx 1`] = `
+exports[`size.jsx 1`] = `
 <DocumentFragment>
   <span
-    class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+    class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
     style="margin-right: 5px;"
   >
-    large
+    小型标签
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
     style="margin-right: 5px;"
   >
-    middle
+    默认标签
   </span>
   <span
-    class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+    class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
     style="margin-right: 5px;"
   >
-    small
+    大型标签
   </span>
 </DocumentFragment>
 `;
 
-exports[`ThemeTag.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <span>
-      默认：
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      default
-    </span>
-  </div>
-  <div>
-    <span>
-      深色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      浅色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      朴素：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      info
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
-      style="margin-right: 10px; margin-bottom: 10px;"
-    >
-      success
-    </span>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`base.jsx 1`] = `
+exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <div>
     <span>
@@ -303,11 +239,6 @@ exports[`base.jsx 1`] = `
       class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
     >
       primary
-    </span>
-    <span
-      class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
-    >
-      info
     </span>
     <span
       class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
@@ -335,11 +266,6 @@ exports[`base.jsx 1`] = `
       primary
     </span>
     <span
-      class="t-tag t-tag--info t-tag--light t-tag--middle t-tag--square"
-    >
-      info
-    </span>
-    <span
       class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
     >
       warning
@@ -365,11 +291,6 @@ exports[`base.jsx 1`] = `
       primary
     </span>
     <span
-      class="t-tag t-tag--info t-tag--plain t-tag--middle t-tag--square"
-    >
-      info
-    </span>
-    <span
       class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
     >
       warning
@@ -385,137 +306,5 @@ exports[`base.jsx 1`] = `
       success
     </span>
   </div>
-</DocumentFragment>
-`;
-
-exports[`delete.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-  >
-    点击关闭0
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-  >
-    点击关闭1
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-  >
-    点击关闭2
-    <svg
-      class="t-icon t-icon-close"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </span>
-</DocumentFragment>
-`;
-
-exports[`icon.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-  >
-    <svg
-      class="t-icon t-icon-call"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M314.13814976 127.90664832C275.81023616 127.277904 234.5088704 138.08312128 201.49404608 160.99936512L190.81145984 169.08759808C168.70275584 184.18336128 152.528672 205.95024192 142.86419008 231.79660608 136.14797504 249.75822656 134.20092224 261.00060416 130.87586496 289.99293824 119.21441344 414.6870912 177.4154112 550.95171136 297.112816 685.5017152 377.24172416 775.3827968 477.466992 842.6868736 579.92832256 875.0944768 623.25680704 888.7711488 664.8818496 895.8916224 702.555712 895.8916224 747.7294144 895.8916224 786.8595328 885.691008 816.2524544 865.1736896 842.9868992 845.708352 865.1947456 808.716032 886.1846656 753.105344 896.4778752 725.8345024 887.0431616 695.053504 863.2368 678.2339456L712.3614656 571.65356224C687.4661952 554.06720576 653.6228544 556.47965568 631.47106688 577.415616L617.29874688 591.28525248 601.03074688 608.06851072C597.48518336 612.26085632 589.01318272 618.63594048 588.93701504 618.64078336 569.306704 620.09977344 528.91922176 599.16592576 466.55025856 538.2179072L449.53806592 520.0814272C397.70344192 463.87785344 393.54580416 448.74759936 405.56930752 431.48240064L410.26915136 425.73013056C414.9161056 419.62130496 426.04435456 403.63333376 449.48916224 369.53265024 462.93771648 349.97160704 464.45468736 324.57373696 453.43013504 303.55095744L445.2230784 288.03667264C388.40504 181.60535936 354.2077824 132.9830656 319.133104 128.28074496L314.13814976 127.90664832ZM313.11263296 191.89774784C307.85203712 191.81611392 315.95486208 199.21515008 327.07944064 214.62207808 343.30409664 237.0923328 363.93942144 271.67431168 388.707984 318.07047872L396.75090304 333.2741888 361.9452128 383.70725248C361.18291328 384.88058176 360.87968192 385.41970112 361.12398976 385.20674816 317.92789376 440.20546688 330.04223872 487.57426496 421.00338048 583.16377152 496.0368256 656.5172608 552.06799744 685.5596224 593.34247552 682.4880448 615.92754752 681.053824 636.60989184 665.490592 648.9880768 650.3843904 655.1678208 643.9586816 661.3816576 637.632224 667.1586112 631.93376448L675.4352064 623.92641984 826.30784 730.5052032C809.3620864 775.4012928 792.696608 803.1615104 779.095712 813.0683968 762.0063552 824.9894784 735.5293504 831.8916224 702.555712 831.8916224 671.8091008 831.8916224 636.5887776 825.866752 599.2107936 814.0683712 508.11845248 785.2566656 417.58526016 724.461088 344.90742784 642.937952 236.0252576 520.54516032 184.80720896 400.629552 194.52860928 296.61689408L196.58529728 280.13727104C198.20375168 268.7427264 199.7822176 262.3105152 202.8105088 254.21175424 208.05497344 240.18613504 216.27713984 229.12084672 229.34400192 220.11296896 250.22759104 203.01123072 276.952096 193.87901824 302.32033216 192.17508288L313.11263296 191.89774784Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    default
-  </span>
-  <span
-    class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
-  >
-    <svg
-      class="t-icon t-icon-print"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M832 192C867.3462208 192 896 220.653776 896 256L896 640C896 675.3462208 867.3462208 704 832 704L768 704 768 832C768 867.3462208 739.3462208 896 704 896L320 896C284.653776 896 256 867.3462208 256 832L256 704 192 704C156.653776 704 128 675.3462208 128 640L128 256C128 220.653776 156.653776 192 192 192L832 192ZM320 832L704 832 704 512 320 512 320 832ZM832 256L192 256 192 640 256 640 256 512C256 476.653776 284.653776 448 320 448L704 448C739.3462208 448 768 476.653776 768 512L768 640 832 640 832 256ZM768 320L768 384 576 384 576 320 768 320ZM832 64L832 128 192 128 192 64 832 64Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    primary
-  </span>
-  <span
-    class="t-tag t-tag--info t-tag--dark t-tag--middle t-tag--square"
-  >
-    <svg
-      class="t-icon t-icon-logo-github"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 64C264.62933312 64 64 269.66302912 64 523.32558144 64 726.2709312 192.352 898.441472 370.39466688 959.1872832 392.75733312 963.4360448 400 949.1969472 400 937.101376L400 851.5902656C275.38133312 879.3794624 249.43466688 797.3898432 249.43466688 797.3898432 229.05066688 744.2994624 199.66933312 730.1752 199.66933312 730.1752 159.01333312 701.6587392 202.768 702.2711744 202.768 702.2711744 247.75466688 705.4864512 271.424 749.6199872 271.424 749.6199872 311.37066688 819.8202432 376.21866688 799.5333632 401.792 787.7822848 405.78666688 758.1175104 417.39733312 737.8306304 430.24 726.3857664 330.74666688 714.7112384 226.13866688 675.3240704 226.13866688 499.36409664 226.13866688 449.18277696 243.648 408.22624576 272.28266688 376.07345536 267.65333312 364.47548416 252.30933312 317.73910656 276.65066688 254.50528512 276.65066688 254.50528512 314.28266688 242.18004864 399.888 301.5861568 435.616 291.40443968 473.92 286.31358144 512 286.12219584 550.08 286.31358144 588.42133312 291.40443968 624.224 301.5861568 709.7546688 242.18004864 747.312 254.50528512 747.312 254.50528512 771.6906688 317.77738368 756.3466688 364.51376128 751.7173312 376.07345536 780.464 408.22624576 797.824 449.22105408 797.824 499.36409664 797.824 675.7833984 693.0293312 714.634688 593.27466688 726.0029952 609.328 740.2420864 624 768.1843904 624 811.054784L624 937.101376C624 949.3117824 631.168 963.6657024 653.904 959.1490048 831.7973312 898.3266432 960 726.1943808 960 523.32558144 960 269.66302912 759.408 64 512 64Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    info
-  </span>
-</DocumentFragment>
-`;
-
-exports[`selectable.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-tag t-tag--default"
-  >
-    标签1
-  </span>
-  <span
-    class="t-tag t-tag--default"
-  >
-    标签2
-  </span>
-  <span
-    class="t-tag t-tag--default"
-  >
-    标签3
-  </span>
 </DocumentFragment>
 `;

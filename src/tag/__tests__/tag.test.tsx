@@ -2,8 +2,8 @@ import React from 'react';
 import { testExamples, render, getByText, fireEvent } from '@test/utils';
 import Tag from '../Tag';
 import CheckTag from '../CheckTag';
-import ClosableTag from '../_example/ClosableTag';
-import DisableTag from '../_example/DisableTag';
+import ClosableTag from '../_example/delete';
+import DisableTag from '../_example/disabled';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -22,12 +22,12 @@ describe('Tag 组件测试', () => {
   });
 
   test('ClosableTag 点击后关闭按钮', async () => {
-    const tagRegExp = /点击关闭/;
+    const tagRegExp = /可删除标签/;
 
     const { queryAllByText, getByText } = render(<ClosableTag></ClosableTag>);
     // 点击i标签后，关闭一个，3个变2个
     expect(queryAllByText(tagRegExp).length).toEqual(3);
-    fireEvent.click(getByText('点击关闭0').querySelector('.t-icon-close'));
+    fireEvent.click(getByText('可删除标签0').querySelector('.t-icon-close'));
     expect(queryAllByText(tagRegExp).length).toEqual(2);
   });
 
