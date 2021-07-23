@@ -6,7 +6,7 @@ import { TdCheckTagProps } from '../_type/components/tag';
 import { StyledProps } from '../_type';
 
 /**
- * CheckTag 组件支持的属性。
+ * CheckTag 组件支持的属性
  */
 export interface CheckTagProps extends TdCheckTagProps, StyledProps {
   /**
@@ -16,16 +16,22 @@ export interface CheckTagProps extends TdCheckTagProps, StyledProps {
 }
 
 const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElement>) => {
-  const { checked, content, onChange, disabled, children, className, ...tagOtherProps } = props;
-  const [value, onValueChange] = useDefault(checked, false, onChange);
+  const { checked, content, defaultChecked, onChange, disabled, children, className, ...tagOtherProps } = props;
+  const [value, onValueChange] = useDefault(checked, defaultChecked, onChange);
 
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
-  const checkTagClassNames = classNames(tagClassPrefix, className, `${tagClassPrefix}--default`, {
-    [`${tagClassPrefix}--disabled`]: disabled,
-    [`${tagClassPrefix}--checked`]: value,
-  });
+  const checkTagClassNames = classNames(
+    tagClassPrefix,
+    className,
+    `${tagClassPrefix}--default`,
+    `${tagClassPrefix}--check`,
+    {
+      [`${tagClassPrefix}--disabled`]: disabled,
+      [`${tagClassPrefix}--checked`]: value,
+    },
+  );
 
   return (
     <span
