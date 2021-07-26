@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import useConfig from '../_util/useConfig';
@@ -46,8 +46,8 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
   } = props;
   const { classPrefix } = useConfig();
   const [value, setValue] = useState<InputValue>('');
-  const isShowClearIcon = useMemo(() => clearable && value && !disabled, [clearable, value, disabled]);
 
+  const isShowClearIcon = clearable && value && !disabled;
   const componentType = 'input';
   const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
   const suffixIconNew = isShowClearIcon ? <ClearIcon onClick={handleClear} /> : suffixIcon;
