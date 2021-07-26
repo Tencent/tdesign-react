@@ -40,6 +40,8 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
     defaultValue,
     onChange,
     onClear,
+    onEnter,
+    onKeydown,
     ...otherProps
   } = props;
   const { classPrefix } = useConfig();
@@ -71,10 +73,11 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
       value={value}
       {...eventProps}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
     />
   );
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.currentTarget;
     setValue(value);
     isFunction(onChange) && onChange(value, { e });
@@ -83,6 +86,14 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
     setValue('');
     isFunction(onChange) && onChange('', { e });
     isFunction(onClear) && onClear({ e });
+  }
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    const {
+      key,
+      currentTarget: { value },
+    } = e;
+    isFunction(onEnter) && key === 'Enter' && onEnter(value, { e });
+    isFunction(onKeydown) && onKeydown(value, { e });
   }
 
   useEffect(() => {

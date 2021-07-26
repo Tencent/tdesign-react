@@ -12,6 +12,9 @@ export default function InputExample() {
           console.log(value);
           onChange(value);
         }}
+        onEnter={(value) => {
+          console.log(value);
+        }}
       />
     </div>
   );
