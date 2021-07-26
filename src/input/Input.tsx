@@ -1,9 +1,11 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../_util/useConfig';
-import { TdInputProps } from '../_type/components/input';
+import { TdInputProps, InputValue } from '../_type/components/input';
 import { StyledProps } from '../_type';
 import { TElement } from '../_type/common';
+import ClearIcon from '../icon/icons/ClearCircleFilledIcon';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -25,12 +27,28 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TEleme
  * 组件
  */
 const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
-  const { disabled, status, size, className, style, prefixIcon, suffixIcon, ...otherProps } = props;
-
+  const {
+    disabled,
+    status,
+    size,
+    className,
+    style,
+    prefixIcon,
+    suffixIcon,
+    clearable,
+    value: inputValue,
+    defaultValue,
+    onChange,
+    ...otherProps
+  } = props;
   const { classPrefix } = useConfig();
+  const [value, setValue] = useState<InputValue>('');
+  const isShowClearIcon = useMemo(() => clearable && value && !disabled, [clearable, value, disabled]);
+
   const componentType = 'input';
   const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIcon);
+  const suffixIconNew = isShowClearIcon ? <ClearIcon onClick={handleClear} /> : suffixIcon;
+  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
 
   const inputPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
   const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {});
@@ -44,7 +62,32 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
 
   const inputClassNames = classNames(className, `${classPrefix}-${componentType}__inner`);
 
-  const renderInput = <input className={inputClassNames} disabled={disabled} {...inputProps} {...eventProps} />;
+  const renderInput = (
+    <input
+      className={inputClassNames}
+      disabled={disabled}
+      {...inputProps}
+      value={value}
+      {...eventProps}
+      onChange={handleChange}
+    />
+  );
+
+  function handleChange(e) {
+    const { value } = e.currentTarget;
+    setValue(value);
+    isFunction(onChange) && onChange(value, { e });
+  }
+  function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+    setValue('');
+    isFunction(onChange) && onChange('', { e });
+  }
+
+  useEffect(() => {
+    const valueNew = inputValue || defaultValue || '';
+    setValue(valueNew);
+  }, [inputValue, defaultValue]);
+
   return (
     <div
       ref={ref}
@@ -55,7 +98,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
         [`${classPrefix}-size-l`]: size === 'large',
         [`${classPrefix}-is-${status}`]: status,
         [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
-        [`${classPrefix}-${componentType}--suffix`]: suffixIcon,
+        [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
       })}
     >
       {prefixIconContent}
