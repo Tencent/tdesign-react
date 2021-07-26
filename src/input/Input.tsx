@@ -39,6 +39,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
     value: inputValue,
     defaultValue,
     onChange,
+    onClear,
     ...otherProps
   } = props;
   const { classPrefix } = useConfig();
@@ -52,7 +53,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
 
   const inputPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
   const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {});
-  const eventPropsNames = Object.keys(props).filter((key) => /^on[A-Z]/.test(key));
+  const eventPropsNames = Object.keys(otherProps).filter((key) => /^on[A-Z]/.test(key));
   const eventProps = eventPropsNames.reduce((eventProps, key) => {
     Object.assign(eventProps, {
       [key]: (e) => props[key](e.currentTarget.value, { e }),
@@ -81,6 +82,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
     setValue('');
     isFunction(onChange) && onChange('', { e });
+    isFunction(onClear) && onClear({ e });
   }
 
   useEffect(() => {

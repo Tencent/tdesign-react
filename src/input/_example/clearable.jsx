@@ -12,6 +12,9 @@ export default function InputExample() {
         onChange={(value) => {
           onChange(value);
         }}
+        onClear={() => {
+          console.log('onClear');
+        }}
       />
     </div>
   );
