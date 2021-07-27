@@ -18,6 +18,10 @@ export default function AddTabs() {
           theme={'card'}
           defaultValue={0}
           addable
+          onRemove={({ value }) => {
+            const newPanels = panels.filter((panel) => panel.value !== value);
+            setPanels(newPanels);
+          }}
           onAdd={() => {
             const newPanels = panels.concat({
               value: panels.length + 1,

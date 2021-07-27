@@ -29,6 +29,9 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     activeValue,
   } = props;
 
+  // 逻辑层较多处需要判断是否为 card 类型，进行逻辑抽象
+  const isCard = theme === 'card';
+
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
 
   // :todo 兼容老版本 TabBar 的实现
@@ -46,100 +49,173 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const [activeIndex, setActiveIndex] = useState(getIndex());
 
   // 判断滚动条是否需要展示
-  const [scrollBtnVisible, setScrollBtnVisible] = useState(true);
+  const [isScrollVisible, setIsScrollVisible] = useState(false);
+  const [leftScrollBtnVisible, setLeftScrollBtnVisible] = useState(false);
+  const [rightScrollBtnVisible, setRightScrollBtnVisible] = useState(false);
 
-  // 滚动条处理逻辑
+  // 滚动条 ref 定义
   const scrollBarRef = useRef(null);
-  const scrollClickHandler = (position: 'left' | 'right') => {
-    const ref = scrollBarRef.current;
-    if (ref) {
-      ref.scrollTo({
-        left: position === 'left' ? ref.scrollLeft - 200 : ref.scrollLeft + 200,
-        behavior: 'smooth',
-      });
-    }
-  };
 
-  // 检查当前内容区块是否超出滚动区块，判断左右滑动按钮是否展示
-  const checkScrollBtnVisible = (): boolean => {
+  /**
+   * @date 2021-07-26 15:57:46
+   * @desc 检查当前内容区块是否超出滚动区块，判断左右滑动按钮是否展示
+   * @param scrollLeft undefined|number undefined 时根据当前的滑块位置决定，number 时，以传入的参数作为当前滑块位置判断
+   *        需要此参数的目的: 滚动之后需要重新判断是否需要展示左右的滑块，而滚动过程中根据滑块位置判断会有误差，scrollTo 也不支持完成回调。
+   * @returns result [是否需要展示滚动, 是否需要展示左边调整滚动的按钮，是否需要展示右边调整滚动的按钮]
+   */
+  const getScrollBtnVisible = (scrollLeft: undefined | number = undefined): [boolean, boolean, boolean] => {
     if (!scrollBarRef.current || !navContainerRef.current) {
       // :todo 滚动条和内容区的 ref 任意一个不合法时，不执行此函数，暂时 console.error 打印错误
       console.error('[tdesign-tabs]滚动条和内容区 dom 结构异常');
-      return false;
+      return [false, false, false];
     }
 
-    return scrollBarRef.current.clientWidth < navContainerRef.current.clientWidth;
+    let innerScrollLeft = scrollBarRef.current.scrollLeft;
+    if (scrollLeft !== undefined) {
+      innerScrollLeft = scrollLeft;
+    }
+
+    const isScrollVisible = scrollBarRef.current.clientWidth < navContainerRef.current.clientWidth;
+    const leftVisible = innerScrollLeft > 0;
+    const rightVisible = isScrollVisible && innerScrollLeft < (navContainerRef.current.clientWidth - scrollBarRef.current.clientWidth);
+
+    return [isScrollVisible, leftVisible, rightVisible];
   };
 
   // 调用检查函数，并设置左右滑动按钮的展示状态
-  const setScrollBtnVisibleHandler = () => {
-    setScrollBtnVisible(checkScrollBtnVisible());
+  const setScrollBtnVisibleHandler = (scrollLeft: undefined | number = undefined) => {
+    const [isScrollVisible, leftVisible, rightVisible] = getScrollBtnVisible(scrollLeft);
+    setIsScrollVisible(isScrollVisible);
+    setLeftScrollBtnVisible(leftVisible);
+    setRightScrollBtnVisible(rightVisible);
+  };
+
+  // 滚动条处理逻辑
+  const scrollClickHandler = (position: 'left' | 'right') => {
+    const ref = scrollBarRef.current;
+    if (ref) {
+      const scrollLeft = position === 'left' ? ref.scrollLeft - 200 : ref.scrollLeft + 200;
+      ref.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth',
+      });
+      setScrollBtnVisibleHandler(scrollLeft);
+    }
+  };
+
+  // 滚动到最右侧 (目前专用在新增之后)
+  const scrollToRightEnd = () => {
+    if (navContainerRef.current && scrollBarRef.current) {
+      const scrollLeft = navContainerRef.current.clientWidth - scrollBarRef.current.clientWidth;
+      scrollBarRef.current.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth',
+      });
+      setScrollBtnVisibleHandler(scrollLeft);
+    }
   };
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
-  // eslint-disable-next-line operator-linebreak
-  const TabBarCom =
-    theme === 'card' ? null : <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navContainerRef} />;
+  const TabBarCom = isCard ? null : <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navContainerRef} />;
 
   // 组件初始化后判断当前是否需要展示滑动按钮
   useEffect(() => {
     setScrollBtnVisibleHandler();
-  });
+    // eslint-disable-next-line
+  }, []);
+
 
   return (
     <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
       <div className={classNames(tdTabsClassGenerator('nav'))}>
-        {addable ? (
-          <div
-            className={classNames(tdTabsClassGenerator('add-btn'), tdSizeClassGenerator(size))}
-            onClick={(e) => onAdd({ e })}
-          >
-            <AddIcon name={'add'} />
-          </div>
-        ) : null}
         <div
           className={classNames(
-            tdTabsClassGenerator('nav-container'),
-            tdClassGenerator(`is-${placement}`),
-            addable ? tdClassGenerator('is-addable') : '',
+            tdTabsClassGenerator('operations'),
+            tdTabsClassGenerator('operations--left'),
           )}
         >
-          {addable && scrollBtnVisible ? (
-            <>
-              <span
+          {
+            leftScrollBtnVisible ? (
+              <div
                 onClick={() => {
                   scrollClickHandler('left');
                 }}
                 className={classNames(
-                  tdTabsClassGenerator('scroll-btn'),
-                  tdTabsClassGenerator('scroll-btn--left'),
+                  tdTabsClassGenerator('btn'),
+                  tdTabsClassGenerator('btn--left'),
                   tdSizeClassGenerator(size),
                 )}
               >
                 <ChevronLeftIcon />
-              </span>
-              <span
+              </div>
+            ) : null
+          }
+        </div>
+        <div
+          className={classNames(
+            tdTabsClassGenerator('operations'),
+            tdTabsClassGenerator('operations--right'),
+          )}
+        >
+          {
+            rightScrollBtnVisible ? (
+              <div
                 onClick={() => {
                   scrollClickHandler('right');
                 }}
                 className={classNames(
-                  tdTabsClassGenerator('scroll-btn'),
-                  tdTabsClassGenerator('scroll-btn--right'),
+                  tdTabsClassGenerator('btn'),
+                  tdTabsClassGenerator('btn--right'),
                   tdSizeClassGenerator(size),
                 )}
               >
                 <ChevronRightIcon />
-              </span>
-            </>
-          ) : null}
+              </div>
+            ) : null
+          }
+          {
+            addable ? (
+              <div
+                className={classNames(
+                  tdTabsClassGenerator('add-btn'),
+                  tdTabsClassGenerator('btn'),
+                  tdSizeClassGenerator(size),
+                )}
+                onClick={(e) => {
+                  onAdd({ e });
+                  // 新增逻辑执行完成，数据渲染完成之后，判断是否需要展示右侧的数据
+                  setTimeout(() => {
+                    scrollToRightEnd();
+                  }, 0);
+                }}
+              >
+                <AddIcon name={'add'} />
+              </div>
+            ) : null
+          }
+        </div>
+        <div
+          className={classNames(
+            tdTabsClassGenerator('nav-container'),
+            isCard ? tdTabsClassGenerator('nav--card') : '',
+            tdClassGenerator(`is-${placement}`),
+            addable ? tdClassGenerator('is-addable') : '',
+          )}
+        >
           <div
             className={classNames(
               tdTabsClassGenerator('nav-scroll'),
-              scrollBtnVisible ? tdClassGenerator('is-scrollable') : '',
+              isScrollVisible ? tdClassGenerator('is-scrollable') : '',
             )}
             ref={scrollBarRef}
           >
-            <div className={classNames(tdTabsClassGenerator('nav-wrap'))} ref={navContainerRef}>
+            <div
+              className={classNames(
+                tdTabsClassGenerator('nav-wrap'),
+                ['left', 'right'].includes(placement) ? tdClassGenerator('is-vertical') : '',
+              )}
+              ref={navContainerRef}
+            >
               {placement !== 'bottom' ? TabBarCom : null}
               <div className={classNames(tdTabsClassGenerator('bar'), tdClassGenerator(`is-${placement}`))} />
               {itemList.map((v, index) => (
