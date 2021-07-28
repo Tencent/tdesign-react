@@ -15,7 +15,6 @@ function useMenuContext({
   children,
   onExpand = noop,
   onChange = noop,
-  onCollapsed = noop,
   value,
   expanded,
   collapsed,
@@ -26,7 +25,6 @@ function useMenuContext({
   const [state, setState] = useState<MenuState>({
     active: defaultValue,
     expanded: defaultExpanded,
-    collapsed: collapsed || false,
   });
 
   const setStateValue: SetMenuState = (menuState) => setState({ ...state, ...menuState });
@@ -55,11 +53,6 @@ function useMenuContext({
     setState({ expanded: nextExpand });
   };
 
-  const handleCollapsed: typeof onCollapsed = ({ collapsed, e }) => {
-    onCollapsed({ collapsed, e });
-    setStateValue({ collapsed });
-  };
-
   return {
     value: {
       onExpand: handleExpandChange,
@@ -72,7 +65,6 @@ function useMenuContext({
       expandType: collapsed ? 'popup' : expandType,
       mode,
       theme,
-      onCollapsed: handleCollapsed,
     },
   };
 }

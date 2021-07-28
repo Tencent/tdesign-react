@@ -2,7 +2,7 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, MenuItem } from '@tencent/tdesign-react';
 
-function SingleSide() {
+function CustomSide() {
   const [active, setActive] = useState('0');
   const [darkActive, setDarkActive] = useState('1');
 
@@ -69,4 +69,4 @@ function SingleSide() {
   );
 }
 
-export default SingleSide;
+export default CustomSide;
