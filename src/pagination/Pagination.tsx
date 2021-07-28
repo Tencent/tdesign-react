@@ -260,8 +260,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     );
   };
 
-  if (pageCount === 1) return null;
-
   return (
     <div
       className={classNames(name, {
