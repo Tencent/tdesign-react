@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Input, InputGroup } from '@tencent/tdesign-react';
+import { Input } from '@tencent/tdesign-react';
 
 export default function InputExample() {
   const [value1, onChange1] = useState('');
   const [value2, onChange2] = useState('');
   return (
     <div className="tdesign-demo-item--input__input-box">
-      <InputGroup>
+      <Input.Group>
         <Input
           placeholder="姓"
           value={value1}
@@ -21,8 +21,8 @@ export default function InputExample() {
             onChange2(value);
           }}
         />
-      </InputGroup>
-      <InputGroup seperate>
+      </Input.Group>
+      <Input.Group seperate>
         <Input
           placeholder="姓"
           value={value1}
@@ -37,7 +37,7 @@ export default function InputExample() {
             onChange2(value);
           }}
         />
-      </InputGroup>
+      </Input.Group>
     </div>
   );
 }
