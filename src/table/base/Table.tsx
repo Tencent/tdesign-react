@@ -55,6 +55,10 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     [onPageChange],
   );
 
+  const onPageSizeChange = (pageSize: number) => {
+    setInnerPageSize(pageSize);
+  };
+
   if (pagination) {
     const { total, showJumper } = pagination;
     hasPagination = total > innerPageSize || (showJumper && total <= innerPageSize);
@@ -67,6 +71,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       const pageEnd = innerCurrent * innerPageSize;
       return data.slice(pageStart, pageEnd);
     }
+    return data;
   }, [data, innerPageSize, hasPagination, innerCurrent]);
   const isEmpty = !data.length;
 
@@ -107,6 +112,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
           current={innerCurrent}
           pageSize={innerPageSize}
           onChange={onInnerPaginationChange}
+          onPageSizeChange={onPageSizeChange}
         />
       </div>
     );
