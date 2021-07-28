@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { ViewListIcon, ChartIcon } from '@tencent/tdesign-react';
-import { Menu, MenuItem, MenuGroup } from './../index';
+import { Menu, MenuItem, MenuGroup, ViewListIcon, ChartIcon } from '@tencent/tdesign-react';
 
 function GroupSide() {
   const [value, setValue] = useState('1');

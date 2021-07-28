@@ -804,6 +804,12 @@ exports[`double.jsx 1`] = `
             class="t-tabs__nav"
           >
             <div
+              class="t-tabs__operations t-tabs__operations--left"
+            />
+            <div
+              class="t-tabs__operations t-tabs__operations--right"
+            />
+            <div
               class="t-tabs__nav-container t-is-top"
             >
               <div
@@ -822,12 +828,28 @@ exports[`double.jsx 1`] = `
                   <div
                     class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                   >
-                    子菜单1
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单1
+                      </span>
+                    </div>
                   </div>
                   <div
                     class="t-tabs__nav-item t-size-m t-is-top"
                   >
-                    子菜单2
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单2
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -921,6 +943,12 @@ exports[`double.jsx 1`] = `
             class="t-tabs__nav"
           >
             <div
+              class="t-tabs__operations t-tabs__operations--left"
+            />
+            <div
+              class="t-tabs__operations t-tabs__operations--right"
+            />
+            <div
               class="t-tabs__nav-container t-is-top"
             >
               <div
@@ -939,12 +967,28 @@ exports[`double.jsx 1`] = `
                   <div
                     class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                   >
-                    子菜单1
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单1
+                      </span>
+                    </div>
                   </div>
                   <div
                     class="t-tabs__nav-item t-size-m t-is-top"
                   >
-                    子菜单2
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单2
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

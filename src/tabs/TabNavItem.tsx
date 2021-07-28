@@ -33,6 +33,8 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     onTabRemove = noop,
   } = props;
 
+  const isCard = theme === 'card';
+
   // 样式变量和常量定义
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
 
@@ -41,14 +43,37 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
       onClick={disabled ? noop : onClick}
       className={classNames(
         tdTabsClassGenerator('nav-item'),
-        theme === 'card' ? tdTabsClassGenerator('nav--card') : '',
+        isCard ? tdTabsClassGenerator('nav--card') : '',
         tdSizeClassGenerator(size),
         isActive ? tdClassGenerator('is-active') : '',
         tdClassGenerator(`is-${placement}`),
         disabled ? tdClassGenerator('is-disabled') : '',
       )}
     >
-      {label}
+      {/* 根据新的 dom 结构和样式进行改动，卡片类型情况下不需要 nav-item-wrapper 这个 div */}
+      {
+        isCard ? (
+          <span
+            className={classNames(
+              tdTabsClassGenerator('nav-item-text-wrapper'),
+            )}
+          >
+            {label}
+          </span>
+        ) : (
+          <div className={classNames(
+            tdTabsClassGenerator('nav-item-wrapper'),
+          )}>
+            <span
+              className={classNames(
+                tdTabsClassGenerator('nav-item-text-wrapper'),
+              )}
+            >
+              {label}
+            </span>
+          </div>
+        )
+      }
       {removable ? (
         <CloseIcon
           name={'close'}
