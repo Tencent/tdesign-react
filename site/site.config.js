@@ -160,7 +160,7 @@ export default {
           component: () => import('@tencent/tdesign-react/select/README.md'),
         },
         {
-          title: 'Swtch 开关',
+          title: 'Switch 开关',
           name: 'switch',
           docType: 'form',
           path: '/react/components/switch',

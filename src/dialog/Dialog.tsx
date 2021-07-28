@@ -2,7 +2,7 @@ import React from 'react';
 import isString from 'lodash/isString';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '../icon';
 import { ConfigContext } from '../config-provider';
-import { Button } from '../index';
+import Button from '../button';
 import { TdDialogProps } from '../_type/components/dialog';
 import { StyledProps } from '../_type';
 import noop from '../_util/noop';

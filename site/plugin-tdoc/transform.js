@@ -18,7 +18,7 @@ export default function transforms() {
 
       // 统一换成 iwiki 文档内容
       if (name && source.includes(':: BASE_DOC ::')) {
-        const docPath = path.resolve(__dirname, `../../common/docs/web/api/${name}.md`);
+        const docPath = path.resolve(__dirname, `../../src/_common/docs/web/api/${name}.md`);
         if (fs.existsSync(docPath)) {
           const baseDoc = fs.readFileSync(docPath, 'utf-8');
           source = source.replace(':: BASE_DOC ::', baseDoc);
@@ -57,7 +57,7 @@ export default function transforms() {
       // 新增设计指南内容
       let designMd = '';
       let designResult = '';
-      const designDocPath = path.resolve(__dirname, `../../common/docs/web/design/${name}.md`);
+      const designDocPath = path.resolve(__dirname, `../../src/_common/docs/web/design/${name}.md`);
 
       if (fs.existsSync(designDocPath)) {
         designMd = fs.readFileSync(designDocPath, 'utf-8');

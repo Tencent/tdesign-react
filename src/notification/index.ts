@@ -1,5 +1,7 @@
 import Notification from './Notification';
 
+import './style/index.js';
+
 export type {
   NotificationThemeList,
   NotificationPlacementList,

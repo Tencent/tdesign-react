@@ -3,25 +3,36 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "module": "commonjs",
-    "target": "es5",
-    "rootDir": ".",
+    "module": "esnext",
+    "target": "esnext",
+    "outDir": "lib",
+    "declaration": true,
+    "sourceMap": true,
     "lib": ["es2017", "dom"],
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "outDir": ".ts-out",
-    "sourceMap": true,
+    "baseUrl": "./",
     "paths": {
       "@tencent/tdesign-react": ["./src"],
-      "@test/*": ["./test/*"]
+      "@test/utils": ["../test/*"],
+      "@common/*": ["src/_common/*"],
+      "@TdTypes/*": ["src/_type/*"],
     },
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    "esModuleInterop": true
   },
-  "include": ["src", "test", "global.d.ts"],
+  "include": ["./src", "./global.d.ts"],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example/*",
+    "node_modules",
+    "src/_common",
+    "dist",
+    "lib",
+    "esm",
+    "es"
+  ],
   "compileOnSave": false
 }

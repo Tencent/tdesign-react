@@ -4,7 +4,6 @@ export { default as Badge } from './badge';
 export { default as Button } from './button';
 export { default as Checkbox } from './checkbox';
 export { default as Input } from './input';
-export { default as InputGroup } from './input-group';
 export { default as InputNumber } from './input-number';
 export { default as ConfigProvider } from './config-provider';
 export * from './icon';

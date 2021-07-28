@@ -1,3 +1,5 @@
+import './style/index.js';
+
 export { default as Menu } from './Menu';
 export { default as HeadMenu } from './HeadMenu';
 export { default as SubMenu } from './SubMenu';

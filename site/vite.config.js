@@ -10,7 +10,7 @@ export default {
       '@': path.resolve(__dirname, '../'),
       '@docs': path.resolve(__dirname, './docs'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@common': path.resolve(__dirname, '../common'),
+      '@common': path.resolve(__dirname, '../src/_common'),
       '@tencent/tdesign-react': path.resolve(__dirname, '../src'),
     },
   },
