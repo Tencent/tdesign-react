@@ -8,7 +8,7 @@ import { MenuContext } from './MenuContext';
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}
 
 const MenuItem: FC<MenuItemProps> = (props) => {
-  const { content, children = content, disabled, href, target = '_self', value, className, style } = props;
+  const { content, children = content, disabled, href, target = '_self', value, className, style, icon } = props;
   const { classPrefix } = useConfig();
   const { onChange, setState, active } = useContext(MenuContext);
 
@@ -25,16 +25,18 @@ const MenuItem: FC<MenuItemProps> = (props) => {
       className={classNames(className, `${classPrefix}-menu__item`, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-active`]: value === active,
+        [`${classPrefix}-menu__item--plain`]: !icon,
       })}
       style={{ ...style }}
       onClick={handleClick}
     >
+      {icon}
       {href ? (
         <a href={href} target={target} className={classNames(`${classPrefix}-menu__item-link`)}>
-          {children}
+          <span className={`${classPrefix}-menu__content`}>{children}</span>
         </a>
       ) : (
-        children
+        <span className={`${classPrefix}-menu__content`}>{children}</span>
       )}
     </li>
   );
