@@ -46,14 +46,18 @@ const getPlugins = ({
     nodeResolve(),
     commonjs(),
     esbuild({
+      include: /\.[jt]sx?$/,
       target: 'esnext',
       minify: false,
-      jsx: 'preserve',
-      tsconfig: 'tsconfig.build.json',
+      jsx: 'transform',
+      jsxFactory: 'React.createElement',
+      jsxFragment: 'React.Fragment',
+      tsconfig: 'tsconfig.json',
     }),
     babel({
       babelHelpers: 'bundled',
-      extensions: [...DEFAULT_EXTENSIONS, '.jsx', '.ts', '.tsx'],
+      presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+      extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
     }),
     json(),
     url(),
@@ -155,22 +159,6 @@ const esConfig = {
 };
 
 /** @type {import('rollup').RollupOptions} */
-const esmConfig = {
-  input: inputList,
-  // 为了保留 style/index.js
-  treeshake: false,
-  external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins({ ignoreLess: false })),
-  output: {
-    banner,
-    dir: 'esm/',
-    format: 'esm',
-    sourcemap: true,
-    chunkFileNames: '_chunks/dep-[hash].js',
-  },
-};
-
-/** @type {import('rollup').RollupOptions} */
 const cjsConfig = {
   input: inputList,
   external: externalDeps.concat(externalPeerDeps),
@@ -224,4 +212,4 @@ const umdMinConfig = {
   },
 };
 
-export default [cssConfig, esConfig, esmConfig, cjsConfig, umdConfig, umdMinConfig];
+export default [cssConfig, esConfig, cjsConfig, umdConfig, umdMinConfig];
