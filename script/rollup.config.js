@@ -159,6 +159,22 @@ const esConfig = {
 };
 
 /** @type {import('rollup').RollupOptions} */
+const esmConfig = {
+  input: inputList,
+  // 为了保留 style/index.js
+  treeshake: false,
+  external: externalDeps.concat(externalPeerDeps),
+  plugins: [multiInput()].concat(getPlugins({ ignoreLess: false })),
+  output: {
+    banner,
+    dir: 'esm/',
+    format: 'esm',
+    sourcemap: true,
+    chunkFileNames: '_chunks/dep-[hash].js',
+  },
+};
+
+/** @type {import('rollup').RollupOptions} */
 const cjsConfig = {
   input: inputList,
   external: externalDeps.concat(externalPeerDeps),
@@ -212,4 +228,4 @@ const umdMinConfig = {
   },
 };
 
-export default [cssConfig, esConfig, cjsConfig, umdConfig, umdMinConfig];
+export default [cssConfig, esConfig, esmConfig, cjsConfig, umdConfig, umdMinConfig];
