@@ -5,13 +5,11 @@
  */
 import React from 'react';
 
-import {
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
-  HelpCircleFilledIcon,
-  InfoCircleFilledIcon,
-  LoadingIcon,
-} from '../icon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
+import HelpCircleFilledIcon from '../icon/icons/HelpCircleFilledIcon';
+import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
+import LoadingIcon from '../icon/icons/LoadingIcon';
 import { TdMessageProps } from '../_type/components/message';
 
 // theme 和 icon 的映射表

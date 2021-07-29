@@ -2,7 +2,9 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
-import { CheckCircleFilledIcon, ClearCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import ClearCircleFilledIcon from '../icon/icons/ClearCircleFilledIcon';
+import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
 import { CheckTag } from '../tag';
 import { StyledProps } from '../_type';

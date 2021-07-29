@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Form, FormItem, Input, Button, Message } from '@tencent/tdesign-react';
-import { LoadingIcon, AddRectangleIcon, HelpCircleIcon } from '../../icon';
+import LoadingIcon from '../../icon/icons/LoadingIcon';
+import AddRectangleIcon from '../../icon/icons/AddRectangleIcon';
+import HelpCircleIcon from '../../icon/icons/HelpCircleIcon';
 
 export default function BaseForm() {
   const onSubmit = (e) => {

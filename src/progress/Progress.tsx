@@ -1,12 +1,10 @@
 import React, { forwardRef } from 'react';
-import {
-  CheckCircleIcon,
-  ClearCircleIcon,
-  ErrorCircleIcon,
-  CheckCircleFilledIcon,
-  ClearCircleFilledIcon,
-  ErrorCircleFilledIcon,
-} from '../icon';
+import CheckCircleIcon from '../icon/icons/CheckCircleIcon';
+import ClearCircleIcon from '../icon/icons/ClearCircleIcon';
+import ErrorCircleIcon from '../icon/icons/ErrorCircleIcon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import ClearCircleFilledIcon from '../icon/icons/ClearCircleFilledIcon';
+import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../_type';

@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
+import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 

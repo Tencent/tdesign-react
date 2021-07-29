@@ -4,7 +4,7 @@ import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import { CloseIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTagProps } from '../_type/components/tag';
 import CheckTag from './CheckTag';
 

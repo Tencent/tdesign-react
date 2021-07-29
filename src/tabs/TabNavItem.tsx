@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import classNames from 'classnames';
-import { CloseIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTabPanelProps, TdTabsProps } from '../_type/components/tabs';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';

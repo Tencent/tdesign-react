@@ -1,6 +1,8 @@
 import React from 'react';
 import isString from 'lodash/isString';
-import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
+import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import { ConfigContext } from '../config-provider';
 import Button from '../button';
 import { TdDialogProps } from '../_type/components/dialog';

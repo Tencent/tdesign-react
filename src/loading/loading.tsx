@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { addClass, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import { LoadingIcon } from '../icon';
+import LoadingIcon from '../icon/icons/LoadingIcon';
 import { TdLoadingProps } from '../_type/components/loading';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}

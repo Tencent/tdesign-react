@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, FormItem, Input, Button, Message } from '@tencent/tdesign-react';
-import { DesktopIcon, LockOnIcon } from '../../icon';
+import DesktopIcon from '../../icon/icons/DesktopIcon';
+import LockOnIcon from '../../icon/icons/LockOnIcon';
 
 export default function BaseForm() {
   const onSubmit = (e) => {
