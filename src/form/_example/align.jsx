@@ -10,7 +10,7 @@ export default function AlignForm() {
     <div>
       <Form labelAlign={labelAlign}>
         <FormItem label="对齐方式" name="labelAlign">
-          <Radio.Group buttonStyle="solid" value={labelAlign} onChange={(value) => setLabelAlign(value)}>
+          <Radio.Group value={labelAlign} onChange={(value) => setLabelAlign(value)}>
             <Radio.Button value="left">左对齐</Radio.Button>
             <Radio.Button value="right">右对齐</Radio.Button>
             <Radio.Button value="top">顶部对齐</Radio.Button>

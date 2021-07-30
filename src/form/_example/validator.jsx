@@ -42,7 +42,7 @@ export default function BaseForm() {
           <Input />
         </FormItem>
         <FormItem label="性别" name="gender" rules={[{ required: true, message: '性别必填', type: 'warning' }]}>
-          <Radio.Group buttonStyle="solid">
+          <Radio.Group>
             <Radio value="male">男</Radio>
             <Radio value="femal">女</Radio>
           </Radio.Group>
