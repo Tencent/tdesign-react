@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { ClearCircleIcon, CheckCircleFilledIcon } from '../icon';
+import ClearCircleIcon from '../icon/icons/ClearCircleIcon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import { TdStepItemProps } from '../_type/components/steps';
 import { StyledProps } from '../_type';
 import StepsContext from './StepsContext';

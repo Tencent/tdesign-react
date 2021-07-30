@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { LoadingIcon } from '../icon';
+import LoadingIcon from '../icon/icons/LoadingIcon';
 import { TdButtonProps } from '../_type/components/button';
 
 /**

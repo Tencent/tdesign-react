@@ -5,7 +5,7 @@ import { StyledProps } from '../_type';
 import { TdTimePickerProps } from '../_type/components/time-picker';
 import Popup from '../popup/Popup';
 import noop from '../_util/noop';
-import { CloseIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
 
 export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 

@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { LoadingIcon } from '../icon';
+import LoadingIcon from '../icon/icons/LoadingIcon';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';
@@ -14,12 +14,28 @@ export interface SwitchProps extends TdSwitchProps, StyledProps {}
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps }, ref) => {
     const { classPrefix } = useConfig();
-    const [activeContent = '', inactiveContent = ''] = label || [];
     const [activeValue = true, inactiveValue = false] = customValue || [];
 
     const isControlled = typeof value !== 'undefined';
     const initChecked = defaultValue === activeValue || value === activeValue;
     const [innerChecked, setInnerChecked] = useState(initChecked);
+
+    function renderContent(checked) {
+      if (typeof label === 'function') return label({ value });
+
+      if (typeof label === 'string') return label;
+
+      if (Array.isArray(label)) {
+        const [activeContent = '', inactiveContent = ''] = label;
+        const content = checked ? activeContent : inactiveContent;
+
+        if (typeof content === 'function') return content();
+
+        return content;
+      }
+
+      return null;
+    }
 
     function onInternalClick() {
       if (disabled) return;
@@ -60,7 +76,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         onClick={onInternalClick}
       >
         <span className={`${classPrefix}-switch__handle`}>{loading && <LoadingIcon />}</span>
-        <div className={`${classPrefix}-switch__content`}>{innerChecked ? activeContent : inactiveContent}</div>
+        <div className={`${classPrefix}-switch__content`}>{renderContent(innerChecked)}</div>
       </button>
     );
   },

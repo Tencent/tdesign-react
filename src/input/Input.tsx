@@ -1,11 +1,13 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from '../_type/components/input';
 import { StyledProps } from '../_type';
 import { TElement } from '../_type/common';
 import ClearIcon from '../icon/icons/ClearCircleFilledIcon';
+import InputGroup from './InputGroup';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -26,7 +28,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TEleme
 /**
  * 组件
  */
-const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
+const Input = forwardRefWithStatics((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     disabled,
     status,
@@ -119,7 +121,7 @@ const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) =
       {suffixIconContent}
     </div>
   );
-});
+}, { Group: InputGroup });
 
 Input.displayName = 'Input';
 

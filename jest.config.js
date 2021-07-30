@@ -1,7 +1,15 @@
+const path = require('path');
+
+process.env.TZ = 'Asia/Shanghai';
+
 module.exports = {
+  rootDir: path.resolve(__dirname, './'),
   setupFilesAfterEnv: ['./test/setup-framework.js'],
+  preset: 'ts-jest',
   transform: {
-    '^.+\\.(j|t)sx?$': 'babel-jest',
+    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.tsx?$': 'babel-jest',
+    '^.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
   },
   transformIgnorePatterns: ['node_modules/?!(popper.js)'],
   verbose: false,

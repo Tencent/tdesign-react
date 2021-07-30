@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-
-import {
-  ChevronLeftIcon,
-  ChevronLeftDoubleIcon,
-  ChevronRightIcon,
-  ChevronRightDoubleIcon,
-  EllipsisIcon,
-} from '../icon';
+import ChevronLeftIcon from '../icon/icons/ChevronLeftIcon';
+import ChevronLeftDoubleIcon from '../icon/icons/ChevronLeftDoubleIcon';
+import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
+import ChevronRightDoubleIcon from '../icon/icons/ChevronRightDoubleIcon';
+import EllipsisIcon from '../icon/icons/EllipsisIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';

@@ -14,7 +14,7 @@ export interface StepsProps extends TdStepsProps, StyledProps {
  * 步骤条组件
  * @param props
  */
-export default function Steps(props: StepsProps) {
+function Steps(props: StepsProps) {
   const {
     style,
     current = 1,
@@ -67,3 +67,5 @@ export default function Steps(props: StepsProps) {
 
 Steps.StepItem = StepItem;
 Steps.displayName = 'Steps';
+
+export default Steps;

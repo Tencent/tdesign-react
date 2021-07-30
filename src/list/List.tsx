@@ -1,7 +1,6 @@
 import React, { forwardRef, MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
-
-import { LoadingIcon } from '../icon';
+import LoadingIcon from '../icon/icons/LoadingIcon';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { TdListProps } from '../_type/components/list';

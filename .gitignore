@@ -12,3 +12,6 @@ es
 lib
 dist
 yarn.lock
+esm
+package-lock
+robotMsg
