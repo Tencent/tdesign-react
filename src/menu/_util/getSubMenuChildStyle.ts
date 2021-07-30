@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubMenu } from '..';
+import SubMenu from '../SubMenu';
 import { MenuBlockType } from './type';
 
 export const getSubMenuChildCount = (children: React.ReactNode) => {

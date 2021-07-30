@@ -142,6 +142,22 @@ const cssConfig = {
     assetFileNames: '[name].css',
   },
 };
+
+// 不带样式打包 es 模块
+const libConfig = {
+  input: inputList,
+  external: externalDeps.concat(externalPeerDeps),
+  plugins: [multiInput()].concat(getPlugins()),
+  output: {
+    banner,
+    dir: 'lib/',
+    format: 'esm',
+    sourcemap: true,
+    chunkFileNames: '_chunks/dep-[hash].js',
+  },
+};
+
+// 按需加载组件 带 css 样式
 /** @type {import('rollup').RollupOptions} */
 const esConfig = {
   input: inputList,
@@ -158,7 +174,7 @@ const esConfig = {
   },
 };
 
-/** @type {import('rollup').RollupOptions} */
+// 按需加载组件 带原始 less 文件，可定制主题
 const esmConfig = {
   input: inputList,
   // 为了保留 style/index.js
@@ -181,7 +197,7 @@ const cjsConfig = {
   plugins: [multiInput()].concat(getPlugins()),
   output: {
     banner,
-    dir: 'lib/',
+    dir: 'cjs/',
     format: 'cjs',
     sourcemap: true,
     exports: 'named',
@@ -228,4 +244,4 @@ const umdMinConfig = {
   },
 };
 
-export default [cssConfig, esConfig, esmConfig, cjsConfig, umdConfig, umdMinConfig];
+export default [cssConfig, libConfig, esConfig, esmConfig, cjsConfig, umdConfig, umdMinConfig];

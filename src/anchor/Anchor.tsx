@@ -4,7 +4,6 @@ import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
 import AnchorItem from './AnchorItem';
@@ -27,7 +26,7 @@ interface IntervalRef {
 
 const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
-const Anchor = forwardRefWithStatics((props: AnchorProps) => {
+const Anchor = (props: AnchorProps) => {
   const {
     affix = false,
     bounds = 5,
@@ -171,7 +170,10 @@ const Anchor = forwardRefWithStatics((props: AnchorProps) => {
       </div>
     </AnchorContext.Provider>
   );
-}, { AnchorItem, AnchorTarget });
+};
+
+Anchor.AnchorItem = AnchorItem;
+Anchor.AnchorTarget = AnchorTarget;
 
 Anchor.displayName = 'Anchor';
 
