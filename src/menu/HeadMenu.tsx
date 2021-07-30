@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import React, { FC, ReactElement, useMemo } from 'react';
 import isObject from 'lodash/isObject';
-import { Tabs, TabPanel } from '../tabs';
+import Tabs from '../tabs';
 import { StyledProps } from '../_type';
 import { TdHeadMenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
 import useMenuContext from './hooks/useMenuContext';
 import { MenuContext } from './MenuContext';
 import checkSubMenuActive from './_util/checkSubMenuActive';
+
+const { TabPanel } = Tabs;
 
 export interface HeadMenuProps extends TdHeadMenuProps, StyledProps {}
 

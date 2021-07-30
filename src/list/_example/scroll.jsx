@@ -1,5 +1,7 @@
 ﻿import React from 'react';
-import { List, ListItem, ListItemMeta } from '@tencent/tdesign-react';
+import { List } from '@tencent/tdesign-react';
+
+const { ListItem, ListItemMeta } = List;
 
 export default function BasicList() {
   const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';

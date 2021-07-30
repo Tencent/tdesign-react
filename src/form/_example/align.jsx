@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Form, FormItem, Radio, Input } from '@tencent/tdesign-react';
+import { Form, Radio, Input } from '@tencent/tdesign-react';
+
+const { FormItem } = Form;
 
 export default function AlignForm() {
   const [labelAlign, setLabelAlign] = useState('right');

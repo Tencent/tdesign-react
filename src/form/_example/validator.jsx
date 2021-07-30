@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, FormItem, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+
+const { FormItem } = Form;
 
 export default function BaseForm() {
   const onSubmit = (e) => {

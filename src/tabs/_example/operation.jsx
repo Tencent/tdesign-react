@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel } from '@tencent/tdesign-react';
+import { Tabs } from '@tencent/tdesign-react';
 
+const { TabPanel } = Tabs;
 let index = 2;
 
 export default function CloseableTabs() {

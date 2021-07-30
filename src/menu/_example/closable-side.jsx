@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import {
   Menu,
-  SubMenu,
-  MenuItem,
   AppIcon,
   CodeIcon,
   FileIcon,
@@ -12,6 +10,8 @@ import {
   MailIcon,
   RollbackIcon,
 } from '@tencent/tdesign-react';
+
+const { SubMenu, MenuItem } = Menu;
 
 function ClosableSide() {
   const [active, setActive] = useState('1-1');

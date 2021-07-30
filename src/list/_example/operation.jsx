@@ -1,5 +1,7 @@
 import React from 'react';
-import { List, ListItem } from '@tencent/tdesign-react';
+import { List } from '@tencent/tdesign-react';
+
+const { ListItem } = List;
 
 export default function BasicList() {
   const listData = [

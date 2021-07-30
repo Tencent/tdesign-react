@@ -1,12 +1,14 @@
-import React, { forwardRef, useRef, createRef, useImperativeHandle } from 'react';
+import React, { useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import isBoolean from 'lodash/isBoolean';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { TdFormProps, FormValidateResult } from '../_type/components/form';
 import { StyledProps } from '../_type';
 import FormContext from './FormContext';
+import FormItem from './FormItem';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -26,7 +28,7 @@ function isValueEmpty(val: unknown) {
   return isBoolean(val) ? false : isEmpty(val);
 }
 
-const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
+const Form = forwardRefWithStatics<HTMLFormElement, FormProps>((props, ref) => {
   const {
     className,
     labelWidth,
@@ -169,6 +171,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       </form>
     </FormContext.Provider>
   );
-});
+}, { FormItem });
+
+Form.displayName = 'Form';
 
 export default Form;

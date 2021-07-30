@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Form, FormItem, Radio, Input, Row } from '@tencent/tdesign-react';
+import { Form, Radio, Input, Row } from '@tencent/tdesign-react';
+
+const { FormItem } = Form;
 
 export default function LayoutForm() {
   const [layout, setLayout] = useState('inline');

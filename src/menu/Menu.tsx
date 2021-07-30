@@ -1,14 +1,23 @@
-import React, { FC } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdMenuProps } from '../_type/components/menu';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { MenuContext } from './MenuContext';
 import { DEFAULT_MENU_WIDTH } from './_util/constant';
 import useMenuContext from './hooks/useMenuContext';
-export interface MenuProps extends TdMenuProps, StyledProps {}
 
-const Menu: FC<MenuProps> = (props) => {
+import HeadMenu from './HeadMenu';
+import SubMenu from './SubMenu';
+import MenuItem from './MenuItem';
+import MenuGroup from './MenuGroup';
+
+export interface MenuProps extends TdMenuProps, StyledProps {
+  children?: React.ReactNode;
+}
+
+const Menu = forwardRefWithStatics((props: MenuProps, ref) => {
   const { className, width = DEFAULT_MENU_WIDTH, children, theme, logo, operations, style } = props;
   const { classPrefix } = useConfig();
   const { value } = useMenuContext({ ...props, children, mode: 'accordion' });
@@ -21,6 +30,7 @@ const Menu: FC<MenuProps> = (props) => {
   return (
     <MenuContext.Provider value={value}>
       <div
+        ref={ref}
         className={classNames(className, `${classPrefix}-default-menu`, {
           [`${classPrefix}-is-collapsed`]: collapsed,
           [`${classPrefix}-menu--dark`]: theme === 'dark',
@@ -35,6 +45,8 @@ const Menu: FC<MenuProps> = (props) => {
       </div>
     </MenuContext.Provider>
   );
-};
+}, { HeadMenu, SubMenu, MenuItem, MenuGroup });
+
+Menu.displayName = 'Menu';
 
 export default Menu;

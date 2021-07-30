@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from '../_type/components/tabs';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
 
 export interface TabsProps extends TdTabsProps {
+  children?: React.ReactNode;
 }
 
-const Tabs: React.FC<TabsProps> = (props) => {
+const Tabs = forwardRefWithStatics((props: TabsProps, ref) => {
   const { children, placement, onRemove } = props;
   let { defaultValue } = props;
 
@@ -34,7 +36,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
   );
 
   return (
-    <div className={classNames(tdTabsClassPrefix)}>
+    <div ref={ref} className={classNames(tdTabsClassPrefix)}>
       {placement !== 'bottom' ? renderTabNav() : null}
       <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
         {React.Children.map(children, (child: any) => {
@@ -53,7 +55,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
       {placement === 'bottom' ? renderTabNav() : null}
     </div>
   );
-};
+}, { TabPanel });
 
 Tabs.displayName = 'Tabs';
 

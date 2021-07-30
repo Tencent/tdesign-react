@@ -1,4 +1,4 @@
-import { Breadcrumb } from './Breadcrumb';
+import Breadcrumb from './Breadcrumb';
 
 import './style/index.js';
 

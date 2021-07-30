@@ -1,7 +1,8 @@
 import React from 'react';
 import { testExamples, render } from '@test/utils';
-import { Breadcrumb } from '../Breadcrumb';
-import { BreadcrumbItem } from '../BreadcrumbItem';
+import Breadcrumb from '../Breadcrumb';
+
+const { BreadcrumbItem } = Breadcrumb;
 
 // unit test for component in examples.
 testExamples(__dirname);

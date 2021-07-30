@@ -6,9 +6,9 @@ export type {
   NotificationThemeList,
   NotificationPlacementList,
   NotificationInstance,
-  TdNotificationProps,
   NotificationInfoOptions,
   NotificationMethod,
+  TdNotificationProps as NotificationProps,
 } from '../_type/components/notification';
 
 export default Notification;

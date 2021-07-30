@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu, MenuItem } from '@tencent/tdesign-react';
+import { Menu } from '@tencent/tdesign-react';
+
+const { MenuItem } = Menu;
 
 function SingleSide() {
   const [active, setActive] = useState('0');

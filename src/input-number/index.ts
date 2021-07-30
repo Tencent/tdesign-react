@@ -1,4 +1,7 @@
-import { InputNumberProps as TdInputNumberProps } from './InputNumberProps';
-export { InputNumber as default } from './InputNumber';
+import InputNumber from './InputNumber';
 
-export type InputNumberProps = TdInputNumberProps;
+import './style/index.js';
+
+export type { InputNumberProps } from './InputNumberProps';
+
+export default InputNumber;

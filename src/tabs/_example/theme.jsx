@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel, Button } from '@tencent/tdesign-react';
+import { Tabs, Button } from '@tencent/tdesign-react';
+
+const { TabPanel } = Tabs;
 
 export default function ThemeTabs() {
   const [theme, setTheme] = useState('normal');

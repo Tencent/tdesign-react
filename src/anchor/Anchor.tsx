@@ -1,13 +1,18 @@
-import React, { FunctionComponent, useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
+import AnchorItem from './AnchorItem';
+import AnchorTarget from './AnchorTarget';
 
-export interface AnchorProps extends TdAnchorProps, StyledProps {}
+export interface AnchorProps extends TdAnchorProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 interface IntervalRef {
   // 收集 anchor-item
@@ -22,7 +27,7 @@ interface IntervalRef {
 
 const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
-const Anchor: FunctionComponent<AnchorProps> = (props) => {
+const Anchor = forwardRefWithStatics((props: AnchorProps) => {
   const {
     affix = false,
     bounds = 5,
@@ -90,14 +95,14 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
 
   useEffect(() => {
     // update point style
-    const pointEl = anchorEl.current.querySelector('.t-is-active>a') as HTMLAnchorElement;
+    const pointEl = anchorEl.current.querySelector(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
     if (!pointEl) {
       setPointStyle(null);
     } else {
       const { offsetTop: top, offsetHeight: height } = pointEl;
       setPointStyle({ top: `${top}px`, height: `${height}px` });
     }
-  }, [activeItem]);
+  }, [activeItem, classPrefix]);
 
   const handleScroll = useCallback(() => {
     const { scrollContainer, handleScrollLock } = intervalRef.current;
@@ -166,7 +171,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
       </div>
     </AnchorContext.Provider>
   );
-};
+}, { AnchorItem, AnchorTarget });
 
 Anchor.displayName = 'Anchor';
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Tabs, TabPanel } from '@tencent/tdesign-react';
+import { Tabs } from '@tencent/tdesign-react';
+
+const { TabPanel } = Tabs;
 
 export default function ThemeTabs() {
   return (

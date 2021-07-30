@@ -1,10 +1,13 @@
-import React, { forwardRef, MouseEvent, WheelEvent } from 'react';
+import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
 import LoadingIcon from '../icon/icons/LoadingIcon';
 import useConfig from '../_util/useConfig';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import { TdListProps } from '../_type/components/list';
 import { StyledProps } from '../_type';
+import ListItem from './ListItem';
+import ListItemMeta from './ListItemMeta';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**
@@ -16,7 +19,7 @@ export interface ListProps extends TdListProps, StyledProps {
 /**
  * 列表组件
  */
-const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
+const List = forwardRefWithStatics((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     header,
     footer,
@@ -88,7 +91,7 @@ const List = forwardRef((props: ListProps, ref: React.Ref<HTMLDivElement>) => {
       {footer}
     </div>
   );
-});
+}, { ListItem, ListItemMeta });
 
 List.displayName = 'List';
 

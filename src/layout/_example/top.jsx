@@ -1,5 +1,7 @@
 import React from 'react';
-import { Layout, Menu, MenuItem } from '@tencent/tdesign-react';
+import { Layout, Menu } from '@tencent/tdesign-react';
+
+const { MenuItem } = Menu;
 
 const Logo = () => <span>LOGO</span>;
 

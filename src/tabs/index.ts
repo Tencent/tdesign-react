@@ -1,7 +1,8 @@
-import './style/index.js';
+import Tabs from './Tabs';
 
-export { default as Tabs } from './Tabs';
-export { default as TabPanel } from './TabPanel';
+import './style/index.js';
 
 export type { TabsProps } from './Tabs';
 export type { TabPanelProps } from './TabPanel';
+
+export default Tabs;

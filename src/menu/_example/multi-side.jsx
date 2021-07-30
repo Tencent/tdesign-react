@@ -2,8 +2,6 @@
 import React, { Fragment, useState } from 'react';
 import {
   Menu,
-  SubMenu,
-  MenuItem,
   AppIcon,
   CodeIcon,
   FileIcon,
@@ -12,6 +10,8 @@ import {
   MailIcon,
   RollbackIcon,
 } from '@tencent/tdesign-react';
+
+const { SubMenu, MenuItem } = Menu;
 
 function MultiSide() {
   const [active, setActive] = useState('1-1');
