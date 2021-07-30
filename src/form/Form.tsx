@@ -28,7 +28,7 @@ function isValueEmpty(val: unknown) {
   return isBoolean(val) ? false : isEmpty(val);
 }
 
-const Form = forwardRefWithStatics<HTMLFormElement, FormProps>((props, ref) => {
+const Form = forwardRefWithStatics((props: FormProps, ref) => {
   const {
     className,
     labelWidth,
