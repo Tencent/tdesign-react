@@ -97,7 +97,7 @@ const Form = forwardRefWithStatics((props: FormProps, ref) => {
     return new Promise((resolve) => {
       Promise.all(flatten(list))
         .then((arr: any) => {
-          const r = arr.reduce((r, err) => Object.assign(r || {}, err));
+          const r = arr.reduce((r, err) => Object.assign(r || {}, err), {});
           Object.keys(r).forEach((key) => {
             if (r[key] === true) {
               delete r[key];
