@@ -90,9 +90,10 @@ export default function transforms() {
             useEffect(() => {
               tdDocHeader.current.docType = docType;
               tdDocHeader.current.contributors = contributors;
+              isComponent && (tdDocHeader.current.issueInfo = {});
               tdDocHeader.current.docInfo = {
                 title: \`${title}\`,
-                desc:  \`${description}\`.split(/<br\\s*\\/?>/g)
+                desc:  \`${description}\`
               }
               if (tdDocTabs.current) {
                 tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
