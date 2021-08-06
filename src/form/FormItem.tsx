@@ -2,9 +2,12 @@ import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect,
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
-import { CheckCircleFilledIcon, ClearCircleFilledIcon, ErrorCircleFilledIcon } from '../icon';
+import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import ClearCircleFilledIcon from '../icon/icons/ClearCircleFilledIcon';
+import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
 import { CheckTag } from '../tag';
+import { StyledProps } from '../_type';
 import { validate as validateModal } from './formModel';
 import { useFormContext } from './FormContext';
 
@@ -13,14 +16,25 @@ enum VALIDATE_STATUS {
   SUCCESS = 'success',
   FAIL = 'fail',
 }
-
-export interface FormItemProps extends TdFormItemProps {}
+export interface FormItemProps extends TdFormItemProps, StyledProps {
+  // 子节点
+  children?: React.ReactNode;
+}
 
 const CHECKED_TYPE = [Checkbox, CheckTag];
 
-const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
+const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
-  const { children, label, name, help, statusIcon: statusIconFromProp, rules: rulesFromProp, initialData = '' } = props;
+  const {
+    children,
+    label,
+    name,
+    help,
+    statusIcon: statusIconFromProp,
+    rules: rulesFromProp,
+    initialData = '',
+    className,
+  } = props;
   const {
     colon,
     requiredMark,
@@ -44,6 +58,7 @@ const FormItem: React.FC<FormItemProps> = forwardRef((props, ref: React.Ref<HTML
   const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
 
   const formItemClass = classNames(
+    className,
     `${classPrefix}-form__item`,
     `${classPrefix}-row`,
     `${classPrefix}-form-item__${name}`,

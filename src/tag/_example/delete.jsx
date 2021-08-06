@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
-import { Tag } from '@tencent/tdesign-react';
+import { Tag, DiscountIcon } from '@tencent/tdesign-react';
 
 export default function ClosableTagExample() {
-  const [tagList, setTagList] = useState(new Array(3).fill('点击关闭'));
+  const [tagList, setTagList] = useState([
+    {
+      name: '可删除标签',
+      showClose: true,
+    },
+    {
+      name: '可删除标签',
+      icon: <DiscountIcon />,
+      showClose: true,
+    },
+    {
+      name: '可删除标签',
+      showClose: true,
+      disabled: true,
+    },
+  ]);
 
   /**
    * @param {number} i
@@ -14,19 +29,21 @@ export default function ClosableTagExample() {
   };
 
   return (
-    <>
+    <div style={{ display: 'flex' }}>
+      <span style={{ marginRight: '10px' }}>可删除</span>
       {tagList.map((tag, i) => (
         <Tag
-          key={tag}
+          key={i}
           closable
           onClose={() => {
             deleteTag(i);
           }}
+          icon={tag.icon}
         >
-          {tag}
+          {tag.name}
           {i}
         </Tag>
       ))}
-    </>
+    </div>
   );
 }

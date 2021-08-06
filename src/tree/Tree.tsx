@@ -1,9 +1,9 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeStore } from '../../common/js/tree/tree-store';
-import { TreeNode } from '../../common/js/tree/tree-node';
-import { TreeNodeValue, TypeTreeNodeModel, TreeNodeState } from '../../common/js/tree/types';
+import { TreeStore } from '../_common/js/tree/tree-store';
+import { TreeNode } from '../_common/js/tree/tree-node';
+import { TreeNodeValue, TypeTreeNodeModel, TreeNodeState } from '../_common/js/tree/types';
 import { TreeOptionData } from '../_type';
 import { TreeProps } from './interface/TreeProps';
 import { CLASS_NAMES, transitionClassNames, transitionDuration } from './constants';
@@ -226,30 +226,28 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     },
   }));
 
-  const treeItems = visibleNodes.map((node) => {
-    return (
-      <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
-        <TreeItem
-          node={node}
-          empty={empty}
-          icon={icon}
-          label={label}
-          line={line}
-          transition={transition}
-          expandOnClickNode={expandOnClickNode}
-          activable={activable}
-          operations={operations}
-          checkProps={checkProps}
-          onClick={(node: TreeNode, options: { expand: boolean; active: boolean }) => {
-            handleClick(node, props, store, options);
-          }}
-          onChange={(node: TreeNode) => {
-            handleChange(node, props, store);
-          }}
-        />
-      </CSSTransition>
-    );
-  });
+  const treeItems = visibleNodes.map((node) => (
+    <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+      <TreeItem
+        node={node}
+        empty={empty}
+        icon={icon}
+        label={label}
+        line={line}
+        transition={transition}
+        expandOnClickNode={expandOnClickNode}
+        activable={activable}
+        operations={operations}
+        checkProps={checkProps}
+        onClick={(node: TreeNode, options: { expand: boolean; active: boolean }) => {
+          handleClick(node, props, store, options);
+        }}
+        onChange={(node: TreeNode) => {
+          handleChange(node, props, store);
+        }}
+      />
+    </CSSTransition>
+  ));
 
   return (
     <div ref={ref} className={className}>

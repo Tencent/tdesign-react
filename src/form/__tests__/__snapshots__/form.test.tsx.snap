@@ -23,7 +23,7 @@ exports[`align.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-radio-group t-radio-group-solid t-radio-group-medium"
+              class="t-radio-group t-radio-group-outline t-radio-group-medium"
             >
               <label
                 class="t-radio-button"
@@ -412,7 +412,7 @@ exports[`base.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-left: 12px;"
               type="reset"
               value=""
@@ -430,7 +430,7 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`customValidator.jsx 1`] = `
+exports[`custom-validator.jsx 1`] = `
 <DocumentFragment>
   <div>
     <form
@@ -544,7 +544,7 @@ exports[`customValidator.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >
@@ -569,7 +569,7 @@ exports[`layout.jsx 1`] = `
       style="margin: 0px -0px 16px -0px;"
     >
       <div
-        class="t-radio-group t-radio-group-solid t-radio-group-medium"
+        class="t-radio-group t-radio-group-outline t-radio-group-medium"
       >
         <label
           class="t-radio-button"
@@ -911,7 +911,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-radio-group t-radio-group-solid t-radio-group-medium"
+              class="t-radio-group t-radio-group-outline t-radio-group-medium"
             >
               <label
                 class="t-radio"
@@ -1132,7 +1132,7 @@ exports[`validator.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >
@@ -1149,7 +1149,7 @@ exports[`validator.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`validatorStatus.jsx 1`] = `
+exports[`validator-status.jsx 1`] = `
 <DocumentFragment>
   <div>
     <form
@@ -1475,7 +1475,7 @@ exports[`validatorStatus.jsx 1`] = `
               提交
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base"
               type="reset"
               value=""
             >

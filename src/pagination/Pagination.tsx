@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-
-import {
-  ChevronLeftIcon,
-  ChevronLeftDoubleIcon,
-  ChevronRightIcon,
-  ChevronRightDoubleIcon,
-  EllipsisIcon,
-} from '../icon';
+import ChevronLeftIcon from '../icon/icons/ChevronLeftIcon';
+import ChevronLeftDoubleIcon from '../icon/icons/ChevronLeftDoubleIcon';
+import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
+import ChevronRightDoubleIcon from '../icon/icons/ChevronRightDoubleIcon';
+import EllipsisIcon from '../icon/icons/EllipsisIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import Select from '../select';
@@ -103,7 +100,8 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
         throw '[pagination]pageSize invalid and pageSizeOption invalid';
       } else {
         // eslint-disable-next-line
-        nextPageSize = typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value;
+        nextPageSize =
+          pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
       }
     }
 
@@ -123,7 +121,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     onChange({
       current: nextCurrent,
       previous: current,
-      pageSize: nextPageSize || pageSize,
+      pageSize: nextPageSize,
     });
 
     // currentPageChange的回调
@@ -258,8 +256,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       </>
     );
   };
-
-  if (pageCount === 1) return null;
 
   return (
     <div

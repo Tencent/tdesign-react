@@ -1,9 +1,10 @@
 import React from 'react';
 import useConfig from '../_util/useConfig';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';
 
-export const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>((props, ref) => {
+const Breadcrumb = forwardRefWithStatics((props: BreadcrumbProps, ref) => {
   const { children, options, theme = 'light', separator, maxItemWidth = '120', ...restProps } = props;
   const { classPrefix } = useConfig();
 
@@ -33,6 +34,8 @@ export const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>((pro
       {content}
     </div>
   );
-});
+}, { BreadcrumbItem });
 
 Breadcrumb.displayName = 'Breadcrumb';
+
+export default Breadcrumb;

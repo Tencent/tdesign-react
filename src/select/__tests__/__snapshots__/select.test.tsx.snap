@@ -17,18 +17,18 @@ exports[`base.jsx 1`] = `
           class="t-select-left-icon"
         />
         <span
-          class="t-select-placeholder t-select-selectedSingle"
+          class="t-select-selectedSingle"
         >
           Apple
         </span>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
+          class="t-icon t-icon-close t-select-right-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M514.72285696 704.7972396800001L520.12398592 703.85630784C525.44129472 702.4731296 530.472656 699.70458368 534.64508928 695.5504467200001L534.64508928 695.5504467200001 910.3632832 320.41891840000005 865.108448 275.16408320000005 512.02827328 627.72684352 160.0351072 275.20768640000006 114.78027328 320.46252160000006 489.38601344 695.5130879999999C496.31708544 702.46731264 505.65104192 705.56179008 514.72285696 704.7972396800001Z"
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
             fill-opacity=".9"
             fill-rule="evenodd"
           />
@@ -60,8 +60,7 @@ exports[`creatable.jsx 1`] = `
         >
           <input
             class="t-select-input t-input__inner"
-            placeholder="-请选择-"
-            value=""
+            value="Apple"
           />
         </div>
         <svg
@@ -138,7 +137,7 @@ exports[`disabled.jsx 1`] = `
           class="t-select-left-icon"
         />
         <span
-          class="t-select-placeholder t-select-selectedSingle"
+          class="t-select-selectedSingle"
         >
           Apple
         </span>
@@ -178,8 +177,7 @@ exports[`filterable.jsx 1`] = `
       >
         <input
           class="t-select-input t-input__inner"
-          placeholder="-请选择-"
-          value=""
+          value="Apple"
         />
       </div>
       <svg
@@ -213,7 +211,7 @@ exports[`group.jsx 1`] = `
         class="t-select-left-icon"
       />
       <span
-        class="t-select-placeholder t-select-selectedSingle"
+        class="t-select-selectedSingle"
       >
         Apple
       </span>
@@ -248,7 +246,7 @@ exports[`keys.jsx 1`] = `
         class="t-select-left-icon"
       />
       <span
-        class="t-select-placeholder t-select-selectedSingle"
+        class="t-select-selectedSingle"
       >
         已选择的选项
       </span>
@@ -278,7 +276,7 @@ exports[`keys.jsx 1`] = `
         class="t-select-left-icon"
       />
       <span
-        class="t-select-placeholder t-select-selectedSingle"
+        class="t-select-selectedSingle"
       >
         上海
       </span>
@@ -299,7 +297,7 @@ exports[`keys.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`labelInValue.jsx 1`] = `
+exports[`label-in-value.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"
@@ -316,7 +314,7 @@ exports[`labelInValue.jsx 1`] = `
           class="t-select-left-icon"
         />
         <span
-          class="t-select-placeholder t-select-selectedSingle"
+          class="t-select-selectedSingle"
         >
           Apple
         </span>
@@ -488,7 +486,7 @@ exports[`noborder.jsx 1`] = `
         class="t-select-left-icon"
       />
       <span
-        class="t-select-placeholder t-select-selectedSingle"
+        class="t-select-selectedSingle"
       >
         Apple
       </span>
@@ -527,8 +525,7 @@ exports[`options.jsx 1`] = `
       >
         <input
           class="t-select-input t-input__inner"
-          placeholder="-请选择-"
-          value=""
+          value="Apple"
         />
       </div>
       <svg
@@ -548,7 +545,7 @@ exports[`options.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`popupProps.jsx 1`] = `
+exports[`popup-props.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"
@@ -565,7 +562,7 @@ exports[`popupProps.jsx 1`] = `
           class="t-select-left-icon"
         />
         <span
-          class="t-select-placeholder t-select-selectedSingle"
+          class="t-select-selectedSingle"
         >
           Apple
         </span>
@@ -614,7 +611,7 @@ exports[`prefix.jsx 1`] = `
         </svg>
       </span>
       <span
-        class="t-select-placeholder t-select-selectedSingle"
+        class="t-select-selectedSingle"
       >
         Apple
       </span>

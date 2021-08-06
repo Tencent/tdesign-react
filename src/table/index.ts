@@ -2,6 +2,8 @@ import SimpleTable from './base/Table';
 // import Primary from './primary/Table';
 // import Enhanced from './enhanced/Table';
 
+import './style/index.js';
+
 export type { TableProps, TableColumn } from './TableProps';
 export { SimpleTable };
 

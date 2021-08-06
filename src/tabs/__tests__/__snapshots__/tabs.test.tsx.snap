@@ -1,72 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ThemeTabs.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      default
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-    >
-      card
-    </button>
-    <div
-      class="t-tabs"
-    >
-      <div
-        class="t-tabs__header t-is-top"
-      >
-        <div
-          class="t-tabs__nav"
-        >
-          <div
-            class="t-tabs__nav-container t-is-top"
-          >
-            <div
-              class="t-tabs__nav-scroll"
-            >
-              <div
-                class="t-tabs__nav-wrap"
-              >
-                <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  1
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div>
-                    2
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-tabs__content t-is-top"
-      >
-        <div
-          class="t-tab-panel"
-        />
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -81,6 +14,12 @@ exports[`base.jsx 1`] = `
         <div
           class="t-tabs__nav"
         >
+          <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
           <div
             class="t-tabs__nav-container t-is-top"
           >
@@ -100,17 +39,41 @@ exports[`base.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  选项卡1
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡1
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  选项卡2
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡2
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  选项卡3
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡3
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,13 +87,9 @@ exports[`base.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -154,23 +113,30 @@ exports[`combination.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
-            class="t-tabs__add-btn t-size-m"
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
           >
-            <svg
-              class="t-icon t-icon-add"
-              name="add"
-              version="1.1"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-tabs__add-btn t-tabs__btn t-size-m"
             >
-              <path
-                d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
-                fill-rule="evenodd"
-              />
-            </svg>
+              <svg
+                class="t-icon t-icon-add"
+                name="add"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
           <div
-            class="t-tabs__nav-container t-is-top t-is-addable"
+            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
           >
             <div
               class="t-tabs__nav-scroll"
@@ -184,7 +150,11 @@ exports[`combination.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
                 >
-                  选项卡1
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
+                  >
+                    选项卡1
+                  </span>
                 </div>
               </div>
             </div>
@@ -198,13 +168,9 @@ exports[`combination.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -228,23 +194,30 @@ exports[`custom.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
-            class="t-tabs__add-btn t-size-m"
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
           >
-            <svg
-              class="t-icon t-icon-add"
-              name="add"
-              version="1.1"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-tabs__add-btn t-tabs__btn t-size-m"
             >
-              <path
-                d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
-                fill-rule="evenodd"
-              />
-            </svg>
+              <svg
+                class="t-icon t-icon-add"
+                name="add"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
           <div
-            class="t-tabs__nav-container t-is-top t-is-addable"
+            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
           >
             <div
               class="t-tabs__nav-scroll"
@@ -258,7 +231,11 @@ exports[`custom.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
                 >
-                  选项卡1
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
+                  >
+                    选项卡1
+                  </span>
                 </div>
               </div>
             </div>
@@ -272,13 +249,9 @@ exports[`custom.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -287,7 +260,7 @@ exports[`custom.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`disabledTabs.jsx 1`] = `
+exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -299,6 +272,12 @@ exports[`disabledTabs.jsx 1`] = `
         <div
           class="t-tabs__nav"
         >
+          <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
           <div
             class="t-tabs__nav-container t-is-top"
           >
@@ -318,12 +297,28 @@ exports[`disabledTabs.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top t-is-disabled"
                 >
-                  选项卡一
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡一
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  选项卡二
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡二
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -337,13 +332,9 @@ exports[`disabledTabs.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -372,6 +363,12 @@ exports[`icon.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
             class="t-tabs__nav-container t-is-top"
           >
             <div
@@ -390,58 +387,82 @@ exports[`icon.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  <div>
-                    <svg
-                      class="t-icon t-icon-discount"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
                     >
-                      <path
-                        d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    选项卡
+                      <div>
+                        <svg
+                          class="t-icon t-icon-discount"
+                          version="1.1"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
+                            fill-opacity=".9"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                        选项卡
+                      </div>
+                    </span>
                   </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  <div>
-                    <svg
-                      class="t-icon t-icon-discount"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
                     >
-                      <path
-                        d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    选项卡
+                      <div>
+                        <svg
+                          class="t-icon t-icon-discount"
+                          version="1.1"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
+                            fill-opacity=".9"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                        选项卡
+                      </div>
+                    </span>
                   </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  <div>
-                    <svg
-                      class="t-icon t-icon-discount"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
                     >
-                      <path
-                        d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    选项卡
+                      <div>
+                        <svg
+                          class="t-icon t-icon-discount"
+                          version="1.1"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M493.04229568 116.1597152C508.86786752 116.30420928 524.0067104 121.97761344 535.39539904 133.36630208L942.6889024 540.659808C967.6824576 565.65336256 965.1497984 608.70858112 937.0320512 636.82633024L631.56192128 942.2964608C603.44417216 970.414208 560.3889536 972.9468672 535.39539904 947.953312L128.10189312 540.659808C116.179456 528.73737088 110.52056832 512.70502848 110.91453056 496.14468224L110.89530624 496.1568576 110.89530624 180.1597152C110.89530624 147.33822144 135.6018784 120.28725696 167.43155456 116.59028992L174.89530624 116.1597152 493.04229568 116.1597152ZM174.89530624 180.0957152L174.89530624 496.1568576 174.06330624 496.1277152 580.65023296 902.6984768 897.4340736 585.91464192 491.69530624 180.1597152 174.89530624 180.0957152ZM396.1453088 256.40588416C466.8377568 256.40588416 524.1453088 313.71343616 524.1453088 384.40588416 524.1453088 455.09833216 466.8377568 512.40588416 396.1453088 512.40588416 325.4528608 512.40588416 268.1453088 455.09833216 268.1453088 384.40588416 268.1453088 313.71343616 325.4528608 256.40588416 396.1453088 256.40588416ZM396.1453088 320.40588416C360.7990848 320.40588416 332.1453088 349.05966016 332.1453088 384.40588416 332.1453088 419.75210816 360.7990848 448.40588416 396.1453088 448.40588416 431.4915328 448.40588416 460.1453088 419.75210816 460.1453088 384.40588416 460.1453088 349.05966016 431.4915328 320.40588416 396.1453088 320.40588416Z"
+                            fill-opacity=".9"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                        选项卡
+                      </div>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -456,13 +477,9 @@ exports[`icon.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -484,23 +501,30 @@ exports[`operation.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
-            class="t-tabs__add-btn t-size-m"
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
           >
-            <svg
-              class="t-icon t-icon-add"
-              name="add"
-              version="1.1"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-tabs__add-btn t-tabs__btn t-size-m"
             >
-              <path
-                d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
-                fill-rule="evenodd"
-              />
-            </svg>
+              <svg
+                class="t-icon t-icon-add"
+                name="add"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M544 160L544 480 864 480 864 544 544 544 544 864 480 864 480 544 160 544 160 480 480 480 480 160 544 160Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
           <div
-            class="t-tabs__nav-container t-is-top t-is-addable"
+            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
           >
             <div
               class="t-tabs__nav-scroll"
@@ -514,20 +538,11 @@ exports[`operation.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
                 >
-                  选项卡1
-                  <svg
-                    class="t-icon t-icon-close remove-btn"
-                    name="close"
-                    version="1.1"
-                    viewBox="0 0 1024 1024"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <path
-                      d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-                      fill-opacity=".9"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
+                    选项卡1
+                  </span>
                 </div>
               </div>
             </div>
@@ -541,13 +556,9 @@ exports[`operation.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              选项卡1
-            </div>
+            选项卡1
           </div>
         </div>
       </div>
@@ -591,6 +602,12 @@ exports[`position.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
             class="t-tabs__nav-container t-is-top"
           >
             <div
@@ -609,44 +626,100 @@ exports[`position.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  选项卡1
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div>
-                    选项卡2
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡1
+                    </span>
                   </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  选项卡3
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  选项卡4
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div>
-                    选项卡5
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      <div>
+                        选项卡2
+                      </div>
+                    </span>
                   </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  <div>
-                    选项卡6
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡3
+                    </span>
                   </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  <div>
-                    选项卡7
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡4
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      <div>
+                        选项卡5
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      <div>
+                        选项卡6
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      <div>
+                        选项卡7
+                      </div>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -661,13 +734,9 @@ exports[`position.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            class="tabs-content"
           >
-            <div
-              class="tabs-content"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -699,6 +768,12 @@ exports[`size.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
             class="t-tabs__nav-container t-is-top"
           >
             <div
@@ -717,12 +792,28 @@ exports[`size.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  选项卡一
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡一
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="t-tabs__nav-item t-size-m t-is-top"
                 >
-                  选项卡二
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡二
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -736,13 +827,9 @@ exports[`size.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
           >
-            <div
-              style="margin: 20px;"
-            >
-              这是一个Tabs
-            </div>
+            这是一个Tabs
           </div>
         </div>
       </div>
@@ -757,7 +844,13 @@ exports[`size.jsx 1`] = `
           class="t-tabs__nav"
         >
           <div
-            class="t-tabs__nav-container t-is-top"
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
+            class="t-tabs__nav-container t-tabs__nav--card t-is-top"
           >
             <div
               class="t-tabs__nav-scroll"
@@ -771,12 +864,20 @@ exports[`size.jsx 1`] = `
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
                 >
-                  选项卡一
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
+                  >
+                    选项卡一
+                  </span>
                 </div>
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
                 >
-                  选项卡二
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
+                  >
+                    选项卡二
+                  </span>
                 </div>
               </div>
             </div>
@@ -790,13 +891,104 @@ exports[`size.jsx 1`] = `
           class="t-tab-panel"
         >
           <div
-            class="t-tab-panel"
+            style="margin: 20px;"
+          >
+            这是一个Tabs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      default
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      card
+    </button>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+        >
+          <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
+            class="t-tabs__nav-container t-is-top"
           >
             <div
-              style="margin: 20px;"
+              class="t-tabs__nav-scroll"
             >
-              这是一个Tabs
+              <div
+                class="t-tabs__nav-wrap"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__bar t-is-top"
+                />
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      1
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      <div>
+                        2
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content t-is-top"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          <div
+            style="margin: 20px;"
+          >
+            这是一个Tabs
           </div>
         </div>
       </div>

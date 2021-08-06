@@ -1,7 +1,8 @@
 import React from 'react';
-import { Breadcrumb } from '../Breadcrumb';
-import { BreadcrumbItem } from '../BreadcrumbItem';
+import { Breadcrumb } from '@tencent/tdesign-react';
 import BooksIcon from '../../icon/icons/BooksIcon';
+
+const { BreadcrumbItem } = Breadcrumb;
 
 export default function BreadcrumbExample() {
   return (

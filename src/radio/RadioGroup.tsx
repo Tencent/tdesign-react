@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdRadioGroupProps } from '../_type/components/radio';
@@ -20,6 +20,8 @@ const RadioGroup = (props: RadioGroupProps) => {
   const { disabled, children, value, defaultValue, onChange, size = 'medium', buttonStyle = 'outline' } = props;
 
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
+  const [barStyle, setBarStyle] = useState({});
+  const groupRef = useRef(null);
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
@@ -45,9 +47,30 @@ const RadioGroup = (props: RadioGroupProps) => {
     },
   };
 
+  function calcBarStyle() {
+    if (buttonStyle !== 'solid') return;
+
+    const checkedRadioCls = `.${classPrefix}-radio-button.${classPrefix}-is-checked`;
+    const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
+    if (!checkedRadio) return;
+    const { offsetWidth, offsetLeft } = checkedRadio;
+    setBarStyle({ width: `${offsetWidth}px`, left: `${offsetLeft}px` });
+  }
+
+  useEffect(() => {
+    calcBarStyle();
+  }, [internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const renderBlock = () => {
+    if (buttonStyle !== 'solid') return null;
+
+    return <div style={barStyle} className={`${classPrefix}-radio-group-${buttonStyle}-bg-block`}></div>;
+  };
+
   return (
     <CheckContext.Provider value={context}>
       <div
+        ref={groupRef}
         className={classNames(
           `${classPrefix}-radio-group`,
           `${classPrefix}-radio-group-${buttonStyle}`,
@@ -55,6 +78,7 @@ const RadioGroup = (props: RadioGroupProps) => {
         )}
       >
         {children}
+        {renderBlock()}
       </div>
     </CheckContext.Provider>
   );

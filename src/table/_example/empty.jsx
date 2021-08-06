@@ -7,59 +7,55 @@ export default function EmptyTable() {
     <div>
       <div>使用默认空表格样式</div>
       <Table
-        records={TableData}
+        data={TableData}
         columns={[
           {
-            key: 'project',
+            colKey: 'project',
             title: '项目名称',
-            fixed: 'left',
             width: '150px',
-            render: (x) => x.projectName,
+            render: ({ row }) => row.projectName,
           },
           {
-            key: 'memeber',
+            colKey: 'memeber',
             title: '管理员',
-            fixed: 'right',
             width: '300px',
-            render: (x) => x.manager.join(','),
+            render: ({ row }) => row.manager.join(','),
           },
           {
-            key: 'company',
+            colKey: 'company',
             title: '所属公司',
             width: '150px',
-            render: (x) => x.company,
+            render: ({ row }) => row.company,
           },
         ]}
         rowKey="projectName"
       />
       <div style={{ marginTop: 10 }}>自定义空表格</div>
       <Table
-        records={TableData}
+        data={TableData}
         empty={
           <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-            😄 It's empty.
+            😄 it is empty.
           </span>
         }
         columns={[
           {
-            key: 'project',
+            colKey: 'project',
             title: '项目名称',
-            fixed: 'left',
             width: '150px',
-            render: (x) => x.projectName,
+            render: ({ row }) => row.projectName,
           },
           {
-            key: 'memeber',
+            colKey: 'memeber',
             title: '管理员',
-            fixed: 'right',
             width: '300px',
-            render: (x) => x.manager.join(','),
+            render: ({ row }) => row.manager.join(','),
           },
           {
-            key: 'company',
+            colKey: 'company',
             title: '所属公司',
             width: '150px',
-            render: (x) => x.company,
+            render: ({ row }) => row.company,
           },
         ]}
         rowKey="projectName"

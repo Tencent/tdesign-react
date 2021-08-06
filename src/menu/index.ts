@@ -1,7 +1,11 @@
 import Menu from './Menu';
-import HeadMenu from './HeadMenu';
-import SubMenu from './SubMenu';
-import MenuItem from './MenuItem';
-import MenuItemGroup from './MenuItemGroup';
 
-export { Menu, HeadMenu, SubMenu, MenuItem, MenuItemGroup };
+import './style/index.js';
+
+export type { MenuProps } from './Menu';
+export type { HeadMenuProps } from './HeadMenu';
+export type { SubMenuProps } from './SubMenu';
+export type { MenuItemProps } from './MenuItem';
+export type { MenuGroupProps } from './MenuGroup';
+
+export default Menu;

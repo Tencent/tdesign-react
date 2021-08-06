@@ -1,11 +1,14 @@
-import React, { forwardRef, useRef, createRef, useImperativeHandle } from 'react';
+import React, { useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import isBoolean from 'lodash/isBoolean';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { TdFormProps, FormValidateResult } from '../_type/components/form';
 import { StyledProps } from '../_type';
 import FormContext from './FormContext';
+import FormItem from './FormItem';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -17,7 +20,15 @@ function isFunction(val: unknown) {
   return typeof val === 'function';
 }
 
-const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref<HTMLFormElement>) => {
+/**
+ * 判断是否空值 布尔值总不为空
+ * @param val
+ */
+function isValueEmpty(val: unknown) {
+  return isBoolean(val) ? false : isEmpty(val);
+}
+
+const Form = forwardRefWithStatics((props: FormProps, ref) => {
   const {
     className,
     labelWidth,
@@ -86,7 +97,7 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
     return new Promise((resolve) => {
       Promise.all(flatten(list))
         .then((arr: any) => {
-          const r = arr.reduce((r, err) => Object.assign(r || {}, err));
+          const r = arr.reduce((r, err) => Object.assign(r || {}, err), {});
           Object.keys(r).forEach((key) => {
             if (r[key] === true) {
               delete r[key];
@@ -96,6 +107,19 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
         })
         .catch(console.error);
     });
+  }
+
+  // 对外方法，获取整个表单的值
+  function getAllFieldsValue() {
+    const fieldsValue = {};
+    formItemsRef.current.forEach((formItemRef) => {
+      // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
+      if (formItemRef?.name && !isValueEmpty(formItemRef.value)) {
+        fieldsValue[formItemRef.name] = formItemRef.value;
+      }
+    });
+
+    return fieldsValue;
   }
 
   // 对外方法，获取对应 formItem 的值
@@ -116,7 +140,7 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
     });
   }
 
-  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate }));
+  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate, getAllFieldsValue }));
 
   return (
     <FormContext.Provider
@@ -147,6 +171,8 @@ const Form: React.FC<TdFormProps> = forwardRef((props: FormProps, ref: React.Ref
       </form>
     </FormContext.Provider>
   );
-});
+}, { FormItem });
+
+Form.displayName = 'Form';
 
 export default Form;

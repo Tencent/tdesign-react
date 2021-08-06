@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel } from '@tencent/tdesign-react';
+import { Tabs } from '@tencent/tdesign-react';
+
+const { TabPanel } = Tabs;
+let index = 2;
 
 export default function CloseableTabs() {
   const [panels, setPanels] = useState([
@@ -19,19 +22,20 @@ export default function CloseableTabs() {
           defaultValue={1}
           addable
           onRemove={({ value }) => {
-            const newPanels = panels.filter((panel) => panel.value !== value);
+            const newPanels = panels.filter((panel) =>  panel.value !== value);
             setPanels(newPanels);
           }}
           onAdd={() => {
             const newPanels = panels.concat({
-              value: panels.length + 1,
-              label: `选项卡${panels.length + 1}`,
+              value: index,
+              label: `选项卡${index}`,
             });
+            index += 1;
             setPanels(newPanels);
           }}
         >
           {panels.map(({ value, label }) => (
-            <TabPanel removable key={value} value={value} label={label}>
+            <TabPanel removable={panels.length > 1} key={value} value={value} label={label}>
               <div style={{ margin: 20 }}>{label}</div>
             </TabPanel>
           ))}

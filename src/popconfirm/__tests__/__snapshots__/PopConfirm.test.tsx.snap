@@ -1,35 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExtendsExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    浮层在右边
-  </button>
-</DocumentFragment>
-`;
-
-exports[`PlacementExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    Left
-  </button>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    Top
-  </button>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    Bottom
-  </button>
-</DocumentFragment>
-`;
-
 exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
 <DocumentFragment>
   <div
@@ -391,31 +361,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 </DocumentFragment>
 `;
 
-exports[`ThemeExample.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
-  >
-    默认
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    提示
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    警告
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    错误
-  </button>
-</DocumentFragment>
-`;
-
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <button
@@ -436,6 +381,16 @@ exports[`describe.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`extends.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    浮层在右边
+  </button>
+</DocumentFragment>
+`;
+
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <button
@@ -447,6 +402,51 @@ exports[`icon.jsx 1`] = `
     class="t-button t-button--theme-primary t-button--variant-base"
   >
     使用Function
+  </button>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    Left
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    Top
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    Bottom
+  </button>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    默认
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    提示
+  </button>
+  <button
+    class="t-button t-button--theme-danger t-button--variant-base"
+  >
+    警告
+  </button>
+  <button
+    class="t-button t-button--theme-danger t-button--variant-base"
+  >
+    错误
   </button>
 </DocumentFragment>
 `;

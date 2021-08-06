@@ -275,6 +275,10 @@ exports[`button.jsx 1`] = `
         厦门
       </span>
     </label>
+    <div
+      class="t-radio-group-solid-bg-block"
+      style="width: 0px; left: 0px;"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -818,6 +822,10 @@ exports[`type.jsx 1`] = `
           选项三
         </span>
       </label>
+      <div
+        class="t-radio-group-solid-bg-block"
+        style="width: 0px; left: 0px;"
+      />
     </div>
     <div
       class="t-radio-group t-radio-group-solid t-radio-group-large"
@@ -861,6 +869,10 @@ exports[`type.jsx 1`] = `
           未选中禁用态
         </span>
       </label>
+      <div
+        class="t-radio-group-solid-bg-block"
+        style="width: 0px; left: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>

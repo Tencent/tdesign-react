@@ -1,0 +1,2540 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`closable-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu t-is-collapsed"
+    style="width: 64px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        LOGO
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item"
+        >
+          <svg
+            class="t-icon t-icon-app"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            仪表盘
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-code"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M582.32658048 127.91995584L644.1458304 144.48437504 445.3728064 886.3154112 383.55355392 869.7509888 582.32658048 127.91995584ZM751.9765632 238.60743936L937.1946176 450.51445824C966.5849088 484.13974144 968.67616 533.17379968 943.3876992 568.997456L937.5496384 576.46132416 752.0949056 791.068896 703.67072 749.2227712C836.840224 599.94243008 901.1253312 521.42316608 896.5260416 513.66497984L703.789056 280.72589376 751.9765632 238.60743936ZM247.8902304 239.23559808L299.1055264 277.61519488 128.77083328 512C125.29200256 519.09518592 182.0702336 598.33344128 299.1055264 749.7147648L299.1055264 749.7147648 247.8902304 788.0943616 85.38020864 571.23437504 79.93347072 563.1451648C59.962098496 529.97418112 61.77767776 487.59176128 85.38020864 456.095584L85.38020864 456.095584 247.8902304 239.23559808Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                资源列表
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    菜单二
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-file"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 192C192 156.653776 220.653776 128 256 128L578.16149952 128C594.96967168 128 611.10319232 134.61220032 623.07685632 146.40821632L812.91536 333.43016064C825.1251648 345.45881728 832 361.8822816 832 379.02194368L832 832ZM512 448L512 192 256 192 256 832 768 832 768 448 512 448ZM576.12484096 192L576 192 576 384 768 384 576.12484096 192Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                调度平台
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-user"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                精准监控
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+        >
+          <svg
+            class="t-icon t-icon-rollback"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M295.52604544 171.48100416L340.78087936 216.73583808 236.67986752 320.7180928C243.05764992 320.24220864 249.50053632 320 255.99999424 320L639.99999424 320C781.3848896 320 895.9999936 434.615104 895.9999936 576 895.9999936 717.384896 781.3848896 832 639.99999424 832L319.95738944 832 319.99999744 768 639.99999424 768C746.0386688 768 831.9999936 682.0386688 831.9999936 576 831.9999936 473.74842368 752.0691136 390.16570368 651.2814528 384.32593216L639.99999424 384 255.99999424 384C249.84679552 384 243.76120256 384.28945216 237.75608768 384.85548224L341.22484352 488.36993664 295.9700096 533.62477056 159.88954368 397.52900416 159.76154368 397.75517376 137.13412672 375.1277568C124.63734912 362.63097984 124.63734912 342.36970048 137.13412672 329.87292288L137.13412672 329.87292288 295.52604544 171.48100416Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            根目录
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-mail"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M896 192C931.3462272 192 960 220.653776 960 256L960 768C960 803.3462208 931.3462272 832 896 832L128 832C92.653776 832 64 803.3462208 64 768L64 256C64 220.653776 92.653776 192 128 192L896 192ZM128 291.712L128 768 896 768 896 294.656 512.122064 514.28023616 128 291.712ZM833.728 256L194.688 256 511.872 435.712 833.728 256Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                消息区
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    三级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="t-menu__options"
+    >
+      <svg
+        class="t-icon t-icon-view-list"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom-header.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-head-menu t-menu--light"
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单1
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单2
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单3
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单4
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div
+        class="t-menu__options"
+      >
+        <div
+          class="tdesign-demo-menu__block"
+        >
+          自定义内容区域
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-head-menu t-menu--dark"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          class="margin_0"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单1
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单2
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单3
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单4
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div
+        class="t-menu__options"
+      >
+        <div
+          class="tdesign-demo-menu__block"
+        >
+          自定义内容区域
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu"
+    style="width: 232px; margin-right: 20px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              仪表盘
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              资源列表
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              视频区
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              根目录
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              调度平台
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              精准监控
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              个人中心
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="t-default-menu t-menu--dark"
+    style="width: 232px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              仪表盘
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              资源列表
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              视频区
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              根目录
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              调度平台
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              精准监控
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              个人中心
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`double.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-head-menu t-menu--light"
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <span>
+              菜单1
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单2
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单3
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单4
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ul
+      class="t-head-menu__submenu t-submenu"
+    >
+      <div
+        class="t-tabs"
+      >
+        <div
+          class="t-tabs__header t-is-top"
+        >
+          <div
+            class="t-tabs__nav"
+          >
+            <div
+              class="t-tabs__operations t-tabs__operations--left"
+            />
+            <div
+              class="t-tabs__operations t-tabs__operations--right"
+            />
+            <div
+              class="t-tabs__nav-container t-is-top"
+            >
+              <div
+                class="t-tabs__nav-scroll"
+              >
+                <div
+                  class="t-tabs__nav-wrap"
+                >
+                  <div
+                    class="t-tabs__bar t-is-top"
+                    style="transform: translateX(0px);"
+                  />
+                  <div
+                    class="t-tabs__bar t-is-top"
+                  />
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                  >
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单1
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-top"
+                  >
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单2
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-tabs__content t-is-undefined"
+        >
+          <div
+            class="t-tab-panel"
+          />
+        </div>
+      </div>
+    </ul>
+  </div>
+  <div
+    class="t-head-menu t-menu--dark"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <span>
+              菜单1
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单2
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单3
+            </span>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              菜单4
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ul
+      class="t-head-menu__submenu t-submenu"
+    >
+      <div
+        class="t-tabs"
+      >
+        <div
+          class="t-tabs__header t-is-top"
+        >
+          <div
+            class="t-tabs__nav"
+          >
+            <div
+              class="t-tabs__operations t-tabs__operations--left"
+            />
+            <div
+              class="t-tabs__operations t-tabs__operations--right"
+            />
+            <div
+              class="t-tabs__nav-container t-is-top"
+            >
+              <div
+                class="t-tabs__nav-scroll"
+              >
+                <div
+                  class="t-tabs__nav-wrap"
+                >
+                  <div
+                    class="t-tabs__bar t-is-top"
+                    style="transform: translateX(0px);"
+                  />
+                  <div
+                    class="t-tabs__bar t-is-top"
+                  />
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                  >
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单1
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="t-tabs__nav-item t-size-m t-is-top"
+                  >
+                    <div
+                      class="t-tabs__nav-item-wrapper"
+                    >
+                      <span
+                        class="t-tabs__nav-item-text-wrapper"
+                      >
+                        子菜单2
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-tabs__content t-is-undefined"
+        >
+          <div
+            class="t-tab-panel"
+          />
+        </div>
+      </div>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`group-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu"
+    style="width: 232px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <div
+          class="t-menu-group"
+        >
+          <div
+            class="t-menu-group-title"
+          >
+            Classification A
+          </div>
+          <li
+            class="t-menu__item t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-chart"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M768 128C803.3462208 128 832 156.653776 832 192L832 768C832 803.3462208 803.3462208 832 768 832L192 832C156.653776 832 128 803.3462208 128 768L128 192C128 156.653776 156.653776 128 192 128L768 128ZM768 192L192 192 192 768 768 768 768 192ZM640 480L640 704 576 704 576 480 640 480ZM512 256L512 704 448 704 448 256 512 256ZM384 424L384 704 320 704 320 424 384 424Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span
+              class="t-menu__content"
+            >
+              仪表盘
+            </span>
+          </li>
+        </div>
+        <div
+          class="t-menu-group"
+        >
+          <div
+            class="t-menu-group-title"
+          >
+            Classification B
+          </div>
+          <li
+            class="t-menu__item t-menu__item--plain"
+          >
+            <span
+              class="t-menu__content"
+            >
+              调度平台
+            </span>
+          </li>
+          <li
+            class="t-menu__item t-menu__item--plain"
+          >
+            <span
+              class="t-menu__content"
+            >
+              菜单内容二很长很长很长很长很长很长很长很长
+            </span>
+          </li>
+        </div>
+        <div
+          class="t-menu-group"
+        >
+          <div
+            class="t-menu-group-title"
+          >
+            Classification C
+          </div>
+          <li
+            class="t-menu__item t-menu__item--plain"
+          >
+            <span
+              class="t-menu__content"
+            >
+              精准监控
+            </span>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div
+      class="t-menu__options"
+    >
+      <svg
+        class="t-icon t-icon-view-list"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multi-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu"
+    style="width: 232px; margin-right: 20px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item"
+        >
+          <svg
+            class="t-icon t-icon-app"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            仪表盘
+          </span>
+        </li>
+        <li
+          class="t-submenu t-is-opened"
+        >
+          <div
+            class="t-menu__item t-is-opened t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-code"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M582.32658048 127.91995584L644.1458304 144.48437504 445.3728064 886.3154112 383.55355392 869.7509888 582.32658048 127.91995584ZM751.9765632 238.60743936L937.1946176 450.51445824C966.5849088 484.13974144 968.67616 533.17379968 943.3876992 568.997456L937.5496384 576.46132416 752.0949056 791.068896 703.67072 749.2227712C836.840224 599.94243008 901.1253312 521.42316608 896.5260416 513.66497984L703.789056 280.72589376 751.9765632 238.60743936ZM247.8902304 239.23559808L299.1055264 277.61519488 128.77083328 512C125.29200256 519.09518592 182.0702336 598.33344128 299.1055264 749.7147648L299.1055264 749.7147648 247.8902304 788.0943616 85.38020864 571.23437504 79.93347072 563.1451648C59.962098496 529.97418112 61.77767776 487.59176128 85.38020864 456.095584L85.38020864 456.095584 247.8902304 239.23559808Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                资源列表
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow t-fake-arrow--active"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 50px;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  菜单二
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu t-is-opened"
+        >
+          <div
+            class="t-menu__item t-is-opened"
+          >
+            <svg
+              class="t-icon t-icon-file"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 192C192 156.653776 220.653776 128 256 128L578.16149952 128C594.96967168 128 611.10319232 134.61220032 623.07685632 146.40821632L812.91536 333.43016064C825.1251648 345.45881728 832 361.8822816 832 379.02194368L832 832ZM512 448L512 192 256 192 256 832 768 832 768 448 512 448ZM576.12484096 192L576 192 576 384 768 384 576.12484096 192Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                调度平台
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow t-fake-arrow--active"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 100px;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-user"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                精准监控
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+        >
+          <svg
+            class="t-icon t-icon-rollback"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M295.52604544 171.48100416L340.78087936 216.73583808 236.67986752 320.7180928C243.05764992 320.24220864 249.50053632 320 255.99999424 320L639.99999424 320C781.3848896 320 895.9999936 434.615104 895.9999936 576 895.9999936 717.384896 781.3848896 832 639.99999424 832L319.95738944 832 319.99999744 768 639.99999424 768C746.0386688 768 831.9999936 682.0386688 831.9999936 576 831.9999936 473.74842368 752.0691136 390.16570368 651.2814528 384.32593216L639.99999424 384 255.99999424 384C249.84679552 384 243.76120256 384.28945216 237.75608768 384.85548224L341.22484352 488.36993664 295.9700096 533.62477056 159.88954368 397.52900416 159.76154368 397.75517376 137.13412672 375.1277568C124.63734912 362.63097984 124.63734912 342.36970048 137.13412672 329.87292288L137.13412672 329.87292288 295.52604544 171.48100416Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            根目录
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-mail"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M896 192C931.3462272 192 960 220.653776 960 256L960 768C960 803.3462208 931.3462272 832 896 832L128 832C92.653776 832 64 803.3462208 64 768L64 256C64 220.653776 92.653776 192 128 192L896 192ZM128 291.712L128 768 896 768 896 294.656 512.122064 514.28023616 128 291.712ZM833.728 256L194.688 256 511.872 435.712 833.728 256Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                消息区
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="t-menu__options"
+    >
+      <svg
+        class="t-icon t-icon-view-list"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    class="t-default-menu t-menu--dark"
+    style="width: 232px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item"
+        >
+          <svg
+            class="t-icon t-icon-app"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            仪表盘
+          </span>
+        </li>
+        <li
+          class="t-submenu t-is-opened"
+        >
+          <div
+            class="t-menu__item t-is-opened t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-code"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M582.32658048 127.91995584L644.1458304 144.48437504 445.3728064 886.3154112 383.55355392 869.7509888 582.32658048 127.91995584ZM751.9765632 238.60743936L937.1946176 450.51445824C966.5849088 484.13974144 968.67616 533.17379968 943.3876992 568.997456L937.5496384 576.46132416 752.0949056 791.068896 703.67072 749.2227712C836.840224 599.94243008 901.1253312 521.42316608 896.5260416 513.66497984L703.789056 280.72589376 751.9765632 238.60743936ZM247.8902304 239.23559808L299.1055264 277.61519488 128.77083328 512C125.29200256 519.09518592 182.0702336 598.33344128 299.1055264 749.7147648L299.1055264 749.7147648 247.8902304 788.0943616 85.38020864 571.23437504 79.93347072 563.1451648C59.962098496 529.97418112 61.77767776 487.59176128 85.38020864 456.095584L85.38020864 456.095584 247.8902304 239.23559808Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                资源列表
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow t-fake-arrow--active"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 50px;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  菜单二
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu t-is-opened"
+        >
+          <div
+            class="t-menu__item t-is-opened"
+          >
+            <svg
+              class="t-icon t-icon-file"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 192C192 156.653776 220.653776 128 256 128L578.16149952 128C594.96967168 128 611.10319232 134.61220032 623.07685632 146.40821632L812.91536 333.43016064C825.1251648 345.45881728 832 361.8822816 832 379.02194368L832 832ZM512 448L512 192 256 192 256 832 768 832 768 448 512 448ZM576.12484096 192L576 192 576 384 768 384 576.12484096 192Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                调度平台
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow t-fake-arrow--active"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 100px;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-user"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                精准监控
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+        >
+          <svg
+            class="t-icon t-icon-rollback"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M295.52604544 171.48100416L340.78087936 216.73583808 236.67986752 320.7180928C243.05764992 320.24220864 249.50053632 320 255.99999424 320L639.99999424 320C781.3848896 320 895.9999936 434.615104 895.9999936 576 895.9999936 717.384896 781.3848896 832 639.99999424 832L319.95738944 832 319.99999744 768 639.99999424 768C746.0386688 768 831.9999936 682.0386688 831.9999936 576 831.9999936 473.74842368 752.0691136 390.16570368 651.2814528 384.32593216L639.99999424 384 255.99999424 384C249.84679552 384 243.76120256 384.28945216 237.75608768 384.85548224L341.22484352 488.36993664 295.9700096 533.62477056 159.88954368 397.52900416 159.76154368 397.75517376 137.13412672 375.1277568C124.63734912 362.63097984 124.63734912 342.36970048 137.13412672 329.87292288L137.13412672 329.87292288 295.52604544 171.48100416Z"
+              fill-opacity=".9"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            根目录
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-mail"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M896 192C931.3462272 192 960 220.653776 960 256L960 768C960 803.3462208 931.3462272 832 896 832L128 832C92.653776 832 64 803.3462208 64 768L64 256C64 220.653776 92.653776 192 128 192L896 192ZM128 291.712L128 768 896 768 896 294.656 512.122064 514.28023616 128 291.712ZM833.728 256L194.688 256 511.872 435.712 833.728 256Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                消息区
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-menu__sub"
+            style="max-height: 0;"
+          >
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  三级菜单-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="t-menu__options"
+    >
+      <svg
+        class="t-icon t-icon-view-list"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-head-menu t-menu--light"
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <span>
+              电器
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+            >
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    电视
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    冰箱
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            女装
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              水果蔬菜
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+            >
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    苹果
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  黄瓜
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            其他
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="t-head-menu t-menu--dark"
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              电器
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+            >
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    电视
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    冰箱
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            女装
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <span>
+              水果蔬菜
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup"
+            style="--popup-max-height: 100px;"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+            >
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    苹果
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item t-menu__item--plain"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  黄瓜
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            其他
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`single.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-head-menu t-menu--light"
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单1
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单2
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单3
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单4
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div
+        class="t-menu__options"
+      >
+        <svg
+          class="t-icon t-icon-user-add"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M768 576L768 704 896 704 896 768 768 768 768 896 704 896 704 768 576 768 576 704 704 704 704 576 768 576ZM512 576C556.20736256 576 599.10615168 581.60267008 640.0250432 592.13668416L640.0929536 658.5799104C599.50824576 646.4916672 556.51222848 640 512 640 416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 640 832 640 896 256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <svg
+          class="t-icon t-icon-app"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <svg
+          class="t-icon t-icon-call"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M314.13814976 127.90664832C275.81023616 127.277904 234.5088704 138.08312128 201.49404608 160.99936512L190.81145984 169.08759808C168.70275584 184.18336128 152.528672 205.95024192 142.86419008 231.79660608 136.14797504 249.75822656 134.20092224 261.00060416 130.87586496 289.99293824 119.21441344 414.6870912 177.4154112 550.95171136 297.112816 685.5017152 377.24172416 775.3827968 477.466992 842.6868736 579.92832256 875.0944768 623.25680704 888.7711488 664.8818496 895.8916224 702.555712 895.8916224 747.7294144 895.8916224 786.8595328 885.691008 816.2524544 865.1736896 842.9868992 845.708352 865.1947456 808.716032 886.1846656 753.105344 896.4778752 725.8345024 887.0431616 695.053504 863.2368 678.2339456L712.3614656 571.65356224C687.4661952 554.06720576 653.6228544 556.47965568 631.47106688 577.415616L617.29874688 591.28525248 601.03074688 608.06851072C597.48518336 612.26085632 589.01318272 618.63594048 588.93701504 618.64078336 569.306704 620.09977344 528.91922176 599.16592576 466.55025856 538.2179072L449.53806592 520.0814272C397.70344192 463.87785344 393.54580416 448.74759936 405.56930752 431.48240064L410.26915136 425.73013056C414.9161056 419.62130496 426.04435456 403.63333376 449.48916224 369.53265024 462.93771648 349.97160704 464.45468736 324.57373696 453.43013504 303.55095744L445.2230784 288.03667264C388.40504 181.60535936 354.2077824 132.9830656 319.133104 128.28074496L314.13814976 127.90664832ZM313.11263296 191.89774784C307.85203712 191.81611392 315.95486208 199.21515008 327.07944064 214.62207808 343.30409664 237.0923328 363.93942144 271.67431168 388.707984 318.07047872L396.75090304 333.2741888 361.9452128 383.70725248C361.18291328 384.88058176 360.87968192 385.41970112 361.12398976 385.20674816 317.92789376 440.20546688 330.04223872 487.57426496 421.00338048 583.16377152 496.0368256 656.5172608 552.06799744 685.5596224 593.34247552 682.4880448 615.92754752 681.053824 636.60989184 665.490592 648.9880768 650.3843904 655.1678208 643.9586816 661.3816576 637.632224 667.1586112 631.93376448L675.4352064 623.92641984 826.30784 730.5052032C809.3620864 775.4012928 792.696608 803.1615104 779.095712 813.0683968 762.0063552 824.9894784 735.5293504 831.8916224 702.555712 831.8916224 671.8091008 831.8916224 636.5887776 825.866752 599.2107936 814.0683712 508.11845248 785.2566656 417.58526016 724.461088 344.90742784 642.937952 236.0252576 520.54516032 184.80720896 400.629552 194.52860928 296.61689408L196.58529728 280.13727104C198.20375168 268.7427264 199.7822176 262.3105152 202.8105088 254.21175424 208.05497344 240.18613504 216.27713984 229.12084672 229.34400192 220.11296896 250.22759104 203.01123072 276.952096 193.87901824 302.32033216 192.17508288L313.11263296 191.89774784Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-head-menu t-menu--dark"
+  >
+    <div
+      class="t-head-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单1
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单2
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单3
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              菜单4
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div
+        class="t-menu__options"
+      >
+        <svg
+          class="t-icon t-icon-user-add"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M768 576L768 704 896 704 896 768 768 768 768 896 704 896 704 768 576 768 576 704 704 704 704 576 768 576ZM512 576C556.20736256 576 599.10615168 581.60267008 640.0250432 592.13668416L640.0929536 658.5799104C599.50824576 646.4916672 556.51222848 640 512 640 416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 640 832 640 896 256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <svg
+          class="t-icon t-icon-app"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M832 512C867.3462208 512 896 540.653776 896 576L896 832C896 867.3462208 867.3462208 896 832 896L576 896C540.653776 896 512 867.3462208 512 832L512 576C512 540.653776 540.653776 512 576 512L832 512ZM384 512C419.346224 512 448 540.653776 448 576L448 832C448 867.3462208 419.346224 896 384 896L128 896C92.653776 896 64 867.3462208 64 832L64 576C64 540.653776 92.653776 512 128 512L384 512ZM832 576L576 576 576 832 832 832 832 576ZM384 576L128 576 128 832 384 832 384 576ZM704 64C810.0386688 64 896 149.961328 896 256 896 362.038672 810.0386688 448 704 448 597.961328 448 512 362.038672 512 256 512 149.961328 597.961328 64 704 64ZM384 64C419.346224 64 448 92.653776 448 128L448 384C448 419.346224 419.346224 448 384 448L128 448C92.653776 448 64 419.346224 64 384L64 128C64 92.653776 92.653776 64 128 64L384 64ZM704 128C633.307552 128 576 185.307552 576 256 576 326.692448 633.307552 384 704 384 774.692448 384 832 326.692448 832 256 832 185.307552 774.692448 128 704 128ZM384 128L128 128 128 384 384 384 384 128Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <svg
+          class="t-icon t-icon-call"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M314.13814976 127.90664832C275.81023616 127.277904 234.5088704 138.08312128 201.49404608 160.99936512L190.81145984 169.08759808C168.70275584 184.18336128 152.528672 205.95024192 142.86419008 231.79660608 136.14797504 249.75822656 134.20092224 261.00060416 130.87586496 289.99293824 119.21441344 414.6870912 177.4154112 550.95171136 297.112816 685.5017152 377.24172416 775.3827968 477.466992 842.6868736 579.92832256 875.0944768 623.25680704 888.7711488 664.8818496 895.8916224 702.555712 895.8916224 747.7294144 895.8916224 786.8595328 885.691008 816.2524544 865.1736896 842.9868992 845.708352 865.1947456 808.716032 886.1846656 753.105344 896.4778752 725.8345024 887.0431616 695.053504 863.2368 678.2339456L712.3614656 571.65356224C687.4661952 554.06720576 653.6228544 556.47965568 631.47106688 577.415616L617.29874688 591.28525248 601.03074688 608.06851072C597.48518336 612.26085632 589.01318272 618.63594048 588.93701504 618.64078336 569.306704 620.09977344 528.91922176 599.16592576 466.55025856 538.2179072L449.53806592 520.0814272C397.70344192 463.87785344 393.54580416 448.74759936 405.56930752 431.48240064L410.26915136 425.73013056C414.9161056 419.62130496 426.04435456 403.63333376 449.48916224 369.53265024 462.93771648 349.97160704 464.45468736 324.57373696 453.43013504 303.55095744L445.2230784 288.03667264C388.40504 181.60535936 354.2077824 132.9830656 319.133104 128.28074496L314.13814976 127.90664832ZM313.11263296 191.89774784C307.85203712 191.81611392 315.95486208 199.21515008 327.07944064 214.62207808 343.30409664 237.0923328 363.93942144 271.67431168 388.707984 318.07047872L396.75090304 333.2741888 361.9452128 383.70725248C361.18291328 384.88058176 360.87968192 385.41970112 361.12398976 385.20674816 317.92789376 440.20546688 330.04223872 487.57426496 421.00338048 583.16377152 496.0368256 656.5172608 552.06799744 685.5596224 593.34247552 682.4880448 615.92754752 681.053824 636.60989184 665.490592 648.9880768 650.3843904 655.1678208 643.9586816 661.3816576 637.632224 667.1586112 631.93376448L675.4352064 623.92641984 826.30784 730.5052032C809.3620864 775.4012928 792.696608 803.1615104 779.095712 813.0683968 762.0063552 824.9894784 735.5293504 831.8916224 702.555712 831.8916224 671.8091008 831.8916224 636.5887776 825.866752 599.2107936 814.0683712 508.11845248 785.2566656 417.58526016 724.461088 344.90742784 642.937952 236.0252576 520.54516032 184.80720896 400.629552 194.52860928 296.61689408L196.58529728 280.13727104C198.20375168 268.7427264 199.7822176 262.3105152 202.8105088 254.21175424 208.05497344 240.18613504 216.27713984 229.12084672 229.34400192 220.11296896 250.22759104 203.01123072 276.952096 193.87901824 302.32033216 192.17508288L313.11263296 191.89774784Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`single-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu"
+    style="width: 232px; margin-right: 20px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo_hover.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              仪表盘
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              资源列表
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              视频区
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              根目录
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              调度平台
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              精准监控
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              个人中心
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="t-default-menu t-menu--dark"
+    style="width: 232px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <div
+        class="t-menu__logo"
+      >
+        <img
+          alt="logo"
+          src="https://www.tencent.com/img/index/menu_logo.png"
+          width="136"
+        />
+      </div>
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              仪表盘
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-active t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              资源列表
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              视频区
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              根目录
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              调度平台
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              精准监控
+            </span>
+          </span>
+        </li>
+        <li
+          class="t-menu__item t-menu__item--plain"
+        >
+          <span
+            class="t-menu__content"
+          >
+            <span>
+              个人中心
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

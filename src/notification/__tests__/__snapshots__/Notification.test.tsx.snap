@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotificationBase.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -39,10 +39,10 @@ exports[`NotificationBase.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationClose.jsx 1`] = `
+exports[`close.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -65,7 +65,7 @@ exports[`NotificationClose.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -89,7 +89,7 @@ exports[`NotificationClose.jsx 1`] = `
   <br />
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -117,12 +117,12 @@ exports[`NotificationClose.jsx 1`] = `
   </div>
   <br />
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     处理开关事件
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     处理定时关闭事件（3s）
   </button>
@@ -132,10 +132,10 @@ exports[`NotificationClose.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationContent.jsx 1`] = `
+exports[`content.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -170,7 +170,7 @@ exports[`NotificationContent.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -204,10 +204,10 @@ exports[`NotificationContent.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationFooter.jsx 1`] = `
+exports[`footer.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -261,10 +261,10 @@ exports[`NotificationFooter.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationIcon.jsx 1`] = `
+exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <i
       class="t-icon t-icon-more t-size-m"
@@ -303,46 +303,128 @@ exports[`NotificationIcon.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationOffset.jsx 1`] = `
+exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     偏移的信息
   </button>
 </DocumentFragment>
 `;
 
-exports[`NotificationPlacement.jsx 1`] = `
+exports[`operation.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-notification"
+  >
+    <div
+      class="t-notification__main"
+    >
+      <div
+        class="t-notification__title__wrap"
+      >
+        <span
+          class="t-notification__title"
+        >
+          自定义底部详情
+        </span>
+        <svg
+          class="t-icon t-icon-close t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__content"
+      >
+        这是一条消息通知
+      </div>
+      <div
+        class="t-notification__detail"
+      >
+        <div
+          class="t-notification__detail"
+        >
+          <span
+            class="t-notification__detail--item"
+          >
+            重启
+          </span>
+          <span
+            class="t-notification__detail--item t-is-active"
+          >
+            查看详情
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     左上角
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     右上角
   </button>
   <br />
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     左下角
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     右下角
   </button>
 </DocumentFragment>
 `;
 
-exports[`NotificationSize.jsx 1`] = `
+exports[`plugin.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    信息
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    成功
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    警告
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    错误
+  </button>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -377,7 +459,7 @@ exports[`NotificationSize.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -414,30 +496,30 @@ exports[`NotificationSize.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NotificationToggle.jsx 1`] = `
+exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     自由控制关闭时机
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     点击打开多个消息
   </button>
   <button
-    class="t-button t-button--theme-default t-button--variant-base"
+    class="t-button t-button--theme-primary t-button--variant-base"
   >
     点击关闭多个消息
   </button>
 </DocumentFragment>
 `;
 
-exports[`NotificationType.jsx 1`] = `
+exports[`type.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__main"
@@ -472,7 +554,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -523,7 +605,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -574,7 +656,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -625,7 +707,7 @@ exports[`NotificationType.jsx 1`] = `
   </div>
   <br />
   <div
-    class="t-notification "
+    class="t-notification"
   >
     <div
       class="t-notification__icon"
@@ -671,169 +753,6 @@ exports[`NotificationType.jsx 1`] = `
         class="t-notification__content"
       >
         这是一条消息通知
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`NotificationType4Fn.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    信息
-  </button>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    成功
-  </button>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    警告
-  </button>
-  <button
-    class="t-button t-button--theme-default t-button--variant-base"
-  >
-    错误
-  </button>
-</DocumentFragment>
-`;
-
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-notification "
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`icon.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-notification "
-  >
-    <i
-      class="t-icon t-icon-more t-size-m"
-    />
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          自定义icon
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`operation.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-notification "
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          自定义底部详情
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M760.9780096 217.6L806.2328448 262.85483392 557.312 511.744 806.2328448 760.6580096 760.9780096 805.9128448 512.064 556.992 263.17483392 805.9128448 217.92 760.6580096 466.816 511.744 217.92 262.85483392 263.17483392 217.6 512.064 466.496 760.9780096 217.6Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-      <div
-        class="t-notification__detail"
-      >
-        <div
-          class="t-notification__detail"
-        >
-          <span
-            class="t-notification__detail--item"
-          >
-            重启
-          </span>
-          <span
-            class="t-notification__detail--item t-is-active"
-          >
-            查看详情
-          </span>
-        </div>
       </div>
     </div>
   </div>

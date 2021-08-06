@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, FormItem, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+
+const { FormItem } = Form;
 
 export default function BaseForm() {
   const onSubmit = (e) => {
@@ -40,7 +42,7 @@ export default function BaseForm() {
           <Input />
         </FormItem>
         <FormItem label="性别" name="gender" rules={[{ required: true, message: '性别必填', type: 'warning' }]}>
-          <Radio.Group buttonStyle="solid">
+          <Radio.Group>
             <Radio value="male">男</Radio>
             <Radio value="femal">女</Radio>
           </Radio.Group>

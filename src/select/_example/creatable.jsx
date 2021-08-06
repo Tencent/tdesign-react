@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Select } from '@tencent/tdesign-react';
 
 const SelectCreateable = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('apple');
   const [options, changeOptions] = useState([
     {
       label: 'Apple',

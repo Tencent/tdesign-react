@@ -1,20 +1,19 @@
 import React from 'react';
-import { TableColumn } from '../TableProps';
+import { BaseTableCol } from '../../_type/components/base-table';
 
 export interface TableColGroupProps {
-  columns: TableColumn[];
+  columns: BaseTableCol[];
 }
 
 export const TableColGroup = ({ columns }: TableColGroupProps): any => (
   <colgroup>
-    {columns.map(({ key, width, minWidth, className }) => (
+    {columns.map(({ width, minWidth, colKey }) => (
       <col
-        key={key}
+        key={colKey}
         style={{
-          width: typeof width === 'undefined' ? 'auto' : width,
-          minWidth: typeof minWidth === 'undefined' ? 'auto' : minWidth,
+          width,
+          minWidth,
         }}
-        className={className}
       />
     ))}
   </colgroup>

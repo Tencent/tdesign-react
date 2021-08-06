@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel } from '@tencent/tdesign-react';
+import { Tabs } from '@tencent/tdesign-react';
+
+const { TabPanel } = Tabs;
 
 export default function AddTabs() {
   const [panels, setPanels] = useState([
@@ -18,6 +20,10 @@ export default function AddTabs() {
           theme={'card'}
           defaultValue={0}
           addable
+          onRemove={({ value }) => {
+            const newPanels = panels.filter((panel) => panel.value !== value);
+            setPanels(newPanels);
+          }}
           onAdd={() => {
             const newPanels = panels.concat({
               value: panels.length + 1,

@@ -1,2 +1,7 @@
-export { InputNumber as default } from './InputNumber';
-export { InputNumberProps } from './InputNumberProps';
+import InputNumber from './InputNumber';
+
+import './style/index.js';
+
+export type { InputNumberProps } from './InputNumberProps';
+
+export default InputNumber;

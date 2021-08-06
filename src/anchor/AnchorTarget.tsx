@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import Popup from '../popup/';
-import { Icon } from '../icon';
+import FileCopyIcon from '../icon/icons/FileCopyIcon';
 import Message from '../message';
 import useConfig from '../_util/useConfig';
 
@@ -30,7 +30,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
     <>
       {children}
       <Popup content="复制链接" placement="top" showArrow>
-        <Icon name="file-copy" className={iconClassName} onClick={handleCopyText}></Icon>
+        <FileCopyIcon className={iconClassName} onClick={handleCopyText} />
       </Popup>
     </>
   );

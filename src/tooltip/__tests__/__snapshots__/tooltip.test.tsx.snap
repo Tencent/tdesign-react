@@ -10,41 +10,88 @@ exports[`arrow.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`customize.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tooltip-demo"
+    style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; top: 0px; left: 42%;"
     >
-      default
+      top
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; top: 0px; left: 70px;"
     >
-      primary
+      top-left
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; top: 0px; right: 70px;"
     >
-      success
+      top-right
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; bottom: 0px; left: 42%;"
     >
-      danger
+      bottom
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
     >
-      warning
+      bottom-left
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; bottom: 0px; right: 70px;"
+    >
+      bottom-right
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; left: 0px; top: 42%;"
+    >
+      left
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; left: 0px; top: 50px;"
+    >
+      left-top
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; left: 0px; bottom: 50px;"
+    >
+      left-bottom
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; right: 0px; top: 42%;"
+    >
+      right
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; right: 0px; top: 50px;"
+    >
+      right-top
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: absolute; right: 0px; bottom: 50px;"
+    >
+      right-bottom
     </button>
   </div>
 </DocumentFragment>
 `;
 
-exports[`noArrow.jsx 1`] = `
+exports[`no-arrow.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
@@ -54,82 +101,35 @@ exports[`noArrow.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`placement.jsx 1`] = `
+exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
+    class="tdesign-tooltip-demo"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; top: 0px; left: 42%;"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      top
+      default
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; top: 0px; left: 70px;"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      top-left
+      primary
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; top: 0px; right: 70px;"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      top-right
+      success
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; bottom: 0px; left: 42%;"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      bottom
+      danger
     </button>
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      bottom-left
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; bottom: 0px; right: 70px;"
-    >
-      bottom-right
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; left: 0px; top: 42%;"
-    >
-      left
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; left: 0px; top: 50px;"
-    >
-      left-top
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; left: 0px; bottom: 50px;"
-    >
-      left-bottom
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; right: 0px; top: 42%;"
-    >
-      right
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; right: 0px; top: 50px;"
-    >
-      right-top
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-base"
-      style="position: absolute; right: 0px; bottom: 50px;"
-    >
-      right-bottom
+      warning
     </button>
   </div>
 </DocumentFragment>

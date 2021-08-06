@@ -10,7 +10,7 @@ const SelectNoborder = () => {
     setValue(value);
   };
   return (
-    <Select value={value} onChange={onChange} bordered={false} clearable style={{ width: '40%' }}>
+    <Select value={value} onChange={onChange} bordered={false} clearable={true} style={{ width: '40%' }}>
       <Option key="apple" label="Apple" value="apple" />
       <Option key="orange" label="Orange" value="orange" />
       <Option key="banana" label="Banana" value="banana" />

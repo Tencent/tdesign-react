@@ -5,7 +5,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     '@tencent/eslint-config-tencent',
-    'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'react-hooks'],
   env: {

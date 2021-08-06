@@ -1,5 +1,7 @@
 import React from 'react';
-import { Anchor, AnchorItem } from '@tencent/tdesign-react';
+import { Anchor } from '@tencent/tdesign-react';
+
+const { AnchorItem } = Anchor;
 
 export default function AnchorMutiple() {
   return (

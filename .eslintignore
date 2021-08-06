@@ -3,11 +3,9 @@ dist
 lib
 es
 node_modules
-common
 static
 cypress
 script/test/cypress
 _site
 temp*
 static/
-_type

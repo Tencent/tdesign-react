@@ -1,6 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicLayout.jsx 1`] = `
+exports[`aside.jsx 1`] = `
+<DocumentFragment>
+  <h4>
+    侧边导航布局
+  </h4>
+  <div
+    class="t-layout t-layout-has-sider"
+  >
+    <aside
+      class="t-layout--sider"
+      style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
+    >
+      <div
+        class="t-default-menu"
+        style="width: 100%; height: 100%; box-shadow: none;"
+      >
+        <div
+          class="t-default-menu__inner"
+        >
+          <div
+            class="t-menu__logo"
+          >
+            <span>
+              LOGO
+            </span>
+          </div>
+          <ul
+            class="t-menu"
+          >
+            <li
+              class="t-menu__item t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                侧边内容一
+              </span>
+            </li>
+            <li
+              class="t-menu__item t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                侧边内容二
+              </span>
+            </li>
+            <li
+              class="t-menu__item t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                侧边内容三
+              </span>
+            </li>
+            <li
+              class="t-menu__item t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                侧边内容四
+              </span>
+            </li>
+            <li
+              class="t-menu__item t-is-active t-menu__item--plain"
+            >
+              <span
+                class="t-menu__content"
+              >
+                侧边内容无
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+    <div
+      class="t-layout"
+    >
+      <main
+        class="t-layout--content"
+      >
+        <div>
+          Content
+        </div>
+      </main>
+      <footer
+        class="t-layout--footer"
+      >
+        Copyright @ 2019-2020 Tencent. All Rights Reserved
+      </footer>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <h4>
     顶部导航布局
@@ -50,43 +148,52 @@ exports[`BasicLayout.jsx 1`] = `
             <span>
               LOGO
             </span>
-             
           </div>
           <ul
             class="t-menu"
           >
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active t-menu__item--plain"
             >
-              <span>
+              <span
+                class="t-menu__content"
+              >
                 侧边内容一
               </span>
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active t-menu__item--plain"
             >
-              <span>
+              <span
+                class="t-menu__content"
+              >
                 侧边内容二
               </span>
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active t-menu__item--plain"
             >
-              <span>
+              <span
+                class="t-menu__content"
+              >
                 侧边内容三
               </span>
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active t-menu__item--plain"
             >
-              <span>
+              <span
+                class="t-menu__content"
+              >
                 侧边内容四
               </span>
             </li>
             <li
-              class="t-menu__item"
+              class="t-menu__item t-is-active t-menu__item--plain"
             >
-              <span>
+              <span
+                class="t-menu__content"
+              >
                 侧边内容无
               </span>
             </li>
@@ -143,43 +250,52 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容一
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容二
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容三
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容四
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容无
                 </span>
               </li>
@@ -250,43 +366,52 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容一
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容二
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容三
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容四
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容无
                 </span>
               </li>
@@ -325,43 +450,52 @@ exports[`BasicLayout.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容一
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容二
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容三
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容四
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容无
                 </span>
               </li>
@@ -385,95 +519,6 @@ exports[`BasicLayout.jsx 1`] = `
           Copyright @ 2019-2020 Tencent. All Rights Reserved
         </footer>
       </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`aside.jsx 1`] = `
-<DocumentFragment>
-  <h4>
-    侧边导航布局
-  </h4>
-  <div
-    class="t-layout t-layout-has-sider"
-  >
-    <aside
-      class="t-layout--sider"
-      style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
-    >
-      <div
-        class="t-default-menu"
-        style="width: 100%; height: 100%; box-shadow: none;"
-      >
-        <div
-          class="t-default-menu__inner"
-        >
-          <div
-            class="t-menu__logo"
-          >
-            <span>
-              LOGO
-            </span>
-             
-          </div>
-          <ul
-            class="t-menu"
-          >
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                侧边内容一
-              </span>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                侧边内容二
-              </span>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                侧边内容三
-              </span>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                侧边内容四
-              </span>
-            </li>
-            <li
-              class="t-menu__item"
-            >
-              <span>
-                侧边内容无
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </aside>
-    <div
-      class="t-layout"
-    >
-      <main
-        class="t-layout--content"
-      >
-        <div>
-          Content
-        </div>
-      </main>
-      <footer
-        class="t-layout--footer"
-      >
-        Copyright @ 2019-2020 Tencent. All Rights Reserved
-      </footer>
     </div>
   </div>
 </DocumentFragment>
@@ -512,43 +557,52 @@ exports[`combine.jsx 1`] = `
               <span>
                 LOGO
               </span>
-               
             </div>
             <ul
               class="t-menu"
             >
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容一
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容二
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容三
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容四
                 </span>
               </li>
               <li
-                class="t-menu__item"
+                class="t-menu__item t-is-active t-menu__item--plain"
               >
-                <span>
+                <span
+                  class="t-menu__content"
+                >
                   侧边内容无
                 </span>
               </li>

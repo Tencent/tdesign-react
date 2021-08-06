@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel, DiscountIcon, Button } from '@tencent/tdesign-react';
+import { Tabs, DiscountIcon, Button } from '@tencent/tdesign-react';
+
+const { TabPanel } = Tabs;
 
 export default function IconTabs() {
   const [isCard, setIsCard] = useState(false);

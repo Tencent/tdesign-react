@@ -1,12 +1,11 @@
 import React, { Ref, forwardRef, useContext } from 'react';
 import classNames from 'classnames';
-import { TdRadioProps } from '../_type/components/radio';
 import { StyledProps } from '../_type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import { TdCheckboxProps } from '../_type/components/checkbox';
 
-export interface CheckProps extends TdRadioProps, TdCheckboxProps, StyledProps {
+export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   children?: React.ReactNode;
 }

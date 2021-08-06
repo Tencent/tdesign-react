@@ -5,7 +5,10 @@ import useConfig from '../../_util/useConfig';
 import Option, { SelectOptionProps } from './Option';
 
 interface SelectPopupProps
-  extends Pick<TdSelectProps, 'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading'> {
+  extends Pick<
+    TdSelectProps,
+    'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading' | 'valueType'
+  > {
   onChange?: (value: SelectValue, context?: { label?: string | number }) => void;
   /**
    * 是否展示popup
@@ -19,7 +22,20 @@ interface SelectPopupProps
 }
 
 const PopupContent = (props: SelectPopupProps) => {
-  const { onChange, value, size, max, multiple, showPopup, setShowPopup, options, empty, loadingText, loading } = props;
+  const {
+    onChange,
+    value,
+    size,
+    max,
+    multiple,
+    showPopup,
+    setShowPopup,
+    options,
+    empty,
+    loadingText,
+    loading,
+    valueType,
+  } = props;
 
   const { classPrefix } = useConfig();
   if (!props.children && !props.options) return null;
@@ -27,7 +43,7 @@ const PopupContent = (props: SelectPopupProps) => {
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected }) => {
     if (selectedValue) {
       if (multiple) {
-        const values = getSelectValueArr(value, selectedValue, label, selected);
+        const values = getSelectValueArr(value, selectedValue, label, selected, valueType);
         onChange(values, { label });
         requestAnimationFrame(() => setShowPopup(true));
       } else {
@@ -51,7 +67,7 @@ const PopupContent = (props: SelectPopupProps) => {
       // 通过options API配置的
       return (
         <ul>
-          {options.map(({ value: optionValue, label }, index) => (
+          {options.map(({ value: optionValue, label, disabled }, index) => (
             <Option
               key={index}
               max={max}
@@ -61,6 +77,7 @@ const PopupContent = (props: SelectPopupProps) => {
               selectedValue={value}
               multiple={multiple}
               size={size}
+              disabled={disabled}
             />
           ))}
         </ul>

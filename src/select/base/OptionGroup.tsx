@@ -3,7 +3,7 @@ import useConfig from '../../_util/useConfig';
 
 import { TdOptionGroupProps, SelectValue } from '../../_type/components/select';
 
-interface SelectGOptionGroupProps extends TdOptionGroupProps {
+export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   selectedValue?: SelectValue;
   onSelect?: (
     value: string | number,

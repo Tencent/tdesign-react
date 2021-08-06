@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
@@ -6,8 +6,12 @@ import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
+import AnchorItem from './AnchorItem';
+import AnchorTarget from './AnchorTarget';
 
-export interface AnchorProps extends TdAnchorProps, StyledProps {}
+export interface AnchorProps extends TdAnchorProps, StyledProps {
+  children?: React.ReactNode;
+}
 
 interface IntervalRef {
   // 收集 anchor-item
@@ -22,12 +26,12 @@ interface IntervalRef {
 
 const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
-const Anchor: FunctionComponent<AnchorProps> = (props) => {
+const Anchor = (props: AnchorProps) => {
   const {
     affix = false,
     bounds = 5,
     targetOffset = 0,
-    attach = '',
+    container = '',
     size = 'medium',
     children,
     onClick = noop,
@@ -90,14 +94,14 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
 
   useEffect(() => {
     // update point style
-    const pointEl = anchorEl.current.querySelector('.t-is-active>a') as HTMLAnchorElement;
+    const pointEl = anchorEl.current.querySelector(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
     if (!pointEl) {
       setPointStyle(null);
     } else {
       const { offsetTop: top, offsetHeight: height } = pointEl;
       setPointStyle({ top: `${top}px`, height: `${height}px` });
     }
-  }, [activeItem]);
+  }, [activeItem, classPrefix]);
 
   const handleScroll = useCallback(() => {
     const { scrollContainer, handleScrollLock } = intervalRef.current;
@@ -132,7 +136,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
   }, [bounds, onChange, targetOffset]);
 
   useEffect(() => {
-    intervalRef.current.scrollContainer = getAttach(attach);
+    intervalRef.current.scrollContainer = getAttach(container);
     const { scrollContainer } = intervalRef.current;
 
     handleScroll();
@@ -140,7 +144,7 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
     };
-  }, [attach, handleScroll]);
+  }, [container, handleScroll]);
 
   const anchorClass = classNames(`${classPrefix}-anchor`, {
     [`${classPrefix}--affix`]: affix,
@@ -167,6 +171,9 @@ const Anchor: FunctionComponent<AnchorProps> = (props) => {
     </AnchorContext.Provider>
   );
 };
+
+Anchor.AnchorItem = AnchorItem;
+Anchor.AnchorTarget = AnchorTarget;
 
 Anchor.displayName = 'Anchor';
 

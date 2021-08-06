@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
-import { CloseIcon } from '../icon';
+import CloseIcon from '../icon/icons/CloseIcon';
 import { TdDrawerProps, DrawerEventSource } from '../_type/components/drawer';
 import { StyledProps } from '../_type';
 import { getAttach } from '../common/Portal';

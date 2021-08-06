@@ -1,6 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BadgeColor.jsx 1`] = `
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+    >
+       
+    </button>
+    <span
+      class="t-badge--dot"
+    />
+  </span>
+  <span
+    class="t-badge"
+  >
+    解锁新徽章
+    <span
+      class="t-badge--dot"
+    />
+  </span>
+  <span
+    class="t-badge"
+  >
+    <svg
+      class="t-icon t-icon-user"
+      style="font-size: 24px;"
+      version="1.1"
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+        fill-opacity=".9"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <span
+      class="t-badge--dot"
+    />
+  </span>
+</DocumentFragment>
+`;
+
+exports[`color.jsx 1`] = `
 <DocumentFragment>
   <label
     class="t-checkbox"
@@ -97,58 +142,13 @@ exports[`BadgeColor.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
-    >
-       
-    </button>
-    <span
-      class="t-badge--dot"
-    />
-  </span>
-  <span
-    class="t-badge"
-  >
-    解锁新徽章
-    <span
-      class="t-badge--dot"
-    />
-  </span>
-  <span
-    class="t-badge"
-  >
-    <svg
-      class="t-icon t-icon-user"
-      style="font-size: 24px;"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <span
-      class="t-badge--dot"
-    />
-  </span>
-</DocumentFragment>
-`;
-
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
     >
        
     </button>
@@ -167,7 +167,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
     >
        
     </button>
@@ -181,7 +181,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
     >
        
     </button>
@@ -195,7 +195,7 @@ exports[`number.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base t-size-l"
+      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
     >
        
     </button>
@@ -214,7 +214,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       默认
     </button>
@@ -228,7 +228,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       [10,10]
     </button>
@@ -243,7 +243,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       [-10,10]
     </button>
@@ -258,7 +258,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       [-10,-10]
     </button>
@@ -273,7 +273,7 @@ exports[`offset.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       [10,-10]
     </button>
@@ -293,7 +293,7 @@ exports[`shape.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
        circle
     </button>
@@ -307,7 +307,7 @@ exports[`shape.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       round
     </button>
@@ -331,7 +331,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>
@@ -345,7 +345,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>
@@ -359,7 +359,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>
@@ -378,7 +378,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>
@@ -392,7 +392,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>
@@ -406,7 +406,7 @@ exports[`size.jsx 1`] = `
     class="t-badge"
   >
     <button
-      class="t-button t-button--theme-default t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
       按钮
     </button>

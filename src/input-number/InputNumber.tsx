@@ -9,7 +9,7 @@ import StepHandler from './StepHandler';
 import { ChangeContext, InputNumberProps, InputNumberInternalValue } from './InputNumberProps';
 import * as numberUtils from './utils/numberUtils';
 
-export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
+const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     className,
     style,
@@ -48,11 +48,11 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
 
   const [internalInputValue, setInternalInputValue] = useState<InputNumberInternalValue>(() => {
     let initialValue: InputNumberInternalValue = '';
-    if (!numberUtils.isInvalidNumber(value)) {
-      initialValue = value;
-    }
     if (!numberUtils.isInvalidNumber(defaultValue)) {
       initialValue = getRangeValue(Number(defaultValue));
+    }
+    if (!numberUtils.isInvalidNumber(value)) {
+      initialValue = value;
     }
 
     if (format && initialValue !== '') {
@@ -224,3 +224,5 @@ export const InputNumber = React.forwardRef((props: InputNumberProps, ref: React
 });
 
 InputNumber.displayName = 'InputNumber';
+
+export default InputNumber;

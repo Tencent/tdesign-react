@@ -1,6 +1,7 @@
 import React from 'react';
-import { Breadcrumb } from '../Breadcrumb';
-import { BreadcrumbItem } from '../BreadcrumbItem';
+import { Breadcrumb } from '@tencent/tdesign-react';
+
+const { BreadcrumbItem } = Breadcrumb;
 
 export default function BreadcrumbExample() {
   return (
