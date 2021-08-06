@@ -6,7 +6,7 @@ export interface PortalProps {
   /**
    * 指定挂载的 HTML 节点, false 为挂载在 body
    */
-  getContainer?: React.ReactElement | AttachNode | Boolean;
+  getContainer?: React.ReactElement | AttachNode | boolean;
   children: React.ReactNode;
 }
 
@@ -36,11 +36,12 @@ const Portal = forwardRef((props: PortalProps, ref) => {
     }
   }, [getContainer]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       container.remove();
-    };
-  }, []);
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   useImperativeHandle(ref, () => parentContainer);
 
