@@ -91,7 +91,6 @@ export default function transforms() {
             useEffect(() => {
               tdDocHeader.current.docType = docType;
               tdDocHeader.current.contributors = contributors;
-              isComponent && (tdDocHeader.current.issueInfo = {});
               tdDocHeader.current.docInfo = {
                 title: \`${title}\`,
                 desc:  \`${description}\`
@@ -99,7 +98,10 @@ export default function transforms() {
               if (tdDocTabs.current) {
                 tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
               }
-              tdContributors.current.contributors = contributors;
+              if (isComponent) {
+                tdDocHeader.current.issueInfo = {};
+                tdContributors.current.contributors = contributors;
+              }
               document.querySelector('td-doc-content').initAnchorHighlight();
 
               return () => {
@@ -118,13 +120,15 @@ export default function transforms() {
                   isComponent ? (
                     <>
                       <td-doc-tabs ref={tdDocTabs} tab={tab}></td-doc-tabs>
-                      <div style={isShow('demo')} name="DEMO">${content.replace(/class=/g, 'className=')}</div>
+                      <div style={isShow('demo')} name="DEMO">
+                        ${content.replace(/class=/g, 'className=')}
+                        <td-contributors ref={tdContributors}></td-contributors>
+                      </div>
                       <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${api}\` }}></div>
                       <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${designResult}\` }}></div>
                     </>
                   ) : <div name="DOC">${content.replace(/class=/g, 'className=')}</div>
                 }
-                <td-contributors ref={tdContributors}></td-contributors>
               </>
             )
           }
