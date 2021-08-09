@@ -1,14 +1,16 @@
 import React from 'react';
-import { Button, SearchIcon } from '@tencent/tdesign-react';
+import { Button, SearchIcon, AddIcon, CloudUploadIcon, DiscountIcon, CloudDownloadIcon } from '@tencent/tdesign-react';
 
 export default function ButtonExample() {
   return (
     <>
-      <Button icon={<SearchIcon />}>line</Button>
-      <Button variant="outline" icon={<SearchIcon />}>
-        primary
+      <Button icon={<AddIcon />}>新建</Button>
+      <Button variant="outline" icon={<CloudUploadIcon />}>
+        上传文件
       </Button>
-      <Button icon={<SearchIcon />} />
+      <Button shape="circle" icon={<DiscountIcon />} />
+      <Button shape="circle" icon={<CloudDownloadIcon />} />
+      <Button theme="default" variant="outline" icon={<SearchIcon />} >Function Icon</Button>
     </>
   );
 }
