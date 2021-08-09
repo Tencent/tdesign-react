@@ -84,6 +84,7 @@ export default function transforms() {
           export default function TdDoc(props) {
             const tdDocHeader = useRef();
             const tdDocTabs = useRef();
+            const tdContributors = useRef();
             const { isComponent, contributors, docType } = props;
             const [tab, setTab] = useState('demo');
 
@@ -98,6 +99,7 @@ export default function transforms() {
               if (tdDocTabs.current) {
                 tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
               }
+              tdContributors.current.contributors = contributors;
               document.querySelector('td-doc-content').initAnchorHighlight();
 
               return () => {
@@ -122,6 +124,7 @@ export default function transforms() {
                     </>
                   ) : <div name="DOC">${content.replace(/class=/g, 'className=')}</div>
                 }
+                <td-contributors ref={tdContributors}></td-contributors>
               </>
             )
           }
