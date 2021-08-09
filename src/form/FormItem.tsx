@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
-import ClearCircleFilledIcon from '../icon/icons/ClearCircleFilledIcon';
+import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
 import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
 import { CheckTag } from '../tag';
@@ -97,7 +97,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     const getDefaultIcon = () => {
       const iconMap = {
         success: <CheckCircleFilledIcon size="25px" />,
-        error: <ClearCircleFilledIcon size="25px" />,
+        error: <CloseCircleFilledIcon size="25px" />,
         warning: <ErrorCircleFilledIcon size="25px" />,
       };
       if (verifyStatus === VALIDATE_STATUS.SUCCESS) {

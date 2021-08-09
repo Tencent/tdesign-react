@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import CheckCircleIcon from '../icon/icons/CheckCircleIcon';
-import ClearCircleIcon from '../icon/icons/ClearCircleIcon';
+import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
 import ErrorCircleIcon from '../icon/icons/ErrorCircleIcon';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
-import ClearCircleFilledIcon from '../icon/icons/ClearCircleFilledIcon';
+import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
 import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
@@ -31,7 +31,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
   }
   let iconMap = {
     success: CheckCircleFilledIcon,
-    error: ClearCircleFilledIcon,
+    error: CloseCircleFilledIcon,
     warning: ErrorCircleFilledIcon,
   };
   const { classPrefix } = useConfig();
@@ -61,7 +61,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
   if (theme === 'circle') {
     iconMap = {
       success: CheckCircleIcon,
-      error: ClearCircleIcon,
+      error: CloseCircleIcon,
       warning: ErrorCircleIcon,
     };
     // 获取直径

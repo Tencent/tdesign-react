@@ -85,7 +85,7 @@ exports[`clearable.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-clear-circle-filled"
+          class="t-icon t-icon-close-circle-filled"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
