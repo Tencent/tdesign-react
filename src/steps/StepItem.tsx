@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import ClearCircleIcon from '../icon/icons/ClearCircleIcon';
+import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import { TdStepItemProps } from '../_type/components/steps';
 import { StyledProps } from '../_type';
@@ -57,7 +57,7 @@ export default function StepItem(props: StepItemProps) {
     } else {
       switch (status) {
         case 'error':
-          iconEle = <ClearCircleIcon />;
+          iconEle = <CloseCircleIcon />;
           break;
         case 'finish':
           iconEle = <CheckCircleFilledIcon />;

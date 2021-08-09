@@ -84,19 +84,23 @@ export default function transforms() {
           export default function TdDoc(props) {
             const tdDocHeader = useRef();
             const tdDocTabs = useRef();
+            const tdContributors = useRef();
             const { isComponent, contributors, docType } = props;
             const [tab, setTab] = useState('demo');
 
             useEffect(() => {
               tdDocHeader.current.docType = docType;
               tdDocHeader.current.contributors = contributors;
-              isComponent && (tdDocHeader.current.issueInfo = {});
               tdDocHeader.current.docInfo = {
                 title: \`${title}\`,
                 desc:  \`${description}\`
               }
               if (tdDocTabs.current) {
                 tdDocTabs.current.onchange = ({ detail: currentTab }) => setTab(currentTab);
+              }
+              if (isComponent) {
+                tdDocHeader.current.issueInfo = {};
+                tdContributors.current.contributors = contributors;
               }
               document.querySelector('td-doc-content').initAnchorHighlight();
 
@@ -116,7 +120,10 @@ export default function transforms() {
                   isComponent ? (
                     <>
                       <td-doc-tabs ref={tdDocTabs} tab={tab}></td-doc-tabs>
-                      <div style={isShow('demo')} name="DEMO">${content.replace(/class=/g, 'className=')}</div>
+                      <div style={isShow('demo')} name="DEMO">
+                        ${content.replace(/class=/g, 'className=')}
+                        <td-contributors ref={tdContributors}></td-contributors>
+                      </div>
                       <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${api}\` }}></div>
                       <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${designResult}\` }}></div>
                     </>

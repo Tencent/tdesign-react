@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   ErrorCircleFilledIcon,
   CheckCircleFilledIcon,
-  ClearCircleFilledIcon,
+  CloseCircleFilledIcon,
   Dialog,
   Button,
 } from '@tencent/tdesign-react';
@@ -86,7 +86,7 @@ export default function WarningExample() {
       <Dialog
         header={
           <>
-            <ClearCircleFilledIcon style={{ color: 'rgb(227, 77, 89)' }} />
+            <CloseCircleFilledIcon style={{ color: 'rgb(227, 77, 89)' }} />
             <span>我是主要信息，我是主要信息</span>
           </>
         }

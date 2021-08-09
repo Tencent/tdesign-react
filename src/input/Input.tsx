@@ -6,7 +6,7 @@ import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from '../_type/components/input';
 import { StyledProps } from '../_type';
 import { TElement } from '../_type/common';
-import ClearIcon from '../icon/icons/ClearCircleFilledIcon';
+import ClearIcon from '../icon/icons/CloseCircleFilledIcon';
 import InputGroup from './InputGroup';
 
 export interface InputProps extends TdInputProps, StyledProps {}
