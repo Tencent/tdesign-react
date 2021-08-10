@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -9,7 +9,10 @@ import { TElement } from '../_type/common';
 import ClearIcon from '../icon/icons/CloseCircleFilledIcon';
 import InputGroup from './InputGroup';
 
-export interface InputProps extends TdInputProps, StyledProps {}
+export interface InputProps extends TdInputProps, StyledProps {
+  onCompositionStart?: Function;
+  onCompositionEnd?: Function;
+}
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TElement) => {
   let result: React.ReactNode = null;
@@ -28,100 +31,141 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TEleme
 /**
  * 组件
  */
-const Input = forwardRefWithStatics((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
-  const {
-    disabled,
-    status,
-    size,
-    className,
-    style,
-    prefixIcon,
-    suffixIcon,
-    clearable,
-    value: inputValue,
-    defaultValue,
-    onChange,
-    onClear,
-    onEnter,
-    onKeydown,
-    ...otherProps
-  } = props;
-  const { classPrefix } = useConfig();
-  const [value, setValue] = useState<InputValue>('');
-
-  const isShowClearIcon = clearable && value && !disabled;
-  const componentType = 'input';
-  const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-  const suffixIconNew = isShowClearIcon ? <ClearIcon onClick={handleClear} /> : suffixIcon;
-  const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
-
-  const inputPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
-  const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {});
-  const eventPropsNames = Object.keys(otherProps).filter((key) => /^on[A-Z]/.test(key));
-  const eventProps = eventPropsNames.reduce((eventProps, key) => {
-    Object.assign(eventProps, {
-      [key]: (e) => props[key](e.currentTarget.value, { e }),
-    });
-    return eventProps;
-  }, {});
-
-  const inputClassNames = classNames(className, `${classPrefix}-${componentType}__inner`);
-
-  const renderInput = (
-    <input
-      className={inputClassNames}
-      disabled={disabled}
-      {...inputProps}
-      value={value}
-      {...eventProps}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
-    />
-  );
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = e.currentTarget;
-    setValue(value);
-    isFunction(onChange) && onChange(value, { e });
-  }
-  function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-    setValue('');
-    isFunction(onChange) && onChange('', { e });
-    isFunction(onClear) && onClear({ e });
-  }
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+const Input = forwardRefWithStatics(
+  (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
     const {
-      key,
-      currentTarget: { value },
-    } = e;
-    isFunction(onEnter) && key === 'Enter' && onEnter(value, { e });
-    isFunction(onKeydown) && onKeydown(value, { e });
-  }
+      disabled,
+      status,
+      size,
+      className,
+      style,
+      prefixIcon,
+      suffixIcon,
+      clearable,
+      value,
+      defaultValue,
+      onChange,
+      onClear,
+      onEnter,
+      onKeydown,
+      onCompositionStart,
+      onCompositionEnd,
+      ...otherProps
+    } = props;
+    const { classPrefix } = useConfig();
+    const composingRef = useRef(false);
 
-  useEffect(() => {
-    const valueNew = inputValue || defaultValue || '';
-    setValue(valueNew);
-  }, [inputValue, defaultValue]);
+    const [inputValue, setInputValue] = useState<InputValue>(defaultValue || '');
+    const [composingRefValue, setComposingValue] = useState<string>('');
 
-  return (
-    <div
-      ref={ref}
-      style={style}
-      className={classNames(className, `${classPrefix}-${componentType}`, {
-        [`${classPrefix}-is-disabled`]: disabled,
-        [`${classPrefix}-size-s`]: size === 'small',
-        [`${classPrefix}-size-l`]: size === 'large',
-        [`${classPrefix}-is-${status}`]: status,
-        [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
-        [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
-      })}
-    >
-      {prefixIconContent}
-      {renderInput}
-      {suffixIconContent}
-    </div>
-  );
-}, { Group: InputGroup });
+    const isControlled = typeof value !== 'undefined';
+    const isShowClearIcon = clearable && inputValue && !disabled;
+    const componentType = 'input';
+    const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+    const suffixIconNew = isShowClearIcon ? (
+      <ClearIcon
+        className={`${classPrefix}-input__suffix-clear`}
+        onClick={handleClear}
+        onMouseUp={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+      />
+    ) : (
+      suffixIcon
+    );
+    const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+
+    const inputPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
+    const inputProps = inputPropsNames.reduce(
+      (inputProps, key) => Object.assign(inputProps, { [key]: props[key] }),
+      {},
+    );
+    const eventPropsNames = Object.keys(otherProps).filter((key) => /^on[A-Z]/.test(key));
+    const eventProps = eventPropsNames.reduce((eventProps, key) => {
+      Object.assign(eventProps, {
+        [key]: (e) => props[key](e.currentTarget.value, { e }),
+      });
+      return eventProps;
+    }, {});
+
+    const inputClassNames = classNames(className, `${classPrefix}-${componentType}__inner`);
+
+    const renderInput = (
+      <input
+        className={inputClassNames}
+        disabled={disabled}
+        {...inputProps}
+        value={composingRef.current ? composingRefValue : inputValue}
+        {...eventProps}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
+      />
+    );
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
+      const { value } = e.currentTarget;
+      if (composingRef.current) {
+        setComposingValue(value);
+      } else {
+        !isControlled && setInputValue(value);
+        isFunction(onChange) && onChange(value, { e });
+      }
+    }
+    function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+      !isControlled && setInputValue('');
+      isFunction(onChange) && onChange('', { e });
+      isFunction(onClear) && onClear({ e });
+    }
+    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+      const {
+        key,
+        currentTarget: { value },
+      } = e;
+      isFunction(onEnter) && key === 'Enter' && onEnter(value, { e });
+      isFunction(onKeydown) && onKeydown(value, { e });
+    }
+    function handleCompositionStart(event: React.CompositionEvent<HTMLInputElement>) {
+      composingRef.current = true;
+      isFunction(onCompositionStart) && onCompositionStart(event);
+    }
+    function handleCompositionEnd(event: React.CompositionEvent<HTMLInputElement>) {
+      if (composingRef.current) {
+        composingRef.current = false;
+        handleChange(event);
+      }
+      setComposingValue('');
+      isFunction(onCompositionEnd) && onCompositionEnd(event);
+    }
+
+    useEffect(() => {
+      if (isControlled) {
+        const valueNew = value || '';
+        setInputValue(valueNew);
+      }
+    }, [value, isControlled]);
+
+    return (
+      <div
+        ref={ref}
+        style={style}
+        className={classNames(className, `${classPrefix}-${componentType}`, {
+          [`${classPrefix}-is-disabled`]: disabled,
+          [`${classPrefix}-size-s`]: size === 'small',
+          [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-is-${status}`]: status,
+          [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
+          [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
+        })}
+      >
+        {prefixIconContent}
+        {renderInput}
+        {suffixIconContent}
+      </div>
+    );
+  },
+  { Group: InputGroup },
+);
 
 Input.displayName = 'Input';
 

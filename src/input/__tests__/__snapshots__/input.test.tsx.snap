@@ -60,8 +60,17 @@ exports[`base.jsx 1`] = `
     >
       <input
         class="t-input__inner"
-        placeholder="请输入内容"
+        placeholder="请输入内容（无默认值）"
         value=""
+      />
+    </div>
+    <div
+      class="t-input"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入内容（有默认值）"
+        value="Welcome to TDesign"
       />
     </div>
   </div>
@@ -85,7 +94,7 @@ exports[`clearable.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-close-circle-filled"
+          class="t-icon t-icon-close-circle-filled t-input__suffix-clear"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
