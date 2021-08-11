@@ -1,7 +1,8 @@
-import Badge from './Badge';
+import _Badge from './Badge';
 
 import './style/index.js';
 
 export type { BadgeProps } from './Badge';
 
+export const Badge = _Badge;
 export default Badge;
