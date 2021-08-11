@@ -79,7 +79,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
     const isScrollVisible = scrollBarRef.current.clientWidth < navContainerRef.current.clientWidth;
     const leftVisible = innerScrollLeft > 0;
-    const rightVisible = isScrollVisible && innerScrollLeft < (navContainerRef.current.clientWidth - scrollBarRef.current.clientWidth);
+    const rightVisible =
+      isScrollVisible && innerScrollLeft < navContainerRef.current.clientWidth - scrollBarRef.current.clientWidth;
 
     return [isScrollVisible, leftVisible, rightVisible];
   };
@@ -118,7 +119,9 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   };
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
-  const TabBarCom = isCard ? null : <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navContainerRef} />;
+  const TabBarCom = isCard ? null : (
+    <TabBar tabPosition={placement} activeId={activeIndex} containerRef={navContainerRef} />
+  );
 
   // 组件初始化后判断当前是否需要展示滑动按钮
   useEffect(() => {
@@ -126,75 +129,58 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     // eslint-disable-next-line
   }, []);
 
-
   return (
     <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
       <div className={classNames(tdTabsClassGenerator('nav'))}>
-        <div
-          className={classNames(
-            tdTabsClassGenerator('operations'),
-            tdTabsClassGenerator('operations--left'),
-          )}
-        >
-          {
-            leftScrollBtnVisible ? (
-              <div
-                onClick={() => {
-                  scrollClickHandler('left');
-                }}
-                className={classNames(
-                  tdTabsClassGenerator('btn'),
-                  tdTabsClassGenerator('btn--left'),
-                  tdSizeClassGenerator(size),
-                )}
-              >
-                <ChevronLeftIcon />
-              </div>
-            ) : null
-          }
+        <div className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--left'))}>
+          {leftScrollBtnVisible ? (
+            <div
+              onClick={() => {
+                scrollClickHandler('left');
+              }}
+              className={classNames(
+                tdTabsClassGenerator('btn'),
+                tdTabsClassGenerator('btn--left'),
+                tdSizeClassGenerator(size),
+              )}
+            >
+              <ChevronLeftIcon />
+            </div>
+          ) : null}
         </div>
-        <div
-          className={classNames(
-            tdTabsClassGenerator('operations'),
-            tdTabsClassGenerator('operations--right'),
-          )}
-        >
-          {
-            rightScrollBtnVisible ? (
-              <div
-                onClick={() => {
-                  scrollClickHandler('right');
-                }}
-                className={classNames(
-                  tdTabsClassGenerator('btn'),
-                  tdTabsClassGenerator('btn--right'),
-                  tdSizeClassGenerator(size),
-                )}
-              >
-                <ChevronRightIcon />
-              </div>
-            ) : null
-          }
-          {
-            addable ? (
-              <div
-                className={classNames(
-                  tdTabsClassGenerator('add-btn'),
-                  tdTabsClassGenerator('btn'),
-                  tdSizeClassGenerator(size),
-                )}
-                onClick={(e) => {
-                  onAdd({ e });
-                  // 新增逻辑执行完成，数据渲染完成之后，判断是否需要展示右侧的数据
-                  setTimeout(() => {
-                    scrollToRightEnd();
-                  }, 0);
-                }}
-              >
-                <AddIcon name={'add'} />
-              </div>
-            ) : null
-          }
+        <div className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--right'))}>
+          {rightScrollBtnVisible ? (
+            <div
+              onClick={() => {
+                scrollClickHandler('right');
+              }}
+              className={classNames(
+                tdTabsClassGenerator('btn'),
+                tdTabsClassGenerator('btn--right'),
+                tdSizeClassGenerator(size),
+              )}
+            >
+              <ChevronRightIcon />
+            </div>
+          ) : null}
+          {addable ? (
+            <div
+              className={classNames(
+                tdTabsClassGenerator('add-btn'),
+                tdTabsClassGenerator('btn'),
+                tdSizeClassGenerator(size),
+              )}
+              onClick={(e) => {
+                onAdd({ e });
+                // 新增逻辑执行完成，数据渲染完成之后，判断是否需要展示右侧的数据
+                setTimeout(() => {
+                  scrollToRightEnd();
+                }, 0);
+              }}
+            >
+              <AddIcon name={'add'} />
+            </div>
+          ) : null}
         </div>
         <div
           className={classNames(

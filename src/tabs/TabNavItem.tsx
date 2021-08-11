@@ -51,29 +51,13 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
       )}
     >
       {/* 根据新的 dom 结构和样式进行改动，卡片类型情况下不需要 nav-item-wrapper 这个 div */}
-      {
-        isCard ? (
-          <span
-            className={classNames(
-              tdTabsClassGenerator('nav-item-text-wrapper'),
-            )}
-          >
-            {label}
-          </span>
-        ) : (
-          <div className={classNames(
-            tdTabsClassGenerator('nav-item-wrapper'),
-          )}>
-            <span
-              className={classNames(
-                tdTabsClassGenerator('nav-item-text-wrapper'),
-              )}
-            >
-              {label}
-            </span>
-          </div>
-        )
-      }
+      {isCard ? (
+        <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
+      ) : (
+        <div className={classNames(tdTabsClassGenerator('nav-item-wrapper'))}>
+          <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
+        </div>
+      )}
       {removable ? (
         <CloseIcon
           name={'close'}
