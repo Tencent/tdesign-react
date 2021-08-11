@@ -27,7 +27,7 @@ exports[`aside.jsx 1`] = `
             </span>
           </div>
           <ul
-            class="t-menu"
+            class="t-menu t-menu--scroll"
           >
             <li
               class="t-menu__item t-is-active t-menu__item--plain"
@@ -150,7 +150,7 @@ exports[`base.jsx 1`] = `
             </span>
           </div>
           <ul
-            class="t-menu"
+            class="t-menu t-menu--scroll"
           >
             <li
               class="t-menu__item t-is-active t-menu__item--plain"
@@ -252,7 +252,7 @@ exports[`base.jsx 1`] = `
               </span>
             </div>
             <ul
-              class="t-menu"
+              class="t-menu t-menu--scroll"
             >
               <li
                 class="t-menu__item t-is-active t-menu__item--plain"
@@ -368,7 +368,7 @@ exports[`base.jsx 1`] = `
               </span>
             </div>
             <ul
-              class="t-menu"
+              class="t-menu t-menu--scroll"
             >
               <li
                 class="t-menu__item t-is-active t-menu__item--plain"
@@ -559,7 +559,7 @@ exports[`combine.jsx 1`] = `
               </span>
             </div>
             <ul
-              class="t-menu"
+              class="t-menu t-menu--scroll"
             >
               <li
                 class="t-menu__item t-is-active t-menu__item--plain"
