@@ -180,7 +180,7 @@ describe('Popup 组件测试', () => {
 
   test('测试隐藏后销毁', async () => {
     const { getByText, queryByTestId } = render(
-      <Popup destroyOnHide placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
+      <Popup destroyOnClose placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
         {triggerElement}
       </Popup>,
     );
@@ -253,7 +253,7 @@ describe('Popup 组件测试', () => {
 
       return (
         <>
-          <Popup destroyOnHide trigger="manual" visible={visible} content={$content}>
+          <Popup destroyOnClose trigger="manual" visible={visible} content={$content}>
             <button data-testid={testShowButton} onClick={() => setVisible(true)}>
               显示
             </button>
@@ -293,7 +293,7 @@ describe('Popup 组件测试', () => {
     const testClassName = 'test-class-name';
     const testStyle = { color: '#ff0000' };
     const { getByText } = render(
-      <Popup destroyOnHide placement="top" overlayStyle={testStyle} overlayClassName={testClassName}>
+      <Popup destroyOnClose placement="top" overlayStyle={testStyle} overlayClassName={testClassName}>
         {triggerElement}
       </Popup>,
     );
