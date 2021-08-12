@@ -6,7 +6,7 @@ import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
 import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
-import { CheckTag } from '../tag';
+import Tag from '../tag';
 import { StyledProps } from '../_type';
 import { validate as validateModal } from './formModel';
 import { useFormContext } from './FormContext';
@@ -21,6 +21,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode;
 }
 
+const { CheckTag } = Tag;
 const CHECKED_TYPE = [Checkbox, CheckTag];
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {

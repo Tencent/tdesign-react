@@ -9,3 +9,4 @@ script/test/cypress
 _site
 temp*
 static/
+src/_common

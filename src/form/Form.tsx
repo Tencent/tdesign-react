@@ -28,150 +28,153 @@ function isValueEmpty(val: unknown) {
   return isBoolean(val) ? false : isEmpty(val);
 }
 
-const Form = forwardRefWithStatics((props: FormProps, ref) => {
-  const {
-    className,
-    labelWidth,
-    statusIcon,
-    labelAlign = 'right',
-    layout = 'vertical',
-    size = 'medium',
-    colon = false,
-    requiredMark = true,
-    scrollToFirstError,
-    showErrorMessage = true,
-    resetType = 'empty',
-    rules,
-    children,
-    onSubmit,
-    onReset,
-  } = props;
-  const { classPrefix } = useConfig();
-  const formClass = classNames(className, {
-    [`${classPrefix}-form-inline`]: layout === 'inline',
-    [`${classPrefix}-form`]: layout !== 'inline',
-  });
-
-  const formItemsRef = useRef([]);
-  formItemsRef.current = React.Children.map(children, (_child, index) => (formItemsRef.current[index] = createRef()));
-
-  const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
-
-  function getFirstError(r: Result) {
-    if (r === true) return;
-    const [firstKey] = Object.keys(r);
-    if (scrollToFirstError) {
-      scrollTo(`.${FORM_ITEM_CLASS_PREFIX + firstKey}`);
-    }
-    return r[firstKey][0]?.message;
-  }
-  // 校验不通过时，滚动到第一个错误表单
-  function scrollTo(selector: string) {
-    const dom = document.querySelector(selector);
-    const behavior = scrollToFirstError as ScrollBehavior;
-    dom && dom.scrollIntoView({ behavior });
-  }
-
-  function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    validate().then((r) => {
-      getFirstError(r);
-      onSubmit?.({ validateResult: r, e });
+const Form = forwardRefWithStatics(
+  (props: FormProps, ref) => {
+    const {
+      className,
+      labelWidth,
+      statusIcon,
+      labelAlign = 'right',
+      layout = 'vertical',
+      size = 'medium',
+      colon = false,
+      requiredMark = true,
+      scrollToFirstError,
+      showErrorMessage = true,
+      resetType = 'empty',
+      rules,
+      children,
+      onSubmit,
+      onReset,
+    } = props;
+    const { classPrefix } = useConfig();
+    const formClass = classNames(className, {
+      [`${classPrefix}-form-inline`]: layout === 'inline',
+      [`${classPrefix}-form`]: layout !== 'inline',
     });
-  }
-  function resetHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    formItemsRef.current.forEach((formItemRef) => {
-      if (!isFunction(formItemRef.resetField)) return;
-      formItemRef.resetField();
-    });
-    onReset?.({ e });
-  }
 
-  // 对外方法，该方法会触发全部表单组件错误信息显示
-  function validate(): Promise<Result> {
-    const list = formItemsRef.current
-      .filter((formItemRef) => isFunction(formItemRef.validate))
-      .map((formItemRef) => formItemRef.validate());
+    const formItemsRef = useRef([]);
+    formItemsRef.current = React.Children.map(children, (_child, index) => (formItemsRef.current[index] = createRef()));
 
-    return new Promise((resolve) => {
-      Promise.all(flatten(list))
-        .then((arr: any) => {
-          const r = arr.reduce((r, err) => Object.assign(r || {}, err), {});
-          Object.keys(r).forEach((key) => {
-            if (r[key] === true) {
-              delete r[key];
-            }
-          });
-          resolve(isEmpty(r) ? true : r);
-        })
-        .catch(console.error);
-    });
-  }
+    const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
 
-  // 对外方法，获取整个表单的值
-  function getAllFieldsValue() {
-    const fieldsValue = {};
-    formItemsRef.current.forEach((formItemRef) => {
-      // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
-      if (formItemRef?.name && !isValueEmpty(formItemRef.value)) {
-        fieldsValue[formItemRef.name] = formItemRef.value;
+    function getFirstError(r: Result) {
+      if (r === true) return;
+      const [firstKey] = Object.keys(r);
+      if (scrollToFirstError) {
+        scrollTo(`.${FORM_ITEM_CLASS_PREFIX + firstKey}`);
       }
-    });
+      return r[firstKey][0]?.message;
+    }
+    // 校验不通过时，滚动到第一个错误表单
+    function scrollTo(selector: string) {
+      const dom = document.querySelector(selector);
+      const behavior = scrollToFirstError as ScrollBehavior;
+      dom && dom.scrollIntoView({ behavior });
+    }
 
-    return fieldsValue;
-  }
+    function submitHandler(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      validate().then((r) => {
+        getFirstError(r);
+        onSubmit?.({ validateResult: r, e });
+      });
+    }
+    function resetHandler(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      formItemsRef.current.forEach((formItemRef) => {
+        if (!isFunction(formItemRef.resetField)) return;
+        formItemRef.resetField();
+      });
+      onReset?.({ e });
+    }
 
-  // 对外方法，获取对应 formItem 的值
-  function getFieldValue(name) {
-    if (!name) return null;
-    const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
-    return target && target.value;
-  }
+    // 对外方法，该方法会触发全部表单组件错误信息显示
+    function validate(): Promise<Result> {
+      const list = formItemsRef.current
+        .filter((formItemRef) => isFunction(formItemRef.validate))
+        .map((formItemRef) => formItemRef.validate());
 
-  // 对外方法，设置对应 formItem 的值
-  function setFieldsValue(fileds = {}) {
-    const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
-      const { name } = currItem;
-      return { ...acc, [name]: currItem };
-    }, {});
-    Object.keys(fileds).forEach((key) => {
-      formItemsMap[key].setValue(fileds[key]);
-    });
-  }
+      return new Promise((resolve) => {
+        Promise.all(flatten(list))
+          .then((arr: any) => {
+            const r = arr.reduce((r, err) => Object.assign(r || {}, err), {});
+            Object.keys(r).forEach((key) => {
+              if (r[key] === true) {
+                delete r[key];
+              }
+            });
+            resolve(isEmpty(r) ? true : r);
+          })
+          .catch(console.error);
+      });
+    }
 
-  useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate, getAllFieldsValue }));
+    // 对外方法，获取整个表单的值
+    function getAllFieldsValue() {
+      const fieldsValue = {};
+      formItemsRef.current.forEach((formItemRef) => {
+        // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
+        if (formItemRef?.name && !isValueEmpty(formItemRef.value)) {
+          fieldsValue[formItemRef.name] = formItemRef.value;
+        }
+      });
 
-  return (
-    <FormContext.Provider
-      value={{
-        labelWidth,
-        statusIcon,
-        labelAlign,
-        layout,
-        size,
-        colon,
-        requiredMark,
-        showErrorMessage,
-        scrollToFirstError,
-        resetType,
-        rules,
-      }}
-    >
-      <form className={formClass} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
-        {React.Children.map(children, (child: any, index) => {
-          const { cloneElement } = React;
-          return cloneElement(child, {
-            ref: (el) => {
-              if (!el) return;
-              formItemsRef.current[index] = el;
-            },
-          });
-        })}
-      </form>
-    </FormContext.Provider>
-  );
-}, { FormItem });
+      return fieldsValue;
+    }
+
+    // 对外方法，获取对应 formItem 的值
+    function getFieldValue(name) {
+      if (!name) return null;
+      const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
+      return target && target.value;
+    }
+
+    // 对外方法，设置对应 formItem 的值
+    function setFieldsValue(fileds = {}) {
+      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
+        const { name } = currItem;
+        return { ...acc, [name]: currItem };
+      }, {});
+      Object.keys(fileds).forEach((key) => {
+        formItemsMap[key].setValue(fileds[key]);
+      });
+    }
+
+    useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate, getAllFieldsValue }));
+
+    return (
+      <FormContext.Provider
+        value={{
+          labelWidth,
+          statusIcon,
+          labelAlign,
+          layout,
+          size,
+          colon,
+          requiredMark,
+          showErrorMessage,
+          scrollToFirstError,
+          resetType,
+          rules,
+        }}
+      >
+        <form className={formClass} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
+          {React.Children.map(children, (child: any, index) => {
+            const { cloneElement } = React;
+            return cloneElement(child, {
+              ref: (el) => {
+                if (!el) return;
+                formItemsRef.current[index] = el;
+              },
+            });
+          })}
+        </form>
+      </FormContext.Provider>
+    );
+  },
+  { FormItem },
+);
 
 Form.displayName = 'Form';
 

@@ -5,6 +5,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     '@tencent/eslint-config-tencent',
+    '@tencent/eslint-config-tencent/prettier',
   ],
   plugins: ['@typescript-eslint', 'react-hooks'],
   env: {
@@ -32,10 +33,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-var-requires': 'off',
-    'arrow-parens': ['error', 'always'], // prettier conflict
-    'function-paren-newline': ['error', 'multiline-arguments'], // prettier conflict
+    '@typescript-eslint/naming-convention': 'off',
     'import/order': 'error',
-    // 'operator-linebreak': 'off', // prettier conflict
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',

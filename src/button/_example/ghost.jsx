@@ -28,6 +28,28 @@ export default function ButtonExample() {
           </Button>
         </div>
         <div className="tdesign-demo-block">
+          <Button variant="outline" theme="success" ghost>
+            幽灵按钮
+          </Button>
+          <Button variant="dashed" theme="success" ghost>
+            幽灵按钮
+          </Button>
+          <Button variant="text" theme="success" ghost>
+            幽灵按钮
+          </Button>
+        </div>
+        <div className="tdesign-demo-block">
+          <Button variant="outline" theme="warning" ghost>
+            幽灵按钮
+          </Button>
+          <Button variant="dashed" theme="warning" ghost>
+            幽灵按钮
+          </Button>
+          <Button variant="text" theme="warning" ghost>
+            幽灵按钮
+          </Button>
+        </div>
+        <div className="tdesign-demo-block">
           <Button variant="outline" theme="danger" ghost>
             幽灵按钮
           </Button>

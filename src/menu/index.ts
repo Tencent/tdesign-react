@@ -1,4 +1,4 @@
-import Menu from './Menu';
+import _Menu from './Menu';
 
 import './style/index.js';
 
@@ -8,4 +8,5 @@ export type { SubMenuProps } from './SubMenu';
 export type { MenuItemProps } from './MenuItem';
 export type { MenuGroupProps } from './MenuGroup';
 
+export const Menu = _Menu;
 export default Menu;

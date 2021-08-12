@@ -17,35 +17,40 @@ export interface MenuProps extends TdMenuProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const Menu = forwardRefWithStatics((props: MenuProps, ref) => {
-  const { className, width = DEFAULT_MENU_WIDTH, children, theme, logo, operations, style } = props;
-  const { classPrefix } = useConfig();
-  const { value } = useMenuContext({ ...props, children, mode: 'accordion' });
+const Menu = forwardRefWithStatics(
+  (props: MenuProps, ref) => {
+    const { className, width = DEFAULT_MENU_WIDTH, children, theme, logo, operations, style } = props;
+    const { classPrefix } = useConfig();
+    const { value } = useMenuContext({ ...props, children, mode: 'accordion' });
 
-  // 菜单宽度
-  const menuWidthArr = Array.isArray(width) ? width : [width, DEFAULT_MENU_WIDTH[1]];
+    // 菜单宽度
+    const menuWidthArr = Array.isArray(width) ? width : [width, DEFAULT_MENU_WIDTH[1]];
 
-  const { collapsed } = value;
+    const { collapsed } = value;
 
-  return (
-    <MenuContext.Provider value={value}>
-      <div
-        ref={ref}
-        className={classNames(className, `${classPrefix}-default-menu`, {
-          [`${classPrefix}-is-collapsed`]: collapsed,
-          [`${classPrefix}-menu--dark`]: theme === 'dark',
-        })}
-        style={{ width: collapsed ? menuWidthArr[1] : menuWidthArr[0], ...style }}
-      >
-        <div className={`${classPrefix}-default-menu__inner`}>
-          {logo && <div className={`${classPrefix}-menu__logo`}>{logo}</div>}
-          <ul className={`${classPrefix}-menu`}>{children}</ul>
+    return (
+      <MenuContext.Provider value={value}>
+        <div
+          ref={ref}
+          className={classNames(className, `${classPrefix}-default-menu`, {
+            [`${classPrefix}-is-collapsed`]: collapsed,
+            [`${classPrefix}-menu--dark`]: theme === 'dark',
+          })}
+          style={{ width: collapsed ? menuWidthArr[1] : menuWidthArr[0], ...style }}
+        >
+          <div className={`${classPrefix}-default-menu__inner`}>
+            {logo && <div className={`${classPrefix}-menu__logo`}>{logo}</div>}
+            <ul className={classNames(`${classPrefix}-menu`, { [`${classPrefix}-menu--scroll`]: !collapsed })}>
+              {children}
+            </ul>
+            {operations && <div className={`${classPrefix}-menu__options`}>{operations}</div>}
+          </div>
         </div>
-        {operations && <div className={`${classPrefix}-menu__options`}>{operations}</div>}
-      </div>
-    </MenuContext.Provider>
-  );
-}, { HeadMenu, SubMenu, MenuItem, MenuGroup });
+      </MenuContext.Provider>
+    );
+  },
+  { HeadMenu, SubMenu, MenuItem, MenuGroup },
+);
 
 Menu.displayName = 'Menu';
 

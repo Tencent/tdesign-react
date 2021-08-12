@@ -2,16 +2,11 @@ import React, { useState } from 'react';
 import { Button, Popup } from '@tencent/tdesign-react';
 
 export default function Controlled() {
-  const [visible, setVisible] = useState(false);
+  const [visible] = useState(true);
 
   return (
-    <Popup
-      showArrow
-      trigger="manual"
-      visible={visible}
-      content={<Button onClick={() => setVisible(false)}>隐藏</Button>}
-    >
-      <Button onClick={() => setVisible(true)}>点击</Button>
+    <Popup content="这是popup内容" trigger="manual" placement="right" visible={visible}>
+      <Button>一直显示</Button>
     </Popup>
   );
 }

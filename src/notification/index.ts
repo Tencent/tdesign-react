@@ -1,4 +1,4 @@
-import Notification from './Notification';
+import _Notification from './Notification';
 
 import './style/index.js';
 
@@ -11,4 +11,5 @@ export type {
   TdNotificationProps as NotificationProps,
 } from '../_type/components/notification';
 
+export const Notification = _Notification;
 export default Notification;

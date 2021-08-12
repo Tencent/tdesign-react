@@ -1,4 +1,13 @@
-import React, { forwardRef, CSSProperties, useState, useEffect, cloneElement, isValidElement, ReactChild } from 'react';
+import React, {
+  forwardRef,
+  CSSProperties,
+  useState,
+  useEffect,
+  cloneElement,
+  isValidElement,
+  ReactChild,
+  useMemo,
+} from 'react';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
@@ -10,12 +19,7 @@ import { TdPopupProps } from '../_type/components/popup';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export interface PopupProps extends TdPopupProps {
-  /**
-   * 触发元素
-   */
-  children?: React.ReactNode;
-}
+export interface PopupProps extends TdPopupProps {}
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -44,13 +48,18 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     placement = 'top',
     attach,
     showArrow = false,
-    destroyOnHide = false,
-    overlayStyle,
+    destroyOnClose = false,
     overlayClassName,
-    children,
+    overlayStyle,
+    triggerElement,
+    children = triggerElement,
+    disabled,
+    defaultVisible = false,
+    zIndex,
+    onVisibleChange,
   } = props;
   const { classPrefix } = useConfig();
-  const [visible, setVisible] = useDefault(props.visible, false, props.onVisibleChange);
+  const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
   const preVisible = usePrevious(visible);
 
   // refs
@@ -62,15 +71,20 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
+  const defaulstStyles = useMemo(() => {
+    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
+    return { ...overlayStyle, zIndex };
+  }, [overlayStyle, zIndex, triggerRef]);
   // 设置 style 决定展示与隐藏
-  const overlayVisibleStyle: CSSProperties = visible ? { ...overlayStyle } : { ...overlayStyle, display: 'none' };
+  const overlayVisibleStyle: CSSProperties = visible ? defaulstStyles : { ...defaulstStyles, display: 'none' };
 
   // 处理 trigger
-  const [triggerProps, popupProps] = useTriggerProps({ current: overlayRef }, [trigger], visible, setVisible);
+  const [triggerProps, popupProps] = useTriggerProps({ current: overlayRef }, [trigger], visible, setVisible, disabled);
 
   // 触发器只能有一个元素
   let triggerNode: ReactChild;
   const [triggerChildNode] = React.Children.toArray(children);
+  const disabledClassName = classNames({ [`${classPrefix}-is-disabled`]: disabled });
   if (React.Children.count(children) === 1 && isValidElement(triggerChildNode)) {
     triggerNode = triggerChildNode;
   } else {
@@ -80,6 +94,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 代理 trigger 的 ref
   triggerNode = cloneElement(triggerNode, {
     ref: composeRefs((triggerNode as any).ref, setTriggerRef),
+    className: classNames(disabledClassName, triggerNode.props.className),
     ...triggerProps,
   });
 
@@ -88,7 +103,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 如果要展示，或者已经渲染过，默认不销毁
   if (visible || overlayRef) {
     portal = (
-      <Portal getContainer={attach}>
+      <Portal attach={attach}>
         <div
           ref={composeRefs(setOverlayRef, ref)}
           style={styles.popper}
@@ -111,7 +126,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   }
 
   // 强制销毁
-  if (!visible && destroyOnHide) {
+  if (!visible && destroyOnClose) {
     portal = null;
   }
 

@@ -23,7 +23,7 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(
         showArrow
         trigger={trigger}
         overlayClassName={classNames(`${classPrefix}-popconfirm`, overlayClassName)}
-        content={<PopContent {...props} onClose={() => setVisible(false)} />}
+        content={<PopContent {...props} onClose={() => setVisible(false, {})} />}
       />
     );
   },

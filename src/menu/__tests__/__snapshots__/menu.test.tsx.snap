@@ -345,22 +345,22 @@ exports[`closable-side.jsx 1`] = `
           </div>
         </li>
       </ul>
-    </div>
-    <div
-      class="t-menu__options"
-    >
-      <svg
-        class="t-icon t-icon-view-list"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="t-menu__options"
       >
-        <path
-          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-view-list"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -540,7 +540,7 @@ exports[`custom-side.jsx 1`] = `
         />
       </div>
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
@@ -639,7 +639,7 @@ exports[`custom-side.jsx 1`] = `
         />
       </div>
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item t-menu__item--plain"
@@ -1027,7 +1027,7 @@ exports[`group-side.jsx 1`] = `
         />
       </div>
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <div
           class="t-menu-group"
@@ -1105,22 +1105,22 @@ exports[`group-side.jsx 1`] = `
           </li>
         </div>
       </ul>
-    </div>
-    <div
-      class="t-menu__options"
-    >
-      <svg
-        class="t-icon t-icon-view-list"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="t-menu__options"
       >
-        <path
-          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-view-list"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -1136,7 +1136,7 @@ exports[`multi-side.jsx 1`] = `
       class="t-default-menu__inner"
     >
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item"
@@ -1450,22 +1450,22 @@ exports[`multi-side.jsx 1`] = `
           </ul>
         </li>
       </ul>
-    </div>
-    <div
-      class="t-menu__options"
-    >
-      <svg
-        class="t-icon t-icon-view-list"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="t-menu__options"
       >
-        <path
-          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-view-list"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
   <div
@@ -1476,7 +1476,7 @@ exports[`multi-side.jsx 1`] = `
       class="t-default-menu__inner"
     >
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item"
@@ -1790,22 +1790,22 @@ exports[`multi-side.jsx 1`] = `
           </ul>
         </li>
       </ul>
-    </div>
-    <div
-      class="t-menu__options"
-    >
-      <svg
-        class="t-icon t-icon-view-list"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="t-menu__options"
       >
-        <path
-          d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-view-list"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M960 704L960 768 64 768 64 704 960 704ZM960 448L960 512 64 512 64 448 960 448ZM960 192L960 256 64 256 64 192 960 192Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -2355,7 +2355,7 @@ exports[`single-side.jsx 1`] = `
         />
       </div>
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
@@ -2454,7 +2454,7 @@ exports[`single-side.jsx 1`] = `
         />
       </div>
       <ul
-        class="t-menu"
+        class="t-menu t-menu--scroll"
       >
         <li
           class="t-menu__item t-menu__item--plain"

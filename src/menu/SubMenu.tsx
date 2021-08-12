@@ -37,13 +37,15 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
     else if (type === 'leave') setOpen(false);
   };
 
-  const childrens = React.Children.map(children, (child) => React.cloneElement(child as ReactElement, {
-    className: classNames(
-      `${classPrefix}-menu__item--plain`,
-      `${classPrefix}-submenu__item`,
-      `${classPrefix}-submenu__item--icon`,
-    ),
-  }));
+  const childrens = React.Children.map(children, (child) =>
+    React.cloneElement(child as ReactElement, {
+      className: classNames(
+        `${classPrefix}-menu__item--plain`,
+        `${classPrefix}-submenu__item`,
+        `${classPrefix}-submenu__item--icon`,
+      ),
+    }),
+  );
 
   // 计算有多少子节点并设置最大高度，为做出动画效果
   const childStyle = {

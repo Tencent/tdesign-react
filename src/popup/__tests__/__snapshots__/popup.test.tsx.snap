@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attach.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-design-popup-attach"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      点击查看我的父元素(CSSSelector)
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      点击查看我的父元素(Function)
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <button
@@ -15,7 +34,42 @@ exports[`controlled.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    点击
+    一直显示
+  </button>
+</DocumentFragment>
+`;
+
+exports[`destroy.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    Hover me
+  </button>
+</DocumentFragment>
+`;
+
+exports[`disabled.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-is-disabled t-button t-button--theme-primary t-button--variant-base"
+  >
+    Hover me
+  </button>
+</DocumentFragment>
+`;
+
+exports[`overlay-style.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    click我试试
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    根据 trigger 元素定制 overlayStyle
   </button>
 </DocumentFragment>
 `;
@@ -103,25 +157,34 @@ exports[`placements.jsx 1`] = `
 
 exports[`triggers.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    style="display: flex; align-items: center;"
   >
-    Hover me
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    Focus me
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    Click me
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    Right Click me
-  </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      悬浮时触发（默认）
+    </button>
+    <div
+      class="t-input"
+      style="width: 200px; margin: 0px 16px 10px 0px;"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="获得焦点时触发"
+        value=""
+      />
+    </div>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      点击时触发
+    </button>
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
+    >
+      右击时触发
+    </button>
+  </div>
 </DocumentFragment>
 `;

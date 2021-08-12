@@ -12,18 +12,8 @@ export interface LoadingProps extends TdLoadingProps, StyledProps {}
  * Loading组件
  */
 const Loading = (props: LoadingProps) => {
-  const {
-    indicator,
-    text,
-    loading,
-    size,
-    delay,
-    fullscreen,
-    preventScrollThrough,
-    className,
-    showOverlay,
-    children,
-  } = props;
+  const { indicator, text, loading, size, delay, fullscreen, preventScrollThrough, className, showOverlay, children } =
+    props;
 
   const [showLoading, setShowLoading] = useState(false);
 

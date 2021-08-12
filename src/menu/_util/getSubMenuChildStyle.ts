@@ -16,4 +16,5 @@ export const getSubMenuChildCount = (children: React.ReactNode) => {
 };
 
 const MENU_ITEM_HEIGHT = 50;
-export const getSubMenuMaxHeight = (children: React.ReactNode) => `${getSubMenuChildCount(children) * MENU_ITEM_HEIGHT}px`;
+export const getSubMenuMaxHeight = (children: React.ReactNode) =>
+  `${getSubMenuChildCount(children) * MENU_ITEM_HEIGHT}px`;
