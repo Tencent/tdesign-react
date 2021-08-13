@@ -33,9 +33,13 @@ export default () => {
       }, 1000);
     });
 
+  const handleLoad = (state) => {
+    console.log('on load:', state);
+  };
+
   return (
     <div className="tdesign-tree-base">
-      <Tree data={items} hover lazy={false} expandAll load={load} />
+      <Tree data={items} hover expandAll load={load} onLoad={handleLoad} />
     </div>
   );
 };

@@ -1,72 +1,76 @@
 import React from 'react';
-// import { Tree } from '@tdesign/react';
-import Tree from '../Tree';
-import { FolderIcon, FolderOpenIcon, FilePasteIcon } from '../../icon';
+import { Icon, Tree } from '@tencent/tdesign-react';
 
-const data = [
+const items = [
   {
-    children: [
-      {
-        label: '我是节点1-1',
-      },
-      {
-        label: '我是节点1-2',
-        children: [
-          {
-            label: '我是节点1-2-1',
-          },
-          {
-            label: '我是节点1-2-2',
-          },
-          {
-            label: '我是节点1-2-3',
-          },
-        ],
-      },
-      {
-        label: '我是节点1-3',
-      },
-    ],
-    label: '我是节点1',
+    label: '1',
+    children: true,
   },
   {
-    children: [
-      {
-        label: '我是节点2-1',
-      },
-      {
-        label: '我是节点2-2',
-      },
-      {
-        label: '我是节点2-3',
-      },
-    ],
-    label: '我是节点2',
+    label: '2',
+    children: true,
   },
 ];
 
-function renderTreeIcon(node) {
-  const { expanded, vmIsLeaf } = node;
-  let iconView = null;
-  if (vmIsLeaf) {
-    iconView = <FilePasteIcon />;
-  } else if (expanded) {
-    iconView = <FolderOpenIcon />;
-  } else {
-    iconView = <FolderIcon />;
-  }
-  return <>{iconView}</>;
-}
+export default () => {
+  const load = (node) => {
+    console.log('load', load);
+    const maxLevel = 2;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        let nodes = [];
+        if (node.level < maxLevel) {
+          nodes = [
+            {
+              label: `${node.label}.1`,
+              children: node.level < maxLevel - 1,
+            },
+            {
+              label: `${node.label}.2`,
+              children: node.level < maxLevel - 1,
+            },
+          ];
+        }
+        resolve(nodes);
+      }, 500);
+    });
+  };
 
-export default function TreeExample() {
-  // ReactNode 类型，所有节点图标一致
-  // const icon = <FolderIcon />;
-  // Function 类型，根据节点状态，动态设置不同图标
-  const icon = renderTreeIcon;
+  const renderIcon = (node) => {
+    let name = 'file';
+    if (node.getChildren()) {
+      if (node.expanded) {
+        name = 'folder-open';
+        if (node.loading) {
+          name = 'loading';
+        }
+      } else {
+        name = 'folder';
+      }
+    }
+    return <Icon name={name} />;
+  };
+
+  const renderIcon2 = (node) => {
+    let name = 'attach';
+    if (node.getChildren()) {
+      if (!node.expanded) {
+        name = 'caret-right';
+      } else if (node.loading) {
+        name = 'loading';
+      } else {
+        name = 'caret-down';
+      }
+    }
+    return <Icon name={name} />;
+  };
 
   return (
-    <>
-      <Tree data={data} expandLevel={1} icon={icon} checkable={true} />
-    </>
+    <div className="tdesign-tree-base">
+      <h3>render 1:</h3>
+      <Tree data={items} hover expandAll load={load} icon={renderIcon} />
+      <h3>render 2:</h3>
+      <Tree data={items} hover lazy load={load} icon={renderIcon2} />
+    </div>
   );
 }

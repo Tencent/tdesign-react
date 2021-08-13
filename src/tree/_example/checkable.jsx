@@ -1,137 +1,146 @@
-﻿import React, { useState, useCallback } from 'react';
-// import { Tree } from '@tdesign/react';
-import Tree from '../Tree';
-import Switch from '../../switch';
-import Input from '../../input';
+import React, { useState } from 'react';
+import {
+  Radio,
+  Tree,
+  Form,
+  Switch,
+} from '@tencent/tdesign-react';
 
-const data = [
+const valueOptions = [
   {
-    children: [
-      {
-        value: '1-1',
-        label: '我是节点1-1',
-      },
-      {
-        value: '1-2',
-        label: '我是节点1-2',
-        children: [
-          {
-            value: '1-2-1',
-            label: '我是节点1-2-1',
-          },
-          {
-            value: '1-2-2',
-            label: '我是节点1-2-2',
-          },
-          {
-            value: '1-2-3',
-            label: '我是节点1-2-3',
-          },
-        ],
-      },
-      {
-        value: '1-3',
-        label: '我是节点1-3',
-      },
-    ],
-    value: '1',
-    label: '我是节点1',
+    value: 'onlyLeaf',
+    label: 'onlyLeaf',
   },
   {
-    children: [
-      {
-        value: '2-1',
-        label: '我是节点2-1',
-        children: [
-          {
-            value: '2-1-1',
-            label: '我是节点2-1-1',
-            children: [
-              {
-                value: '2-1-1-1',
-                label: '我是节点2-1-1-1',
-              },
-              {
-                value: '2-1-1-2',
-                label: '我是节点2-1-1-2',
-                children: [
-                  {
-                    value: '2-1-1-2-1',
-                    label: '我是节点2-1-1-2-1',
-                    children: [
-                      {
-                        value: '2-1-1-2-1-1',
-                        label: '我是节点2-1-1-2-1-1',
-                      },
-                      {
-                        value: '2-1-1-2-1-2',
-                        label: '我是节点2-1-1-2-1-2',
-                      },
-                    ],
-                  },
-                  {
-                    value: '2-1-1-2-2',
-                    label: '我是节点2-1-1-2-2',
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        value: '2-2',
-        label: '我是节点2-2',
-      },
-      {
-        value: '2-3',
-        label: '我是节点2-3',
-      },
-    ],
-    value: '2',
-    label: '我是节点2',
+    value: 'parentFirst',
+    label: 'parentFirst',
+  },
+  {
+    value: 'all',
+    label: 'all',
   },
 ];
 
-const activedNodeKeys = ['2'];
-const activedNodeLabel = '我是节点2';
+const items = [
+  {
+    value: '1',
+    label: '1',
+    children: [
+      {
+        value: '1.1',
+        label: '1.1',
+        children: [
+          {
+            value: '1.1.1',
+            label: '1.1.1',
+            children: [
+              {
+                value: '1.1.1.1',
+                label: '1.1.1.1',
+              }, {
+                value: '1.1.1.2',
+                label: '1.1.1.2',
+              }],
+          }, {
+            value: '1.1.2',
+            label: '1.1.2',
+            children: [
+              {
+                value: '1.1.2.1',
+                label: '1.1.2.1',
+              }, {
+                value: '1.1.2.2',
+                label: '1.1.2.2',
+              }],
+          }],
+      }, {
+        value: '1.2',
+        label: '1.2',
+        children: [
+          {
+            value: '1.2.1',
+            label: '1.2.1',
+            children: [
+              {
+                value: '1.2.1.1',
+                label: '1.2.1.1',
+              }, {
+                value: '1.2.1.2',
+                label: '1.2.1.2',
+              }],
+          }, {
+            value: '1.2.2',
+            label: '1.2.2',
+            children: [
+              {
+                value: '1.2.2.1',
+                label: '1.2.2.1',
+              }, {
+                value: '1.2.2.2',
+                label: '1.2.2.2',
+              }],
+          }],
+      }],
+  }, {
+    value: '2',
+    label: '2',
+    children: [
+      {
+        value: '2.1',
+        label: '2.1',
+      }, {
+        value: '2.2',
+        label: '2.2',
+      }],
+  }];
 
-export default function TreeExample() {
-  const [checked, setChecked] = useState(false);
-  const [selectArr, setSelectArr] = useState([activedNodeLabel]);
+export default () => {
+  const [checkable, setCheckable] = useState(true);
+  const [checkStrictly, setCheckStrictly] = useState(false);
+  const [valueMode, setValueMode] = useState('onlyLeaf');
 
-  const handleClick = useCallback(({ event, node }) => {
-    const index = selectArr.indexOf(node.label);
-    if (node.actived) {
-      if (index === -1) {
-        selectArr.push(node.label);
-      }
-    } else {
-      selectArr.splice(index, 1);
-    }
-    setSelectArr([...selectArr]);
-  }, []);
+  const handleChange = (
+    checked,
+    context,
+  ) => {
+    console.info('onChange:', checked, context);
+  };
 
-  const handleSwitchChange = useCallback((value) => {
-    setChecked(value);
-  }, []);
-
-  const handleInput = useCallback(() => null, []);
+  const handleClick = (context) => {
+    console.info('onClick:', context);
+  };
 
   return (
-    <>
-      <span style={{ marginRight: '10px' }}>点击文字，展开节点</span>
-      <Switch value={checked} onChange={handleSwitchChange} />
-      <Input style={{ margin: '10px 0' }} value={selectArr.join('，')} onChange={handleInput} />
+    <div className="tdesign-tree-base">
+      <div className="operations">
+        <Form>
+          <Form.FormItem label="可选" initialData={checkable}>
+            <Switch onChange={setCheckable} />
+          </Form.FormItem>
+          <Form.FormItem label="严格模式" initialData={checkStrictly}>
+            <Switch onChange={setCheckStrictly} />
+          </Form.FormItem>
+          <Form.FormItem label="选中值模式" name="valueMode" initialData={valueMode}>
+            <Radio.Group onChange={setValueMode}>
+              {valueOptions.map((v) => (
+                <Radio key={v.value} value={v.value}>
+                  {v.label}
+                </Radio>
+              ))}
+            </Radio.Group>
+          </Form.FormItem>
+        </Form>
+      </div>
       <Tree
-        data={data}
-        activable={true}
-        activeMultiple={true}
-        actived={activedNodeKeys}
-        expandOnClickNode={checked}
-        checkable={true}
+        expandAll
+        hover
+        data={items}
+        checkable={checkable}
+        checkStrictly={checkStrictly}
+        valueMode={valueMode}
+        onChange={handleChange}
         onClick={handleClick}
       />
-    </>
+    </div>
   );
 }

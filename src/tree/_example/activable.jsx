@@ -1,112 +1,68 @@
-﻿import React, { useState, useCallback } from 'react';
-// import { Tree } from '@tdesign/react';
-import Tree from '../Tree';
-import Switch from '../../switch';
+import React, { useState } from 'react';
+import { Form, Switch, Tree } from '@tencent/tdesign-react';
 
-const data = [
+const items = [
   {
+    label: '1',
     children: [
       {
-        value: '1-1',
-        label: '我是节点1-1',
+        label: '1.1',
       },
       {
-        value: '1-2',
-        label: '我是节点1-2',
-        children: [
-          {
-            value: '1-2-1',
-            label: '我是节点1-2-1',
-          },
-          {
-            value: '1-2-2',
-            label: '我是节点1-2-2',
-          },
-          {
-            value: '1-2-3',
-            label: '我是节点1-2-3',
-          },
-        ],
-      },
-      {
-        value: '1-3',
-        label: '我是节点1-3',
+        label: '1.2',
       },
     ],
-    value: '1',
-    label: '我是节点1',
   },
   {
+    label: '2',
     children: [
       {
-        value: '2-1',
-        label: '我是节点2-1',
-        children: [
-          {
-            value: '2-1-1',
-            label: '我是节点2-1-1',
-            children: [
-              {
-                value: '2-1-1-1',
-                label: '我是节点2-1-1-1',
-              },
-              {
-                value: '2-1-1-2',
-                label: '我是节点2-1-1-2',
-                children: [
-                  {
-                    value: '2-1-1-2-1',
-                    label: '我是节点2-1-1-2-1',
-                    children: [
-                      {
-                        value: '2-1-1-2-1-1',
-                        label: '我是节点2-1-1-2-1-1',
-                      },
-                      {
-                        value: '2-1-1-2-1-2',
-                        label: '我是节点2-1-1-2-1-2',
-                      },
-                    ],
-                  },
-                  {
-                    value: '2-1-1-2-2',
-                    label: '我是节点2-1-1-2-2',
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        label: '2.1',
       },
       {
-        value: '2-2',
-        label: '我是节点2-2',
-      },
-      {
-        value: '2-3',
-        label: '我是节点2-3',
+        label: '2.2',
       },
     ],
-    value: '2',
-    label: '我是节点2',
   },
 ];
 
-export default function TreeExample() {
-  const [hoverable, setHoverable] = useState(false);
+export default () => {
+  const [activable, setActivable] = useState(true);
+  const [activeMultiple, setActiveMultiple] = useState(false);
+  const [expandOnClickNode, setExpandOnClickNode] = useState(false);
 
-  const handleSwitchChange = useCallback((value) => {
-    setHoverable(value);
-  }, []);
+  const handleClick = (context) => {
+    console.info('onClick', context);
+  };
+
+  const handleActive = (value, context) => {
+    console.info('onActive', value, context);
+  };
 
   return (
-    <>
-      <div>
-        <span style={{ marginRight: '10px' }}>开启hover态</span>
-        <Switch value={hoverable} onChange={handleSwitchChange} />
+    <div className="tdesign-tree-base">
+      <div className="operations">
+        <Form labelWidth={120}>
+          <Form.FormItem label="节点可高亮" initialData={activable}>
+            <Switch onChange={setActivable} />
+          </Form.FormItem>
+          <Form.FormItem label="节点可多选高亮" initialData={activeMultiple}>
+            <Switch onChange={setActiveMultiple} />
+          </Form.FormItem>
+          <Form.FormItem label="整个节点可点击" initialData={expandOnClickNode}>
+            <Switch onChange={setExpandOnClickNode} />
+          </Form.FormItem>
+        </Form>
       </div>
-
-      <Tree data={data} hover={hoverable} />
-    </>
+      <Tree
+        data={items}
+        expandAll
+        activable={activable}
+        activeMultiple={activeMultiple}
+        expandOnClickNode={expandOnClickNode}
+        onClick={handleClick}
+        onActive={handleActive}
+      />
+    </div>
   );
-}
+};

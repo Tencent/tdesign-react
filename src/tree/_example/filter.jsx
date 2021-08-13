@@ -1,99 +1,113 @@
 import React, { useState } from 'react';
-import Tree from '../Tree';
-import Input from '../../input';
+import { Addon, Input, Tree } from '@tencent/tdesign-react';
 
-const initData = [
+const items = [
   {
+    value: '1',
+    label: '1',
     children: [
       {
-        label: '我是节点1-1',
-      },
-      {
-        label: '我是节点1-2aaa',
+        value: '1.1',
+        label: '1.1',
         children: [
           {
-            label: '我是节点1-2-1aaa',
+            value: '1.1.1',
+            label: '1.1.1',
+            children: [
+              {
+                value: '1.1.1.1',
+                label: '1.1.1.1',
+              },
+              {
+                value: '1.1.1.2',
+                label: '1.1.1.2',
+              },
+            ],
           },
           {
-            label: '我是节点1-2-2',
-          },
-          {
-            label: '我是节点1-2-3',
+            value: '1.1.2',
+            label: '1.1.2',
+            children: [
+              {
+                value: '1.1.2.1',
+                label: '1.1.2.1',
+              },
+              {
+                value: '1.1.2.2',
+                label: '1.1.2.2',
+              },
+            ],
           },
         ],
       },
       {
-        label: '我是节点1-3',
+        value: '1.2',
+        label: '1.2',
+        children: [
+          {
+            value: '1.2.1',
+            label: '1.2.1',
+            children: [
+              {
+                value: '1.2.1.1',
+                label: '1.2.1.1',
+              },
+              {
+                value: '1.2.1.2',
+                label: '1.2.1.2',
+              },
+            ],
+          },
+          {
+            value: '1.2.2',
+            label: '1.2.2',
+            children: [
+              {
+                value: '1.2.2.1',
+                label: '1.2.2.1',
+              },
+              {
+                value: '1.2.2.2',
+                label: '1.2.2.2',
+              },
+            ],
+          },
+        ],
       },
     ],
-    label: '我是节点1aaa',
   },
   {
+    value: '2',
+    label: '2',
     children: [
       {
-        label: '我是节点2-1',
-        children: [
-          {
-            label: '我是节点2-1-1',
-            children: [
-              {
-                label: '我是节点2-1-1-1',
-              },
-              {
-                label: '我是节点2-1-1-2',
-              },
-            ],
-          },
-        ],
+        value: '2.1',
+        label: '2.1',
       },
       {
-        label: '我是节点2-2',
-        children: [
-          {
-            label: '我是节点2-2-1',
-            children: [
-              {
-                label: '我是节点2-2-1-1',
-              },
-              {
-                label: '我是节点2-2-1-2',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        label: '我是节点2-3',
+        value: '2.2',
+        label: '2.2',
       },
     ],
-    label: '我是节点2',
   },
 ];
 
-function filter(node, value) {
-  if (!value) {
-    // 没有关键字时，仅显示根节点
-    if (!node.getParent()) {
-      return true;
-    }
-    return false;
-  }
-  return node.data && node.data.label && node.data.label.indexOf(value) > 0;
-}
+const DEFAULT_EXPANDED = ['1.1.1'];
 
-export default function TreeExample() {
-  const [value, setValue] = useState(undefined);
+export default () => {
+  const [filterText, setFilterText] = useState('');
+
+  const handleFilter = (node) => {
+    const rs = node.data.label.indexOf(filterText) >= 0;
+    return rs;
+  };
 
   return (
-    <>
-      <Input
-        placeholder="请输入内容"
-        value={value}
-        onChange={(value) => {
-          setValue(value);
-        }}
-      />
-      <Tree data={initData} filter={(node) => filter(node, value)} valueMode="all" />
-    </>
+    <div className="tdesign-tree-base">
+      <Addon prepend="filter:">
+        <Input value={filterText} onInput={setFilterText} />
+      </Addon>
+      <Tree data={items} expandOnClickNode defaultExpanded={DEFAULT_EXPANDED} hover line filter={handleFilter} />
+    </div>
   );
-}
+};

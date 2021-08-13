@@ -1,20 +1,22 @@
-import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
+import TreeNode from '@common/js/tree/tree-node';
+import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '@common/js/tree/types';
+import React, { forwardRef, useState, useEffect, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { TreeStore } from '../_common/js/tree/tree-store';
-import { TreeNode } from '../_common/js/tree/tree-node';
-import { TreeNodeValue, TypeTreeNodeModel, TreeNodeState } from '../_common/js/tree/types';
 import { TreeOptionData } from '../_type';
+import { TreeInstanceFunctions } from './interface/TreeInstanceFunctions';
+import { TreeItemProps } from './interface/TreeItemProps';
 import { TreeProps } from './interface/TreeProps';
-import { CLASS_NAMES, transitionClassNames, transitionDuration } from './constants';
+import { CLASS_NAMES, FX, transitionClassNames, transitionDuration } from './constants';
 
-import TreeItem from './components/TreeItem';
-import { handleLoad, handleChange, handleClick, setExpanded, setActived, setChecked } from './util';
+import TreeItem from './TreeItem';
+import { usePersistFn } from './usePersistFn';
+import { useStore } from './useStore';
 
 /**
  * 树组件
  */
-const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
+const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
 
@@ -45,79 +47,156 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
     valueMode,
     label,
     operations,
-    transition = true, // 动画默认开启
+    transition, // 动画默认开启
     expandOnClickNode,
     filter,
+    onExpand,
+    onActive,
+    onChange,
+    onClick,
   } = props;
 
-  // 类名计算
-  const className = classNames(CLASS_NAMES.tree, [
-    transition ? CLASS_NAMES.treeFx : '',
-    hover ? CLASS_NAMES.treeHoverable : '',
-    disabled ? CLASS_NAMES.disabled : '',
-  ]);
+  const store = useStore(props, () => {
+    const nodes = store.getNodes();
 
-  // 创建 store
-  const store = useRef(
-    new TreeStore({
-      keys,
-      activable,
-      activeMultiple,
-      checkable,
-      checkStrictly,
-      expandAll,
-      expandLevel,
-      expandMutex,
-      expandParent,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-      filter,
-      onLoad: (info: any) => {
-        handleLoad(info, props);
+    const newVisibleNodes = nodes.filter((node) => node.visible);
+    setVisibleNodes(newVisibleNodes);
+  });
+
+  // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
+  const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
+    const expanded = node.setExpanded(isExpanded);
+    const treeNodeModel = node?.getModel();
+    const event = new MouseEvent('expand');
+    onExpand?.(expanded, {
+      node: treeNodeModel,
+      e: event,
+    });
+    return expanded;
+  });
+
+  const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
+    const actived = node.setActived(isActived);
+    const treeNodeModel = node?.getModel();
+    onActive?.(actived, { node: treeNodeModel });
+    return actived;
+  });
+
+  const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
+    const checked = node.setChecked(isChecked);
+    const treeNodeModel = node?.getModel();
+    onChange?.(checked, { node: treeNodeModel });
+    return checked;
+  });
+
+  const handleClick: TreeItemProps['onClick'] = (node, options) => {
+    console.log('handleClick', node, options);
+    if (!node || disabled || node.disabled) {
+      return;
+    }
+    const { expand, active } = options;
+    const e = new MouseEvent('click');
+    if (expand) {
+      const expandArr = setExpanded(node, !node.isExpanded());
+      store.replaceExpanded(expandArr);
+    }
+
+    console.log('active', active);
+    if (active) {
+      const activedArr = setActived(node, !node.isActived());
+      store.replaceActived(activedArr);
+    }
+    const treeNodeModel = node?.getModel();
+    onClick?.({
+      node: treeNodeModel,
+      e,
+    });
+  };
+
+  const handleChange: TreeItemProps['onChange'] = (node) => {
+    if (!node || disabled || node.disabled) {
+      return;
+    }
+    const checkedArr = setChecked(node, !node.isChecked());
+    store.replaceChecked(checkedArr);
+  };
+
+  /** 对外暴露的公共方法 **/
+  useImperativeHandle<unknown, TreeInstanceFunctions>(
+    ref,
+    () => ({
+      store,
+      appendTo(value, newData) {
+        let list = [];
+        if (Array.isArray(newData)) {
+          list = newData;
+        } else {
+          list = [newData];
+        }
+        list.forEach((item) => {
+          store.appendNodes(value, item);
+        });
       },
-      onUpdate: () => {
-        const nodes = store.getNodes();
-        const newVisibleNodes = nodes.filter((node) => node.visible);
-        setVisibleNodes(newVisibleNodes);
+      getIndex(value: TreeNodeValue): number {
+        return store.getNodeIndex(value);
+      },
+      getItem(value: TreeNodeValue): TypeTreeNodeModel {
+        const node: TreeNode = store.getNode(value);
+        return node?.getModel();
+      },
+      getItems(value?: TreeNodeValue): TypeTreeNodeModel[] {
+        const nodes = store.getNodes(value);
+        return nodes.map((node: TreeNode) => node.getModel());
+      },
+      getParent(value: TreeNodeValue): TypeTreeNodeModel {
+        const node = store.getParent(value);
+        return node?.getModel();
+      },
+      getParents(value: TreeNodeValue): TypeTreeNodeModel[] {
+        const nodes = store.getParents(value);
+        return nodes.map((node: TreeNode) => node.getModel());
+      },
+      getPath(value: TreeNodeValue): TypeTreeNodeModel[] {
+        const node = store.getNode(value);
+        let pathNodes = [];
+        if (node) {
+          pathNodes = node.getPath().map((node: TreeNode) => node.getModel());
+        }
+        return pathNodes;
+      },
+      insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
+        return store.insertAfter(value, newData);
+      },
+      insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
+        return store.insertBefore(value, newData);
+      },
+      remove(value: TreeNodeValue): void {
+        return store.remove(value);
+      },
+      setItem(value: TreeNodeValue, options: TreeNodeState): void {
+        const node: TreeNode = this.store.getNode(value);
+        const spec = options;
+        if (node && spec) {
+          if ('expanded' in options) {
+            setExpanded(node, spec.expanded);
+            delete spec.expanded;
+          }
+          if ('actived' in options) {
+            setActived(node, spec.actived);
+            delete spec.actived;
+          }
+          if ('checked' in options) {
+            setChecked(node, spec.checked);
+            delete spec.checked;
+          }
+          node.set(spec);
+        }
       },
     }),
-  ).current;
+    [store, setExpanded, setActived, setChecked],
+  );
 
-  // 初始化 store 的节点排列 + 状态
-  useEffect(() => {
-    if (data && data.length > 0 && store.getNodes().length === 0) {
-      store.append(data);
-      // 选中态回显
-      if (Array.isArray(value)) {
-        store.setChecked(value);
-      }
-      // 展开态回显
-      if (Array.isArray(expanded)) {
-        const expandedMap = new Map();
-        expanded.forEach((val) => {
-          expandedMap.set(val, true);
-          if (expandParent) {
-            const node = store.getNode(val);
-            node.getParents().forEach((tn) => {
-              expandedMap.set(tn.value, true);
-            });
-          }
-        });
-        const expandedArr = Array.from(expandedMap.keys());
-        store.setExpanded(expandedArr);
-      }
-      // 高亮态回显
-      if (Array.isArray(actived)) {
-        store.setActived(actived);
-      }
-      // 树的数据初始化之后，需要立即进行一次视图刷新
-      store.refreshNodes();
-    }
-  }, []); // eslint-disable-line
-
-  /**  监听开发者的各个 props 变化 **/
+  /* ======== 由 props 引发的 store 更新 ======= */
   useEffect(() => {
     if (data && Array.isArray(data)) {
       store.removeAll();
@@ -126,136 +205,129 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<HTMLDivElement>) => {
   }, [data, store]);
 
   useEffect(() => {
-    if (value && Array.isArray(value)) {
-      store.replaceChecked(value);
-    }
-  }, [value, store]);
+    store.setConfig({
+      keys,
+      expandAll,
+      expandLevel,
+      expandMutex,
+      expandParent,
+      activable,
+      activeMultiple,
+      disabled,
+      checkable,
+      checkStrictly,
+      load,
+      lazy,
+      valueMode,
+    });
+
+    store.refreshState();
+  }, [
+    activable,
+    activeMultiple,
+    checkStrictly,
+    checkable,
+    disabled,
+    expandAll,
+    expandLevel,
+    expandMutex,
+    expandParent,
+    keys,
+    lazy,
+    load,
+    store,
+    valueMode,
+  ]);
 
   useEffect(() => {
-    if (expanded && Array.isArray(expanded)) {
+    if (Array.isArray(value)) {
+      store.replaceChecked(value);
+    }
+  }, [store, value]);
+
+  useEffect(() => {
+    if (Array.isArray(expanded)) {
       store.replaceExpanded(expanded);
     }
   }, [expanded, store]);
 
   useEffect(() => {
-    if (actived && Array.isArray(actived)) {
+    if (Array.isArray(actived)) {
       store.replaceActived(actived);
     }
   }, [actived, store]);
 
   useEffect(() => {
-    if (filter) {
-      store.setConfig({
-        filter,
-      });
-      store.updateAll();
-    }
+    store.setConfig({
+      filter,
+    });
+    store.updateAll();
   }, [filter, store]);
 
-  /** 对外暴露的公共方法 **/
-  useImperativeHandle(ref, (): any => ({
-    store,
-    // 【待确定】需要对齐，是否确认去掉这个方法
-    // filterItems(fn: (node: TreeNode) => boolean): void {
-    //   store.setConfig({
-    //     filter: fn,
-    //   });
-    //   store.updateAll();
-    // },
-    scrollTo(): void {
-      // TODO
-    },
-    setItem(value: TreeNodeValue, options: TreeNodeState): void {
-      const node: TreeNode = this.store.getNode(value);
-      const spec = options;
-      if (node && spec) {
-        if ('expanded' in options) {
-          setExpanded(node, spec.expanded, props);
-          delete spec.expanded;
-        }
-        if ('actived' in options) {
-          setActived(node, spec.actived, props);
-          delete spec.actived;
-        }
-        if ('checked' in options) {
-          setChecked(node, spec.checked, props);
-          delete spec.checked;
-        }
-        node.set(spec);
-      }
-    },
-    getItem(value: TreeNodeValue): TypeTreeNodeModel {
-      const node = this.store.getNode(value);
-      return node?.getModel();
-    },
-    // 【待确定】需要对齐，是否确认去掉这3个方法
-    // getItems(value?: string | TreeNode, options?: TreeFilterOptions): TreeNode[] {
-    //   return this.store.getNodes(value, options);
-    // },
-    // getActived(value?: string | TreeNode): TreeNode[] {
-    //   return this.store.getActivedNodes(value);
-    // },
-    // getChecked(item?: string | TreeNode): TreeNode[] {
-    //   return this.store.getCheckedNodes(item);
-    // },
-    // append(para?: any, item?: any): void {
-    //   return this.store.appendNodes(para, item);
-    // },
-    appendTo(value: TreeNodeValue, newData: TreeOptionData): void {
-      return this.store.appendNodes(value, newData);
-    },
-    insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
-      return this.store.insertBefore(value, newData);
-    },
-    insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
-      return this.store.insertAfter(value, newData);
-    },
-    getParent(value: TreeNodeValue): TypeTreeNodeModel {
-      const node = this.store.getParent(value);
-      return node?.getModel();
-    },
-    getParents(value: TreeNodeValue): TypeTreeNodeModel[] {
-      const nodes = this.store.getParents(value);
-      return nodes.map((node: TreeNode) => node.getModel());
-    },
-    remove(value: TreeNodeValue): void {
-      this.store.remove(value);
-    },
-    getIndex(value: TreeNodeValue): number {
-      return this.store.getNodeIndex(value);
-    },
-  }));
+  /* ======== render ======= */
+  const renderEmpty = () => {
+    let emptyView = empty || '暂无数据';
+    if (empty instanceof Function) {
+      emptyView = empty();
+    }
 
-  const treeItems = visibleNodes.map((node) => (
-    <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
-      <TreeItem
-        node={node}
-        empty={empty}
-        icon={icon}
-        label={label}
-        line={line}
-        transition={transition}
-        expandOnClickNode={expandOnClickNode}
-        activable={activable}
-        operations={operations}
-        checkProps={checkProps}
-        onClick={(node: TreeNode, options: { expand: boolean; active: boolean }) => {
-          handleClick(node, props, store, options);
-        }}
-        onChange={(node: TreeNode) => {
-          handleChange(node, props, store);
-        }}
-      />
-    </CSSTransition>
-  ));
+    return emptyView;
+  };
 
+  const renderItems = () => {
+    if (visibleNodes.length <= 0) {
+      return renderEmpty();
+    }
+
+    return (
+      <TransitionGroup name={FX.treeNode} className={CLASS_NAMES.treeList}>
+        {visibleNodes.map((node) => (
+          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+            <TreeItem
+              node={node}
+              empty={empty}
+              icon={icon}
+              label={label}
+              line={line}
+              transition={transition}
+              expandOnClickNode={expandOnClickNode}
+              activable={activable}
+              operations={operations}
+              checkProps={checkProps}
+              onClick={handleClick}
+              onChange={handleChange}
+            />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    );
+  };
   return (
-    <div ref={ref} className={className}>
-      <TransitionGroup>{treeItems}</TransitionGroup>
+    <div
+      className={classNames(CLASS_NAMES.tree, {
+        [CLASS_NAMES.disabled]: disabled,
+        [CLASS_NAMES.treeHoverable]: hover,
+        [CLASS_NAMES.treeCheckable]: checkable,
+        [CLASS_NAMES.treeFx]: transition,
+        [CLASS_NAMES.treeBlockNode]: expandOnClickNode,
+      })}
+    >
+      {renderItems()}
     </div>
   );
 });
 
 Tree.displayName = 'Tree';
+
+Tree.defaultProps = {
+  data: [],
+  empty: '',
+  expandLevel: 0,
+  icon: true,
+  line: false,
+  transition: true,
+  lazy: true,
+  valueMode: 'onlyLeaf',
+};
 
 export default Tree;
