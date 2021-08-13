@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu, UserAddIcon, AppIcon, CallIcon } from '@tencent/tdesign-react';
+import { Menu, UserAddIcon, AppIcon, CallIcon, Message } from '@tencent/tdesign-react';
 
 const { HeadMenu, MenuItem } = Menu;
 
@@ -24,7 +24,7 @@ function Single() {
         }
         style={{ marginBottom: 20 }}
       >
-        <MenuItem value={'0'}>
+        <MenuItem value={'0'} onClick={() => Message.info('click 菜单1')}>
           <span>菜单1</span>
         </MenuItem>
         <MenuItem value={'1'}>
