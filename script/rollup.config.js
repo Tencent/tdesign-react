@@ -85,7 +85,7 @@ const getPlugins = ({
         ],
       }),
       ignoreImport({
-        include: ['src/*/style/*'],
+        include: ['src/*/style/*', 'src/*/*/style/*'],
         body: 'import "./style/css.js";',
       }),
     );
