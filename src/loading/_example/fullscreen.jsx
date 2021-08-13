@@ -6,13 +6,18 @@ export default function LoadingFullscreen() {
   const [loading, setLoading] = useState(false);
 
   const onChange = (value) => {
-    console.log('value', value);
     setChecked(value);
     setLoading(value);
+
+    if (value)
+      setTimeout(() => {
+        setChecked(false);
+        setLoading(false);
+      }, 2000);
   };
   return (
-    <div style={{ position: 'relative' }}>
-      <Loading loading={loading} fullscreen={true} preventScrollThrough={true}></Loading>
+    <div>
+      <Loading loading={loading} fullscreen preventScrollThrough={true}></Loading>
       Loading state:
       <Switch value={checked} onChange={onChange} />
     </div>

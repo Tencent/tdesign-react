@@ -1,7 +1,7 @@
 export * from './icon';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
-export { default as Loading } from './loading';
+export { default as Loading, loading } from './loading';
 export { default as Popup } from './popup';
 export { default as Button } from './button';
 export { default as Input } from './input';
