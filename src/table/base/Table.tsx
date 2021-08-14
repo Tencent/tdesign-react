@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback, ReactNode } from 'react';
 import classNames from 'classnames';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
-import { TdBaseTableProps, DataType } from '../../_type/components/base-table';
+import { TdBaseTableProps, DataType } from '../../_type/components/table';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 

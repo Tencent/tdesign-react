@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { TdBaseTableProps } from '../../_type/components/base-table';
+import { TdBaseTableProps } from '../../_type/components/table';
 import useConfig from '../../_util/useConfig';
 import getRowKeyFromRowKey from '../util/getRowKeyFromRowKey';
 

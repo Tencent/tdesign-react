@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import isCallable from '../../_util/isCallable';
-import { BaseTableCol, DataType } from '../../_type/components/base-table';
+import { BaseTableCol, DataType } from '../../_type/components/table';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 

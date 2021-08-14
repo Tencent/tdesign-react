@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataType, TdBaseTableProps } from '../../_type/components/base-table';
+import { DataType, TdBaseTableProps } from '../../_type/components/table';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 
