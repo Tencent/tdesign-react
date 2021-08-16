@@ -38,7 +38,7 @@ const parseFlex = (flex: FlexType) => {
     return `${flex} ${flex} auto`;
   }
 
-  if (/^\d+(\.\d+)?(px|em|rem|%)$/.test(flex)) {
+  if (/^\d+(\.\d+)?(px|r?em|%)$/.test(flex)) {
     return `0 0 ${flex}`;
   }
 
@@ -66,24 +66,22 @@ const Col = (props: ColProps | any) => {
 
   const { classPrefix } = useConfig();
   const allSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
-  const sizeClassObj = allSizes.reduce((acc, currSize) => {
-    const propSize = props[currSize];
-    let sizeProps: any = {};
-    if (typeof propSize === 'number') {
-      sizeProps.span = propSize;
-    } else if (isObject(propSize)) {
-      sizeProps = propSize || {};
+  const sizeClasses = allSizes.reduce((acc, currSize) => {
+    const sizeProp = props[currSize];
+    let sizeObj: any = {};
+    if (typeof sizeProp === 'number') {
+      sizeObj.span = sizeProp;
+    } else if (isObject(sizeProp)) {
+      sizeObj = sizeProp || {};
     }
-
-    delete otherColProps[currSize];
 
     return {
       ...acc,
-      [`${classPrefix}-col-${currSize}-${sizeProps.span}`]: sizeProps.span !== undefined,
-      [`${classPrefix}-col-${currSize}-order-${sizeProps.order}`]: sizeProps.order !== undefined,
-      [`${classPrefix}-col-${currSize}-offset-${sizeProps.offset}`]: sizeProps.offset !== undefined,
-      [`${classPrefix}-col-${currSize}-push-${sizeProps.push}`]: sizeProps.push !== undefined,
-      [`${classPrefix}-col-${currSize}-pull-${sizeProps.pull}`]: sizeProps.pull !== undefined,
+      [`${classPrefix}-col-${currSize}-${sizeObj.span}`]: sizeObj.span !== undefined,
+      [`${classPrefix}-col-${currSize}-order-${sizeObj.order}`]: parseInt(sizeObj.order, 10) >= 0,
+      [`${classPrefix}-col-${currSize}-offset-${sizeObj.offset}`]: parseInt(sizeObj.offset, 10) >= 0,
+      [`${classPrefix}-col-${currSize}-push-${sizeObj.push}`]: parseInt(sizeObj.push, 10) >= 0,
+      [`${classPrefix}-col-${currSize}-pull-${sizeObj.pull}`]: parseInt(sizeObj.pull, 10) >= 0,
     };
   }, {});
 
@@ -92,12 +90,12 @@ const Col = (props: ColProps | any) => {
     className,
     {
       [`${classPrefix}-col-${span}`]: span !== undefined,
-      [`${classPrefix}-col-offset-${offset}`]: offset !== undefined,
-      [`${classPrefix}-col-pull-${pull}`]: pull !== undefined,
-      [`${classPrefix}-col-push-${push}`]: push !== undefined,
-      [`${classPrefix}-col-order-${order}`]: order !== undefined,
+      [`${classPrefix}-col-offset-${offset}`]: parseInt(offset, 10) >= 0,
+      [`${classPrefix}-col-pull-${pull}`]: parseInt(pull, 10) >= 0,
+      [`${classPrefix}-col-push-${push}`]: parseInt(push, 10) >= 0,
+      [`${classPrefix}-col-order-${order}`]: parseInt(order, 10) >= 0,
     },
-    sizeClassObj,
+    sizeClasses,
   );
 
   const ColStyle = {
