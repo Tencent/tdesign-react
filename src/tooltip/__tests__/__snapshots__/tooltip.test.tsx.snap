@@ -5,7 +5,11 @@ exports[`arrow.jsx 1`] = `
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
   >
-    默认文字提示
+    <span
+      class="t-button__text"
+    >
+      默认文字提示
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -19,73 +23,121 @@ exports[`base.jsx 1`] = `
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; left: 42%;"
     >
-      top
+      <span
+        class="t-button__text"
+      >
+        top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; left: 70px;"
     >
-      top-left
+      <span
+        class="t-button__text"
+      >
+        top-left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; right: 70px;"
     >
-      top-right
+      <span
+        class="t-button__text"
+      >
+        top-right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; left: 42%;"
     >
-      bottom
+      <span
+        class="t-button__text"
+      >
+        bottom
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
     >
-      bottom-left
+      <span
+        class="t-button__text"
+      >
+        bottom-left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; right: 70px;"
     >
-      bottom-right
+      <span
+        class="t-button__text"
+      >
+        bottom-right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; top: 42%;"
     >
-      left
+      <span
+        class="t-button__text"
+      >
+        left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; top: 50px;"
     >
-      left-top
+      <span
+        class="t-button__text"
+      >
+        left-top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; bottom: 50px;"
     >
-      left-bottom
+      <span
+        class="t-button__text"
+      >
+        left-bottom
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; top: 42%;"
     >
-      right
+      <span
+        class="t-button__text"
+      >
+        right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; top: 50px;"
     >
-      right-top
+      <span
+        class="t-button__text"
+      >
+        right-top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; bottom: 50px;"
     >
-      right-bottom
+      <span
+        class="t-button__text"
+      >
+        right-bottom
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -96,7 +148,11 @@ exports[`no-arrow.jsx 1`] = `
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
   >
-    不带箭头等文字提示
+    <span
+      class="t-button__text"
+    >
+      不带箭头等文字提示
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -109,27 +165,47 @@ exports[`theme.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      default
+      <span
+        class="t-button__text"
+      >
+        default
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      primary
+      <span
+        class="t-button__text"
+      >
+        primary
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      success
+      <span
+        class="t-button__text"
+      >
+        success
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      danger
+      <span
+        class="t-button__text"
+      >
+        danger
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      warning
+      <span
+        class="t-button__text"
+      >
+        warning
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -143,17 +219,29 @@ exports[`trigger.jsx 1`] = `
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      悬浮时触发（默认）
+      <span
+        class="t-button__text"
+      >
+        悬浮时触发（默认）
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      点击时触发
+      <span
+        class="t-button__text"
+      >
+        点击时触发
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      右击时触发
+      <span
+        class="t-button__text"
+      >
+        右击时触发
+      </span>
     </button>
   </div>
 </DocumentFragment>

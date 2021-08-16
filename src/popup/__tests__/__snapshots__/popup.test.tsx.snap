@@ -8,12 +8,20 @@ exports[`attach.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      点击查看我的父元素(CSSSelector)
+      <span
+        class="t-button__text"
+      >
+        点击查看我的父元素(CSSSelector)
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
     >
-      点击查看我的父元素(Function)
+      <span
+        class="t-button__text"
+      >
+        点击查看我的父元素(Function)
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -24,7 +32,11 @@ exports[`base.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    Hover me
+    <span
+      class="t-button__text"
+    >
+      Hover me
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -34,7 +46,11 @@ exports[`controlled.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    一直显示
+    <span
+      class="t-button__text"
+    >
+      一直显示
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -44,7 +60,11 @@ exports[`destroy.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    Hover me
+    <span
+      class="t-button__text"
+    >
+      Hover me
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -54,7 +74,11 @@ exports[`disabled.jsx 1`] = `
   <button
     class="t-is-disabled t-button t-button--theme-primary t-button--variant-base"
   >
-    Hover me
+    <span
+      class="t-button__text"
+    >
+      Hover me
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -64,12 +88,20 @@ exports[`overlay-style.jsx 1`] = `
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    click我试试
+    <span
+      class="t-button__text"
+    >
+      click我试试
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
   >
-    根据 trigger 元素定制 overlayStyle
+    <span
+      class="t-button__text"
+    >
+      根据 trigger 元素定制 overlayStyle
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -83,73 +115,121 @@ exports[`placements.jsx 1`] = `
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; left: 42%;"
     >
-      top
+      <span
+        class="t-button__text"
+      >
+        top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; left: 70px;"
     >
-      top-left
+      <span
+        class="t-button__text"
+      >
+        top-left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; top: 0px; right: 70px;"
     >
-      top-right
+      <span
+        class="t-button__text"
+      >
+        top-right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; left: 42%;"
     >
-      bottom
+      <span
+        class="t-button__text"
+      >
+        bottom
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
     >
-      bottom-left
+      <span
+        class="t-button__text"
+      >
+        bottom-left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; bottom: 0px; right: 70px;"
     >
-      bottom-right
+      <span
+        class="t-button__text"
+      >
+        bottom-right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; top: 42%;"
     >
-      left
+      <span
+        class="t-button__text"
+      >
+        left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; top: 50px;"
     >
-      left-top
+      <span
+        class="t-button__text"
+      >
+        left-top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; left: 0px; bottom: 50px;"
     >
-      left-bottom
+      <span
+        class="t-button__text"
+      >
+        left-bottom
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; top: 42%;"
     >
-      right
+      <span
+        class="t-button__text"
+      >
+        right
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; top: 50px;"
     >
-      right-top
+      <span
+        class="t-button__text"
+      >
+        right-top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: absolute; right: 0px; bottom: 50px;"
     >
-      right-bottom
+      <span
+        class="t-button__text"
+      >
+        right-bottom
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -163,7 +243,11 @@ exports[`triggers.jsx 1`] = `
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      悬浮时触发（默认）
+      <span
+        class="t-button__text"
+      >
+        悬浮时触发（默认）
+      </span>
     </button>
     <div
       class="t-input"
@@ -178,12 +262,20 @@ exports[`triggers.jsx 1`] = `
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      点击时触发
+      <span
+        class="t-button__text"
+      >
+        点击时触发
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
     >
-      右击时触发
+      <span
+        class="t-button__text"
+      >
+        右击时触发
+      </span>
     </button>
   </div>
 </DocumentFragment>

@@ -133,8 +133,14 @@ exports[`base.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          隐藏周末
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            隐藏周末
+          </span>
         </button>
       </div>
       <div
@@ -142,8 +148,14 @@ exports[`base.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          今天
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            今天
+          </span>
         </button>
       </div>
     </div>
@@ -542,7 +554,7 @@ exports[`base.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -558,7 +570,7 @@ exports[`base.jsx 1`] = `
             class="t-calendar__table-body-row"
           >
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -794,9 +806,14 @@ exports[`card.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-left: 12px;"
+        style="margin-left: 12px; position: relative;"
       >
-        回到今天
+        <span
+          class="t-button__text"
+          style="z-index: 1;"
+        >
+          回到今天
+        </span>
       </button>
     </div>
     <div
@@ -1321,7 +1338,7 @@ exports[`card.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -1337,7 +1354,7 @@ exports[`card.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -1689,8 +1706,14 @@ exports[`cell.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            隐藏周末
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              隐藏周末
+            </span>
           </button>
         </div>
         <div
@@ -1698,8 +1721,14 @@ exports[`cell.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            今天
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              今天
+            </span>
           </button>
         </div>
       </div>
@@ -2044,7 +2073,7 @@ exports[`cell.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div>
                   2021-7-22
@@ -2058,7 +2087,7 @@ exports[`cell.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div>
                   2021-7-23
@@ -2343,8 +2372,14 @@ exports[`cell-append.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          隐藏周末
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            隐藏周末
+          </span>
         </button>
       </div>
       <div
@@ -2352,8 +2387,14 @@ exports[`cell-append.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          今天
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            今天
+          </span>
         </button>
       </div>
     </div>
@@ -2752,7 +2793,7 @@ exports[`cell-append.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -2768,7 +2809,7 @@ exports[`cell-append.jsx 1`] = `
             class="t-calendar__table-body-row"
           >
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -3128,8 +3169,14 @@ exports[`controller-config.jsx 1`] = `
             >
               <button
                 class="t-button t-button--theme-default t-button--variant-base"
+                style="position: relative;"
               >
-                隐藏周末
+                <span
+                  class="t-button__text"
+                  style="z-index: 1;"
+                >
+                  隐藏周末
+                </span>
               </button>
             </div>
             <div
@@ -3137,8 +3184,14 @@ exports[`controller-config.jsx 1`] = `
             >
               <button
                 class="t-button t-button--theme-default t-button--variant-base"
+                style="position: relative;"
               >
-                今天
+                <span
+                  class="t-button__text"
+                  style="z-index: 1;"
+                >
+                  今天
+                </span>
               </button>
             </div>
           </div>
@@ -3537,7 +3590,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -3553,7 +3606,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-calendar__table-body-row"
                 >
                   <td
-                    class="t-calendar__table-body-cell"
+                    class="t-calendar__table-body-cell t-is-checked"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4068,10 +4121,12 @@ exports[`controller-config.jsx 1`] = `
             >
               <button
                 class="t-button t-button--theme-warning t-button--variant-base"
+                style="position: relative;"
               >
                 browse-off
                 <span
                   class="t-button__text"
+                  style="z-index: 1;"
                 >
                   隐藏周末
                 </span>
@@ -4082,10 +4137,12 @@ exports[`controller-config.jsx 1`] = `
             >
               <button
                 class="t-button t-button--theme-primary t-button--variant-base"
+                style="position: relative;"
               >
                 rollback
                 <span
                   class="t-button__text"
+                  style="z-index: 1;"
                 >
                   今天
                 </span>
@@ -4487,7 +4544,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4503,7 +4560,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-calendar__table-body-row"
                 >
                   <td
-                    class="t-calendar__table-body-cell"
+                    class="t-calendar__table-body-cell t-is-checked"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4818,8 +4875,14 @@ exports[`custom-props-api.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          隐藏周末
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            隐藏周末
+          </span>
         </button>
       </div>
       <div
@@ -4827,8 +4890,14 @@ exports[`custom-props-api.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          今天
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            今天
+          </span>
         </button>
       </div>
     </div>
@@ -5231,7 +5300,7 @@ exports[`custom-props-api.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -5247,7 +5316,7 @@ exports[`custom-props-api.jsx 1`] = `
             class="t-calendar__table-body-row"
           >
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -5579,8 +5648,14 @@ exports[`event-props-api.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            隐藏周末
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              隐藏周末
+            </span>
           </button>
         </div>
         <div
@@ -5588,8 +5663,14 @@ exports[`event-props-api.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            今天
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              今天
+            </span>
           </button>
         </div>
       </div>
@@ -5988,7 +6069,7 @@ exports[`event-props-api.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6004,7 +6085,7 @@ exports[`event-props-api.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6355,8 +6436,14 @@ exports[`filter.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            隐藏周末
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              隐藏周末
+            </span>
           </button>
         </div>
         <div
@@ -6364,8 +6451,14 @@ exports[`filter.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            今天
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              今天
+            </span>
           </button>
         </div>
       </div>
@@ -6764,7 +6857,7 @@ exports[`filter.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6780,7 +6873,7 @@ exports[`filter.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7132,8 +7225,14 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            隐藏周末
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              隐藏周末
+            </span>
           </button>
         </div>
         <div
@@ -7141,8 +7240,14 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            今天
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              今天
+            </span>
           </button>
         </div>
       </div>
@@ -7517,7 +7622,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7529,7 +7634,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7877,8 +7982,14 @@ exports[`mode.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
           >
-            本月
+            <span
+              class="t-button__text"
+              style="z-index: 1;"
+            >
+              本月
+            </span>
           </button>
         </div>
       </div>
@@ -8191,8 +8302,14 @@ exports[`value.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          隐藏周末
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            隐藏周末
+          </span>
         </button>
       </div>
       <div
@@ -8200,8 +8317,14 @@ exports[`value.jsx 1`] = `
       >
         <button
           class="t-button t-button--theme-default t-button--variant-base"
+          style="position: relative;"
         >
-          今天
+          <span
+            class="t-button__text"
+            style="z-index: 1;"
+          >
+            今天
+          </span>
         </button>
       </div>
     </div>

@@ -323,14 +323,25 @@ exports[`link.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      删除
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        删除
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-left: 16px;"
+      style="margin-left: 16px; position: relative;"
     >
-      开启
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        开启
+      </span>
     </button>
   </div>
 </DocumentFragment>
