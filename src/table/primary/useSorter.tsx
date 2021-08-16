@@ -154,11 +154,10 @@ export default useSorter;
 function comparer(sorts: SortInfoWithSorter[]) {
   return (a: any, b: any) => {
     for (const { sortBy, descending, sorter } of sorts) {
-      const hasSorter = typeof sorter === 'function';
       const firstValue = get(a, sortBy);
       const secondValue = get(b, sortBy);
-      const isAsc = hasSorter ? sorter(a, b) < 0 : firstValue < secondValue;
-      const isDesc = hasSorter ? sorter(a, b) > 0 : firstValue > secondValue;
+      const isAsc = typeof sorter === 'function' ? sorter(a, b) < 0 : firstValue < secondValue;
+      const isDesc = typeof sorter === 'function' ? sorter(a, b) > 0 : firstValue > secondValue;
       if (isAsc || isDesc) {
         if (!descending) return isAsc ? -1 : 1;
         if (descending) return isDesc ? -1 : 1;

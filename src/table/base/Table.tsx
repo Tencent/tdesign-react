@@ -50,7 +50,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     (pageInfo: PageInfo) => {
       setInnerCurrentPagination(pageInfo.current);
       setInnerPageSize(pageInfo.pageSize);
-      onPageChange?.(pageInfo);
+      onPageChange?.(pageInfo, null);
     },
     [onPageChange],
   );

@@ -29,7 +29,6 @@ export { default as Anchor } from './anchor';
 export { default as Calendar } from './calendar';
 export { default as Form } from './form';
 export { default as Tooltip } from './tooltip';
-export { default as TimePicker } from './time-picker';
 export { default as Drawer } from './drawer';
 export { default as Progress } from './progress';
 export { default as PopConfirm } from './popconfirm';
