@@ -56,7 +56,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
   if (typeof attach === 'string') {
     const result = document.querySelectorAll(attach);
     if (result.length >= 1) {
-      // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable -- kenzyyang
+      // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
       // eslint-disable-next-line prefer-destructuring
       mountedDom = result[0];
     }
@@ -64,14 +64,15 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
     mountedDom = attach();
   }
 
-  // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀 -- kenzyyang
+  // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀
   const tdMessageListClass = 't-message-list';
+  const tdMessagePlacementClass = `t-message-placement--${placement}`;
 
   // 选择器找到一个挂载 message 的容器，不存在则创建
-  const container = Array.from(mountedDom.querySelectorAll(`.${tdMessageListClass}`));
+  const container = Array.from(mountedDom.querySelectorAll(`.${tdMessageListClass}.${tdMessagePlacementClass}`));
   if (container.length < 1) {
     const div = document.createElement('div');
-    div.className = classNames(tdMessageListClass);
+    div.className = classNames(tdMessageListClass, tdMessagePlacementClass);
     div.style.zIndex = String(zIndex || globalConfig.zIndex);
 
     Object.keys(PlacementOffset[placement]).forEach((key) => {
@@ -88,8 +89,6 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
 }
 
 /**
- * @author kenzyyang
- * @date 2021-05-16 13:02:59
  * @desc 函数式调用时的 message 渲染函数
  */
 function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
@@ -125,8 +124,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
     style = {
       left,
       top,
-      position: 'absolute',
-      width: 'auto',
+      position: 'relative',
     };
   }
 
@@ -183,7 +181,6 @@ ThemeArray.forEach((theme) => {
 });
 
 /**
- * @author kenzyyang
  * @date 2021-05-16 13:11:24
  * @desc Message 顶层内置函数，传入 message promise，关闭传入的 message.
  */
@@ -192,7 +189,6 @@ Message.close = (message) => {
 };
 
 /**
- * @author kenzyyang
  * @date 2021-05-16 13:11:24
  * @desc 关闭所有的 message
  * :todo 需明确关闭范围，目前 message 中暂无 namespace 类似概念，暂时做全 message 关闭
