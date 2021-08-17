@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode, useRef, useLayoutEffect, useState, PropsWithChildren } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { BaseTableCol, DataType } from '../../_type/components/base-table';
+import { BaseTableCol, DataType } from '../../_type/components/table';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
 

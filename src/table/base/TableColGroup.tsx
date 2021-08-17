@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseTableCol } from '../../_type/components/base-table';
+import { BaseTableCol } from '../../_type/components/table';
 
 export interface TableColGroupProps {
   columns: BaseTableCol[];

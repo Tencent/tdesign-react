@@ -896,7 +896,11 @@ exports[`order.jsx 1`] = `
     <div
       class="t-col t-col-3 t-col-xs-order-1 t-col-sm-order-2 t-col-md-order-3 t-col-lg-order-4"
       gutter="0"
+      lg="[object Object]"
+      md="[object Object]"
+      sm="[object Object]"
       style="padding: 0px 0px;"
+      xs="[object Object]"
     >
       <div>
         1 col-order-responsive
@@ -905,7 +909,11 @@ exports[`order.jsx 1`] = `
     <div
       class="t-col t-col-3 t-col-xs-order-2 t-col-sm-order-1 t-col-md-order-4 t-col-lg-order-3"
       gutter="0"
+      lg="[object Object]"
+      md="[object Object]"
+      sm="[object Object]"
       style="padding: 0px 0px;"
+      xs="[object Object]"
     >
       <div>
         2 col-order-responsive
@@ -914,7 +922,11 @@ exports[`order.jsx 1`] = `
     <div
       class="t-col t-col-3 t-col-xs-order-3 t-col-sm-order-4 t-col-md-order-2 t-col-lg-order-1"
       gutter="0"
+      lg="[object Object]"
+      md="[object Object]"
+      sm="[object Object]"
       style="padding: 0px 0px;"
+      xs="[object Object]"
     >
       <div>
         3 col-order-responsive
@@ -923,7 +935,11 @@ exports[`order.jsx 1`] = `
     <div
       class="t-col t-col-3 t-col-xs-order-4 t-col-sm-order-3 t-col-md-order-1 t-col-lg-order-2"
       gutter="0"
+      lg="[object Object]"
+      md="[object Object]"
+      sm="[object Object]"
       style="padding: 0px 0px;"
+      xs="[object Object]"
     >
       <div>
         4 col-order-responsive
@@ -942,7 +958,12 @@ exports[`responsive.jsx 1`] = `
     <div
       class="t-col t-col-xs-2 t-col-sm-4 t-col-md-6 t-col-lg-8 t-col-xl-10"
       gutter="0"
+      lg="8"
+      md="6"
+      sm="4"
       style="padding: 0px 0px;"
+      xl="10"
+      xs="2"
     >
       <div>
         Col
@@ -951,7 +972,12 @@ exports[`responsive.jsx 1`] = `
     <div
       class="t-col t-col-xs-10 t-col-sm-8 t-col-md-6 t-col-lg-4 t-col-xl-2"
       gutter="0"
+      lg="4"
+      md="6"
+      sm="8"
       style="padding: 0px 0px;"
+      xl="2"
+      xs="10"
     >
       <div>
         Col

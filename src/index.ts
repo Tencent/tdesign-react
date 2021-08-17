@@ -1,7 +1,7 @@
 export * from './icon';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
-export { default as Loading } from './loading';
+export { default as Loading, loading } from './loading';
 export { default as Popup } from './popup';
 export { default as Button } from './button';
 export { default as Input } from './input';
@@ -30,7 +30,6 @@ export { default as Anchor } from './anchor';
 export { default as Calendar } from './calendar';
 export { default as Form } from './form';
 export { default as Tooltip } from './tooltip';
-export { default as TimePicker } from './time-picker';
 export { default as Drawer } from './drawer';
 export { default as Progress } from './progress';
 export { default as PopConfirm } from './popconfirm';

@@ -8,14 +8,26 @@ import { MenuContext } from './MenuContext';
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}
 
 const MenuItem: FC<MenuItemProps> = (props) => {
-  const { content, children = content, disabled, href, target = '_self', value, className, style, icon } = props;
+  const {
+    content,
+    children = content,
+    disabled,
+    href,
+    target = '_self',
+    value,
+    className,
+    style,
+    icon,
+    onClick,
+  } = props;
   const { classPrefix } = useConfig();
   const { onChange, setState, active } = useContext(MenuContext);
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
     if (disabled || active === value) return;
 
+    onClick && onClick({ e });
     onChange(value);
     setState({ active: value });
   };

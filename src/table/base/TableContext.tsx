@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { BaseTableCol } from '../../_type/components/base-table';
+import { BaseTableCol } from '../../_type/components/table';
 
 export interface TableContextValue {
   /**

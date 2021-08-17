@@ -1,14 +1,15 @@
-import _SimpleTable from './base/Table';
-// import Primary from './primary/Table';
-// import Enhanced from './enhanced/Table';
+import _SimpleTable, { BaseTableProps } from './base/Table';
+import _PrimaryTable, { PrimaryTableProps } from './primary/Table';
+// import _EnhancedTable from './enhanced/Table';
 
 import './style/index.js';
 
-export type { TableProps, TableColumn } from './TableProps';
+export type { BaseTableProps, PrimaryTableProps };
+export * from '../_type/components/table';
 
 export const SimpleTable = _SimpleTable;
-export default SimpleTable;
-// export const Table = Middle;
-// export const EnhancedTable = Enhanced;
+export const PrimaryTable = _PrimaryTable;
+// export const EnhancedTable = _EnhancedTable;
 
+export default PrimaryTable;
 // export default EnhancedTabled;

@@ -36,11 +36,11 @@ export const PlacementOffset = {
     top: Distance,
   },
   'bottom-left': {
-    right: Distance,
+    left: Distance,
     bottom: Distance,
   },
-  'bottom-righ': {
-    left: Distance,
+  'bottom-right': {
+    right: Distance,
     bottom: Distance,
   },
 };

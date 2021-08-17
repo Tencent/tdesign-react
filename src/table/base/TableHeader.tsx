@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import isCallable from '../../_util/isCallable';
-import { BaseTableCol, DataType } from '../../_type/components/base-table';
+import { BaseTableCol, DataType } from '../../_type/components/table';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 
@@ -16,7 +16,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
       <tr>
         {columns.map((column: BaseTableCol, index: number) => {
           const { title, colKey, fixed } = column;
-          let content: React.ReactNode = title;
+          let content: React.ReactNode | JSX.Element[] = title;
 
           if (isCallable(title)) {
             content = title({ col: column, colIndex: index });
@@ -35,7 +35,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
           }
 
           return (
-            <TableCell<D>
+            <TableCell
               type="title"
               key={colKey}
               colKey={colKey}
@@ -45,7 +45,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
               fixed={fixed}
               columns={columns}
             >
-              {content}
+              {content as JSX.Element[]}
             </TableCell>
           );
         })}
