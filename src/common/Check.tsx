@@ -61,6 +61,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       disabled={disabled}
       name={name}
       value={value}
+      onClick={(e) => e.stopPropagation()}
       onChange={(e) => setInternalChecked(e.currentTarget.checked, { e })}
     />
   );
