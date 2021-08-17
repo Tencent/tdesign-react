@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import LoadingIcon from '../icon/icons/LoadingIcon';
+import Loading from '../loading';
 import { TdButtonProps } from '../_type/components/button';
 
 /**
@@ -37,7 +37,7 @@ const Button = forwardRef(
     const hasChildren = typeof children !== 'undefined';
 
     let iconNode = icon;
-    if (loading) iconNode = <LoadingIcon />;
+    if (loading) iconNode = <Loading loading={loading} />;
 
     let renderTheme = theme;
 
