@@ -66,13 +66,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   );
 
   return (
-    <label
-      ref={ref}
-      className={labelClassName}
-      style={style}
-      {...htmlProps}
-      onClick={(event) => event.stopPropagation()}
-    >
+    <label ref={ref} className={labelClassName} style={style} {...htmlProps}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       <span key="label" className={`${classPrefix}-${type}__label`}>
