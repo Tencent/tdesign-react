@@ -37,7 +37,8 @@ const Loading: FC<LoadingProps> = (props) => {
   const wrapperClass = `${classPrefix}-loading__wrapper`;
   const fullscreenClass = `${classPrefix}-loading-fullscreen`;
   const maskClass = `${classPrefix}-loading-mask`;
-  const defaultChildClass = `${classPrefix}-loading__gradient ${classPrefix}-loading__gradient-${size} t-icon-loading`;
+  const gradientClass = `${classPrefix}-loading__gradient`;
+  const defaultChildClass = `${gradientClass} ${classPrefix}-icon-loading`;
 
   const lockClass = `${classPrefix}-loading-lock`;
 
@@ -56,9 +57,18 @@ const Loading: FC<LoadingProps> = (props) => {
   const loadingFucValue = typeof indicator === 'function' ? indicator() : null;
   const loadingChild =
     indicator === true ? (
-      <div className={defaultChildClass}>
-        <div></div>
-      </div>
+      <svg
+        className={defaultChildClass}
+        viewBox="0 0 14 14"
+        version="1.1"
+        width="1em"
+        height="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <foreignObject x="1" y="1" width="12" height="12">
+          <div className={`${gradientClass}-conic`} />
+        </foreignObject>
+      </svg>
     ) : null;
   const loadingContent = children;
   const textDom = text ? <div className={textClass}>{text}</div> : '';
