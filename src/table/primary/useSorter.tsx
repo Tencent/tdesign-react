@@ -36,8 +36,8 @@ function useSorter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
       <div className={`${classPrefix}-table__cell--sortable`}>
         <div className={`${classPrefix}-table__cell--title`}>
           <div>{title}</div>
+          <SorterButton column={column} singleSort={singleSort} onChange={onChangeSortButton} />
         </div>
-        <SorterButton column={column} singleSort={singleSort} onChange={onChangeSortButton} />
       </div>
     );
 
