@@ -45,19 +45,41 @@ const calcSize = (width: number) => {
 };
 
 const calcRowMargin = (gutter: any, currentSize: string) => {
-  let margin = '';
-  if (typeof gutter === 'number') {
-    margin = `0 -${gutter / 2}px`;
+  const marginObj = {};
+  if (typeof gutter === 'number' && gutter > 0) {
+    Object.assign(marginObj, {
+      marginLeft: `${gutter / -2}px`,
+      marginRight: `${gutter / -2}px`,
+      marginTop: `${gutter / -2}px`,
+      marginBottom: `${gutter / -2}px`,
+    });
   } else if (Array.isArray(gutter) && gutter.length) {
-    margin = `0 -${gutter[0] / 2}px`;
+    if (gutter[0] > 0)
+      Object.assign(marginObj, { marginLeft: `${gutter[0] / -2}px`, marginRight: `${gutter[0] / -2}px` });
+    if (gutter[1] > 0)
+      Object.assign(marginObj, { marginTop: `${gutter[1] / -2}px`, marginBottom: `${gutter[1] / -2}px` });
   } else if (isObject(gutter) && gutter[currentSize]) {
     if (Array.isArray(gutter[currentSize])) {
-      margin = `0 -${gutter[currentSize][0] / 2}px`;
-    } else {
-      margin = `0 -${gutter[currentSize] / 2}px`;
+      if (gutter[currentSize][0] > 0)
+        Object.assign(marginObj, {
+          marginLeft: `${gutter[currentSize][0] / -2}px`,
+          marginRight: `${gutter[currentSize][0] / -2}px`,
+        });
+      if (gutter[currentSize][1] > 0)
+        Object.assign(marginObj, {
+          marginTop: `${gutter[currentSize][1] / -2}px`,
+          marginBottom: `${gutter[currentSize][1] / -2}px`,
+        });
+    } else if (gutter[currentSize] > 0) {
+      Object.assign(marginObj, {
+        marginLeft: `${gutter[currentSize] / -2}px`,
+        marginRight: `${gutter[currentSize] / -2}px`,
+        marginTop: `${gutter[currentSize] / -2}px`,
+        marginBottom: `${gutter[currentSize] / -2}px`,
+      });
     }
   }
-  return margin;
+  return marginObj;
 };
 
 /**
@@ -88,7 +110,7 @@ const Row = (props: RowProps) => {
     [`${classPrefix}-row-${align}`]: true,
   });
   const rowStyle = {
-    margin: calcRowMargin(gutter, size),
+    ...calcRowMargin(gutter, size),
     ...propStyle,
   };
 

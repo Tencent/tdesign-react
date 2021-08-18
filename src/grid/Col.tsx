@@ -18,19 +18,41 @@ export interface ColProps extends TdColProps, StyledProps {
 }
 
 const calcColPadding = (gutter: any, currentSize: string) => {
-  let padding = '';
-  if (typeof gutter === 'number') {
-    padding = `0 ${gutter / 2}px`;
+  const paddingObj = {};
+  if (typeof gutter === 'number' && gutter > 0) {
+    Object.assign(paddingObj, {
+      paddingLeft: `${gutter / 2}px`,
+      paddingRight: `${gutter / 2}px`,
+      paddingTop: `${gutter / 2}px`,
+      paddingBottom: `${gutter / 2}px`,
+    });
   } else if (Array.isArray(gutter) && gutter.length) {
-    padding = `0 ${gutter[0] / 2}px`;
+    if (gutter[0] > 0)
+      Object.assign(paddingObj, { paddingLeft: `${gutter[0] / 2}px`, paddingRight: `${gutter[0] / 2}px` });
+    if (gutter[1] > 0)
+      Object.assign(paddingObj, { paddingTop: `${gutter[1] / 2}px`, paddingBottom: `${gutter[1] / 2}px` });
   } else if (isObject(gutter) && gutter[currentSize]) {
     if (Array.isArray(gutter[currentSize])) {
-      padding = `0 ${gutter[currentSize][0] / 2}px`;
-    } else {
-      padding = `0 ${gutter[currentSize] / 2}px`;
+      if (gutter[currentSize][0] > 0)
+        Object.assign(paddingObj, {
+          paddingLeft: `${gutter[currentSize][0] / 2}px`,
+          paddingRight: `${gutter[currentSize][0] / 2}px`,
+        });
+      if (gutter[currentSize][1] > 0)
+        Object.assign(paddingObj, {
+          paddingTop: `${gutter[currentSize][1] / 2}px`,
+          paddingBottom: `${gutter[currentSize][1] / 2}px`,
+        });
+    } else if (gutter[currentSize] > 0) {
+      Object.assign(paddingObj, {
+        paddingLeft: `${gutter[currentSize] / 2}px`,
+        paddingRight: `${gutter[currentSize] / 2}px`,
+        paddingTop: `${gutter[currentSize] / 2}px`,
+        paddingBottom: `${gutter[currentSize] / 2}px`,
+      });
     }
   }
-  return padding;
+  return paddingObj;
 };
 
 const parseFlex = (flex: FlexType) => {
@@ -99,7 +121,7 @@ const Col = (props: ColProps | any) => {
   );
 
   const ColStyle = {
-    padding: calcColPadding(rowGutter, rowSize),
+    ...calcColPadding(rowGutter, rowSize),
     ...propStyle,
   };
   flex && (ColStyle.flex = parseFlex(flex));
