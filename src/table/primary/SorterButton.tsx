@@ -53,8 +53,11 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
     if (direction === SortTypeEnum.asc) {
       style = {
         transform: 'rotate(-180deg)',
+        top: '-1px',
         ...style,
       };
+    } else {
+      style.bottom = '-1px';
     }
     const sortClassName = classNames([
       `${classPrefix}-table-sort-icon`,
@@ -64,7 +67,7 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
 
     return (
       <div key={direction} style={style} className={sortClassName}>
-        <TIconChevronDown size="12px" />
+        <TIconChevronDown size="16px" />
       </div>
     );
   }
@@ -108,7 +111,6 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
     <div
       className={classNames([
         `${classPrefix}-table__cell--sort-trigger`,
-        `${classPrefix}-table-sort-icon`,
         { [`${classPrefix}-table-double-icons`]: true },
       ])}
       onClick={handleSort}

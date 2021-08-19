@@ -8,7 +8,7 @@ import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
 import Tag from '../tag';
 import { StyledProps } from '../_type';
-import { validate as validateModal } from './formModel';
+import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext } from './FormContext';
 
 enum VALIDATE_STATUS {
@@ -134,7 +134,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     return new Promise((resolve) => {
       validateModal(formValue, innerRules).then((r) => {
         setErrorList(r);
-        const nextVerifyStatus = r.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
+        let nextVerifyStatus = r.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
+        // 非 require 且值为空 状态置为默认，无校验规则的都为默认
+        if ((!innerRules.some((rule) => rule.required) && isValueEmpty(formValue)) || !innerRules.length) {
+          nextVerifyStatus = VALIDATE_STATUS.TO_BE_VALIDATED;
+        }
         setVerifyStatus(nextVerifyStatus);
         resolve({ [name]: !r.length ? true : r });
         if (needResetField) {

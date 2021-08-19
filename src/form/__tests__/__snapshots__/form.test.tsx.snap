@@ -566,7 +566,7 @@ exports[`layout.jsx 1`] = `
   <div>
     <div
       class="t-row t-row-start t-row-top"
-      style="margin: 0px -0px 16px -0px;"
+      style="margin-bottom: 16px;"
     >
       <div
         class="t-radio-group t-radio-group-outline t-radio-group-medium"
