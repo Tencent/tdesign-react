@@ -84,10 +84,15 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   const renderTipsInfo = () => {
     if (!showErrorMessage) return null;
-    let tipInfo = (errorList.length && errorList[0].message) || '';
+    let helpNode = null;
+    if (help) helpNode = <span className={`${classPrefix}-input__help`}>{help}</span>;
 
-    if (help) tipInfo = help;
-    return <span className={`${classPrefix}-input__extra`}>{tipInfo}</span>;
+    const tipInfo = (errorList.length && errorList[0].message) || '';
+    if (tipInfo) {
+      return <span className={`${classPrefix}-input__extra`}>{tipInfo}</span>;
+    }
+
+    return helpNode;
   };
 
   const renderSuffixIcon = () => {
@@ -149,7 +154,15 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     });
   }
 
+  const isMounted = useRef(null);
+
   useEffect(() => {
+    // 首次渲染不触发校验
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+
     validate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
