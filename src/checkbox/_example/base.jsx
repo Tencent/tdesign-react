@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Checkbox } from '@tencent/tdesign-react';
 
 export default function CheckboxExample() {
-  const [taste, setTaste] = useState([]);
+  const [value, setValue] = useState(true);
 
   return (
-    <Checkbox.Group value={taste} onChange={(value) => setTaste(value)}>
-      <Checkbox value="la">加辣</Checkbox>
-      <Checkbox value="ma">加麻</Checkbox>
-      <Checkbox value="nocong">不要葱花</Checkbox>
-    </Checkbox.Group>
+    <div class="tdesign-demo-block-row">
+      <Checkbox>未选中项</Checkbox>
+      <Checkbox indeterminate>半选状态</Checkbox>
+      <Checkbox checked={value} onChange={setValue}>选中项</Checkbox>
+      <Checkbox disabled>未选禁用项</Checkbox>
+      <Checkbox disabled defaultChecked>选中禁用项</Checkbox>
+    </div>
   );
 }
