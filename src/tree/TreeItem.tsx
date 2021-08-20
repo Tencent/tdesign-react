@@ -1,6 +1,6 @@
-import TreeNode from '@common/js/tree/tree-node';
 import React, { forwardRef, MouseEvent, ReactNode } from 'react';
 import classNames from 'classnames';
+import TreeNode from '../_common/js/tree/tree-node';
 import CaretRightSmallIcon from '../icon/icons/CaretRightSmallIcon';
 import LoadingIcon from '../icon/icons/LoadingIcon';
 import Checkbox from '../checkbox';

@@ -1,8 +1,8 @@
-import TreeNode from '@common/js/tree/tree-node';
-import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '@common/js/tree/types';
 import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
+import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
+import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../_type';
 import { TreeInstanceFunctions } from './interface/TreeInstanceFunctions';
 import { TreeItemProps } from './interface/TreeItemProps';

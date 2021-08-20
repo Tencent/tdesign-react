@@ -1,10 +1,10 @@
-import TreeNode from '@common/js/tree/tree-node';
-import TreeStore from '@common/js/tree/tree-store';
 import { DataOption } from '@TdTypes/components/transfer';
 import { usePersistFn } from '@tencent/tdesign-react/tree/usePersistFn';
 import { useEffect, useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
+import TreeStore from '../_common/js/tree/tree-store';
+import TreeNode from '../_common/js/tree/tree-node';
 import { TypeEventState } from './interface';
 import { TreeProps } from './interface/TreeProps';
 
