@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Icon, Button, Tree } from '@tencent/tdesign-react';
+import cloneDeepWith from 'lodash/cloneDeepWith';
 
 let idx = 2;
 
@@ -19,9 +20,16 @@ export default () => {
 
   const treeRef = useRef(null);
 
+  const handleDataChange = (data) => {
+    console.info('onDataChange:', data);
+
+    setItems(data);
+  };
+
   const renderIcon = (node) => {
     const { data } = node;
     let name = 'file';
+    // console.log('node.getChildren()', node, node.getChildren());
     if (node.getChildren()) {
       if (node.expanded) {
         name = 'folder-open';
@@ -32,6 +40,7 @@ export default () => {
     if (data.icon) {
       name = data.icon;
     }
+    // console.log('renderIcon', name);
     return <Icon name={name} />;
   };
 
@@ -40,8 +49,17 @@ export default () => {
   };
 
   const changeIcon = (node) => {
-    // 目前无法直接获取 data 更新
-    console.info('changeIcon', node);
+    const newData = cloneDeepWith(items, (item) => {
+      if (item.value === node.value) {
+        return {
+          ...item,
+          icon: item.icon === 'folder' ? 'folder-open' : 'folder',
+        };
+      }
+    });
+
+    console.log('newData', newData);
+    setItems(newData);
   };
 
   const getInsertItem = () => {
@@ -102,6 +120,7 @@ export default () => {
         line
         icon={renderIcon}
         operations={renderOperations}
+        onDataChange={handleDataChange}
       />
       <h3 className="title">api:</h3>
       <div className="operations">

@@ -156,6 +156,7 @@ export default () => {
   };
 
   const getActiveChildren = () => {
+    console.log(activeIds);
     const node = getActivedNode();
     if (!node) return;
     let nodes = [];
@@ -209,7 +210,7 @@ export default () => {
   const setActiveChecked = () => {
     const node = getActivedNode();
     if (!node) return;
-    treeRef.current.setItem(node?.value, {
+    treeRef.current.setItem(node.value, {
       checked: true,
     });
   };
@@ -259,6 +260,7 @@ export default () => {
     const node = getActivedNode();
     if (!node) return;
     const data = getPlainData(node);
+    console.log('getActivePlainData:', data);
     return data;
   };
 
@@ -291,6 +293,7 @@ export default () => {
         line
         data={items}
         actived={activeIds}
+        activeMultiple
         expandOnClickNode={false}
         label={getLabel}
         expandParent={expandParent}

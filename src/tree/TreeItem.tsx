@@ -185,7 +185,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
     if (operationsView) {
       return (
-        <span className={CLASS_NAMES.treeOperations} date-target="operations" onClick={stopPropagation}>
+        <span className={CLASS_NAMES.treeOperations} date-target="operations">
           {operationsView}
         </span>
       );

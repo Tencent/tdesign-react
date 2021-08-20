@@ -1,6 +1,6 @@
 import TreeNode from '@common/js/tree/tree-node';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '@common/js/tree/types';
-import React, { forwardRef, useState, useEffect, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { TreeOptionData } from '../_type';
@@ -21,35 +21,20 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   const [visibleNodes, setVisibleNodes] = useState([]);
 
   const {
-    data,
     empty,
-    keys,
-    expandAll,
-    expandParent,
     // defaultExpanded,
-    expanded,
-    expandLevel,
-    expandMutex,
     activable,
-    activeMultiple,
-    actived,
     disabled,
     checkable,
     // defaultValue,
-    value,
     checkProps,
-    checkStrictly,
     hover,
     icon,
     line,
-    load,
-    lazy,
-    valueMode,
     label,
     operations,
     transition, // 动画默认开启
     expandOnClickNode,
-    filter,
     onExpand,
     onActive,
     onChange,
@@ -60,12 +45,13 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     const nodes = store.getNodes();
 
     const newVisibleNodes = nodes.filter((node) => node.visible);
+
     setVisibleNodes(newVisibleNodes);
   });
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
-    const expanded = node.setExpanded(isExpanded);
+    const expanded = node.setExpanded(isExpanded, { directly: true });
     const treeNodeModel = node?.getModel();
     const event = new MouseEvent('expand');
     onExpand?.(expanded, {
@@ -76,21 +62,20 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   });
 
   const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
-    const actived = node.setActived(isActived);
+    const actived = node.setActived(isActived, { directly: true });
     const treeNodeModel = node?.getModel();
     onActive?.(actived, { node: treeNodeModel });
     return actived;
   });
 
   const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
-    const checked = node.setChecked(isChecked);
+    const checked = node.setChecked(isChecked, { directly: true });
     const treeNodeModel = node?.getModel();
     onChange?.(checked, { node: treeNodeModel });
     return checked;
   });
 
   const handleClick: TreeItemProps['onClick'] = (node, options) => {
-    console.log('handleClick', node, options);
     if (!node || disabled || node.disabled) {
       return;
     }
@@ -101,7 +86,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
       store.replaceExpanded(expandArr);
     }
 
-    console.log('active', active);
     if (active) {
       const activedArr = setActived(node, !node.isActived());
       store.replaceActived(activedArr);
@@ -195,74 +179,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     }),
     [store, setExpanded, setActived, setChecked],
   );
-
-  /* ======== 由 props 引发的 store 更新 ======= */
-  useEffect(() => {
-    if (data && Array.isArray(data)) {
-      store.removeAll();
-      store.append(data);
-    }
-  }, [data, store]);
-
-  useEffect(() => {
-    store.setConfig({
-      keys,
-      expandAll,
-      expandLevel,
-      expandMutex,
-      expandParent,
-      activable,
-      activeMultiple,
-      disabled,
-      checkable,
-      checkStrictly,
-      load,
-      lazy,
-      valueMode,
-    });
-
-    store.refreshState();
-  }, [
-    activable,
-    activeMultiple,
-    checkStrictly,
-    checkable,
-    disabled,
-    expandAll,
-    expandLevel,
-    expandMutex,
-    expandParent,
-    keys,
-    lazy,
-    load,
-    store,
-    valueMode,
-  ]);
-
-  useEffect(() => {
-    if (Array.isArray(value)) {
-      store.replaceChecked(value);
-    }
-  }, [store, value]);
-
-  useEffect(() => {
-    if (Array.isArray(expanded)) {
-      store.replaceExpanded(expanded);
-    }
-  }, [expanded, store]);
-
-  useEffect(() => {
-    if (Array.isArray(actived)) {
-      store.replaceActived(actived);
-    }
-  }, [actived, store]);
-
-  useEffect(() => {
-    store.setConfig({
-      filter,
-    });
-    store.updateAll();
-  }, [filter, store]);
 
   /* ======== render ======= */
   const renderEmpty = () => {
