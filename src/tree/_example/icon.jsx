@@ -73,4 +73,4 @@ export default () => {
       <Tree data={items} hover lazy load={load} icon={renderIcon2} />
     </div>
   );
-}
+};

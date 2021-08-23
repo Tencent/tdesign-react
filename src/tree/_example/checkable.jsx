@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Radio,
-  Tree,
-  Form,
-  Switch,
-} from '@tencent/tdesign-react';
+import { Radio, Tree, Form, Switch } from '@tencent/tdesign-react';
 
 const valueOptions = [
   {
@@ -37,23 +32,30 @@ const items = [
               {
                 value: '1.1.1.1',
                 label: '1.1.1.1',
-              }, {
+              },
+              {
                 value: '1.1.1.2',
                 label: '1.1.1.2',
-              }],
-          }, {
+              },
+            ],
+          },
+          {
             value: '1.1.2',
             label: '1.1.2',
             children: [
               {
                 value: '1.1.2.1',
                 label: '1.1.2.1',
-              }, {
+              },
+              {
                 value: '1.1.2.2',
                 label: '1.1.2.2',
-              }],
-          }],
-      }, {
+              },
+            ],
+          },
+        ],
+      },
+      {
         value: '1.2',
         label: '1.2',
         children: [
@@ -64,45 +66,53 @@ const items = [
               {
                 value: '1.2.1.1',
                 label: '1.2.1.1',
-              }, {
+              },
+              {
                 value: '1.2.1.2',
                 label: '1.2.1.2',
-              }],
-          }, {
+              },
+            ],
+          },
+          {
             value: '1.2.2',
             label: '1.2.2',
             children: [
               {
                 value: '1.2.2.1',
                 label: '1.2.2.1',
-              }, {
+              },
+              {
                 value: '1.2.2.2',
                 label: '1.2.2.2',
-              }],
-          }],
-      }],
-  }, {
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     value: '2',
     label: '2',
     children: [
       {
         value: '2.1',
         label: '2.1',
-      }, {
+      },
+      {
         value: '2.2',
         label: '2.2',
-      }],
-  }];
+      },
+    ],
+  },
+];
 
 export default () => {
   const [checkable, setCheckable] = useState(true);
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [valueMode, setValueMode] = useState('onlyLeaf');
 
-  const handleChange = (
-    checked,
-    context,
-  ) => {
+  const handleChange = (checked, context) => {
     console.info('onChange:', checked, context);
   };
 
@@ -143,4 +153,4 @@ export default () => {
       />
     </div>
   );
-}
+};

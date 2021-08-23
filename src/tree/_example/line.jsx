@@ -1,4 +1,4 @@
-import { Button, Icon, Tree, Form, Switch } from '@tencent/tdesign-react';
+import { Icon, Tree, Form, Switch } from '@tencent/tdesign-react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import './line.css';
@@ -81,14 +81,6 @@ const items = [
 export default () => {
   const [showLine, setShowLine] = useState(true);
   const [showIcon, setShowIcon] = useState(true);
-
-  const toggleShowLine = () => {
-    setShowLine((v) => !v);
-  };
-
-  const toggleShowIcon = () => {
-    setShowIcon((v) => !v);
-  };
 
   const getLineNodes = (node) => {
     const nodes = node.getParents().reverse();
