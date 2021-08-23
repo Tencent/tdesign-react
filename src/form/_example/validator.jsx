@@ -23,6 +23,7 @@ export default function BaseForm() {
           label="用户名"
           help="这里请填写用户名"
           name="account"
+          initialData={'张三'}
           rules={[
             { required: true, message: '姓名必填', type: 'error' },
             { min: 2, message: '至少需要两个字', type: 'error' },

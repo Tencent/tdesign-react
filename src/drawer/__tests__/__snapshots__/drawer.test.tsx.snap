@@ -91,9 +91,13 @@ exports[`attach-parent.jsx 1`] = `
         </div>
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
-          style="margin-left: 16px;"
+          style="margin-left: 16px; position: relative;"
         >
-          Open
+          <span
+            class="t-button__text"
+          >
+            Open
+          </span>
         </button>
       </div>
     </div>
@@ -106,8 +110,13 @@ exports[`base.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -118,8 +127,13 @@ exports[`custom.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -130,8 +144,13 @@ exports[`destroy.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -142,8 +161,13 @@ exports[`no-mask.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -154,8 +178,13 @@ exports[`operation.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -243,9 +272,13 @@ exports[`placement.jsx 1`] = `
     </div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-left: 16px;"
+      style="margin-left: 16px; position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -333,9 +366,13 @@ exports[`popup.jsx 1`] = `
     </div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-left: 16px;"
+      style="margin-left: 16px; position: relative;"
     >
-      Open
+      <span
+        class="t-button__text"
+      >
+        Open
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -543,8 +580,13 @@ exports[`size.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
       >
-        Open
+        <span
+          class="t-button__text"
+        >
+          Open
+        </span>
       </button>
     </div>
   </div>

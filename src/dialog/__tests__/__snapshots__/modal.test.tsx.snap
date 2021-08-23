@@ -5,8 +5,13 @@ exports[`async.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open Modal
+      <span
+        class="t-button__text"
+      >
+        Open Modal
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -17,8 +22,13 @@ exports[`base.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open Modal
+      <span
+        class="t-button__text"
+      >
+        Open Modal
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -29,21 +39,33 @@ exports[`custom.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      只显示确认按钮
+      <span
+        class="t-button__text"
+      >
+        只显示确认按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      自定义按钮内容
+      <span
+        class="t-button__text"
+      >
+        自定义按钮内容
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      自定义内容
+      <span
+        class="t-button__text"
+      >
+        自定义内容
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -54,8 +76,13 @@ exports[`icon.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open Modal
+      <span
+        class="t-button__text"
+      >
+        Open Modal
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -66,8 +93,13 @@ exports[`modal.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      Open Modal
+      <span
+        class="t-button__text"
+      >
+        Open Modal
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -79,20 +111,33 @@ exports[`position.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
+        style="margin-right: 16px; position: relative;"
       >
-        默认
+        <span
+          class="t-button__text"
+        >
+          默认
+        </span>
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
+        style="margin-right: 16px; position: relative;"
       >
-        顶部
+        <span
+          class="t-button__text"
+        >
+          顶部
+        </span>
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
       >
-        自定义
+        <span
+          class="t-button__text"
+        >
+          自定义
+        </span>
       </button>
     </div>
   </div>
@@ -104,27 +149,43 @@ exports[`warning.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      提示反馈
+      <span
+        class="t-button__text"
+      >
+        提示反馈
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      成功反馈
+      <span
+        class="t-button__text"
+      >
+        成功反馈
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      警示反馈
+      <span
+        class="t-button__text"
+      >
+        警示反馈
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
+      style="margin-right: 16px; position: relative;"
     >
-      错误反馈
+      <span
+        class="t-button__text"
+      >
+        错误反馈
+      </span>
     </button>
   </div>
 </DocumentFragment>

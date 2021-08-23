@@ -1,5 +1,7 @@
 import React from 'react';
-import { Alert, Switch, Calendar, List, ListItem } from '@tencent/tdesign-react';
+import { Alert, Switch, Calendar, List } from '@tencent/tdesign-react';
+
+const { ListItem } = List;
 
 export default function CalendarExample() {
   const [preventCellContextMenu, setPreventCellContextMenu] = React.useState(false);
@@ -15,7 +17,7 @@ export default function CalendarExample() {
 
   const appendHistories = React.useCallback(
     (content, data) => {
-      histories.unshift(`${content} [${new Date().getTime()}]`);
+      histories.unshift(`${content}`);
       setHistories([...histories]);
       console.info(JSON.stringify(data, null, 2));
     },
@@ -68,7 +70,7 @@ export default function CalendarExample() {
       ) : (
         <List style={{ maxHeight: '130px' }}>
           {histories.map((item, index) => (
-            <ListItem key={String(index)}>{item}并得到组件传出的参数（您看控制台）...</ListItem>
+            <ListItem key={String(index)}>{item}，并得到组件传出的参数（您看控制台）...</ListItem>
           ))}
         </List>
       )}

@@ -81,9 +81,6 @@ exports[`align.jsx 1`] = `
               </label>
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -111,9 +108,6 @@ exports[`align.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -141,9 +135,6 @@ exports[`align.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -182,9 +173,6 @@ exports[`base.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -212,9 +200,6 @@ exports[`base.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -274,9 +259,6 @@ exports[`base.jsx 1`] = `
               </label>
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -354,9 +336,6 @@ exports[`base.jsx 1`] = `
               </label>
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -390,9 +369,6 @@ exports[`base.jsx 1`] = `
               />
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -406,23 +382,29 @@ exports[`base.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-left: 12px;"
+              style="margin-left: 12px; position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+              >
+                重置
+              </span>
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -461,9 +443,6 @@ exports[`custom-validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -491,9 +470,6 @@ exports[`custom-validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -521,9 +497,6 @@ exports[`custom-validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -537,23 +510,29 @@ exports[`custom-validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+              >
+                重置
+              </span>
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -638,9 +617,6 @@ exports[`layout.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -668,9 +644,6 @@ exports[`layout.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -721,9 +694,6 @@ exports[`login.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -762,9 +732,6 @@ exports[`login.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -778,15 +745,17 @@ exports[`login.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
+              style="position: relative;"
               type="submit"
               value=""
             >
-              登录
+              <span
+                class="t-button__text"
+              >
+                登录
+              </span>
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -821,12 +790,12 @@ exports[`validator.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
-                value=""
+                value="张三"
               />
             </div>
           </div>
           <span
-            class="t-input__extra"
+            class="t-input__help"
           >
             这里请填写用户名
           </span>
@@ -858,7 +827,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <span
-            class="t-input__extra"
+            class="t-input__help"
           >
             这里请填写密码
           </span>
@@ -889,9 +858,6 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -951,9 +917,6 @@ exports[`validator.jsx 1`] = `
               </label>
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1049,9 +1012,6 @@ exports[`validator.jsx 1`] = `
               </label>
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1079,9 +1039,6 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1109,9 +1066,6 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1125,23 +1079,29 @@ exports[`validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+              >
+                重置
+              </span>
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>
@@ -1181,7 +1141,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <span
-            class="t-input__extra"
+            class="t-input__help"
           >
             校验不通过，请输入正确内容
           </span>
@@ -1212,9 +1172,6 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1242,9 +1199,6 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1273,9 +1227,6 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1303,9 +1254,6 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1352,9 +1300,6 @@ exports[`validator-status.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
       <div
@@ -1401,7 +1346,7 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <span
-            class="t-input__extra"
+            class="t-input__help"
           >
             自定义新增icon
           </span>
@@ -1451,7 +1396,7 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <span
-            class="t-input__extra"
+            class="t-input__help"
           >
             自定义帮助icon
           </span>
@@ -1468,23 +1413,29 @@ exports[`validator-status.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+              >
+                重置
+              </span>
             </button>
           </div>
-          <span
-            class="t-input__extra"
-          />
         </div>
       </div>
     </form>

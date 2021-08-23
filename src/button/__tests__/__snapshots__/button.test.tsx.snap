@@ -7,23 +7,43 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-base"
+      style="position: relative;"
     >
-      填充按钮
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      描边按钮
+      <span
+        class="t-button__text"
+      >
+        描边按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -31,23 +51,43 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      填充按钮
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-outline"
+      style="position: relative;"
     >
-      描边按钮
+      <span
+        class="t-button__text"
+      >
+        描边按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -55,23 +95,43 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-success t-button--variant-base"
+      style="position: relative;"
     >
-      填充按钮
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-success t-button--variant-outline"
+      style="position: relative;"
     >
-      描边按钮
+      <span
+        class="t-button__text"
+      >
+        描边按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-success t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-success t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -79,23 +139,43 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-warning t-button--variant-base"
+      style="position: relative;"
     >
-      填充按钮
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-warning t-button--variant-outline"
+      style="position: relative;"
     >
-      描边按钮
+      <span
+        class="t-button__text"
+      >
+        描边按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-warning t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-warning t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -103,23 +183,43 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-danger t-button--variant-base"
+      style="position: relative;"
     >
-      填充按钮
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-danger t-button--variant-outline"
+      style="position: relative;"
     >
-      描边按钮
+      <span
+        class="t-button__text"
+      >
+        描边按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-danger t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-danger t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -127,6 +227,7 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
+      style="position: relative;"
     >
       <div
         class="t-loading t-size-m"
@@ -171,23 +272,43 @@ exports[`block.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
+        style="position: relative;"
       >
-        主按钮
+        <span
+          class="t-button__text"
+        >
+          主按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-full-width"
+        style="position: relative;"
       >
-        次要按钮
+        <span
+          class="t-button__text"
+        >
+          次要按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-size-full-width"
+        style="position: relative;"
       >
-        虚框按钮
+        <span
+          class="t-button__text"
+        >
+          虚框按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-default t-button--variant-text t-size-full-width"
+        style="position: relative;"
       >
-        文字按钮
+        <span
+          class="t-button__text"
+        >
+          文字按钮
+        </span>
       </button>
     </div>
   </div>
@@ -204,18 +325,33 @@ exports[`ghost.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-default t-button--variant-text t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
     </div>
     <div
@@ -223,18 +359,33 @@ exports[`ghost.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-dashed t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-text t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
     </div>
     <div
@@ -242,18 +393,33 @@ exports[`ghost.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-success t-button--variant-outline t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-success t-button--variant-dashed t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-success t-button--variant-text t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
     </div>
     <div
@@ -261,18 +427,33 @@ exports[`ghost.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-warning t-button--variant-outline t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-warning t-button--variant-dashed t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-warning t-button--variant-text t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
     </div>
     <div
@@ -280,18 +461,33 @@ exports[`ghost.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-danger t-button--variant-dashed t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
       <button
         class="t-button t-button--theme-danger t-button--variant-text t-button--ghost"
+        style="position: relative;"
       >
-        幽灵按钮
+        <span
+          class="t-button__text"
+        >
+          幽灵按钮
+        </span>
       </button>
     </div>
   </div>
@@ -305,13 +501,23 @@ exports[`group.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      确定
+      <span
+        class="t-button__text"
+      >
+        确定
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      取消
+      <span
+        class="t-button__text"
+      >
+        取消
+      </span>
     </button>
   </div>
   <div
@@ -319,13 +525,23 @@ exports[`group.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      下一步
+      <span
+        class="t-button__text"
+      >
+        下一步
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      上一步
+      <span
+        class="t-button__text"
+      >
+        上一步
+      </span>
     </button>
   </div>
   <div
@@ -333,21 +549,37 @@ exports[`group.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      新建主机
+      <span
+        class="t-button__text"
+      >
+        新建主机
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      重装系统
+      <span
+        class="t-button__text"
+      >
+        重装系统
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      批量续费
+      <span
+        class="t-button__text"
+      >
+        批量续费
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+      style="position: relative;"
     >
       <svg
         class="t-icon t-icon-more"
@@ -369,6 +601,7 @@ exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
     <svg
       class="t-icon t-icon-add"
@@ -388,6 +621,7 @@ exports[`icon.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
+    style="position: relative;"
   >
     <svg
       class="t-icon t-icon-cloud-upload"
@@ -409,6 +643,7 @@ exports[`icon.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--icon-only t-button--shape-circle"
+    style="position: relative;"
   >
     <svg
       class="t-icon t-icon-discount"
@@ -425,6 +660,7 @@ exports[`icon.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--icon-only t-button--shape-circle"
+    style="position: relative;"
   >
     <svg
       class="t-icon t-icon-cloud-download"
@@ -441,6 +677,7 @@ exports[`icon.jsx 1`] = `
   </button>
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
+    style="position: relative;"
   >
     <svg
       class="t-icon t-icon-search"
@@ -470,18 +707,33 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      主按钮
+      <span
+        class="t-button__text"
+      >
+        主按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-button--shape-round"
+      style="position: relative;"
     >
-      主按钮
+      <span
+        class="t-button__text"
+      >
+        主按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
+      style="position: relative;"
     >
-      i
+      <span
+        class="t-button__text"
+      >
+        i
+      </span>
     </button>
   </div>
   <div
@@ -489,18 +741,33 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      次要按钮
+      <span
+        class="t-button__text"
+      >
+        次要按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline t-button--shape-round"
+      style="position: relative;"
     >
-      次要按钮
+      <span
+        class="t-button__text"
+      >
+        次要按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline t-button--shape-circle"
+      style="position: relative;"
     >
-      i
+      <span
+        class="t-button__text"
+      >
+        i
+      </span>
     </button>
   </div>
   <div
@@ -508,18 +775,33 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-round"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-circle"
+      style="position: relative;"
     >
-      i
+      <span
+        class="t-button__text"
+      >
+        i
+      </span>
     </button>
   </div>
   <div
@@ -527,18 +809,33 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text t-button--shape-round"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text t-button--shape-circle"
+      style="position: relative;"
     >
-      i
+      <span
+        class="t-button__text"
+      >
+        i
+      </span>
     </button>
   </div>
 </DocumentFragment>
@@ -551,23 +848,43 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+      style="position: relative;"
     >
-      主按钮
+      <span
+        class="t-button__text"
+      >
+        主按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline t-size-s"
+      style="position: relative;"
     >
-      次要按钮
+      <span
+        class="t-button__text"
+      >
+        次要按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed t-size-s"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text t-size-s"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -575,23 +892,43 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      主按钮
+      <span
+        class="t-button__text"
+      >
+        主按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      次要按钮
+      <span
+        class="t-button__text"
+      >
+        次要按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
   <div
@@ -599,23 +936,43 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-      主按钮
+      <span
+        class="t-button__text"
+      >
+        主按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline t-size-l"
+      style="position: relative;"
     >
-      次要按钮
+      <span
+        class="t-button__text"
+      >
+        次要按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-dashed t-size-l"
+      style="position: relative;"
     >
-      虚框按钮
+      <span
+        class="t-button__text"
+      >
+        虚框按钮
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-text t-size-l"
+      style="position: relative;"
     >
-      文字按钮
+      <span
+        class="t-button__text"
+      >
+        文字按钮
+      </span>
     </button>
   </div>
 </DocumentFragment>

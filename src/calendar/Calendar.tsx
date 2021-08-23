@@ -117,6 +117,9 @@ const fix0 = (num: number): string => (num <= 9 ? `0${num}` : String(num));
 
 const blockName = 'calendar';
 
+// 操作栏控件尺寸
+const controlSectionSize = 'medium';
+
 const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
   const {
     className = '',
@@ -319,11 +322,12 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>
+          {/* 操作部分 */}
           <div className={prefixCls([blockName, 'control-section'])}>
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForYear && (
                 <Select
-                  size="small"
+                  size={controlSectionSize}
                   style={{ width: '100px' }}
                   disabled={disabled}
                   value={year}
@@ -336,7 +340,7 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForMonth && mode === 'month' && (
                 <Select
-                  size="small"
+                  size={controlSectionSize}
                   style={{ width: '80px' }}
                   disabled={disabled}
                   value={month}
@@ -347,62 +351,75 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
               )}
             </div>
           </div>
-          <div className={prefixCls([blockName, 'control-section'])}>
-            <div className={prefixCls([blockName, 'control-section-cell'])} style={{ height: 'auto' }}>
-              {visibleForMode && (
-                <Radio.Group
-                  size="small"
-                  value={mode}
-                  disabled={disabled}
-                  onChange={(value) => setMode(String(value))}
-                  {...radioGroupPropsForMode}
-                >
-                  <Radio.Button value="month">月</Radio.Button>
-                  <Radio.Button value="year">年</Radio.Button>
-                </Radio.Group>
-              )}
-            </div>
-            {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
-              <div className={prefixCls([blockName, 'control-section-cell'])}>
-                {isShowWeekend ? (
-                  <Button
-                    size="small"
-                    disabled={disabled}
-                    onClick={() => setIsShowWeekend(false)}
-                    {...hideWeekendButtonProps}
-                  >
-                    隐藏周末
-                  </Button>
-                ) : (
-                  <Button
-                    size="small"
-                    disabled={disabled}
-                    onClick={() => setIsShowWeekend(true)}
-                    {...showWeekendButtonProps}
-                  >
-                    显示周末
-                  </Button>
-                )}
-              </div>
-            )}
-            {theme === 'full' && (
-              <div className={prefixCls([blockName, 'control-section-cell'])}>
-                {mode === 'year' && visibleForCurrent && (
-                  <Button size="small" disabled={disabled} onClick={toCurrent} {...currentMonthButtonProps}>
-                    本月
-                  </Button>
-                )}
-                {mode === 'month' && visibleForCurrent && (
-                  <Button size="small" disabled={disabled} onClick={toCurrent} {...currentDayButtonProps}>
-                    今天
-                  </Button>
-                )}
-              </div>
+          <div className={prefixCls([blockName, 'control-section'])} style={{ height: 'auto' }}>
+            {visibleForMode && (
+              <Radio.Group
+                size={controlSectionSize}
+                value={mode}
+                disabled={disabled}
+                onChange={(value) => setMode(value as string)}
+                {...radioGroupPropsForMode}
+              >
+                <Radio.Button value="month">月</Radio.Button>
+                <Radio.Button value="year">年</Radio.Button>
+              </Radio.Group>
             )}
           </div>
+          {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
+            <div className={prefixCls([blockName, 'control-section'])}>
+              {isShowWeekend ? (
+                <Button
+                  theme="default"
+                  size={controlSectionSize}
+                  disabled={disabled}
+                  onClick={() => setIsShowWeekend(false)}
+                  {...hideWeekendButtonProps}
+                >
+                  隐藏周末
+                </Button>
+              ) : (
+                <Button
+                  theme="primary"
+                  size={controlSectionSize}
+                  disabled={disabled}
+                  onClick={() => setIsShowWeekend(true)}
+                  {...showWeekendButtonProps}
+                >
+                  显示周末
+                </Button>
+              )}
+            </div>
+          )}
+          {theme === 'full' && (
+            <div className={prefixCls([blockName, 'control-section'])}>
+              {mode === 'year' && visibleForCurrent && (
+                <Button
+                  size={controlSectionSize}
+                  theme="default"
+                  disabled={disabled}
+                  onClick={toCurrent}
+                  {...currentMonthButtonProps}
+                >
+                  本月
+                </Button>
+              )}
+              {mode === 'month' && visibleForCurrent && (
+                <Button
+                  size={controlSectionSize}
+                  theme="default"
+                  disabled={disabled}
+                  onClick={toCurrent}
+                  {...currentDayButtonProps}
+                >
+                  今天
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       )}
-      <div className={prefixCls([blockName, 'panel'])}>
+      {/* 主体部分 */}
+      <div className={prefixCls([blockName, 'panel'], [blockName, `panel--${mode}`])}>
         <div className={prefixCls([blockName, 'panel-title'])}>{React.isValidElement(header) && header}</div>
         <table className={prefixCls([blockName, 'table'])}>
           {weekdayList.length > 0 && (

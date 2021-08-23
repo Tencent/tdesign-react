@@ -1,19 +1,14 @@
 import React from 'react';
-import { Switch } from '@tencent/tdesign-react';
+import { Switch, Row, Col } from '@tencent/tdesign-react';
 
 export default function SwitchBasic() {
   return (
     <div className="tdegsin-demo-switch">
-      <Switch size="large" />
-      <Switch defaultValue size="large" />
-      <br />
-      <br />
-      <Switch />
-      <Switch defaultValue />
-      <br />
-      <br />
-      <Switch size="small" />
-      <Switch defaultValue size="small" />
+      <Row>
+        <Col span={2}><Switch size="large" defaultValue /></Col>
+        <Col span={2}><Switch /></Col>
+        <Col span={2}><Switch size="small" /></Col>
+      </Row>
     </div>
   );
 }
