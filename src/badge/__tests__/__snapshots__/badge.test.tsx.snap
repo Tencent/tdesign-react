@@ -11,7 +11,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          
       </span>
@@ -159,7 +158,6 @@ exports[`custom.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          
       </span>
@@ -184,7 +182,6 @@ exports[`number.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          
       </span>
@@ -204,7 +201,6 @@ exports[`number.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          
       </span>
@@ -224,7 +220,6 @@ exports[`number.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          
       </span>
@@ -249,7 +244,6 @@ exports[`offset.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         默认
       </span>
@@ -269,7 +263,6 @@ exports[`offset.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         [10,10]
       </span>
@@ -290,7 +283,6 @@ exports[`offset.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         [-10,10]
       </span>
@@ -311,7 +303,6 @@ exports[`offset.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         [-10,-10]
       </span>
@@ -332,7 +323,6 @@ exports[`offset.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         [10,-10]
       </span>
@@ -358,7 +348,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
          circle
       </span>
@@ -378,7 +367,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         round
       </span>
@@ -408,7 +396,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>
@@ -428,7 +415,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>
@@ -448,7 +434,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>
@@ -473,7 +458,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>
@@ -493,7 +477,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>
@@ -513,7 +496,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         按钮
       </span>

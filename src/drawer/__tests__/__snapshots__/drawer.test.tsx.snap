@@ -95,7 +95,6 @@ exports[`attach-parent.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             Open
           </span>
@@ -115,7 +114,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -133,7 +131,6 @@ exports[`custom.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -151,7 +148,6 @@ exports[`destroy.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -169,7 +165,6 @@ exports[`no-mask.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -187,7 +182,6 @@ exports[`operation.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -282,7 +276,6 @@ exports[`placement.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -377,7 +370,6 @@ exports[`popup.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open
       </span>
@@ -592,7 +584,6 @@ exports[`size.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           Open
         </span>

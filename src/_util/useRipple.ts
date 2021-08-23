@@ -76,6 +76,13 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       const width = el.offsetWidth;
       const height = el.offsetHeight;
 
+      el.childNodes.forEach((child: HTMLElement) => {
+        const node = child;
+        if (node && !node.style.zIndex && node !== rippleContainer) {
+          node.style.zIndex = '1';
+        }
+      });
+
       setStyle(rippleContainer, {
         position: 'absolute',
         left: `${0 - border}px`,
@@ -120,10 +127,6 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
     const initPosition = el.style?.position || getComputedStyle(el).position;
     if (['', 'static'].includes(initPosition)) {
       el.style.position = 'relative';
-    }
-    const existContent = el.firstElementChild as HTMLElement;
-    if (existContent && existContent.style.zIndex === '') {
-      existContent.style.zIndex = '1';
     }
   }, [ref]);
 
