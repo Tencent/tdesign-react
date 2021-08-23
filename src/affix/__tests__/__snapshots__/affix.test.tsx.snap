@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          Base
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`container.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="affix-container"
+  >
+    <div
+      class="background"
+    >
+      <div>
+        <div>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            style="position: relative;"
+          >
+            <span
+              class="t-button__text"
+            >
+              Container
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
