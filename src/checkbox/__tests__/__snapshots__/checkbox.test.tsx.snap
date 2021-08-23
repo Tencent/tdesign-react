@@ -327,7 +327,6 @@ exports[`link.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         删除
       </span>
@@ -338,7 +337,6 @@ exports[`link.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         开启
       </span>

@@ -18,8 +18,6 @@ export default () => {
   const [filterText, setFilterText] = useState('');
   const [activeId, setActiveId] = useState('');
   const [activeIds, setActiveIds] = useState([]);
-  const [checkedIds, setCheckedIds] = useState([]);
-  const [expandIds, setExpandIds] = useState([]);
 
   const getLabelContent = (node) => {
     const pathNodes = node.getPath();
@@ -51,13 +49,11 @@ export default () => {
 
   const handleExpand = (vals, state) => {
     console.info('on expand:', vals, state);
-    setExpandIds(vals);
   };
 
-  // const handleChange = (vals, state) => {
-  //   console.info('on change:', vals, state);
-  //   setCheckedIds(vals);
-  // };
+  const handleChange = (vals, state) => {
+    console.info('on change:', vals, state);
+  };
 
   const handleActive = (vals, state) => {
     console.info('on active:', vals, state);
@@ -300,7 +296,7 @@ export default () => {
         filter={filterByText}
         operations={renderOperations2}
         onExpand={handleExpand}
-        // onChange={handleChange}
+        onChange={handleChange}
         onActive={handleActive}
       />
       <h3 className="title">api:</h3>

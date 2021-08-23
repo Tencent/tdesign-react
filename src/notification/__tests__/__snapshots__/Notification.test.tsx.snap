@@ -120,7 +120,6 @@ exports[`close.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       处理开关事件
     </span>
@@ -131,7 +130,6 @@ exports[`close.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       处理定时关闭事件（3s）
     </span>
@@ -313,7 +311,6 @@ exports[`offset.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       偏移的信息
     </span>
@@ -384,7 +381,6 @@ exports[`placement.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       左上角
     </span>
@@ -395,7 +391,6 @@ exports[`placement.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       右上角
     </span>
@@ -407,7 +402,6 @@ exports[`placement.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       左下角
     </span>
@@ -418,7 +412,6 @@ exports[`placement.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       右下角
     </span>
@@ -434,7 +427,6 @@ exports[`plugin.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       信息
     </span>
@@ -445,7 +437,6 @@ exports[`plugin.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       成功
     </span>
@@ -456,7 +447,6 @@ exports[`plugin.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       警告
     </span>
@@ -467,7 +457,6 @@ exports[`plugin.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       错误
     </span>
@@ -554,7 +543,6 @@ exports[`toggle.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       自由控制关闭时机
     </span>
@@ -565,7 +553,6 @@ exports[`toggle.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       点击打开多个消息
     </span>
@@ -576,7 +563,6 @@ exports[`toggle.jsx 1`] = `
   >
     <span
       class="t-button__text"
-      style="z-index: 1;"
     >
       点击关闭多个消息
     </span>
