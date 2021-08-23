@@ -1,4 +1,5 @@
-import React, { forwardRef, MouseEvent, ReactNode } from 'react';
+import useRipple from '@tencent/tdesign-react/_util/useRipple';
+import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
 import TreeNode from '../_common/js/tree/tree-node';
 import CaretRightSmallIcon from '../icon/icons/CaretRightSmallIcon';
@@ -131,6 +132,10 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     return null;
   };
 
+  // 使用 斜八角动画
+  const labelRef = useRef();
+  useRipple(labelRef);
+
   const renderLabel = () => {
     const emptyView = '暂无数据';
     let labelText: string | ReactNode = '';
@@ -147,6 +152,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     if (node.isCheckable()) {
       return (
         <Checkbox
+          ref={labelRef}
           // value={node.value}
           checked={node.checked}
           indeterminate={node.indeterminate}
@@ -161,7 +167,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       );
     }
     return (
-      <span date-target="label" className={labelClasses}>
+      <span ref={labelRef} date-target="label" className={labelClasses}>
         <span style={{ position: 'relative' }}>{labelText}</span>
       </span>
     );
