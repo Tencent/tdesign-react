@@ -352,7 +352,6 @@ exports[`icon.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         切换到卡片型
       </span>
@@ -581,7 +580,6 @@ exports[`position.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         top
       </span>
@@ -592,7 +590,6 @@ exports[`position.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         bottom
       </span>
@@ -603,7 +600,6 @@ exports[`position.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         left
       </span>
@@ -614,7 +610,6 @@ exports[`position.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         right
       </span>
@@ -781,7 +776,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         middle
       </span>
@@ -792,7 +786,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         large
       </span>
@@ -950,7 +943,6 @@ exports[`theme.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         default
       </span>
@@ -961,7 +953,6 @@ exports[`theme.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         card
       </span>

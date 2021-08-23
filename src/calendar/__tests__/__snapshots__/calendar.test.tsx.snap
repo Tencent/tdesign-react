@@ -137,7 +137,6 @@ exports[`base.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             隐藏周末
           </span>
@@ -152,7 +151,6 @@ exports[`base.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             今天
           </span>
@@ -810,7 +808,6 @@ exports[`card.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           回到今天
         </span>
@@ -1710,7 +1707,6 @@ exports[`cell.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               隐藏周末
             </span>
@@ -1725,7 +1721,6 @@ exports[`cell.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               今天
             </span>
@@ -2376,7 +2371,6 @@ exports[`cell-append.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             隐藏周末
           </span>
@@ -2391,7 +2385,6 @@ exports[`cell-append.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             今天
           </span>
@@ -3173,7 +3166,6 @@ exports[`controller-config.jsx 1`] = `
               >
                 <span
                   class="t-button__text"
-                  style="z-index: 1;"
                 >
                   隐藏周末
                 </span>
@@ -3188,7 +3180,6 @@ exports[`controller-config.jsx 1`] = `
               >
                 <span
                   class="t-button__text"
-                  style="z-index: 1;"
                 >
                   今天
                 </span>
@@ -4126,7 +4117,6 @@ exports[`controller-config.jsx 1`] = `
                 browse-off
                 <span
                   class="t-button__text"
-                  style="z-index: 1;"
                 >
                   隐藏周末
                 </span>
@@ -4142,7 +4132,6 @@ exports[`controller-config.jsx 1`] = `
                 rollback
                 <span
                   class="t-button__text"
-                  style="z-index: 1;"
                 >
                   今天
                 </span>
@@ -4879,7 +4868,6 @@ exports[`custom-props-api.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             隐藏周末
           </span>
@@ -4894,7 +4882,6 @@ exports[`custom-props-api.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             今天
           </span>
@@ -5652,7 +5639,6 @@ exports[`event-props-api.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               隐藏周末
             </span>
@@ -5667,7 +5653,6 @@ exports[`event-props-api.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               今天
             </span>
@@ -6440,7 +6425,6 @@ exports[`filter.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               隐藏周末
             </span>
@@ -6455,7 +6439,6 @@ exports[`filter.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               今天
             </span>
@@ -7229,7 +7212,6 @@ exports[`first-day-of-week.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               隐藏周末
             </span>
@@ -7244,7 +7226,6 @@ exports[`first-day-of-week.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               今天
             </span>
@@ -7986,7 +7967,6 @@ exports[`mode.jsx 1`] = `
           >
             <span
               class="t-button__text"
-              style="z-index: 1;"
             >
               本月
             </span>
@@ -8306,7 +8286,6 @@ exports[`value.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             隐藏周末
           </span>
@@ -8321,7 +8300,6 @@ exports[`value.jsx 1`] = `
         >
           <span
             class="t-button__text"
-            style="z-index: 1;"
           >
             今天
           </span>

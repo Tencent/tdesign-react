@@ -11,7 +11,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         填充按钮
       </span>
@@ -22,7 +21,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         描边按钮
       </span>
@@ -33,7 +31,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -44,7 +41,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -59,7 +55,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         填充按钮
       </span>
@@ -70,7 +65,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         描边按钮
       </span>
@@ -81,7 +75,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -92,7 +85,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -107,7 +99,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         填充按钮
       </span>
@@ -118,7 +109,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         描边按钮
       </span>
@@ -129,7 +119,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -140,7 +129,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -155,7 +143,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         填充按钮
       </span>
@@ -166,7 +153,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         描边按钮
       </span>
@@ -177,7 +163,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -188,7 +173,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -203,7 +187,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         填充按钮
       </span>
@@ -214,7 +197,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         描边按钮
       </span>
@@ -225,7 +207,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -236,7 +217,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -251,7 +231,6 @@ exports[`base.jsx 1`] = `
     >
       <div
         class="t-loading t-size-m"
-        style="z-index: 1;"
       >
         <svg
           class="t-loading__gradient t-icon-loading"
@@ -297,7 +276,6 @@ exports[`block.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           主按钮
         </span>
@@ -308,7 +286,6 @@ exports[`block.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           次要按钮
         </span>
@@ -319,7 +296,6 @@ exports[`block.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           虚框按钮
         </span>
@@ -330,7 +306,6 @@ exports[`block.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           文字按钮
         </span>
@@ -354,7 +329,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -365,7 +339,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -376,7 +349,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -391,7 +363,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -402,7 +373,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -413,7 +383,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -428,7 +397,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -439,7 +407,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -450,7 +417,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -465,7 +431,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -476,7 +441,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -487,7 +451,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -502,7 +465,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -513,7 +475,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -524,7 +485,6 @@ exports[`ghost.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           幽灵按钮
         </span>
@@ -545,7 +505,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         确定
       </span>
@@ -556,7 +515,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         取消
       </span>
@@ -571,7 +529,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         下一步
       </span>
@@ -582,7 +539,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         上一步
       </span>
@@ -597,7 +553,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         新建主机
       </span>
@@ -608,7 +563,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         重装系统
       </span>
@@ -619,7 +573,6 @@ exports[`group.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         批量续费
       </span>
@@ -630,7 +583,6 @@ exports[`group.jsx 1`] = `
     >
       <svg
         class="t-icon t-icon-more"
-        style="z-index: 1;"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -653,7 +605,6 @@ exports[`icon.jsx 1`] = `
   >
     <svg
       class="t-icon t-icon-add"
-      style="z-index: 1;"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -674,7 +625,6 @@ exports[`icon.jsx 1`] = `
   >
     <svg
       class="t-icon t-icon-cloud-upload"
-      style="z-index: 1;"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -697,7 +647,6 @@ exports[`icon.jsx 1`] = `
   >
     <svg
       class="t-icon t-icon-discount"
-      style="z-index: 1;"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -715,7 +664,6 @@ exports[`icon.jsx 1`] = `
   >
     <svg
       class="t-icon t-icon-cloud-download"
-      style="z-index: 1;"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -733,7 +681,6 @@ exports[`icon.jsx 1`] = `
   >
     <svg
       class="t-icon t-icon-search"
-      style="z-index: 1;"
       version="1.1"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -764,7 +711,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         主按钮
       </span>
@@ -775,7 +721,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         主按钮
       </span>
@@ -786,7 +731,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         i
       </span>
@@ -801,7 +745,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         次要按钮
       </span>
@@ -812,7 +755,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         次要按钮
       </span>
@@ -823,7 +765,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         i
       </span>
@@ -838,7 +779,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -849,7 +789,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -860,7 +799,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         i
       </span>
@@ -875,7 +813,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -886,7 +823,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -897,7 +833,6 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         i
       </span>
@@ -917,7 +852,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         主按钮
       </span>
@@ -928,7 +862,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         次要按钮
       </span>
@@ -939,7 +872,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -950,7 +882,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -965,7 +896,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         主按钮
       </span>
@@ -976,7 +906,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         次要按钮
       </span>
@@ -987,7 +916,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -998,7 +926,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>
@@ -1013,7 +940,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         主按钮
       </span>
@@ -1024,7 +950,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         次要按钮
       </span>
@@ -1035,7 +960,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         虚框按钮
       </span>
@@ -1046,7 +970,6 @@ exports[`size.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         文字按钮
       </span>

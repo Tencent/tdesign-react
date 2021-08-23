@@ -9,7 +9,6 @@ exports[`async.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open Modal
       </span>
@@ -27,7 +26,6 @@ exports[`base.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open Modal
       </span>
@@ -45,7 +43,6 @@ exports[`custom.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         只显示确认按钮
       </span>
@@ -56,7 +53,6 @@ exports[`custom.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         自定义按钮内容
       </span>
@@ -67,7 +63,6 @@ exports[`custom.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         自定义内容
       </span>
@@ -85,7 +80,6 @@ exports[`icon.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open Modal
       </span>
@@ -103,7 +97,6 @@ exports[`modal.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         Open Modal
       </span>
@@ -122,7 +115,6 @@ exports[`position.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           默认
         </span>
@@ -133,7 +125,6 @@ exports[`position.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           顶部
         </span>
@@ -144,7 +135,6 @@ exports[`position.jsx 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           自定义
         </span>
@@ -163,7 +153,6 @@ exports[`warning.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         提示反馈
       </span>
@@ -174,7 +163,6 @@ exports[`warning.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         成功反馈
       </span>
@@ -185,7 +173,6 @@ exports[`warning.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         警示反馈
       </span>
@@ -196,7 +183,6 @@ exports[`warning.jsx 1`] = `
     >
       <span
         class="t-button__text"
-        style="z-index: 1;"
       >
         错误反馈
       </span>

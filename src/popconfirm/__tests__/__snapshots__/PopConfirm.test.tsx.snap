@@ -36,7 +36,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -47,7 +46,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -93,7 +91,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -104,7 +101,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -137,7 +133,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -148,7 +143,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -181,7 +175,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -192,7 +185,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -238,7 +230,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -249,7 +240,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -287,7 +277,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -298,7 +287,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -344,7 +332,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -355,7 +342,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -401,7 +387,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -412,7 +397,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>
@@ -448,7 +432,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           取消
         </span>
@@ -459,7 +442,6 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
       >
         <span
           class="t-button__text"
-          style="z-index: 1;"
         >
           确定
         </span>

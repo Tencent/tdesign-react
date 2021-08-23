@@ -388,7 +388,6 @@ exports[`base.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 提交
               </span>
@@ -401,7 +400,6 @@ exports[`base.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 重置
               </span>
@@ -518,7 +516,6 @@ exports[`custom-validator.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 提交
               </span>
@@ -531,7 +528,6 @@ exports[`custom-validator.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 重置
               </span>
@@ -755,7 +751,6 @@ exports[`login.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 登录
               </span>
@@ -1090,7 +1085,6 @@ exports[`validator.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 提交
               </span>
@@ -1103,7 +1097,6 @@ exports[`validator.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 重置
               </span>
@@ -1426,7 +1419,6 @@ exports[`validator-status.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 提交
               </span>
@@ -1439,7 +1431,6 @@ exports[`validator-status.jsx 1`] = `
             >
               <span
                 class="t-button__text"
-                style="z-index: 1;"
               >
                 重置
               </span>
