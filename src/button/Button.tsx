@@ -1,7 +1,8 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from '../_type/components/button';
 
@@ -30,9 +31,12 @@ const Button = forwardRef(
       onClick = noop,
       ...buttonProps
     }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement>,
+    ref: React.RefObject<HTMLButtonElement>,
   ) => {
     const { classPrefix } = useConfig();
+
+    const btnRef = useRef();
+    useRipple(ref || btnRef);
 
     const hasChildren = typeof children !== 'undefined';
 
@@ -51,7 +55,7 @@ const Button = forwardRef(
 
     return (
       <button
-        ref={ref}
+        ref={ref || btnRef}
         className={classNames(
           className,
           [
@@ -80,7 +84,7 @@ const Button = forwardRef(
             {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
           </>
         ) : (
-          children
+          <span className={`${classPrefix}-button__text`}>{children}</span>
         )}
       </button>
     );

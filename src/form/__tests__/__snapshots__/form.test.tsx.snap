@@ -382,18 +382,29 @@ exports[`base.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-left: 12px;"
+              style="margin-left: 12px; position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                重置
+              </span>
             </button>
           </div>
         </div>
@@ -501,18 +512,29 @@ exports[`custom-validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                重置
+              </span>
             </button>
           </div>
         </div>
@@ -727,10 +749,16 @@ exports[`login.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
+              style="position: relative;"
               type="submit"
               value=""
             >
-              登录
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                登录
+              </span>
             </button>
           </div>
         </div>
@@ -1056,18 +1084,29 @@ exports[`validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                重置
+              </span>
             </button>
           </div>
         </div>
@@ -1381,18 +1420,29 @@ exports[`validator-status.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px;"
+              style="margin-right: 10px; position: relative;"
               type="submit"
               value=""
             >
-              提交
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                提交
+              </span>
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
               type="reset"
               value=""
             >
-              重置
+              <span
+                class="t-button__text"
+                style="z-index: 1;"
+              >
+                重置
+              </span>
             </button>
           </div>
         </div>
