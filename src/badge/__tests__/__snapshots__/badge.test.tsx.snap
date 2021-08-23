@@ -7,8 +7,14 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-       
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         
+      </span>
     </button>
     <span
       class="t-badge--dot"
@@ -149,8 +155,14 @@ exports[`custom.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-       
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         
+      </span>
     </button>
     <span
       class="t-badge--round"
@@ -168,8 +180,14 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-       
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -182,8 +200,14 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-       
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -196,8 +220,14 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
+      style="position: relative;"
     >
-       
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -215,8 +245,14 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      默认
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        默认
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -229,8 +265,14 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      [10,10]
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        [10,10]
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -244,8 +286,14 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      [-10,10]
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        [-10,10]
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -259,8 +307,14 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      [-10,-10]
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        [-10,-10]
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -274,8 +328,14 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      [10,-10]
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        [10,-10]
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -294,8 +354,14 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-       circle
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+         circle
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -308,8 +374,14 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      round
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        round
+      </span>
     </button>
     <span
       class="t-badge--round"
@@ -332,8 +404,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -346,8 +424,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -360,8 +444,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle"
@@ -379,8 +469,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle t-size-s"
@@ -393,8 +489,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle t-size-s"
@@ -407,8 +509,14 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      按钮
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        按钮
+      </span>
     </button>
     <span
       class="t-badge--circle t-size-s"

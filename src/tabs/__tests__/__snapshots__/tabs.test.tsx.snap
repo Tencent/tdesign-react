@@ -348,8 +348,14 @@ exports[`icon.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      切换到卡片型
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        切换到卡片型
+      </span>
     </button>
     <div
       class="t-tabs"
@@ -571,23 +577,47 @@ exports[`position.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      top
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        top
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      bottom
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        bottom
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      left
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        left
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      right
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        right
+      </span>
     </button>
     <div
       class="t-tabs"
@@ -747,13 +777,25 @@ exports[`size.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      middle
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        middle
+      </span>
     </button>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      style="position: relative;"
     >
-      large
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        large
+      </span>
     </button>
     <div
       class="t-tabs"
@@ -904,13 +946,25 @@ exports[`theme.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      default
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        default
+      </span>
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      card
+      <span
+        class="t-button__text"
+        style="z-index: 1;"
+      >
+        card
+      </span>
     </button>
     <div
       class="t-tabs"

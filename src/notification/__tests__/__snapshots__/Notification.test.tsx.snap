@@ -116,13 +116,25 @@ exports[`close.jsx 1`] = `
   <br />
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    处理开关事件
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      处理开关事件
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    处理定时关闭事件（3s）
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      处理定时关闭事件（3s）
+    </span>
   </button>
   <br />
   <br />
@@ -297,8 +309,14 @@ exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    偏移的信息
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      偏移的信息
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -362,24 +380,48 @@ exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    左上角
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      左上角
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    右上角
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      右上角
+    </span>
   </button>
   <br />
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    左下角
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      左下角
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    右下角
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      右下角
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -388,23 +430,47 @@ exports[`plugin.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    信息
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      信息
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    成功
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      成功
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    警告
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      警告
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    错误
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      错误
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -484,18 +550,36 @@ exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    自由控制关闭时机
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      自由控制关闭时机
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    点击打开多个消息
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      点击打开多个消息
+    </span>
   </button>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
+    style="position: relative;"
   >
-    点击关闭多个消息
+    <span
+      class="t-button__text"
+      style="z-index: 1;"
+    >
+      点击关闭多个消息
+    </span>
   </button>
 </DocumentFragment>
 `;
