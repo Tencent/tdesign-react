@@ -1,258 +1,223 @@
-import * as React from 'react';
+import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
 import Button from '../button';
 import Select from '../select';
 import Radio from '../radio';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from '../_type/components/calendar';
 import { StyledProps } from '../_type/StyledProps';
+import { createDateList, createMonthList, getMonthCN } from './_util';
 
-export interface CalendarProps extends StyledProps {
-  /**
-   * 周起始日（可以设置第一列显示周几，其他列就顺延下去），mode为“month”的时候有效；传入的值得必须是整数1到7其中之一
-   * @default 1
-   */
-  firstDayOfWeek?: number;
-  /**
-   * 指定高亮日期
-   * @default new Date()
-   */
-  value?: Date;
-  /**
-   * 初始化的时候指定高亮日期
-   * @default new Date(0)
-   */
-  defaultValue?: Date;
-  /**
-   * 风格，传入值必须是"full"或"card"
-   * @default 'full'
-   */
-  theme?: 'full' | 'card';
-  /**
-   * 模式，传入值必须是"month"或"year"
-   * @default 'month'
-   */
-  mode?: 'month' | 'year';
-  /**
-   * 自定义日历的年月份显示范围（包含from和to）
-   */
-  range?: { from: Date; to: Date };
-  /**
-   * 是否禁用单元格右键默认系统菜单
-   * @default false
-   */
-  preventCellContextMenu?: boolean;
-  /**
-   * 默认是否显示周末
-   * @default true
-   */
-  isShowWeekendDefault?: boolean;
-  /**
-   * 右上角控件组的相关配置
-   */
-  controllerConfig?: {
-    visible?: boolean;
-    disabled?: boolean;
-    mode?: {
-      visible?: boolean;
-      radioGroupProps?: object;
-    };
-    year?: {
-      visible?: boolean;
-      selectProps?: object;
-    };
-    month?: {
-      visible?: boolean;
-      selectProps?: object;
-    };
-    weekendToggle?: {
-      visible?: boolean;
-      showWeekendButtonProps?: object;
-      hideWeekendButtonProps?: object;
-    };
-    current?: {
-      visible?: boolean;
-      currentDayButtonProps?: object;
-      currentMonthButtonProps?: object;
-    };
-  };
-  /**
-   * 单元格插槽（替换默认内容）
-   */
-  header?: React.ReactNode;
-  /**
-   * 	单元格插槽（替换默认内容）
-   */
-  cell?: React.ReactNode;
-  /**
-   * 单元格插槽（在原来的内容之后追加）
-   */
-  cellAppend?: React.ReactNode;
-  /**
-   * 日历单元格点击事件（左键点击）
-   */
-  onControllerChange?: (data: { filterDate: Date; isShowWeekend: boolean; mode: string }) => void;
-  /**
-   * 日历单元格双击事件
-   */
-  onCellClick?: (data: { data: Date; filterDate: Date; mode: string }) => void;
-  /**
-   * 日历单元格点击事件（右键点击）
-   */
-  onCellDoubleClick?: (data: { data: Date; filterDate: Date; mode: string }) => void;
-  /**
-   * 右上角控件组选中值有变化的时候触发该事件
-   */
-  onCellRightClick?: (data: { data: Date; filterDate: Date; mode: string }) => void;
-}
+export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
 export interface CalendarMethods {
   /**
    * 显示当前月份\年份
    */
-  toCurrent: () => void;
+  toCurrent: (value: CalendarValue) => void;
 }
 
 const fix0 = (num: number): string => (num <= 9 ? `0${num}` : String(num));
 
-const blockName = 'calendar';
+const getDefaultControllerConfigData = (visible = true): Record<string, any> => ({
+  visible, // 是否显示（全部控件）
+  disabled: false, // 是否禁用（全部控件）
+  // 模式切换单选组件设置
+  mode: {
+    visible: true, // 是否显示
+    radioGroupProps: {}, // 用于透传props给该radioGroup组件
+  },
+  // 年份选择框组件相关设置
+  year: {
+    visible: true, // 是否显示
+    selectProps: { popupProps: { overlayStyle: { width: '110px' } } }, // 用于透传props给该select组件
+  },
+  // 年份选择框组件相关设置
+  month: {
+    visible: true, // 是否显示（“year”模式下本身是不显示该组件的）
+    selectProps: { popupProps: { overlayStyle: { width: '90px' } } }, // 用于透传props给该select组件
+  },
+  // 隐藏\显示周末按钮组件相关设置
+  weekend: {
+    visible: true, // 是否显示
+    showWeekendButtonProps: {}, // 用于透传props给显示周末按钮组件
+    hideWeekendButtonProps: {}, // 用于透传props给隐藏周末按钮组件
+  },
+  // “今天\本月”按钮组件相关设置
+  current: {
+    visible: true, // 是否显示
+    currentDayButtonProps: {}, // 用于透传props给“今天”钮组件（“month”模式下有效）
+    currentMonthButtonProps: {}, // 用于透传props给“本月”按钮组件（“year”模式下有效）
+  },
+});
 
-// 操作栏控件尺寸
-const controlSectionSize = 'medium';
+// 抽取配置常量
+const blockName = 'calendar'; // 类名前缀
+const controlSectionSize = 'medium'; // 操作栏控件尺寸
+const minYear = 1970; // 最早选择年份
 
-const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
+const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
   const {
     className = '',
     style = {},
     mode: modeFromProps = 'month',
     value: valueFromProps = null,
-    defaultValue = null,
     firstDayOfWeek = 1,
+    format = 'YYYY-MM-DD',
     range = null,
-    header = null,
+    head = null,
     cell = null,
     cellAppend = null,
+    week = null,
     theme = 'full',
-    controllerConfig = {},
+    controllerConfig,
     isShowWeekendDefault = true,
-    preventCellContextMenu = false,
+    preventCellContextmenu = false,
     onControllerChange = noop,
     onCellClick = noop,
     onCellDoubleClick = noop,
     onCellRightClick = noop,
   } = props;
 
-  const {
-    visible = true,
-    disabled = false,
-    mode: modeFromConfig = {},
-    year: yearFromConfig = {},
-    month: monthFromConfig = {},
-    weekendToggle = {},
-    current = {},
-  } = controllerConfig;
+  // 组装配置信息
+  const controllerConfigData =
+    typeof controllerConfig === 'boolean'
+      ? getDefaultControllerConfigData(controllerConfig)
+      : { ...getDefaultControllerConfigData(), ...controllerConfig };
 
+  // 读配置信息
+  const {
+    visible,
+    disabled,
+    mode: modeFromConfig,
+    year: yearFromConfig,
+    month: monthFromConfig,
+    weekend,
+    current,
+  } = controllerConfigData;
   const { visible: visibleForMode = true, radioGroupProps: radioGroupPropsForMode = {} } = modeFromConfig;
   const { visible: visibleForYear = true, selectProps: selectPropsForYear = {} } = yearFromConfig;
   const { visible: visibleForMonth = true, selectProps: selectPropsForMonth = {} } = monthFromConfig;
-  const {
-    visible: visibleForWeekendToggle = true,
-    showWeekendButtonProps = {},
-    hideWeekendButtonProps = {},
-  } = weekendToggle;
+  const { visible: visibleForWeekendToggle = true, showWeekendButtonProps = {}, hideWeekendButtonProps = {} } = weekend;
   const { visible: visibleForCurrent = true, currentDayButtonProps = {}, currentMonthButtonProps = {} } = current;
 
   const { classPrefix } = useConfig();
-  const [mode, setMode] = React.useState<string>('month');
-  const [value, setValue] = React.useState<dayjs.Dayjs>(dayjs(defaultValue || new Date()));
-  const [year, setYear] = React.useState<number>(value.year());
-  const [month, setMonth] = React.useState<number>(value.month());
-  const [isShowWeekend, setIsShowWeekend] = React.useState<boolean>(isShowWeekendDefault);
+  const [mode, setMode] = useState<string>('month');
+  const [value, setValue] = useState<dayjs.Dayjs>(dayjs(valueFromProps || dayjs().format('YYYY-MM-DD')));
+  const [year, setYear] = useState<number>(value.year());
+  const [month, setMonth] = useState<number>(parseInt(value.format('M'), 10));
+  const [isShowWeekend, setIsShowWeekend] = useState<boolean>(isShowWeekendDefault);
 
-  const weekdayList = React.useMemo(() => {
+  // 表头数组
+  const colHeaderList = useMemo(() => {
     if (mode === 'year') return [];
-
-    return ['一', '二', '三', '四', '五', '六', '日', '一', '二', '三', '四', '五', '六']
-      .slice(firstDayOfWeek - 1)
-      .slice(0, 7)
-      .filter((item) => {
-        if (isShowWeekend) return true;
-        if (!isShowWeekend && item !== '六' && item !== '日') return true;
-        return false;
-      });
-  }, [mode, firstDayOfWeek, isShowWeekend]);
-
-  const [yearSelectList, monthSelectList] = React.useMemo(() => {
-    const createList = (min: number, max: number): number[] => {
-      if (min > max) return [];
-      const list = [];
-      for (let i = min; i <= max; i += 1) {
-        list.push(i);
+    const weekTextArr = Array.isArray(week) && week.length >= 7 ? week : ['一', '二', '三', '四', '五', '六', '日'];
+    const list = [];
+    for (let i = firstDayOfWeek; i <= 7; i++) {
+      if (!isShowWeekend && i > 5) {
+        break;
       }
-      return list;
+      list.push({
+        day: i,
+        text: weekTextArr[i - 1],
+      });
+    }
+    if (firstDayOfWeek > 1) {
+      for (let i = 1; i < firstDayOfWeek; i++) {
+        if (!isShowWeekend && i > 5) {
+          break;
+        }
+        list.push({
+          day: i,
+          text: weekTextArr[i - 1],
+        });
+      }
+    }
+    return list;
+  }, [mode, firstDayOfWeek, isShowWeekend, week]);
+
+  // 根据传入的 range 参数生成 key 为 from, to 的范围对象
+  const rangeFromTo = useMemo(() => {
+    if (!range || range.length < 2) {
+      return null;
+    }
+    const [v1, v2] = range;
+    if (dayjs(v1).isBefore(dayjs(v2))) {
+      return {
+        from: v1,
+        to: v2,
+      };
+    }
+    return {
+      from: v2,
+      to: v1,
+    };
+  }, [range]);
+
+  // 构造基础 controllerOptions
+  const controllerOptions: ControllerOptions = useMemo(() => {
+    const dayJsFilterDate: dayjs.Dayjs = dayjs(`${year}-${month}`);
+    const re = {
+      filterDate: dayJsFilterDate.toDate(),
+      formattedFilterDate: dayJsFilterDate.format(format),
+      mode,
+      isShowWeekend,
+    };
+    return re;
+  }, [isShowWeekend, mode, year, month, format]);
+
+  // 年份、月份 Select 选择框选项
+  const [yearSelectList, monthSelectList] = useMemo(() => {
+    const isRangeValid = rangeFromTo && rangeFromTo.from && rangeFromTo.to;
+    const checkMonthSelectorDisabled = (yearIn: number, monthIn: number): boolean => {
+      if (isRangeValid) {
+        const beginYear = dayjs(rangeFromTo.from).year();
+        const endYear = dayjs(rangeFromTo.to).year();
+        if (yearIn === beginYear) {
+          const beginMon = parseInt(dayjs(rangeFromTo.from).format('M'), 10);
+          return monthIn < beginMon;
+        }
+        if (yearIn === endYear) {
+          const endMon = parseInt(dayjs(rangeFromTo.to).format('M'), 10);
+          return monthIn > endMon;
+        }
+      }
+      return false;
     };
 
-    const monthList = createList(1, 12);
-
-    if (range && range.from instanceof Date && range.to instanceof Date) {
-      const fromYear = dayjs(range.from).subtract(10, 'year');
-      const toYear = dayjs(range.to).add(10, 'year');
-      const yearList = createList(fromYear.year(), toYear.year());
-
-      return [yearList, monthList];
+    const yearList = [];
+    const monthList = [];
+    // 年列表
+    const yearBegin = isRangeValid ? dayjs(rangeFromTo.from).year() : Math.max(minYear, year - 10);
+    const YearEnd = isRangeValid ? dayjs(rangeFromTo.to).year() : Math.max(minYear, year + 10);
+    for (let i = yearBegin; i <= YearEnd; i++) {
+      yearList.push({
+        value: i,
+        disabled: checkMonthSelectorDisabled(i, month),
+      });
+    }
+    // 月列表
+    for (let i = 1; i <= 12; i++) {
+      monthList.push({
+        value: i,
+        disabled: checkMonthSelectorDisabled(year, i),
+      });
     }
 
-    const fromYear = year - 10 < 0 ? 0 : year - 10;
-    const toYear = year + 10;
-    const yearList = createList(fromYear, toYear);
     return [yearList, monthList];
-  }, [range, year]);
+  }, [rangeFromTo, year, month]);
 
-  const dateList = React.useMemo<dayjs.Dayjs[][]>(() => {
-    const now = dayjs(new Date(year, month, 1));
-    const list = [] as dayjs.Dayjs[];
+  // mode为 'month' 时，构造日历列表
+  const dateList = useMemo<CalendarCell[][]>(
+    () => createDateList(year, month, firstDayOfWeek, value, format),
+    [year, month, firstDayOfWeek, format, value],
+  );
 
-    for (let i = 0; i < 42; i += 1) {
-      list.push(now.add(i, 'day'));
-    }
+  // mode为 'year' 时，构造月历列表
+  const monthList = useMemo<CalendarCell[][]>(() => createMonthList(year, value, format), [year, value, format]);
 
-    if (now.day() !== firstDayOfWeek) {
-      for (let i = 1; i <= 7 - firstDayOfWeek; i += 1) {
-        list.unshift(now.subtract(i, 'day'));
-      }
-    }
-
-    const rowList = [] as dayjs.Dayjs[][];
-
-    for (let i = 0; i < 6; i += 1) {
-      rowList.push(list.slice(i * 7, (i + 1) * 7));
-    }
-
-    return rowList;
-  }, [year, month, firstDayOfWeek]);
-
-  const monthList = React.useMemo<string[][]>(() => {
-    if (theme === 'full') {
-      return [
-        ['一', '二', '三', '四'],
-        ['五', '六', '七', '八'],
-        ['九', '十', '十一', '十二'],
-      ];
-    }
-
-    if (theme === 'card') {
-      return [
-        ['1', '2', '3'],
-        ['4', '5', '6'],
-        ['7', '8', '9'],
-        ['10', '11', '12'],
-      ];
-    }
-
-    return [];
-  }, [theme]);
-
-  const prefixCls = React.useCallback(
+  const prefixCls = useCallback(
     (...args: (string | [string, string?, string?])[]) => {
       let className = '';
       args.forEach((item, index) => {
@@ -271,86 +236,117 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
     [classPrefix],
   );
 
-  const toCurrent = React.useCallback(() => {
-    const now = dayjs();
+  // 将基础的 CalendarCell 与 ControllerOptions 进行合并
+  const createCalendarCell = useCallback(
+    (cellData: CalendarCell): CalendarCell => ({
+      ...cellData,
+      ...controllerOptions,
+    }),
+    [controllerOptions],
+  );
 
+  const toCurrent = useCallback((valueIn = null) => {
+    const now: dayjs.Dayjs = dayjs(valueIn).isValid() ? dayjs(valueIn) : dayjs(dayjs().format('YYYY-MM-DD'));
+    setValue(now);
     setYear(now.year());
-    setMonth(now.month());
+    setMonth(parseInt(now.format('M'), 10));
   }, []);
-
-  const clickCell = React.useCallback(
-    (event, date: dayjs.Dayjs) => {
-      onCellClick({ data: date.toDate(), filterDate: new Date(year, month), mode });
-    },
-    [mode, year, month, onCellClick],
-  );
-
-  const doubleClickCell = React.useCallback(
-    (event, date: dayjs.Dayjs) => {
-      onCellDoubleClick({ data: date.toDate(), filterDate: new Date(year, month), mode });
-    },
-    [mode, year, month, onCellDoubleClick],
-  );
-
-  const rightClickCell = React.useCallback(
-    (event, date: dayjs.Dayjs) => {
-      if (preventCellContextMenu) event.preventDefault();
-      onCellRightClick({ data: date.toDate(), filterDate: new Date(year, month), mode });
-    },
-    [mode, year, month, preventCellContextMenu, onCellRightClick],
-  );
 
   React.useImperativeHandle(ref, () => ({ toCurrent }), [toCurrent]);
 
-  React.useEffect(() => {
-    if (valueFromProps instanceof Date) setValue(dayjs(valueFromProps));
-  }, [valueFromProps]);
+  // 事件回调统一处理
+  const execCellEvent = useCallback(
+    (event, calendarCell, handleFunc) => {
+      if (handleFunc && typeof handleFunc === 'function') {
+        handleFunc({
+          cell: createCalendarCell(calendarCell),
+          e: event,
+        });
+      }
+    },
+    [createCalendarCell],
+  );
 
-  React.useEffect(() => {
+  const clickCell = useCallback(
+    (event, calendarCell: CalendarCell) => {
+      execCellEvent(event, calendarCell, onCellClick);
+    },
+    [onCellClick, execCellEvent],
+  );
+
+  const doubleClickCell = useCallback(
+    (event, calendarCell: CalendarCell) => {
+      execCellEvent(event, calendarCell, onCellDoubleClick);
+    },
+    [onCellDoubleClick, execCellEvent],
+  );
+
+  const rightClickCell = useCallback(
+    (event, calendarCell: CalendarCell) => {
+      if (preventCellContextmenu) event.preventDefault();
+      execCellEvent(event, calendarCell, onCellRightClick);
+    },
+    [onCellRightClick, execCellEvent, preventCellContextmenu],
+  );
+
+  useEffect(() => {
+    toCurrent(valueFromProps);
+  }, [valueFromProps, toCurrent]);
+
+  useEffect(() => {
     setMode(modeFromProps);
   }, [modeFromProps]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsShowWeekend(isShowWeekendDefault);
   }, [isShowWeekendDefault]);
 
-  React.useLayoutEffect(() => {
-    onControllerChange({ filterDate: new Date(year, month), isShowWeekend, mode });
-  }, [mode, year, month, isShowWeekend, onControllerChange]);
+  useLayoutEffect(() => {
+    onControllerChange(controllerOptions);
+  }, [onControllerChange, controllerOptions]);
 
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
+      {/* 操作部分 */}
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>
-          {/* 操作部分 */}
           <div className={prefixCls([blockName, 'control-section'])}>
+            {/* 年份选择框 */}
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForYear && (
                 <Select
                   size={controlSectionSize}
-                  style={{ width: '100px' }}
                   disabled={disabled}
                   value={year}
-                  options={yearSelectList.map((item) => ({ label: `${item}年`, value: item }))}
+                  options={yearSelectList.map((item) => ({
+                    label: `${item.value}年`,
+                    value: item.value,
+                    disabled: item.disabled,
+                  }))}
                   onChange={(selectYear) => setYear(selectYear as number)}
                   {...selectPropsForYear}
                 />
               )}
             </div>
+            {/* 月份选择框 */}
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForMonth && mode === 'month' && (
                 <Select
                   size={controlSectionSize}
-                  style={{ width: '80px' }}
                   disabled={disabled}
                   value={month}
-                  options={monthSelectList.map((item) => ({ label: `${item}月`, value: item }))}
+                  options={monthSelectList.map((item) => ({
+                    label: `${item.value}月`,
+                    value: item.value,
+                    disabled: item.disabled,
+                  }))}
                   onChange={(selectMonth) => setMonth(selectMonth as number)}
                   {...selectPropsForMonth}
                 />
               )}
             </div>
           </div>
+          {/* 模式切换 */}
           <div className={prefixCls([blockName, 'control-section'])} style={{ height: 'auto' }}>
             {visibleForMode && (
               <Radio.Group
@@ -365,106 +361,84 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
               </Radio.Group>
             )}
           </div>
+          {/* 周末隐藏显示切换 */}
           {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
             <div className={prefixCls([blockName, 'control-section'])}>
-              {isShowWeekend ? (
-                <Button
-                  theme="default"
-                  size={controlSectionSize}
-                  disabled={disabled}
-                  onClick={() => setIsShowWeekend(false)}
-                  {...hideWeekendButtonProps}
-                >
-                  隐藏周末
-                </Button>
-              ) : (
-                <Button
-                  theme="primary"
-                  size={controlSectionSize}
-                  disabled={disabled}
-                  onClick={() => setIsShowWeekend(true)}
-                  {...showWeekendButtonProps}
-                >
-                  显示周末
-                </Button>
-              )}
+              <Button
+                theme={isShowWeekend ? 'default' : 'primary'}
+                size={controlSectionSize}
+                disabled={disabled}
+                onClick={() => setIsShowWeekend(!isShowWeekend)}
+                {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
+              >
+                {`${isShowWeekend ? '隐藏' : '显示'}周末`}
+              </Button>
             </div>
           )}
-          {theme === 'full' && (
+          {/* 回到当前按钮 */}
+          {theme === 'full' && visibleForCurrent && (
             <div className={prefixCls([blockName, 'control-section'])}>
-              {mode === 'year' && visibleForCurrent && (
-                <Button
-                  size={controlSectionSize}
-                  theme="default"
-                  disabled={disabled}
-                  onClick={toCurrent}
-                  {...currentMonthButtonProps}
-                >
-                  本月
-                </Button>
-              )}
-              {mode === 'month' && visibleForCurrent && (
-                <Button
-                  size={controlSectionSize}
-                  theme="default"
-                  disabled={disabled}
-                  onClick={toCurrent}
-                  {...currentDayButtonProps}
-                >
-                  今天
-                </Button>
-              )}
+              <Button
+                size={controlSectionSize}
+                theme="default"
+                disabled={disabled}
+                onClick={toCurrent}
+                {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
+              >
+                {mode === 'year' ? '本月' : '今天'}
+              </Button>
             </div>
           )}
         </div>
       )}
       {/* 主体部分 */}
       <div className={prefixCls([blockName, 'panel'], [blockName, `panel--${mode}`])}>
-        <div className={prefixCls([blockName, 'panel-title'])}>{React.isValidElement(header) && header}</div>
+        <div className={prefixCls([blockName, 'panel-title'])}>{React.isValidElement(head) && head}</div>
         <table className={prefixCls([blockName, 'table'])}>
-          {weekdayList.length > 0 && (
+          {/* 表头部分 */}
+          {colHeaderList.length > 0 && (
             <thead className={prefixCls([blockName, 'table-head'])}>
               <tr className={prefixCls([blockName, 'table-head-row'])}>
-                {weekdayList.map((item) => (
-                  <th key={item} className={prefixCls([blockName, 'table-head-cell'])}>
-                    {item}
+                {colHeaderList.map((item) => (
+                  <th key={item.day} className={prefixCls([blockName, 'table-head-cell'])}>
+                    {week && typeof week === 'function' ? week({ day: item.day }) : item.text}
                   </th>
                 ))}
               </tr>
             </thead>
           )}
+          {/* month 模式，输出日期 */}
           {mode === 'month' && (
             <tbody className={prefixCls([blockName, 'table-body'])}>
               {dateList.map((dateRow, dateRowIndex) => (
                 <tr key={String(dateRowIndex)} className={prefixCls([blockName, 'table-body-row'])}>
                   {dateRow.map((dateCell, dateCellIndex) => {
-                    if (!isShowWeekend && [0, 6].indexOf(dateCell.day()) >= 0) return null;
+                    if (!isShowWeekend && [6, 7].indexOf(dateCell.day) >= 0) return null;
                     return (
                       <td
                         key={String(dateCellIndex)}
                         className={prefixCls(
                           [blockName, 'table-body-cell'],
-                          dateCell.month() !== month && 'is-disabled',
-                          dateCell.isSame(value, 'date') && 'is-checked',
+                          dateCell.belongTo !== 0 && 'is-disabled',
+                          dateCell.isCurrent && 'is-checked',
                         )}
                         onClick={(event) => clickCell(event, dateCell)}
                         onDoubleClick={(event) => doubleClickCell(event, dateCell)}
                         onContextMenu={(event) => rightClickCell(event, dateCell)}
                       >
                         {(() => {
-                          if (cell && typeof cell === 'function') return cell(dateCell.toDate());
+                          if (cell && typeof cell === 'function') return cell(createCalendarCell(dateCell));
                           if (cell && typeof cell !== 'function') return cell;
-
                           return (
                             <div className={prefixCls([blockName, 'table-body-cell-value'])}>
-                              {fix0(dateCell.date())}
+                              {fix0(dateCell.date.getDate())}
                             </div>
                           );
                         })()}
                         {(() => {
-                          if (cellAppend && typeof cellAppend === 'function') return cellAppend(dateCell.toDate());
+                          if (cellAppend && typeof cellAppend === 'function')
+                            return cellAppend(createCalendarCell(dateCell));
                           if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
-
                           return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
                         })()}
                       </td>
@@ -474,6 +448,7 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
               ))}
             </tbody>
           )}
+          {/* year 模式，输出月份 */}
           {mode === 'year' && (
             <tbody className={prefixCls([blockName, 'table-body'])}>
               {monthList.map((monthRow, monthRowIndex) => (
@@ -481,31 +456,24 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef((props, ref: React.Mu
                   {monthRow.map((monthCell, monthCellIndex) => (
                     <td
                       key={String(monthCellIndex)}
-                      className={prefixCls(
-                        [blockName, 'table-body-cell'],
-                        [
-                          monthList
-                            .toString()
-                            .split(',')
-                            .findIndex((item) => item === monthCell) === month && 'is-checked',
-                        ],
-                      )}
+                      className={prefixCls([blockName, 'table-body-cell'], [monthCell.isCurrent && 'is-checked'])}
+                      onClick={(event) => clickCell(event, monthCell)}
+                      onDoubleClick={(event) => doubleClickCell(event, monthCell)}
+                      onContextMenu={(event) => rightClickCell(event, monthCell)}
                     >
                       {(() => {
-                        if (cell && typeof cell === 'function') return cell(new Date(year, Number(monthCell)));
+                        if (cell && typeof cell === 'function') return cell(monthCell);
                         if (cell && typeof cell !== 'function') return cell;
-
-                        return (
-                          <div className={prefixCls([blockName, 'table-body-cell-value'])}>{`${monthCell}月`}</div>
-                        );
+                        const monthCellIndex = monthCell.date.getMonth();
+                        const monthText =
+                          theme === 'full' ? getMonthCN(monthCellIndex) : `${(monthCellIndex + 1).toString()} 月`;
+                        return <div className={prefixCls([blockName, 'table-body-cell-value'])}>{monthText}</div>;
                       })()}
-
                       {(() => {
                         if (cellAppend && typeof cellAppend === 'function') {
-                          return cellAppend(new Date(year, Number(monthCell)));
+                          return cellAppend(monthCell);
                         }
                         if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
-
                         return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
                       })()}
                     </td>
