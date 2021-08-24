@@ -115,6 +115,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       setTimeout(() => {
         ripple.style.right = '-2px';
       }, 0);
+
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);
     },
@@ -140,8 +141,6 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
 
     return () => {
       el.removeEventListener('pointerdown', handleAddRipple, false);
-      el.removeEventListener('pointerup', handleClearRipple, false);
-      el.removeEventListener('pointerleave', handleClearRipple, false);
     };
-  }, [initRippleElement, handleAddRipple, handleClearRipple, fixedRippleColor, ref]);
+  }, [initRippleElement, handleAddRipple, fixedRippleColor, ref]);
 }
