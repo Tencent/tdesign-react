@@ -1,0 +1,1205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`activable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              节点可高亮
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              节点可多选高亮
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              整个节点可点击
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`checkable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+          >
+            <label>
+              可选
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+          >
+            <label>
+              严格模式
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__valueMode"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+          >
+            <label>
+              选中值模式
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <div
+                class="t-radio-group t-radio-group-outline t-radio-group-medium"
+              >
+                <label
+                  class="t-radio t-is-checked"
+                >
+                  <input
+                    checked=""
+                    class="t-radio__former"
+                    readonly=""
+                    type="radio"
+                    value="onlyLeaf"
+                  />
+                  <span
+                    class="t-radio__input"
+                  />
+                  <span
+                    class="t-radio__label"
+                  >
+                    onlyLeaf
+                  </span>
+                </label>
+                <label
+                  class="t-radio"
+                >
+                  <input
+                    class="t-radio__former"
+                    readonly=""
+                    type="radio"
+                    value="parentFirst"
+                  />
+                  <span
+                    class="t-radio__input"
+                  />
+                  <span
+                    class="t-radio__label"
+                  >
+                    parentFirst
+                  </span>
+                </label>
+                <label
+                  class="t-radio"
+                >
+                  <input
+                    class="t-radio__former"
+                    readonly=""
+                    type="radio"
+                    value="all"
+                  />
+                  <span
+                    class="t-radio__input"
+                  />
+                  <span
+                    class="t-radio__label"
+                  >
+                    all
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`controlled.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        checked:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="1.1.1.1, 1.1.1.2"
+        />
+      </div>
+    </div>
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        expanded:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="1, 1.1, 1.1.1, 2"
+        />
+      </div>
+    </div>
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        actived:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="2"
+        />
+      </div>
+    </div>
+    <div
+      class="t-tree t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`disabled.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              是否禁用
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-is-disabled t-tree--hoverable t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`empty.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <br />
+    <div
+      class="t-tree t-tree--fx"
+    >
+      😊 空数据（string）
+    </div>
+    <br />
+    <div
+      class="t-tree t-tree--fx"
+    >
+      <div>
+        😊 空数据（ empty props ）
+      </div>
+    </div>
+    <br />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`expand-all.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 150px;"
+          >
+            <label>
+              切换数据
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 150px;"
+          >
+            <label>
+              提供 hover 状态
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 150px;"
+          >
+            <label>
+              展开动画
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`expand-level.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`expand-mutex.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              互斥展开
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 120px;"
+          >
+            <label>
+              整个节点可点击
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx t-tree--block-node"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`filter.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        filter:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx t-tree--block-node"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <h3>
+      render 1:
+    </h3>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <h3>
+      render 2:
+    </h3>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`label.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`lazy.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`line.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-line"
+  >
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+          >
+            <label>
+              显示连线
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+          >
+            <label>
+              显示图标
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="t-tree t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <h3>
+      render
+    </h3>
+    <div
+      class="t-tree t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`load.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`operations.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <h3
+      class="title"
+    >
+      render:
+    </h3>
+    <div
+      class="t-tree t-tree--hoverable t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <h3
+      class="title"
+    >
+      api:
+    </h3>
+    <div
+      class="operations"
+    >
+      <form
+        class="t-form"
+      >
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 200px;"
+          >
+            <label>
+              插入节点使用高亮节点
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-form__item t-row t-form-item__undefined"
+        >
+          <div
+            class="t-col t-form__label t-form__label--right t-col-1"
+            style="min-width: 200px;"
+          >
+            <label>
+              子节点展开触发父节点展开
+            </label>
+          </div>
+          <div
+            class="t-form__controls t-col"
+          >
+            <div
+              class="t-form__controls--content"
+            >
+              <button
+                class="t-switch t-is-checked"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="operations"
+    >
+      <div
+        class="t-addon t-addon--prepend"
+      >
+        <span
+          class="t-addon__prepend"
+        >
+          filter:
+        </span>
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <h3
+      class="title"
+    >
+      api:
+    </h3>
+    <div
+      class="operations"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取 value 为 'node1' 的单个节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取所有节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点的所有子节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取所有高亮节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点下的选中节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          插入一个根节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点的父节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点的所有父节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点在子节点中的位置
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          选中高亮节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          展开高亮节点
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin: 0px 10px 10px 0px; position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          获取高亮节点与其子节点的数据
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`state.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-state"
+  >
+    <h3
+      class="title"
+    >
+      state:
+    </h3>
+    <div
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+    <h3
+      class="title"
+    >
+      api:
+    </h3>
+    <div
+      class="operations"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          插入一个根节点
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`sync.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tree-base"
+  >
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        checked:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="{1.1.1.1}, {1.1.1.2}"
+        />
+      </div>
+    </div>
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        expanded:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="{1}, {1.1}, {1.1.1}, {2}"
+        />
+      </div>
+    </div>
+    <div
+      class="t-addon t-addon--prepend"
+    >
+      <span
+        class="t-addon__prepend"
+      >
+        actived:
+      </span>
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="{2}"
+        />
+      </div>
+    </div>
+    <div
+      class="t-tree t-tree--checkable t-tree--fx"
+    >
+      暂无数据
+    </div>
+  </div>
+</DocumentFragment>
+`;
