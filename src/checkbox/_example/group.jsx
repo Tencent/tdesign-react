@@ -30,14 +30,22 @@ export default function CheckboxExample() {
 
   return (
     <div className="tdesign-demo-block-column">
-      { city.length && <div>选中值: { city.join('、') }</div> }
+      {city.length && <div>选中值: {city.join('、')}</div>}
       <div>
-        <Checkbox checked={checkAll} indeterminate={indeterminate} onChange={handleSelectAll}>全选</Checkbox>
-        <Checkbox checked={disabled} onChange={(value) => setDisabled(value)}>禁用全部</Checkbox>
+        <Checkbox checked={checkAll} indeterminate={indeterminate} onChange={handleSelectAll}>
+          全选
+        </Checkbox>
+        <Checkbox checked={disabled} onChange={(value) => setDisabled(value)}>
+          禁用全部
+        </Checkbox>
       </div>
 
       <Checkbox.Group disabled={disabled} value={city} onChange={(value) => setCity(value)}>
-        { options.map(item => (<Checkbox key={item.value} value={item.value}>{item.label}</Checkbox>)) }
+        {options.map((item) => (
+          <Checkbox key={item.value} value={item.value}>
+            {item.label}
+          </Checkbox>
+        ))}
       </Checkbox.Group>
     </div>
   );
