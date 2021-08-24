@@ -76,6 +76,13 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Affix 固钉',
+          name: 'affix',
+          docType: 'navigation',
+          path: '/react/components/affix',
+          component: () => import('@tencent/tdesign-react/affix/README.md'),
+        },
+        {
           title: 'Anchor 锚点',
           name: 'anchor',
           docType: 'navigation',

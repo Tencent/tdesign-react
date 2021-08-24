@@ -35,3 +35,4 @@ export { default as Progress } from './progress';
 export { default as PopConfirm } from './popconfirm';
 export { default as Textarea } from './textarea';
 export { default as Breadcrumb } from './breadcrumb';
+export { default as Affix } from './affix';
