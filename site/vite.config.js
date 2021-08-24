@@ -1,7 +1,7 @@
 import path from 'path';
 
 import reactRefresh from '@vitejs/plugin-react-refresh';
-import tdocPlugin, { transforms } from './plugin-tdoc';
+import tdocPlugin from './plugin-tdoc';
 
 export default {
   base: process.env.NODE_ENV === 'production' ? '/react/' : './',
@@ -15,19 +15,11 @@ export default {
     },
   },
   jsx: 'react',
-  optimizeDeps: {
-    include: ['prismjs', 'clipboard'],
-  },
   server: {
     host: '0.0.0.0',
     port: 15000,
     open: '/',
     https: false,
   },
-  plugins: [
-    reactRefresh(),
-    tdocPlugin({
-      transforms: transforms(),
-    }),
-  ],
+  plugins: [reactRefresh(), tdocPlugin()],
 };
