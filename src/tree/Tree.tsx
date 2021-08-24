@@ -4,19 +4,20 @@ import classNames from 'classnames';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../_type';
-import { TreeInstanceFunctions } from './interface/TreeInstanceFunctions';
-import { TreeItemProps } from './interface/TreeItemProps';
-import { TreeProps } from './interface/TreeProps';
-import { CLASS_NAMES, FX, transitionClassNames, transitionDuration } from './constants';
+import { usePersistFn } from '../_util/usePersistFn';
+import { TreeInstanceFunctions, TdTreeProps } from '../_type/components/tree';
+import { useTreeConfig } from './useTreeConfig';
+import { TreeItemProps } from './interface';
 
 import TreeItem from './TreeItem';
-import { usePersistFn } from './usePersistFn';
 import { useStore } from './useStore';
 
 /**
  * 树组件
  */
-const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
+const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
+  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration } = useTreeConfig();
+
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
 
@@ -53,10 +54,11 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
     const expanded = node.setExpanded(isExpanded, { directly: true });
     const treeNodeModel = node?.getModel();
+    // 没有办法创建 react 的事件，暂时先用 window 的 MouseEvent
     const event = new MouseEvent('expand');
     onExpand?.(expanded, {
       node: treeNodeModel,
-      e: event,
+      e: event as any,
     });
     return expanded;
   });
@@ -75,12 +77,11 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     return checked;
   });
 
-  const handleClick: TreeItemProps['onClick'] = (node, options) => {
+  const handleItemClick: TreeItemProps['onClick'] = (node, options) => {
     if (!node || disabled || node.disabled) {
       return;
     }
-    const { expand, active } = options;
-    const e = new MouseEvent('click');
+    const { expand, active, event } = options;
     if (expand) {
       const expandArr = setExpanded(node, !node.isExpanded());
       store.replaceExpanded(expandArr);
@@ -93,7 +94,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     const treeNodeModel = node?.getModel();
     onClick?.({
       node: treeNodeModel,
-      e,
+      e: event,
     });
   };
 
@@ -196,7 +197,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     }
 
     return (
-      <TransitionGroup name={FX.treeNode} className={CLASS_NAMES.treeList}>
+      <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
         {visibleNodes.map((node) => (
           <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
             <TreeItem
@@ -210,7 +211,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               activable={activable}
               operations={operations}
               checkProps={checkProps}
-              onClick={handleClick}
+              onClick={handleItemClick}
               onChange={handleChange}
             />
           </CSSTransition>
@@ -220,12 +221,12 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   };
   return (
     <div
-      className={classNames(CLASS_NAMES.tree, {
-        [CLASS_NAMES.disabled]: disabled,
-        [CLASS_NAMES.treeHoverable]: hover,
-        [CLASS_NAMES.treeCheckable]: checkable,
-        [CLASS_NAMES.treeFx]: transition,
-        [CLASS_NAMES.treeBlockNode]: expandOnClickNode,
+      className={classNames(treeClassNames.tree, {
+        [treeClassNames.disabled]: disabled,
+        [treeClassNames.treeHoverable]: hover,
+        [treeClassNames.treeCheckable]: checkable,
+        [treeClassNames.treeFx]: transition,
+        [treeClassNames.treeBlockNode]: expandOnClickNode,
       })}
     >
       {renderItems()}

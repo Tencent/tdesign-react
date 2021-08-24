@@ -1,14 +1,14 @@
-import { DataOption } from '@TdTypes/components/transfer';
-import { usePersistFn } from '@tencent/tdesign-react/tree/usePersistFn';
 import { useEffect, useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
+import { TreeOptionData } from '../_type/common';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
+import { usePersistFn } from '../_util/usePersistFn';
+import { TdTreeProps } from '../_type/components/tree';
 import { TypeEventState } from './interface';
-import { TreeProps } from './interface/TreeProps';
 
-export function useStore(props: TreeProps, refresh: () => void): TreeStore {
+export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   const storeRef = useRef<TreeStore>();
 
   const {
@@ -53,7 +53,7 @@ export function useStore(props: TreeProps, refresh: () => void): TreeStore {
     const getChild = (list: TreeNode[] | boolean) => {
       if (Array.isArray(list) && list.length > 0) {
         return list.map((v) => {
-          const nodeData: DataOption = v.data;
+          const nodeData: TreeOptionData = v.data;
           if (Array.isArray(v.children) && v.children.length > 0) {
             nodeData.children = getChild(v.children);
           }
@@ -86,11 +86,9 @@ export function useStore(props: TreeProps, refresh: () => void): TreeStore {
       valueMode,
       filter,
       onLoad: (info: TypeEventState) => {
-        const e = new MouseEvent('load');
         const { node } = info;
         onLoad?.({
           node: node.getModel(),
-          e,
         });
       },
       onUpdate: handleUpdate,

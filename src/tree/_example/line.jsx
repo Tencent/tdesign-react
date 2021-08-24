@@ -1,7 +1,7 @@
 import { Icon, Tree, Form, Switch } from '@tencent/tdesign-react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import './line.css';
+import './line.less';
 
 const items = [
   {

@@ -1,12 +1,12 @@
-import useRipple from '@tencent/tdesign-react/_util/useRipple';
 import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
+import useRipple from '../_util/useRipple';
 import TreeNode from '../_common/js/tree/tree-node';
 import CaretRightSmallIcon from '../icon/icons/CaretRightSmallIcon';
 import LoadingIcon from '../icon/icons/LoadingIcon';
 import Checkbox from '../checkbox';
-import { TreeItemProps } from './interface/TreeItemProps';
-import { CLASS_NAMES } from './constants';
+import { useTreeConfig } from './useTreeConfig';
+import { TreeItemProps } from './interface';
 
 /**
  * 树节点组件
@@ -14,6 +14,8 @@ import { CLASS_NAMES } from './constants';
 const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement>) => {
   const { node, icon, label, line, expandOnClickNode, activable, checkProps, operations, onClick, onChange } = props;
   const { level } = node;
+
+  const { treeClassNames } = useTreeConfig();
 
   const handleClick = (evt: MouseEvent<HTMLDivElement>) => {
     onClick?.(node, {
@@ -23,7 +25,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     });
   };
 
-  const handleItemClick = (evt: MouseEvent) => {
+  const handleItemClick = (evt: MouseEvent<HTMLDivElement>) => {
     if (node.loading) {
       return;
     }
@@ -34,7 +36,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     });
   };
 
-  const handleIconClick = (evt: MouseEvent) => {
+  const handleIconClick = (evt: MouseEvent<HTMLDivElement>) => {
     evt.stopPropagation();
     handleItemClick(evt);
   };
@@ -62,17 +64,17 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
       if (!node.isLeaf()) {
         if (node.loading && node.expanded) {
-          return <LoadingIcon className={CLASS_NAMES.loading} />;
+          return <LoadingIcon className={treeClassNames.loading} />;
         }
 
-        return <CaretRightSmallIcon className={CLASS_NAMES.treeIconRight} />;
+        return <CaretRightSmallIcon className={treeClassNames.treeIconRight} />;
       }
       return null;
     };
 
     const iconNode = renderIconNode();
     return (
-      <span className={classNames(CLASS_NAMES.treeIcon, CLASS_NAMES.folderIcon)} onClick={handleIconClick}>
+      <span className={classNames(treeClassNames.treeIcon, treeClassNames.folderIcon)} onClick={handleIconClick}>
         {iconNode}
       </span>
     );
@@ -114,17 +116,17 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
         <span
           className={classNames(
             // 每个节点绘制抵达上一层级的折线
-            CLASS_NAMES.line,
+            treeClassNames.line,
             {
               // 叶子节点，折线宽度延长，因为没有 icon 呈现
               // 任意节点，icon 不呈现时也是要延长折线宽度
-              [CLASS_NAMES.lineIsLeaf]: node.vmIsLeaf || !iconVisible,
+              [treeClassNames.lineIsLeaf]: node.vmIsLeaf || !iconVisible,
               // 分支首节点，到上一节点的折线高度要缩短，让位给 icon 呈现
               // 如果 icon 隐藏了，则不必缩短折线高度
-              [CLASS_NAMES.lineIsFirst]: node.vmIsFirst && iconVisible,
+              [treeClassNames.lineIsFirst]: node.vmIsFirst && iconVisible,
             },
           )}
-          style={styles as unknown}
+          style={styles}
           onClick={stopPropagation}
         />
       );
@@ -145,8 +147,8 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       labelText = node.label || emptyView;
     }
 
-    const labelClasses = classNames(CLASS_NAMES.treeLabel, CLASS_NAMES.treeLabelStrictly, {
-      [CLASS_NAMES.actived]: node.isActivable() ? node.actived : false,
+    const labelClasses = classNames(treeClassNames.treeLabel, treeClassNames.treeLabelStrictly, {
+      [treeClassNames.actived]: node.isActivable() ? node.actived : false,
     });
 
     if (node.isCheckable()) {
@@ -191,7 +193,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
     if (operationsView) {
       return (
-        <span className={CLASS_NAMES.treeOperations} date-target="operations">
+        <span className={treeClassNames.treeOperations} date-target="operations">
           {operationsView}
         </span>
       );
@@ -199,17 +201,23 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     return null;
   };
 
+  // ？？这里写两个属性，ts 就不会报错了
+  const styles = {
+    '--level': level,
+    boxShadow: '',
+  };
+
   return (
     <div
       ref={ref}
       data-value={node.value}
       data-level={level}
-      className={classNames(CLASS_NAMES.treeNode, {
-        [CLASS_NAMES.treeNodeOpen]: node.expanded,
-        [CLASS_NAMES.actived]: node.isActivable() ? node.actived : false,
-        [CLASS_NAMES.disabled]: node.isDisabled(),
+      className={classNames(treeClassNames.treeNode, {
+        [treeClassNames.treeNodeOpen]: node.expanded,
+        [treeClassNames.actived]: node.isActivable() ? node.actived : false,
+        [treeClassNames.disabled]: node.isDisabled(),
       })}
-      style={{ '--level': level } as any}
+      style={styles}
       onClick={handleClick}
     >
       {renderLine()}
