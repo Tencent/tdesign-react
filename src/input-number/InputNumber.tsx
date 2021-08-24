@@ -187,7 +187,8 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
     <div
       className={classNames(className, inputClassName, commonClassNames.SIZE[size], {
         [commonClassNames.STATUS.disabled]: disabled,
-        't-is-controls-right': theme === 'column',
+        [`${classPrefix}-is-right`]: theme === 'column',
+        [`${inputClassName}--${theme}`]: theme,
       })}
       style={style}
       onBlur={handleBlur}
@@ -200,6 +201,7 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
         <StepHandler
           prefixClassName={inputClassName}
           theme={theme}
+          size={size}
           disabledDecrease={disabledDecrease}
           disabledIncrease={disabledIncrease}
           onStep={onInternalStep}
