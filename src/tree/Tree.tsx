@@ -54,11 +54,9 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
     const expanded = node.setExpanded(isExpanded, { directly: true });
     const treeNodeModel = node?.getModel();
-    // 没有办法创建 react 的事件，暂时先用 window 的 MouseEvent
-    const event = new MouseEvent('expand');
+
     onExpand?.(expanded, {
       node: treeNodeModel,
-      e: event as any,
     });
     return expanded;
   });
