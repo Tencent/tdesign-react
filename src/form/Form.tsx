@@ -137,7 +137,7 @@ const Form = forwardRefWithStatics(
         return { ...acc, [name]: currItem };
       }, {});
       Object.keys(fileds).forEach((key) => {
-        formItemsMap[key].setValue(fileds[key]);
+        formItemsMap[key]?.setValue(fileds[key]);
       });
     }
 
