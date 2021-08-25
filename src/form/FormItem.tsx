@@ -58,34 +58,33 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
 
-  const formItemClass = classNames(
-    className,
-    `${classPrefix}-form__item`,
-    `${classPrefix}-row`,
-    `${classPrefix}-form-item__${name}`,
-  );
-  const formItemLabelClass = classNames(`${classPrefix}-col`, `${classPrefix}-form__label`, {
+  const formItemClass = classNames(className, `${classPrefix}-form__item`);
+  const formItemLabelClass = classNames(`${classPrefix}-form__label`, `${classPrefix}-form-item__${name}`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
-    [`${classPrefix}-form__label--top`]: layout === 'inline',
-    [`${classPrefix}-form__label--${labelAlign}`]: layout !== 'inline',
-    [`${classPrefix}-col-12`]: labelAlign === 'top' && layout !== 'inline',
-    [`${classPrefix}-col-1`]: labelAlign !== 'top' && layout !== 'inline',
+    [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
+    [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
+    [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
   });
 
-  const labelProps = labelWidth === undefined ? {} : { minWidth: `${labelWidth}px` };
-
-  const contentClasses = classNames(`${classPrefix}-form__controls`, `${classPrefix}-col`, {
+  const contentClasses = classNames(`${classPrefix}-form__controls`, {
     [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === VALIDATE_STATUS.SUCCESS,
     [`${classPrefix}-is-warning`]: showErrorMessage && errorList.length && errorList[0].type === 'warning',
     [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
   });
 
+  let labelStyles = {};
+  let contentStyle = {};
+  if (labelWidth && labelAlign !== 'top' && layout !== 'inline') {
+    labelStyles = { width: `${parseInt(String(labelWidth), 10)}px` };
+    contentStyle = { marginLeft: `${parseInt(String(labelWidth), 10)}px` };
+  }
+
   const renderTipsInfo = () => {
     if (!showErrorMessage) return null;
     let helpNode = null;
-    if (help) helpNode = <span className={`${classPrefix}-input__help`}>{help}</span>;
+    if (help) helpNode = <span className={`${classPrefix}-form__help`}>{help}</span>;
 
     const tipInfo = (errorList.length && errorList[0].message) || '';
     if (tipInfo) {
@@ -207,11 +206,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   return (
     <div className={formItemClass} ref={ref}>
       {label && (
-        <div className={formItemLabelClass} style={labelProps}>
+        <div className={formItemLabelClass} style={labelStyles}>
           <label htmlFor={props?.for}>{label}</label>
         </div>
       )}
-      <div className={contentClasses}>
+      <div className={contentClasses} style={contentStyle}>
         <div className={`${classPrefix}-form__controls--content`}>
           {React.Children.map(children, (child, index) => {
             let onChangeFromProps = () => ({});

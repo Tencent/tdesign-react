@@ -43,7 +43,7 @@ export default function BaseForm() {
 
   return (
     <div>
-      <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} rules={rules}>
+      <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} labelWidth={100} rules={rules}>
         <FormItem label="用户名" name="account">
           <Input />
         </FormItem>

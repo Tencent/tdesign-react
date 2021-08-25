@@ -48,9 +48,8 @@ const Form = forwardRefWithStatics(
       onReset,
     } = props;
     const { classPrefix } = useConfig();
-    const formClass = classNames(className, {
+    const formClass = classNames(className, `${classPrefix}-form`, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
-      [`${classPrefix}-form`]: layout !== 'inline',
     });
 
     const formItemsRef = useRef([]);

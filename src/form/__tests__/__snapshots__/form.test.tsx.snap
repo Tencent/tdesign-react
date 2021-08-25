@@ -2,99 +2,85 @@
 
 exports[`align.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="t-radio-group t-radio-group-outline t-radio-group-medium"
+    >
+      <label
+        class="t-radio-button"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+          value="left"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          左对齐
+        </span>
+      </label>
+      <label
+        class="t-radio-button t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+          value="right"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          右对齐
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+          value="top"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          顶部对齐
+        </span>
+      </label>
+    </div>
     <form
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__labelAlign"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
-        >
-          <label>
-            对齐方式
-          </label>
-        </div>
-        <div
-          class="t-form__controls t-col"
-        >
-          <div
-            class="t-form__controls--content"
-          >
-            <div
-              class="t-radio-group t-radio-group-outline t-radio-group-medium"
-            >
-              <label
-                class="t-radio-button"
-              >
-                <input
-                  class="t-radio-button__former"
-                  readonly=""
-                  type="radio"
-                  value="left"
-                />
-                <span
-                  class="t-radio-button__input"
-                />
-                <span
-                  class="t-radio-button__label"
-                >
-                  左对齐
-                </span>
-              </label>
-              <label
-                class="t-radio-button"
-              >
-                <input
-                  class="t-radio-button__former"
-                  readonly=""
-                  type="radio"
-                  value="right"
-                />
-                <span
-                  class="t-radio-button__input"
-                />
-                <span
-                  class="t-radio-button__label"
-                >
-                  右对齐
-                </span>
-              </label>
-              <label
-                class="t-radio-button"
-              >
-                <input
-                  class="t-radio-button__former"
-                  readonly=""
-                  type="radio"
-                  value="top"
-                />
-                <span
-                  class="t-radio-button__input"
-                />
-                <span
-                  class="t-radio-button__label"
-                >
-                  顶部对齐
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-form__item t-row t-form-item__name"
-      >
-        <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__name t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             名字
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -111,17 +97,19 @@ exports[`align.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__password"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__password t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             密码
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -149,17 +137,19 @@ exports[`base.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__name"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--colon t-form__label--right t-col-1"
+          class="t-form__label t-form-item__name t-form__label--colon t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             姓名
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -176,17 +166,19 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__tel"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--colon t-form__label--right t-col-1"
+          class="t-form__label t-form-item__tel t-form__label--colon t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             手机号
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -203,17 +195,19 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__gender"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--colon t-form__label--right t-col-1"
+          class="t-form__label t-form-item__gender t-form__label--colon t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             性别
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -262,17 +256,19 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__course"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--colon t-form__label--right t-col-1"
+          class="t-form__label t-form-item__course t-form__label--colon t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             课程
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -339,10 +335,11 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__status"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--colon t-form__label--right t-col-1"
+          class="t-form__label t-form-item__status t-form__label--colon t-form__label--right"
+          style="width: 100px;"
         >
           <label
             for="status"
@@ -351,7 +348,8 @@ exports[`base.jsx 1`] = `
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -372,10 +370,11 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__undefined"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -419,17 +418,19 @@ exports[`custom-validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__account"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__account t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             用户名
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -446,17 +447,19 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__password"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__password t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             密码
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -473,17 +476,19 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__rePassword"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__rePassword t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             确认密码
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -500,10 +505,11 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__undefined"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -590,20 +596,20 @@ exports[`layout.jsx 1`] = `
       </div>
     </div>
     <form
-      class="t-form-inline"
+      class="t-form t-form-inline"
     >
       <div
-        class="t-form__item t-row t-form-item__name"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--top"
+          class="t-form__label t-form-item__name t-form__label--top"
         >
           <label>
             名字
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
         >
           <div
             class="t-form__controls--content"
@@ -620,17 +626,17 @@ exports[`layout.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__password"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--top"
+          class="t-form__label t-form-item__password t-form__label--top"
         >
           <label>
             密码
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
         >
           <div
             class="t-form__controls--content"
@@ -660,10 +666,10 @@ exports[`login.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__account"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
         >
           <div
             class="t-form__controls--content"
@@ -697,10 +703,10 @@ exports[`login.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__password"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
         >
           <div
             class="t-form__controls--content"
@@ -735,10 +741,10 @@ exports[`login.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__undefined"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
         >
           <div
             class="t-form__controls--content"
@@ -770,17 +776,19 @@ exports[`validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__account"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__account t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             用户名
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -795,24 +803,26 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <span
-            class="t-input__help"
+            class="t-form__help"
           >
             这里请填写用户名
           </span>
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__password"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__password t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             密码
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -827,24 +837,26 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <span
-            class="t-input__help"
+            class="t-form__help"
           >
             这里请填写密码
           </span>
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__email"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__email t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             邮箱
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -861,17 +873,19 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__gender"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__gender t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             性别
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -920,17 +934,19 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__course"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__course t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             课程
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1015,17 +1031,19 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__date"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__date t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             入学时间
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1042,17 +1060,19 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__content.url"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__content.url t-form__label--required t-form__label--right"
+          style="width: 100px;"
         >
           <label>
             个人网站
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1069,10 +1089,11 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__undefined"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1116,17 +1137,19 @@ exports[`validator-status.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-row t-form-item__fail"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__fail t-form__label--required t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             失败
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1141,24 +1164,26 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <span
-            class="t-input__help"
+            class="t-form__help"
           >
             校验不通过，请输入正确内容
           </span>
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__warning"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__warning t-form__label--required t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             警告
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1175,17 +1200,19 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__success"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__success t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             成功
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1202,17 +1229,19 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__failB"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__failB t-form__label--required t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             失败
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1230,17 +1259,19 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__warningB"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--required t-form__label--right t-col-1"
+          class="t-form__label t-form-item__warningB t-form__label--required t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             警告
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1257,17 +1288,19 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__loading"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__loading t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             加载中
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1303,17 +1336,19 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__add"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__add t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             新增
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1346,24 +1381,26 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <span
-            class="t-input__help"
+            class="t-form__help"
           >
             自定义新增icon
           </span>
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__help"
+        class="t-form__item"
       >
         <div
-          class="t-col t-form__label t-form__label--right t-col-1"
+          class="t-form__label t-form-item__help t-form__label--right"
+          style="width: 80px;"
         >
           <label>
             帮助
           </label>
         </div>
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -1396,17 +1433,18 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <span
-            class="t-input__help"
+            class="t-form__help"
           >
             自定义帮助icon
           </span>
         </div>
       </div>
       <div
-        class="t-form__item t-row t-form-item__undefined"
+        class="t-form__item"
       >
         <div
-          class="t-form__controls t-col"
+          class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"

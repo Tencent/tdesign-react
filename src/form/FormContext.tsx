@@ -14,6 +14,7 @@ const FormContext = React.createContext<{
   resetType: TdFormProps['resetType'];
   rules: TdFormProps['rules'];
 }>({
+  labelWidth: undefined,
   labelAlign: 'right',
   layout: 'vertical',
   size: 'medium',

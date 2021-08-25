@@ -34,7 +34,7 @@ export default function BaseForm() {
 
   return (
     <div>
-      <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} rules={rules}>
+      <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} labelWidth={80} rules={rules}>
         <FormItem label="失败" help="校验不通过，请输入正确内容" name="fail">
           <Input />
         </FormItem>
