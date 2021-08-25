@@ -578,7 +578,7 @@ exports[`base.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -590,7 +590,7 @@ exports[`base.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -1359,7 +1359,7 @@ exports[`card.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -1371,7 +1371,7 @@ exports[`card.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -2086,7 +2086,7 @@ exports[`cell.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div>
                   2021-7-24
@@ -2096,7 +2096,7 @@ exports[`cell.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div>
                   2021-7-25
@@ -2806,7 +2806,7 @@ exports[`cell-append.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -2818,7 +2818,7 @@ exports[`cell-append.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -3599,7 +3599,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -3611,7 +3611,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell"
+                    class="t-calendar__table-body-cell t-is-checked"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4567,7 +4567,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4579,7 +4579,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell"
+                    class="t-calendar__table-body-cell t-is-checked"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -5335,7 +5335,7 @@ exports[`event-props-api.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -5347,7 +5347,7 @@ exports[`event-props-api.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6119,7 +6119,7 @@ exports[`filter.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6131,7 +6131,7 @@ exports[`filter.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6876,7 +6876,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6892,7 +6892,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell"
+                class="t-calendar__table-body-cell t-is-checked"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7566,7 +7566,7 @@ exports[`head-props-api.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -7578,7 +7578,7 @@ exports[`head-props-api.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -8636,7 +8636,7 @@ exports[`range.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -8648,7 +8648,7 @@ exports[`range.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -10140,7 +10140,7 @@ exports[`week.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -10152,7 +10152,7 @@ exports[`week.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell"
+              class="t-calendar__table-body-cell t-is-checked"
             >
               <div
                 class="t-calendar__table-body-cell-value"
