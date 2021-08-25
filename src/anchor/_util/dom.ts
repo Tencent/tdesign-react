@@ -12,18 +12,6 @@ export function getOffsetTop(target: HTMLElement, container: ANCHOR_CONTAINER) {
   return top - (container as HTMLElement).getBoundingClientRect().top;
 }
 
-export const getAttach = (attach: Function | string) => {
-  let r: any;
-  if (typeof attach === 'string') {
-    r = attach ? document.querySelector(attach) : window;
-  } else if (typeof attach === 'function') {
-    r = attach();
-  } else {
-    console.error('TDesign Error: attach type must a string or function.');
-  }
-  return r;
-};
-
 /**
  * 返回是否window对象
  *

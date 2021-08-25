@@ -62,8 +62,9 @@ export const removeClass = function (el: Element, cls: string) {
  * @returns {ScrollContainer}
  */
 export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollContainerElement => {
+  console.log('container', container);
   if (isString(container)) {
-    return document.querySelector(container) as HTMLElement;
+    return container ? (document.querySelector(container) as HTMLElement) : window;
   }
   if (typeof container === 'function') {
     return container();

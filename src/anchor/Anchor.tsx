@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
+import { isEmpty } from 'lodash';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
+import { getScrollContainer } from '../_util/dom';
+import Affix from '../affix';
 import { AnchorContext, Item } from './AnchorContext';
-import { getOffsetTop, getAttach, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
+import { getOffsetTop, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 
@@ -28,7 +31,7 @@ const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
 const Anchor = (props: AnchorProps) => {
   const {
-    affix = false,
+    affixProps,
     bounds = 5,
     targetOffset = 0,
     container = '',
@@ -65,11 +68,7 @@ const Anchor = (props: AnchorProps) => {
     intervalRef.current.items = items.filter((item) => href !== item);
   };
 
-  const getAnchorTarget = (href: string): HTMLElement => {
-    const matcher = href.match(ANCHOR_SHARP_REGEXP);
-    if (!matcher) return;
-    return document.getElementById(matcher[1]);
-  };
+  const getAnchorTarget = (href: string): HTMLElement => document.querySelector(href);
 
   const handleScrollTo = (link: string) => {
     const anchor = getAnchorTarget(link);
@@ -136,7 +135,7 @@ const Anchor = (props: AnchorProps) => {
   }, [bounds, onChange, targetOffset]);
 
   useEffect(() => {
-    intervalRef.current.scrollContainer = getAttach(container);
+    intervalRef.current.scrollContainer = getScrollContainer(container);
     const { scrollContainer } = intervalRef.current;
 
     handleScroll();
@@ -147,13 +146,12 @@ const Anchor = (props: AnchorProps) => {
   }, [container, handleScroll]);
 
   const anchorClass = classNames(`${classPrefix}-anchor`, {
-    [`${classPrefix}--affix`]: affix,
     [`${classPrefix}-size-s`]: size === 'small',
     [`${classPrefix}-size-m`]: size === 'medium',
     [`${classPrefix}-size-l`]: size === 'large',
   });
 
-  return (
+  const Cmp = (
     <AnchorContext.Provider
       value={{
         onClick: handleClick,
@@ -170,6 +168,8 @@ const Anchor = (props: AnchorProps) => {
       </div>
     </AnchorContext.Provider>
   );
+
+  return isEmpty(affixProps) ? Cmp : <Affix {...affixProps}>{Cmp}</Affix>;
 };
 
 Anchor.AnchorItem = AnchorItem;
