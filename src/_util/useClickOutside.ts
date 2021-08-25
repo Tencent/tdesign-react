@@ -1,29 +1,23 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect } from 'react';
 
 export default function useClickOutside<T extends HTMLElement>(
   ref: MutableRefObject<T>,
   handler: (event: MouseEvent | TouchEvent) => void,
 ) {
-  // 用 ref 存起来，防止无限刷新
-  const handlerRef = useRef(handler);
   useEffect(() => {
-    handlerRef.current = handler;
-  }, [handler]);
-
-  useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      // 如果点击了目标 dom 树的任意一个节点，不算做 outside
-      if (!ref.current || ref.current.contains(event.target as any)) {
+    const listener = (event) => {
+      // Do nothing if clicking ref's element or descendent elements
+      if (!ref.current || ref.current.contains(event.target)) {
         return;
       }
-
-      handlerRef.current(event);
+      handler(event);
     };
-
-    document.addEventListener('click', listener);
-
+    // todo: pointerdown， jsdom 暂未实现 pointer 事件，后续加上后可以改进.
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
     return () => {
-      document.removeEventListener('click', listener);
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
     };
-  }, [ref, handlerRef]);
+  }, [ref, handler]);
 }
