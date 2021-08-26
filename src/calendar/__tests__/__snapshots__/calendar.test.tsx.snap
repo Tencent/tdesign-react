@@ -578,7 +578,7 @@ exports[`base.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -1359,7 +1359,7 @@ exports[`card.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -2086,7 +2086,7 @@ exports[`cell.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div>
                   2021-7-24
@@ -2806,7 +2806,7 @@ exports[`cell-append.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked"
+              class="t-calendar__table-body-cell"
             >
               <div
                 class="t-calendar__table-body-cell-value"
@@ -3599,7 +3599,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -4567,7 +4567,7 @@ exports[`controller-config.jsx 1`] = `
                     />
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked"
+                    class="t-calendar__table-body-cell"
                   >
                     <div
                       class="t-calendar__table-body-cell-value"
@@ -5209,32 +5209,6 @@ exports[`event-props-api.jsx 1`] = `
               <td
                 class="t-calendar__table-body-cell"
               >
-<<<<<<< HEAD
-                22
-              </div>
-              <div
-                class="t-calendar__table-body-cell-content"
-              />
-            </td>
-          </tr>
-          <tr
-            class="t-calendar__table-body-row"
-          >
-            <td
-              class="t-calendar__table-body-cell"
-            >
-              <div
-                class="t-calendar__table-body-cell-value"
-              >
-                23
-              </div>
-              <div
-                class="t-calendar__table-body-cell-content"
-              />
-            </td>
-            <td
-              class="t-calendar__table-body-cell t-is-checked"
-=======
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
@@ -5259,7 +5233,6 @@ exports[`event-props-api.jsx 1`] = `
             </tr>
             <tr
               class="t-calendar__table-body-row"
->>>>>>> 1a1ccaf81b8a889f5957fc97ec4de99913291f68
             >
               <td
                 class="t-calendar__table-body-cell"
@@ -6146,7 +6119,7 @@ exports[`filter.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -6903,7 +6876,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked"
+                class="t-calendar__table-body-cell"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7598,67 +7571,6 @@ exports[`head-props-api.jsx 1`] = `
               <div
                 class="t-calendar__table-body-cell-value"
               >
-<<<<<<< HEAD
-                <div
-                  class="t-calendar__table-body-cell-value"
-                >
-                  19
-                </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
-              </td>
-              <td
-                class="t-calendar__table-body-cell"
-              >
-                <div
-                  class="t-calendar__table-body-cell-value"
-                >
-                  20
-                </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
-              </td>
-              <td
-                class="t-calendar__table-body-cell"
-              >
-                <div
-                  class="t-calendar__table-body-cell-value"
-                >
-                  21
-                </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
-              </td>
-              <td
-                class="t-calendar__table-body-cell"
-              >
-                <div
-                  class="t-calendar__table-body-cell-value"
-                >
-                  22
-                </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
-              </td>
-              <td
-                class="t-calendar__table-body-cell"
-              >
-                <div
-                  class="t-calendar__table-body-cell-value"
-                >
-                  23
-                </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
-              </td>
-              <td
-                class="t-calendar__table-body-cell t-is-checked"
-=======
                 24
               </div>
               <div
@@ -7682,7 +7594,6 @@ exports[`head-props-api.jsx 1`] = `
             >
               <div
                 class="t-calendar__table-body-cell-value"
->>>>>>> 1a1ccaf81b8a889f5957fc97ec4de99913291f68
               >
                 26
               </div>

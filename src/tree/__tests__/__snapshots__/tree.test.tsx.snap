@@ -12,18 +12,19 @@ exports[`activable.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               节点可高亮
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -44,18 +45,19 @@ exports[`activable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               节点可多选高亮
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -76,18 +78,19 @@ exports[`activable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               整个节点可点击
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -144,17 +147,17 @@ exports[`checkable.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
+            class="t-form__label t-form-item__undefined t-form__label--top"
           >
             <label>
               可选
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
           >
             <div
               class="t-form__controls--content"
@@ -175,17 +178,17 @@ exports[`checkable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
+            class="t-form__label t-form-item__undefined t-form__label--top"
           >
             <label>
               严格模式
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
           >
             <div
               class="t-form__controls--content"
@@ -206,17 +209,17 @@ exports[`checkable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__valueMode"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
+            class="t-form__label t-form-item__valueMode t-form__label--top"
           >
             <label>
               选中值模式
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
           >
             <div
               class="t-form__controls--content"
@@ -371,18 +374,19 @@ exports[`disabled.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               是否禁用
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -454,18 +458,19 @@ exports[`expand-all.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 150px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 150px;"
           >
             <label>
               切换数据
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 150px;"
           >
             <div
               class="t-form__controls--content"
@@ -486,18 +491,19 @@ exports[`expand-all.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 150px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 150px;"
           >
             <label>
               提供 hover 状态
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 150px;"
           >
             <div
               class="t-form__controls--content"
@@ -518,18 +524,19 @@ exports[`expand-all.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 150px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 150px;"
           >
             <label>
               展开动画
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 150px;"
           >
             <div
               class="t-form__controls--content"
@@ -586,18 +593,19 @@ exports[`expand-mutex.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               互斥展开
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -618,18 +626,19 @@ exports[`expand-mutex.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 120px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 120px;"
           >
             <label>
               整个节点可点击
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 120px;"
           >
             <div
               class="t-form__controls--content"
@@ -756,17 +765,17 @@ exports[`line.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
+            class="t-form__label t-form-item__undefined t-form__label--top"
           >
             <label>
               显示连线
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
           >
             <div
               class="t-form__controls--content"
@@ -787,17 +796,17 @@ exports[`line.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
+            class="t-form__label t-form-item__undefined t-form__label--top"
           >
             <label>
               显示图标
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
           >
             <div
               class="t-form__controls--content"
@@ -877,18 +886,19 @@ exports[`operations.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 200px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 200px;"
           >
             <label>
               插入节点使用高亮节点
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 200px;"
           >
             <div
               class="t-form__controls--content"
@@ -909,18 +919,19 @@ exports[`operations.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-row t-form-item__undefined"
+          class="t-form__item"
         >
           <div
-            class="t-col t-form__label t-form__label--right t-col-1"
-            style="min-width: 200px;"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: 200px;"
           >
             <label>
               子节点展开触发父节点展开
             </label>
           </div>
           <div
-            class="t-form__controls t-col"
+            class="t-form__controls"
+            style="margin-left: 200px;"
           >
             <div
               class="t-form__controls--content"

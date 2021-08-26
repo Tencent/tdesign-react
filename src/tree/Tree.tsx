@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useRef, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
@@ -20,7 +20,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-
+  const transitionRef = useRef(null);
   const {
     empty,
     // defaultExpanded,
@@ -197,7 +197,13 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     return (
       <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
         {visibleNodes.map((node) => (
-          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+          // https://github.com/reactjs/react-transition-group/issues/668
+          <CSSTransition
+            key={node.value}
+            timeout={transitionDuration}
+            classNames={transitionClassNames}
+            nodeRef={transitionRef}
+          >
             <TreeItem
               node={node}
               empty={empty}
