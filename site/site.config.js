@@ -229,6 +229,13 @@ export default {
           path: '/react/components/tooltip',
           component: () => import('@tencent/tdesign-react/tooltip/README.md'),
         },
+        {
+          title: 'Tree 树',
+          name: 'tree',
+          docType: 'data',
+          path: '/react/components/tree',
+          component: () => import('@tencent/tdesign-react/tree/README.md'),
+        },
       ],
     },
     {
