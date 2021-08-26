@@ -1,6 +1,7 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
+import useRipple from '../_util/useRipple';
 import { TdMenuItemProps } from '../_type/components/menu';
 import { StyledProps } from '../_type';
 import { MenuContext } from './MenuContext';
@@ -21,6 +22,10 @@ const MenuItem: FC<MenuItemProps> = (props) => {
     onClick,
   } = props;
   const { classPrefix } = useConfig();
+  // 斜八角动画
+  const menuItemRef = useRef();
+  useRipple(menuItemRef);
+
   const { onChange, setState, active } = useContext(MenuContext);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -34,6 +39,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
 
   return (
     <li
+      ref={menuItemRef}
       className={classNames(className, `${classPrefix}-menu__item`, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-active`]: value === active,

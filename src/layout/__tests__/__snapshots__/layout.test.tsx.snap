@@ -31,6 +31,7 @@ exports[`aside.jsx 1`] = `
           >
             <li
               class="t-menu__item t-menu__item--plain"
+              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -40,6 +41,7 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
+              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -49,6 +51,7 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
+              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -58,6 +61,7 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
+              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -67,6 +71,7 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
+              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -297,6 +302,7 @@ exports[`combine.jsx 1`] = `
             >
               <li
                 class="t-menu__item t-menu__item--plain"
+                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -306,6 +312,7 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
+                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -315,6 +322,7 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
+                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -324,6 +332,7 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
+                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -333,6 +342,7 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
+                style="position: relative;"
               >
                 <span
                   class="t-menu__content"

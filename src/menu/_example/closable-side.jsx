@@ -24,7 +24,7 @@ function ClosableSide() {
       expandMutex={false}
       onChange={(v) => setActive(v)}
       operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
-      logo={'LOGO'}
+      logo={<span>LOGO</span>}
     >
       <MenuItem value="0" icon={<AppIcon />}>
         仪表盘

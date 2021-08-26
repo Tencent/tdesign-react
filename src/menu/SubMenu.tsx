@@ -1,9 +1,10 @@
-import React, { FC, useContext, useState, ReactElement, useMemo } from 'react';
+import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdSubmenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
 import { MenuContext } from '../menu/MenuContext';
+import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 
@@ -18,6 +19,7 @@ export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 const SubAccordion: FC<SubMenuProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style } = props;
   const { classPrefix } = useConfig();
+
   // popup 状态下控制开关
   const [open, setOpen] = useState(false);
   const { expanded = [], onExpand, active, expandType } = useContext(MenuContext);
@@ -116,6 +118,10 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
 
   const handleClick = () => onChange(value);
 
+  // 斜八角动画
+  const subMenuRef = useRef();
+  useRipple(subMenuRef);
+
   // pupup 导航
   const isPopUp = expandType === 'popup';
   // 当前二级导航激活
@@ -136,6 +142,7 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
       onMouseLeave={() => handleMouseEvent('leave')}
     >
       <div
+        ref={subMenuRef}
         className={classNames(className, `${classPrefix}-menu__item`, {
           [`${classPrefix}-is-active`]: isActive,
           [`${classPrefix}-is-opened`]: open,
