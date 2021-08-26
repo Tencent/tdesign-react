@@ -3,24 +3,22 @@ import { Radio } from '@tencent/tdesign-react';
 
 export default function RadioControlledExample() {
   return (
-    <>
-      <div>
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-column">
         <h5>普通单选按钮</h5>
-        <Radio.Group size="large" defaultValue="gz">
+        <Radio.Group defaultValue="gz">
           <Radio value="bj">选项一</Radio>
           <Radio value="sh">选项二</Radio>
           <Radio value="gz">选项三</Radio>
           <Radio value="sz">选项四</Radio>
         </Radio.Group>
       </div>
-      <div style={{ margin: '16px 0' }}>
+      <div className="tdesign-demo-block-column">
         <h5>边框型单选按钮</h5>
-        <Radio.Group size="large" defaultValue="1">
+        <Radio.Group defaultValue="1">
           <Radio.Button value="1">选项一</Radio.Button>
           <Radio.Button value="2">选项二</Radio.Button>
           <Radio.Button value="3">选项三</Radio.Button>
-        </Radio.Group>
-        <Radio.Group size="large" defaultValue="1">
           <Radio.Button value="1" disabled>
             选中禁用态
           </Radio.Button>
@@ -29,22 +27,31 @@ export default function RadioControlledExample() {
           </Radio.Button>
         </Radio.Group>
       </div>
-      <div>
+      <div className="tdesign-demo-block-column">
         <h5>填充型单选按钮</h5>
-        <Radio.Group size="large" buttonStyle="solid" defaultValue="gz">
-          <Radio.Button value="bj">选项一</Radio.Button>
-          <Radio.Button value="gz">选项二</Radio.Button>
-          <Radio.Button value="sz">选项三</Radio.Button>
-        </Radio.Group>
-        <Radio.Group size="large" buttonStyle="solid" defaultValue="bj">
-          <Radio.Button value="bj" disabled>
-            选中禁用态
-          </Radio.Button>
-          <Radio.Button value="gz" disabled>
-            未选中禁用态
-          </Radio.Button>
-        </Radio.Group>
+        <div>
+          <Radio.Group buttonStyle="solid" defaultValue="gz">
+            <Radio.Button value="bj">选项一</Radio.Button>
+            <Radio.Button value="gz">选项二</Radio.Button>
+            <Radio.Button value="sz">选项三</Radio.Button>
+            <Radio.Button value="fj">选项四</Radio.Button>
+            <Radio.Button value="cd">选项五</Radio.Button>
+          </Radio.Group>
+        </div>
+        <div>
+          <Radio.Group buttonStyle="solid" defaultValue="bj">
+            <Radio.Button value="fj" disabled>选项一</Radio.Button>
+            <Radio.Button value="cd" disabled>选项二</Radio.Button>
+            <Radio.Button value="sz" disabled>选项三</Radio.Button>
+            <Radio.Button value="bj" disabled>
+              选中禁用态
+            </Radio.Button>
+            <Radio.Button value="gz" disabled>
+              未选中禁用态
+            </Radio.Button>
+          </Radio.Group>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

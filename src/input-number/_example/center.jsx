@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InputNumber } from '@tencent/tdesign-react';
 
 export default function InputNumberExample() {
-  const [value, setValue] = useState(18.0);
+  const [value, setValue] = useState(1);
 
   return (
     <InputNumber

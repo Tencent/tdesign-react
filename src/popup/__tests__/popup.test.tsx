@@ -76,7 +76,7 @@ describe('Popup 组件测试', () => {
 
     // 点击浮层
     act(() => {
-      fireEvent.click(queryByTestId(popupTestId));
+      fireEvent.mouseDown(queryByTestId(popupTestId));
       jest.runAllTimers();
     });
 
@@ -88,7 +88,7 @@ describe('Popup 组件测试', () => {
 
     // 模拟鼠标点击其他地方
     act(() => {
-      fireEvent.click(document);
+      fireEvent.mouseDown(document);
       jest.runAllTimers();
     });
 
@@ -166,7 +166,7 @@ describe('Popup 组件测试', () => {
 
     // 模拟鼠标点击其他地方
     act(() => {
-      fireEvent.click(document);
+      fireEvent.mouseDown(document);
       jest.runAllTimers();
     });
 
@@ -253,7 +253,7 @@ describe('Popup 组件测试', () => {
 
       return (
         <>
-          <Popup destroyOnClose trigger="manual" visible={visible} content={$content}>
+          <Popup destroyOnClose visible={visible} content={$content}>
             <button data-testid={testShowButton} onClick={() => setVisible(true)}>
               显示
             </button>

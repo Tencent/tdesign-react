@@ -9,6 +9,7 @@ export default function InputNumberExample() {
       max={15}
       min={-12}
       step={1.2}
+      style={{ width: 150 }}
       format={(value) => value + '%'}
       value={value}
       onChange={(value) => {

@@ -6,6 +6,7 @@ import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
 import RemoveIcon from '../icon/icons/RemoveIcon';
 import AddIcon from '../icon/icons/AddIcon';
 import useCommonClassName from '../_util/useCommonClassName';
+import Button from '../button';
 
 import { StepHandlerProps } from './InputNumberProps';
 
@@ -21,22 +22,22 @@ export default function StepHandler(props: StepHandlerProps) {
 
   return (
     <>
-      <span
+      <Button
+        variant="outline"
         className={classNames(`${prefixClassName}__decrease`, {
           [commonClassNames.STATUS.disabled]: disabledDecrease,
         })}
         onClick={onStepDecrease}
-      >
-        <DecreaseIcon />
-      </span>
-      <span
+        icon={<DecreaseIcon />}
+      ></Button>
+      <Button
+        variant="outline"
         className={classNames(`${prefixClassName}__increase`, {
           [commonClassNames.STATUS.disabled]: disabledIncrease,
         })}
         onClick={onStepIncrease}
-      >
-        <IncreaseIcon />
-      </span>
+        icon={<IncreaseIcon />}
+      ></Button>
     </>
   );
 }

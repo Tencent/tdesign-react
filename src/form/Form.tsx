@@ -48,9 +48,8 @@ const Form = forwardRefWithStatics(
       onReset,
     } = props;
     const { classPrefix } = useConfig();
-    const formClass = classNames(className, {
+    const formClass = classNames(className, `${classPrefix}-form`, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
-      [`${classPrefix}-form`]: layout !== 'inline',
     });
 
     const formItemsRef = useRef([]);
@@ -137,7 +136,7 @@ const Form = forwardRefWithStatics(
         return { ...acc, [name]: currItem };
       }, {});
       Object.keys(fileds).forEach((key) => {
-        formItemsMap[key].setValue(fileds[key]);
+        formItemsMap[key]?.setValue(fileds[key]);
       });
     }
 

@@ -18,7 +18,7 @@ export default function BaseForm() {
 
   return (
     <div>
-      <Form layout="vertical" onSubmit={onSubmit} onReset={onReset} colon>
+      <Form labelWidth={100} onSubmit={onSubmit} onReset={onReset} colon>
         <FormItem label="姓名" name="name">
           <Input />
         </FormItem>

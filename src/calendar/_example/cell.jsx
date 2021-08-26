@@ -34,7 +34,8 @@ export default function CalendarExample() {
       <Calendar
         theme={theme}
         defaultValue={defaultValue}
-        cell={(date) => {
+        cell={(cellData) => {
+          const { date } = cellData;
           if (theme === 'card') {
             const isCurrent = getDateStr(date) === getDateStr(defaultValue);
             const disabled = date.getMonth() !== defaultValue.getMonth();

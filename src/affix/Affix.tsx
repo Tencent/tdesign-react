@@ -1,5 +1,6 @@
 import React, { Component, createRef } from 'react';
 import isFunction from 'lodash/isFunction';
+import isEqual from 'lodash/isEqual';
 import { StyledProps } from '../_type';
 import { ScrollContainerElement } from '../_type/common';
 import { TdAffixProps } from '../_type/components/affix';
@@ -67,6 +68,9 @@ class Affix extends Component<AffixProps> {
   };
 
   calcInitValue = () => {
+    const { container } = this.props;
+    this.scrollContainer = getScrollContainer(container);
+    if (!this.scrollContainer) return;
     // 获取当前可视的高度
     let containerHeight = 0;
     if (this.scrollContainer instanceof Window) {
@@ -86,9 +90,6 @@ class Affix extends Component<AffixProps> {
   componentDidMount() {
     // 防止渲染未完成
     setTimeout(() => {
-      const { container } = this.props;
-      this.scrollContainer = getScrollContainer(container);
-      if (!this.scrollContainer) return;
       this.calcInitValue();
       this.scrollContainer.addEventListener('scroll', this.handleScroll);
       window.addEventListener('resize', this.handleScroll);
@@ -99,6 +100,12 @@ class Affix extends Component<AffixProps> {
     if (!this.scrollContainer) return;
     this.scrollContainer.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleScroll);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps, this.props)) {
+      this.calcInitValue();
+    }
   }
 
   render() {

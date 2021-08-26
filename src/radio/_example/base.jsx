@@ -3,7 +3,7 @@ import { Radio } from '@tencent/tdesign-react';
 
 export default function RadioControlledExample() {
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Radio checked={false}>未选中</Radio>
       <Radio checked>已选中</Radio>
       <Radio checked={false} disabled>
@@ -12,6 +12,6 @@ export default function RadioControlledExample() {
       <Radio checked={true} disabled>
         禁用已选中
       </Radio>
-    </>
+    </div>
   );
 }

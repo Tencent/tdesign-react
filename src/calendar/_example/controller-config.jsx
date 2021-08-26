@@ -96,7 +96,7 @@ export default function CalendarExample() {
                 selectProps: {
                   disabled: yearDisabled,
                   style: { minWidth: '110px' },
-                  prefixIcon: () => <Icon name="discount_fill" />,
+                  prefixIcon: <Icon name="chart-bar" />,
                 },
               },
               month: {
@@ -104,10 +104,10 @@ export default function CalendarExample() {
                 selectProps: {
                   disabled: monthDisabled,
                   style: { minWidth: '90px' },
-                  prefixIcon: () => <Icon name="discount" />,
+                  prefixIcon: <Icon name="discount" />,
                 },
               },
-              weekendToggle: {
+              weekend: {
                 visible: weekendToggleVisible,
                 showWeekendButtonProps: { disabled: weekendShowButtonDisabled, theme: 'primary', icon: 'browse' },
                 hideWeekendButtonProps: { disabled: weekendHideButtonDisabled, theme: 'warning', icon: 'browse-off' },

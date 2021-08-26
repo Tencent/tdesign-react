@@ -22,7 +22,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     color = '',
     trackColor = '#f5f5f5',
     strokeWidth,
-    size = 'middle',
+    size = 'medium',
     className,
   } = props;
   let { status } = props;
@@ -77,7 +77,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
         case 'small':
           diameter = 72;
           break;
-        case 'middle':
+        case 'medium':
           diameter = 112;
           break;
         case 'large':

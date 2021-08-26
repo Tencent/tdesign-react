@@ -5,7 +5,7 @@ export default function CheckboxControlledExample() {
   const [checked, setChecked] = useState(false);
   return (
     <>
-      <div class="tdesign-demo-block-row">
+      <div className="tdesign-demo-block-row">
         <Checkbox checked={checked}>腾讯云A</Checkbox>
         <Checkbox checked={checked}>腾讯云B</Checkbox>
         <Checkbox checked={checked}>腾讯云C</Checkbox>

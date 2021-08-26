@@ -2,5 +2,6 @@ import React from 'react';
 import { Calendar } from '@tencent/tdesign-react';
 
 export default function CalendarExample() {
-  return <Calendar defaultValue={new Date(1998, 10, 11)} />;
+  const value = '1998-11-11'; // new Date(1998, 10, 11)
+  return <Calendar value={value} />;
 }
