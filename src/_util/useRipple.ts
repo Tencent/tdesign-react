@@ -60,7 +60,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       const el = ref?.current;
       const rippleColor = getRippleColor(el, fixedRippleColor);
 
-      if (e.button !== 0) return;
+      if (e.button !== 0 || !el) return;
 
       if (
         el.classList.contains(`${classPrefix}-is-active`) ||
