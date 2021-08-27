@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from '@tencent/tdesign-react';
 
-const exampleList = Array(5)
+const exampleList = Array(30)
   .fill(1)
   .map((_, i) => ({
     index: i,
@@ -18,6 +18,7 @@ export default function TableFixedColumn() {
     <Table
       bordered
       data={exampleList}
+      maxHeight={200}
       columns={[
         {
           fixed: 'left',
