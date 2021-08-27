@@ -127,6 +127,9 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
   // 重置一些属性 为动画做准备 reset the node which uses the ripple animation
   const initRippleElement = useCallback(() => {
     const el = ref?.current;
+
+    if (!el) return;
+
     const initPosition = el.style?.position || getComputedStyle(el).position;
     if (['', 'static'].includes(initPosition)) {
       el.style.position = 'relative';
