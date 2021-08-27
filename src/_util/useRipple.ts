@@ -44,6 +44,8 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
     const el = ref?.current;
     ripple.style.backgroundColor = noneRippleBg;
 
+    if (!el) return;
+
     el.removeEventListener('pointerup', handleClearRipple, false);
     el.removeEventListener('pointerleave', handleClearRipple, false);
 
