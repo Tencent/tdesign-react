@@ -173,6 +173,13 @@ export default {
           path: '/react/components/switch',
           component: () => import('@tencent/tdesign-react/switch/README.md'),
         },
+        {
+          title: 'Upload 上传',
+          name: 'upload',
+          docType: 'form',
+          path: '/react/components/upload',
+          component: () => import('@tencent/tdesign-react/upload/README.md'),
+        },
       ],
     },
     {
