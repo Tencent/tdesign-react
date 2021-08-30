@@ -36,6 +36,7 @@ const Tag = forwardRefWithStatics(
       onClose = noop,
       className,
       style,
+      disabled,
       children,
       ...otherTagProps
     } = props;
@@ -56,6 +57,7 @@ const Tag = forwardRefWithStatics(
       `${tagClassPrefix}--${shape}`,
       {
         [`${tagClassPrefix}--ellipsis`]: !!maxWidth,
+        [`${tagClassPrefix}--disabled`]: disabled,
       },
       sizeMap[size],
       className,

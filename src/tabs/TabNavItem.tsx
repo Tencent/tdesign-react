@@ -1,6 +1,6 @@
 import React, { MouseEvent, useRef } from 'react';
 import classNames from 'classnames';
-import useRipple from '@tencent/tdesign-react/_util/useRipple';
+import useRipple from '../_util/useRipple';
 import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTabPanelProps, TdTabsProps } from '../_type/components/tabs';
 import noop from '../_util/noop';

@@ -8,13 +8,13 @@ export default function CheckTagExample() {
 
   return (
     <>
-      <CheckTag style={{ marginRight: 5 }} defaultChecked={true}>
+      <CheckTag style={{ marginRight: 30 }} defaultChecked={true}>
         选中
       </CheckTag>
-      <CheckTag style={{ marginRight: 5 }} checked={checked} onChange={onChange}>
+      <CheckTag style={{ marginRight: 30 }} checked={checked} onChange={onChange}>
         未选
       </CheckTag>
-      <CheckTag style={{ marginRight: 5 }} disabled={true}>
+      <CheckTag style={{ marginRight: 30 }} disabled={true}>
         Disabled
       </CheckTag>
     </>

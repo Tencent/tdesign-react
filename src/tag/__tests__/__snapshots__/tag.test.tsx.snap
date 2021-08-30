@@ -2,11 +2,16 @@
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    style="width: 285px; display: flex; justify-content: space-around;"
+  >
+    <span>
+      默认：
+    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
-      默认
+      标签一
     </span>
     <a
       href="https://www.tencent.com/zh-cn"
@@ -20,6 +25,87 @@ exports[`base.jsx 1`] = `
       </span>
     </a>
   </div>
+  <div
+    style="width: 500px; display: flex; justify-content: space-around;"
+  >
+    <span>
+      深色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签二
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签三
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签四
+    </span>
+  </div>
+  <div
+    style="width: 500px; display: flex; justify-content: space-around;"
+  >
+    <span>
+      浅色：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+    >
+      标签二
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+    >
+      标签三
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+    >
+      标签四
+    </span>
+  </div>
+  <div
+    style="width: 500px; display: flex; justify-content: space-around;"
+  >
+    <span>
+      朴素：
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+    >
+      标签二
+    </span>
+    <span
+      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+    >
+      标签三
+    </span>
+    <span
+      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+    >
+      标签四
+    </span>
+  </div>
 </DocumentFragment>
 `;
 
@@ -29,12 +115,13 @@ exports[`delete.jsx 1`] = `
     style="display: flex;"
   >
     <span
-      style="margin-right: 10px;"
+      style="margin-right: 30px;"
     >
-      可删除
+      可删除：
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 30px;"
     >
       可删除标签0
       <svg
@@ -50,6 +137,7 @@ exports[`delete.jsx 1`] = `
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      style="margin-right: 30px;"
     >
       <svg
         class="t-icon t-icon-discount"
@@ -76,7 +164,8 @@ exports[`delete.jsx 1`] = `
       </svg>
     </span>
     <span
-      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--disabled"
+      style="margin-right: 30px;"
     >
       可删除标签2
       <svg
@@ -91,23 +180,30 @@ exports[`delete.jsx 1`] = `
       </svg>
     </span>
   </div>
-</DocumentFragment>
-`;
-
-exports[`disabled.jsx 1`] = `
-<DocumentFragment>
-  <span
-    class="t-tag t-tag--default t-tag--check"
-    style="margin-right: 5px;"
+  <div
+    style="display: flex; cursor: pointer;"
   >
-    有效标签
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--check t-tag--disabled"
-    style="margin-right: 5px;"
-  >
-    无效标签
-  </span>
+    <span
+      style="margin-right: 30px;"
+    >
+      可添加：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      <svg
+        class="t-icon t-icon-add"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+        />
+      </svg>
+      可添加标签
+    </span>
+  </div>
 </DocumentFragment>
 `;
 
@@ -148,19 +244,19 @@ exports[`selectable.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--check t-tag--checked"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     选中
   </span>
   <span
     class="t-tag t-tag--default t-tag--check"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     未选
   </span>
   <span
     class="t-tag t-tag--default t-tag--check t-tag--disabled"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     Disabled
   </span>
@@ -169,24 +265,58 @@ exports[`selectable.jsx 1`] = `
 
 exports[`shape.jsx 1`] = `
 <DocumentFragment>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
-    style="margin-right: 5px;"
+  <div
+    style="width: 300px; display: flex; justify-content: space-around;"
   >
-    mark
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--round"
-    style="margin-right: 5px;"
+    <span>
+      正常：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+    >
+      标签一
+    </span>
+  </div>
+  <div
+    style="width: 300px; display: flex; justify-content: space-around;"
   >
-    round
-  </span>
-  <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-    style="margin-right: 5px;"
+    <span>
+      圆角：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--round"
+      style="margin-right: 5px;"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--round"
+    >
+      标签一
+    </span>
+  </div>
+  <div
+    style="width: 300px; display: flex; justify-content: space-around;"
   >
-    square
-  </span>
+    <span>
+      标记：
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
+    >
+      标签一
+    </span>
+    <span
+      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--mark"
+    >
+      标签一
+    </span>
+  </div>
 </DocumentFragment>
 `;
 
@@ -194,111 +324,21 @@ exports[`size.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     小型标签
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     默认标签
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
-    style="margin-right: 5px;"
+    style="margin-right: 30px;"
   >
     大型标签
   </span>
-</DocumentFragment>
-`;
-
-exports[`theme.jsx 1`] = `
-<DocumentFragment>
-  <div>
-    <span>
-      默认：
-    </span>
-    <span
-      class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-    >
-      default
-    </span>
-  </div>
-  <div>
-    <span>
-      深色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      浅色：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
-  <div>
-    <span>
-      朴素：
-    </span>
-    <span
-      class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
-    >
-      primary
-    </span>
-    <span
-      class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
-    >
-      warning
-    </span>
-    <span
-      class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
-    >
-      danger
-    </span>
-    <span
-      class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
-    >
-      success
-    </span>
-  </div>
 </DocumentFragment>
 `;
