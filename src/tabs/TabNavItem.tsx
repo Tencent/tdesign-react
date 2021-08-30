@@ -1,5 +1,6 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useRef } from 'react';
 import classNames from 'classnames';
+import useRipple from '@tencent/tdesign-react/_util/useRipple';
 import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTabPanelProps, TdTabsProps } from '../_type/components/tabs';
 import noop from '../_util/noop';
@@ -38,6 +39,9 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
   // 样式变量和常量定义
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
 
+  const rippleRef = useRef();
+  useRipple(rippleRef);
+
   return (
     <div
       onClick={disabled ? noop : onClick}
@@ -54,7 +58,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
       {isCard ? (
         <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
       ) : (
-        <div className={classNames(tdTabsClassGenerator('nav-item-wrapper'))}>
+        <div ref={rippleRef} className={classNames(tdTabsClassGenerator('nav-item-wrapper'))}>
           <span className={classNames(tdTabsClassGenerator('nav-item-text-wrapper'))}>{label}</span>
         </div>
       )}

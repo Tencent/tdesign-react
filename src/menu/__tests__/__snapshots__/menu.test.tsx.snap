@@ -867,6 +867,7 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
+                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -880,6 +881,7 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
+                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -1010,6 +1012,7 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
+                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -1023,6 +1026,7 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
+                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
