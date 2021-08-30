@@ -92,9 +92,16 @@ export default function TableBasic() {
         showJumper: true,
         showSizer: true,
         visibleWithOnePage: true,
-
-        onChange() {
-          console.log('pagination change');
+        onChange(pageInfo) {
+          console.log(pageInfo, 'onChange pageInfo');
+        },
+        onCurrentChange(current, pageInfo) {
+          console.log(current, 'onCurrentChange current');
+          console.log(pageInfo, 'onCurrentChange pageInfo');
+        },
+        onPageSizeChange(size, pageInfo) {
+          console.log(size, 'onPageSizeChange size');
+          console.log(pageInfo, 'onPageSizeChange pageInfo');
         },
       }}
     />

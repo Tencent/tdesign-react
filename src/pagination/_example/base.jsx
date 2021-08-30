@@ -2,9 +2,25 @@ import React from 'react';
 import { Pagination } from '@tencent/tdesign-react';
 
 export default function PaginationExample() {
-  const onChange = React.useCallback((index, event) => {
-    console.log(`current: ${index}`, event);
-  }, []);
+  const onChange = (pageInfo) => {
+    console.log(pageInfo);
+  };
 
-  return <Pagination total={100} onChange={onChange} pageSize={5} />;
+  const onPageSizeChange = (size) => {
+    console.log('page-size:', size);
+  };
+  const onCurrentChange = (index, pageInfo) => {
+    console.log(`转到第${index}页`);
+    console.log(pageInfo);
+  };
+
+  return (
+    <Pagination
+      total={100}
+      pageSize={5}
+      onChange={onChange}
+      onCurrentChange={onCurrentChange}
+      onPageSizeChange={onPageSizeChange}
+    />
+  );
 }
