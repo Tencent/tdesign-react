@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import CloseIcon from '../icon/icons/CloseIcon';
+import CheckIcon from '../icon/icons/CheckIcon';
 import { TdStepItemProps } from '../_type/components/steps';
 import { StyledProps } from '../_type';
 import StepsContext from './StepsContext';
@@ -50,30 +50,46 @@ export default function StepItem(props: StepItemProps) {
 
   // 步骤条每一步展示的图标
   let iconEle = null;
-  if (theme === 'default') {
-    // 1. 主动
-    if (icon) {
-      iconEle = icon;
-    } else {
+  // 1. 主动
+  // 用户自定义 icon 时优先级最高
+  if (icon) {
+    iconEle = icon;
+  } else {
+    // 否则 根据 theme 决定是否展示默认 icon，dot 情况下不展示 icon
+    if (theme === 'default') {
       switch (status) {
         case 'error':
-          iconEle = <CloseCircleIcon />;
+          iconEle = (
+            <span className={`${classPrefix}-steps-item-icon__number`}>
+              <CloseIcon />
+            </span>
+          );
           break;
         case 'finish':
-          iconEle = <CheckCircleFilledIcon />;
+          iconEle = (
+            <span className={`${classPrefix}-steps-item-icon__number`}>
+              <CheckIcon />
+            </span>
+          );
           break;
         case 'wait':
         case 'process':
           iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{value}</span>;
           break;
       }
+    } else {
+      iconEle = null;
     }
   }
 
   return (
     <div className={className} style={style}>
       <div className={`${classPrefix}-steps-item__inner`}>
-        <div className={`${classPrefix}-steps-item-icon`}>{iconEle}</div>
+        <div
+          className={`${classPrefix}-steps-item-icon ${status === 'finish' ? `${classPrefix}-steps-item-finish` : ''}`}
+        >
+          {iconEle}
+        </div>
         <div className={`${classPrefix}-steps-item-content`}>
           <div className={`${classPrefix}-steps-item-title`}>{title}</div>
           <div className={`${classPrefix}-steps-item-description`}>{content}</div>
