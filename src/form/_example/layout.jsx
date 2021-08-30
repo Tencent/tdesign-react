@@ -14,7 +14,7 @@ export default function LayoutForm() {
           <Radio.Button value="inline">行内布局</Radio.Button>
         </Radio.Group>
       </Row>
-      <Form layout={layout}>
+      <Form layout={layout} labelWidth={60}>
         <FormItem label="名字" name="name">
           <Input />
         </FormItem>

@@ -74,11 +74,16 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
   });
 
-  let labelStyles = {};
+  let labelStyle = {};
   let contentStyle = {};
-  if (labelWidth && labelAlign !== 'top' && layout !== 'inline') {
-    labelStyles = { width: `${parseInt(String(labelWidth), 10)}px` };
-    contentStyle = { marginLeft: `${parseInt(String(labelWidth), 10)}px` };
+  if (labelWidth && labelAlign !== 'top') {
+    if (typeof labelWidth === 'number') {
+      labelStyle = { width: `${labelWidth}px` };
+      contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
+    } else {
+      labelStyle = { width: labelWidth };
+      contentStyle = { marginLeft: layout !== 'inline' ? labelWidth : '' };
+    }
   }
 
   const renderTipsInfo = () => {
@@ -206,7 +211,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   return (
     <div className={formItemClass} ref={ref}>
       {label && (
-        <div className={formItemLabelClass} style={labelStyles}>
+        <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
         </div>
       )}

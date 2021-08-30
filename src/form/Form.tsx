@@ -32,7 +32,7 @@ const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
     const {
       className,
-      labelWidth,
+      labelWidth = 'calc(1 / 12 * 100%)',
       statusIcon,
       labelAlign = 'right',
       layout = 'vertical',
