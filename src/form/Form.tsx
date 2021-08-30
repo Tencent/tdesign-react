@@ -140,7 +140,21 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, validate, getAllFieldsValue }));
+    // 对外方法，设置对应 formItem 的数据
+    function setFields(fileds = []) {
+      if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
+      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
+        const { name } = currItem;
+        return { ...acc, [name]: currItem };
+      }, {});
+      fileds.forEach((filed) => {
+        const { name, value, status } = filed;
+        formItemsMap[name]?.setValue(value);
+        formItemsMap[name]?.setStatus(status);
+      });
+    }
+
+    useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, setFields, validate, getAllFieldsValue }));
 
     return (
       <FormContext.Provider

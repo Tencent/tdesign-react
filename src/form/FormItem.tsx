@@ -206,7 +206,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   // 暴露 ref 实例方法
-  useImperativeHandle(ref, (): any => ({ name, value: formValue, setValue: setFormValue, validate, resetField }));
+  useImperativeHandle(ref, (): any => ({ name, value: formValue, setValue: setFormValue, setStatus: setVerifyStatus, validate, resetField }));
 
   return (
     <div className={formItemClass} ref={ref}>
