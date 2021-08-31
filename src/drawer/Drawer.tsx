@@ -103,10 +103,8 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
             margin: ${margin};
           `;
         }
-      } else {
-        if (drawerWrapperRef.current) {
-          drawerWrapperRef.current.style.margin = '';
-        }
+      } else if (drawerWrapperRef.current) {
+        drawerWrapperRef.current.style.margin = '';
       }
     }
 

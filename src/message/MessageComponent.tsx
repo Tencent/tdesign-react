@@ -54,8 +54,8 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         closeBtn ? tdClassIsGenerator('closable') : '',
       )}
     >
-      {icon ? icon : <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />}
-      {content ? content : children}
+      {icon || <MessageIcon theme={theme} onCloseBtnClick={onCloseBtnClick} />}
+      {content || children}
       <MessageClose {...props} />
     </div>
   ) : null;

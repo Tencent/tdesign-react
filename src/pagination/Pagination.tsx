@@ -94,7 +94,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
      * @author kenzyyang
      * @date 2021-03-29
      * @desc currentChange 时判断 size 是否合法
-     **/
+     * */
     if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
       if (!pageSizeOptionsValidator(pageSizeOptions)) {
         throw '[pagination]pageSize invalid and pageSizeOption invalid';
@@ -158,7 +158,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
     const value = Number(target.value);
-    if (isNaN(value) || value < min) target.value = '';
+    if (Number.isNaN(value) || value < min) target.value = '';
     else if (value > pageCount) target.value = String(pageCount);
 
     // currentPageChange的回调
@@ -168,7 +168,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode !== KEY_CODE.ENTER) return;
     const value = Number((event.target as HTMLInputElement).value);
-    if (!isNaN(value)) changeCurrent(value);
+    if (!Number.isNaN(value)) changeCurrent(value);
   };
 
   // 渲染total相关逻辑

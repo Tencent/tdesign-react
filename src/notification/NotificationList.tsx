@@ -77,7 +77,7 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
       new Promise((resolve) => {
         const key = String((seed += 1));
         const style: React.CSSProperties = (() => {
-          const offset = Object.assign({ top: 16, bottom: 16, left: 16, right: 16 }, options.offset);
+          const offset = { top: 16, bottom: 16, left: 16, right: 16, ...options.offset };
           return {
             marginTop: `${offset.top}px`,
             marginBottom: `${offset.bottom}px`,

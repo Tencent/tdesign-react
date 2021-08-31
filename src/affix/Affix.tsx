@@ -21,11 +21,15 @@ class Affix extends Component<AffixProps> {
   };
 
   ticking = false;
+
   containerHeight = 0;
+
   oldWidth = 0;
+
   oldHeight = 0;
 
   affixRef = createRef<HTMLDivElement>();
+
   affixWrapRef = createRef<HTMLDivElement>();
 
   handleScroll = () => {

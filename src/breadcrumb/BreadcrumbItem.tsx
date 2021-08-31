@@ -36,7 +36,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemPro
 
   const maxWith = useMemo(
     () => ({
-      maxWidth: maxWidth || maxItemWidth || '120' + 'px',
+      maxWidth: maxWidth || maxItemWidth || '120px',
     }),
     [maxItemWidth, maxWidth],
   );

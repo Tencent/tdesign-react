@@ -22,7 +22,7 @@ function getStringLength(str: string): number {
     if (str.charCodeAt(i) > 127 || str.charCodeAt(i) === 94) {
       len += 2;
     } else {
-      len = len + 1;
+      len += 1;
     }
   }
   return len;
@@ -37,7 +37,7 @@ const VALIDATE_MAP = {
   max: (val: ValueType, num: number): boolean => getStringLength(val) <= num,
   min: (val: ValueType, num: number): boolean => val.length >= num,
   len: (val: ValueType, num: number): boolean => val.length === num,
-  number: (val: ValueType): boolean => !isNaN(val),
+  number: (val: ValueType): boolean => !Number.isNaN(val),
   enum: (val: ValueType, strs: Array<string>): boolean => strs.includes(val),
   idcard: (val: ValueType): boolean => /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i.test(val),
   telnumber: (val: ValueType): boolean => /^1[3-9]\d{9}$/.test(val),

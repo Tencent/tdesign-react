@@ -1,4 +1,4 @@
-import useDefault from '../_util/useDefault';
+import useDefault from './useDefault';
 import { ControlledProps } from '../_type';
 import noop from './noop';
 
