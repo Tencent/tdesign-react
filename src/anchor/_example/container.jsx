@@ -7,13 +7,16 @@ export default function AnchorAttach() {
   return (
     <>
       <div style={{ display: 'flex' }} id="attach" className="anchor-demo-attach">
-        <Anchor attach="#anchor-container">
+        <Anchor container="#anchor-container">
           <AnchorItem href="#content-1" title="content-1" />
           <AnchorItem href="#content-2" title="content-2" />
           <AnchorItem href="#content-3" title="content-3" />
           <AnchorItem href="#content-4" title="content-4" />
         </Anchor>
-        <div id="anchor-container" style={{ width: '100%', height: '200px', overflow: 'auto', textAlign: 'center', fontSize: '22px' }}>
+        <div
+          id="anchor-container"
+          style={{ width: '100%', height: '200px', overflow: 'auto', textAlign: 'center', fontSize: '22px' }}
+        >
           <div id="content-1" style={{ background: '#DFEFFF', lineHeight: '100px' }}>
             content-1
           </div>
