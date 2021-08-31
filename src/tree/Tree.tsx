@@ -104,7 +104,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     store.replaceChecked(checkedArr);
   };
 
-  /** 对外暴露的公共方法 **/
+  /** 对外暴露的公共方法 * */
   useImperativeHandle<unknown, TreeInstanceFunctions>(
     ref,
     () => ({

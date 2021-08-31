@@ -7,15 +7,6 @@ import { StyledProps } from '../_type';
 import { TdRowProps } from '../_type/components/grid';
 import Col from './Col';
 
-type Gutter = {
-  xs?: number | number[];
-  sm?: number | number[];
-  md?: number | number[];
-  lg?: number | number[];
-  xl?: number | number[];
-  xxl?: number | number[];
-};
-
 /**
  * Row 组件支持的属性。
  */

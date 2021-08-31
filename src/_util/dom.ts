@@ -1,5 +1,5 @@
 import isString from 'lodash/isString';
-import { ScrollContainer, ScrollContainerElement } from '@TdTypes/common';
+import { ScrollContainer, ScrollContainerElement } from '../_type/common';
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 

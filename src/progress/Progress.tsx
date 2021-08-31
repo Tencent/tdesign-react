@@ -93,7 +93,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
           return 4;
         }
       }
-      if (typeof strokeWidth !== 'number' || isNaN(strokeWidth)) {
+      if (typeof strokeWidth !== 'number' || Number.isNaN(strokeWidth)) {
         return 6;
       }
       return strokeWidth;

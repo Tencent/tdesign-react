@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
-import Popup from '../popup/';
+import Popup from '../popup';
 import FileCopyIcon from '../icon/icons/FileCopyIcon';
 import Message from '../message';
 import useConfig from '../_util/useConfig';

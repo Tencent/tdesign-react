@@ -54,32 +54,30 @@ export default function StepItem(props: StepItemProps) {
   // 用户自定义 icon 时优先级最高
   if (icon) {
     iconEle = icon;
-  } else {
+  } else if (theme === 'default') {
     // 否则 根据 theme 决定是否展示默认 icon，dot 情况下不展示 icon
-    if (theme === 'default') {
-      switch (status) {
-        case 'error':
-          iconEle = (
-            <span className={`${classPrefix}-steps-item-icon__number`}>
-              <CloseIcon />
-            </span>
-          );
-          break;
-        case 'finish':
-          iconEle = (
-            <span className={`${classPrefix}-steps-item-icon__number`}>
-              <CheckIcon />
-            </span>
-          );
-          break;
-        case 'wait':
-        case 'process':
-          iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{value}</span>;
-          break;
-      }
-    } else {
-      iconEle = null;
+    switch (status) {
+      case 'error':
+        iconEle = (
+          <span className={`${classPrefix}-steps-item-icon__number`}>
+            <CloseIcon />
+          </span>
+        );
+        break;
+      case 'finish':
+        iconEle = (
+          <span className={`${classPrefix}-steps-item-icon__number`}>
+            <CheckIcon />
+          </span>
+        );
+        break;
+      case 'wait':
+      case 'process':
+        iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{value}</span>;
+        break;
     }
+  } else {
+    iconEle = null;
   }
 
   return (

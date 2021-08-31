@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataType, FilterValue, PrimaryTableCol } from '../../_type/components/table';
-import { PrimaryTableProps } from '../../table';
+import { PrimaryTableProps } from '..';
 import filterButton from './FilterButton';
 
 /**

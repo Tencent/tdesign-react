@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import useConfig from '../_util/useConfig';
 import { TdListItemMetaProps } from '../_type/components/list';
 
-export interface ListItemMetaProps extends TdListItemMetaProps {}
+export type ListItemMetaProps = TdListItemMetaProps;
 /**
  * 列表组件
  */

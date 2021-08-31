@@ -1,5 +1,5 @@
-import MenuItem from '../../menu/MenuItem';
-import SubMenu from '../../menu/SubMenu';
+import MenuItem from '../MenuItem';
+import SubMenu from '../SubMenu';
 import { MenuBlockType } from './type';
 
 export const checkIsSubMenu = (child: React.ReactElement) => {

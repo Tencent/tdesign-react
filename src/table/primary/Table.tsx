@@ -4,7 +4,7 @@ import BaseTable from '../base/Table';
 import useSorter from './useSorter';
 import useFilter from './useFilter';
 
-export interface PrimaryTableProps extends TdPrimaryTableProps {}
+export type PrimaryTableProps = TdPrimaryTableProps;
 
 export default function PrimaryTable(props: PrimaryTableProps) {
   const [transformedColumns, sortData] = useSorter(props);
