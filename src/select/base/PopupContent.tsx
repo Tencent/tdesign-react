@@ -89,7 +89,7 @@ const PopupContent = (props: SelectPopupProps) => {
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
   if (isEmpty) {
-    return <div className={`${classPrefix}-select-empty`}>{empty || <p>无数据</p>}</div>;
+    return <div className={`${classPrefix}-select-empty`}>{empty ? empty : <p>无数据</p>}</div>;
   }
 
   if (loading) {

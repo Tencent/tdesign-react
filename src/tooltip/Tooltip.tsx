@@ -5,7 +5,7 @@ import Popup from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from '../_type/components/tooltip';
 
-export interface TooltipProps extends TdTooltipProps {}
+export type TooltipProps = TdTooltipProps;
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   const { theme, showArrow = true, overlayClassName, children, ...restProps } = props;

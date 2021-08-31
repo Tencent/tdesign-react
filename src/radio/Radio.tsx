@@ -3,7 +3,7 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check, { CheckProps } from '../common/Check';
 import RadioGroup from './RadioGroup';
 
-export interface RadioProps extends Omit<CheckProps, 'type'> {}
+export type RadioProps = Omit<CheckProps, 'type'>;
 
 const Radio = forwardRefWithStatics(
   (props: RadioProps, ref: Ref<HTMLLabelElement>) => <Check ref={ref} type="radio" {...props} />,

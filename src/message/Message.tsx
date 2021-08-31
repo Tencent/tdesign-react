@@ -199,6 +199,7 @@ Message.closeAll = (): MessageCloseAllMethod => {
     typeof message.close === 'function' && message.close();
   });
   MessageList = [];
+  return;
 };
 
 export default Message;

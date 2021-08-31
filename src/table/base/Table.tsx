@@ -14,7 +14,7 @@ import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 
-export interface BaseTableProps<RowData extends DataType = DataType> extends TdBaseTableProps<RowData> {}
+export type BaseTableProps<RowData extends DataType = DataType> = TdBaseTableProps<RowData>;
 
 export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D>) {
   const { classPrefix } = useConfig();

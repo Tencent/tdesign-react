@@ -3,8 +3,8 @@ module.exports = {
     'airbnb-base',
     'prettier', // eslint-config-prettier 处理冲突
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react-hooks'],
@@ -29,7 +29,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/indent': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-empty-interface': 'error', // codecc
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-var-requires': 'off',
@@ -39,7 +39,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/no-cycle': 'off', // TODO: turn on this rule later
-    'import/no-unresolved': 'off',
+    'import/no-unresolved': 'off', // TODO: turn on this rule later
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
@@ -50,6 +50,7 @@ module.exports = {
     'no-throw-literal': 'off',
     'no-unused-expressions': 'off',
     'no-bitwise': 'off',
+    'no-useless-return': 'off',
     'no-plusplus': [
       'error',
       {
@@ -60,6 +61,8 @@ module.exports = {
     'no-return-assign': 'off',
     'no-restricted-syntax': 'off',
     'no-restricted-globals': 'off',
+    'no-unneeded-ternary': 'off',
+    'eol-last': 'error', // codecc
     'func-names': 'off',
     'consistent-return': 'off',
     'default-case': 'off',

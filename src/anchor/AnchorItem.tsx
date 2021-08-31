@@ -4,7 +4,7 @@ import { TdAnchorItemProps } from '../_type/components/anchor-item';
 import useConfig from '../_util/useConfig';
 import { AnchorContext } from './AnchorContext';
 
-export interface AnchorItemProps extends TdAnchorItemProps {}
+export type AnchorItemProps = TdAnchorItemProps;
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
