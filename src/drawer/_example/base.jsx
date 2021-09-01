@@ -13,9 +13,9 @@ export default function () {
   return (
     <div>
       <Button theme="primary" onClick={handleClick}>
-        Open
+        Open a Drawer
       </Button>
-      <Drawer visible={visible} onClose={handleClose}>
+      <Drawer header="这是标题" visible={visible} onClose={handleClose}>
         <p>This is a drawer</p>
       </Drawer>
     </div>

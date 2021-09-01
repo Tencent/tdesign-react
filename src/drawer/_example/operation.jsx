@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Button, Input } from '@tencent/tdesign-react';
+import { Drawer, Button, Input, Form } from '@tencent/tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
@@ -15,15 +15,15 @@ export default function () {
       <Button theme="primary" onClick={handleClick}>
         Open
       </Button>
-      <Drawer visible={visible} onClose={handleClose}>
-        <div>
-          <span>Label A</span>
-          <Input />
-        </div>
-        <div>
-          <span>Label b</span>
-          <Input />
-        </div>
+      <Drawer header="标题名称" visible={visible} onClose={handleClose}>
+        <Form labelWidth={60}>
+          <Form.FormItem label="Label A">
+            <Input />
+          </Form.FormItem>
+          <Form.FormItem label="Label B">
+            <Input />
+          </Form.FormItem>
+        </Form>
       </Drawer>
     </div>
   );

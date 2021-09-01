@@ -15,7 +15,7 @@ export default function () {
       <Button theme="primary" onClick={handleClick}>
         Open
       </Button>
-      <Drawer visible={visible} onClose={handleClose} showOverlay={false}>
+      <Drawer header="标题名称" visible={visible} onClose={handleClose} showOverlay={false}>
         <p>This is a drawer</p>
       </Drawer>
     </div>
