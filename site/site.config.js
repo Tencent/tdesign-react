@@ -173,6 +173,13 @@ export default {
           path: '/react/components/switch',
           component: () => import('@tencent/tdesign-react/switch/README.md'),
         },
+        {
+          title: 'Textarea 多行文本框',
+          name: 'textarea',
+          docType: 'form',
+          path: '/react/components/textarea',
+          component: () => import('@tencent/tdesign-react/textarea/README.md'),
+        },
       ],
     },
     {
