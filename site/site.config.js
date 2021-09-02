@@ -132,6 +132,13 @@ export default {
           component: () => import('@tencent/tdesign-react/checkbox/README.md'),
         },
         {
+          title: 'Datepicker 日期选择器',
+          name: 'datepicker',
+          docType: 'form',
+          path: '/react/components/date-picker',
+          component: () => import('@tencent/tdesign-react/date-picker/README.md'),
+        },
+        {
           title: 'Form 表单',
           name: 'form',
           docType: 'form',

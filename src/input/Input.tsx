@@ -43,6 +43,7 @@ const Input = forwardRefWithStatics(
       prefixIcon,
       suffixIcon,
       clearable,
+      readonly,
       value,
       onChange,
       onClear,
@@ -88,6 +89,7 @@ const Input = forwardRefWithStatics(
     const renderInput = (
       <input
         className={inputClassNames}
+        readOnly={readonly}
         disabled={disabled}
         {...inputProps}
         value={composingRef.current ? composingRefValue : value}
