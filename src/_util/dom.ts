@@ -1,7 +1,41 @@
+import raf from 'raf';
 import isString from 'lodash/isString';
+import { easeInOutCubic, EasingFunction } from './easing';
 import { ScrollContainer, ScrollContainerElement } from '../_type/common';
 
+const isServer = typeof window === 'undefined';
+
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
+
+export const on = (((): any => {
+  if (!isServer && document.addEventListener) {
+    return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, false);
+      }
+    };
+  }
+  return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    if (element && event && handler) {
+      (element as any).attachEvent(`on${event}`, handler);
+    }
+  };
+})());
+
+export const off = (((): any => {
+  if (!isServer && document.removeEventListener) {
+    return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+      if (element && event) {
+        element.removeEventListener(event, handler, false);
+      }
+    };
+  }
+  return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    if (element && event) {
+      (element as any).detachEvent(`on${event}`, handler);
+    }
+  };
+})());
 
 function hasClass(el: Element, cls: string) {
   if (!el || !cls) return false;
@@ -69,4 +103,117 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
     return container();
   }
   return container;
+};
+
+/**
+ * 返回是否window对象
+ *
+ * @export
+ * @param {any} obj
+ * @returns
+ */
+ function isWindow(obj: any) {
+  return obj && obj === obj.window;
+}
+
+type ScrollTarget = HTMLElement | Window | Document;
+
+/**
+ * 获取滚动距离
+ *
+ * @export
+ * @param {ScrollTarget} target
+ * @param {boolean} isLeft true为获取scrollLeft, false为获取scrollTop
+ * @returns {number}
+ */
+ export function getScroll(
+  target: ScrollTarget,
+  isLeft?: boolean,
+): number {
+  // node环境或者target为空
+  if (typeof window === 'undefined' || !target) {
+    return 0;
+  }
+  const method = isLeft ? 'scrollLeft' : 'scrollTop';
+  let result = 0;
+  if (isWindow(target)) {
+    result = (target as Window)[isLeft ? 'pageXOffset' : 'pageYOffset'];
+  } else if (target instanceof Document) {
+    result = target.documentElement[method];
+  } else if (target) {
+    result = (target as HTMLElement)[method];
+  }
+  return result;
+}
+interface ScrollTopOptions {
+  container?: ScrollTarget;
+  duration?: number;
+  easing?: EasingFunction;
+}
+
+export function scrollTo(target: number, opt: ScrollTopOptions) {
+  const { container = window, duration = 450, easing = easeInOutCubic } = opt;
+  const scrollTop = getScroll(container);
+  const startTime = Date.now();
+  return new Promise((res) => {
+    const fnc = () => {
+      const timestamp = Date.now();
+      const time = timestamp - startTime;
+      const nextScrollTop = easing(Math.min(time, duration), scrollTop, target, duration);
+      if (isWindow(container)) {
+        (container as Window).scrollTo(window.pageXOffset, nextScrollTop);
+      } else if (container instanceof HTMLDocument || container.constructor.name === 'HTMLDocument') {
+        (container as HTMLDocument).documentElement.scrollTop = nextScrollTop;
+      } else {
+        (container as HTMLElement).scrollTop = nextScrollTop;
+      }
+      if (time < duration) {
+        raf(fnc);
+      } else {
+        // 由于上面步骤设置了scrollTop, 滚动事件可能未触发完毕
+        // 此时应该在下一帧再执行res
+        raf(res);
+      }
+    };
+    raf(fnc);
+  });
+}
+
+function containerDom(parent: Element | Iterable<any> | ArrayLike<any>, child: any): boolean {
+  if (parent && child) {
+    let pNode = child;
+    while (pNode) {
+      if (parent === pNode) {
+        return true;
+      }
+      const { parentNode } = pNode;
+      pNode = parentNode;
+    }
+  }
+  return false;
+}
+export const clickOut = (els: Element | Iterable<any> | ArrayLike<any>, cb: Function): void => {
+  on(document, 'click', (event: { target: Element }) => {
+    if (Array.isArray(els)) {
+      const isFlag = Array.from(els).every((item) => containerDom(item, event.target) === false);
+      isFlag && cb && cb();
+    } else {
+      if (containerDom(els, event.target)) {
+        return false;
+      }
+      cb && cb();
+    }
+  });
+};
+
+// 用于判断节点内容是否溢出
+export const isNodeOverflow = (ele: Element | Element[]): boolean => {
+  const { clientWidth = 0, scrollWidth = 0 } = (
+    ele as Element & { clientWidth: number; scrollWidth: number }
+  );
+
+  if (scrollWidth > clientWidth) {
+    return true;
+  }
+  return false;
 };
