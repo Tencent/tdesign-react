@@ -51,7 +51,7 @@ const Input = forwardRefWithStatics(
       onCompositionStart,
       onCompositionEnd,
       ...restProps
-    } = useDefaultValue<InputValue, InputProps>(props);
+    } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
     const [composingRefValue, setComposingValue] = useState<string>('');
