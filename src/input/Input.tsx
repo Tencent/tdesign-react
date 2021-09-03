@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -8,6 +8,7 @@ import { StyledProps } from '../_type';
 import { TElement } from '../_type/common';
 import ClearIcon from '../icon/icons/CloseCircleFilledIcon';
 import InputGroup from './InputGroup';
+import useDefaultValue from '../_util/useDefaultValue';
 
 export interface InputProps extends TdInputProps, StyledProps {
   onCompositionStart?: Function;
@@ -43,23 +44,18 @@ const Input = forwardRefWithStatics(
       suffixIcon,
       clearable,
       value,
-      defaultValue,
       onChange,
       onClear,
       onEnter,
       onKeydown,
       onCompositionStart,
       onCompositionEnd,
-      ...otherProps
-    } = props;
+      ...restProps
+    } = useDefaultValue<InputValue, InputProps>(props);
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
-
-    const [inputValue, setInputValue] = useState<InputValue>(defaultValue || '');
     const [composingRefValue, setComposingValue] = useState<string>('');
-
-    const isControlled = typeof value !== 'undefined';
-    const isShowClearIcon = clearable && inputValue && !disabled;
+    const isShowClearIcon = clearable && value && !disabled;
     const componentType = 'input';
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (
@@ -74,12 +70,12 @@ const Input = forwardRefWithStatics(
     );
     const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
 
-    const inputPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
+    const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
     const inputProps = inputPropsNames.reduce(
       (inputProps, key) => Object.assign(inputProps, { [key]: props[key] }),
       {},
     );
-    const eventPropsNames = Object.keys(otherProps).filter((key) => /^on[A-Z]/.test(key));
+    const eventPropsNames = Object.keys(restProps).filter((key) => /^on[A-Z]/.test(key));
     const eventProps = eventPropsNames.reduce((eventProps, key) => {
       Object.assign(eventProps, {
         [key]: (e) => props[key](e.currentTarget.value, { e }),
@@ -94,7 +90,7 @@ const Input = forwardRefWithStatics(
         className={inputClassNames}
         disabled={disabled}
         {...inputProps}
-        value={composingRef.current ? composingRefValue : inputValue}
+        value={composingRef.current ? composingRefValue : value}
         {...eventProps}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
@@ -108,12 +104,10 @@ const Input = forwardRefWithStatics(
       if (composingRef.current) {
         setComposingValue(value);
       } else {
-        !isControlled && setInputValue(value);
-        isFunction(onChange) && onChange(value, { e });
+        onChange(value, { e });
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      !isControlled && setInputValue('');
       isFunction(onChange) && onChange('', { e });
       isFunction(onClear) && onClear({ e });
     }
@@ -137,13 +131,6 @@ const Input = forwardRefWithStatics(
       setComposingValue('');
       isFunction(onCompositionEnd) && onCompositionEnd(event);
     }
-
-    useEffect(() => {
-      if (isControlled) {
-        const valueNew = value || '';
-        setInputValue(valueNew);
-      }
-    }, [value, isControlled]);
 
     return (
       <div
