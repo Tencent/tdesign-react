@@ -24,6 +24,16 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
   const isControlled = !!selectedRowKeys;
   const [innerSelectedRowKeys, setInnerSelectedRowKeys] = useState(defaultSelectedRowKeys || []);
   const selectColumn = columns.find((column: PrimaryTableCol) => !!TypeEnum[column.type]);
+
+  useEffect(() => {
+    if (isControlled) {
+      setInnerSelectedRowKeys(selectedRowKeys);
+    }
+  }, [selectedRowKeys, isControlled]);
+
+  if (!selectColumn) {
+    return [columns];
+  }
   const disabledFn = getDisableFn({ selectColumn });
   const titleCheckboxProps = getTitleCheckboxProps({ data, disabledFn, innerSelectedRowKeys, selectColumn, TypeEnum });
 
@@ -202,12 +212,6 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
     }
     isFunction(onSelectChange) && onSelectChange(selectedRowKeysNew, { selectedRowData });
   }
-
-  useEffect(() => {
-    if (isControlled) {
-      setInnerSelectedRowKeys(selectedRowKeys);
-    }
-  }, [selectedRowKeys, isControlled]);
 
   return [transformedColumns];
 }
