@@ -190,8 +190,8 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     const monthList = [];
     // 年列表
     const yearBegin = isRangeValid ? dayjs(rangeFromTo.from).year() : Math.max(minYear, year - 10);
-    const YearEnd = isRangeValid ? dayjs(rangeFromTo.to).year() : Math.max(minYear, year + 10);
-    for (let i = yearBegin; i <= YearEnd; i++) {
+    const yearEnd = isRangeValid ? dayjs(rangeFromTo.to).year() : Math.max(minYear, year + 10);
+    for (let i = yearBegin; i <= yearEnd; i++) {
       yearList.push({
         value: i,
         disabled: checkMonthSelectorDisabled(i, month),

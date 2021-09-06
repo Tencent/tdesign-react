@@ -184,7 +184,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     );
 
     const renderCancelBtn = cancelBtn && React.isValidElement(cancelBtn) ? cancelBtn : defaultCancelBtn;
-    const renderConfirmBtn = confirmBtn && React.isValidElement(confirmBtn) ? cancelBtn : defaultConfirmBtn;
+    const renderConfirmBtn = confirmBtn && React.isValidElement(confirmBtn) ? confirmBtn : defaultConfirmBtn;
 
     const footerStyle = {
       display: 'flex',

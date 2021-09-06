@@ -1,9 +1,9 @@
 import raf from 'raf';
 import { easeInOutCubic, EasingFunction } from './easing';
 
-export type ANCHOR_CONTAINER = HTMLElement | Window;
+export type AnchorContainer = HTMLElement | Window;
 
-export function getOffsetTop(target: HTMLElement, container: ANCHOR_CONTAINER) {
+export function getOffsetTop(target: HTMLElement, container: AnchorContainer) {
   const { top } = target.getBoundingClientRect();
   if (container === window) {
     // 减去document的边框
