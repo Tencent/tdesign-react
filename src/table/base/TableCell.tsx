@@ -74,8 +74,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
   }
 
   // 样式依靠 td，之后实现请改为 th
-  const Component = type === 'title' ? 'td' : 'td';
-
+  // const Component = type === 'title' ? 'td' : 'td'; // codecc error
+  const Component = 'td';
   return (
     <Component
       ref={ref}

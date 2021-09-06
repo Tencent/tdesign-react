@@ -18,7 +18,7 @@ import {
 } from '../_type/components/message';
 import { AttachNodeReturnValue } from '../_type/common';
 import noop from '../_util/noop';
-import { PlacementOffset, ThemeArray } from './const';
+import { PlacementOffset, THEME_ARRAY } from './const';
 import MessageComponent from './MessageComponent';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
@@ -176,7 +176,7 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
   return renderElement(theme, config);
 };
 
-ThemeArray.forEach((theme) => {
+THEME_ARRAY.forEach((theme) => {
   Message[theme] = (content, duration) => messageMethod(theme, content, duration);
 });
 

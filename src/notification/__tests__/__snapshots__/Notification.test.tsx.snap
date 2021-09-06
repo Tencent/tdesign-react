@@ -6,6 +6,22 @@ exports[`base.jsx 1`] = `
     class="t-notification"
   >
     <div
+      class="t-notification__icon"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-is-info"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <div
       class="t-notification__main"
     >
       <div
@@ -16,16 +32,6 @@ exports[`base.jsx 1`] = `
         >
           标题名称
         </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -37,83 +43,8 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`close.jsx 1`] = `
+exports[`close-all.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          自定义关闭按钮(false)
-        </span>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          自定义关闭按钮(文字)
-        </span>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          自定义关闭按钮
-        </span>
-        <div>
-          <span>
-            x
-          </span>
-        </div>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
     style="position: relative;"
@@ -121,7 +52,7 @@ exports[`close.jsx 1`] = `
     <span
       class="t-button__text"
     >
-      处理开关事件
+      点击打开多个消息
     </span>
   </button>
   <button
@@ -131,12 +62,9 @@ exports[`close.jsx 1`] = `
     <span
       class="t-button__text"
     >
-      处理定时关闭事件（3s）
+      点击关闭多个消息
     </span>
   </button>
-  <br />
-  <br />
-  <br />
 </DocumentFragment>
 `;
 
@@ -156,16 +84,6 @@ exports[`content.jsx 1`] = `
         >
           自定义内容（字符串）
         </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -189,16 +107,6 @@ exports[`content.jsx 1`] = `
         >
           自定义内容
         </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
       </div>
       <div>
         这是一条消息通知
@@ -224,16 +132,6 @@ exports[`footer.jsx 1`] = `
         >
           自定义底部详情
         </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
       </div>
       <div
         class="t-notification__content"
@@ -266,106 +164,496 @@ exports[`footer.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    style="margin-bottom: 16px;"
   >
-    <i
-      class="t-icon t-icon-more t-size-m"
-    />
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__icon"
       >
-        <span
-          class="t-notification__title"
-        >
-          自定义icon
-        </span>
         <svg
-          class="t-icon t-icon-close t-icon-close"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
           />
         </svg>
       </div>
       <div
-        class="t-notification__content"
+        class="t-notification__main"
       >
-        这是一条消息通知
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            普通通知
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 16px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-error"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            危险通知
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 16px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-warning"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            告警通知
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 16px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-check-circle-filled t-is-success"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            成功通知
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知这是一条消息通知
+        </div>
       </div>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`offset.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      偏移的信息
-    </span>
-  </button>
-</DocumentFragment>
-`;
-
 exports[`operation.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    style="margin-bottom: 20px;"
   >
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__icon"
       >
-        <span
-          class="t-notification__title"
-        >
-          自定义底部详情
-        </span>
         <svg
-          class="t-icon t-icon-close t-icon-close"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
           />
         </svg>
       </div>
       <div
-        class="t-notification__content"
+        class="t-notification__main"
       >
-        这是一条消息通知
-      </div>
-      <div
-        class="t-notification__detail"
-      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            超出的文本省略号显示
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          文案不限长度，但是展示最大显示三行折行的末尾显示折行末尾显示折行末尾显示折行末尾显示折行末尾显示折行折行末尾显示折行折行末尾显示折行末尾显示折行折行末尾
+        </div>
         <div
           class="t-notification__detail"
         >
+          <div>
+            <button
+              class="t-button t-button--theme-primary t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                查看详情
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
           <span
-            class="t-notification__detail--item"
+            class="t-notification__title"
           >
-            重启
+            自定义底部
           </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          使用 props function 自定义底部内容
+        </div>
+        <div
+          class="t-notification__detail"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-primary t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                查看详情
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
           <span
-            class="t-notification__detail--item t-is-active"
+            class="t-notification__title"
           >
-            查看详情
+            <div>
+              自定义标题 
+              <small>
+                我是副标题
+              </small>
+            </div>
           </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          1. 使用 props function 自定义标题；2. 使用插槽自定义底部内容
+        </div>
+        <div
+          class="t-notification__detail"
+        >
+          <div
+            slot="footer"
+          >
+            <button
+              class="t-button t-button--theme-default t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                知道了
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            <div>
+              自定义标题 
+              <small>
+                我是副标题
+              </small>
+            </div>
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          1. 使用插槽自定义标题 2. 使用插槽自定义底部内容
+        </div>
+        <div
+          class="t-notification__detail"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                重启
+              </span>
+            </button>
+            <button
+              class="t-button t-button--theme-primary t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                稍后提醒我(10s)
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="margin-bottom: 20px;"
+  >
+    <div
+      class="t-notification"
+    >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        class="t-notification__main"
+      >
+        <div
+          class="t-notification__title__wrap"
+        >
+          <span
+            class="t-notification__title"
+          >
+            自定义内容
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          使用插槽自定义内容
+        </div>
+        <div
+          class="t-notification__detail"
+        >
+          <div>
+            <button
+              class="t-button t-button--theme-default t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                重启
+              </span>
+            </button>
+            <button
+              class="t-button t-button--theme-primary t-button--variant-text"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                更多
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -375,6 +663,28 @@ exports[`operation.jsx 1`] = `
 
 exports[`placement.jsx 1`] = `
 <DocumentFragment>
+  <div>
+    <div
+      class="t-input"
+      style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入横向偏移量"
+        value=""
+      />
+    </div>
+    <div
+      class="t-input"
+      style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="请输入纵向偏移量"
+        value=""
+      />
+    </div>
+  </div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
     style="position: relative;"
@@ -464,77 +774,6 @@ exports[`plugin.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`size.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          宽度固定400px
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          文本内容最多支持三行
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条内容为*******************************************************************************
-        ***************************************************************************************消息通知
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
@@ -547,258 +786,5 @@ exports[`toggle.jsx 1`] = `
       自由控制关闭时机
     </span>
   </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      点击打开多个消息
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      点击关闭多个消息
-    </span>
-  </button>
-</DocumentFragment>
-`;
-
-exports[`type.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__icon"
-    >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-is-info"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__icon"
-    >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-is-warning"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__icon"
-    >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-is-success"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
-    <div
-      class="t-notification__icon"
-    >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-is-error"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-notification__main"
-    >
-      <div
-        class="t-notification__title__wrap"
-      >
-        <span
-          class="t-notification__title"
-        >
-          标题名称
-        </span>
-        <svg
-          class="t-icon t-icon-close t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
-      </div>
-    </div>
-  </div>
 </DocumentFragment>
 `;

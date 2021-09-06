@@ -9,7 +9,7 @@ import noop from '../_util/noop';
 import { getScrollContainer } from '../_util/dom';
 import Affix from '../affix';
 import { AnchorContext, Item } from './AnchorContext';
-import { getOffsetTop, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
+import { getOffsetTop, getScroll, scrollTo, AnchorContainer } from './_util/dom';
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 
@@ -21,7 +21,7 @@ interface IntervalRef {
   // 收集 anchor-item
   items: string[];
   // 容器
-  scrollContainer: ANCHOR_CONTAINER;
+  scrollContainer: AnchorContainer;
   // 收集各项 item 的信息与节点
   handleScrollLock: boolean;
 }

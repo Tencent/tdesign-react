@@ -16,19 +16,12 @@ export default function () {
         Open
       </Button>
       <Drawer
-        footer={
-          <>
-            <Button theme="primary" onClick={handleClose}>
-              确定
-            </Button>
-            <Button onClick={handleClose}>取消</Button>
-          </>
-        }
-        size="large"
+        header={<div>自定义头部</div>}
+        body={<div>自定义内容</div>}
+        footer={<Button theme="primary">自定义底部按钮</Button>}
         visible={visible}
         onClose={handleClose}
       >
-        <p>This is a drawer</p>
       </Drawer>
     </div>
   );

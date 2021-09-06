@@ -43,7 +43,7 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
     content = null,
     theme = null,
     icon = null,
-    closeBtn = true,
+    closeBtn,
     footer = null,
     duration = 3000,
     onCloseBtnClick = noop,

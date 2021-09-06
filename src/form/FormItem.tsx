@@ -11,7 +11,7 @@ import { StyledProps } from '../_type';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext } from './FormContext';
 
-enum VALIDATE_STATUS {
+enum ValidateStatus {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
@@ -49,7 +49,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   } = useFormContext();
 
   const [errorList, setErrorList] = useState([]);
-  const [verifyStatus, setVerifyStatus] = useState(VALIDATE_STATUS.TO_BE_VALIDATED);
+  const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(initialData);
@@ -69,7 +69,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   });
 
   const contentClasses = classNames(`${classPrefix}-form__controls`, {
-    [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === VALIDATE_STATUS.SUCCESS,
+    [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === ValidateStatus.SUCCESS,
     [`${classPrefix}-is-warning`]: showErrorMessage && errorList.length && errorList[0].type === 'warning',
     [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
   });
@@ -110,7 +110,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         error: <CloseCircleFilledIcon size="25px" />,
         warning: <ErrorCircleFilledIcon size="25px" />,
       };
-      if (verifyStatus === VALIDATE_STATUS.SUCCESS) {
+      if (verifyStatus === ValidateStatus.SUCCESS) {
         return resultIcon(iconMap[verifyStatus]);
       }
       if (errorList && errorList[0]) {
@@ -143,10 +143,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     return new Promise((resolve) => {
       validateModal(formValue, innerRules).then((r) => {
         setErrorList(r);
-        let nextVerifyStatus = r.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
+        let nextVerifyStatus = r.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
         // 非 require 且值为空 状态置为默认，无校验规则的都为默认
         if ((!innerRules.some((rule) => rule.required) && isValueEmpty(formValue)) || !innerRules.length) {
-          nextVerifyStatus = VALIDATE_STATUS.TO_BE_VALIDATED;
+          nextVerifyStatus = ValidateStatus.TO_BE_VALIDATED;
         }
         setVerifyStatus(nextVerifyStatus);
         resolve({ [name]: !r.length ? true : r });
@@ -202,7 +202,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   function resetHandler() {
     setNeedResetField(false);
     setErrorList([]);
-    setVerifyStatus(VALIDATE_STATUS.TO_BE_VALIDATED);
+    setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
   }
 
   // 暴露 ref 实例方法

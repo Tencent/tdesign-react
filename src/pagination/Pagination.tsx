@@ -19,7 +19,7 @@ export interface PaginationProps extends TdPaginationProps, StyledProps {}
 
 const { Option } = Select;
 
-enum KEY_CODE {
+enum KeyCode {
   ENTER = 13,
 }
 
@@ -166,7 +166,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   };
 
   const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.keyCode !== KEY_CODE.ENTER) return;
+    if (event.keyCode !== KeyCode.ENTER) return;
     const value = Number((event.target as HTMLInputElement).value);
     if (!Number.isNaN(value)) changeCurrent(value);
   };

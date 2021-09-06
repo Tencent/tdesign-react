@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { BaseTableCol, DataType } from '../../_type/components/table';
 
-function flattenColumns<RowData>(columns: BaseTableCol[]) {
+function flattenColumns(columns: BaseTableCol[]) {
   return columns;
 }
 
