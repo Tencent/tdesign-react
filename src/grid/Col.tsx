@@ -120,17 +120,17 @@ const Col = (props: ColProps | any) => {
     sizeClasses,
   );
 
-  const ColStyle = {
+  const colStyle = {
     ...calcColPadding(rowGutter, rowSize),
     ...propStyle,
   };
-  flex && (ColStyle.flex = parseFlex(flex));
+  flex && (colStyle.flex = parseFlex(flex));
 
   return React.createElement(
     tag,
     {
       className: colClassNames,
-      style: ColStyle,
+      style: colStyle,
       ...otherColProps,
     },
     children,

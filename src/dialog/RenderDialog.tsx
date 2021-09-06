@@ -6,7 +6,7 @@ import { AttachNode } from '../_type/common';
 import noop from '../_util/noop';
 import { DialogProps } from './Dialog';
 
-enum KEY_CODE {
+enum KeyCode {
   ESC = 27,
 }
 
@@ -79,7 +79,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.keyCode === KEY_CODE.ESC) {
+    if (e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
       onClose({ e, trigger: 'esc' });

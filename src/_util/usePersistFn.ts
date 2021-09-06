@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export type noop = (...args: any[]) => any;
+export type Noop = (...args: any[]) => any;
 
 /**
  *  在某些场景中，你可能会需要用 useCallback 记住一个回调，
@@ -9,7 +9,7 @@ export type noop = (...args: any[]) => any;
  *  通过 usePersistFn，可以保证函数地址永远不会变化。
  * @param fn
  */
-export function usePersistFn<T extends noop>(fn: T) {
+export function usePersistFn<T extends Noop>(fn: T) {
   const fnRef = useRef<T>(fn);
   fnRef.current = fn;
 
