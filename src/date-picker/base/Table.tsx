@@ -1,6 +1,6 @@
 import React from 'react';
 import useConfig from '../../_util/useConfig';
-import DatePickerCell from './cell';
+import DatePickerCell from './Cell';
 
 export interface DatePickerTableProps {
   data: Array<any>;

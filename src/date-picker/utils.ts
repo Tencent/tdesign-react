@@ -228,7 +228,7 @@ export function getToday(): Date {
  */
 export function getDateObj(date: Date) {
   if (!(date instanceof Date)) {
-    date = getToday();
+    throw new Error('date must be Date object');
   }
   return {
     year: date.getFullYear(),
@@ -290,7 +290,7 @@ export function addMonth(date: Date, num: number): Date {
 
 interface OptionsType {
   firstDayOfWeek: number;
-  disabledDate: Function;
+  disableDate: Function;
   minDate: Date;
   maxDate: Date;
 }
@@ -299,7 +299,7 @@ export function getWeeks(
   { year, month }: { year: number; month: number },
   {
     firstDayOfWeek,
-    disabledDate = () => false,
+    disableDate = () => false,
     minDate,
     maxDate,
   }: OptionsType,
@@ -322,7 +322,7 @@ export function getWeeks(
       text: i,
       active: false,
       value: currentDay,
-      disabled: disabledDate(currentDay) || outOfRanges(currentDay, minDate, maxDate),
+      disabled: disableDate(currentDay) || outOfRanges(currentDay, minDate, maxDate),
       now: isSame(today, currentDay),
       firstDayOfMonth: i === 1,
       lastDayOfMonth: i === maxDays,
@@ -338,7 +338,7 @@ export function getWeeks(
         text: prependDay.getDate().toString(),
         active: false,
         value: new Date(prependDay),
-        disabled: disabledDate(prependDay) || outOfRanges(prependDay, minDate, maxDate),
+        disabled: disableDate(prependDay) || outOfRanges(prependDay, minDate, maxDate),
         additional: true, // 非当前月
         type: 'prev-month',
       });
@@ -355,7 +355,7 @@ export function getWeeks(
       text: appendDay.getDate(),
       active: false,
       value: new Date(appendDay),
-      disabled: disabledDate(appendDay) || outOfRanges(appendDay, minDate, maxDate),
+      disabled: disableDate(appendDay) || outOfRanges(appendDay, minDate, maxDate),
       additional: true, // 非当前月
       type: 'next-month',
     });
@@ -367,7 +367,7 @@ export function getWeeks(
 export function getYears(
   year: number,
   {
-    disabledDate = () => false,
+    disableDate = () => false,
     minDate,
     maxDate,
   }: OptionsType,
@@ -387,7 +387,7 @@ export function getYears(
 
     for (let j = 0; j < 12; j++) {
       const d = new Date(i, j);
-      if (disabledDate(d)) disabledMonth += 1;
+      if (disableDate(d)) disabledMonth += 1;
       if (outOfRanges(d, minDate, maxDate)) outOfRangeMonth += 1;
     }
 
@@ -403,7 +403,7 @@ export function getYears(
   return chunk(yearArr, 4);
 }
 
-export function getMonths(year: number, { disabledDate = () => false, minDate, maxDate }: OptionsType) {
+export function getMonths(year: number, { disableDate = () => false, minDate, maxDate }: OptionsType) {
   const MonthArr = [];
 
   const today = getToday();
@@ -418,7 +418,7 @@ export function getMonths(year: number, { disabledDate = () => false, minDate, m
 
     for (let j = 1; j <= daysInMonth; j++) {
       const d = new Date(year, i, j);
-      if (disabledDate(d)) disabledDay += 1;
+      if (disableDate(d)) disabledDay += 1;
       if (outOfRanges(d, minDate, maxDate)) outOfRangeDay += 1;
     }
 
@@ -447,7 +447,7 @@ export function flagActive(data: any[], { ...args }: any) {
 
   if (!end) {
     return data.map((row: any[]) => row.map((item: DateTime) => {
-      item.active = isSame(item.value, start, type);
+      Object.assign(item, { active: isSame(item.value, start, type) });
       return item;
     }));
   }
@@ -456,10 +456,12 @@ export function flagActive(data: any[], { ...args }: any) {
     const date = item.value;
     const isStart = isSame(start, date, type);
     const isEnd = isSame(end, date, type);
-    item.active = isStart || isEnd;
-    item.highlight = isBetween(date, { start, end });
-    item.startOfRange = isStart;
-    item.endOfRange = isEnd;
+    Object.assign(item, {
+      active: isStart || isEnd,
+      highlight: isBetween(date, { start, end }),
+      startOfRange: isStart,
+      endOfRange: isEnd,
+    });
     return item;
   }));
 }
