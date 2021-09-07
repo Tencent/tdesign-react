@@ -11,6 +11,7 @@ import React, {
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
+import { ClassName } from '../_type';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
@@ -19,7 +20,9 @@ import { TdPopupProps } from '../_type/components/popup';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export type PopupProps = TdPopupProps;
+export interface PopupProps extends TdPopupProps {
+  className: ClassName;
+}
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -85,6 +88,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   let triggerNode: ReactChild;
   const [triggerChildNode] = React.Children.toArray(children);
   const disabledClassName = classNames({ [`${classPrefix}-is-disabled`]: disabled });
+
   if (React.Children.count(children) === 1 && isValidElement(triggerChildNode)) {
     triggerNode = triggerChildNode;
   } else {
@@ -107,7 +111,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         <div
           ref={composeRefs(setOverlayRef, ref)}
           style={styles.popper}
-          className={`${classPrefix}-popup`}
+          className={classNames(`${classPrefix}-popup`, props.className)}
           {...attributes.popper}
           {...popupProps}
         >
@@ -117,7 +121,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             })}
             style={overlayVisibleStyle}
           >
-            {showArrow && <div ref={setArrowRef} style={styles.arrow} className={`${classPrefix}-popup__arrow`} />}
+            {showArrow ? (
+              <div ref={setArrowRef} style={styles.arrow} className={`${classPrefix}-popup__arrow`} />
+            ) : null}
             {content}
           </div>
         </div>
