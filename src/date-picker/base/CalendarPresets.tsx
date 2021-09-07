@@ -1,6 +1,7 @@
 import React from 'react';
 import useConfig from '../../_util/useConfig';
 import { TdDatePickerProps } from '../../_type/components/date-picker';
+import Button from '../../button';
 
 export interface CalendarPresetsProps {
   onClickRange: Function;
@@ -19,7 +20,7 @@ const CalendarPresets = (props: CalendarPresetsProps) => {
       {
         presets && Object.keys(presets).map((key: string) => (
           <li key={key}>
-            <a onClick={() => onClickRange(presets[key])}>{ key }</a>
+            <Button variant="text" onClick={() => onClickRange(presets[key])}>{ key }</Button>
           </li>
         ))
       }
