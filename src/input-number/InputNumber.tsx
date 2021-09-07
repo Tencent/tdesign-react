@@ -153,6 +153,7 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
 
     setInputValue(updateValue);
     triggerValueUpdate({ value: updateValue, type, e });
+    e.preventDefault();
   };
 
   const handleBlur: FocusEventHandler<HTMLDivElement> = (e) => {

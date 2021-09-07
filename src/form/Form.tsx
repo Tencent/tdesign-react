@@ -1,6 +1,8 @@
 import React, { useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import isNumber from 'lodash/isNumber';
+import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
@@ -16,16 +18,13 @@ export interface FormProps extends TdFormProps, StyledProps {
 
 export type Result = FormValidateResult<FormData>;
 
-function isFunction(val: unknown) {
-  return typeof val === 'function';
-}
-
 /**
- * 判断是否空值 布尔值总不为空
+ * 判断是否空值 布尔值、数字不为空
  * @param val
  */
 function isValueEmpty(val: unknown) {
-  return isBoolean(val) ? false : isEmpty(val);
+  // https://github.com/lodash/lodash/issues/496
+  return isBoolean(val) || isNumber(val) ? false : isEmpty(val);
 }
 
 const Form = forwardRefWithStatics(
@@ -123,7 +122,7 @@ const Form = forwardRefWithStatics(
     }
 
     // 对外方法，获取对应 formItem 的值
-    function getFieldValue(name) {
+    function getFieldValue(name: string) {
       if (!name) return null;
       const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
       return target && target.value;
@@ -173,10 +172,10 @@ const Form = forwardRefWithStatics(
         }}
       >
         <form className={formClass} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
-          {React.Children.map(children, (child: any, index) => {
+          {React.Children.map(children, (child: React.ReactElement, index) => {
             const { cloneElement } = React;
             return cloneElement(child, {
-              ref: (el) => {
+              ref: (el: React.ReactElement) => {
                 if (!el) return;
                 formItemsRef.current[index] = el;
               },
