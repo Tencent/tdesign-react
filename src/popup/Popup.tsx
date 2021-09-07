@@ -21,7 +21,7 @@ import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
 export interface PopupProps extends TdPopupProps {
-  className: ClassName;
+  className?: ClassName;
 }
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
