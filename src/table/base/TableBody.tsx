@@ -15,7 +15,7 @@ const TableBody = forwardRef((props: TdBaseTableProps, ref: React.Ref<HTMLTableS
   // ==================== render ====================
   const rows = data.map((record, index) => {
     const rowKey = getRowKey(record, index);
-    return <TableRow record={record} index={index} key={rowKey} rowClassName={rowClassName} />;
+    return <TableRow record={record} rowIndex={index} key={rowKey} rowClassName={rowClassName} />;
   });
 
   return (

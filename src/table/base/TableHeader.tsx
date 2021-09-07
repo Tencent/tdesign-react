@@ -3,9 +3,10 @@ import isCallable from '../../_util/isCallable';
 import { BaseTableCol, DataType } from '../../_type/components/table';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
+import { Styles } from '../../_type/common';
 
 interface TableHeaderProps<D extends DataType> {
-  columns: BaseTableCol<D>[];
+  columns: (BaseTableCol<D> & { style?: Styles })[];
 }
 const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
   const { stickyHeader } = useTableContext();
@@ -14,24 +15,24 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
   return (
     <thead>
       <tr>
-        {columns.map((column: BaseTableCol, index: number) => {
-          const { title, colKey, fixed } = column;
+        {columns.map((column: BaseTableCol & { style?: Styles }, index: number) => {
+          const { title, colKey, fixed, className, style = {} } = column;
           let content: React.ReactNode | JSX.Element[] = title;
 
           if (isCallable(title)) {
             content = title({ col: column, colIndex: index });
           }
 
-          const style: CSSProperties = {};
+          const styleNew: CSSProperties = {};
           if (stickyHeader) {
-            style.position = 'sticky';
-            style.top = 0;
-            style.background = '#FFF';
-            style.zIndex = 1;
-            style.borderBottom = 'solid 1px #e7e7e7';
+            styleNew.position = 'sticky';
+            styleNew.top = 0;
+            styleNew.background = '#FFF';
+            styleNew.zIndex = 1;
+            styleNew.borderBottom = 'solid 1px #e7e7e7';
           }
           if (fixed) {
-            style.zIndex = ((style.zIndex as number) || 0) + 1;
+            styleNew.zIndex = ((styleNew.zIndex as number) || 0) + 1;
           }
 
           return (
@@ -41,9 +42,10 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
               colKey={colKey}
               colIndex={index}
               render={() => content}
-              style={style}
+              style={{ ...styleNew, ...style }}
               fixed={fixed}
               columns={columns}
+              className={className}
             >
               {content as JSX.Element[]}
             </TableCell>

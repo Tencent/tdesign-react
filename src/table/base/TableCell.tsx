@@ -28,6 +28,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     ellipsis,
     columns,
     rowIndex,
+    className,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -84,6 +85,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
         [`${classPrefix}-table__cell--fixed-${fixed}-${fixed === 'left' ? 'last' : 'first'}`]: fixed && isBoundary,
         [`align-${align}`]: align,
         'text-ellipsis': ellipsis,
+        [`${className}`]: !!className,
       })}
     >
       {cellNode}
