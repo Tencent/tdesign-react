@@ -169,7 +169,10 @@ function isSameDate(date1: Date, date2: Date) {
  * @param {Object} { start, end } 范围
  * @returns {Boolean}
  */
-function isBetween(value: { getFullYear: () => number; getMonth: () => number; getDate: () => number }, { start, end }: { start: any; end: any }): boolean {
+function isBetween(
+  value: { getFullYear: () => number; getMonth: () => number; getDate: () => number },
+  { start, end }: { start: any; end: any },
+): boolean {
   const date = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 
   const startTime = new Date(start.getFullYear(), start.getMonth(), start.getDate());
@@ -297,12 +300,7 @@ interface OptionsType {
 
 export function getWeeks(
   { year, month }: { year: number; month: number },
-  {
-    firstDayOfWeek,
-    disableDate = () => false,
-    minDate,
-    maxDate,
-  }: OptionsType,
+  { firstDayOfWeek, disableDate = () => false, minDate, maxDate }: OptionsType,
 ) {
   const prependDay = getFirstDayOfMonth({ year, month });
 
@@ -333,7 +331,8 @@ export function getWeeks(
   if (prependDay.getDay() !== firstDayOfWeek) {
     prependDay.setDate(0); // 上一月
 
-    while (true) {
+    const FLAG = true;
+    while (FLAG) {
       daysArr.unshift({
         text: prependDay.getDate().toString(),
         active: false,
@@ -364,14 +363,7 @@ export function getWeeks(
   return chunk(daysArr, 7);
 }
 
-export function getYears(
-  year: number,
-  {
-    disableDate = () => false,
-    minDate,
-    maxDate,
-  }: OptionsType,
-) {
+export function getYears(year: number, { disableDate = () => false, minDate, maxDate }: OptionsType) {
   const startYear = parseInt((year / 10).toString(), 10) * 10;
   const endYear = startYear + 9;
 
@@ -446,22 +438,26 @@ export function flagActive(data: any[], { ...args }: any) {
   const { start, end, type = 'date' } = args;
 
   if (!end) {
-    return data.map((row: any[]) => row.map((item: DateTime) => {
-      Object.assign(item, { active: isSame(item.value, start, type) });
-      return item;
-    }));
+    return data.map((row: any[]) =>
+      row.map((item: DateTime) => {
+        Object.assign(item, { active: isSame(item.value, start, type) });
+        return item;
+      }),
+    );
   }
 
-  return data.map((row: any[]) => row.map((item: DateTime) => {
-    const date = item.value;
-    const isStart = isSame(start, date, type);
-    const isEnd = isSame(end, date, type);
-    Object.assign(item, {
-      active: isStart || isEnd,
-      highlight: isBetween(date, { start, end }),
-      startOfRange: isStart,
-      endOfRange: isEnd,
-    });
-    return item;
-  }));
+  return data.map((row: any[]) =>
+    row.map((item: DateTime) => {
+      const date = item.value;
+      const isStart = isSame(start, date, type);
+      const isEnd = isSame(end, date, type);
+      Object.assign(item, {
+        active: isStart || isEnd,
+        highlight: isBetween(date, { start, end }),
+        startOfRange: isStart,
+        endOfRange: isEnd,
+      });
+      return item;
+    }),
+  );
 }

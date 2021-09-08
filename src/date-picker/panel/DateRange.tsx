@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import dayjs from 'dayjs';
-// import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
@@ -78,33 +77,6 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     return { leftYear, leftMonth, rightMonth, rightYear, startValue, endValue };
   }
 
-  function getData({ year, month, type, start, end }) {
-    let data: any[];
-
-    const options = {
-      disableDate,
-      minDate,
-      maxDate,
-      firstDayOfWeek,
-    };
-
-    switch (type) {
-      case 'date':
-        data = getWeeks({ year, month }, options);
-        break;
-      case 'month':
-        data = getMonths(year, options);
-        break;
-      case 'year':
-        data = getYears(year, options);
-        break;
-      default:
-        break;
-    }
-
-    return flagActive(data, { start, end, type });
-  }
-
   function clickHeader(flag: number, direction: string) {
     const year = direction === LEFT ? leftYear : rightYear;
     const month = direction === LEFT ? leftMonth : rightMonth;
@@ -159,7 +131,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
         setEndValue(date);
       } else {
         setEndValue(firstClickValue);
-        setStartValue(date)
+        setStartValue(date);
       }
       onChange?.([setDateTime(startValue, 23, 59, 59), setDateTime(endValue, 23, 59, 59)]);
       setIsFirstClick(true);
@@ -214,21 +186,59 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     }
   }
 
-  const leftData = useMemo(() => getData({
-    year: leftYear,
-    month: leftMonth,
-    type: leftType,
-    start: startValue,
-    end: endValue,
-  }), [leftYear, leftMonth, leftType, startValue, endValue, getData]);
+  const getData = useCallback(
+    ({ year, month, type, start, end }) => {
+      let data: any[];
 
-  const rightData = useMemo(() => getData({
-    year: rightYear,
-    month: rightMonth,
-    type: rightType,
-    start: startValue,
-    end: endValue,
-  }), [rightYear, rightMonth, rightType, startValue, endValue, getData]);
+      const options = {
+        disableDate,
+        minDate,
+        maxDate,
+        firstDayOfWeek,
+      };
+
+      switch (type) {
+        case 'date':
+          data = getWeeks({ year, month }, options);
+          break;
+        case 'month':
+          data = getMonths(year, options);
+          break;
+        case 'year':
+          data = getYears(year, options);
+          break;
+        default:
+          break;
+      }
+
+      return flagActive(data, { start, end, type });
+    },
+    [disableDate, minDate, maxDate, firstDayOfWeek],
+  );
+
+  const leftData = useMemo(
+    () =>
+      getData({
+        year: leftYear,
+        month: leftMonth,
+        type: leftType,
+        start: startValue,
+        end: endValue,
+      }),
+    [leftYear, leftMonth, leftType, startValue, endValue, getData],
+  );
+
+  const rightData = useMemo(
+    () =>
+      getData({
+        year: rightYear,
+        month: rightMonth,
+        type: rightType,
+        start: startValue,
+        end: endValue,
+      }),
+    [rightYear, rightMonth, rightType, startValue, endValue, getData],
+  );
 
   return (
     <div className={`${classPrefix}-date-range`}>
@@ -268,12 +278,12 @@ const DateRangePanel = (props: DateRangePanelProps) => {
       </div>
     </div>
   );
-}
+};
 
 DateRangePanel.displayName = 'DateRangePanel';
 DateRangePanel.defaultProps = {
   value: [TODAY, TODAY],
   mode: 'date',
-}
+};
 
 export default DateRangePanel;

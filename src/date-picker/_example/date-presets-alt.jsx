@@ -9,13 +9,17 @@ export default function YearDatePicker() {
     今天: [dayjs()],
   });
   const [dateText] = useState('日期');
-  const [selectedDates] = useState(dayjs().toISOString());
+  const [selectedDates, setSelectedDates] = useState(['2020-1-1', '2020-8-8']);
+
+  function handleChange(value) {
+    setSelectedDates(value);
+  }
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      <DatePicker theme="primary" mode="date" presets={presets} range></DatePicker>
+      <DatePicker value={selectedDates} theme="primary" mode="date" presets={presets} range onChange={handleChange}></DatePicker>
       <br />
-      <div>{ dateText }: { selectedDates }</div>
+      <div>{ dateText }: { selectedDates.join(' 至 ') }</div>
     </div>
   );
 }

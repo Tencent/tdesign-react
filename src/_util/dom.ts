@@ -7,7 +7,7 @@ const isServer = typeof window === 'undefined';
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
-export const on = (((): any => {
+export const on = ((): any => {
   if (!isServer && document.addEventListener) {
     return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
       if (element && event && handler) {
@@ -20,9 +20,9 @@ export const on = (((): any => {
       (element as any).attachEvent(`on${event}`, handler);
     }
   };
-})());
+})();
 
-export const off = (((): any => {
+export const off = ((): any => {
   if (!isServer && document.removeEventListener) {
     return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
       if (element && event) {
@@ -35,7 +35,7 @@ export const off = (((): any => {
       (element as any).detachEvent(`on${event}`, handler);
     }
   };
-})());
+})();
 
 function hasClass(el: Element, cls: string) {
   if (!el || !cls) return false;
@@ -112,7 +112,7 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
  * @param {any} obj
  * @returns
  */
- function isWindow(obj: any) {
+function isWindow(obj: any) {
   return obj && obj === obj.window;
 }
 
@@ -126,10 +126,7 @@ type ScrollTarget = HTMLElement | Window | Document;
  * @param {boolean} isLeft true为获取scrollLeft, false为获取scrollTop
  * @returns {number}
  */
- export function getScroll(
-  target: ScrollTarget,
-  isLeft?: boolean,
-): number {
+export function getScroll(target: ScrollTarget, isLeft?: boolean): number {
   // node环境或者target为空
   if (typeof window === 'undefined' || !target) {
     return 0;
@@ -179,7 +176,7 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
   });
 }
 
-function containerDom(parent: Element | Iterable<any> | ArrayLike<any>, child: any): boolean {
+export function containerDom(parent: Element | Iterable<any> | ArrayLike<any>, child: any): boolean {
   if (parent && child) {
     let pNode = child;
     while (pNode) {
@@ -208,9 +205,7 @@ export const clickOut = (els: Element | Iterable<any> | ArrayLike<any>, cb: Func
 
 // 用于判断节点内容是否溢出
 export const isNodeOverflow = (ele: Element | Element[]): boolean => {
-  const { clientWidth = 0, scrollWidth = 0 } = (
-    ele as Element & { clientWidth: number; scrollWidth: number }
-  );
+  const { clientWidth = 0, scrollWidth = 0 } = ele as Element & { clientWidth: number; scrollWidth: number };
 
   if (scrollWidth > clientWidth) {
     return true;

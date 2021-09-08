@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import debounce from 'lodash/debounce';
+import isObject from 'lodash/isObject';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdDatePickerProps } from '../_type/components/date-picker';
 import useCommonClassName from '../_util/useCommonClassName';
-import { clickOut } from '../_util/dom';
+import { containerDom } from '../_util/dom';
 
 import IconTime from '../icon/icons/TimeIcon';
 import IconCalendar from '../icon/icons/CalendarIcon';
@@ -42,102 +42,121 @@ const DatePicker = (props: DatePickerProps) => {
     suffixIcon,
     value,
     defaultValue,
-    onBlur,
     onChange,
-    onFocus,
-    onInput,
+    // onBlur,
+    // onFocus,
+    // onInput,
   } = props;
   const { classPrefix } = useConfig();
   const CLASSNAMES = useCommonClassName();
 
-  const timePickerRef = useRef(null);
+  const datePickerRef = useRef(null);
   const dropdownPopupRef = useRef(null);
   const inputRef = useRef(null);
 
   const [popupShow, setPopupShow] = useState(false);
   const [timePanelShow, setTimePanelShow] = useState(false);
-  const [timeValue, setTimeValue] = useState(dayjs());
+  // const [timeValue, setTimeValue] = useState(dayjs());
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
   const [inSelection, setInSelection] = useState(false);
-  const [multiSeparator] = useState(',');
 
-  // 收集触发 popup 的 doms
-  const els = [];
+  function initDatePicker() {
+    const val: any = value || defaultValue;
 
-  function clickAway() {
-    if (popupShow) {
-      if (selectedDates.length > 1) {
-        setStart(selectedDates[0]);
-        setEnd(selectedDates[1]);
-      }
-      close();
+    if (val) {
+      const startVal = range ? new Date(val[0]) : new Date(val);
+      const endVal = range ? new Date(val[1]) : new Date(val);
+
+      setStart(startVal);
+      setEnd(endVal);
+      setSelectedDates(range ? [val[0], val[1]] : [val]);
     }
   }
-
-  function initClickAway(el: Element) {
-    els.push(el);
-    if (els.length > 1) {
-      clickOut(els, clickAway);
-    }
-  }
-
-  function createPopover() {
-    if (!dropdownPopupRef.current || !inputRef.current) {
-      return;
-    }
-
-    initClickAway(dropdownPopupRef.current);
-  }
-
-  // const onOpenDebounce = debounce(createPopover, 250);
 
   useEffect(() => {
-    initClickAway(timePickerRef.current)
+    initDatePicker();
+
+    function clickPickerOut(e) {
+      const refs = [datePickerRef.current, dropdownPopupRef.current];
+      if (refs.every((ref) => !containerDom(ref, e.target))) {
+        close();
+      }
+    }
+    document.addEventListener('click', clickPickerOut);
+    return () => {
+      document.removeEventListener('click', clickPickerOut);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     updateFormatValue();
-  }, [selectedDates])
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDates]);
+
+  function updateFormatValue() {
+    const selectedFmtDates: string[] = selectedDates.map((d: Date) => formatDate(d));
+
+    let pickerMode: string = mode;
+    if (range) pickerMode = 'range';
+    if (timePanelShow) pickerMode = 'time';
+    let value = '';
+
+    switch (pickerMode) {
+      case 'time':
+      case 'date':
+      case 'month':
+      case 'year':
+        value = selectedFmtDates.join('');
+        break;
+      case 'range':
+        if (popupShow) {
+          value = [formatDate(start), formatDate(end)].join(' 至 ');
+        } else if (selectedFmtDates.length > 1) {
+          value = [selectedFmtDates[0], selectedFmtDates[1]].join(' 至 ');
+        }
+        break;
+    }
+
+    setFormattedValue(value);
+  }
 
   function showPopup() {
     if (disabled) return;
     setPopupShow(true);
-    inputRef.current?.focus();
   }
 
   function formatDate(date: Date): string {
-    let _dateFormat = format || '';
+    let dateFormat = format || '';
     const arrTime = ['H', 'h', 'm', 's'];
-    const hasTime = arrTime.some((f) => String(_dateFormat).includes(f));
+    const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
     if (enableTimePicker && !hasTime) {
-      _dateFormat = [_dateFormat, 'HH:mm:ss'].join(' ');
+      dateFormat = [dateFormat, 'HH:mm:ss'].join(' ');
     }
     const d1 = new Date(date);
-    return dayjs(d1).format(_dateFormat);
+    return dayjs(d1).format(dateFormat);
   }
 
   function close() {
     if (disabled) return;
 
     setPopupShow(false);
-    setTimePanelShow(false); 
+    setTimePanelShow(false);
   }
 
-  function clear(e, triggerChange = false): void {
+  function handleClear({ e }): void {
     e.stopPropagation();
-    // close picker
     close();
 
-    // set value
     if (!disabled) {
-      const selectedDates: any[] = [];
-      setSelectedDates(selectedDates);
+      setStart(new Date());
+      setEnd(new Date());
+      setSelectedDates([]);
       setFormattedValue('');
-      submitInput(selectedDates, triggerChange);
+      submitInput([], true);
     }
   }
 
@@ -148,7 +167,7 @@ const DatePicker = (props: DatePickerProps) => {
       case 'date':
       case 'month':
       case 'year':
-        triggerChange && onChange?.(selectedDates.join(multiSeparator));
+        triggerChange && onChange?.(selectedDates[0]);
         break;
       case 'range':
         triggerChange && onChange?.(selectedDates);
@@ -157,37 +176,39 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function clickRange(value) {
+    const nextDates = [];
     if (Array.isArray(value)) {
-      const [start, end] = value as dayjs.ConfigType[];
-      setStart(dayjs(start).toDate());
-      setEnd(dayjs(end).toDate());
+      nextDates.push(...[dayjs(value[0]).toDate(), dayjs(value[1]).toDate()]);
+
+      setStart(nextDates[0]);
+      setEnd(nextDates[1]);
     } else {
-      setStart(dayjs(value).toDate());
-      setEnd(dayjs(value).toDate());
+      nextDates.push(dayjs(value).toDate());
+
+      setStart(nextDates[0]);
+      setEnd(nextDates[0]);
     }
-    clickedApply();
+    clickedApply(true, nextDates);
   }
 
-  function clickedApply(closePicker = true): void {
-    // 等待 state 更新推到下一个微任务更新 selectedDates
+  function clickedApply(closePicker = true, nextDates?: Date[]): void {
     Promise.resolve().then(() => {
-      if (range) {
-        setSelectedDates([start, end]);
-      }
-  
-      submitInput(selectedDates.map((d: Date) => formatDate(d)), true);
-  
+      if (range) setSelectedDates([start, end]);
+
+      const dates = nextDates || (range ? [start, end] : [start]);
+      submitInput(
+        dates.map((d: Date) => formatDate(d)),
+        true,
+      );
+
       closePicker && close();
     });
   }
 
   function toggleTime() {
-    setTimeValue(dayjs(start));
+    // setTimeValue(dayjs(start));
     setTimePanelShow(!timePanelShow);
 
-    // this.timeValue = dayjs(this.start);
-
-    // this.showTime = !this.showTime;
     // this.$nextTick(() => {
     //   const timePickerPanel = this.$refs.timePickerPanel;
     //   timePickerPanel && timePickerPanel.panelColUpdate();
@@ -207,31 +228,6 @@ const DatePicker = (props: DatePickerProps) => {
     return newDate.toDate();
   }
 
-  function updateFormatValue() {
-    const selectedFmtDates: string[] = selectedDates.map((d: Date) => formatDate(d));
-
-    const strMode: string = range ? 'range' : mode;
-    let value = '';
-
-    switch (strMode) {
-      case 'time':
-      case 'date':
-      case 'month':
-      case 'year':
-        value = selectedFmtDates.join('');
-        break;
-      case 'range':
-        if (popupShow) {
-          value = [formatDate(start), formatDate(end)].join(' 至 ');
-        } else if (selectedFmtDates.length > 1) {
-          value = [selectedFmtDates[0], selectedFmtDates[1]].join(' 至 ');
-        }
-        break;
-    }
-
-    setFormattedValue(value);
-  }
-
   function dateClick(value: Date) {
     // @todo add year range and month range
     let pickerMode: string = mode;
@@ -239,37 +235,49 @@ const DatePicker = (props: DatePickerProps) => {
     if (timePanelShow) pickerMode = 'time';
 
     switch (pickerMode) {
-      case 'time':
-        setSelectedDates(range ? [start, end] : [value])
-        clickedApply(false);
+      case 'time': {
+        const nextTime = range ? [start, end] : [value];
+        setSelectedDates(range ? [start, end] : [value]);
+        clickedApply(false, nextTime);
         break;
+      }
       case 'year':
       case 'month':
-      case 'date':
-        const nextDate = normalizeDateTime(value, start);
-        setStart(nextDate);
-        setSelectedDates([nextDate]);
+      case 'date': {
+        const nextDate = [normalizeDateTime(value, start)];
+        setStart(nextDate[0]);
+        setEnd(nextDate[0]);
+        setSelectedDates(nextDate);
         // 有时间选择时，点击日期不关闭弹窗
-        clickedApply(!enableTimePicker);
+        clickedApply(!enableTimePicker, nextDate);
         break;
-      case 'range':
+      }
+      case 'range': {
+        const nextDates = [];
         if (inSelection) {
+          nextDates.push(...[normalizeDateTime(value[0], end), normalizeDateTime(value[1], end)]);
+
           setInSelection(false);
-          setStart(normalizeDateTime(value[0], end));
-          setEnd(normalizeDateTime(value[1], end));
+          setStart(nextDates[0]);
+          setEnd(nextDates[1]);
 
           if (value[1] < value[0]) {
+            nextDates[0] = normalizeDateTime(value[0], start);
+
             setInSelection(true);
-            setStart(normalizeDateTime(value[0], start));
+            setStart(nextDates[0]);
           }
         } else {
-          setStart(normalizeDateTime(value[0], start));
-          setEnd(normalizeDateTime(value[1], end));
+          nextDates.push(...[normalizeDateTime(value[0], start), normalizeDateTime(value[1], end)]);
+
           setInSelection(true);
+          setStart(nextDates[0]);
+          setEnd(nextDates[1]);
         }
         // 有时间选择时，点击日期不关闭弹窗
-        clickedApply(!enableTimePicker);
+        clickedApply(!enableTimePicker, nextDates);
         break;
+      }
     }
   }
 
@@ -284,7 +292,7 @@ const DatePicker = (props: DatePickerProps) => {
     // 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。
     if (Array.isArray(disableDate)) {
       const formatedDisabledDate = disableDate.map((item: string) => dayjs(item, format));
-      return formatedDisabledDate.some(item => item.isSame(dayjs(value)));
+      return formatedDisabledDate.some((item) => item.isSame(dayjs(value)));
     }
 
     // { before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。
@@ -322,16 +330,20 @@ const DatePicker = (props: DatePickerProps) => {
       firstDayOfWeek: 0,
       onChange: dateClick,
       disableDate: isEnabled,
-      value: range ? [start, end] : start,
+      minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : null,
+      maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
     };
 
-    const panelComponent = range ? <DateRangePanel {...panelProps} /> : <DatePanel {...panelProps} />;
+    const panelComponent = range ? (
+      <DateRangePanel {...panelProps} value={[start, end]} />
+    ) : (
+      <DatePanel {...panelProps} value={start} />
+    );
 
     return (
       <div ref={dropdownPopupRef} className={pickerStyles}>
-          {/* {enableTimePicker && timePanelShow && (
+        {/* {enableTimePicker && timePanelShow && (
             <TimePickerPanel
-              ref="timePickerPanel"
               format="HH:mm:ss"
               cols={[EPickerCols.hour, EPickerCols.minute, EPickerCols.second]}
               steps={[1, 1, 1]}
@@ -340,76 +352,36 @@ const DatePicker = (props: DatePickerProps) => {
               isFooterDisplay={false}
             />
           )} */}
-          {!timePanelShow && panelComponent}
-          {presets && range && <CalendarPresets presets={presets} onClickRange={clickRange} />}
-          {
-            enableTimePicker && (
-              <div className={`${classPrefix}-date-picker--apply`}>
-                {
-                  enableTimePicker && (
-                    <Button theme="primary" variant="text" onClick={toggleTime}>
-                      {timePanelShow ? '选择日期' : '选择时间'}
-                    </Button>
-                  )
-                }
-                {<Button theme="primary" onClick={() => clickedApply(true)}>确定</Button>}
-              </div>
-            )
-          }
-        </div>
-    )
+        {!timePanelShow && panelComponent}
+        {presets && range && <CalendarPresets presets={presets} onClickRange={clickRange} />}
+        {enableTimePicker && (
+          <div className={`${classPrefix}-date-picker--apply`}>
+            {enableTimePicker && (
+              <Button theme="primary" variant="text" onClick={toggleTime}>
+                {timePanelShow ? '选择日期' : '选择时间'}
+              </Button>
+            )}
+            {
+              <Button theme="primary" onClick={() => clickedApply(true)}>
+                确定
+              </Button>
+            }
+          </div>
+        )}
+      </div>
+    );
   }
 
   const triggerClassName = classNames(`${classPrefix}-form-controls`, { [CLASSNAMES.STATUS.active]: popupShow });
   const defaultSuffixIcon = enableTimePicker ? <IconTime /> : <IconCalendar />;
-  const timePickerClassName = classNames(`${classPrefix}-date-picker`, CLASSNAMES.SIZE[size], {
+  const datePickerClassName = classNames(`${classPrefix}-date-picker`, CLASSNAMES.SIZE[size], {
     [`${classPrefix}-date-picker--month-picker`]: mode === 'year' || mode === 'month',
   });
 
-  const inputEvents = {
-    onChange(value: string) {
-      const formatedValue = dayjs(value).format(format);
-      console.log('onChange', formatedValue);
-      onChange?.(formatedValue);
-    },
-    // onInput(value: string, { e }) {
-    //   console.log('value', value);
-    //   const formatedValue = dayjs(value).format(dateFormat);
-    //   console.log(dayjs(value))
-    //   console.log('formatedValue', formatedValue);
-    //   // const val: any = event.target.value;
-    //   // this.formattedValue = val;
-    //   // const d1: any = this.parseDate(val);
-
-    //   // if (d1 instanceof Date) {
-    //   //   const d2: string = this.formatDate(d1);
-    //   //   this.$emit('input', d2);
-    //   // }
-    //   // this.formattedValue = value;
-    //   // const day1: any = this.parseDate(value);
-
-    //   // if (day1 instanceof Date) {
-    //   //   const day2: string = this.formatDate(day1);
-    //   //   this.$emit('input', day2);
-    //   // }
-    //   onInput?.({ e, value, input: value })
-    // },
-    onFocus(value: string, { e }) {
-      // if (!popupShow) setPopupShow(true);
-      
-      onFocus?.({ e, value });
-    },
-    onBlur(value: string, { e }) {
-      // if (popupShow) setPopupShow(false);
-
-      onBlur?.({ e, value });
-    },
-  }
-
   return (
-    <div className={timePickerClassName} ref={timePickerRef}>
+    <div className={datePickerClassName} ref={datePickerRef}>
       <Popup
-        trigger='context-menu'
+        trigger="context-menu"
         placement="bottom-left"
         visible={popupShow}
         content={renderContent()}
@@ -426,25 +398,24 @@ const DatePicker = (props: DatePickerProps) => {
             clearable={clearable}
             placeholder={placeholder}
             readonly={!allowInput}
-            onClear={({ e }) => clear(e, true)}
+            onClear={handleClear}
             prefixIcon={prefixIcon}
             suffixIcon={suffixIcon || defaultSuffixIcon}
-            {...inputEvents}
             {...inputProps}
           />
         </div>
       </Popup>
     </div>
-  )
-}
+  );
+};
 
 DatePicker.displayName = 'DatePicker';
 
 DatePicker.defaultProps = {
   format: 'YYYY-MM-DD',
   mode: 'month',
-  placeholder: '',
+  placeholder: '请选择',
   size: 'medium',
-}
+};
 
 export default DatePicker;
