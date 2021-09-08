@@ -30,6 +30,7 @@ function isValueEmpty(val: unknown) {
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
     const {
+      style,
       className,
       labelWidth = 'calc(1 / 12 * 100%)',
       statusIcon,
@@ -171,7 +172,7 @@ const Form = forwardRefWithStatics(
           rules,
         }}
       >
-        <form className={formClass} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
+        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
           {React.Children.map(children, (child: React.ReactElement, index) => {
             const { cloneElement } = React;
             return cloneElement(child, {
