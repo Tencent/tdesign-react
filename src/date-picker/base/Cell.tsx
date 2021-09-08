@@ -3,17 +3,17 @@ import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 
 export interface DatePickerCellProps {
-  text: [String, Number];
+  text: [string, number];
   value: Date;
-  active: Boolean;
-  highlight: Boolean;
-  disabled: Boolean;
-  startOfRange: Boolean;
-  endOfRange: Boolean;
-  additional: Boolean;
-  now: Boolean;
-  firstDayOfMonth: Boolean;
-  lastDayOfMonth: Boolean;
+  active: boolean;
+  highlight: boolean;
+  disabled: boolean;
+  startOfRange: boolean;
+  endOfRange: boolean;
+  additional: boolean;
+  now: boolean;
+  firstDayOfMonth: boolean;
+  lastDayOfMonth: boolean;
   onClick: Function;
   onMouseEnter: Function;
 }
@@ -59,16 +59,12 @@ const DatePickerCell = (props: DatePickerCellProps) => {
 
   return (
     <td className={cellClass}>
-      <div
-        className={`${classPrefix}-date-cell__wrapper`}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-      >
-        <span className={`${classPrefix}-date-cell__text`}>{ text }</span>
+      <div className={`${classPrefix}-date-cell__wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+        <span className={`${classPrefix}-date-cell__text`}>{text}</span>
       </div>
     </td>
   );
-}
+};
 
 DatePickerCell.displayName = 'DatePickerCell';
 

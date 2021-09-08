@@ -6,8 +6,8 @@ export interface DatePickerTableProps {
   data: Array<any>;
   type: string;
   firstDayOfWeek: number;
-  onCellClick: Function,
-  onCellMouseEnter: Function,
+  onCellClick: Function;
+  onCellMouseEnter: Function;
 }
 
 const DatePickerTable = (props: DatePickerTableProps) => {
@@ -30,46 +30,33 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   return (
     <div className={panelClass}>
       <table>
-        {
-          type === 'date' && (
-            <thead>
-              <tr>
-                {
-                  weekArr.map((value: string, i: number) => (
-                    <th key={i}>{value}</th>
-                  ))
-                }
-              </tr>
-            </thead>
-          )
-        }
+        {type === 'date' && (
+          <thead>
+            <tr>
+              {weekArr.map((value: string, i: number) => (
+                <th key={i}>{value}</th>
+              ))}
+            </tr>
+          </thead>
+        )}
         <tbody>
-          {
-            data.map((row, i: number) => (
-              <tr key={i}>
-                {
-                  row.map((col: any, j: number) => (
-                    <DatePickerCell
-                      {...col}
-                      key={j}
-                      onClick={onCellClick}
-                      onMouseEnter={onCellMouseEnter}
-                    />
-                  ))
-                }
-              </tr>
-            ))
-          }
+          {data.map((row, i: number) => (
+            <tr key={i}>
+              {row.map((col: any, j: number) => (
+                <DatePickerCell {...col} key={j} onClick={onCellClick} onMouseEnter={onCellMouseEnter} />
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
 DatePickerTable.displayName = 'DatePickerTable';
 
 DatePickerTable.defaultProps = {
   type: 'day',
-}
+};
 
 export default DatePickerTable;
