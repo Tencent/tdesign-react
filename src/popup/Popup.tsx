@@ -82,7 +82,14 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const overlayVisibleStyle: CSSProperties = visible ? defaulstStyles : { ...defaulstStyles, display: 'none' };
 
   // 处理 trigger
-  const [triggerProps, popupProps] = useTriggerProps({ current: overlayRef }, [trigger], visible, setVisible, disabled);
+  const [triggerProps, popupProps] = useTriggerProps(
+    { current: overlayRef },
+    { current: triggerRef },
+    [trigger],
+    visible,
+    setVisible,
+    disabled,
+  );
 
   // 触发器只能有一个元素
   let triggerNode: ReactChild;

@@ -10,6 +10,7 @@ const ESC_KEY = 'Escape';
 
 export default function useTriggerProps(
   ref: MutableRefObject<HTMLElement>,
+  triggerNode: MutableRefObject<HTMLElement>,
   triggers: Array<TdPopupProps['trigger']>,
   visible: boolean,
   setVisible: ChangeHandler<boolean, [PopupVisibleChangeContext]>,
@@ -23,7 +24,7 @@ export default function useTriggerProps(
   const hide: HandleTrigger = (e, trigger) => setVisible(false, { e, trigger });
 
   // click outside 用于处理点击其他地方隐藏
-  useClickOutside(ref, (e: any) => {
+  useClickOutside([ref, triggerNode], (e: any) => {
     if (visible && (triggers.includes('click') || triggers.includes('context-menu'))) {
       hide(e, 'trigger-element-blur');
     }
