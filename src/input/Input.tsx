@@ -50,6 +50,7 @@ const Input = forwardRefWithStatics(
       onKeydown,
       onCompositionStart,
       onCompositionEnd,
+      readonly,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();
@@ -89,6 +90,7 @@ const Input = forwardRefWithStatics(
       <input
         className={inputClassNames}
         disabled={disabled}
+        readOnly={readonly}
         {...inputProps}
         value={composingRef.current ? composingRefValue : value}
         {...eventProps}

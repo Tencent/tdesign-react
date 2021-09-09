@@ -167,6 +167,13 @@ export default {
           component: () => import('@tencent/tdesign-react/select/README.md'),
         },
         {
+          title: 'TimePicker 时间选择器',
+          name: 'time-picker',
+          docType: 'form',
+          path: '/react/components/time-picker',
+          component: () => import('@tencent/tdesign-react/time-picker/README.md'),
+        },
+        {
           title: 'Switch 开关',
           name: 'switch',
           docType: 'form',
