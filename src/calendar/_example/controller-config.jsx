@@ -90,7 +90,7 @@ export default function CalendarExample() {
             controllerConfig={{
               visible,
               disabled,
-              mode: { visible: modeVisible, radioGroupProps: { disabled: modeDisabled, buttonStyle: 'solid' } },
+              mode: { visible: modeVisible, radioGroupProps: { disabled: modeDisabled, variant: 'default-filled' } },
               year: {
                 visible: yearVisible,
                 selectProps: {

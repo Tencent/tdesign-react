@@ -33,7 +33,7 @@ export default function RadioExample() {
 
       <div className="tdesign-demo-block-column">
         <div>
-          <Radio.Group buttonStyle="solid" size="small" value={gender1} onChange={(value) => setGender1(value)}>
+          <Radio.Group variant="default-filled" size="small" value={gender1} onChange={(value) => setGender1(value)}>
             <Radio.Button value="bj">北京</Radio.Button>
             <Radio.Button value="sh">上海</Radio.Button>
             <Radio.Button value="gz">广州</Radio.Button>
@@ -42,7 +42,7 @@ export default function RadioExample() {
         </div>
 
         <div>
-          <Radio.Group buttonStyle="solid" value={gender2} onChange={(value) => setGender2(value)}>
+          <Radio.Group variant="default-filled" value={gender2} onChange={(value) => setGender2(value)}>
             <Radio.Button value="bj1">北京</Radio.Button>
             <Radio.Button value="sh1">上海</Radio.Button>
             <Radio.Button value="gz1">广州</Radio.Button>
@@ -51,7 +51,7 @@ export default function RadioExample() {
         </div>
 
         <div>
-          <Radio.Group buttonStyle="solid" size="large" value={gender3} onChange={(value) => setGender3(value)}>
+          <Radio.Group variant="default-filled" size="large" value={gender3} onChange={(value) => setGender3(value)}>
             <Radio.Button value="bj2">北京</Radio.Button>
             <Radio.Button value="sh2">上海</Radio.Button>
             <Radio.Button value="gz2">广州</Radio.Button>

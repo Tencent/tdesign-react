@@ -6,7 +6,7 @@ exports[`align.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-radio-group t-radio-group-outline t-radio-group-medium"
+      class="t-radio-group t-radio-group-medium t-radio-group-outline"
     >
       <label
         class="t-radio-button"
@@ -208,7 +208,7 @@ exports[`base.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-radio-group t-radio-group-outline t-radio-group-medium"
+              class="t-radio-group t-radio-group-medium t-radio-group-outline"
             >
               <label
                 class="t-radio"
@@ -546,7 +546,7 @@ exports[`layout.jsx 1`] = `
       style="margin-bottom: 16px;"
     >
       <div
-        class="t-radio-group t-radio-group-outline t-radio-group-medium"
+        class="t-radio-group t-radio-group-medium t-radio-group-outline"
       >
         <label
           class="t-radio-button"
@@ -885,7 +885,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-radio-group t-radio-group-outline t-radio-group-medium"
+              class="t-radio-group t-radio-group-medium t-radio-group-outline"
             >
               <label
                 class="t-radio"
