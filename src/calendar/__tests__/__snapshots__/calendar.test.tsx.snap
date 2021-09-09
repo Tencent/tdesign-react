@@ -85,7 +85,7 @@ exports[`base.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -894,7 +894,7 @@ exports[`card.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -1651,7 +1651,7 @@ exports[`cell.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -2313,7 +2313,7 @@ exports[`cell-append.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -3106,7 +3106,7 @@ exports[`controller-config.jsx 1`] = `
               style="height: auto;"
             >
               <div
-                class="t-radio-group t-radio-group-outline t-radio-group-medium"
+                class="t-radio-group t-radio-group-medium t-radio-group-outline"
               >
                 <label
                   class="t-radio-button t-is-checked"
@@ -4068,7 +4068,7 @@ exports[`controller-config.jsx 1`] = `
               style="height: auto;"
             >
               <div
-                class="t-radio-group t-radio-group-solid t-radio-group-medium"
+                class="t-radio-group t-radio-group-medium t-radio-group-filled"
               >
                 <label
                   class="t-radio-button t-is-checked"
@@ -4108,7 +4108,7 @@ exports[`controller-config.jsx 1`] = `
                   </span>
                 </label>
                 <div
-                  class="t-radio-group-solid-bg-block"
+                  class="t-radio-group-filled-bg-block"
                   style="width: 0px; left: 0px;"
                 />
               </div>
@@ -4842,7 +4842,7 @@ exports[`event-props-api.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -5626,7 +5626,7 @@ exports[`filter.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -6411,7 +6411,7 @@ exports[`first-day-of-week.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -7069,7 +7069,7 @@ exports[`head-props-api.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -7826,7 +7826,7 @@ exports[`mode.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-outline t-radio-group-medium"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
             <label
               class="t-radio-button"
@@ -8143,7 +8143,7 @@ exports[`range.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -8888,7 +8888,7 @@ exports[`value.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -9633,7 +9633,7 @@ exports[`week.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-outline t-radio-group-medium"
+          class="t-radio-group t-radio-group-medium t-radio-group-outline"
         >
           <label
             class="t-radio-button t-is-checked"
