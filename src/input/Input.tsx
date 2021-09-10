@@ -43,7 +43,6 @@ const Input = forwardRefWithStatics(
       prefixIcon,
       suffixIcon,
       clearable,
-      readonly,
       value,
       onChange,
       onClear,
@@ -51,6 +50,7 @@ const Input = forwardRefWithStatics(
       onKeydown,
       onCompositionStart,
       onCompositionEnd,
+      readonly,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();

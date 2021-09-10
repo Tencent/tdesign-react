@@ -1,13 +1,13 @@
 import { MutableRefObject, useEffect } from 'react';
 
 export default function useClickOutside<T extends HTMLElement>(
-  ref: MutableRefObject<T>,
+  refs: MutableRefObject<T>[],
   handler: (event: MouseEvent | TouchEvent) => void,
 ) {
   useEffect(() => {
     const listener = (event) => {
       // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
+      if (!Array.isArray(refs) || refs.find((ref) => ref.current?.contains(event.target))) {
         return;
       }
       handler(event);
@@ -19,5 +19,5 @@ export default function useClickOutside<T extends HTMLElement>(
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
     };
-  }, [ref, handler]);
+  }, [refs, handler]);
 }

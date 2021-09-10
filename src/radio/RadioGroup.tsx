@@ -17,7 +17,7 @@ export interface RadioGroupProps extends TdRadioGroupProps {
  */
 const RadioGroup = (props: RadioGroupProps) => {
   const { classPrefix } = useConfig();
-  const { disabled, children, value, defaultValue, onChange, size = 'medium', buttonStyle = 'outline' } = props;
+  const { disabled, children, value, defaultValue, onChange, size = 'medium', variant = 'outline' } = props;
 
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -48,7 +48,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   };
 
   function calcBarStyle() {
-    if (buttonStyle !== 'solid') return;
+    if (!variant.includes('filled')) return;
 
     const checkedRadioCls = `.${classPrefix}-radio-button.${classPrefix}-is-checked`;
     const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
@@ -62,20 +62,20 @@ const RadioGroup = (props: RadioGroupProps) => {
   }, [internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
-    if (buttonStyle !== 'solid') return null;
+    if (!variant.includes('filled')) return null;
 
-    return <div style={barStyle} className={`${classPrefix}-radio-group-${buttonStyle}-bg-block`}></div>;
+    return <div style={barStyle} className={`${classPrefix}-radio-group-filled-bg-block`}></div>;
   };
 
   return (
     <CheckContext.Provider value={context}>
       <div
         ref={groupRef}
-        className={classNames(
-          `${classPrefix}-radio-group`,
-          `${classPrefix}-radio-group-${buttonStyle}`,
-          `${classPrefix}-radio-group-${size}`,
-        )}
+        className={classNames(`${classPrefix}-radio-group`, `${classPrefix}-radio-group-${size}`, {
+          [`${classPrefix}-radio-group-outline`]: variant === 'outline',
+          [`${classPrefix}-radio-group-filled`]: variant.includes('filled'),
+          [`${classPrefix}-radio-group-primary-filled`]: variant === 'primary-filled',
+        })}
       >
         {children}
         {renderBlock()}

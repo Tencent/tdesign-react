@@ -36,4 +36,5 @@ export { default as PopConfirm } from './popconfirm';
 export { default as Textarea } from './textarea';
 export { default as Breadcrumb } from './breadcrumb';
 export { default as Affix } from './affix';
+export { default as TimePicker } from './time-picker';
 export { default as DatePicker } from './date-picker';
