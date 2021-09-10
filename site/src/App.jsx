@@ -21,9 +21,10 @@ function renderDemoRoutes() {
 }
 
 function Components(props) {
-  const tdHeaderRef = useRef();
-  const tdDocAsideRef = useRef();
-  const tdDocContentRef = useRef();
+  const tdHeaderRef = useRef(null);
+  const tdDocSearch = useRef(null);
+  const tdDocAsideRef = useRef(null);
+  const tdDocContentRef = useRef(null);
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -47,6 +48,7 @@ function Components(props) {
 
   useEffect(() => {
     tdHeaderRef.current.framework = 'react';
+    tdDocSearch.current.docsearchInfo = { indexName: 'tdesign_doc_react' };
     tdDocAsideRef.current.routerList = routerList;
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (location.pathname === detail) return;
@@ -63,7 +65,9 @@ function Components(props) {
 
   return (
     <td-doc-layout>
-      <td-header ref={tdHeaderRef} slot="header"></td-header>
+      <td-header ref={tdHeaderRef} slot="header">
+        <td-doc-search slot="search" ref={tdDocSearch}></td-doc-search>
+      </td-header>
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
       <td-doc-content ref={tdDocContentRef} slot="doc-content">
