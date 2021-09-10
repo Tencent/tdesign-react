@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState, useRef } from 'react';
+import React, { FC, useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import debounce from 'lodash/debounce';
@@ -11,8 +11,12 @@ import Button from '../button';
 import { TdTimePickerProps } from '../_type/components/time-picker';
 import { EPickerCols, TimeInputType } from './interfaces';
 
+import { TEXT_CONFIG, MERIDIEM_LIST, AM, PM } from './consts';
+
+const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
+
 export interface TimePickerPanelProps
-  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'disableTime' | 'onChange' | 'value'> {
+  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'disableTime' | 'value' | 'hideDisabledTime' | 'onChange'> {
   // 是否展示footer
   isFooterDisplay?: boolean;
   // 是否展示为range
@@ -20,13 +24,20 @@ export interface TimePickerPanelProps
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
-  const { isFooterDisplay, isRangePicker, steps, format, onChange, value } = props;
+  const { isFooterDisplay, isRangePicker, steps, format, onChange, value, hideDisabledTime, disableTime } = props;
   const { classPrefix } = useConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
 
   const [cols, setCols] = useState<Array<EPickerCols>>([]);
   const colsRef = useRef([]);
+  const maskRef = useRef(null);
+
+  useEffect(() => {
+    colsRef.current = colsRef.current.slice(0, cols.length);
+  }, [cols]);
+
+  const dayjsValue = useMemo(() => (value ? dayjs(value, format) : dayjs()), [value, format]);
 
   useEffect(() => {
     const match = format.match(/(a\s+|A\s+)?(h+|H+)?:?(m+)?:?(s+)?(\s+a|A)?/);
@@ -43,57 +54,70 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     setCols(renderCol);
   }, [format]);
 
-  useEffect(() => {
-    colsRef.current = colsRef.current.slice(0, cols.length);
-  }, [cols]);
+  const getItemHeight = useCallback(() => {
+    const maskDom = maskRef?.current?.querySelector('div');
+    const timeItemTotalHeight = maskDom.offsetHeight + parseInt(getComputedStyle(maskDom).margin, 10);
+    return timeItemTotalHeight;
+  }, []);
 
-  const getTimeItemHeight = (col: EPickerCols) => {
-    // TODO
-    console.log(col);
-    return 40;
+  const closestLookup = (availableArr: Array<any>, calcVal: number, step: number) => {
+    if (step <= 1) return calcVal;
+    return availableArr.sort((a, b) => Math.abs(calcVal + 1 - a) - Math.abs(calcVal + 1 - b))[0];
+  };
+
+  const timeItemCanUsed = (col: EPickerCols) => {
+    if (timeArr.includes(col)) {
+      const params = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+      return !(disableTime && disableTime?.apply(null, params));
+    }
+    return true;
   };
 
   const handleScroll = (col: EPickerCols, idx: number) => {
-    const scrollTop = colsRef.current[idx]?.scrollTop;
-    const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
     let val: number;
+    const scrollTop = colsRef.current[idx]?.scrollTop;
     if (timeArr.includes(col)) {
-      // 处理时间相关col的滚动
-      // const colIdx = timeArr.indexOf(col);
+      // hour/minute/second col scorll
       let max = 59;
       if (col === EPickerCols.hour) {
         max = /[h]{1}/.test(format) ? 11 : 23;
       }
-      val = Math.min(Math.abs(Math.round(scrollTop / getTimeItemHeight(col))), max);
-      // scrollVal = this.closestLookup(availableList, scrollVal, Number(this.steps[colIdx]));
+      const colIdx = timeArr.indexOf(col);
+      const stepHeight = getItemHeight() / Number(steps[colIdx]);
+      val = Math.min(Math.abs(Math.round(scrollTop / stepHeight)), max);
+      val = closestLookup(range(Number(steps[colIdx]) - 1, max + 1, Number(steps[colIdx])), val, Number(steps[colIdx]));
+      value ? onChange(dayjsValue[col]?.(val).format(format)) : onChange(dayjsValue[col]?.(val).format(format));
     } else {
-      // 处理非时间col的相关的滚动
-    }
-    if (value) {
-      onChange(dayjs(value, format)[col]?.(val).format(format));
-    } else {
-      onChange(dayjs()[col]?.(val).format(format));
+      // meridiem col scorll
+      const val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
+      const m = MERIDIEM_LIST[val];
+      const currentHour = dayjsValue.hour();
+      if (m === AM && currentHour >= 12) {
+        onChange(dayjsValue.hour(currentHour - 12).format(format));
+      } else if (m === PM && currentHour < 12) {
+        onChange(dayjsValue.hour(currentHour + 12).format(format));
+      }
     }
   };
 
   const generateColList = useCallback(
-    (col: TimeInputType) => {
+    (col: EPickerCols) => {
       let count = 0;
 
-      const timeArr: Array<TimeInputType> = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
       if (timeArr.includes(col)) {
-        // handle hour/minute/second column scorller render
+        // hour/minute/second column scorller render
         const colIdx = timeArr.indexOf(col);
         const colStep = steps[colIdx];
         if (col === EPickerCols.hour) {
-          count = /[h]{1}/.test(format) ? 12 : 24;
+          count = /[h]{1}/.test(format) ? 11 : 23;
         } else {
-          count = 60;
+          count = 59;
         }
-
-        return range(Number(colStep) - 1, count, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
+        // why count + 1 ? to reach maximum
+        return range(Number(colStep) - 1, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
       }
-      return [];
+      // meridiem column scroller render
+      return MERIDIEM_LIST;
     },
     [steps, format],
   );
@@ -102,58 +126,64 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     // TODO
   };
 
-  const calculateTimeIdx = (time: number | string, step: number | string, type: EPickerCols) => {
-    console.log(type, 'TOOD');
-    const timeIdx = time;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const calculateTimeIdx = (time: number | string, step: number | string, type: EPickerCols) =>
     // timeIdx = disableFilter(Number(timeIdx), type);
-    return Math.floor(Number(timeIdx) / Number(step));
-  };
+    Math.floor(Number(time) / Number(step));
 
-  const getScrollDistance = (col: EPickerCols, time: number | string) => {
-    let timeIndex: number;
+  const getScrollDistance = useCallback(
+    (col: EPickerCols, time: number | string) => {
+      let itemIdx: number;
 
-    const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
-    if (timeArr.includes(col)) {
-      const colIdx = timeArr.indexOf(col);
-      timeIndex = calculateTimeIdx(time, steps[colIdx], col);
-      if (col === EPickerCols.hour && /[h]{1}/.test(format)) {
-        timeIndex %= 12;
+      if (timeArr.includes(col)) {
+        const colIdx = timeArr.indexOf(col);
+        itemIdx = calculateTimeIdx(time, steps[colIdx], col);
+        if (col === EPickerCols.hour && /[h]{1}/.test(format)) {
+          itemIdx %= 12;
+        }
+      } else {
+        itemIdx = MERIDIEM_LIST.indexOf(time as string);
       }
-    } else {
-      // TODO
-    }
-    const timeItemTotalHeight = getTimeItemHeight(col);
-    const distance = timeIndex * timeItemTotalHeight + timeItemTotalHeight / 2;
-    return distance;
-  };
+      const timeItemTotalHeight = getItemHeight();
+      const distance = itemIdx * timeItemTotalHeight + timeItemTotalHeight / 2;
+      return distance;
+    },
+    [format, getItemHeight, steps],
+  );
 
-  const scrollToTime = (col: EPickerCols, time: number | string, idx: number, behavior: 'auto' | 'smooth' = 'auto') => {
-    const distance = getScrollDistance(col, time);
-    const scroller = colsRef.current[idx];
-    if (!distance || !scroller || scroller.scrollTop === distance) return;
+  const scrollToTime = useCallback(
+    (col: EPickerCols, time: number | string, idx: number, behavior?: 'auto' | 'smooth') => {
+      const distance = getScrollDistance(col, time);
+      const scroller = colsRef.current[idx];
+      if (!distance || !scroller || scroller.scrollTop === distance) return;
 
-    scroller.scrollTo({
-      top: distance,
-      behavior,
-    });
-  };
+      scroller.scrollTo({
+        top: distance,
+        behavior: behavior || 'smooth',
+      });
+    },
+    [getScrollDistance],
+  );
 
   const handleTimeItemClick = (col: EPickerCols, el: string | number, idx: number) => {
-    // TODO
-    if (value) {
-      onChange(dayjs(value, format)[col]?.(el).format(format));
+    if (timeArr.includes(col)) {
+      value ? onChange(dayjs(value, format)[col]?.(el).format(format)) : onChange(dayjs()[col]?.(el).format(format));
     } else {
-      onChange(dayjs()[col]?.(el).format(format));
+      const currentHour = dayjsValue.hour();
+      if (el === AM && currentHour >= 12) {
+        onChange(dayjsValue.hour(currentHour - 12).format(format));
+      } else if (el === PM && currentHour < 12) {
+        onChange(dayjsValue.hour(currentHour + 12).format(format));
+      }
     }
-
-    scrollToTime(col, el, idx);
+    scrollToTime(col, el, idx, 'smooth');
   };
 
   // update each columns scroll distance
   const updateTimeScrollPos = useCallback(() => {
-    const dayjsValue = value ? dayjs(value, format) : dayjs();
     cols.forEach((col: EPickerCols, idx: number) => {
-      scrollToTime(col, dayjsValue[col]?.(), idx);
+      if (timeArr.includes(col)) scrollToTime(col, dayjsValue[col]?.(), idx, 'auto');
+      else scrollToTime(col, dayjsValue.format('a'), idx, 'auto');
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cols, format, scrollToTime]);
@@ -166,14 +196,10 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     (col: TimeInputType, colItem: string | number) => {
       let colVal: number;
       if (col === EPickerCols.meridiem) {
-        // TODO
-        return false;
+        const currentMeridiem = value ? dayjs(value, format).format('a') : dayjs().format('a');
+        return currentMeridiem === colItem;
       }
-      if (value) {
-        colVal = dayjs(value, format)[col]?.();
-      } else {
-        colVal = dayjs()[col]?.();
-      }
+      colVal = value ? dayjs(value, format)[col]?.() : dayjs()[col]?.();
       if (col === EPickerCols.hour && /[h]{1}/.test(format)) {
         colVal %= 12;
       }
@@ -182,7 +208,6 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     [format, value],
   );
 
-  // render scroller
   const renderScrollers = () =>
     cols.map((col, idx) => (
       <ul
@@ -197,13 +222,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
             className={classNames([
               `${panelClassName}__body-scroll-item`,
               {
-                // [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col, el),
+                [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col),
                 [`${classPrefix}-is-current`]: isCurrent(col, el),
               },
             ])}
             onClick={() => handleTimeItemClick(col, el, idx)}
           >
-            {el}
+            {timeArr.includes(col) ? el : TEXT_CONFIG[el]}
           </li>
         ))}
       </ul>
@@ -214,11 +239,12 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
       <div className={`${panelClassName}-section__body`}>
         <div className={`${panelClassName}__body`}>
           {/* render mask */}
-          <div className={`${panelClassName}__body-active-mask`}>
+          <div className={`${panelClassName}__body-active-mask`} ref={maskRef}>
             {cols.map((col, idx) => (
               <div key={`${col}_${idx}`} />
             ))}
           </div>
+          {/* render scroller */}
           {renderScrollers()}
         </div>
       </div>

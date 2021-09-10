@@ -1,14 +1,16 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
-import { TdTimeRangePickerProps } from '../_type/components/time-picker';
+
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
 // import noop from '../_util/noop';
 import Popup from '../popup';
 import Input from '../input';
 import TimePickerPanel from './TimePickerPanel';
 import InputItems from './InputItems';
 import TIconTime from '../icon/icons/TimeIcon';
+
+import { TdTimeRangePickerProps } from '../_type/components/time-picker';
+import { StyledProps } from '../_type';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
@@ -23,18 +25,18 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     disabled,
     format = 'HH:mm:ss',
     // hideDisabledTime,
-    // placeholder = '选择时间',
+    placeholder,
     size,
     // steps,
     value,
     defaultValue,
-    // disableTime = noop,
-    // onBlur = noop,
-    // onChange = noop,
-    // onClose = noop,
-    // onFocus = noop,
-    // onInput = noop,
-    // onOpen = noop,
+    // disableTime,
+    // onBlur,
+    // onChange,
+    // onClose,
+    // onFocus,
+    // onInput,
+    // onOpen,
   } = props;
   const [showPopup, setShowPopup] = useState(false);
   // const timePickerRef = useRef(null);
@@ -52,18 +54,17 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
       <div onClick={onTimePickerClick} className={classNames(name)}>
         <Input
           readonly={true}
-          // disabled={disabled}
           size={size}
           clearable={clearable}
-          // placeholder={placeholder}
           className={showPopup ? `${classPrefix}-is-focused` : ''}
           suffixIcon={<TIconTime />}
         />
         {value || defaultValue ? (
           <InputItems
             size={size}
-            // disabled={disabled}
+            disabled={disabled}
             format={format}
+            placeholder={placeholder}
             allowInput={allowInput}
             // onBlur={onBlur}
             // onFocus={onFocus}
