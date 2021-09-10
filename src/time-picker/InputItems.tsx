@@ -1,9 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import padStart from 'lodash/padStart';
+
 import { TdTimePickerProps } from '../_type/components/time-picker';
 import useConfig from '../_util/useConfig';
+import { TEXT_CONFIG } from './consts';
 import { TimeInputType, KEYBOARD_DIRECTION, EPickerCols } from './interfaces';
+
+const preposFormat = /^(a|A)\s+?[h]{1,2}(:[m]{1,2}(:[s]{1,2})?)?$/;
+const postposFormat = /^[h]{1,2}(:[m]{1,2}(:[s]{1,2})?)?(\s+(a|A))?$/;
 
 export interface TimePickerInputItemsProps
   extends Pick<
@@ -18,31 +24,27 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
 
   const { classPrefix } = useConfig();
   const inputItemClass = `${classPrefix}-time-picker__input`;
+  const itemClasses = classNames(`${inputItemClass}-item`, {
+    [`${inputItemClass}-item-disabled`]: disabled,
+  });
+  const inputClass = `${inputItemClass}-item-input`;
 
   const [formatedValue, changeFormatedValue] = useState<Record<EPickerCols, string> | undefined>(undefined);
 
   useEffect(() => {
     const dayjsValue = dayjs(value, format);
     let hour: number | string = dayjsValue.hour();
-    let minute: number | string = dayjsValue.minute();
-    let second: number | string = dayjsValue.second();
+    const minute: number | string = dayjsValue.minute();
+    const second: number | string = dayjsValue.second();
 
     if (/[h]{1}/.test(format)) {
       hour %= 12;
     }
-    if (/[h|H]{2}/.test(format)) {
-      hour = hour < 10 ? `0${hour}` : hour;
-    }
-    if (/[m|M]{2}/.test(format)) {
-      minute = minute < 10 ? `0${minute}` : minute;
-    }
-    if (/[s|S]{2}/.test(format)) {
-      second = second < 10 ? `0${second}` : second;
-    }
+
     changeFormatedValue({
-      hour: String(hour),
-      minute: String(minute),
-      second: String(second),
+      hour: padStart(String(hour), 2, '0'),
+      minute: padStart(String(minute), 2, '0'),
+      second: padStart(String(second), 2, '0'),
       meridiem: dayjsValue.format('a'),
     });
   }, [value, format]);
@@ -95,28 +97,36 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     }
   };
 
-  const renderTimeItem = (inputValue: string, type: Exclude<TimeInputType, 'meridiem'>, showColon: boolean) => {
-    const itemClasses = classNames(`${inputItemClass}-item`, {
-      [`${inputItemClass}-item-disabled`]: disabled,
-    });
-    const inputClass = `${inputItemClass}-item-input`;
-    // const currentValue =
+  const renderMeridiemItem = () => {
+    const text = dayjs(value, format).format('a');
     return (
       <span className={itemClasses}>
-        {showColon ? ':' : null}
         <input
-          className={inputClass}
-          value={inputValue}
+          readOnly
           disabled={!allowInput}
-          onChange={(e) => handleInputChange(type, e?.target?.value)}
-          onKeyDown={(e) => handleInputKeydown(e, type)}
-          onInput={(e) => onInput({ e, input: inputValue, value })}
-          onBlur={(e) => onBlur({ e, trigger: type, input: inputValue, value })}
-          onFocus={(e) => onFocus({ e, trigger: type, input: inputValue, value })}
+          value={TEXT_CONFIG[text]}
+          onKeyDown={(e) => handleInputKeydown(e, 'meridiem')}
+          className={classNames(inputClass, `${inputClass}-meridiem`)}
         />
       </span>
     );
   };
+
+  const renderTimeItem = (inputValue: string, type: Exclude<TimeInputType, 'meridiem'>, showColon: boolean) => (
+    <span className={itemClasses}>
+      {showColon ? ':' : null}
+      <input
+        value={inputValue}
+        className={inputClass}
+        disabled={!allowInput}
+        onKeyDown={(e) => handleInputKeydown(e, type)}
+        onInput={(e) => onInput({ e, input: inputValue, value })}
+        onChange={(e) => handleInputChange(type, e?.target?.value)}
+        onBlur={(e) => onBlur({ e, trigger: type, input: inputValue, value })}
+        onFocus={(e) => onFocus({ e, trigger: type, input: inputValue, value })}
+      />
+    </span>
+  );
 
   const renderItems = (itemValue: Record<EPickerCols, string>) => {
     const showSec = /[hH]{1,2}:m{1,2}:s{1,2}/.test(format); // format有秒的正则
@@ -124,9 +134,11 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
 
     return (
       <>
+        {preposFormat.test(format) && renderMeridiemItem()}
         {renderTimeItem(itemValue?.hour, EPickerCols.hour, false)}
         {showMin ? renderTimeItem(itemValue?.minute, EPickerCols.minute, true) : null}
         {showSec ? renderTimeItem(itemValue?.second, EPickerCols.second, true) : null}
+        {postposFormat.test(format) && renderMeridiemItem()}
       </>
     );
   };
