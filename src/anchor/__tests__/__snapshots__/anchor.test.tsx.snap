@@ -17,9 +17,13 @@ exports[`base.jsx 1`] = `
             class="t-anchor_line"
           >
             <div
-              class="point"
+              class="cursor-wrapper"
               style=""
-            />
+            >
+              <div
+                class="cursor"
+              />
+            </div>
           </div>
           <div
             class="t-anchor-item"
@@ -97,9 +101,13 @@ exports[`container.jsx 1`] = `
         class="t-anchor_line"
       >
         <div
-          class="point"
-          style="top: 0px; height: 0px;"
-        />
+          class="cursor-wrapper"
+          style="top: 0px; height: 0px; opacity: 1;"
+        >
+          <div
+            class="cursor"
+          />
+        </div>
       </div>
       <div
         class="t-anchor-item"
@@ -185,6 +193,86 @@ exports[`container.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`cursor.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor_line"
+      >
+        <div
+          class="cursor-wrapper"
+          style=""
+        >
+          <div
+            style="width: 10px; height: 10px; background-color: rgb(0, 82, 217); position: absolute; border-radius: 50%; left: 50%; margin-left: -5px; top: 50%; margin-top: -5px;"
+          />
+        </div>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="#基础锚点"
+          title="基础锚点"
+        >
+          基础锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="#多级锚点"
+          title="多级锚点"
+        >
+          多级锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="#指定容器锚点"
+          title="指定容器锚点"
+        >
+          指定容器锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="#特定交互锚点"
+          title="特定交互锚点"
+        >
+          特定交互锚点
+        </a>
+      </div>
+      <div
+        class="t-anchor-item"
+      >
+        <a
+          class="t-anchor-item_link"
+          href="#尺寸"
+          title="尺寸"
+        >
+          尺寸
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`large.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -197,9 +285,13 @@ exports[`large.jsx 1`] = `
         class="t-anchor_line"
       >
         <div
-          class="point"
-          style="top: 0px; height: 0px;"
-        />
+          class="cursor-wrapper"
+          style="top: 0px; height: 0px; opacity: 1;"
+        >
+          <div
+            class="cursor"
+          />
+        </div>
       </div>
       <div
         class="t-anchor-item"
@@ -281,9 +373,13 @@ exports[`multiple.jsx 1`] = `
       class="t-anchor_line"
     >
       <div
-        class="point"
+        class="cursor-wrapper"
         style=""
-      />
+      >
+        <div
+          class="cursor"
+        />
+      </div>
     </div>
     <div
       class="t-anchor-item"
@@ -378,9 +474,13 @@ exports[`small.jsx 1`] = `
         class="t-anchor_line"
       >
         <div
-          class="point"
-          style="top: 0px; height: 0px;"
-        />
+          class="cursor-wrapper"
+          style="top: 0px; height: 0px; opacity: 1;"
+        >
+          <div
+            class="cursor"
+          />
+        </div>
       </div>
       <div
         class="t-anchor-item"
