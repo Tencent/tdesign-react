@@ -112,11 +112,9 @@ const DatePicker = (props: DatePickerProps) => {
 
     let pickerMode: string = mode;
     if (range) pickerMode = 'range';
-    if (timePanelShow) pickerMode = 'time';
     let nextValue = '';
 
     switch (pickerMode) {
-      case 'time':
       case 'date':
       case 'month':
       case 'year':
