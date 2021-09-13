@@ -96,33 +96,42 @@ const DatePicker = (props: DatePickerProps) => {
   useEffect(() => {
     updateFormatValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDates]);
+  }, [selectedDates, value]);
 
   function updateFormatValue() {
-    const selectedFmtDates: string[] = selectedDates.map((d: Date) => formatDate(d));
+    let dates = selectedDates;
+
+    // 受控模式
+    if (typeof value !== 'undefined') {
+      dates = Array.isArray(value) ? value.map((d: any) => new Date(d)) : [new Date(value)];
+      setStart(dates[0]);
+      setEnd(range ? dates[1] : dates[0]);
+    }
+
+    const selectedFmtDates: string[] = dates.map((d: Date) => formatDate(d));
 
     let pickerMode: string = mode;
     if (range) pickerMode = 'range';
     if (timePanelShow) pickerMode = 'time';
-    let value = '';
+    let nextValue = '';
 
     switch (pickerMode) {
       case 'time':
       case 'date':
       case 'month':
       case 'year':
-        value = selectedFmtDates.join('');
+        nextValue = selectedFmtDates.join('');
         break;
       case 'range':
         if (popupShow) {
-          value = [formatDate(start), formatDate(end)].join(' 至 ');
+          nextValue = [formatDate(start), formatDate(end)].join(' 至 ');
         } else if (selectedFmtDates.length > 1) {
-          value = [selectedFmtDates[0], selectedFmtDates[1]].join(' 至 ');
+          nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(' 至 ');
         }
         break;
     }
 
-    setFormattedValue(value);
+    setFormattedValue(nextValue);
   }
 
   function showPopup() {
@@ -190,21 +199,18 @@ const DatePicker = (props: DatePickerProps) => {
       setStart(nextDates[0]);
       setEnd(nextDates[0]);
     }
+    setSelectedDates(nextDates);
     clickedApply(true, nextDates);
   }
 
   function clickedApply(closePicker = true, nextDates?: Date[]): void {
-    Promise.resolve().then(() => {
-      if (range) setSelectedDates([start, end]);
+    const dates = nextDates;
+    submitInput(
+      dates.map((d: Date) => formatDate(d)),
+      true,
+    );
 
-      const dates = nextDates || (range ? [start, end] : [start]);
-      submitInput(
-        dates.map((d: Date) => formatDate(d)),
-        true,
-      );
-
-      closePicker && close();
-    });
+    closePicker && close();
   }
 
   function toggleTime() {

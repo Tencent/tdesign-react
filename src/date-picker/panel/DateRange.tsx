@@ -43,9 +43,16 @@ const DateRangePanel = (props: DateRangePanelProps) => {
   const [firstClickValue, setFirstClickValue] = useState(TODAY);
 
   useEffect(() => {
-    const [startValue = TODAY, endValue = TODAY] = value;
+    const panelData = getLeftAndRightDataFromValue(value);
+    const { leftYear, leftMonth, rightMonth, rightYear, startValue, endValue } = panelData;
+
     setStartValue(startValue);
     setEndValue(endValue);
+    setLeftYear(leftYear);
+    setLeftMonth(leftMonth);
+    setRightYear(rightYear);
+    setRightMonth(rightMonth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
