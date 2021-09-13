@@ -92,16 +92,5 @@ const columns = [
 ];
 
 export default function TableExample() {
-  return null;
-
-  return (
-    <Table
-      data={data}
-      // height={100}
-      bordered={true}
-      // loading={true}
-      columns={columns}
-      rowKey="property"
-    />
-  );
+  return <Table data={data} bordered={true} columns={columns} rowKey="property" />;
 }
