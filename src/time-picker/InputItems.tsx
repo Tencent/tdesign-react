@@ -14,9 +14,10 @@ const postposFormat = /^[h]{1,2}(:[m]{1,2}(:[s]{1,2})?)?(\s+(a|A))?$/;
 export interface TimePickerInputItemsProps
   extends Pick<
     TdTimePickerProps,
-    'allowInput' | 'disabled' | 'format' | 'size' | 'onBlur' | 'onFocus' | 'onInput' | 'onChange' | 'value'
+    'allowInput' | 'format' | 'size' | 'onBlur' | 'onFocus' | 'onInput' | 'onChange' | 'value'
   > {
   isRangePicker?: boolean;
+  disabled?: boolean | boolean[];
 }
 
 const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerInputItemsProps) => {
@@ -49,15 +50,15 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     });
   }, [value, format]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleInputChange = (type: TimeInputType, result: number | string, index?: number) => {
-    console.log(index, 'TODO');
     const currentDayjsValue = dayjs(value, format);
 
     onChange(currentDayjsValue[type]?.(result).format(format));
   };
   // handle keyboard event
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleInputKeydown = (e: any, type: TimeInputType, index?: number) => {
-    console.log(index, 'TODO');
     if (!allowInput) return;
     const { up, down, left, right } = KEYBOARD_DIRECTION;
     // TODO: `which` is deprecated
