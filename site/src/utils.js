@@ -1,6 +1,8 @@
 import ContributorsData from '@common/contributors/component-contributors.json';
 import ContributorsInfo from '@common/contributors/contributors-info.json';
 
+const taskReg = /api|interaction|design|ui|react|react-test/;
+
 export function getContributors(name) {
   const componentInfo = ContributorsData.web.find((item) => item.name === name);
   if (!componentInfo) {
@@ -8,7 +10,7 @@ export function getContributors(name) {
   }
 
   let { tasks } = componentInfo;
-  tasks = tasks.filter((item) => item.name.search(/vue|angular/) === -1 && item.contributors.length > 0);
+  tasks = tasks.filter((item) => item.name.search(taskReg) !== -1 && item.contributors.length > 0);
 
   const members = {};
   tasks.forEach((c) => {
