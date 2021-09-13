@@ -17,7 +17,7 @@ import Button from '../button';
 import CalendarPresets from './base/CalendarPresets';
 import DatePanel from './panel/Date';
 import DateRangePanel from './panel/DateRange';
-// import TimePickerPanel from '../time-picker/panel';
+import TimePickerPanel from '../time-picker/TimePickerPanel';
 
 dayjs.extend(isBetween);
 
@@ -56,7 +56,7 @@ const DatePicker = (props: DatePickerProps) => {
 
   const [popupShow, setPopupShow] = useState(false);
   const [timePanelShow, setTimePanelShow] = useState(false);
-  // const [timeValue, setTimeValue] = useState(dayjs());
+  const [timeValue, setTimeValue] = useState(dayjs().format('HH:mm:ss'));
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [formattedValue, setFormattedValue] = useState('');
@@ -72,6 +72,7 @@ const DatePicker = (props: DatePickerProps) => {
 
       setStart(startVal);
       setEnd(endVal);
+      setTimeValue(dayjs(startVal).format('HH:mm:ss'));
       setSelectedDates(range ? [val[0], val[1]] : [val]);
     }
   }
@@ -156,6 +157,7 @@ const DatePicker = (props: DatePickerProps) => {
       setEnd(new Date());
       setSelectedDates([]);
       setFormattedValue('');
+      setTimeValue('00:00:00');
       submitInput([], true);
     }
   }
@@ -206,13 +208,19 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function toggleTime() {
-    // setTimeValue(dayjs(start));
+    setTimeValue(dayjs(start).format('HH:mm:ss'));
     setTimePanelShow(!timePanelShow);
+  }
 
-    // this.$nextTick(() => {
-    //   const timePickerPanel = this.$refs.timePickerPanel;
-    //   timePickerPanel && timePickerPanel.panelColUpdate();
-    // });
+  function handleTimePick(value: any) {
+    const [hour, minute, second] = value.split(':');
+    const startDate = new Date(start);
+    startDate.setHours(hour);
+    startDate.setMinutes(minute);
+    startDate.setSeconds(second);
+    setStart(startDate);
+    setTimeValue(dayjs(startDate).format('HH:mm:ss'));
+    dateClick(startDate);
   }
 
   function normalizeDateTime(value: Date, oldValue: Date): Date {
@@ -342,16 +350,11 @@ const DatePicker = (props: DatePickerProps) => {
 
     return (
       <div ref={dropdownPopupRef} className={pickerStyles}>
-        {/* {enableTimePicker && timePanelShow && (
-            <TimePickerPanel
-              format="HH:mm:ss"
-              cols={[EPickerCols.hour, EPickerCols.minute, EPickerCols.second]}
-              steps={[1, 1, 1]}
-              value={[timeValue]}
-              ontime-pick={this.handleTimePick}
-              isFooterDisplay={false}
-            />
-          )} */}
+        {enableTimePicker && timePanelShow && (
+          <div>
+            <TimePickerPanel format="HH:mm:ss" steps={[1, 1, 1]} value={timeValue} onChange={handleTimePick} />
+          </div>
+        )}
         {!timePanelShow && panelComponent}
         {presets && range && <CalendarPresets presets={presets} onClickRange={clickRange} />}
         {enableTimePicker && (
