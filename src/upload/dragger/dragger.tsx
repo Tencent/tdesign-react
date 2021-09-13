@@ -1,13 +1,12 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { TNode } from '@TdTypes/common';
-import { TriggerContext, UploadFile, UploadRemoveContext } from '../_type/components/upload';
-import useConfig from '../_util/useConfig';
+import { TriggerContext, UploadFile, UploadRemoveContext } from '../../_type/components/upload';
+import useConfig from '../../_util/useConfig';
 import DraggerProgress from './dragger-progress';
 
 export interface DraggerProps {
   file?: UploadFile;
-  loadingFile?: UploadFile;
   display?: string;
   trigger?: string | TNode<TriggerContext>;
   onCancel?: () => void;
@@ -20,14 +19,15 @@ export interface DraggerProps {
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
-  const { file, loadingFile, display } = props;
+  const { file, display, onUpload } = props;
   const { classPrefix } = useConfig();
   const [dragActive, setDragActive] = useState(false);
+  const target = React.useRef();
 
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
-    !loadingFile && !file ? `${classPrefix}-upload__dragger-center` : '',
-    loadingFile && loadingFile.status === 'fail' ? `${classPrefix}-upload__dragger-error` : '',
+    !file ? `${classPrefix}-upload__dragger-center` : '',
+    file?.status === 'fail' ? `${classPrefix}-upload__dragger-error` : '',
   );
 
   const defaultDragElement = React.useMemo(() => {
@@ -42,9 +42,19 @@ const Dragger: FC<DraggerProps> = (props) => {
   }, [classPrefix, dragActive]);
 
   const dragElement = React.useMemo(() => {
-    let content = null;
-    if ((loadingFile || file) && display !== 'custom') {
-      content = <DraggerProgress file={file} loadingFile={loadingFile} />;
+    let content: React.ReactNode;
+    if (file && display !== 'custom') {
+      content = (
+        <DraggerProgress
+          onRemove={props.onRemove}
+          display={display}
+          onTrigger={props.onTrigger}
+          file={file}
+          onUpload={() => {
+            onUpload?.(file);
+          }}
+        />
+      );
     } else {
       content = (
         <div className="t-upload__trigger" onClick={props.onTrigger}>
@@ -54,26 +64,25 @@ const Dragger: FC<DraggerProps> = (props) => {
     }
 
     return content;
-  }, [defaultDragElement, display, file, loadingFile, props.children, props.onTrigger]);
+  }, [defaultDragElement, display, file, onUpload, props.children, props.onRemove, props.onTrigger]);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
-    // this.$emit('change', event.dataTransfer.files);
-    // this.$emit('dragleave', event);
+    props.onChange?.(event.dataTransfer.files);
+    props.onDragleave?.(event);
     setDragActive(false);
   };
 
   const handleDragenter = (event: DragEvent) => {
-    this.target = event.target;
     event.preventDefault();
-    // this.$emit('dragenter', event);
+    props.onDragenter?.(event);
     setDragActive(true);
   };
 
   const handleDragleave = (event: DragEvent) => {
-    if (this.target !== event.target) return;
+    if (!target.current) return;
     event.preventDefault();
-    // this.$emit('dragleave', event);
+    props.onDragleave?.(event);
     setDragActive(false);
   };
 
@@ -83,6 +92,7 @@ const Dragger: FC<DraggerProps> = (props) => {
 
   return (
     <div
+      ref={target}
       className={classes}
       onDrop={handleDrop}
       onDragEnter={handleDragenter}

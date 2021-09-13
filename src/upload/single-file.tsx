@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import classNames from 'classnames';
 import { LoadingIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from '@tencent/tdesign-react';
 import { UploadFile, UploadRemoveContext } from '../_type/components/upload';
@@ -8,54 +8,59 @@ export interface SingleFileProps {
   file?: UploadFile;
   display?: string;
   placeholder?: string;
-  loadingFile?: UploadFile;
   onRemove?: (context: UploadRemoveContext) => void;
 }
 
 const SingleFile: FC<SingleFileProps> = (props) => {
-  const { display = 'file', loadingFile, onRemove, file } = props;
+  const { display = 'file', onRemove, file } = props;
   const { classPrefix } = useConfig();
 
   const fileClass = classNames(`${classPrefix}-upload__single`, `${classPrefix}-upload__single-${display}`);
 
-  const showProgress = React.useMemo(() => loadingFile && loadingFile.status === 'progress', [loadingFile]);
+  const showProgress = React.useMemo(() => file && file.status !== 'success', [file]);
 
-  const getInputName = React.useCallback(() => {
-    const fileName = file && file.name;
-    const loadingName = loadingFile && loadingFile.name;
-    return showProgress ? loadingName : fileName;
-  }, [file, loadingFile, showProgress]);
+  const inputName = React.useMemo(() => file && file.name, [file]);
+
+  const handleRemove = React.useCallback(
+    (e) => {
+      onRemove?.({
+        e,
+        file,
+        index: 0,
+      });
+    },
+    [file, onRemove],
+  );
 
   const renderProgress = React.useCallback(() => {
-    if (loadingFile.status === 'fail') {
+    if (file?.status === 'fail') {
       return <ErrorCircleFilledIcon />;
     }
 
     return (
-      <div className={`${classPrefix}-upload__single-progress`}>
-        <LoadingIcon />
-        <span className={`${classPrefix}-upload__single-percent`}>{Math.min(loadingFile.percent, 99)}%</span>
-      </div>
+      <Fragment>
+        <div className={`${classPrefix}-upload__single-progress`}>
+          <LoadingIcon />
+          <span className={`${classPrefix}-upload__single-percent`}>{Math.min(file?.percent || 0, 99)}%</span>
+        </div>
+      </Fragment>
     );
-  }, [classPrefix, loadingFile]);
+  }, [classPrefix, file]);
 
   // 文本型预览
   const renderFilePreviewAsText = React.useCallback(() => {
-    console.log(loadingFile, showProgress);
-    if (!loadingFile || !file) return;
+    if (!inputName) return;
     return (
       <div className={`${classPrefix}-upload__single-display-text t-display-text--margin`}>
-        <span className={`${classPrefix}-upload__single-name`}>{getInputName()}</span>
+        <span className={`${classPrefix}-upload__single-name`}>{inputName}</span>
         {showProgress ? (
           renderProgress()
         ) : (
-          <CloseCircleFilledIcon className={`${classPrefix}-upload-icon-delete`} onClick={onRemove} />
+          <CloseCircleFilledIcon className={`${classPrefix}-upload-icon-delete`} onClick={handleRemove} />
         )}
       </div>
     );
-  }, [classPrefix, file, getInputName, loadingFile, onRemove, renderProgress, showProgress]);
-
-  console.log(loadingFile?.status);
+  }, [classPrefix, inputName, renderProgress, showProgress, handleRemove]);
 
   return (
     <div className={fileClass}>

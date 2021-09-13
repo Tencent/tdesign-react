@@ -1,3 +1,10 @@
+import { TdUploadFile } from './upload';
+
+const urlCreator = window.webkitURL || window.URL;
+
+const now = +new Date();
+let index = 0;
+
 export function returnFileSize(number: number) {
   if (number < 1024) {
     return `${number} Bytes`;
@@ -23,7 +30,7 @@ export function getCurrentDate() {
  * @param rightcount 右边长度
  * @returns 缩略后的文件名
  */
-export function abridgeName(inputName: string, leftCount = 5, rightcount = 7): string {
+export function abridgeName(inputName = '', leftCount = 5, rightcount = 7): string {
   const name = inputName;
   let leftLength = 0;
   let rightLength = 0;
@@ -37,4 +44,24 @@ export function abridgeName(inputName: string, leftCount = 5, rightcount = 7): s
     }
   }
   return name.replace(new RegExp(`^(.{${leftLength}})(.+)(.{${rightLength}})$`), '$1…$3');
+}
+
+export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
+  const nextFileList = [...fileList];
+  const fileIndex = nextFileList.findIndex(({ uid }: TdUploadFile) => uid === file.uid);
+  if (fileIndex === -1) {
+    nextFileList.push(file);
+  } else {
+    nextFileList[fileIndex] = file;
+  }
+  return nextFileList;
+}
+
+export function uid() {
+  index += 1;
+  return `td-upload-${now}-${index}`;
+}
+
+export function createFileURL(file: File) {
+  return urlCreator.createObjectURL(file);
 }
