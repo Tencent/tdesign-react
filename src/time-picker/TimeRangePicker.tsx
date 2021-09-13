@@ -25,7 +25,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     disabled,
     format = 'HH:mm:ss',
     // hideDisabledTime,
-    placeholder,
+    // placeholder,
     size,
     // steps,
     value,
@@ -64,7 +64,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
             size={size}
             disabled={disabled}
             format={format}
-            placeholder={placeholder}
+            // placeholder={placeholder}
             allowInput={allowInput}
             // onBlur={onBlur}
             // onFocus={onFocus}

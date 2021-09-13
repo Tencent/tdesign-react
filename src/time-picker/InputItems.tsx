@@ -50,12 +50,14 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     });
   }, [value, format]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleInputChange = (type: TimeInputType, result: number | string, index?: number) => {
     const currentDayjsValue = dayjs(value, format);
 
     onChange(currentDayjsValue[type]?.(result).format(format));
   };
   // handle keyboard event
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleInputKeydown = (e: any, type: TimeInputType, index?: number) => {
     if (!allowInput) return;
     const { up, down, left, right } = KEYBOARD_DIRECTION;

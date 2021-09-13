@@ -26,7 +26,7 @@ const TimePicker: FC<TimePickerProps> = (props) => {
     clearable,
     disabled,
     format = 'HH:mm:ss',
-    hideDisabledTime,
+    hideDisabledTime = true,
     placeholder = '选择时间',
     size = 'medium',
     steps = [1, 1, 1],

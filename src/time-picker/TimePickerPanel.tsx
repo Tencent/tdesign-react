@@ -65,10 +65,12 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     return availableArr.sort((a, b) => Math.abs(calcVal + 1 - a) - Math.abs(calcVal + 1 - b))[0];
   };
 
-  const timeItemCanUsed = (col: EPickerCols) => {
-    if (timeArr.includes(col)) {
-      const params = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
-      return !(disableTime && disableTime?.apply(null, params));
+  const timeItemCanUsed = (col: EPickerCols, el: string | number) => {
+    const colIdx = timeArr.indexOf(col);
+    if (colIdx !== -1) {
+      const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+      params[colIdx] = el as number;
+      return !(disableTime && disableTime?.(...params));
     }
     return true;
   };
@@ -86,7 +88,9 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
       const stepHeight = getItemHeight() / Number(steps[colIdx]);
       val = Math.min(Math.abs(Math.round(scrollTop / stepHeight)), max);
       val = closestLookup(range(Number(steps[colIdx]) - 1, max + 1, Number(steps[colIdx])), val, Number(steps[colIdx]));
-      value ? onChange(dayjsValue[col]?.(val).format(format)) : onChange(dayjsValue[col]?.(val).format(format));
+      if (timeItemCanUsed(col, val)) {
+        value ? onChange(dayjsValue[col]?.(val).format(format)) : onChange(dayjsValue[col]?.(val).format(format));
+      }
     } else {
       // meridiem col scorll
       const val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
@@ -114,22 +118,26 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
           count = 59;
         }
         // why count + 1 ? to reach maximum
-        return range(Number(colStep) - 1, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
+        const colList =
+          range(Number(colStep) - 1, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
+
+        return hideDisabledTime && !!disableTime
+          ? colList.filter((t) => {
+              const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+              params[colIdx] = Number(t);
+              return !disableTime?.apply(this, params);
+            })
+          : colList;
       }
       // meridiem column scroller render
       return MERIDIEM_LIST;
     },
-    [steps, format],
+    [steps, format, hideDisabledTime, dayjsValue, disableTime],
   );
 
   const handleClickConfirm = () => {
     // TODO
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const calculateTimeIdx = (time: number | string, step: number | string, type: EPickerCols) =>
-    // timeIdx = disableFilter(Number(timeIdx), type);
-    Math.floor(Number(time) / Number(step));
 
   const getScrollDistance = useCallback(
     (col: EPickerCols, time: number | string) => {
@@ -137,7 +145,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
 
       if (timeArr.includes(col)) {
         const colIdx = timeArr.indexOf(col);
-        itemIdx = calculateTimeIdx(time, steps[colIdx], col);
+        itemIdx = Math.floor(Number(time) / Number(steps[colIdx]));
         if (col === EPickerCols.hour && /[h]{1}/.test(format)) {
           itemIdx %= 12;
         }
@@ -208,8 +216,8 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     [format, value],
   );
 
-  const renderScrollers = () =>
-    cols.map((col, idx) => (
+  function renderScrollers() {
+    return cols.map((col, idx) => (
       <ul
         className={`${panelClassName}__body-scroll`}
         key={`${col}_${idx}`}
@@ -222,7 +230,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
             className={classNames([
               `${panelClassName}__body-scroll-item`,
               {
-                [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col),
+                [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col, el),
                 [`${classPrefix}-is-current`]: isCurrent(col, el),
               },
             ])}
@@ -233,6 +241,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
         ))}
       </ul>
     ));
+  }
 
   return (
     <div className={panelClassName}>
@@ -250,13 +259,12 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section__footer`}>
-          {/* row-reverse */}
           <Button theme="primary" variant="base" onClick={handleClickConfirm}>
-            确定
+            {TEXT_CONFIG.confirm}
           </Button>
           {!isRangePicker ? (
             <Button theme="primary" variant="text" onClick={() => onChange(dayjs().format(format))}>
-              此刻
+              {TEXT_CONFIG.nowtime}
             </Button>
           ) : null}
         </div>
