@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
@@ -25,7 +26,7 @@ const TimePicker: FC<TimePickerProps> = (props) => {
     clearable,
     disabled,
     format = 'HH:mm:ss',
-    // hideDisabledTime,
+    hideDisabledTime,
     placeholder = '选择时间',
     size = 'medium',
     steps = [1, 1, 1],
@@ -56,6 +57,7 @@ const TimePicker: FC<TimePickerProps> = (props) => {
           steps={steps}
           format={format}
           disableTime={disableTime}
+          hideDisabledTime={hideDisabledTime}
           isFooterDisplay={true}
           isRangePicker={false}
           onChange={onChange}
