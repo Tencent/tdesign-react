@@ -35,6 +35,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
+  const maskRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
@@ -47,6 +48,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       if (wrap.current) {
         wrap.current.focus();
       }
+    } else {
+      isModal && (document.body.style.overflow = bodyOverflow.current);
     }
   }, [preventScrollThrough, getContainer, visible, mode, isModal]);
 
@@ -79,7 +82,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.keyCode === KeyCode.ESC) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+    if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
       onClose({ e, trigger: 'esc' });
@@ -158,7 +162,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       <div
         ref={dialog}
         style={style}
-        className={`${prefixCls}${` ${prefixCls}--default`} ${classNames}`}
+        className={classnames(`${prefixCls}`, `${prefixCls}--default`, classNames)}
         onMouseDown={onDialogMoveStart}
       >
         {closer}
@@ -179,6 +183,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         classNames={`${prefixCls}-zoom`}
         onEntered={props.onOpened}
         onExited={onAnimateLeave}
+        nodeRef={dialog}
       >
         {dialogElement}
       </CSSTransition>
@@ -193,10 +198,11 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           in={visible}
           appear
           timeout={transitionTime}
-          classNames="t-dialog-fade"
+          classNames={`${prefixCls}-dialog-fade`}
           mountOnEnter
           unmountOnExit
           key="mask"
+          nodeRef={maskRef}
         >
           <div key="mask" onClick={onMaskClick} className={`${prefixCls}-mask`} />
         </CSSTransition>
