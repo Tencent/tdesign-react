@@ -7,9 +7,9 @@ export interface TableColGroupProps {
 
 export const TableColGroup = ({ columns }: TableColGroupProps): any => (
   <colgroup>
-    {columns.map(({ width, minWidth, colKey }) => (
+    {columns.map(({ width, minWidth, colKey }, index) => (
       <col
-        key={colKey}
+        key={colKey || index}
         style={{
           width,
           minWidth,
