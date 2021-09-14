@@ -3,6 +3,7 @@ import { UploadFile, ProgressContext, SuccessContext } from '../_type/components
 export interface TdUploadFile extends UploadFile {
   // fileList中每个文件的唯一标识
   uid?: string;
+  // xhr?: XMLHttpRequest;
 }
 
 export interface XhrOptions {

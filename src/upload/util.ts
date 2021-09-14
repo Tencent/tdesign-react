@@ -51,6 +51,7 @@ export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
   } else {
     nextFileList[fileIndex] = file;
   }
+
   return nextFileList;
 }
 
@@ -60,4 +61,8 @@ export function createFileURL(file: File) {
 
 export function finishUpload(state) {
   return ['success', 'fail'].includes(state);
+}
+
+export function isSingleFile(multiple = false, theme: string) {
+  return !multiple && ['file', 'file-input', 'image'].includes(theme);
 }

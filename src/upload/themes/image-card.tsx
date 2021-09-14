@@ -1,4 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
+import { finishUpload } from '@tencent/tdesign-react/upload/util';
 import Dialog from '../../dialog';
 import useConfig from '../../_util/useConfig';
 import { TdUploadFile } from '../types';
@@ -24,13 +25,11 @@ const ImageCard: FC<ImageCardProps> = (props) => {
     setImgURL(file.url);
   };
 
-  // 所有变成success或fail状态表示全部完成
-  const finish = React.useMemo(() => files.every((file) => ['success', 'fail'].includes(file.status)), [files]);
-
   const showTrigger = React.useMemo(() => {
-    if (!multiple) {
+    if (multiple) {
       return !max || files.length < max;
     }
+
     return !(files && files[0]);
   }, [files, max, multiple]);
 
@@ -57,40 +56,41 @@ const ImageCard: FC<ImageCardProps> = (props) => {
         {files &&
           files.map((file, index) => (
             <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} key={index}>
-              <div className={`${classPrefix}-upload-card__content ${classPrefix}-upload-card__box`}>
-                <img className={`${classPrefix}-upload-card__image`} src={file.url} />
-                <div className={`${classPrefix}-upload-card__mask`}>
-                  <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
-                    <BrowseIcon
-                      onClick={() => {
-                        preview(file);
-                      }}
-                    />
-                  </span>
-                  <span className={`${classPrefix}-upload-card__mask__item-divider`} />
-                  <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
-                    <DeleteIcon
-                      onClick={(e) => {
-                        onRemove?.({ e, file, index });
-                      }}
-                    />
-                  </span>
+              {!finishUpload(file.status) ? (
+                <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
+                  <LoadingIcon />
+                  <p>上传中 {Math.min(files[0].percent, 99)}%</p>
                 </div>
-              </div>
+              ) : (
+                <div className={`${classPrefix}-upload-card__content ${classPrefix}-upload-card__box`}>
+                  <img className={`${classPrefix}-upload-card__image`} src={file.url} />
+                  <div className={`${classPrefix}-upload-card__mask`}>
+                    <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                      <BrowseIcon
+                        onClick={() => {
+                          preview(file);
+                        }}
+                      />
+                    </span>
+                    <span className={`${classPrefix}-upload-card__mask__item-divider`} />
+                    <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                      <DeleteIcon
+                        onClick={(e) => {
+                          onRemove?.({ e, file, index });
+                        }}
+                      />
+                    </span>
+                  </div>
+                </div>
+              )}
             </li>
           ))}
         {showTrigger && (
           <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} onClick={props.onTrigger}>
-            {!finish ? (
-              <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
-                <LoadingIcon />
-              </div>
-            ) : (
-              <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
-                <AddIcon />
-                <p className={`${classPrefix}-upload__small`}>点击上传图片</p>
-              </div>
-            )}
+            <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
+              <AddIcon />
+              <p className={`${classPrefix}-upload__small`}>点击上传图片</p>
+            </div>
           </li>
         )}
       </ul>
