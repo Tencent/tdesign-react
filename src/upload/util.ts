@@ -2,9 +2,6 @@ import { TdUploadFile } from './upload';
 
 const urlCreator = window.webkitURL || window.URL;
 
-const now = +new Date();
-let index = 0;
-
 export function returnFileSize(number: number) {
   if (number < 1024) {
     return `${number} Bytes`;
@@ -55,11 +52,6 @@ export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
     nextFileList[fileIndex] = file;
   }
   return nextFileList;
-}
-
-export function uid() {
-  index += 1;
-  return `td-upload-${now}-${index}`;
 }
 
 export function createFileURL(file: File) {
