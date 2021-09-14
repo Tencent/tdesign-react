@@ -1,64 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from '@tencent/tdesign-react';
+import './select-single.less';
 
-const exampleList = [
+const columns = [
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    colKey: 'row-select',
+    type: 'single',
+    checkProps: ({ rowIndex }) => ({ disabled: rowIndex % 2 !== 0 }),
+    width: 50,
   },
+  { colKey: 'instance', title: '集群名称', width: 150 },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    colKey: 'status',
+    title: '状态',
+    width: 100,
+    render({ row }) {
+      switch (row?.status) {
+        case 0:
+          return <p className="status">健康</p>;
+        case 1:
+          return <p className="status unhealth">异常</p>;
+        default:
+          return null;
+      }
+    },
   },
+  { colKey: 'owner', title: '管理员' },
+  { colKey: 'description', title: '描述' },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    colKey: 'op',
+    width: 200,
+    title: '操作',
+    render(record) {
+      return (
+        <>
+          <a
+            className="link"
+            onClick={() => {
+              rehandleClickOp(record);
+            }}
+          >
+            管理
+          </a>
+          <a
+            className="link"
+            onClick={() => {
+              rehandleClickOp(record);
+            }}
+          >
+            删除
+          </a>
+        </>
+      );
+    },
   },
 ];
+const initData = [
+  {
+    id: 1,
+    instance: 'JQTest1',
+    status: 0,
+    owner: 'jenny;peter',
+    description: 'test',
+  },
+  {
+    id: '2',
+    instance: 'JQTest2',
+    status: 1,
+    owner: 'jenny',
+    description: 'test',
+  },
+  {
+    id: 3,
+    instance: 'JQTest3',
+    status: 0,
+    owner: 'jenny',
+    description: 'test',
+  },
+  {
+    id: 4,
+    instance: 'JQTest4',
+    status: 1,
+    owner: 'peter',
+    description: 'test',
+  },
+];
+function rehandleClickOp(record) {
+  console.log(record);
+}
 
-export default function TableExample() {
-  return null;
+export default function TableSingleSort() {
+  const [data] = useState([...initData]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  function onSelectChange(value, { selectedRowData }) {
+    console.log(value, selectedRowData);
+    setSelectedRowKeys(value);
+  }
 
   return (
-    <Table
-      data={exampleList}
-      // height={100}
-      // bordered={false}
-      // loading={true}
-      columns={[
-        {
-          colKey: 'project',
-          title: '项目名称',
-          width: '150px',
-          render: ({ row }) => row.projectName,
-        },
-        {
-          colKey: 'memeber',
-          title: '管理员',
-          width: '300px',
-          render: ({ row }) => row.manager.join(','),
-        },
-        {
-          colKey: 'company',
-          title: '所属公司',
-          width: '150px',
-          render: ({ row }) => row.company,
-        },
-      ]}
-      rowKey="projectName"
-    />
+    <div className="demo-table-select">
+      <Table
+        rowKey="id"
+        data={data}
+        columns={columns}
+        selectedRowKeys={selectedRowKeys}
+        onSelectChange={onSelectChange}
+      />
+    </div>
   );
 }

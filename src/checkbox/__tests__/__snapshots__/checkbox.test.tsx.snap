@@ -196,7 +196,7 @@ exports[`group.jsx 1`] = `
       </label>
     </div>
     <div
-      class="t-form-check-group"
+      class="t-check-group"
     >
       <label
         class="t-checkbox t-is-checked"

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button } from '@tencent/tdesign-react';
+import { Drawer, Radio, Button, Form } from '@tencent/tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState('right');
+  const [mode, setMode] = useState('push');
 
   const handleClick = () => {
     setVisible(true);
@@ -12,18 +13,32 @@ export default function () {
     setVisible(false);
   };
   return (
-    <div>
-      <Radio.Group size="small" value={placement} onChange={(value) => setPlacement(value)}>
-        <Radio.Button value="left">left</Radio.Button>
-        <Radio.Button value="right">right</Radio.Button>
-        <Radio.Button value="top">top</Radio.Button>
-        <Radio.Button value="bottom">bottom</Radio.Button>
-      </Radio.Group>
+    <div className="tdesign-demo-block-column">
+      <div>
+        <span>抽屉弹出方向：</span>
+        <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
+          <Radio.Button value="left">left</Radio.Button>
+          <Radio.Button value="right">right</Radio.Button>
+          <Radio.Button value="top">top</Radio.Button>
+          <Radio.Button value="bottom">bottom</Radio.Button>
+        </Radio.Group>
+      </div>
 
-      <Button theme="primary" onClick={handleClick} style={{ marginLeft: 16 }}>
-        Open
-      </Button>
-      <Drawer placement={placement} key={placement} title="Drawer" visible={visible} onClose={handleClose} mode="push">
+      <div>
+        <span>抽屉弹出模式：</span>
+        <Radio.Group value={mode} onChange={(value) => setMode(value)}>
+          <Radio.Button value="push">push</Radio.Button>
+          <Radio.Button value="overlay">overlay</Radio.Button>
+        </Radio.Group>
+      </div>
+
+      <div>
+        <Button theme="primary" onClick={handleClick}>
+          Open
+        </Button>
+      </div>
+
+      <Drawer placement={placement} key={placement} attach={'body'}  header="Drawer" visible={visible} onClose={handleClose} mode={mode}>
         <p>This is a drawer</p>
       </Drawer>
     </div>

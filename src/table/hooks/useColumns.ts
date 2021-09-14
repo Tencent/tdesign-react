@@ -1,8 +1,19 @@
 import { useMemo } from 'react';
 import { BaseTableCol, DataType } from '../../_type/components/table';
 
-function flattenColumns<RowData>(columns: BaseTableCol[]) {
-  return columns;
+function flattenColumns(columns: BaseTableCol[]): BaseTableCol[] {
+  const result: Array<BaseTableCol> = [];
+  columns.forEach((column: BaseTableCol) => {
+    const { children } = column;
+    if (children?.length) {
+      result.push(...flattenColumns(children));
+    } else {
+      result.push({
+        ...column,
+      });
+    }
+  });
+  return result;
 }
 
 export function useColumns<RowData extends DataType = DataType>(props: { columns?: BaseTableCol<RowData>[] }) {

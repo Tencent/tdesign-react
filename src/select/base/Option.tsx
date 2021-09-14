@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
-import { isNumber, isString } from 'lodash';
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
+
 import useConfig from '../../_util/useConfig';
+import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../_type/StyledProps';
 import { SelectValue, TdOptionProps, TdSelectProps, Options } from '../../_type/components/select';
 
@@ -23,13 +26,18 @@ export interface SelectOptionProps
 type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
 
 const Option = (props: SelectOptionProps) => {
-  const { classPrefix } = useConfig();
   const { disabled: propDisabled, size, max, value, multiple, selectedValue, onSelect, children } = props;
   const label = props.label || value;
   const componentType = 'select';
   let selected = value === selectedValue;
 
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+
+  const { classPrefix } = useConfig();
+  const optionRef = useRef();
+
+  // 使用斜八角动画
+  useRipple(optionRef);
 
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
@@ -47,7 +55,7 @@ const Option = (props: SelectOptionProps) => {
     }
   };
 
-  const renderItem = (children) => {
+  const renderItem = (children: React.ReactNode) => {
     if (multiple) {
       return (
         <label
@@ -68,7 +76,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <>{children || label}</>;
+    return <span>{children || label}</span>;
   };
 
   return (
@@ -81,6 +89,7 @@ const Option = (props: SelectOptionProps) => {
       })}
       key={value}
       onClick={handleSelect}
+      ref={optionRef}
     >
       {renderItem(children)}
     </li>

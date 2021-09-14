@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import noop from '../_util/noop';
-import { TdMenuProps, MenuValue } from './../_type/components/menu/index';
+import { TdMenuProps, MenuValue } from '../_type/components/menu/index';
 
 export interface MenuState {
   active?: MenuValue;

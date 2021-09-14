@@ -150,7 +150,8 @@ exports[`checkable.jsx 1`] = `
           class="t-form__item"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--top"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: calc(1 / 12 * 100%);"
           >
             <label>
               可选
@@ -181,7 +182,8 @@ exports[`checkable.jsx 1`] = `
           class="t-form__item"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--top"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: calc(1 / 12 * 100%);"
           >
             <label>
               严格模式
@@ -212,7 +214,8 @@ exports[`checkable.jsx 1`] = `
           class="t-form__item"
         >
           <div
-            class="t-form__label t-form-item__valueMode t-form__label--top"
+            class="t-form__label t-form-item__valueMode t-form__label--right"
+            style="width: calc(1 / 12 * 100%);"
           >
             <label>
               选中值模式
@@ -225,7 +228,7 @@ exports[`checkable.jsx 1`] = `
               class="t-form__controls--content"
             >
               <div
-                class="t-radio-group t-radio-group-outline t-radio-group-medium"
+                class="t-radio-group t-radio-group-medium t-radio-group-outline"
               >
                 <label
                   class="t-radio t-is-checked"
@@ -768,7 +771,8 @@ exports[`line.jsx 1`] = `
           class="t-form__item"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--top"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: calc(1 / 12 * 100%);"
           >
             <label>
               显示连线
@@ -799,7 +803,8 @@ exports[`line.jsx 1`] = `
           class="t-form__item"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--top"
+            class="t-form__label t-form-item__undefined t-form__label--right"
+            style="width: calc(1 / 12 * 100%);"
           >
             <label>
               显示图标

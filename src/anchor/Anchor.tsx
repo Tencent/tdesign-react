@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isFunction from 'lodash/isFunction';
 import { StyledProps } from '../_type';
 import { TdAnchorProps } from '../_type/components/anchor';
 import useConfig from '../_util/useConfig';
@@ -8,7 +9,7 @@ import noop from '../_util/noop';
 import { getScrollContainer } from '../_util/dom';
 import Affix from '../affix';
 import { AnchorContext, Item } from './AnchorContext';
-import { getOffsetTop, getScroll, scrollTo, ANCHOR_CONTAINER } from './_util/dom';
+import { getOffsetTop, getScroll, scrollTo, AnchorContainer } from './_util/dom';
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 
@@ -19,10 +20,8 @@ export interface AnchorProps extends TdAnchorProps, StyledProps {
 interface IntervalRef {
   // 收集 anchor-item
   items: string[];
-  // 当前选中的
-  activeItem: string;
   // 容器
-  scrollContainer: ANCHOR_CONTAINER;
+  scrollContainer: AnchorContainer;
   // 收集各项 item 的信息与节点
   handleScrollLock: boolean;
 }
@@ -49,7 +48,6 @@ const Anchor = (props: AnchorProps) => {
   const anchorEl = useRef(null);
   const intervalRef = useRef<IntervalRef>({
     items: [],
-    activeItem,
     scrollContainer: window,
     handleScrollLock: false,
   });
@@ -73,6 +71,7 @@ const Anchor = (props: AnchorProps) => {
   const handleScrollTo = (link: string) => {
     const anchor = getAnchorTarget(link);
     if (!anchor) return;
+    if (isFunction(onChange)) onChange(link, activeItem);
     setActiveItem(link);
     intervalRef.current.handleScrollLock = true;
     const { scrollContainer } = intervalRef.current;
@@ -126,13 +125,11 @@ const Anchor = (props: AnchorProps) => {
       const latest = filters.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
       active = latest.href;
     }
-    if (active !== intervalRef.current.activeItem) {
-      // 当前选中的 上一个
-      onChange(active, intervalRef.current.activeItem);
-      intervalRef.current.activeItem = active;
+    if (active !== activeItem) {
+      if (isFunction(onChange)) onChange(active, activeItem);
       setActiveItem(active);
     }
-  }, [bounds, onChange, targetOffset]);
+  }, [activeItem, bounds, onChange, targetOffset]);
 
   useEffect(() => {
     intervalRef.current.scrollContainer = getScrollContainer(container);

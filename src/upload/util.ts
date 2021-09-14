@@ -65,3 +65,7 @@ export function uid() {
 export function createFileURL(file: File) {
   return urlCreator.createObjectURL(file);
 }
+
+export function finishUpload(state) {
+  return ['success', 'fail'].includes(state);
+}

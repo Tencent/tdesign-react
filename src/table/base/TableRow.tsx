@@ -5,7 +5,6 @@ import TableCell from './TableCell';
 
 interface RowProps<D extends DataType> {
   record: D;
-  index: number;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
 }
@@ -17,7 +16,16 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   const baseRow = flattenColumns.map((column, index) => {
     const { colKey, ...restColumnProps } = column;
 
-    return <TableCell key={colKey} rowIndex={index} record={record} colKey={colKey} {...restColumnProps} />;
+    return (
+      <TableCell
+        key={colKey}
+        rowIndex={rowIndex}
+        colIndex={index}
+        record={record}
+        colKey={colKey}
+        {...restColumnProps}
+      />
+    );
   });
 
   let classes = rowClassName as string;

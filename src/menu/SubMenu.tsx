@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { StyledProps } from '../_type';
 import { TdSubmenuProps } from '../_type/components/menu';
 import useConfig from '../_util/useConfig';
-import { MenuContext } from '../menu/MenuContext';
+import { MenuContext } from './MenuContext';
 import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';

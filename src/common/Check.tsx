@@ -37,6 +37,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     onChange,
     indeterminate,
     children,
+    label,
     className,
     style,
     ...htmlProps
@@ -71,7 +72,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       <span key="label" className={`${classPrefix}-${type}__label`}>
-        {children}
+        {children || label}
       </span>
     </label>
   );

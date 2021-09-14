@@ -7,7 +7,7 @@ import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
 import { TElement } from '../../_type/common';
-import { Filter, FilterValue, PrimaryTableCol } from '../../_type/components/table';
+import { Filter, FilterValue, PrimaryTableCol, DataType } from '../../_type/components/table';
 import { ConfigContext } from '../../config-provider';
 import TIconFilter from '../../icon/icons/FilterIcon';
 
@@ -45,7 +45,7 @@ function FilterButton(props: Props) {
   const { classPrefix } = useContext(ConfigContext);
   const [filterVal, setfilterVal] = useState<any>();
 
-  const getFilterContent = (filter, colKey, column) => {
+  const getFilterContent = (filter: Filter, colKey: string, column: PrimaryTableCol<DataType>) => {
     const types = ['single', 'multiple', 'input'];
     if (filter.type && !types.includes(filter.type)) {
       console.error(`column.type must be the following: ${JSON.stringify(types)}`);
@@ -68,9 +68,7 @@ function FilterButton(props: Props) {
                 </Checkbox>
               ))}
             </Checkbox.Group>
-          ) : (
-            ''
-          )}
+          ) : null}
 
           {filter.type === 'single' ? (
             <Radio.Group
@@ -86,9 +84,7 @@ function FilterButton(props: Props) {
                 </Radio>
               ))}
             </Radio.Group>
-          ) : (
-            ''
-          )}
+          ) : null}
 
           {filter.type === 'input' ? (
             <Input
@@ -105,7 +101,7 @@ function FilterButton(props: Props) {
     );
   };
 
-  function onChangeFilter(value, colKey, column) {
+  function onChangeFilter(value: any, colKey: string, column: PrimaryTableCol<DataType>) {
     setfilterVal({
       ...filterVal,
       [colKey]: value,
@@ -120,7 +116,7 @@ function FilterButton(props: Props) {
 
   return columns.map((column: PrimaryTableCol, index: number) => {
     const { filter, colKey } = column;
-    if (!filter || !(filter as Filter)) {
+    if (!filter) {
       return column;
     }
     const lastTitle = getTitle(column, index);

@@ -4,6 +4,7 @@ import { Drawer, Radio, Button } from '@tencent/tdesign-react';
 export default function () {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState('right');
+  const [mode, setMode] = useState('push');
 
   const handleClick = () => {
     setVisible(true);
@@ -16,35 +17,46 @@ export default function () {
       style={{
         position: 'relative',
         height: '400px',
+        padding: '48px',
         overflow: 'hidden',
-        textAlign: 'center',
         background: '#fafafa',
         border: '1px solid #ebedf0',
         borderRadius: '2px',
       }}
     >
-      <div style={{ height: '100%', padding: '48px' }}>
-        渲染在当前元素中。
-        <div style={{ marginTop: 16 }}>
-          <Radio.Group size="small" value={placement} onChange={(value) => setPlacement(value)}>
+      <div className="tdesign-demo-block-column">
+        <p>渲染在当前元素中。</p>
+        <div>
+          <span>抽屉弹出方向：</span>
+          <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
             <Radio.Button value="left">left</Radio.Button>
             <Radio.Button value="right">right</Radio.Button>
             <Radio.Button value="top">top</Radio.Button>
             <Radio.Button value="bottom">bottom</Radio.Button>
           </Radio.Group>
+        </div>
 
-          <Button theme="primary" onClick={handleClick} style={{ marginLeft: 16 }}>
+        <div>
+          <span>抽屉弹出模式：</span>
+          <Radio.Group value={mode} onChange={(value) => setMode(value)}>
+            <Radio.Button value="push">push</Radio.Button>
+            <Radio.Button value="overlay">overlay</Radio.Button>
+          </Radio.Group>
+        </div>
+
+        <div>
+          <Button theme="primary" onClick={handleClick}>
             Open
           </Button>
         </div>
+
         <Drawer
-          title="Drawer"
-          size={'200px'}
-          attach={''}
+          showInAttachedElement
+          placement={placement}
+          header="Drawer"
           visible={visible}
           onClose={handleClose}
-          placement={placement}
-          style={{ textAlign: 'left' }}
+          mode={mode}
         >
           <p>This is a drawer</p>
         </Drawer>

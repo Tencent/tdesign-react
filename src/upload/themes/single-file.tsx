@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from 'react';
 import classNames from 'classnames';
-import { LoadingIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from '@tencent/tdesign-react';
-import { UploadFile, UploadRemoveContext } from '../_type/components/upload';
-import useConfig from '../_util/useConfig';
+import { LoadingIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from '../../icon';
+import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
+import useConfig from '../../_util/useConfig';
 
 export interface SingleFileProps {
   file?: UploadFile;

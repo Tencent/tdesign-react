@@ -4,36 +4,36 @@ import { DrawerProps } from './Drawer';
 
 export interface DrawerWrapperProps extends PortalProps {
   attach?: DrawerProps['attach'];
-  visible?: DrawerProps['visible'];
   children: React.ReactElement;
 }
 
 const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
-  const { children, attach, visible } = props;
-  const portalRef = useRef<HTMLElement>();
+  const { children, attach } = props;
+  const portalRef = useRef<HTMLDivElement>(null);
   let portal = null;
 
   useImperativeHandle(ref, () => {
-    if (attach === '' && portalRef.current) {
-      return portalRef.current.parentNode;
+    if (attach === '') {
+      return portalRef.current.parentElement;
     }
 
     return portalRef.current;
   });
 
-  if (visible || portalRef.current) {
-    if (attach === '') {
-      // 如果 attach === '',渲染在当前组件节点中。
-      portal = <span ref={portalRef}>{cloneElement(children)}</span>;
-    } else {
-      portal = (
-        <Portal getContainer={attach} ref={portalRef}>
-          {children}
-        </Portal>
-      );
-    }
+  // 如果 attach === '',渲染在当前组件节点中。
+  if (attach === '') {
+    portal = <div ref={portalRef}>{cloneElement(children)}</div>;
+  } else {
+    portal = (
+      <Portal getContainer={attach} ref={portalRef}>
+        {children}
+      </Portal>
+    );
   }
+
   return portal;
 });
+
 DrawerWrapper.displayName = 'DrawerWrapper';
+
 export default DrawerWrapper;

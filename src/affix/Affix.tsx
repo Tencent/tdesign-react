@@ -1,46 +1,49 @@
-import React, { Component, createRef } from 'react';
+import React, { useState, useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import isFunction from 'lodash/isFunction';
-import isEqual from 'lodash/isEqual';
 import { StyledProps } from '../_type';
 import { ScrollContainerElement } from '../_type/common';
 import { TdAffixProps } from '../_type/components/affix';
 import { getScrollContainer } from '../_util/dom';
-import { ConfigContext } from '../config-provider';
+import useConfig from '../_util/useConfig';
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 
-class Affix extends Component<AffixProps> {
-  scrollContainer: ScrollContainerElement;
+interface StateRef {
+  ticking: boolean;
+  oldWidth: number;
+  oldHeight: number;
+  containerHeight: number;
+  scrollContainer?: ScrollContainerElement;
+}
 
-  static defaultProps = {
-    container: () => window,
-  };
+interface RefProps {
+  calcInitValue: () => void;
+  handleScroll: () => void;
+}
 
-  state = {
-    affixed: false,
-  };
+const Affix = forwardRef<RefProps, AffixProps>((props, ref) => {
+  const { children, container = () => window, offsetBottom, offsetTop, onFixedChange } = props;
 
-  ticking = false;
-  containerHeight = 0;
-  oldWidth = 0;
-  oldHeight = 0;
+  const [affixed, setAffixed] = useState<boolean>(false);
+  const { classPrefix } = useConfig();
 
-  affixRef = createRef<HTMLDivElement>();
-  affixWrapRef = createRef<HTMLDivElement>();
+  const affixRef = useRef<HTMLDivElement>();
+  const affixWrapRef = useRef<HTMLDivElement>();
+  const stateRef = useRef<StateRef>({ ticking: false, oldWidth: 0, oldHeight: 0, containerHeight: 0 });
 
-  handleScroll = () => {
-    if (!this.ticking) {
+  const handleScroll = useCallback(() => {
+    const { ticking, scrollContainer, containerHeight, oldWidth } = stateRef.current;
+    if (!ticking) {
       window.requestAnimationFrame(() => {
-        const affixEl = this.affixRef.current;
-        const { offsetBottom, offsetTop, onFixedChange } = this.props;
-        const { top } = this.affixWrapRef.current.getBoundingClientRect(); // top = 节点到页面顶部的距离，包含 scroll 中的高度
+        const affixEl = affixRef.current;
+        const { top } = affixWrapRef.current.getBoundingClientRect(); // top = 节点到页面顶部的距离，包含 scroll 中的高度
         let containerTop = 0; // containerTop = 容器到页面顶部的距离
-        if (this.scrollContainer instanceof HTMLElement) {
-          containerTop = this.scrollContainer.getBoundingClientRect().top;
+        if (scrollContainer instanceof HTMLElement) {
+          containerTop = scrollContainer.getBoundingClientRect().top;
         }
         let fixedTop: number | false;
         const calcTop = top - containerTop; // 节点顶部到 container 顶部的距离
-        const calcBottom = containerTop + this.containerHeight - offsetBottom; // 计算 bottom 相对应的 top 值
+        const calcBottom = containerTop + containerHeight - offsetBottom; // 计算 bottom 相对应的 top 值
         if (offsetTop !== undefined && calcTop <= offsetTop) {
           // top 的触发
           fixedTop = containerTop + offsetTop;
@@ -52,72 +55,69 @@ class Affix extends Component<AffixProps> {
         }
 
         if (fixedTop !== false) {
-          affixEl.className = `${this.context.classPrefix}-affix`;
+          affixEl.className = `${classPrefix}-affix`;
           affixEl.style.top = `${fixedTop}px`;
-          affixEl.style.width = `${this.oldWidth}px`;
+          affixEl.style.width = `${oldWidth}px`;
         } else {
           affixEl.removeAttribute('class');
           affixEl.removeAttribute('style');
         }
-        this.setState((state) => ({ ...state, affixed: !!fixedTop }));
+        setAffixed(!!fixedTop);
         if (isFunction(onFixedChange)) onFixedChange(!!fixedTop, { top: fixedTop });
-        this.ticking = false;
+        stateRef.current.ticking = false;
       });
     }
-    this.ticking = true;
-  };
+    stateRef.current.ticking = true;
+  }, [classPrefix, offsetBottom, offsetTop, onFixedChange]);
 
-  calcInitValue = () => {
-    const { container } = this.props;
-    this.scrollContainer = getScrollContainer(container);
-    if (!this.scrollContainer) return;
+  const calcInitValue = useCallback(() => {
+    const scrollContainer = getScrollContainer(container);
+    if (!scrollContainer) return;
     // 获取当前可视的高度
     let containerHeight = 0;
-    if (this.scrollContainer instanceof Window) {
-      containerHeight = this.scrollContainer.innerHeight;
+    if (scrollContainer instanceof Window) {
+      containerHeight = scrollContainer.innerHeight;
     } else {
-      containerHeight = this.scrollContainer.clientHeight;
+      containerHeight = scrollContainer.clientHeight;
     }
     // 被包裹的子节点宽高
-    const { clientWidth, clientHeight } = this.affixRef.current || {};
-    this.oldWidth = clientWidth;
-    this.oldHeight = clientHeight;
-    this.containerHeight = containerHeight - clientHeight;
+    const { clientWidth, clientHeight } = affixRef.current || {};
+    stateRef.current = {
+      ...stateRef.current,
+      scrollContainer,
+      oldWidth: clientWidth,
+      oldHeight: clientHeight,
+      containerHeight: containerHeight - clientHeight,
+    };
 
-    this.handleScroll();
-  };
+    handleScroll();
+  }, [container, handleScroll]);
 
-  componentDidMount() {
-    // 防止渲染未完成
-    setTimeout(() => {
-      this.calcInitValue();
-      this.scrollContainer.addEventListener('scroll', this.handleScroll);
-      window.addEventListener('resize', this.handleScroll);
-    });
-  }
+  useImperativeHandle(ref, () => ({
+    calcInitValue,
+    handleScroll,
+  }));
 
-  componentWillUnmount() {
-    if (!this.scrollContainer) return;
-    this.scrollContainer.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleScroll);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!isEqual(prevProps, this.props)) {
-      this.calcInitValue();
+  useEffect(() => {
+    calcInitValue();
+    if (stateRef.current.scrollContainer) {
+      stateRef.current.scrollContainer.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+      return () => {
+        stateRef.current.scrollContainer.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
     }
-  }
+  }, [calcInitValue, handleScroll]);
 
-  render() {
-    return (
-      <div ref={this.affixWrapRef}>
-        {this.state.affixed ? <div style={{ width: `${this.oldWidth}px`, height: `${this.oldHeight}px` }}></div> : ''}
-        <div ref={this.affixRef}>{this.props.children}</div>
-      </div>
-    );
-  }
-}
+  const { oldWidth, oldHeight } = stateRef.current;
 
-Affix.contextType = ConfigContext;
+  return (
+    <div ref={affixWrapRef}>
+      {affixed ? <div style={{ width: `${oldWidth}px`, height: `${oldHeight}px` }}></div> : ''}
+      <div ref={affixRef}>{children}</div>
+    </div>
+  );
+});
 
 export default Affix;

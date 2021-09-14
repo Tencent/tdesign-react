@@ -5,13 +5,15 @@ import { BaseTableCol, DataType } from '../../_type/components/table';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
 
-interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
+export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   columns?: BaseTableCol[];
   type?: 'cell' | 'title';
   record?: D;
   style?: CSSProperties;
   rowIndex?: number;
   colIndex?: number;
+  rowSpan?: number;
+  colSpan?: number;
 }
 
 const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) => {
@@ -28,6 +30,9 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     ellipsis,
     columns,
     rowIndex,
+    className,
+    rowSpan,
+    colSpan,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -73,8 +78,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
   }
 
   // 样式依靠 td，之后实现请改为 th
-  const Component = type === 'title' ? 'td' : 'td';
-
+  // const Component = type === 'title' ? 'td' : 'td'; // codecc error
+  const Component = 'td';
   return (
     <Component
       ref={ref}
@@ -84,7 +89,10 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
         [`${classPrefix}-table__cell--fixed-${fixed}-${fixed === 'left' ? 'last' : 'first'}`]: fixed && isBoundary,
         [`align-${align}`]: align,
         'text-ellipsis': ellipsis,
+        [`${className}`]: !!className,
       })}
+      rowSpan={rowSpan}
+      colSpan={colSpan}
     >
       {cellNode}
     </Component>

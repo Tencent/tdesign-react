@@ -1,16 +1,16 @@
 import React from 'react';
-import { Steps, CheckCircleFilledIcon } from '@tencent/tdesign-react';
+import { Steps, LoginIcon, CartIcon, WalletIcon, CheckCircleIcon } from '@tencent/tdesign-react';
 
 const { StepItem } = Steps;
 
 export default function BasicStepsExample() {
   return (
     <>
-      <Steps>
-        <StepItem icon={<CheckCircleFilledIcon />} title="已完成的步骤" content="这里是提示文字"></StepItem>
-        <StepItem icon={<CheckCircleFilledIcon />} title="进行中的步骤" content="这里是提示文字"></StepItem>
-        <StepItem icon={<CheckCircleFilledIcon />} title="未进行的步骤" content="这里是提示文字"></StepItem>
-        <StepItem icon={<CheckCircleFilledIcon />} title="未进行的步骤" content="这里是提示文字"></StepItem>
+      <Steps current={1}>
+        <StepItem icon={<LoginIcon />} title="登录" content="已完成状态" />
+        <StepItem icon={<CartIcon />} title="购物" content="进行中状态" />
+        <StepItem icon={<WalletIcon />} title="支付" content="未开始" />
+        <StepItem icon={<CheckCircleIcon />} title="完成" content="未开始" />
       </Steps>
     </>
   );

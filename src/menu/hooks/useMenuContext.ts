@@ -2,7 +2,8 @@ import { noop } from 'lodash';
 import { useState, ReactNode } from 'react';
 import { MenuState, SetMenuState, MenuMode } from '../MenuContext';
 import checkSubMenuChildExpanded from '../_util/checkSubMenuChildExpanded';
-import { TdMenuProps, TdHeadMenuProps, MenuValue } from './../../_type/components/menu/index';
+import { TdMenuProps, TdHeadMenuProps, MenuValue } from '../../_type/components/menu/index';
+
 interface UseMenuContextProps extends Extract<TdMenuProps, TdHeadMenuProps> {
   children: ReactNode;
   mode: MenuMode;
@@ -41,13 +42,11 @@ function useMenuContext({
       } else {
         nextExpand = expanded.filter((item) => item !== value);
       }
-    } else {
+    } else if (expandMutex) {
       // 未展开
-      if (expandMutex) {
-        nextExpand = checkSubMenuChildExpanded(children, expanded, value);
-      } else {
-        nextExpand = [...expanded, value];
-      }
+      nextExpand = checkSubMenuChildExpanded(children, expanded, value);
+    } else {
+      nextExpand = [...expanded, value];
     }
     onExpand(nextExpand);
     setState({ expanded: nextExpand });

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function TableFooter(props) {
-  const { colspan = 6, children } = props;
+  const { colspan = 12, children } = props;
 
   return (
     <tfoot>

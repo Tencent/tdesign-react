@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
-import { TNode } from '@TdTypes/common';
-import { TriggerContext, UploadFile, UploadRemoveContext } from '../../_type/components/upload';
-import useConfig from '../../_util/useConfig';
-import DraggerProgress from './dragger-progress';
+import { TNode } from '../_type/common';
+import { TriggerContext, UploadFile, UploadRemoveContext } from '../_type/components/upload';
+import useConfig from '../_util/useConfig';
+import DraggerProgress from './themes/dragger-progress';
 
 export interface DraggerProps {
   file?: UploadFile;

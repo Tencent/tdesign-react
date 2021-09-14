@@ -71,18 +71,30 @@ const NotificationList = React.forwardRef<NotificationListInstance, Notification
     [notificationMap],
   );
 
+  const calOffset = (offset: string | number) => {
+    if (!offset) return '16px';
+    return isNaN(Number(offset)) ? offset : `${offset}px`;
+  };
   /* eslint-disable implicit-arrow-linebreak */
   const push = React.useCallback(
     (theme: NotificationThemeList, options: NotificationInfoOptions): Promise<NotificationInstance> =>
       new Promise((resolve) => {
         const key = String((seed += 1));
         const style: React.CSSProperties = (() => {
-          const offset = Object.assign({ top: 16, bottom: 16, left: 16, right: 16 }, options.offset);
+          if (Array.isArray(options.offset)) {
+            const [horizontal, vertical] = [...options.offset];
+            const horizontalOffset = calOffset(horizontal);
+            const verticalOffset = calOffset(vertical);
+
+            return {
+              marginTop: verticalOffset,
+              marginBottom: verticalOffset,
+              marginLeft: horizontalOffset,
+              marginRight: horizontalOffset,
+            };
+          }
           return {
-            marginTop: `${offset.top}px`,
-            marginBottom: `${offset.bottom}px`,
-            marginLeft: `${offset.left}px`,
-            marginRight: `${offset.right}px`,
+            margin: '16px',
           };
         })();
         notificationMap.set(key, React.createRef());

@@ -2,7 +2,7 @@
 import { Tag } from '@tencent/tdesign-react';
 
 export default function Size() {
-  const style = { marginRight: 5 };
+  const style = { marginRight: 30 };
   return (
     <>
       <Tag size="small" style={style}>

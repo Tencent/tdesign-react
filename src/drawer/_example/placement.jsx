@@ -13,7 +13,7 @@ export default function () {
   };
   return (
     <div>
-      <Radio.Group size="small" value={placement} onChange={(value) => setPlacement(value)}>
+      <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
         <Radio.Button value="left">left</Radio.Button>
         <Radio.Button value="right">right</Radio.Button>
         <Radio.Button value="top">top</Radio.Button>

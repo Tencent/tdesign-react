@@ -1,10 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import siteConfig from '../site.config.js';
-import dynamic from './utils/dynamic';
-import { getRoute, getContributors } from './utils/index';
+import { getRoute, getContributors } from './utils';
+import DemoList, { demoFiles } from './DemoList';
+import Loading from '@tencent/tdesign-react/loading';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+
+function renderDemoRoutes() {
+  if (process.env.NODE_ENV === 'development') {
+    return Object.keys(demoFiles).map((key, i) => {
+      const match = key.match(/([\w-]+)._example.([\w-]+).jsx/);
+      const componentName = match[1];
+      const demoName = match[2];
+
+      return <Route key={key} path={`/react/demos/${componentName}/${demoName}`} component={demoFiles[key].default} />;
+    });
+  }
+  return [];
+}
 
 function Components(props) {
   const tdHeaderRef = useRef();
@@ -15,17 +29,17 @@ function Components(props) {
   const [renderRouter] = useState(renderRoutes(docRoutes));
 
   function renderRoutes(docRoutes) {
-    return docRoutes.map((nav, i) => (
-      <Route
-        key={i}
-        path={nav.path}
-        component={dynamic(nav.component, {
-          contributors: getContributors(nav.name) || [],
-          isComponent: !['install', 'changelog'].includes(nav.name),
-          docType: nav.docType,
-        })}
-      ></Route>
-    ));
+    return docRoutes.map((nav, i) => {
+      const LazyCom = lazy(nav.component);
+
+      return (
+        <Route
+          key={i}
+          path={nav.path}
+          component={() => <LazyCom {...props} contributors={getContributors(nav.name) || []} docType={nav.docType} />}
+        />
+      );
+    });
   }
 
   useEffect(() => {
@@ -33,8 +47,14 @@ function Components(props) {
     tdDocAsideRef.current.routerList = routerList;
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (location.pathname === detail) return;
-      props.history.push(detail);
-      window.scrollTo(0, 0);
+      tdDocContentRef.current.pageStatus = 'hidden';
+      requestAnimationFrame(() => {
+        props.history.push(detail);
+      });
+      requestAnimationFrame(() => {
+        tdDocContentRef.current.pageStatus = 'show';
+        window.scrollTo(0, 0);
+      });
     };
   }, []);
 
@@ -44,7 +64,9 @@ function Components(props) {
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
       <td-doc-content ref={tdDocContentRef} slot="doc-content">
-        {renderRouter}
+        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+          {renderRouter}
+        </Suspense>
         <td-doc-footer slot="doc-footer"></td-doc-footer>
       </td-doc-content>
     </td-doc-layout>
@@ -52,17 +74,20 @@ function Components(props) {
 }
 
 function App() {
+  const Router = process.env.NODE_ENV === 'production' ? BrowserRouter : HashRouter;
+
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Redirect exact from="/react" to="/react/components/button" />
         <Redirect exact from="/react/components" to="/react/components/button" />
-        <Route path="/react/components/*" component={withRouter(Components)} />
-        {/* <Route path="/demos/:componentName" component={DemoList} /> */}
+        <Route path="/react/components/*" component={Components} />
+        {renderDemoRoutes()}
+        <Route path="/react/demos/:componentName" component={DemoList} />
         <Redirect from="*" to="/react/components/button" />
         {/* TODO: 404 */}
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

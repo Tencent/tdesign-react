@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, ReactNode } from 'react';
+import React, { useMemo, useState, ReactNode } from 'react';
 import classNames from 'classnames';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
@@ -14,7 +14,7 @@ import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 
-export interface BaseTableProps<RowData extends DataType = DataType> extends TdBaseTableProps<RowData> {}
+export type BaseTableProps<RowData extends DataType = DataType> = TdBaseTableProps<RowData>;
 
 export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D>) {
   const { classPrefix } = useConfig();
@@ -46,17 +46,11 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     setInnerPageSize(pagination?.pageSize);
   }, [pagination]);
 
-  const onInnerPaginationChange = useCallback(
-    (pageInfo: PageInfo) => {
-      setInnerCurrentPagination(pageInfo.current);
-      setInnerPageSize(pageInfo.pageSize);
-      onPageChange?.(pageInfo, null);
-    },
-    [onPageChange],
-  );
-
-  const onPageSizeChange = (pageSize: number) => {
+  const onPageSizeChange = (pageSize: number, pageInfo: PageInfo) => {
     setInnerPageSize(pageSize);
+    // 处理pagination参数的事件回调
+    pagination?.onChange?.(pageInfo);
+    pagination?.onPageSizeChange?.(pageSize, pageInfo);
   };
 
   if (pagination) {
@@ -74,6 +68,16 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     return data;
   }, [data, innerPageSize, hasPagination, innerCurrent]);
   const isEmpty = !data.length;
+
+  const onInnerPaginationChange = (pageInfo: PageInfo) => {
+    const { current, pageSize } = pageInfo;
+    setInnerCurrentPagination(current);
+    setInnerPageSize(pageSize);
+    const newDataSource = data.slice((current - 1) * innerPageSize, current * innerPageSize);
+    onPageChange?.(pageInfo, newDataSource);
+    // 处理pagination参数的事件回调
+    pagination?.onChange?.(pageInfo);
+  };
 
   // ==================== 固定头 ====================
   const stickyHeader = maxHeight && maxHeight !== 0;

@@ -1,5 +1,5 @@
 import isString from 'lodash/isString';
-import { ScrollContainer, ScrollContainerElement } from '@TdTypes/common';
+import { ScrollContainer, ScrollContainerElement } from '../_type/common';
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
@@ -62,7 +62,6 @@ export const removeClass = function (el: Element, cls: string) {
  * @returns {ScrollContainer}
  */
 export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollContainerElement => {
-  console.log('container', container);
   if (isString(container)) {
     return container ? (document.querySelector(container) as HTMLElement) : window;
   }

@@ -3,7 +3,6 @@ import { testExamples, render, getByText, fireEvent } from '@test/utils';
 import Tag from '../Tag';
 import CheckTag from '../CheckTag';
 import ClosableTag from '../_example/delete';
-import DisableTag from '../_example/disabled';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -50,14 +49,5 @@ describe('CheckTag 组件测试', () => {
     expect(container.firstChild).not.toHaveClass(checkedClass);
     fireEvent.click(getByText(testTagText));
     expect(container.firstChild).toHaveClass(checkedClass);
-  });
-
-  test('Tag 无效时不能点击', async () => {
-    const { getByText } = render(<DisableTag />);
-
-    fireEvent.click(getByText('有效标签'));
-    fireEvent.click(getByText('无效标签'));
-
-    expect(getByText('有效已选中')).not.toBeNull();
   });
 });

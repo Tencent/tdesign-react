@@ -17,13 +17,14 @@ export interface StepsProps extends TdStepsProps, StyledProps {
 function Steps(props: StepsProps) {
   const {
     style,
-    current = 1,
+    current = 0,
     direction = 'horizontal',
     status = 'process',
     theme = 'default',
     sequence = 'positive',
     children,
     onChange,
+    options = [],
   } = props;
   const { classPrefix } = useConfig();
 
@@ -48,18 +49,29 @@ function Steps(props: StepsProps) {
     }
   }, [current, onChange]);
 
+  const shouldReserve = sequence === 'reverse' && direction === 'vertical';
+
+  // 处理 children 的展示逻辑，生成展示列表供页面循环;
+  const childrenList = React.Children.toArray(children);
+  const childrenDisplayList = shouldReserve ? childrenList.reverse() : childrenList;
+
+  // 处理 options
+  const optionsDisplayList = shouldReserve ? options.reverse() : options;
+
+  // children 优先
+  let stepItemList = null;
+  if (childrenList.length !== 0) {
+    stepItemList = childrenDisplayList.map((child: JSX.Element, index: number) =>
+      React.cloneElement(child, { value: index, ...child.props }),
+    );
+  } else {
+    stepItemList = optionsDisplayList.map((v, index) => <StepItem {...v} value={index} key={index} />);
+  }
+
   return (
     <StepsContext.Provider value={{ current, currentStatus: status, theme }}>
       <div className={className} style={style}>
-        {React.Children.map(children, (child: JSX.Element, index: number) => {
-          let value = index + 1;
-          // 垂直状态下、反序
-          if (sequence === 'reverse' && direction === 'vertical') {
-            const childs = children as any;
-            value = childs.length - index;
-          }
-          return React.cloneElement(child, { value, ...child.props });
-        })}
+        {stepItemList}
       </div>
     </StepsContext.Provider>
   );

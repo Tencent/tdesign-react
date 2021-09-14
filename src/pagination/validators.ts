@@ -15,7 +15,7 @@ const pageSizeValidator = (pageSize: any): boolean => {
     pageSizeNumber = pageSize;
   }
 
-  return !isFinite(pageSizeNumber) && pageSizeNumber > 0;
+  return !Number.isFinite(pageSizeNumber) && pageSizeNumber > 0;
 };
 
 /**
