@@ -11,7 +11,7 @@ import Select from '../select';
 
 import { TdPaginationProps } from '../_type/components/pagination';
 import { StyledProps } from '../_type/StyledProps';
-import { pageSizeValidator, pageSizeOptionsValidator } from './validators';
+import { pageSizeValidator } from './validators';
 
 export type { PageInfo } from '../_type/components/pagination';
 
@@ -96,13 +96,9 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
      * @desc currentChange 时判断 size 是否合法
      * */
     if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
-      if (!pageSizeOptionsValidator(pageSizeOptions)) {
-        throw '[pagination]pageSize invalid and pageSizeOption invalid';
-      } else {
-        // eslint-disable-next-line
-        nextPageSize =
-          pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
-      }
+      // eslint-disable-next-line
+      nextPageSize =
+        pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
     }
 
     if (disabled) return;
