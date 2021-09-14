@@ -264,7 +264,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       })}
     >
       {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
-      {pageSizeOptions instanceof Array && (
+      {pageSizeOptions instanceof Array && pageSizeOptions.length ? (
         <div className={`${name}__select`}>
           <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
             {pageSizeOptions.map(
@@ -279,7 +279,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
             )}
           </Select>
         </div>
-      )}
+      ) : null}
       <div
         className={classNames(`${name}__btn`, `${name}__btn--prev`, {
           [`${classPrefix}-is-disabled`]: disabled || current === min,
