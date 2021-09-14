@@ -22,7 +22,7 @@ export { default as Tabs } from './tabs';
 export { default as Notification } from './notification';
 export { default as Pagination } from './pagination';
 export { default as Menu } from './menu';
-export { default as Dialog } from './dialog';
+export { default as Dialog, dialog } from './dialog';
 export { default as Tree } from './tree';
 export { default as Divider } from './divider';
 export { default as Switch } from './switch';

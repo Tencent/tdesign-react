@@ -212,3 +212,17 @@ export const isNodeOverflow = (ele: Element | Element[]): boolean => {
   }
   return false;
 };
+
+export const getAttach = (node: any): HTMLElement => {
+  const attachNode = typeof node === 'function' ? node() : node;
+  if (!attachNode) {
+    return document.body;
+  }
+  if (isString(attachNode)) {
+    return document.querySelector(attachNode);
+  }
+  if (attachNode instanceof HTMLElement) {
+    return attachNode;
+  }
+  return document.body;
+};
