@@ -202,7 +202,7 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function clickedApply(closePicker = true, nextDates?: Date[]): void {
-    const dates = nextDates;
+    const dates = nextDates || selectedDates;
     submitInput(
       dates.map((d: Date) => formatDate(d)),
       true,
@@ -286,6 +286,7 @@ const DatePicker = (props: DatePickerProps) => {
           setStart(nextDates[0]);
           setEnd(nextDates[1]);
         }
+        setSelectedDates(nextDates);
         // 有时间选择时，点击日期不关闭弹窗
         clickedApply(!enableTimePicker, nextDates);
         break;
