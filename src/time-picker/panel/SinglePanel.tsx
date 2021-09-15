@@ -21,14 +21,7 @@ export type SinglePanelProps = Pick<
 >;
 
 const SinglePanel: FC<SinglePanelProps> = (props) => {
-  const {
-    steps = [1, 1, 1],
-    format = 'HH:mm:ss',
-    onChange = noop,
-    value,
-    hideDisabledTime = true,
-    disableTime,
-  } = props;
+  const { steps, format, onChange = noop, value, hideDisabledTime = true, disableTime } = props;
   const { classPrefix } = useConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
@@ -160,6 +153,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   );
 
   const scrollToTime = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (col: EPickerCols, time: number | string, idx: number, behavior?: 'auto' | 'smooth') => {
       const distance = getScrollDistance(col, time);
       const scroller = colsRef.current[idx];
@@ -167,7 +161,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
       scroller.scrollTo({
         top: distance,
-        behavior: behavior || 'smooth',
+        behavior: 'smooth',
       });
     },
     [getScrollDistance],

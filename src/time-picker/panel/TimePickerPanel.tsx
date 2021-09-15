@@ -13,7 +13,7 @@ export interface TimePickerPanelProps extends SinglePanelProps {
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
-  const { isFooterDisplay, format, onChange } = props;
+  const { isFooterDisplay, onChange, format = 'HH:mm:ss', steps = [1, 1, 1] } = props;
   const { classPrefix } = useConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
@@ -24,7 +24,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   return (
     <div className={panelClassName}>
       <div className={`${panelClassName}-section__body`}>
-        <SinglePanel {...props} />
+        <SinglePanel {...props} format={format} steps={steps} />
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section__footer`}>
