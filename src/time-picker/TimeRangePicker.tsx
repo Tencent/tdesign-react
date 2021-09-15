@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 
+import noop from '../_util/noop';
+import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
-// import noop from '../_util/noop';
 import Popup from '../popup';
 import Input from '../input';
-import TimePickerPanel from './TimePickerPanel';
+import TimeRangePickerPanel from './TimeRangePickerPanel';
 import InputItems from './InputItems';
 import TIconTime from '../icon/icons/TimeIcon';
 
@@ -24,50 +25,58 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     clearable,
     disabled,
     format = 'HH:mm:ss',
-    // hideDisabledTime,
-    // placeholder,
-    size,
-    // steps,
+    hideDisabledTime,
+    placeholder,
+    size = 'medium',
+    steps = [1, 1, 1],
     value,
-    defaultValue,
     // disableTime,
-    // onBlur,
-    // onChange,
-    // onClose,
-    // onFocus,
-    // onInput,
-    // onOpen,
-  } = props;
-  const [showPopup, setShowPopup] = useState(false);
-  // const timePickerRef = useRef(null);
+    onBlur = noop,
+    onChange,
+    onFocus = noop,
+    onInput = noop,
+  } = useDefaultValue(props);
+  const [isPanelShowed, togglePanelShow] = useState(false);
 
-  const onTimePickerClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!disabled) {
-      setShowPopup(!showPopup);
-    }
+  const handleShowPopup = (visible: boolean) => {
+    togglePanelShow(visible);
   };
 
-  const renderContent = () => <TimePickerPanel />;
   return (
-    <Popup content={renderContent()} placement="bottom-left" visible={showPopup}>
-      <div onClick={onTimePickerClick} className={classNames(name)}>
+    <Popup
+      content={
+        <TimeRangePickerPanel
+          steps={steps}
+          format={format}
+          hideDisabledTime={hideDisabledTime}
+          isFooterDisplay={true}
+          value={value}
+          onChange={onChange}
+        />
+      }
+      placement="bottom-left"
+      visible={isPanelShowed}
+      onVisibleChange={handleShowPopup}
+    >
+      <div className={classNames(name)}>
         <Input
           readonly={true}
           size={size}
           clearable={clearable}
-          className={showPopup ? `${classPrefix}-is-focused` : ''}
+          className={isPanelShowed ? `${classPrefix}-is-focused` : ''}
           suffixIcon={<TIconTime />}
         />
-        {value || defaultValue ? (
+        {value ? (
           <InputItems
-            size={size}
             disabled={disabled}
             format={format}
-            // placeholder={placeholder}
+            placeholder={placeholder}
             allowInput={allowInput}
-            // onBlur={onBlur}
-            // onFocus={onFocus}
+            value={value}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            onInput={onInput}
+            onChange={onChange}
           />
         ) : null}
       </div>

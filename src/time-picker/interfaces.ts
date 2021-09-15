@@ -5,8 +5,6 @@ export enum KEYBOARD_DIRECTION {
   down = 40,
 }
 
-export type TimeInputType = 'hour' | 'minute' | 'second' | 'meridiem';
-
 export enum EPickerCols {
   hour = 'hour',
   minute = 'minute',
