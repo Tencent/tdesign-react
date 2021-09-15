@@ -2,12 +2,12 @@ import React, { FC, useCallback } from 'react';
 import classNames from 'classnames';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
-import useConfig from '../_util/useConfig';
-import Button from '../button';
+import useConfig from '../../_util/useConfig';
+import Button from '../../button';
 
-import { TEXT_CONFIG } from './consts';
+import { TEXT_CONFIG } from '../consts';
 
-import { TdTimeRangePickerProps } from '../_type/components/time-picker';
+import { TdTimeRangePickerProps } from '../../_type/components/time-picker';
 
 export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value' | 'onChange'> {
   // 是否展示footer
@@ -17,7 +17,7 @@ export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value
 }
 
 const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
-  const { isFooterDisplay, value, onChange } = props;
+  const { isFooterDisplay, value = [], onChange } = props;
   const { classPrefix } = useConfig();
 
   const [startTime, endTime] = value;

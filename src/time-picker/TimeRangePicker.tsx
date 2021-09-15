@@ -6,7 +6,7 @@ import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
 import Popup from '../popup';
 import Input from '../input';
-import TimeRangePickerPanel from './TimeRangePickerPanel';
+import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 import InputItems from './InputItems';
 import TIconTime from '../icon/icons/TimeIcon';
 

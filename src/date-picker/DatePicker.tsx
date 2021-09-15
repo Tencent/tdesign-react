@@ -17,7 +17,7 @@ import Button from '../button';
 import CalendarPresets from './base/CalendarPresets';
 import DatePanel from './panel/Date';
 import DateRangePanel from './panel/DateRange';
-import TimePickerPanel from '../time-picker/TimePickerPanel';
+import TimePickerPanel from '../time-picker/panel/TimePickerPanel';
 
 dayjs.extend(isBetween);
 

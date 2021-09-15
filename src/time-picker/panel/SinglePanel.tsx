@@ -5,12 +5,12 @@ import debounce from 'lodash/debounce';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
-import useConfig from '../_util/useConfig';
+import useConfig from '../../_util/useConfig';
 
-import { TdTimePickerProps } from '../_type/components/time-picker';
-import { EPickerCols } from './interfaces';
+import { TdTimePickerProps } from '../../_type/components/time-picker';
+import { EPickerCols } from '../interfaces';
 
-import { TEXT_CONFIG, MERIDIEM_LIST, AM, PM } from './consts';
+import { TEXT_CONFIG, MERIDIEM_LIST, AM, PM } from '../consts';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
 

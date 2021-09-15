@@ -10,7 +10,7 @@ import Popup from '../popup';
 import Input from '../input';
 import TimeRangePicker from './TimeRangePicker';
 import TIconTime from '../icon/icons/TimeIcon';
-import TimePickerPanel from './TimePickerPanel';
+import TimePickerPanel from './panel/TimePickerPanel';
 import InputItems from './InputItems';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 
@@ -62,7 +62,6 @@ const TimePicker = forwardRefWithStatics(
             disableTime={disableTime}
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
-            isRangePicker={false}
             onChange={onChange}
             value={value}
           />

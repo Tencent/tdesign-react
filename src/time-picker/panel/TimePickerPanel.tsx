@@ -2,10 +2,10 @@ import React, { FC, useCallback } from 'react';
 import dayjs from 'dayjs';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
-import useConfig from '../_util/useConfig';
-import Button from '../button';
+import useConfig from '../../_util/useConfig';
+import Button from '../../button';
 
-import { TEXT_CONFIG } from './consts';
+import { TEXT_CONFIG } from '../consts';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   // 是否展示footer
