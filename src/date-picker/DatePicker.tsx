@@ -18,6 +18,7 @@ import CalendarPresets from './base/CalendarPresets';
 import DatePanel from './panel/Date';
 import DateRangePanel from './panel/DateRange';
 import TimePickerPanel from '../time-picker/panel/TimePickerPanel';
+import TimePickerRangePanel from '../time-picker/panel/TimePickerRangePanel';
 
 dayjs.extend(isBetween);
 
@@ -56,7 +57,8 @@ const DatePicker = (props: DatePickerProps) => {
 
   const [popupShow, setPopupShow] = useState(false);
   const [timePanelShow, setTimePanelShow] = useState(false);
-  const [timeValue, setTimeValue] = useState(dayjs().format('HH:mm:ss'));
+  const [timeValue, setTimeValue] = useState('');
+  const [timeRangeValue, setTimeRangeValue] = useState([]);
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [formattedValue, setFormattedValue] = useState('');
@@ -73,6 +75,7 @@ const DatePicker = (props: DatePickerProps) => {
       setStart(startVal);
       setEnd(endVal);
       setTimeValue(dayjs(startVal).format('HH:mm:ss'));
+      setTimeRangeValue([dayjs(startVal).format('HH:mm:ss'), dayjs(endVal).format('HH:mm:ss')]);
       setSelectedDates(range ? [val[0], val[1]] : [val]);
     }
   }
@@ -165,6 +168,7 @@ const DatePicker = (props: DatePickerProps) => {
       setSelectedDates([]);
       setFormattedValue('');
       setTimeValue('00:00:00');
+      setTimeRangeValue(['00:00:00', '00:00:00']);
       submitInput([], true);
     }
   }
@@ -217,14 +221,30 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function handleTimePick(value: any) {
-    const [hour, minute, second] = value.split(':');
-    const startDate = new Date(start);
-    startDate.setHours(hour);
-    startDate.setMinutes(minute);
-    startDate.setSeconds(second);
-    setStart(startDate);
-    setTimeValue(dayjs(startDate).format('HH:mm:ss'));
-    dateClick(startDate);
+    if (Array.isArray(value)) {
+      const [startTime, endTime] = value;
+      const [startHour, startMinute, startSecond] = startTime.split(':');
+      const startDate = new Date(start);
+      startDate.setHours(startHour);
+      startDate.setMinutes(startMinute);
+      startDate.setSeconds(startSecond);
+
+      const [endHour, endMinute, endSecond] = endTime.split(':');
+      const endDate = new Date(end);
+      endDate.setHours(endHour);
+      endDate.setMinutes(endMinute);
+      endDate.setSeconds(endSecond);
+      setTimeRangeValue(value);
+      clickRange([startDate, endDate]);
+    } else {
+      const [hour, minute, second] = value.split(':');
+      const startDate = new Date(start);
+      startDate.setHours(hour);
+      startDate.setMinutes(minute);
+      startDate.setSeconds(second);
+      setTimeValue(value);
+      dateClick(startDate);
+    }
   }
 
   function normalizeDateTime(value: Date, oldValue: Date): Date {
@@ -244,15 +264,8 @@ const DatePicker = (props: DatePickerProps) => {
     // @todo add year range and month range
     let pickerMode: string = mode;
     if (range) pickerMode = 'range';
-    if (timePanelShow) pickerMode = 'time';
 
     switch (pickerMode) {
-      case 'time': {
-        const nextTime = range ? [start, end] : [value];
-        setSelectedDates(range ? [start, end] : [value]);
-        clickedApply(false, nextTime);
-        break;
-      }
       case 'year':
       case 'month':
       case 'date': {
@@ -353,13 +366,15 @@ const DatePicker = (props: DatePickerProps) => {
       <DatePanel {...panelProps} value={start} />
     );
 
+    const timepickerComponent = range ? (
+      <TimePickerRangePanel value={timeRangeValue} onChange={handleTimePick} />
+    ) : (
+      <TimePickerPanel value={timeValue} onChange={handleTimePick} />
+    );
+
     return (
       <div ref={dropdownPopupRef} className={pickerStyles}>
-        {enableTimePicker && timePanelShow && (
-          <div>
-            <TimePickerPanel format="HH:mm:ss" steps={[1, 1, 1]} value={timeValue} onChange={handleTimePick} />
-          </div>
-        )}
+        {enableTimePicker && timePanelShow && <div>{timepickerComponent}</div>}
         {!timePanelShow && panelComponent}
         {presets && range && <CalendarPresets presets={presets} onClickRange={clickRange} />}
         {enableTimePicker && (
