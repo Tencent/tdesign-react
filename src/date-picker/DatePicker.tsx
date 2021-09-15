@@ -24,6 +24,8 @@ dayjs.extend(isBetween);
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
+const TIME_FORMAT = 'HH:mm:ss';
+
 const DatePicker = (props: DatePickerProps) => {
   const {
     allowInput,
@@ -63,7 +65,6 @@ const DatePicker = (props: DatePickerProps) => {
   const [end, setEnd] = useState(new Date());
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
-  const [inSelection, setInSelection] = useState(false);
 
   function initDatePicker() {
     const val: any = value || defaultValue;
@@ -74,8 +75,8 @@ const DatePicker = (props: DatePickerProps) => {
 
       setStart(startVal);
       setEnd(endVal);
-      setTimeValue(dayjs(startVal).format('HH:mm:ss'));
-      setTimeRangeValue([dayjs(startVal).format('HH:mm:ss'), dayjs(endVal).format('HH:mm:ss')]);
+      setTimeValue(dayjs(startVal).format(TIME_FORMAT));
+      setTimeRangeValue([dayjs(startVal).format(TIME_FORMAT), dayjs(endVal).format(TIME_FORMAT)]);
       setSelectedDates(range ? [val[0], val[1]] : [val]);
     }
   }
@@ -145,7 +146,7 @@ const DatePicker = (props: DatePickerProps) => {
     const arrTime = ['H', 'h', 'm', 's'];
     const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
     if (enableTimePicker && !hasTime) {
-      dateFormat = [dateFormat, 'HH:mm:ss'].join(' ');
+      dateFormat = [dateFormat, TIME_FORMAT].join(' ');
     }
     const d1 = new Date(date);
     return dayjs(d1).format(dateFormat);
@@ -202,7 +203,7 @@ const DatePicker = (props: DatePickerProps) => {
       setEnd(nextDates[0]);
     }
     setSelectedDates(nextDates);
-    clickedApply(true, nextDates);
+    clickedApply(!enableTimePicker, nextDates);
   }
 
   function clickedApply(closePicker = true, nextDates?: Date[]): void {
@@ -216,7 +217,8 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function toggleTime() {
-    setTimeValue(dayjs(start).format('HH:mm:ss'));
+    setTimeValue(dayjs(start).format(TIME_FORMAT));
+    setTimeRangeValue([dayjs(start).format(TIME_FORMAT), dayjs(end).format(TIME_FORMAT)]);
     setTimePanelShow(!timePanelShow);
   }
 
@@ -247,20 +249,7 @@ const DatePicker = (props: DatePickerProps) => {
     }
   }
 
-  function normalizeDateTime(value: Date, oldValue: Date): Date {
-    const newDate = dayjs(value);
-    const oldDate = dayjs(oldValue);
-    if (enableTimePicker) {
-      newDate.hour(oldDate.hour());
-      newDate.minute(oldDate.minute());
-      newDate.second(oldDate.second());
-      newDate.millisecond(oldDate.millisecond());
-    }
-
-    return newDate.toDate();
-  }
-
-  function dateClick(value: Date) {
+  function dateClick(value: Date | Date[]) {
     // @todo add year range and month range
     let pickerMode: string = mode;
     if (range) pickerMode = 'range';
@@ -269,39 +258,23 @@ const DatePicker = (props: DatePickerProps) => {
       case 'year':
       case 'month':
       case 'date': {
-        const nextDate = [normalizeDateTime(value, start)];
-        setStart(nextDate[0]);
-        setEnd(nextDate[0]);
-        setSelectedDates(nextDate);
-        // 有时间选择时，点击日期不关闭弹窗
-        clickedApply(!enableTimePicker, nextDate);
+        if (value instanceof Date) {
+          setStart(value);
+          setEnd(value);
+          setSelectedDates([value]);
+          // 有时间选择时，点击日期不关闭弹窗
+          clickedApply(!enableTimePicker, [value]);
+        }
         break;
       }
       case 'range': {
-        const nextDates = [];
-        if (inSelection) {
-          nextDates.push(...[normalizeDateTime(value[0], end), normalizeDateTime(value[1], end)]);
-
-          setInSelection(false);
-          setStart(nextDates[0]);
-          setEnd(nextDates[1]);
-
-          if (value[1] < value[0]) {
-            nextDates[0] = normalizeDateTime(value[0], start);
-
-            setInSelection(true);
-            setStart(nextDates[0]);
-          }
-        } else {
-          nextDates.push(...[normalizeDateTime(value[0], start), normalizeDateTime(value[1], end)]);
-
-          setInSelection(true);
-          setStart(nextDates[0]);
-          setEnd(nextDates[1]);
+        if (Array.isArray(value)) {
+          setStart(value[0]);
+          setEnd(value[1]);
+          setSelectedDates(value);
+          // 有时间选择时，点击日期不关闭弹窗
+          clickedApply(!enableTimePicker, value);
         }
-        setSelectedDates(nextDates);
-        // 有时间选择时，点击日期不关闭弹窗
-        clickedApply(!enableTimePicker, nextDates);
         break;
       }
     }

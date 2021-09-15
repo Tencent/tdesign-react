@@ -140,7 +140,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
         setEndValue(firstClickValue);
         setStartValue(date);
       }
-      onChange?.([setDateTime(startValue, 23, 59, 59), setDateTime(endValue, 23, 59, 59)]);
+      onChange?.([setDateTime(startValue, 0, 0, 0), setDateTime(endValue, 23, 59, 59)]);
       setIsFirstClick(true);
     }
   }
