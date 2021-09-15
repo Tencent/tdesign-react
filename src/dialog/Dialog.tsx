@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import isString from 'lodash/isString';
 import CloseIcon from '../icon/icons/CloseIcon';
 import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import { ConfigContext } from '../config-provider';
 import Button from '../button';
-import { TdDialogProps } from '../_type/components/dialog';
+import { TdDialogProps, DialogInstance } from '../_type/components/dialog';
 import { StyledProps } from '../_type';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
+import useSetState from '../_util/useSetState';
 
-export interface DialogProps extends TdDialogProps, StyledProps {}
+export interface DialogProps extends TdDialogProps, StyledProps {
+  /**
+   * 是否以插件形式调用
+   */
+  isPlugin?: boolean;
+}
 
-const Dialog: React.FC<DialogProps> = (props) => {
+const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (props, ref) => {
   const { classPrefix } = React.useContext(ConfigContext);
+  const [state, setState] = useSetState<DialogProps>({
+    width: 520,
+    visible: false,
+    zIndex: 2500,
+    placement: 'center',
+    mode: 'modal',
+    showOverlay: true,
+    destroyOnClose: false,
+    draggable: false,
+    preventScrollThrough: true,
+    isPlugin: false,
+    ...props,
+  });
+
   const {
+    visible,
     attach: getContainer = 'body',
     closeBtn,
     footer,
@@ -23,8 +44,19 @@ const Dialog: React.FC<DialogProps> = (props) => {
     cancelBtn = '取消',
     confirmBtn = '确定',
     onClose = noop,
-    ...restProps
-  } = props;
+    isPlugin = false,
+    ...restState
+  } = state;
+
+  useEffect(() => {
+    // 插件式调用不会更新props, 只有组件式调用才会更新props
+    if (!isPlugin) {
+      setState((prevState) => ({
+        ...prevState,
+        ...props,
+      }));
+    }
+  }, [props, setState, isPlugin]);
 
   const prefixCls = `${classPrefix}-dialog`;
   const renderCloseIcon = () => {
@@ -33,23 +65,38 @@ const Dialog: React.FC<DialogProps> = (props) => {
     return closeBtn || <CloseIcon style={{ verticalAlign: 'unset' }} />;
   };
 
-  const renderHeader = () => {
-    const { header, theme } = props;
-    if (!header) return null;
+  React.useImperativeHandle(ref, () => ({
+    show() {
+      setState({ visible: true });
+    },
+    hide() {
+      setState({ visible: false });
+    },
+    destroy: noop,
+    update(newOptions) {
+      setState((prevState) => ({
+        ...prevState,
+        ...(newOptions as DialogProps),
+      }));
+    },
+  }));
+
+  const renderHeader = useMemo(() => {
+    if (!state.header) return null;
 
     const iconMap = {
-      info: <InfoCircleFilledIcon className="t-is-info" />,
-      warning: <InfoCircleFilledIcon className="t-is-warning" />,
-      error: <InfoCircleFilledIcon className="t-is-error" />,
-      success: <CheckCircleFilledIcon className="t-is-success" />,
+      info: <InfoCircleFilledIcon className={`${classPrefix}-is-info`} />,
+      warning: <InfoCircleFilledIcon className={`${classPrefix}-is-warning`} />,
+      error: <InfoCircleFilledIcon className={`${classPrefix}-is-error`} />,
+      success: <CheckCircleFilledIcon className={`${classPrefix}-is-success`} />,
     };
     return (
       <div className={`${prefixCls}__header`}>
-        {iconMap[theme]}
-        {header}
+        {iconMap[state.theme]}
+        {state.header}
       </div>
     );
-  };
+  }, [state.header, state.theme, prefixCls, classPrefix]);
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     onCancel({ e });
@@ -80,26 +127,28 @@ const Dialog: React.FC<DialogProps> = (props) => {
     if (typeof confirmBtn === 'function') {
       renderConfirmBtn = confirmBtn();
     }
-
     return (
       <>
-        {React.cloneElement(renderCancelBtn, {
-          onClick: handleCancel,
-          ...renderCancelBtn.props,
-        })}
-        {React.cloneElement(renderConfirmBtn, {
-          onClick: handleConfirm,
-          ...renderConfirmBtn.props,
-        })}
+        {renderCancelBtn &&
+          React.cloneElement(renderCancelBtn, {
+            onClick: handleCancel,
+            ...renderCancelBtn.props,
+          })}
+        {renderConfirmBtn &&
+          React.cloneElement(renderConfirmBtn, {
+            onClick: handleConfirm,
+            ...renderConfirmBtn.props,
+          })}
       </>
     );
   };
 
   return (
     <RenderDialog
-      {...restProps}
+      {...restState}
+      visible={visible}
       prefixCls={prefixCls}
-      header={renderHeader()}
+      header={renderHeader}
       getContainer={getContainer}
       closeBtn={renderCloseIcon()}
       classPrefix={classPrefix}
@@ -109,16 +158,4 @@ const Dialog: React.FC<DialogProps> = (props) => {
   );
 };
 
-Dialog.defaultProps = {
-  width: 520,
-  visible: false,
-  zIndex: 2500,
-  placement: 'center',
-  mode: 'modal',
-  showOverlay: true,
-  destroyOnClose: false,
-  draggable: false,
-  preventScrollThrough: true,
-};
-
-export default Dialog;
+export default React.forwardRef(Dialog);

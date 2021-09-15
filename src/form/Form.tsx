@@ -149,8 +149,7 @@ const Form = forwardRefWithStatics(
       }, {});
       fileds.forEach((filed) => {
         const { name, value, status } = filed;
-        formItemsMap[name]?.setValue(value);
-        formItemsMap[name]?.setStatus(status);
+        formItemsMap[name]?.setField({ value, status });
       });
     }
 
