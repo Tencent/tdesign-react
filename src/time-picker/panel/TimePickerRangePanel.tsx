@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
@@ -7,27 +7,32 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { TEXT_CONFIG } from '../consts';
+import { TEXT_CONFIG, DEFAULT_STEPS, DEFAULT_FORMAT } from '../consts';
 
 import { TdTimeRangePickerProps } from '../../_type/components/time-picker';
 
 export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value' | 'onChange'> {
   // 是否展示footer
   isFooterDisplay?: boolean;
+  handleConfirmClick?: () => void;
   value: TdTimeRangePickerProps['value'];
   onChange: TdTimeRangePickerProps['onChange'];
 }
 
 const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
-  const { isFooterDisplay, value = [], onChange, format = 'HH:mm:ss', steps = [1, 1, 1] } = props;
+  const {
+    value = [],
+    onChange,
+    isFooterDisplay,
+    handleConfirmClick,
+    steps = DEFAULT_STEPS,
+    format = DEFAULT_FORMAT,
+  } = props;
+
   const { classPrefix } = useConfig();
 
   const [startTime, endTime] = value;
   const panelClassName = `${classPrefix}-time-picker-panel`;
-
-  const handleClickConfirm = useCallback(() => {
-    // todo
-  }, []);
 
   const handlePanelValueChange = (value: string, index: number) => {
     if (index === 0) {
@@ -58,7 +63,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section__footer`}>
-          <Button theme="primary" variant="base" onClick={handleClickConfirm}>
+          <Button theme="primary" variant="base" onClick={handleConfirmClick}>
             {TEXT_CONFIG.confirm}
           </Button>
         </div>

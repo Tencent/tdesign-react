@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import classNames from 'classnames';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
@@ -12,7 +13,8 @@ import TimeRangePicker from './TimeRangePicker';
 import TIconTime from '../icon/icons/TimeIcon';
 import TimePickerPanel from './panel/TimePickerPanel';
 import InputItems from './InputItems';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+
+import { DEFAULT_STEPS, DEFAULT_FORMAT, TEXT_CONFIG } from './consts';
 
 import { StyledProps } from '../_type';
 import { TdTimePickerProps } from '../_type/components/time-picker';
@@ -26,13 +28,15 @@ const TimePicker = forwardRefWithStatics(
   (props: TimePickerProps, ref: Ref<HTMLDivElement>) => {
     const {
       allowInput,
+      className,
       clearable = true,
       disabled,
-      format = 'HH:mm:ss',
+      format = DEFAULT_FORMAT,
       hideDisabledTime = true,
-      placeholder = '选择时间',
+      placeholder = TEXT_CONFIG.placeholder,
+      style,
       size = 'medium',
-      steps = [1, 1, 1],
+      steps = DEFAULT_STEPS,
       value,
       disableTime,
       onBlur = noop,
@@ -43,16 +47,24 @@ const TimePicker = forwardRefWithStatics(
       onOpen = noop,
     } = useDefaultValue(props);
 
-    const { classPrefix } = useConfig();
-    const name = `${classPrefix}-time-picker`;
-
     const [isPanelShowed, togglePanelShow] = useState(false);
 
+    const { classPrefix } = useConfig();
+    const name = `${classPrefix}-time-picker`;
+    const inputClasses = classNames(`${name}__group`, {
+      [`${classPrefix}-is-focused`]: isPanelShowed,
+    });
+
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
+      if (disabled) return;
       togglePanelShow(visible);
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
+    const handleClickInput = () => {
+      if (disabled) return;
+      togglePanelShow((v) => !v);
+    };
     return (
       <Popup
         content={
@@ -63,25 +75,27 @@ const TimePicker = forwardRefWithStatics(
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             onChange={onChange}
+            handleConfirmClick={() => togglePanelShow(false)}
             value={value}
           />
         }
-        disabled={disabled}
+        visible={isPanelShowed}
         onVisibleChange={handleShowPopup}
         overlayClassName={classNames(`${name}-panel__container`)}
         placement="bottom-left"
         trigger="click"
       >
-        <div className={name} ref={ref}>
+        {/* TODO active与date picker保持一致 */}
+        <div className={classNames(name, className)} ref={ref} style={style} onClick={handleClickInput}>
           <Input
             readonly={true}
             disabled={disabled}
             size={size}
             clearable={clearable}
-            value={value ? ' ' : null}
-            onClear={() => onChange(null)}
+            value={value ? ' ' : undefined}
+            onClear={() => onChange(undefined)}
             placeholder={!value ? placeholder : undefined}
-            className={isPanelShowed ? `${classPrefix}-is-focused` : ''}
+            className={inputClasses}
             suffixIcon={<TIconTime />}
           />
           {value ? (

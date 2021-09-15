@@ -55,8 +55,9 @@ const Input = forwardRefWithStatics(
     } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
+    const [isHover, toggleIsHover] = useState(false);
     const [composingRefValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = clearable && value && !disabled;
+    const isShowClearIcon = clearable && value && !disabled && isHover;
     const componentType = 'input';
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (
@@ -146,6 +147,8 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
           [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
         })}
+        onMouseEnter={() => toggleIsHover(true)}
+        onMouseLeave={() => toggleIsHover(false)}
       >
         {prefixIconContent}
         {renderInput}

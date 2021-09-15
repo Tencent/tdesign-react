@@ -10,36 +10,49 @@ import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 import InputItems from './InputItems';
 import TIconTime from '../icon/icons/TimeIcon';
 
+import { TEXT_CONFIG } from './consts';
+
 import { TdTimeRangePickerProps } from '../_type/components/time-picker';
 import { StyledProps } from '../_type';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
 const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
-  const { classPrefix } = useConfig();
-
-  const name = `${classPrefix}-time-picker`; // t-time-picker
-
   const {
     allowInput,
     clearable,
-    disabled,
+    disabled, // TODO array形式
     format = 'HH:mm:ss',
     hideDisabledTime,
-    placeholder,
+    placeholder = TEXT_CONFIG.placeholder, // TODO array形式
     size = 'medium',
     steps = [1, 1, 1],
     value,
-    // disableTime,
     onBlur = noop,
     onChange,
     onFocus = noop,
     onInput = noop,
+    style,
+    className,
   } = useDefaultValue(props);
+
+  const { classPrefix } = useConfig();
+
+  const name = `${classPrefix}-time-picker`;
+
   const [isPanelShowed, togglePanelShow] = useState(false);
+  const inputClasses = classNames(`${name}__group`, {
+    [`${classPrefix}-is-focused`]: isPanelShowed,
+  });
 
   const handleShowPopup = (visible: boolean) => {
+    if (disabled) return;
     togglePanelShow(visible);
+  };
+
+  const handleClickInput = () => {
+    if (disabled) return;
+    togglePanelShow((v) => !v);
   };
 
   return (
@@ -52,19 +65,23 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           isFooterDisplay={true}
           value={value}
           onChange={onChange}
+          handleConfirmClick={() => togglePanelShow(false)}
         />
       }
       placement="bottom-left"
       visible={isPanelShowed}
       onVisibleChange={handleShowPopup}
+      trigger="click"
     >
-      <div className={classNames(name)}>
+      <div className={classNames(name, className)} style={style} onClick={handleClickInput}>
         <Input
           readonly={true}
           size={size}
           clearable={clearable}
-          className={isPanelShowed ? `${classPrefix}-is-focused` : ''}
+          className={inputClasses}
+          disabled={disabled as boolean}
           suffixIcon={<TIconTime />}
+          placeholder={!value ? (placeholder as string) : undefined}
         />
         {value ? (
           <InputItems

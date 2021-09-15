@@ -145,7 +145,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
         <input
           readOnly
           disabled={!allowInput}
-          value={TEXT_CONFIG[text]}
+          value={TEXT_CONFIG[text] || ''}
           onKeyDown={(e) => handleInputKeydown(e, EPickerCols.meridiem)}
           className={classNames(inputClass, `${inputClass}-meridiem`)}
         />
@@ -165,7 +165,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
       <span className={itemClasses}>
         {showColon ? ':' : null}
         <input
-          value={inputValue}
+          value={inputValue || ''}
           className={inputClass}
           disabled={!allowInput}
           onKeyDown={(e) => handleInputKeydown(e, type, index)}
