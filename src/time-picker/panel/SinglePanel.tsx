@@ -6,6 +6,7 @@ import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
 import useConfig from '../../_util/useConfig';
+import noop from '../../_util/noop';
 
 import { TdTimePickerProps } from '../../_type/components/time-picker';
 import { EPickerCols } from '../interfaces';
@@ -20,7 +21,14 @@ export type SinglePanelProps = Pick<
 >;
 
 const SinglePanel: FC<SinglePanelProps> = (props) => {
-  const { steps, format, onChange, value, hideDisabledTime, disableTime } = props;
+  const {
+    steps = [1, 1, 1],
+    format = 'HH:mm:ss',
+    onChange = noop,
+    value,
+    hideDisabledTime = true,
+    disableTime,
+  } = props;
   const { classPrefix } = useConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
