@@ -17,6 +17,43 @@ exports[`async.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`attach.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        挂载在body
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        挂载特定元素
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        挂载函数返回节点
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div>
@@ -99,6 +136,73 @@ exports[`modal.jsx 1`] = `
         class="t-button__text"
       >
         Open Modal
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`plugin.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <p>
+      插件调用方式一：DialogPlugin(options)
+    </p>
+    <p>
+      插件调用方式二：DialogPlugin.confirm(options)
+    </p>
+    <p>
+      插件调用方式三：DialogPlugin.alert(options)
+    </p>
+    <br />
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        dialog
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        handleDialogNode
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        confirm
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        alert
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 16px; position: relative;"
+    >
+      <span
+        class="t-button__text"
+      >
+        DialogPlugin.confirm
       </span>
     </button>
   </div>

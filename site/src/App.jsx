@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import siteConfig from '../site.config.js';
 import { getRoute, getContributors } from './utils';
 import DemoList, { demoFiles } from './DemoList';
@@ -21,10 +21,9 @@ function renderDemoRoutes() {
 }
 
 function Components(props) {
-  const tdHeaderRef = useRef(null);
-  const tdDocSearch = useRef(null);
-  const tdDocAsideRef = useRef(null);
-  const tdDocContentRef = useRef(null);
+  const tdHeaderRef = useRef();
+  const tdDocAsideRef = useRef();
+  const tdDocContentRef = useRef();
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -34,21 +33,17 @@ function Components(props) {
       const LazyCom = lazy(nav.component);
 
       return (
-        <Suspense key={i} fallback={<Loading text="拼命加载中..." loading />}>
-          <Switch>
-            <Route
-              path={nav.path}
-              component={() => <LazyCom {...props} contributors={getContributors(nav.name) || []} docType={nav.docType} />}
-            />
-          </Switch>
-        </Suspense>
-      )
-    })
+        <Route
+          key={i}
+          path={nav.path}
+          component={() => <LazyCom {...props} contributors={getContributors(nav.name) || []} docType={nav.docType} />}
+        />
+      );
+    });
   }
 
   useEffect(() => {
     tdHeaderRef.current.framework = 'react';
-    tdDocSearch.current.docsearchInfo = { indexName: 'tdesign_doc_react' };
     tdDocAsideRef.current.routerList = routerList;
     tdDocAsideRef.current.onchange = ({ detail }) => {
       if (location.pathname === detail) return;
@@ -65,13 +60,13 @@ function Components(props) {
 
   return (
     <td-doc-layout>
-      <td-header ref={tdHeaderRef} slot="header">
-        <td-doc-search slot="search" ref={tdDocSearch}></td-doc-search>
-      </td-header>
+      <td-header ref={tdHeaderRef} slot="header"></td-header>
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
       <td-doc-content ref={tdDocContentRef} slot="doc-content">
-        {renderRouter}
+        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+          {renderRouter}
+        </Suspense>
         <td-doc-footer slot="doc-footer"></td-doc-footer>
       </td-doc-content>
     </td-doc-layout>
@@ -79,8 +74,10 @@ function Components(props) {
 }
 
 function App() {
+  const Router = process.env.NODE_ENV === 'production' ? BrowserRouter : HashRouter;
+
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Redirect exact from="/react" to="/react/components/button" />
         <Redirect exact from="/react/components" to="/react/components/button" />
@@ -90,7 +87,7 @@ function App() {
         <Redirect from="*" to="/react/components/button" />
         {/* TODO: 404 */}
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

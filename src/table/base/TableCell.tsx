@@ -5,13 +5,15 @@ import { BaseTableCol, DataType } from '../../_type/components/table';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
 
-interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
+export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   columns?: BaseTableCol[];
   type?: 'cell' | 'title';
   record?: D;
   style?: CSSProperties;
   rowIndex?: number;
   colIndex?: number;
+  rowSpan?: number;
+  colSpan?: number;
 }
 
 const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) => {
@@ -29,6 +31,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     columns,
     rowIndex,
     className,
+    rowSpan,
+    colSpan,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -87,6 +91,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
         'text-ellipsis': ellipsis,
         [`${className}`]: !!className,
       })}
+      rowSpan={rowSpan}
+      colSpan={colSpan}
     >
       {cellNode}
     </Component>

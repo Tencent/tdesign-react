@@ -149,8 +149,7 @@ const Form = forwardRefWithStatics(
       }, {});
       fileds.forEach((filed) => {
         const { name, value, status } = filed;
-        formItemsMap[name]?.setValue(value);
-        formItemsMap[name]?.setStatus(status);
+        formItemsMap[name]?.setField({ value, status });
       });
     }
 
@@ -174,6 +173,8 @@ const Form = forwardRefWithStatics(
       >
         <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
           {React.Children.map(children, (child: React.ReactElement, index) => {
+            if (!child) return null;
+
             const { cloneElement } = React;
             return cloneElement(child, {
               ref: (el: React.ReactElement) => {

@@ -55,6 +55,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const [formValue, setFormValue] = useState(initialData);
 
   const innerFormItemsRef = useRef([]);
+  const shouldValidate = useRef(null);
 
   const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
 
@@ -158,12 +159,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     });
   }
 
-  const isMounted = useRef(null);
-
   useEffect(() => {
-    // 首次渲染不触发校验
-    if (!isMounted.current) {
-      isMounted.current = true;
+    // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
+    if (!shouldValidate.current) {
+      shouldValidate.current = true;
       return;
     }
 
@@ -205,12 +204,24 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
   }
 
+  function setField(field: { value?: string; status?: ValidateStatus }) {
+    const { value, status } = field;
+    // 手动设置 status 则不需要校验 交给用户判断
+    if (typeof status !== 'undefined') {
+      shouldValidate.current = false;
+      setErrorList([]);
+      setNeedResetField(false);
+    }
+    setFormValue(value);
+    setVerifyStatus(status);
+  }
+
   // 暴露 ref 实例方法
   useImperativeHandle(ref, (): any => ({
     name,
     value: formValue,
     setValue: setFormValue,
-    setStatus: setVerifyStatus,
+    setField,
     validate,
     resetField,
   }));
@@ -225,6 +236,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       <div className={contentClasses} style={contentStyle}>
         <div className={`${classPrefix}-form__controls--content`}>
           {React.Children.map(children, (child, index) => {
+            if (!child) return null;
+
             let onChangeFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {
