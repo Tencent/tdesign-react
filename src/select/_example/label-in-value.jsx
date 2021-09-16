@@ -10,34 +10,31 @@ const LabelInValueSelect = () => {
     console.log('Value', value);
     setValue(value);
   };
-  const [value2, setValue2] = useState(['apple']);
+  const [value2, setValue2] = useState([{ label: 'Apple', value: 'apple' }]);
   const onChange2 = (value) => {
     console.log('Value', value);
     setValue2(value);
   };
 
   return (
-    <Select
-      value={value}
-      onChange={onChange}
-      multiple
-      style={{ width: '40%' }}
-      valueType="object"
-      options={[
-        {
-          label: 'Apple',
-          value: 'apple',
-        },
-        {
-          label: 'Banana',
-          value: 'banana',
-        },
-        {
-          label: 'Orange',
-          value: 'orange',
-        },
-      ]}
-    />
+    <div style={{ display: 'flex' }}>
+      <Select value={value} onChange={onChange} style={{ width: '40%' }} valueType="object">
+        <Option key="apple" label="Apple" value="apple" />
+        <Option key="orange" label="Orange" value="orange" disabled />
+        <Option key="banana" label="Banana" value="banana" />
+      </Select>
+      <Select
+        value={value2}
+        onChange={onChange2}
+        multiple
+        style={{ width: '40%', marginLeft: '10%' }}
+        valueType="object"
+      >
+        <Option key="apple" label="Apple" value="apple" />
+        <Option key="orange" label="Orange" value="orange" />
+        <Option key="banana" label="Banana" value="banana" />
+      </Select>
+    </div>
   );
 };
 

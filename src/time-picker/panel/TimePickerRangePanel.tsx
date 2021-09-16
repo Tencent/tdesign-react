@@ -31,7 +31,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
 
   const { classPrefix } = useConfig();
 
-  const [startTime, endTime] = value;
+  const [startTime, endTime] = value || [];
   const panelClassName = `${classPrefix}-time-picker-panel`;
 
   const handlePanelValueChange = (value: string, index: number) => {
