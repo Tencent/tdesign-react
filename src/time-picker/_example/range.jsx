@@ -1,7 +1,8 @@
 import React from 'react';
 import { TimePicker } from '@tencent/tdesign-react';
 
-const { RangePicker } = TimePicker;
+const { TimeRangePicker } = TimePicker;
+
 export default function RangeTimePicker() {
-  return <RangePicker allowInput={true} />;
+  return <TimeRangePicker allowInput={true} disabled={true} />;
 }

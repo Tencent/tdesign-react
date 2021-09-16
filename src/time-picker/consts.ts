@@ -1,4 +1,3 @@
-// TODO 文本配置
 export const TEXT_CONFIG = {
   nowtime: '此刻',
   confirm: '确定',
@@ -10,3 +9,6 @@ export const TEXT_CONFIG = {
 export const AM = 'am';
 export const PM = 'pm';
 export const MERIDIEM_LIST = [AM, PM];
+
+export const DEFAULT_STEPS = [1, 1, 1];
+export const DEFAULT_FORMAT = 'HH:mm:ss';

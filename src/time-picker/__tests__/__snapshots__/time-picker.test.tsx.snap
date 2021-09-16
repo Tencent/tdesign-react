@@ -6,10 +6,11 @@ exports[`disabled.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-is-disabled t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
+        disabled=""
         placeholder="选择时间"
         readonly=""
         value=""
@@ -41,10 +42,10 @@ exports[`hide-clear-button.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
         readonly=""
         value=" "
       />
@@ -52,13 +53,13 @@ exports[`hide-clear-button.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-close-circle-filled t-input__suffix-clear"
+          class="t-icon t-icon-time"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM647.7644992 330.98066432L511.97266432 466.72466432 376.23549824 330.98066432 330.98066432 376.23549824 466.72466432 511.97266432 330.98066432 647.7644992 376.23549824 693.0193344 511.97266432 557.22066432 647.7644992 693.0193344 693.0193344 647.7644992 557.22066432 511.97266432 693.0193344 376.23549824 647.7644992 330.98066432Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
             fill-opacity=".9"
             fill-rule="evenodd"
           />
@@ -85,6 +86,16 @@ exports[`hide-clear-button.jsx 1`] = `
           class="t-time-picker__input-item-input"
           disabled=""
           value="08"
+        />
+      </span>
+      <span
+        class="t-time-picker__input-item"
+      >
+        :
+        <input
+          class="t-time-picker__input-item-input"
+          disabled=""
+          value="00"
         />
       </span>
     </div>
@@ -98,51 +109,29 @@ exports[`hm.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
+        placeholder="选择时间"
         readonly=""
-        value=" "
+        value=""
       />
       <span
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-close-circle-filled t-input__suffix-clear"
+          class="t-icon t-icon-time"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM647.7644992 330.98066432L511.97266432 466.72466432 376.23549824 330.98066432 330.98066432 376.23549824 466.72466432 511.97266432 330.98066432 647.7644992 376.23549824 693.0193344 511.97266432 557.22066432 647.7644992 693.0193344 693.0193344 647.7644992 557.22066432 511.97266432 693.0193344 376.23549824 647.7644992 330.98066432Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
             fill-opacity=".9"
             fill-rule="evenodd"
           />
         </svg>
-      </span>
-    </div>
-    <div
-      class="t-time-picker__input"
-    >
-      <span
-        class="t-time-picker__input-item"
-      >
-        <input
-          class="t-time-picker__input-item-input"
-          disabled=""
-          value="12"
-        />
-      </span>
-      <span
-        class="t-time-picker__input-item"
-      >
-        :
-        <input
-          class="t-time-picker__input-item-input"
-          disabled=""
-          value="08"
-        />
       </span>
     </div>
   </div>
@@ -155,10 +144,10 @@ exports[`hms.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
@@ -190,10 +179,10 @@ exports[`keyboard.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
         readonly=""
         value=" "
       />
@@ -201,13 +190,13 @@ exports[`keyboard.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-close-circle-filled t-input__suffix-clear"
+          class="t-icon t-icon-time"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM647.7644992 330.98066432L511.97266432 466.72466432 376.23549824 330.98066432 330.98066432 376.23549824 466.72466432 511.97266432 330.98066432 647.7644992 376.23549824 693.0193344 511.97266432 557.22066432 647.7644992 693.0193344 693.0193344 647.7644992 557.22066432 511.97266432 693.0193344 376.23549824 647.7644992 330.98066432Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
             fill-opacity=".9"
             fill-rule="evenodd"
           />
@@ -254,10 +243,12 @@ exports[`range.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-is-disabled t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
+        disabled=""
+        placeholder="选择时间"
         readonly=""
         value=""
       />
@@ -288,58 +279,29 @@ exports[`show-steps.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
+        placeholder="选择时间"
         readonly=""
-        value=" "
+        value=""
       />
       <span
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-close-circle-filled t-input__suffix-clear"
+          class="t-icon t-icon-time"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM647.7644992 330.98066432L511.97266432 466.72466432 376.23549824 330.98066432 330.98066432 376.23549824 466.72466432 511.97266432 330.98066432 647.7644992 376.23549824 693.0193344 511.97266432 557.22066432 647.7644992 693.0193344 693.0193344 647.7644992 557.22066432 511.97266432 693.0193344 376.23549824 647.7644992 330.98066432Z"
+            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
             fill-opacity=".9"
             fill-rule="evenodd"
           />
         </svg>
-      </span>
-    </div>
-    <div
-      class="t-time-picker__input"
-    >
-      <span
-        class="t-time-picker__input-item"
-      >
-        <input
-          class="t-time-picker__input-item-input"
-          value="12"
-        />
-      </span>
-      <span
-        class="t-time-picker__input-item"
-      >
-        :
-        <input
-          class="t-time-picker__input-item-input"
-          value="08"
-        />
-      </span>
-      <span
-        class="t-time-picker__input-item"
-      >
-        :
-        <input
-          class="t-time-picker__input-item-input"
-          value="11"
-        />
       </span>
     </div>
   </div>
@@ -352,10 +314,10 @@ exports[`twelve-hour-meridian.jsx 1`] = `
     class="t-time-picker"
   >
     <div
-      class="t-input t-input--suffix"
+      class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-input__inner"
+        class="t-time-picker__group t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
