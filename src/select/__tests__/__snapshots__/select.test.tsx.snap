@@ -3,28 +3,35 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    style="display: flex;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
+      class="t-select-wrap"
+      style="width: 40%;"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="t-select"
+        style="user-select: none;"
       >
-        <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+        <span
+          class="t-select-left-icon"
         />
-      </svg>
+        <span
+          class="t-select-selectedSingle"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-close t-select-right-icon"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -298,34 +305,79 @@ exports[`keys.jsx 1`] = `
 exports[`label-in-value.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
-    style="width: 40%;"
+    style="display: flex;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
+      class="t-select-wrap"
+      style="width: 40%;"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-selectedSingle"
+      <div
+        class="t-select"
+        style="user-select: none;"
       >
-        Apple
-      </span>
-      <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+        <span
+          class="t-select-left-icon"
         />
-      </svg>
+        <span
+          class="t-select-selectedSingle"
+        >
+          Apple
+        </span>
+        <svg
+          class="t-icon t-icon-chevron-down t-select-right-icon"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="t-select-wrap"
+      style="width: 40%; margin-left: 10%;"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-left-icon"
+        />
+        <span
+          class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        >
+          Apple
+          <svg
+            class="t-icon t-icon-close"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            />
+          </svg>
+        </span>
+        <svg
+          class="t-icon t-icon-chevron-down t-select-right-icon"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
+            fill-opacity=".9"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>

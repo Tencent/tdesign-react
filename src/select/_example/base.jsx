@@ -10,20 +10,13 @@ const SingleSelect = () => {
     setValue(value);
   };
   return (
-    <Select
-      value={['2']}
-      multiple
-      keys={{
-        label: 'displayName',
-        value: 'name',
-      }}
-      placeholder="选择服务"
-      options={[
-        { displayName: '1', name: '2' },
-        { displayName: 'h', name: '24' },
-        { displayName: '3', name: '25' },
-      ]}
-    />
+    <div style={{ display: 'flex' }}>
+      <Select value={value} onChange={onChange} style={{ width: '40%' }} clearable={true}>
+        <Option key="apple" label="Apple" value="apple" />
+        <Option key="orange" label="Orange" value="orange" disabled />
+        <Option key="banana" label="Banana" value="banana" />
+      </Select>
+    </div>
   );
 };
 
