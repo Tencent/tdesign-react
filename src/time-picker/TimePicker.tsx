@@ -116,7 +116,7 @@ const TimePicker = forwardRefWithStatics(
   },
   {
     displayName: 'TimePicker',
-    RangePicker: TimeRangePicker,
+    TimeRangePicker,
   },
 );
 
