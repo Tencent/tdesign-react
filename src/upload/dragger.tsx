@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, DragEvent } from 'react';
 import classNames from 'classnames';
 import { TNode } from '../_type/common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from '../_type/components/upload';
@@ -19,7 +19,7 @@ export interface DraggerProps {
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
-  const { file, display, onUpload } = props;
+  const { file, display, onUpload, onRemove } = props;
   const { classPrefix } = useConfig();
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
@@ -46,7 +46,7 @@ const Dragger: FC<DraggerProps> = (props) => {
     if (file && display !== 'custom') {
       content = (
         <DraggerProgress
-          onRemove={props.onRemove}
+          onRemove={onRemove}
           display={display}
           onTrigger={props.onTrigger}
           file={file}
@@ -64,7 +64,7 @@ const Dragger: FC<DraggerProps> = (props) => {
     }
 
     return content;
-  }, [classPrefix, defaultDragElement, display, file, onUpload, props.children, props.onRemove, props.onTrigger]);
+  }, [classPrefix, defaultDragElement, display, file, onRemove, onUpload, props.children, props.onTrigger]);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();

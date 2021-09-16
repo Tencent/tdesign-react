@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-upload"
+    >
+      <input
+        hidden=""
+        type="file"
+      />
+      <div
+        class="t-upload__single t-upload__single-file"
+      >
+        <div
+          class="t-upload__trigger"
+        >
+          <button
+            class="t-button t-button--theme-default t-button--variant-outline"
+            style="position: relative;"
+          >
+            <svg
+              class="t-icon t-icon-upload"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M896 896L192 896 192 704 256 704 255.937328 831.9609152 831.9373312 831.9609152 832 704 896 704 896 896ZM559.58821952 79.79216512L560.27266048 80.21198272 563.20206976 82.23448768 565.92213248 84.65193344 897.6297088 417.87732032 853.184352 462.3226784 575.937328 183.4489184 576 768 512 768 511.937328 181.2729184 234.68549824 464.49213888 191.873328 421.67996864 523.24472192 85.73560768 523.7966432 85.13860032 524.72661888 84.20301632 525.4449728 83.50824832C534.667008 74.15903808 548.9928608 72.90017728 559.58821952 79.79216512Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span
+              class="t-button__text"
+            >
+              选择文件
+            </span>
+          </button>
+        </div>
+      </div>
+      <small
+        class="t-upload__tips t-upload__small"
+      >
+        上传文件大小在 5M 以内
+      </small>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`draggable.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      是否自动上传：
+      <button
+        class="t-switch"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+      <br />
+    </div>
+    <div
+      class="t-radio-group t-radio-group-medium t-radio-group-outline"
+    >
+      <label
+        class="t-radio t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+          value="file"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          文件拖拽上传
+        </span>
+      </label>
+      <label
+        class="t-radio"
+      >
+        <input
+          class="t-radio__former"
+          readonly=""
+          type="radio"
+          value="image"
+        />
+        <span
+          class="t-radio__input"
+        />
+        <span
+          class="t-radio__label"
+        >
+          图片拖拽上传
+        </span>
+      </label>
+    </div>
+    <br />
+    <br />
+    <div
+      class="t-upload"
+    >
+      <input
+        hidden=""
+        type="file"
+      />
+      <div
+        class="t-upload__dragger t-upload__dragger-center"
+      >
+        <div
+          class="t-upload__trigger"
+        >
+          <div>
+            <span
+              class="t-upload__highlight"
+            >
+              点击上传
+            </span>
+            <span>
+                /  拖拽到此区域
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`image.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <div
+        class="t-upload"
+      >
+        <input
+          accept="image/*"
+          hidden=""
+          type="file"
+        />
+        <ul
+          class="t-upload-card"
+        >
+          <li
+            class="t-upload-card__item t-is--background"
+          >
+            <div
+              class="t-upload-card-container t-upload-card__box"
+            >
+              <svg
+                class="t-icon t-icon-add"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+                />
+              </svg>
+              <p
+                class="t-upload__small"
+              >
+                点击上传图片
+              </p>
+            </div>
+          </li>
+        </ul>
+        <small
+          class="t-upload__tips t-upload__small"
+        >
+          请选择单张图片文件上传
+        </small>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div>
+      <div
+        class="t-upload"
+      >
+        <input
+          accept="image/*"
+          hidden=""
+          multiple=""
+          type="file"
+        />
+        <ul
+          class="t-upload-card"
+        >
+          <li
+            class="t-upload-card__item t-is--background"
+          >
+            <div
+              class="t-upload-card-container t-upload-card__box"
+            >
+              <svg
+                class="t-icon t-icon-add"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+                />
+              </svg>
+              <p
+                class="t-upload__small"
+              >
+                点击上传图片
+              </p>
+            </div>
+          </li>
+        </ul>
+        <small
+          class="t-upload__tips t-upload__small"
+        >
+          允许选择多张图片文件上传，最多只能上传 3 张图片
+        </small>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

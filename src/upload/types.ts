@@ -1,4 +1,10 @@
-import { UploadFile, ProgressContext, SuccessContext } from '../_type/components/upload';
+import { UploadFile, ProgressContext } from '../_type/components/upload';
+
+export interface XhrSuccessContext {
+  e: ProgressEvent;
+  file: UploadFile;
+  response: any;
+}
 
 export interface TdUploadFile extends UploadFile {
   // fileList中每个文件的唯一标识
@@ -14,7 +20,7 @@ export interface XhrOptions {
   file: UploadFile;
   name: string;
   onError: ({ event, file, response }: { event: ProgressEvent; file?: UploadFile; response?: any }) => void;
-  onSuccess: (context: SuccessContext) => void;
+  onSuccess: (context: XhrSuccessContext) => void;
   onProgress: (context: ProgressContext) => void;
 }
 

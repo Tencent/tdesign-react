@@ -1,31 +1,36 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import Button from '../../button';
 import Loading from '../../loading';
 import CheckCircleFilledIcon from '../../icon/icons/CheckCircleFilledIcon';
 import ErrorCircleFilledIcon from '../../icon/icons/ErrorCircleFilledIcon';
 import useConfig from '../../_util/useConfig';
-import { UploadFile } from '../../_type/components/upload';
+import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
 
 export interface DraggerProgressProps {
   display?: string;
   file: UploadFile;
   onTrigger?: () => void;
-  onRemove?: () => void;
+  onRemove?: (context: UploadRemoveContext) => void;
   onUpload?: () => void;
 }
 
 const DraggerProgress: FC<DraggerProgressProps> = (props) => {
-  const { file, onUpload, onRemove, display } = props;
+  const { file, onUpload, onRemove, display, onTrigger } = props;
   const { classPrefix } = useConfig();
-  const reUpload = React.useCallback(() => {
-    props.onRemove?.();
-    props.onTrigger?.();
-  }, [props]);
+
+  const reUpload = (e) => {
+    onRemove?.({ e, file, index: 0 });
+    onTrigger?.();
+  };
 
   const showResultOperate = React.useMemo(() => ['success', 'fail'].includes(file?.status), [file]);
 
-  const renderUploading = React.useCallback(() => {
+  const handleRemove = (e) => {
+    onRemove?.({ e, file, index: 0 });
+  };
+
+  const renderUploading = useCallback(() => {
     if (file?.status === 'fail') {
       return <ErrorCircleFilledIcon />;
     }
@@ -58,7 +63,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
               theme="primary"
               variant="text"
               className={`${classPrefix}-upload__dragger-progress-cancel`}
-              onClick={onRemove}
+              onClick={handleRemove}
             >
               取消上传
             </Button>
@@ -72,7 +77,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
             <Button theme="primary" variant="text" className="t-upload__dragger-progress-cancel" onClick={reUpload}>
               重新上传
             </Button>
-            <Button theme="primary" variant="text" onClick={props.onRemove}>
+            <Button theme="primary" variant="text" onClick={handleRemove}>
               删除
             </Button>
           </div>

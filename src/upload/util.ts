@@ -1,4 +1,4 @@
-import { TdUploadFile } from './upload';
+import { TdUploadFile } from './types';
 
 const urlCreator = window.webkitURL || window.URL;
 
