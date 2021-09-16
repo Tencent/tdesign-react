@@ -29,7 +29,7 @@ const TimePicker = forwardRefWithStatics(
     const {
       allowInput,
       className,
-      clearable = true,
+      clearable,
       disabled,
       format = DEFAULT_FORMAT,
       hideDisabledTime = true,
@@ -47,7 +47,7 @@ const TimePicker = forwardRefWithStatics(
       onOpen = noop,
     } = useDefaultValue(props);
 
-    const [isPanelShowed, togglePanelShow] = useState(false);
+    const [isPanelShowed, setPanelShow] = useState(false);
 
     const { classPrefix } = useConfig();
     const name = `${classPrefix}-time-picker`;
@@ -56,15 +56,16 @@ const TimePicker = forwardRefWithStatics(
     });
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
-      if (disabled) return;
-      togglePanelShow(visible);
+      setPanelShow(visible);
       visible ? onOpen(context) : onClose(context); // trigger on-open and on-close
     };
 
-    const handleClickInput = () => {
-      if (disabled) return;
-      togglePanelShow((v) => !v);
+    const handleClear = (context: { e: React.MouseEvent }) => {
+      const { e } = context;
+      e.stopPropagation();
+      onChange(null);
     };
+
     return (
       <Popup
         content={
@@ -75,7 +76,7 @@ const TimePicker = forwardRefWithStatics(
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             onChange={onChange}
-            handleConfirmClick={() => togglePanelShow(false)}
+            handleConfirmClick={() => setPanelShow(false)}
             value={value}
           />
         }
@@ -86,14 +87,14 @@ const TimePicker = forwardRefWithStatics(
         trigger="click"
       >
         {/* TODO active与date picker保持一致 */}
-        <div className={classNames(name, className)} ref={ref} style={style} onClick={handleClickInput}>
+        <div className={classNames(name, className)} ref={ref} style={style}>
           <Input
             readonly={true}
             disabled={disabled}
             size={size}
             clearable={clearable}
             value={value ? ' ' : undefined}
-            onClear={() => onChange(undefined)}
+            onClear={handleClear}
             placeholder={!value ? placeholder : undefined}
             className={inputClasses}
             suffixIcon={<TIconTime />}

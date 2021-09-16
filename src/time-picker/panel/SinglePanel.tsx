@@ -50,7 +50,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   }, [cols]);
 
   useEffect(() => {
-    const match = format.match(/(a\s+|A\s+)?(h+|H+)?:?(m+)?:?(s+)?(\s+a|A)?/);
+    const match = format.match(/(a\s+|A\s+)?(h+|H+)?:?(m+)?:?(s+)?(\s+a|\s+A)?/);
     const [, startCol, hourCol, minuteCol, secondCol, endCol] = match;
     const { meridiem, hour, minute, second } = EPickerCols;
 
@@ -61,7 +61,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       secondCol && second,
       endCol && meridiem,
     ].filter((v) => !!v);
-
     setCols(renderCol);
   }, [format]);
 
@@ -161,7 +160,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     } else {
       // meridiem col scorll
       const val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
-      const m = MERIDIEM_LIST[val];
+      const m = MERIDIEM_LIST[val].toLowerCase(); // 处理PM/AM与am/pm
       const currentHour = dayjsValue.hour();
       if (m === AM && currentHour >= 12) {
         onChange(dayjsValue.hour(currentHour - 12).format(format));
@@ -220,10 +219,10 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
     cols.forEach((col: EPickerCols, idx: number) => {
       if (!isStepsSet || (isStepsSet && value)) {
-        timeArr.includes(col)
-          ? scrollToTime(col, dayjsValue[col]?.(), idx, behavior)
-          : scrollToTime(col, dayjsValue.format('a'), idx, behavior);
+        // 如果没有设置大于1的steps或设置了大于1的step 正常处理滚动
+        scrollToTime(col, timeArr.includes(col) ? dayjsValue[col]?.() : dayjsValue.format('a'), idx, behavior);
       } else {
+        // 否则初始化到每列第一个选项
         scrollToTime(col, getColList(col)?.[0], idx, behavior);
       }
     });
@@ -231,8 +230,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
   useEffect(() => {
     updateTimeScrollPos();
-    // 当value变化时 需要更新滚动距离
-  }, [updateTimeScrollPos, value]);
+  });
 
   const isCurrent = useCallback(
     (col: EPickerCols, colItem: string | number) => {

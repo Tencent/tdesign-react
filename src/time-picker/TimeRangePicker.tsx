@@ -23,7 +23,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     clearable,
     disabled, // TODO array形式
     format = 'HH:mm:ss',
-    hideDisabledTime,
+    hideDisabledTime = true,
     placeholder = TEXT_CONFIG.placeholder, // TODO array形式
     size = 'medium',
     steps = [1, 1, 1],
@@ -75,13 +75,15 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     >
       <div className={classNames(name, className)} style={style} onClick={handleClickInput}>
         <Input
-          readonly={true}
           size={size}
+          readonly={true}
           clearable={clearable}
           className={inputClasses}
+          value={value ? ' ' : undefined}
+          onClear={() => onChange(null)}
           disabled={disabled as boolean}
-          suffixIcon={<TIconTime />}
           placeholder={!value ? (placeholder as string) : undefined}
+          suffixIcon={<TIconTime />}
         />
         {value ? (
           <InputItems
