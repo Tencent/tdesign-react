@@ -174,25 +174,26 @@ export default {
           component: () => import('@tencent/tdesign-react/select/README.md'),
         },
         {
-          title: 'TimePicker 时间选择器',
-          name: 'time-picker',
-          docType: 'form',
-          path: '/react/components/time-picker',
-          component: () => import('@tencent/tdesign-react/time-picker/README.md'),
-        },
-        {
           title: 'Switch 开关',
           name: 'switch',
           docType: 'form',
           path: '/react/components/switch',
           component: () => import('@tencent/tdesign-react/switch/README.md'),
         },
+
         {
           title: 'Textarea 多行文本框',
           name: 'textarea',
           docType: 'form',
           path: '/react/components/textarea',
           component: () => import('@tencent/tdesign-react/textarea/README.md'),
+        },
+        {
+          title: 'TimePicker 时间选择器',
+          name: 'time-picker',
+          docType: 'form',
+          path: '/react/components/time-picker',
+          component: () => import('@tencent/tdesign-react/time-picker/README.md'),
         },
       ],
     },
