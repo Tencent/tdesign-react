@@ -55,6 +55,12 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     togglePanelShow((v) => !v);
   };
 
+  const handleClear = (context: { e: React.MouseEvent }) => {
+    const { e } = context;
+    e.stopPropagation();
+    onChange(null);
+  };
+
   return (
     <Popup
       content={
@@ -80,7 +86,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           clearable={clearable}
           className={inputClasses}
           value={value ? ' ' : undefined}
-          onClear={() => onChange(null)}
+          onClear={handleClear}
           disabled={disabled as boolean}
           placeholder={!value ? (placeholder as string) : undefined}
           suffixIcon={<TIconTime />}
