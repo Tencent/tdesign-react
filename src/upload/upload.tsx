@@ -194,7 +194,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, TdUploadProps> = (props, r
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     const { files } = event.target;
-    let tmpFiles = [...files];
+    let tmpFiles = Array.from(files);
     const uploadList = formatFiles(tmpFiles);
     tmpFiles = getLimitedFiles(uploadList);
     setFileList(() => tmpFiles);
@@ -204,7 +204,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, TdUploadProps> = (props, r
 
   const handleDragChange = (files: FileList): void => {
     if (disabled) return;
-    let tmpFiles = [...files];
+    let tmpFiles = Array.from(files);
     const uploadList = formatFiles(tmpFiles);
     tmpFiles = getLimitedFiles(uploadList);
     setFileList(() => tmpFiles);
