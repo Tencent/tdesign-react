@@ -11,6 +11,8 @@ import { finishUpload, updateFileList, isSingleFile } from './util';
 import { TdUploadFile } from './types';
 import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from '../_type/components/upload';
 
+export type UploadProps = TdUploadProps;
+
 const urlCreator = window.webkitURL || window.URL;
 
 const Upload: React.ForwardRefRenderFunction<unknown, TdUploadProps> = (props, ref) => {
