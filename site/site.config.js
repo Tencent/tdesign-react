@@ -132,6 +132,13 @@ export default {
           component: () => import('@tencent/tdesign-react/checkbox/README.md'),
         },
         {
+          title: 'Datepicker 日期选择器',
+          name: 'datepicker',
+          docType: 'form',
+          path: '/react/components/date-picker',
+          component: () => import('@tencent/tdesign-react/date-picker/README.md'),
+        },
+        {
           title: 'Form 表单',
           name: 'form',
           docType: 'form',
@@ -173,12 +180,20 @@ export default {
           path: '/react/components/switch',
           component: () => import('@tencent/tdesign-react/switch/README.md'),
         },
+
         {
           title: 'Textarea 多行文本框',
           name: 'textarea',
           docType: 'form',
           path: '/react/components/textarea',
           component: () => import('@tencent/tdesign-react/textarea/README.md'),
+        },
+        {
+          title: 'TimePicker 时间选择器',
+          name: 'time-picker',
+          docType: 'form',
+          path: '/react/components/time-picker',
+          component: () => import('@tencent/tdesign-react/time-picker/README.md'),
         },
       ],
     },
