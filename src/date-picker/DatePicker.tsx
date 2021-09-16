@@ -7,7 +7,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdDatePickerProps } from '../_type/components/date-picker';
 import useCommonClassName from '../_util/useCommonClassName';
-import { containerDom } from '../_util/dom';
+import useClickOutside from '../_util/useClickOutside';
 
 import IconTime from '../icon/icons/TimeIcon';
 import IconCalendar from '../icon/icons/CalendarIcon';
@@ -81,19 +81,12 @@ const DatePicker = (props: DatePickerProps) => {
     }
   }
 
+  useClickOutside([datePickerRef, dropdownPopupRef], () => {
+    close();
+  });
+
   useEffect(() => {
     initDatePicker();
-
-    function clickPickerOut(e) {
-      const refs = [datePickerRef.current, dropdownPopupRef.current];
-      if (refs.every((ref) => !containerDom(ref, e.target))) {
-        close();
-      }
-    }
-    document.addEventListener('click', clickPickerOut);
-    return () => {
-      document.removeEventListener('click', clickPickerOut);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
