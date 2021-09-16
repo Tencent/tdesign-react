@@ -1,6 +1,8 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, useCallback } from 'react';
 import classNames from 'classnames';
-import { LoadingIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from '../../icon';
+import Loading from '../../loading';
+import CloseCircleFilledIcon from '../../icon/icons/CloseCircleFilledIcon';
+import ErrorCircleFilledIcon from '../../icon/icons/ErrorCircleFilledIcon';
 import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
 import useConfig from '../../_util/useConfig';
 
@@ -17,11 +19,11 @@ const SingleFile: FC<SingleFileProps> = (props) => {
 
   const fileClass = classNames(`${classPrefix}-upload__single`, `${classPrefix}-upload__single-${display}`);
 
-  const showProgress = React.useMemo(() => file && file.status !== 'success', [file]);
+  const showProgress = file && file.status !== 'success';
 
-  const inputName = React.useMemo(() => file && file.name, [file]);
+  const inputName = file?.name;
 
-  const handleRemove = React.useCallback(
+  const handleRemove = useCallback(
     (e) => {
       onRemove?.({
         e,
@@ -32,26 +34,24 @@ const SingleFile: FC<SingleFileProps> = (props) => {
     [file, onRemove],
   );
 
-  const renderProgress = React.useCallback(() => {
+  const renderProgress = useCallback(() => {
     if (file?.status === 'fail') {
       return <ErrorCircleFilledIcon />;
     }
 
     return (
-      <Fragment>
-        <div className={`${classPrefix}-upload__single-progress`}>
-          <LoadingIcon />
-          <span className={`${classPrefix}-upload__single-percent`}>{Math.min(file?.percent || 0, 99)}%</span>
-        </div>
-      </Fragment>
+      <div className={`${classPrefix}-upload__single-progress`}>
+        <Loading loading={true} size="small" />
+        <span className={`${classPrefix}-upload__single-percent`}>{Math.min(file?.percent || 0, 99)}%</span>
+      </div>
     );
   }, [classPrefix, file]);
 
   // 文本型预览
-  const renderFilePreviewAsText = React.useCallback(() => {
+  const renderFilePreviewAsText = useCallback(() => {
     if (!inputName) return;
     return (
-      <div className={`${classPrefix}-upload__single-display-text t-display-text--margin`}>
+      <div className={`${classPrefix}-upload__single-display-text ${classPrefix}-display-text--margin`}>
         <span className={`${classPrefix}-upload__single-name`}>{inputName}</span>
         {showProgress ? (
           renderProgress()

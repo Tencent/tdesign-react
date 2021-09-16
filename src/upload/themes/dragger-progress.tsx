@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import Button from '../../button';
-import { CheckCircleFilledIcon, ErrorCircleFilledIcon, LoadingIcon } from '../../icon';
+import Loading from '../../loading';
+import CheckCircleFilledIcon from '../../icon/icons/CheckCircleFilledIcon';
+import ErrorCircleFilledIcon from '../../icon/icons/ErrorCircleFilledIcon';
 import useConfig from '../../_util/useConfig';
 import { UploadFile } from '../../_type/components/upload';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
@@ -30,7 +32,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
     if (file?.status === 'progress') {
       return (
         <div className="t-upload__single-progress">
-          <LoadingIcon />
+          <Loading loading={true} size="small" />
           <span className="t-upload__single-percent">{Math.min(file?.percent || 0, 99)}%</span>
         </div>
       );

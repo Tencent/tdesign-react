@@ -1,10 +1,13 @@
 import React, { FC, Fragment, useState } from 'react';
-import { finishUpload } from '@tencent/tdesign-react/upload/util';
 import Dialog from '../../dialog';
+import Loading from '../../loading';
+import BrowseIcon from '../../icon/icons/BrowseIcon';
+import DeleteIcon from '../../icon/icons/DeleteIcon';
+import AddIcon from '../../icon/icons/AddIcon';
 import useConfig from '../../_util/useConfig';
-import { TdUploadFile } from '../types';
-import { BrowseIcon, DeleteIcon, LoadingIcon, AddIcon } from '../../icon';
 import { UploadRemoveContext } from '../../_type/components/upload';
+import { finishUpload } from '../util';
+import { TdUploadFile } from '../types';
 
 export interface ImageCardProps {
   files?: TdUploadFile[];
@@ -58,7 +61,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
             <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} key={index}>
               {!finishUpload(file.status) ? (
                 <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
-                  <LoadingIcon />
+                  <Loading loading={true} size="medium" />
                   <p>上传中 {Math.min(files[0].percent, 99)}%</p>
                 </div>
               ) : (

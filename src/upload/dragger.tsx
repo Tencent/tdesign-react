@@ -57,14 +57,14 @@ const Dragger: FC<DraggerProps> = (props) => {
       );
     } else {
       content = (
-        <div className="t-upload__trigger" onClick={props.onTrigger}>
+        <div className={`${classPrefix}-upload__trigger`} onClick={props.onTrigger}>
           {props.children || defaultDragElement}
         </div>
       );
     }
 
     return content;
-  }, [defaultDragElement, display, file, onUpload, props.children, props.onRemove, props.onTrigger]);
+  }, [classPrefix, defaultDragElement, display, file, onUpload, props.children, props.onRemove, props.onTrigger]);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
