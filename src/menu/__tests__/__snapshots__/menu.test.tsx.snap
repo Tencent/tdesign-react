@@ -357,10 +357,10 @@ exports[`closable-side.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -448,7 +448,7 @@ exports[`custom-header.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <div
           class="tdesign-demo-menu__block"
@@ -527,7 +527,7 @@ exports[`custom-header.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <div
           class="tdesign-demo-menu__block"
@@ -1155,7 +1155,7 @@ exports[`group-side.jsx 1`] = `
         </div>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
           class="t-icon t-icon-view-list"
@@ -1509,10 +1509,10 @@ exports[`multi-side.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -1858,10 +1858,10 @@ exports[`multi-side.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2274,10 +2274,10 @@ exports[`single.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-user-add"
+          class="t-icon t-icon-user-add t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2289,7 +2289,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-app"
+          class="t-icon t-icon-app t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2301,7 +2301,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-call"
+          class="t-icon t-icon-call t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2383,10 +2383,10 @@ exports[`single.jsx 1`] = `
         </li>
       </ul>
       <div
-        class="t-menu__options"
+        class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-user-add"
+          class="t-icon t-icon-user-add t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2398,7 +2398,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-app"
+          class="t-icon t-icon-app t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -2410,7 +2410,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-call"
+          class="t-icon t-icon-call t-menu__operations-icon"
           version="1.1"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
