@@ -23,7 +23,7 @@ function ClosableSide() {
       collapsed={collapsed}
       expandMutex={false}
       onChange={(v) => setActive(v)}
-      operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
+      operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setCollapsed(!collapsed)} />}
       logo={<span>LOGO</span>}
     >
       <MenuItem value="0" icon={<AppIcon />}>

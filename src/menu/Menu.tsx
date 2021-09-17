@@ -43,7 +43,7 @@ const Menu = forwardRefWithStatics(
             <ul className={classNames(`${classPrefix}-menu`, { [`${classPrefix}-menu--scroll`]: !collapsed })}>
               {children}
             </ul>
-            {operations && <div className={`${classPrefix}-menu__options`}>{operations}</div>}
+            {operations && <div className={`${classPrefix}-menu__operations`}>{operations}</div>}
           </div>
         </div>
       </MenuContext.Provider>
