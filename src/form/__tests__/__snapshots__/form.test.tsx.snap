@@ -181,7 +181,7 @@ exports[`base.jsx 1`] = `
           class="t-form__controls--content"
         >
           <div
-            class="t-date-picker"
+            class="t-date-picker t-size-m"
           >
             <div
               class="t-form-controls"

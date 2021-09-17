@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-item--datepicker"
   >
     <div
-      class="t-date-picker"
+      class="t-date-picker t-size-m"
     >
       <div
         class="t-form-controls"
@@ -49,7 +49,7 @@ exports[`date-presets-alt.jsx 1`] = `
     class="tdesign-demo-item--datepicker"
   >
     <div
-      class="t-date-picker"
+      class="t-date-picker t-size-m"
     >
       <div
         class="t-form-controls"
@@ -96,7 +96,7 @@ exports[`date-range.jsx 1`] = `
     class="tdesign-demo-item--datepicker tdesign-demo-block-column"
   >
     <div
-      class="t-date-picker"
+      class="t-date-picker t-size-m"
     >
       <div
         class="t-form-controls"
@@ -130,7 +130,7 @@ exports[`date-range.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-date-picker"
+      class="t-date-picker t-size-m"
     >
       <div
         class="t-form-controls"
@@ -173,7 +173,7 @@ exports[`date-time.jsx 1`] = `
     class="tdesign-demo-item--datepicker"
   >
     <div
-      class="t-date-picker"
+      class="t-date-picker t-size-m"
     >
       <div
         class="t-form-controls"
@@ -219,7 +219,7 @@ exports[`disable-date.jsx 1`] = `
       class="tdesign-demo-item--datepicker"
     >
       <div
-        class="t-date-picker"
+        class="t-date-picker t-size-m"
       >
         <div
           class="t-form-controls"
@@ -257,7 +257,7 @@ exports[`disable-date.jsx 1`] = `
       class="tdesign-demo-item--datepicker"
     >
       <div
-        class="t-date-picker"
+        class="t-date-picker t-size-m"
       >
         <div
           class="t-form-controls"
@@ -295,7 +295,7 @@ exports[`disable-date.jsx 1`] = `
       class="tdesign-demo-item--datepicker"
     >
       <div
-        class="t-date-picker"
+        class="t-date-picker t-size-m"
       >
         <div
           class="t-form-controls"
@@ -333,7 +333,7 @@ exports[`disable-date.jsx 1`] = `
       class="tdesign-demo-item--datepicker"
     >
       <div
-        class="t-date-picker"
+        class="t-date-picker t-size-m"
       >
         <div
           class="t-form-controls"
@@ -371,7 +371,7 @@ exports[`disable-date.jsx 1`] = `
       class="tdesign-demo-item--datepicker"
     >
       <div
-        class="t-date-picker"
+        class="t-date-picker t-size-m"
       >
         <div
           class="t-form-controls"
@@ -415,7 +415,7 @@ exports[`month.jsx 1`] = `
     class="tdesign-demo-item--datepicker"
   >
     <div
-      class="t-date-picker t-date-picker--month-picker"
+      class="t-date-picker t-size-m t-date-picker--month-picker"
     >
       <div
         class="t-form-controls"
@@ -458,7 +458,7 @@ exports[`year.jsx 1`] = `
     class="tdesign-demo-item--datepicker"
   >
     <div
-      class="t-date-picker t-date-picker--month-picker"
+      class="t-date-picker t-size-m t-date-picker--month-picker"
     >
       <div
         class="t-form-controls"

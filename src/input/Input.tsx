@@ -50,6 +50,7 @@ const Input = forwardRefWithStatics(
       onKeydown,
       onCompositionStart,
       onCompositionEnd,
+      autofocus,
       readonly,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
@@ -93,6 +94,7 @@ const Input = forwardRefWithStatics(
         {...inputProps}
         value={composingRef.current ? composingRefValue : value}
         {...eventProps}
+        autoFocus={autofocus}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onCompositionStart={handleCompositionStart}

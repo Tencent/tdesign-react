@@ -10,7 +10,7 @@ export default function useCommonClassName() {
         default: '',
         xs: `${classPrefix}-size-xs`,
         small: `${classPrefix}-size-s`,
-        middle: `${classPrefix}-size-m`,
+        medium: `${classPrefix}-size-m`,
         large: `${classPrefix}-size-l`,
         xl: `${classPrefix}-size-xl`,
         block: `${classPrefix}-size-full-width`,
