@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { ConfigContext } from '@tencent/tdesign-react/config-provider';
+import { ConfigContext } from '../../config-provider';
 import TIconChevronCircleDown from '../../icon/icons/ChevronDownCircleIcon';
 import { Styles, TNode } from '../../_type/common';
 
@@ -43,14 +43,10 @@ const ExpandButton: FC<Props> = (props) => {
     return <span style={style}>{renderIcon(showExpandArrow)}</span>;
   }
 
-  return expandOnRowClick ? (
-    <span className={`${classPrefix}-table-expand-box`}>{getExpandIcon(expanded)}</span>
-  ) : (
+  return (
     <span
       className={`${classPrefix}-table-expand-box`}
-      onClick={() => {
-        handleExpandChange(row, rowKeyValue);
-      }}
+      {...(!expandOnRowClick ? { onClick: () => handleExpandChange(row, rowKeyValue) } : {})}
     >
       {getExpandIcon(expanded)}
     </span>

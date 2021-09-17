@@ -18,11 +18,10 @@ const TableBody = forwardRef(
       rowKey,
       rowClassName,
       expandedRow,
-      columns,
       expandOnRowClick = false,
       onTrClick,
-      innerExpandedRowKeys,
       rowspanAndColspan,
+      renderExpandRow,
     } = props;
     const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
     const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
@@ -49,14 +48,7 @@ const TableBody = forwardRef(
                 }
               : {})}
           />
-          {expandedRow ? (
-            <tr
-              className={`${classPrefix}-table-expanded-cell`}
-              style={innerExpandedRowKeys?.includes?.(rowKeyValue) ? {} : { display: 'none' }}
-            >
-              <td colSpan={columns?.length}>{expandedRow && expandedRow({ row, index })}</td>
-            </tr>
-          ) : null}
+          {expandedRow ? renderExpandRow(row, index, rowKeyValue) : null}
         </React.Fragment>
       );
     });

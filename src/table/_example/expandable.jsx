@@ -26,7 +26,7 @@ const columns = [
 ];
 const data = [
   {
-    id: 'hi1',
+    id: 'demo1',
     instance: 'JQTest1',
     status: 0,
     owner: 'jenny;peter',
@@ -47,7 +47,7 @@ const data = [
     description: 'test3',
   },
   {
-    id: '4',
+    id: 'test4',
     instance: 'JQTest4',
     status: 1,
     owner: 'peter',
@@ -76,7 +76,7 @@ export default function TableExample() {
         defaultExpandedRowKeys={defaultExpandedRowKeys}
         // expandOnRowClick={true}
         expandedRow={({ row, index }) => (
-          <div className="more-detail" style={{ textAlign: 'center' }}>
+          <div className="more-detail">
             <p className="title">
               <b>集群名称:</b>
             </p>

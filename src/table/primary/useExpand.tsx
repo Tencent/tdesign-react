@@ -8,13 +8,14 @@ import ExpandBox from './expand-box';
 const expandedColKey = 'expanded-icon-cell';
 
 export type RowkeyType = PrimaryTableProps['expandedRowKeys'];
+
 /**
  * 展开收起hook
  * 1.返回加入展开icon的列配置 Array[]
- * 2.返回展开行 Array[]
- * 3.返回改变展开行数组内容的方法
+ * 2.返回展开回调方法
+ * 3.返回渲染行展开方法
  */
-function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], RowkeyType, Function] {
+function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Function] {
   const {
     columns,
     rowKey,
@@ -27,7 +28,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], RowkeyType, Fu
   } = props;
   const { classPrefix } = useContext(ConfigContext);
   const isControlled = typeof expandedRowKeys !== 'undefined'; // 是否受控
-  const [thisExpandRowKeys, setThisExpandRowKeys] = useState<RowkeyType>(
+  const [innerExpandRowKeys, setThisExpandRowKeys] = useState<RowkeyType>(
     expandedRowKeys || defaultExpandedRowKeys || [],
   );
 
@@ -51,17 +52,18 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], RowkeyType, Fu
         ]
       : columns;
 
-  //  渲染展开单元格内容
+  const transformedExpandColumns = transformedExpandColumnsFun();
+
+  // 渲染展开单元格内容
   function renderExpandIconCell({ row = {} }: Record<string, any>) {
     const rowKeyValue = get(row, rowKey);
-    if (!Array.isArray(thisExpandRowKeys)) {
+    if (!Array.isArray(innerExpandRowKeys)) {
       console.error(`ExpandedRowKeys type error`);
       return;
     }
-    const isShowExpanded = thisExpandRowKeys?.includes(rowKeyValue);
     return (
       <ExpandBox
-        expanded={isShowExpanded}
+        expanded={innerExpandRowKeys?.includes(rowKeyValue)}
         row={row}
         rowKeyValue={rowKeyValue}
         showExpandArrow={showExpandArrow}
@@ -71,27 +73,37 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], RowkeyType, Fu
     );
   }
 
-  // 触发展开回调
+  // 导出：触发展开回调方法
   function handleExpandChange(row, rowKeyValue) {
-    let thisExpandRowKeysNew: RowkeyType;
-    const isExpanded = thisExpandRowKeys?.includes(rowKeyValue);
+    let innerExpandRowKeysNew: RowkeyType;
+    const isExpanded = innerExpandRowKeys?.includes(rowKeyValue);
     if (isExpanded) {
-      thisExpandRowKeysNew = thisExpandRowKeys.filter((item) => item !== rowKeyValue);
+      innerExpandRowKeysNew = innerExpandRowKeys.filter((item) => item !== rowKeyValue);
     } else {
-      thisExpandRowKeysNew = [...thisExpandRowKeys, rowKeyValue];
+      innerExpandRowKeysNew = [...innerExpandRowKeys, rowKeyValue];
     }
 
     if (!isControlled) {
-      setThisExpandRowKeys([...thisExpandRowKeysNew]);
+      setThisExpandRowKeys([...innerExpandRowKeysNew]);
     }
 
     // 触发回调
-    typeof onExpandChange === 'function' && onExpandChange(thisExpandRowKeysNew, { expandedRowData: row });
+    typeof onExpandChange === 'function' && onExpandChange(innerExpandRowKeysNew, { expandedRowData: row });
   }
 
-  const transformedExpandColumns = transformedExpandColumnsFun();
+  // 导出：渲染行展开方法
+  function renderExpandRow(row, index, rowKeyValue) {
+    return (
+      <tr
+        className={`${classPrefix}-table-expanded-cell`}
+        style={innerExpandRowKeys?.includes?.(rowKeyValue) ? {} : { display: 'none' }}
+      >
+        <td colSpan={transformedExpandColumns?.length}>{expandedRow && expandedRow({ row, index })}</td>
+      </tr>
+    );
+  }
 
-  return [transformedExpandColumns, thisExpandRowKeys, handleExpandChange];
+  return [transformedExpandColumns, handleExpandChange, renderExpandRow];
 }
 
 export default useExpand;

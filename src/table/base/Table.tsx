@@ -13,11 +13,10 @@ import TableLoadingBody from './TableLoadingBody';
 import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
-import { RowkeyType } from '../primary/useExpand';
 
 export interface ExpandProps {
   onTrClick?: Function;
-  innerExpandedRowKeys?: RowkeyType;
+  renderExpandRow?: Function;
 }
 
 export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData>;
@@ -39,7 +38,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     pagination,
     onPageChange,
     onTrClick,
-    innerExpandedRowKeys,
+    renderExpandRow,
   } = props;
 
   const [columns, flattenColumns] = useColumns(props);
@@ -111,7 +110,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     }
     default: {
       tableBodyContent = (
-        <TableBody {...props} data={pageData} innerExpandedRowKeys={innerExpandedRowKeys} onTrClick={onTrClick} />
+        <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
       );
     }
   }

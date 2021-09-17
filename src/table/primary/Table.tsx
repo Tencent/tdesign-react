@@ -12,7 +12,7 @@ export default function PrimaryTable(props: PrimaryTableProps) {
   const [sorterColumns, sortData] = useSorter(props);
   const [filterColumns, filterData] = useFilter({ ...props, columns: sorterColumns, data: sortData });
   const [selectColumns] = useSelect({ ...props, columns: filterColumns, data: filterData });
-  const [expandColumns, innerExpandedRowKeys, handleExpandChange] = useExpand({
+  const [expandColumns, handleExpandChange, renderExpandRow] = useExpand({
     ...props,
     columns: selectColumns,
     data: filterData,
@@ -27,8 +27,8 @@ export default function PrimaryTable(props: PrimaryTableProps) {
       {...props}
       columns={mergeColumns}
       data={mergedData}
-      innerExpandedRowKeys={innerExpandedRowKeys}
       onTrClick={handleExpandChange}
+      renderExpandRow={renderExpandRow}
     />
   );
 }
