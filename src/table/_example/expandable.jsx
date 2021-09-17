@@ -1,64 +1,106 @@
 import React from 'react';
 import { Table } from '@tencent/tdesign-react';
+import './expandable.less';
 
-const exampleList = [
+const columns = [
+  { colKey: 'instance', title: '集群名称', width: 200, className: 'instance' },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    colKey: 'status',
+    title: '状态',
+    width: 200,
+    render({ row }) {
+      switch (row.status) {
+        case 0:
+          return <p className="status">健康</p>;
+        case 1:
+          return <p className="status warning">警告</p>;
+        case 2:
+          return <p className="status unhealth">异常</p>;
+        default:
+          return null;
+      }
+    },
+  },
+  { colKey: 'owner', title: '管理员', width: 200 },
+  { colKey: 'description', title: '描述' },
+];
+const data = [
+  {
+    id: 'hi1',
+    instance: 'JQTest1',
+    status: 0,
+    owner: 'jenny;peter',
+    description: 'test1',
   },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    id: 'demo2',
+    instance: 'JQTest2',
+    status: 1,
+    owner: 'jenny',
+    description: 'test2',
   },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    id: 'test3',
+    instance: 'JQTest3',
+    status: 0,
+    owner: 'jenny',
+    description: 'test3',
   },
   {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
-  },
-  {
-    projectName: 'TDesign Wonderful',
-    manager: ['yacentlin', 'grayqin', 'sheepluo', 'cache'],
-    company: 'Tencent',
+    id: '4',
+    instance: 'JQTest4',
+    status: 1,
+    owner: 'peter',
+    description: 'test4',
   },
 ];
 
 export default function TableExample() {
-  return null;
+  // const [expandedRowKeys, setExpandedRowKeys] = useState(['demo2', 'test3']); // 受控方式
+  const defaultExpandedRowKeys = ['demo2'];
+
+  const rehandleExpandChange = (expandedRowKeys, { expandedRowData }) => {
+    // setExpandedRowKeys([...expandedRowKeys]); // 受控方式
+    console.log('value', expandedRowKeys);
+    console.log('rehandleExpandChange', expandedRowData);
+  };
 
   return (
-    <Table
-      data={exampleList}
-      // height={100}
-      // bordered={false}
-      // loading={true}
-      columns={[
-        {
-          colKey: 'project',
-          title: '项目名称',
-          width: '150px',
-          render: ({ row }) => row.projectName,
-        },
-        {
-          colKey: 'memeber',
-          title: '管理员',
-          width: '300px',
-          render: ({ row }) => row.manager.join(','),
-        },
-        {
-          colKey: 'company',
-          title: '所属公司',
-          width: '150px',
-          render: ({ row }) => row.company,
-        },
-      ]}
-      rowKey="projectName"
-    />
+    <div className="demo-container">
+      <Table
+        data={data}
+        columns={columns}
+        rowKey="id"
+        // showExpandArrow={<IconFont name="add-circle" size="1em" />}
+        // expandedRowKeys={expandedRowKeys} // 受控方式
+        defaultExpandedRowKeys={defaultExpandedRowKeys}
+        // expandOnRowClick={true}
+        expandedRow={({ row, index }) => (
+          <div className="more-detail" style={{ textAlign: 'center' }}>
+            <p className="title">
+              <b>集群名称:</b>
+            </p>
+            <p className="content">
+              {row.instance}-{index}
+            </p>
+            <br />
+            <p className="title">
+              <b>管理员:</b>
+            </p>
+            <p className="content">
+              {row.owner}-{index}
+            </p>
+            <br />
+            <p className="title">
+              <b>描述:</b>
+            </p>
+            <p className="content">
+              {row.description}-{index}
+            </p>
+          </div>
+        )}
+        onExpandChange={rehandleExpandChange}
+      />
+    </div>
   );
 }

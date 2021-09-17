@@ -15,6 +15,8 @@ interface RowProps<D extends DataType> extends MergeCellsProps {
   record: D;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
+  onTrClick?: () => void;
+  expandOnRowClick?: boolean;
 }
 
 const TableRow = <D extends DataType>(props: RowProps<D>) => {
@@ -26,6 +28,8 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     isRowspanAndColspanFn,
     rowSkipTdSpanColIndexsMap,
     dataLength,
+    onTrClick,
+    expandOnRowClick,
   } = props;
   const { flattenColumns } = useTableContext();
   const flattenColumnsLength = flattenColumns?.length;
@@ -149,7 +153,11 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     return rowSkipTdSpanColIndexs;
   }
 
-  return <tr className={classes}>{baseRow}</tr>;
+  return (
+    <tr className={classes} {...(expandOnRowClick ? { onClick: onTrClick } : {})}>
+      {baseRow}
+    </tr>
+  );
 };
 
 export default TableRow;

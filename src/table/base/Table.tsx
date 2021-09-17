@@ -2,7 +2,7 @@ import React, { useMemo, useState, ReactNode } from 'react';
 import classNames from 'classnames';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
-import { TdBaseTableProps, DataType } from '../../_type/components/table';
+import { DataType, TdPrimaryTableProps } from '../../_type/components/table';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 
@@ -13,10 +13,16 @@ import TableLoadingBody from './TableLoadingBody';
 import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
+import { RowkeyType } from '../primary/useExpand';
 
-export type BaseTableProps<RowData extends DataType = DataType> = TdBaseTableProps<RowData>;
+export interface ExpandProps {
+  onTrClick?: Function;
+  innerExpandedRowKeys?: RowkeyType;
+}
 
-export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D>) {
+export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData>;
+
+export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandProps) {
   const { classPrefix } = useConfig();
 
   const {
@@ -32,6 +38,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     data = [],
     pagination,
     onPageChange,
+    onTrClick,
+    innerExpandedRowKeys,
   } = props;
 
   const [columns, flattenColumns] = useColumns(props);
@@ -102,7 +110,9 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       break;
     }
     default: {
-      tableBodyContent = <TableBody {...props} data={pageData} />;
+      tableBodyContent = (
+        <TableBody {...props} data={pageData} innerExpandedRowKeys={innerExpandedRowKeys} onTrClick={onTrClick} />
+      );
     }
   }
 
