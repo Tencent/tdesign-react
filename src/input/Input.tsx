@@ -85,11 +85,9 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
-    const inputClassNames = classNames(className, `${classPrefix}-${componentType}__inner`);
-
     const renderInput = (
       <input
-        className={inputClassNames}
+        className={`${classPrefix}-${componentType}__inner`}
         readOnly={readonly}
         disabled={disabled}
         {...inputProps}

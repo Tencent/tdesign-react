@@ -9,7 +9,7 @@ exports[`disabled.jsx 1`] = `
       class="t-time-picker__group t-input t-is-disabled t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         disabled=""
         placeholder="选择时间"
         readonly=""
@@ -49,7 +49,7 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         readonly=""
         value=" "
       />
@@ -117,7 +117,7 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         readonly=""
         value=" "
       />
@@ -184,7 +184,7 @@ exports[`hm.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
@@ -219,7 +219,7 @@ exports[`hms.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
@@ -254,7 +254,7 @@ exports[`keyboard.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         readonly=""
         value=" "
       />
@@ -318,7 +318,7 @@ exports[`range.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
@@ -353,7 +353,7 @@ exports[`show-steps.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
@@ -388,7 +388,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
       class="t-time-picker__group t-input t-input--suffix"
     >
       <input
-        class="t-time-picker__group t-input__inner"
+        class="t-input__inner"
         placeholder="选择时间"
         readonly=""
         value=""
