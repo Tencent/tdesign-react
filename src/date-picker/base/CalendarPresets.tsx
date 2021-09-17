@@ -17,17 +17,18 @@ const CalendarPresets = (props: CalendarPresetsProps) => {
   return (
     <div className={`${classPrefix}-date-picker-presets`}>
       <ul>
-      {
-        presets && Object.keys(presets).map((key: string) => (
-          <li key={key}>
-            <Button variant="text" onClick={() => onClickRange(presets[key])}>{ key }</Button>
-          </li>
-        ))
-      }
+        {presets &&
+          Object.keys(presets).map((key: string) => (
+            <li key={key}>
+              <Button variant="text" onClick={() => onClickRange(presets[key])}>
+                {key}
+              </Button>
+            </li>
+          ))}
       </ul>
     </div>
   );
-}
+};
 
 CalendarPresets.displayName = 'CalendarPresets';
 

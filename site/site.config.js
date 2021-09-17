@@ -195,6 +195,13 @@ export default {
           path: '/react/components/time-picker',
           component: () => import('@tencent/tdesign-react/time-picker/README.md'),
         },
+        {
+          title: 'Upload 上传',
+          name: 'upload',
+          docType: 'form',
+          path: '/react/components/upload',
+          component: () => import('@tencent/tdesign-react/upload/README.md'),
+        },
       ],
     },
     {

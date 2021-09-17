@@ -3,15 +3,7 @@ import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
-import {
-  getWeeks,
-  getYears,
-  getMonths,
-  flagActive,
-  subtractMonth,
-  addMonth,
-  getToday,
-} from '../utils';
+import { getWeeks, getYears, getMonths, flagActive, subtractMonth, addMonth, getToday } from '../utils';
 
 export type dateType = 'year' | 'month' | 'date';
 export interface DatePanelProps {
@@ -98,7 +90,7 @@ const DatePanel = (props: DatePanelProps) => {
       default:
         break;
     }
-    const start = (type === 'date' || type === mode) ? value : new Date(year, month);
+    const start = type === 'date' || type === mode ? value : new Date(year, month);
     return flagActive(data, { start, type });
   }, [year, month, type, value, mode, disableDate, minDate, maxDate, firstDayOfWeek]);
 
@@ -125,13 +117,7 @@ const DatePanel = (props: DatePanelProps) => {
 
   return (
     <div className={`${classPrefix}-date`}>
-      <DateHeader
-          year={year}
-          month={month}
-          type={type}
-          onBtnClick={clickHeader}
-          onTypeChange={setType}
-      />
+      <DateHeader year={year} month={month} type={type} onBtnClick={clickHeader} onTypeChange={setType} />
 
       <DateTable
         type={type}
@@ -142,12 +128,12 @@ const DatePanel = (props: DatePanelProps) => {
       />
     </div>
   );
-}
+};
 
 DatePanel.displayName = 'DatePanel';
 DatePanel.defaultProps = {
   value: TODAY,
   mode: 'date',
-}
+};
 
 export default DatePanel;

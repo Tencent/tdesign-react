@@ -62,39 +62,28 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   return (
     <div className={`${classPrefix}-date-picker-header`}>
       <span className={`${classPrefix}-date-picker-header-title`}>
-        {
-          type === 'year' && (
-            <div>
-              <span>{startYear}</span>
-              {rangeSeparator}
-              <span>{startYear + 9}</span>
-            </div>
-          )
-        }
-        {
-          type !== 'year' && (
-            <Button
-              variant="text"
-              size="small"
-              onClick={() => onTypeChange('year')}
-              className={`${classPrefix}-date-header__btn`}
-            >
-              {`${year} ${yearAriaLabel}`}
-            </Button>
-          )
-        }
-        {
-          type === 'date' && (
-            <Button
-              className="t-date-header__btn"
-              variant="text"
-              size="small"
-              onClick={() => onTypeChange('month')}
-            >
-              {`${month === 12 ? 1 : month + 1} ${monthAriaLabel}`}
-            </Button>
-          )
-        }
+        {type === 'year' && (
+          <div>
+            <span>{startYear}</span>
+            {rangeSeparator}
+            <span>{startYear + 9}</span>
+          </div>
+        )}
+        {type !== 'year' && (
+          <Button
+            variant="text"
+            size="small"
+            onClick={() => onTypeChange('year')}
+            className={`${classPrefix}-date-header__btn`}
+          >
+            {`${year} ${yearAriaLabel}`}
+          </Button>
+        )}
+        {type === 'date' && (
+          <Button className="t-date-header__btn" variant="text" size="small" onClick={() => onTypeChange('month')}>
+            {`${month === 12 ? 1 : month + 1} ${monthAriaLabel}`}
+          </Button>
+        )}
       </span>
 
       <span className={`${classPrefix}-date-picker-header-controller`}>
@@ -104,28 +93,25 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           onClick={() => onBtnClick(-1)}
           icon={<IconChevronLeft />}
           className={`${classPrefix}-date-picker-header-controller__btn`}
-        >
-        </Button>
+        ></Button>
         <Button
           title={now}
           variant="text"
           onClick={() => onBtnClick(0)}
           icon={<IconRound />}
           className={`${classPrefix}-date-picker-header-controller__btn ${classPrefix}-date-picker-header-controller__btn--now`}
-        >
-        </Button>
+        ></Button>
         <Button
           title={nextLabel}
           variant="text"
           onClick={() => onBtnClick(1)}
           icon={<IconChevronRight />}
           className={`${classPrefix}-date-picker-header-controller__btn`}
-        >
-        </Button>
+        ></Button>
       </span>
     </div>
   );
-}
+};
 
 DatePickerHeader.displayName = 'DatePickerHeader';
 
