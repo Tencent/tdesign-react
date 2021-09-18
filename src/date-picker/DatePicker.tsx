@@ -100,9 +100,11 @@ const DatePicker = (props: DatePickerProps) => {
 
     // 受控模式
     if (typeof value !== 'undefined') {
-      dates = Array.isArray(value) ? value.map((d: any) => new Date(d)) : [new Date(value)];
-      setStart(dates[0]);
-      setEnd(range ? dates[1] : dates[0]);
+      if (Array.isArray(value)) {
+        dates = value.map((d: string) => (d ? new Date(d) : new Date()));
+      } else {
+        dates = value ? [new Date(value)] : [];
+      }
     }
 
     const selectedFmtDates: string[] = dates.map((d: Date) => formatDate(d));

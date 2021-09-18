@@ -1,5 +1,6 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import isNil from 'lodash/isNil';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType } from '../_type/components/form';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
@@ -33,6 +34,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     help,
     statusIcon: statusIconFromProp,
     rules: rulesFromProp,
+    labelWidth,
+    labelAlign,
     initialData = '',
     className,
   } = props;
@@ -40,8 +43,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     colon,
     requiredMark,
     layout,
-    labelAlign,
-    labelWidth,
+    labelAlign: labelAlignFromContext,
+    labelWidth: labelWidthFromContext,
     showErrorMessage,
     resetType,
     rules: rulesFromContext,
@@ -58,15 +61,17 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const shouldValidate = useRef(null);
 
   const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
+  const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
+  const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`);
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, `${classPrefix}-form-item__${name}`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
-    [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
-    [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
-    [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
+    [`${classPrefix}-form__label--top`]: innerLabelAlign === 'top' || !innerLabelWidth,
+    [`${classPrefix}-form__label--left`]: innerLabelAlign === 'left' && innerLabelWidth,
+    [`${classPrefix}-form__label--right`]: innerLabelAlign === 'right' && innerLabelWidth,
   });
 
   const contentClasses = classNames(`${classPrefix}-form__controls`, {
@@ -77,13 +82,13 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   let labelStyle = {};
   let contentStyle = {};
-  if (labelWidth && labelAlign !== 'top') {
-    if (typeof labelWidth === 'number') {
-      labelStyle = { width: `${labelWidth}px` };
-      contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
+  if (innerLabelWidth && innerLabelAlign !== 'top') {
+    if (typeof innerLabelWidth === 'number') {
+      labelStyle = { width: `${innerLabelWidth}px` };
+      contentStyle = { marginLeft: layout !== 'inline' ? `${innerLabelWidth}px` : '' };
     } else {
-      labelStyle = { width: labelWidth };
-      contentStyle = { marginLeft: layout !== 'inline' ? labelWidth : '' };
+      labelStyle = { width: innerLabelWidth };
+      contentStyle = { marginLeft: layout !== 'inline' ? innerLabelWidth : '' };
     }
   }
 

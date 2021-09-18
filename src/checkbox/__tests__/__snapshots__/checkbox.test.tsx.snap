@@ -344,3 +344,143 @@ exports[`link.jsx 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`max.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div>
+      最多可选: 
+      <div
+        class="t-input-number t-size-m t-input-number--row"
+      >
+        <button
+          class="t-input-number__decrease t-is-disabled t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-remove"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M224 470.39872H800V553.59872H224V470.39872Z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-add"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+            />
+          </svg>
+        </button>
+        <div
+          class="t-input"
+        >
+          <input
+            autocomplete="off"
+            class="t-input__inner t-input-number-text-align"
+            value="1"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      选中值: 北京
+    </div>
+    <div
+      class="t-check-group"
+    >
+      <label
+        class="t-checkbox t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value="北京"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          北京
+        </span>
+      </label>
+      <label
+        class="t-checkbox t-is-disabled"
+      >
+        <input
+          class="t-checkbox__former"
+          disabled=""
+          readonly=""
+          type="checkbox"
+          value="上海"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          上海
+        </span>
+      </label>
+      <label
+        class="t-checkbox t-is-disabled"
+      >
+        <input
+          class="t-checkbox__former"
+          disabled=""
+          readonly=""
+          type="checkbox"
+          value="广州"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          广州
+        </span>
+      </label>
+      <label
+        class="t-checkbox t-is-disabled"
+      >
+        <input
+          class="t-checkbox__former"
+          disabled=""
+          readonly=""
+          type="checkbox"
+          value="深圳"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          深圳
+        </span>
+      </label>
+    </div>
+  </div>
+</DocumentFragment>
+`;

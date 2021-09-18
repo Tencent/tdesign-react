@@ -125,6 +125,15 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Cascader 级联组件',
+          name: 'cascader',
+          meta: {
+            docType: 'form',
+          },
+          path: '/react/components/cascader',
+          component: () => import('@tencent/tdesign-react/cascader/README.md'),
+        },
+        {
           title: 'Checkbox 多选框',
           name: 'checkbox',
           docType: 'form',
@@ -194,6 +203,13 @@ export default {
           docType: 'form',
           path: '/react/components/time-picker',
           component: () => import('@tencent/tdesign-react/time-picker/README.md'),
+        },
+        {
+          title: 'Upload 上传',
+          name: 'upload',
+          docType: 'form',
+          path: '/react/components/upload',
+          component: () => import('@tencent/tdesign-react/upload/README.md'),
         },
       ],
     },

@@ -50,6 +50,7 @@ const Input = forwardRefWithStatics(
       onKeydown,
       onCompositionStart,
       onCompositionEnd,
+      autofocus,
       readonly,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
@@ -85,16 +86,15 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
-    const inputClassNames = classNames(className, `${classPrefix}-${componentType}__inner`);
-
     const renderInput = (
       <input
-        className={inputClassNames}
+        className={`${classPrefix}-${componentType}__inner`}
         readOnly={readonly}
         disabled={disabled}
         {...inputProps}
         value={composingRef.current ? composingRefValue : value}
         {...eventProps}
+        autoFocus={autofocus}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onCompositionStart={handleCompositionStart}

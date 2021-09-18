@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import isDate from 'validator/lib/isDate';
 import isURL from 'validator/lib/isURL';
 import isEmpty from 'lodash/isEmpty';
-import { ValueType, FormRule, CustomValidator, ErrorList } from '../_type/components/form';
+import { ValueType, FormRule, CustomValidator, ErrorList, CustomValidateResolveType } from '../_type/components/form';
 
 // `{} / [] / '' / undefined / null` 等内容被认为是空； 0 和 false 被认为是正常数据，部分数据的值就是 0 或者 false
 export function isValueEmpty(val: ValueType): boolean {
@@ -43,7 +43,10 @@ const VALIDATE_MAP = {
   telnumber: (val: ValueType): boolean => /^1[3-9]\d{9}$/.test(val),
   pattern: (val: ValueType, regexp: RegExp): boolean => regexp.test(val),
   // 自定义校验规则，可能是异步校验
-  validator: (val: ValueType, validate: CustomValidator): boolean | Promise<boolean> => validate(val),
+  validator: (
+    val: ValueType,
+    validate: CustomValidator,
+  ): CustomValidateResolveType | Promise<CustomValidateResolveType> => validate(val),
 };
 
 // 校验某一条数据的某一条规则
