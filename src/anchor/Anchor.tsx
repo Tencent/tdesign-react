@@ -36,6 +36,7 @@ const Anchor = (props: AnchorProps) => {
     container = '',
     size = 'medium',
     children,
+    cursor,
     onClick = noop,
     onChange = noop,
   } = props;
@@ -43,7 +44,11 @@ const Anchor = (props: AnchorProps) => {
   const { classPrefix } = useConfig();
 
   const [activeItem, setActiveItem] = useState<string>('');
-  const [pointStyle, setPointStyle] = useState<{ top: string; height?: string }>({ top: '0px', height: '0px' });
+  const [cursorStyle, setCursorStyle] = useState<{ top: string; height?: string; opacity: number }>({
+    top: '0px',
+    height: '0px',
+    opacity: 0,
+  });
 
   const anchorEl = useRef(null);
   const intervalRef = useRef<IntervalRef>({
@@ -94,10 +99,10 @@ const Anchor = (props: AnchorProps) => {
     // update point style
     const pointEl = anchorEl.current.querySelector(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
     if (!pointEl) {
-      setPointStyle(null);
+      setCursorStyle(null);
     } else {
       const { offsetTop: top, offsetHeight: height } = pointEl;
-      setPointStyle({ top: `${top}px`, height: `${height}px` });
+      setCursorStyle({ top: `${top}px`, height: `${height}px`, opacity: 1 });
     }
   }, [activeItem, classPrefix]);
 
@@ -148,6 +153,12 @@ const Anchor = (props: AnchorProps) => {
     [`${classPrefix}-size-l`]: size === 'large',
   });
 
+  const CursorCmp = () => {
+    if (isFunction(cursor)) return cursor();
+    if (isEmpty(cursor)) return <div className="cursor"></div>;
+    return cursor;
+  };
+
   const Cmp = (
     <AnchorContext.Provider
       value={{
@@ -159,7 +170,9 @@ const Anchor = (props: AnchorProps) => {
     >
       <div className={anchorClass} ref={anchorEl}>
         <div className={`${classPrefix}-anchor_line`}>
-          <div className="point" style={pointStyle}></div>
+          <div className="cursor-wrapper" style={cursorStyle}>
+            {CursorCmp()}
+          </div>
         </div>
         {children}
       </div>
