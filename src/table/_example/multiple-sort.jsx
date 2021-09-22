@@ -10,7 +10,7 @@ const columns = [
     width: 100,
     sortType: 'all',
     sorter: true,
-    render({ row }) {
+    cell({ row }) {
       switch (row.status) {
         case 0:
           return <p className="status">健康</p>;

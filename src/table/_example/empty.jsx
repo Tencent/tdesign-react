@@ -13,19 +13,19 @@ export default function EmptyTable() {
             colKey: 'project',
             title: '项目名称',
             width: '150px',
-            render: ({ row }) => row.projectName,
+            cell: ({ row }) => row.projectName,
           },
           {
             colKey: 'memeber',
             title: '管理员',
             width: '300px',
-            render: ({ row }) => row.manager.join(','),
+            cell: ({ row }) => row.manager.join(','),
           },
           {
             colKey: 'company',
             title: '所属公司',
             width: '150px',
-            render: ({ row }) => row.company,
+            cell: ({ row }) => row.company,
           },
         ]}
         rowKey="projectName"
@@ -43,19 +43,19 @@ export default function EmptyTable() {
             colKey: 'project',
             title: '项目名称',
             width: '150px',
-            render: ({ row }) => row.projectName,
+            cell: ({ row }) => row.projectName,
           },
           {
             colKey: 'memeber',
             title: '管理员',
             width: '300px',
-            render: ({ row }) => row.manager.join(','),
+            cell: ({ row }) => row.manager.join(','),
           },
           {
             colKey: 'company',
             title: '所属公司',
             width: '150px',
-            render: ({ row }) => row.company,
+            cell: ({ row }) => row.company,
           },
         ]}
         rowKey="projectName"

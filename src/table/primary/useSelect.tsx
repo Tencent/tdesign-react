@@ -44,7 +44,7 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
     }
 
     let title: PrimaryTableCol['title'];
-    let render: PrimaryTableCol['render'];
+    let cell: PrimaryTableCol['cell'];
     const isMultiple = type === TypeEnum.multiple;
     if (isMultiple) {
       title = () => {
@@ -58,7 +58,7 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
           />
         );
       };
-      render = (options) => {
+      cell = (options) => {
         const { row } = options;
         const currentRowKeyValue = row[rowKey];
         const checked = innerSelectedRowKeys.includes(currentRowKeyValue);
@@ -73,7 +73,7 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
         );
       };
     } else {
-      render = (options) => {
+      cell = (options) => {
         const { row } = options;
         const currentRowKeyValue = row[rowKey];
         const checked = innerSelectedRowKeys.includes(currentRowKeyValue);
@@ -86,7 +86,7 @@ function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
     return {
       width: width || defaultWidth,
       title,
-      render,
+      cell,
       style: { padding: '10px 0 10px 24px' },
       className: classnames([`${classPrefix}-table__cell--selectable`, { [`${className}`]: !!className }]),
       ...column,

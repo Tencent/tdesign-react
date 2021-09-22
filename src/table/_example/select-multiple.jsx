@@ -15,7 +15,7 @@ const columns = [
     colKey: 'status',
     title: '状态',
     width: 100,
-    render({ row }) {
+    cell({ row }) {
       switch (row?.status) {
         case 0:
           return <p className="status">健康</p>;
@@ -32,7 +32,7 @@ const columns = [
     colKey: 'op',
     width: 200,
     title: '操作',
-    render(record) {
+    cell(record) {
       return (
         <>
           <a

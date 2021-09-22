@@ -8,7 +8,7 @@ const columns = [
     colKey: 'status',
     title: '状态',
     width: 200,
-    render({ row }) {
+    cell({ row }) {
       switch (row.status) {
         case 0:
           return <p className="status">健康</p>;

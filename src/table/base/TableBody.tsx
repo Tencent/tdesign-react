@@ -28,7 +28,7 @@ const TableBody = forwardRef(
 
     // ==================== render ====================
     const rows = data.map((row, index) => {
-      const rowKeyValue = get(row, rowKey);
+      const rowKeyValue = get(row, rowKey) || index;
 
       return (
         <React.Fragment key={rowKeyValue}>

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
+import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams } from '../../_type/components/table';
@@ -35,7 +37,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   const flattenColumnsLength = flattenColumns?.length;
 
   const baseRow = flattenColumns.map((column, colIndex) => {
-    const { colKey, ...restColumnProps } = column;
+    const { colKey, cell, render, ...restColumnProps } = column;
 
     const { isSkipRenderTd, rowSpan, colSpan } = getRowSpanAndColSpanAndIsSkipRenderTd({
       isRowspanAndColspanFn,
@@ -51,13 +53,18 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
       return null;
     }
 
+    const customRender = getCustomRender({ record, colKey, cell, render });
+
     return (
       <TableCell
         key={colKey}
+        type="cell"
         rowIndex={rowIndex}
         colIndex={colIndex}
         record={record}
         colKey={colKey}
+        columns={flattenColumns}
+        customRender={customRender}
         rowSpan={rowSpan}
         colSpan={colSpan}
         {...restColumnProps}
@@ -68,6 +75,19 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   let classes = rowClassName as string;
   if (typeof rowClassName === 'function') {
     classes = rowClassName({ row: record, rowIndex });
+  }
+
+  function getCustomRender({ record, colKey, cell, render }) {
+    if (typeof cell === 'string' || isValidElement(cell)) {
+      return () => cell;
+    }
+    if (isFunction(cell)) {
+      return cell;
+    }
+    if (isFunction(render)) {
+      return render;
+    }
+    return () => get(record, colKey);
   }
 
   function getRowSpanAndColSpanAndIsSkipRenderTd({
