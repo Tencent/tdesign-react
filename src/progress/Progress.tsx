@@ -57,6 +57,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     }
     return info;
   };
+  const statusClasses = status ? `${classPrefix}-progress--status--${status}` : '';
   let progressDom;
   if (theme === 'circle') {
     iconMap = {
@@ -122,11 +123,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       strokeLinecap: circleStokeWidth < 30 ? 'round' : 'buff',
     } as React.CSSProperties;
     progressDom = (
-      <div
-        ref={ref}
-        className={`${classPrefix}-progress--circle ${classPrefix}-progress--status--${status}`}
-        style={circleBoxStyle}
-      >
+      <div ref={ref} className={`${classPrefix}-progress--circle ${statusClasses}`} style={circleBoxStyle}>
         {getInfoContent()}
         <svg width={diameter} height={diameter} viewBox={`0 0 ${diameter} ${diameter}`}>
           <circle
@@ -170,10 +167,13 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     borderRadius: getHeight(),
   } as React.CSSProperties;
   if (theme === 'plump') {
+    const PLUMP_SEPERATE = 10;
+    const seperateClasses =
+      percentage > PLUMP_SEPERATE ? `${classPrefix}-progress--over-ten` : `${classPrefix}-progress--under-ten`;
     progressDom = (
       <div
         ref={ref}
-        className={`${classPrefix}-progress--bar ${classPrefix}-progress--plump ${classPrefix}-progress--status--${status}`}
+        className={`${classPrefix}-progress--bar ${classPrefix}-progress--plump ${seperateClasses} ${statusClasses}`}
         style={trackStyle}
       >
         <div className={`${classPrefix}-progress--inner`} style={barStyle}>
@@ -188,7 +188,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     );
   } else {
     progressDom = (
-      <div ref={ref} className={`${classPrefix}-progress--thin ${classPrefix}-progress--status--${status}`}>
+      <div ref={ref} className={`${classPrefix}-progress--thin ${statusClasses}`}>
         <div className={`${classPrefix}-progress--bar`} style={trackStyle}>
           <div className={`${classPrefix}-progress--inner`} style={barStyle}></div>
         </div>
