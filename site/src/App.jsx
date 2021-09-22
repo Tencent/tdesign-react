@@ -74,7 +74,7 @@ function Components(props) {
 }
 
 function App() {
-  const Router = process.env.NODE_ENV === 'production' ? BrowserRouter : HashRouter;
+  const Router = process.env.NODE_ENV === 'staging' ? HashRouter : BrowserRouter;
 
   return (
     <Router>
