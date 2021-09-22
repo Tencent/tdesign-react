@@ -13,7 +13,7 @@ export default function AlignForm() {
         <Radio.Button value="right">右对齐</Radio.Button>
         <Radio.Button value="top">顶部对齐</Radio.Button>
       </Radio.Group>
-      <Form labelAlign={labelAlign}>
+      <Form labelAlign={labelAlign} labelWidth={80}>
         <FormItem label="名字" name="name">
           <Input />
         </FormItem>

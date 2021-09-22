@@ -38,6 +38,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     labelAlign,
     initialData = '',
     className,
+    style: formItemStyle,
   } = props;
   const {
     colon,
@@ -232,7 +233,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }));
 
   return (
-    <div className={formItemClass} ref={ref}>
+    <div className={formItemClass} style={formItemStyle} ref={ref}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>

@@ -72,7 +72,7 @@ exports[`align.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__name t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 80px;"
         >
           <label>
             名字
@@ -80,6 +80,7 @@ exports[`align.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -100,7 +101,7 @@ exports[`align.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__password t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 80px;"
         >
           <label>
             密码
@@ -108,6 +109,7 @@ exports[`align.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -622,6 +624,7 @@ exports[`layout.jsx 1`] = `
     >
       <div
         class="t-form__item"
+        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__name t-form__label--right"
@@ -650,6 +653,7 @@ exports[`layout.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
+        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__password t-form__label--right"
@@ -1165,7 +1169,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__fail t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             失败
@@ -1173,6 +1177,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1198,7 +1203,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__warning t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             警告
@@ -1206,6 +1211,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1226,7 +1232,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__success t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             成功
@@ -1234,6 +1240,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1254,7 +1261,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__failB t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             失败
@@ -1262,6 +1269,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1283,7 +1291,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__warningB t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             警告
@@ -1291,6 +1299,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1311,7 +1320,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__loading t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             加载中
@@ -1319,6 +1328,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1358,7 +1368,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__add t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             新增
@@ -1366,6 +1376,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1409,7 +1420,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__help t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             帮助
@@ -1417,6 +1428,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1460,6 +1472,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
