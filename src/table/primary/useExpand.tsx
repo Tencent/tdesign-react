@@ -58,7 +58,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
   function renderExpandIconCell({ row = {} }: Record<string, any>) {
     const rowKeyValue = get(row, rowKey);
     if (!Array.isArray(innerExpandRowKeys)) {
-      console.error(`ExpandedRowKeys type error`);
+      console.error('ExpandedRowKeys type error');
       return;
     }
     return (

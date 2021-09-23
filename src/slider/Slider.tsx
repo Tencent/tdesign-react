@@ -120,7 +120,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           value={currentValue}
           onChange={(value: number) => handleInputChange(Number(value), nodeIndex)}
           className={classNames(`${classPrefix}-slider-input`, {
-            [`is-vertical`]: isVertical,
+            'is-vertical': isVertical,
           })}
           disabled={disabled}
           {...inputProps}
@@ -212,7 +212,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       <div
         style={{ ...style }}
         className={classNames(`${classPrefix}-slider-contianer`, {
-          [`is-vertical`]: isVertical,
+          'is-vertical': isVertical,
         })}
         ref={ref}
       >

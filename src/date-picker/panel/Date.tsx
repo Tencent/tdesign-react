@@ -5,10 +5,10 @@ import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import { getWeeks, getYears, getMonths, flagActive, subtractMonth, addMonth, getToday } from '../utils';
 
-export type dateType = 'year' | 'month' | 'date';
+export type DateType = 'year' | 'month' | 'date';
 export interface DatePanelProps {
   value: Date;
-  mode: dateType;
+  mode: DateType;
   minDate: Date;
   maxDate: Date;
   firstDayOfWeek: number;

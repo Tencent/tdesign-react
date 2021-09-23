@@ -52,7 +52,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
         }}
       >
         <p className={`${classPrefix}-dialog__body-img-box`}>
-          <img className={``} src={imgURL} alt="" />
+          <img src={imgURL} alt="" />
         </p>
       </Dialog>
       <ul className={`${classPrefix}-upload-card`}>

@@ -309,11 +309,10 @@ export function getWeeks(
   const maxDays = getDaysInMonth({ year, month });
 
   const daysArr = [];
-  let i = 1;
 
   const today = getToday();
 
-  for (i; i <= maxDays; i++) {
+  for (let i = 1; i <= maxDays; i++) {
     const currentDay = new Date(year, month, i);
 
     daysArr.push({
@@ -396,7 +395,7 @@ export function getYears(year: number, { disableDate = () => false, minDate, max
 }
 
 export function getMonths(year: number, { disableDate = () => false, minDate, maxDate }: OptionsType) {
-  const MonthArr = [];
+  const monthArr = [];
 
   const today = getToday();
 
@@ -414,7 +413,7 @@ export function getMonths(year: number, { disableDate = () => false, minDate, ma
       if (outOfRanges(d, minDate, maxDate)) outOfRangeDay += 1;
     }
 
-    MonthArr.push({
+    monthArr.push({
       value: date,
       now: isSame(date, today, 'month'),
       disabled: disabledDay === daysInMonth || outOfRangeDay === daysInMonth,
@@ -423,7 +422,7 @@ export function getMonths(year: number, { disableDate = () => false, minDate, ma
     });
   }
 
-  return chunk(MonthArr, 4);
+  return chunk(monthArr, 4);
 }
 
 interface DateTime {
