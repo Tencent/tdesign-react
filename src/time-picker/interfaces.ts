@@ -1,4 +1,4 @@
-export enum KEYBOARD_DIRECTION {
+export enum KeyboardDirection {
   left = 37,
   up = 38,
   right = 39,
