@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import CheckCircleIcon from '../icon/icons/CheckCircleIcon';
 import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
 import ErrorCircleIcon from '../icon/icons/ErrorCircleIcon';
@@ -57,7 +58,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     }
     return info;
   };
-  const statusClasses = status ? `${classPrefix}-progress--status--${status}` : '';
+  const statusClassName = `${classPrefix}-progress--status--${status}`;
   let progressDom;
   if (theme === 'circle') {
     iconMap = {
@@ -123,7 +124,13 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       strokeLinecap: circleStokeWidth < 30 ? 'round' : 'buff',
     } as React.CSSProperties;
     progressDom = (
-      <div ref={ref} className={`${classPrefix}-progress--circle ${statusClasses}`} style={circleBoxStyle}>
+      <div
+        ref={ref}
+        className={classNames(`${classPrefix}-progress--circle`, {
+          [`${statusClassName}`]: status,
+        })}
+        style={circleBoxStyle}
+      >
         {getInfoContent()}
         <svg width={diameter} height={diameter} viewBox={`0 0 ${diameter} ${diameter}`}>
           <circle
@@ -168,12 +175,14 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
   } as React.CSSProperties;
   if (theme === 'plump') {
     const PLUMP_SEPERATE = 10;
-    const seperateClasses =
-      percentage > PLUMP_SEPERATE ? `${classPrefix}-progress--over-ten` : `${classPrefix}-progress--under-ten`;
     progressDom = (
       <div
         ref={ref}
-        className={`${classPrefix}-progress--bar ${classPrefix}-progress--plump ${seperateClasses} ${statusClasses}`}
+        className={classNames(`${classPrefix}-progress--bar`, `${classPrefix}-progress--plump`, {
+          [`${statusClassName}`]: status,
+          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPERATE,
+          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPERATE,
+        })}
         style={trackStyle}
       >
         <div className={`${classPrefix}-progress--inner`} style={barStyle}>
@@ -188,7 +197,12 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     );
   } else {
     progressDom = (
-      <div ref={ref} className={`${classPrefix}-progress--thin ${statusClasses}`}>
+      <div
+        ref={ref}
+        className={classNames(`${classPrefix}-progress--thin`, {
+          [`${statusClassName}`]: status,
+        })}
+      >
         <div className={`${classPrefix}-progress--bar`} style={trackStyle}>
           <div className={`${classPrefix}-progress--inner`} style={barStyle}></div>
         </div>
