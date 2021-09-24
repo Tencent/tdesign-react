@@ -22,13 +22,18 @@ exports[`base.jsx 1`] = `
           Apple
         </span>
         <svg
-          class="t-icon t-icon-close t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -62,16 +67,18 @@ exports[`creatable.jsx 1`] = `
           />
         </div>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -103,16 +110,18 @@ exports[`custom.jsx 1`] = `
         />
       </div>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -142,16 +151,18 @@ exports[`disabled.jsx 1`] = `
           Apple
         </span>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -182,16 +193,18 @@ exports[`filterable.jsx 1`] = `
         />
       </div>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -218,16 +231,18 @@ exports[`group.jsx 1`] = `
         Apple
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -254,16 +269,18 @@ exports[`keys.jsx 1`] = `
         已选择的选项
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -280,21 +297,33 @@ exports[`keys.jsx 1`] = `
         class="t-select-left-icon"
       />
       <span
-        class="t-select-selectedSingle"
+        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
       >
         上海
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -324,16 +353,18 @@ exports[`label-in-value.jsx 1`] = `
           Apple
         </span>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -365,16 +396,18 @@ exports[`label-in-value.jsx 1`] = `
           </svg>
         </span>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -412,16 +445,18 @@ exports[`max.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -458,16 +493,18 @@ exports[`multiple.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -494,13 +531,18 @@ exports[`noborder.jsx 1`] = `
         Apple
       </span>
       <svg
-        class="t-icon t-icon-close t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -530,16 +572,18 @@ exports[`options.jsx 1`] = `
         />
       </div>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -569,16 +613,18 @@ exports[`popup-props.jsx 1`] = `
           Apple
         </span>
         <svg
-          class="t-icon t-icon-chevron-down t-select-right-icon"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
       </div>
@@ -619,16 +665,18 @@ exports[`prefix.jsx 1`] = `
         Apple
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -655,16 +703,18 @@ exports[`size.jsx 1`] = `
         -请选择-
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -686,16 +736,18 @@ exports[`size.jsx 1`] = `
         -请选择-
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>
@@ -717,16 +769,18 @@ exports[`size.jsx 1`] = `
         -请选择-
       </span>
       <svg
-        class="t-icon t-icon-chevron-down t-select-right-icon"
-        version="1.1"
-        viewBox="0 0 1024 1024"
+        class="t-fake-arrow t-select-right-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          clip-rule="evenodd"
-          d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
         />
       </svg>
     </div>

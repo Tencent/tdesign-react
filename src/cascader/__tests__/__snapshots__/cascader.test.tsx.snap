@@ -15,7 +15,7 @@ exports[`base.jsx 1`] = `
         上海 / 黄浦区
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -44,7 +44,7 @@ exports[`base.jsx 1`] = `
         上海 / 黄浦区
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -73,7 +73,7 @@ exports[`base.jsx 1`] = `
         上海 / 黄浦区
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -107,7 +107,7 @@ exports[`check-strictly.jsx 1`] = `
         1 / 1.2 / 1.2.2
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -161,7 +161,7 @@ exports[`check-strictly.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -195,7 +195,7 @@ exports[`disabled.jsx 1`] = `
         上海 / 黄浦区
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -234,7 +234,7 @@ exports[`disabled.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -268,7 +268,7 @@ exports[`ellipsis.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -302,7 +302,7 @@ exports[`filterable.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -336,7 +336,7 @@ exports[`keys.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -370,7 +370,7 @@ exports[`load.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -407,7 +407,7 @@ exports[`max.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -451,7 +451,7 @@ exports[`multiple.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -490,7 +490,7 @@ exports[`multiple.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -529,7 +529,7 @@ exports[`multiple.jsx 1`] = `
         </svg>
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -563,7 +563,7 @@ exports[`show-all-levels.jsx 1`] = `
         请选择
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -597,7 +597,7 @@ exports[`trigger.jsx 1`] = `
         请选择
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -626,7 +626,7 @@ exports[`trigger.jsx 1`] = `
         请选择
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -660,7 +660,7 @@ exports[`value-mode.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -689,7 +689,7 @@ exports[`value-mode.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"
@@ -718,7 +718,7 @@ exports[`value-mode.jsx 1`] = `
         请输入
       </span>
       <svg
-        class="t-cascader-icon t-fake-arrow"
+        class="t-fake-arrow t-cascader-icon"
         fill="none"
         height="16"
         viewBox="0 0 16 16"

@@ -7,12 +7,7 @@ import { MenuContext } from './MenuContext';
 import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
-
-const ArrawSvg = ({ className }: { className: string }) => (
-  <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" strokeOpacity="0.9" strokeWidth="1.3" />
-  </svg>
-);
+import FakeArrow from '../common/FakeArrow';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 
@@ -79,11 +74,7 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
         })}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <ArrawSvg
-          className={classNames(`${classPrefix}-fake-arrow`, {
-            [`${classPrefix}-fake-arrow--active`]: isOpen,
-          })}
-        />
+        <FakeArrow isActive={isOpen} />
       </div>
       {isPopUp ? (
         <div
@@ -151,13 +142,7 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
         style={style}
       >
         <span>{title}</span>
-        {isPopUp && (
-          <ArrawSvg
-            className={classNames(`${classPrefix}-fake-arrow`, {
-              [`${classPrefix}-fake-arrow--active`]: open,
-            })}
-          />
-        )}
+        {isPopUp && <FakeArrow isActive={open} />}
       </div>
       {isPopUp && (
         <div
