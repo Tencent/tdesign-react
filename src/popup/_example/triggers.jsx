@@ -11,7 +11,9 @@ export default function Triggers() {
         <Input placeholder="获得焦点时触发" style={{ width: 200, margin: '0 16px 10px 0' }}></Input>
       </Popup>
       <Popup trigger="click" showArrow content="这是一个弹出框">
-        <Button variant="outline">点击时触发</Button>
+        <Button onClick={() => console.log('自定义事件')} variant="outline">
+          点击时触发
+        </Button>
       </Popup>
       <Popup trigger="context-menu" showArrow content="这是一个弹出框">
         <Button variant="outline">右击时触发</Button>
