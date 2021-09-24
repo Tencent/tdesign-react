@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-text"
+  >
+    <span
+      class="t-button__text"
+    >
+      <span
+        style="display: inline-flex;"
+      >
+        更多
+        <svg
+          class="t-icon t-icon-chevron-down"
+        >
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
+      </span>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`button.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    <span
+      class="t-button__text"
+    >
+      <svg
+        class="t-icon t-icon-ellipsis"
+      >
+        <use
+          xlink:href="#t-icon-ellipsis"
+        />
+      </svg>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`click.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    <span
+      class="t-button__text"
+    >
+      hover我试试
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`disabled.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-text"
+  >
+    <span
+      class="t-button__text"
+    >
+      <span
+        style="display: inline-flex;"
+      >
+        更多
+        <svg
+          class="t-icon t-icon-chevron-down"
+        >
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
+      </span>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`height.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    <span
+      class="t-button__text"
+    >
+      hover我试试
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+  >
+    <span
+      class="t-button__text"
+    >
+      <svg
+        class="t-icon t-icon-ellipsis"
+      >
+        <use
+          xlink:href="#t-icon-ellipsis"
+        />
+      </svg>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`other.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+  >
+    <span
+      class="t-button__text"
+    >
+      点击我试试
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`split.jsx 1`] = `
+<DocumentFragment>
+  <button
+    class="t-button t-button--theme-default t-button--variant-text"
+  >
+    <span
+      class="t-button__text"
+    >
+      <span
+        style="display: inline-flex;"
+      >
+        更多
+        <svg
+          class="t-icon t-icon-chevron-down"
+        >
+          <use
+            xlink:href="#t-icon-chevron-down"
+          />
+        </svg>
+      </span>
+    </span>
+  </button>
+</DocumentFragment>
+`;

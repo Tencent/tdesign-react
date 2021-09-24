@@ -90,6 +90,13 @@ export default {
           component: () => import('@tencent/tdesign-react/anchor/README.md'),
         },
         {
+          title: 'Dropdown 下拉菜单',
+          name: 'dropdown',
+          docType: 'navigation',
+          path: '/react/components/dropdown',
+          component: () => import('@tencent/tdesign-react/dropdown/README.md'),
+        },
+        {
           title: 'Menu 导航',
           name: 'menu',
           docType: 'navigation',

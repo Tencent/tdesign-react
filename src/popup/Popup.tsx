@@ -7,6 +7,7 @@ import React, {
   isValidElement,
   ReactChild,
   useMemo,
+  useImperativeHandle,
 } from 'react';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
@@ -73,6 +74,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     placement: placementMap[placement],
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
+
+  useImperativeHandle(ref, (): any => ({ setVisible }));
 
   const defaulstStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
