@@ -1,7 +1,6 @@
-import React, { CSSProperties, isValidElement } from 'react';
+import React, { isValidElement } from 'react';
 import isFunction from 'lodash/isFunction';
 import { BaseTableCol, DataType } from '../../_type/components/table';
-import { useTableContext } from './TableContext';
 import TableCell, { CellProps } from './TableCell';
 import { Styles } from '../../_type/common';
 
@@ -10,7 +9,6 @@ interface TableHeaderProps<D extends DataType> {
 }
 
 const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
-  const { stickyHeader } = useTableContext();
   const { columns } = props;
   const columnsDepth = getNodeDepth(columns);
   const trsColumns = getTrsColumns(columns, columnsDepth);
@@ -100,18 +98,6 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
             const { title, colKey, fixed, className, style = {}, rowSpan, colSpan, render } = column;
             const customRender = getCustomRender({ title, render });
 
-            const styleNew: CSSProperties = {};
-            if (stickyHeader) {
-              styleNew.position = 'sticky';
-              styleNew.top = 0;
-              styleNew.background = '#FFF';
-              styleNew.zIndex = 1;
-              styleNew.borderBottom = 'solid 1px #e7e7e7';
-            }
-            if (fixed) {
-              styleNew.zIndex = ((styleNew.zIndex as number) || 0) + 1;
-            }
-
             return (
               <TableCell
                 type="title"
@@ -119,7 +105,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
                 colKey={colKey}
                 colIndex={colIndex}
                 customRender={customRender}
-                style={{ ...styleNew, ...style }}
+                style={style}
                 fixed={fixed}
                 columns={columns}
                 className={className}

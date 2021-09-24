@@ -5,7 +5,7 @@ export interface TableContextValue {
   /**
    * 表头是否固定
    */
-  stickyHeader: boolean;
+  fixedHeader: boolean;
   /**
    * 扁平后的Columns
    */
@@ -13,7 +13,7 @@ export interface TableContextValue {
 }
 
 export const TableContext = createContext<TableContextValue>({
-  stickyHeader: false,
+  fixedHeader: false,
   flattenColumns: [],
 });
 
