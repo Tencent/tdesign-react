@@ -90,10 +90,16 @@ const Form = forwardRefWithStatics(
     }
 
     // 对外方法，该方法会触发全部表单组件错误信息显示
-    function validate(): Promise<Result> {
+    function validate(param?: Record<string, any>): Promise<Result> {
+      function needValidate(name: string, fields: string[]) {
+        if (!fields || !Array.isArray(fields)) return true;
+        return fields.indexOf(name) !== -1;
+      }
+
+      const { fields, trigger = 'all' } = param || {};
       const list = formItemsRef.current
-        .filter((formItemRef) => isFunction(formItemRef.validate))
-        .map((formItemRef) => formItemRef.validate());
+        .filter((formItemRef) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields))
+        .map((formItemRef) => formItemRef.validate(trigger));
 
       return new Promise((resolve) => {
         Promise.all(flatten(list))

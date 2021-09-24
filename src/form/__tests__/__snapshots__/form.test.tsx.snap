@@ -830,11 +830,11 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             这里请填写用户名
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -864,11 +864,11 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             这里请填写密码
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1191,11 +1191,11 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             校验不通过，请输入正确内容
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1408,11 +1408,11 @@ exports[`validator-status.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             自定义新增icon
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1460,11 +1460,11 @@ exports[`validator-status.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             自定义帮助icon
-          </span>
+          </div>
         </div>
       </div>
       <div
