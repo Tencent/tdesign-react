@@ -74,7 +74,7 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
         })}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <FakeArrow isActive={isOpen} />
+        <FakeArrow isActive={isOpen} disabled={disabled} />
       </div>
       {isPopUp ? (
         <div

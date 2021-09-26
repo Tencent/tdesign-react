@@ -80,6 +80,7 @@ const TimePicker = forwardRefWithStatics(
             value={value}
           />
         }
+        disabled={disabled}
         visible={isPanelShowed}
         onVisibleChange={handleShowPopup}
         overlayClassName={classNames(`${name}-panel__container`)}
