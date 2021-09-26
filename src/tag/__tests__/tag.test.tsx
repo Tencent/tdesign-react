@@ -35,7 +35,7 @@ describe('Tag 组件测试', () => {
 
     const { container } = render(<Tag maxWidth={150}>{tagLabel}</Tag>);
     // 最长宽度为150
-    expect(container.firstChild).toHaveStyle({ 'max-width': '150px' });
+    expect(container.firstChild.firstChild).toHaveStyle({ 'max-width': '150px' });
   });
 });
 

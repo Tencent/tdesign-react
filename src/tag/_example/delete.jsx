@@ -41,7 +41,6 @@ export default function ClosableTagExample() {
   return (
     <>
       <div style={{ display: 'flex' }}>
-        <span style={{ marginRight: 30 }}>可删除：</span>
         {tagList.map((tag, i) => (
           <Tag
             key={i}
@@ -59,7 +58,6 @@ export default function ClosableTagExample() {
         ))}
       </div>
       <div style={{ display: 'flex', cursor: 'pointer' }}>
-        <span style={{ marginRight: 30 }}>可添加：</span>
         {inputVisible ? (
           <Input onBlur={handleInputEnter} onEnter={handleInputEnter} style={{ width: '94px' }} />
         ) : (
