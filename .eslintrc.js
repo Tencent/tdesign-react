@@ -28,7 +28,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/indent':  ['off', 2],
+    '@typescript-eslint/indent': ['off', 2],
     '@typescript-eslint/no-empty-interface': 'error', // codecc
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],

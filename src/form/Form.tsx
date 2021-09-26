@@ -32,7 +32,7 @@ const Form = forwardRefWithStatics(
     const {
       style,
       className,
-      labelWidth = 'calc(1 / 12 * 100%)',
+      labelWidth = '100px',
       statusIcon,
       labelAlign = 'right',
       layout = 'vertical',
@@ -52,6 +52,7 @@ const Form = forwardRefWithStatics(
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
+    const formRef = useRef(null);
     const formItemsRef = useRef([]);
     formItemsRef.current = React.Children.map(children, (_child, index) => (formItemsRef.current[index] = createRef()));
 
@@ -73,14 +74,14 @@ const Form = forwardRefWithStatics(
     }
 
     function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-      e.preventDefault();
+      e?.preventDefault();
       validate().then((r) => {
         getFirstError(r);
         onSubmit?.({ validateResult: r, e });
       });
     }
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
-      e.preventDefault();
+      e?.preventDefault();
       formItemsRef.current.forEach((formItemRef) => {
         if (!isFunction(formItemRef.resetField)) return;
         formItemRef.resetField();
@@ -89,10 +90,16 @@ const Form = forwardRefWithStatics(
     }
 
     // 对外方法，该方法会触发全部表单组件错误信息显示
-    function validate(): Promise<Result> {
+    function validate(param?: Record<string, any>): Promise<Result> {
+      function needValidate(name: string, fields: string[]) {
+        if (!fields || !Array.isArray(fields)) return true;
+        return fields.indexOf(name) !== -1;
+      }
+
+      const { fields, trigger = 'all' } = param || {};
       const list = formItemsRef.current
-        .filter((formItemRef) => isFunction(formItemRef.validate))
-        .map((formItemRef) => formItemRef.validate());
+        .filter((formItemRef) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields))
+        .map((formItemRef) => formItemRef.validate(trigger));
 
       return new Promise((resolve) => {
         Promise.all(flatten(list))
@@ -153,7 +160,15 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    useImperativeHandle(ref, (): any => ({ getFieldValue, setFieldsValue, setFields, validate, getAllFieldsValue }));
+    useImperativeHandle(ref, (): any => ({
+      submit: submitHandler,
+      reset: resetHandler,
+      getFieldValue,
+      setFieldsValue,
+      setFields,
+      validate,
+      getAllFieldsValue,
+    }));
 
     return (
       <FormContext.Provider
@@ -171,8 +186,10 @@ const Form = forwardRefWithStatics(
           rules,
         }}
       >
-        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
+        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
           {React.Children.map(children, (child: React.ReactElement, index) => {
+            if (!child) return null;
+
             const { cloneElement } = React;
             return cloneElement(child, {
               ref: (el: React.ReactElement) => {

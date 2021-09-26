@@ -90,6 +90,13 @@ export default {
           component: () => import('@tencent/tdesign-react/anchor/README.md'),
         },
         {
+          title: 'Dropdown 下拉菜单',
+          name: 'dropdown',
+          docType: 'navigation',
+          path: '/react/components/dropdown',
+          component: () => import('@tencent/tdesign-react/dropdown/README.md'),
+        },
+        {
           title: 'Menu 导航',
           name: 'menu',
           docType: 'navigation',
@@ -125,11 +132,27 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Cascader 级联组件',
+          name: 'cascader',
+          meta: {
+            docType: 'form',
+          },
+          path: '/react/components/cascader',
+          component: () => import('@tencent/tdesign-react/cascader/README.md'),
+        },
+        {
           title: 'Checkbox 多选框',
           name: 'checkbox',
           docType: 'form',
           path: '/react/components/checkbox',
           component: () => import('@tencent/tdesign-react/checkbox/README.md'),
+        },
+        {
+          title: 'Datepicker 日期选择器',
+          name: 'datepicker',
+          docType: 'form',
+          path: '/react/components/date-picker',
+          component: () => import('@tencent/tdesign-react/date-picker/README.md'),
         },
         {
           title: 'Form 表单',
@@ -167,6 +190,13 @@ export default {
           component: () => import('@tencent/tdesign-react/select/README.md'),
         },
         {
+          title: 'Slider 滑动输入条',
+          name: 'slider',
+          docType: 'form',
+          path: '/react/components/slider',
+          component: () => import('@tencent/tdesign-react/slider/README.md'),
+        },
+        {
           title: 'Switch 开关',
           name: 'switch',
           docType: 'form',
@@ -179,6 +209,20 @@ export default {
           docType: 'form',
           path: '/react/components/textarea',
           component: () => import('@tencent/tdesign-react/textarea/README.md'),
+        },
+        {
+          title: 'TimePicker 时间选择器',
+          name: 'time-picker',
+          docType: 'form',
+          path: '/react/components/time-picker',
+          component: () => import('@tencent/tdesign-react/time-picker/README.md'),
+        },
+        {
+          title: 'Upload 上传',
+          name: 'upload',
+          docType: 'form',
+          path: '/react/components/upload',
+          component: () => import('@tencent/tdesign-react/upload/README.md'),
         },
       ],
     },

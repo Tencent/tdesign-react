@@ -1,0 +1,738 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-s"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-content"
+      >
+        上海 / 黄浦区
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-content"
+      >
+        上海 / 黄浦区
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-l"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-content"
+      >
+        上海 / 黄浦区
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`check-strictly.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-content"
+      >
+        1 / 1.2 / 1.2.2
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      >
+        1.1.2.1
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      >
+        2
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`disabled.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-is-disabled t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-content"
+      >
+        上海 / 黄浦区
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-is-disabled t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+      >
+        黄浦区
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ellipsis.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`filterable.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`keys.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`load.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`max.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    最多可选3项
+  </div>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-s t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+      >
+        黄浦区
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      >
+        黄浦区
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-l t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+      >
+        黄浦区
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`show-all-levels.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请选择
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`trigger.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请选择
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请选择
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`value-mode.jsx 1`] = `
+<DocumentFragment>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+  <span
+    class="t-trigger"
+  >
+    <div
+      class="t-cascader t-size-m t-cascader-is-multiple"
+      style="margin-top: 16px;"
+    >
+      <span
+        class="t-cascader-placeholder"
+      >
+        请输入
+      </span>
+      <svg
+        class="t-fake-arrow t-cascader-icon"
+        fill="none"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+          stroke="black"
+          stroke-opacity="0.9"
+          stroke-width="1.3"
+        />
+      </svg>
+    </div>
+  </span>
+</DocumentFragment>
+`;

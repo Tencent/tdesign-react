@@ -151,7 +151,7 @@ exports[`checkable.jsx 1`] = `
         >
           <div
             class="t-form__label t-form-item__undefined t-form__label--right"
-            style="width: calc(1 / 12 * 100%);"
+            style="width: 100px;"
           >
             <label>
               可选
@@ -159,6 +159,7 @@ exports[`checkable.jsx 1`] = `
           </div>
           <div
             class="t-form__controls"
+            style="margin-left: 100px;"
           >
             <div
               class="t-form__controls--content"
@@ -183,7 +184,7 @@ exports[`checkable.jsx 1`] = `
         >
           <div
             class="t-form__label t-form-item__undefined t-form__label--right"
-            style="width: calc(1 / 12 * 100%);"
+            style="width: 100px;"
           >
             <label>
               严格模式
@@ -191,6 +192,7 @@ exports[`checkable.jsx 1`] = `
           </div>
           <div
             class="t-form__controls"
+            style="margin-left: 100px;"
           >
             <div
               class="t-form__controls--content"
@@ -215,7 +217,7 @@ exports[`checkable.jsx 1`] = `
         >
           <div
             class="t-form__label t-form-item__valueMode t-form__label--right"
-            style="width: calc(1 / 12 * 100%);"
+            style="width: 100px;"
           >
             <label>
               选中值模式
@@ -223,6 +225,7 @@ exports[`checkable.jsx 1`] = `
           </div>
           <div
             class="t-form__controls"
+            style="margin-left: 100px;"
           >
             <div
               class="t-form__controls--content"
@@ -772,7 +775,7 @@ exports[`line.jsx 1`] = `
         >
           <div
             class="t-form__label t-form-item__undefined t-form__label--right"
-            style="width: calc(1 / 12 * 100%);"
+            style="width: 100px;"
           >
             <label>
               显示连线
@@ -780,6 +783,7 @@ exports[`line.jsx 1`] = `
           </div>
           <div
             class="t-form__controls"
+            style="margin-left: 100px;"
           >
             <div
               class="t-form__controls--content"
@@ -804,7 +808,7 @@ exports[`line.jsx 1`] = `
         >
           <div
             class="t-form__label t-form-item__undefined t-form__label--right"
-            style="width: calc(1 / 12 * 100%);"
+            style="width: 100px;"
           >
             <label>
               显示图标
@@ -812,6 +816,7 @@ exports[`line.jsx 1`] = `
           </div>
           <div
             class="t-form__controls"
+            style="margin-left: 100px;"
           >
             <div
               class="t-form__controls--content"

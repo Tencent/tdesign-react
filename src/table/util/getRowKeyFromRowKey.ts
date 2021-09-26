@@ -5,7 +5,7 @@ export default function getRowKeyFromRowKey(rowKey: TdBaseTableProps['rowKey']):
   if (typeof rowKey === 'function') {
     getRowKey = rowKey;
   } else if (typeof rowKey === 'string') {
-    getRowKey = (record) => String(record[rowKey]);
+    getRowKey = (record) => record[rowKey];
   }
   return getRowKey;
 }

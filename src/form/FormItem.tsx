@@ -1,7 +1,8 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import isNil from 'lodash/isNil';
 import useConfig from '../_util/useConfig';
-import { TdFormItemProps, ValueType } from '../_type/components/form';
+import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
 import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
 import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
 import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
@@ -33,15 +34,18 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     help,
     statusIcon: statusIconFromProp,
     rules: rulesFromProp,
+    labelWidth,
+    labelAlign,
     initialData = '',
     className,
+    style: formItemStyle,
   } = props;
   const {
     colon,
     requiredMark,
     layout,
-    labelAlign,
-    labelWidth,
+    labelAlign: labelAlignFromContext,
+    labelWidth: labelWidthFromContext,
     showErrorMessage,
     resetType,
     rules: rulesFromContext,
@@ -49,6 +53,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   } = useFormContext();
 
   const [errorList, setErrorList] = useState([]);
+  const [successList, setSuccessList] = useState([]);
   const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
@@ -57,16 +62,18 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(null);
 
-  const innerRules = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
+  const innerRules: FormRule[] = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
+  const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
+  const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`);
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, `${classPrefix}-form-item__${name}`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
-    [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
-    [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
-    [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
+    [`${classPrefix}-form__label--top`]: innerLabelAlign === 'top' || !innerLabelWidth,
+    [`${classPrefix}-form__label--left`]: innerLabelAlign === 'left' && innerLabelWidth,
+    [`${classPrefix}-form__label--right`]: innerLabelAlign === 'right' && innerLabelWidth,
   });
 
   const contentClasses = classNames(`${classPrefix}-form__controls`, {
@@ -77,24 +84,25 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   let labelStyle = {};
   let contentStyle = {};
-  if (labelWidth && labelAlign !== 'top') {
-    if (typeof labelWidth === 'number') {
-      labelStyle = { width: `${labelWidth}px` };
-      contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
+  if (innerLabelWidth && innerLabelAlign !== 'top') {
+    if (typeof innerLabelWidth === 'number') {
+      labelStyle = { width: `${innerLabelWidth}px` };
+      contentStyle = { marginLeft: layout !== 'inline' ? `${innerLabelWidth}px` : '' };
     } else {
-      labelStyle = { width: labelWidth };
-      contentStyle = { marginLeft: layout !== 'inline' ? labelWidth : '' };
+      labelStyle = { width: innerLabelWidth };
+      contentStyle = { marginLeft: layout !== 'inline' ? innerLabelWidth : '' };
     }
   }
 
   const renderTipsInfo = () => {
-    if (!showErrorMessage) return null;
     let helpNode = null;
-    if (help) helpNode = <span className={`${classPrefix}-form__help`}>{help}</span>;
+    if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
-    const tipInfo = (errorList.length && errorList[0].message) || '';
-    if (tipInfo) {
-      return <span className={`${classPrefix}-input__extra`}>{tipInfo}</span>;
+    if (showErrorMessage && errorList.length && errorList[0].message) {
+      return <p className={`${classPrefix}-input__extra`}>{errorList[0].message}</p>;
+    }
+    if (successList.length) {
+      return <p className={`${classPrefix}-input__extra`}>{successList[0].message}</p>;
     }
 
     return helpNode;
@@ -136,25 +144,30 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     return null;
   };
 
-  function validate() {
+  function validate(trigger) {
     if (innerFormItemsRef.current.length) {
       return innerFormItemsRef.current.map((innerFormItem) => innerFormItem?.validate());
     }
+    // 过滤不需要校验的规则
+    const rules = trigger === 'all' ? innerRules : innerRules.filter((item) => (item.trigger || 'change') === trigger);
     setResetValidating(true);
+    // 校验结果，包含正确的校验信息
     return new Promise((resolve) => {
       validateModal(formValue, innerRules).then((r) => {
-        setErrorList(r);
-        let nextVerifyStatus = r.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
+        const filterErrorList = r.filter((item) => item.result !== true);
+        setErrorList(filterErrorList);
+        // 仅有自定义校验方法才会存在 successList
+        setSuccessList(r.filter((item) => item.result === true && item.message && item.type === 'success'));
+        let nextVerifyStatus = filterErrorList.length && rules.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
         // 非 require 且值为空 状态置为默认，无校验规则的都为默认
         if ((!innerRules.some((rule) => rule.required) && isValueEmpty(formValue)) || !innerRules.length) {
           nextVerifyStatus = ValidateStatus.TO_BE_VALIDATED;
         }
         setVerifyStatus(nextVerifyStatus);
-        resolve({ [name]: !r.length ? true : r });
-        if (needResetField) {
-          resetHandler();
-        }
+        needResetField && resetHandler();
         setResetValidating(false);
+
+        resolve({ [name]: !filterErrorList.length ? true : r });
       });
     });
   }
@@ -166,7 +179,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       return;
     }
 
-    validate();
+    validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
 
@@ -201,6 +214,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   function resetHandler() {
     setNeedResetField(false);
     setErrorList([]);
+    setSuccessList([]);
     setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
   }
 
@@ -210,6 +224,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     if (typeof status !== 'undefined') {
       shouldValidate.current = false;
       setErrorList([]);
+      setSuccessList([]);
       setNeedResetField(false);
     }
     setFormValue(value);
@@ -227,7 +242,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }));
 
   return (
-    <div className={formItemClass} ref={ref}>
+    <div className={formItemClass} style={formItemStyle} ref={ref}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
@@ -236,6 +251,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       <div className={contentClasses} style={contentStyle}>
         <div className={`${classPrefix}-form__controls--content`}>
           {React.Children.map(children, (child, index) => {
+            if (!child) return null;
+
             let onChangeFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {

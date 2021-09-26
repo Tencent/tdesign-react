@@ -4,7 +4,7 @@ import { Select } from '@tencent/tdesign-react';
 
 const SelectCustomKeys = () => {
   const [value, setValue] = useState('1');
-  const [value2, setValue2] = useState('shanghai');
+  const [value2, setValue2] = useState(['shanghai']);
 
   const onChange = (value) => {
     setValue(value);
@@ -62,6 +62,7 @@ const SelectCustomKeys = () => {
       <Select
         value={value2}
         onChange={onChange2}
+        multiple
         style={{ width: '200px', display: 'inline-block' }}
         options={deepOptions}
         keys={{ value: 'city.id', label: 'city.name' }}

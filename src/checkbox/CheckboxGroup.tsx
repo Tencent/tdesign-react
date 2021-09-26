@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
@@ -15,11 +15,20 @@ export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
   const { classPrefix } = useConfig();
-  const { value, defaultValue, onChange, disabled, className, style, children } = props;
+  const { value, defaultValue, onChange, disabled, className, style, children, max } = props;
 
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
+  const [localMax, setLocalMax] = useState(max);
 
-  const checkedSet = new Set([].concat(internalValue));
+  const checkedSet = useMemo(() => new Set([].concat(internalValue)), [internalValue]);
+
+  useEffect(() => {
+    if (max < checkedSet.size) {
+      console.warn('[TDesign] max should be less than the length of value');
+    } else {
+      setLocalMax(max);
+    }
+  }, [max, checkedSet]);
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
@@ -33,14 +42,16 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
       return {
         ...checkProps,
         checked: checkedSet.has(checkValue),
-        disabled: checkProps.disabled || disabled,
+        disabled: checkProps.disabled || disabled || (checkedSet.size >= localMax && !checkedSet.has(checkValue)),
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
 
           if (checked) {
-            checkedSet.add(checkValue);
+            if (checkedSet.size < localMax) {
+              checkedSet.add(checkValue);
+            }
           } else {
             checkedSet.delete(checkValue);
           }

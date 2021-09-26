@@ -1,6 +1,5 @@
-import React, { CSSProperties, ReactNode, useRef, useLayoutEffect, useState, PropsWithChildren } from 'react';
+import React, { CSSProperties, useRef, useLayoutEffect, useState, PropsWithChildren } from 'react';
 import classnames from 'classnames';
-import get from 'lodash/get';
 import { BaseTableCol, DataType } from '../../_type/components/table';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
@@ -14,6 +13,7 @@ export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   colIndex?: number;
   rowSpan?: number;
   colSpan?: number;
+  customRender: Function;
 }
 
 const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) => {
@@ -23,7 +23,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     type,
     record,
     colKey,
-    render,
+    customRender,
     colIndex,
     fixed,
     align,
@@ -61,11 +61,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     }
   }, [ref, flattenColumns, colKey, fixed]);
 
-  const value = get(record, colKey);
-  let cellNode: ReactNode = value;
-  if (render) {
-    cellNode = render({ type, row: record, rowIndex, col: columns?.[colIndex], colIndex });
-  }
+  const cellNode = customRender({ type, row: record, rowIndex, col: columns?.[colIndex], colIndex });
 
   // ==================== styles ====================
   const cellStyle = { ...style };

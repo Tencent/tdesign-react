@@ -72,7 +72,7 @@ exports[`align.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__name t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 80px;"
         >
           <label>
             名字
@@ -80,6 +80,7 @@ exports[`align.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -100,7 +101,7 @@ exports[`align.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__password t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 80px;"
         >
           <label>
             密码
@@ -108,6 +109,7 @@ exports[`align.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 80px;"
         >
           <div
             class="t-form__controls--content"
@@ -130,276 +132,306 @@ exports[`align.jsx 1`] = `
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <form
-      class="t-form"
+  <form
+    class="t-form"
+  >
+    <div
+      class="t-form__item"
     >
       <div
-        class="t-form__item"
+        class="t-form__label t-form-item__name t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label>
+          姓名
+        </label>
+      </div>
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
       >
         <div
-          class="t-form__label t-form-item__name t-form__label--colon t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
-        >
-          <label>
-            姓名
-          </label>
-        </div>
-        <div
-          class="t-form__controls"
+          class="t-form__controls--content"
         >
           <div
-            class="t-form__controls--content"
+            class="t-input"
           >
-            <div
-              class="t-input"
-            >
-              <input
-                class="t-input__inner"
-                value=""
-              />
-            </div>
+            <input
+              class="t-input__inner"
+              value=""
+            />
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-form__item"
+    >
       <div
-        class="t-form__item"
+        class="t-form__label t-form-item__birthday t-form__label--colon t-form__label--right"
+        style="width: 100px;"
       >
-        <div
-          class="t-form__label t-form-item__tel t-form__label--colon t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
-        >
-          <label>
-            手机号
-          </label>
-        </div>
-        <div
-          class="t-form__controls"
-        >
-          <div
-            class="t-form__controls--content"
-          >
-            <div
-              class="t-input"
-            >
-              <input
-                class="t-input__inner"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
+        <label>
+          出生日期
+        </label>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__controls"
+        style="margin-left: 100px;"
       >
         <div
-          class="t-form__label t-form-item__gender t-form__label--colon t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
-        >
-          <label>
-            性别
-          </label>
-        </div>
-        <div
-          class="t-form__controls"
+          class="t-form__controls--content"
         >
           <div
-            class="t-form__controls--content"
+            class="t-date-picker t-size-m"
           >
             <div
-              class="t-radio-group t-radio-group-medium t-radio-group-outline"
+              class="t-form-controls"
             >
-              <label
-                class="t-radio"
-              >
-                <input
-                  class="t-radio__former"
-                  readonly=""
-                  type="radio"
-                  value="male"
-                />
-                <span
-                  class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
-                >
-                  男性
-                </span>
-              </label>
-              <label
-                class="t-radio"
-              >
-                <input
-                  class="t-radio__former"
-                  readonly=""
-                  type="radio"
-                  value="female"
-                />
-                <span
-                  class="t-radio__input"
-                />
-                <span
-                  class="t-radio__label"
-                >
-                  女性
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-form__item"
-      >
-        <div
-          class="t-form__label t-form-item__course t-form__label--colon t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
-        >
-          <label>
-            课程
-          </label>
-        </div>
-        <div
-          class="t-form__controls"
-        >
-          <div
-            class="t-form__controls--content"
-          >
-            <div
-              class="t-check-group"
-            >
-              <label
-                class="t-checkbox"
-              >
-                <input
-                  class="t-checkbox__former"
-                  readonly=""
-                  type="checkbox"
-                  value="la"
-                />
-                <span
-                  class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
-                >
-                  加辣
-                </span>
-              </label>
-              <label
-                class="t-checkbox"
-              >
-                <input
-                  class="t-checkbox__former"
-                  readonly=""
-                  type="checkbox"
-                  value="ma"
-                />
-                <span
-                  class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
-                >
-                  加麻
-                </span>
-              </label>
-              <label
-                class="t-checkbox"
-              >
-                <input
-                  class="t-checkbox__former"
-                  readonly=""
-                  type="checkbox"
-                  value="nocong"
-                />
-                <span
-                  class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
-                >
-                  不要葱花
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-form__item"
-      >
-        <div
-          class="t-form__label t-form-item__status t-form__label--colon t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
-        >
-          <label
-            for="status"
-          >
-            状态
-          </label>
-        </div>
-        <div
-          class="t-form__controls"
-        >
-          <div
-            class="t-form__controls--content"
-          >
-            <button
-              class="t-switch"
-              role="switch"
-              type="button"
-            >
-              <span
-                class="t-switch__handle"
-              />
               <div
-                class="t-switch__content"
-              />
-            </button>
+                class="t-input t-input--suffix"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="请选择"
+                  readonly=""
+                  value=""
+                />
+                <span
+                  class="t-input__suffix"
+                >
+                  <svg
+                    class="t-icon t-icon-calendar"
+                    version="1.1"
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                      fill-opacity=".9"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+    >
+      <div
+        class="t-form__label t-form-item__gender t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label>
+          性别
+        </label>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__controls"
+        style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls"
+          class="t-form__controls--content"
         >
           <div
-            class="t-form__controls--content"
+            class="t-radio-group t-radio-group-medium t-radio-group-outline"
           >
-            <button
-              class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
-              type="submit"
-              value=""
+            <label
+              class="t-radio"
             >
+              <input
+                class="t-radio__former"
+                readonly=""
+                type="radio"
+                value="male"
+              />
               <span
-                class="t-button__text"
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
               >
-                提交
+                男性
               </span>
-            </button>
-            <button
-              class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-left: 12px; position: relative;"
-              type="reset"
-              value=""
+            </label>
+            <label
+              class="t-radio"
             >
+              <input
+                class="t-radio__former"
+                readonly=""
+                type="radio"
+                value="female"
+              />
               <span
-                class="t-button__text"
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
               >
-                重置
+                女性
               </span>
-            </button>
+            </label>
           </div>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+    <div
+      class="t-form__item"
+    >
+      <div
+        class="t-form__label t-form-item__course t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label>
+          课程
+        </label>
+      </div>
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls--content"
+        >
+          <div
+            class="t-check-group"
+          >
+            <label
+              class="t-checkbox"
+            >
+              <input
+                class="t-checkbox__former"
+                readonly=""
+                type="checkbox"
+                value="la"
+              />
+              <span
+                class="t-checkbox__input"
+              />
+              <span
+                class="t-checkbox__label"
+              >
+                加辣
+              </span>
+            </label>
+            <label
+              class="t-checkbox"
+            >
+              <input
+                class="t-checkbox__former"
+                readonly=""
+                type="checkbox"
+                value="ma"
+              />
+              <span
+                class="t-checkbox__input"
+              />
+              <span
+                class="t-checkbox__label"
+              >
+                加麻
+              </span>
+            </label>
+            <label
+              class="t-checkbox"
+            >
+              <input
+                class="t-checkbox__former"
+                readonly=""
+                type="checkbox"
+                value="nocong"
+              />
+              <span
+                class="t-checkbox__input"
+              />
+              <span
+                class="t-checkbox__label"
+              >
+                不要葱花
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+    >
+      <div
+        class="t-form__label t-form-item__status t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label
+          for="status"
+        >
+          状态
+        </label>
+      </div>
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls--content"
+        >
+          <button
+            class="t-switch"
+            role="switch"
+            type="button"
+          >
+            <span
+              class="t-switch__handle"
+            />
+            <div
+              class="t-switch__content"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+    >
+      <div
+        class="t-form__controls"
+        style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls--content"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            style="position: relative;"
+            type="submit"
+            value=""
+          >
+            <span
+              class="t-button__text"
+            >
+              提交
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            style="margin-left: 12px; position: relative;"
+            type="reset"
+            value=""
+          >
+            <span
+              class="t-button__text"
+            >
+              重置
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
 </DocumentFragment>
 `;
 
@@ -592,6 +624,7 @@ exports[`layout.jsx 1`] = `
     >
       <div
         class="t-form__item"
+        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__name t-form__label--right"
@@ -620,6 +653,7 @@ exports[`layout.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
+        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__password t-form__label--right"
@@ -796,11 +830,11 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             这里请填写用户名
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -830,11 +864,11 @@ exports[`validator.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             这里请填写密码
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1135,7 +1169,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__fail t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             失败
@@ -1143,6 +1177,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1156,11 +1191,11 @@ exports[`validator-status.jsx 1`] = `
               />
             </div>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             校验不通过，请输入正确内容
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1168,7 +1203,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__warning t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             警告
@@ -1176,6 +1211,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1196,7 +1232,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__success t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             成功
@@ -1204,6 +1240,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1224,7 +1261,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__failB t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             失败
@@ -1232,6 +1269,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1253,7 +1291,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__warningB t-form__label--required t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             警告
@@ -1261,6 +1299,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1281,7 +1320,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__loading t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             加载中
@@ -1289,6 +1328,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1328,7 +1368,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__add t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             新增
@@ -1336,6 +1376,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1367,11 +1408,11 @@ exports[`validator-status.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             自定义新增icon
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1379,7 +1420,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__label t-form-item__help t-form__label--right"
-          style="width: calc(1 / 12 * 100%);"
+          style="width: 100px;"
         >
           <label>
             帮助
@@ -1387,6 +1428,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"
@@ -1418,11 +1460,11 @@ exports[`validator-status.jsx 1`] = `
               </svg>
             </span>
           </div>
-          <span
+          <div
             class="t-form__help"
           >
             自定义帮助icon
-          </span>
+          </div>
         </div>
       </div>
       <div
@@ -1430,6 +1472,7 @@ exports[`validator-status.jsx 1`] = `
       >
         <div
           class="t-form__controls"
+          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls--content"

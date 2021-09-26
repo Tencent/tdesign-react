@@ -1,5 +1,5 @@
 import raf from 'raf';
-import { easeInOutCubic, EasingFunction } from './easing';
+import { easeInOutCubic, EasingFunction } from '../../_util/easing';
 
 export type AnchorContainer = HTMLElement | Window;
 

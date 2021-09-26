@@ -1,7 +1,6 @@
-import React, { CSSProperties } from 'react';
-import isCallable from '../../_util/isCallable';
+import React, { isValidElement } from 'react';
+import isFunction from 'lodash/isFunction';
 import { BaseTableCol, DataType } from '../../_type/components/table';
-import { useTableContext } from './TableContext';
 import TableCell, { CellProps } from './TableCell';
 import { Styles } from '../../_type/common';
 
@@ -10,7 +9,6 @@ interface TableHeaderProps<D extends DataType> {
 }
 
 const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
-  const { stickyHeader } = useTableContext();
   const { columns } = props;
   const columnsDepth = getNodeDepth(columns);
   const trsColumns = getTrsColumns(columns, columnsDepth);
@@ -79,46 +77,41 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
     return countNew;
   }
 
+  function getCustomRender({ title, render }) {
+    if (typeof title === 'string' || isValidElement(title)) {
+      return () => title;
+    }
+    if (isFunction(title)) {
+      return title;
+    }
+    if (isFunction(render)) {
+      return render;
+    }
+    return () => null;
+  }
+
   return (
     <thead>
       {trsColumns.map((trsColumnsItem: CellProps<D>[], index) => (
         <tr key={index}>
-          {trsColumnsItem.map((column: CellProps<D>) => {
-            const { title, colKey, fixed, className, style = {}, rowSpan, colSpan } = column;
-            let content: React.ReactNode | JSX.Element[] = title;
-
-            if (isCallable(title)) {
-              content = title({ col: column, colIndex: index });
-            }
-
-            const styleNew: CSSProperties = {};
-            if (stickyHeader) {
-              styleNew.position = 'sticky';
-              styleNew.top = 0;
-              styleNew.background = '#FFF';
-              styleNew.zIndex = 1;
-              styleNew.borderBottom = 'solid 1px #e7e7e7';
-            }
-            if (fixed) {
-              styleNew.zIndex = ((styleNew.zIndex as number) || 0) + 1;
-            }
+          {trsColumnsItem.map((column: CellProps<D>, colIndex) => {
+            const { title, colKey, fixed, className, style = {}, rowSpan, colSpan, render } = column;
+            const customRender = getCustomRender({ title, render });
 
             return (
               <TableCell
                 type="title"
                 key={colKey}
                 colKey={colKey}
-                colIndex={index}
-                render={() => content}
-                style={{ ...styleNew, ...style }}
+                colIndex={colIndex}
+                customRender={customRender}
+                style={style}
                 fixed={fixed}
                 columns={columns}
                 className={className}
                 rowSpan={rowSpan}
                 colSpan={colSpan}
-              >
-                {content as JSX.Element[]}
-              </TableCell>
+              ></TableCell>
             );
           })}
         </tr>

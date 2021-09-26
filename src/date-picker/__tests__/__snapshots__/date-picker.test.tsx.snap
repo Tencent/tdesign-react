@@ -1,0 +1,496 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker"
+  >
+    <div
+      class="t-date-picker t-size-m"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-calendar"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`date-presets-alt.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker"
+  >
+    <div
+      class="t-date-picker t-size-m"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value="2020-01-01 至 2020-08-08"
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-calendar"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      日期: 2020-1-1 至 2020-8-8
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`date-range.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker tdesign-demo-block-column"
+  >
+    <div
+      class="t-date-picker t-size-m"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-calendar"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-date-picker t-size-m"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-time"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`date-time.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker"
+  >
+    <div
+      class="t-date-picker t-size-m"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value="2021-05-01 11:30:20"
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-time"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM512 160C317.59576832 160 160 317.59576832 160 512 160 706.4042304 317.59576832 864 512 864 706.4042304 864 864 706.4042304 864 512 864 317.59576832 706.4042304 160 512 160ZM544 256L544 514.176 717.2457856 659.526784 676.1073792 708.5536256 480.064 544 480 544 480 256 544 256Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`disable-date.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="tdesign-demo-item--datepicker"
+    >
+      <div
+        class="t-date-picker t-size-m"
+      >
+        <div
+          class="t-form-controls"
+        >
+          <div
+            class="t-input t-input--suffix"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              value=""
+            />
+            <span
+              class="t-input__suffix"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                  fill-opacity=".9"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--datepicker"
+    >
+      <div
+        class="t-date-picker t-size-m"
+      >
+        <div
+          class="t-form-controls"
+        >
+          <div
+            class="t-input t-input--suffix"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              value=""
+            />
+            <span
+              class="t-input__suffix"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                  fill-opacity=".9"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--datepicker"
+    >
+      <div
+        class="t-date-picker t-size-m"
+      >
+        <div
+          class="t-form-controls"
+        >
+          <div
+            class="t-input t-input--suffix"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              value=""
+            />
+            <span
+              class="t-input__suffix"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                  fill-opacity=".9"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--datepicker"
+    >
+      <div
+        class="t-date-picker t-size-m"
+      >
+        <div
+          class="t-form-controls"
+        >
+          <div
+            class="t-input t-input--suffix"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              value=""
+            />
+            <span
+              class="t-input__suffix"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                  fill-opacity=".9"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-item--datepicker"
+    >
+      <div
+        class="t-date-picker t-size-m"
+      >
+        <div
+          class="t-form-controls"
+        >
+          <div
+            class="t-input t-input--suffix"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              value=""
+            />
+            <span
+              class="t-input__suffix"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                  fill-opacity=".9"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`month.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker"
+  >
+    <div
+      class="t-date-picker t-size-m t-date-picker--month-picker"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-calendar"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`year.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--datepicker"
+  >
+    <div
+      class="t-date-picker t-size-m t-date-picker--month-picker"
+    >
+      <div
+        class="t-form-controls"
+      >
+        <div
+          class="t-input t-input--suffix"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value="2025"
+          />
+          <span
+            class="t-input__suffix"
+          >
+            <svg
+              class="t-icon t-icon-calendar"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

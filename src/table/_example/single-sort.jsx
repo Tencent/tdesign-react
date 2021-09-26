@@ -10,7 +10,7 @@ const columns = [
     width: 100,
     sortType: 'all',
     sorter: true,
-    render({ row }) {
+    cell({ row }) {
       switch (row.status) {
         case 0:
           return <p className="status">健康</p>;
@@ -60,11 +60,7 @@ export default function TableSingleSort() {
       }
       const dataNew = initData
         .concat()
-        .sort((a, b) =>
-          sort.descending
-            ? String(a[sort.sortBy]).localeCompare(String(b[sort.sortBy]))
-            : String(b[sort.sortBy]).localeCompare(String(a[sort.sortBy])),
-        );
+        .sort((a, b) => (sort.descending ? b[sort.sortBy] - a[sort.sortBy] : a[sort.sortBy] - b[sort.sortBy]));
       setData([...dataNew]);
       clearTimeout(timer);
     }, 100);

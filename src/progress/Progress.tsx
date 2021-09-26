@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import CheckCircleIcon from '../icon/icons/CheckCircleIcon';
 import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
 import ErrorCircleIcon from '../icon/icons/ErrorCircleIcon';
@@ -57,6 +58,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     }
     return info;
   };
+  const statusClassName = `${classPrefix}-progress--status--${status}`;
   let progressDom;
   if (theme === 'circle') {
     iconMap = {
@@ -124,7 +126,9 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     progressDom = (
       <div
         ref={ref}
-        className={`${classPrefix}-progress--circle ${classPrefix}-progress--status--${status}`}
+        className={classNames(`${classPrefix}-progress--circle`, {
+          [`${statusClassName}`]: status,
+        })}
         style={circleBoxStyle}
       >
         {getInfoContent()}
@@ -170,10 +174,15 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     borderRadius: getHeight(),
   } as React.CSSProperties;
   if (theme === 'plump') {
+    const PLUMP_SEPERATE = 10;
     progressDom = (
       <div
         ref={ref}
-        className={`${classPrefix}-progress--bar ${classPrefix}-progress--plump ${classPrefix}-progress--status--${status}`}
+        className={classNames(`${classPrefix}-progress--bar`, `${classPrefix}-progress--plump`, {
+          [`${statusClassName}`]: status,
+          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPERATE,
+          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPERATE,
+        })}
         style={trackStyle}
       >
         <div className={`${classPrefix}-progress--inner`} style={barStyle}>
@@ -188,7 +197,12 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     );
   } else {
     progressDom = (
-      <div ref={ref} className={`${classPrefix}-progress--thin ${classPrefix}-progress--status--${status}`}>
+      <div
+        ref={ref}
+        className={classNames(`${classPrefix}-progress--thin`, {
+          [`${statusClassName}`]: status,
+        })}
+      >
         <div className={`${classPrefix}-progress--bar`} style={trackStyle}>
           <div className={`${classPrefix}-progress--inner`} style={barStyle}></div>
         </div>

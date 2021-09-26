@@ -31,7 +31,7 @@ function MultiSide() {
         expanded={expands}
         onExpand={(values) => setExpands(values)}
         onChange={(v) => setActive(v)}
-        operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
+        operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setCollapsed(!collapsed)} />}
         style={{ marginRight: 20 }}
       >
         <MenuItem value="0" icon={<AppIcon />}>
@@ -79,7 +79,7 @@ function MultiSide() {
         expanded={darkExpands}
         onExpand={(values) => setDarkExpands(values)}
         onChange={(v) => setDarkActive(v)}
-        operations={<ViewListIcon onClick={() => setDarkCollapsed(!collapsed)} />}
+        operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setDarkCollapsed(!collapsed)} />}
       >
         <MenuItem value="0" icon={<AppIcon />}>
           仪表盘

@@ -71,7 +71,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -102,7 +102,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -133,7 +133,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -210,7 +210,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -241,7 +241,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -272,7 +272,7 @@ exports[`OperateSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -396,7 +396,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -427,7 +427,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -509,7 +509,7 @@ exports[`extra.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -568,7 +568,7 @@ exports[`extra.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -599,7 +599,7 @@ exports[`extra.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -951,7 +951,7 @@ exports[`sequence.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -982,7 +982,7 @@ exports[`sequence.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -1013,7 +1013,7 @@ exports[`sequence.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -1133,7 +1133,7 @@ exports[`sequence.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -1164,7 +1164,7 @@ exports[`sequence.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -1246,7 +1246,7 @@ exports[`status.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -1277,7 +1277,7 @@ exports[`status.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            2
+            3
           </span>
         </div>
         <div
@@ -1308,7 +1308,7 @@ exports[`status.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -1386,7 +1386,7 @@ exports[`status.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            1
+            2
           </span>
         </div>
         <div
@@ -1457,7 +1457,7 @@ exports[`status.jsx 1`] = `
           <span
             class="t-steps-item-icon__number"
           >
-            3
+            4
           </span>
         </div>
         <div
@@ -1759,7 +1759,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              1
+              2
             </span>
           </div>
           <div
@@ -1790,7 +1790,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              2
+              3
             </span>
           </div>
           <div
@@ -1821,7 +1821,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              3
+              4
             </span>
           </div>
           <div
@@ -1898,7 +1898,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              1
+              2
             </span>
           </div>
           <div
@@ -1929,7 +1929,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              2
+              3
             </span>
           </div>
           <div
@@ -1960,7 +1960,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <span
               class="t-steps-item-icon__number"
             >
-              3
+              4
             </span>
           </div>
           <div

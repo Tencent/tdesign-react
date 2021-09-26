@@ -30,16 +30,18 @@ exports[`base.jsx 1`] = `
                 2021年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -64,16 +66,18 @@ exports[`base.jsx 1`] = `
                 8月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -771,16 +775,18 @@ exports[`card.jsx 1`] = `
             卡片风格
           </span>
           <svg
-            class="t-icon t-icon-chevron-down t-select-right-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clip-rule="evenodd"
-              d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
           </svg>
         </div>
@@ -839,16 +845,18 @@ exports[`card.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -873,16 +881,18 @@ exports[`card.jsx 1`] = `
                   8月
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -1553,16 +1563,18 @@ exports[`cell.jsx 1`] = `
             全屏风格
           </span>
           <svg
-            class="t-icon t-icon-chevron-down t-select-right-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clip-rule="evenodd"
-              d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
           </svg>
         </div>
@@ -1596,16 +1608,18 @@ exports[`cell.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -1630,16 +1644,18 @@ exports[`cell.jsx 1`] = `
                   8月
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -2258,16 +2274,18 @@ exports[`cell-append.jsx 1`] = `
                 2021年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -2292,16 +2310,18 @@ exports[`cell-append.jsx 1`] = `
                 8月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -3051,16 +3071,18 @@ exports[`controller-config.jsx 1`] = `
                       2021年
                     </span>
                     <svg
-                      class="t-icon t-icon-chevron-down t-select-right-icon"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
+                      class="t-fake-arrow t-select-right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        clip-rule="evenodd"
-                        d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
                       />
                     </svg>
                   </div>
@@ -3085,16 +3107,18 @@ exports[`controller-config.jsx 1`] = `
                       8月
                     </span>
                     <svg
-                      class="t-icon t-icon-chevron-down t-select-right-icon"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
+                      class="t-fake-arrow t-select-right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        clip-rule="evenodd"
-                        d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
                       />
                     </svg>
                   </div>
@@ -4004,16 +4028,18 @@ exports[`controller-config.jsx 1`] = `
                       2021年
                     </span>
                     <svg
-                      class="t-icon t-icon-chevron-down t-select-right-icon"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
+                      class="t-fake-arrow t-select-right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        clip-rule="evenodd"
-                        d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
                       />
                     </svg>
                   </div>
@@ -4047,16 +4073,18 @@ exports[`controller-config.jsx 1`] = `
                       8月
                     </span>
                     <svg
-                      class="t-icon t-icon-chevron-down t-select-right-icon"
-                      version="1.1"
-                      viewBox="0 0 1024 1024"
+                      class="t-fake-arrow t-select-right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        clip-rule="evenodd"
-                        d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                        fill-opacity=".9"
-                        fill-rule="evenodd"
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
                       />
                     </svg>
                   </div>
@@ -4787,16 +4815,18 @@ exports[`event-props-api.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -4821,16 +4851,18 @@ exports[`event-props-api.jsx 1`] = `
                   8月
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -5571,16 +5603,18 @@ exports[`filter.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -5605,16 +5639,18 @@ exports[`filter.jsx 1`] = `
                   8月
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -6313,16 +6349,18 @@ exports[`first-day-of-week.jsx 1`] = `
             周三
           </span>
           <svg
-            class="t-icon t-icon-chevron-down t-select-right-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clip-rule="evenodd"
-              d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
           </svg>
         </div>
@@ -6356,16 +6394,18 @@ exports[`first-day-of-week.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -6390,16 +6430,18 @@ exports[`first-day-of-week.jsx 1`] = `
                   8月
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -7014,16 +7056,18 @@ exports[`head-props-api.jsx 1`] = `
                 2021年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -7048,16 +7092,18 @@ exports[`head-props-api.jsx 1`] = `
                 8月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -7759,16 +7805,18 @@ exports[`mode.jsx 1`] = `
             月历
           </span>
           <svg
-            class="t-icon t-icon-chevron-down t-select-right-icon"
-            version="1.1"
-            viewBox="0 0 1024 1024"
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clip-rule="evenodd"
-              d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-              fill-opacity=".9"
-              fill-rule="evenodd"
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
           </svg>
         </div>
@@ -7802,16 +7850,18 @@ exports[`mode.jsx 1`] = `
                   2021年
                 </span>
                 <svg
-                  class="t-icon t-icon-chevron-down t-select-right-icon"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
+                  class="t-fake-arrow t-select-right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                    fill-opacity=".9"
-                    fill-rule="evenodd"
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
                   />
                 </svg>
               </div>
@@ -8088,16 +8138,18 @@ exports[`range.jsx 1`] = `
                 2021年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -8122,16 +8174,18 @@ exports[`range.jsx 1`] = `
                 8月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -8833,16 +8887,18 @@ exports[`value.jsx 1`] = `
                 1998年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -8867,16 +8923,18 @@ exports[`value.jsx 1`] = `
                 11月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -9578,16 +9636,18 @@ exports[`week.jsx 1`] = `
                 2021年
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>
@@ -9612,16 +9672,18 @@ exports[`week.jsx 1`] = `
                 8月
               </span>
               <svg
-                class="t-icon t-icon-chevron-down t-select-right-icon"
-                version="1.1"
-                viewBox="0 0 1024 1024"
+                class="t-fake-arrow t-select-right-icon"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M226.57792 413.41696L285.40928 354.58624 511.9936 581.17056 738.5792 354.58624 797.408 413.41696 511.9936 698.8352 226.57792 413.41696Z"
-                  fill-opacity=".9"
-                  fill-rule="evenodd"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </div>

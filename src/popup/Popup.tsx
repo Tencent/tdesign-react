@@ -5,8 +5,8 @@ import React, {
   useEffect,
   cloneElement,
   isValidElement,
-  ReactChild,
   useMemo,
+  useImperativeHandle,
 } from 'react';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
@@ -74,6 +74,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
+  useImperativeHandle(ref, (): any => ({ setVisible }));
+
   const defaulstStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
     return { ...overlayStyle, zIndex };
@@ -81,7 +83,15 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = visible ? defaulstStyles : { ...defaulstStyles, display: 'none' };
 
-  // 处理 trigger
+  const triggerNodeTemp = useMemo(() => {
+    const [triggerChildNode] = React.Children.toArray(children);
+
+    if (React.Children.count(children) === 1 && isValidElement(triggerChildNode)) {
+      return triggerChildNode;
+    }
+    return <span className={`${classPrefix}-trigger`}>{children}</span>;
+  }, [children, classPrefix]);
+
   const [triggerProps, popupProps] = useTriggerProps(
     { current: overlayRef },
     { current: triggerRef },
@@ -89,23 +99,16 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     visible,
     setVisible,
     disabled,
+    triggerNodeTemp,
   );
 
   // 触发器只能有一个元素
-  let triggerNode: ReactChild;
-  const [triggerChildNode] = React.Children.toArray(children);
   const disabledClassName = classNames({ [`${classPrefix}-is-disabled`]: disabled });
 
-  if (React.Children.count(children) === 1 && isValidElement(triggerChildNode)) {
-    triggerNode = triggerChildNode;
-  } else {
-    triggerNode = <span className={`${classPrefix}-trigger`}>{children}</span>;
-  }
-
   // 代理 trigger 的 ref
-  triggerNode = cloneElement(triggerNode, {
-    ref: composeRefs((triggerNode as any).ref, setTriggerRef),
-    className: classNames(disabledClassName, triggerNode.props.className),
+  const triggerNode = cloneElement(triggerNodeTemp, {
+    ref: composeRefs((triggerNodeTemp as any).ref, setTriggerRef),
+    className: classNames(disabledClassName, triggerNodeTemp.props.className),
     ...triggerProps,
   });
 

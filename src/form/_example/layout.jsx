@@ -15,10 +15,10 @@ export default function LayoutForm() {
         </Radio.Group>
       </Row>
       <Form layout={layout} labelWidth={60}>
-        <FormItem label="名字" name="name">
+        <FormItem label="名字" name="name" style={{ width: '30%' }}>
           <Input />
         </FormItem>
-        <FormItem label="密码" name="password">
+        <FormItem label="密码" name="password" style={{ width: '30%' }}>
           <Input />
         </FormItem>
       </Form>

@@ -48,6 +48,8 @@ export default function StepItem(props: StepItemProps) {
     [props.className]: !!props.className,
   });
 
+  const valueNum = Number(value);
+
   // 步骤条每一步展示的图标
   let iconEle = null;
   // 1. 主动
@@ -73,7 +75,11 @@ export default function StepItem(props: StepItemProps) {
         break;
       case 'wait':
       case 'process':
-        iconEle = <span className={`${classPrefix}-steps-item-icon__number`}>{value}</span>;
+        iconEle = (
+          <span className={`${classPrefix}-steps-item-icon__number`}>
+            {Number.isNaN(valueNum) ? value : valueNum + 1}
+          </span>
+        );
         break;
     }
   } else {

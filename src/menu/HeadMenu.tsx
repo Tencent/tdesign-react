@@ -37,7 +37,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
         <div className={`${classPrefix}-head-menu__inner`}>
           {logo && <div className={`${classPrefix}-menu__logo`}>{logo}</div>}
           <ul className={`${classPrefix}-menu`}>{children}</ul>
-          {operations && <div className={`${classPrefix}-menu__options`}>{operations}</div>}
+          {operations && <div className={`${classPrefix}-menu__operations`}>{operations}</div>}
         </div>
         {childs?.length > 0 && (
           <ul className={`${classPrefix}-head-menu__submenu ${classPrefix}-submenu`}>
