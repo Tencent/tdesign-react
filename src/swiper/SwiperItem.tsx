@@ -10,4 +10,6 @@ const SwiperItem = (props: SwiperItemProps) => {
   return <div className={className}>{children}</div>;
 };
 
+SwiperItem.displayName = 'SwiperItem';
+
 export default SwiperItem;

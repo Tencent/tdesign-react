@@ -34,7 +34,10 @@ const Swiper = (props: SwiperProps) => {
 
   // 进行子组件筛选，创建子节点列表
   const childrenList = useMemo(
-    () => React.Children.toArray(children).filter((child: JSX.Element) => child.type.name === 'SwiperItem'),
+    () =>
+      React.Children.toArray(children).filter(
+        (child: JSX.Element) => child.type.displayName === SwiperItem.displayName,
+      ),
     [children],
   );
   const childrenLength = childrenList.length;
@@ -97,7 +100,7 @@ const Swiper = (props: SwiperProps) => {
   useEffect(() => {
     setTimeout(() => {
       setAnimation(false);
-      if (currentIndex + 1 === swiperItemLength) {
+      if (currentIndex + 1 >= swiperItemLength) {
         setCurrentIndex(0);
       }
     }, duration + 50);
