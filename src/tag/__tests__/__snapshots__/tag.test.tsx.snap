@@ -3,11 +3,8 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="width: 285px; display: flex; justify-content: space-around;"
+    style="width: 250px; display: flex; justify-content: space-around;"
   >
-    <span>
-      默认：
-    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
@@ -28,9 +25,6 @@ exports[`base.jsx 1`] = `
   <div
     style="width: 500px; display: flex; justify-content: space-around;"
   >
-    <span>
-      深色：
-    </span>
     <span
       class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
     >
@@ -55,9 +49,6 @@ exports[`base.jsx 1`] = `
   <div
     style="width: 500px; display: flex; justify-content: space-around;"
   >
-    <span>
-      浅色：
-    </span>
     <span
       class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
     >
@@ -82,9 +73,6 @@ exports[`base.jsx 1`] = `
   <div
     style="width: 500px; display: flex; justify-content: space-around;"
   >
-    <span>
-      朴素：
-    </span>
     <span
       class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
     >
@@ -115,13 +103,7 @@ exports[`delete.jsx 1`] = `
     style="display: flex;"
   >
     <span
-      style="margin-right: 30px;"
-    >
-      可删除：
-    </span>
-    <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 30px;"
     >
       可删除标签0
       <svg
@@ -137,7 +119,6 @@ exports[`delete.jsx 1`] = `
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-      style="margin-right: 30px;"
     >
       <svg
         class="t-icon t-icon-discount"
@@ -165,7 +146,6 @@ exports[`delete.jsx 1`] = `
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--disabled"
-      style="margin-right: 30px;"
     >
       可删除标签2
       <svg
@@ -183,11 +163,6 @@ exports[`delete.jsx 1`] = `
   <div
     style="display: flex; cursor: pointer;"
   >
-    <span
-      style="margin-right: 30px;"
-    >
-      可添加：
-    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
@@ -233,9 +208,13 @@ exports[`long-text.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
-    style="margin-right: 5px; margin-bottom: 10px; max-width: 150px;"
   >
-    超长省略文本标签超长省略文本标签
+    <span
+      class="t-tag--text"
+      style="max-width: 150px;"
+    >
+      默认超八个字超长文本标签超长省略文本标签
+    </span>
   </span>
 </DocumentFragment>
 `;
@@ -266,11 +245,8 @@ exports[`selectable.jsx 1`] = `
 exports[`shape.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="width: 300px; display: flex; justify-content: space-around;"
+    style="width: 250px; display: flex; justify-content: space-around;"
   >
-    <span>
-      正常：
-    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
     >
@@ -283,14 +259,10 @@ exports[`shape.jsx 1`] = `
     </span>
   </div>
   <div
-    style="width: 300px; display: flex; justify-content: space-around;"
+    style="width: 250px; display: flex; justify-content: space-around;"
   >
-    <span>
-      圆角：
-    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--round"
-      style="margin-right: 5px;"
     >
       标签一
     </span>
@@ -301,11 +273,8 @@ exports[`shape.jsx 1`] = `
     </span>
   </div>
   <div
-    style="width: 300px; display: flex; justify-content: space-around;"
+    style="width: 250px; display: flex; justify-content: space-around;"
   >
-    <span>
-      标记：
-    </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
     >
@@ -324,19 +293,16 @@ exports[`size.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
-    style="margin-right: 30px;"
   >
     小型标签
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-    style="margin-right: 30px;"
   >
     默认标签
   </span>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
-    style="margin-right: 30px;"
   >
     大型标签
   </span>

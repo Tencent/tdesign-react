@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import isNumber from 'lodash/isNumber';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import { TdCheckboxGroupProps } from '../_type/components/checkbox';
@@ -23,8 +24,9 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const checkedSet = useMemo(() => new Set([].concat(internalValue)), [internalValue]);
 
   useEffect(() => {
+    if (!isNumber(max)) return;
     if (max < checkedSet.size) {
-      console.warn('[TDesign] max should be less than the length of value');
+      console.warn('[TDesign] max should be less than the length of value, change is invalid');
     } else {
       setLocalMax(max);
     }
@@ -49,9 +51,8 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
           }
 
           if (checked) {
-            if (checkedSet.size < localMax) {
-              checkedSet.add(checkValue);
-            }
+            if (checkedSet.size >= localMax && isNumber(max)) return;
+            checkedSet.add(checkValue);
           } else {
             checkedSet.delete(checkValue);
           }

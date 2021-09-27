@@ -44,9 +44,9 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
       ? [
           {
             colKey: expandedColKey,
-            width: 15,
+            width: 25,
             className: [`${classPrefix}-table-expandable-icon-cell`],
-            render: ({ row }) => renderExpandIconCell({ row }),
+            cell: ({ row }) => renderExpandIconCell({ row }),
           },
           ...columns,
         ]

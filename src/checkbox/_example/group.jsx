@@ -40,7 +40,7 @@ export default function CheckboxExample() {
         </Checkbox>
       </div>
 
-      <Checkbox.Group max={2} disabled={disabled} value={city} onChange={(value) => setCity(value)}>
+      <Checkbox.Group disabled={disabled} value={city} onChange={(value) => setCity(value)}>
         {options.map((item) => (
           <Checkbox key={item.value} value={item.value}>
             {item.label}
