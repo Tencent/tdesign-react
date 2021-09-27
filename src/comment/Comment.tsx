@@ -14,7 +14,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
   const avatarElement = avatar ? (
     <div className={`${classPrefix}-comment__avatar`}>
       {typeof avatar === 'string' ? (
-        <img src={avatar} alt="comment-avatar" className={`${classPrefix}-comment__avatar-image`} />
+        <img src={avatar} alt="" className={`${classPrefix}-comment__avatar-image`} />
       ) : (
         avatar
       )}
