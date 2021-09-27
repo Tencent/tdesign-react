@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
-import { StyledProps } from '@TdTypes/StyledProps';
 import useConfig from '@tencent/tdesign-react/_util/useConfig';
 import classNames from 'classnames';
+import { StyledProps } from '../_type';
 import { TdCommentProps } from '../_type/components/comment';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
