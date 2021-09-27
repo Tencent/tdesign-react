@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import useConfig from '@tencent/tdesign-react/_util/useConfig';
 import classNames from 'classnames';
-import { StyledProps } from '../_type';
+import { StyledProps, TElement } from '../_type';
 import { TdCommentProps } from '../_type/components/comment';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
@@ -45,7 +45,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
     </div>
   );
 
-  const renderReply = (nestedChildren: any) => (
+  const renderReply = (nestedChildren: TElement) => (
     <div
       className={classNames(`${classPrefix}-comment__reply`, {
         [`${classPrefix}-comment__reply--comment`]: theme === 'comment',
