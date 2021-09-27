@@ -615,3 +615,55 @@ exports[`reply.jsx 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`replyForm.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-comment"
+  >
+    <div
+      class="t-comment__inner"
+    >
+      <div
+        class="t-comment__avatar"
+      >
+        <img
+          alt=""
+          class="t-comment__avatar-image"
+          src="https://tdesign.gtimg.com/list-icon.png"
+        />
+      </div>
+      <div
+        class="t-comment__content"
+      >
+        <div
+          class="t-comment__detail"
+        >
+          <div
+            style="display: flex; flex-direction: column; align-items: flex-end;"
+          >
+            <div
+              class="t-textarea"
+            >
+              <textarea
+                class="t-textarea__inner"
+                placeholder="请输入内容"
+              />
+            </div>
+            <button
+              class="t-button t-button--theme-primary t-button--variant-base"
+              style="position: relative;"
+            >
+              <span
+                class="t-button__text"
+              >
+                回复
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
