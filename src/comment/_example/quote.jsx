@@ -8,11 +8,6 @@ export default function quoteComment() {
     lineHeight: '15px',
   }
 
-  const authorIconStyle = {
-    display: 'inline-block',
-    margin: '0 4px',
-  }
-
   const actions = [
     <span key="thumbUp">
       <IconFont name="thumb-up" />
@@ -24,7 +19,7 @@ export default function quoteComment() {
     </span>
   ]
 
-  const replyElement = (
+  const quoteElement = (
     <Comment
       author= "引用内容标题"
       content="引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容。"
@@ -38,8 +33,7 @@ export default function quoteComment() {
       datetime="今天16:38"
       content="A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
       actions={actions}
-      theme="quote"
-      reply={replyElement}
+      quote={quoteElement}
     />
   );
 }

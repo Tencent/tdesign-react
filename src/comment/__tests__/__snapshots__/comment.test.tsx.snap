@@ -398,6 +398,36 @@ exports[`quote.jsx 1`] = `
         >
           A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。
         </div>
+        <div
+          class="t-comment__quote"
+        >
+          <div
+            class="t-comment"
+          >
+            <div
+              class="t-comment__inner"
+            >
+              <div
+                class="t-comment__content"
+              >
+                <div
+                  class="t-comment__author"
+                >
+                  <span
+                    class="t-comment__name"
+                  >
+                    引用内容标题
+                  </span>
+                </div>
+                <div
+                  class="t-comment__detail"
+                >
+                  引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <ul
           class="t-comment__actions"
         >
@@ -426,36 +456,6 @@ exports[`quote.jsx 1`] = `
             </span>
           </li>
         </ul>
-      </div>
-    </div>
-    <div
-      class="t-comment__reply t-comment__reply--quote"
-    >
-      <div
-        class="t-comment"
-      >
-        <div
-          class="t-comment__inner"
-        >
-          <div
-            class="t-comment__content"
-          >
-            <div
-              class="t-comment__author"
-            >
-              <span
-                class="t-comment__name"
-              >
-                引用内容标题
-              </span>
-            </div>
-            <div
-              class="t-comment__detail"
-            >
-              引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容。
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -532,7 +532,7 @@ exports[`reply.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-comment__reply t-comment__reply--comment"
+      class="t-comment__reply"
     >
       <div
         class="t-comment"

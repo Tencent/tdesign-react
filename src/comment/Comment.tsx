@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
 import useConfig from '@tencent/tdesign-react/_util/useConfig';
 import classNames from 'classnames';
-import { StyledProps, TElement } from '../_type';
+import { StyledProps } from '../_type';
 import { TdCommentProps } from '../_type/components/comment';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 
 const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>) => {
-  const { actions, author, avatar, content, datetime, reply, theme = 'comment', className, style = {} } = props;
+  const { actions, author, avatar, content, datetime, reply, quote, className, style = {} } = props;
 
   const { classPrefix } = useConfig();
 
@@ -28,6 +28,8 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
     </div>
   );
 
+  const quoteElement = quote ? <div className={`${classPrefix}-comment__quote`}>{quote}</div> : null;
+
   const actionsElement =
     actions && actions.length ? (
       <ul className={`${classPrefix}-comment__actions`}>
@@ -41,20 +43,12 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
     <div className={`${classPrefix}-comment__content`}>
       {authorDatetimeContent}
       <div className={`${classPrefix}-comment__detail`}>{content}</div>
+      {quoteElement}
       {actionsElement}
     </div>
   );
 
-  const renderReply = (nestedChildren: TElement) => (
-    <div
-      className={classNames(`${classPrefix}-comment__reply`, {
-        [`${classPrefix}-comment__reply--comment`]: theme === 'comment',
-        [`${classPrefix}-comment__reply--quote`]: theme === 'quote',
-      })}
-    >
-      {nestedChildren}
-    </div>
-  );
+  const replyElement = reply ? <div className={classNames(`${classPrefix}-comment__reply`)}>{reply}</div> : null;
 
   return (
     <div ref={ref} style={style} className={classNames(className, [`${classPrefix}-comment`])}>
@@ -62,7 +56,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
         {avatarElement}
         {contentElement}
       </div>
-      {reply ? renderReply(reply) : null}
+      {replyElement}
     </div>
   );
 });
