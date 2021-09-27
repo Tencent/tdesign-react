@@ -128,6 +128,10 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
     }
 
     const filteredInputStr = numberUtils.strToNumber(inputStr);
+    if (Number.isNaN(filteredInputStr)) {
+      setInternalInputValue(inputStr);
+      if (!checkInput(inputStr)) return;
+    }
 
     setInputValue(filteredInputStr.toString());
     if (!checkInput(filteredInputStr)) return;
@@ -158,13 +162,18 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
 
   const handleBlur: FocusEventHandler<HTMLDivElement> = (e) => {
     let updateValue;
-
+    const internalFloatValue = parseFloat(internalInputValue as string);
     if (internalInputValue === '') {
       updateValue = undefined;
+    } else if (!Number.isNaN(internalFloatValue)) {
+      updateValue = getRangeValue(internalFloatValue);
     } else {
-      updateValue = getRangeValue(parseFloat(internalInputValue as string));
+      const checkVal = (internalInputValue as string).replace(/[^0-9]/gi, '');
+      updateValue = checkVal;
+      if (!checkVal) {
+        updateValue = value;
+      }
     }
-
     onBlur?.(updateValue, { e });
     setInputValue((updateValue ?? '').toString());
     setError(false);

@@ -42,4 +42,5 @@ export { default as Cascader } from './cascader';
 export { default as TimePicker } from './time-picker';
 export { default as DatePicker } from './date-picker';
 export { default as Upload } from './upload';
+export { default as Swiper } from './swiper';
 export { default as Comment } from './comment';

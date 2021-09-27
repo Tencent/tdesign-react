@@ -4,5 +4,5 @@ import { TimePicker } from '@tencent/tdesign-react';
 const { TimeRangePicker } = TimePicker;
 
 export default function RangeTimePicker() {
-  return <TimeRangePicker />;
+  return <TimeRangePicker clearable />;
 }

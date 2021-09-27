@@ -357,6 +357,13 @@ export default {
           path: '/react/components/popup',
           component: () => import('@tencent/tdesign-react/popup/README.md'),
         },
+        {
+          title: 'Swiper 轮播框',
+          name: 'swiper',
+          docType: 'message',
+          path: '/react/components/swiper',
+          component: () => import('@tencent/tdesign-react/swiper/README.md'),
+        },
       ],
     },
   ],

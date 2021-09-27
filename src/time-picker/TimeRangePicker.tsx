@@ -40,19 +40,13 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
 
   const name = `${classPrefix}-time-picker`;
 
-  const [isPanelShowed, togglePanelShow] = useState(false);
+  const [isPanelShowed, setPanelShow] = useState(false);
   const inputClasses = classNames(`${name}__group`, {
     [`${classPrefix}-is-focused`]: isPanelShowed,
   });
 
   const handleShowPopup = (visible: boolean) => {
-    if (disabled) return;
-    togglePanelShow(visible);
-  };
-
-  const handleClickInput = () => {
-    if (disabled) return;
-    togglePanelShow((v) => !v);
+    setPanelShow(visible);
   };
 
   const handleClear = (context: { e: React.MouseEvent }) => {
@@ -71,15 +65,16 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           isFooterDisplay={true}
           value={value}
           onChange={onChange}
-          handleConfirmClick={() => togglePanelShow(false)}
+          handleConfirmClick={() => setPanelShow(false)}
         />
       }
+      disabled={disabled as boolean}
       placement="bottom-left"
       visible={isPanelShowed}
       onVisibleChange={handleShowPopup}
       trigger="click"
     >
-      <div className={classNames(name, className)} style={style} onClick={handleClickInput}>
+      <div className={classNames(name, className)} style={style}>
         <Input
           size={size}
           readonly={true}
