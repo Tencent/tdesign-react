@@ -1,6 +1,5 @@
 import React from 'react';
 import { Comment, IconFont } from '@tencent/tdesign-react';
-import moment from 'moment'
 
 export default function replyComment() {
   const actionTextStyle = {
@@ -29,7 +28,7 @@ export default function replyComment() {
     <>
       <span>评论作者名B</span>
       <IconFont name="caret-right-small" size="small" style={authorIconStyle}/>
-      <span>评论作者名B</span>
+      <span>评论作者名A</span>
     </>
   )
 
@@ -37,7 +36,7 @@ export default function replyComment() {
     <Comment
       avatar="https://tdesign.gtimg.com/list-icon.png"
       author= {replyAuthor}
-      datetime={moment().format('MM[月]DD[日] HH:mm')}
+      datetime="今天16:38"
       content="B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
       actions={actions}
     />
@@ -47,7 +46,7 @@ export default function replyComment() {
     <Comment
       avatar="https://tdesign.gtimg.com/list-icon.png"
       author="评论作者名A"
-      datetime={moment().format('MM[月]DD[日] HH:mm')}
+      datetime="今天16:38"
       content="A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
       actions={actions}
       reply={replyElement}

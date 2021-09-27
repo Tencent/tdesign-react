@@ -31,7 +31,7 @@ exports[`base.jsx 1`] = `
           <span
             class="t-comment__time"
           >
-            09月27日 10:05
+            今天16:38
           </span>
         </div>
         <div
@@ -88,7 +88,7 @@ exports[`list.jsx 1`] = `
                   <span
                     class="t-comment__time"
                   >
-                    09月27日 10:05
+                    今天16:38
                   </span>
                 </div>
                 <div
@@ -164,7 +164,7 @@ exports[`list.jsx 1`] = `
                   <span
                     class="t-comment__time"
                   >
-                    09月27日 10:05
+                    今天16:38
                   </span>
                 </div>
                 <div
@@ -240,7 +240,7 @@ exports[`list.jsx 1`] = `
                   <span
                     class="t-comment__time"
                   >
-                    09月27日 10:05
+                    今天16:38
                   </span>
                 </div>
                 <div
@@ -317,7 +317,7 @@ exports[`operation.jsx 1`] = `
           <span
             class="t-comment__time"
           >
-            09月27日 10:05
+            今天16:38
           </span>
         </div>
         <div
@@ -390,7 +390,7 @@ exports[`quote.jsx 1`] = `
           <span
             class="t-comment__time"
           >
-            09月27日 10:05
+            今天16:38
           </span>
         </div>
         <div
@@ -438,15 +438,6 @@ exports[`quote.jsx 1`] = `
           class="t-comment__inner"
         >
           <div
-            class="t-comment__avatar"
-          >
-            <img
-              alt="comment-avatar"
-              class="t-comment__avatar-image"
-              src="https://tdesign.gtimg.com/list-icon.png"
-            />
-          </div>
-          <div
             class="t-comment__content"
           >
             <div
@@ -455,56 +446,14 @@ exports[`quote.jsx 1`] = `
               <span
                 class="t-comment__name"
               >
-                <span>
-                  评论作者名B
-                </span>
-                <i
-                  class="t-icon t-icon-caret-right-small t-size-s"
-                  style="display: inline-block; margin: 0px 4px;"
-                />
-                <span>
-                  评论作者名B
-                </span>
-              </span>
-              <span
-                class="t-comment__time"
-              >
-                09月27日 10:05
+                引用内容标题
               </span>
             </div>
             <div
               class="t-comment__detail"
             >
-              B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。
+              引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容。
             </div>
-            <ul
-              class="t-comment__actions"
-            >
-              <li>
-                <span>
-                  <i
-                    class="t-icon t-icon-thumb-up"
-                  />
-                  <span
-                    style="display: inline-block; margin-left: 6px; line-height: 15px;"
-                  >
-                    6
-                  </span>
-                </span>
-              </li>
-              <li>
-                <span>
-                  <i
-                    class="t-icon t-icon-chat"
-                  />
-                  <span
-                    style="display: inline-block; margin-left: 6px; line-height: 15px;"
-                  >
-                    回复
-                  </span>
-                </span>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -544,7 +493,7 @@ exports[`reply.jsx 1`] = `
           <span
             class="t-comment__time"
           >
-            09月27日 10:05
+            今天16:38
           </span>
         </div>
         <div
@@ -617,13 +566,13 @@ exports[`reply.jsx 1`] = `
                   style="display: inline-block; margin: 0px 4px;"
                 />
                 <span>
-                  评论作者名B
+                  评论作者名A
                 </span>
               </span>
               <span
                 class="t-comment__time"
               >
-                09月27日 10:05
+                今天16:38
               </span>
             </div>
             <div

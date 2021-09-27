@@ -1,6 +1,5 @@
 import React from 'react';
 import { Comment, IconFont } from '@tencent/tdesign-react';
-import moment from 'moment'
 
 export default function OperationComment() {
   const actionTextStyle = {
@@ -24,7 +23,7 @@ export default function OperationComment() {
     <Comment
       avatar="https://tdesign.gtimg.com/list-icon.png"
       author="评论作者名"
-      datetime={moment().format('MM[月]DD[日] HH:mm')}
+      datetime="今天16:38"
       content="评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。"
       actions={actions}
     />

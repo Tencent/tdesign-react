@@ -1,6 +1,5 @@
 import React from 'react';
 import { Comment, IconFont, List } from '@tencent/tdesign-react';
-import moment from 'moment'
 
 const { ListItem } = List
 
@@ -27,7 +26,7 @@ export default function ListComment() {
       id: 'A',
       avatar: "https://tdesign.gtimg.com/list-icon.png",
       author: "评论作者名A",
-      datetime: moment().format('MM[月]DD[日] HH:mm'),
+      datetime: "今天16:38",
       content: "A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。",
       actions,
     },
@@ -35,7 +34,7 @@ export default function ListComment() {
       id: 'B',
       avatar: "https://tdesign.gtimg.com/list-icon.png",
       author: "评论作者名B",
-      datetime: moment().format('MM[月]DD[日] HH:mm'),
+      datetime: "今天16:38",
       content: "B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。",
       actions,
     },
@@ -43,7 +42,7 @@ export default function ListComment() {
       id: 'C',
       avatar: "https://tdesign.gtimg.com/list-icon.png",
       author: "评论作者名C",
-      datetime: moment().format('MM[月]DD[日] HH:mm'),
+      datetime: "今天16:38",
       content: "C评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。",
       actions,
     }
