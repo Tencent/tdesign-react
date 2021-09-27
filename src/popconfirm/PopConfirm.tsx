@@ -17,6 +17,7 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(
     return (
       <Popup
         {...props}
+        {...props.popupProps}
         ref={ref}
         visible={visible}
         onVisibleChange={setVisible}

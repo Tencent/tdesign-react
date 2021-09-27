@@ -7,13 +7,22 @@ import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
 
 const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
-  const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
+  const {
+    content,
+    cancelBtn,
+    confirmBtn,
+    icon,
+    theme = 'default',
+    onCancel = noop,
+    onConfirm = noop,
+    onClose = noop,
+  } = props;
   const { classPrefix } = useConfig();
 
   function renderIcon() {
     let color = '#0052D9';
     // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
-    const defaultIcon = theme === 'default' ? null : <InfoCircleFilledIcon />;
+    const defaultIcon = <InfoCircleFilledIcon />;
 
     switch (theme) {
       case 'warning': // 黄色

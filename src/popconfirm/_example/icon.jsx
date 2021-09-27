@@ -1,18 +1,31 @@
 import React from 'react';
-import { Button, InfoCircleFilledIcon, LogoGithubIcon, PopConfirm } from '@tencent/tdesign-react';
+import { Button, BrowseIcon, PopConfirm } from '@tencent/tdesign-react';
 
 export default function IconUsageExample() {
-  const $content = '请确认您要进行此操作';
-  const iconComponent = <InfoCircleFilledIcon style={{ marginRight: '8px' }} />;
-  const iconElement = () => <LogoGithubIcon style={{ marginRight: '8px' }} />;
   return (
     <>
-      <PopConfirm content={$content} icon={iconComponent}>
-        <Button theme="primary">使用VNode</Button>
-      </PopConfirm>
-      <PopConfirm content={$content} icon={iconElement}>
-        <Button theme="primary">使用Function</Button>
-      </PopConfirm>
+      <div>
+        <PopConfirm content={'普通事件通知类型偏向于确认'}>
+          <Button theme="primary">默认</Button>
+        </PopConfirm>
+        <PopConfirm
+          content={'事件通知类型偏向于提示'}
+          theme={'warning'}
+        >
+          <Button theme="warning">警告</Button>
+        </PopConfirm>
+        <PopConfirm
+          content={'事件通知类型偏向于高危提醒'}
+          theme={'danger'}
+        >
+          <Button theme="danger">危险</Button>
+        </PopConfirm>
+      </div>
+      <div>
+        <PopConfirm content={'基础气泡确认框文案示意文字按钮'} icon={<BrowseIcon />}>
+          <Button theme="primary">图标（属性）</Button>
+        </PopConfirm>
+      </div>
     </>
   );
 }
