@@ -7,6 +7,7 @@ import React, {
   isValidElement,
   useMemo,
   useImperativeHandle,
+  useRef,
 } from 'react';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
@@ -29,6 +30,7 @@ export interface PopupProps extends TdPopupProps {
 type PlacementDictionary = {
   [Key in TdPopupProps['placement']]: Popper.Placement;
 };
+
 const placementMap: PlacementDictionary = {
   top: 'top',
   'top-left': 'top-start',
@@ -68,13 +70,18 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
+  const contentRef = useRef(null);
+
   const [arrowRef, setArrowRef] = useState<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
     modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
-  useImperativeHandle(ref, (): any => ({ setVisible }));
+  useImperativeHandle(ref, (): any => ({
+    setVisible,
+    getContentRef: contentRef?.current,
+  }));
 
   const defaulstStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
@@ -130,6 +137,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
               [`${classPrefix}-popup-content--arrow`]: showArrow,
             })}
             style={overlayVisibleStyle}
+            ref={contentRef}
           >
             {showArrow ? (
               <div ref={setArrowRef} style={styles.arrow} className={`${classPrefix}-popup__arrow`} />

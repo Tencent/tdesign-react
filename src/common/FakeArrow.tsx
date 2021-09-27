@@ -5,14 +5,14 @@ import { ClassName } from '../_type/common';
 import useConfig from '../_util/useConfig';
 
 // 翻转箭头统一组件
-function FakeArrow(props: { overlayClassName?: ClassName; isActive?: boolean }) {
+function FakeArrow(props: { overlayClassName?: ClassName; isActive?: boolean; disabled?: boolean }) {
   const { classPrefix } = useConfig();
   return (
     <svg
       className={classNames(
         `${classPrefix}-fake-arrow`,
         {
-          [`${classPrefix}-fake-arrow--active`]: props?.isActive,
+          [`${classPrefix}-fake-arrow--active`]: props?.isActive && !props?.disabled,
         },
         props?.overlayClassName,
       )}

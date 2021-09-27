@@ -3,7 +3,7 @@
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-time-picker"
+    class="t-is-disabled t-time-picker"
   >
     <div
       class="t-time-picker__group t-input t-is-disabled t-input--suffix"
