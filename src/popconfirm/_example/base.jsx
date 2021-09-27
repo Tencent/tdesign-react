@@ -20,7 +20,7 @@ export default function BasicExample() {
       </PopConfirm>
       <PopConfirm
         content={'你看到了吗'}
-        confirmBtn={<Button theme={'primary'}>看到了</Button>}
+        confirmBtn={<Button theme={'primary'} variant={'outline'} size={'small'}>看到了</Button>}
         cancelBtn={null}
       >
         <Button theme="primary">点我看按钮</Button>

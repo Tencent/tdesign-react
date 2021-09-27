@@ -1,5 +1,6 @@
 import React from 'react';
 import isString from 'lodash/isString';
+import classNames from 'classnames';
 import Button from '../button/Button';
 import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
 import noop from '../_util/noop';
@@ -18,6 +19,9 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     onClose = noop,
   } = props;
   const { classPrefix } = useConfig();
+
+  const hideCancel = cancelBtn === null || cancelBtn === undefined;
+  const hideConfirm = confirmBtn === null || confirmBtn === undefined;
 
   function renderIcon() {
     let color = '#0052D9';
@@ -62,6 +66,10 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
       });
     }
 
+    if (hideCancel) {
+      return null;
+    }
+
     return (
       <Button
         size="small"
@@ -86,6 +94,10 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
       });
     }
 
+    if (hideConfirm) {
+      return null;
+    }
+
     return (
       <Button
         size="small"
@@ -107,8 +119,8 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         <div className={`${classPrefix}-popconfirm__inner`}>{content}</div>
       </div>
       <div className={`${classPrefix}-popconfirm__buttons`}>
-        {renderCancel()}
-        {renderConfirm()}
+        <span className={classNames(`${classPrefix}-popconfirm__cancel`)}>{renderCancel()}</span>
+        <span className={classNames(`${classPrefix}-popconfirm__confirm`)}>{renderConfirm()}</span>
       </div>
     </div>
   );
