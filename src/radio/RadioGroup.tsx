@@ -4,7 +4,7 @@ import useConfig from '../_util/useConfig';
 import { TdRadioGroupProps } from '../_type/components/radio';
 import useDefault from '../_util/useDefault';
 import { CheckContext, CheckContextValue } from '../common/Check';
-
+import Radio from './Radio';
 /**
  * RadioGroup 组件所接收的属性
  */
@@ -17,7 +17,16 @@ export interface RadioGroupProps extends TdRadioGroupProps {
  */
 const RadioGroup = (props: RadioGroupProps) => {
   const { classPrefix } = useConfig();
-  const { disabled, children, value, defaultValue, onChange, size = 'medium', variant = 'outline' } = props;
+  const {
+    disabled,
+    children,
+    value,
+    defaultValue,
+    onChange,
+    size = 'medium',
+    variant = 'outline',
+    options = [],
+  } = props;
 
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
   const [barStyle, setBarStyle] = useState({});
@@ -67,6 +76,22 @@ const RadioGroup = (props: RadioGroupProps) => {
     return <div style={barStyle} className={`${classPrefix}-radio-group-filled-bg-block`}></div>;
   };
 
+  const renderOptions = () =>
+    options.map((item) => {
+      if (typeof item === 'string' || typeof item === 'number') {
+        return (
+          <Radio value={item} key={item}>
+            {item}
+          </Radio>
+        );
+      }
+      return (
+        <Radio value={item.value} key={item.value} disabled={item.disabled}>
+          {item.label}
+        </Radio>
+      );
+    });
+
   return (
     <CheckContext.Provider value={context}>
       <div
@@ -77,7 +102,7 @@ const RadioGroup = (props: RadioGroupProps) => {
           [`${classPrefix}-radio-group-primary-filled`]: variant === 'primary-filled',
         })}
       >
-        {children}
+        {children || renderOptions()}
         {renderBlock()}
       </div>
     </CheckContext.Provider>

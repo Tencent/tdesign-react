@@ -42,7 +42,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const isVertical = layout === 'vertical';
 
     const renderVaule = Array.isArray(value) ? value : [min, value];
-    const start = (renderVaule[LEFT_NODE] - min) / max;
+    const start = (renderVaule[LEFT_NODE] - min) / (max - min);
     const width = (renderVaule[RIGHT_NODE] - renderVaule[LEFT_NODE]) / (max - min);
     const end = start + width;
 
@@ -83,12 +83,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const allDots = useMemo(() => {
       // 默认
       const result = [];
-      const gap = step / max;
       for (let i = min; i <= max; i += step) {
-        const index = (i - min) / step;
         result.push({
           value: i,
-          position: gap * index,
+          position: (i - min) / (max - min),
         });
       }
       return result;
@@ -100,7 +98,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const renderDots = isVertical ? dots.map((item) => ({ ...item, position: 1 - item.position })) : dots;
 
     const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
-      const resultValue = Math.max(Math.min(max, newValue), min);
+      let resultValue = Math.max(Math.min(max, newValue), min);
+      // 判断是否出现左值大于右值
+      if (nodeIndex === LEFT_NODE && newValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
+      // 判断是否出现右值大于左值
+      if (nodeIndex === RIGHT_NODE && newValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
       if (Array.isArray(value)) {
         const arrValue = value.slice();
         arrValue[nodeIndex] = resultValue;
@@ -144,13 +146,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           minDistance = diff;
         }
       }
-      let { value } = allDots[index];
+      const { value } = allDots[index];
       if (nodeIndex === undefined && range) {
         nearbyValueChange(value);
       } else {
-        // 防止溢出
-        if (nodeIndex === LEFT_NODE && value > renderVaule[RIGHT_NODE]) value = renderVaule[RIGHT_NODE];
-        if (nodeIndex === RIGHT_NODE && value < renderVaule[LEFT_NODE]) value = renderVaule[LEFT_NODE];
         handleInputChange(value, nodeIndex);
       }
     };

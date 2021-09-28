@@ -7,7 +7,7 @@ const MinAndMaxSlider = () => {
 
   return (
     <>
-      <Slider min={10} max={30} style={{ marginBottom: 50 }} value={value} onChange={setValue}></Slider>
+      <Slider min={0} max={10} style={{ marginBottom: 50 }} value={value} onChange={setValue}></Slider>
       <Slider min={10} max={30} value={rangeValue} onChange={setRangeValue} range></Slider>
     </>
   );
