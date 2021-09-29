@@ -6,8 +6,9 @@ import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
+import { PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
 
-const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
+const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => void }) => {
   const {
     content,
     cancelBtn,
@@ -60,7 +61,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     if (React.isValidElement(cancelBtn)) {
       return React.cloneElement(cancelBtn, {
         onClick: (e) => {
-          onClose();
+          onClose({ e, trigger: 'cancel' });
           cancelBtn.props?.onClick(e);
         },
       });
@@ -75,7 +76,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         size="small"
         variant="outline"
         onClick={(e) => {
-          onClose();
+          onClose({ e, trigger: 'cancel' });
           onCancel({ e });
         }}
       >
@@ -88,7 +89,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     if (React.isValidElement(confirmBtn)) {
       return React.cloneElement(confirmBtn, {
         onClick: (e) => {
-          onClose();
+          onClose({ e, trigger: 'confirm' });
           confirmBtn.props?.onClick(e);
         },
       });
@@ -103,7 +104,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         size="small"
         theme="primary"
         onClick={(e) => {
-          onClose();
+          onClose({ e, trigger: 'confirm' });
           onConfirm({ e });
         }}
       >

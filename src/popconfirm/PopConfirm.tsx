@@ -1,38 +1,38 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import Popup, { PopupProps } from '../popup/Popup';
+import Popup from '../popup/Popup';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
-import { TdPopconfirmProps } from '../_type/components/popconfirm';
+import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
 import PopContent from './PopContent';
 
-export interface PopConfirmProps extends TdPopconfirmProps, PopupProps {}
+export type PopConfirmProps = TdPopconfirmProps
 
-const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(
-  ({ overlayClassName, trigger = 'click', ...props }, ref) => {
-    const { classPrefix } = useConfig();
-    const [visible, setVisible] = useDefault(props.visible, false, props.onVisibleChange);
+const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, ref) => {
+  const { classPrefix } = useConfig();
+  const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 
-    return (
-      <Popup
-        {...props}
-        {...props.popupProps}
-        ref={ref}
-        visible={visible}
-        onVisibleChange={setVisible}
-        showArrow
-        trigger={trigger}
-        overlayClassName={classNames(`${classPrefix}-popconfirm`, overlayClassName)}
-        content={<PopContent {...props} onClose={() => setVisible(false, {})} />}
-      />
-    );
-  },
-);
+  return (
+    <Popup
+      ref={ref}
+      {...props}
+      visible={visible}
+      trigger="click"
+      onVisibleChange={setVisible}
+      overlayClassName={classNames(`${classPrefix}-popconfirm`)}
+      content={
+        <PopContent {...props} onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)} />
+      }
+      {...props.popupProps}
+    />
+  );
+});
 
 PopConfirm.displayName = 'PopConfirm';
 
 PopConfirm.defaultProps = {
+  showArrow: true,
   cancelBtn: '取消',
   confirmBtn: '确定',
   onCancel: noop,

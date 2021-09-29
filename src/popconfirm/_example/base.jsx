@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, PopConfirm, Message } from '@tencent/tdesign-react';
 
 export default function BasicExample() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const deleteClickHandler = () => {
     const msg = Message.info('提交中', 0);
