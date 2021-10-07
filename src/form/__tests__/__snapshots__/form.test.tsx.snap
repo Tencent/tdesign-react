@@ -299,7 +299,7 @@ exports[`base.jsx 1`] = `
           class="t-form__controls--content"
         >
           <div
-            class="t-check-group"
+            class="t-checkbox-group"
           >
             <label
               class="t-checkbox"
@@ -980,7 +980,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-check-group"
+              class="t-checkbox-group"
             >
               <label
                 class="t-checkbox"

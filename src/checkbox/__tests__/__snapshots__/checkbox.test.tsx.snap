@@ -196,7 +196,7 @@ exports[`group.jsx 1`] = `
       </label>
     </div>
     <div
-      class="t-check-group"
+      class="t-checkbox-group"
     >
       <label
         class="t-checkbox t-is-checked"
@@ -402,7 +402,7 @@ exports[`max.jsx 1`] = `
       选中值: 北京
     </div>
     <div
-      class="t-check-group"
+      class="t-checkbox-group"
     >
       <label
         class="t-checkbox t-is-checked"

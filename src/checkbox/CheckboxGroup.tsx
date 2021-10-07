@@ -64,7 +64,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   };
 
   return (
-    <div className={classNames(`${classPrefix}-check-group`, className)} style={style}>
+    <div className={classNames(`${classPrefix}-checkbox-group`, className)} style={style}>
       <CheckContext.Provider value={context}>{children}</CheckContext.Provider>
     </div>
   );
