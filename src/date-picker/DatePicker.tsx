@@ -28,6 +28,8 @@ const TIME_FORMAT = 'HH:mm:ss';
 
 const DatePicker = (props: DatePickerProps) => {
   const {
+    className,
+    style,
     allowInput,
     clearable,
     disabled,
@@ -365,12 +367,12 @@ const DatePicker = (props: DatePickerProps) => {
 
   const triggerClassName = classNames(`${classPrefix}-form-controls`, { [CLASSNAMES.STATUS.active]: popupShow });
   const defaultSuffixIcon = enableTimePicker ? <IconTime /> : <IconCalendar />;
-  const datePickerClassName = classNames(`${classPrefix}-date-picker`, CLASSNAMES.SIZE[size], {
+  const datePickerClassName = classNames(`${classPrefix}-date-picker`, className, CLASSNAMES.SIZE[size], {
     [`${classPrefix}-date-picker--month-picker`]: mode === 'year' || mode === 'month',
   });
 
   return (
-    <div className={datePickerClassName} ref={datePickerRef}>
+    <div className={datePickerClassName} ref={datePickerRef} style={style}>
       <Popup
         trigger="context-menu"
         placement="bottom-left"
