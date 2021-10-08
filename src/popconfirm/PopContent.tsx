@@ -8,7 +8,7 @@ import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
 import { PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
 
-const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => void }) => {
+const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
   const {
     content,
     cancelBtn,

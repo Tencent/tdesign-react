@@ -7,7 +7,7 @@ import useDefault from '../_util/useDefault';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
 import PopContent from './PopContent';
 
-export type PopConfirmProps = TdPopconfirmProps
+export type PopConfirmProps = TdPopconfirmProps;
 
 const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, ref) => {
   const { classPrefix } = useConfig();
@@ -19,7 +19,7 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, re
       {...props}
       visible={visible}
       trigger="click"
-      onVisibleChange={setVisible}
+      onVisibleChange={(visible) => setVisible(visible)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={
         <PopContent {...props} onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)} />
