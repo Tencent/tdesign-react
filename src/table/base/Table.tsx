@@ -12,9 +12,12 @@ import TableEmptyBody from './TableEmptyBody';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableLoadingBody from './TableLoadingBody';
+import TableAsyncLoadingBody from './TableAsyncLoadingBody';
+
 import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
+import Loading from '../../loading';
 
 export interface ExpandProps {
   onTrClick?: Function;
@@ -44,6 +47,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     renderExpandRow,
     onScrollX,
     onScrollY,
+    asyncLoading,
   } = props;
 
   const [columns, flattenColumns] = useColumns(props);
@@ -120,32 +124,40 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     }
     return data;
   }, [data, innerPageSize, hasPagination, innerCurrent]);
-  const isEmpty = !data.length;
 
   // ==================== render ====================
-  let tableBodyContent: ReactNode;
-  switch (true) {
-    case loading: {
-      tableBodyContent = (
+  const isEmpty = !data.length;
+  function renderTableBodyAndTableFooter() {
+    // eslint-disable-next-line
+    if (!!loading) {
+      return isEmpty ? (
         <TableFooter>
-          <TableLoadingBody />
+          <TableEmptyBody empty={null} />
         </TableFooter>
+      ) : (
+        <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
       );
-      break;
     }
-    case isEmpty: {
-      tableBodyContent = (
+    // eslint-disable-next-line
+    if (!!asyncLoading) {
+      return (
+        <>
+          <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
+          <TableFooter colspan={columns.length}>
+            <TableAsyncLoadingBody {...props} />
+          </TableFooter>
+        </>
+      );
+    }
+    if (isEmpty) {
+      return (
         <TableFooter>
           <TableEmptyBody empty={empty} />
         </TableFooter>
       );
-      break;
     }
-    default: {
-      tableBodyContent = (
-        <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
-      );
-    }
+
+    return <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />;
   }
 
   let paginationNode: ReactNode;
@@ -182,10 +194,10 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   function getTable(params?: { enableHeader?: boolean; enableBody?: boolean }): ReactNode {
     const { enableHeader = true, enableBody = true } = params || {};
     return (
-      <table style={{ tableLayout }}>
+      <table style={{ tableLayout, height: '100%' }}>
         <TableColGroup columns={columns} />
         {enableHeader ? <TableHeader<D> columns={columns} /> : null}
-        {enableBody ? tableBodyContent : null}
+        {enableBody ? renderTableBodyAndTableFooter() : null}
       </table>
     );
   }
@@ -208,8 +220,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
         ref={scrollBodyRef}
         className={`${classPrefix}-table__body`}
         style={{
-          height,
-          maxHeight,
+          height: isNaN(Number(height)) ? height : `${Number(height)}px`,
+          maxHeight: isNaN(Number(maxHeight)) ? maxHeight : `${Number(maxHeight)}px`,
           width: hasFixedColumns ? '100%' : undefined,
         }}
         {...(hasFixedColumns
@@ -264,21 +276,28 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       })}
     >
       <TableContextProvider value={table}>
-        <div
-          ref={tableContentRef}
-          className={classNames(`${classPrefix}-table-content`, {
-            [`${classPrefix}-table-content--scrollable-to-right`]: scrollableToRight,
-            [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
-          })}
-          style={{ overflow: 'auto' }}
-          {...(hasFixedColumns
-            ? {
-                onScroll: throttle(handleScroll, 100),
-              }
-            : {})}
+        <Loading
+          loading={!!loading}
+          showOverlay
+          indicator={loading === true}
+          text={typeof loading !== 'boolean' ? <TableLoadingBody {...props} /> : null}
         >
-          {!fixedHeader ? getTable() : getTableWithFixedHeader()}
-        </div>
+          <div
+            ref={tableContentRef}
+            className={classNames(`${classPrefix}-table-content`, {
+              [`${classPrefix}-table-content--scrollable-to-right`]: scrollableToRight,
+              [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
+            })}
+            style={{ overflow: 'auto' }}
+            {...(hasFixedColumns
+              ? {
+                  onScroll: throttle(handleScroll, 100),
+                }
+              : {})}
+          >
+            {!fixedHeader ? getTable() : getTableWithFixedHeader()}
+          </div>
+        </Loading>
         {hasPagination && paginationNode}
       </TableContextProvider>
     </div>

@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
@@ -20,7 +20,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-  const transitionRef = useRef(null);
+
   const {
     empty,
     // defaultExpanded,
@@ -52,7 +52,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
-    const expanded = node.setExpanded(isExpanded, { directly: true });
+    const expanded = node.setExpanded(isExpanded);
     const treeNodeModel = node?.getModel();
 
     onExpand?.(expanded, {
@@ -62,14 +62,14 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   });
 
   const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
-    const actived = node.setActived(isActived, { directly: true });
+    const actived = node.setActived(isActived);
     const treeNodeModel = node?.getModel();
     onActive?.(actived, { node: treeNodeModel });
     return actived;
   });
 
   const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
-    const checked = node.setChecked(isChecked, { directly: true });
+    const checked = node.setChecked(isChecked);
     const treeNodeModel = node?.getModel();
     onChange?.(checked, { node: treeNodeModel });
     return checked;
@@ -198,12 +198,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
       <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
         {visibleNodes.map((node) => (
           // https://github.com/reactjs/react-transition-group/issues/668
-          <CSSTransition
-            key={node.value}
-            timeout={transitionDuration}
-            classNames={transitionClassNames}
-            nodeRef={transitionRef}
-          >
+          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
             <TreeItem
               node={node}
               empty={empty}

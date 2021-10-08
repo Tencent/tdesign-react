@@ -28,6 +28,16 @@ export default function BaseForm() {
     });
   }
 
+  // 自定义异步校验器
+  function validateName(name) {
+    const names = ['张三', '李四', '王五'];
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(!names.includes(name));
+      }, 1000);
+  });
+}
+
   // 自定义校验器，不同的值输出不同的校验结果。支持异步校验（文案选自某密码重置站点，如有侵权，请联系我们删除）
   function passwordValidator(val) {
     if (val.length > 0 && val.length <= 2) {
@@ -43,6 +53,7 @@ export default function BaseForm() {
     account: [
       { required: true, message: '姓名必填', type: 'error' },
       { min: 2, message: '至少需要两个字', type: 'error' },
+      { validator: validateName, message: '该用户名已存在', type: 'error', trigger: 'blur' },
     ],
     password: [
       { required: true, message: '密码必填', type: 'error' },
