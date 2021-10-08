@@ -391,8 +391,7 @@ exports[`max.jsx 1`] = `
           class="t-input"
         >
           <input
-            autocomplete="off"
-            class="t-input__inner t-input-number-text-align"
+            class="t-input__inner"
             value="1"
           />
         </div>
