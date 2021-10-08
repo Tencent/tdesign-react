@@ -62,7 +62,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVis
       return React.cloneElement(cancelBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'cancel' });
-          cancelBtn.props?.onClick(e);
+          cancelBtn.props?.onClick?.(e);
         },
       });
     }
@@ -90,7 +90,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVis
       return React.cloneElement(confirmBtn, {
         onClick: (e) => {
           onClose({ e, trigger: 'confirm' });
-          confirmBtn.props?.onClick(e);
+          confirmBtn.props?.onClick?.(e);
         },
       });
     }
