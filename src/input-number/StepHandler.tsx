@@ -8,7 +8,15 @@ import AddIcon from '../icon/icons/AddIcon';
 import useCommonClassName from '../_util/useCommonClassName';
 import Button from '../button';
 
-import { StepHandlerProps } from './InputNumberProps';
+import { InputNumberProps, ChangeContext } from './InputNumber';
+
+export interface StepHandlerProps {
+  prefixClassName: string;
+  theme: InputNumberProps['theme'];
+  onStep: React.Dispatch<ChangeContext>;
+  disabledDecrease: boolean;
+  disabledIncrease: boolean;
+}
 
 export default function StepHandler(props: StepHandlerProps) {
   const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease } = props;

@@ -16,14 +16,6 @@ export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
 export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
-export interface StepHandlerProps {
-  prefixClassName: string;
-  theme: InputNumberProps['theme'];
-  onStep: React.Dispatch<ChangeContext>;
-  disabledDecrease: boolean;
-  disabledIncrease: boolean;
-}
-
 const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     className,
