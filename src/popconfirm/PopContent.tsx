@@ -1,19 +1,33 @@
 import React from 'react';
 import isString from 'lodash/isString';
+import classNames from 'classnames';
 import Button from '../button/Button';
 import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
+import { PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
 
-const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
-  const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
+const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
+  const {
+    content,
+    cancelBtn,
+    confirmBtn,
+    icon,
+    theme = 'default',
+    onCancel = noop,
+    onConfirm = noop,
+    onClose = noop,
+  } = props;
   const { classPrefix } = useConfig();
+
+  const hideCancel = cancelBtn === null || cancelBtn === undefined;
+  const hideConfirm = confirmBtn === null || confirmBtn === undefined;
 
   function renderIcon() {
     let color = '#0052D9';
     // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
-    const defaultIcon = theme === 'default' ? null : <InfoCircleFilledIcon />;
+    const defaultIcon = <InfoCircleFilledIcon />;
 
     switch (theme) {
       case 'warning': // 黄色
@@ -47,10 +61,14 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     if (React.isValidElement(cancelBtn)) {
       return React.cloneElement(cancelBtn, {
         onClick: (e) => {
-          onClose();
-          cancelBtn.props?.onClick(e);
+          onClose({ e, trigger: 'cancel' });
+          cancelBtn.props?.onClick?.(e);
         },
       });
+    }
+
+    if (hideCancel) {
+      return null;
     }
 
     return (
@@ -58,7 +76,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         size="small"
         variant="outline"
         onClick={(e) => {
-          onClose();
+          onClose({ e, trigger: 'cancel' });
           onCancel({ e });
         }}
       >
@@ -71,10 +89,14 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
     if (React.isValidElement(confirmBtn)) {
       return React.cloneElement(confirmBtn, {
         onClick: (e) => {
-          onClose();
-          confirmBtn.props?.onClick(e);
+          onClose({ e, trigger: 'confirm' });
+          confirmBtn.props?.onClick?.(e);
         },
       });
+    }
+
+    if (hideConfirm) {
+      return null;
     }
 
     return (
@@ -82,7 +104,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         size="small"
         theme="primary"
         onClick={(e) => {
-          onClose();
+          onClose({ e, trigger: 'confirm' });
           onConfirm({ e });
         }}
       >
@@ -98,8 +120,8 @@ const PopContent = (props: PopConfirmProps & { onClose?: () => void }) => {
         <div className={`${classPrefix}-popconfirm__inner`}>{content}</div>
       </div>
       <div className={`${classPrefix}-popconfirm__buttons`}>
-        {renderCancel()}
-        {renderConfirm()}
+        <span className={classNames(`${classPrefix}-popconfirm__cancel`)}>{renderCancel()}</span>
+        <span className={classNames(`${classPrefix}-popconfirm__confirm`)}>{renderConfirm()}</span>
       </div>
     </div>
   );
