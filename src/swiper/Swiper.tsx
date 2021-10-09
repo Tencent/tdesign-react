@@ -59,8 +59,8 @@ const Swiper = (props: SwiperProps) => {
       // 事件通知
       onChange(index % childrenLength);
       // 设置内部 index
-      setCurrentIndex(index);
       setAnimation(true);
+      setCurrentIndex(index);
     },
     [childrenLength, onChange],
   );
@@ -68,14 +68,17 @@ const Swiper = (props: SwiperProps) => {
   // 定时器
   const setTimer = useCallback(() => {
     if (autoplay && interval > 0) {
-      swiperTimer.current = setInterval(() => {
-        swiperTo(currentIndex + 1);
-      }, interval);
+      swiperTimer.current = setTimeout(
+        () => {
+          swiperTo(currentIndex + 1);
+        },
+        currentIndex === 0 ? interval - (duration + 50) : interval, // 当 index 为 0 的时候，表明刚从克隆的最后一项跳转过来，已经经历了duration + 50 的间隔时间，减去即可
+      );
     }
-  }, [autoplay, currentIndex, interval, swiperTo]);
+  }, [autoplay, currentIndex, duration, interval, swiperTo]);
   const clearTimer = useCallback(() => {
     if (swiperTimer.current) {
-      clearInterval(swiperTimer.current);
+      clearTimeout(swiperTimer.current);
       swiperTimer.current = null;
     }
   }, []);
@@ -103,7 +106,7 @@ const Swiper = (props: SwiperProps) => {
       if (currentIndex + 1 >= swiperItemLength) {
         setCurrentIndex(0);
       }
-    }, duration + 50);
+    }, duration + 50); // 多 50ms 的间隔时间参考了 react-slick 的动画间隔取值
   }, [currentIndex, swiperItemLength, duration, direction]);
 
   // 鼠标移入移出事件
@@ -116,6 +119,8 @@ const Swiper = (props: SwiperProps) => {
     setTimer();
   };
 
+  // 构造 css 对象
+  // 加入了 translateZ 属性是为了使移动的 div 单独列为一个 layer 以提高滑动性能，参考：https://segmentfault.com/a/1190000010364647
   let wrapperStyle = {};
   if (direction === 'vertical') {
     wrapperStyle = {
