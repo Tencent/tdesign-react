@@ -8,7 +8,7 @@ import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
-const historyVersion = ['0.13.0'];
+const historyVersion = ['0.14.3'];
 const versionOptions = [
   { value: packageJson.version, label: packageJson.version },
   ...historyVersion.map((v) => ({ value: v, label: v })),
@@ -77,9 +77,9 @@ function Components(props) {
     <td-doc-layout>
       <td-header ref={tdHeaderRef} slot="header">
         <td-doc-search slot="search" ref={tdDocSearch} />
-        <div slot="links">
+        {/* <div slot="links">
           <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
-        </div>
+        </div> */}
       </td-header>
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
