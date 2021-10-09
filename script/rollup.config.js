@@ -55,8 +55,7 @@ const getPlugins = ({
       tsconfig: 'tsconfig.json',
     }),
     babel({
-      babelHelpers: 'bundled',
-      presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+      babelHelpers: 'runtime',
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
     }),
     json(),
