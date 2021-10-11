@@ -11,45 +11,41 @@ export default function AddTabs() {
     },
   ]);
   return (
-    <>
-      <div className="tdegsin-demo-tabs">
-        <Tabs
-          placement={'top'}
-          size={'medium'}
-          disabled={false}
-          theme={'card'}
-          defaultValue={0}
-          addable
-          onRemove={({ value }) => {
-            const newPanels = panels.filter((panel) => panel.value !== value);
-            setPanels(newPanels);
-          }}
-          onAdd={() => {
-            const newPanels = panels.concat({
-              value: panels.length + 1,
-              label: `选项卡${panels.length + 1}`,
+    <Tabs
+      placement={'top'}
+      size={'medium'}
+      disabled={false}
+      theme={'card'}
+      defaultValue={0}
+      addable
+      onRemove={({ value }) => {
+        const newPanels = panels.filter((panel) => panel.value !== value);
+        setPanels(newPanels);
+      }}
+      onAdd={() => {
+        const newPanels = panels.concat({
+          value: panels.length + 1,
+          label: `选项卡${panels.length + 1}`,
+        });
+        setPanels(newPanels);
+      }}
+    >
+      {panels.map(({ value, label }, index) => (
+        <TabPanel
+          key={value}
+          value={value}
+          label={label}
+          removable={panels.length > 1}
+          onRemove={() => {
+            setPanels((panels) => {
+              panels.splice(index, 1);
+              return panels;
             });
-            setPanels(newPanels);
           }}
         >
-          {panels.map(({ value, label }, index) => (
-            <TabPanel
-              key={value}
-              value={value}
-              label={label}
-              removable={panels.length > 1}
-              onRemove={() => {
-                setPanels((panels) => {
-                  panels.splice(index, 1);
-                  return panels;
-                });
-              }}
-            >
-              <div className="tabs-content">{label}</div>
-            </TabPanel>
-          ))}
-        </Tabs>
-      </div>
-    </>
+          <div className="tabs-content" style={{ margin: 20 }}>{label}</div>
+        </TabPanel>
+      ))}
+    </Tabs>
   );
 }

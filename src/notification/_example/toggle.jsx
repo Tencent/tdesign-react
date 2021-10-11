@@ -14,8 +14,6 @@ export default function NotificationExample() {
   }, []);
 
   return (
-    <>
-      <Button onClick={openNotification}>自由控制关闭时机</Button>
-    </>
+    <Button onClick={openNotification}>自由控制关闭时机</Button>
   );
 }

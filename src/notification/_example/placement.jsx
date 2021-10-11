@@ -19,8 +19,8 @@ export default function NotificationExample() {
   );
 
   return (
-    <>
-      <div>
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-row">
         <Input
           placeholder="请输入横向偏移量"
           value={offsetX}
@@ -34,11 +34,14 @@ export default function NotificationExample() {
           style={{ width: '130px', display: 'inline-block', margin: '0 20px 36px 0' }}
         ></Input>
       </div>
-      <Button onClick={() => openNotification('top-left')}>左上角</Button>
-      <Button onClick={() => openNotification('top-right')}>右上角</Button>
-      <br />
-      <Button onClick={() => openNotification('bottom-left')}>左下角</Button>
-      <Button onClick={() => openNotification('bottom-right')}>右下角</Button>
-    </>
+      <div className="tdesign-demo-block-row">
+        <Button onClick={() => openNotification('top-left')}>左上角</Button>
+        <Button onClick={() => openNotification('top-right')}>右上角</Button>
+      </div>
+      <div className="tdesign-demo-block-row">
+        <Button onClick={() => openNotification('bottom-left')}>左下角</Button>
+        <Button onClick={() => openNotification('bottom-right')}>右下角</Button>
+      </div>
+    </div>
   );
 }

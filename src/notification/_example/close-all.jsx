@@ -25,9 +25,9 @@ export default function NotificationExample() {
   }, []);
 
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Button onClick={openMore}>点击打开多个消息</Button>
       <Button onClick={closeAll}>点击关闭多个消息</Button>
-    </>
+    </div>
   );
 }

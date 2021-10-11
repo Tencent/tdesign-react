@@ -3,7 +3,7 @@
 exports[`attach.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-design-popup-attach"
+    class="tdesign-demo-block-row"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -85,24 +85,28 @@ exports[`disabled.jsx 1`] = `
 
 exports[`overlay-style.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      click我试试
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        click我试试
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      根据 trigger 元素定制 overlayStyle
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        根据 trigger 元素定制 overlayStyle
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -238,7 +242,7 @@ exports[`placements.jsx 1`] = `
 exports[`triggers.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="display: flex; align-items: center;"
+    class="tdesign-demo-block-row"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -251,7 +255,7 @@ exports[`triggers.jsx 1`] = `
     </button>
     <div
       class="t-input"
-      style="width: 200px; margin: 0px 16px 10px 0px;"
+      style="width: 200px;"
     >
       <input
         class="t-input__inner"

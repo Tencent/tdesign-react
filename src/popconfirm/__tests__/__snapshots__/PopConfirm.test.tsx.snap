@@ -353,89 +353,101 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      删除订单
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        删除订单
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      点我看按钮
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        点我看按钮
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      提交审核
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
-    disabled=""
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        提交审核
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+      disabled=""
     >
-      禁用按钮
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        禁用按钮
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`button.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      按钮样式（属性-字符串）
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        按钮样式（属性-字符串）
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      按钮样式（TNode）
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        按钮样式（TNode）
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`describe.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      自定义content
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-outline"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        自定义content
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-danger t-button--variant-outline"
     >
-      自定义content
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        自定义content
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -455,9 +467,127 @@ exports[`extends.jsx 1`] = `
 
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          默认
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-warning t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          警告
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-danger t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          危险
+        </span>
+      </button>
+    </div>
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          图标（属性）
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`inherit.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        浮层出现在下方
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        浮层出现在右侧
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        Left
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        Top
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        Bottom
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
       <span
         class="t-button__text"
@@ -466,7 +596,16 @@ exports[`icon.jsx 1`] = `
       </span>
     </button>
     <button
-      class="t-button t-button--theme-warning t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
+    >
+      <span
+        class="t-button__text"
+      >
+        提示
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-danger t-button--variant-base"
     >
       <span
         class="t-button__text"
@@ -480,116 +619,9 @@ exports[`icon.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        危险
+        错误
       </span>
     </button>
   </div>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-    >
-      <span
-        class="t-button__text"
-      >
-        图标（属性）
-      </span>
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`inherit.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      浮层出现在下方
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      浮层出现在右侧
-    </span>
-  </button>
-</DocumentFragment>
-`;
-
-exports[`placement.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      Left
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      Top
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      Bottom
-    </span>
-  </button>
-</DocumentFragment>
-`;
-
-exports[`theme.jsx 1`] = `
-<DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
-  >
-    <span
-      class="t-button__text"
-    >
-      默认
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      提示
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      警告
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
-    >
-      错误
-    </span>
-  </button>
 </DocumentFragment>
 `;

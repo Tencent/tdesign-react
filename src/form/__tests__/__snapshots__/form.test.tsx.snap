@@ -624,7 +624,6 @@ exports[`layout.jsx 1`] = `
     >
       <div
         class="t-form__item"
-        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__name t-form__label--right"
@@ -653,7 +652,6 @@ exports[`layout.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
-        style="width: 30%;"
       >
         <div
           class="t-form__label t-form-item__password t-form__label--right"

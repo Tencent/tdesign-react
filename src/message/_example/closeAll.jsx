@@ -3,7 +3,7 @@ import { Message, Button } from "@tencent/tdesign-react";
 
 export default function () {
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Button
         onClick={() => {
           Message.info("这是第一条消息");
@@ -21,6 +21,6 @@ export default function () {
       >
         点击关闭所有消息
       </Button>
-    </>
+    </div>
   );
 }

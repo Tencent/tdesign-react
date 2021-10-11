@@ -3,7 +3,7 @@ import { Button, PopConfirm } from '@tencent/tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <PopConfirm
         theme={'default'}
         content={'您确定要提交吗'}
@@ -20,6 +20,6 @@ export default function ButtonExample() {
       >
         <Button theme="primary">按钮样式（TNode）</Button>
       </PopConfirm>
-    </>
+    </div>
   );
 }
