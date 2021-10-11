@@ -94,6 +94,9 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   const onPageSizeChange = (pageSize: number, pageInfo: PageInfo) => {
     setInnerPageSize(pageSize);
+    const { current } = pageInfo;
+    const newDataSource = data.slice((current - 1) * pageSize, current * pageSize);
+    onPageChange?.(pageInfo, newDataSource);
     // 处理pagination参数的事件回调
     pagination?.onChange?.(pageInfo);
     pagination?.onPageSizeChange?.(pageSize, pageInfo);
