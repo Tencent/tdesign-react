@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Menu, ViewListIcon, ChartIcon } from '@tencent/tdesign-react';
+import { Menu } from '@tencent/tdesign-react';
+import { ViewListIcon, ChartIcon } from '@tencent/tdesign-icons-react';
 
 const { MenuGroup, MenuItem } = Menu;
 

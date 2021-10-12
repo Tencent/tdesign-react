@@ -4066,7 +4066,7 @@ exports[`controller-config.jsx 1`] = `
                         class="t-select-left-icon"
                       >
                         <svg
-                          class="t-icon t-icon-chart-bar"
+                          class="t-icon t-icon-chart-bar t-size-m"
                         >
                           <use
                             xlink:href="#t-icon-chart-bar"
@@ -4115,7 +4115,7 @@ exports[`controller-config.jsx 1`] = `
                         class="t-select-left-icon"
                       >
                         <svg
-                          class="t-icon t-icon-discount"
+                          class="t-icon t-icon-discount t-size-m"
                         >
                           <use
                             xlink:href="#t-icon-discount"

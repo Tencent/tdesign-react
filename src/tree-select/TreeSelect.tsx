@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
+import { CloseCircleFilledIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import { StyledProps, TreeOptionData } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';
@@ -13,8 +14,6 @@ import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 
 import Popup, { PopupProps } from '../popup';
-import IconCloseCircleFilled from '../icon/icons/CloseCircleFilledIcon';
-import IconLoading from '../icon/icons/LoadingIcon';
 import Tag from '../tag';
 import Tree, { TreeNodeModel, TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
@@ -415,10 +414,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
             <FakeArrow overlayClassName={`${classPrefix}-select-right-icon`} isActive={visible} disabled={disabled} />
           )}
           {showClose && !showLoading && (
-            <IconCloseCircleFilled className={`${classPrefix}-select-right-icon`} size={size} onClick={handleClear} />
+            <CloseCircleFilledIcon className={`${classPrefix}-select-right-icon`} size={size} onClick={handleClear} />
           )}
           {showLoading && (
-            <IconLoading className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} size={size} />
+            <LoadingIcon className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} size={size} />
           )}
         </div>
       </Popup>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tag, DiscountIcon } from '@tencent/tdesign-react';
+import { Tag } from '@tencent/tdesign-react';
+import { DiscountIcon } from '@tencent/tdesign-icons-react';
 
 export default function ThemeTagExample() {
   return (

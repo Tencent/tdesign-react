@@ -1,9 +1,7 @@
 import React from 'react';
-import useConfig from '../../_util/useConfig';
+import { ChevronLeftIcon, ChevronRightIcon, RoundIcon } from '@tencent/tdesign-icons-react';
 import Button from '../../button';
-import IconChevronLeft from '../../icon/icons/ChevronLeftIcon';
-import IconChevronRight from '../../icon/icons/ChevronRightIcon';
-import IconRound from '../../icon/icons/RoundIcon';
+import useConfig from '../../_util/useConfig';
 
 export interface DatePickerHeaderProps {
   year: number;
@@ -91,21 +89,21 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           title={preLabel}
           variant="text"
           onClick={() => onBtnClick(-1)}
-          icon={<IconChevronLeft />}
+          icon={<ChevronLeftIcon />}
           className={`${classPrefix}-date-picker-header-controller__btn`}
         ></Button>
         <Button
           title={now}
           variant="text"
           onClick={() => onBtnClick(0)}
-          icon={<IconRound />}
+          icon={<RoundIcon />}
           className={`${classPrefix}-date-picker-header-controller__btn ${classPrefix}-date-picker-header-controller__btn--now`}
         ></Button>
         <Button
           title={nextLabel}
           variant="text"
           onClick={() => onBtnClick(1)}
-          icon={<IconChevronRight />}
+          icon={<ChevronRightIcon />}
           className={`${classPrefix}-date-picker-header-controller__btn`}
         ></Button>
       </span>

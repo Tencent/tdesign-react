@@ -3,14 +3,13 @@ import isObject from 'lodash/isObject';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
+import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdDatePickerProps } from '../_type/components/date-picker';
 import useCommonClassName from '../_util/useCommonClassName';
 import useClickOutside from '../_util/useClickOutside';
 
-import IconTime from '../icon/icons/TimeIcon';
-import IconCalendar from '../icon/icons/CalendarIcon';
 import Popup from '../popup';
 import Input from '../input';
 import Button from '../button';

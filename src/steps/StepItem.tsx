@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
+import { CloseIcon, CheckIcon } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import CloseIcon from '../icon/icons/CloseIcon';
-import CheckIcon from '../icon/icons/CheckIcon';
 import { TdStepItemProps } from '../_type/components/steps';
 import { StyledProps } from '../_type';
 import StepsContext from './StepsContext';

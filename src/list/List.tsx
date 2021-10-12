@@ -1,6 +1,6 @@
 import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
-import LoadingIcon from '../icon/icons/LoadingIcon';
+import { LoadingIcon } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';

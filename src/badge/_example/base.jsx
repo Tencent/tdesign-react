@@ -1,5 +1,6 @@
 import React from 'react';
-import { Badge, UserIcon, Button } from '@tencent/tdesign-react';
+import { Badge, Button } from '@tencent/tdesign-react';
+import { UserIcon } from '@tencent/tdesign-icons-react';
 
 export default function BadgeExample() {
   return (

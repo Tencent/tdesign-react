@@ -1,10 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import ChevronUpIcon from '../icon/icons/ChevronUpIcon';
-import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
-import RemoveIcon from '../icon/icons/RemoveIcon';
-import AddIcon from '../icon/icons/AddIcon';
+import { ChevronUpIcon, ChevronDownIcon, RemoveIcon, AddIcon } from '@tencent/tdesign-icons-react';
 import useCommonClassName from '../_util/useCommonClassName';
 import Button from '../button';
 

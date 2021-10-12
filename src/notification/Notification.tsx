@@ -1,7 +1,5 @@
 import * as React from 'react';
-import CloseIcon from '../icon/icons/CloseIcon';
-import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '@tencent/tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 

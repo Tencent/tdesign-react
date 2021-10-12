@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
+import { FilterIcon as TIconFilter } from '@tencent/tdesign-icons-react';
 import { Popup } from '../../popup';
 import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
@@ -9,7 +10,6 @@ import { Input } from '../../input';
 import { TElement } from '../../_type/common';
 import { Filter, FilterValue, PrimaryTableCol, DataType } from '../../_type/components/table';
 import { ConfigContext } from '../../config-provider';
-import TIconFilter from '../../icon/icons/FilterIcon';
 
 interface Props {
   columns?: Array<PrimaryTableCol>;
@@ -24,7 +24,7 @@ const renderIcon = (classPrefix: string, icon: TElement) => {
   if (result) {
     result = <span className={`${classPrefix}-table-filter-icon`}>{result}</span>;
   } else {
-    result = <TIconFilter name="filter" className={`${classPrefix}-table-filter-icon`} />;
+    result = <TIconFilter className={`${classPrefix}-table-filter-icon`} />;
   }
   return result;
 };

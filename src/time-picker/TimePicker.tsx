@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import classNames from 'classnames';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
+import { TimeIcon } from '@tencent/tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
@@ -10,7 +11,6 @@ import noop from '../_util/noop';
 import Popup from '../popup';
 import Input from '../input';
 import TimeRangePicker from './TimeRangePicker';
-import TIconTime from '../icon/icons/TimeIcon';
 import TimePickerPanel from './panel/TimePickerPanel';
 import InputItems from './InputItems';
 
@@ -98,7 +98,7 @@ const TimePicker = forwardRefWithStatics(
             onClear={handleClear}
             placeholder={!value ? placeholder : undefined}
             className={inputClasses}
-            suffixIcon={<TIconTime />}
+            suffixIcon={<TimeIcon />}
           />
           {value ? (
             <InputItems

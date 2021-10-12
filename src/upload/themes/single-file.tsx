@@ -1,8 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import classNames from 'classnames';
+import { CloseCircleFilledIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
 import Loading from '../../loading';
-import CloseCircleFilledIcon from '../../icon/icons/CloseCircleFilledIcon';
-import ErrorCircleFilledIcon from '../../icon/icons/ErrorCircleFilledIcon';
 import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
 import useConfig from '../../_util/useConfig';
 

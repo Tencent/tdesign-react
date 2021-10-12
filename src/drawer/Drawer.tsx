@@ -1,10 +1,10 @@
 import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import classnames from 'classnames';
 
+import { CloseIcon } from '@tencent/tdesign-icons-react';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
-import CloseIcon from '../icon/icons/CloseIcon';
 import { TdDrawerProps, DrawerEventSource } from '../_type/components/drawer';
 import { StyledProps } from '../_type';
 import DrawerWrapper from './DrawerWrapper';

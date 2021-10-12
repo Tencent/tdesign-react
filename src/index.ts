@@ -1,4 +1,3 @@
-export * from './icon';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
 export { default as Loading, loading } from './loading';

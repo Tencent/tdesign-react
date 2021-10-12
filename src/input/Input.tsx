@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
+import { CloseCircleFilledIcon as ClearIcon } from '@tencent/tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from '../_type/components/input';
 import { StyledProps } from '../_type';
 import { TElement } from '../_type/common';
-import ClearIcon from '../icon/icons/CloseCircleFilledIcon';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
 
