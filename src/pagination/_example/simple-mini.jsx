@@ -6,5 +6,5 @@ export default function PaginationExample() {
     console.log(pageInfo);
   };
 
-  return <Pagination total={100} pageSize={5} size="small" theme="simple" onChange={onChange} />;
+  return <Pagination total={100} defaultPageSize={5} size="small" theme="simple" onChange={onChange} />;
 }

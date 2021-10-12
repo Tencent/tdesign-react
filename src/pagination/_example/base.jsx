@@ -17,7 +17,7 @@ export default function PaginationExample() {
   return (
     <Pagination
       total={100}
-      pageSize={5}
+      defaultPageSize={5}
       onChange={onChange}
       onCurrentChange={onCurrentChange}
       onPageSizeChange={onPageSizeChange}

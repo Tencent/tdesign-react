@@ -7,6 +7,7 @@ import ChevronRightDoubleIcon from '../icon/icons/ChevronRightDoubleIcon';
 import EllipsisIcon from '../icon/icons/EllipsisIcon';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
+import useDefault from '../_util/useDefault';
 import Select from '../select';
 
 import { TdPaginationProps } from '../_type/components/pagination';
@@ -25,11 +26,13 @@ enum KeyCode {
 
 const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const {
-    current: currentFromProps = 1,
+    defaultCurrent = 1,
+    current: currentFromProps,
     theme = 'default',
     size = 'medium',
     total = 0,
-    pageSize: pageSizeFromProps = 10,
+    defaultPageSize = 10,
+    pageSize: pageSizeFromProps,
     showJumper = false,
     disabled = false,
     foldedMaxPageBtn = 5,
@@ -37,12 +40,13 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     totalContent = true,
     pageSizeOptions = [5, 10, 20, 50],
     onChange = noop,
-    onCurrentChange = noop,
-    onPageSizeChange = noop,
+    onCurrentChange,
+    onPageSizeChange,
   } = props;
 
-  const [current, setCurrent] = useState(currentFromProps);
-  const [pageSize, setPageSize] = useState(pageSizeFromProps);
+  const [pageSize, setPageSize] = useDefault(pageSizeFromProps, defaultPageSize, onPageSizeChange);
+  const [current, setCurrent] = useDefault(currentFromProps, defaultCurrent, onCurrentChange);
+
   const [pageCount, setPageCount] = useState(1);
   const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
   const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
@@ -52,9 +56,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-pagination`; // t-pagination
-
-  useEffect(() => setCurrent(currentFromProps), [currentFromProps]);
-  useEffect(() => setPageSize(pageSizeFromProps), [pageSizeFromProps]);
 
   useEffect(() => {
     const calCount = Math.ceil(total / pageSize);
@@ -90,11 +91,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   // 处理改变当前页的逻辑
   const changeCurrent = (nextCurrent: number, nextPageSize?: number) => {
-    /**
-     * @author kenzyyang
-     * @date 2021-03-29
-     * @desc currentChange 时判断 size 是否合法
-     * */
     if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
       // eslint-disable-next-line
       nextPageSize =
@@ -103,14 +99,16 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
     if (disabled) return;
     if (pageCount < nextCurrent) {
-      setCurrent(pageCount);
+      setCurrent(pageCount, { current: pageCount, previous: current, pageSize: nextPageSize });
       return;
     }
     if (nextCurrent < min) {
-      setCurrent(min);
+      setCurrent(min, { current: min, previous: current, pageSize: nextPageSize });
+
       return;
     }
-    setCurrent(nextCurrent);
+    setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
+
     if (simpleInputRef.current) {
       simpleInputRef.current.value = String(nextCurrent);
     }
@@ -119,36 +117,35 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       previous: current,
       pageSize: nextPageSize,
     });
-
-    // currentPageChange的回调
-    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
   };
 
   // 处理改变pageSize的逻辑
   const changePageSize = (nextPageSize: number) => {
-    setPageSize(nextPageSize);
     const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
-    onPageSizeChange(nextPageSize, {
+    const pageInfo = {
       current: nextCurrent,
       previous: current,
       pageSize: nextPageSize,
-    });
+    };
+    setPageSize(nextPageSize, pageInfo);
 
-    if (current !== nextCurrent) changeCurrent(nextCurrent, nextPageSize);
+    // 改变分页大小也需要触发onChange回调 如果改变分页大小会改变currentPage 则由changeCurrent内去触发onChange 否则需要自己触发
+    if (current !== nextCurrent) {
+      changeCurrent(nextCurrent, nextPageSize);
+    } else {
+      onChange(pageInfo);
+    }
   };
 
   // 处理极简版的当前页ga的逻辑
   const onSimpleCurrentChange = (nextCurrent: number) => {
     if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
-    setCurrent(nextCurrent);
+    setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize });
     onChange({
       current: nextCurrent,
       previous: current,
       pageSize,
     });
-
-    // currentPageChange的回调
-    onCurrentChange(nextCurrent, { current: nextCurrent, previous: current, pageSize });
   };
 
   const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,8 +154,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     if (Number.isNaN(value) || value < min) target.value = '';
     else if (value > pageCount) target.value = String(pageCount);
 
-    // currentPageChange的回调
-    onCurrentChange(value, { current: value, previous: current, pageSize });
+    setCurrent(value, { current: value, previous: current, pageSize });
   };
 
   const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
