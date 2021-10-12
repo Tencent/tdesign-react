@@ -6,26 +6,28 @@ export default function () {
   const [offsetY, setOffsetY] = useState(0);
 
   return (
-    <div className="message-element">
-      <Input
-        theme="column"
-        style={{ width: 200 }}
-        placeholder={"请输入横向偏移量"}
-        value={offsetX}
-        onChange={(value) => {
-          setOffsetX(value);
-        }}
-      />
-      <Input
-        theme="column"
-        style={{ width: 200, marginLeft: 16 }}
-        placeholder={"请输入纵向偏移量"}
-        value={offsetY}
-        onChange={(value) => {
-          setOffsetY(value);
-        }}
-      />
-      <div style={{ marginTop: 16 }}>
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-row">
+        <Input
+          theme="column"
+          style={{ width: 200 }}
+          placeholder={"请输入横向偏移量"}
+          value={offsetX}
+          onChange={(value) => {
+            setOffsetX(value);
+          }}
+        />
+        <Input
+          theme="column"
+          style={{ width: 200, marginLeft: 16 }}
+          placeholder={"请输入纵向偏移量"}
+          value={offsetY}
+          onChange={(value) => {
+            setOffsetY(value);
+          }}
+        />
+      </div>
+      <div className="tdesign-demo-block-row">
         <Button
           onClick={() => {
             Message.info({

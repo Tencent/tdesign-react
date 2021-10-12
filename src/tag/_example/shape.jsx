@@ -4,12 +4,12 @@ import { Tag } from '@tencent/tdesign-react';
 export default function ShapeTagExample() {
   const style = { marginRight: 5 };
   return (
-    <>
-      <div style={{ width: '250px', display: 'flex', justifyContent: 'space-around' }}>
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-row">
         <Tag>标签一</Tag>
         <Tag theme="primary">标签一</Tag>
       </div>
-      <div style={{ width: '250px', display: 'flex', justifyContent: 'space-around' }}>
+      <div className="tdesign-demo-block-row">
         <Tag shape="round" style={style}>
           标签一
         </Tag>
@@ -17,12 +17,12 @@ export default function ShapeTagExample() {
           标签一
         </Tag>
       </div>
-      <div style={{ width: '250px', display: 'flex', justifyContent: 'space-around' }}>
+      <div className="tdesign-demo-block-row">
         <Tag shape="mark">标签一</Tag>
         <Tag shape="mark" theme="primary">
           标签一
         </Tag>
       </div>
-    </>
+    </div>
   );
 }

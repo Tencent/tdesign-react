@@ -12,35 +12,31 @@ export default function CloseableTabs() {
     },
   ]);
   return (
-    <>
-      <div>
-        <Tabs
-          placement={'top'}
-          size={'medium'}
-          disabled={false}
-          theme={'card'}
-          defaultValue={1}
-          addable
-          onRemove={({ value }) => {
-            const newPanels = panels.filter((panel) =>  panel.value !== value);
-            setPanels(newPanels);
-          }}
-          onAdd={() => {
-            const newPanels = panels.concat({
-              value: index,
-              label: `选项卡${index}`,
-            });
-            index += 1;
-            setPanels(newPanels);
-          }}
-        >
-          {panels.map(({ value, label }) => (
-            <TabPanel removable={panels.length > 1} key={value} value={value} label={label}>
-              <div style={{ margin: 20 }}>{label}</div>
-            </TabPanel>
-          ))}
-        </Tabs>
-      </div>
-    </>
+    <Tabs
+      placement={'top'}
+      size={'medium'}
+      disabled={false}
+      theme={'card'}
+      defaultValue={1}
+      addable
+      onRemove={({ value }) => {
+        const newPanels = panels.filter((panel) =>  panel.value !== value);
+        setPanels(newPanels);
+      }}
+      onAdd={() => {
+        const newPanels = panels.concat({
+          value: index,
+          label: `选项卡${index}`,
+        });
+        index += 1;
+        setPanels(newPanels);
+      }}
+    >
+      {panels.map(({ value, label }) => (
+        <TabPanel removable={panels.length > 1} key={value} value={value} label={label}>
+          <div style={{ margin: 20 }}>{label}</div>
+        </TabPanel>
+      ))}
+    </Tabs>
   );
 }

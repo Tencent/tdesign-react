@@ -3,7 +3,7 @@ import { Button, Message } from '@tencent/tdesign-react';
 
 export default function () {
   return (
-    <div>
+    <div className="tdesign-demo-block-row">
       <Button
         onClick={() => {
           Message.info({

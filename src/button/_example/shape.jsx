@@ -3,8 +3,8 @@ import { Button } from '@tencent/tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <>
-      <div className="tdesign-demo-block">
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-row">
         <Button shape="square" variant="base">
           主按钮
         </Button>
@@ -15,7 +15,7 @@ export default function ButtonExample() {
           i
         </Button>
       </div>
-      <div className="tdesign-demo-block">
+      <div className="tdesign-demo-block-row">
         <Button shape="square" variant="outline">
           次要按钮
         </Button>
@@ -26,7 +26,7 @@ export default function ButtonExample() {
           i
         </Button>
       </div>
-      <div className="tdesign-demo-block">
+      <div className="tdesign-demo-block-row">
         <Button shape="square" variant="dashed">
           虚框按钮
         </Button>
@@ -37,7 +37,7 @@ export default function ButtonExample() {
           i
         </Button>
       </div>
-      <div className="tdesign-demo-block">
+      <div className="tdesign-demo-block-row">
         <Button shape="square" variant="text">
           文字按钮
         </Button>
@@ -48,6 +48,6 @@ export default function ButtonExample() {
           i
         </Button>
       </div>
-    </>
+    </div>
   );
 }

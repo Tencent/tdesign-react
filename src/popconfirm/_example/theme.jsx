@@ -4,7 +4,7 @@ import { Button, PopConfirm } from '@tencent/tdesign-react';
 export default function ThemeExample() {
   const $content = '请确认您要进行此操作';
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <PopConfirm content={$content}>
         <Button variant="outline">默认</Button>
       </PopConfirm>
@@ -17,6 +17,6 @@ export default function ThemeExample() {
       <PopConfirm content={$content} theme="danger">
         <Button theme="danger">错误</Button>
       </PopConfirm>
-    </>
+    </div>
   );
 }

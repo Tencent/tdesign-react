@@ -197,193 +197,124 @@ exports[`Alert 组件测试 Alert 主题图标显示 6`] = `
 </DocumentFragment>
 `;
 
-exports[`AlertSelfClose.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          这是一条普通的消息提示
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-alert__close"
-    >
-      知道了
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          这是一条普通的消息提示
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-alert__close"
-    >
-      不再提醒
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--success"
+    class="tdesign-demo-block-column"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--success"
     >
+      <svg
+        class="t-icon t-icon-check-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条成功的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条成功的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--info"
     >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条普通的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条普通的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--warning"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--warning"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条警示消息
+          <div
+            class="t-alert__description"
+          >
+            这是一条警示消息
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--error"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--error"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          高危操作/出错信息提示
+          <div
+            class="t-alert__description"
+          >
+            高危操作/出错信息提示
+          </div>
         </div>
       </div>
     </div>
@@ -394,150 +325,154 @@ exports[`base.jsx 1`] = `
 exports[`close.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--success"
+    class="tdesign-demo-block-column"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          这是一条成功的消息提示
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-alert__close"
+      class="t-alert t-alert--success"
     >
       <svg
-        class="t-icon t-icon-close"
+        class="t-icon t-icon-check-circle-filled t-alert__icon"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
       </svg>
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条普通的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条成功的消息提示
+          </div>
         </div>
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--info"
     >
-      关闭
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--warning"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条警示消息
+          <div
+            class="t-alert__description"
+          >
+            这是一条普通的消息提示
+          </div>
         </div>
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        关闭
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--warning"
     >
-      知道了
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--error"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          高危操作/出错信息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条警示消息
+          </div>
         </div>
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        知道了
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--error"
     >
-      <span>
-        自定义关闭
-      </span>
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <div
+        class="t-alert__content"
+      >
+        <div
+          class="t-alert__message"
+        >
+          <div
+            class="t-alert__description"
+          >
+            高危操作/出错信息提示
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <span>
+          自定义关闭
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -590,117 +525,121 @@ exports[`collapse.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--success"
+    class="tdesign-demo-block-column"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--success"
     >
+      <svg
+        class="t-icon t-icon-check-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条成功的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条成功的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--info"
     >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条普通的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条普通的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--warning"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--warning"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条警示消息
+          <div
+            class="t-alert__description"
+          >
+            这是一条警示消息
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--error"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--error"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          高危操作/出错信息提示
+          <div
+            class="t-alert__description"
+          >
+            高危操作/出错信息提示
+          </div>
         </div>
       </div>
     </div>
@@ -711,203 +650,207 @@ exports[`icon.jsx 1`] = `
 exports[`operation.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--success"
+    class="tdesign-demo-block-column"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
-    >
-      <div
-        class="t-alert__message"
-      >
-        <div
-          class="t-alert__description"
-        >
-          这是一条成功的消息提示
-        </div>
-        <div
-          class="t-alert__operation"
-        >
-          <a>
-            相关操作
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-alert__close"
+      class="t-alert t-alert--success"
     >
       <svg
-        class="t-icon t-icon-close"
+        class="t-icon t-icon-check-circle-filled t-alert__icon"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
       </svg>
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条普通的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条成功的消息提示
+          </div>
+          <div
+            class="t-alert__operation"
+          >
+            <a>
+              相关操作
+            </a>
+          </div>
         </div>
-        <div
-          class="t-alert__operation"
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <a>
-            相关操作
-          </a>
-        </div>
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--info"
     >
       <svg
-        class="t-icon t-icon-close"
+        class="t-icon t-icon-info-circle-filled t-alert__icon"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
       </svg>
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--warning"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条警示消息
+          <div
+            class="t-alert__description"
+          >
+            这是一条普通的消息提示
+          </div>
+          <div
+            class="t-alert__operation"
+          >
+            <a>
+              相关操作
+            </a>
+          </div>
         </div>
-        <div
-          class="t-alert__operation"
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <a>
-            相关操作
-          </a>
-        </div>
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--warning"
     >
       <svg
-        class="t-icon t-icon-close"
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
       </svg>
-    </div>
-  </div>
-  <div
-    class="t-alert t-alert--error"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="t-alert__content"
-    >
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          高危操作/出错信息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条警示消息
+          </div>
+          <div
+            class="t-alert__operation"
+          >
+            <a>
+              相关操作
+            </a>
+          </div>
         </div>
-        <div
-          class="t-alert__operation"
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <a>
-            相关操作
-          </a>
-        </div>
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
       </div>
     </div>
     <div
-      class="t-alert__close"
+      class="t-alert t-alert--error"
     >
       <svg
-        class="t-icon t-icon-close"
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
         version="1.1"
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
         />
       </svg>
+      <div
+        class="t-alert__content"
+      >
+        <div
+          class="t-alert__message"
+        >
+          <div
+            class="t-alert__description"
+          >
+            高危操作/出错信息提示
+          </div>
+          <div
+            class="t-alert__operation"
+          >
+            <a>
+              相关操作
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-alert__close"
+      >
+        <svg
+          class="t-icon t-icon-close"
+          version="1.1"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -916,117 +859,121 @@ exports[`operation.jsx 1`] = `
 exports[`swiper.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-alert t-alert--success"
+    class="tdesign-demo-block-column"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--success"
     >
+      <svg
+        class="t-icon t-icon-check-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条成功的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条成功的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--info"
-  >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--info"
     >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条普通的消息提示
+          <div
+            class="t-alert__description"
+          >
+            这是一条普通的消息提示
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--warning"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--warning"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          这是一条警示消息
+          <div
+            class="t-alert__description"
+          >
+            这是一条警示消息
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="t-alert t-alert--error"
-  >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon"
-      version="1.1"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
-        fill-opacity=".9"
-        fill-rule="evenodd"
-      />
-    </svg>
     <div
-      class="t-alert__content"
+      class="t-alert t-alert--error"
     >
+      <svg
+        class="t-icon t-icon-error-circle-filled t-alert__icon"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 672L480 672 480 736 544 736 544 672ZM544 288L480 288 480 608 544 608 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
-        class="t-alert__message"
+        class="t-alert__content"
       >
         <div
-          class="t-alert__description"
+          class="t-alert__message"
         >
-          高危操作/出错信息提示
+          <div
+            class="t-alert__description"
+          >
+            高危操作/出错信息提示
+          </div>
         </div>
       </div>
     </div>

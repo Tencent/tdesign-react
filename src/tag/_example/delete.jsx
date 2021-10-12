@@ -39,8 +39,8 @@ export default function ClosableTagExample() {
   };
 
   return (
-    <>
-      <div style={{ display: 'flex' }}>
+    <div className="tdesign-demo-block-column">
+      <div className="tdesign-demo-block-row">
         {tagList.map((tag, i) => (
           <Tag
             key={i}
@@ -67,6 +67,6 @@ export default function ClosableTagExample() {
           </Tag>
         )}
       </div>
-    </>
+    </div>
   );
 }
