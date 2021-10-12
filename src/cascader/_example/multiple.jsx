@@ -52,9 +52,10 @@ export default function Example() {
 
   return (
     <>
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="small" multiple clearable />
+      <Cascader style={itemStyle} options={options} defaultValue={value} size="small" multiple clearable />
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} multiple clearable />
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" multiple clearable />
+      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} collapseTags multiple clearable />
     </>
   );
 }

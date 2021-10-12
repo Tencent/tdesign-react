@@ -2,6 +2,7 @@ import { TdCascaderProps, CascaderValue } from '../_type/components/cascader';
 import { StyledProps } from '../_type';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
+import { TreeNodeValue } from '../_common/js/tree/types';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
@@ -18,6 +19,7 @@ export interface CascaderContextType
     | 'checkProps'
     | 'showAllLevels'
     | 'max'
+    | 'collapseTags'
   > {
   treeStore: TreeStore;
   model: CascaderValue;
@@ -28,6 +30,9 @@ export interface CascaderContextType
   setTreeNodes: (val: CascaderValue) => void;
   filterActive: boolean;
   setFilterActive: (val: boolean) => void;
+  inputVal: string;
+  setInputVal: (val: string) => void;
+  setExpend: (val: TreeNodeValue[]) => void;
 }
 
 export interface CascaderPanelProps extends Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
@@ -61,8 +66,9 @@ export interface InnerContentProps {
 }
 
 export interface SuffixIconProps {
+  closeShow: boolean;
+  iconClass: string;
   cascaderContext: CascaderContextType;
-  isHover: boolean;
   listeners: InputContentProps['listeners'];
 }
 
