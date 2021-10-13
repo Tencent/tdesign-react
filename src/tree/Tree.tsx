@@ -187,6 +187,8 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   );
 
   /* ======== render ======= */
+  const nodeRef = React.useRef(null);
+
   const renderEmpty = () => {
     let emptyView = empty || '暂无数据';
     if (empty instanceof Function) {
@@ -205,7 +207,12 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
       <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
         {visibleNodes.map((node) => (
           // https://github.com/reactjs/react-transition-group/issues/668
-          <CSSTransition key={node.value} timeout={transitionDuration} classNames={transitionClassNames}>
+          <CSSTransition
+            nodeRef={nodeRef}
+            key={node.value}
+            timeout={transitionDuration}
+            classNames={transitionClassNames}
+          >
             <TreeItem
               node={node}
               empty={empty}
