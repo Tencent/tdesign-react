@@ -18,12 +18,12 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
-  const { className, style, value, multiple, defaultValue } = props;
+  const { className, style, value = [], multiple } = props;
 
   const [visible, setVisible] = useState(false);
   const [treeStore, setTreeStore] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
-  const [model, setModel] = useState(value || defaultValue);
+  const [model, setModel] = useState(value);
   const [treeNodes, setTreeNodes] = useState([]);
 
   // cascaderContext
@@ -102,17 +102,17 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   useEffect(() => {
     if (!treeStore) return;
     let treeValue: TreeNodeValue[] = [];
-    if (Array.isArray(model)) {
-      if (model.length > 0 && typeof model[0] === 'object') {
-        treeValue = (model as TreeOptionData[]).map((val) => val.value);
-      } else if (model.length) {
-        treeValue = model as TreeNodeValue[];
+    if (Array.isArray(value)) {
+      if (value.length > 0 && typeof value[0] === 'object') {
+        treeValue = (value as TreeOptionData[]).map((val) => val.value);
+      } else if (value.length) {
+        treeValue = value as TreeNodeValue[];
       }
-    } else if (model) {
-      if (typeof model === 'object') {
-        treeValue = [(model as TreeOptionData).value];
+    } else if (value) {
+      if (typeof value === 'object') {
+        treeValue = [(value as TreeOptionData).value];
       } else {
-        treeValue = [model];
+        treeValue = [value];
       }
     }
 
@@ -133,17 +133,17 @@ const Cascader: React.FC<CascaderProps> = (props) => {
           expandedMap.set(tn.value, true);
         });
         const expandedArr = Array.from(expandedMap.keys());
-        treeStore.replaceExpanded(expandedArr);
+        treeStore.setExpanded(expandedArr);
       }
     }
     treeStore.refreshNodes();
     const nodes = treeStore.getNodes().filter((node: TreeNode) => node.visible);
     setTreeNodes(nodes);
-  }, [treeStore, model, visible, multiple]);
+  }, [value, treeStore, model, visible, multiple]);
 
   useEffect(() => {
-    setModel(value || defaultValue);
-  }, [value, defaultValue]);
+    setModel(value);
+  }, [value]);
 
   useEffect(() => {
     if (!treeStore) return;
