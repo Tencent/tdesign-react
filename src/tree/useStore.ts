@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
+import useUpdateEffect from '../_util/useUpdateEffect';
 import { TreeOptionData } from '../_type/common';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
@@ -16,7 +17,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     keys,
     expandAll,
     expandParent,
-    // defaultExpanded,
     expanded,
     expandLevel,
     expandMutex,
@@ -25,7 +25,6 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     actived,
     disabled,
     checkable,
-    // defaultValue,
     value,
     checkStrictly,
     load,
@@ -68,6 +67,20 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
       onDataChange?.(newData);
     }
   });
+
+  const getExpandedArr = (arr: TdTreeProps['expanded'], store: TreeStore) => {
+    const expandedMap = new Map();
+    arr.forEach((val) => {
+      expandedMap.set(val, true);
+      if (expandParent) {
+        const node = store.getNode(val);
+        node.getParents().forEach((tn) => {
+          expandedMap.set(tn.value, true);
+        });
+      }
+    });
+    return Array.from(expandedMap.keys());
+  };
 
   const createStore = () => {
     const store = new TreeStore({
@@ -114,17 +127,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
 
     // 初始化展开状态
     if (Array.isArray(expanded)) {
-      const expandedMap = new Map();
-      expanded.forEach((val) => {
-        expandedMap.set(val, true);
-        if (expandParent) {
-          const node = store.getNode(val);
-          node.getParents().forEach((tn) => {
-            expandedMap.set(tn.value, true);
-          });
-        }
-      });
-      const expandedArr = Array.from(expandedMap.keys());
+      const expandedArr = getExpandedArr(expanded, store);
       store.setExpanded(expandedArr);
     }
 
@@ -146,14 +149,14 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
   /* ======== 由 props 引发的 store 更新 ======= */
   const store = storeRef.current;
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (data && Array.isArray(data)) {
       store.removeAll();
       store.append(data);
     }
   }, [data, store]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     store.setConfig({
       keys,
       expandAll,
@@ -188,25 +191,26 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     valueMode,
   ]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (Array.isArray(value)) {
       store.replaceChecked(value);
     }
   }, [store, value]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (Array.isArray(expanded)) {
-      store.replaceExpanded(expanded);
+      const expandedArr = getExpandedArr(expanded, store);
+      store.replaceExpanded(expandedArr);
     }
   }, [expanded, store]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (Array.isArray(actived)) {
       store.replaceActived(actived);
     }
   }, [actived, store]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     store.setConfig({
       filter,
     });

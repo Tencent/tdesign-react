@@ -1,3 +1,4 @@
+import useControllable from '@tencent/tdesign-react/tree/useControllable';
 import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
@@ -36,19 +37,28 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     operations,
     transition, // 动画默认开启
     expandOnClickNode,
-    onExpand,
-    onActive,
-    onChange,
     onClick,
   } = props;
 
-  const store = useStore(props, () => {
-    const nodes = store.getNodes();
+  const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
 
-    const newVisibleNodes = nodes.filter((node) => node.visible);
+  const store = useStore(
+    {
+      ...props,
+      value,
+      onChange,
+      expanded,
+      onExpand,
+      onActive,
+      actived,
+    },
+    () => {
+      const nodes = store.getNodes();
+      const newVisibleNodes = nodes.filter((node) => node.visible);
 
-    setVisibleNodes(newVisibleNodes);
-  });
+      setVisibleNodes(newVisibleNodes);
+    },
+  );
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
@@ -81,13 +91,11 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     }
     const { expand, active, event } = options;
     if (expand) {
-      const expandArr = setExpanded(node, !node.isExpanded());
-      store.replaceExpanded(expandArr);
+      setExpanded(node, !node.isExpanded());
     }
 
     if (active) {
-      const activedArr = setActived(node, !node.isActived());
-      store.replaceActived(activedArr);
+      setActived(node, !node.isActived());
     }
     const treeNodeModel = node?.getModel();
     onClick?.({
@@ -100,8 +108,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     if (!node || disabled || node.disabled) {
       return;
     }
-    const checkedArr = setChecked(node, !node.isChecked());
-    store.replaceChecked(checkedArr);
+    setChecked(node, !node.isChecked());
   };
 
   /** 对外暴露的公共方法 * */
