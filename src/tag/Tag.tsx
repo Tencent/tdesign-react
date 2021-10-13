@@ -25,7 +25,7 @@ const Tag = forwardRefWithStatics(
   (props: TagProps, ref: React.Ref<HTMLSpanElement>) => {
     const {
       theme = 'default',
-      size = 'middle',
+      size = 'medium',
       shape = 'square',
       variant = 'dark',
       closable,

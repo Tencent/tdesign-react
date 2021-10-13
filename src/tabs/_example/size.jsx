@@ -9,7 +9,7 @@ export default function SizeTabs() {
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
         <Button variant="outline" onClick={() => setSize('medium')}>
-          middle
+          medium
         </Button>
         <Button variant="outline" onClick={() => setSize('large')}>
           large

@@ -24,11 +24,9 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
   const {
     empty,
-    // defaultExpanded,
     activable,
     disabled,
     checkable,
-    // defaultValue,
     checkProps,
     hover,
     icon,

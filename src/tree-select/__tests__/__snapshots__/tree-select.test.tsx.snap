@@ -1,0 +1,375 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-select-selected"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-select-selectedSingle"
+          >
+            广东省
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`filterable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-radio-group t-radio-group-medium t-radio-group-filled"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="default"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            默认
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="function"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            自定义方法
+          </span>
+        </label>
+        <div
+          class="t-radio-group-filled-bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m"
+          style="min-height: 30px;"
+        >
+          <div
+            class="t-select-input t-input"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              value=""
+            />
+          </div>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`lazy.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-select-selected"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-select-selectedSingle"
+          >
+            广东省
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-select-selected"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            广州市
+            <svg
+              class="t-icon t-icon-close"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            深圳市
+            <svg
+              class="t-icon t-icon-close"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+              />
+            </svg>
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`prefix.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-has-prefix"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-select-left-icon"
+          >
+            <svg
+              class="t-icon t-icon-user"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M512 576C601.92257344 576 686.4307968 599.18159296 759.8745728 639.8946848L760.64 640 797.2160704 658.3197248C818.5708096 669.2764608 832 691.2604224 832 715.261984L832 832C832 867.3462208 803.3462208 896 768 896L256 896C220.653776 896 192 867.3462208 192 832L192 715.2818624C192 691.2790592 205.43055936 669.2941888 226.7869856 658.3380288L263.744 640 264.064 639.936 273.52287808 634.81298816C344.74231744 597.2582336 425.8885952 576 512 576ZM512 640C416.8213984 640 328.5751328 669.6808576 256.01207488 720.2916928L256 832 768 832 768.0210368 720.3147904C695.4517184 669.689888 607.19308032 640 512 640ZM512 159.72895488C618.038672 159.72895488 704 245.69028288 704 351.72895488 704 457.76762624 618.038672 543.72895488 512 543.72895488 405.961328 543.72895488 320 457.76762624 320 351.72895488 320 245.69028288 405.961328 159.72895488 512 159.72895488ZM512 223.72895488C441.307552 223.72895488 384 281.03650688 384 351.72895488 384 422.42140224 441.307552 479.72895488 512 479.72895488 582.692448 479.72895488 640 422.42140224 640 351.72895488 640 281.03650688 582.692448 223.72895488 512 223.72895488Z"
+                fill-opacity=".9"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-select-placeholder"
+          >
+            请输入
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`props.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-select-selected"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-select-selectedSingle"
+          >
+            深圳市
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`valuetype.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 300px;"
+  >
+    <div>
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-size-m t-select-selected"
+          style="min-height: 30px;"
+        >
+          <span
+            class="t-select-selectedSingle"
+          >
+            深圳市
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -186,33 +186,37 @@ exports[`base.jsx 1`] = `
             class="t-date-picker t-size-m"
           >
             <div
-              class="t-form-controls"
+              class="t-popup-reference t-date-picker-popup-reference"
             >
               <div
-                class="t-input t-input--suffix"
+                class="t-form-controls"
               >
-                <input
-                  class="t-input__inner"
-                  placeholder="请选择"
-                  readonly=""
-                  value=""
-                />
-                <span
-                  class="t-input__suffix"
+                <div
+                  class="t-input t-input--suffix"
                 >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    version="1.1"
-                    viewBox="0 0 1024 1024"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    value=""
+                  />
+                  <span
+                    class="t-input__suffix"
                   >
-                    <path
-                      d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
-                      fill-opacity=".9"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                    <svg
+                      class="t-icon t-icon-calendar"
+                      version="1.1"
+                      viewBox="0 0 1024 1024"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                        fill-opacity=".9"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>

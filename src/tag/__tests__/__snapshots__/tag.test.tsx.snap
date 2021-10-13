@@ -9,7 +9,7 @@ exports[`base.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
       >
         标签一
       </span>
@@ -19,7 +19,7 @@ exports[`base.jsx 1`] = `
         target="_blank"
       >
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
         >
           超链接
         </span>
@@ -29,22 +29,22 @@ exports[`base.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--warning t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
       >
         标签二
       </span>
       <span
-        class="t-tag t-tag--danger t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
       >
         标签三
       </span>
       <span
-        class="t-tag t-tag--success t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
       >
         标签四
       </span>
@@ -53,22 +53,22 @@ exports[`base.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--primary t-tag--light t-tag--middle t-tag--square"
+        class="t-tag t-tag--primary t-tag--light t-tag--medium t-tag--square"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--warning t-tag--light t-tag--middle t-tag--square"
+        class="t-tag t-tag--warning t-tag--light t-tag--medium t-tag--square"
       >
         标签二
       </span>
       <span
-        class="t-tag t-tag--danger t-tag--light t-tag--middle t-tag--square"
+        class="t-tag t-tag--danger t-tag--light t-tag--medium t-tag--square"
       >
         标签三
       </span>
       <span
-        class="t-tag t-tag--success t-tag--light t-tag--middle t-tag--square"
+        class="t-tag t-tag--success t-tag--light t-tag--medium t-tag--square"
       >
         标签四
       </span>
@@ -77,22 +77,22 @@ exports[`base.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--primary t-tag--plain t-tag--middle t-tag--square"
+        class="t-tag t-tag--primary t-tag--plain t-tag--medium t-tag--square"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--warning t-tag--plain t-tag--middle t-tag--square"
+        class="t-tag t-tag--warning t-tag--plain t-tag--medium t-tag--square"
       >
         标签二
       </span>
       <span
-        class="t-tag t-tag--danger t-tag--plain t-tag--middle t-tag--square"
+        class="t-tag t-tag--danger t-tag--plain t-tag--medium t-tag--square"
       >
         标签三
       </span>
       <span
-        class="t-tag t-tag--success t-tag--plain t-tag--middle t-tag--square"
+        class="t-tag t-tag--success t-tag--plain t-tag--medium t-tag--square"
       >
         标签四
       </span>
@@ -110,7 +110,7 @@ exports[`delete.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
       >
         可删除标签0
         <svg
@@ -125,7 +125,7 @@ exports[`delete.jsx 1`] = `
         </svg>
       </span>
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
       >
         <svg
           class="t-icon t-icon-discount"
@@ -152,7 +152,7 @@ exports[`delete.jsx 1`] = `
         </svg>
       </span>
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--disabled"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
       >
         可删除标签2
         <svg
@@ -171,7 +171,7 @@ exports[`delete.jsx 1`] = `
       style="display: flex; cursor: pointer;"
     >
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
       >
         <svg
           class="t-icon t-icon-add"
@@ -193,7 +193,7 @@ exports[`delete.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+    class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
   >
     <svg
       class="t-icon t-icon-discount"
@@ -215,7 +215,7 @@ exports[`icon.jsx 1`] = `
 exports[`long-text.jsx 1`] = `
 <DocumentFragment>
   <span
-    class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square t-tag--ellipsis"
+    class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
   >
     <span
       class="t-tag--text"
@@ -260,26 +260,12 @@ exports[`shape.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--square"
-      >
-        标签一
-      </span>
-    </div>
-    <div
-      class="tdesign-demo-block-row"
-    >
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--round"
-      >
-        标签一
-      </span>
-      <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--round"
+        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
       >
         标签一
       </span>
@@ -288,12 +274,26 @@ exports[`shape.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--mark"
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--round"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--primary t-tag--dark t-tag--middle t-tag--mark"
+        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--round"
+      >
+        标签一
+      </span>
+    </div>
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <span
+        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--mark"
+      >
+        标签一
+      </span>
+      <span
+        class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--mark"
       >
         标签一
       </span>

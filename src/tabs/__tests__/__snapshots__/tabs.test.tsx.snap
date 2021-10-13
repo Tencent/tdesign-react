@@ -790,7 +790,7 @@ exports[`size.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          middle
+          medium
         </span>
       </button>
       <button

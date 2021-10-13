@@ -2,15 +2,19 @@
 
 exports[`arrow.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
-      默认文字提示
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        默认文字提示
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -19,141 +23,193 @@ exports[`base.jsx 1`] = `
   <div
     style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
   >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; top: 0px; left: 42%;"
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; top: 0px; left: 42%;"
       >
-        top
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; top: 0px; left: 70px;"
+        <span
+          class="t-button__text"
+        >
+          top
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; top: 0px; left: 70px;"
       >
-        top-left
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; top: 0px; right: 70px;"
+        <span
+          class="t-button__text"
+        >
+          top-left
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; top: 0px; right: 70px;"
       >
-        top-right
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; bottom: 0px; left: 42%;"
+        <span
+          class="t-button__text"
+        >
+          top-right
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; bottom: 0px; left: 42%;"
       >
-        bottom
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
+        <span
+          class="t-button__text"
+        >
+          bottom
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
       >
-        bottom-left
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; bottom: 0px; right: 70px;"
+        <span
+          class="t-button__text"
+        >
+          bottom-left
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; bottom: 0px; right: 70px;"
       >
-        bottom-right
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; left: 0px; top: 42%;"
+        <span
+          class="t-button__text"
+        >
+          bottom-right
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; left: 0px; top: 42%;"
       >
-        left
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; left: 0px; top: 50px;"
+        <span
+          class="t-button__text"
+        >
+          left
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; left: 0px; top: 50px;"
       >
-        left-top
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; left: 0px; bottom: 50px;"
+        <span
+          class="t-button__text"
+        >
+          left-top
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; left: 0px; bottom: 50px;"
       >
-        left-bottom
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; right: 0px; top: 42%;"
+        <span
+          class="t-button__text"
+        >
+          left-bottom
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; right: 0px; top: 42%;"
       >
-        right
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; right: 0px; top: 50px;"
+        <span
+          class="t-button__text"
+        >
+          right
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; right: 0px; top: 50px;"
       >
-        right-top
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: absolute; right: 0px; bottom: 50px;"
+        <span
+          class="t-button__text"
+        >
+          right-top
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: absolute; right: 0px; bottom: 50px;"
       >
-        right-bottom
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          right-bottom
+        </span>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`no-arrow.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
-      不带箭头等文字提示
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        不带箭头等文字提示
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -162,51 +218,71 @@ exports[`theme.jsx 1`] = `
   <div
     class="tdesign-tooltip-demo"
   >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
-        default
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
+        <span
+          class="t-button__text"
+        >
+          default
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
-        primary
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
+        <span
+          class="t-button__text"
+        >
+          primary
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
-        success
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
+        <span
+          class="t-button__text"
+        >
+          success
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
-        danger
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
+        <span
+          class="t-button__text"
+        >
+          danger
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
       >
-        warning
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          warning
+        </span>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -216,33 +292,45 @@ exports[`trigger.jsx 1`] = `
   <div
     class="tdesign-tooltip-demo"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
       >
-        悬浮时触发（默认）
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
+        <span
+          class="t-button__text"
+        >
+          悬浮时触发（默认）
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
       >
-        点击时触发
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
+        <span
+          class="t-button__text"
+        >
+          点击时触发
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
       >
-        右击时触发
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          右击时触发
+        </span>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
