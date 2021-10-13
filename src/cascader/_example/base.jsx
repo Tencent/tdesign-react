@@ -48,7 +48,7 @@ export default function Example() {
 
   return (
     <>
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="small" clearable />
+      <Cascader style={itemStyle} options={options} size="small" defaultValue={value} clearable />
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="medium" clearable />
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable />
     </>
