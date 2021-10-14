@@ -1,4 +1,4 @@
-import useDefault from '@tencent/tdesign-react/_util/useDefault';
+import useDefault from '../_util/useDefault';
 import { TdTreeProps } from '../_type/components/tree';
 
 export default function useControllable(
