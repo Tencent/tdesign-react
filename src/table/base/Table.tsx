@@ -227,11 +227,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
           maxHeight: isNaN(Number(maxHeight)) ? maxHeight : `${Number(maxHeight)}px`,
           width: hasFixedColumns ? '100%' : undefined,
         }}
-        {...(hasFixedColumns
-          ? {
-              onScroll,
-            }
-          : {})}
+        {...(hasFixedColumns ? { onScroll } : {})}
       >
         {getTable({ enableHeader: false })}
       </div>
@@ -292,11 +288,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
               [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
-            {...(hasFixedColumns
-              ? {
-                  onScroll: throttle(handleScroll, 100),
-                }
-              : {})}
+            {...(hasFixedColumns ? { onScroll: throttle(handleScroll, 100) } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}
           </div>

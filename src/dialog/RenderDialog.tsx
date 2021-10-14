@@ -60,7 +60,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         const scrollWidth = window.innerWidth - document.body.offsetWidth;
         // 减少回流
         if (bodyCssTextRef.current === '') {
-          let bodyCssText = `overflow: hidden;`;
+          let bodyCssText = 'overflow: hidden;';
           if (scrollWidth > 0) {
             bodyCssText += `position: relative;width: calc(100% - ${scrollWidth}px);`;
           }
