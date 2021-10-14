@@ -1,4 +1,3 @@
-import useControllable from '@tencent/tdesign-react/tree/useControllable';
 import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
@@ -8,6 +7,7 @@ import { TreeOptionData } from '../_type';
 import { usePersistFn } from '../_util/usePersistFn';
 import { TreeInstanceFunctions, TdTreeProps } from '../_type/components/tree';
 import { useTreeConfig } from './useTreeConfig';
+import useControllable from './useControllable';
 import { TreeItemProps } from './interface';
 
 import TreeItem from './TreeItem';
