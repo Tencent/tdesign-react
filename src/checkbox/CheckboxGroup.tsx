@@ -12,7 +12,7 @@ export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
 }
 
 /**
- * 单选选项组，里面可以嵌套 <Radio />
+ * 多选选项组，里面可以嵌套 <Checkbox />
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
   const { classPrefix } = useConfig();
@@ -21,7 +21,10 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
   const [localMax, setLocalMax] = useState(max);
 
-  const checkedSet = useMemo(() => new Set([].concat(internalValue)), [internalValue]);
+  const checkedSet = useMemo(() => {
+    if (!Array.isArray(internalValue)) return new Set([]);
+    return new Set([].concat(internalValue));
+  }, [internalValue]);
 
   useEffect(() => {
     if (!isNumber(max)) return;

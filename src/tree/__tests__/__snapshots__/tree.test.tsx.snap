@@ -12,10 +12,10 @@ exports[`activable.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -45,10 +45,10 @@ exports[`activable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -78,10 +78,10 @@ exports[`activable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -147,10 +147,10 @@ exports[`checkable.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 100px;"
           >
             <label>
@@ -180,10 +180,10 @@ exports[`checkable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 100px;"
           >
             <label>
@@ -213,10 +213,10 @@ exports[`checkable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__valueMode"
         >
           <div
-            class="t-form__label t-form-item__valueMode t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 100px;"
           >
             <label>
@@ -380,10 +380,10 @@ exports[`disabled.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -464,10 +464,10 @@ exports[`expand-all.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 150px;"
           >
             <label>
@@ -497,10 +497,10 @@ exports[`expand-all.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 150px;"
           >
             <label>
@@ -530,10 +530,10 @@ exports[`expand-all.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 150px;"
           >
             <label>
@@ -599,10 +599,10 @@ exports[`expand-mutex.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -632,10 +632,10 @@ exports[`expand-mutex.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 120px;"
           >
             <label>
@@ -771,10 +771,10 @@ exports[`line.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 100px;"
           >
             <label>
@@ -804,10 +804,10 @@ exports[`line.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 100px;"
           >
             <label>
@@ -896,10 +896,10 @@ exports[`operations.jsx 1`] = `
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 200px;"
           >
             <label>
@@ -929,10 +929,10 @@ exports[`operations.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form-item__undefined"
         >
           <div
-            class="t-form__label t-form-item__undefined t-form__label--right"
+            class="t-form__label t-form__label--right"
             style="width: 200px;"
           >
             <label>
