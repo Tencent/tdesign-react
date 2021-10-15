@@ -3,8 +3,11 @@ import path from 'path';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import tdocPlugin from './plugin-tdoc';
 
+// cdn-go 插件会自动部署官网历史版本，需要增加 cdn-go 外网地址前缀
+process.env.CDN_PATH = process.env.CDN_URL ? process.env.CDN_URL : './';
+
 export default {
-  base: process.env.NODE_ENV === 'production' ? '/react/' : './',
+  base: process.env.NODE_ENV === 'production' ? '/react/' : process.env.CDN_PATH,
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../'),
@@ -20,6 +23,9 @@ export default {
     port: 15000,
     open: '/',
     https: false,
+    fs: {
+      strict: false,
+    },
   },
   plugins: [reactRefresh(), tdocPlugin()],
 };

@@ -36,7 +36,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     rules: rulesFromProp,
     labelWidth,
     labelAlign,
-    initialData = '',
+    initialData,
     className,
     style: formItemStyle,
   } = props;
@@ -66,8 +66,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`);
-  const formItemLabelClass = classNames(`${classPrefix}-form__label`, `${classPrefix}-form-item__${name}`, {
+  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
+    [`${classPrefix}-form-item__${name}`]: name,
+  });
+  const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
@@ -153,14 +155,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setResetValidating(true);
     // 校验结果，包含正确的校验信息
     return new Promise((resolve) => {
-      validateModal(formValue, innerRules).then((r) => {
+      validateModal(formValue, rules).then((r) => {
         const filterErrorList = r.filter((item) => item.result !== true);
         setErrorList(filterErrorList);
         // 仅有自定义校验方法才会存在 successList
         setSuccessList(r.filter((item) => item.result === true && item.message && item.type === 'success'));
         let nextVerifyStatus = filterErrorList.length && rules.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
         // 非 require 且值为空 状态置为默认，无校验规则的都为默认
-        if ((!innerRules.some((rule) => rule.required) && isValueEmpty(formValue)) || !innerRules.length) {
+        if ((!rules.some((rule) => rule.required) && isValueEmpty(formValue)) || !rules.length) {
           nextVerifyStatus = ValidateStatus.TO_BE_VALIDATED;
         }
         setVerifyStatus(nextVerifyStatus);
@@ -172,6 +174,13 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     });
   }
 
+  // blur 下触发校验
+  function handleItemBlur() {
+    const filterRules = innerRules.filter((item) => item.trigger === 'blur');
+
+    filterRules.length && validate('blur');
+  }
+
   useEffect(() => {
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
     if (!shouldValidate.current) {
@@ -179,7 +188,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       return;
     }
 
-    validate('change');
+    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
+
+    filterRules.length && validate('change');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
 
@@ -254,6 +265,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
             if (!child) return null;
 
             let onChangeFromProps = () => ({});
+            let onBlurFromProps = () => ({});
             let ctrlKey = 'value';
             if (React.isValidElement(child)) {
               if (child.type === FormItem) {
@@ -267,6 +279,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
               if (typeof child.props.onChange === 'function') {
                 onChangeFromProps = child.props.onChange;
               }
+              if (typeof child.props.onBlur === 'function') {
+                onBlurFromProps = child.props.onBlur;
+              }
               if (typeof child.type === 'object') {
                 ctrlKey = CHECKED_TYPE.includes(child.type) ? 'checked' : 'value';
               }
@@ -276,6 +291,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 onChange: (value) => {
                   onChangeFromProps.call(null, value);
                   setFormValue(value);
+                },
+                onBlur: (value) => {
+                  onBlurFromProps.call(null, value);
+                  handleItemBlur();
                 },
               });
             }

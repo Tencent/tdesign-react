@@ -12,7 +12,7 @@ import React, {
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
-import { ClassName } from '../_type';
+import { StyledProps } from '../_type';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
@@ -21,9 +21,7 @@ import { TdPopupProps } from '../_type/components/popup';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export interface PopupProps extends TdPopupProps {
-  className?: ClassName;
-}
+export interface PopupProps extends TdPopupProps, StyledProps {}
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -54,6 +52,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     attach,
     showArrow = false,
     destroyOnClose = false,
+    className,
+    style,
     overlayClassName,
     overlayStyle,
     triggerElement,
@@ -128,7 +128,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         <div
           ref={composeRefs(setOverlayRef, ref)}
           style={styles.popper}
-          className={classNames(`${classPrefix}-popup`, props.className)}
+          className={`${classPrefix}-popup`}
           {...attributes.popper}
           {...popupProps}
         >
@@ -162,10 +162,10 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   }, [visible, preVisible, update]);
 
   return (
-    <>
+    <div className={classNames(`${classPrefix}-popup-reference`, className)} style={style}>
       {triggerNode}
       {portal}
-    </>
+    </div>
   );
 });
 

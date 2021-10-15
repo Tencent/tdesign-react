@@ -25,7 +25,7 @@ const List = forwardRefWithStatics(
       header,
       footer,
       asyncLoading,
-      size = 'middle',
+      size = 'medium',
       split = true,
       stripe = false,
       layout = 'horizontal',

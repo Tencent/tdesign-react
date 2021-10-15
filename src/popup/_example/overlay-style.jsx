@@ -3,7 +3,7 @@ import { Button, Popup } from '@tencent/tdesign-react';
 
 function OverlayStyle() {
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Popup
         trigger="click"
         overlayStyle={{ background: 'green', margin: '0px', zIndex: 5600, color: '#fff' }}
@@ -19,7 +19,7 @@ function OverlayStyle() {
       >
         <Button>根据 trigger 元素定制 overlayStyle</Button>
       </Popup>
-    </>
+    </div>
   );
 }
 

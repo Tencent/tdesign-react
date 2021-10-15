@@ -8,34 +8,16 @@ export default function BasicSwiper() {
   return (
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
-        <Button
-          onClick={() => {
-            setCurrent(0);
-          }}
-        >
-          跳到item-1
-        </Button>
-        <Button
-          onClick={() => {
-            setCurrent(1);
-          }}
-        >
-          跳到item-2
-        </Button>
-        <Button
-          onClick={() => {
-            setCurrent(2);
-          }}
-        >
-          跳到item-3
-        </Button>
-        <Button
-          onClick={() => {
-            setCurrent(3);
-          }}
-        >
-          跳到item-4
-        </Button>
+        {[1, 2, 3, 4].map((i) => (
+          <Button
+            key={i}
+            onClick={() => {
+              setCurrent(i - 1);
+            }}
+          >
+            跳转到第 {i} 项
+          </Button>
+        ))}
       </div>
       <Swiper current={current}>
         <SwiperItem>

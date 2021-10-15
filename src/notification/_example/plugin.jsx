@@ -35,11 +35,11 @@ export default function NotificationExample() {
   }, []);
 
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Button onClick={() => openInfoNotification()}>信息</Button>
       <Button onClick={() => openSuccessNotification()}>成功</Button>
       <Button onClick={() => openWarningNotification()}>警告</Button>
       <Button onClick={() => openErrorNotification()}>错误</Button>
-    </>
+    </div>
   );
 }

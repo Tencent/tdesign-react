@@ -18,7 +18,7 @@ export default function BaseForm() {
 
   return (
     <div>
-      <Form layout="vertical" onSubmit={onSubmit} labelWidth={100} onReset={onReset}>
+      <Form layout="vertical" onSubmit={onSubmit} labelWidth={100} onReset={onReset} scrollToFirstError='smooth'>
         <FormItem
           label="用户名"
           help="这里请填写用户名"

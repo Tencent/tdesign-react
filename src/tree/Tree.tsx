@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
@@ -7,6 +7,7 @@ import { TreeOptionData } from '../_type';
 import { usePersistFn } from '../_util/usePersistFn';
 import { TreeInstanceFunctions, TdTreeProps } from '../_type/components/tree';
 import { useTreeConfig } from './useTreeConfig';
+import useControllable from './useControllable';
 import { TreeItemProps } from './interface';
 
 import TreeItem from './TreeItem';
@@ -20,14 +21,12 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
-  const transitionRef = useRef(null);
+
   const {
     empty,
-    // defaultExpanded,
     activable,
     disabled,
     checkable,
-    // defaultValue,
     checkProps,
     hover,
     icon,
@@ -36,23 +35,32 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     operations,
     transition, // 动画默认开启
     expandOnClickNode,
-    onExpand,
-    onActive,
-    onChange,
     onClick,
   } = props;
 
-  const store = useStore(props, () => {
-    const nodes = store.getNodes();
+  const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
 
-    const newVisibleNodes = nodes.filter((node) => node.visible);
+  const store = useStore(
+    {
+      ...props,
+      value,
+      onChange,
+      expanded,
+      onExpand,
+      onActive,
+      actived,
+    },
+    () => {
+      const nodes = store.getNodes();
+      const newVisibleNodes = nodes.filter((node) => node.visible);
 
-    setVisibleNodes(newVisibleNodes);
-  });
+      setVisibleNodes(newVisibleNodes);
+    },
+  );
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
-    const expanded = node.setExpanded(isExpanded, { directly: true });
+    const expanded = node.setExpanded(isExpanded);
     const treeNodeModel = node?.getModel();
 
     onExpand?.(expanded, {
@@ -62,14 +70,14 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   });
 
   const setActived = usePersistFn((node: TreeNode, isActived: boolean) => {
-    const actived = node.setActived(isActived, { directly: true });
+    const actived = node.setActived(isActived);
     const treeNodeModel = node?.getModel();
     onActive?.(actived, { node: treeNodeModel });
     return actived;
   });
 
   const setChecked = usePersistFn((node: TreeNode, isChecked: boolean) => {
-    const checked = node.setChecked(isChecked, { directly: true });
+    const checked = node.setChecked(isChecked);
     const treeNodeModel = node?.getModel();
     onChange?.(checked, { node: treeNodeModel });
     return checked;
@@ -81,13 +89,11 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     }
     const { expand, active, event } = options;
     if (expand) {
-      const expandArr = setExpanded(node, !node.isExpanded());
-      store.replaceExpanded(expandArr);
+      setExpanded(node, !node.isExpanded());
     }
 
     if (active) {
-      const activedArr = setActived(node, !node.isActived());
-      store.replaceActived(activedArr);
+      setActived(node, !node.isActived());
     }
     const treeNodeModel = node?.getModel();
     onClick?.({
@@ -100,8 +106,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
     if (!node || disabled || node.disabled) {
       return;
     }
-    const checkedArr = setChecked(node, !node.isChecked());
-    store.replaceChecked(checkedArr);
+    setChecked(node, !node.isChecked());
   };
 
   /** 对外暴露的公共方法 * */
@@ -180,6 +185,8 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   );
 
   /* ======== render ======= */
+  const nodeRef = React.useRef(null);
+
   const renderEmpty = () => {
     let emptyView = empty || '暂无数据';
     if (empty instanceof Function) {
@@ -199,10 +206,10 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
         {visibleNodes.map((node) => (
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
+            nodeRef={nodeRef}
             key={node.value}
             timeout={transitionDuration}
             classNames={transitionClassNames}
-            nodeRef={transitionRef}
           >
             <TreeItem
               node={node}

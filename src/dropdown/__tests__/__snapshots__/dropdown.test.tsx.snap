@@ -2,157 +2,189 @@
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-text"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-text"
     >
       <span
-        style="display: inline-flex;"
+        class="t-button__text"
       >
-        更多
-        <svg
-          class="t-icon t-icon-chevron-down"
+        <span
+          style="display: inline-flex;"
         >
-          <use
-            xlink:href="#t-icon-chevron-down"
-          />
-        </svg>
+          更多
+          <svg
+            class="t-icon t-icon-chevron-down"
+          >
+            <use
+              xlink:href="#t-icon-chevron-down"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
-  </button>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`button.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
-      <svg
-        class="t-icon t-icon-ellipsis"
+      <span
+        class="t-button__text"
       >
-        <use
-          xlink:href="#t-icon-ellipsis"
-        />
-      </svg>
-    </span>
-  </button>
+        <svg
+          class="t-icon t-icon-ellipsis"
+        >
+          <use
+            xlink:href="#t-icon-ellipsis"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`click.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      hover我试试
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        hover我试试
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-text"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-text"
     >
       <span
-        style="display: inline-flex;"
+        class="t-button__text"
       >
-        更多
-        <svg
-          class="t-icon t-icon-chevron-down"
+        <span
+          style="display: inline-flex;"
         >
-          <use
-            xlink:href="#t-icon-chevron-down"
-          />
-        </svg>
+          更多
+          <svg
+            class="t-icon t-icon-chevron-down"
+          >
+            <use
+              xlink:href="#t-icon-chevron-down"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
-  </button>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`height.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      hover我试试
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        hover我试试
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-outline"
     >
-      <svg
-        class="t-icon t-icon-ellipsis"
+      <span
+        class="t-button__text"
       >
-        <use
-          xlink:href="#t-icon-ellipsis"
-        />
-      </svg>
-    </span>
-  </button>
+        <svg
+          class="t-icon t-icon-ellipsis"
+        >
+          <use
+            xlink:href="#t-icon-ellipsis"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`other.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      点击我试试
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        点击我试试
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`split.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-text"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-default t-button--variant-text"
     >
       <span
-        style="display: inline-flex;"
+        class="t-button__text"
       >
-        更多
-        <svg
-          class="t-icon t-icon-chevron-down"
+        <span
+          style="display: inline-flex;"
         >
-          <use
-            xlink:href="#t-icon-chevron-down"
-          />
-        </svg>
+          更多
+          <svg
+            class="t-icon t-icon-chevron-down"
+          >
+            <use
+              xlink:href="#t-icon-chevron-down"
+            />
+          </svg>
+        </span>
       </span>
-    </span>
-  </button>
+    </button>
+  </div>
 </DocumentFragment>
 `;

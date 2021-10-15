@@ -211,6 +211,13 @@ export default {
           component: () => import('@tencent/tdesign-react/textarea/README.md'),
         },
         {
+          title: 'TreeSelect 树选择',
+          name: 'tree-select',
+          docType: 'data',
+          path: '/react/components/tree-select',
+          component: () => import('@tencent/tdesign-react/tree-select/README.md'),
+        },
+        {
           title: 'TimePicker 时间选择器',
           name: 'time-picker',
           docType: 'form',

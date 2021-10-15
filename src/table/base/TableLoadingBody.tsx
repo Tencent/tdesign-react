@@ -1,15 +1,13 @@
-import React from 'react';
-import useConfig from '../../_util/useConfig';
+import isFunction from 'lodash/isFunction';
 
-export default function TableLoadingBody() {
-  const { classPrefix } = useConfig();
+export default function TableLoadingBody(props) {
+  const { loading } = props;
+  if (!loading) return null;
 
-  return (
-    <div className={`${classPrefix}-table--loading`}>
-      <div className={`${classPrefix}-table--loading-progressbar`} style={{ width: '50%' }} />
-      <div className={`${classPrefix}-table--loading-message`}>
-        <p>正在加载中，请稍候</p>
-      </div>
-    </div>
-  );
+  let result = null;
+
+  if (loading) result = loading;
+  if (isFunction(loading)) result = loading();
+
+  return result;
 }

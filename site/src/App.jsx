@@ -3,9 +3,16 @@ import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router
 import siteConfig from '../site.config.js';
 import { getRoute, getContributors } from './utils';
 import DemoList, { demoFiles } from './DemoList';
-import Loading from '@tencent/tdesign-react/loading';
+import { Loading, Select } from '@tencent/tdesign-react';
+import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
+
+const historyVersion = ['0.14.3'];
+const versionOptions = [
+  { value: packageJson.version, label: packageJson.version },
+  ...historyVersion.map((v) => ({ value: v, label: v })),
+];
 
 function renderDemoRoutes() {
   if (process.env.NODE_ENV === 'development') {
@@ -25,6 +32,7 @@ function Components(props) {
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
   const tdDocSearch = useRef();
+  const [version, setVersion] = useState(packageJson.version);
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -41,6 +49,11 @@ function Components(props) {
         />
       );
     });
+  }
+
+  function changeVersion(version) {
+    if (version === packageJson.version) return;
+    location.href = `https://tdesign.cdn-go.cn/tdesign-web-react/${version}/`;
   }
 
   useEffect(() => {
@@ -64,6 +77,9 @@ function Components(props) {
     <td-doc-layout>
       <td-header ref={tdHeaderRef} slot="header">
         <td-doc-search slot="search" ref={tdDocSearch} />
+        {/* <div slot="links">
+          <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
+        </div> */}
       </td-header>
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 

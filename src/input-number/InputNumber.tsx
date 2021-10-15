@@ -1,13 +1,20 @@
 import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler, useEffect } from 'react';
 import classNames from 'classnames';
 
+import { StyledProps } from '../_type';
+import { TdInputNumberProps, ChangeContext as TdChangeContext } from '../_type/components/input-number';
+
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 import useUpdateEffect from '../_util/useUpdateEffect';
 
 import StepHandler from './StepHandler';
-import { ChangeContext, InputNumberProps, InputNumberInternalValue } from './InputNumberProps';
 import * as numberUtils from './utils/numberUtils';
+import Input from '../input';
+
+export type InputNumberInternalValue = number | string;
+export type ChangeContext = TdChangeContext & { value?: number };
+export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
 const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
@@ -120,8 +127,7 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
     }
   };
 
-  const onInternalInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const inputStr = e.target.value;
+  const onInternalInput = (inputStr: string, { e }) => {
     if (inputStr === '') {
       setInputValue(inputStr);
       return triggerValueUpdate({ type: 'input', value: undefined, e });
@@ -195,6 +201,7 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
 
   return (
     <div
+      ref={ref}
       className={classNames(className, inputClassName, commonClassNames.SIZE[size], {
         [commonClassNames.STATUS.disabled]: disabled,
         [`${classPrefix}-is-controls-right`]: theme === 'column',
@@ -216,20 +223,13 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
           onStep={onInternalStep}
         />
       )}
-      <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-is-error`]: isError })}>
-        <input
-          className={classNames(`${classPrefix}-input__inner`, {
-            [commonClassNames.STATUS.disabled]: disabled,
-            [`${inputClassName}-text-align`]: theme === 'row',
-          })}
-          disabled={disabled}
-          ref={ref}
-          value={internalInputValue}
-          onChange={onInternalInput}
-          autoComplete="off"
-          {...restInputProps}
-        />
-      </div>
+      <Input
+        disabled={disabled}
+        value={internalInputValue}
+        onChange={onInternalInput}
+        status={isError ? 'error' : undefined}
+        {...restInputProps}
+      />
     </div>
   );
 });

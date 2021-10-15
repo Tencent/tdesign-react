@@ -16,7 +16,7 @@ describe('Tag 组件测试', () => {
     getByText(container, (_, element) => element.tagName.toLowerCase() === 'span');
 
     // 校验默认className
-    const defaultClass = ['t-tag', 't-tag--dark', 't-tag--middle', 't-tag--square'];
+    const defaultClass = ['t-tag', 't-tag--dark', 't-tag--medium', 't-tag--square'];
     expect(container.firstChild).toHaveClass(...defaultClass);
   });
 

@@ -3,97 +3,94 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdegsin-demo-tabs"
+    class="t-tabs"
   >
     <div
-      class="t-tabs"
+      class="t-tabs__header t-is-top"
     >
       <div
-        class="t-tabs__header t-is-top"
+        class="t-tabs__nav"
       >
         <div
-          class="t-tabs__nav"
+          class="t-tabs__operations t-tabs__operations--left"
+        />
+        <div
+          class="t-tabs__operations t-tabs__operations--right"
+        />
+        <div
+          class="t-tabs__nav-container t-is-top"
         >
           <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
-          />
-          <div
-            class="t-tabs__nav-container t-is-top"
+            class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-scroll"
+              class="t-tabs__nav-wrap"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__bar t-is-top"
+                style="transform: translateX(0px);"
+              />
+              <div
+                class="t-tabs__bar t-is-top"
+              />
+              <div
+                class="t-tabs__nav-item t-size-m t-is-active t-is-top"
               >
                 <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                  class="t-tabs__nav-item-wrapper"
+                  style="position: relative;"
                 >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡1
-                    </span>
-                  </div>
+                    选项卡1
+                  </span>
                 </div>
+              </div>
+              <div
+                class="t-tabs__nav-item t-size-m t-is-top"
+              >
                 <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
+                  class="t-tabs__nav-item-wrapper"
+                  style="position: relative;"
                 >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡2
-                    </span>
-                  </div>
+                    选项卡2
+                  </span>
                 </div>
+              </div>
+              <div
+                class="t-tabs__nav-item t-size-m t-is-top"
+              >
                 <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
+                  class="t-tabs__nav-item-wrapper"
+                  style="position: relative;"
                 >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡3
-                    </span>
-                  </div>
+                    选项卡3
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-tabs__content t-is-top"
+    >
       <div
-        class="t-tabs__content t-is-top"
+        class="t-tab-panel"
       >
         <div
-          class="t-tab-panel"
+          class="tabs-content"
+          style="margin: 20px;"
         >
-          <div
-            class="tabs-content"
-          >
-            选项卡1
-          </div>
+          选项卡1
         </div>
       </div>
     </div>
@@ -104,76 +101,73 @@ exports[`base.jsx 1`] = `
 exports[`combination.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdegsin-demo-tabs"
+    class="t-tabs"
   >
     <div
-      class="t-tabs"
+      class="t-tabs__header t-is-top"
     >
       <div
-        class="t-tabs__header t-is-top"
+        class="t-tabs__nav"
       >
         <div
-          class="t-tabs__nav"
+          class="t-tabs__operations t-tabs__operations--left"
+        />
+        <div
+          class="t-tabs__operations t-tabs__operations--right"
         >
           <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
+            class="t-tabs__add-btn t-tabs__btn t-size-m"
           >
-            <div
-              class="t-tabs__add-btn t-tabs__btn t-size-m"
+            <svg
+              class="t-icon t-icon-add"
+              name="add"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="t-icon t-icon-add"
-                name="add"
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+              />
+            </svg>
           </div>
+        </div>
+        <div
+          class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+        >
           <div
-            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+            class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-scroll"
+              class="t-tabs__nav-wrap"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__bar t-is-top"
+              />
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
               >
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
                 >
-                  <span
-                    class="t-tabs__nav-item-text-wrapper"
-                  >
-                    选项卡1
-                  </span>
-                </div>
+                  选项卡1
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-tabs__content t-is-top"
+    >
       <div
-        class="t-tabs__content t-is-top"
+        class="t-tab-panel"
       >
         <div
-          class="t-tab-panel"
+          class="tabs-content"
+          style="margin: 20px;"
         >
-          <div
-            class="tabs-content"
-          >
-            选项卡1
-          </div>
+          选项卡1
         </div>
       </div>
     </div>
@@ -184,76 +178,73 @@ exports[`combination.jsx 1`] = `
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdegsin-demo-tabs"
+    class="t-tabs"
   >
     <div
-      class="t-tabs"
+      class="t-tabs__header t-is-top"
     >
       <div
-        class="t-tabs__header t-is-top"
+        class="t-tabs__nav"
       >
         <div
-          class="t-tabs__nav"
+          class="t-tabs__operations t-tabs__operations--left"
+        />
+        <div
+          class="t-tabs__operations t-tabs__operations--right"
         >
           <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
+            class="t-tabs__add-btn t-tabs__btn t-size-m"
           >
-            <div
-              class="t-tabs__add-btn t-tabs__btn t-size-m"
+            <svg
+              class="t-icon t-icon-add"
+              name="add"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="t-icon t-icon-add"
-                name="add"
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+              />
+            </svg>
           </div>
+        </div>
+        <div
+          class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+        >
           <div
-            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+            class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-scroll"
+              class="t-tabs__nav-wrap"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__bar t-is-top"
+              />
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
               >
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
                 >
-                  <span
-                    class="t-tabs__nav-item-text-wrapper"
-                  >
-                    选项卡1
-                  </span>
-                </div>
+                  选项卡1
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-tabs__content t-is-top"
+    >
       <div
-        class="t-tabs__content t-is-top"
+        class="t-tab-panel"
       >
         <div
-          class="t-tab-panel"
+          class="tabs-content"
+          style="margin: 20px;"
         >
-          <div
-            class="tabs-content"
-          >
-            选项卡1
-          </div>
+          选项卡1
         </div>
       </div>
     </div>
@@ -263,82 +254,80 @@ exports[`custom.jsx 1`] = `
 
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="t-tabs"
+  >
     <div
-      class="t-tabs"
+      class="t-tabs__header t-is-top"
     >
       <div
-        class="t-tabs__header t-is-top"
+        class="t-tabs__nav"
       >
         <div
-          class="t-tabs__nav"
+          class="t-tabs__operations t-tabs__operations--left"
+        />
+        <div
+          class="t-tabs__operations t-tabs__operations--right"
+        />
+        <div
+          class="t-tabs__nav-container t-is-top"
         >
           <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
-          />
-          <div
-            class="t-tabs__nav-container t-is-top"
+            class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-scroll"
+              class="t-tabs__nav-wrap"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__bar t-is-top"
+                style="transform: translateX(0px);"
+              />
+              <div
+                class="t-tabs__bar t-is-top"
+              />
+              <div
+                class="t-tabs__nav-item t-size-m t-is-top t-is-disabled"
               >
                 <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top t-is-disabled"
+                  class="t-tabs__nav-item-wrapper"
+                  style="position: relative;"
                 >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡一
-                    </span>
-                  </div>
+                    选项卡一
+                  </span>
                 </div>
+              </div>
+              <div
+                class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+              >
                 <div
-                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                  class="t-tabs__nav-item-wrapper"
+                  style="position: relative;"
                 >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
+                  <span
+                    class="t-tabs__nav-item-text-wrapper"
                   >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡二
-                    </span>
-                  </div>
+                    选项卡二
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-tabs__content t-is-top"
+    >
       <div
-        class="t-tabs__content t-is-top"
+        class="t-tab-panel"
       >
         <div
-          class="t-tab-panel"
+          style="margin: 20px;"
         >
-          <div
-            style="margin: 20px;"
-          >
-            这是一个Tabs
-          </div>
+          这是一个Tabs
         </div>
       </div>
     </div>
@@ -349,7 +338,7 @@ exports[`disabled.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdegsin-demo-tabs"
+    class="tdesign-demo-tabs"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -489,6 +478,7 @@ exports[`icon.jsx 1`] = `
         >
           <div
             class="tabs-content"
+            style="margin: 20px;"
           >
             选项卡1
           </div>
@@ -501,75 +491,73 @@ exports[`icon.jsx 1`] = `
 
 exports[`operation.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="t-tabs"
+  >
     <div
-      class="t-tabs"
+      class="t-tabs__header t-is-top"
     >
       <div
-        class="t-tabs__header t-is-top"
+        class="t-tabs__nav"
       >
         <div
-          class="t-tabs__nav"
+          class="t-tabs__operations t-tabs__operations--left"
+        />
+        <div
+          class="t-tabs__operations t-tabs__operations--right"
         >
           <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
+            class="t-tabs__add-btn t-tabs__btn t-size-m"
           >
-            <div
-              class="t-tabs__add-btn t-tabs__btn t-size-m"
+            <svg
+              class="t-icon t-icon-add"
+              name="add"
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="t-icon t-icon-add"
-                name="add"
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M470.39872 553.59872V800H553.59872V553.59872H800V470.39872H553.59872V224H470.39872V470.39872H224V553.59872H470.39872Z"
+              />
+            </svg>
           </div>
+        </div>
+        <div
+          class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+        >
           <div
-            class="t-tabs__nav-container t-tabs__nav--card t-is-top t-is-addable"
+            class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-scroll"
+              class="t-tabs__nav-wrap"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__bar t-is-top"
+              />
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
               >
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
                 >
-                  <span
-                    class="t-tabs__nav-item-text-wrapper"
-                  >
-                    选项卡1
-                  </span>
-                </div>
+                  选项卡1
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-tabs__content t-is-top"
+    >
       <div
-        class="t-tabs__content t-is-top"
+        class="t-tab-panel"
       >
         <div
-          class="t-tab-panel"
+          style="margin: 20px;"
         >
-          <div
-            style="margin: 20px;"
-          >
-            选项卡1
-          </div>
+          选项卡1
         </div>
       </div>
     </div>
@@ -580,48 +568,52 @@ exports[`operation.jsx 1`] = `
 exports[`position.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdegsin-demo-tabs"
+    class="tdesign-demo-block-column"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
+    <div
+      class="tdesign-demo-block-row"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        top
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          top
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        bottom
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          bottom
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        left
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          left
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        right
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          right
+        </span>
+      </button>
+    </div>
     <div
       class="t-tabs"
     >
@@ -772,6 +764,7 @@ exports[`position.jsx 1`] = `
         >
           <div
             class="tabs-content"
+            style="margin: 20px;"
           >
             这是一个Tabs
           </div>
@@ -784,27 +777,33 @@ exports[`position.jsx 1`] = `
 
 exports[`size.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="tdesign-demo-block-row"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        middle
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          medium
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        style="position: relative;"
       >
-        large
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          large
+        </span>
+      </button>
+    </div>
     <div
       class="t-tabs"
     >
@@ -953,27 +952,33 @@ exports[`size.jsx 1`] = `
 
 exports[`theme.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="tdesign-demo-block-row"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
       >
-        default
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          default
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
       >
-        card
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          card
+        </span>
+      </button>
+    </div>
     <div
       class="t-tabs"
     >

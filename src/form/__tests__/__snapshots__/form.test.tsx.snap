@@ -68,10 +68,10 @@ exports[`align.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__name"
       >
         <div
-          class="t-form__label t-form-item__name t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 80px;"
         >
           <label>
@@ -97,10 +97,10 @@ exports[`align.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form-item__password t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 80px;"
         >
           <label>
@@ -136,10 +136,10 @@ exports[`base.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item"
+      class="t-form__item t-form-item__name"
     >
       <div
-        class="t-form__label t-form-item__name t-form__label--colon t-form__label--right"
+        class="t-form__label t-form__label--colon t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -165,10 +165,10 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form-item__birthday"
     >
       <div
-        class="t-form__label t-form-item__birthday t-form__label--colon t-form__label--right"
+        class="t-form__label t-form__label--colon t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -186,33 +186,37 @@ exports[`base.jsx 1`] = `
             class="t-date-picker t-size-m"
           >
             <div
-              class="t-form-controls"
+              class="t-popup-reference t-date-picker-popup-reference"
             >
               <div
-                class="t-input t-input--suffix"
+                class="t-form-controls"
               >
-                <input
-                  class="t-input__inner"
-                  placeholder="请选择"
-                  readonly=""
-                  value=""
-                />
-                <span
-                  class="t-input__suffix"
+                <div
+                  class="t-input t-input--suffix"
                 >
-                  <svg
-                    class="t-icon t-icon-calendar"
-                    version="1.1"
-                    viewBox="0 0 1024 1024"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    value=""
+                  />
+                  <span
+                    class="t-input__suffix"
                   >
-                    <path
-                      d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
-                      fill-opacity=".9"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                    <svg
+                      class="t-icon t-icon-calendar"
+                      version="1.1"
+                      viewBox="0 0 1024 1024"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M384 128L384 192 640 192 640 128 704 128 704 192 832 192C867.3462208 192 896 220.653776 896 256L896 832C896 867.3462208 867.3462208 896 832 896L192 896C156.653776 896 128 867.3462208 128 832L128 256C128 220.653776 156.653776 192 192 192L320 192 320 128 384 128ZM320 256L192 256 192 832 832 832 832 256 704 256 704 320 640 320 640 256 384 256 384 320 320 320 320 256ZM192 384L832 384 832 448 192 448 192 384Z"
+                        fill-opacity=".9"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -220,10 +224,10 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form-item__gender"
     >
       <div
-        class="t-form__label t-form-item__gender t-form__label--colon t-form__label--right"
+        class="t-form__label t-form__label--colon t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -281,10 +285,10 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form-item__course"
     >
       <div
-        class="t-form__label t-form-item__course t-form__label--colon t-form__label--right"
+        class="t-form__label t-form__label--colon t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -299,7 +303,7 @@ exports[`base.jsx 1`] = `
           class="t-form__controls--content"
         >
           <div
-            class="t-check-group"
+            class="t-checkbox-group"
           >
             <label
               class="t-checkbox"
@@ -360,10 +364,10 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form-item__status"
     >
       <div
-        class="t-form__label t-form-item__status t-form__label--colon t-form__label--right"
+        class="t-form__label t-form__label--colon t-form__label--right"
         style="width: 100px;"
       >
         <label
@@ -408,7 +412,6 @@ exports[`base.jsx 1`] = `
             class="t-button t-button--theme-primary t-button--variant-base"
             style="position: relative;"
             type="submit"
-            value=""
           >
             <span
               class="t-button__text"
@@ -420,7 +423,6 @@ exports[`base.jsx 1`] = `
             class="t-button t-button--theme-primary t-button--variant-base"
             style="margin-left: 12px; position: relative;"
             type="reset"
-            value=""
           >
             <span
               class="t-button__text"
@@ -442,10 +444,10 @@ exports[`custom-validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__account"
       >
         <div
-          class="t-form__label t-form-item__account t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -471,10 +473,10 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form-item__password t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -500,10 +502,10 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__rePassword"
       >
         <div
-          class="t-form__label t-form-item__rePassword t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -542,7 +544,6 @@ exports[`custom-validator.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-right: 10px; position: relative;"
               type="submit"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -554,7 +555,6 @@ exports[`custom-validator.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="position: relative;"
               type="reset"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -623,11 +623,10 @@ exports[`layout.jsx 1`] = `
       class="t-form t-form-inline"
     >
       <div
-        class="t-form__item"
-        style="width: 30%;"
+        class="t-form__item t-form-item__name"
       >
         <div
-          class="t-form__label t-form-item__name t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 60px;"
         >
           <label>
@@ -652,11 +651,10 @@ exports[`layout.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
-        style="width: 30%;"
+        class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form-item__password t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 60px;"
         >
           <label>
@@ -694,7 +692,7 @@ exports[`login.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__account"
       >
         <div
           class="t-form__controls"
@@ -731,7 +729,7 @@ exports[`login.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__controls"
@@ -781,7 +779,6 @@ exports[`login.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
               style="position: relative;"
               type="submit"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -804,10 +801,10 @@ exports[`validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__account"
       >
         <div
-          class="t-form__label t-form-item__account t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -838,10 +835,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form-item__password t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -872,10 +869,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__email"
       >
         <div
-          class="t-form__label t-form-item__email t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -901,10 +898,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__gender"
       >
         <div
-          class="t-form__label t-form-item__gender t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -962,10 +959,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__course"
       >
         <div
-          class="t-form__label t-form-item__course t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -980,7 +977,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls--content"
           >
             <div
-              class="t-check-group"
+              class="t-checkbox-group"
             >
               <label
                 class="t-checkbox"
@@ -1059,10 +1056,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__date"
       >
         <div
-          class="t-form__label t-form-item__date t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1088,10 +1085,10 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__content.url"
       >
         <div
-          class="t-form__label t-form-item__content.url t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1130,7 +1127,6 @@ exports[`validator.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-right: 10px; position: relative;"
               type="submit"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -1142,7 +1138,6 @@ exports[`validator.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="position: relative;"
               type="reset"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -1165,10 +1160,10 @@ exports[`validator-status.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__fail"
       >
         <div
-          class="t-form__label t-form-item__fail t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1199,10 +1194,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__warning"
       >
         <div
-          class="t-form__label t-form-item__warning t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1228,10 +1223,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__success"
       >
         <div
-          class="t-form__label t-form-item__success t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1257,10 +1252,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__failB"
       >
         <div
-          class="t-form__label t-form-item__failB t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1287,10 +1282,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__warningB"
       >
         <div
-          class="t-form__label t-form-item__warningB t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--required t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1316,10 +1311,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__loading"
       >
         <div
-          class="t-form__label t-form-item__loading t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1364,10 +1359,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__add"
       >
         <div
-          class="t-form__label t-form-item__add t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1416,10 +1411,10 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form-item__help"
       >
         <div
-          class="t-form__label t-form-item__help t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1481,7 +1476,6 @@ exports[`validator-status.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-right: 10px; position: relative;"
               type="submit"
-              value=""
             >
               <span
                 class="t-button__text"
@@ -1493,7 +1487,6 @@ exports[`validator-status.jsx 1`] = `
               class="t-button t-button--theme-primary t-button--variant-base"
               style="position: relative;"
               type="reset"
-              value=""
             >
               <span
                 class="t-button__text"

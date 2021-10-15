@@ -11,30 +11,26 @@ export default function AddTabs() {
     },
   ]);
   return (
-    <>
-      <div className="tdegsin-demo-tabs">
-        <Tabs
-          placement={'top'}
-          size={'medium'}
-          disabled={false}
-          theme={'card'}
-          defaultValue={1}
-          addable
-          onAdd={() => {
-            const newPanels = panels.concat({
-              value: panels.length + 1,
-              label: `选项卡${panels.length + 1}`,
-            });
-            setPanels(newPanels);
-          }}
-        >
-          {panels.map(({ value, label }) => (
-            <TabPanel key={value} value={value} label={label}>
-              <div className="tabs-content">{label}</div>
-            </TabPanel>
-          ))}
-        </Tabs>
-      </div>
-    </>
+    <Tabs
+      placement={'top'}
+      size={'medium'}
+      disabled={false}
+      theme={'card'}
+      defaultValue={1}
+      addable
+      onAdd={() => {
+        const newPanels = panels.concat({
+          value: panels.length + 1,
+          label: `选项卡${panels.length + 1}`,
+        });
+        setPanels(newPanels);
+      }}
+    >
+      {panels.map(({ value, label }) => (
+        <TabPanel key={value} value={value} label={label}>
+          <div className="tabs-content" style={{ margin: 20 }}>{label}</div>
+        </TabPanel>
+      ))}
+    </Tabs>
   );
 }

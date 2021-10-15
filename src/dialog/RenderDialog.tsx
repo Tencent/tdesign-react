@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, CSSProperties } from 'react';
+import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
@@ -17,6 +17,19 @@ export interface RenderDialogProps extends DialogProps {
 }
 
 const transitionTime = 300;
+let mousePosition: { x: number; y: number } | null;
+const getClickPosition = (e: MouseEvent) => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  };
+  setTimeout(() => {
+    mousePosition = null;
+  }, 100);
+};
+if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
+  document.documentElement.addEventListener('click', getClickPosition, true);
+}
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const {
     prefixCls,
@@ -37,21 +50,46 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>(document.body.style.overflow);
+  const bodyCssTextRef = useRef<string>(document.body.style.cssText);
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
 
   useLayoutEffect(() => {
     if (visible) {
       if (isModal && bodyOverflow.current !== 'hidden' && preventScrollThrough) {
-        document.body.style.overflow = 'hidden';
+        const scrollWidth = window.innerWidth - document.body.offsetWidth;
+        // 减少回流
+        if (bodyCssTextRef.current === '') {
+          let bodyCssText = 'overflow: hidden;';
+          if (scrollWidth > 0) {
+            bodyCssText += `position: relative;width: calc(100% - ${scrollWidth}px);`;
+          }
+          document.body.style.cssText = bodyCssText;
+        } else {
+          if (scrollWidth > 0) {
+            document.body.style.width = `calc(100% - ${scrollWidth}px)`;
+            document.body.style.position = 'relative';
+          }
+          document.body.style.overflow = 'hidden';
+        }
       }
       if (wrap.current) {
         wrap.current.focus();
       }
-    } else {
-      isModal && (document.body.style.overflow = bodyOverflow.current);
+    } else if (isModal) {
+      document.body.style.cssText = bodyCssTextRef.current;
     }
   }, [preventScrollThrough, getContainer, visible, mode, isModal]);
+
+  useEffect(() => {
+    if (visible) {
+      if (mousePosition && dialog.current) {
+        dialog.current.style.transformOrigin = `${mousePosition.x - dialog.current.offsetLeft}px ${
+          mousePosition.y - dialog.current.offsetTop
+        }px`;
+      }
+    }
+  }, [visible]);
 
   const onAnimateLeave = () => {
     if (wrap.current) {

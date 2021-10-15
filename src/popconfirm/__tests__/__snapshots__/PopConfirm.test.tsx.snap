@@ -30,26 +30,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -85,26 +71,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -118,6 +90,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
     <div
       class="t-popconfirm__body"
     >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        style="color: rgb(0, 82, 217);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -127,26 +112,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -160,6 +131,19 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
     <div
       class="t-popconfirm__body"
     >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        style="color: rgb(0, 82, 217);"
+        version="1.1"
+        viewBox="0 0 1024 1024"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
+          fill-opacity=".9"
+          fill-rule="evenodd"
+        />
+      </svg>
       <div
         class="t-popconfirm__inner"
       >
@@ -169,26 +153,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -224,26 +194,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -271,26 +227,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -326,26 +268,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -381,26 +309,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -426,26 +340,12 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
     <div
       class="t-popconfirm__buttons"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -453,138 +353,363 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="t-popup-reference"
     >
-      提交
-    </span>
-  </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          删除订单
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          点我看按钮
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          提交审核
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+        disabled=""
+      >
+        <span
+          class="t-button__text"
+        >
+          禁用按钮
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`button.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          按钮样式（属性-字符串）
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          按钮样式（TNode）
+        </span>
+      </button>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`describe.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="t-popup-reference"
     >
-      操作
-    </span>
-  </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          自定义content
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-danger t-button--variant-outline"
+      >
+        <span
+          class="t-button__text"
+        >
+          自定义content
+        </span>
+      </button>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`extends.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="t-popup-reference"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
     >
-      浮层在右边
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        浮层在右边
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-column"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="tdesign-demo-block-row"
     >
-      使用VNode
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+      <div
+        class="t-popup-reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+        >
+          <span
+            class="t-button__text"
+          >
+            默认
+          </span>
+        </button>
+      </div>
+      <div
+        class="t-popup-reference"
+      >
+        <button
+          class="t-button t-button--theme-warning t-button--variant-base"
+        >
+          <span
+            class="t-button__text"
+          >
+            警告
+          </span>
+        </button>
+      </div>
+      <div
+        class="t-popup-reference"
+      >
+        <button
+          class="t-button t-button--theme-danger t-button--variant-base"
+        >
+          <span
+            class="t-button__text"
+          >
+            危险
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <div
+        class="t-popup-reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+        >
+          <span
+            class="t-button__text"
+          >
+            图标（属性）
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`inherit.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="t-popup-reference"
     >
-      使用Function
-    </span>
-  </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          浮层出现在下方
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          浮层出现在右侧
+        </span>
+      </button>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`placement.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="t-popup-reference"
     >
-      Left
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          Left
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      Top
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          Top
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      Bottom
-    </span>
-  </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          Bottom
+        </span>
+      </button>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`theme.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-default t-button--variant-outline"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <div
+      class="t-popup-reference"
     >
-      默认
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+      >
+        <span
+          class="t-button__text"
+        >
+          默认
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      提示
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          提示
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      警告
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-danger t-button--variant-base"
-  >
-    <span
-      class="t-button__text"
+      <button
+        class="t-button t-button--theme-danger t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          警告
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
     >
-      错误
-    </span>
-  </button>
+      <button
+        class="t-button t-button--theme-danger t-button--variant-base"
+      >
+        <span
+          class="t-button__text"
+        >
+          错误
+        </span>
+      </button>
+    </div>
+  </div>
 </DocumentFragment>
 `;
