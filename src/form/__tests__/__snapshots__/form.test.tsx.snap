@@ -399,7 +399,7 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__undefined"
+      class="t-form__item"
     >
       <div
         class="t-form__controls"
@@ -531,7 +531,7 @@ exports[`custom-validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__undefined"
+        class="t-form__item"
       >
         <div
           class="t-form__controls"
@@ -767,7 +767,7 @@ exports[`login.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__undefined"
+        class="t-form__item"
       >
         <div
           class="t-form__controls"
@@ -1114,7 +1114,7 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__undefined"
+        class="t-form__item"
       >
         <div
           class="t-form__controls"
@@ -1463,7 +1463,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__undefined"
+        class="t-form__item"
       >
         <div
           class="t-form__controls"

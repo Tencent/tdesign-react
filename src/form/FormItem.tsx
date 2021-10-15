@@ -66,7 +66,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, `${classPrefix}-form-item__${name}`);
+  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
+    [`${classPrefix}-form-item__${name}`]: name,
+  });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,

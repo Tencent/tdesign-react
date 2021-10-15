@@ -601,7 +601,7 @@ exports[`operation.jsx 1`] = `
               class="t-form"
             >
               <div
-                class="t-form__item t-form-item__undefined"
+                class="t-form__item"
               >
                 <div
                   class="t-form__label t-form__label--right"
@@ -630,7 +630,7 @@ exports[`operation.jsx 1`] = `
                 </div>
               </div>
               <div
-                class="t-form__item t-form-item__undefined"
+                class="t-form__item"
               >
                 <div
                   class="t-form__label t-form__label--right"
