@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, DiscountIcon, Button } from '@tencent/tdesign-react';
+import { Tabs, Button } from '@tencent/tdesign-react';
+import { DiscountIcon } from '@tencent/tdesign-icons-react';
 
 const { TabPanel } = Tabs;
 

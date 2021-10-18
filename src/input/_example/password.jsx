@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Input, LockOnIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-react';
+import { Input } from '@tencent/tdesign-react';
+import { LockOnIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');

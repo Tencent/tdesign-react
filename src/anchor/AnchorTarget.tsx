@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
+import { FileCopyIcon } from '@tencent/tdesign-icons-react';
 import Popup from '../popup';
-import FileCopyIcon from '../icon/icons/FileCopyIcon';
 import Message from '../message';
 import useConfig from '../_util/useConfig';
 

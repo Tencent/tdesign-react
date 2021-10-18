@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
-import { CheckCircleIcon } from '@tencent/tdesign-react/icon';
+import { CheckCircleIcon } from '@tencent/tdesign-icons-react';
 import PopConfirm from '../PopConfirm';
 import PopContent from '../PopContent';
 

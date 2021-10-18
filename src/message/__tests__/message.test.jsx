@@ -1,12 +1,14 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent } from '@test/utils';
 import { Message } from '@tencent/tdesign-react';
-import InfoCircleFilledIcon from '../../icon/icons/InfoCircleFilledIcon';
-import CheckCircleFilledIcon from '../../icon/icons/CheckCircleFilledIcon';
-import ErrorCircleFilledIcon from '../../icon/icons/ErrorCircleFilledIcon';
-import HelpCircleFilledIcon from '../../icon/icons/HelpCircleFilledIcon';
-import HelpIcon from '../../icon/icons/HelpIcon';
-import LoadingIcon from '../../icon/icons/LoadingIcon';
+import {
+  InfoCircleFilledIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  HelpCircleFilledIcon,
+  HelpIcon,
+  LoadingIcon,
+} from '@tencent/tdesign-icons-react';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);

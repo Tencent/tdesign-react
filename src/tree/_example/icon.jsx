@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Tree } from '@tencent/tdesign-react';
+import { Tree } from '@tencent/tdesign-react';
+import { Icon } from '@tencent/tdesign-icons-react';
 
 const items = [
   {

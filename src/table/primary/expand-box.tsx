@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
+import { ChevronDownCircleIcon } from '@tencent/tdesign-icons-react';
 import { ConfigContext } from '../../config-provider';
-import TIconChevronCircleDown from '../../icon/icons/ChevronDownCircleIcon';
 import { Styles, TNode } from '../../_type/common';
 
 interface Props {
@@ -26,7 +26,7 @@ const ExpandButton: FC<Props> = (props) => {
     } else if (typeof icon === 'boolean' && icon === false) {
       result = <span className={`${classPrefix}-table-expand-icon`}></span>;
     } else {
-      result = <TIconChevronCircleDown className={`${classPrefix}-table-expand-icon`} size="16px" />;
+      result = <ChevronDownCircleIcon className={`${classPrefix}-table-expand-icon`} size="16px" />;
     }
     return result;
   };

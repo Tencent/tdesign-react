@@ -1,5 +1,6 @@
 import React from 'react';
-import { Calendar, Switch, Icon } from '@tencent/tdesign-react';
+import { Calendar, Switch } from '@tencent/tdesign-react';
+import { Icon } from '@tencent/tdesign-icons-react';
 
 export default function CalendarExample() {
   const [visible, setVisible] = React.useState(true);

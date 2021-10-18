@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Button, ErrorCircleFilledIcon } from '@tencent/tdesign-react';
+import { Dialog, Button } from '@tencent/tdesign-react';
+import { ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
 
 export default function BasicUsage() {
   const [visible, setVisible] = useState(false);

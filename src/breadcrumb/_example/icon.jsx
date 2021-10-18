@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb } from '@tencent/tdesign-react';
-import BooksIcon from '../../icon/icons/BooksIcon';
+import { BooksIcon } from '@tencent/tdesign-icons-react';
 
 const { BreadcrumbItem } = Breadcrumb;
 

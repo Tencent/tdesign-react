@@ -1,7 +1,7 @@
 import React, { MouseEvent, useRef } from 'react';
 import classNames from 'classnames';
+import { CloseIcon } from '@tencent/tdesign-icons-react';
 import useRipple from '../_util/useRipple';
-import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTabPanelProps, TdTabsProps } from '../_type/components/tabs';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';

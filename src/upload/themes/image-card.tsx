@@ -1,9 +1,7 @@
 import React, { FC, Fragment, useState } from 'react';
-import Dialog from '../../dialog';
+import { BrowseIcon, DeleteIcon, AddIcon } from '@tencent/tdesign-icons-react';
 import Loading from '../../loading';
-import BrowseIcon from '../../icon/icons/BrowseIcon';
-import DeleteIcon from '../../icon/icons/DeleteIcon';
-import AddIcon from '../../icon/icons/AddIcon';
+import Dialog from '../../dialog';
 import useConfig from '../../_util/useConfig';
 import { UploadRemoveContext } from '../../_type/components/upload';
 import { finishUpload } from '../util';

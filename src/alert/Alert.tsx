@@ -1,11 +1,13 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import noop from '../_util/noop';
+import {
+  InfoCircleFilledIcon,
+  CloseIcon,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+} from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import CloseIcon from '../icon/icons/CloseIcon';
-import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
-import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
+import noop from '../_util/noop';
 import { TdAlertProps } from '../_type/components/alert';
 import { StyledProps } from '../_type';
 

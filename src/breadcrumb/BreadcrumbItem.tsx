@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
+import { ChevronRightIcon } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
-import IconChevronRight from '../icon/icons/ChevronRightIcon';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 
@@ -11,7 +11,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemPro
   const {
     children,
     theme = 'light',
-    separator = <IconChevronRight color="rgba(0,0,0,.3)" />,
+    separator = <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />,
     disabled,
     maxItemWidth,
     maxWidth,

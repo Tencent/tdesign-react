@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, BrowseIcon, PopConfirm } from '@tencent/tdesign-react';
+import { Button, PopConfirm } from '@tencent/tdesign-react';
+import { BrowseIcon } from '@tencent/tdesign-icons-react';
 
 export default function IconUsageExample() {
   return (
@@ -8,16 +9,10 @@ export default function IconUsageExample() {
         <PopConfirm content={'普通事件通知类型偏向于确认'}>
           <Button theme="primary">默认</Button>
         </PopConfirm>
-        <PopConfirm
-          content={'事件通知类型偏向于提示'}
-          theme={'warning'}
-        >
+        <PopConfirm content={'事件通知类型偏向于提示'} theme={'warning'}>
           <Button theme="warning">警告</Button>
         </PopConfirm>
-        <PopConfirm
-          content={'事件通知类型偏向于高危提醒'}
-          theme={'danger'}
-        >
+        <PopConfirm content={'事件通知类型偏向于高危提醒'} theme={'danger'}>
           <Button theme="danger">危险</Button>
         </PopConfirm>
       </div>
