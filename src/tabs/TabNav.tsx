@@ -176,7 +176,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 }, 0);
               }}
             >
-              <AddIcon name={'add'} />
+              <AddIcon />
             </div>
           ) : null}
         </div>

@@ -64,7 +64,6 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
       )}
       {removable ? (
         <CloseIcon
-          name={'close'}
           className={classNames('remove-btn')}
           onClick={(e) => {
             if (disabled) {
