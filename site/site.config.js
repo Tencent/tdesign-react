@@ -253,6 +253,13 @@ export default {
           component: () => import('@tencent/tdesign-react/calendar/README.md'),
         },
         {
+          title: 'Comment 评论',
+          name: 'comment',
+          docType: 'data',
+          path: '/react/components/comment',
+          component: () => import('@tencent/tdesign-react/comment/README.md'),
+        },
+        {
           title: 'List 列表',
           name: 'list',
           docType: 'data',
