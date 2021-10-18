@@ -122,7 +122,6 @@ exports[`combination.jsx 1`] = `
               class="t-icon t-icon-add t-size-m"
               fill="none"
               height="1em"
-              name="add"
               viewBox="0 0 16 16"
               width="1em"
             >
@@ -202,7 +201,6 @@ exports[`custom.jsx 1`] = `
               class="t-icon t-icon-add t-size-m"
               fill="none"
               height="1em"
-              name="add"
               viewBox="0 0 16 16"
               width="1em"
             >
@@ -543,7 +541,6 @@ exports[`operation.jsx 1`] = `
               class="t-icon t-icon-add t-size-m"
               fill="none"
               height="1em"
-              name="add"
               viewBox="0 0 16 16"
               width="1em"
             >
