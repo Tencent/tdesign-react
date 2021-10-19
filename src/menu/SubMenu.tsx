@@ -8,11 +8,17 @@ import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import FakeArrow from '../common/FakeArrow';
+import { checkIsSubMenu } from './_util/checkMenuType';
+import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 
-const SubAccordion: FC<SubMenuProps> = (props) => {
-  const { content, children = content, disabled, icon, title, value, className, style } = props;
+interface SubMenuWithCustomizeProps extends SubMenuProps {
+  level?: number;
+}
+
+const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
+  const { content, children = content, disabled, icon, title, value, className, style, level = 1 } = props;
   const { classPrefix } = useConfig();
 
   // popup 状态下控制开关
@@ -56,6 +62,11 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
     return isExpand;
   }, [disabled, isPopUp, open, isExpand]);
 
+  // 计算左边距，兼容多层级子菜单
+  const menuPaddingLeft = cacularPaddingLeft(level - 1);
+
+  const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
+
   return (
     <li
       className={classNames(className, `${classPrefix}-submenu`, {
@@ -74,7 +85,7 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
         })}
       >
         {icon} <span className={`${classPrefix}-menu__content`}>{title}</span>
-        <FakeArrow isActive={isOpen} disabled={disabled} />
+        <FakeArrow style={fakeArrowStyle} isActive={isOpen} disabled={disabled} />
       </div>
       {isPopUp ? (
         <div
@@ -93,7 +104,11 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
           </ul>
         </div>
       ) : (
-        <ul key="normal" style={childStyle} className={`${classPrefix}-menu__sub`}>
+        <ul
+          key="normal"
+          style={{ ...childStyle, '--padding-left': `${menuPaddingLeft}px` } as React.CSSProperties}
+          className={`${classPrefix}-menu__sub`}
+        >
           {childrens}
         </ul>
       )}
@@ -101,8 +116,8 @@ const SubAccordion: FC<SubMenuProps> = (props) => {
   );
 };
 
-const SubTitleMenu: FC<SubMenuProps> = (props) => {
-  const { className, style, children, title, value } = props;
+const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
+  const { className, style, children, title, value, level } = props;
   const { active, onChange, expandType } = useContext(MenuContext);
   const { classPrefix } = useConfig();
   const [open, setOpen] = useState(false);
@@ -124,6 +139,8 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
     else if (type === 'leave') setOpen(false);
   };
 
+  const fakeArrowStyle = level > 1 ? { transform: 'rotate(-90deg)' } : {};
+
   return (
     <li
       className={classNames(`${classPrefix}-submenu`, {
@@ -142,14 +159,14 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
         style={style}
       >
         <span>{title}</span>
-        {isPopUp && <FakeArrow isActive={open} />}
+        {isPopUp && <FakeArrow style={fakeArrowStyle} isActive={open} />}
       </div>
       {isPopUp && (
         <div
           className={classNames(`${classPrefix}-menu__popup`, {
             [`${classPrefix}-is-opened`]: open,
           })}
-          style={{ '--popup-max-height': getSubMenuMaxHeight(children) } as any}
+          style={{ '--popup-max-height': getSubMenuMaxHeight(children) } as React.CSSProperties}
         >
           <ul className={classNames(`${classPrefix}-menu__popup-wrapper`)}>{children}</ul>
         </div>
@@ -158,11 +175,21 @@ const SubTitleMenu: FC<SubMenuProps> = (props) => {
   );
 };
 
-const SubMenu: FC<SubMenuProps> = (props) => {
+const SubMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { mode } = useContext(MenuContext);
+  const { children, level = 1 } = props;
 
-  if (mode === 'accordion') return <SubAccordion {...props} />;
-  if (mode === 'title') return <SubTitleMenu {...props} />;
+  // 如果是第二层及以及的 subMenu 需要添加 notFirstLevelSubMenu 属性
+  const childElement = React.Children.map(children, (item: React.ReactElement) =>
+    checkIsSubMenu(item)
+      ? React.cloneElement(item, {
+          level: level + 1,
+        })
+      : item,
+  );
+
+  if (mode === 'accordion') return <SubAccordion {...props}>{childElement}</SubAccordion>;
+  if (mode === 'title') return <SubTitleMenu {...props}>{childElement}</SubTitleMenu>;
   return null;
 };
 

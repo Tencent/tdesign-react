@@ -1269,7 +1269,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 50px;"
+            style="max-height: 50px; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
@@ -1330,19 +1330,71 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 100px;"
+            style="max-height: 250px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
             >
-              <span
-                class="t-menu__content"
+              <div
+                class="t-menu__item"
               >
-                <span>
-                  三级菜单-1
+                 
+                <span
+                  class="t-menu__content"
+                >
+                  二级菜单-1
                 </span>
-              </span>
+                <svg
+                  class="t-fake-arrow"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </div>
+              <ul
+                class="t-menu__sub"
+                style="max-height: 0; --padding-left: 60px;"
+              >
+                <li
+                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  style="position: relative;"
+                >
+                  <span
+                    class="t-menu__content"
+                  >
+                    三级菜单-1
+                  </span>
+                </li>
+                <li
+                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  style="position: relative;"
+                >
+                  <span
+                    class="t-menu__content"
+                  >
+                    三级菜单-2
+                  </span>
+                </li>
+                <li
+                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                  style="position: relative;"
+                >
+                  <span
+                    class="t-menu__content"
+                  >
+                    三级菜单-3
+                  </span>
+                </li>
+              </ul>
             </li>
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1352,7 +1404,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1403,7 +1455,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 0;"
+            style="max-height: 0; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1413,7 +1465,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-1
+                  二级菜单-1
                 </span>
               </span>
             </li>
@@ -1425,7 +1477,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1499,7 +1551,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 0;"
+            style="max-height: 0; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1509,7 +1561,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-1
+                  二级菜单-1
                 </span>
               </span>
             </li>
@@ -1521,7 +1573,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1625,7 +1677,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 50px;"
+            style="max-height: 50px; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
@@ -1686,7 +1738,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 100px;"
+            style="max-height: 100px; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1696,7 +1748,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-1
+                  二级菜单-1
                 </span>
               </span>
             </li>
@@ -1708,7 +1760,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1759,7 +1811,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 0;"
+            style="max-height: 0; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1769,7 +1821,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-1
+                  二级菜单-1
                 </span>
               </span>
             </li>
@@ -1781,7 +1833,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1855,7 +1907,7 @@ exports[`multi-side.jsx 1`] = `
           </div>
           <ul
             class="t-menu__sub"
-            style="max-height: 0;"
+            style="max-height: 0; --padding-left: 44px;"
           >
             <li
               class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
@@ -1865,7 +1917,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-1
+                  二级菜单-1
                 </span>
               </span>
             </li>
@@ -1877,7 +1929,7 @@ exports[`multi-side.jsx 1`] = `
                 class="t-menu__content"
               >
                 <span>
-                  三级菜单-2
+                  二级菜单-2
                 </span>
               </span>
             </li>
@@ -1955,22 +2007,77 @@ exports[`multiple.jsx 1`] = `
           </div>
           <div
             class="t-menu__popup"
-            style="--popup-max-height: 100px;"
+            style="--popup-max-height: 250px;"
           >
             <ul
               class="t-menu__popup-wrapper"
             >
               <li
-                class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-submenu"
               >
-                <span
-                  class="t-menu__content"
+                <div
+                  class="t-menu__item"
+                  style="position: relative;"
                 >
                   <span>
                     电视
                   </span>
-                </span>
+                  <svg
+                    class="t-fake-arrow"
+                    fill="none"
+                    height="16"
+                    style="transform: rotate(-90deg);"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-menu__popup"
+                  style="--popup-max-height: 150px;"
+                >
+                  <ul
+                    class="t-menu__popup-wrapper"
+                  >
+                    <li
+                      class="t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        小米电视
+                      </span>
+                    </li>
+                    <li
+                      class="t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        索尼电视
+                      </span>
+                    </li>
+                    <li
+                      class="t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        华为电视
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
@@ -2226,6 +2333,812 @@ exports[`multiple.jsx 1`] = `
           </span>
         </li>
       </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`popup-side.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-default-menu t-is-collapsed"
+    style="width: 64px; margin-right: 20px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-app t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M11.25 1.75a3 3 0 100 6 3 3 0 000-6zm-2 3a2 2 0 114 0 2 2 0 01-4 0zM2 3a1 1 0 011-1h3.5a1 1 0 011 1v3.5a1 1 0 01-1 1H3a1 1 0 01-1-1V3zm1 0v3.5h3.5V3H3zM2 9.5a1 1 0 011-1h3.5a1 1 0 011 1V13a1 1 0 01-1 1H3a1 1 0 01-1-1V9.5zm1 0V13h3.5V9.5H3zM8.5 9.5a1 1 0 011-1H13a1 1 0 011 1V13a1 1 0 01-1 1H9.5a1 1 0 01-1-1V9.5zm1 3.5H13V9.5H9.5V13z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            仪表盘
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-code t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8.94 2.56L6.09 13.18l.97.26L9.9 2.82l-.97-.26zM2.15 8l3.42 3.43-.7.7-3.71-3.7a.6.6 0 010-.85l3.7-3.71.71.7L2.15 8zM13.85 8l-3.44 3.4.7.71 3.73-3.68a.6.6 0 000-.86L11.1 3.9l-.7.7L13.85 8z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                资源列表
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    菜单二
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-file t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.5 1c-.48 0-1 .34-1 .92v12.16c0 .58.52.92 1 .92h9c.48 0 1-.34 1-.92V5.7a1 1 0 00-.3-.71L9.5 1.3a1 1 0 00-.7-.3H3.5zm5 1v4.01h4V14h-9V2h5zm1 .7l2.3 2.31H9.5v-2.3z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                调度平台
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
+              >
+                <div
+                  class="t-menu__item"
+                >
+                   
+                  <span
+                    class="t-menu__content"
+                  >
+                    二级菜单-1
+                  </span>
+                  <svg
+                    class="t-fake-arrow"
+                    fill="none"
+                    height="16"
+                    style="transform: rotate(-90deg);"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="t-menu__popup t-is-vertical"
+                >
+                  <ul
+                    class="t-menu__popup-wrapper"
+                    style="max-height: 0;"
+                  >
+                    <li
+                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        三级菜单-1
+                      </span>
+                    </li>
+                    <li
+                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        三级菜单-2
+                      </span>
+                    </li>
+                    <li
+                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                      style="position: relative;"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        三级菜单-3
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-user t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                精准监控
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-rollback t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M4.2 5l1.65-1.65-.7-.7-2.5 2.5a.5.5 0 000 .7l2.5 2.5.7-.7L4.21 6H10a3 3 0 010 6H5v1h5a4 4 0 100-8H4.2z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            根目录
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-mail t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M1.5 4a1 1 0 011-1h11a1 1 0 011 1v8a1 1 0 01-1 1h-11a1 1 0 01-1-1V4zm11.6 0H2.9L8 7.4 13.1 4zm-10.6.93V12h11V4.93L8 8.6 2.5 4.93z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                消息区
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="t-menu__operations"
+      >
+        <svg
+          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M14 4.5H2v-1h12v1zM14 8.5H2v-1h12v1zM2 12.5h12v-1H2v1z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-default-menu t-is-collapsed t-menu--dark"
+    style="width: 64px;"
+  >
+    <div
+      class="t-default-menu__inner"
+    >
+      <ul
+        class="t-menu"
+      >
+        <li
+          class="t-menu__item"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-app t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M11.25 1.75a3 3 0 100 6 3 3 0 000-6zm-2 3a2 2 0 114 0 2 2 0 01-4 0zM2 3a1 1 0 011-1h3.5a1 1 0 011 1v3.5a1 1 0 01-1 1H3a1 1 0 01-1-1V3zm1 0v3.5h3.5V3H3zM2 9.5a1 1 0 011-1h3.5a1 1 0 011 1V13a1 1 0 01-1 1H3a1 1 0 01-1-1V9.5zm1 0V13h3.5V9.5H3zM8.5 9.5a1 1 0 011-1H13a1 1 0 011 1V13a1 1 0 01-1 1H9.5a1 1 0 01-1-1V9.5zm1 3.5H13V9.5H9.5V13z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            仪表盘
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item t-is-active"
+          >
+            <svg
+              class="t-icon t-icon-code t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8.94 2.56L6.09 13.18l.97.26L9.9 2.82l-.97-.26zM2.15 8l3.42 3.43-.7.7-3.71-3.7a.6.6 0 010-.85l3.7-3.71.71.7L2.15 8zM13.85 8l-3.44 3.4.7.71 3.73-3.68a.6.6 0 000-.86L11.1 3.9l-.7.7L13.85 8z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                资源列表
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    菜单二
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-file t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.5 1c-.48 0-1 .34-1 .92v12.16c0 .58.52.92 1 .92h9c.48 0 1-.34 1-.92V5.7a1 1 0 00-.3-.71L9.5 1.3a1 1 0 00-.7-.3H3.5zm5 1v4.01h4V14h-9V2h5zm1 .7l2.3 2.31H9.5v-2.3z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                调度平台
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-user t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                精准监控
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li
+          class="t-menu__item t-is-disabled"
+          style="position: relative;"
+        >
+          <svg
+            class="t-icon t-icon-rollback t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M4.2 5l1.65-1.65-.7-.7-2.5 2.5a.5.5 0 000 .7l2.5 2.5.7-.7L4.21 6H10a3 3 0 010 6H5v1h5a4 4 0 100-8H4.2z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+          <span
+            class="t-menu__content"
+          >
+            根目录
+          </span>
+        </li>
+        <li
+          class="t-submenu"
+        >
+          <div
+            class="t-menu__item"
+          >
+            <svg
+              class="t-icon t-icon-mail t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M1.5 4a1 1 0 011-1h11a1 1 0 011 1v8a1 1 0 01-1 1h-11a1 1 0 01-1-1V4zm11.6 0H2.9L8 7.4 13.1 4zm-10.6.93V12h11V4.93L8 8.6 2.5 4.93z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+             
+            <span
+              class="t-menu__content"
+            >
+              <span>
+                消息区
+              </span>
+            </span>
+            <svg
+              class="t-fake-arrow"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </div>
+          <div
+            class="t-menu__popup t-is-vertical"
+          >
+            <ul
+              class="t-menu__popup-wrapper"
+              style="max-height: 0;"
+            >
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-1
+                  </span>
+                </span>
+              </li>
+              <li
+                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
+                style="position: relative;"
+              >
+                <span
+                  class="t-menu__content"
+                >
+                  <span>
+                    二级菜单-2
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="t-menu__operations"
+      >
+        <svg
+          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M14 4.5H2v-1h12v1zM14 8.5H2v-1h12v1zM2 12.5h12v-1H2v1z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>

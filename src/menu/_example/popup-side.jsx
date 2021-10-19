@@ -13,13 +13,13 @@ import {
 
 const { SubMenu, MenuItem } = Menu;
 
-function MultiSide() {
+function PopupSide() {
   const [active, setActive] = useState('1-1');
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [expands, setExpands] = useState(['1', '2']);
 
   const [darkActive, setDarkActive] = useState('1-1');
-  const [darkCollapsed, setDarkCollapsed] = useState(false);
+  const [darkCollapsed, setDarkCollapsed] = useState(true);
   const [darkExpands, setDarkExpands] = useState(['1', '2']);
 
   return (
@@ -123,4 +123,4 @@ function MultiSide() {
   );
 }
 
-export default MultiSide;
+export default PopupSide;
