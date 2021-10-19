@@ -1,12 +1,13 @@
 import React from 'react';
-import { Comment, IconFont } from '@tencent/tdesign-react';
+import { Comment } from '@tencent/tdesign-react';
+import { IconFont } from '@tencent/tdesign-icons-react';
 
 export default function OperationComment() {
   const actionTextStyle = {
     display: 'inline-block',
     marginLeft: '6px',
     lineHeight: '15px',
-  }
+  };
 
   const actions = [
     <span key="thumbUp">
@@ -16,8 +17,8 @@ export default function OperationComment() {
     <span key="chat">
       <IconFont name="chat" />
       <span style={actionTextStyle}>回复</span>
-    </span>
-  ]
+    </span>,
+  ];
 
   return (
     <Comment
