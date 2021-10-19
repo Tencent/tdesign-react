@@ -1,12 +1,13 @@
 import React from 'react';
-import { Comment, IconFont } from '@tencent/tdesign-react';
+import { Comment } from '@tencent/tdesign-react';
+import { IconFont } from '@tencent/tdesign-icons-react';
 
 export default function quoteComment() {
   const actionTextStyle = {
     display: 'inline-block',
     marginLeft: '6px',
     lineHeight: '15px',
-  }
+  };
 
   const actions = [
     <span key="thumbUp">
@@ -16,15 +17,15 @@ export default function quoteComment() {
     <span key="chat">
       <IconFont name="chat" />
       <span style={actionTextStyle}>回复</span>
-    </span>
-  ]
+    </span>,
+  ];
 
   const quoteElement = (
     <Comment
-      author= "引用内容标题"
+      author="引用内容标题"
       content="引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容引用内容。"
     />
-  )
+  );
 
   return (
     <Comment
