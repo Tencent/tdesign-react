@@ -45,6 +45,12 @@ function getLastChangeLogCommit() {
   return changeLogCommits.find((cmt) => VERSION_REG.test(cmt)).slice(0, 8);
 }
 
+function getGitCommitMap(lastCommit) {
+  const gitCommand = `git log --pretty=format:"%H:%cn" ${lastCommit}..HEAD`;
+  const gitLogMap = execSync(gitCommand, { cwd: process.cwd(), encoding: 'utf-8' }).toString();
+  fs.writeFileSync('.gitlogmap', gitLogMap, 'utf8');
+}
+
 async function updateChangeLog() {
   await updateVersion();
 
@@ -66,6 +72,7 @@ async function updateChangeLog() {
       })
       .on('end', resolve);
   }).then(() => {
+    getGitCommitMap(lastCommit);
     const writeStream = fs.createWriteStream('CHANGELOG.md', 'utf8');
     writeStream.write(data.join('\n'));
     writeStream.end();
