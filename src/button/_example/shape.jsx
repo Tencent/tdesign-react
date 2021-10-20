@@ -1,51 +1,64 @@
 import React from 'react';
 import { Button } from '@tencent/tdesign-react';
+import { CalendarIcon } from '@tencent/tdesign-icons-react';
 
 export default function ButtonExample() {
   return (
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
+        <Button shape="rectangle" variant="base">
+          主要按钮
+        </Button>
         <Button shape="square" variant="base">
-          主按钮
+          <CalendarIcon />
         </Button>
         <Button shape="round" variant="base">
-          主按钮
+          主要按钮
         </Button>
         <Button shape="circle" variant="base">
-          i
+          <CalendarIcon />
         </Button>
       </div>
       <div className="tdesign-demo-block-row">
-        <Button shape="square" variant="outline">
+        <Button shape="rectangle" variant="outline">
           次要按钮
+        </Button>
+        <Button shape="square" variant="outline">
+          <CalendarIcon />
         </Button>
         <Button shape="round" variant="outline">
           次要按钮
         </Button>
         <Button shape="circle" variant="outline">
-          i
+          <CalendarIcon />
         </Button>
       </div>
       <div className="tdesign-demo-block-row">
-        <Button shape="square" variant="dashed">
+        <Button shape="rectangle" variant="dashed">
           虚框按钮
+        </Button>
+        <Button shape="square" variant="dashed">
+          <CalendarIcon />
         </Button>
         <Button shape="round" variant="dashed">
           虚框按钮
         </Button>
         <Button shape="circle" variant="dashed">
-          i
+          <CalendarIcon />
         </Button>
       </div>
       <div className="tdesign-demo-block-row">
-        <Button shape="square" variant="text">
+        <Button shape="rectangle" variant="text">
           文字按钮
+        </Button>
+        <Button shape="square" variant="text">
+          <CalendarIcon />
         </Button>
         <Button shape="round" variant="text">
           文字按钮
         </Button>
         <Button shape="circle" variant="text">
-          i
+          <CalendarIcon />
         </Button>
       </div>
     </div>

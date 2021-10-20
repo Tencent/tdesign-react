@@ -48,6 +48,40 @@ exports[`base.jsx 1`] = `
           文字按钮
         </span>
       </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-base t-is-loading t-is-disabled"
+        disabled=""
+        style="position: relative;"
+      >
+        <div
+          class="t-loading t-size-m"
+        >
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
+            >
+              <div
+                class="t-loading__gradient-conic"
+              />
+            </foreignobject>
+          </svg>
+        </div>
+        <span
+          class="t-button__text"
+        >
+          加载中
+        </span>
+      </button>
     </div>
     <div
       class="tdesign-demo-block-row"
@@ -90,6 +124,40 @@ exports[`base.jsx 1`] = `
           class="t-button__text"
         >
           文字按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base t-is-loading t-is-disabled"
+        disabled=""
+        style="position: relative;"
+      >
+        <div
+          class="t-loading t-size-m"
+        >
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
+            >
+              <div
+                class="t-loading__gradient-conic"
+              />
+            </foreignobject>
+          </svg>
+        </div>
+        <span
+          class="t-button__text"
+        >
+          加载中
         </span>
       </button>
     </div>
@@ -136,6 +204,40 @@ exports[`base.jsx 1`] = `
           文字按钮
         </span>
       </button>
+      <button
+        class="t-button t-button--theme-success t-button--variant-base t-is-loading t-is-disabled"
+        disabled=""
+        style="position: relative;"
+      >
+        <div
+          class="t-loading t-size-m"
+        >
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
+            >
+              <div
+                class="t-loading__gradient-conic"
+              />
+            </foreignobject>
+          </svg>
+        </div>
+        <span
+          class="t-button__text"
+        >
+          加载中
+        </span>
+      </button>
     </div>
     <div
       class="tdesign-demo-block-row"
@@ -178,6 +280,40 @@ exports[`base.jsx 1`] = `
           class="t-button__text"
         >
           文字按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-warning t-button--variant-base t-is-loading t-is-disabled"
+        disabled=""
+        style="position: relative;"
+      >
+        <div
+          class="t-loading t-size-m"
+        >
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
+            >
+              <div
+                class="t-loading__gradient-conic"
+              />
+            </foreignobject>
+          </svg>
+        </div>
+        <span
+          class="t-button__text"
+        >
+          加载中
         </span>
       </button>
     </div>
@@ -224,12 +360,9 @@ exports[`base.jsx 1`] = `
           文字按钮
         </span>
       </button>
-    </div>
-    <div
-      class="tdesign-demo-block-row"
-    >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
+        class="t-button t-button--theme-danger t-button--variant-base t-is-loading t-is-disabled"
+        disabled=""
         style="position: relative;"
       >
         <div
@@ -258,7 +391,7 @@ exports[`base.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          填充按钮
+          加载中
         </span>
       </button>
     </div>
@@ -586,7 +719,7 @@ exports[`group.jsx 1`] = `
         </span>
       </button>
       <button
-        class="t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+        class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
         style="position: relative;"
       >
         <svg
@@ -665,7 +798,7 @@ exports[`icon.jsx 1`] = `
       </span>
     </button>
     <button
-      class="t-button t-button--theme-primary t-button--variant-base t-button--icon-only t-button--shape-circle"
+      class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
       style="position: relative;"
     >
       <svg
@@ -690,7 +823,7 @@ exports[`icon.jsx 1`] = `
       </svg>
     </button>
     <button
-      class="t-button t-button--theme-primary t-button--variant-base t-button--icon-only t-button--shape-circle"
+      class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
       style="position: relative;"
     >
       <svg
@@ -754,7 +887,29 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          主按钮
+          主要按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base t-button--shape-square"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
       <button
@@ -764,7 +919,7 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          主按钮
+          主要按钮
         </span>
       </button>
       <button
@@ -774,7 +929,19 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          i
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
     </div>
@@ -789,6 +956,28 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           次要按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
       <button
@@ -808,7 +997,19 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          i
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
     </div>
@@ -823,6 +1024,28 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           虚框按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-square"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
       <button
@@ -842,7 +1065,19 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          i
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
     </div>
@@ -857,6 +1092,28 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           文字按钮
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
       <button
@@ -876,7 +1133,19 @@ exports[`shape.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          i
+          <svg
+            class="t-icon t-icon-calendar t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </span>
       </button>
     </div>
