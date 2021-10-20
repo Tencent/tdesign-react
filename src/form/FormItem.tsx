@@ -229,15 +229,17 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   function setField(field: { value?: string; status?: ValidateStatus }) {
     const { value, status } = field;
+    if (typeof value !== 'undefined') {
+      setFormValue(value);
+    }
     // 手动设置 status 则不需要校验 交给用户判断
     if (typeof status !== 'undefined') {
       shouldValidate.current = false;
       setErrorList([]);
       setSuccessList([]);
       setNeedResetField(false);
+      setVerifyStatus(status);
     }
-    setFormValue(value);
-    setVerifyStatus(status);
   }
 
   // 暴露 ref 实例方法
