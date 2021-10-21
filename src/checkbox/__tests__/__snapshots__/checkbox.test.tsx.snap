@@ -356,7 +356,7 @@ exports[`max.jsx 1`] = `
         class="t-input-number t-size-m t-input-number--row"
       >
         <button
-          class="t-input-number__decrease t-is-disabled t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+          class="t-input-number__decrease t-is-disabled t-button t-button--theme-default t-button--variant-outline"
           style="position: relative;"
         >
           <svg
@@ -374,7 +374,7 @@ exports[`max.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--icon-only"
+          class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline"
           style="position: relative;"
         >
           <svg

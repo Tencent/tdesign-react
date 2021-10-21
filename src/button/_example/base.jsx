@@ -9,6 +9,7 @@ export default function ButtonExample() {
         <Button theme="default" variant="outline">描边按钮</Button>
         <Button theme="default" variant="dashed">虚框按钮</Button>
         <Button theme="default" variant="text">文字按钮</Button>
+        <Button loading theme="default">加载中</Button>
       </div>
       <div className="tdesign-demo-block-row">
         <Button theme="primary" variant="base">
@@ -22,6 +23,9 @@ export default function ButtonExample() {
         </Button>
         <Button theme="primary" variant="text">
           文字按钮
+        </Button>
+        <Button loading theme="primary">
+          加载中
         </Button>
       </div>
       <div className="tdesign-demo-block-row">
@@ -37,6 +41,9 @@ export default function ButtonExample() {
         <Button theme="success" variant="text">
           文字按钮
         </Button>
+        <Button loading theme="success">
+          加载中
+        </Button>
       </div>
       <div className="tdesign-demo-block-row">
         <Button theme="warning" variant="base">
@@ -50,6 +57,9 @@ export default function ButtonExample() {
         </Button>
         <Button theme="warning" variant="text">
           文字按钮
+        </Button>
+        <Button loading theme="warning">
+          加载中
         </Button>
       </div>
       <div className="tdesign-demo-block-row">
@@ -65,10 +75,8 @@ export default function ButtonExample() {
         <Button theme="danger" variant="text">
           文字按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
-        <Button loading variant="base">
-          填充按钮
+        <Button loading theme="danger">
+          加载中
         </Button>
       </div>
     </div>

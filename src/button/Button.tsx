@@ -25,7 +25,7 @@ const Button = forwardRef(
       size,
       block,
       ghost,
-      shape = 'square',
+      shape = 'rectangle',
       children,
       className,
       onClick = noop,
@@ -64,18 +64,17 @@ const Button = forwardRef(
             `${classPrefix}-button--variant-${variant}`,
           ],
           {
-            [`${classPrefix}-button--icon-only`]: iconNode && !hasChildren,
-            [`${classPrefix}-button--shape-${shape}`]: shape !== 'square',
+            [`${classPrefix}-button--shape-${shape}`]: shape !== 'rectangle',
             [`${classPrefix}-button--ghost`]: ghost,
             [`${classPrefix}-is-loading`]: loading,
-            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-is-disabled`]: disabled || loading,
             [`${classPrefix}-size-s`]: size === 'small',
             [`${classPrefix}-size-l`]: size === 'large',
             [`${classPrefix}-size-full-width`]: block,
           },
         )}
         onClick={!disabled && !loading ? onClick : undefined}
-        disabled={disabled}
+        disabled={disabled || loading}
         {...buttonProps}
       >
         {iconNode ? (
