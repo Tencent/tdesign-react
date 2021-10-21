@@ -29,7 +29,7 @@ import FakeArrow from '../../common/FakeArrow';
 import { InputContentProps, InnerContentProps, ContentProps, SuffixIconProps, TreeNode } from '../interface';
 
 const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => {
-  const { cascaderContext, className, style, placeholder, listeners } = props;
+  const { cascaderContext, className, style, placeholder, listeners, collapsedItems } = props;
 
   const { classPrefix: prefix } = useConfig();
 
@@ -80,7 +80,13 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
         innerContentClickEffect(cascaderContext);
       }}
     >
-      <Content cascaderContext={cascaderContext} isHover={isHover} placeholder={placeholder} listeners={listeners} />
+      <Content
+        cascaderContext={cascaderContext}
+        isHover={isHover}
+        collapsedItems={collapsedItems}
+        placeholder={placeholder}
+        listeners={listeners}
+      />
       <SuffixIcon cascaderContext={cascaderContext} closeShow={closeShow} iconClass={iconClass} listeners={listeners} />
     </div>
   );
@@ -119,7 +125,7 @@ const SuffixIcon = (props: SuffixIconProps) => {
 };
 
 const Content: React.FC<ContentProps> = (props: ContentProps) => {
-  const { placeholder, cascaderContext, listeners, isHover } = props;
+  const { placeholder, cascaderContext, listeners, isHover, collapsedItems } = props;
   const { classPrefix: prefix } = useConfig();
 
   // single select content
@@ -134,7 +140,13 @@ const Content: React.FC<ContentProps> = (props: ContentProps) => {
   );
 
   const content = !showPlaceholder ? (
-    <InnerContent isHover={isHover} cascaderContext={cascaderContext} listeners={listeners} placeholder={placeholder} />
+    <InnerContent
+      isHover={isHover}
+      cascaderContext={cascaderContext}
+      listeners={listeners}
+      collapsedItems={collapsedItems}
+      placeholder={placeholder}
+    />
   ) : (
     <span className={`${prefix}-cascader-placeholder`}>{placeholder || '请选择'}</span>
   );
@@ -142,11 +154,11 @@ const Content: React.FC<ContentProps> = (props: ContentProps) => {
 };
 
 const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => {
-  const { cascaderContext, listeners, placeholder } = props;
+  const { cascaderContext, listeners, placeholder, collapsedItems } = props;
   const { classPrefix: prefix } = useConfig();
-  const { multiple, size, disabled, filterable, setFilterActive, visible, inputVal, setInputVal, collapseTags } =
+  const { multiple, size, disabled, filterable, setFilterActive, visible, inputVal, setInputVal, minCollapsedNum } =
     cascaderContext;
-  const { onFocus, onBlur } = listeners;
+  const { onFocus, onBlur, onRemove } = listeners;
 
   // single select content
   const singleContent = useMemo(() => getSingleContent(cascaderContext), [cascaderContext]);
@@ -161,7 +173,7 @@ const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => 
       disabled={disabled}
       onClose={(ctx) => {
         ctx.e.stopPropagation();
-        handleRemoveTagEffect(cascaderContext, node);
+        handleRemoveTagEffect(cascaderContext, node, onRemove);
       }}
       size={size}
     >
@@ -173,15 +185,19 @@ const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => 
     <span className={`${prefix}-cascader-content`}>{singleContent}</span>
   ) : (
     <>
-      {collapseTags && multipleContent.length > 1 ? (
+      {minCollapsedNum > 0 && multipleContent.length > minCollapsedNum ? (
         <>
-          {renderSelfTag(multipleContent[0], 0)}
-          <Tag size={size} disabled={disabled}>
-            +{multipleContent.length - 1}
-          </Tag>
+          {multipleContent.slice(0, minCollapsedNum).map((node: TreeNode, index: number) => renderSelfTag(node, index))}
+          {!collapsedItems ? (
+            <Tag size={size} disabled={disabled}>
+              +{multipleContent.length - minCollapsedNum}
+            </Tag>
+          ) : (
+            collapsedItems
+          )}
         </>
       ) : (
-        multipleContent.map((node: TreeNode, index) => renderSelfTag(node, index))
+        multipleContent.map((node: TreeNode, index: number) => renderSelfTag(node, index))
       )}
     </>
   );

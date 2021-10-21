@@ -8,9 +8,11 @@ import InputContent from './components/InputContent';
 // utils
 import useConfig from '../_util/useConfig';
 import TreeStore from '../_common/js/tree/tree-store';
+import useDefault from '../_util/useDefault';
+import { getTreeValue } from './utils/helper';
 
 // common logic
-import { getTreeValue, treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
+import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
 
 // types
 import { CascaderProps, CascaderContextType, TreeNodeValue } from './interface';
@@ -21,13 +23,14 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
-  const { className, style, value, defaultValue } = props;
+  const { className, style, defaultValue, onChange, collapsedItems } = props;
+
+  const [value, setValue] = useDefault(props.value, defaultValue, onChange);
 
   const [visible, setVisible] = useState(false);
   const [treeStore, setTreeStore] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [inputVal, setInputVal] = useState('');
-  const [model, setModel] = useState(value || defaultValue);
   const [treeNodes, setTreeNodes] = useState([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
 
@@ -44,7 +47,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       checkProps = {},
       max = 0,
       showAllLevels = true,
-      collapseTags = false,
+      minCollapsedNum = false,
     } = props;
     return {
       size,
@@ -53,8 +56,8 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       lazy,
       multiple,
       filterable,
-      model,
-      setModel,
+      value,
+      setValue,
       visible,
       setVisible,
       treeStore,
@@ -69,25 +72,14 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       inputVal,
       setInputVal,
       setExpend,
-      collapseTags,
+      minCollapsedNum,
     } as CascaderContextType;
-  }, [props, inputVal, model, visible, treeStore, treeNodes, filterActive]);
-
-  const treeValue = useMemo(() => getTreeValue(model), [model]);
+  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive]);
 
   /**
    * build tree
    */
-  const {
-    disabled,
-    options = [],
-    keys,
-    checkStrictly = false,
-    lazy = true,
-    load,
-    onChange,
-    valueMode = 'onlyLeaf',
-  } = props;
+  const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
   const createStore = (onLoad: () => void) => {
     const treeProps = {
@@ -134,28 +126,23 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     treeStore.setConfig(treeProps);
   }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
 
-  // outerSide value change effect
-  useEffect(() => {
-    setModel(value || defaultValue);
-  }, [value, defaultValue]);
-
   // treeStore and expend effect
   useEffect(() => {
     if (!treeStore) return;
-    treeStoreExpendEffect(treeStore, treeValue, expend);
-  }, [treeStore, treeValue, expend]);
+    treeStoreExpendEffect(treeStore, value, expend);
+  }, [treeStore, value, expend]);
 
-  // model change will effect treeNodes, in filter, inputVal will also change treeNodes
+  // value change will effect treeNodes, in filter, inputVal will also change treeNodes
   useEffect(() => {
     if (!treeStore) return;
     treeNodesEffect(inputVal, treeStore, setTreeNodes);
-  }, [inputVal, treeStore, model]);
+  }, [inputVal, treeStore, value]);
 
   // tree checked effect
   useEffect(() => {
     if (!treeStore) return;
-    treeStore.replaceChecked(treeValue);
-  }, [treeValue, treeStore]);
+    treeStore.replaceChecked(getTreeValue(value));
+  }, [value, treeStore]);
 
   useEffect(() => {
     if (!filterActive) {
@@ -179,6 +166,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}
     >
       <InputContent
+        collapsedItems={collapsedItems}
         cascaderContext={cascaderContext}
         style={style}
         className={className}

@@ -19,11 +19,11 @@ export interface CascaderContextType
     | 'checkProps'
     | 'showAllLevels'
     | 'max'
-    | 'collapseTags'
+    | 'minCollapsedNum'
+    | 'value'
   > {
+  setValue: (val: CascaderValue) => void;
   treeStore: TreeStore;
-  model: CascaderValue;
-  setModel: (val: CascaderValue) => void;
   visible: boolean;
   setVisible: (val: boolean) => void;
   treeNodes: TreeNode[];
@@ -39,22 +39,26 @@ export interface CascaderPanelProps extends Pick<TdCascaderProps, 'trigger' | 'e
   cascaderContext: CascaderContextType;
 }
 
+export interface ListenersType {
+  onRemove?: TdCascaderProps['onRemove'];
+  onBlur?: TdCascaderProps['onBlur'];
+  onFocus?: TdCascaderProps['onFocus'];
+  onChange?: TdCascaderProps['onChange'];
+}
+
 // InputContent component interfaces
 export interface InputContentProps extends StyledProps {
   cascaderContext: CascaderContextType;
   placeholder: TdCascaderProps['placeholder'];
-  listeners: {
-    onRemove: TdCascaderProps['onRemove'];
-    onBlur: TdCascaderProps['onBlur'];
-    onFocus: TdCascaderProps['onFocus'];
-    onChange: TdCascaderProps['onChange'];
-  };
+  listeners: ListenersType;
+  collapsedItems: TdCascaderProps['collapsedItems'];
 }
 
 export interface ContentProps {
   cascaderContext: CascaderContextType;
   placeholder: TdCascaderProps['placeholder'];
   listeners: InputContentProps['listeners'];
+  collapsedItems: TdCascaderProps['collapsedItems'];
   isHover: boolean;
 }
 
@@ -63,6 +67,7 @@ export interface InnerContentProps {
   isHover: boolean;
   listeners: InputContentProps['listeners'];
   placeholder: TdCascaderProps['placeholder'];
+  collapsedItems: TdCascaderProps['collapsedItems'];
 }
 
 export interface SuffixIconProps {

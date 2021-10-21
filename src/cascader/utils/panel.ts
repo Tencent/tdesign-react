@@ -43,7 +43,7 @@ export function expendClickEffect(
     treeStore,
     setFilterActive,
     setVisible,
-    setModel,
+    setValue,
     setTreeNodes,
     setExpend,
   } = cascaderContext;
@@ -82,7 +82,7 @@ export function expendClickEffect(
     }
 
     // 非受控状态下更新状态
-    setModel(value);
+    setValue(value);
   }
 }
 
@@ -100,7 +100,7 @@ export function valueChangeEffect(
   onChange: CascaderProps['onChange'],
   ctx: ContextType,
 ) {
-  const { disabled, max, multiple, setVisible, setModel, filterActive, setFilterActive, treeNodes, treeStore } =
+  const { disabled, max, multiple, setVisible, setValue, filterActive, setFilterActive, treeNodes, treeStore } =
     cascaderContext;
 
   if (!node || disabled || node.disabled) {
@@ -135,7 +135,7 @@ export function valueChangeEffect(
     setFilterActive(false);
   }
 
-  setModel(checked);
+  setValue(checked);
 
   if (onChange && isFunction(onChange)) {
     onChange(checked, ctx);

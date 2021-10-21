@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Cascader } from '@tencent/tdesign-react';
 
 export default function Example() {
-  const [value, setValue] = useState('1.1');
-  const [options] = useState([
+  const [value, setValue] = useState(['1.1', '1.2', '1.3']);
+  const options = [
     {
       label: '上海',
       value: '1',
@@ -34,9 +34,13 @@ export default function Example() {
           label: '南山区',
           value: '2.2',
         },
+        {
+          label: '福田区',
+          value: '2.3',
+        },
       ],
     },
-  ]);
+  ];
 
   const onChange = (value) => {
     setValue(value);
@@ -48,11 +52,17 @@ export default function Example() {
 
   return (
     <>
-      <div style={itemStyle}>非受控</div>
-      <Cascader style={itemStyle} options={options} size="small" defaultValue={value} clearable />
-      <div style={itemStyle}>受控</div>
-      <Cascader style={itemStyle} options={options} value={value} size="medium" clearable />
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable />
+      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
+      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={2} />
+      <Cascader
+        style={itemStyle}
+        options={options}
+        value={value}
+        onChange={onChange}
+        multiple
+        minCollapsedNum={1}
+        collapsedItems={<div>自定义内容</div>}
+      />
     </>
   );
 }

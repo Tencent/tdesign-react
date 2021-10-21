@@ -60,14 +60,14 @@ const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, ha
   const { classPrefix: prefix } = useConfig();
   const name = `${prefix}-cascader-item`;
 
-  const { checkProps, model, max } = cascaderContext;
+  const { checkProps, value, max } = cascaderContext;
   const label = RenderLabelInner(name, node, cascaderContext);
   return (
     <Checkbox
       {...checkProps}
       checked={node.checked}
       indeterminate={node.indeterminate}
-      disabled={node.isDisabled() || ((model as TreeNodeValue[]).length >= max && max !== 0)}
+      disabled={node.isDisabled() || ((value as TreeNodeValue[]).length >= max && max !== 0)}
       name={node.value}
       onChange={handleChange}
     >
