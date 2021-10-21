@@ -13,7 +13,7 @@ import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 
-interface SubMenuWithCustomizeProps extends SubMenuProps {
+export interface SubMenuWithCustomizeProps extends SubMenuProps {
   level?: number;
 }
 
