@@ -107,7 +107,7 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <Cascader
         style={itemStyle}
         options={options}
@@ -125,6 +125,6 @@ export default function Example() {
         checkStrictly
         multiple
       />
-    </>
+    </div>
   );
 }
