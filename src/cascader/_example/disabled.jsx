@@ -44,9 +44,9 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <Cascader style={itemStyle} options={options} value={value1} disabled />
       <Cascader style={itemStyle} options={options} value={value2} disabled multiple />
-    </>
+    </div>
   );
 }

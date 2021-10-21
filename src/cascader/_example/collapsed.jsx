@@ -51,7 +51,7 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
       <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={2} />
       <Cascader
@@ -63,6 +63,6 @@ export default function Example() {
         minCollapsedNum={1}
         collapsedItems={<div>自定义内容</div>}
       />
-    </>
+    </div>
   );
 }

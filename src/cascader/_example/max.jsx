@@ -51,9 +51,9 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <div>最多可选3项</div>
       <Cascader style={itemStyle} options={options} value={value1} max={3} onChange={onChange1} multiple />
-    </>
+    </div>
   );
 }

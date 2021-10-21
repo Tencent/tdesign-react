@@ -51,12 +51,12 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <div style={itemStyle}>非受控</div>
       <Cascader style={itemStyle} options={options} defaultValue={value} size="small" multiple clearable />
       <div style={itemStyle}>受控</div>
       <Cascader style={itemStyle} options={options} value={value} multiple clearable />
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" multiple clearable />
-    </>
+    </div>
   );
 }

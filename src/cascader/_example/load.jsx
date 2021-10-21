@@ -45,8 +45,8 @@ export default function Example() {
     });
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <Cascader style={itemStyle} options={options} value={value1} onChange={onChange1} load={load} />
-    </>
+    </div>
   );
 }
