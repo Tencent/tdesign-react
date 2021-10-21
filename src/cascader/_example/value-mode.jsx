@@ -61,7 +61,7 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-column">
+    <>
       <Cascader style={itemStyle} options={options} value={value1} onChange={onChange1} multiple valueMode="onlyLeaf" />
       <Cascader
         style={itemStyle}
@@ -72,6 +72,6 @@ export default function Example() {
         valueMode="parentFirst"
       />
       <Cascader style={itemStyle} options={options} value={value3} onChange={onChange3} multiple valueMode="all" />
-    </div>
+    </>
   );
 }

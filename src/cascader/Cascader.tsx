@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // component
-import Panel from './components/Panel';
+import Panel from './Panel';
 import Popup from '../popup';
-import InputContent from './components/InputContent';
+import InputContent from './InputContent';
 
 // utils
 import useConfig from '../_util/useConfig';
 import TreeStore from '../_common/js/tree/tree-store';
-import useDefault from '../_util/useDefault';
-import { getTreeValue } from './utils/helper';
-
-// common logic
-import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
 
 // types
-import { CascaderProps, CascaderContextType, TreeNodeValue } from './interface';
+import { CascaderProps, CascaderContextType, TreeNode, TreeNodeValue, TreeOptionData } from './interface';
 
 const Cascader: React.FC<CascaderProps> = (props) => {
   /**
@@ -23,18 +18,15 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
-  const { className, style, defaultValue, onChange, collapsedItems } = props;
-
-  const [value, setValue] = useDefault(props.value, defaultValue, onChange);
+  const { className, style, value = [], multiple } = props;
 
   const [visible, setVisible] = useState(false);
   const [treeStore, setTreeStore] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
-  const [inputVal, setInputVal] = useState('');
+  const [model, setModel] = useState(value);
   const [treeNodes, setTreeNodes] = useState([]);
-  const [expend, setExpend] = useState<TreeNodeValue[]>([]);
 
-  // cascaderContext, center status
+  // cascaderContext
   const cascaderContext = useMemo(() => {
     const {
       size = 'medium',
@@ -45,9 +37,8 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       filterable = false,
       clearable = false,
       checkProps = {},
-      max = 0,
+      max = undefined,
       showAllLevels = true,
-      minCollapsedNum = false,
     } = props;
     return {
       size,
@@ -56,8 +47,8 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       lazy,
       multiple,
       filterable,
-      value,
-      setValue,
+      model,
+      setModel,
       visible,
       setVisible,
       treeStore,
@@ -69,19 +60,24 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       setTreeNodes,
       filterActive,
       setFilterActive,
-      inputVal,
-      setInputVal,
-      setExpend,
-      minCollapsedNum,
     } as CascaderContextType;
-  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive]);
+  }, [props, model, visible, treeStore, treeNodes, filterActive]);
 
   /**
-   * build tree
+   * build tree and globals tree logic
    */
-  const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
+  const {
+    disabled,
+    options = [],
+    keys,
+    checkStrictly = false,
+    lazy = true,
+    load,
+    onChange,
+    valueMode = 'onlyLeaf',
+  } = props;
 
-  const createStore = (onLoad: () => void) => {
+  useEffect(() => {
     const treeProps = {
       keys: keys || {},
       checkable: true,
@@ -92,63 +88,72 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       load,
       lazy,
       valueMode,
-      onLoad,
     };
     const store = new TreeStore(treeProps);
     if (!options || (Array.isArray(options) && !options.length)) return;
     store.append(options);
-    return store;
-  };
-
-  if (!treeStore) {
-    const store = createStore(() => {
-      // onLoaded callback
-      setTimeout(() => {
-        store.refreshNodes();
-        treeNodesEffect(inputVal, store, setTreeNodes);
-      }, 0);
-    });
     setTreeStore(store);
-  }
+  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode]);
 
-  useEffect(() => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-    };
-    treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
+  /**
+   * value change effect
+   */
 
-  // treeStore and expend effect
   useEffect(() => {
     if (!treeStore) return;
-    treeStoreExpendEffect(treeStore, value, expend);
-  }, [treeStore, value, expend]);
-
-  // value change will effect treeNodes, in filter, inputVal will also change treeNodes
-  useEffect(() => {
-    if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes);
-  }, [inputVal, treeStore, value]);
-
-  // tree checked effect
-  useEffect(() => {
-    if (!treeStore) return;
-    treeStore.replaceChecked(getTreeValue(value));
-  }, [value, treeStore]);
-
-  useEffect(() => {
-    if (!filterActive) {
-      setInputVal('');
+    let treeValue: TreeNodeValue[] = [];
+    if (Array.isArray(value)) {
+      if (value.length > 0 && typeof value[0] === 'object') {
+        treeValue = (value as TreeOptionData[]).map((val) => val.value);
+      } else if (value.length) {
+        treeValue = value as TreeNodeValue[];
+      }
+    } else if (value) {
+      if (typeof value === 'object') {
+        treeValue = [(value as TreeOptionData).value];
+      } else {
+        treeValue = [value];
+      }
     }
-  }, [filterActive]);
+
+    if (!treeValue.length && visible && multiple) return;
+
+    if (Array.isArray(treeValue)) {
+      treeStore.replaceChecked(treeValue);
+    }
+    // init expanded
+    if (Array.isArray(treeValue)) {
+      const expandedMap = new Map();
+      // get first value
+      const [val] = treeValue;
+      if (val) {
+        expandedMap.set(val, true);
+        const node = treeStore.getNode(val);
+        node.getParents().forEach((tn: TreeNode) => {
+          expandedMap.set(tn.value, true);
+        });
+        const expandedArr = Array.from(expandedMap.keys());
+        treeStore.setExpanded(expandedArr);
+      }
+    }
+    treeStore.refreshNodes();
+    const nodes = treeStore.getNodes().filter((node: TreeNode) => node.visible);
+    setTreeNodes(nodes);
+  }, [value, treeStore, model, visible, multiple]);
+
+  useEffect(() => {
+    setModel(value);
+  }, [value]);
+
+  useEffect(() => {
+    if (!treeStore) return;
+    if (!multiple) {
+      treeStore.replaceChecked([model]);
+    } else {
+      treeStore.replaceChecked(model);
+    }
+    treeStore.refreshNodes();
+  }, [model, treeStore, multiple]);
 
   // panel props
   const { empty = '暂无数据', trigger = 'click' } = props;
@@ -166,7 +171,6 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}
     >
       <InputContent
-        collapsedItems={collapsedItems}
         cascaderContext={cascaderContext}
         style={style}
         className={className}
@@ -178,7 +182,6 @@ const Cascader: React.FC<CascaderProps> = (props) => {
         }}
         placeholder={placeholder}
       />
-      {/* TODO popup need a node */}
       <></>
     </Popup>
   );

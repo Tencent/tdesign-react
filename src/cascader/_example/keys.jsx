@@ -51,7 +51,7 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-column">
+    <>
       <Cascader
         style={itemStyle}
         keys={{ label: 'name', value: 'code', children: 'items' }}
@@ -60,6 +60,6 @@ export default function Example() {
         onChange={onChange1}
         multiple
       />
-    </div>
+    </>
   );
 }

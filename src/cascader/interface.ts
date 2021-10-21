@@ -2,7 +2,6 @@ import { TdCascaderProps, CascaderValue } from '../_type/components/cascader';
 import { StyledProps } from '../_type';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
-import { TreeNodeValue } from '../_common/js/tree/types';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
@@ -19,46 +18,38 @@ export interface CascaderContextType
     | 'checkProps'
     | 'showAllLevels'
     | 'max'
-    | 'minCollapsedNum'
-    | 'value'
   > {
-  setValue: (val: CascaderValue) => void;
   treeStore: TreeStore;
+  model: CascaderValue;
+  setModel: (val: CascaderValue) => void;
   visible: boolean;
   setVisible: (val: boolean) => void;
   treeNodes: TreeNode[];
   setTreeNodes: (val: CascaderValue) => void;
   filterActive: boolean;
   setFilterActive: (val: boolean) => void;
-  inputVal: string;
-  setInputVal: (val: string) => void;
-  setExpend: (val: TreeNodeValue[]) => void;
 }
 
 export interface CascaderPanelProps extends Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
   cascaderContext: CascaderContextType;
 }
 
-export interface ListenersType {
-  onRemove?: TdCascaderProps['onRemove'];
-  onBlur?: TdCascaderProps['onBlur'];
-  onFocus?: TdCascaderProps['onFocus'];
-  onChange?: TdCascaderProps['onChange'];
-}
-
 // InputContent component interfaces
 export interface InputContentProps extends StyledProps {
   cascaderContext: CascaderContextType;
   placeholder: TdCascaderProps['placeholder'];
-  listeners: ListenersType;
-  collapsedItems: TdCascaderProps['collapsedItems'];
+  listeners: {
+    onRemove: TdCascaderProps['onRemove'];
+    onBlur: TdCascaderProps['onBlur'];
+    onFocus: TdCascaderProps['onFocus'];
+    onChange: TdCascaderProps['onChange'];
+  };
 }
 
 export interface ContentProps {
   cascaderContext: CascaderContextType;
   placeholder: TdCascaderProps['placeholder'];
   listeners: InputContentProps['listeners'];
-  collapsedItems: TdCascaderProps['collapsedItems'];
   isHover: boolean;
 }
 
@@ -67,13 +58,11 @@ export interface InnerContentProps {
   isHover: boolean;
   listeners: InputContentProps['listeners'];
   placeholder: TdCascaderProps['placeholder'];
-  collapsedItems: TdCascaderProps['collapsedItems'];
 }
 
 export interface SuffixIconProps {
-  closeShow: boolean;
-  iconClass: string;
   cascaderContext: CascaderContextType;
+  isHover: boolean;
   listeners: InputContentProps['listeners'];
 }
 
