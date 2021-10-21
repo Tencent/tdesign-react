@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronRightCircleIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
+import { ChevronRightIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
 
 // hook
 import useConfig from '../../_util/useConfig';
@@ -134,7 +134,7 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
     <li ref={ref || itemRef} className={itemClass} onClick={handleClick} onMouseEnter={handleMouseenter}>
       {multiple ? RenderCheckBox(node, cascaderContext, handleChange) : RenderLabelContent(node, cascaderContext)}
       {node.children &&
-        (node.loading ? <LoadingIcon className={iconClass} /> : <ChevronRightCircleIcon className={iconClass} />)}
+        (node.loading ? <LoadingIcon className={iconClass} /> : <ChevronRightIcon className={iconClass} />)}
     </li>
   );
 });
