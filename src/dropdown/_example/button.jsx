@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  Dropdown, Button, Icon, Message,
-} from '@tencent/tdesign-react';
+import { Dropdown, Button, Message } from '@tencent/tdesign-react';
+import { Icon } from '@tencent/tdesign-icons-react';
 
 export default function BasicDropdown() {
   const getContent = () => <div>操作四</div>;
@@ -29,7 +28,7 @@ export default function BasicDropdown() {
   return (
     <Dropdown options={options} onClick={clickHandler}>
       <Button theme="default" variant="outline">
-        <Icon name="ellipsis" size="16"/>
+        <Icon name="ellipsis" size="16" />
       </Button>
     </Dropdown>
   );

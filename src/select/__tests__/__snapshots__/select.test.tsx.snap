@@ -10,17 +10,116 @@ exports[`base.jsx 1`] = `
       style="width: 40%;"
     >
       <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-selectedSingle"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`creatable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      class="t-select-wrap"
+      style="width: 40%;"
+    >
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <div
+            class="t-select-input t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="Apple"
+            />
+          </div>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-select-wrap"
+    style="width: 40%;"
+  >
+    <div
+      class="t-popup-reference t-select-popup-reference"
+    >
+      <div
         class="t-select"
         style="user-select: none;"
       >
         <span
           class="t-select-left-icon"
         />
-        <span
-          class="t-select-selectedSingle"
+        <div
+          class="t-select-input t-input"
         >
-          Apple
-        </span>
+          <input
+            class="t-input__inner"
+            placeholder="-请选择-"
+            value=""
+          />
+        </div>
         <svg
           class="t-fake-arrow t-select-right-icon"
           fill="none"
@@ -42,7 +141,7 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`creatable.jsx 1`] = `
+exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
     style="display: flex;"
@@ -50,6 +149,52 @@ exports[`creatable.jsx 1`] = `
     <div
       class="t-select-wrap"
       style="width: 40%;"
+    >
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select t-is-disabled"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-selectedSingle"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`filterable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-select-wrap"
+    style="width: 40%;"
+  >
+    <div
+      class="t-popup-reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -87,59 +232,17 @@ exports[`creatable.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`custom.jsx 1`] = `
+exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-select-wrap"
     style="width: 40%;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <div
-        class="t-select-input t-input"
-      >
-        <input
-          class="t-input__inner"
-          placeholder="-请选择-"
-          value=""
-        />
-      </div>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`disabled.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="display: flex;"
-  >
-    <div
-      class="t-select-wrap"
-      style="width: 40%;"
+      class="t-popup-reference t-select-popup-reference"
     >
       <div
-        class="t-select t-is-disabled"
+        class="t-select"
         style="user-select: none;"
       >
         <span
@@ -166,85 +269,6 @@ exports[`disabled.jsx 1`] = `
           />
         </svg>
       </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`filterable.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-select-wrap"
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <div
-        class="t-select-input t-input"
-      >
-        <input
-          class="t-input__inner"
-          value="Apple"
-        />
-      </div>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`group.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-select-wrap"
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-selectedSingle"
-      >
-        Apple
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
     </div>
   </div>
 </DocumentFragment>
@@ -257,88 +281,7 @@ exports[`keys.jsx 1`] = `
     style="width: 200px; display: inline-block; margin-right: 20px;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-selectedSingle"
-      >
-        已选择的选项
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-  <div
-    class="t-select-wrap"
-    style="width: 200px; display: inline-block;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
-      >
-        上海
-        <svg
-          class="t-icon t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
-          />
-        </svg>
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`label-in-value.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="display: flex;"
-  >
-    <div
-      class="t-select-wrap"
-      style="width: 40%;"
+      class="t-popup-reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -350,7 +293,7 @@ exports[`label-in-value.jsx 1`] = `
         <span
           class="t-select-selectedSingle"
         >
-          Apple
+          已选择的选项
         </span>
         <svg
           class="t-fake-arrow t-select-right-icon"
@@ -369,9 +312,13 @@ exports[`label-in-value.jsx 1`] = `
         </svg>
       </div>
     </div>
+  </div>
+  <div
+    class="t-select-wrap"
+    style="width: 200px; display: inline-block;"
+  >
     <div
-      class="t-select-wrap"
-      style="width: 40%; margin-left: 10%;"
+      class="t-popup-reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -381,17 +328,20 @@ exports[`label-in-value.jsx 1`] = `
           class="t-select-left-icon"
         />
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
         >
-          Apple
+          上海
           <svg
-            class="t-icon t-icon-close"
-            version="1.1"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
+            class="t-icon t-icon-close t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
             <path
-              d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
             />
           </svg>
         </span>
@@ -416,6 +366,102 @@ exports[`label-in-value.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`label-in-value.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      class="t-select-wrap"
+      style="width: 40%;"
+    >
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-selectedSingle"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-select-wrap"
+      style="width: 40%; margin-left: 10%;"
+    >
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Apple
+            <svg
+              class="t-icon t-icon-close t-size-m"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`max.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -423,42 +469,49 @@ exports[`max.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      <div
+        class="t-select"
+        style="user-select: none;"
       >
-        Apple
+        <span
+          class="t-select-left-icon"
+        />
+        <span
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+        >
+          Apple
+          <svg
+            class="t-icon t-icon-close t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
         <svg
-          class="t-icon t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -471,42 +524,49 @@ exports[`multiple.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-tag t-tag--default t-tag--dark t-tag--middle t-tag--square"
+      <div
+        class="t-select"
+        style="user-select: none;"
       >
-        Apple
+        <span
+          class="t-select-left-icon"
+        />
+        <span
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+        >
+          Apple
+          <svg
+            class="t-icon t-icon-close t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
         <svg
-          class="t-icon t-icon-close"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.0032 570.83072L708.864 767.6864 767.6928 708.8576 570.83456 511.99936 767.6928 315.14176 708.864 256.3104 512.0032 453.168 315.14368 256.30848 256.31232 315.13984 453.17184 511.99936 256.31232 708.8576 315.14368 767.6928 512.0032 570.83072Z"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -519,89 +579,10 @@ exports[`noborder.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-select t-no-border"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-selectedSingle"
-      >
-        Apple
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`options.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-select-wrap"
-    style="width: 40%;"
-  >
-    <div
-      class="t-select"
-      style="user-select: none;"
-    >
-      <span
-        class="t-select-left-icon"
-      />
-      <div
-        class="t-select-input t-input"
-      >
-        <input
-          class="t-input__inner"
-          value="Apple"
-        />
-      </div>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`popup-props.jsx 1`] = `
-<DocumentFragment>
-  <div
-    style="display: flex;"
-  >
-    <div
-      class="t-select-wrap"
-      style="width: 40%;"
+      class="t-popup-reference t-select-popup-reference"
     >
       <div
-        class="t-select"
+        class="t-select t-no-border"
         style="user-select: none;"
       >
         <span
@@ -633,6 +614,97 @@ exports[`popup-props.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`options.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-select-wrap"
+    style="width: 40%;"
+  >
+    <div
+      class="t-popup-reference t-select-popup-reference"
+    >
+      <div
+        class="t-select"
+        style="user-select: none;"
+      >
+        <span
+          class="t-select-left-icon"
+        />
+        <div
+          class="t-select-input t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="Apple"
+          />
+        </div>
+        <svg
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`popup-props.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex;"
+  >
+    <div
+      class="t-select-wrap"
+      style="width: 40%;"
+    >
+      <div
+        class="t-popup-reference t-select-popup-reference"
+      >
+        <div
+          class="t-select"
+          style="user-select: none;"
+        >
+          <span
+            class="t-select-left-icon"
+          />
+          <span
+            class="t-select-selectedSingle"
+          >
+            Apple
+          </span>
+          <svg
+            class="t-fake-arrow t-select-right-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`prefix.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -640,45 +712,55 @@ exports[`prefix.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-select t-has-prefix"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
+      <div
+        class="t-select t-has-prefix"
+        style="user-select: none;"
       >
+        <span
+          class="t-select-left-icon"
+        >
+          <svg
+            class="t-icon t-icon-browse t-size-m"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M10.88 8a2.88 2.88 0 11-5.76 0 2.88 2.88 0 015.76 0zm-1 0a1.88 1.88 0 10-3.76 0 1.88 1.88 0 003.76 0z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+            <path
+              d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
+        <span
+          class="t-select-selectedSingle"
+        >
+          Apple
+        </span>
         <svg
-          class="t-icon t-icon-browse"
-          version="1.1"
-          viewBox="0 0 1024 1024"
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M512.31193344 191.68C673.576288 191.68 816.8700672 271.24435968 939.4341184 426.75416384 943.7017984 432.1690144 948.6290176 438.67497984 954.3059008 446.3892416L954.3059008 446.3892416 960.015488 454.20783232C984.3779968 487.81364992 984.3835072 533.27069888 960.029152 566.88242304 951.8335232 578.19329792 944.9217664 587.42448832 939.2504128 594.6245888L939.2504128 594.6245888 924.8572544 612.44831424C804.221344 758.115424 666.279104 832.1520256 512.31193344 832.1520256 352.1885216 832.1520256 206.96606976 750.5602432 84.03478784 594.35199616 82.56227264 592.48087744 81.02637504 590.496816 79.4232832 588.39479808L79.4232832 588.39479808 63.334170304 566.51087552C39.457316032 533.09919872 39.476966208 488.200304 63.383056832 454.80953984 65.41239232 451.97507072 67.36269568 449.27119872 69.2346784 446.69712448L69.2346784 446.69712448 83.98712832 427.01343232C205.91012928 270.98439104 349.24264256 191.68 512.31193344 191.68ZM512.31193344 255.68C370.27922816 255.68 244.8717344 325.06666368 134.41671872 466.4197312L134.41671872 466.4197312 130.4086144 471.63225728 115.42102528 492.06608128C107.45232 503.19634752 107.44577024 518.16266112 115.32851584 529.1937088L115.32851584 529.1937088 130.23968192 549.48861632 148.35458752 572.12487296C256.520496 702.3597696 379.16950464 768.1520256 512.31193344 768.1520256 651.2719424 768.1520256 776.3454976 698.0112 888.974016 555.02302208 894.0465984 548.58310336 900.4709888 540.00282816 908.2037248 529.33079104 916.3219648 518.12671488 916.320128 502.97413696 908.2649088 491.86237568L908.2649088 491.86237568 902.6904576 484.22880192 889.16912 466.37019712C778.03872 325.36745344 652.5330432 255.68 512.31193344 255.68ZM512.31193344 318.56218048C618.3506048 318.56218048 704.311936 404.52350848 704.311936 510.56218048 704.311936 616.60085248 618.3506048 702.5621824 512.31193344 702.5621824 406.27326144 702.5621824 320.31193344 616.60085248 320.31193344 510.56218048 320.31193344 404.52350848 406.27326144 318.56218048 512.31193344 318.56218048ZM512.31193344 382.56218048C441.61948544 382.56218048 384.31193344 439.86973248 384.31193344 510.56218048 384.31193344 581.25462848 441.61948544 638.56218048 512.31193344 638.56218048 583.0043808 638.56218048 640.311936 581.25462848 640.311936 510.56218048 640.311936 439.86973248 583.0043808 382.56218048 512.31193344 382.56218048Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
           />
         </svg>
-      </span>
-      <span
-        class="t-select-selectedSingle"
-      >
-        Apple
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
-        />
-      </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -691,32 +773,36 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-select t-size-s"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-placeholder"
+      <div
+        class="t-select t-size-s"
+        style="user-select: none;"
       >
-        -请选择-
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
+        <span
+          class="t-select-left-icon"
         />
-      </svg>
+        <span
+          class="t-select-placeholder"
+        >
+          -请选择-
+        </span>
+        <svg
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </div>
     </div>
   </div>
   <div
@@ -724,32 +810,36 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-select"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-placeholder"
+      <div
+        class="t-select"
+        style="user-select: none;"
       >
-        -请选择-
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
+        <span
+          class="t-select-left-icon"
         />
-      </svg>
+        <span
+          class="t-select-placeholder"
+        >
+          -请选择-
+        </span>
+        <svg
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </div>
     </div>
   </div>
   <div
@@ -757,32 +847,36 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-select t-size-l"
-      style="user-select: none;"
+      class="t-popup-reference t-select-popup-reference"
     >
-      <span
-        class="t-select-left-icon"
-      />
-      <span
-        class="t-select-placeholder"
+      <div
+        class="t-select t-size-l"
+        style="user-select: none;"
       >
-        -请选择-
-      </span>
-      <svg
-        class="t-fake-arrow t-select-right-icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-          stroke="black"
-          stroke-opacity="0.9"
-          stroke-width="1.3"
+        <span
+          class="t-select-left-icon"
         />
-      </svg>
+        <span
+          class="t-select-placeholder"
+        >
+          -请选择-
+        </span>
+        <svg
+          class="t-fake-arrow t-select-right-icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </DocumentFragment>

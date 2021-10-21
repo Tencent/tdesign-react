@@ -7,16 +7,16 @@ export default function CheckTagExample() {
   const [checked, onChange] = useState(false);
 
   return (
-    <>
-      <CheckTag style={{ marginRight: 30 }} defaultChecked={true}>
+    <div className="tdesign-demo-block-row">
+      <CheckTag defaultChecked={true}>
         选中
       </CheckTag>
-      <CheckTag style={{ marginRight: 30 }} checked={checked} onChange={onChange}>
+      <CheckTag checked={checked} onChange={onChange}>
         未选
       </CheckTag>
-      <CheckTag style={{ marginRight: 30 }} disabled={true}>
+      <CheckTag disabled={true}>
         Disabled
       </CheckTag>
-    </>
+    </div>
   );
 }

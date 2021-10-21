@@ -9,15 +9,16 @@ exports[`base.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-is-info"
-        version="1.1"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
+        class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
       >
         <path
-          d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-          fill-opacity=".9"
-          fill-rule="evenodd"
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
         />
       </svg>
     </div>
@@ -45,26 +46,30 @@ exports[`base.jsx 1`] = `
 
 exports[`close-all.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      点击打开多个消息
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        点击打开多个消息
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      点击关闭多个消息
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        点击关闭多个消息
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -164,7 +169,7 @@ exports[`footer.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="margin-bottom: 16px;"
+    class="tdesign-demo-block-column"
   >
     <div
       class="t-notification"
@@ -173,15 +178,16 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -204,10 +210,6 @@ exports[`icon.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 16px;"
-  >
     <div
       class="t-notification"
     >
@@ -215,15 +217,16 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-error"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-error t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -246,10 +249,6 @@ exports[`icon.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 16px;"
-  >
     <div
       class="t-notification"
     >
@@ -257,15 +256,16 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-warning"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-warning t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -288,10 +288,6 @@ exports[`icon.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 16px;"
-  >
     <div
       class="t-notification"
     >
@@ -299,15 +295,16 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-check-circle-filled t-is-success"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-check-circle-filled t-is-success t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM690.8655168 353.58818368L464.56401024 579.82818368 328.82684416 444.09785152 283.57201024 489.35268544 464.59134592 670.3720192 509.84617984 625.1171872 736.120352 398.8430176 690.8655168 353.58818368Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -337,7 +334,7 @@ exports[`icon.jsx 1`] = `
 exports[`operation.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="margin-bottom: 20px;"
+    class="tdesign-demo-block-column"
   >
     <div
       class="t-notification"
@@ -346,15 +343,16 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -393,10 +391,6 @@ exports[`operation.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 20px;"
-  >
     <div
       class="t-notification"
     >
@@ -404,15 +398,16 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -451,10 +446,6 @@ exports[`operation.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 20px;"
-  >
     <div
       class="t-notification"
     >
@@ -462,15 +453,16 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -516,10 +508,6 @@ exports[`operation.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 20px;"
-  >
     <div
       class="t-notification"
     >
@@ -527,15 +515,16 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -589,10 +578,6 @@ exports[`operation.jsx 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    style="margin-bottom: 20px;"
-  >
     <div
       class="t-notification"
     >
@@ -600,15 +585,16 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info"
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
         >
           <path
-            d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"
-            fill-opacity=".9"
-            fill-rule="evenodd"
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
           />
         </svg>
       </div>
@@ -663,114 +649,131 @@ exports[`operation.jsx 1`] = `
 
 exports[`placement.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="tdesign-demo-block-column"
+  >
     <div
-      class="t-input"
-      style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+      class="tdesign-demo-block-row"
     >
-      <input
-        class="t-input__inner"
-        placeholder="请输入横向偏移量"
-        value=""
-      />
+      <div
+        class="t-input"
+        style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="请输入横向偏移量"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input"
+        style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="请输入纵向偏移量"
+          value=""
+        />
+      </div>
     </div>
     <div
-      class="t-input"
-      style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+      class="tdesign-demo-block-row"
     >
-      <input
-        class="t-input__inner"
-        placeholder="请输入纵向偏移量"
-        value=""
-      />
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          左上角
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          右上角
+        </span>
+      </button>
+    </div>
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          左下角
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="position: relative;"
+      >
+        <span
+          class="t-button__text"
+        >
+          右下角
+        </span>
+      </button>
     </div>
   </div>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      左上角
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      右上角
-    </span>
-  </button>
-  <br />
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      左下角
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
-    >
-      右下角
-    </span>
-  </button>
 </DocumentFragment>
 `;
 
 exports[`plugin.jsx 1`] = `
 <DocumentFragment>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
+  <div
+    class="tdesign-demo-block-row"
   >
-    <span
-      class="t-button__text"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      信息
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        信息
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      成功
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        成功
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      警告
-    </span>
-  </button>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
-  >
-    <span
-      class="t-button__text"
+      <span
+        class="t-button__text"
+      >
+        警告
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="position: relative;"
     >
-      错误
-    </span>
-  </button>
+      <span
+        class="t-button__text"
+      >
+        错误
+      </span>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 

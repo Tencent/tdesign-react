@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+import debounce from 'lodash/debounce';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
+  const formRef = useRef();
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {
@@ -16,9 +18,26 @@ export default function BaseForm() {
     Message.info('重置成功');
   };
 
+  function asyncValidate(val) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (val === '123') {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }, 1000)
+    })
+  }
+
+  const handleChange = debounce((value) => {
+    console.log('value', value);
+    formRef.current.validate({ fields: ['password'], trigger: 'blur' });
+  }, 500);
+
   return (
     <div>
-      <Form layout="vertical" onSubmit={onSubmit} labelWidth={100} onReset={onReset}>
+      <Form ref={formRef} layout="vertical" onSubmit={onSubmit} labelWidth={100} onReset={onReset} scrollToFirstError='smooth'>
         <FormItem
           label="用户名"
           help="这里请填写用户名"
@@ -35,9 +54,12 @@ export default function BaseForm() {
           label="密码"
           help="这里请填写密码"
           name="password"
-          rules={[{ required: true, message: '密码必填', type: 'error' }]}
+          rules={[
+            { required: true, message: '密码必填', type: 'error' },
+            { validator: asyncValidate, message: '密码错误', type: 'error', trigger: 'blur' },
+          ]}
         >
-          <Input />
+          <Input onChange={handleChange} />
         </FormItem>
         <FormItem label="邮箱" name="email" rules={[{ required: true, message: '格式必须为邮箱', type: 'warning' }]}>
           <Input />

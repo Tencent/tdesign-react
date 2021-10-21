@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '@tencent/tdesign-react';
+import { Icon } from '@tencent/tdesign-icons-react';
 
 export default function SvgIconExample() {
   return (

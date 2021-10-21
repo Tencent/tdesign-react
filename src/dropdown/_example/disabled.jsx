@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  Dropdown, Button, Icon, Message,
-} from '@tencent/tdesign-react';
+import { Dropdown, Button, Message } from '@tencent/tdesign-react';
+import { Icon } from '@tencent/tdesign-icons-react';
 
 export default function BasicDropdown() {
   const getContent = () => <div>操作四</div>;
@@ -33,7 +32,7 @@ export default function BasicDropdown() {
       <Button variant="text">
         <span style={{ display: 'inline-flex' }}>
           更多
-          <Icon name="chevron-down" size="16"/>
+          <Icon name="chevron-down" size="16" />
         </span>
       </Button>
     </Dropdown>

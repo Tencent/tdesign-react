@@ -1,11 +1,9 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
-import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
-import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
 import Checkbox from '../checkbox';
 import Tag from '../tag';
 import { StyledProps } from '../_type';
@@ -36,7 +34,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     rules: rulesFromProp,
     labelWidth,
     labelAlign,
-    initialData = '',
+    initialData,
     className,
     style: formItemStyle,
   } = props;
@@ -66,8 +64,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`);
-  const formItemLabelClass = classNames(`${classPrefix}-form__label`, `${classPrefix}-form-item__${name}`, {
+  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
+    [`${classPrefix}-form-item__${name}`]: name,
+  });
+  const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
       requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
@@ -229,15 +229,17 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   function setField(field: { value?: string; status?: ValidateStatus }) {
     const { value, status } = field;
+    if (typeof value !== 'undefined') {
+      setFormValue(value);
+    }
     // 手动设置 status 则不需要校验 交给用户判断
     if (typeof status !== 'undefined') {
       shouldValidate.current = false;
       setErrorList([]);
       setSuccessList([]);
       setNeedResetField(false);
+      setVerifyStatus(status);
     }
-    setFormValue(value);
-    setVerifyStatus(status);
   }
 
   // 暴露 ref 实例方法

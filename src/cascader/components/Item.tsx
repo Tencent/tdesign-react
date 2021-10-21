@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import { ChevronRightCircleIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
 
 // hook
 import useConfig from '../../_util/useConfig';
@@ -13,8 +14,6 @@ import { getFullPathLabel } from '../utils/helper';
 // component
 import Tooltip from '../../tooltip/Tooltip';
 import Checkbox from '../../checkbox/Checkbox';
-import ChevronRightCircleIcon from '../../icon/icons/ChevronRightIcon';
-import LoadingIcon from '../../icon/icons/LoadingIcon';
 
 // type
 import { ContextType, CascaderItemProps, CascaderContextType } from '../interface';

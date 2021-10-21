@@ -84,21 +84,21 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   // ==================== 翻页 ====================
   let hasPagination = false;
-  const [innerCurrent, setInnerCurrentPagination] = useState<number>(pagination?.current ?? 0);
-  const [innerPageSize, setInnerPageSize] = useState(pagination?.pageSize ?? 10);
+  const [innerCurrent, setInnerCurrentPagination] = useState<number>(
+    pagination?.current || pagination?.defaultCurrent || 1,
+  );
+  const [innerPageSize, setInnerPageSize] = useState<number>(pagination?.pageSize || pagination?.defaultPageSize || 10);
+  const isControlledPagination =
+    typeof pagination?.current !== 'undefined' && typeof pagination?.pageSize !== 'undefined';
 
   useUpdateEffect(() => {
-    setInnerPageSize(pagination?.current);
-    setInnerPageSize(pagination?.pageSize);
+    if (isControlledPagination) {
+      setInnerCurrentPagination(pagination?.current);
+      setInnerPageSize(pagination?.pageSize);
+    }
   }, [pagination]);
 
   const onPageSizeChange = (pageSize: number, pageInfo: PageInfo) => {
-    setInnerPageSize(pageSize);
-    const { current } = pageInfo;
-    const newDataSource = data.slice((current - 1) * pageSize, current * pageSize);
-    onPageChange?.(pageInfo, newDataSource);
-    // 处理pagination参数的事件回调
-    pagination?.onChange?.(pageInfo);
     pagination?.onPageSizeChange?.(pageSize, pageInfo);
   };
 
@@ -109,12 +109,16 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   const onInnerPaginationChange = (pageInfo: PageInfo) => {
     const { current, pageSize } = pageInfo;
-    setInnerCurrentPagination(current);
-    setInnerPageSize(pageSize);
-    const newDataSource = data.slice((current - 1) * innerPageSize, current * innerPageSize);
+
+    const newDataSource = data.slice((current - 1) * pageSize, current * pageSize);
     onPageChange?.(pageInfo, newDataSource);
     // 处理pagination参数的事件回调
     pagination?.onChange?.(pageInfo);
+
+    if (!isControlledPagination) {
+      setInnerCurrentPagination(current);
+      setInnerPageSize(pageSize);
+    }
   };
 
   // ==================== 数据 ====================
@@ -227,11 +231,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
           maxHeight: isNaN(Number(maxHeight)) ? maxHeight : `${Number(maxHeight)}px`,
           width: hasFixedColumns ? '100%' : undefined,
         }}
-        {...(hasFixedColumns
-          ? {
-              onScroll,
-            }
-          : {})}
+        {...(hasFixedColumns ? { onScroll } : {})}
       >
         {getTable({ enableHeader: false })}
       </div>
@@ -292,11 +292,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
               [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
-            {...(hasFixedColumns
-              ? {
-                  onScroll: throttle(handleScroll, 100),
-                }
-              : {})}
+            {...(hasFixedColumns ? { onScroll: throttle(handleScroll, 100) } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}
           </div>

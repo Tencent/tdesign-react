@@ -1,4 +1,3 @@
-export * from './icon';
 export { default as Layout } from './layout';
 export { Col, Row } from './grid';
 export { default as Loading, loading } from './loading';
@@ -24,6 +23,7 @@ export { default as Pagination } from './pagination';
 export { default as Menu } from './menu';
 export { default as Dialog, dialog } from './dialog';
 export { default as Tree } from './tree';
+export { default as TreeSelect } from './tree-select';
 export { default as Divider } from './divider';
 export { default as Switch } from './switch';
 export { default as Anchor } from './anchor';
@@ -43,3 +43,4 @@ export { default as TimePicker } from './time-picker';
 export { default as DatePicker } from './date-picker';
 export { default as Upload } from './upload';
 export { default as Swiper } from './swiper';
+export { default as Comment } from './comment';

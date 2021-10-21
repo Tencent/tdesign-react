@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { UploadIcon } from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import Button from '../button';
-import UploadIcon from '../icon/icons/UploadIcon';
 
 export interface UploadTriggerProps {
   onClick?: () => void;

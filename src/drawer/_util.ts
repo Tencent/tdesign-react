@@ -1,12 +1,12 @@
 export enum SizeType {
   LARGE = 'large',
-  MIDDLE = 'middle',
+  MEDIUM = 'medium',
   SMALL = 'small',
 }
 
 export enum Size {
   LARGE = '760px',
-  MIDDLE = '500px',
+  MEDIUM = '500px',
   SMALL = '300px',
 }
 /**
@@ -17,8 +17,8 @@ export function getWidthOrHeightBySize(size: number | string) {
   if (size === SizeType.SMALL) {
     return Size.SMALL;
   }
-  if (size === SizeType.MIDDLE) {
-    return Size.MIDDLE;
+  if (size === SizeType.MEDIUM) {
+    return Size.MEDIUM;
   }
   if (size === SizeType.LARGE) {
     return Size.LARGE;

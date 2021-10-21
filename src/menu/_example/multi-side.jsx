@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
+import { Menu } from '@tencent/tdesign-react';
 import {
-  Menu,
   AppIcon,
   CodeIcon,
   FileIcon,
@@ -9,7 +9,7 @@ import {
   ViewListIcon,
   MailIcon,
   RollbackIcon,
-} from '@tencent/tdesign-react';
+} from '@tencent/tdesign-icons-react';
 
 const { SubMenu, MenuItem } = Menu;
 
@@ -43,19 +43,21 @@ function MultiSide() {
           </MenuItem>
         </SubMenu>
         <SubMenu value="2" title={<span>调度平台</span>} icon={<FileIcon />}>
-          <MenuItem value="2-1">
-            <span>三级菜单-1</span>
-          </MenuItem>
+          <SubMenu value="2-1" title="二级菜单-1">
+            <MenuItem value="3-1">三级菜单-1</MenuItem>
+            <MenuItem value="3-2">三级菜单-2</MenuItem>
+            <MenuItem value="3-3">三级菜单-3</MenuItem>
+          </SubMenu>
           <MenuItem value="2-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
         <SubMenu value="3" title={<span>精准监控</span>} icon={<UserIcon />}>
           <MenuItem value="3-1">
-            <span>三级菜单-1</span>
+            <span>二级菜单-1</span>
           </MenuItem>
           <MenuItem value="3-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
         <MenuItem value="4" disabled icon={<RollbackIcon />}>
@@ -63,10 +65,10 @@ function MultiSide() {
         </MenuItem>
         <SubMenu value="5" title={<span>消息区</span>} icon={<MailIcon />}>
           <MenuItem value="5-1">
-            <span>三级菜单-1</span>
+            <span>二级菜单-1</span>
           </MenuItem>
           <MenuItem value="5-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
       </Menu>
@@ -91,18 +93,18 @@ function MultiSide() {
         </SubMenu>
         <SubMenu value="2" title={<span>调度平台</span>} icon={<FileIcon />}>
           <MenuItem value="2-1">
-            <span>三级菜单-1</span>
+            <span>二级菜单-1</span>
           </MenuItem>
           <MenuItem value="2-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
         <SubMenu value="3" title={<span>精准监控</span>} icon={<UserIcon />}>
           <MenuItem value="3-1">
-            <span>三级菜单-1</span>
+            <span>二级菜单-1</span>
           </MenuItem>
           <MenuItem value="3-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
         <MenuItem value="4" disabled icon={<RollbackIcon />}>
@@ -110,10 +112,10 @@ function MultiSide() {
         </MenuItem>
         <SubMenu value="5" title={<span>消息区</span>} icon={<MailIcon />}>
           <MenuItem value="5-1">
-            <span>三级菜单-1</span>
+            <span>二级菜单-1</span>
           </MenuItem>
           <MenuItem value="5-2">
-            <span>三级菜单-2</span>
+            <span>二级菜单-2</span>
           </MenuItem>
         </SubMenu>
       </Menu>

@@ -211,6 +211,13 @@ export default {
           component: () => import('@tencent/tdesign-react/textarea/README.md'),
         },
         {
+          title: 'TreeSelect 树选择',
+          name: 'tree-select',
+          docType: 'data',
+          path: '/react/components/tree-select',
+          component: () => import('@tencent/tdesign-react/tree-select/README.md'),
+        },
+        {
           title: 'TimePicker 时间选择器',
           name: 'time-picker',
           docType: 'form',
@@ -244,6 +251,13 @@ export default {
           docType: 'data',
           path: '/react/components/calendar',
           component: () => import('@tencent/tdesign-react/calendar/README.md'),
+        },
+        {
+          title: 'Comment 评论',
+          name: 'comment',
+          docType: 'data',
+          path: '/react/components/comment',
+          component: () => import('@tencent/tdesign-react/comment/README.md'),
         },
         {
           title: 'List 列表',

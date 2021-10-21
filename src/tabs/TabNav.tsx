@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import AddIcon from '../icon/icons/AddIcon';
-import ChevronLeftIcon from '../icon/icons/ChevronLeftIcon';
-import ChevronRightIcon from '../icon/icons/ChevronRightIcon';
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@tencent/tdesign-icons-react';
 import { TdTabsProps, TdTabPanelProps, TabValue } from '../_type/components/tabs';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
@@ -178,7 +176,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 }, 0);
               }}
             >
-              <AddIcon name={'add'} />
+              <AddIcon />
             </div>
           ) : null}
         </div>

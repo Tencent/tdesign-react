@@ -9,13 +9,13 @@ export default function ContentExample() {
     </>
   );
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <PopConfirm theme={'default'} content={content}>
         <Button theme="primary">自定义content</Button>
       </PopConfirm>
       <PopConfirm theme={'warning'} content={content}>
         <Button theme="danger" variant="outline">自定义content</Button>
       </PopConfirm>
-    </>
+    </div>
   );
 }

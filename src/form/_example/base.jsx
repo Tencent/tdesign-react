@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form, Input, Radio, Checkbox, Button, Switch, Message, DatePicker } from '@tencent/tdesign-react';
 
 const { FormItem } = Form;
 
 export default function BaseForm() {
+  const formRef = useRef();
+
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {
       Message.info('提交成功');
     }
+    console.log(formRef.current.getAllFieldsValue());
   };
 
   const onReset = (e) => {
@@ -17,7 +20,7 @@ export default function BaseForm() {
   };
 
   return (
-    <Form onSubmit={onSubmit} onReset={onReset} colon labelWidth={100}>
+    <Form ref={formRef} onSubmit={onSubmit} onReset={onReset} colon labelWidth={100}>
       <FormItem label="姓名" name="name">
         <Input />
       </FormItem>

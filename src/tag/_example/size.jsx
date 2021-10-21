@@ -4,7 +4,7 @@ import { Tag } from '@tencent/tdesign-react';
 export default function Size() {
   const style = { marginRight: 30 };
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Tag size="small" style={style}>
         小型标签
       </Tag>
@@ -14,6 +14,6 @@ export default function Size() {
       <Tag size="large" style={style}>
         大型标签
       </Tag>
-    </>
+    </div>
   );
 }

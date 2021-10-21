@@ -7,7 +7,7 @@ export default function () {
   const list = useState([]);
 
   return (
-    <div className="message-element">
+    <div className="tdesign-demo-block-row">
       <Button
         onClick={() => {
           message = Message.info('I am duration 20s Message', 20 * 1000);

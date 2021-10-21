@@ -1,9 +1,8 @@
 import React, { useRef, createRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import isNumber from 'lodash/isNumber';
+import isNil from 'lodash/isNil';
 import isFunction from 'lodash/isFunction';
-import isBoolean from 'lodash/isBoolean';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -17,15 +16,6 @@ export interface FormProps extends TdFormProps, StyledProps {
 }
 
 export type Result = FormValidateResult<FormData>;
-
-/**
- * 判断是否空值 布尔值、数字不为空
- * @param val
- */
-function isValueEmpty(val: unknown) {
-  // https://github.com/lodash/lodash/issues/496
-  return isBoolean(val) || isNumber(val) ? false : isEmpty(val);
-}
 
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
@@ -121,7 +111,7 @@ const Form = forwardRefWithStatics(
       const fieldsValue = {};
       formItemsRef.current.forEach((formItemRef) => {
         // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
-        if (formItemRef?.name && !isValueEmpty(formItemRef.value)) {
+        if (formItemRef?.name && !isNil(formItemRef.value)) {
           fieldsValue[formItemRef.name] = formItemRef.value;
         }
       });

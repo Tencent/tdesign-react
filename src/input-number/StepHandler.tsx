@@ -1,10 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import ChevronUpIcon from '../icon/icons/ChevronUpIcon';
-import ChevronDownIcon from '../icon/icons/ChevronDownIcon';
-import RemoveIcon from '../icon/icons/RemoveIcon';
-import AddIcon from '../icon/icons/AddIcon';
+import { ChevronUpIcon, ChevronDownIcon, RemoveIcon, AddIcon } from '@tencent/tdesign-icons-react';
 import useCommonClassName from '../_util/useCommonClassName';
 import Button from '../button';
 
@@ -22,8 +19,8 @@ export default function StepHandler(props: StepHandlerProps) {
   const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease } = props;
   const commonClassNames = useCommonClassName();
 
-  const DecreaseIcon = theme === 'column' ? ChevronDownIcon : RemoveIcon;
-  const IncreaseIcon = theme === 'column' ? ChevronUpIcon : AddIcon;
+  const decreaseIcon = theme === 'column' ? <ChevronDownIcon /> : <RemoveIcon />;
+  const increaseIcon = theme === 'column' ? <ChevronUpIcon /> : <AddIcon />;
 
   const onStepDecrease = (e) => disabledDecrease || onStep({ type: 'reduce', e });
   const onStepIncrease = (e) => disabledIncrease || onStep({ type: 'add', e });
@@ -36,7 +33,7 @@ export default function StepHandler(props: StepHandlerProps) {
           [commonClassNames.STATUS.disabled]: disabledDecrease,
         })}
         onClick={onStepDecrease}
-        icon={<DecreaseIcon />}
+        icon={decreaseIcon}
       ></Button>
       <Button
         variant="outline"
@@ -44,7 +41,7 @@ export default function StepHandler(props: StepHandlerProps) {
           [commonClassNames.STATUS.disabled]: disabledIncrease,
         })}
         onClick={onStepIncrease}
-        icon={<IncreaseIcon />}
+        icon={increaseIcon}
       ></Button>
     </>
   );

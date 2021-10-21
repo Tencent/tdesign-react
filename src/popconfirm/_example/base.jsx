@@ -14,7 +14,7 @@ export default function BasicExample() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <PopConfirm content={'确定删除订单吗'}>
         <Button theme="primary">删除订单</Button>
       </PopConfirm>
@@ -45,6 +45,6 @@ export default function BasicExample() {
       <PopConfirm>
         <Button theme="primary" disabled>禁用按钮</Button>
       </PopConfirm>
-    </>
+    </div>
   );
 }

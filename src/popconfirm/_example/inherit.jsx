@@ -3,7 +3,7 @@ import { Button, PopConfirm } from '@tencent/tdesign-react';
 
 export default function InheritExample() {
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <PopConfirm
         theme={'default'}
         content={'直接使用 placement 进行设置'}
@@ -22,6 +22,6 @@ export default function InheritExample() {
       >
         <Button theme="primary">浮层出现在右侧</Button>
       </PopConfirm>
-    </>
+    </div>
   );
 }

@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import isString from 'lodash/isString';
-import CloseIcon from '../icon/icons/CloseIcon';
-import InfoCircleFilledIcon from '../icon/icons/InfoCircleFilledIcon';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
+import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '@tencent/tdesign-icons-react';
 import { ConfigContext } from '../config-provider';
 import Button from '../button';
 import { TdDialogProps, DialogInstance } from '../_type/components/dialog';

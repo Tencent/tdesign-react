@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
+import { CloseIcon } from '@tencent/tdesign-icons-react';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import CloseIcon from '../icon/icons/CloseIcon';
 import { TdTagProps } from '../_type/components/tag';
 import CheckTag from './CheckTag';
 
@@ -25,7 +25,7 @@ const Tag = forwardRefWithStatics(
   (props: TagProps, ref: React.Ref<HTMLSpanElement>) => {
     const {
       theme = 'default',
-      size = 'middle',
+      size = 'medium',
       shape = 'square',
       variant = 'dark',
       closable,

@@ -1,11 +1,13 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import CheckCircleIcon from '../icon/icons/CheckCircleIcon';
-import CloseCircleIcon from '../icon/icons/CloseCircleIcon';
-import ErrorCircleIcon from '../icon/icons/ErrorCircleIcon';
-import CheckCircleFilledIcon from '../icon/icons/CheckCircleFilledIcon';
-import CloseCircleFilledIcon from '../icon/icons/CloseCircleFilledIcon';
-import ErrorCircleFilledIcon from '../icon/icons/ErrorCircleFilledIcon';
+import {
+  CheckCircleIcon,
+  CloseCircleIcon,
+  ErrorCircleIcon,
+  CheckCircleFilledIcon,
+  CloseCircleFilledIcon,
+  ErrorCircleFilledIcon,
+} from '@tencent/tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../_type';
