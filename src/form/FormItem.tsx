@@ -5,6 +5,7 @@ import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } f
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
 import Checkbox from '../checkbox';
+import Upload from '../upload';
 import Tag from '../tag';
 import { StyledProps } from '../_type';
 import { validate as validateModal, isValueEmpty } from './formModel';
@@ -20,8 +21,10 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const { CheckTag } = Tag;
-const CHECKED_TYPE = [Checkbox, CheckTag];
+const ctrlKeyMap = new Map();
+ctrlKeyMap.set(Checkbox, 'checked');
+ctrlKeyMap.set(Tag.CheckTag, 'checked');
+ctrlKeyMap.set(Upload, 'file');
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -283,7 +286,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 onBlurFromProps = child.props.onBlur;
               }
               if (typeof child.type === 'object') {
-                ctrlKey = CHECKED_TYPE.includes(child.type) ? 'checked' : 'value';
+                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               return React.cloneElement(child, {
                 ...child.props,
