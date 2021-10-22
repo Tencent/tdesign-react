@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import { isPlainObject, isNumber, isString } from 'lodash';
 import { SelectValue, Options } from '../../_type/components/select';
+import OptionGroup from '../base/OptionGroup';
 
 type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
 
 export const getLabel = (children, value, options) => {
   let selectedLabel = '';
-
   // 处理带 options 属性的情况
   if (Array.isArray(options)) {
     options.some((option) => {
@@ -21,7 +21,7 @@ export const getLabel = (children, value, options) => {
 
   if (isPlainObject(children)) {
     selectedLabel = children.props.label;
-    if (children.type.name === 'OptionGroup') {
+    if (children.type.name === OptionGroup.name) {
       const groupChildren = children.props.children;
       if (Array.isArray(groupChildren)) {
         groupChildren.some((item) => {
@@ -40,7 +40,7 @@ export const getLabel = (children, value, options) => {
     children.some((item: ReactElement) => {
       // 处理分组
       const { name } = item.type as { name: string };
-      if (name === 'OptionGroup') {
+      if (name === OptionGroup.name) {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           const isSelected = groupChildren.some((item) => {
