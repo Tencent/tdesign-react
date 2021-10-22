@@ -29,16 +29,18 @@ const Option = (props: SelectOptionProps) => {
   const { disabled: propDisabled, size, max, value, multiple, selectedValue, onSelect, children } = props;
   const label = props.label || value;
   const componentType = 'select';
-  let selected = value === selectedValue;
 
-  const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+  let selected: boolean;
 
-  const { classPrefix } = useConfig();
-  const optionRef = useRef();
+  // 处理单选场景
+  if (!multiple) {
+    selected =
+      isNumber(selectedValue) || isString(selectedValue)
+        ? value === selectedValue
+        : value === (selectedValue as SelectLabeledValue)?.value;
+  }
 
-  // 使用斜八角动画
-  useRipple(optionRef);
-
+  // 处理多选场景
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
@@ -48,6 +50,14 @@ const Option = (props: SelectOptionProps) => {
       return (item as SelectLabeledValue).value === value;
     });
   }
+
+  const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+
+  const { classPrefix } = useConfig();
+  const optionRef = useRef();
+
+  // 使用斜八角动画
+  useRipple(optionRef);
 
   const handleSelect = (event: React.MouseEvent) => {
     if (!disabled) {
