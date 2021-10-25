@@ -8,6 +8,8 @@ import createComponent from './component';
 let demoImports = {};
 let demoCodesImports = {};
 
+const transformDemo = ['table'];
+
 export default {
   before(source, id) {
     const resouceDir = path.dirname(id);
@@ -52,11 +54,12 @@ export default {
     });
 
     // 转义 { } 字符
-    source = source.replace(/\`([^`]+)\`/g, (demoStr, codeStr) => {
-      if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
-
-      return demoStr;
-    });
+    if (transformDemo.includes(name)) {
+      source = source.replace(/\`([^`]+)\`/g, (demoStr, codeStr) => {
+        if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
+        return demoStr;
+      });
+    }
 
     return source;
   },
