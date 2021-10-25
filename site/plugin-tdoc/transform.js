@@ -51,6 +51,13 @@ export default {
       demoCodesImports[demoCodeDefName] = `import ${demoCodeDefName} from './${relativeDemoPath}?raw';`;
     });
 
+    // 转义 { } 字符
+    source = source.replace(/\`([^`]+)\`/g, (demoStr, codeStr) => {
+      if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
+
+      return demoStr;
+    });
+
     return source;
   },
   after(_, _id, renderInfo, md) {
