@@ -72,7 +72,8 @@ export interface InnerContentProps {
 
 export interface SuffixIconProps {
   closeShow: boolean;
-  iconClass: string;
+  closeIconClass: string;
+  fakeArrowIconClass: string;
   cascaderContext: CascaderContextType;
   listeners: InputContentProps['listeners'];
 }

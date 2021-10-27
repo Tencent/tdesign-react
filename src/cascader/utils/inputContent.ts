@@ -8,12 +8,30 @@ import { TreeNode, CascaderContextType, TreeNodeValue, CascaderProps } from '../
  * @param cascaderContext
  * @returns
  */
-export function getIconClass(prefix: string, CLASSNAMES: any, cascaderContext: CascaderContextType) {
-  const { visible } = cascaderContext;
+export function getCloseIconClass(prefix: string, CLASSNAMES: any, cascaderContext: CascaderContextType) {
+  const { visible, disabled } = cascaderContext;
   return [
     `${prefix}-cascader-icon`,
     {
       [CLASSNAMES.STATUS.visible]: visible,
+      [CLASSNAMES.STATUS.disabled]: disabled,
+    },
+  ];
+}
+
+/**
+ * icon Class
+ * @param prefix
+ * @param CLASSNAMES
+ * @param cascaderContext
+ * @returns
+ */
+export function getFakeArrowIconClass(prefix: string, CLASSNAMES: any, cascaderContext: CascaderContextType) {
+  const { disabled } = cascaderContext;
+  return [
+    `${prefix}-cascader-icon`,
+    {
+      [CLASSNAMES.STATUS.disabled]: disabled,
     },
   ];
 }
@@ -33,7 +51,7 @@ export function getCascaderInnerClasses(prefix: string, CLASSNAMES: any, cascade
       [CLASSNAMES.STATUS.disabled]: disabled,
       [CLASSNAMES.STATUS.active]: visible,
       [CLASSNAMES.SIZE[size]]: size,
-      [`${name}-is-multiple`]: multiple,
+      [`${prefix}-cascader-is-multiple`]: multiple,
     },
   ];
 }
@@ -82,14 +100,15 @@ export function getPlaceholderShow(
  */
 export function getSingleContent(cascaderContext: CascaderContextType) {
   const { value, multiple, treeStore, showAllLevels } = cascaderContext;
-  if (multiple || !value) return;
+  if (multiple || !value) return '';
+  if (Array.isArray(value)) return '';
   const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
   if (!(node && node.length)) {
     return '';
   }
   const path = node && node[0].getPath();
   if (path && path.length) {
-    return showAllLevels ? path.map((node: TreeNode) => node.label).join('/') : path[path.length - 1].label;
+    return showAllLevels ? path.map((node: TreeNode) => node.label).join(' / ') : path[path.length - 1].label;
   }
   return value as string;
 }
@@ -103,7 +122,8 @@ export function getSingleContent(cascaderContext: CascaderContextType) {
 export function getMultipleContent(cascaderContext: CascaderContextType) {
   const { value, multiple, treeStore } = cascaderContext;
 
-  if (!multiple || !value) return [];
+  if (!multiple) return [];
+  if (multiple && !Array.isArray(value)) return [];
 
   const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
   if (!node) return [];
@@ -144,13 +164,21 @@ export function outerClickListenerEffect(
  * closeIcon点击副作用
  * @param cascaderContext
  */
-export function closeIconClickEffect(cascaderContext: CascaderContextType) {
-  const { setVisible, setValue, treeStore, multiple } = cascaderContext;
+export function closeIconClickEffect(cascaderContext: CascaderContextType, onChange: CascaderProps['onChange']) {
+  const { setVisible, multiple, setExpend, setValue } = cascaderContext;
+
+  setVisible(false);
+
+  // 手动设置的展开需要去除
+  if (multiple) {
+    setExpend([]);
+  }
 
   setValue(multiple ? [] : '');
-  treeStore.resetChecked();
-  treeStore.resetExpanded();
-  setVisible(false);
+
+  if (onChange && isFunction(onChange)) {
+    onChange(multiple ? [] : '', { e: MouseEvent });
+  }
 }
 
 /**

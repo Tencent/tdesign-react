@@ -8,7 +8,8 @@ import useCommonClassName from '../../_util/useCommonClassName';
 
 // common logic
 import {
-  getIconClass,
+  getCloseIconClass,
+  getFakeArrowIconClass,
   getCascaderInnerClasses,
   getCloseShow,
   getPlaceholderShow,
@@ -57,8 +58,13 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
     };
   }, [cascaderContext]);
 
-  const iconClass = useMemo(
-    () => classNames(getIconClass(prefix, CLASSNAMES, cascaderContext)),
+  const closeIconClass = useMemo(
+    () => classNames(getCloseIconClass(prefix, CLASSNAMES, cascaderContext)),
+    [prefix, CLASSNAMES, cascaderContext],
+  );
+
+  const fakeArrowIconClass = useMemo(
+    () => classNames(getFakeArrowIconClass(prefix, CLASSNAMES, cascaderContext)),
     [prefix, CLASSNAMES, cascaderContext],
   );
 
@@ -87,7 +93,13 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
         placeholder={placeholder}
         listeners={listeners}
       />
-      <SuffixIcon cascaderContext={cascaderContext} closeShow={closeShow} iconClass={iconClass} listeners={listeners} />
+      <SuffixIcon
+        cascaderContext={cascaderContext}
+        closeShow={closeShow}
+        closeIconClass={closeIconClass}
+        fakeArrowIconClass={fakeArrowIconClass}
+        listeners={listeners}
+      />
     </div>
   );
 };
@@ -101,27 +113,22 @@ const SuffixIcon = (props: SuffixIconProps) => {
     cascaderContext,
     listeners: { onChange },
     closeShow,
-    iconClass,
+    fakeArrowIconClass,
+    closeIconClass,
   } = props;
-  const { visible, disabled, multiple, size } = cascaderContext;
-  const { classPrefix: prefix } = useConfig();
-  const name = `${prefix}-cascader`;
+  const { visible, disabled, size } = cascaderContext;
 
-  const closeIconClick = (e) => {
+  const closeIconClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    closeIconClickEffect(cascaderContext);
-
-    if (onChange && isFunction(onChange)) {
-      onChange(multiple ? [] : '', { e });
-    }
+    closeIconClickEffect(cascaderContext, onChange);
   };
 
   if (closeShow) {
-    return <CloseCircleFilledIcon className={iconClass} onClick={closeIconClick} size={size} />;
+    return <CloseCircleFilledIcon className={closeIconClass} onClick={closeIconClick} size={size} />;
   }
 
-  return <FakeArrow overlayClassName={`${name}-icon`} isActive={visible} disabled={disabled} />;
+  return <FakeArrow overlayClassName={fakeArrowIconClass} isActive={visible} disabled={disabled} />;
 };
 
 const Content: React.FC<ContentProps> = (props: ContentProps) => {

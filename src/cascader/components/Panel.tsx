@@ -39,7 +39,14 @@ const Panel = (props: CascaderPanelProps) => {
 
   // innerComponents
   const renderEmpty = (
-    <ul className={`${name}-menu`}>
+    <ul
+      className={classNames([
+        `${name}-menu`,
+        {
+          [`${name}-menu__filter`]: filterActive,
+        },
+      ])}
+    >
       <li className={classNames([`${name}-item`, `${name}-item__is-empty`])}>{empty}</li>
     </ul>
   );
@@ -69,7 +76,7 @@ const Panel = (props: CascaderPanelProps) => {
   ));
 
   const filterPanelsContainer = (
-    <ul className={classNames(`${name}-menu`, `${name}-menu__seperator`)}>
+    <ul className={classNames(`${name}-menu`, `${name}-menu__seperator`, `${name}-menu__filter`)}>
       {treeNodes.map((node: TreeNode) => renderItem(node))}
     </ul>
   );

@@ -47,9 +47,12 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
 
   if (isEllipsis) {
     return (
-      <Tooltip content={label} placement="top-left">
-        <span className={`${name}__label`}>{label}</span>
-      </Tooltip>
+      <span className={`${name}__label`} role="label">
+        {label}
+        <div className={`${name}__label--ellipsis`}>
+          <Tooltip content={node.label} placement="top-left" />
+        </div>
+      </span>
     );
   }
   return <span className={`${name}__label`}>{label}</span>;

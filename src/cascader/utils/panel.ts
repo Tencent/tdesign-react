@@ -1,6 +1,6 @@
 import isFunction from 'lodash/isFunction';
 import isNumber from 'lodash/isNumber';
-import { TreeNode, CascaderContextType, CascaderProps, ContextType } from '../interface';
+import { TreeNode, CascaderContextType, CascaderProps, ContextType, TreeNodeValue } from '../interface';
 
 /**
  * 面板数据计算方法
@@ -46,8 +46,13 @@ export function expendClickEffect(
     setValue,
     setTreeNodes,
     setExpend,
+    value,
+    max,
   } = cascaderContext;
 
+  const isDisabled = node.disabled || ((value as TreeNodeValue[]).length >= max && max !== 0);
+
+  if (isDisabled) return;
   // 点击展开节点，设置展开状态
   if (propsTrigger === trigger && !node.isLeaf()) {
     const expanded = node.setExpanded(true);
@@ -109,7 +114,7 @@ export function valueChangeEffect(
   const checked = node.setChecked(!node.isChecked());
 
   if (isNumber(max) && max < 0) {
-    console.warn('max should > 0');
+    console.warn('TDesign Warn:', 'max should > 0');
   }
 
   if (checked.length > max && isNumber(max) && max > 0) {
