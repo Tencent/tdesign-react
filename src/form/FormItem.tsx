@@ -69,6 +69,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
+    [`${classPrefix}-form__item-with-help`]: help,
+    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
   });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
@@ -97,7 +99,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
   }
 
-  const renderTipsInfo = () => {
+  function renderTipsInfo() {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
@@ -109,7 +111,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
 
     return helpNode;
-  };
+  }
 
   const renderSuffixIcon = () => {
     if (statusIconFromProp === false) return null;
@@ -224,6 +226,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetHandler() {
+    shouldValidate.current = false;
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);

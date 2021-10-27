@@ -809,7 +809,7 @@ exports[`validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__account"
+        class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -843,7 +843,7 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password"
+        class="t-form__item t-form-item__password t-form__item-with-help t-form__item-with-extra"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -1168,7 +1168,7 @@ exports[`validator-status.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__fail"
+        class="t-form__item t-form-item__fail t-form__item-with-help t-form__item-with-extra"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -1368,7 +1368,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__add"
+        class="t-form__item t-form-item__add t-form__item-with-help t-form__item-with-extra"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -1426,7 +1426,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__help"
+        class="t-form__item t-form-item__help t-form__item-with-help t-form__item-with-extra"
       >
         <div
           class="t-form__label t-form__label--right"
