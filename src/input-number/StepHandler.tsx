@@ -34,6 +34,7 @@ export default function StepHandler(props: StepHandlerProps) {
         })}
         onClick={onStepDecrease}
         icon={decreaseIcon}
+        shape="square"
       ></Button>
       <Button
         variant="outline"
@@ -42,6 +43,7 @@ export default function StepHandler(props: StepHandlerProps) {
         })}
         onClick={onStepIncrease}
         icon={increaseIcon}
+        shape="square"
       ></Button>
     </>
   );
