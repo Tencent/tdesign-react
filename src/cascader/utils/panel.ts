@@ -50,7 +50,7 @@ export function expendClickEffect(
     max,
   } = cascaderContext;
 
-  const isDisabled = node.disabled || ((value as TreeNodeValue[]).length >= max && max !== 0);
+  const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
 
   if (isDisabled) return;
   // 点击展开节点，设置展开状态

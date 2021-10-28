@@ -2,9 +2,13 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon } from '@tencent/tdesign-icons-react';
-
 import useConfig from '../../_util/useConfig';
 import useCommonClassName from '../../_util/useCommonClassName';
+
+// component
+import Tag from '../../tag';
+import Input from '../../input';
+import FakeArrow from '../../common/FakeArrow';
 
 // common logic
 import {
@@ -20,11 +24,6 @@ import {
   handleRemoveTagEffect,
   innerContentClickEffect,
 } from '../utils/inputContent';
-
-// component
-import Tag from '../../tag';
-import Input from '../../input';
-import FakeArrow from '../../common/FakeArrow';
 
 // types
 import { InputContentProps, InnerContentProps, ContentProps, SuffixIconProps, TreeNode } from '../interface';

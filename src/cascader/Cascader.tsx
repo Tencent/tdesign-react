@@ -95,14 +95,13 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       onLoad,
     };
     const store = new TreeStore(treeProps);
-    if (!options || (Array.isArray(options) && !options.length)) return;
+
     store.append(options);
     return store;
   };
 
   if (!treeStore) {
     const store = createStore(() => {
-      // onLoaded callback
       setTimeout(() => {
         store.refreshNodes();
         treeNodesEffect(inputVal, store, setTreeNodes);
@@ -122,6 +121,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       load,
       lazy,
       valueMode,
+      options,
     };
     treeStore.setConfig(treeProps);
   }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);

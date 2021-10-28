@@ -21,7 +21,7 @@ export function getNodeStatusClass(node: TreeNode, CLASSNAMES: any, cascaderCont
 
   const isLeaf = node.isLeaf();
 
-  const isDisabled = node.disabled || ((value as TreeNodeValue[]).length >= max && max !== 0);
+  const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
 
   const isSelected = node.checked || (multiple && !checkStrictly && node.expanded && !isLeaf);
 
@@ -58,5 +58,5 @@ export function getCascaderItemIconClass(
   CLASSNAMES: any,
   cascaderContext: CascaderContextType,
 ) {
-  return [`${prefix}-cascader-icon`, ...getNodeStatusClass(node, CLASSNAMES, cascaderContext)];
+  return [`${prefix}-cascader-item-icon`, ...getNodeStatusClass(node, CLASSNAMES, cascaderContext)];
 }
