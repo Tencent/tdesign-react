@@ -7,6 +7,7 @@ import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import { StyledProps, TreeOptionData } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';
@@ -325,6 +326,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     }
   }
 
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('treeSelect');
+  const emptyText = t(local.empty);
+  const loadingTextLabel = t(local.loadingText);
+
   const treeItem = !loading && (
     <Tree
       ref={treeRef}
@@ -336,7 +342,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       activable={!multiple}
       checkable={multiple}
       disabled={disabled || multiLimitDisabled}
-      empty={empty || <div className={`${classPrefix}-select-empty`}>暂无数据</div>}
+      empty={empty || <div className={`${classPrefix}-select-empty`}>{emptyText}</div>}
       filter={filterByText}
       actived={actived}
       expanded={expanded}
@@ -390,7 +396,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
           <>
             {showLoading && (
               <p className={`${classPrefix}-select-loading-tips`}>
-                {loadingText || <div className={`${classPrefix}-select-empty`}>加载中</div>}
+                {loadingText || <div className={`${classPrefix}-select-empty`}>{loadingTextLabel}</div>}
               </p>
             )}
             {treeItem}
