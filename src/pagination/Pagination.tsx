@@ -11,6 +11,7 @@ import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import Select from '../select';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import { TdPaginationProps } from '../_type/components/pagination';
 import { StyledProps } from '../_type/StyledProps';
@@ -45,6 +46,8 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     onCurrentChange,
     onPageSizeChange,
   } = props;
+
+  const [locale, t] = useLocaleReceiver('pagination');
 
   const [pageSize, setPageSize] = useDefault(pageSizeFromProps, defaultPageSize, onPageSizeChange);
   const [current, setCurrent] = useDefault(currentFromProps, defaultCurrent, onCurrentChange);
@@ -168,7 +171,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   // 渲染total相关逻辑
   const renderTotalContent = () => {
     if (typeof totalContent === 'boolean') {
-      return totalContent ? `共 ${total} 项数据` : null;
+      return totalContent ? t(locale.total, { total }) : null;
     }
     if (typeof totalContent === 'string') return totalContent;
     if (typeof totalContent === 'function') {
@@ -266,7 +269,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
               (item) =>
                 // eslint-disable-next-line implicit-arrow-linebreak
                 typeof item === 'number' ? (
-                  <Option key={item} label={`${item}条/页`} value={item} />
+                  <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
                 ) : (
                   <Option key={item.value} label={item.label} value={item.value} />
                 ),
@@ -308,7 +311,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       </div>
       {showJumper && (
         <div className={`${name}__jump`}>
-          跳转
+          {t(locale.jumpTo)}
           <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-input__is-disabled`]: disabled })}>
             <input
               className={`${classPrefix}-input__inner`}
@@ -317,7 +320,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
               onKeyUp={onPageInputKeyUp}
             />
           </div>
-          页
+          {t(locale.page)}
         </div>
       )}
     </div>

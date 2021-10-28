@@ -1,28 +1,29 @@
 import { createContext } from 'react';
+import defaultLocale from '../locale/zh_CN';
 
-// 支持 webpack 注入
-export const DEFAULT_CLASS_PREFIX = 't';
-export const DEFAULT_LOCALE = 'zh-CN';
+export const defaultClassPrefix = 't';
 
 export interface Config {
   /**
    * 组件类名前缀
    *
-   * @default 'tdesign'
+   * @default 't'
    */
   classPrefix?: string;
 
   /**
    * 组件语言版本
    *
-   * @default 'zh-CN'
+   * @default defaultLocale
    */
-  locale?: 'zh-CN';
+  locale?: object;
 }
 
-const ConfigContext = createContext<Config>({
-  classPrefix: DEFAULT_CLASS_PREFIX,
-  locale: DEFAULT_LOCALE,
-});
+export const defaultContext = {
+  classPrefix: defaultClassPrefix,
+  locale: defaultLocale,
+};
+
+const ConfigContext = createContext<Config>(defaultContext);
 
 export default ConfigContext;
