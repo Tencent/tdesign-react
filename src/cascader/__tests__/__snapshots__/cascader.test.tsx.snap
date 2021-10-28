@@ -6,11 +6,6 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      style="margin-top: 16px;"
-    >
-      非受控
-    </div>
-    <div
       class="t-popup-reference"
     >
       <span
@@ -23,7 +18,7 @@ exports[`base.jsx 1`] = `
           <span
             class="t-cascader-content"
           >
-            上海/黄浦区
+            上海 / 黄浦区
           </span>
           <svg
             class="t-fake-arrow t-cascader-icon"
@@ -44,11 +39,6 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      style="margin-top: 16px;"
-    >
-      受控
-    </div>
-    <div
       class="t-popup-reference"
     >
       <span
@@ -61,7 +51,7 @@ exports[`base.jsx 1`] = `
           <span
             class="t-cascader-content"
           >
-            上海/黄浦区
+            上海 / 黄浦区
           </span>
           <svg
             class="t-fake-arrow t-cascader-icon"
@@ -94,7 +84,7 @@ exports[`base.jsx 1`] = `
           <span
             class="t-cascader-content"
           >
-            上海/黄浦区
+            上海 / 黄浦区
           </span>
           <svg
             class="t-fake-arrow t-cascader-icon"
@@ -136,7 +126,7 @@ exports[`check-strictly.jsx 1`] = `
           <span
             class="t-cascader-content"
           >
-            1/1.2/1.2.2
+            1 / 1.2 / 1.2.2
           </span>
           <svg
             class="t-fake-arrow t-cascader-icon"
@@ -163,7 +153,7 @@ exports[`check-strictly.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -236,7 +226,7 @@ exports[`collapsed.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -287,7 +277,7 @@ exports[`collapsed.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -356,7 +346,7 @@ exports[`collapsed.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -420,10 +410,10 @@ exports[`disabled.jsx 1`] = `
           <span
             class="t-cascader-content"
           >
-            上海/黄浦区
+            上海 / 黄浦区
           </span>
           <svg
-            class="t-fake-arrow t-cascader-icon"
+            class="t-fake-arrow t-cascader-icon t-is-disabled"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -447,7 +437,7 @@ exports[`disabled.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-is-disabled t-size-m -is-multiple"
+          class="t-cascader t-is-disabled t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -469,7 +459,7 @@ exports[`disabled.jsx 1`] = `
             </svg>
           </span>
           <svg
-            class="t-fake-arrow t-cascader-icon"
+            class="t-fake-arrow t-cascader-icon t-is-disabled"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -577,7 +567,7 @@ exports[`filterable.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -632,7 +622,7 @@ exports[`keys.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -678,9 +668,9 @@ exports[`load.jsx 1`] = `
           style="margin-top: 16px;"
         >
           <span
-            class="t-cascader-content"
+            class="t-cascader-placeholder"
           >
-            上海
+            请输入
           </span>
           <svg
             class="t-fake-arrow t-cascader-icon"
@@ -719,7 +709,7 @@ exports[`max.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -755,18 +745,13 @@ exports[`multiple.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      style="margin-top: 16px;"
-    >
-      非受控
-    </div>
-    <div
       class="t-popup-reference"
     >
       <span
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-s -is-multiple"
+          class="t-cascader t-size-s t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -806,18 +791,13 @@ exports[`multiple.jsx 1`] = `
       </span>
     </div>
     <div
-      style="margin-top: 16px;"
-    >
-      受控
-    </div>
-    <div
       class="t-popup-reference"
     >
       <span
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -863,7 +843,7 @@ exports[`multiple.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-l -is-multiple"
+          class="t-cascader t-size-l t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -1035,7 +1015,7 @@ exports[`value-mode.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -1068,7 +1048,7 @@ exports[`value-mode.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
@@ -1101,7 +1081,7 @@ exports[`value-mode.jsx 1`] = `
         class="t-trigger"
       >
         <div
-          class="t-cascader t-size-m -is-multiple"
+          class="t-cascader t-size-m t-cascader-is-multiple"
           style="margin-top: 16px;"
         >
           <span
