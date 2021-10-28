@@ -77,9 +77,9 @@ function Components(props) {
     <td-doc-layout>
       <td-header ref={tdHeaderRef} slot="header">
         <td-doc-search slot="search" ref={tdDocSearch} />
-        {/* <div slot="links">
+        <div slot="links">
           <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
-        </div> */}
+        </div>
       </td-header>
       <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 

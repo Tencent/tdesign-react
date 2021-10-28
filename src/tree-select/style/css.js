@@ -1,1 +1,1 @@
-import '../../tree/style/index.css';
+import '../../select/style/index.css';

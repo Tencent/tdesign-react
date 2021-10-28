@@ -1,9 +1,16 @@
-import { UploadFile, ProgressContext } from '../_type/components/upload';
+import { ReactNode } from 'react';
+import { UploadFile, ProgressContext, TdUploadProps } from '../_type/components/upload';
 
 export interface XhrSuccessContext {
   e: ProgressEvent;
   file: UploadFile;
   response: any;
+}
+
+export interface UploadProps extends Omit<TdUploadProps, 'files'> {
+  files?: Array<TdUploadFile>;
+  children?: ReactNode | undefined;
+  value?: Array<TdUploadFile>;
 }
 
 export interface TdUploadFile extends UploadFile {

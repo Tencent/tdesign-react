@@ -5,6 +5,7 @@ import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } f
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
 import Checkbox from '../checkbox';
+import Upload from '../upload';
 import Tag from '../tag';
 import { StyledProps } from '../_type';
 import { validate as validateModal, isValueEmpty } from './formModel';
@@ -20,8 +21,10 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const { CheckTag } = Tag;
-const CHECKED_TYPE = [Checkbox, CheckTag];
+const ctrlKeyMap = new Map();
+ctrlKeyMap.set(Checkbox, 'checked');
+ctrlKeyMap.set(Tag.CheckTag, 'checked');
+ctrlKeyMap.set(Upload, 'file');
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -66,6 +69,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
+    [`${classPrefix}-form__item-with-help`]: help,
+    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
   });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
@@ -94,7 +99,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
   }
 
-  const renderTipsInfo = () => {
+  function renderTipsInfo() {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
@@ -106,7 +111,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
 
     return helpNode;
-  };
+  }
 
   const renderSuffixIcon = () => {
     if (statusIconFromProp === false) return null;
@@ -221,6 +226,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetHandler() {
+    shouldValidate.current = false;
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
@@ -283,7 +289,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 onBlurFromProps = child.props.onBlur;
               }
               if (typeof child.type === 'object') {
-                ctrlKey = CHECKED_TYPE.includes(child.type) ? 'checked' : 'value';
+                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               return React.cloneElement(child, {
                 ...child.props,
