@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
 import DateHeader from '../base/Header';
@@ -19,6 +20,10 @@ export interface DatePanelProps {
 const TODAY = getToday();
 
 const DatePanel = (props: DatePanelProps) => {
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('datePicker');
+  const monthAriaLabel = t(local.monthAriaLabel);
+
   const { classPrefix } = useConfig();
   const { value, mode, minDate, maxDate, firstDayOfWeek, disableDate, onChange } = props;
 
@@ -75,6 +80,7 @@ const DatePanel = (props: DatePanelProps) => {
       minDate,
       maxDate,
       firstDayOfWeek,
+      monthText: monthAriaLabel,
     };
 
     switch (type) {
@@ -92,7 +98,7 @@ const DatePanel = (props: DatePanelProps) => {
     }
     const start = type === 'date' || type === mode ? value : new Date(year, month);
     return flagActive(data, { start, type });
-  }, [year, month, type, value, mode, disableDate, minDate, maxDate, firstDayOfWeek]);
+  }, [year, month, type, value, mode, disableDate, minDate, maxDate, firstDayOfWeek, monthAriaLabel]);
 
   function getClickHandler(date) {
     if (type === 'date') {

@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
 import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdDatePickerProps } from '../_type/components/date-picker';
@@ -37,7 +38,6 @@ const DatePicker = (props: DatePickerProps) => {
     format,
     inputProps,
     mode,
-    placeholder,
     popupProps,
     prefixIcon,
     presets,
@@ -51,6 +51,15 @@ const DatePicker = (props: DatePickerProps) => {
     // onFocus,
     // onInput,
   } = props;
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('datePicker');
+  const selectTimeText = t(local.selectTime);
+  const selectDateText = t(local.selectDate);
+  const confirmText = t(local.confirm);
+  const rangeSeparatorText = t(local.rangeSeparator);
+  const placeholder = t(local.placeholder[mode]);
+
   const { classPrefix } = useConfig();
   const CLASSNAMES = useCommonClassName();
 
@@ -122,9 +131,9 @@ const DatePicker = (props: DatePickerProps) => {
         break;
       case 'range':
         if (popupShow) {
-          nextValue = [formatDate(start), formatDate(end)].join(' 至 ');
+          nextValue = [formatDate(start), formatDate(end)].join(rangeSeparatorText);
         } else if (selectedFmtDates.length > 1) {
-          nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(' 至 ');
+          nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(rangeSeparatorText);
         }
         break;
     }
@@ -350,12 +359,12 @@ const DatePicker = (props: DatePickerProps) => {
           <div className={`${classPrefix}-date-picker--apply`}>
             {enableTimePicker && (
               <Button theme="primary" variant="text" onClick={toggleTime}>
-                {timePanelShow ? '选择日期' : '选择时间'}
+                {timePanelShow ? selectDateText : selectTimeText}
               </Button>
             )}
             {
               <Button theme="primary" onClick={() => clickedApply(true)}>
-                确定
+                {confirmText}
               </Button>
             }
           </div>

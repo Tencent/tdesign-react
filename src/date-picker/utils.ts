@@ -296,6 +296,7 @@ interface OptionsType {
   disableDate: Function;
   minDate: Date;
   maxDate: Date;
+  monthText: string;
 }
 
 export function getWeeks(
@@ -394,7 +395,7 @@ export function getYears(year: number, { disableDate = () => false, minDate, max
   return chunk(yearArr, 4);
 }
 
-export function getMonths(year: number, { disableDate = () => false, minDate, maxDate }: OptionsType) {
+export function getMonths(year: number, { disableDate = () => false, minDate, maxDate, monthText }: OptionsType) {
   const monthArr = [];
 
   const today = getToday();
@@ -418,7 +419,7 @@ export function getMonths(year: number, { disableDate = () => false, minDate, ma
       now: isSame(date, today, 'month'),
       disabled: disabledDay === daysInMonth || outOfRangeDay === daysInMonth,
       active: false,
-      text: `${date.getMonth() + 1} 月`,
+      text: `${date.getMonth() + 1} ${monthText}`,
     });
   }
 
