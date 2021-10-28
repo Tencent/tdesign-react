@@ -4,11 +4,7 @@ import siteConfig from '../site.config.js';
 import { getRoute, getContributors } from './utils';
 import DemoList, { demoFiles } from './DemoList';
 // import locale from '@tencent/tdesign-react/locale/en_US';
-import {
-  Loading,
-  Select,
-  // ConfigProvider
-} from '@tencent/tdesign-react';
+import { Loading, Select, ConfigProvider } from '@tencent/tdesign-react';
 import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
@@ -79,7 +75,7 @@ function Components(props) {
   }, []);
 
   return (
-    // <ConfigProvider locale={locale}>
+    <ConfigProvider /* locale={locale} */>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
@@ -96,7 +92,7 @@ function Components(props) {
           <td-doc-footer slot="doc-footer"></td-doc-footer>
         </td-doc-content>
       </td-doc-layout>
-    // </ConfigProvider>
+    </ConfigProvider>
   );
 }
 
