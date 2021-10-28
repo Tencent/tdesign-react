@@ -7,7 +7,7 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { TEXT_CONFIG, DEFAULT_STEPS, DEFAULT_FORMAT } from '../consts';
+import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
 
 import { TdTimeRangePickerProps } from '../../_type/components/time-picker';
 
@@ -28,6 +28,8 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
     steps = DEFAULT_STEPS,
     format = DEFAULT_FORMAT,
   } = props;
+
+  const TEXT_CONFIG = useTimePickerTextConfig();
 
   const { classPrefix } = useConfig();
 

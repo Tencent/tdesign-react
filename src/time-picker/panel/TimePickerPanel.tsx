@@ -5,7 +5,7 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { TEXT_CONFIG, DEFAULT_STEPS, DEFAULT_FORMAT } from '../consts';
+import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   // 是否展示footer
@@ -23,6 +23,8 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     value,
   } = props;
   const { classPrefix } = useConfig();
+
+  const TEXT_CONFIG = useTimePickerTextConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
   const showNowTimeBtn = !!steps.filter((v) => v > 1).length;

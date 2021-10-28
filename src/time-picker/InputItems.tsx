@@ -5,7 +5,7 @@ import padStart from 'lodash/padStart';
 
 import { TdTimePickerProps, TdTimeRangePickerProps } from '../_type/components/time-picker';
 import useConfig from '../_util/useConfig';
-import { TEXT_CONFIG } from './consts';
+import { useTimePickerTextConfig } from './consts';
 import { KeyboardDirection, EPickerCols } from './interfaces';
 
 const preposFormat = /^(a|A)\s+?[h]{1,2}(:[m]{1,2}(:[s]{1,2})?)?$/;
@@ -137,6 +137,8 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     },
     [allowInput, format, formatedValue, handleInputChange],
   );
+
+  const TEXT_CONFIG = useTimePickerTextConfig();
 
   // render meridiem col input
   function renderMeridiemItem(text: string) {

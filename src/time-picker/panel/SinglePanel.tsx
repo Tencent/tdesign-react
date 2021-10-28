@@ -11,7 +11,7 @@ import noop from '../../_util/noop';
 import { TdTimePickerProps } from '../../_type/components/time-picker';
 import { EPickerCols } from '../interfaces';
 
-import { TEXT_CONFIG, MERIDIEM_LIST, AM, PM } from '../consts';
+import { MERIDIEM_LIST, AM, PM, useTimePickerTextConfig } from '../consts';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
 
@@ -23,6 +23,7 @@ export type SinglePanelProps = Pick<
 const SinglePanel: FC<SinglePanelProps> = (props) => {
   const { steps, format, onChange = noop, value, hideDisabledTime = true, disableTime } = props;
   const { classPrefix } = useConfig();
+  const TEXT_CONFIG = useTimePickerTextConfig();
 
   const panelClassName = `${classPrefix}-time-picker-panel`;
 
