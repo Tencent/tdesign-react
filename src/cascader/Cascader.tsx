@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // component
+import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
 import Panel from './Panel';
 import Popup from '../popup';
 import InputContent from './InputContent';
@@ -155,8 +156,10 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     treeStore.refreshNodes();
   }, [model, treeStore, multiple]);
 
+  const [local, t] = useLocaleReceiver('cascader');
+
   // panel props
-  const { empty = '暂无数据', trigger = 'click' } = props;
+  const { empty = t(local.empty), trigger = 'click' } = props;
 
   // inputContent props
   const { placeholder = '请输入', onRemove, onBlur, onFocus } = props;
