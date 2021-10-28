@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Cascader } from '@tencent/tdesign-react';
 
 export default function Example() {
-  const [value, setValue] = useState(['1.1']);
+  const [value, setValue] = useState(['1.1', '1.2', '1.3']);
   const options = [
     {
       label: '上海',
@@ -52,11 +52,17 @@ export default function Example() {
 
   return (
     <div className="tdesign-demo-block-column">
-      {/* 非受控 */}
-      <Cascader style={itemStyle} options={options} defaultValue={value} size="small" multiple clearable />
-      {/* 受控 */}
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} multiple clearable />
-      <Cascader style={itemStyle} options={options} value={value} size="large" multiple clearable />
+      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
+      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={2} />
+      <Cascader
+        style={itemStyle}
+        options={options}
+        value={value}
+        onChange={onChange}
+        multiple
+        minCollapsedNum={1}
+        collapsedItems={<div>自定义内容</div>}
+      />
     </div>
   );
 }

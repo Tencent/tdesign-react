@@ -47,10 +47,12 @@ export default function Example() {
   };
 
   return (
-    <>
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="small" clearable />
+    <div className="tdesign-demo-block-column">
+      {/* 非受控 */}
+      <Cascader style={itemStyle} options={options} size="small" defaultValue={value} clearable />
+      {/* 受控 */}
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="medium" clearable />
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable />
-    </>
+      <Cascader style={itemStyle} options={options} value={value} size="large" clearable />
+    </div>
   );
 }
