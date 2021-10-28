@@ -29,7 +29,7 @@ exports[`base.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              5条/页
+              5 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -168,7 +168,7 @@ exports[`jump.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              20条/页
+              20 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -277,7 +277,7 @@ exports[`jump.jsx 1`] = `
     <div
       class="t-pagination__jump"
     >
-      跳转
+      跳至
       <div
         class="t-input"
       >
@@ -320,7 +320,7 @@ exports[`mini.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              5条/页
+              5 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -459,7 +459,7 @@ exports[`more.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              5条/页
+              5 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -598,7 +598,7 @@ exports[`page-num.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              20条/页
+              20 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -737,7 +737,7 @@ exports[`simple.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              5条/页
+              5 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -865,7 +865,7 @@ exports[`simple-mini.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              5条/页
+              5 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
@@ -993,7 +993,7 @@ exports[`total.jsx 1`] = `
             <span
               class="t-select-selectedSingle"
             >
-              10条/页
+              10 条/页
             </span>
             <svg
               class="t-fake-arrow t-select-right-icon"
