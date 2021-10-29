@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // component
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Panel from './components/Panel';
 import Popup from '../popup';
 import InputContent from './components/InputContent';
@@ -150,8 +151,10 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     }
   }, [filterActive]);
 
+  const [local, t] = useLocaleReceiver('cascader');
+
   // panel props
-  const { empty = '暂无数据', trigger = 'click' } = props;
+  const { empty = t(local.empty), trigger = 'click' } = props;
 
   // inputContent props
   const { placeholder = '请输入', onRemove, onBlur, onFocus } = props;

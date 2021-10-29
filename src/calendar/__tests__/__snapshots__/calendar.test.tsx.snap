@@ -30,7 +30,7 @@ exports[`base.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  2021年
+                  2021 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -70,7 +70,7 @@ exports[`base.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  8月
+                  8 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -857,7 +857,7 @@ exports[`card.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -897,7 +897,7 @@ exports[`card.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    8月
+                    8 月
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -1632,7 +1632,7 @@ exports[`cell.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -1672,7 +1672,7 @@ exports[`cell.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    8月
+                    8 月
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -2306,7 +2306,7 @@ exports[`cell-append.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  2021年
+                  2021 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -2346,7 +2346,7 @@ exports[`cell-append.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  8月
+                  8 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -3111,7 +3111,7 @@ exports[`controller-config.jsx 1`] = `
                       <span
                         class="t-select-selectedSingle"
                       >
-                        2021年
+                        2021 年
                       </span>
                       <svg
                         class="t-fake-arrow t-select-right-icon"
@@ -3151,7 +3151,7 @@ exports[`controller-config.jsx 1`] = `
                       <span
                         class="t-select-selectedSingle"
                       >
-                        8月
+                        8 月
                       </span>
                       <svg
                         class="t-fake-arrow t-select-right-icon"
@@ -4076,7 +4076,7 @@ exports[`controller-config.jsx 1`] = `
                       <span
                         class="t-select-selectedSingle"
                       >
-                        2021年
+                        2021 年
                       </span>
                       <svg
                         class="t-fake-arrow t-select-right-icon"
@@ -4125,7 +4125,7 @@ exports[`controller-config.jsx 1`] = `
                       <span
                         class="t-select-selectedSingle"
                       >
-                        8月
+                        8 月
                       </span>
                       <svg
                         class="t-fake-arrow t-select-right-icon"
@@ -4871,7 +4871,7 @@ exports[`event-props-api.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -4911,7 +4911,7 @@ exports[`event-props-api.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    8月
+                    8 月
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -5667,7 +5667,7 @@ exports[`filter.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -5707,7 +5707,7 @@ exports[`filter.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    8月
+                    8 月
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -6470,7 +6470,7 @@ exports[`first-day-of-week.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -6510,7 +6510,7 @@ exports[`first-day-of-week.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    8月
+                    8 月
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -7140,7 +7140,7 @@ exports[`head-props-api.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  2021年
+                  2021 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -7180,7 +7180,7 @@ exports[`head-props-api.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  8月
+                  8 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -7946,7 +7946,7 @@ exports[`mode.jsx 1`] = `
                   <span
                     class="t-select-selectedSingle"
                   >
-                    2021年
+                    2021 年
                   </span>
                   <svg
                     class="t-fake-arrow t-select-right-icon"
@@ -8238,7 +8238,7 @@ exports[`range.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  2021年
+                  2021 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -8278,7 +8278,7 @@ exports[`range.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  8月
+                  8 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -8995,7 +8995,7 @@ exports[`value.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  1998年
+                  1998 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -9035,7 +9035,7 @@ exports[`value.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  11月
+                  11 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -9752,7 +9752,7 @@ exports[`week.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  2021年
+                  2021 年
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"
@@ -9792,7 +9792,7 @@ exports[`week.jsx 1`] = `
                 <span
                   class="t-select-selectedSingle"
                 >
-                  8月
+                  8 月
                 </span>
                 <svg
                   class="t-fake-arrow t-select-right-icon"

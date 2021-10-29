@@ -1,9 +1,14 @@
-export const TEXT_CONFIG = {
-  nowtime: '此刻',
-  confirm: '确定',
-  am: '上午',
-  pm: '下午',
-  placeholder: '选择时间',
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+
+export const useTimePickerTextConfig = () => {
+  const [local, t] = useLocaleReceiver('timePicker');
+  return {
+    nowtime: t(local.nowtime),
+    confirm: t(local.confirm),
+    am: t(local.am),
+    pm: t(local.pm),
+    placeholder: t(local.placeholder),
+  };
 };
 
 export const AM = 'am';

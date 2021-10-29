@@ -1,4 +1,5 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
 import { TdSelectProps, SelectValue } from '../../_type/components/select';
 import useConfig from '../../_util/useConfig';
@@ -36,6 +37,10 @@ const PopupContent = (props: SelectPopupProps) => {
     loading,
     valueType,
   } = props;
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('select');
+  const emptyText = t(local.empty);
 
   const { classPrefix } = useConfig();
   if (!props.children && !props.options) return null;
@@ -89,7 +94,7 @@ const PopupContent = (props: SelectPopupProps) => {
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
   if (isEmpty) {
-    return <div className={`${classPrefix}-select-empty`}>{empty ? empty : <p>无数据</p>}</div>;
+    return <div className={`${classPrefix}-select-empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
   }
 
   if (loading) {

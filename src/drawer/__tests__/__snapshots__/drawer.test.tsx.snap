@@ -206,7 +206,7 @@ exports[`attach-parent.jsx 1`] = `
                   <span
                     class="t-button__text"
                   >
-                    确定
+                    确认
                   </span>
                 </button>
                 <button
@@ -296,7 +296,7 @@ exports[`base.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button
@@ -457,7 +457,7 @@ exports[`destroy.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button
@@ -543,7 +543,7 @@ exports[`no-mask.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button
@@ -691,7 +691,7 @@ exports[`operation.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button
@@ -852,7 +852,7 @@ exports[`placement.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button
@@ -1279,7 +1279,7 @@ exports[`size.jsx 1`] = `
                 <span
                   class="t-button__text"
                 >
-                  确定
+                  确认
                 </span>
               </button>
               <button

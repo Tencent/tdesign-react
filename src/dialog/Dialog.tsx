@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import isString from 'lodash/isString';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import Button from '../button';
 import { TdDialogProps, DialogInstance } from '../_type/components/dialog';
@@ -32,6 +33,10 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
     ...props,
   });
 
+  const [local, t] = useLocaleReceiver('dialog');
+  const confirmText = t(local.confirm);
+  const cancelText = t(local.cancel);
+
   const {
     visible,
     attach: getContainer = 'body',
@@ -39,8 +44,8 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
     footer,
     onCancel = noop,
     onConfirm = noop,
-    cancelBtn = '取消',
-    confirmBtn = '确定',
+    cancelBtn = cancelText,
+    confirmBtn = confirmText,
     onClose = noop,
     isPlugin = false,
     ...restState
@@ -106,9 +111,13 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
   };
 
   const defaultFooter = () => {
-    let renderCancelBtn = cancelBtn && <Button variant="outline">{isString(cancelBtn) ? cancelBtn : '取消'}</Button>;
+    let renderCancelBtn = cancelBtn && (
+      <Button variant="outline">{isString(cancelBtn) ? cancelBtn : cancelText}</Button>
+    );
 
-    let renderConfirmBtn = confirmBtn && <Button theme="primary">{isString(confirmBtn) ? confirmBtn : '确定'}</Button>;
+    let renderConfirmBtn = confirmBtn && (
+      <Button theme="primary">{isString(confirmBtn) ? confirmBtn : confirmText}</Button>
+    );
 
     if (React.isValidElement(cancelBtn)) {
       renderCancelBtn = cancelBtn;

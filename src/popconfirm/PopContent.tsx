@@ -2,6 +2,7 @@ import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button/Button';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
@@ -19,6 +20,12 @@ const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVis
     onConfirm = noop,
     onClose = noop,
   } = props;
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('popconfirm');
+  const confirmText = t(local.confirm);
+  const cancelText = t(local.cancel);
+
   const { classPrefix } = useConfig();
 
   const hideCancel = cancelBtn === null || cancelBtn === undefined;
@@ -80,7 +87,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVis
           onCancel({ e });
         }}
       >
-        {isString(cancelBtn) ? cancelBtn : '取消'}
+        {isString(cancelBtn) ? cancelBtn : cancelText}
       </Button>
     );
   }
@@ -108,7 +115,7 @@ const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVis
           onConfirm({ e });
         }}
       >
-        {isString(confirmBtn) ? confirmBtn : '确定'}
+        {isString(confirmBtn) ? confirmBtn : confirmText}
       </Button>
     );
   }

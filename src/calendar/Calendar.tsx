@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button';
 import Select from '../select';
 import Radio from '../radio';
@@ -7,7 +8,7 @@ import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from '../_type/components/calendar';
 import { StyledProps } from '../_type/StyledProps';
-import { createDateList, createMonthList, getMonthCN } from './_util';
+import { createDateList, createMonthList } from './_util';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -109,10 +110,13 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const [month, setMonth] = useState<number>(parseInt(value.format('M'), 10));
   const [isShowWeekend, setIsShowWeekend] = useState<boolean>(isShowWeekendDefault);
 
+  const [local, t] = useLocaleReceiver('calendar');
+
   // 表头数组
+  const weekLabelList = t(local.week).split(',');
   const colHeaderList = useMemo(() => {
     if (mode === 'year') return [];
-    const weekTextArr = Array.isArray(week) && week.length >= 7 ? week : ['一', '二', '三', '四', '五', '六', '日'];
+    const weekTextArr = Array.isArray(week) && week.length >= 7 ? week : [...weekLabelList];
     const list = [];
     for (let i = firstDayOfWeek; i <= 7; i++) {
       if (!isShowWeekend && i > 5) {
@@ -135,7 +139,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
       }
     }
     return list;
-  }, [mode, firstDayOfWeek, isShowWeekend, week]);
+  }, [mode, firstDayOfWeek, isShowWeekend, week, weekLabelList]);
 
   // 根据传入的 range 参数生成 key 为 from, to 的范围对象
   const rangeFromTo = useMemo(() => {
@@ -305,6 +309,13 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     onControllerChange(controllerOptions);
   }, [onControllerChange, controllerOptions]);
 
+  /**
+   * 将 month 映射为文字输出
+   * @param month 月份下标值（起始值为0）
+   */
+  const monthLabelList = t(local.cellMonth).split(',');
+  const getMonthCN = (month: number): string => monthLabelList[month];
+
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
       {/* 操作部分 */}
@@ -319,7 +330,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                   disabled={disabled}
                   value={year}
                   options={yearSelectList.map((item) => ({
-                    label: `${item.value}年`,
+                    label: t(local.yearSelection, { year: item.value }),
                     value: item.value,
                     disabled: item.disabled,
                   }))}
@@ -336,7 +347,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                   disabled={disabled}
                   value={month}
                   options={monthSelectList.map((item) => ({
-                    label: `${item.value}月`,
+                    label: t(local.monthSelection, { month: item.value }),
                     value: item.value,
                     disabled: item.disabled,
                   }))}
@@ -356,8 +367,8 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 onChange={(value) => setMode(value as string)}
                 {...radioGroupPropsForMode}
               >
-                <Radio.Button value="month">月</Radio.Button>
-                <Radio.Button value="year">年</Radio.Button>
+                <Radio.Button value="month">{t(local.monthRadio)}</Radio.Button>
+                <Radio.Button value="year">{t(local.yearRadio)}</Radio.Button>
               </Radio.Group>
             )}
           </div>
@@ -371,7 +382,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 onClick={() => setIsShowWeekend(!isShowWeekend)}
                 {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
               >
-                {`${isShowWeekend ? '隐藏' : '显示'}周末`}
+                {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
               </Button>
             </div>
           )}
@@ -385,7 +396,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 onClick={toCurrent}
                 {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
               >
-                {mode === 'year' ? '本月' : '今天'}
+                {mode === 'year' ? t(local.thisMonth) : t(local.today)}
               </Button>
             </div>
           )}
@@ -466,7 +477,9 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                         if (cell && typeof cell !== 'function') return cell;
                         const monthCellIndex = monthCell.date.getMonth();
                         const monthText =
-                          theme === 'full' ? getMonthCN(monthCellIndex) : `${(monthCellIndex + 1).toString()} 月`;
+                          theme === 'full'
+                            ? getMonthCN(monthCellIndex)
+                            : t(local.monthSelection, { month: (monthCellIndex + 1).toString() });
                         return <div className={prefixCls([blockName, 'table-body-cell-value'])}>{monthText}</div>;
                       })()}
                       {(() => {

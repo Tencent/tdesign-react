@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
 
@@ -15,7 +16,10 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
   const { type, data, onCellClick, onCellMouseEnter, firstDayOfWeek } = props;
 
-  const shorthand = ['日', '一', '二', '三', '四', '五', '六'];
+  const [local, t] = useLocaleReceiver('datePicker');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  const shorthand = t(local.weekdays.shorthand);
 
   const weekArr = [];
   let wi = firstDayOfWeek;

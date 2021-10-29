@@ -2,6 +2,7 @@ import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle
 import classnames from 'classnames';
 
 import { CloseIcon } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
@@ -59,6 +60,11 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     destroyOnClose,
     mode,
   } = props;
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('drawer');
+  const confirmText = t(local.confirm);
+  const cancelText = t(local.cancel);
 
   const { classPrefix } = useContext(ConfigContext);
   const containerRef = useRef<HTMLDivElement>();
@@ -173,13 +179,13 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     const defaultCancelBtn = (
       <Button theme="default" onClick={onCancelClick} className={`${prefixCls}-cancel`}>
-        取消
+        {cancelText}
       </Button>
     );
 
     const defaultConfirmBtn = (
       <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}-confirm`}>
-        确定
+        {confirmText}
       </Button>
     );
 

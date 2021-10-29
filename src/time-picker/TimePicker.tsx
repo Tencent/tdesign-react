@@ -14,7 +14,7 @@ import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 import InputItems from './InputItems';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, TEXT_CONFIG } from './consts';
+import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from './consts';
 
 import { StyledProps } from '../_type';
 import { TdTimePickerProps } from '../_type/components/time-picker';
@@ -26,6 +26,8 @@ export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 
 const TimePicker = forwardRefWithStatics(
   (props: TimePickerProps, ref: Ref<HTMLDivElement>) => {
+    const TEXT_CONFIG = useTimePickerTextConfig();
+
     const {
       allowInput,
       className,

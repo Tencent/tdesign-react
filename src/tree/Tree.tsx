@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../_type';
@@ -39,6 +40,10 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   } = props;
 
   const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('tree');
+  const emptyText = t(local.empty);
 
   const store = useStore(
     {
@@ -188,7 +193,7 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   const nodeRef = React.useRef(null);
 
   const renderEmpty = () => {
-    let emptyView = empty || '暂无数据';
+    let emptyView = empty || emptyText;
     if (empty instanceof Function) {
       emptyView = empty();
     }

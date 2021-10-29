@@ -3,7 +3,8 @@ import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router
 import siteConfig from '../site.config.js';
 import { getRoute, getContributors } from './utils';
 import DemoList, { demoFiles } from './DemoList';
-import { Loading, Select } from '@tencent/tdesign-react';
+// import locale from '@tencent/tdesign-react/locale/en_US';
+import { Loading, Select, ConfigProvider } from '@tencent/tdesign-react';
 import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
@@ -32,7 +33,7 @@ function Components(props) {
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
   const tdDocSearch = useRef();
-  const [version, setVersion] = useState(packageJson.version);
+  const [version] = useState(packageJson.version);
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -74,22 +75,24 @@ function Components(props) {
   }, []);
 
   return (
-    <td-doc-layout>
-      <td-header ref={tdHeaderRef} slot="header">
-        <td-doc-search slot="search" ref={tdDocSearch} />
-        <div slot="links">
-          <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
-        </div>
-      </td-header>
-      <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
+    <ConfigProvider /* locale={locale} */>
+      <td-doc-layout>
+        <td-header ref={tdHeaderRef} slot="header">
+          <td-doc-search slot="search" ref={tdDocSearch} />
+          <div slot="links">
+            <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
+          </div>
+        </td-header>
+        <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
 
-      <td-doc-content ref={tdDocContentRef} slot="doc-content">
-        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
-          {renderRouter}
-        </Suspense>
-        <td-doc-footer slot="doc-footer"></td-doc-footer>
-      </td-doc-content>
-    </td-doc-layout>
+        <td-doc-content ref={tdDocContentRef} slot="doc-content">
+          <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+            {renderRouter}
+          </Suspense>
+          <td-doc-footer slot="doc-footer"></td-doc-footer>
+        </td-doc-content>
+      </td-doc-layout>
+    </ConfigProvider>
   );
 }
 

@@ -10,7 +10,7 @@ import Input from '../input';
 import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 import InputItems from './InputItems';
 
-import { TEXT_CONFIG } from './consts';
+import { useTimePickerTextConfig } from './consts';
 
 import { TdTimeRangePickerProps } from '../_type/components/time-picker';
 import { StyledProps } from '../_type';
@@ -18,6 +18,8 @@ import { StyledProps } from '../_type';
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
 const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
+  const TEXT_CONFIG = useTimePickerTextConfig();
+
   const {
     allowInput,
     clearable,

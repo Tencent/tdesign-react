@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, RoundIcon } from '@tencent/tdesign-icons-react';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../_util/useConfig';
 
@@ -11,18 +12,21 @@ export interface DatePickerHeaderProps {
   type: 'year' | 'month' | 'date';
 }
 
-// TODO 国际化时候抽离出去
-const DATE_PICKER_LOCALE = {
-  rangeSeparator: ' 至 ',
-  yearAriaLabel: '年',
-  monthAriaLabel: '月',
-  nextYear: '下一年',
-  preYear: '上一年',
-  nextMonth: '下个月',
-  preMonth: '上个月',
-  preDecade: '上个十年',
-  nextDecade: '下个十年',
-  now: '当前',
+const useDatePickerLocalConfig = () => {
+  const [local, t] = useLocaleReceiver('datePicker');
+
+  return {
+    rangeSeparator: t(local.rangeSeparator),
+    yearAriaLabel: t(local.yearAriaLabel),
+    monthAriaLabel: t(local.monthAriaLabel),
+    nextYear: t(local.nextYear),
+    preYear: t(local.preYear),
+    nextMonth: t(local.nextMonth),
+    preMonth: t(local.preMonth),
+    preDecade: t(local.preDecade),
+    nextDecade: t(local.nextDecade),
+    now: t(local.now),
+  };
 };
 
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
@@ -42,7 +46,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     nextYear,
     preDecade,
     nextDecade,
-  } = DATE_PICKER_LOCALE;
+  } = useDatePickerLocalConfig();
 
   let preLabel: string;
   let nextLabel: string;
