@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
 import DateHeader from '../base/Header';

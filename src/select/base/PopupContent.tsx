@@ -1,5 +1,5 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
 import { TdSelectProps, SelectValue } from '../../_type/components/select';
 import useConfig from '../../_util/useConfig';

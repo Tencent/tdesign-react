@@ -7,7 +7,7 @@ import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import { StyledProps, TreeOptionData } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';

@@ -1,4 +1,4 @@
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export const useTimePickerTextConfig = () => {
   const [local, t] = useLocaleReceiver('timePicker');

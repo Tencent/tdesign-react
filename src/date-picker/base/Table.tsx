@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
 

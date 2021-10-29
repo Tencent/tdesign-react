@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
 import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from '@tencent/tdesign-icons-react';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import { TdDatePickerProps } from '../_type/components/date-picker';

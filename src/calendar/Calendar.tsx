@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
-import { useLocaleReceiver } from '@tencent/tdesign-react/locale/LocalReceiver';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button';
 import Select from '../select';
 import Radio from '../radio';

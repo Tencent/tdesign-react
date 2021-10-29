@@ -51,7 +51,7 @@ export default function Example() {
   };
 
   return (
-    <>
+    <div className="tdesign-demo-block-column">
       <Cascader
         style={itemStyle}
         options={options}
@@ -68,6 +68,6 @@ export default function Example() {
         onChange={onChange}
         placeholder="请选择"
       />
-    </>
+    </div>
   );
 }
