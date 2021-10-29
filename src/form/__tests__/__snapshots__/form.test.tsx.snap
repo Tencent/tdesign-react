@@ -196,7 +196,7 @@ exports[`base.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
-                    placeholder="请选择"
+                    placeholder="请选择日期"
                     readonly=""
                     value=""
                   />
