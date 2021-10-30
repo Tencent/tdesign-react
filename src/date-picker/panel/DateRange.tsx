@@ -15,6 +15,7 @@ import {
   isSame,
   getToday,
   setDateTime,
+  OptionsType,
 } from '../utils';
 
 const TODAY = getToday();
@@ -197,7 +198,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     ({ year, month, type, start, end }) => {
       let data: any[];
 
-      const options = {
+      const options: OptionsType = {
         disableDate,
         minDate,
         maxDate,

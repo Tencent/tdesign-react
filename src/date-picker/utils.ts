@@ -291,12 +291,12 @@ export function addMonth(date: Date, num: number): Date {
   return newDate;
 }
 
-interface OptionsType {
+export interface OptionsType {
   firstDayOfWeek: number;
   disableDate: Function;
   minDate: Date;
   maxDate: Date;
-  monthText: string;
+  monthText?: string;
 }
 
 export function getWeeks(
