@@ -83,9 +83,9 @@ function Components(props) {
             <Select style={{ width: 100 }} value={version} options={versionOptions} onChange={changeVersion} />
           </div>
         </td-header>
-        <td-doc-aside ref={tdDocAsideRef} slot="doc-aside" title="React for Web"></td-doc-aside>
+        <td-doc-aside ref={tdDocAsideRef} title="React for Web"></td-doc-aside>
 
-        <td-doc-content ref={tdDocContentRef} slot="doc-content">
+        <td-doc-content ref={tdDocContentRef}>
           <Suspense fallback={<Loading text="拼命加载中..." loading />}>
             {renderRouter}
           </Suspense>
