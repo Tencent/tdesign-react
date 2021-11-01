@@ -7,6 +7,7 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -36,6 +37,7 @@ exports[`button.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -60,6 +62,7 @@ exports[`click.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -78,6 +81,7 @@ exports[`disabled.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -107,6 +111,7 @@ exports[`height.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -125,6 +130,7 @@ exports[`multiple.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -149,6 +155,7 @@ exports[`other.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -167,6 +174,7 @@ exports[`split.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
+      type="button"
     >
       <span
         class="t-button__text"

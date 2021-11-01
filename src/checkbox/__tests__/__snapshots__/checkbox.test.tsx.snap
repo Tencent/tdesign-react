@@ -324,6 +324,7 @@ exports[`link.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -334,6 +335,7 @@ exports[`link.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-left: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -358,6 +360,7 @@ exports[`max.jsx 1`] = `
         <button
           class="t-input-number__decrease t-is-disabled t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
           style="position: relative;"
+          type="button"
         >
           <svg
             class="t-icon t-icon-remove t-size-m"
@@ -376,6 +379,7 @@ exports[`max.jsx 1`] = `
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
           style="position: relative;"
+          type="button"
         >
           <svg
             class="t-icon t-icon-add t-size-m"

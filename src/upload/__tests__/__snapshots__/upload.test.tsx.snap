@@ -19,6 +19,7 @@ exports[`base.jsx 1`] = `
           <button
             class="t-button t-button--theme-default t-button--variant-outline"
             style="position: relative;"
+            type="button"
           >
             <svg
               class="t-icon t-icon-upload t-size-m"

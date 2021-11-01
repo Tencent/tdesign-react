@@ -6,6 +6,7 @@ exports[`async.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -23,6 +24,7 @@ exports[`attach.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -33,6 +35,7 @@ exports[`attach.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -43,6 +46,7 @@ exports[`attach.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -60,6 +64,7 @@ exports[`base.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -77,6 +82,7 @@ exports[`custom.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -87,6 +93,7 @@ exports[`custom.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -97,6 +104,7 @@ exports[`custom.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -114,6 +122,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -131,6 +140,7 @@ exports[`modal.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -158,6 +168,7 @@ exports[`plugin.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -168,6 +179,7 @@ exports[`plugin.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -178,6 +190,7 @@ exports[`plugin.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -188,6 +201,7 @@ exports[`plugin.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -198,6 +212,7 @@ exports[`plugin.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -216,6 +231,7 @@ exports[`position.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="margin-right: 16px; position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -226,6 +242,7 @@ exports[`position.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="margin-right: 16px; position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -236,6 +253,7 @@ exports[`position.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -254,6 +272,7 @@ exports[`warning.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -264,6 +283,7 @@ exports[`warning.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -274,6 +294,7 @@ exports[`warning.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -284,6 +305,7 @@ exports[`warning.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-right: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"

@@ -11,6 +11,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -21,6 +22,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -31,6 +33,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -41,6 +44,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -52,6 +56,7 @@ exports[`base.jsx 1`] = `
         class="t-button t-button--theme-default t-button--variant-base t-is-loading t-is-disabled"
         disabled=""
         style="position: relative;"
+        type="button"
       >
         <div
           class="t-loading t-size-m"
@@ -89,6 +94,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -99,6 +105,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -109,6 +116,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -119,6 +127,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -130,6 +139,7 @@ exports[`base.jsx 1`] = `
         class="t-button t-button--theme-primary t-button--variant-base t-is-loading t-is-disabled"
         disabled=""
         style="position: relative;"
+        type="button"
       >
         <div
           class="t-loading t-size-m"
@@ -167,6 +177,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -177,6 +188,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -187,6 +199,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -197,6 +210,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -208,6 +222,7 @@ exports[`base.jsx 1`] = `
         class="t-button t-button--theme-success t-button--variant-base t-is-loading t-is-disabled"
         disabled=""
         style="position: relative;"
+        type="button"
       >
         <div
           class="t-loading t-size-m"
@@ -245,6 +260,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -255,6 +271,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -265,6 +282,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -275,6 +293,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -286,6 +305,7 @@ exports[`base.jsx 1`] = `
         class="t-button t-button--theme-warning t-button--variant-base t-is-loading t-is-disabled"
         disabled=""
         style="position: relative;"
+        type="button"
       >
         <div
           class="t-loading t-size-m"
@@ -323,6 +343,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -333,6 +354,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -343,6 +365,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -353,6 +376,7 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -364,6 +388,7 @@ exports[`base.jsx 1`] = `
         class="t-button t-button--theme-danger t-button--variant-base t-is-loading t-is-disabled"
         disabled=""
         style="position: relative;"
+        type="button"
       >
         <div
           class="t-loading t-size-m"
@@ -410,6 +435,7 @@ exports[`block.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -420,6 +446,7 @@ exports[`block.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-full-width"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -430,6 +457,7 @@ exports[`block.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-size-full-width"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -440,6 +468,7 @@ exports[`block.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-size-full-width"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -464,6 +493,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -474,6 +504,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -484,6 +515,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -498,6 +530,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -508,6 +541,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-dashed t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -518,6 +552,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-text t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -532,6 +567,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-outline t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -542,6 +578,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-dashed t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -552,6 +589,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-success t-button--variant-text t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -566,6 +604,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-outline t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -576,6 +615,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-dashed t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -586,6 +626,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-warning t-button--variant-text t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -600,6 +641,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -610,6 +652,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-dashed t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -620,6 +663,7 @@ exports[`ghost.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-text t-button--ghost"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -643,6 +687,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -653,6 +698,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -667,6 +713,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -677,6 +724,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -691,6 +739,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -701,6 +750,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -711,6 +761,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -721,6 +772,7 @@ exports[`group.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
         style="position: relative;"
+        type="button"
       >
         <svg
           class="t-icon t-icon-more t-size-m"
@@ -749,6 +801,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <svg
         class="t-icon t-icon-add t-size-m"
@@ -772,6 +825,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
       style="position: relative;"
+      type="button"
     >
       <svg
         class="t-icon t-icon-cloud-upload t-size-m"
@@ -800,6 +854,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
       style="position: relative;"
+      type="button"
     >
       <svg
         class="t-icon t-icon-discount t-size-m"
@@ -825,6 +880,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
       style="position: relative;"
+      type="button"
     >
       <svg
         class="t-icon t-icon-cloud-download t-size-m"
@@ -848,6 +904,7 @@ exports[`icon.jsx 1`] = `
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
       style="position: relative;"
+      type="button"
     >
       <svg
         class="t-icon t-icon-search t-size-m"
@@ -883,6 +940,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -893,6 +951,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-button--shape-square"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -915,6 +974,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-button--shape-round"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -925,6 +985,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -951,6 +1012,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -961,6 +1023,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -983,6 +1046,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--shape-round"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -993,6 +1057,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-button--shape-circle"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1019,6 +1084,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1029,6 +1095,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-square"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1051,6 +1118,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-round"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1061,6 +1129,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-circle"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1087,6 +1156,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1097,6 +1167,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1119,6 +1190,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-button--shape-round"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1129,6 +1201,7 @@ exports[`shape.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-button--shape-circle"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1164,6 +1237,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1174,6 +1248,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-s"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1184,6 +1259,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-size-s"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1194,6 +1270,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-size-s"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1208,6 +1285,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1218,6 +1296,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1228,6 +1307,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1238,6 +1318,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1252,6 +1333,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-l"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1262,6 +1344,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-size-l"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1272,6 +1355,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-dashed t-size-l"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1282,6 +1366,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-text t-size-l"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1305,6 +1390,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1315,6 +1401,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1325,6 +1412,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1335,6 +1423,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1349,6 +1438,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1359,6 +1449,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-outline"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1369,6 +1460,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-dashed"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1379,6 +1471,7 @@ exports[`theme.jsx 1`] = `
       <button
         class="t-button t-button--theme-danger t-button--variant-text"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"

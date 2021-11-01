@@ -11,6 +11,7 @@ exports[`current-props.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -21,6 +22,7 @@ exports[`current-props.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -31,6 +33,7 @@ exports[`current-props.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -41,6 +44,7 @@ exports[`current-props.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
