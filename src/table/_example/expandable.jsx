@@ -71,7 +71,7 @@ export default function TableExample() {
         data={data}
         columns={columns}
         rowKey="id"
-        // showExpandArrow={<IconFont name="add-circle" size="1em" />}
+        // expandIcon={<IconFont name="add-circle" size="1em" />}
         // expandedRowKeys={expandedRowKeys} // 受控方式
         defaultExpandedRowKeys={defaultExpandedRowKeys}
         // expandOnRowClick={true}

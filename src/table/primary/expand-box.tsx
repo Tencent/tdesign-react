@@ -8,12 +8,12 @@ interface Props {
   handleExpandChange?: Function;
   rowKeyValue?: any;
   row?: Record<string, any>;
-  showExpandArrow?: TNode;
+  expandIcon?: TNode;
   expandOnRowClick?: boolean;
 }
 
 const ExpandButton: FC<Props> = (props) => {
-  const { expanded, handleExpandChange, rowKeyValue, row, showExpandArrow, expandOnRowClick } = props;
+  const { expanded, handleExpandChange, rowKeyValue, row, expandIcon, expandOnRowClick } = props;
   const { classPrefix } = useContext(ConfigContext);
 
   const renderIcon = (icon: TNode) => {
@@ -40,7 +40,7 @@ const ExpandButton: FC<Props> = (props) => {
     if (!expanded) {
       style.transform = 'rotate(-180deg)';
     }
-    return <span style={style}>{renderIcon(showExpandArrow)}</span>;
+    return <span style={style}>{renderIcon(expandIcon)}</span>;
   }
 
   return (

@@ -23,7 +23,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
     expandedRowKeys,
     expandedRow,
     onExpandChange,
-    showExpandArrow = true,
+    expandIcon = true,
     expandOnRowClick = false,
   } = props;
   const { classPrefix } = useContext(ConfigContext);
@@ -66,7 +66,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
         expanded={innerExpandRowKeys?.includes(rowKeyValue)}
         row={row}
         rowKeyValue={rowKeyValue}
-        showExpandArrow={showExpandArrow}
+        expandIcon={expandIcon}
         expandOnRowClick={expandOnRowClick}
         handleExpandChange={handleExpandChange}
       />
