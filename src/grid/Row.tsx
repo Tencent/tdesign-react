@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
@@ -35,42 +34,42 @@ const calcSize = (width: number) => {
   return size;
 };
 
-const calcRowMargin = (gutter: any, currentSize: string) => {
-  const marginObj = {};
-  if (typeof gutter === 'number' && gutter > 0) {
-    Object.assign(marginObj, {
+const calcRowStyle = (gutter: TdRowProps['gutter'], currentSize: string): object => {
+  const rowStyle = {};
+  if (typeof gutter === 'number') {
+    Object.assign(rowStyle, {
+      rowGap: `${gutter}px`,
       marginLeft: `${gutter / -2}px`,
       marginRight: `${gutter / -2}px`,
-      marginTop: `${gutter / -2}px`,
-      marginBottom: `${gutter / -2}px`,
     });
   } else if (Array.isArray(gutter) && gutter.length) {
-    if (gutter[0] > 0)
-      Object.assign(marginObj, { marginLeft: `${gutter[0] / -2}px`, marginRight: `${gutter[0] / -2}px` });
-    if (gutter[1] > 0)
-      Object.assign(marginObj, { marginTop: `${gutter[1] / -2}px`, marginBottom: `${gutter[1] / -2}px` });
-  } else if (isObject(gutter) && gutter[currentSize]) {
-    if (Array.isArray(gutter[currentSize])) {
-      if (gutter[currentSize][0] > 0)
-        Object.assign(marginObj, {
-          marginLeft: `${gutter[currentSize][0] / -2}px`,
-          marginRight: `${gutter[currentSize][0] / -2}px`,
-        });
-      if (gutter[currentSize][1] > 0)
-        Object.assign(marginObj, {
-          marginTop: `${gutter[currentSize][1] / -2}px`,
-          marginBottom: `${gutter[currentSize][1] / -2}px`,
-        });
-    } else if (gutter[currentSize] > 0) {
-      Object.assign(marginObj, {
-        marginLeft: `${gutter[currentSize] / -2}px`,
-        marginRight: `${gutter[currentSize] / -2}px`,
-        marginTop: `${gutter[currentSize] / -2}px`,
-        marginBottom: `${gutter[currentSize] / -2}px`,
+    if (typeof gutter[0] === 'number') {
+      Object.assign(rowStyle, {
+        marginLeft: `${gutter[0] / -2}px`,
+        marginRight: `${gutter[0] / -2}px`,
       });
     }
+    if (typeof gutter[1] === 'number') {
+      Object.assign(rowStyle, { rowGap: `${gutter[1]}px` });
+    }
+
+    if (isObject(gutter[0]) && gutter[0][currentSize] !== undefined) {
+      Object.assign(rowStyle, {
+        marginLeft: `${gutter[0][currentSize] / -2}px`,
+        marginRight: `${gutter[0][currentSize] / -2}px`,
+      });
+    }
+    if (isObject(gutter[1]) && gutter[1][currentSize] !== undefined) {
+      Object.assign(rowStyle, { rowGap: `${gutter[1][currentSize]}px` });
+    }
+  } else if (isObject(gutter) && gutter[currentSize]) {
+    Object.assign(rowStyle, {
+      rowGap: `${gutter[currentSize]}px`,
+      marginLeft: `${gutter[currentSize] / -2}px`,
+      marginRight: `${gutter[currentSize] / -2}px`,
+    });
   }
-  return marginObj;
+  return rowStyle;
 };
 
 /**
@@ -90,10 +89,12 @@ const Row = (props: RowProps) => {
 
   const [size, setSize] = useState(calcSize(window.innerWidth));
 
-  const updateSize = debounce(() => {
-    const size = calcSize(window.innerWidth);
-    setSize(size);
-  }, 50);
+  const updateSize = () => {
+    const currentSize = calcSize(window.innerWidth);
+    if (currentSize !== size) {
+      setSize(size);
+    }
+  };
 
   const { classPrefix } = useConfig();
   const rowClassNames = classNames(`${classPrefix}-row`, className, {
@@ -101,7 +102,7 @@ const Row = (props: RowProps) => {
     [`${classPrefix}-row-${align}`]: true,
   });
   const rowStyle = {
-    ...calcRowMargin(gutter, size),
+    ...calcRowStyle(gutter, size),
     ...propStyle,
   };
 

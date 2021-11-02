@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
-import { TdColProps } from '../_type/components/grid';
+import { TdColProps , TdRowProps } from '../_type/components/grid';
 
 type FlexType = number | 'none' | 'auto' | string;
 
@@ -17,40 +17,32 @@ export interface ColProps extends TdColProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const calcColPadding = (gutter: any, currentSize: string) => {
+const calcColPadding = (gutter: TdRowProps['gutter'], currentSize: string) => {
   const paddingObj = {};
-  if (typeof gutter === 'number' && gutter > 0) {
+  if (typeof gutter === 'number') {
     Object.assign(paddingObj, {
       paddingLeft: `${gutter / 2}px`,
       paddingRight: `${gutter / 2}px`,
-      paddingTop: `${gutter / 2}px`,
-      paddingBottom: `${gutter / 2}px`,
     });
   } else if (Array.isArray(gutter) && gutter.length) {
-    if (gutter[0] > 0)
-      Object.assign(paddingObj, { paddingLeft: `${gutter[0] / 2}px`, paddingRight: `${gutter[0] / 2}px` });
-    if (gutter[1] > 0)
-      Object.assign(paddingObj, { paddingTop: `${gutter[1] / 2}px`, paddingBottom: `${gutter[1] / 2}px` });
-  } else if (isObject(gutter) && gutter[currentSize]) {
-    if (Array.isArray(gutter[currentSize])) {
-      if (gutter[currentSize][0] > 0)
-        Object.assign(paddingObj, {
-          paddingLeft: `${gutter[currentSize][0] / 2}px`,
-          paddingRight: `${gutter[currentSize][0] / 2}px`,
-        });
-      if (gutter[currentSize][1] > 0)
-        Object.assign(paddingObj, {
-          paddingTop: `${gutter[currentSize][1] / 2}px`,
-          paddingBottom: `${gutter[currentSize][1] / 2}px`,
-        });
-    } else if (gutter[currentSize] > 0) {
+    if (typeof gutter[0] === 'number') {
       Object.assign(paddingObj, {
-        paddingLeft: `${gutter[currentSize] / 2}px`,
-        paddingRight: `${gutter[currentSize] / 2}px`,
-        paddingTop: `${gutter[currentSize] / 2}px`,
-        paddingBottom: `${gutter[currentSize] / 2}px`,
+        paddingLeft: `${gutter[0] / 2}px`,
+        paddingRight: `${gutter[0] / 2}px`,
       });
     }
+
+    if (isObject(gutter[0]) && gutter[0][currentSize]) {
+      Object.assign(paddingObj, {
+        paddingLeft: `${gutter[0][currentSize] / 2}px`,
+        paddingRight: `${gutter[0][currentSize] / 2}px`,
+      });
+    }
+  } else if (isObject(gutter) && gutter[currentSize]) {
+    Object.assign(paddingObj, {
+      paddingLeft: `${gutter[currentSize] / 2}px`,
+      paddingRight: `${gutter[currentSize] / 2}px`,
+    });
   }
   return paddingObj;
 };
