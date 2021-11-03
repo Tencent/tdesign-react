@@ -144,6 +144,7 @@ exports[`attach-parent.jsx 1`] = `
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
           style="position: relative;"
+          type="button"
         >
           <span
             class="t-button__text"
@@ -202,6 +203,7 @@ exports[`attach-parent.jsx 1`] = `
                 <button
                   class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                   style="position: relative;"
+                  type="button"
                 >
                   <span
                     class="t-button__text"
@@ -212,6 +214,7 @@ exports[`attach-parent.jsx 1`] = `
                 <button
                   class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                   style="position: relative;"
+                  type="button"
                 >
                   <span
                     class="t-button__text"
@@ -235,6 +238,7 @@ exports[`base.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -292,6 +296,7 @@ exports[`base.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -302,6 +307,7 @@ exports[`base.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -324,6 +330,7 @@ exports[`custom.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -380,6 +387,7 @@ exports[`custom.jsx 1`] = `
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
               style="position: relative;"
+              type="button"
             >
               <span
                 class="t-button__text"
@@ -401,6 +409,7 @@ exports[`destroy.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -453,6 +462,7 @@ exports[`destroy.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -463,6 +473,7 @@ exports[`destroy.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -485,6 +496,7 @@ exports[`no-mask.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -539,6 +551,7 @@ exports[`no-mask.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -549,6 +562,7 @@ exports[`no-mask.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -571,6 +585,7 @@ exports[`operation.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -687,6 +702,7 @@ exports[`operation.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -697,6 +713,7 @@ exports[`operation.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -796,6 +813,7 @@ exports[`placement.jsx 1`] = `
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
       style="margin-left: 16px; position: relative;"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -848,6 +866,7 @@ exports[`placement.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -858,6 +877,7 @@ exports[`placement.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -1011,6 +1031,7 @@ exports[`popup.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1222,6 +1243,7 @@ exports[`size.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: relative;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -1275,6 +1297,7 @@ exports[`size.jsx 1`] = `
               <button
                 class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"
@@ -1285,6 +1308,7 @@ exports[`size.jsx 1`] = `
               <button
                 class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
+                type="button"
               >
                 <span
                   class="t-button__text"

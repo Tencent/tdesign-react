@@ -17,6 +17,7 @@ export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<H
 const Button = forwardRef(
   (
     {
+      type = 'button',
       theme,
       variant = 'base',
       icon,
@@ -56,6 +57,7 @@ const Button = forwardRef(
     return (
       <button
         ref={ref || btnRef}
+        type={type}
         className={classNames(
           className,
           [

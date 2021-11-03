@@ -10,6 +10,7 @@ exports[`attach.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -23,6 +24,7 @@ exports[`attach.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -42,6 +44,7 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -60,6 +63,7 @@ exports[`controlled.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -78,6 +82,7 @@ exports[`destroy.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -96,6 +101,7 @@ exports[`disabled.jsx 1`] = `
   >
     <button
       class="t-is-disabled t-button t-button--theme-primary t-button--variant-base"
+      type="button"
     >
       <span
         class="t-button__text"
@@ -117,6 +123,7 @@ exports[`overlay-style.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -130,6 +137,7 @@ exports[`overlay-style.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -153,6 +161,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; top: 0px; left: 42%;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -167,6 +176,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; top: 0px; left: 70px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -181,6 +191,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; top: 0px; right: 70px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -195,6 +206,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; bottom: 0px; left: 42%;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -209,6 +221,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; bottom: 0px; left: 70px; width: 120px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -223,6 +236,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; bottom: 0px; right: 70px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -237,6 +251,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; left: 0px; top: 42%;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -251,6 +266,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; left: 0px; top: 50px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -265,6 +281,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; left: 0px; bottom: 50px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -279,6 +296,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; right: 0px; top: 42%;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -293,6 +311,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; right: 0px; top: 50px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -307,6 +326,7 @@ exports[`placements.jsx 1`] = `
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
         style="position: absolute; right: 0px; bottom: 50px;"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -329,6 +349,7 @@ exports[`triggers.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -356,6 +377,7 @@ exports[`triggers.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
       >
         <span
           class="t-button__text"
@@ -369,6 +391,7 @@ exports[`triggers.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
       >
         <span
           class="t-button__text"
