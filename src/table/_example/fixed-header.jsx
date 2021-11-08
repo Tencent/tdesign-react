@@ -24,7 +24,6 @@ export default function TableFixHeader() {
       data={data}
       maxHeight={200}
       bordered
-      stripe
       columns={[
         {
           align: 'left',
