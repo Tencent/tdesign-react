@@ -37,25 +37,6 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
   const { classPrefix } = useConfig();
 
   const rippleContainer = document.createElement('div');
-  const ripple = document.createElement('div');
-
-  // 清除动画节点 clear ripple container
-  const handleClearRipple = useCallback(() => {
-    const el = ref?.current;
-    ripple.style.backgroundColor = noneRippleBg;
-
-    if (!el) return;
-
-    el.removeEventListener('pointerup', handleClearRipple, false);
-    el.removeEventListener('pointerleave', handleClearRipple, false);
-
-    if (Array.from(el.childNodes).includes(rippleContainer)) {
-      setTimeout(() => {
-        rippleContainer.remove();
-      }, period * 2 + 100);
-    }
-  }, [ripple, rippleContainer, ref]);
-
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
     (e) => {
@@ -78,24 +59,21 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       const width = el.offsetWidth;
       const height = el.offsetHeight;
 
-      el.childNodes.forEach((child: HTMLElement) => {
-        const node = child;
-        if (node && !node.style.zIndex && node !== rippleContainer) {
-          node.style.zIndex = '1';
-        }
-      });
-
-      setStyle(rippleContainer, {
-        position: 'absolute',
-        left: `${0 - border}px`,
-        top: `${0 - border}px`,
-        width: `${width}px`,
-        height: `${height}px`,
-        borderRadius: elStyle.borderRadius,
-        pointerEvents: 'none',
-        overflow: 'hidden',
-      });
-      el.appendChild(rippleContainer);
+      if (rippleContainer.parentNode === null) {
+        setStyle(rippleContainer, {
+          position: 'absolute',
+          left: `${0 - border}px`,
+          top: `${0 - border}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+          borderRadius: elStyle.borderRadius,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+        });
+        el.appendChild(rippleContainer);
+      }
+      // 新增一个ripple
+      const ripple = document.createElement('div');
 
       setStyle(ripple, {
         marginTop: '0',
@@ -103,7 +81,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
         right: `${width}px`,
         width: `${width + 20}px`,
         height: '100%',
-        transition: `right ${period}ms cubic-bezier(.38, 0, .24, 1), background ${period * 2}ms linear`,
+        transition: `transform ${period}ms cubic-bezier(.38, 0, .24, 1), background ${period * 2}ms linear`,
         transform: 'skewX(-8deg)',
         pointerEvents: 'none',
         position: 'absolute',
@@ -112,16 +90,46 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
         opacity: '0.9',
       });
 
+      // fix zIndex：避免遮盖内部元素
+      const elMap = new WeakMap();
+      for (let n = el.children.length, i = 0; i < n; ++i) {
+        const child = el.children[i];
+        if ((child as HTMLElement).style.zIndex === '' && child !== rippleContainer) {
+          (child as HTMLElement).style.zIndex = '1';
+          elMap.set(child, true);
+        }
+      }
+
+      // fix position
+      const initPosition = el.style.position ? el.style.position : getComputedStyle(el).position;
+      if (initPosition === '' || initPosition === 'static') {
+        // eslint-disable-next-line no-param-reassign
+        el.style.position = 'relative';
+      }
       rippleContainer.insertBefore(ripple, rippleContainer.firstChild);
 
       setTimeout(() => {
-        ripple.style.right = '-2px';
+        ripple.style.transform = `translateX(${width}px)`;
       }, 0);
+      // 清除动画节点 clear ripple container
+      const handleClearRipple = () => {
+        const el = ref?.current;
+        ripple.style.backgroundColor = noneRippleBg;
 
+        if (!el) return;
+
+        el.removeEventListener('pointerup', handleClearRipple, false);
+        el.removeEventListener('pointerleave', handleClearRipple, false);
+
+        setTimeout(() => {
+          ripple.remove();
+          if (rippleContainer.children.length === 0) rippleContainer.remove();
+        }, period * 2 + 100);
+      };
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);
     },
-    [classPrefix, ref, fixedRippleColor, handleClearRipple, ripple, rippleContainer],
+    [classPrefix, ref, fixedRippleColor, rippleContainer],
   );
 
   // 重置一些属性 为动画做准备 reset the node which uses the ripple animation
