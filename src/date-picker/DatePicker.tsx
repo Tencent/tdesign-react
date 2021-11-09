@@ -354,19 +354,23 @@ const DatePicker = (props: DatePickerProps) => {
       <div ref={dropdownPopupRef} className={pickerStyles}>
         {enableTimePicker && timePanelShow && <div>{timepickerComponent}</div>}
         {!timePanelShow && panelComponent}
-        {presets && range && <CalendarPresets presets={presets} onClickRange={clickRange} />}
-        {enableTimePicker && (
-          <div className={`${classPrefix}-date-picker--apply`}>
+        {(!!presets || enableTimePicker) && (
+          <div className={`${classPrefix}-date-picker__footer`}>
+            <CalendarPresets presets={presets} onClickRange={clickRange} />
             {enableTimePicker && (
-              <Button theme="primary" variant="text" onClick={toggleTime}>
-                {timePanelShow ? selectDateText : selectTimeText}
-              </Button>
+              <div className={`${classPrefix}--apply`}>
+                {enableTimePicker && (
+                  <Button theme="primary" variant="text" onClick={toggleTime}>
+                    {timePanelShow ? selectDateText : selectTimeText}
+                  </Button>
+                )}
+                {
+                  <Button theme="primary" onClick={() => clickedApply(true)}>
+                    {confirmText}
+                  </Button>
+                }
+              </div>
             )}
-            {
-              <Button theme="primary" onClick={() => clickedApply(true)}>
-                {confirmText}
-              </Button>
-            }
           </div>
         )}
       </div>
