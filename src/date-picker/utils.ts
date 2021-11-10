@@ -395,7 +395,7 @@ export function getYears(year: number, { disableDate = () => false, minDate, max
   return chunk(yearArr, 4);
 }
 
-export function getMonths(year: number, { disableDate = () => false, minDate, maxDate, monthText }: OptionsType) {
+export function getMonths(year: number, { disableDate = () => false, minDate, maxDate, monthText = '' }: OptionsType) {
   const monthArr = [];
 
   const today = getToday();

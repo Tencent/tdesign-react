@@ -4,6 +4,7 @@ import useConfig from '../../_util/useConfig';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import { DatePanelProps } from './Date';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 import {
   getWeeks,
@@ -27,6 +28,10 @@ export interface DateRangePanelProps extends Omit<DatePanelProps, 'value'> {
 }
 
 const DateRangePanel = (props: DateRangePanelProps) => {
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('datePicker');
+  const monthAriaLabel = t(local.monthAriaLabel);
+
   const { classPrefix } = useConfig();
   const { value, mode, minDate, maxDate, firstDayOfWeek, disableDate, onChange } = props;
 
@@ -203,6 +208,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
         minDate,
         maxDate,
         firstDayOfWeek,
+        monthText: monthAriaLabel,
       };
 
       switch (type) {
@@ -221,7 +227,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
 
       return flagActive(data, { start, end, type });
     },
-    [disableDate, minDate, maxDate, firstDayOfWeek],
+    [disableDate, minDate, maxDate, firstDayOfWeek, monthAriaLabel],
   );
 
   const leftData = useMemo(
