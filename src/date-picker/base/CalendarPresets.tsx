@@ -12,8 +12,6 @@ const CalendarPresets = (props: CalendarPresetsProps) => {
   const { presets, onClickRange } = props;
   const { classPrefix } = useConfig();
 
-  if (!presets) return null;
-
   return (
     <div className={`${classPrefix}-date-picker-presets`}>
       <ul>

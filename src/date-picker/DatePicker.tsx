@@ -325,7 +325,7 @@ const DatePicker = (props: DatePickerProps) => {
   function renderContent() {
     const pickerStyles = classNames(`${classPrefix}-date-picker--container`, {
       [`${classPrefix}-date-picker--container`]: popupShow,
-      [`${classPrefix}-date-picker--ranges-show`]: !!presets && range,
+      [`${classPrefix}-date-picker--ranges-show`]: range,
       [`${classPrefix}-date-picker--date`]: !!presets && range,
     });
 
@@ -358,7 +358,7 @@ const DatePicker = (props: DatePickerProps) => {
           <div className={`${classPrefix}-date-picker__footer`}>
             <CalendarPresets presets={presets} onClickRange={clickRange} />
             {enableTimePicker && (
-              <div className={`${classPrefix}--apply`}>
+              <div className={`${classPrefix}-date-picker--apply`}>
                 {enableTimePicker && (
                   <Button theme="primary" variant="text" onClick={toggleTime}>
                     {timePanelShow ? selectDateText : selectTimeText}
