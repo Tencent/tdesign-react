@@ -7,10 +7,10 @@ export default {
       children: [
         {
           title: '说明',
-          name: 'install',
+          name: 'expain',
           docType: 'explain', // 控制头图展示
-          path: '/react/components/install',
-          component: () => import('@docs/install.md'),
+          path: '/react/components/expain',
+          component: () => import('@docs/expain.md'),
         },
         {
           title: '更新日志',
