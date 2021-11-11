@@ -12,9 +12,7 @@
     <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF">
     <!--[if IE]>
     <style>
-      #root {
-        display: none;
-      }
+      #root { display: none; }
     </style>
     <![endif]-->
   </head>
@@ -24,5 +22,15 @@
     <![endif]-->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script src="https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js"></script>
+    <script>
+      const aegis = new Aegis({
+        id: 'rDISNMyXgKnpdSRvul',
+        reportAssetSpeed: true,
+        reportApiSpeed: true,
+        spa: true,
+      });
+    </script>
   </body>
 </html>
