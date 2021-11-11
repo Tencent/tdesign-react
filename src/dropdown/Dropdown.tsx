@@ -8,7 +8,7 @@ import DropdownMenu from './DropdownMenu';
 
 export interface DropdownProps extends TdDropdownProps {
   className?: ClassName;
-  children?: React.ReactChildren;
+  children?: React.ReactNode;
 }
 
 const Dropdown = (props: DropdownProps) => {
