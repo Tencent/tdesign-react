@@ -251,7 +251,7 @@ exports[`group.jsx 1`] = `
         <span
           class="t-select-selectedSingle"
         >
-          Apple
+          Fruit
         </span>
         <svg
           class="t-fake-arrow t-select-right-icon"
@@ -536,7 +536,7 @@ exports[`multiple.jsx 1`] = `
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
         >
-          Apple
+          Banana
           <svg
             class="t-icon t-icon-close t-size-m"
             fill="none"

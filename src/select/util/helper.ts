@@ -1,16 +1,17 @@
-import { ReactElement } from 'react';
-import { isPlainObject, isNumber, isString } from 'lodash';
+import React, { ReactElement } from 'react';
+import { isPlainObject, isNumber, isString, get } from 'lodash';
 import { SelectValue, Options } from '../../_type/components/select';
 import OptionGroup from '../base/OptionGroup';
 
 type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
 
-export const getLabel = (children, value, options) => {
+export const getLabel = (children, value: SelectValue<Options>, options: Options[]) => {
   let selectedLabel = '';
+
   // 处理带 options 属性的情况
   if (Array.isArray(options)) {
     options.some((option) => {
-      if (option.value === value || option.value === value.value) {
+      if (option.value === value || option.value === get(value, 'value')) {
         selectedLabel = option.label;
         return true;
       }
@@ -21,13 +22,15 @@ export const getLabel = (children, value, options) => {
 
   if (isPlainObject(children)) {
     selectedLabel = children.props.label;
+
     if (children.type.name === OptionGroup.name) {
       const groupChildren = children.props.children;
+
       if (Array.isArray(groupChildren)) {
         groupChildren.some((item) => {
-          const selectedValue = isPlainObject(value) ? value.value : value;
+          const selectedValue = isPlainObject(value) ? get(value, 'value') : value;
           if (isPlainObject(item.props) && item.props.value === selectedValue) {
-            selectedLabel = item.props.label;
+            selectedLabel = item.props.label || item.props.children;
             return true;
           }
           return false;
@@ -44,9 +47,9 @@ export const getLabel = (children, value, options) => {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           const isSelected = groupChildren.some((item) => {
-            const selectedValue = isPlainObject(value) ? value.value : value;
+            const selectedValue = isPlainObject(value) ? get(value, 'value') : value;
             if (isPlainObject(item.props) && item.props.value === selectedValue) {
-              selectedLabel = item.props.label;
+              selectedLabel = item.props.label || item.props.children;
               return true;
             }
             return false;
@@ -54,34 +57,15 @@ export const getLabel = (children, value, options) => {
           return isSelected;
         }
       }
-      const selectedValue = isPlainObject(value) ? value.value : value;
+      const selectedValue = isPlainObject(value) ? get(value, 'value') : value;
       if (isPlainObject(item.props) && item.props.value === selectedValue) {
-        selectedLabel = item.props.label;
+        selectedLabel = item.props.label || item.props.children;
         return true;
       }
       return false;
     });
   }
   return selectedLabel;
-};
-
-export const getValue = (children, label) => {
-  let selectedValue = '';
-
-  if (isPlainObject(children)) {
-    selectedValue = children.props.value;
-  }
-
-  if (Array.isArray(children)) {
-    children.some((item: ReactElement) => {
-      if (isPlainObject(item.props) && !item.props.disabled && item.props.label === label) {
-        selectedValue = item.props.value;
-        return true;
-      }
-      return false;
-    });
-  }
-  return selectedValue;
 };
 
 export const getMultipleTags = (values: SelectValue[]) => {
