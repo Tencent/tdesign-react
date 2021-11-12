@@ -72,10 +72,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
   const contentRef = useRef(null);
 
-  const [arrowRef, setArrowRef] = useState<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
-    modifiers: [{ name: 'arrow', options: { element: arrowRef } }],
   });
 
   useImperativeHandle(ref, (): any => ({
@@ -140,7 +138,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             ref={contentRef}
           >
             {showArrow ? (
-              <div ref={setArrowRef} style={styles.arrow} className={`${classPrefix}-popup__arrow`} />
+              <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} />
             ) : null}
             {content}
           </div>
