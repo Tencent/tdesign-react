@@ -46,6 +46,8 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
   /* ======== render ======= */
   const renderIcon = () => {
+    // 这里按 vue 的逻辑定义
+    let isDefaultIcon = false;
     const renderIconNode = () => {
       if (icon === false) {
         return null;
@@ -62,6 +64,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       }
 
       if (!node.isLeaf()) {
+        isDefaultIcon = true;
         if (node.loading && node.expanded) {
           return <LoadingIcon className={treeClassNames.loading} />;
         }
@@ -73,7 +76,12 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
 
     const iconNode = renderIconNode();
     return (
-      <span className={classNames(treeClassNames.treeIcon, treeClassNames.folderIcon)} onClick={handleIconClick}>
+      <span
+        className={classNames(treeClassNames.treeIcon, treeClassNames.folderIcon, {
+          [treeClassNames.treeIconDefault]: isDefaultIcon,
+        })}
+        onClick={handleIconClick}
+      >
         {iconNode}
       </span>
     );

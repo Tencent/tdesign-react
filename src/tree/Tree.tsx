@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -190,7 +190,14 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
   );
 
   /* ======== render ======= */
-  const nodeRef = React.useRef(null);
+  // https://github.com/reactjs/react-transition-group/issues/668
+  // CSSTransition 不指定 nodeRef 的时候会使用 findDOMNode 获取 dom
+  // 因为 CSSTransition 是个数组，与 visibleNodes 对应，所以这里根据 visibleNodes 的长度创建 ref 用来保存 dom
+  // visibleNodes 改变的时候，释放上一个 nodeList，防止内存泄漏
+  const nodeList = useMemo<RefObject<HTMLDivElement>[]>(
+    () => visibleNodes.map(() => React.createRef()),
+    [visibleNodes],
+  );
 
   const renderEmpty = () => {
     let emptyView = empty || emptyText;
@@ -208,15 +215,16 @@ const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunction
 
     return (
       <TransitionGroup name={transitionNames.treeNode} className={treeClassNames.treeList}>
-        {visibleNodes.map((node) => (
+        {visibleNodes.map((node, index) => (
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
-            nodeRef={nodeRef}
+            nodeRef={nodeList[index]}
             key={node.value}
             timeout={transitionDuration}
             classNames={transitionClassNames}
           >
             <TreeItem
+              ref={nodeList[index]}
               node={node}
               empty={empty}
               icon={icon}
