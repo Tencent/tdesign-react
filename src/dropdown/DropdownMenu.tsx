@@ -29,7 +29,7 @@ const DropdownMenu = (props: DropdownProps) => {
     props.onClick(data, context);
   };
   const renderDropdownColumn = (children: Array<DropdownOption>, showSubmenu: boolean, pathPrefix: string) => {
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line
     const menuClass = [`${dropdownMenuClass}__column`, 'narrow-scrollbar', { submenu__visible: showSubmenu }];
     return (
       <div

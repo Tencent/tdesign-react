@@ -28,6 +28,131 @@ import {
 // types
 import { InputContentProps, InnerContentProps, ContentProps, SuffixIconProps, TreeNode } from '../interface';
 
+/**
+ * SuffixIcon component
+ */
+
+const SuffixIcon = (props: SuffixIconProps) => {
+  const {
+    cascaderContext,
+    listeners: { onChange },
+    closeShow,
+    fakeArrowIconClass,
+    closeIconClass,
+  } = props;
+  const { visible, disabled, size } = cascaderContext;
+
+  const closeIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    closeIconClickEffect(cascaderContext, onChange);
+  };
+
+  if (closeShow) {
+    return <CloseCircleFilledIcon className={closeIconClass} onClick={closeIconClick} size={size} />;
+  }
+
+  return <FakeArrow overlayClassName={fakeArrowIconClass} isActive={visible} disabled={disabled} />;
+};
+
+const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => {
+  const { cascaderContext, listeners, placeholder, collapsedItems } = props;
+  const { classPrefix: prefix } = useConfig();
+  const { multiple, size, disabled, filterable, setFilterActive, visible, inputVal, setInputVal, minCollapsedNum } =
+    cascaderContext;
+  const { onFocus, onBlur, onRemove } = listeners;
+
+  // single select content
+  const singleContent = useMemo(() => getSingleContent(cascaderContext), [cascaderContext]);
+
+  // multiple select content
+  const multipleContent = useMemo(() => getMultipleContent(cascaderContext), [cascaderContext]);
+
+  const renderSelfTag = (node: TreeNode, index: number) => (
+    <Tag
+      closable
+      key={index}
+      disabled={disabled}
+      onClose={(ctx) => {
+        ctx.e.stopPropagation();
+        handleRemoveTagEffect(cascaderContext, node, onRemove);
+      }}
+      size={size}
+    >
+      {node.label}
+    </Tag>
+  );
+
+  const generalContent = !multiple ? (
+    <span className={`${prefix}-cascader-content`}>{singleContent}</span>
+  ) : (
+    <>
+      {minCollapsedNum > 0 && multipleContent.length > minCollapsedNum ? (
+        <>
+          {multipleContent.slice(0, minCollapsedNum).map((node: TreeNode, index: number) => renderSelfTag(node, index))}
+          {!collapsedItems ? (
+            <Tag size={size} disabled={disabled}>
+              +{multipleContent.length - minCollapsedNum}
+            </Tag>
+          ) : (
+            collapsedItems
+          )}
+        </>
+      ) : (
+        multipleContent.map((node: TreeNode, index: number) => renderSelfTag(node, index))
+      )}
+    </>
+  );
+
+  const inputPlaceholder = multiple ? multipleContent.map((node) => node.label).join('、') : singleContent;
+
+  const filterContent = (
+    <Input
+      placeholder={inputPlaceholder || placeholder}
+      value={inputVal}
+      onChange={(value: string) => {
+        setInputVal(value);
+        setFilterActive(!!value);
+      }}
+      autofocus
+      onFocus={(v, context) => isFunction(onFocus) && onFocus({ inputVal, e: context?.e })}
+      onBlur={(v, context) => isFunction(onBlur) && onBlur({ inputVal, e: context?.e })}
+    />
+  );
+
+  const showFilter = useMemo(() => filterable && visible, [filterable, visible]);
+  return showFilter ? filterContent : generalContent;
+};
+
+const Content: React.FC<ContentProps> = (props: ContentProps) => {
+  const { placeholder, cascaderContext, listeners, isHover, collapsedItems } = props;
+  const { classPrefix: prefix } = useConfig();
+
+  // single select content
+  const singleContent = useMemo(() => getSingleContent(cascaderContext), [cascaderContext]);
+
+  // multiple select content
+  const multipleContent = useMemo(() => getMultipleContent(cascaderContext), [cascaderContext]);
+
+  const showPlaceholder = useMemo(
+    () => getPlaceholderShow(cascaderContext, singleContent, multipleContent),
+    [cascaderContext, singleContent, multipleContent],
+  );
+
+  const content = !showPlaceholder ? (
+    <InnerContent
+      isHover={isHover}
+      cascaderContext={cascaderContext}
+      listeners={listeners}
+      collapsedItems={collapsedItems}
+      placeholder={placeholder}
+    />
+  ) : (
+    <span className={`${prefix}-cascader-placeholder`}>{placeholder || '请选择'}</span>
+  );
+  return content;
+};
+
 const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => {
   const { cascaderContext, className, style, placeholder, listeners, collapsedItems } = props;
 
@@ -101,131 +226,6 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
       />
     </div>
   );
-};
-
-/**
- * SuffixIcon component
- */
-
-const SuffixIcon = (props: SuffixIconProps) => {
-  const {
-    cascaderContext,
-    listeners: { onChange },
-    closeShow,
-    fakeArrowIconClass,
-    closeIconClass,
-  } = props;
-  const { visible, disabled, size } = cascaderContext;
-
-  const closeIconClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-
-    closeIconClickEffect(cascaderContext, onChange);
-  };
-
-  if (closeShow) {
-    return <CloseCircleFilledIcon className={closeIconClass} onClick={closeIconClick} size={size} />;
-  }
-
-  return <FakeArrow overlayClassName={fakeArrowIconClass} isActive={visible} disabled={disabled} />;
-};
-
-const Content: React.FC<ContentProps> = (props: ContentProps) => {
-  const { placeholder, cascaderContext, listeners, isHover, collapsedItems } = props;
-  const { classPrefix: prefix } = useConfig();
-
-  // single select content
-  const singleContent = useMemo(() => getSingleContent(cascaderContext), [cascaderContext]);
-
-  // multiple select content
-  const multipleContent = useMemo(() => getMultipleContent(cascaderContext), [cascaderContext]);
-
-  const showPlaceholder = useMemo(
-    () => getPlaceholderShow(cascaderContext, singleContent, multipleContent),
-    [cascaderContext, singleContent, multipleContent],
-  );
-
-  const content = !showPlaceholder ? (
-    <InnerContent
-      isHover={isHover}
-      cascaderContext={cascaderContext}
-      listeners={listeners}
-      collapsedItems={collapsedItems}
-      placeholder={placeholder}
-    />
-  ) : (
-    <span className={`${prefix}-cascader-placeholder`}>{placeholder || '请选择'}</span>
-  );
-  return content;
-};
-
-const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => {
-  const { cascaderContext, listeners, placeholder, collapsedItems } = props;
-  const { classPrefix: prefix } = useConfig();
-  const { multiple, size, disabled, filterable, setFilterActive, visible, inputVal, setInputVal, minCollapsedNum } =
-    cascaderContext;
-  const { onFocus, onBlur, onRemove } = listeners;
-
-  // single select content
-  const singleContent = useMemo(() => getSingleContent(cascaderContext), [cascaderContext]);
-
-  // multiple select content
-  const multipleContent = useMemo(() => getMultipleContent(cascaderContext), [cascaderContext]);
-
-  const renderSelfTag = (node: TreeNode, index: number) => (
-    <Tag
-      closable
-      key={index}
-      disabled={disabled}
-      onClose={(ctx) => {
-        ctx.e.stopPropagation();
-        handleRemoveTagEffect(cascaderContext, node, onRemove);
-      }}
-      size={size}
-    >
-      {node.label}
-    </Tag>
-  );
-
-  const generalContent = !multiple ? (
-    <span className={`${prefix}-cascader-content`}>{singleContent}</span>
-  ) : (
-    <>
-      {minCollapsedNum > 0 && multipleContent.length > minCollapsedNum ? (
-        <>
-          {multipleContent.slice(0, minCollapsedNum).map((node: TreeNode, index: number) => renderSelfTag(node, index))}
-          {!collapsedItems ? (
-            <Tag size={size} disabled={disabled}>
-              +{multipleContent.length - minCollapsedNum}
-            </Tag>
-          ) : (
-            collapsedItems
-          )}
-        </>
-      ) : (
-        multipleContent.map((node: TreeNode, index: number) => renderSelfTag(node, index))
-      )}
-    </>
-  );
-
-  const inputPlaceholder = multiple ? multipleContent.map((node) => node.label).join('、') : singleContent;
-
-  const filterContent = (
-    <Input
-      placeholder={inputPlaceholder || placeholder}
-      value={inputVal}
-      onChange={(value: string) => {
-        setInputVal(value);
-        setFilterActive(!!value);
-      }}
-      autofocus
-      onFocus={(v, context) => isFunction(onFocus) && onFocus({ inputVal, e: context?.e })}
-      onBlur={(v, context) => isFunction(onBlur) && onBlur({ inputVal, e: context?.e })}
-    />
-  );
-
-  const showFilter = useMemo(() => filterable && visible, [filterable, visible]);
-  return showFilter ? filterContent : generalContent;
 };
 
 export default InputContent;

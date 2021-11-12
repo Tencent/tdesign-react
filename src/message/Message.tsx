@@ -146,7 +146,7 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // :todo 需要 api 定义完全的 message 格式，否则用户使用时没法得到 message.info 的提示.
 const Message: MessageProps = MessageComponent;

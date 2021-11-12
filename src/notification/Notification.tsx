@@ -192,7 +192,7 @@ const renderNotification = (theme: NotificationThemeList, options: NotificationI
   return fetchListInstance(placement, attach, zIndex).then((listInstance) => listInstance.push(theme, options));
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const Notification: Notification = NotificationComponent;
 

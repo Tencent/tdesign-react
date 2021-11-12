@@ -17,7 +17,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   const { type, data, onCellClick, onCellMouseEnter, firstDayOfWeek } = props;
 
   const [local, t] = useLocaleReceiver('datePicker');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const shorthand = t(local.weekdays.shorthand);
 

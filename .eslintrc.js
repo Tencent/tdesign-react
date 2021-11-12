@@ -27,8 +27,13 @@ module.exports = {
     },
   },
   rules: {
+    "no-use-before-define": "off",
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/indent': ['off', 2],
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-empty-interface': 'error', // codecc
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
