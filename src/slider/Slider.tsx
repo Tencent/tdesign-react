@@ -5,8 +5,9 @@ import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import { numberToPencent } from './utils/handleNumber';
 import { StyledProps, TNode } from '../_type';
-import Tooltip from '../tooltip/Tooltip';
 import InputNumber from '../input-number/InputNumber';
+import SliderHandleButton from './SliderHandleButton';
+import { accAdd } from '../_util/number';
 
 export type SliderProps = TdSliderProps & StyledProps;
 
@@ -36,7 +37,6 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     ref,
   ) => {
     const { classPrefix } = useConfig();
-    const movingNodeRef = useRef<SliderHandleNode | null>();
     const sliderRef = useRef<HTMLDivElement>();
     const [value, setValue] = useDefault(propsValue, defaultValue, onChange);
     const isVertical = layout === 'vertical';
@@ -83,7 +83,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const allDots = useMemo(() => {
       // 默认
       const result = [];
-      for (let i = min; i <= max; i += step) {
+      for (let i = min; i <= max; i = accAdd(i, step)) {
         result.push({
           value: i,
           position: (i - min) / (max - min),
@@ -98,11 +98,12 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const renderDots = isVertical ? dots.map((item) => ({ ...item, position: 1 - item.position })) : dots;
 
     const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
-      let resultValue = Math.max(Math.min(max, newValue), min);
+      const safeValue = Number(newValue.toFixed(32));
+      let resultValue = Math.max(Math.min(max, safeValue), min);
       // 判断是否出现左值大于右值
-      if (nodeIndex === LEFT_NODE && newValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
+      if (nodeIndex === LEFT_NODE && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
       // 判断是否出现右值大于左值
-      if (nodeIndex === RIGHT_NODE && newValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
+      if (nodeIndex === RIGHT_NODE && safeValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
       if (Array.isArray(value)) {
         const arrValue = value.slice();
         arrValue[nodeIndex] = resultValue;
@@ -162,27 +163,6 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       setPosition(position, nodeIndex);
     };
 
-    const onSliderDragging = (e: MouseEvent) => {
-      if (movingNodeRef.current !== null) onSliderChange(e, movingNodeRef.current);
-    };
-
-    const onSliderDraggingEnd = () => {
-      movingNodeRef.current = null;
-      window.removeEventListener('mousemove', onSliderDragging);
-      window.removeEventListener('mouseup', onSliderDraggingEnd);
-      window.removeEventListener('touchmove', onSliderDragging);
-      window.removeEventListener('touchend', onSliderDraggingEnd);
-    };
-
-    const handleSliderMouseDown = (e: React.MouseEvent, nodeIndex: SliderHandleNode) => {
-      e.stopPropagation();
-      movingNodeRef.current = nodeIndex;
-      window.addEventListener('mousemove', onSliderDragging);
-      window.addEventListener('mouseup', onSliderDraggingEnd);
-      window.addEventListener('touchmove', onSliderDragging);
-      window.addEventListener('touchend', onSliderDraggingEnd);
-    };
-
     const handleClickMarks = (event: React.MouseEvent, value: number) => {
       event.stopPropagation();
       nearbyValueChange(value);
@@ -195,15 +175,16 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       if (tipLabel === true || !tipLabel) tipLabel = currentValue;
 
       return (
-        <div
+        <SliderHandleButton
+          toolTipProps={{
+            disabled: label === false,
+            content: tipLabel,
+            ...tooltipProps,
+          }}
+          classPrefix={classPrefix}
           style={style}
-          className={classNames(`${classPrefix}-slider__button-wrapper`)}
-          onMouseDown={(e) => handleSliderMouseDown(e, nodeIndex)}
-        >
-          <Tooltip disabled={label === false} placement="top" content={tipLabel} {...tooltipProps}>
-            <div className={classNames(`${classPrefix}-slider__button`)}></div>
-          </Tooltip>
-        </div>
+          onChange={(e) => onSliderChange(e, nodeIndex)}
+        />
       );
     };
 

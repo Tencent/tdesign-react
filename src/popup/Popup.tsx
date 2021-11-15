@@ -86,7 +86,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     return { ...overlayStyle, zIndex };
   }, [overlayStyle, zIndex, triggerRef]);
   // 设置 style 决定展示与隐藏
-  const overlayVisibleStyle: CSSProperties = visible ? defaulstStyles : { ...defaulstStyles, display: 'none' };
+  const overlayVisibleStyle: CSSProperties = defaulstStyles;
 
   const triggerNodeTemp = useMemo(() => {
     const [triggerChildNode] = React.Children.toArray(children);
@@ -126,7 +126,11 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         <div
           ref={composeRefs(setOverlayRef, ref)}
           style={styles.popper}
-          className={`${classPrefix}-popup`}
+          className={classNames(
+            `${classPrefix}-popup`,
+            `${classPrefix}-popup_animation-enter-active`,
+            visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
+          )}
           {...attributes.popper}
           {...popupProps}
         >
@@ -157,10 +161,21 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     if (visible !== preVisible && visible && update) {
       update();
     }
-  }, [visible, preVisible, update]);
+  }, [visible, preVisible, update, children]);
+
+  const handlePopupWrapperMouseDown = () => {
+    const removeUpdate = () => window.removeEventListener('mousemove', update);
+    window.removeEventListener('mouseup', removeUpdate);
+    window.addEventListener('mousemove', update);
+    window.addEventListener('mouseup', removeUpdate);
+  };
 
   return (
-    <div className={classNames(`${classPrefix}-popup-reference`, className)} style={style}>
+    <div
+      className={classNames(`${classPrefix}-popup-reference`, className)}
+      onMouseDown={handlePopupWrapperMouseDown}
+      style={style}
+    >
       {triggerNode}
       {portal}
     </div>

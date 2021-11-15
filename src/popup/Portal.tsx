@@ -1,4 +1,4 @@
-import { useEffect, ReactNode, useMemo } from 'react';
+import React, { useEffect, ReactNode, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { AttachNode } from '../_type/common';
 
@@ -11,7 +11,7 @@ export interface PortalProps {
 }
 
 // 将 children 渲染到正常的 DOM 树外面
-const Portal = (props: PortalProps) => {
+const Portal = (props: PortalProps): React.ReactPortal => {
   const { children, attach } = props;
 
   const container = useMemo(() => {

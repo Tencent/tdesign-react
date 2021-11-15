@@ -31,9 +31,7 @@ describe('Popup 组件测试', () => {
     const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement2).not.toBeNull();
     expect(popupElement2).toHaveTextContent(popupText);
-    expect(popupElement2.parentElement).toHaveStyle({
-      display: 'block',
-    });
+    expect(popupElement2.parentElement.parentElement).toHaveClass('t-popup_animation-leave');
 
     // 模拟鼠标离开
     act(() => {
@@ -44,9 +42,7 @@ describe('Popup 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement).toHaveStyle({
-      display: 'none',
-    });
+    expect(popupElement2.parentElement.parentElement).toHaveClass('t-popup_animation-leave-to');
   });
 
   test('click 触发测试', async () => {
@@ -70,9 +66,7 @@ describe('Popup 组件测试', () => {
     const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement2).not.toBeNull();
     expect(popupElement2).toHaveTextContent(popupText);
-    expect(popupElement2.parentElement).toHaveStyle({
-      display: 'block',
-    });
+    expect(popupElement2.parentElement.parentElement).toHaveClass('t-popup_animation-leave');
 
     // 点击浮层
     act(() => {
@@ -82,9 +76,7 @@ describe('Popup 组件测试', () => {
 
     // 点击浮层也不隐藏
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
-    expect(popupElement3.parentElement).toHaveStyle({
-      display: 'block',
-    });
+    expect(popupElement3.parentElement.parentElement).toHaveClass('t-popup_animation-leave');
 
     // 模拟鼠标点击其他地方
     act(() => {
@@ -95,9 +87,7 @@ describe('Popup 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement4 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement4).not.toBeNull();
-    expect(popupElement4.parentElement).toHaveStyle({
-      display: 'none',
-    });
+    expect(popupElement4.parentElement.parentElement).toHaveClass('t-popup_animation-leave-to');
   });
 
   test('focus 触发测试', async () => {
@@ -121,9 +111,7 @@ describe('Popup 组件测试', () => {
     const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement2).not.toBeNull();
     expect(popupElement2).toHaveTextContent(popupText);
-    expect(popupElement2.parentElement).toHaveStyle({
-      display: 'block',
-    });
+    expect(popupElement2.parentElement.parentElement).toHaveClass('t-popup_animation-leave');
 
     // 模拟鼠标失焦
     act(() => {
@@ -134,9 +122,7 @@ describe('Popup 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement).toHaveStyle({
-      display: 'none',
-    });
+    expect(popupElement3.parentElement.parentElement).toHaveClass('t-popup_animation-leave-to');
   });
 
   test('contextMenu 触发测试', async () => {
@@ -160,9 +146,7 @@ describe('Popup 组件测试', () => {
     const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement2).not.toBeNull();
     expect(popupElement2).toHaveTextContent(popupText);
-    expect(popupElement2.parentElement).toHaveStyle({
-      display: 'block',
-    });
+    expect(popupElement2.parentElement.parentElement).toHaveClass('t-popup_animation-leave');
 
     // 模拟鼠标点击其他地方
     act(() => {
@@ -173,9 +157,7 @@ describe('Popup 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement).toHaveStyle({
-      display: 'none',
-    });
+    expect(popupElement3.parentElement.parentElement).toHaveClass('t-popup_animation-leave-to');
   });
 
   test('测试隐藏后销毁', async () => {
