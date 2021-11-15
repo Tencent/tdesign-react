@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tag } from '@tencent/tdesign-react';
+import { Tag } from 'tdesign-react';
 
 const { CheckTag } = Tag;
 

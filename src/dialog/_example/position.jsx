@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from '@tencent/tdesign-react';
+import { Dialog, Button } from 'tdesign-react';
 
 export default function PositionExample() {
   const [visible, setVisible] = useState(false);

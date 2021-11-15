@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Button from '../../button';
 import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';

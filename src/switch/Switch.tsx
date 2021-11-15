@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { LoadingIcon } from '@tencent/tdesign-icons-react';
+import { LoadingIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../_type';
 import useCommonClassName from '../_util/useCommonClassName';

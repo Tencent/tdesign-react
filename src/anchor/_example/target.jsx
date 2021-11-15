@@ -1,5 +1,5 @@
 import React from 'react';
-import { Anchor } from '@tencent/tdesign-react';
+import { Anchor } from 'tdesign-react';
 
 const { AnchorTarget } = Anchor;
 

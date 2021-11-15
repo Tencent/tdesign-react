@@ -1,7 +1,7 @@
 import { testExamples, render, waitFor, fireEvent, act } from '@test/utils';
 import React, { useState } from 'react';
 
-import { Select } from '@tencent/tdesign-react';
+import { Select } from 'tdesign-react';
 
 const { Option, OptionGroup } = Select;
 

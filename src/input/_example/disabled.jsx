@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Input } from '@tencent/tdesign-react';
+import { Input } from 'tdesign-react';
 
 export default function InputExample() {
   return (

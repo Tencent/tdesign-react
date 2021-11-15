@@ -1,5 +1,5 @@
 import React from 'react';
-  import { IconFont } from '@tencent/tdesign-icons-react';
+  import { IconFont } from 'tdesign-icons-react';
   
   export default function IconFontExample() {
     return (

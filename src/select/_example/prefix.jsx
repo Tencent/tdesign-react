@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tencent/tdesign-react';
-import { BrowseIcon } from '@tencent/tdesign-icons-react';
+import { Select } from 'tdesign-react';
+import { BrowseIcon } from 'tdesign-icons-react';
 
 const { Option } = Select;
 

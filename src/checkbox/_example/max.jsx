@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, InputNumber } from '@tencent/tdesign-react';
+import { Checkbox, InputNumber } from 'tdesign-react';
 
 const options = [
   {

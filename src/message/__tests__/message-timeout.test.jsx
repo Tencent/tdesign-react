@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { Message } from '@tencent/tdesign-react';
+import { Message } from 'tdesign-react';
 jest.useFakeTimers();
 
 let containerOut = null;

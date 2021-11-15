@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, Switch, Message, DatePicker } from '@tencent/tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Switch, Message, DatePicker } from 'tdesign-react';
 
 const { FormItem } = Form;
 

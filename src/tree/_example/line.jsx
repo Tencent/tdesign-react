@@ -1,8 +1,7 @@
-import { Tree, Form, Switch } from '@tencent/tdesign-react';
-import { Icon } from '@tencent/tdesign-icons-react';
+import { Tree, Form, Switch } from 'tdesign-react';
+import { Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import './line.less';
 
 const items = [
   {

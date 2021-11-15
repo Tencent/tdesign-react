@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '@tencent/tdesign-react';
-import { CalendarIcon } from '@tencent/tdesign-icons-react';
+import { Button } from 'tdesign-react';
+import { CalendarIcon } from 'tdesign-icons-react';
 
 export default function ButtonExample() {
   return (

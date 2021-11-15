@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Addon } from '@tencent/tdesign-react';
+import { Addon } from 'tdesign-react';
 
 export default function AddonExample() {
   return (

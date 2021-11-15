@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps } from '@tencent/tdesign-react';
+import { Steps } from 'tdesign-react';
 
 const { StepItem } = Steps;
 

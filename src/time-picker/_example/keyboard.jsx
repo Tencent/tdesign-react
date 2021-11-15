@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimePicker } from '@tencent/tdesign-react';
+import { TimePicker } from 'tdesign-react';
 
 export default function KeyboardTimePicker() {
   const handleBlur = (param) => {

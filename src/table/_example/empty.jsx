@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from '@tencent/tdesign-react';
+import { Table } from 'tdesign-react';
 
 export default function EmptyTable() {
   const TableData = [];

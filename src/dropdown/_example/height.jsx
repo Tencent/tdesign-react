@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Dropdown, Button, Message,
-} from '@tencent/tdesign-react';
+} from 'tdesign-react';
 
 export default function BasicDropdown() {
   const options = Array.from({ length: 20 }).map((v, k) => ({

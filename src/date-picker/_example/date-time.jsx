@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from '@tencent/tdesign-react';
+import { DatePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   function handleChange(value) {

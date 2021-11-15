@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from '@tencent/tdesign-react';
+import { Tabs } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 

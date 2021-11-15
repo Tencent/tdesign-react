@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tencent/tdesign-react';
+import { Select } from 'tdesign-react';
 
 const SelectCustomKeys = () => {
   const [value, setValue] = useState('1');

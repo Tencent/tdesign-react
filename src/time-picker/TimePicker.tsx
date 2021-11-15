@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import classNames from 'classnames';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { TimeIcon } from '@tencent/tdesign-icons-react';
+import { TimeIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';

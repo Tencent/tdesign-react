@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs'
-import { DatePicker } from '@tencent/tdesign-react';
+import { DatePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   // 禁用昨天、前天

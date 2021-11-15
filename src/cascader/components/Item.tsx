@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
+import { ChevronRightIcon, LoadingIcon } from 'tdesign-icons-react';
 
 // hook
 import useConfig from '../../_util/useConfig';

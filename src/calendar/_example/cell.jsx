@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Calendar, Tag } from '@tencent/tdesign-react';
+import { Select, Calendar, Tag } from 'tdesign-react';
 
 export default function CalendarExample() {
   const [theme, setTheme] = React.useState('full');

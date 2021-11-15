@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Steps, Button } from '@tencent/tdesign-react';
+import { Steps, Button } from 'tdesign-react';
 
 const { StepItem } = Steps;
 

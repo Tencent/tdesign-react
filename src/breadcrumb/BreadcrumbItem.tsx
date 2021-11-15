@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
-import { ChevronRightIcon } from '@tencent/tdesign-icons-react';
+import { ChevronRightIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 

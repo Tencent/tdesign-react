@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Affix, Button } from '@tencent/tdesign-react';
-
-import './container.less';
+import { Affix, Button } from 'tdesign-react';
 
 export default function ContainerExample() {
   const [container, setContainer] = useState(null);
@@ -23,9 +21,27 @@ export default function ContainerExample() {
     }
   }, []);
 
+  const containerStyle = {
+    border: '1px solid var(--component-stroke)',
+    borderRadius: '3px',
+    height: '400px',
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    overscrollBehavior: 'none',
+  };
+
+  const backgroundStyle = {
+    height: '1500px',
+    paddingTop: '200px',
+    backgroundColor: '#eee',
+    backgroundImage: 'linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0),linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0)',
+    backgroundSize: '30px 30px',
+    backgroundPosition: '0 0,15px 15px,15px 15px,0 0',
+  }
+
   return (
-    <div className="affix-container" ref={setContainer}>
-      <div className="background">
+    <div style={containerStyle} ref={setContainer}>
+      <div style={backgroundStyle}>
         <Affix offsetTop={20} container={container} onFixedChange={handleFixedChange} ref={affixRef}>
           <Button onClick={resetPosition}>Container</Button>
         </Affix>

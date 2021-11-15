@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { ChevronDownCircleIcon } from '@tencent/tdesign-icons-react';
+import { ChevronDownCircleIcon } from 'tdesign-icons-react';
 import { ConfigContext } from '../../config-provider';
 import { Styles, TNode } from '../../_type/common';
 

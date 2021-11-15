@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification, Button } from '@tencent/tdesign-react';
+import { Notification, Button } from 'tdesign-react';
 
 export default function NotificationExample() {
   const openInfoNotification = React.useCallback(() => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TimePicker } from '@tencent/tdesign-react';
+import { TimePicker } from 'tdesign-react';
 
 export default function BasicTimePicker() {
   const [value, setValue] = useState(null);

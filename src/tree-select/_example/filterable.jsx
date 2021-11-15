@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TreeSelect, Radio } from '@tencent/tdesign-react';
+import { TreeSelect, Radio } from 'tdesign-react';
 
 const options = [{
   label: '广东省',

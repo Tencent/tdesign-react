@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Button } from '@tencent/tdesign-react';
+import { Drawer, Button } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);

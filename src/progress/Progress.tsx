@@ -7,7 +7,7 @@ import {
   CheckCircleFilledIcon,
   CloseCircleFilledIcon,
   ErrorCircleFilledIcon,
-} from '@tencent/tdesign-icons-react';
+} from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../_type';

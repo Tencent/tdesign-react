@@ -16,7 +16,7 @@ const access = promisify(fs.access);
 const rm = promisify(rimraf);
 const mkdir = promisify(fs.mkdir);
 
-const SRC_ICONS_DIR = path.resolve(__dirname, '../node_modules/@tencent/tdesign-icons-react/lib/components');
+const SRC_ICONS_DIR = path.resolve(__dirname, '../node_modules/tdesign-icons-react/lib/components');
 const ICONS_DIR = path.resolve(__dirname, '../icons');
 const ICON_EXAMPLE_DIR = path.resolve(__dirname, '../src/icon/_example');
 
@@ -36,7 +36,7 @@ const iconDemosRender = template(
   `import React from 'react';
   import {
     <%= SVG_ICON_NAMES %>
-  } from '@tencent/tdesign-icons-react';
+  } from 'tdesign-icons-react';
   
   export default function IconExample() {
     return (
@@ -55,7 +55,7 @@ const iconDemosRender = template(
 
 const iconFontDemosRender = template(
   `import React from 'react';
-  import { IconFont } from '@tencent/tdesign-icons-react';
+  import { IconFont } from 'tdesign-icons-react';
   
   export default function IconFontExample() {
     return (

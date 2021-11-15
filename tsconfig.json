@@ -14,8 +14,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "baseUrl": "./",
     "paths": {
-      "@tencent/tdesign-react": ["src"],
-      "@tencent/tdesign-react/*": ["src/*"],
+      "tdesign-react": ["src"],
+      "tdesign-react/*": ["src/*"],
       "@test/utils": ["test/utils"],
       "@common/*": ["src/_common/*"],
       "@TdTypes/*": ["src/_type/*"],

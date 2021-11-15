@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Calendar, Select, Switch } from '@tencent/tdesign-react';
+import { Button, Calendar, Select, Switch } from 'tdesign-react';
 
 export default function CalendarExample() {
   const ref = React.useRef(null);

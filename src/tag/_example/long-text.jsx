@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from '@tencent/tdesign-react';
+import { Tag } from 'tdesign-react';
 
 export default function LongText() {
   return (

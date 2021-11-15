@@ -23,10 +23,10 @@ exports[`base.jsx 1`] = `
 exports[`container.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="affix-container"
+    style="border-radius: 3px; height: 400px; overflow-x: hidden; overflow-y: auto;"
   >
     <div
-      class="background"
+      style="height: 1500px; padding-top: 200px; background-color: rgb(238, 238, 238); background-size: 30px 30px;"
     >
       <div>
         <div>

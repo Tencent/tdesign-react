@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dropdown, Button, Message } from '@tencent/tdesign-react';
-import { Icon } from '@tencent/tdesign-icons-react';
+import { Dropdown, Button, Message } from 'tdesign-react';
+import { Icon } from 'tdesign-icons-react';
 
 export default function BasicDropdown() {
   const getContent = () => <div>操作四</div>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification } from '@tencent/tdesign-react';
+import { Notification } from 'tdesign-react';
 
 export default function NotificationExample() {
   return (

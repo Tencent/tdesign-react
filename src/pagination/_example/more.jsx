@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pagination } from '@tencent/tdesign-react';
+import { Pagination } from 'tdesign-react';
 
 export default function PaginationExample() {
   const [pageSize, changePageSize] = useState(5);

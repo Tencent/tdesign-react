@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table } from '@tencent/tdesign-react';
-import { AttachIcon } from '@tencent/tdesign-icons-react';
+import { Table } from 'tdesign-react';
+import { AttachIcon } from 'tdesign-icons-react';
 
 const columns = [
   {

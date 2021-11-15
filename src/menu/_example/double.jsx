@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu } from '@tencent/tdesign-react';
+import { Menu } from 'tdesign-react';
 
 const { HeadMenu, SubMenu, MenuItem } = Menu;
 

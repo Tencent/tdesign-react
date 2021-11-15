@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Button } from '@tencent/tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { Dialog, Button } from 'tdesign-react';
+import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 export default function WarningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);

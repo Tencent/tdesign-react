@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, fireEvent } from '@test/utils';
-import { Notification, IconFont } from '@tencent/tdesign-react';
+import { Notification, IconFont } from 'tdesign-react';
 
 testExamples(__dirname);
 

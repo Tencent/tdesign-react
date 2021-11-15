@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Switch, Calendar, List } from '@tencent/tdesign-react';
+import { Alert, Switch, Calendar, List } from 'tdesign-react';
 
 const { ListItem } = List;
 

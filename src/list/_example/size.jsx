@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { List } from '@tencent/tdesign-react';
+import { List } from 'tdesign-react';
 
 const { ListItem } = List;
 

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 
-import { TimeIcon } from '@tencent/tdesign-icons-react';
+import { TimeIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';

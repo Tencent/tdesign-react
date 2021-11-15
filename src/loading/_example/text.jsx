@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading } from '@tencent/tdesign-react';
+import { Loading } from 'tdesign-react';
 
 export default function TextExample() {
   return (

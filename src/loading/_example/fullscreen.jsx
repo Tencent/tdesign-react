@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Loading } from '@tencent/tdesign-react';
+import { Switch, Loading } from 'tdesign-react';
 
 export default function LoadingFullscreen() {
   const [checked, setChecked] = useState(false);

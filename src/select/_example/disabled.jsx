@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Select } from '@tencent/tdesign-react';
+import { Select } from 'tdesign-react';
 
 const { Option } = Select;
 

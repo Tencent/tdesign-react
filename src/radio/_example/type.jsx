@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio } from '@tencent/tdesign-react';
+import { Radio } from 'tdesign-react';
 
 export default function RadioControlledExample() {
   return (

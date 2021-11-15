@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Notification, Button, Input } from '@tencent/tdesign-react';
+import { Notification, Button, Input } from 'tdesign-react';
 
 export default function NotificationExample() {
   const [offsetY, setOffsetY] = useState('');

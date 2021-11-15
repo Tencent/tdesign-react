@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TreeSelect } from '@tencent/tdesign-react';
-import { UserIcon } from '@tencent/tdesign-icons-react';
+import { TreeSelect } from 'tdesign-react';
+import { UserIcon } from 'tdesign-icons-react';
 
 const options = [
   {

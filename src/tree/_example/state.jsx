@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Button, Tree } from '@tencent/tdesign-react';
-import { Icon } from '@tencent/tdesign-icons-react';
+import { Button, Tree } from 'tdesign-react';
+import { Icon } from 'tdesign-icons-react';
 import cloneDeepWith from 'lodash/cloneDeepWith';
 
 let idx = 2;

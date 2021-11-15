@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, PopConfirm, Message } from '@tencent/tdesign-react';
+import { Button, PopConfirm, Message } from 'tdesign-react';
 
 export default function BasicExample() {
   const [visible, setVisible] = useState(false);

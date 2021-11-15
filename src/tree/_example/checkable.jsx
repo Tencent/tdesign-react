@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Tree, Form, Switch } from '@tencent/tdesign-react';
+import { Radio, Tree, Form, Switch } from 'tdesign-react';
 
 const valueOptions = [
   {

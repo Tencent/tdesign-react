@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch } from '@tencent/tdesign-react';
-import { Icon } from '@tencent/tdesign-icons-react';
+import { Switch } from 'tdesign-react';
+import { Icon } from 'tdesign-icons-react';
 
 export default function SwitchBasic() {
   const renderActiveContent = () => <Icon name="check" />;

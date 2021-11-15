@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb } from '@tencent/tdesign-react';
+import { Breadcrumb } from 'tdesign-react';
 
 const { BreadcrumbItem } = Breadcrumb;
 

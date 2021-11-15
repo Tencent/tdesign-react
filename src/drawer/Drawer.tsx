@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import classnames from 'classnames';
 
-import { CloseIcon } from '@tencent/tdesign-icons-react';
+import { CloseIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../../_util/useConfig';
 import useCommonClassName from '../../_util/useCommonClassName';
 

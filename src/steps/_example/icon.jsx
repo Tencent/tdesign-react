@@ -1,6 +1,6 @@
 import React from 'react';
-import { Steps } from '@tencent/tdesign-react';
-import { LoginIcon, CartIcon, WalletIcon, CheckCircleIcon } from '@tencent/tdesign-icons-react';
+import { Steps } from 'tdesign-react';
+import { LoginIcon, CartIcon, WalletIcon, CheckCircleIcon } from 'tdesign-icons-react';
 
 const { StepItem } = Steps;
 

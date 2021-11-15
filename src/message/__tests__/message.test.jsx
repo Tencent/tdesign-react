@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent } from '@test/utils';
-import { Message } from '@tencent/tdesign-react';
+import { Message } from 'tdesign-react';
 import {
   InfoCircleFilledIcon,
   CheckCircleFilledIcon,
@@ -8,7 +8,7 @@ import {
   HelpCircleFilledIcon,
   HelpIcon,
   LoadingIcon,
-} from '@tencent/tdesign-icons-react';
+} from 'tdesign-icons-react';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Addon, Button, Input, Tree, Form, Switch } from '@tencent/tdesign-react';
+import { Addon, Button, Input, Tree, Form, Switch } from 'tdesign-react';
 
 const items = [
   {

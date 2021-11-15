@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, Button } from '@tencent/tdesign-react';
+import { Checkbox, Button } from 'tdesign-react';
 
 export default function CheckboxControlledExample() {
   const [checked, setChecked] = useState(false);

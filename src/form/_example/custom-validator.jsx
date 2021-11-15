@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Message } from '@tencent/tdesign-react';
+import { Form, Input, Button, Message } from 'tdesign-react';
 
 const { FormItem } = Form;
 

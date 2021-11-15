@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Select } from '@tencent/tdesign-react';
+import { Select } from 'tdesign-react';
 
 const MultipleSelect = () => {
   const [value, setValue] = useState(['banana']);

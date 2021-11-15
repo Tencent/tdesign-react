@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { CloseIcon } from '@tencent/tdesign-icons-react';
+import { CloseIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';

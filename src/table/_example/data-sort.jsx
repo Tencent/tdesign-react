@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Checkbox } from '@tencent/tdesign-react';
-import './single-sort.less';
+import { Table, Checkbox } from 'tdesign-react';
 
 const columns = [
   { colKey: 'instance', title: '集群名称', width: 150 },

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Slider } from '@tencent/tdesign-react';
+import { Slider } from 'tdesign-react';
 
 const VerticalSlider = () => {
   const [value, setValue] = useState(10);

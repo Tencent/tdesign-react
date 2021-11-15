@@ -1,6 +1,6 @@
 import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
-import { CaretRightSmallIcon, LoadingIcon } from '@tencent/tdesign-icons-react';
+import { CaretRightSmallIcon, LoadingIcon } from 'tdesign-icons-react';
 import useRipple from '../_util/useRipple';
 import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';

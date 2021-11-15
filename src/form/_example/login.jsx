@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Message } from '@tencent/tdesign-react';
-import { DesktopIcon, LockOnIcon } from '@tencent/tdesign-icons-react';
+import { Form, Input, Button, Message } from 'tdesign-react';
+import { DesktopIcon, LockOnIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
 

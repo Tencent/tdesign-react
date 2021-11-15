@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Message, Button } from '@tencent/tdesign-react';
+import { Message, Button } from 'tdesign-react';
 
 export default function () {
   const [instance, setInstance] = useState(null);

@@ -1,7 +1,7 @@
 import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
-import { InfoCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { InfoCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button/Button';
 import noop from '../_util/noop';

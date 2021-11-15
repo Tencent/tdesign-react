@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { UploadIcon } from '@tencent/tdesign-icons-react';
+import { UploadIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import Button from '../button';
 

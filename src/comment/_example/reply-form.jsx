@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Comment, Textarea, Button, Notification } from '@tencent/tdesign-react';
+import { Comment, Textarea, Button, Notification } from 'tdesign-react';
 
 export default function BasicComment() {
   const [replyData, setReplayData] = useState('')

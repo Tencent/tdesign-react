@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Addon, Input, Tree } from '@tencent/tdesign-react';
+import { Addon, Input, Tree } from 'tdesign-react';
 
 const items = [
   {

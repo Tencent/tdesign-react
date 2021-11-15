@@ -1,5 +1,5 @@
 import React from 'react';
-import { Textarea } from '@tencent/tdesign-react';
+import { Textarea } from 'tdesign-react';
 
 export default function InputExample() {
   return (

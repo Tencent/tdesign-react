@@ -1,6 +1,6 @@
 import React from 'react';
-import { Comment } from '@tencent/tdesign-react';
-import { IconFont } from '@tencent/tdesign-icons-react';
+import { Comment } from 'tdesign-react';
+import { IconFont } from 'tdesign-icons-react';
 
 export default function replyComment() {
   const actionTextStyle = {

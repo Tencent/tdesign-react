@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
-import { FilterIcon as TIconFilter } from '@tencent/tdesign-icons-react';
+import { FilterIcon as TIconFilter } from 'tdesign-icons-react';
 import { Popup } from '../../popup';
 import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table } from '@tencent/tdesign-react';
-import { Icon } from '@tencent/tdesign-icons-react';
+import { Table } from 'tdesign-react';
+import { Icon } from 'tdesign-icons-react';
 
 export default function EmptyTable() {
   const data = [];

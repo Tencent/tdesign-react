@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '@tencent/tdesign-react';
+import { Alert } from 'tdesign-react';
 
 export default function AlertIcon() {
   return (

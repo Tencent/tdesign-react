@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Dialog, Button } from '@tencent/tdesign-react';
+import { Dialog, Button } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 

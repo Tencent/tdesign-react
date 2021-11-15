@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Table, Radio } from '@tencent/tdesign-react';
+import { Table, Radio } from 'tdesign-react';
 
 const data = [
   {

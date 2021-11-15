@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '@tencent/tdesign-react';
+import { Alert } from 'tdesign-react';
 
 export default function AlertOperation() {
   const operation = <a>相关操作</a>;

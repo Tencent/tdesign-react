@@ -6,7 +6,7 @@ import {
   ChevronLeftDoubleIcon,
   ChevronRightIcon,
   ChevronRightDoubleIcon,
-} from '@tencent/tdesign-icons-react';
+} from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree } from '@tencent/tdesign-react';
+import { Tree } from 'tdesign-react';
 
 export default () => {
   const empty = () => <div>😊 空数据（ empty props ）</div>;

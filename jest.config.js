@@ -17,7 +17,7 @@ module.exports = {
     // 测试工具便捷引入
     '^@test/(.*)': '<rootDir>/test/$1',
     // 组件 alias
-    '^@tencent/tdesign-react(.*)': '<rootDir>/src$1',
+    '^tdesign-react(.*)': '<rootDir>/src$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverage: true,

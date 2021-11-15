@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu } from '@tencent/tdesign-react';
+import { Layout, Menu } from 'tdesign-react';
 
 const { MenuItem } = Menu;
 

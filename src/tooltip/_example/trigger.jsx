@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip, Input } from '@tencent/tdesign-react';
+import { Button, Tooltip, Input } from 'tdesign-react';
 
 export default function Cumstomize() {
   return (

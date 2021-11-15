@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button } from '@tencent/tdesign-react';
+import { Table, Button } from 'tdesign-react';
 
 const columns = [
   {

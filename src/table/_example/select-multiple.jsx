@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Table } from '@tencent/tdesign-react';
-import './select-single.less';
+import { Table } from 'tdesign-react';
 
 const columns = [
   {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Message } from '@tencent/tdesign-react';
+import { Button, Message } from 'tdesign-react';
 
 let message = null;
 

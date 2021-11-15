@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree } from '@tencent/tdesign-react';
+import { Form, Switch, Tree } from 'tdesign-react';
 
 const items = [
   {

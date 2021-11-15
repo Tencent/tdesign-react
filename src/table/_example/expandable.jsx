@@ -1,6 +1,5 @@
 import React from 'react';
-import { Table } from '@tencent/tdesign-react';
-import './expandable.less';
+import { Table } from 'tdesign-react';
 
 const columns = [
   { colKey: 'instance', title: '集群名称', width: 200, className: 'instance' },

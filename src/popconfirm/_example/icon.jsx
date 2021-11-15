@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, PopConfirm } from '@tencent/tdesign-react';
-import { BrowseIcon } from '@tencent/tdesign-icons-react';
+import { Button, PopConfirm } from 'tdesign-react';
+import { BrowseIcon } from 'tdesign-icons-react';
 
 export default function IconUsageExample() {
   return (

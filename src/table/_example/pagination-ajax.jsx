@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from '@tencent/tdesign-react';
+import { Table } from 'tdesign-react';
 
 const dataSource = [];
 const total = 60;

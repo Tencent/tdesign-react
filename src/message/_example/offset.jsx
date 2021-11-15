@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Message, Input } from "@tencent/tdesign-react";
+import { Button, Message, Input } from "tdesign-react";
 
 export default function () {
   const [offsetX, setOffsetX] = useState(0);

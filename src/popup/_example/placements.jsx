@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popup } from '@tencent/tdesign-react';
+import { Button, Popup } from 'tdesign-react';
 import styles from './placementStyle';
 export default function Placements() {
   return (

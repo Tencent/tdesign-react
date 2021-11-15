@@ -1,6 +1,6 @@
 import React from 'react'
-import './ReloadPrompt.css'
-import { Button } from '@tencent/tdesign-react';
+import '../styles/ReloadPrompt.css'
+import { Button } from 'tdesign-react';
 
 import { useRegisterSW } from 'virtual:pwa-register/react'
 

@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
-import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from '@tencent/tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
 import Checkbox from '../checkbox';

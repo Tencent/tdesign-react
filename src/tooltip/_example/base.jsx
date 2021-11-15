@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip } from '@tencent/tdesign-react';
+import { Button, Tooltip } from 'tdesign-react';
 import styles from './placementStyle';
 
 export default function Placements() {

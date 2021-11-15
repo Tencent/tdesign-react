@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Badge, Checkbox } from '@tencent/tdesign-react';
+import { Badge, Checkbox } from 'tdesign-react';
 
 const colors = [
   '#f44336',

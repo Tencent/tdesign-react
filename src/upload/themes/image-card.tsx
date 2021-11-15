@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
-import { BrowseIcon, DeleteIcon, AddIcon } from '@tencent/tdesign-icons-react';
+import { BrowseIcon, DeleteIcon, AddIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import Dialog from '../../dialog';
 import useConfig from '../../_util/useConfig';

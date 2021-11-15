@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TreeSelect } from '@tencent/tdesign-react';
+import { TreeSelect } from 'tdesign-react';
 
 const options = [{
   name: '广东省',

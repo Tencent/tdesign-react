@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Form, Radio, Input, Row } from '@tencent/tdesign-react';
+import { Form, Radio, Input, Row } from 'tdesign-react';
 
 const { FormItem } = Form;
 

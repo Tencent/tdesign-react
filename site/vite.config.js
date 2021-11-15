@@ -11,13 +11,16 @@ process.env.CDN_PATH = process.env.CDN_URL ? process.env.CDN_URL : './';
 
 export default {
   base: process.env.NODE_ENV === 'production' ? '/react/' : process.env.CDN_PATH,
+  define: {
+    __VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../'),
       '@docs': path.resolve(__dirname, './docs'),
       '@components': path.resolve(__dirname, './src/components'),
       '@common': path.resolve(__dirname, '../src/_common'),
-      '@tencent/tdesign-react': path.resolve(__dirname, '../src'),
+      'tdesign-react': path.resolve(__dirname, '../src'),
     },
   },
   jsx: 'react',

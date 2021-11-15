@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Swiper, Alert, Button } from '@tencent/tdesign-react';
+import { Swiper, Alert, Button } from 'tdesign-react';
 
 const { SwiperItem } = Swiper;
 

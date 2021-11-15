@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import siteConfig from '../site.config.js';
 import { getRoute, getContributors } from './utils';
-import DemoList, { demoFiles } from './DemoList';
-// import locale from '@tencent/tdesign-react/locale/en_US';
-import { Loading, Select, ConfigProvider } from '@tencent/tdesign-react';
+import DemoList, { demoFiles } from './components/DemoList';
+// import locale from 'tdesign-react/locale/en_US';
+import { Loading, Select, ConfigProvider } from 'tdesign-react';
 import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));

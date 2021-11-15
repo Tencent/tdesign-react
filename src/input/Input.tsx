@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon as ClearIcon } from '@tencent/tdesign-icons-react';
+import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from '../_type/components/input';

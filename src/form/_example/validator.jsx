@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, Message } from '@tencent/tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Message } from 'tdesign-react';
 import debounce from 'lodash/debounce';
 
 const { FormItem } = Form;

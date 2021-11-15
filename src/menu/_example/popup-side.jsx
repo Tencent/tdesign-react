@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu } from '@tencent/tdesign-react';
+import { Menu } from 'tdesign-react';
 import {
   AppIcon,
   CodeIcon,
@@ -9,7 +9,7 @@ import {
   ViewListIcon,
   MailIcon,
   RollbackIcon,
-} from '@tencent/tdesign-icons-react';
+} from 'tdesign-icons-react';
 
 const { SubMenu, MenuItem } = Menu;
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Comment, List } from '@tencent/tdesign-react';
-import { IconFont } from '@tencent/tdesign-icons-react';
+import { Comment, List } from 'tdesign-react';
+import { IconFont } from 'tdesign-icons-react';
 
 const { ListItem } = List;
 

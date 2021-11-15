@@ -227,7 +227,7 @@ import React from 'react';
   WifiIcon,
   ZoomInIcon,
   ZoomOutIcon
-  } from '@tencent/tdesign-icons-react';
+  } from 'tdesign-icons-react';
   
   export default function IconExample() {
     return (

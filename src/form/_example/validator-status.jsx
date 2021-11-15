@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Message } from '@tencent/tdesign-react';
-import { LoadingIcon, AddRectangleIcon, HelpCircleIcon } from '@tencent/tdesign-icons-react';
+import { Form, Input, Button, Message } from 'tdesign-react';
+import { LoadingIcon, AddRectangleIcon, HelpCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
 

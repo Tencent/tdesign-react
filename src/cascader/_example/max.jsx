@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cascader } from '@tencent/tdesign-react';
+import { Cascader } from 'tdesign-react';
 
 export default function Example() {
   const [value1, setValue1] = useState([]);
