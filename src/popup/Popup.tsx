@@ -72,8 +72,18 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
   const contentRef = useRef(null);
 
+  // https://popper.js.org/react-popper/v2/faq/
+  const [firstUpdate, setFirstUpdate] = useState<boolean>(false);
+  const onPopperFirstUpdate = useMemo(
+    () => () => {
+      setFirstUpdate(true);
+    },
+    [],
+  );
+
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
+    onFirstUpdate: onPopperFirstUpdate,
   });
 
   useImperativeHandle(ref, (): any => ({
@@ -141,9 +151,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             style={overlayVisibleStyle}
             ref={contentRef}
           >
-            {showArrow ? (
-              <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} />
-            ) : null}
+            {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
             {content}
           </div>
         </div>
@@ -158,10 +166,10 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   // 弹出框展示的时候，重新计算一下位置
   useEffect(() => {
-    if (visible !== preVisible && visible && update) {
+    if ((visible || firstUpdate) && update) {
       update();
     }
-  }, [visible, preVisible, update, children]);
+  }, [visible, preVisible, update, children, firstUpdate]);
 
   const handlePopupWrapperMouseDown = () => {
     const removeUpdate = () => window.removeEventListener('mousemove', update);
