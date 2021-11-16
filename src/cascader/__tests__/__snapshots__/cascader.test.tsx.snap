@@ -928,6 +928,114 @@ exports[`show-all-levels.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div
+      class="t-popup-reference"
+    >
+      <span
+        class="t-trigger"
+      >
+        <div
+          class="t-cascader t-size-s"
+          style="margin-top: 16px;"
+        >
+          <span
+            class="t-cascader-content"
+          >
+            上海 / 黄浦区
+          </span>
+          <svg
+            class="t-fake-arrow t-cascader-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </span>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <span
+        class="t-trigger"
+      >
+        <div
+          class="t-cascader t-size-m"
+          style="margin-top: 16px;"
+        >
+          <span
+            class="t-cascader-content"
+          >
+            上海 / 黄浦区
+          </span>
+          <svg
+            class="t-fake-arrow t-cascader-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </span>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <span
+        class="t-trigger"
+      >
+        <div
+          class="t-cascader t-size-l"
+          style="margin-top: 16px;"
+        >
+          <span
+            class="t-cascader-content"
+          >
+            上海 / 黄浦区
+          </span>
+          <svg
+            class="t-fake-arrow t-cascader-icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </div>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`trigger.jsx 1`] = `
 <DocumentFragment>
   <div

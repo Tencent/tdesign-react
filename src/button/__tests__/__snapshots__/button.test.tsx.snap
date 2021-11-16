@@ -676,123 +676,6 @@ exports[`ghost.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`group.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="tdesign-demo-block-row"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          确定
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          取消
-        </span>
-      </button>
-    </div>
-    <div
-      class="tdesign-demo-block-row"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          下一步
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          上一步
-        </span>
-      </button>
-    </div>
-    <div
-      class="tdesign-demo-block-row"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          新建主机
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          重装系统
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          批量续费
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
-        type="button"
-      >
-        <svg
-          class="t-icon t-icon-more t-size-m"
-          fill="none"
-          height="1em"
-          viewBox="0 0 16 16"
-          width="1em"
-        >
-          <path
-            d="M8 4a1 1 0 100-2 1 1 0 000 2zM8 9a1 1 0 100-2 1 1 0 000 2zM9 13a1 1 0 11-2 0 1 1 0 012 0z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -1375,6 +1258,62 @@ exports[`size.jsx 1`] = `
         </span>
       </button>
     </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`status.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+      disabled=""
+      style="position: relative;"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        填充按钮
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base t-is-loading t-is-disabled"
+      disabled=""
+      style="position: relative;"
+      type="button"
+    >
+      <div
+        class="t-loading t-size-m"
+      >
+        <svg
+          class="t-loading__gradient t-icon-loading"
+          height="1em"
+          version="1.1"
+          viewBox="0 0 14 14"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <foreignobject
+            height="12"
+            width="12"
+            x="1"
+            y="1"
+          >
+            <div
+              class="t-loading__gradient-conic"
+            />
+          </foreignobject>
+        </svg>
+      </div>
+      <span
+        class="t-button__text"
+      >
+        加载中
+      </span>
+    </button>
   </div>
 </DocumentFragment>
 `;
