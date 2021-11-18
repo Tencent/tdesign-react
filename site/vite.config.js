@@ -23,6 +23,9 @@ export default {
       'tdesign-react': path.resolve(__dirname, '../src'),
     },
   },
+  build: {
+    outDir: '../_site',
+  },
   jsx: 'react',
   server: {
     host: '0.0.0.0',
