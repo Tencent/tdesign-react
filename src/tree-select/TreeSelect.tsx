@@ -251,7 +251,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         value.map((value) => {
           const nodeValue = valueType === 'object' ? (value as NodeOptions).value : value;
           const node = treeRef.current?.getItem(nodeValue) || defaultGetTreeItem(nodeValue);
-          return { label: node.data[realLabel], value: node.data[realValue] };
+          return node ? { label: node.data[realLabel], value: node.data[realValue] } : {};
         }),
       );
     } else {

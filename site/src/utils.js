@@ -1,5 +1,4 @@
-import ContributorsData from '@common/contributors/component-contributors.json';
-import ContributorsInfo from '@common/contributors/contributors-info.json';
+import ContributorsData from '@common/contributors/github-contributors.json';
 
 const taskReg = /api|interaction|design|ui|react|react-test/;
 
@@ -30,17 +29,10 @@ export function getContributors(name) {
   });
 
   return Object.keys(members).map((username) => {
-    const userInfo = ContributorsInfo[username] || {};
-    if (userInfo.bgName) {
-      const match = userInfo.bgName.match(/^[a-z]+/i);
-      userInfo.bgName = match ? match[0] : userInfo.bgName;
-      userInfo.department = `${userInfo.bgName}/${userInfo.departmentName}`;
-    }
     return {
-      username,
+      username: username.split(/github_/).slice(-1)[0],
       roleNames: [...new Set(members[username].roleName)].join('/'),
       ...members[username],
-      ...userInfo,
     };
   });
 }
