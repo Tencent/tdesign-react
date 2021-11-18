@@ -149,7 +149,7 @@ export default {
         },
         {
           title: 'Datepicker 日期选择器',
-          name: 'datepicker',
+          name: 'date-picker',
           docType: 'form',
           path: '/react/components/date-picker',
           component: () => import('tdesign-react/date-picker/README.md'),
