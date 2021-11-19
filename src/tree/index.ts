@@ -1,6 +1,7 @@
-import type { TdTreeProps as TreeProps, TreeNodeValue, TreeNodeModel } from '../_type/components/tree';
-import Tree from './Tree';
+import _Tree from './Tree';
 
-export type { TreeProps, TreeNodeValue, TreeNodeModel };
+export type { TreeProps } from './Tree';
+export * from '../_type/components/tree';
 
+export const Tree = _Tree;
 export default Tree;

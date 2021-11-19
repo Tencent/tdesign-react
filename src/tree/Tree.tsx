@@ -14,10 +14,12 @@ import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
 
+export interface TreeProps extends TdTreeProps {}
+
 /**
  * 树组件
  */
-const Tree = forwardRef((props: TdTreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
+const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration } = useTreeConfig();
 
   // 可见节点集合
