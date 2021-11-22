@@ -1,11 +1,12 @@
 import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
-import { LoadingIcon } from 'tdesign-icons-react';
+
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import { TdListProps } from '../_type/components/list';
 import { StyledProps } from '../_type';
+import Loading from '../loading';
 import ListItem from './ListItem';
 import ListItemMeta from './ListItemMeta';
 
@@ -63,10 +64,10 @@ const List = forwardRefWithStatics(
       onClick={handleClickLoad}
     >
       {asyncLoading === 'loading' ? (
-        <>
-          <LoadingIcon />
+        <div>
+          <Loading loading={true} />
           <span>正在加载中，请稍等</span>
-        </>
+        </div>
       ) : (
         <span>点击加载更多</span>
       )}

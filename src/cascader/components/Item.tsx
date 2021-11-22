@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronRightIcon, LoadingIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon } from 'tdesign-icons-react';
 
 // hook
 import useConfig from '../../_util/useConfig';
@@ -12,6 +12,7 @@ import { getCascaderItemClass, getCascaderItemIconClass, getLabelIsEllipsis } fr
 import { getFullPathLabel } from '../utils/helper';
 
 // component
+import Loading from '../../loading';
 import Tooltip from '../../tooltip/Tooltip';
 import Checkbox from '../../checkbox/Checkbox';
 
@@ -137,7 +138,11 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
     <li ref={ref || itemRef} className={itemClass} onClick={handleClick} onMouseEnter={handleMouseenter}>
       {multiple ? RenderCheckBox(node, cascaderContext, handleChange) : RenderLabelContent(node, cascaderContext)}
       {node.children &&
-        (node.loading ? <LoadingIcon className={iconClass} /> : <ChevronRightIcon className={iconClass} />)}
+        (node.loading ? (
+          <Loading className={iconClass} loading={true} size="small" />
+        ) : (
+          <ChevronRightIcon className={iconClass} />
+        ))}
     </li>
   );
 });

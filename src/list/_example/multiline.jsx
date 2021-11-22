@@ -11,7 +11,7 @@ export default function BasicList() {
     { id: 4, content: '列表内容列表内容列表内容' },
   ];
   return (
-    <List asyncLoading="load-more">
+    <List asyncLoading="loading">
       {listData.map((item) => (
         <ListItem key={item.id}>
           <ListItemMeta title="列表主内容" description={item.content} />

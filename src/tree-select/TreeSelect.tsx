@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import { StyledProps, TreeOptionData } from '../_type';
@@ -15,6 +15,7 @@ import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 
 import Popup, { PopupProps } from '../popup';
+import Loading from '../loading';
 import Tag from '../tag';
 import Tree, { TreeNodeModel, TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
@@ -423,7 +424,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
             <CloseCircleFilledIcon className={`${classPrefix}-select-right-icon`} size={size} onClick={handleClear} />
           )}
           {showLoading && (
-            <LoadingIcon className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} size={size} />
+            <Loading loading={true} className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} />
           )}
         </div>
       </Popup>
