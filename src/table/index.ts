@@ -8,8 +8,8 @@ export type { BaseTableProps, PrimaryTableProps };
 export * from '../_type/components/table';
 
 export const SimpleTable = _SimpleTable;
-export const PrimaryTable = _PrimaryTable;
+export const Table = _PrimaryTable;
 // export const EnhancedTable = _EnhancedTable;
 
-export default PrimaryTable;
+export default Table;
 // export default EnhancedTabled;
