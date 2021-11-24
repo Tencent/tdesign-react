@@ -424,7 +424,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
             <CloseCircleFilledIcon className={`${classPrefix}-select-right-icon`} size={size} onClick={handleClear} />
           )}
           {showLoading && (
-            <Loading loading={true} className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} />
+            <Loading
+              loading={true}
+              className={classNames(`${classPrefix}-select-right-icon`, `${classPrefix}-select-active-icon`)}
+              size="small"
+            />
           )}
         </div>
       </Popup>

@@ -67,7 +67,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       if (!node.isLeaf()) {
         isDefaultIcon = true;
         if (node.loading && node.expanded) {
-          return <Loading className={treeClassNames.loading} loading={true} />;
+          return <Loading loading={true} />;
         }
 
         return <CaretRightSmallIcon className={treeClassNames.treeIconRight} />;
