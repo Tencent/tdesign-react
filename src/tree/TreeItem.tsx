@@ -1,6 +1,7 @@
 import React, { forwardRef, MouseEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
-import { CaretRightSmallIcon, LoadingIcon } from 'tdesign-icons-react';
+import { CaretRightSmallIcon } from 'tdesign-icons-react';
+import Loading from '../loading';
 import useRipple from '../_util/useRipple';
 import TreeNode from '../_common/js/tree/tree-node';
 import Checkbox from '../checkbox';
@@ -66,7 +67,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
       if (!node.isLeaf()) {
         isDefaultIcon = true;
         if (node.loading && node.expanded) {
-          return <LoadingIcon className={treeClassNames.loading} />;
+          return <Loading className={treeClassNames.loading} loading={true} />;
         }
 
         return <CaretRightSmallIcon className={treeClassNames.treeIconRight} />;

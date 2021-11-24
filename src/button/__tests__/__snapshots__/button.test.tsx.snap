@@ -59,7 +59,7 @@ exports[`base.jsx 1`] = `
         type="button"
       >
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-size-m t-loading--inherit-color"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -142,7 +142,7 @@ exports[`base.jsx 1`] = `
         type="button"
       >
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-size-m t-loading--inherit-color"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -225,7 +225,7 @@ exports[`base.jsx 1`] = `
         type="button"
       >
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-size-m t-loading--inherit-color"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -308,7 +308,7 @@ exports[`base.jsx 1`] = `
         type="button"
       >
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-size-m t-loading--inherit-color"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -391,7 +391,7 @@ exports[`base.jsx 1`] = `
         type="button"
       >
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-size-m t-loading--inherit-color"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -1286,7 +1286,7 @@ exports[`status.jsx 1`] = `
       type="button"
     >
       <div
-        class="t-loading t-size-m"
+        class="t-loading t-size-m t-loading--inherit-color"
       >
         <svg
           class="t-loading__gradient t-icon-loading"

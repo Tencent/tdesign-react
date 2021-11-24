@@ -10,9 +10,9 @@ import {
   ErrorCircleFilledIcon,
   HelpCircleFilledIcon,
   InfoCircleFilledIcon,
-  LoadingIcon,
 } from 'tdesign-icons-react';
 import { TdMessageProps } from '../_type/components/message';
+import Loading from '../loading';
 
 // theme 和 icon 的映射表
 const iconMap = {
@@ -21,10 +21,14 @@ const iconMap = {
   warning: ErrorCircleFilledIcon,
   error: ErrorCircleFilledIcon,
   question: HelpCircleFilledIcon,
-  loading: LoadingIcon,
+  loading: Loading,
 };
 
 export default function MessageIcon({ theme, onCloseBtnClick }: TdMessageProps) {
   const Icon = iconMap[theme];
+  if (theme === 'loading') {
+    return <Icon loading={true} />;
+  }
+
   return Icon ? <Icon onClick={(e) => onCloseBtnClick?.({ e })} /> : null;
 }
