@@ -159,24 +159,6 @@ exports[`group.jsx 1`] = `
     </div>
     <div>
       <label
-        class="t-checkbox t-is-indeterminate"
-      >
-        <input
-          class="t-checkbox__former"
-          readonly=""
-          type="checkbox"
-          value=""
-        />
-        <span
-          class="t-checkbox__input"
-        />
-        <span
-          class="t-checkbox__label"
-        >
-          全选
-        </span>
-      </label>
-      <label
         class="t-checkbox"
       >
         <input
@@ -251,6 +233,24 @@ exports[`group.jsx 1`] = `
           class="t-checkbox__label"
         >
           广州
+        </span>
+      </label>
+      <label
+        class="t-checkbox t-is-indeterminate"
+      >
+        <input
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value=""
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          全选
         </span>
       </label>
     </div>
