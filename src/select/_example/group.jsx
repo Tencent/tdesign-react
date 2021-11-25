@@ -42,12 +42,12 @@ const OptionGroupSelect = () => {
 
   return (
     <Select value={value} onChange={onChange} style={{ width: '40%' }}>
-      <OptionGroup label="Fruit">
+      <OptionGroup label="Fruit" divider={true}>
         {options1.map((item, index) => (
           <Option label={item.label} value={item.value} key={index} />
         ))}
       </OptionGroup>
-      <OptionGroup label="Vegetable">
+      <OptionGroup label="Vegetable" divider={true}>
         {options2.map((item, index) => (
           <Option label={item.label} value={item.value} key={index} />
         ))}

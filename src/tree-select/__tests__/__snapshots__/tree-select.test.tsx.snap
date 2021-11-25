@@ -190,7 +190,7 @@ exports[`multiple.jsx 1`] = `
           >
             广州市
             <svg
-              class="t-icon t-icon-close t-size-m"
+              class="t-icon t-icon-close t-tag__icon-close t-size-m"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -208,7 +208,7 @@ exports[`multiple.jsx 1`] = `
           >
             深圳市
             <svg
-              class="t-icon t-icon-close t-size-m"
+              class="t-icon t-icon-close t-tag__icon-close t-size-m"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
