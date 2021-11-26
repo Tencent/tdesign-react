@@ -17,7 +17,7 @@ const options = [
   {
     label: '全选',
     checkAll: true,
-  }
+  },
 ];
 
 export default function CheckboxExample() {
@@ -26,7 +26,7 @@ export default function CheckboxExample() {
 
   return (
     <div className="tdesign-demo-block-column">
-      {city.length && <div>选中值: {city.join('、')}</div>}
+      <div>选中值: {city.join('、')}</div>
       <div>
         <Checkbox
           checked={disabled}

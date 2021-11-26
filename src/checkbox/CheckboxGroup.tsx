@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
-import { CheckboxOptionObj, TdCheckboxGroupProps } from '../_type/components/checkbox';
+import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from '../_type/components/checkbox';
 import { StyledProps } from '../_type';
 import useDefault from '../_util/useDefault';
 import Checkbox from './Checkbox';
@@ -11,6 +11,20 @@ import Checkbox from './Checkbox';
 export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
   children?: React.ReactNode;
 }
+
+// 将 checkBox 的 value 转换为 string|number
+const getCheckboxValue = (v: CheckboxOption): string | number => {
+  switch (typeof v) {
+    case 'number' || 'string':
+      return v as string | number;
+    case 'object': {
+      const vs = v as CheckboxOptionObj;
+      return vs.value;
+    }
+    default:
+      return undefined;
+  }
+};
 
 /**
  * 多选选项组，里面可以嵌套 <Checkbox />
@@ -20,21 +34,16 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const { value, defaultValue, onChange, disabled, className, style, children, max, options = [] } = props;
 
   // 去掉所有 checkAll 之后的 options
-  const optionsWithoutCheckAll = options.filter((t) => typeof t !== 'object' || !t.checkAll);
+  const intervalOptions =
+    Array.isArray(options) && options.length > 0
+      ? options
+      : React.Children.map(children, (child) => (child as ReactElement).props);
+
+  const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
   const optionsWithoutCheckAllValues = [];
   optionsWithoutCheckAll.forEach((v) => {
-    switch (typeof v) {
-      case 'number' || 'string':
-        optionsWithoutCheckAllValues.push(v);
-        break;
-      case 'object': {
-        const vs = v as CheckboxOptionObj;
-        optionsWithoutCheckAllValues.push(vs.value);
-        break;
-      }
-      default:
-        break;
-    }
+    const vs = getCheckboxValue(v);
+    optionsWithoutCheckAllValues.push(vs);
   });
 
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
@@ -45,6 +54,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
     return new Set([].concat(internalValue));
   }, [internalValue]);
 
+  // 用于决定全选状态的属性
   const indeterminate = useMemo(() => {
     const list = Array.from(checkedSet);
     return list.length !== 0 && list.length !== optionsWithoutCheckAll.length;
@@ -75,18 +85,29 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
 
       return {
         ...checkProps,
-        checked: checkedSet.has(checkValue),
+        checked: checkProps.checkAll ? checkAllChecked : checkedSet.has(checkValue),
+        indeterminate: checkProps.checkAll ? indeterminate : checkProps.indeterminate,
         disabled: checkProps.disabled || disabled || (checkedSet.size >= localMax && !checkedSet.has(checkValue)),
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
-          if (checked) {
+
+          // 全选时的逻辑处理
+          if (checkProps.checkAll) {
+            checkedSet.clear();
+            if (checked) {
+              optionsWithoutCheckAllValues.forEach((v) => {
+                checkedSet.add(v);
+              });
+            }
+          } else if (checked) {
             if (checkedSet.size >= localMax && isNumber(max)) return;
             checkedSet.add(checkValue);
           } else {
             checkedSet.delete(checkValue);
           }
+
           setInternalValue(Array.from(checkedSet), { e });
         },
       };
@@ -113,31 +134,10 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                 }
                 case 'object': {
                   const vs = v as CheckboxOptionObj;
-                  //
-                  // 逻辑分层，将 checkAll 和常规按钮分开
-                  let onChange: (checked: boolean, context: { e: ChangeEvent<HTMLInputElement> }) => void;
-                  if (vs.checkAll) {
-                    onChange = (checked, { e }) => {
-                      if (checked) {
-                        setInternalValue(optionsWithoutCheckAllValues, { e });
-                      } else {
-                        setInternalValue([], { e });
-                      }
-                    };
-                  }
-
                   return vs.checkAll ? (
-                    <Checkbox
-                      key={vs.value}
-                      {...v}
-                      checkAll={true}
-                      checked={checkAllChecked}
-                      indeterminate={indeterminate}
-                      onChange={onChange}
-                      disabled={vs.disabled || disabled}
-                    />
+                    <Checkbox {...v} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox key={vs.value} {...v} disabled={vs.disabled || disabled} />
+                    <Checkbox {...v} disabled={vs.disabled || disabled} />
                   );
                 }
                 default:
