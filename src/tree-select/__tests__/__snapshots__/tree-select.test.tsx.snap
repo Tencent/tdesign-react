@@ -10,7 +10,7 @@ exports[`base.jsx 1`] = `
         class="t-popup-reference t-select-popup-reference"
       >
         <div
-          class="t-select t-size-m t-select-selected"
+          class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
@@ -142,7 +142,7 @@ exports[`lazy.jsx 1`] = `
         class="t-popup-reference t-select-popup-reference"
       >
         <div
-          class="t-select t-size-m t-select-selected"
+          class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
@@ -182,7 +182,7 @@ exports[`multiple.jsx 1`] = `
         class="t-popup-reference t-select-popup-reference"
       >
         <div
-          class="t-select t-size-m t-select-selected"
+          class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
@@ -310,7 +310,7 @@ exports[`props.jsx 1`] = `
         class="t-popup-reference t-select-popup-reference"
       >
         <div
-          class="t-select t-size-m t-select-selected"
+          class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
@@ -351,7 +351,7 @@ exports[`valuetype.jsx 1`] = `
         class="t-popup-reference t-select-popup-reference"
       >
         <div
-          class="t-select t-size-m t-select-selected"
+          class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span

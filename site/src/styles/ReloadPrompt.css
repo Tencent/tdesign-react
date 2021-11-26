@@ -1,17 +1,16 @@
 .ReloadPrompt-container {
   position: fixed;
+  right: 24px;
+  bottom: 40px;
+  z-index: 400;
 }
 .ReloadPrompt-date {
   visibility: hidden;
 }
 .ReloadPrompt-toast {
-  position: fixed;
-  right: 24px;
-  bottom: 120px;
-  width: 270px;
+  width: 240px;
   padding: 12px;
   border-radius: 3px;
-  z-index: 1;
   box-shadow: var(--popup-box-shadow);
   background-color: var(--bg-color-container);
   color: var(--text-primary);

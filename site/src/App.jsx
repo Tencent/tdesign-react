@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import siteConfig from '../site.config.js';
-import { getRoute, getContributors } from './utils';
+import { getRoute } from './utils';
 import DemoList, { demoFiles } from './components/DemoList';
 // import locale from 'tdesign-react/locale/en_US';
 import { Loading, Select, ConfigProvider } from 'tdesign-react';
@@ -46,7 +46,7 @@ function Components(props) {
         <Route
           key={i}
           path={nav.path}
-          component={() => <LazyCom {...props} contributors={getContributors(nav.name) || []} docType={nav.docType} />}
+          component={() => <LazyCom {...props} docType={nav.docType} />}
         />
       );
     });

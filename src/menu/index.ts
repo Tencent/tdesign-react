@@ -7,6 +7,7 @@ export type { HeadMenuProps } from './HeadMenu';
 export type { SubMenuProps } from './SubMenu';
 export type { MenuItemProps } from './MenuItem';
 export type { MenuGroupProps } from './MenuGroup';
+export * from '../_type/components/menu';
 
 export const Menu = _Menu;
 export default Menu;

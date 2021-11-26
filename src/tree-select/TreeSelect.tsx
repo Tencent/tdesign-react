@@ -1,26 +1,23 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, forwardRef } from 'react';
-import classNames from 'classnames';
 
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
-import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import { StyledProps, TreeOptionData } from '../_type';
-import useCommonClassName from '../_util/useCommonClassName';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 
-import Popup, { PopupProps } from '../popup';
-import Tag from '../tag';
+import Popup from '../popup';
 import Tree, { TreeNodeModel, TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
-import FakeArrow from '../common/FakeArrow';
 
-import Input, { InputValue } from '../input';
+import TreeSelectTags from './TreeSelectTags';
+import TreeSelectInput from './TreeSelectInput';
+import TreeSelectSuffix from './TreeSelectSuffix';
+import useTreeSelectConfig from './useTreeSelectConfig';
 
 export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
 
@@ -29,43 +26,25 @@ export interface NodeOptions {
   value: string | number;
 }
 
-const defaultPopupProps: PopupProps = {
-  trigger: 'click',
-  placement: 'bottom-left',
-  overlayClassName: '',
-  overlayStyle: (trigger) => ({
-    width: `${trigger.offsetWidth}px`,
-  }),
-};
-
 const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     className: treeSelectClassName,
     style: treeSelectStyle,
     disabled,
-    size,
     multiple,
     prefixIcon,
-    popupProps,
     valueType,
-    clearable,
     loading,
     max,
-    placeholder,
     treeProps,
     empty,
     data,
     loadingText,
     filter,
     filterable,
-    onSearch,
-    onBlur,
-    onFocus,
     onClear,
-    onRemove,
   } = props;
   const { classPrefix } = useConfig();
-  const CLASSNAMES = useCommonClassName();
 
   const popupRef = useRef(null);
   const treeRef = useRef(null);
@@ -80,6 +59,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   const [nodeInfo, setNodeInfo] = useState(null);
 
   const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
+
+  const { selectClassName, popupObject, popupClassName } = useTreeSelectConfig({ visible, ...props });
 
   // 初始化 Tree 组件未渲染需要提供默认的树形数据结构
   const defaultStore = new TreeStore({ ...treeProps });
@@ -106,17 +87,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     return nodeInfo ? nodeInfo.label : `${value}`;
   }, [multiple, value, nodeInfo]);
 
-  const selectClass = classNames(`${classPrefix}-select`, {
-    [CLASSNAMES.STATUS.disabled]: disabled,
-    [CLASSNAMES.STATUS.active]: visible,
-    [CLASSNAMES.SIZE[size]]: size,
-    [`${classPrefix}-has-prefix`]: prefixIcon,
-    [`${classPrefix}-select-selected`]: selectedSingle || !isEmpty(selectedMultiple),
-  });
-
-  const popupObject = useMemo(() => Object.assign(defaultPopupProps, popupProps), [popupProps]);
-  const popupClass = classNames(popupObject.overlayClassName, `${classPrefix}-select-dropdown`, 'narrow-scrollbar');
-
   const checked: any = useMemo(() => {
     if (multiple) {
       if (valueType === 'object') {
@@ -127,25 +97,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     return [];
   }, [multiple, valueType, value]);
 
-  const showArrow: boolean = useMemo(
-    () =>
-      !clearable ||
-      !isHover ||
-      disabled ||
-      (!multiple && !value && value !== 0) ||
-      (multiple && isArray(value) && isEmpty(value)),
-    [clearable, isHover, disabled, multiple, value],
-  );
-
   const showLoading: boolean = useMemo(() => loading && !disabled, [loading, disabled]);
-  const showClose: boolean = useMemo(
-    () =>
-      clearable &&
-      isHover &&
-      !disabled &&
-      ((!multiple && (!!value || value === 0)) || (multiple && !isEmpty(value as Array<TreeSelectValue>))),
-    [clearable, isHover, disabled, multiple, value],
-  );
 
   const showFilter: boolean = useMemo(() => {
     if (disabled) {
@@ -157,32 +109,12 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     return filterable || isFunction(filter);
   }, [disabled, multiple, selectedSingle, filterable, visible, filter]);
 
-  const showPlaceholder: boolean = useMemo(() => {
-    if (
-      !showFilter &&
-      ((isString(value) && value === '' && !selectedSingle) || (isArray(value) && isEmpty(value)) || value === null)
-    ) {
-      return true;
-    }
-    return false;
-  }, [showFilter, value, selectedSingle]);
-
   const multiLimitDisabled: boolean = useMemo(() => {
     if (multiple && max && isArray(value) && max <= value.length) {
       return true;
     }
     return false;
   }, [multiple, max, value]);
-
-  const filterPlaceholder: string = useMemo(() => {
-    if (multiple && isArray(value) && !isEmpty(value)) {
-      return '';
-    }
-    if (!multiple && selectedSingle) {
-      return selectedSingle;
-    }
-    return placeholder;
-  }, [multiple, value, selectedSingle, placeholder]);
 
   const realLabel: string = useMemo(() => {
     if (!isEmpty(treeProps) && !isEmpty(treeProps.keys)) {
@@ -228,11 +160,9 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, valueType]);
 
-  function handleChange(value, node: TreeNodeModel<TreeOptionData>) {
-    onChange?.(value, { node });
-  }
-
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+    e.stopPropagation();
+
     const defaultValue: TreeSelectValue = multiple ? [] : '';
     onChange?.(defaultValue, null);
     setActived([]);
@@ -259,21 +189,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     }
   }
 
-  function onInput(value) {
-    setFilterText(value);
-    onSearch?.(value);
-  }
-
-  function handleBlur(value: InputValue, context: { e: React.FocusEvent<HTMLDivElement> }) {
-    setFocusing(false);
-    onBlur?.({ value, e: context.e });
-  }
-
-  function handleFocus(value: InputValue, context: { e: React.FocusEvent<HTMLDivElement> }) {
-    setFocusing(true);
-    onFocus?.({ value, e: context.e });
-  }
-
   function treeNodeChange(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TreeOptionData> }) {
     let current: TreeSelectValue = value;
     if (valueType === 'object') {
@@ -282,7 +197,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         return { label: node.data[realLabel], value: node.data[realValue] };
       });
     }
-    handleChange(current, context.node);
+    onChange?.(current, context);
   }
 
   function treeNodeActive(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TreeOptionData> }) {
@@ -293,26 +208,17 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     const node = treeRef.current.getItem(nodeValue);
     let current: TreeSelectValue = nodeValue;
 
-    if (valueType === 'object') {
+    if (valueType === 'object' && node) {
       current = { label: node.data[realLabel], value: node.data[realValue] };
     }
 
-    handleChange(current, context.node);
+    onChange?.(current, context);
     setFilterText('');
     setVisible(false);
   }
 
   function treeNodeExpand(value: Array<TreeNodeValue>) {
     setExpanded(value);
-  }
-
-  function removeTag(index: number, data: TreeOptionData, e: React.MouseEvent<SVGElement, MouseEvent>) {
-    if (disabled) {
-      return;
-    }
-    onRemove?.({ value: value[index], data, e });
-    isArray(value) && value.splice(index, 1);
-    onChange?.(value as Array<TreeSelectValue>, null);
   }
 
   function popupVisibleChange(visible: boolean) {
@@ -354,31 +260,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     />
   );
 
-  const searchInput = showFilter && (
-    <Input
-      ref={inputRef}
-      value={filterText}
-      className={`${classPrefix}-select-input`}
-      size={size}
-      disabled={disabled}
-      placeholder={filterPlaceholder}
-      onInput={onInput}
-      onBlur={handleBlur}
-      onFocus={handleFocus}
-    />
+  const loadingTip = showLoading && (
+    <p className={`${classPrefix}-select-loading-tips`}>
+      {loadingText || <div className={`${classPrefix}-select-empty`}>{loadingTextLabel}</div>}
+    </p>
   );
-
-  const tagItem = tagList.map((label, index) => (
-    <Tag
-      key={index}
-      size={size}
-      closable={!disabled}
-      disabled={disabled}
-      onClose={({ e }) => removeTag(index, null, e)}
-    >
-      {label}
-    </Tag>
-  ));
 
   return (
     <div ref={ref} className={treeSelectClassName} style={treeSelectStyle}>
@@ -390,41 +276,43 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         placement={popupObject.placement}
         trigger={popupObject.trigger}
         overlayStyle={popupObject.overlayStyle}
-        overlayClassName={popupClass}
+        overlayClassName={popupClassName}
         onVisibleChange={popupVisibleChange}
         content={
           <>
-            {showLoading && (
-              <p className={`${classPrefix}-select-loading-tips`}>
-                {loadingText || <div className={`${classPrefix}-select-empty`}>{loadingTextLabel}</div>}
-              </p>
-            )}
+            {loadingTip}
             {treeItem}
           </>
         }
       >
         <div
           style={{ minHeight: 30 }}
-          className={selectClass}
+          className={selectClassName}
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
           {prefixIcon && <span className={`${classPrefix}-select-left-icon`}>{prefixIcon}</span>}
-          {showPlaceholder && <span className={`${classPrefix}-select-placeholder`}>{placeholder}</span>}
-          {tagItem}
-          {!multiple && !showPlaceholder && !showFilter && (
-            <span className={`${classPrefix}-select-selectedSingle`}>{selectedSingle}</span>
-          )}
-          {searchInput}
-          {showArrow && !showLoading && (
-            <FakeArrow overlayClassName={`${classPrefix}-select-right-icon`} isActive={visible} disabled={disabled} />
-          )}
-          {showClose && !showLoading && (
-            <CloseCircleFilledIcon className={`${classPrefix}-select-right-icon`} size={size} onClick={handleClear} />
-          )}
-          {showLoading && (
-            <LoadingIcon className={`${classPrefix}-select-right-icon ${classPrefix}-select-active-icon`} size={size} />
-          )}
+
+          <TreeSelectTags tagList={tagList} {...props} />
+
+          <TreeSelectInput
+            ref={inputRef}
+            visible={visible}
+            filterText={filterText}
+            selectedSingle={selectedSingle}
+            setFocusing={setFocusing}
+            setFilterText={setFilterText}
+            {...props}
+          />
+
+          <TreeSelectSuffix
+            visible={visible}
+            isHover={isHover}
+            showLoading={showLoading}
+            handleClear={handleClear}
+            {...props}
+          />
+
         </div>
       </Popup>
     </div>
@@ -446,5 +334,6 @@ TreeSelect.defaultProps = {
   placeholder: '请输入',
   size: 'medium',
   valueType: 'value',
+  minCollapsedNum: 0,
 };
 export default TreeSelect;

@@ -63,7 +63,10 @@ export default {
 
     return source;
   },
-  after(_, _id, renderInfo, md) {
+  after(_, id, renderInfo, md) {
+    const reg = id.match(/src\/(\w+-?\w+)\/\w+\.md/);
+    const name = reg && reg[1];
+
     const demoDefsStr = Object.keys(demoImports)
       .map((key) => demoImports[key])
       .join('\n');
@@ -77,8 +80,8 @@ export default {
       title,
       description,
       isComponent,
+      componentName: name,
       // issueInfo: {},
-      // contributors: getContributors(),
       docMd: md.render.call(md, `\${toc}\r\n${docMd}`).replace(/<!--[\s\S]+-->/g, ''),
       apiMd: md.render.call(md, `\${toc}\r\n${apiMd}`).replace(/<!--[\s\S]+-->/g, ''),
       demoMd: md.render.call(md, `\${toc}\r\n${demoMd}`).replace(/<!--[\s\S]+-->/g, ''),

@@ -42,7 +42,7 @@ const Button = forwardRef(
     const hasChildren = typeof children !== 'undefined';
 
     let iconNode = icon;
-    if (loading) iconNode = <Loading loading={loading} />;
+    if (loading) iconNode = <Loading loading={loading} inheritColor={true} />;
 
     let renderTheme = theme;
 
