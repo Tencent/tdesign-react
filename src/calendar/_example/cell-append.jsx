@@ -1,14 +1,27 @@
 import React from 'react';
-import { Calendar } from 'tdesign-react';
+import { Calendar, Tag } from 'tdesign-react';
+import dayjs from 'dayjs';
+import './style/index.less';
 
 export default function CalendarExample() {
-  const getDateStr = React.useCallback((cellData) => {
-    const y = cellData.date.getFullYear();
-    const m = cellData.date.getMonth() + 1;
-    const d = cellData.date.getDate();
-    const output = `${y}-${m}${cellData.mode === 'month' ? `-${d <= 9 ? `0${d}` : d}` : ''}`;
-    return output;
-  }, []);
+  const getShow = (data) =>
+    data.mode === 'month'
+      ? dayjs().format('YYYY-MM-DD') === data.formattedDate
+      : data.date.getMonth() === new Date().getMonth();
 
-  return <Calendar cellAppend={(cellData) => <div>{getDateStr(cellData)}</div>} />;
+  return (
+    <>
+      <Calendar
+        cellAppend={(cellData) =>
+          getShow(cellData) && (
+            <div className="cell-append-demo-outer">
+              <Tag theme="primary" size="small">
+                {cellData.mode === 'month' ? '今天' : '本月'}
+              </Tag>
+            </div>
+          )
+        }
+      />
+    </>
+  );
 }

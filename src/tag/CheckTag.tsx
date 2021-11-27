@@ -4,6 +4,7 @@ import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import { TdCheckTagProps } from '../_type/components/tag';
 import { StyledProps } from '../_type';
+import noop from '../_util/noop';
 
 /**
  * CheckTag 组件支持的属性
@@ -16,7 +17,17 @@ export interface CheckTagProps extends TdCheckTagProps, StyledProps {
 }
 
 const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElement>) => {
-  const { checked, content, defaultChecked, onChange, disabled, children, className, ...tagOtherProps } = props;
+  const {
+    checked,
+    content,
+    defaultChecked,
+    onChange,
+    onClick = noop,
+    disabled,
+    children,
+    className,
+    ...tagOtherProps
+  } = props;
   const [value, onValueChange] = useDefault(checked, defaultChecked, onChange);
 
   const { classPrefix } = useConfig();
@@ -38,8 +49,9 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
       ref={ref}
       className={checkTagClassNames}
       {...tagOtherProps}
-      onClick={() => {
+      onClick={(e) => {
         !disabled && onValueChange(!value);
+        onClick({ e });
       }}
     >
       {children || content}

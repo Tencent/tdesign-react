@@ -101,6 +101,7 @@ export const createMonthList = (
     const date = new Date(year, i - 1);
     const curDateMon = parseInt(currentValue.format('M'), 10);
     const isCurrent = isCurYear && curDateMon === i;
+
     tmpArr.push({
       mode: 'year',
       isCurrent,

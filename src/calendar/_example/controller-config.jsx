@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Switch } from 'tdesign-react';
-import { Icon } from 'tdesign-icons-react';
+import './style/index.less';
 
 export default function CalendarExample() {
   const [visible, setVisible] = React.useState(true);
@@ -18,22 +18,11 @@ export default function CalendarExample() {
   const [currentDayButtonDisabled, setCurrentDayButtonDisabled] = React.useState(false);
   const [currentMonthButtonDisabled, setCurrentMonthButtonDisabled] = React.useState(false);
 
-  const fieldsetStyle = React.useMemo(
-    () => ({
-      border: 'solid 1px #eee',
-      padding: '10px 20px 10px 20px',
-      marginBottom: '20px',
-    }),
-    [],
-  );
-
-  const legendStyle = React.useMemo(() => ({ marginLeft: '20px', padding: '0 10px' }), []);
-
   return (
-    <div>
+    <div className="controllerConfig-demo">
       <div style={{ margin: '12px 0' }}>
-        <fieldset style={fieldsetStyle}>
-          <legend style={legendStyle}>控件全局</legend>
+        <fieldset>
+          <legend>控件全局</legend>
           <p>
             <label>是否显示（全部控件）：</label>
             <Switch value={visible} onChange={setVisible} />
@@ -44,10 +33,9 @@ export default function CalendarExample() {
             <Switch value={disabled} onChange={setDisabled} />
           </p>
           <br />
-          <Calendar controllerConfig={{ visible, disabled }} />
         </fieldset>
-        <fieldset style={fieldsetStyle}>
-          <legend style={legendStyle}>控件局部</legend>
+        <fieldset>
+          <legend>控件局部</legend>
           <p>
             <label>是否显示“模式切换”控件：</label>
             <Switch value={modeVisible} onChange={setModeVisible} />
@@ -70,20 +58,20 @@ export default function CalendarExample() {
           </p>
           <br />
           <p>
-            <label>是否显示“隐藏\显示周末”控件：</label>
-            <Switch value={weekendToggleVisible} onChange={setWeekendToggleVisible} />
             <label>是否禁用“隐藏周末”控件：</label>
             <Switch value={weekendHideButtonDisabled} onChange={setWeekendHideButtonDisabled} />
             <label>是否禁用“显示周末”控件：</label>
             <Switch value={weekendShowButtonDisabled} onChange={setWeekendShowButtonDisabled} />
+            <label>是否显示“隐藏\显示周末”控件：</label>
+            <Switch value={weekendToggleVisible} onChange={setWeekendToggleVisible} />
           </p>
           <br />
           <p>
             <label>是否显示“今天\本月”控件：</label>
             <Switch value={currentVisible} onChange={setCurrentVisible} />
-            <label>是否禁用“今天”控件：</label>
+            <label>是否禁用“今天”按钮控件：</label>
             <Switch value={currentDayButtonDisabled} onChange={setCurrentDayButtonDisabled} />
-            <label>是否禁用“本月”控件：</label>
+            <label>是否禁用“本月”按钮控件：</label>
             <Switch value={currentMonthButtonDisabled} onChange={setCurrentMonthButtonDisabled} />
           </p>
           <br />
@@ -96,27 +84,23 @@ export default function CalendarExample() {
                 visible: yearVisible,
                 selectProps: {
                   disabled: yearDisabled,
-                  style: { minWidth: '110px' },
-                  prefixIcon: <Icon name="chart-bar" />,
                 },
               },
               month: {
                 visible: monthVisible,
                 selectProps: {
                   disabled: monthDisabled,
-                  style: { minWidth: '90px' },
-                  prefixIcon: <Icon name="discount" />,
                 },
               },
               weekend: {
                 visible: weekendToggleVisible,
-                showWeekendButtonProps: { disabled: weekendShowButtonDisabled, theme: 'primary', icon: 'browse' },
-                hideWeekendButtonProps: { disabled: weekendHideButtonDisabled, theme: 'warning', icon: 'browse-off' },
+                showWeekendButtonProps: { disabled: weekendShowButtonDisabled },
+                hideWeekendButtonProps: { disabled: weekendHideButtonDisabled },
               },
               current: {
                 visible: currentVisible,
-                currentDayButtonProps: { disabled: currentDayButtonDisabled, theme: 'primary', icon: 'rollback' },
-                currentMonthButtonProps: { disabled: currentMonthButtonDisabled, theme: 'primary', icon: 'rollback' },
+                currentDayButtonProps: { disabled: currentDayButtonDisabled },
+                currentMonthButtonProps: { disabled: currentMonthButtonDisabled },
               },
             }}
           />

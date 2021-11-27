@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 import './style/index.less';
 
 export default function CalendarExample() {
-  const defaultValue = React.useMemo(() => new Date(), []);
-
   const displayNum = React.useCallback((date) => {
     if (date.mode === 'month') {
       return date.date.getDate();
@@ -31,9 +29,18 @@ export default function CalendarExample() {
     },
   ];
 
+  const renderHead = (params) => {
+    let title = params.filterDate.getFullYear();
+    if (params.mode === 'month') {
+      title += `-${params.filterDate.getMonth() + 1}`;
+    }
+    title += ' 工作安排';
+    return <div>{title}</div>;
+  };
+
   return (
     <Calendar
-      defaultValue={defaultValue}
+      head={renderHead}
       cell={(cellData) => (
         <>
           <div className="outerWarper">
