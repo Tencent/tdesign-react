@@ -67,6 +67,8 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     />
   );
 
+  delete htmlProps.checkAll;
+
   return (
     <label ref={ref} className={labelClassName} style={style} {...htmlProps}>
       {input}

@@ -121,7 +121,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
     <div className={classNames(`${classPrefix}-checkbox-group`, className)} style={style}>
       <CheckContext.Provider value={context}>
         {useOptions
-          ? options.map((v) => {
+          ? options.map((v, index) => {
               const type = typeof v;
               switch (type) {
                 case 'number' || 'string': {
@@ -134,10 +134,11 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                 }
                 case 'object': {
                   const vs = v as CheckboxOptionObj;
+                  // CheckAll 的 checkBox 不存在 value,故用 checkAll_index 来保证尽量不和用户的 value 冲突.
                   return vs.checkAll ? (
-                    <Checkbox {...v} indeterminate={indeterminate} />
+                    <Checkbox {...v} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox {...v} disabled={vs.disabled || disabled} />
+                    <Checkbox {...v} key={vs.value} disabled={vs.disabled || disabled} />
                   );
                 }
                 default:
