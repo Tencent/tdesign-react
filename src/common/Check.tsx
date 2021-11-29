@@ -1,5 +1,6 @@
 import React, { Ref, forwardRef, useContext } from 'react';
 import classNames from 'classnames';
+import { omit } from '../_util/helper';
 import { StyledProps } from '../_type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
@@ -68,7 +69,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   );
 
   return (
-    <label ref={ref} className={labelClassName} style={style} {...htmlProps}>
+    <label ref={ref} className={labelClassName} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       <span key="label" className={`${classPrefix}-${type}__label`}>

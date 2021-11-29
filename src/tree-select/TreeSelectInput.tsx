@@ -1,11 +1,10 @@
 import React, { useMemo, forwardRef } from 'react';
-import { TdTreeSelectProps } from '../_type/components/tree-select';
-import Input, { InputValue } from '../input';
-import useConfig from '../_util/useConfig';
-
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
+import { TdTreeSelectProps } from '../_type/components/tree-select';
+import Input, { InputValue } from '../input';
+import useConfig from '../_util/useConfig';
 
 export interface TreeSelectInputProps extends TdTreeSelectProps {
   visible: boolean;
@@ -16,7 +15,23 @@ export interface TreeSelectInputProps extends TdTreeSelectProps {
 }
 
 const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<HTMLInputElement>) => {
-  const { selectedSingle, visible, filterText, setFilterText, setFocusing, placeholder, filter, filterable, multiple, disabled, size, value, onSearch, onBlur, onFocus } = props;
+  const {
+    selectedSingle,
+    visible,
+    filterText,
+    setFilterText,
+    setFocusing,
+    placeholder,
+    filter,
+    filterable,
+    multiple,
+    disabled,
+    size,
+    value,
+    onSearch,
+    onBlur,
+    onFocus,
+  } = props;
   const { classPrefix } = useConfig();
 
   const showFilter: boolean = useMemo(() => {
@@ -32,7 +47,9 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
   const showPlaceholder: boolean = useMemo(() => {
     if (
       !showFilter &&
-      ((isString(value) && value === '' && !selectedSingle) || (Array.isArray(value) && isEmpty(value)) || value === null)
+      ((isString(value) && value === '' && !selectedSingle) ||
+        (Array.isArray(value) && isEmpty(value)) ||
+        value === null)
     ) {
       return true;
     }
