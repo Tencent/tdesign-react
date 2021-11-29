@@ -19,7 +19,6 @@ const CustomSelected = () => {
           {
             label: 'Apple',
             value: 'apple',
-            disabled: true,
           },
           {
             label: 'Banana',

@@ -76,14 +76,10 @@ export const getLabel = (
 };
 
 export const getMultipleTags = (values: SelectValue[], keys: SelectKeysType) => {
-  const tags = values.map((item) => {
-    const { label, value } = item as SelectLabeledValue;
-
-    return {
-      label: label || item?.[keys?.label] || item.toString(),
-      value: value || item?.[keys?.value] || item,
-    };
-  });
+  const tags = values.map((item) => ({
+    label: get(item, keys?.label || 'label') || item.toString(),
+    value: get(item, keys?.value || 'value') || item,
+  }));
   return tags;
 };
 
