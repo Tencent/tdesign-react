@@ -72,7 +72,7 @@ const Option = (props: SelectOptionProps) => {
   }
 
   const handleSelect = (event: React.MouseEvent) => {
-    if (!disabled) {
+    if (!disabled || (multiple && selected)) {
       onSelect(value, { label: String(label), selected, event, restData });
     }
   };
@@ -82,7 +82,7 @@ const Option = (props: SelectOptionProps) => {
       return (
         <label
           className={classNames(`${classPrefix}-checkbox`, {
-            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-is-disabled`]: disabled && !selected,
             [`${classPrefix}-is-checked`]: selected,
           })}
         >
@@ -90,7 +90,7 @@ const Option = (props: SelectOptionProps) => {
             type="checkbox"
             className={classNames(`${classPrefix}-checkbox__former`)}
             value=""
-            disabled={disabled}
+            disabled={disabled && !selected}
             onClick={(e) => e.stopPropagation()}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
