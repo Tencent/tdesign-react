@@ -14,7 +14,7 @@ import { TreeItemProps } from './interface';
 import TreeItem from './TreeItem';
 import { useStore } from './useStore';
 
-export interface TreeProps extends TdTreeProps {}
+export type TreeProps = TdTreeProps;
 
 /**
  * 树组件

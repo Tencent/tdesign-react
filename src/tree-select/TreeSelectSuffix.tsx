@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
+import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
 import useConfig from '../_util/useConfig';
 import FakeArrow from '../common/FakeArrow';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import Loading from '../loading';
 
 export interface TreeSelectSuffixProps extends TdTreeSelectProps {
@@ -44,10 +44,18 @@ export default function TreeSelectSuffix(props: TreeSelectSuffixProps) {
         <FakeArrow overlayClassName={`${classPrefix}-select-right-icon`} isActive={visible} disabled={disabled} />
       )}
       {showClose && !showLoading && (
-        <CloseCircleFilledIcon className={`${classPrefix}-select-right-icon ${classPrefix}-select-right-icon__clear`} size={size} onClick={handleClear} />
+        <CloseCircleFilledIcon
+          className={`${classPrefix}-select-right-icon ${classPrefix}-select-right-icon__clear`}
+          size={size}
+          onClick={handleClear}
+        />
       )}
       {showLoading && (
-        <Loading loading={true} className={classNames(`${classPrefix}-select-right-icon`, `${classPrefix}-select-active-icon`)} size="small" />
+        <Loading
+          loading={true}
+          className={classNames(`${classPrefix}-select-right-icon`, `${classPrefix}-select-active-icon`)}
+          size="small"
+        />
       )}
     </>
   );
