@@ -114,7 +114,7 @@ exports[`delete.jsx 1`] = `
       >
         可删除标签0
         <svg
-          class="t-icon t-icon-close t-size-m"
+          class="t-icon t-icon-close t-tag__icon-close t-size-m"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -152,7 +152,7 @@ exports[`delete.jsx 1`] = `
         </svg>
         可删除标签1
         <svg
-          class="t-icon t-icon-close t-size-m"
+          class="t-icon t-icon-close t-tag__icon-close t-size-m"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -170,7 +170,7 @@ exports[`delete.jsx 1`] = `
       >
         可删除标签2
         <svg
-          class="t-icon t-icon-close t-size-m"
+          class="t-icon t-icon-close t-tag__icon-close t-size-m"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"

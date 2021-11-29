@@ -2,11 +2,12 @@ import React, { useRef } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
+import get from 'lodash/get';
 
 import useConfig from '../../_util/useConfig';
 import useRipple from '../../_util/useRipple';
 import { StyledProps } from '../../_type/StyledProps';
-import { SelectValue, TdOptionProps, TdSelectProps, Options } from '../../_type/components/select';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../../_type/components/select';
 
 /**
  * Option 组件属性
@@ -19,25 +20,44 @@ export interface SelectOptionProps
   children?: React.ReactNode;
   onSelect?: (
     value: string | number,
-    context: { label?: string | number; selected?: boolean; event: React.MouseEvent },
+    context: { label?: string; selected?: boolean; event: React.MouseEvent; restData?: Record<string, any> },
   ) => void;
+  restData?: Record<string, any>;
+  keys?: SelectKeysType;
 }
 
-type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
+const componentType = 'select';
 
 const Option = (props: SelectOptionProps) => {
-  const { disabled: propDisabled, size, max, value, multiple, selectedValue, onSelect, children } = props;
-  const label = props.label || value;
-  const componentType = 'select';
+  const {
+    disabled: propDisabled,
+    label: propLabel,
+    selectedValue,
+    multiple,
+    size,
+    max,
+    keys,
+    value,
+    onSelect,
+    children,
+    restData,
+  } = props;
 
   let selected: boolean;
+  const label = propLabel || value;
+  const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+
+  const { classPrefix } = useConfig();
+  const optionRef = useRef();
+  // 使用斜八角动画
+  useRipple(optionRef);
 
   // 处理单选场景
   if (!multiple) {
     selected =
       isNumber(selectedValue) || isString(selectedValue)
         ? value === selectedValue
-        : value === (selectedValue as SelectLabeledValue)?.value;
+        : value === get(selectedValue, keys?.value || 'value');
   }
 
   // 处理多选场景
@@ -47,21 +67,13 @@ const Option = (props: SelectOptionProps) => {
         // 如果非object类型
         return item === value;
       }
-      return (item as SelectLabeledValue).value === value;
+      return get(item, keys?.value || 'value') === value;
     });
   }
 
-  const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
-
-  const { classPrefix } = useConfig();
-  const optionRef = useRef();
-
-  // 使用斜八角动画
-  useRipple(optionRef);
-
   const handleSelect = (event: React.MouseEvent) => {
     if (!disabled) {
-      onSelect(value, { label, selected, event });
+      onSelect(value, { label: String(label), selected, event, restData });
     }
   };
 

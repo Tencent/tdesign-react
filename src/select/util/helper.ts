@@ -1,22 +1,29 @@
-import React, { ReactElement } from 'react';
-import { isPlainObject, isNumber, isString, get } from 'lodash';
-import { SelectValue, Options } from '../../_type/components/select';
+import { ReactElement } from 'react';
+import { isPlainObject, get } from 'lodash';
 import OptionGroup from '../base/OptionGroup';
 
-type SelectLabeledValue = Required<Omit<Options, 'disabled'>>;
+import { SelectValue, TdOptionProps, SelectKeysType } from '../../_type/components/select';
 
-export const getLabel = (children, value: SelectValue<Options>, options: Options[]) => {
+type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
+
+// 获取单选的label
+export const getLabel = (
+  children,
+  value: SelectValue<TdOptionProps>,
+  options: TdOptionProps[],
+  keys: SelectKeysType,
+) => {
   let selectedLabel = '';
-
   // 处理带 options 属性的情况
   if (Array.isArray(options)) {
     options.some((option) => {
-      if (option.value === value || option.value === get(value, 'value')) {
+      if ([get(value, keys?.value || 'value'), value].includes(option.value)) {
         selectedLabel = option.label;
         return true;
       }
       return false;
     });
+
     return selectedLabel;
   }
 
@@ -68,16 +75,13 @@ export const getLabel = (children, value: SelectValue<Options>, options: Options
   return selectedLabel;
 };
 
-export const getMultipleTags = (values: SelectValue[]) => {
+export const getMultipleTags = (values: SelectValue[], keys: SelectKeysType) => {
   const tags = values.map((item) => {
-    let { label, value } = item as SelectLabeledValue;
-    if (isNumber(item) || isString(item)) {
-      label = item.toString();
-      value = item as string;
-    }
+    const { label, value } = item as SelectLabeledValue;
+
     return {
-      label,
-      value,
+      label: label || item?.[keys?.label] || item.toString(),
+      value: value || item?.[keys?.value] || item,
     };
   });
   return tags;
@@ -86,9 +90,10 @@ export const getMultipleTags = (values: SelectValue[]) => {
 export const getSelectValueArr = (
   values: SelectValue | SelectValue[],
   activeValue: SelectValue,
-  activeLabel?: React.ReactNode,
   selected?: boolean,
   valueType?: 'object' | 'value',
+  keys?: SelectKeysType,
+  objVal?: SelectValue,
 ) => {
   // eslint-disable-next-line no-param-reassign
   values = Array.isArray(values) ? values : [];
@@ -96,19 +101,20 @@ export const getSelectValueArr = (
   if (Array.isArray(values)) {
     let currentValues = [...values];
     const isValueObj = valueType === 'object';
+
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
           if (isPlainObject(activeValue)) {
-            return item.value !== (activeValue as SelectLabeledValue).value;
+            return get(item, keys?.value || 'value') !== get(activeValue, 'value');
           }
-          return item.value !== activeValue;
+          return get(item, keys?.value || 'value') !== activeValue;
         }
         return item !== activeValue;
       });
     } else {
-      const label = isPlainObject(activeValue) ? (activeValue as SelectLabeledValue).label : activeLabel;
-      const item = isValueObj ? { label, value: activeValue } : activeValue;
+      const item = isValueObj ? objVal : activeValue;
+
       currentValues.push(item as SelectValue);
     }
     return currentValues;

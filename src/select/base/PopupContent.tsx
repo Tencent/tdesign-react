@@ -1,16 +1,18 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue } from '../../_type/components/select';
+import { TdSelectProps, SelectValue, TdOptionProps } from '../../_type/components/select';
 import useConfig from '../../_util/useConfig';
 import Option, { SelectOptionProps } from './Option';
+
+type OptionsType = TdOptionProps[];
 
 interface SelectPopupProps
   extends Pick<
     TdSelectProps,
-    'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading' | 'valueType'
+    'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading' | 'valueType' | 'keys'
   > {
-  onChange?: (value: SelectValue, context?: { label?: string | number }) => void;
+  onChange?: (value: SelectValue, context?: { label?: string | number; restData?: Record<string, any> }) => void;
   /**
    * 是否展示popup
    */
@@ -36,6 +38,8 @@ const PopupContent = (props: SelectPopupProps) => {
     loadingText,
     loading,
     valueType,
+    children,
+    keys,
   } = props;
 
   // 国际化文本初始化
@@ -43,22 +47,38 @@ const PopupContent = (props: SelectPopupProps) => {
   const emptyText = t(local.empty);
 
   const { classPrefix } = useConfig();
-  if (!props.children && !props.options) return null;
+  if (!children && !props.options) return null;
 
-  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected }) => {
+  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, restData }) => {
     if (selectedValue) {
+      const isValObj = valueType === 'object';
+      let objVal = {};
+      if (isValObj) {
+        objVal = { ...restData };
+        if (!keys?.label) {
+          Object.assign(objVal, { label });
+        }
+        if (!keys?.value) {
+          Object.assign(objVal, { value: selectedValue });
+        }
+      }
+
       if (multiple) {
-        const values = getSelectValueArr(value, selectedValue, label, selected, valueType);
+        // calc multiple select values
+        const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
         onChange(values, { label });
         requestAnimationFrame(() => setShowPopup(true));
       } else {
-        onChange(selectedValue, { label });
+        // calc single select value
+        const selectVal = valueType === 'object' ? objVal : selectedValue;
+
+        onChange(selectVal, { label });
         setShowPopup(!showPopup);
       }
     }
   };
 
-  const childrenWithProps = Children.map(props.children, (child) => {
+  const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
       const addedProps = { size, max, multiple, selectedValue: value, onSelect };
       return cloneElement(child, { ...addedProps });
@@ -72,7 +92,7 @@ const PopupContent = (props: SelectPopupProps) => {
       // 通过options API配置的
       return (
         <ul>
-          {options.map(({ value: optionValue, label, disabled }, index) => (
+          {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
             <Option
               key={index}
               max={max}
@@ -83,6 +103,8 @@ const PopupContent = (props: SelectPopupProps) => {
               multiple={multiple}
               size={size}
               disabled={disabled}
+              restData={restData}
+              keys={keys}
             />
           ))}
         </ul>
