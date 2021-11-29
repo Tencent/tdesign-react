@@ -9,6 +9,7 @@ import useConfig from '../_util/useConfig';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from '../_type/components/calendar';
 import { StyledProps } from '../_type/StyledProps';
 import { createDateList, createMonthList } from './_util';
+import CheckTag from '../tag/CheckTag';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -18,8 +19,6 @@ export interface CalendarMethods {
    */
   toCurrent: (value: CalendarValue) => void;
 }
-
-const fix0 = (num: number): string => (num <= 9 ? `0${num}` : String(num));
 
 const getDefaultControllerConfigData = (visible = true): Record<string, any> => ({
   visible, // 是否显示（全部控件）
@@ -79,6 +78,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     onCellClick = noop,
     onCellDoubleClick = noop,
     onCellRightClick = noop,
+    fillWithZero = false,
   } = props;
 
   // 组装配置信息
@@ -273,6 +273,8 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
 
   const clickCell = useCallback(
     (event, calendarCell: CalendarCell) => {
+      setValue(dayjs(calendarCell.formattedDate));
+
       execCellEvent(event, calendarCell, onCellClick);
     },
     [onCellClick, execCellEvent],
@@ -316,11 +318,22 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const monthLabelList = t(local.cellMonth).split(',');
   const getMonthCN = (month: number): string => monthLabelList[month];
 
+  const fix0 = (num: number) => {
+    const fillZero = num < 10 && (fillWithZero ?? local.fillWithZero ?? true);
+    return fillZero ? `0${num}` : num;
+  };
+
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
       {/* 操作部分 */}
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>
+          <div className={prefixCls([blockName, 'title'])}>
+            {(() => {
+              if (head && typeof head === 'function') return head(controllerOptions);
+              if (head && typeof head !== 'function') return head;
+            })()}
+          </div>
           <div className={prefixCls([blockName, 'control-section'])}>
             {/* 年份选择框 */}
             <div className={prefixCls([blockName, 'control-section-cell'])}>
@@ -361,6 +374,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
           <div className={prefixCls([blockName, 'control-section'])} style={{ height: 'auto' }}>
             {visibleForMode && (
               <Radio.Group
+                variant="default-filled"
                 size={controlSectionSize}
                 value={mode}
                 disabled={disabled}
@@ -375,15 +389,18 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
           {/* 周末隐藏显示切换 */}
           {mode === 'month' && theme === 'full' && visibleForWeekendToggle && (
             <div className={prefixCls([blockName, 'control-section'])}>
-              <Button
+              <CheckTag
+                className="t-calendar__control-tag"
                 theme={isShowWeekend ? 'default' : 'primary'}
                 size={controlSectionSize}
                 disabled={disabled}
-                onClick={() => setIsShowWeekend(!isShowWeekend)}
+                onClick={() => {
+                  setIsShowWeekend(!isShowWeekend);
+                }}
                 {...(isShowWeekend ? hideWeekendButtonProps : showWeekendButtonProps)}
               >
                 {`${isShowWeekend ? t(local.hideWeekend) : t(local.showWeekend)}`}
-              </Button>
+              </CheckTag>
             </div>
           )}
           {/* 回到当前按钮 */}
@@ -391,7 +408,6 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section'])}>
               <Button
                 size={controlSectionSize}
-                theme="default"
                 disabled={disabled}
                 onClick={toCurrent}
                 {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
@@ -404,7 +420,6 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
       )}
       {/* 主体部分 */}
       <div className={prefixCls([blockName, 'panel'], [blockName, `panel--${mode}`])}>
-        <div className={prefixCls([blockName, 'panel-title'])}>{React.isValidElement(head) && head}</div>
         <table className={prefixCls([blockName, 'table'])}>
           {/* 表头部分 */}
           {colHeaderList.length > 0 && (
@@ -425,6 +440,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                 <tr key={String(dateRowIndex)} className={prefixCls([blockName, 'table-body-row'])}>
                   {dateRow.map((dateCell, dateCellIndex) => {
                     if (!isShowWeekend && [6, 7].indexOf(dateCell.day) >= 0) return null;
+                    const isNow = dateCell.formattedDate === dayjs().format('YYYY-MM-DD');
                     return (
                       <td
                         key={String(dateCellIndex)}
@@ -432,6 +448,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                           [blockName, 'table-body-cell'],
                           dateCell.belongTo !== 0 && 'is-disabled',
                           dateCell.isCurrent && 'is-checked',
+                          isNow && 'is-now',
                         )}
                         onClick={(event) => clickCell(event, dateCell)}
                         onDoubleClick={(event) => doubleClickCell(event, dateCell)}
@@ -447,10 +464,15 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                           );
                         })()}
                         {(() => {
+                          let celAppend;
                           if (cellAppend && typeof cellAppend === 'function')
-                            return cellAppend(createCalendarCell(dateCell));
-                          if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
-                          return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
+                            celAppend = cellAppend(createCalendarCell(dateCell));
+                          if (cellAppend && typeof cellAppend !== 'function') celAppend = cellAppend;
+                          return (
+                            cellAppend && (
+                              <div className={prefixCls([blockName, 'table-body-cell-content'])}>{celAppend}</div>
+                            )
+                          );
                         })()}
                       </td>
                     );
@@ -464,33 +486,40 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <tbody className={prefixCls([blockName, 'table-body'])}>
               {monthList.map((monthRow, monthRowIndex) => (
                 <tr key={String(monthRowIndex)} className={prefixCls([blockName, 'table-body-row'])}>
-                  {monthRow.map((monthCell, monthCellIndex) => (
-                    <td
-                      key={String(monthCellIndex)}
-                      className={prefixCls([blockName, 'table-body-cell'], [monthCell.isCurrent && 'is-checked'])}
-                      onClick={(event) => clickCell(event, monthCell)}
-                      onDoubleClick={(event) => doubleClickCell(event, monthCell)}
-                      onContextMenu={(event) => rightClickCell(event, monthCell)}
-                    >
-                      {(() => {
-                        if (cell && typeof cell === 'function') return cell(monthCell);
-                        if (cell && typeof cell !== 'function') return cell;
-                        const monthCellIndex = monthCell.date.getMonth();
-                        const monthText =
-                          theme === 'full'
-                            ? getMonthCN(monthCellIndex)
-                            : t(local.monthSelection, { month: (monthCellIndex + 1).toString() });
-                        return <div className={prefixCls([blockName, 'table-body-cell-value'])}>{monthText}</div>;
-                      })()}
-                      {(() => {
-                        if (cellAppend && typeof cellAppend === 'function') {
-                          return cellAppend(monthCell);
-                        }
-                        if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
-                        return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
-                      })()}
-                    </td>
-                  ))}
+                  {monthRow.map((monthCell, monthCellIndex) => {
+                    const isNow = new Date().getMonth() === monthCell.date.getMonth();
+                    return (
+                      <td
+                        key={String(monthCellIndex)}
+                        className={prefixCls(
+                          [blockName, 'table-body-cell'],
+                          [monthCell.isCurrent && 'is-checked'],
+                          [isNow && 'is-now'],
+                        )}
+                        onClick={(event) => clickCell(event, monthCell)}
+                        onDoubleClick={(event) => doubleClickCell(event, monthCell)}
+                        onContextMenu={(event) => rightClickCell(event, monthCell)}
+                      >
+                        {(() => {
+                          if (cell && typeof cell === 'function') return cell(monthCell);
+                          if (cell && typeof cell !== 'function') return cell;
+                          const monthCellIndex = monthCell.date.getMonth();
+                          const monthText =
+                            theme === 'full'
+                              ? getMonthCN(monthCellIndex)
+                              : t(local.monthSelection, { month: (monthCellIndex + 1).toString() });
+                          return <div className={prefixCls([blockName, 'table-body-cell-value'])}>{monthText}</div>;
+                        })()}
+                        {(() => {
+                          if (cellAppend && typeof cellAppend === 'function') {
+                            return cellAppend(monthCell);
+                          }
+                          if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
+                          return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
+                        })()}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>

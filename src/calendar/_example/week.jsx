@@ -3,9 +3,13 @@ import { Calendar } from 'tdesign-react';
 
 export default function CalendarExample() {
   const getWeekText = React.useCallback((calendarWeek) => {
-    const output = `day-${calendarWeek.day}`;
+    const output = `星期${calendarWeek.day}`;
     return output;
   }, []);
 
-  return <Calendar week={(calendarWeek) => <div>{getWeekText(calendarWeek)}</div>} />;
+  return (
+    <div className="tdesign-demo-block-column-large">
+      <Calendar week={(calendarWeek) => <div>{getWeekText(calendarWeek)}</div>} />;
+    </div>
+  );
 }

@@ -4,15 +4,14 @@ import { Button, Calendar, Select, Switch } from 'tdesign-react';
 export default function CalendarExample() {
   const ref = React.useRef(null);
   const [theme, setTheme] = React.useState('card');
-  const [isShowWeekendDefault, setIsShowWeekendDefault] = React.useState(true);
-
+  const [fillWithZero, setFillWithZero] = React.useState(false);
   const toCurrent = React.useCallback(() => {
     ref.current.toCurrent();
   }, [ref]);
 
   return (
-    <div>
-      <div style={{ margin: '12px 0' }}>
+    <div className="tdesign-demo-block-column-large">
+      <div>
         <label>请选择风格：</label>
         <Select
           style={{
@@ -27,13 +26,15 @@ export default function CalendarExample() {
           ]}
           onChange={(value) => setTheme(value)}
         />
-        <label>是否显示周末：</label>
-        <Switch value={isShowWeekendDefault} onChange={setIsShowWeekendDefault}></Switch>
         <Button theme="primary" style={{ marginLeft: '12px' }} onClick={toCurrent}>
           回到今天
         </Button>
       </div>
-      <Calendar ref={ref} theme={theme} isShowWeekendDefault={isShowWeekendDefault} />
+      <div>
+        <label>日期补零：</label>
+        <Switch size="large" value={fillWithZero} onChange={(val) => setFillWithZero(val)}></Switch>
+      </div>
+      <Calendar ref={ref} theme={theme} isShowWeekendDefault={true} fillWithZero={fillWithZero} />
     </div>
   );
 }
