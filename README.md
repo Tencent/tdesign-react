@@ -27,11 +27,6 @@ cd src/_common && git checkout develop
 cd ../..
 npm install
 npm run start
-
-# install 如果遇到失败时，可运行以下命令，再进行 npm install
-export http_proxy=http://127.0.0.1:12639
-export https_proxy=http://127.0.0.1:12639
-export all_proxy=http://127.0.0.1:12639
 ```
 
 更多开发指引请参考[开发规范与说明](./CONTRIBUTING.md)
