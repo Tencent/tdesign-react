@@ -54,7 +54,7 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === packageJson.version) return;
-    location.href = `https://tdesign.cdn-go.cn/tdesign-web-react/${version}/`;
+    location.href = `https://tdesign.cdn-go.cn/tdesign-react/${version}/`;
   }
 
   useEffect(() => {

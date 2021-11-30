@@ -3,12 +3,12 @@
  * usage: npm run init <component-name>
  *
  * @example npm run init time-picker
- *   /tdesign/tdesign-web-react/src/time-picker/index.ts will be created.
- *   /tdesign/tdesign-web-react/src/time-picker/TimePicker.ts will be created.
- *   /tdesign/tdesign-web-react/src/time-picker/api.md will be created.
- *   /tdesign/tdesign-web-react/src/time-picker/README.md will be created.
- *   /tdesign/tdesign-web-react/src/time-picker/_example/base.jsx will be created.
- *   /tdesign/tdesign-web-react/src/time-picker/__tests__/time-picker.test.tsx will be created.
+ *   /tdesign/tdesign-react/src/time-picker/index.ts will be created.
+ *   /tdesign/tdesign-react/src/time-picker/TimePicker.ts will be created.
+ *   /tdesign/tdesign-react/src/time-picker/api.md will be created.
+ *   /tdesign/tdesign-react/src/time-picker/README.md will be created.
+ *   /tdesign/tdesign-react/src/time-picker/_example/base.jsx will be created.
+ *   /tdesign/tdesign-react/src/time-picker/__tests__/time-picker.test.tsx will be created.
  */
 
 const fs = require('fs');
