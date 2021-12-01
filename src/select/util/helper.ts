@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { isPlainObject, get } from 'lodash';
 import OptionGroup from '../base/OptionGroup';
 
-import { SelectValue, TdOptionProps, SelectKeysType } from '../../_type/components/select';
+import { SelectValue, TdOptionProps, SelectKeysType } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 

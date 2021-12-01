@@ -1,10 +1,10 @@
 import React from 'react';
-import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
-import { TreeOptionData } from '../_type';
+import { TdTreeSelectProps, TreeSelectValue } from './type';
+import { TreeOptionData } from '../common';
 import Tag from '../tag';
 
 export interface TreeSelectTagsProps extends TdTreeSelectProps {
-  tagList: Array<TreeSelectValue>,
+  tagList: Array<TreeSelectValue>;
 }
 
 export default function TreeSelectTags(props: TreeSelectTagsProps) {
@@ -36,11 +36,12 @@ export default function TreeSelectTags(props: TreeSelectTagsProps) {
     tags = tags.slice(0, minCollapsedNum);
 
     const nums = tagList.length - minCollapsedNum;
-    nums && tags.push(
-      <Tag key={`collapsed-${nums}`} size={size} disabled={disabled}>
-        { collapsedItems || `+${nums}` }
-      </Tag>
-    );
+    nums &&
+      tags.push(
+        <Tag key={`collapsed-${nums}`} size={size} disabled={disabled}>
+          {collapsedItems || `+${nums}`}
+        </Tag>,
+      );
   }
 
   return <>{tags}</>;

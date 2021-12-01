@@ -4,9 +4,8 @@ import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
-import { TdInputProps, InputValue } from '../_type/components/input';
-import { StyledProps } from '../_type';
-import { TElement } from '../_type/common';
+import { TdInputProps, InputValue } from './type';
+import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
 
@@ -15,7 +14,7 @@ export interface InputProps extends TdInputProps, StyledProps {
   onCompositionEnd?: Function;
 }
 
-const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TElement) => {
+const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
   let result: React.ReactNode = null;
 
   if (icon) result = icon;

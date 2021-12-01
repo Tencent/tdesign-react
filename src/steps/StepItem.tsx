@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { CloseIcon, CheckIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import { TdStepItemProps } from '../_type/components/steps';
-import { StyledProps } from '../_type';
+import { TdStepItemProps } from './type';
+import { StyledProps } from '../common';
 import StepsContext from './StepsContext';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
@@ -17,7 +17,7 @@ export default function StepItem(props: StepItemProps) {
   const { icon, title, content, value, children, style } = props;
   let { status } = props;
 
-  const { current, currentStatus, theme } = useContext(StepsContext);
+  const { current, theme } = useContext(StepsContext);
   const { classPrefix } = useConfig();
 
   // 本步骤组件主动设定了状态，那么以此为准
@@ -27,20 +27,16 @@ export default function StepItem(props: StepItemProps) {
       status = 'finish';
     } else if (value === current) {
       // 2. 本步骤序号等于当前步骤. 默认为process
-      if (currentStatus) {
-        status = currentStatus;
-      } else {
-        status = 'process';
-      }
+      status = 'process';
     } else {
       // 3. 本步骤序号大于当前步骤，默认为wait
-      status = 'wait';
+      status = 'default';
     }
   }
 
   const className = classnames({
     [`${classPrefix}-steps-item`]: true,
-    [`${classPrefix}-steps-item--wait`]: status === 'wait',
+    [`${classPrefix}-steps-item--wait`]: status === 'default',
     [`${classPrefix}-steps-item--error`]: status === 'error',
     [`${classPrefix}-steps-item--finish`]: status === 'finish',
     [`${classPrefix}-steps-item--process`]: status === 'process',
@@ -72,7 +68,7 @@ export default function StepItem(props: StepItemProps) {
           </span>
         );
         break;
-      case 'wait':
+      case 'default':
       case 'process':
         iconEle = (
           <span className={`${classPrefix}-steps-item-icon__number`}>

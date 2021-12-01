@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import classNames from 'classnames';
 import { CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
-import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
+import { UploadFile, UploadRemoveContext } from '../type';
 import useConfig from '../../_util/useConfig';
 
 export interface SingleFileProps {

@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
 import { getCharacterLength } from '../_util/helper';
-import { CustomValidator, FormRule, ValueType, AllValidateResult } from '../_type/components/form';
+import { CustomValidator, FormRule, ValueType, AllValidateResult } from './type';
 
 // `{} / [] / '' / undefined / null` 等内容被认为是空； 0 和 false 被认为是正常数据，部分数据的值就是 0 或者 false
 export function isValueEmpty(val: ValueType): boolean {

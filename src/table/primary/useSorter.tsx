@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import get from 'lodash/get';
 import { ConfigContext } from '../../config-provider';
-import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort } from '../../_type/components/table';
+import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort } from '../type';
 import SorterButton, { SortTypeEnum } from './SorterButton';
 import { PrimaryTableProps } from './Table';
 

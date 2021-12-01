@@ -4,8 +4,8 @@ import { CloseIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdTagProps } from '../_type/components/tag';
+import { StyledProps } from '../common';
+import { TdTagProps } from './type';
 import CheckTag from './CheckTag';
 
 /**

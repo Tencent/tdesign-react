@@ -1,8 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { StyledProps } from '../_type';
-import { TNode } from '../_type/common';
-import { TdMenuGroupProps } from '../_type/components/menu';
+import { StyledProps , TNode } from '../common';
+import { TdMenuGroupProps } from './type';
 import useConfig from '../_util/useConfig';
 
 export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {

@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
-import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from '../_type/components/checkbox';
-import { StyledProps } from '../_type';
+import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from './type';
+import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
 import Checkbox from './Checkbox';
 

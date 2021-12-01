@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Tooltip from '../tooltip/Tooltip';
-import { TdTooltipProps } from '../_type/components/tooltip';
+import { TdTooltipProps } from '../tooltip/type';
 
 interface SliderHandleButtonProps {
   onChange: (event: React.MouseEvent | MouseEvent) => void;

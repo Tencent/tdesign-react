@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdRowProps } from '../_type/components/grid';
+import { StyledProps } from '../common';
+import { TdRowProps } from './type';
 import Col from './Col';
 
 /**

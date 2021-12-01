@@ -22,8 +22,8 @@ import Option, { SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 
-import { TdSelectProps, SelectValue, TdOptionProps } from '../../_type/components/select';
-import { StyledProps } from '../../_type';
+import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
+import { StyledProps } from '../../common';
 
 const MAX_OVERLAY_WIDTH = 500;
 

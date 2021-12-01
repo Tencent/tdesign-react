@@ -7,7 +7,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
-import { TdMessageProps } from '../_type/components/message';
+import { TdMessageProps } from './type';
 import { useMessageClass } from './useMessageClass';
 
 export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessageProps) {

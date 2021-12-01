@@ -1,6 +1,6 @@
 import React from 'react';
 import useConfig from '../../_util/useConfig';
-import { TdDatePickerProps } from '../../_type/components/date-picker';
+import { TdDatePickerProps } from '../type';
 import Button from '../../button';
 
 export interface CalendarPresetsProps {

@@ -2,9 +2,9 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Loading from '../loading';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 import useCommonClassName from '../_util/useCommonClassName';
-import { TdSwitchProps } from '../_type/components/switch';
+import { TdSwitchProps } from './type';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;

@@ -4,7 +4,7 @@ import './style/index.js';
 
 export type { InputProps } from './Input';
 export type { InputGroupProps } from './InputGroup';
-export * from '../_type/components/input';
+export * from './type';
 
 export const Input = _Input;
 export default Input;

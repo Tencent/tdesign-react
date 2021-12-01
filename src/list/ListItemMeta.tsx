@@ -1,28 +1,28 @@
 import React, { forwardRef } from 'react';
 import useConfig from '../_util/useConfig';
-import { TdListItemMetaProps } from '../_type/components/list';
+import { TdListItemMetaProps } from './type';
 
 export type ListItemMetaProps = TdListItemMetaProps;
 /**
  * 列表组件
  */
 const ListItemMeta = forwardRef((props: ListItemMetaProps, ref: React.Ref<HTMLDivElement>) => {
-  const { title, avatar, description } = props;
+  const { title, image, description } = props;
   const { classPrefix } = useConfig();
 
   const renderAvatar = () => {
-    if (avatar && typeof avatar === 'string') {
+    if (image && typeof image === 'string') {
       return (
         <div className={`${classPrefix}-list-item__meta-avatar`}>
-          <img src={avatar} alt="" />
+          <img src={image} alt="" />
         </div>
       );
     }
-    return <div className={`${classPrefix}-list-item__meta-avatar`}>{avatar}</div>;
+    return <div className={`${classPrefix}-list-item__meta-avatar`}>{image}</div>;
   };
   return (
     <div ref={ref} className={`${classPrefix}-list-item__meta`}>
-      {avatar && renderAvatar()}
+      {image && renderAvatar()}
       <div className={`${classPrefix}-list-item__meta-content`}>
         <h3 className={`${classPrefix}-list-item__meta-title`}>{title}</h3>
         <div className={`${classPrefix}-list-item__meta-description`}>

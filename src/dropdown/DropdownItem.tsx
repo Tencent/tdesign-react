@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon as TIconChevronRight } from 'tdesign-icons-react';
-import { DropdownOption, TdDropdownProps } from '../_type/components/dropdown';
+import { DropdownOption, TdDropdownProps } from './type';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
 import TDivider from '../divider';

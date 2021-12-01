@@ -1,5 +1,5 @@
 import useDefault from '../_util/useDefault';
-import { TdTreeProps } from '../_type/components/tree';
+import { TdTreeProps } from './type';
 
 export default function useControllable(
   props: TdTreeProps,

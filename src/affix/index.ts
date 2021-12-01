@@ -5,6 +5,6 @@ import './style/index.js';
 export { Affix };
 
 export type { AffixProps } from './Affix';
-export * from '../_type/components/affix';
+export * from './type';
 
 export default Affix;

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
+import { TdTreeSelectProps, TreeSelectValue } from './type';
 import useConfig from '../_util/useConfig';
 import FakeArrow from '../common/FakeArrow';
 import Loading from '../loading';

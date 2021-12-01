@@ -1,5 +1,5 @@
 import React from 'react';
-import { TdFormProps } from '../_type/components/form';
+import { TdFormProps } from './type';
 
 const FormContext = React.createContext<{
   labelWidth?: TdFormProps['labelWidth'];

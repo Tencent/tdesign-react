@@ -15,8 +15,8 @@ import {
   NotificationInstance,
   NotificationPlacementList,
   NotificationCloseAllMethod,
-} from '../_type/components/notification';
-import { Styles } from '../_type/common';
+} from './type';
+import { Styles } from '../common';
 import { fetchListInstance, listMap } from './NotificationList';
 
 const blockName = 'notification';

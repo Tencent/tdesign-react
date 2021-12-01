@@ -5,8 +5,8 @@ import isEmpty from 'lodash/isEmpty';
 import isBoolean from 'lodash/isBoolean';
 import isFunction from 'lodash/isFunction';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdTreeSelectProps, TreeSelectValue } from '../_type/components/tree-select';
-import { StyledProps, TreeOptionData } from '../_type';
+import { TdTreeSelectProps, TreeSelectValue } from './type';
+import { StyledProps, TreeOptionData } from '../common';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 
@@ -312,7 +312,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
             handleClear={handleClear}
             {...props}
           />
-
         </div>
       </Popup>
     </div>

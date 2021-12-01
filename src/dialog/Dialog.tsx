@@ -4,8 +4,8 @@ import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import Button from '../button';
-import { TdDialogProps, DialogInstance } from '../_type/components/dialog';
-import { StyledProps } from '../_type';
+import { TdDialogProps, DialogInstance } from './type';
+import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';

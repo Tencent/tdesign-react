@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdRadioGroupProps } from '../_type/components/radio';
+import { TdRadioGroupProps } from './type';
 import useDefault from '../_util/useDefault';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
-import { TreeOptionData } from '../_type';
+import { TreeOptionData } from '../common';
 import { usePersistFn } from '../_util/usePersistFn';
-import { TreeInstanceFunctions, TdTreeProps } from '../_type/components/tree';
+import { TreeInstanceFunctions, TdTreeProps } from './type';
 import { useTreeConfig } from './useTreeConfig';
 import useControllable from './useControllable';
 import { TreeItemProps } from './interface';
@@ -66,13 +66,11 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   );
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
-  const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean) => {
+  const setExpanded = usePersistFn((node: TreeNode, isExpanded: boolean, e?: React.MouseEvent<HTMLDivElement>) => {
     const expanded = node.setExpanded(isExpanded);
     const treeNodeModel = node?.getModel();
 
-    onExpand?.(expanded, {
-      node: treeNodeModel,
-    });
+    e && onExpand?.(expanded, { node: treeNodeModel, e });
     return expanded;
   });
 
@@ -96,7 +94,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     }
     const { expand, active, event } = options;
     if (expand) {
-      setExpanded(node, !node.isExpanded());
+      setExpanded(node, !node.isExpanded(), event);
     }
 
     if (active) {

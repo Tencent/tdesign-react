@@ -1,10 +1,10 @@
 import React, { forwardRef, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { TdSliderProps } from '../_type/components/slider';
+import { TdSliderProps } from './type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import { numberToPencent } from './utils/handleNumber';
-import { StyledProps, TNode } from '../_type';
+import { StyledProps, TNode } from '../common';
 import InputNumber from '../input-number/InputNumber';
 import SliderHandleButton from './SliderHandleButton';
 import { accAdd } from '../_util/number';

@@ -11,7 +11,7 @@ import {
   HelpCircleFilledIcon,
   InfoCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { TdMessageProps } from '../_type/components/message';
+import { TdMessageProps } from './type';
 import Loading from '../loading';
 
 // theme 和 icon 的映射表

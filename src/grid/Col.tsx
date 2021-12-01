@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdColProps , TdRowProps } from '../_type/components/grid';
+import { StyledProps } from '../common';
+import { TdColProps, TdRowProps } from './type';
 
 type FlexType = number | 'none' | 'auto' | string;
 

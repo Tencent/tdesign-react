@@ -4,7 +4,7 @@ import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
 import Loading from '../loading';
-import { TdButtonProps } from '../_type/components/button';
+import { TdButtonProps } from './type';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。

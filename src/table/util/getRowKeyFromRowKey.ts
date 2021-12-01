@@ -1,4 +1,4 @@
-import { TdBaseTableProps } from '../../_type/components/table';
+import { TdBaseTableProps } from '../type';
 
 export default function getRowKeyFromRowKey(rowKey: TdBaseTableProps['rowKey']): any {
   let getRowKey = null;

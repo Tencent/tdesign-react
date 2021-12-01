@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdStepsProps } from '../_type/components/steps';
-import { StyledProps } from '../_type';
+import { TdStepsProps } from './type';
+import { StyledProps } from '../common';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
 
@@ -18,8 +18,7 @@ function Steps(props: StepsProps) {
   const {
     style,
     current = 0,
-    direction = 'horizontal',
-    status = 'process',
+    layout = 'horizontal',
     theme = 'default',
     sequence = 'positive',
     children,
@@ -30,8 +29,8 @@ function Steps(props: StepsProps) {
 
   const className = classnames({
     [`${classPrefix}-steps`]: true,
-    [`${classPrefix}-steps--horizontal`]: direction === 'horizontal',
-    [`${classPrefix}-steps--vertical`]: direction === 'vertical',
+    [`${classPrefix}-steps--horizontal`]: layout === 'horizontal',
+    [`${classPrefix}-steps--vertical`]: layout === 'vertical',
     [`${classPrefix}-steps--default-anchor`]: theme === 'default',
     [`${classPrefix}-steps--positive`]: sequence === 'positive',
     [`${classPrefix}-steps--reverse`]: sequence === 'reverse',
@@ -49,7 +48,7 @@ function Steps(props: StepsProps) {
     }
   }, [current, onChange]);
 
-  const shouldReserve = sequence === 'reverse' && direction === 'vertical';
+  const shouldReserve = sequence === 'reverse' && layout === 'vertical';
 
   // 处理 children 的展示逻辑，生成展示列表供页面循环;
   const childrenList = React.Children.toArray(children);
@@ -69,7 +68,7 @@ function Steps(props: StepsProps) {
   }
 
   return (
-    <StepsContext.Provider value={{ current, currentStatus: status, theme }}>
+    <StepsContext.Provider value={{ current, theme }}>
       <div className={className} style={style}>
         {stepItemList}
       </div>

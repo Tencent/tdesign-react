@@ -1,4 +1,4 @@
-import { MessageThemeList } from '../_type/components/message';
+import { MessageThemeList } from './type';
 
 const Distance = '32px';
 export const THEME_ARRAY: MessageThemeList[] = ['info', 'success', 'warning', 'error', 'question', 'loading'];

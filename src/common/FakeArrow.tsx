@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ClassName } from '../_type/common';
+import { ClassName } from '../common';
 
 import useConfig from '../_util/useConfig';
 

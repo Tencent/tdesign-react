@@ -1,4 +1,4 @@
-import { Styles } from '../_type/common';
+import { Styles } from '../common';
 
 /**
  * 用于为el节点增加styles

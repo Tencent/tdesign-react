@@ -1,8 +1,8 @@
 import React, { FC, useState, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon } from 'tdesign-icons-react';
-import { SortInfo, PrimaryTableCol, SortType } from '../../_type/components/table';
-import { Styles } from '../../_type/common';
+import { SortInfo, PrimaryTableCol, SortType } from '../type';
+import { Styles } from '../../common';
 import Tooltip from '../../tooltip';
 import { ConfigContext } from '../../config-provider';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdAsideProps } from '../_type/components/layout';
-import { StyledProps } from '../_type/StyledProps';
+import { TdAsideProps } from './type';
+import { StyledProps } from '../common';
 
 export interface SiderProps extends TdAsideProps, StyledProps {
   /**

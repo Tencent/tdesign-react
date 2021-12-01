@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import isNil from 'lodash/isNil';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import { TdFormItemProps, ValueType, FormRule } from '../_type/components/form';
+import { TdFormItemProps, ValueType, FormRule } from './type';
 import Checkbox from '../checkbox';
 import Upload from '../upload';
 import Tag from '../tag';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext } from './FormContext';
 

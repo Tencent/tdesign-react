@@ -9,4 +9,4 @@ defaultCurrent | Number | - | 当前轮播在哪一项（下标）。非受控�
 direction | String | horizontal | 轮播滑动方向，包括横向滑动和纵向滑动两个方向。可选项：horizontal/vertical | N
 duration | Number | 300 | 滑动动画时长 | N
 interval | Number | 5000 | 轮播间隔时间 | N
-onChange | Function |  | 轮播切换时触发。`(currentIndex: number) => {}` | N
+onChange | Function |  | 轮播切换时触发。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/swiper/type.ts)。`(current: number, context: { source: SwiperChangeSource }) => {}` | N

@@ -2,7 +2,7 @@ import { noop } from 'lodash';
 import { useState, ReactNode } from 'react';
 import { MenuState, SetMenuState, MenuMode } from '../MenuContext';
 import checkSubMenuChildExpanded from '../_util/checkSubMenuChildExpanded';
-import { TdMenuProps, TdHeadMenuProps, MenuValue } from '../../_type/components/menu/index';
+import { TdMenuProps, TdHeadMenuProps, MenuValue } from '../type';
 
 interface UseMenuContextProps extends Extract<TdMenuProps, TdHeadMenuProps> {
   children: ReactNode;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popup from '../popup';
 import useConfig from '../_util/useConfig';
-import { TdTooltipProps } from '../_type/components/tooltip';
+import { TdTooltipProps } from './type';
 
 export type TooltipProps = TdTooltipProps;
 

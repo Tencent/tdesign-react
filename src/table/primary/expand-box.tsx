@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { ChevronDownCircleIcon } from 'tdesign-icons-react';
 import { ConfigContext } from '../../config-provider';
-import { Styles, TNode } from '../../_type/common';
+import { Styles, TNode } from '../../common';
 
 interface Props {
   expanded?: boolean;

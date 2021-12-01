@@ -2,8 +2,8 @@ import React, { FC, useContext, useRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
-import { TdMenuItemProps } from '../_type/components/menu';
-import { StyledProps } from '../_type';
+import { TdMenuItemProps } from './type';
+import { StyledProps } from '../common';
 import { MenuContext } from './MenuContext';
 
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}

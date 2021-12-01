@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
-import { DataType, TdPrimaryTableProps } from '../../_type/components/table';
+import { DataType, TdPrimaryTableProps } from '../type';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 import { getScrollDirection, ScrollDirection } from '../util';

@@ -4,7 +4,7 @@ import Popup from '../popup/Popup';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
-import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
+import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
 import PopContent from './PopContent';
 
 export type PopConfirmProps = TdPopconfirmProps;

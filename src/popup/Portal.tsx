@@ -1,6 +1,6 @@
 import React, { useEffect, ReactNode, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { AttachNode } from '../_type/common';
+import { AttachNode } from '../common';
 
 export interface PortalProps {
   // 子元素

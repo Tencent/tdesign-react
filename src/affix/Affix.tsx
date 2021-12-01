@@ -1,8 +1,7 @@
 import React, { useState, useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import isFunction from 'lodash/isFunction';
-import { StyledProps } from '../_type';
-import { ScrollContainerElement } from '../_type/common';
-import { TdAffixProps } from '../_type/components/affix';
+import { StyledProps , ScrollContainerElement } from '../common';
+import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 

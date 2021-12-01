@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
-import { AttachNode } from '../_type/common';
+import { AttachNode } from '../common';
 import noop from '../_util/noop';
 import { DialogProps } from './Dialog';
 

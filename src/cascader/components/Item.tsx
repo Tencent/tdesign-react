@@ -20,7 +20,7 @@ import Checkbox from '../../checkbox/Checkbox';
 import { ContextType, CascaderItemProps, CascaderContextType } from '../interface';
 import TreeNode from '../../_common/js/tree/tree-node';
 import { TreeNodeValue } from '../../_common/js/tree/types';
-import { CheckboxProps } from '../../checkbox/index';
+import { CheckboxProps } from '../../checkbox';
 
 const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: CascaderContextType) => {
   const { filterActive, inputVal } = cascaderContext;

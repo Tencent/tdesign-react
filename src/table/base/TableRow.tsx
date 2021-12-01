@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
-import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams } from '../../_type/components/table';
+import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams } from '../type';
 import { RowSkipTdSpanColIndexsMap } from './TableBody';
 
 interface MergeCellsProps {

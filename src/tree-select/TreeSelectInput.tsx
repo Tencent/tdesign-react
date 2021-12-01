@@ -2,7 +2,7 @@ import React, { useMemo, forwardRef } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
-import { TdTreeSelectProps } from '../_type/components/tree-select';
+import { TdTreeSelectProps } from './type';
 import Input, { InputValue } from '../input';
 import useConfig from '../_util/useConfig';
 
@@ -66,7 +66,7 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
     return placeholder;
   }, [multiple, value, selectedSingle, placeholder]);
 
-  function onInput(value) {
+  function handleChange(value) {
     setFilterText(value);
     onSearch?.(value);
   }
@@ -89,7 +89,7 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
       size={size}
       disabled={disabled}
       placeholder={filterPlaceholder}
-      onInput={onInput}
+      onChange={handleChange}
       onBlur={handleBlur}
       onFocus={handleFocus}
     />

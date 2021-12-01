@@ -1,10 +1,10 @@
 import React, { Ref, forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { omit } from '../_util/helper';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
-import { TdCheckboxProps } from '../_type/components/checkbox';
+import { TdCheckboxProps } from '../checkbox/type';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
