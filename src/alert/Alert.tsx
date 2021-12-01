@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { InfoCircleFilledIcon, CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { TdAlertProps } from '../_type/components/alert';
-import { StyledProps } from '../_type';
+import { TdAlertProps } from './type';
+import { StyledProps } from '../common';
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 

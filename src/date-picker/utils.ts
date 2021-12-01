@@ -1,6 +1,6 @@
 import chunk from 'lodash/chunk';
-import { DateValue } from '../_type/components/date-picker';
-import { Styles } from '../_type/common';
+import { DateValue } from './type';
+import { Styles } from '../common';
 
 /**
  * next Month

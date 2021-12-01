@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
-import { TdTreeSelectProps } from '../_type/components/tree-select';
+import { TdTreeSelectProps } from './type';
 import { PopupProps } from '../popup';
 
 const defaultPopupProps: PopupProps = {
@@ -25,7 +25,6 @@ export default function useTreeSelectConfig(props: TreeSelectConfigProps) {
   const { disabled, prefixIcon, size, visible, popupProps } = props;
 
   return useMemo(() => {
-
     const selectClassName = classNames(`${prefix}-select`, {
       [CLASSNAMES.STATUS.disabled]: disabled,
       [CLASSNAMES.STATUS.active]: visible,

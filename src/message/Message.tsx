@@ -15,8 +15,8 @@ import {
   MessageWarningMethod,
   TdMessageProps,
   MessageThemeList,
-} from '../_type/components/message';
-import { AttachNodeReturnValue } from '../_type/common';
+} from './type';
+import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
 import { PlacementOffset, THEME_ARRAY } from './const';
 import MessageComponent from './MessageComponent';

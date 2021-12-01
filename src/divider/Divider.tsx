@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdDividerProps } from '../_type/components/divider';
+import { StyledProps } from '../common';
+import { TdDividerProps } from './type';
 
 /**
  * Divider 组件支持的属性。

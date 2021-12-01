@@ -5,8 +5,8 @@ import Popup from '../popup';
 import Message from '../message';
 import useConfig from '../_util/useConfig';
 
-import { TdAnchorTargetProps } from '../_type/components/anchor-target';
-import { StyledProps } from '../_type';
+import { TdAnchorTargetProps } from './type';
+import { StyledProps } from '../common';
 import { copyText } from './_util/clipboard';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {}

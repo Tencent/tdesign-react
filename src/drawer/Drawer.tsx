@@ -6,8 +6,8 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
-import { TdDrawerProps, DrawerEventSource } from '../_type/components/drawer';
-import { StyledProps } from '../_type';
+import { TdDrawerProps, DrawerEventSource } from './type';
+import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
 

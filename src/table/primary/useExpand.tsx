@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import get from 'lodash/get';
 import { ConfigContext } from '../../config-provider';
-import { PrimaryTableCol } from '../../_type/components/table';
+import { PrimaryTableCol } from '../type';
 import { PrimaryTableProps } from './Table';
 import ExpandBox from './expand-box';
 

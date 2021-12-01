@@ -12,12 +12,12 @@ import React, {
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
 import usePrevious from '../_util/usePrevious';
-import { TdPopupProps } from '../_type/components/popup';
+import { TdPopupProps } from './type';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 

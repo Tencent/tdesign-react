@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TdTabPanelProps } from '../_type/components/tabs';
-import { Styles } from '../_type/common';
+import { TdTabPanelProps } from './type';
+import { Styles } from '../common';
 import { useTabClass } from './useTabClass';
 
 export interface TabPanelProps extends TdTabPanelProps {

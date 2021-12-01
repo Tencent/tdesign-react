@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import padStart from 'lodash/padStart';
 
-import { TdTimePickerProps, TdTimeRangePickerProps } from '../_type/components/time-picker';
+import { TdTimePickerProps, TdTimeRangePickerProps } from './type';
 import useConfig from '../_util/useConfig';
 import { useTimePickerTextConfig } from './consts';
 import { KeyboardDirection, EPickerCols } from './interfaces';

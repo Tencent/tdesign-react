@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import isEqual from 'lodash/isEqual';
+// import isEqual from 'lodash/isEqual';
 import useUpdateEffect from '../_util/useUpdateEffect';
-import { TreeOptionData } from '../_type/common';
+// import { TreeOptionData } from '../common';
 import TreeStore from '../_common/js/tree/tree-store';
-import TreeNode from '../_common/js/tree/tree-node';
+// import TreeNode from '../_common/js/tree/tree-node';
 import { usePersistFn } from '../_util/usePersistFn';
-import { TdTreeProps } from '../_type/components/tree';
+import { TdTreeProps } from './type';
 import { TypeEventState } from './interface';
 
 export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
@@ -31,7 +31,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     lazy,
     valueMode,
     filter,
-    onDataChange,
+    // onDataChange,
     onLoad,
   } = props;
 
@@ -40,33 +40,33 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     refresh();
   });
 
-  const handleReflow = usePersistFn(() => {
-    if (!onDataChange) {
-      return;
-    }
+  // const handleReflow = usePersistFn(() => {
+  //   if (!onDataChange) {
+  //     return;
+  //   }
 
-    const nodes = storeRef.current.getNodes();
+  //   const nodes = storeRef.current.getNodes();
 
-    const rootNodes = nodes.filter((v) => !v.parent);
+  //   const rootNodes = nodes.filter((v) => !v.parent);
 
-    const getChild = (list: TreeNode[] | boolean) => {
-      if (Array.isArray(list) && list.length > 0) {
-        return list.map((v) => {
-          const nodeData: TreeOptionData = v.data;
-          if (Array.isArray(v.children) && v.children.length > 0) {
-            nodeData.children = getChild(v.children);
-          }
-          return nodeData;
-        });
-      }
-    };
+  //   const getChild = (list: TreeNode[] | boolean) => {
+  //     if (Array.isArray(list) && list.length > 0) {
+  //       return list.map((v) => {
+  //         const nodeData: TreeOptionData = v.data;
+  //         if (Array.isArray(v.children) && v.children.length > 0) {
+  //           nodeData.children = getChild(v.children);
+  //         }
+  //         return nodeData;
+  //       });
+  //     }
+  //   };
 
-    const newData = getChild(rootNodes);
+  //   const newData = getChild(rootNodes);
 
-    if (!isEqual(newData, data)) {
-      onDataChange?.(newData);
-    }
-  });
+  //   if (!isEqual(newData, data)) {
+  //     onDataChange?.(newData);
+  //   }
+  // });
 
   const getExpandedArr = (arr: TdTreeProps['expanded'], store: TreeStore) => {
     const expandedMap = new Map();
@@ -105,7 +105,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
         });
       },
       onUpdate: handleUpdate,
-      onReflow: handleReflow,
+      // onReflow: handleReflow,
     });
 
     // 初始化 store 的节点排列 + 状态

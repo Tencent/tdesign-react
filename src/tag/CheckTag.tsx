@@ -2,8 +2,8 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
-import { TdCheckTagProps } from '../_type/components/tag';
-import { StyledProps } from '../_type';
+import { TdCheckTagProps } from './type';
+import { StyledProps } from '../common';
 import noop from '../_util/noop';
 
 /**

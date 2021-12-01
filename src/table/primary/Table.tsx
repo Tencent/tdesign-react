@@ -1,5 +1,5 @@
 import React from 'react';
-import { TdPrimaryTableProps } from '../../_type/components/table';
+import { TdPrimaryTableProps } from '../type';
 import BaseTable from '../base/Table';
 import useSorter from './useSorter';
 import useFilter from './useFilter';

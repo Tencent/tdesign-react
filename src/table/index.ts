@@ -5,7 +5,7 @@ import _PrimaryTable, { PrimaryTableProps } from './primary/Table';
 import './style/index.js';
 
 export type { BaseTableProps, PrimaryTableProps };
-export * from '../_type/components/table';
+export * from './type';
 
 export const SimpleTable = _SimpleTable;
 export const Table = _PrimaryTable;

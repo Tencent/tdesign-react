@@ -21,12 +21,6 @@ export default () => {
 
   const treeRef = useRef(null);
 
-  const handleDataChange = (data) => {
-    console.info('onDataChange:', data);
-
-    setItems(data);
-  };
-
   const renderIcon = (node) => {
     const { data } = node;
     let name = 'file';
@@ -121,7 +115,6 @@ export default () => {
         line
         icon={renderIcon}
         operations={renderOperations}
-        onDataChange={handleDataChange}
       />
       <h3 className="title">api:</h3>
       <div className="operations">

@@ -3,7 +3,7 @@ import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-reac
 import Button from '../../button';
 import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';
-import { UploadFile, UploadRemoveContext } from '../../_type/components/upload';
+import { UploadFile, UploadRemoveContext } from '../type';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
 
 export interface DraggerProgressProps {

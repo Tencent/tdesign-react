@@ -1,8 +1,8 @@
 import React, { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdTextareaProps } from '../_type/components/textarea';
-import { StyledProps } from '../_type';
+import { TdTextareaProps } from './type';
+import { StyledProps } from '../common';
 import noop from '../_util/noop';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}

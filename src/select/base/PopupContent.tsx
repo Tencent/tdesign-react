@@ -1,7 +1,7 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue, TdOptionProps } from '../../_type/components/select';
+import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
 import useConfig from '../../_util/useConfig';
 import Option, { SelectOptionProps } from './Option';
 

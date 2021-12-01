@@ -6,8 +6,8 @@ import isFunction from 'lodash/isFunction';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdFormProps, FormValidateResult } from '../_type/components/form';
-import { StyledProps } from '../_type';
+import { TdFormProps, FormValidateResult } from './type';
+import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 

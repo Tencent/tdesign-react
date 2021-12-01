@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 
 export interface SwiperItemProps extends StyledProps {
   children?: React.ReactNode;

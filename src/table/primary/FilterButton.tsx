@@ -7,8 +7,8 @@ import { Popup } from '../../popup';
 import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
-import { TElement } from '../../_type/common';
-import { Filter, FilterValue, PrimaryTableCol, DataType } from '../../_type/components/table';
+import { TElement } from '../../common';
+import { Filter, FilterValue, PrimaryTableCol, DataType } from '../type';
 import { ConfigContext } from '../../config-provider';
 
 interface Props {

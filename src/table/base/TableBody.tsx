@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import { TdPrimaryTableProps } from '../../_type/components/table';
+import { TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
 import TableRow from './TableRow';
 import { ExpandProps } from './Table';

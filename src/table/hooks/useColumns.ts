@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { BaseTableCol, DataType } from '../../_type/components/table';
+import { BaseTableCol, DataType } from '../type';
 
 function flattenColumns(columns: BaseTableCol[]): BaseTableCol[] {
   const result: Array<BaseTableCol> = [];

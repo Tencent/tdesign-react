@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import { addClass, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { LoadingMethod, TdLoadingProps } from '../_type/components/loading';
+import { StyledProps } from '../common';
+import { LoadingMethod, TdLoadingProps } from './type';
 import Portal from '../common/Portal';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {

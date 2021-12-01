@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdMenuProps } from '../_type/components/menu';
+import { StyledProps } from '../common';
+import { TdMenuProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { MenuContext } from './MenuContext';
 import { DEFAULT_MENU_WIDTH } from './_util/constant';

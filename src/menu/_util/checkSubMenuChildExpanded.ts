@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuValue } from '../../_type/components/menu';
+import { MenuValue } from '../type';
 import { MenuBlockType } from './type';
 
 export default function checkSubMenuChildExpanded(

@@ -6,8 +6,8 @@ import get from 'lodash/get';
 
 import useConfig from '../../_util/useConfig';
 import useRipple from '../../_util/useRipple';
-import { StyledProps } from '../../_type/StyledProps';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../../_type/components/select';
+import { StyledProps } from '../../common';
+import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType } from '../type';
 
 /**
  * Option 组件属性

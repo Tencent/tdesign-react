@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type/StyledProps';
-import { TdHeaderProps, TdFooterProps } from '../_type/components/layout';
+import { StyledProps } from '../common';
+import { TdHeaderProps, TdFooterProps } from './type';
 import Sider from './Sider';
 
 export interface LayoutProps extends StyledProps {

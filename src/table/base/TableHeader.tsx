@@ -1,8 +1,8 @@
 import React, { isValidElement } from 'react';
 import isFunction from 'lodash/isFunction';
-import { BaseTableCol, DataType } from '../../_type/components/table';
+import { BaseTableCol, DataType } from '../type';
 import TableCell, { CellProps } from './TableCell';
-import { Styles } from '../../_type/common';
+import { Styles } from '../../common';
 
 interface TableHeaderProps<D extends DataType> {
   columns: (BaseTableCol<D> & { style?: Styles })[];

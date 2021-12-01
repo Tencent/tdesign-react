@@ -9,7 +9,7 @@ import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
 import { finishUpload, updateFileList, isSingleFile } from './util';
 import { TdUploadFile, UploadProps } from './types';
-import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from '../_type/components/upload';
+import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from './type';
 import useDefaultValue from './hooks/useDefaultValue';
 
 const urlCreator = window.webkitURL || window.URL;
@@ -76,7 +76,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       file.status = 'fail';
       let res = response;
       if (typeof formatResponse === 'function') {
-        res = formatResponse(response);
+        res = formatResponse(response, { file });
       }
 
       setErrorMsg(res?.error || '上传失败');
@@ -123,10 +123,10 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
 
   const handleProgress = useCallback(
-    ({ e, file, percent }: ProgressContext) => {
+    ({ e, file, percent, type = 'mock' }: ProgressContext) => {
       const tmpFile = { ...file };
       tmpFile.percent = percent;
-      const progressCtx = { percent, e, file: tmpFile };
+      const progressCtx = { percent, e, file: tmpFile, type };
       const nextFileList = updateFileList(tmpFile, fileList);
       // setFileList((prevFileList) => updateFileList(tmpFile, prevFileList));
       onChange?.(nextFileList, { trigger: 'progress' });

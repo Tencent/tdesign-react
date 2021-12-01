@@ -10,8 +10,8 @@ import {
 } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
-import { StyledProps } from '../_type';
-import { TdProgressProps } from '../_type/components/progress';
+import { StyledProps } from '../common';
+import { TdProgressProps } from './type';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**

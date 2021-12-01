@@ -13,11 +13,11 @@ import useDefault from '../_util/useDefault';
 import Select from '../select';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
-import { TdPaginationProps } from '../_type/components/pagination';
-import { StyledProps } from '../_type/StyledProps';
+import { TdPaginationProps } from './type';
+import { StyledProps } from '../common';
 import { pageSizeValidator } from './validators';
 
-export type { PageInfo } from '../_type/components/pagination';
+export type { PageInfo } from './type';
 
 export interface PaginationProps extends TdPaginationProps, StyledProps {}
 

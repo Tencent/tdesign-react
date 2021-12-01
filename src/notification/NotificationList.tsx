@@ -7,8 +7,8 @@ import {
   NotificationPlacementList,
   NotificationThemeList,
   TdNotificationProps,
-} from '../_type/components/notification';
-import { Styles } from '../_type/common';
+} from './type';
+import { Styles } from '../common';
 import noop from '../_util/noop';
 import { NotificationComponent } from './Notification';
 

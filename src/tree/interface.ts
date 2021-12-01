@@ -1,5 +1,5 @@
 import { MouseEvent, ReactNode } from 'react';
-import { TNode } from '../_type/common';
+import { TNode } from '../common';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TypeTreeEventState, TypeTreeNodeModel } from '../_common/js/tree/types';
 

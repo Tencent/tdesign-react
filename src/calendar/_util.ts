@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { CalendarCell } from '../_type/components/calendar';
+import { CalendarCell } from './type';
 
 /**
  * 获取一个日期是周几（1~7）

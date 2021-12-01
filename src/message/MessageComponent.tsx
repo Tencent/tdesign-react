@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 
 import classNames from 'classnames';
-import { TdMessageProps } from '../_type/components/message';
+import { TdMessageProps } from './type';
 
 // 依赖组件引入
 import noop from '../_util/noop';

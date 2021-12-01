@@ -1,7 +1,7 @@
 import React, { FC, useState, DragEvent } from 'react';
 import classNames from 'classnames';
-import { TNode } from '../_type/common';
-import { TriggerContext, UploadFile, UploadRemoveContext } from '../_type/components/upload';
+import { TNode } from '../common';
+import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
 import useConfig from '../_util/useConfig';
 import DraggerProgress from './themes/dragger-progress';
 

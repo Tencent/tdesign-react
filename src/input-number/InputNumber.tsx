@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler, useEffect } from 'react';
 import classNames from 'classnames';
 
-import { StyledProps } from '../_type';
-import { TdInputNumberProps, ChangeContext as TdChangeContext } from '../_type/components/input-number';
+import { StyledProps } from '../common';
+import { TdInputNumberProps, ChangeContext as TdChangeContext } from './type';
 
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { ConfigContext } from '../../config-provider';
-import { PrimaryTableCol, DataType } from '../../_type/components/table';
+import { PrimaryTableCol, DataType } from '../type';
 import { PrimaryTableProps } from './Table';
 import { Checkbox } from '../../checkbox';
 import { Radio } from '../../radio';

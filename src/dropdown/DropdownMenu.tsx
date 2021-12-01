@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { DropdownOption } from '../_type/components/dropdown';
+import { DropdownOption } from './type';
 import useConfig from '../_util/useConfig';
 import { DropdownProps } from './Dropdown';
 import DropdownItem from './DropdownItem';

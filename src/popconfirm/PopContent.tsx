@@ -7,7 +7,7 @@ import Button from '../button/Button';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
-import { PopconfirmVisibleChangeContext } from '../_type/components/popconfirm';
+import { PopconfirmVisibleChangeContext } from './type';
 
 const PopContent = (props: PopConfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
   const {

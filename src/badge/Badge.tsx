@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { StyledProps } from '../_type';
+import { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
-import { TdBadgeProps } from '../_type/components/badge';
+import { TdBadgeProps } from './type';
 
 export interface BadgeProps extends TdBadgeProps, StyledProps {}
 

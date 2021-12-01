@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdListItemProps } from '../_type/components/list';
-import { StyledProps } from '../_type';
+import { TdListItemProps } from './type';
+import { StyledProps } from '../common';
 
 export interface ListItemProps extends TdListItemProps, StyledProps {
   /**

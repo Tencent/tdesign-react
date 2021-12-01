@@ -3,7 +3,7 @@ import { BrowseIcon, DeleteIcon, AddIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import Dialog from '../../dialog';
 import useConfig from '../../_util/useConfig';
-import { UploadRemoveContext } from '../../_type/components/upload';
+import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
 import { TdUploadFile } from '../types';
 

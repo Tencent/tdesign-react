@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'react';
 import { createPortal } from 'react-dom';
-import { AttachNode, AttachNodeReturnValue } from '../_type/common';
+import { AttachNode, AttachNodeReturnValue } from '../common';
 
 export interface PortalProps {
   /**

@@ -12,8 +12,8 @@ import InputItems from './InputItems';
 
 import { useTimePickerTextConfig } from './consts';
 
-import { TdTimeRangePickerProps } from '../_type/components/time-picker';
-import { StyledProps } from '../_type';
+import { TdTimeRangePickerProps } from './type';
+import { StyledProps } from '../common';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 

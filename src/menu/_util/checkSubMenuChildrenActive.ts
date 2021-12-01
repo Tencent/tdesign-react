@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuValue } from '../../_type/components/menu/index';
+import { MenuValue } from '../type';
 import { checkIsMenuItem, checkIsSubMenu } from './checkMenuType';
 
 const checkSubMenuChildrenActive = (children: React.ReactNode, active: MenuValue) => {

@@ -8,7 +8,7 @@ import range from 'lodash/range';
 import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
 
-import { TdTimePickerProps } from '../../_type/components/time-picker';
+import { TdTimePickerProps } from '../type';
 import { EPickerCols } from '../interfaces';
 
 import { MERIDIEM_LIST, AM, PM, useTimePickerTextConfig } from '../consts';

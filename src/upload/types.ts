@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { UploadFile, ProgressContext, TdUploadProps } from '../_type/components/upload';
+import { UploadFile, ProgressContext, TdUploadProps } from './type';
 
 export interface XhrSuccessContext {
   e: ProgressEvent;

@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdCommentProps } from '../_type/components/comment';
+import { StyledProps } from '../common';
+import { TdCommentProps } from './type';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 

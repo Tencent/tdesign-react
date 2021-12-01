@@ -1,5 +1,5 @@
 import React from 'react';
-import { TdBreadcrumbItemProps, TdBreadcrumbProps } from '../_type/components/breadcrumb';
+import { TdBreadcrumbItemProps, TdBreadcrumbProps } from './type';
 
 export interface BreadcrumbProps
   extends React.HTMLAttributes<HTMLDivElement>,

@@ -16,8 +16,8 @@ import InputItems from './InputItems';
 
 import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from './consts';
 
-import { StyledProps } from '../_type';
-import { TdTimePickerProps } from '../_type/components/time-picker';
+import { StyledProps } from '../common';
+import { TdTimePickerProps } from './type';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);

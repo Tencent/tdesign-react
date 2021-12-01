@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
-import { TdTabsProps, TdTabPanelProps, TabValue } from '../_type/components/tabs';
+import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';

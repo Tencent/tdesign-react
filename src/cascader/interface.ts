@@ -1,5 +1,5 @@
-import { TdCascaderProps, CascaderValue } from '../_type/components/cascader';
-import { StyledProps } from '../_type';
+import { TdCascaderProps, CascaderValue } from './type';
+import { StyledProps } from '../common';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeNodeValue } from '../_common/js/tree/types';

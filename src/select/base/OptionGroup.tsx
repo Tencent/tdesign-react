@@ -2,7 +2,7 @@ import React, { Children, isValidElement, cloneElement } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 
-import { TdOptionGroupProps, SelectValue } from '../../_type/components/select';
+import { TdOptionGroupProps, SelectValue } from '../type';
 
 export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   selectedValue?: SelectValue;

@@ -6,8 +6,8 @@ import Select from '../select';
 import Radio from '../radio';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from '../_type/components/calendar';
-import { StyledProps } from '../_type/StyledProps';
+import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from './type';
+import { StyledProps } from '../common';
 import { createDateList, createMonthList } from './_util';
 import CheckTag from '../tag/CheckTag';
 

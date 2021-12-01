@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { TabValue, TdTabsProps } from '../_type/components/tabs';
+import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';

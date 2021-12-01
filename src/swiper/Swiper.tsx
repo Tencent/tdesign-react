@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { TdSwiperProps } from '../_type/components/swiper';
-import { StyledProps } from '../_type';
+import { TdSwiperProps, SwiperChangeSource } from './type';
+import { StyledProps } from '../common';
 
 import SwiperItem from './SwiperItem';
 
@@ -55,9 +55,9 @@ const Swiper = (props: SwiperProps) => {
 
   // 统一跳转处理函数
   const swiperTo = useCallback(
-    (index: number) => {
+    (index: number, context: { source: SwiperChangeSource }) => {
       // 事件通知
-      onChange(index % childrenLength);
+      onChange(index % childrenLength, context);
       // 设置内部 index
       setAnimation(true);
       setCurrentIndex(index);
@@ -70,7 +70,7 @@ const Swiper = (props: SwiperProps) => {
     if (autoplay && interval > 0) {
       swiperTimer.current = setTimeout(
         () => {
-          swiperTo(currentIndex + 1);
+          swiperTo(currentIndex + 1, { source: 'autoplay' });
         },
         currentIndex === 0 ? interval - (duration + 50) : interval, // 当 index 为 0 的时候，表明刚从克隆的最后一项跳转过来，已经经历了duration + 50 的间隔时间，减去即可
       );
@@ -86,7 +86,7 @@ const Swiper = (props: SwiperProps) => {
   // 监听 current 参数变化
   useEffect(() => {
     if (current !== undefined) {
-      swiperTo(current % childrenLength);
+      swiperTo(current % childrenLength, { source: '' });
     }
   }, [current, childrenLength, swiperTo]);
 
@@ -154,7 +154,7 @@ const Swiper = (props: SwiperProps) => {
           <li
             key={i}
             className={i === currentIndex % childrenLength ? `${classPrefix}-swiper__trigger--active` : ''}
-            onClick={() => swiperTo(i)}
+            onClick={() => swiperTo(i, { source: 'touch' })}
           />
         ))}
       </ul>

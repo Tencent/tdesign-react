@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
-import { StyledProps } from '../_type';
-import { TdDatePickerProps } from '../_type/components/date-picker';
+import { StyledProps } from '../common';
+import { TdDatePickerProps } from './type';
 import useCommonClassName from '../_util/useCommonClassName';
 import useClickOutside from '../_util/useClickOutside';
 
