@@ -155,7 +155,7 @@ exports[`OperateSteps.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -300,7 +300,7 @@ exports[`OperateSteps.jsx 1`] = `
 exports[`ReverseSteps.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--reverse"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--reverse"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -335,7 +335,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <div
             class="t-steps-item-title"
           >
-            已完成的步骤
+            未进行的步骤
           </div>
           <div
             class="t-steps-item-description"
@@ -378,7 +378,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <div
             class="t-steps-item-title"
           >
-            进行中的步骤
+            未进行的步骤
           </div>
           <div
             class="t-steps-item-description"
@@ -409,7 +409,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <div
             class="t-steps-item-title"
           >
-            未进行的步骤
+            进行中的步骤
           </div>
           <div
             class="t-steps-item-description"
@@ -440,7 +440,7 @@ exports[`ReverseSteps.jsx 1`] = `
           <div
             class="t-steps-item-title"
           >
-            未进行的步骤
+            已完成的步骤
           </div>
           <div
             class="t-steps-item-description"
@@ -457,7 +457,7 @@ exports[`ReverseSteps.jsx 1`] = `
 exports[`extra.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
+    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -1291,20 +1291,14 @@ exports[`status.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps-item t-steps-item--wait"
+      class="t-steps-item"
     >
       <div
         class="t-steps-item__inner"
       >
         <div
           class="t-steps-item-icon "
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            3
-          </span>
-        </div>
+        />
         <div
           class="t-steps-item-content"
         >
@@ -1322,20 +1316,14 @@ exports[`status.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps-item t-steps-item--wait"
+      class="t-steps-item"
     >
       <div
         class="t-steps-item__inner"
       >
         <div
           class="t-steps-item-icon "
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            4
-          </span>
-        </div>
+        />
         <div
           class="t-steps-item-content"
         >
@@ -1475,20 +1463,14 @@ exports[`status.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps-item t-steps-item--wait"
+      class="t-steps-item"
     >
       <div
         class="t-steps-item__inner"
       >
         <div
           class="t-steps-item-icon "
-        >
-          <span
-            class="t-steps-item-icon__number"
-          >
-            4
-          </span>
-        </div>
+        />
         <div
           class="t-steps-item-content"
         >
@@ -1515,7 +1497,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
     style="display: flex; justify-content: space-between;"
   >
     <div
-      class="t-steps t-steps--vertical t-steps--positive t-steps--dot-anchor"
+      class="t-steps t-steps--horizontal t-steps--positive t-steps--dot-anchor"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1619,7 +1601,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps t-steps--vertical t-steps--reverse t-steps--dot-anchor"
+      class="t-steps t-steps--horizontal t-steps--reverse t-steps--dot-anchor"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1636,7 +1618,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              未进行的步骤
+              已完成的步骤
             </div>
             <div
               class="t-steps-item-description"
@@ -1648,31 +1630,6 @@ exports[`vertical-no-sequence.jsx 1`] = `
       </div>
       <div
         class="t-steps-item t-steps-item--process"
-      >
-        <div
-          class="t-steps-item__inner"
-        >
-          <div
-            class="t-steps-item-icon "
-          />
-          <div
-            class="t-steps-item-content"
-          >
-            <div
-              class="t-steps-item-title"
-            >
-              未进行的步骤
-            </div>
-            <div
-              class="t-steps-item-description"
-            >
-              这里是提示文字
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-steps-item t-steps-item--wait"
       >
         <div
           class="t-steps-item__inner"
@@ -1711,7 +1668,32 @@ exports[`vertical-no-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              已完成的步骤
+              未进行的步骤
+            </div>
+            <div
+              class="t-steps-item-description"
+            >
+              这里是提示文字
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-steps-item t-steps-item--wait"
+      >
+        <div
+          class="t-steps-item__inner"
+        >
+          <div
+            class="t-steps-item-icon "
+          />
+          <div
+            class="t-steps-item-content"
+          >
+            <div
+              class="t-steps-item-title"
+            >
+              未进行的步骤
             </div>
             <div
               class="t-steps-item-description"
@@ -1732,7 +1714,7 @@ exports[`vertical-sequence.jsx 1`] = `
     style="display: flex; justify-content: space-between;"
   >
     <div
-      class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
+      class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1872,7 +1854,7 @@ exports[`vertical-sequence.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps t-steps--vertical t-steps--default-anchor t-steps--reverse"
+      class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--reverse"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1907,7 +1889,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              未进行的步骤
+              已完成的步骤
             </div>
             <div
               class="t-steps-item-description"
@@ -1938,7 +1920,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              未进行的步骤
+              进行中的步骤
             </div>
             <div
               class="t-steps-item-description"
@@ -1969,7 +1951,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              进行中的步骤
+              未进行的步骤
             </div>
             <div
               class="t-steps-item-description"
@@ -2000,7 +1982,7 @@ exports[`vertical-sequence.jsx 1`] = `
             <div
               class="t-steps-item-title"
             >
-              已完成的步骤
+              未进行的步骤
             </div>
             <div
               class="t-steps-item-description"

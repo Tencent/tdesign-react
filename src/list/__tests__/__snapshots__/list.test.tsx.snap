@@ -67,13 +67,33 @@ exports[`image-text.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
+              class="t-list-item__meta-content"
             >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
+              <h3
+                class="t-list-item__meta-title"
+              >
+                列表主内容
+              </h3>
+              <div
+                class="t-list-item__meta-description"
+              >
+                <p>
+                  列表内容列表内容列表内容
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="t-list-item"
+      >
+        <div
+          class="t-list-item-main"
+        >
+          <div
+            class="t-list-item__meta"
+          >
             <div
               class="t-list-item__meta-content"
             >
@@ -103,14 +123,6 @@ exports[`image-text.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
               class="t-list-item__meta-content"
             >
               <h3
@@ -138,50 +150,6 @@ exports[`image-text.jsx 1`] = `
           <div
             class="t-list-item__meta"
           >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
             <div
               class="t-list-item__meta-content"
             >
@@ -503,13 +471,33 @@ exports[`scroll.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
+              class="t-list-item__meta-content"
             >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
+              <h3
+                class="t-list-item__meta-title"
+              >
+                列表主内容
+              </h3>
+              <div
+                class="t-list-item__meta-description"
+              >
+                <p>
+                  列表内容列表内容列表内容
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="t-list-item"
+      >
+        <div
+          class="t-list-item-main"
+        >
+          <div
+            class="t-list-item__meta"
+          >
             <div
               class="t-list-item__meta-content"
             >
@@ -539,14 +527,6 @@ exports[`scroll.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
               class="t-list-item__meta-content"
             >
               <h3
@@ -574,50 +554,6 @@ exports[`scroll.jsx 1`] = `
           <div
             class="t-list-item__meta"
           >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
             <div
               class="t-list-item__meta-content"
             >
