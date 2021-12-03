@@ -14,7 +14,7 @@ dist
 yarn.lock
 esm
 cjs
-package-lock
 robotMsg
 .gitlogmap
 _site/
+package-lock.json
