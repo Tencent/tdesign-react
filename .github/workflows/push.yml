@@ -24,7 +24,7 @@ jobs:
         shell: bash
       - run: echo '${{ github.ref }} ...  ${{ github.sha }}'
       - name: Build site
-        run: npm run site:preview
+        run: npm run site:staging
       - name: Upload surge service and generate preview URL
         id: deploy
         run: |
