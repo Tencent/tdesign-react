@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-avatar-group t-avatar-offset--right"
+    >
+      <div
+        class="t-avatar t-avatar--circle"
+        style="width: 39px; height: 39px; font-size: 19.5px;"
+      >
+        <img
+          src="http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg"
+          style="width: 39px; height: 39px;"
+        />
+      </div>
+      <div
+        class="t-avatar t-avatar--round"
+        style="width: 28px; height: 28px; font-size: 14px;"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          U
+        </span>
+      </div>
+      <div
+        class="t-avatar t-avatar--circle"
+        style="width: 39px; height: 39px; font-size: 19.5px;"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          User
+        </span>
+      </div>
+      <div
+        class="t-avatar t-avatar--circle"
+        style="width: 39px; height: 39px; font-size: 19.5px;"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          uuuuuuu
+        </span>
+      </div>
+      <div
+        class="t-avatar t-size-m t-avatar--circle"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          +2
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

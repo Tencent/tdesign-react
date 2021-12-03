@@ -239,6 +239,13 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Avatar 头像',
+          name: 'avatar',
+          docType: 'data',
+          path: '/react/components/avatar',
+          component: () => import('tdesign-react/avatar/README.md'),
+        },
+        {
           title: 'Badge 徽标数',
           name: 'badge',
           docType: 'data',
