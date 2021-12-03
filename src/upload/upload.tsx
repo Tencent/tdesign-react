@@ -23,6 +23,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     placeholder,
     theme = 'file',
     max = 0,
+    name = 'file',
     action,
     tips,
     format,
@@ -152,7 +153,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         action,
         data,
         file,
-        name: 'file',
+        name,
         onError,
         headers,
         withCredentials,
@@ -160,7 +161,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         onSuccess: handleSuccess,
       });
     },
-    [action, data, handleProgress, handleSuccess, headers, onError, withCredentials],
+    [action, data, handleProgress, handleSuccess, headers, name, onError, withCredentials],
   );
 
   const formatFiles = (files: File[] = []): TdUploadFile[] =>
