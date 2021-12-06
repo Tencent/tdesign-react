@@ -5,19 +5,23 @@ exports[`Alert 组件测试 Alert 主题图标显示 1`] = `
   <div
     class="t-alert t-alert--error"
   >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-error-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -40,19 +44,23 @@ exports[`Alert 组件测试 Alert 主题图标显示 2`] = `
   <div
     class="t-alert t-alert--warning"
   >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-error-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -75,19 +83,23 @@ exports[`Alert 组件测试 Alert 主题图标显示 3`] = `
   <div
     class="t-alert t-alert--info"
   >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-info-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -110,19 +122,23 @@ exports[`Alert 组件测试 Alert 主题图标显示 4`] = `
   <div
     class="t-alert t-alert--success"
   >
-    <svg
-      class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-check-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -145,19 +161,23 @@ exports[`Alert 组件测试 Alert 主题图标显示 5`] = `
   <div
     class="t-alert t-alert--error"
   >
-    <svg
-      class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-error-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -180,11 +200,15 @@ exports[`Alert 组件测试 Alert 主题图标显示 6`] = `
   <div
     class="t-alert t-alert--error"
   >
-    <span
+    <div
       class="t-alert__icon"
     >
-      CustomIcon
-    </span>
+      <span
+        class=""
+      >
+        CustomIcon
+      </span>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -210,19 +234,23 @@ exports[`base.jsx 1`] = `
     <div
       class="t-alert t-alert--success"
     >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-check-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -240,19 +268,23 @@ exports[`base.jsx 1`] = `
     <div
       class="t-alert t-alert--info"
     >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -270,19 +302,23 @@ exports[`base.jsx 1`] = `
     <div
       class="t-alert t-alert--warning"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -300,19 +336,23 @@ exports[`base.jsx 1`] = `
     <div
       class="t-alert t-alert--error"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -339,19 +379,23 @@ exports[`close.jsx 1`] = `
     <div
       class="t-alert t-alert--success"
     >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-check-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -386,19 +430,23 @@ exports[`close.jsx 1`] = `
     <div
       class="t-alert t-alert--info"
     >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -421,19 +469,23 @@ exports[`close.jsx 1`] = `
     <div
       class="t-alert t-alert--warning"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -456,19 +508,23 @@ exports[`close.jsx 1`] = `
     <div
       class="t-alert t-alert--error"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -499,19 +555,23 @@ exports[`collapse.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-info-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >
@@ -547,19 +607,23 @@ exports[`icon.jsx 1`] = `
     <div
       class="t-alert t-alert--success"
     >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-check-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -577,19 +641,23 @@ exports[`icon.jsx 1`] = `
     <div
       class="t-alert t-alert--info"
     >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -607,19 +675,23 @@ exports[`icon.jsx 1`] = `
     <div
       class="t-alert t-alert--warning"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -637,19 +709,23 @@ exports[`icon.jsx 1`] = `
     <div
       class="t-alert t-alert--error"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -676,19 +752,23 @@ exports[`operation.jsx 1`] = `
     <div
       class="t-alert t-alert--success"
     >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-check-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -703,9 +783,9 @@ exports[`operation.jsx 1`] = `
           <div
             class="t-alert__operation"
           >
-            <a>
+            <span>
               相关操作
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -730,19 +810,23 @@ exports[`operation.jsx 1`] = `
     <div
       class="t-alert t-alert--info"
     >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -757,9 +841,9 @@ exports[`operation.jsx 1`] = `
           <div
             class="t-alert__operation"
           >
-            <a>
+            <span>
               相关操作
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -784,19 +868,23 @@ exports[`operation.jsx 1`] = `
     <div
       class="t-alert t-alert--warning"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -811,9 +899,9 @@ exports[`operation.jsx 1`] = `
           <div
             class="t-alert__operation"
           >
-            <a>
+            <span>
               相关操作
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -838,19 +926,23 @@ exports[`operation.jsx 1`] = `
     <div
       class="t-alert t-alert--error"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -865,9 +957,9 @@ exports[`operation.jsx 1`] = `
           <div
             class="t-alert__operation"
           >
-            <a>
+            <span>
               相关操作
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -901,19 +993,23 @@ exports[`swiper.jsx 1`] = `
     <div
       class="t-alert t-alert--success"
     >
-      <svg
-        class="t-icon t-icon-check-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-check-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -931,19 +1027,23 @@ exports[`swiper.jsx 1`] = `
     <div
       class="t-alert t-alert--info"
     >
-      <svg
-        class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-info-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -961,19 +1061,23 @@ exports[`swiper.jsx 1`] = `
     <div
       class="t-alert t-alert--warning"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -991,19 +1095,23 @@ exports[`swiper.jsx 1`] = `
     <div
       class="t-alert t-alert--error"
     >
-      <svg
-        class="t-icon t-icon-error-circle-filled t-alert__icon t-size-m"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
+      <div
+        class="t-alert__icon"
       >
-        <path
-          d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
+        <svg
+          class="t-icon t-icon-error-circle-filled t-size-m"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-alert__content"
       >
@@ -1027,19 +1135,23 @@ exports[`title.jsx 1`] = `
   <div
     class="t-alert t-alert--info"
   >
-    <svg
-      class="t-icon t-icon-info-circle-filled t-alert__icon t-size-m"
-      fill="none"
-      height="1em"
-      viewBox="0 0 16 16"
-      width="1em"
+    <div
+      class="t-alert__icon"
     >
-      <path
-        d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-        fill="currentColor"
-        fill-opacity="0.9"
-      />
-    </svg>
+      <svg
+        class="t-icon t-icon-info-circle-filled t-size-m"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-alert__content"
     >

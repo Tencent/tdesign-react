@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert } from 'tdesign-react';
 
 export default function AlertOperation() {
-  const operation = <a>相关操作</a>;
+  const operation = <span>相关操作</span>;
   return (
     <div className="tdesign-demo-block-column">
       <Alert theme="success" message="这是一条成功的消息提示" operation={operation} close />
