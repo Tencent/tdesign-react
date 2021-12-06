@@ -33,14 +33,12 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   const renderIconNode = () => {
     if (React.isValidElement(icon)) {
       return React.cloneElement(icon as React.ReactElement, {
-        className: classNames(`${classPrefix}-alert__icon`, {
+        className: classNames({
           [icon.props.className]: icon.props.className,
         }),
       });
     }
-    return React.createElement(iconMap[theme], {
-      className: `${classPrefix}-alert__icon`,
-    });
+    return React.createElement(iconMap[theme]);
   };
 
   const renderMessage = () => {
@@ -82,7 +80,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
       })}
       {...alertProps}
     >
-      {renderIconNode()}
+      <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
       <div className={`${classPrefix}-alert__content`}>
         {title ? <div className={`${classPrefix}-alert__title`}>{title}</div> : null}
         <div className={`${classPrefix}-alert__message`}>
