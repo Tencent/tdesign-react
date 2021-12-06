@@ -1,4 +1,4 @@
-# TDesign Web (React)
+# TDesign Web (React) <a href="https://www.npmjs.com/package/tdesign-react"><img src="https://img.shields.io/npm/v/tdesign-react.svg?sanitize=true" alt="Version"></a> <a href="https://www.npmjs.com/package/tdesign-react"><img src="https://img.shields.io/npm/dt/tdesign-react.svg?sanitize=true" alt="Downloads"></a> <a href="https://www.npmjs.com/package/tdesign-react"><img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License"></a>
 
 TDesign 是由前端通用 UI 组件库 Oteam 发起，协同公司内有组件库开发经验的同学一起建设的组件库
 
