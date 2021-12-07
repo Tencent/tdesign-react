@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import Dragger from './dragger';
 import UploadTrigger from './upload-trigger';
 import Tips from './tips';
-import request from './utils/request';
+import request from '../_common/js/upload/xhr';
 import useConfig from '../_util/useConfig';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
@@ -45,7 +45,6 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
   const { classPrefix } = useConfig();
   const uploadRef = useRef<HTMLInputElement>();
-  // const [fileList, setFileList] = useState<TdUploadFile[]>(defaultFiles);
   const [errorMsg, setErrorMsg] = useState('');
   const [uploading, setUploading] = useState(false);
 
