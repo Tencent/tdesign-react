@@ -216,11 +216,11 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       </div>
     );
 
-    const onScroll = throttle((e) => {
+    const onScroll = (e) => {
       const { scrollLeft } = e.target;
       scrollHeaderRef.current.scrollLeft = scrollLeft;
-      handleScroll(e);
-    }, 10);
+      handleScroll(e, 10);
+    };
 
     const fixedBodyRN = (
       <div
@@ -253,7 +253,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     const scrollableToRight = scrollLeft + clientWidth < scrollWidth;
     setScrollableToRight(scrollableToRight);
   }
-  function handleScroll(e) {
+  function handleScroll(e, duration = 100) {
     const { scrollLeft, scrollTop } = e.target;
 
     throttle(() => {
@@ -264,7 +264,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
         const scrollParams = { e };
         scrollListenerFn?.(scrollParams);
       }
-    }, 100);
+    }, duration);
   }
 
   return (
