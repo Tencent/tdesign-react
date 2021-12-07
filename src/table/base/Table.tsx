@@ -254,15 +254,17 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     setScrollableToRight(scrollableToRight);
   }
   function handleScroll(e) {
-    checkScrollableToLeftOrRight();
-
     const { scrollLeft, scrollTop } = e.target;
-    const direction = getScrollDirection(scrollLeft, scrollTop);
-    if (direction !== ScrollDirection.UNKNOWN) {
-      const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
-      const scrollParams = { e };
-      scrollListenerFn?.(scrollParams);
-    }
+
+    throttle(() => {
+      checkScrollableToLeftOrRight();
+      const direction = getScrollDirection(scrollLeft, scrollTop);
+      if (direction !== ScrollDirection.UNKNOWN) {
+        const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
+        const scrollParams = { e };
+        scrollListenerFn?.(scrollParams);
+      }
+    }, 100);
   }
 
   return (
@@ -292,7 +294,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
               [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
-            {...(hasFixedColumns ? { onScroll: throttle(handleScroll, 100) } : {})}
+            {...(hasFixedColumns ? { onScroll: handleScroll } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}
           </div>

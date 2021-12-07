@@ -95,7 +95,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
       {trsColumns.map((trsColumnsItem: CellProps<D>[], index) => (
         <tr key={index}>
           {trsColumnsItem.map((column: CellProps<D>, colIndex) => {
-            const { title, colKey, fixed, className, style = {}, rowSpan, colSpan, render } = column;
+            const { title, colKey, rowSpan, colSpan, render, ...rest } = column;
             const customRender = getCustomRender({ title, render });
 
             return (
@@ -105,12 +105,9 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
                 colKey={colKey}
                 colIndex={colIndex}
                 customRender={customRender}
-                style={style}
-                fixed={fixed}
-                columns={columns}
-                className={className}
                 rowSpan={rowSpan}
                 colSpan={colSpan}
+                {...rest}
               ></TableCell>
             );
           })}
