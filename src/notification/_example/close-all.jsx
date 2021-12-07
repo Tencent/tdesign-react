@@ -1,19 +1,19 @@
 import React from 'react';
-import { Notification, Button } from 'tdesign-react';
+import { NotificationPlugin, Button } from 'tdesign-react';
 
 export default function NotificationExample() {
   const openMore = React.useCallback(() => {
-    Notification.info({
+    NotificationPlugin.info({
       title: '标题名称',
       content: '这是一条需要手动关闭的消息通知',
       duration: 0,
     });
-    Notification.warning({
+    NotificationPlugin.warning({
       title: '标题名称',
       content: '这是第二条通知',
       duration: 0,
     });
-    Notification.error({
+    NotificationPlugin.error({
       title: '标题名称',
       content: '这是第三条通知',
       duration: 0,
@@ -21,11 +21,11 @@ export default function NotificationExample() {
   }, []);
 
   const closeAll = React.useCallback(() => {
-    Notification.closeAll();
+    NotificationPlugin.closeAll();
   }, []);
 
   return (
-    <div className="tdesign-demo-block-row">
+    <div className='tdesign-demo-block-row'>
       <Button onClick={openMore}>点击打开多个消息</Button>
       <Button onClick={closeAll}>点击关闭多个消息</Button>
     </div>

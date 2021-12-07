@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Notification, Button, Input } from 'tdesign-react';
+import { NotificationPlugin, Button, Input } from 'tdesign-react';
 
 export default function NotificationExample() {
   const [offsetY, setOffsetY] = useState('');
@@ -7,7 +7,7 @@ export default function NotificationExample() {
 
   const openNotification = React.useCallback(
     (placement) => {
-      Notification.info({
+      NotificationPlugin.info({
         title: '标题名称',
         content: '这是一条可以自动关闭的消息通知',
         placement,

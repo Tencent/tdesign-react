@@ -1,37 +1,14 @@
 import * as React from 'react';
-import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 
-import {
-  NotificationCloseMethod,
-  NotificationErrorMethod,
-  NotificationInfoMethod,
-  NotificationSuccessMethod,
-  NotificationWarningMethod,
-  TdNotificationProps,
-  NotificationThemeList,
-  NotificationInfoOptions,
-  NotificationInstance,
-  NotificationPlacementList,
-  NotificationCloseAllMethod,
-} from './type';
+import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
-import { fetchListInstance, listMap } from './NotificationList';
 
 const blockName = 'notification';
 
-// 扩展接口声明的结构，用户使用时可得到 .info 的 ts 提示
-interface Notification extends React.FC<TdNotificationProps> {
-  info: NotificationInfoMethod;
-  success: NotificationSuccessMethod;
-  warning: NotificationWarningMethod;
-  error: NotificationErrorMethod;
-  closeAll: NotificationCloseAllMethod;
-  close: NotificationCloseMethod;
-}
-
-interface NotificationProps extends TdNotificationProps {
+export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
 }
 
@@ -150,58 +127,4 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
   );
 });
 
-/**
- * @author kenzyyang
- * @date 2021-05-30 22:54:39
- * @desc 函数调用时的渲染函数
- * @param theme 主题类型
- * @param options 通知的参数
- */
-const renderNotification = (theme: NotificationThemeList, options: NotificationInfoOptions) => {
-  if (typeof options !== 'object') return;
-
-  const placement: NotificationPlacementList = (() => {
-    if (['top-left', 'top-right', 'bottom-left', 'bottom-right'].indexOf(options.placement) >= 0) {
-      return options.placement;
-    }
-    return 'top-right';
-  })();
-
-  const attach: HTMLElement = (() => {
-    if (options.attach && typeof options.attach === 'string') {
-      const element: Element = document.querySelector(options.attach);
-      if (element instanceof HTMLElement) return element;
-    }
-
-    if (options.attach instanceof HTMLElement) return options.attach;
-
-    const containerId = `tdesign-notification-${placement}`;
-    const container = document.querySelector(`#${containerId}`);
-    if (container && container instanceof HTMLElement) {
-      return container;
-    }
-
-    const element: HTMLDivElement = document.createElement('div');
-    element.setAttribute('id', containerId);
-    document.body.appendChild(element);
-    return element;
-  })();
-
-  const zIndex = options.zIndex || 6000;
-
-  return fetchListInstance(placement, attach, zIndex).then((listInstance) => listInstance.push(theme, options));
-};
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const Notification: Notification = NotificationComponent;
-
-['info', 'success', 'warning', 'error'].forEach((theme: NotificationThemeList) => {
-  Notification[theme] = (options) => renderNotification(theme, options);
-});
-
-Notification.close = (promise) => promise.then((instance) => instance.close());
-
-Notification.closeAll = () => listMap.forEach((list) => list.removeAll());
-
-export default Notification;
+export default NotificationComponent;
