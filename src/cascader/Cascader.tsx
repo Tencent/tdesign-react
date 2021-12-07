@@ -164,7 +164,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       placement="bottom-left"
       visible={visible}
       overlayClassName={`${name}-dropdown`}
-      destroyOnClose
+      expandAnimation={true}
       {...props?.popupProps}
       content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}
     >

@@ -189,6 +189,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
           onExit={handleBeforeExit}
           onExiting={handleExiting}
           onExited={resetStyle}
+          unmountOnExit={destroyOnClose}
         >
           <div
             ref={composeRefs(setOverlayRef, ref)}
@@ -215,11 +216,6 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         </CSSTransition>
       </Portal>
     );
-  }
-
-  // 强制销毁
-  if (!visible && destroyOnClose) {
-    portal = null;
   }
 
   // 弹出框展示的时候，重新计算一下位置
