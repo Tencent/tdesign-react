@@ -19,6 +19,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     onKeypress = noop,
     onKeyup = noop,
     onChange = noop,
+    autosize = false,
     ...otherProps
   } = props;
 
@@ -65,12 +66,16 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     onChange(e.currentTarget.value, { e });
   }
 
+  // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
   return (
     <div ref={ref} style={style} className={classNames(className, `${classPrefix}-textarea`)}>
       <textarea
         {...textareaProps}
         {...eventProps}
         value={value}
+        style={{
+          height: Array.isArray(autosize) || autosize ? null : 'auto',
+        }}
         className={textareaClassNames}
         readOnly={readonly}
         disabled={disabled}
@@ -79,7 +84,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
-      ></textarea>
+      />
       {maxlength ? <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span> : null}
     </div>
   );

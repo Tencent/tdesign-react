@@ -8,6 +8,7 @@ exports[`base.jsx 1`] = `
     <textarea
       class="t-textarea__inner"
       placeholder="请输入内容"
+      style="height: auto;"
     />
   </div>
 </DocumentFragment>
@@ -21,6 +22,7 @@ exports[`events.jsx 1`] = `
     <textarea
       class="t-textarea__inner"
       placeholder="请输入内容"
+      style="height: auto;"
     />
   </div>
 </DocumentFragment>
@@ -35,6 +37,7 @@ exports[`maxlength.jsx 1`] = `
       class="t-textarea__inner t-resize-none"
       maxlength="20"
       placeholder="请输入内容"
+      style="height: auto;"
     />
     <span
       class="t-textarea__limit"
@@ -57,6 +60,7 @@ exports[`type.jsx 1`] = `
         class="t-textarea__inner"
         placeholder="请输入内容"
         readonly=""
+        style="height: auto;"
       >
         只读状态
       </textarea>
@@ -68,6 +72,7 @@ exports[`type.jsx 1`] = `
         class="t-textarea__inner t-is-disabled"
         disabled=""
         placeholder="请输入内容"
+        style="height: auto;"
       >
         禁用状态
       </textarea>
