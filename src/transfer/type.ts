@@ -2,13 +2,13 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 14:46:40
+ * updated at 2021-12-06 18:23:02
  * */
 
 import { CheckboxProps } from '../checkbox';
 import { PaginationProps, PageInfo } from '../pagination';
 import { InputProps } from '../input';
-import { TNode } from '../common';
+import { TNode, KeysType } from '../common';
 import { KeyboardEvent, FormEvent } from 'react';
 
 export interface TdTransferProps<T extends DataOption = DataOption> {
@@ -97,11 +97,11 @@ export interface TdTransferProps<T extends DataOption = DataOption> {
    */
   defaultValue?: Array<TransferValue>;
   /**
-   * 数据列表发生变化时触发
+   * 数据列表发生变化时触发，`type` 值为 `source`，表示源列表移动到目标列表，值为 `target` 表示目标列表移动到源列表，movedValue 则表示被移动的选项
    */
-  onChange?: (targetValue: Array<TransferValue>, params: TargetParams) => void;
+  onChange?: (targetValue: Array<TransferValue>, context: TargetParams) => void;
   /**
-   * 源数据列表或目标数据列表的选中项发生变化时触发
+   * 源数据列表或目标数据列表的选中项发生变化时触发，`context.type` 可以区分触发来源是目标列表，还是源列表
    */
   onCheckedChange?: (options: CheckedOptions) => void;
   /**
@@ -119,11 +119,6 @@ export interface TdTransferProps<T extends DataOption = DataOption> {
 }
 
 export type EmptyType = string | TNode;
-
-export interface KeysType {
-  value?: string;
-  label?: string;
-}
 
 export type SearchOption = boolean | InputProps;
 

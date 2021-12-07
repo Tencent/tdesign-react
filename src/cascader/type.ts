@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 16:36:44
+ * updated at 2021-12-06 18:22:53
  * */
 
 import { CheckboxProps } from '../checkbox';
@@ -47,7 +47,7 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   /**
    * 用来定义 value / label / children 在 `options` 中对应的字段别名
    */
-  keys?: KeysType;
+  keys?: CascaderKeysType;
   /**
    * 延迟加载 children 为 true 的子节点，即使 expandAll 被设置为 true，也同样延迟加载
    * @default true
@@ -144,7 +144,7 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   onRemove?: (context: RemoveContext<CascaderOption>) => void;
 }
 
-export interface KeysType {
+export interface CascaderKeysType {
   value?: string;
   label?: string;
   children?: string;

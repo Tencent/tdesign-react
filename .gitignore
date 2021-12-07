@@ -18,3 +18,4 @@ robotMsg
 .gitlogmap
 _site/
 package-lock.json
+temp*

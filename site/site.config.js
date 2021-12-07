@@ -218,6 +218,13 @@ export default {
           component: () => import('tdesign-react/tree-select/README.md'),
         },
         {
+          title: 'Transfer 穿梭框',
+          name: 'transfer',
+          docType: 'data',
+          path: '/react/components/transfer',
+          component: () => import('tdesign-react/transfer/README.md'),
+        },
+        {
           title: 'TimePicker 时间选择器',
           name: 'time-picker',
           docType: 'form',

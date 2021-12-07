@@ -9,7 +9,7 @@ collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，
 disabled | Boolean | false | 是否禁用组件 | N
 empty | TNode | - | 无匹配选项时的内容，默认全局配置为 '暂无数据'。TS 类型：`string | TNode`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts) | N
 filterable | Boolean | false | 是否可搜索 | N
-keys | Object | - | 用来定义 value / label / children 在 `options` 中对应的字段别名。TS 类型：`KeysType`。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/cascader/type.ts) | N
+keys | Object | - | 用来定义 value / label / children 在 `options` 中对应的字段别名。TS 类型：`CascaderKeysType`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/cascader/type.ts) | N
 lazy | Boolean | true | 延迟加载 children 为 true 的子节点，即使 expandAll 被设置为 true，也同样延迟加载 | N
 load | Function | - | 加载子树数据的方法（仅当节点 children 为 true 时生效）。TS 类型：`(node: TreeNodeModel<CascaderOption>) => Promise<Array<CascaderOption>>` | N
 loading | Boolean | false | 是否为加载状态 | N
