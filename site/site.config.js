@@ -6,11 +6,11 @@ export default {
       type: 'doc', // 组件文档
       children: [
         {
-          title: '说明',
+          title: '快速开始',
           name: 'expain',
           docType: 'explain', // 控制头图展示
-          path: '/react/components/expain',
-          component: () => import('@docs/expain.md'),
+          path: '/react/components/getting-started',
+          component: () => import('@docs/getting-started.md'),
         },
         {
           title: '更新日志',

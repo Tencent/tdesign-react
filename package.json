@@ -34,7 +34,8 @@
     "site": "cd site && vite build",
     "site:serve": "cd site && vite preview",
     "site:staging": "cd site && vite build --mode staging",
-    "lint": "eslint ./src --max-warnings 0 --ext .ts,.tsx --fix",
+    "lint": "eslint --ext .ts,.tsx ./ --max-warnings 0",
+    "lint:fix": "eslint --ext .ts,.tsx ./ --max-warnings 0 --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -64,7 +65,7 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "prettier --write",
-      "npm run lint",
+      "npm run lint:fix",
       "git add"
     ]
   },
