@@ -9,6 +9,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
@@ -21,7 +22,10 @@ import { TdPopupProps } from './type';
 import Portal from './Portal';
 import useTriggerProps from './useTriggerProps';
 
-export interface PopupProps extends TdPopupProps, StyledProps {}
+export interface PopupProps extends TdPopupProps, StyledProps {
+  // 是否触发展开收起动画，内部下拉式组件使用
+  expandAnimation?: boolean;
+}
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -62,6 +66,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     defaultVisible = false,
     zIndex,
     onVisibleChange,
+    expandAnimation,
   } = props;
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
@@ -127,34 +132,87 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     ...triggerProps,
   });
 
+  const resetStyle = () => {
+    // reset all style on exited/entered
+    const contentEle = contentRef?.current;
+    contentEle.style.overflow = '';
+    contentEle.style.maxHeight = '';
+  };
+  const handleEnter = () => {
+    const contentEle = contentRef?.current;
+    if (contentEle) {
+      contentEle.style.overflow = 'hidden';
+      contentEle.style.maxHeight = '0';
+    }
+  };
+
+  const handleEntering = () => {
+    const contentEle = contentRef?.current;
+    if (contentEle) {
+      const { scrollHeight } = contentEle;
+      contentEle.style.maxHeight = `${scrollHeight}px`;
+    }
+  };
+
+  const handleBeforeExit = () => {
+    console.log('trigger before exit');
+    const contentEle = contentRef?.current;
+    if (contentEle) {
+      const { scrollHeight } = contentEle;
+      contentEle.style.maxHeight = `${scrollHeight}px`;
+      contentEle.style.overflow = 'hidden';
+    }
+  };
+
+  const handleExiting = () => {
+    console.log('trigger before exiting');
+    const contentEle = contentRef?.current;
+    if (contentEle) {
+      contentEle.style.maxHeight = '0';
+    }
+  };
+
   // portal
   let portal: React.ReactElement = null;
   // 如果要展示，或者已经渲染过，默认不销毁
   if (visible || overlayRef) {
     portal = (
       <Portal attach={attach}>
-        <div
-          ref={composeRefs(setOverlayRef, ref)}
-          style={styles.popper}
-          className={classNames(
-            `${classPrefix}-popup`,
-            `${classPrefix}-popup_animation-enter-active`,
-            visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
-          )}
-          {...attributes.popper}
-          {...popupProps}
+        <CSSTransition
+          in={visible}
+          appear={expandAnimation}
+          timeout={200}
+          nodeRef={contentRef}
+          onEnter={handleEnter}
+          onEntering={handleEntering}
+          onEntered={resetStyle}
+          onExit={handleBeforeExit}
+          onExiting={handleExiting}
+          onExited={resetStyle}
         >
           <div
-            className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
-              [`${classPrefix}-popup-content--arrow`]: showArrow,
-            })}
-            style={overlayVisibleStyle}
-            ref={contentRef}
+            ref={composeRefs(setOverlayRef, ref)}
+            style={styles.popper}
+            className={classNames(
+              `${classPrefix}-popup`,
+              `${classPrefix}-popup_animation-enter-active`,
+              visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
+            )}
+            {...attributes.popper}
+            {...popupProps}
           >
-            {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
-            {content}
+            <div
+              className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
+                [`${classPrefix}-popup-content--arrow`]: showArrow,
+              })}
+              style={overlayVisibleStyle}
+              ref={contentRef}
+            >
+              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+              {content}
+            </div>
           </div>
-        </div>
+        </CSSTransition>
       </Portal>
     );
   }
