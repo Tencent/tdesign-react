@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import { TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
 import TableRow from './TableRow';
-import { ExpandProps } from './Table';
+import { ExpandInnerProps } from './Table';
 
 export interface RowSkipTdSpanColIndexsMap {
   [key: number]: number[];
@@ -26,7 +26,7 @@ type APIRowEventName =
   | 'onRowMouseenter'
   | 'onRowMouseleave'
   | 'onRowMouseup';
-export type RowEvents = Record<RowEventName, Function> | {};
+export type RowEvents = Record<RowEventName, React.MouseEventHandler<HTMLElement>> | { [key: string]: Function };
 
 const rowEventsMap: Record<RowEventName, APIRowEventName> = {
   onClick: 'onRowClick',
@@ -39,17 +39,17 @@ const rowEventsMap: Record<RowEventName, APIRowEventName> = {
 };
 
 const TableBody = forwardRef(
-  (props: TdPrimaryTableProps & ExpandProps, ref: React.Ref<HTMLTableSectionElement>): any => {
+  (props: TdPrimaryTableProps & ExpandInnerProps, ref: React.Ref<HTMLTableSectionElement>): any => {
     const { classPrefix } = useConfig();
     const {
       data = [],
       rowKey,
       rowClassName,
       expandedRow,
-      expandOnRowClick = false,
-      onTrClick,
-      rowspanAndColspan,
+      expandOnRowClick,
+      handleExpandChange,
       renderExpandRow,
+      rowspanAndColspan,
     } = props;
     const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
     const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
@@ -65,10 +65,11 @@ const TableBody = forwardRef(
           <TableRow
             record={row}
             rowIndex={index}
+            rowKey={rowKey}
             rowClassName={rowClassName}
-            {...(expandedRow && expandOnRowClick
-              ? { onTrClick: () => onTrClick(row, rowKeyValue), expandOnRowClick }
-              : {})}
+            expandedRow={expandedRow}
+            expandOnRowClick={expandOnRowClick}
+            handleExpandChange={handleExpandChange}
             {...(isRowspanAndColspanFn
               ? {
                   isRowspanAndColspanFn,
