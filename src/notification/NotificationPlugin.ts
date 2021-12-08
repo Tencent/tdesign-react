@@ -1,4 +1,4 @@
-import { fetchListInstance, listMap } from 'tdesign-react/notification/NotificationList';
+import { fetchListInstance, listMap } from './NotificationList';
 import {
   NotificationCloseAllMethod,
   NotificationCloseMethod,
@@ -11,7 +11,7 @@ import {
   NotificationSuccessMethod,
   NotificationThemeList,
   NotificationWarningMethod,
-} from 'tdesign-react';
+} from './type';
 
 // 扩展接口声明的结构，用户使用时可得到 .info 的 ts 提示
 interface Notification {
