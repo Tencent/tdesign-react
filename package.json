@@ -176,6 +176,7 @@
     "react-transition-group": "~4.4.1",
     "tdesign-icons-react": "~0.0.5",
     "tslib": "~2.2.0",
+    "use-resize-observer": "^8.0.0",
     "uuid": "~8.3.2",
     "validator": "~13.7.0"
   }
