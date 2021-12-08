@@ -154,7 +154,9 @@ exports[`modal.jsx 1`] = `
 
 exports[`plugin.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="tdesign-demo-block-column"
+  >
     <p>
       插件调用方式一：DialogPlugin(options)
     </p>
@@ -164,62 +166,65 @@ exports[`plugin.jsx 1`] = `
     <p>
       插件调用方式三：DialogPlugin.alert(options)
     </p>
-    <br />
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px; position: relative;"
-      type="button"
+    <div
+      class="tdesign-demo-block-row"
     >
-      <span
-        class="t-button__text"
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px; position: relative;"
+        type="button"
       >
-        dialog
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          dialog
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px; position: relative;"
+        type="button"
       >
-        handleDialogNode
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          handleDialogNode
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px; position: relative;"
+        type="button"
       >
-        confirm
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          confirm
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px; position: relative;"
+        type="button"
       >
-        alert
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+        <span
+          class="t-button__text"
+        >
+          alert
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px; position: relative;"
+        type="button"
       >
-        DialogPlugin.confirm
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          DialogPlugin.confirm
+        </span>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
