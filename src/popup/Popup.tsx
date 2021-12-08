@@ -20,7 +20,8 @@ import composeRefs from '../_util/composeRefs';
 import usePrevious from '../_util/usePrevious';
 import { TdPopupProps } from './type';
 import Portal from './Portal';
-import useTriggerProps from './useTriggerProps';
+import useTriggerProps from './hooks/useTriggerProps';
+import usePopupCssTransition from './hooks/usePopupCssTransition';
 
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -75,7 +76,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   // https://popper.js.org/react-popper/v2/faq/
   const [firstUpdate, setFirstUpdate] = useState<boolean>(false);
@@ -132,72 +133,34 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     ...triggerProps,
   });
 
-  const resetStyle = () => {
-    // reset all style on exited/entered
-    const contentEle = contentRef?.current;
-    contentEle.style.overflow = '';
-    contentEle.style.maxHeight = '';
-  };
-  const handleEnter = () => {
-    const contentEle = contentRef?.current;
-    if (contentEle) {
-      contentEle.style.overflow = 'hidden';
-      contentEle.style.maxHeight = '0';
+  const cssTransitionState = usePopupCssTransition({ contentRef, classPrefix, expandAnimation });
+
+  // 弹出框展示的时候，重新计算一下位置
+  useEffect(() => {
+    if ((visible || firstUpdate) && update) {
+      update();
     }
+  }, [visible, preVisible, update, children, firstUpdate]);
+
+  const handlePopupWrapperMouseDown = () => {
+    const removeUpdate = () => window.removeEventListener('mousemove', update);
+    window.removeEventListener('mouseup', removeUpdate);
+    window.addEventListener('mousemove', update);
+    window.addEventListener('mouseup', removeUpdate);
   };
 
-  const handleEntering = () => {
-    const contentEle = contentRef?.current;
-    if (contentEle) {
-      const { scrollHeight } = contentEle;
-      contentEle.style.maxHeight = `${scrollHeight}px`;
-    }
-  };
-
-  const handleBeforeExit = () => {
-    console.log('trigger before exit');
-    const contentEle = contentRef?.current;
-    if (contentEle) {
-      const { scrollHeight } = contentEle;
-      contentEle.style.maxHeight = `${scrollHeight}px`;
-      contentEle.style.overflow = 'hidden';
-    }
-  };
-
-  const handleExiting = () => {
-    console.log('trigger before exiting');
-    const contentEle = contentRef?.current;
-    if (contentEle) {
-      contentEle.style.maxHeight = '0';
-    }
-  };
-
-  // portal
-  let portal: React.ReactElement = null;
-  // 如果要展示，或者已经渲染过，默认不销毁
-  if (visible || overlayRef) {
-    portal = (
+  // 初次不渲染.
+  const portal =
+    visible || overlayRef ? (
       <Portal attach={attach}>
-        <CSSTransition
-          in={visible}
-          appear={expandAnimation}
-          timeout={200}
-          nodeRef={contentRef}
-          onEnter={handleEnter}
-          onEntering={handleEntering}
-          onEntered={resetStyle}
-          onExit={handleBeforeExit}
-          onExiting={handleExiting}
-          onExited={resetStyle}
-          unmountOnExit={destroyOnClose}
-        >
+        <CSSTransition in={visible} appear={true} unmountOnExit={destroyOnClose} {...cssTransitionState.props}>
           <div
             ref={composeRefs(setOverlayRef, ref)}
             style={styles.popper}
             className={classNames(
               `${classPrefix}-popup`,
-              `${classPrefix}-popup_animation-enter-active`,
-              visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
+              // `${classPrefix}-popup_animation-enter-active`,
+              // visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
             )}
             {...attributes.popper}
             {...popupProps}
@@ -215,22 +178,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
           </div>
         </CSSTransition>
       </Portal>
-    );
-  }
-
-  // 弹出框展示的时候，重新计算一下位置
-  useEffect(() => {
-    if ((visible || firstUpdate) && update) {
-      update();
-    }
-  }, [visible, preVisible, update, children, firstUpdate]);
-
-  const handlePopupWrapperMouseDown = () => {
-    const removeUpdate = () => window.removeEventListener('mousemove', update);
-    window.removeEventListener('mouseup', removeUpdate);
-    window.addEventListener('mousemove', update);
-    window.addEventListener('mouseup', removeUpdate);
-  };
+    ) : null;
 
   return (
     <div
