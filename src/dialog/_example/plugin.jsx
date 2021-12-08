@@ -1,11 +1,11 @@
 import React from 'react';
-import { dialog, Button } from 'tdesign-react';
+import { DialogPlugin, Button } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 
 export default function PluginModalExample() {
   const showDialog = () => {
-    const mydialog = dialog({
+    const mydialog = DialogPlugin({
       header: 'Dialog-Plugin',
       body: 'Hi, darling! Do you want to be my lover?',
       onConfirm: ({ e }) => {
@@ -15,7 +15,7 @@ export default function PluginModalExample() {
     });
   };
   const handleDN = () => {
-    const dialogNode = dialog({
+    const dialogNode = DialogPlugin({
       header: 'Dialog-Plugin',
       body: 'Hi, darling! Do you want to be my lover?',
     });
@@ -31,7 +31,7 @@ export default function PluginModalExample() {
     });
   };
   const onConfirm = () => {
-    const confirmDia = dialog.confirm({
+    const confirmDia = DialogPlugin.confirm({
       header: 'Dialog-Confirm-Plugin',
       body: 'Are you sure to delete it?',
       confirmBtn: 'ok',
@@ -49,7 +49,7 @@ export default function PluginModalExample() {
     });
   };
   const onAlert = () => {
-    const alertDia = dialog.alert({
+    const alertDia = DialogPlugin.alert({
       header: 'Dialog-Alert-Plugin',
       body: 'Notice: Your balance is going to be empty.',
       confirmBtn: {
@@ -69,7 +69,7 @@ export default function PluginModalExample() {
     });
   };
   const onDialogPluginConfirm = () => {
-    const confirmDia = dialog.confirm({
+    const confirmDia = DialogPlugin.confirm({
       header: 'Dialog-Confirm-Plugin',
       body: 'Are you sure to delete it?',
       confirmBtn: 'ok',
@@ -87,26 +87,27 @@ export default function PluginModalExample() {
     });
   };
   return (
-    <div>
+    <div className="tdesign-demo-block-column">
       <p>插件调用方式一：DialogPlugin(options)</p>
       <p>插件调用方式二：DialogPlugin.confirm(options)</p>
       <p>插件调用方式三：DialogPlugin.alert(options)</p>
-      <br />
-      <Button theme="primary" onClick={showDialog} style={buttonStyle}>
-        dialog
-      </Button>
-      <Button theme="primary" onClick={handleDN} style={buttonStyle}>
-        handleDialogNode
-      </Button>
-      <Button theme="primary" onClick={onConfirm} style={buttonStyle}>
-        confirm
-      </Button>
-      <Button theme="primary" onClick={onAlert} style={buttonStyle}>
-        alert
-      </Button>
-      <Button theme="primary" onClick={onDialogPluginConfirm} style={buttonStyle}>
-        DialogPlugin.confirm
-      </Button>
+      <div className="tdesign-demo-block-row">
+        <Button theme="primary" onClick={showDialog} style={buttonStyle}>
+          dialog
+        </Button>
+        <Button theme="primary" onClick={handleDN} style={buttonStyle}>
+          handleDialogNode
+        </Button>
+        <Button theme="primary" onClick={onConfirm} style={buttonStyle}>
+          confirm
+        </Button>
+        <Button theme="primary" onClick={onAlert} style={buttonStyle}>
+          alert
+        </Button>
+        <Button theme="primary" onClick={onDialogPluginConfirm} style={buttonStyle}>
+          DialogPlugin.confirm
+        </Button>
+      </div>
     </div>
   );
 }
