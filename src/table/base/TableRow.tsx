@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams } from '../type';
-import { RowSkipTdSpanColIndexsMap } from './TableBody';
+import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
 
 interface MergeCellsProps {
   rowspanAndColspan?: TdBaseTableProps['rowspanAndColspan'];
@@ -19,6 +19,7 @@ interface RowProps<D extends DataType> extends MergeCellsProps {
   rowIndex?: number;
   onTrClick?: () => void;
   expandOnRowClick?: boolean;
+  rowEvents?: RowEvents;
 }
 
 const TableRow = <D extends DataType>(props: RowProps<D>) => {
@@ -32,6 +33,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     dataLength,
     onTrClick,
     expandOnRowClick,
+    rowEvents = {},
   } = props;
   const { flattenColumns } = useTableContext();
   const flattenColumnsLength = flattenColumns?.length;
@@ -174,7 +176,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   }
 
   return (
-    <tr className={classes} {...(expandOnRowClick ? { onClick: onTrClick } : {})}>
+    <tr className={classes} {...rowEvents} {...(expandOnRowClick ? { onClick: onTrClick } : {})}>
       {baseRow}
     </tr>
   );
