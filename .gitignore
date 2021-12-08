@@ -20,3 +20,4 @@ _site/
 package-lock.json
 pnpm-lock.yaml
 temp*
+robotMsg.json

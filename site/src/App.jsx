@@ -9,7 +9,7 @@ import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
-const historyVersion = ['0.14.3'];
+const historyVersion = [];
 const versionOptions = [
   { value: packageJson.version, label: packageJson.version },
   ...historyVersion.map((v) => ({ value: v, label: v })),
@@ -54,7 +54,7 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === packageJson.version) return;
-    location.href = `https://tdesign.cdn-go.cn/tdesign-react/${version}/`;
+    location.href = `//preview-${version}-tdesign-react.surge.sh`;
   }
 
   useEffect(() => {
@@ -81,9 +81,13 @@ function Components(props) {
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          <div slot="extra">
-            <Select value={version} options={versionOptions} onChange={changeVersion} />
-          </div>
+          {
+            historyVersion.length ? (
+              <div slot="extra">
+                <Select value={version} options={versionOptions} onChange={changeVersion} />
+              </div>
+            ) : null
+          }
         </td-doc-aside>
 
         <td-doc-content ref={tdDocContentRef}>
