@@ -64,6 +64,12 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
 
   const renderIcon = () => {
     const IconWrapper = ({ children }) => <div className={`${classPrefix}-notification__icon`}>{children}</div>;
+
+    // 调整优先级，icon 优先级最高
+    if (React.isValidElement(icon)) {
+      return <IconWrapper>{icon}</IconWrapper>;
+    }
+
     if (theme && theme === 'success') {
       return (
         <IconWrapper>
@@ -78,7 +84,6 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
         </IconWrapper>
       );
     }
-    if (React.isValidElement(icon)) return icon;
     return null;
   };
 
