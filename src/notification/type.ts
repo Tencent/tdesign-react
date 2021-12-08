@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 14:46:40
+ * updated at 2021-12-08 11:32:15
  * */
 
 import { TNode, TElement, AttachNode } from '../common';
@@ -31,7 +31,7 @@ export interface TdNotificationProps {
    */
   footer?: TNode;
   /**
-   * 自定义图标
+   * 用于自定义消息通知前面的图标，优先级大于 theme 设定的图标
    */
   icon?: TElement;
   /**

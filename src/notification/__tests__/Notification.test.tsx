@@ -1,6 +1,6 @@
 import React from 'react';
 import { testExamples, render, fireEvent } from '@test/utils';
-import { Notification, IconFont } from 'tdesign-react';
+import { Notification, NotificationPlugin } from 'tdesign-react';
 
 testExamples(__dirname);
 
@@ -24,7 +24,7 @@ describe('Notification test', () => {
         title={titleText}
         content={<div data-testid={contentId}>{contentText}</div>}
         theme="success"
-        icon={<IconFont name="more" />}
+        icon={<div>test</div>}
         closeBtn={<div data-testid={closeBtnId}>{closeBtnText}</div>}
         footer={
           <div data-testid={footerId} className="t-notification__detail">
@@ -35,8 +35,6 @@ describe('Notification test', () => {
     );
 
     /**
-     * @author kenzyyang
-     * @date 2021-06-02 17:06:44
      * @desc 更改 title 的断言测试。新的 api title 只接受纯字符串，需要修改测试方法
      */
     const title = document.querySelectorAll('.t-notification__title');
@@ -49,27 +47,27 @@ describe('Notification test', () => {
   });
 
   test('open and close', async () => {
-    const notification = await Notification.info({});
+    const notification = await NotificationPlugin.info({});
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
     notification.close();
     expect(document.querySelectorAll('.t-notification').length).toBe(0);
 
-    const notificationPromise = Notification.info({});
+    const notificationPromise = NotificationPlugin.info({});
 
     await notificationPromise;
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
-    await Notification.close(notificationPromise);
+    await NotificationPlugin.close(notificationPromise);
     expect(document.querySelectorAll('.t-notification').length).toBe(0);
   });
 
   test('open with theme', async () => {
-    Notification.closeAll();
+    NotificationPlugin.closeAll();
 
-    await Notification.info({});
-    await Notification.success({});
-    await Notification.warning({});
-    await Notification.error({});
+    await NotificationPlugin.info({});
+    await NotificationPlugin.success({});
+    await NotificationPlugin.warning({});
+    await NotificationPlugin.error({});
 
     expect(document.querySelectorAll('.t-notification .t-is-info').length).toBe(1);
     expect(document.querySelectorAll('.t-notification .t-is-success').length).toBe(1);
@@ -78,12 +76,12 @@ describe('Notification test', () => {
   });
 
   test('open with placement', async () => {
-    Notification.closeAll();
+    NotificationPlugin.closeAll();
 
-    await Notification.info({ placement: 'top-left' });
-    await Notification.info({ placement: 'top-right' });
-    await Notification.info({ placement: 'bottom-left' });
-    await Notification.info({ placement: 'bottom-right' });
+    await NotificationPlugin.info({ placement: 'top-left' });
+    await NotificationPlugin.info({ placement: 'top-right' });
+    await NotificationPlugin.info({ placement: 'bottom-left' });
+    await NotificationPlugin.info({ placement: 'bottom-right' });
 
     expect(document.querySelectorAll('.t-notification__show--top-left').length).toBe(1);
     expect(document.querySelectorAll('.t-notification__show--top-right').length).toBe(1);
@@ -92,9 +90,9 @@ describe('Notification test', () => {
   });
 
   test('auto close', async () => {
-    Notification.closeAll();
+    NotificationPlugin.closeAll();
 
-    await Notification.info({ duration: 3000 });
+    await NotificationPlugin.info({ duration: 3000 });
 
     expect(document.querySelectorAll('.t-notification').length).toBe(1);
 
@@ -104,9 +102,9 @@ describe('Notification test', () => {
   });
 
   test('click close button', async () => {
-    Notification.closeAll();
+    NotificationPlugin.closeAll();
 
-    await Notification.info({
+    await NotificationPlugin.info({
       closeBtn: <span id="close_button">关闭</span>,
     });
 
