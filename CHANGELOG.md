@@ -1,6 +1,6 @@
 # Changelog
 
-# 0.19.0 (2021-12-08)
+## 0.19.0 (2021-12-08)
 
 ### BREAKING CHANGES
 * Notification: 插件化使用方式调整，支持  `NotificationPlugin`,`notification` 的调用，废弃 `Notification.info` ([d12d964](https://github.com/TDesignOteam/tdesign-react/commit/d12d96400a366b506c8fae58fa64c23238d915d2))[@kenzyyang](https://github.com/kenzyyang)
@@ -22,7 +22,7 @@
 * Dialog: 支持 `DialogPlugin` 调用方式 ([d12d964](https://github.com/TDesignOteam/tdesign-react/commit/3c58290ba93a7064bdcf757ca8972cb5b136e5da))[@HQ-Lin](https://github.com/HQ-Lin)
 * Doc: 优化文档内容 ([#21](https://github.com/TDesignOteam/tdesign-react/issues/21)) ([33788b4](https://github.com/TDesignOteam/tdesign-react/commit/33788b48e771d4cf2eb2c26d8731249a09fea2f6))[@HQ-Lin](https://github.com/HQ-Lin)
 
-### 0.18.2 (2021-11-29)
+## 0.18.2 (2021-11-29)
 
 
 ### Bug Fixes
