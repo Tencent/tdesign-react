@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1 (2021-12-08)
+
+
+### Bug Fixes
+
+* 修复 Notification 引用路径报错 ([36749bf](https://github.com/TDesignOteam/tdesign-react/commit/36749bff8c5503a1e3c332cacf153eb221e2e986))[@HQ-Lin](https://github.com/HQ-Lin)
+
+
 ## 0.19.0 (2021-12-08)
 
 ### BREAKING CHANGES
