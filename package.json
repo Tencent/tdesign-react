@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.18.2",
+  "version": "0.19.0",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "cjs/index.js",
@@ -153,7 +153,7 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "standard-changelog": "^2.0.27",
     "tdesign-publish-cli": "^0.0.6",
-    "tdesign-site-components": "^0.1.4",
+    "tdesign-site-components": "^0.1.8",
     "ts-jest": "^26.5.6",
     "ts-morph": "^12.2.0",
     "ts-node": "^8.8.1",

@@ -1,6 +1,28 @@
 # Changelog
 
-## 0.18.2 (2021-11-29)
+# 0.19.0 (2021-12-08)
+
+### BREAKING CHANGES
+* Notification: 插件化使用方式调整，支持  `NotificationPlugin`,`notification` 的调用，废弃 `Notification.info` ([d12d964](https://github.com/TDesignOteam/tdesign-react/commit/d12d96400a366b506c8fae58fa64c23238d915d2))[@kenzyyang](https://github.com/kenzyyang)
+
+### Bug Fixes
+
+* Alert: icon and text vertical center ([82c163c](https://github.com/TDesignOteam/tdesign-react/commit/82c163cca37e1701205885fa9dacab41e3695e93))[@uyarn](https://github.com/uyarn)
+* Message: 修复组件自动关闭时控制态的异常和 `onDurationEnd` 事件执行两次的 bug ([#22](https://github.com/TDesignOteam/tdesign-react/issues/22)) ([fbaac78](https://github.com/TDesignOteam/tdesign-react/commit/fbaac78ef6f7a9a3d2652839658099fd2d9bf47b))[@kenzyyang](https://github.com/kenzyyang)
+* Table: 消除空数据时底部两条横线 ([2e0e1ce](https://github.com/TDesignOteam/tdesign-react/commit/2e0e1ceb9289334a073a9253f72de4c3e47404f7))[@yunfeic](https://github.com/yunfeic)
+* Table: 修复固定列 react16 滚动报错引起固定头列滚动失效 ([765bfb9](https://github.com/TDesignOteam/tdesign-react/commit/765bfb95aa6f10f79bf6dc23ef8c4c66f55435ce))[@yunfeic](https://github.com/yunfeic)
+* Table: 修复 header align 设置无效，react16 下固定列滚动报错 ([#23](https://github.com/TDesignOteam/tdesign-react/issues/23)) ([3e8dd57](https://github.com/TDesignOteam/tdesign-react/commit/3e8dd577282d78544f126814ae5762a11555b454)), closes [#190](https://github.com/TDesignOteam/tdesign-react/issues/190)[@yunfeic](https://github.com/yunfeic)
+* Textarea: 组件临时解决原生属性 rows 设置后不可用的问题。 ([#19](https://github.com/TDesignOteam/tdesign-react/issues/19)) ([528f726](https://github.com/TDesignOteam/tdesign-react/commit/528f72626ece8d7d02f9108f9a60de4b52c4d0fa))[@kenzyyang](https://github.com/kenzyyang)
+* Upload: 修复name属性不生效问题 ([#14](https://github.com/TDesignOteam/tdesign-react/issues/14)) ([25d058d](https://github.com/TDesignOteam/tdesign-react/commit/25d058d89dc90b4f20aebbda1ff937b94c80172e))[@wookaoer](https://github.com/wookaoer)
+
+
+### Features
+
+* Transfer: 新增 Transfer 组件 ([#15](https://github.com/TDesignOteam/tdesign-react/issues/15)) ([eafbe33](https://github.com/TDesignOteam/tdesign-react/commit/eafbe33b4a2aba14e9ab4308b8e8e68b328d9a5e))
+* Dialog: 支持 `DialogPlugin` 调用方式 ([d12d964](https://github.com/TDesignOteam/tdesign-react/commit/3c58290ba93a7064bdcf757ca8972cb5b136e5da))[@HQ-Lin](https://github.com/HQ-Lin)
+* Doc: 优化文档内容 ([#21](https://github.com/TDesignOteam/tdesign-react/issues/21)) ([33788b4](https://github.com/TDesignOteam/tdesign-react/commit/33788b48e771d4cf2eb2c26d8731249a09fea2f6))[@HQ-Lin](https://github.com/HQ-Lin)
+
+### 0.18.2 (2021-11-29)
 
 
 ### Bug Fixes
