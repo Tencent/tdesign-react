@@ -22,7 +22,6 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   };
 
   const handleExiting = () => {
-    console.log('trigger before exiting');
     const contentEle = contentRef?.current;
     if (contentEle) {
       contentEle.style.maxHeight = '0';

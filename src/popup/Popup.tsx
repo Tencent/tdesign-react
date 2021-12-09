@@ -157,11 +157,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
           <div
             ref={composeRefs(setOverlayRef, ref)}
             style={styles.popper}
-            className={classNames(
-              `${classPrefix}-popup`,
-              // `${classPrefix}-popup_animation-enter-active`,
-              // visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
-            )}
+            className={`${classPrefix}-popup`}
             {...attributes.popper}
             {...popupProps}
           >
