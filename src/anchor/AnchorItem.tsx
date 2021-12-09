@@ -24,10 +24,10 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   }, [href, registerItem, unregisterItem]);
 
   return (
-    <div className={classNames(`${classPrefix}-anchor-item`, { [`${classPrefix}-is-active`]: activeItem === href })}>
+    <div className={classNames(`${classPrefix}-anchor__item`, { [`${classPrefix}-is-active`]: activeItem === href })}>
       <a
         href={href}
-        className={classNames(`${classPrefix}-anchor-item_link`)}
+        className={classNames(`${classPrefix}-anchor__item-link`)}
         title={titleAttr}
         target={target}
         onClick={(e) => handleClick(e)}

@@ -16,7 +16,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
 
   const { classPrefix } = useConfig();
 
-  const tagClassName = classNames(`${classPrefix}-anchor-target`, className);
+  const tagClassName = classNames(`${classPrefix}-anchor__target`, className);
   const iconClassName = `${classPrefix}-copy`;
 
   const handleCopyText = () => {

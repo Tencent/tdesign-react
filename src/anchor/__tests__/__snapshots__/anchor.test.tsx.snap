@@ -14,22 +14,22 @@ exports[`base.jsx 1`] = `
           class="t-anchor t-size-m"
         >
           <div
-            class="t-anchor_line"
+            class="t-anchor__line"
           >
             <div
-              class="cursor-wrapper"
+              class="t-anchor__line-cursor-wrapper"
               style=""
             >
               <div
-                class="cursor"
+                class="t-anchor__line-cursor"
               />
             </div>
           </div>
           <div
-            class="t-anchor-item"
+            class="t-anchor__item"
           >
             <a
-              class="t-anchor-item_link"
+              class="t-anchor__item-link"
               href="#基础锚点"
               title="基础锚点"
             >
@@ -37,10 +37,10 @@ exports[`base.jsx 1`] = `
             </a>
           </div>
           <div
-            class="t-anchor-item"
+            class="t-anchor__item"
           >
             <a
-              class="t-anchor-item_link"
+              class="t-anchor__item-link"
               href="#多级锚点"
               title="多级锚点"
             >
@@ -48,10 +48,10 @@ exports[`base.jsx 1`] = `
             </a>
           </div>
           <div
-            class="t-anchor-item"
+            class="t-anchor__item"
           >
             <a
-              class="t-anchor-item_link"
+              class="t-anchor__item-link"
               href="#指定容器锚点"
               title="指定容器锚点"
             >
@@ -59,10 +59,10 @@ exports[`base.jsx 1`] = `
             </a>
           </div>
           <div
-            class="t-anchor-item"
+            class="t-anchor__item"
           >
             <a
-              class="t-anchor-item_link"
+              class="t-anchor__item-link"
               href="#特定交互锚点"
               title="特定交互锚点"
             >
@@ -70,10 +70,10 @@ exports[`base.jsx 1`] = `
             </a>
           </div>
           <div
-            class="t-anchor-item"
+            class="t-anchor__item"
           >
             <a
-              class="t-anchor-item_link"
+              class="t-anchor__item-link"
               href="#尺寸"
               title="尺寸"
             >
@@ -98,22 +98,22 @@ exports[`container.jsx 1`] = `
       class="t-anchor t-size-m"
     >
       <div
-        class="t-anchor_line"
+        class="t-anchor__line"
       >
         <div
-          class="cursor-wrapper"
+          class="t-anchor__line-cursor-wrapper"
           style="top: 0px; height: 0px; opacity: 1;"
         >
           <div
-            class="cursor"
+            class="t-anchor__line-cursor"
           />
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#content-1"
           title="content-1"
         >
@@ -121,10 +121,10 @@ exports[`container.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#content-2"
           title="content-2"
         >
@@ -132,10 +132,10 @@ exports[`container.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#content-3"
           title="content-3"
         >
@@ -143,10 +143,10 @@ exports[`container.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item t-is-active"
+        class="t-anchor__item t-is-active"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#content-4"
           title="content-4"
         >
@@ -202,10 +202,10 @@ exports[`cursor.jsx 1`] = `
       class="t-anchor t-size-m"
     >
       <div
-        class="t-anchor_line"
+        class="t-anchor__line"
       >
         <div
-          class="cursor-wrapper"
+          class="t-anchor__line-cursor-wrapper"
           style=""
         >
           <div
@@ -214,10 +214,10 @@ exports[`cursor.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#基础锚点"
           title="基础锚点"
         >
@@ -225,10 +225,10 @@ exports[`cursor.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#多级锚点"
           title="多级锚点"
         >
@@ -236,10 +236,10 @@ exports[`cursor.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#指定容器锚点"
           title="指定容器锚点"
         >
@@ -247,10 +247,10 @@ exports[`cursor.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#特定交互锚点"
           title="特定交互锚点"
         >
@@ -258,10 +258,10 @@ exports[`cursor.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#尺寸"
           title="尺寸"
         >
@@ -282,22 +282,22 @@ exports[`large.jsx 1`] = `
       class="t-anchor t-size-m"
     >
       <div
-        class="t-anchor_line"
+        class="t-anchor__line"
       >
         <div
-          class="cursor-wrapper"
+          class="t-anchor__line-cursor-wrapper"
           style="top: 0px; height: 0px; opacity: 1;"
         >
           <div
-            class="cursor"
+            class="t-anchor__line-cursor"
           />
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#default"
           title="基础锚点"
         >
@@ -305,10 +305,10 @@ exports[`large.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#multiple"
           title="多级锚点"
         >
@@ -316,20 +316,20 @@ exports[`large.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#size"
           title="尺寸大小"
         >
           尺寸大小
         </a>
         <div
-          class="t-anchor-item"
+          class="t-anchor__item"
         >
           <a
-            class="t-anchor-item_link"
+            class="t-anchor__item-link"
             href="#size"
             title="size-medium"
           >
@@ -337,10 +337,10 @@ exports[`large.jsx 1`] = `
           </a>
         </div>
         <div
-          class="t-anchor-item t-is-active"
+          class="t-anchor__item t-is-active"
         >
           <a
-            class="t-anchor-item_link"
+            class="t-anchor__item-link"
             href="#size-large"
             title="size-large"
           >
@@ -349,10 +349,10 @@ exports[`large.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#attach"
           title="指定容器"
         >
@@ -370,22 +370,22 @@ exports[`multiple.jsx 1`] = `
     class="t-anchor t-size-m"
   >
     <div
-      class="t-anchor_line"
+      class="t-anchor__line"
     >
       <div
-        class="cursor-wrapper"
+        class="t-anchor__line-cursor-wrapper"
         style=""
       >
         <div
-          class="cursor"
+          class="t-anchor__line-cursor"
         />
       </div>
     </div>
     <div
-      class="t-anchor-item"
+      class="t-anchor__item"
     >
       <a
-        class="t-anchor-item_link"
+        class="t-anchor__item-link"
         href="#基础锚点"
         title="基础锚点"
       >
@@ -393,10 +393,10 @@ exports[`multiple.jsx 1`] = `
       </a>
     </div>
     <div
-      class="t-anchor-item"
+      class="t-anchor__item"
     >
       <a
-        class="t-anchor-item_link"
+        class="t-anchor__item-link"
         href="#多级锚点"
         title="多级锚点"
       >
@@ -404,10 +404,10 @@ exports[`multiple.jsx 1`] = `
       </a>
     </div>
     <div
-      class="t-anchor-item"
+      class="t-anchor__item"
     >
       <a
-        class="t-anchor-item_link"
+        class="t-anchor__item-link"
         href="#指定容器锚点"
         title="指定容器锚点"
       >
@@ -415,10 +415,10 @@ exports[`multiple.jsx 1`] = `
       </a>
     </div>
     <div
-      class="t-anchor-item"
+      class="t-anchor__item"
     >
       <a
-        class="t-anchor-item_link"
+        class="t-anchor__item-link"
         href="#特定交互锚点"
         title="特定交互锚点"
       >
@@ -426,20 +426,20 @@ exports[`multiple.jsx 1`] = `
       </a>
     </div>
     <div
-      class="t-anchor-item"
+      class="t-anchor__item"
     >
       <a
-        class="t-anchor-item_link"
+        class="t-anchor__item-link"
         href="#尺寸"
         title="尺寸"
       >
         尺寸
       </a>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#size"
           title="size-medium"
         >
@@ -447,10 +447,10 @@ exports[`multiple.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#size-large"
           title="size-large"
         >
@@ -471,22 +471,22 @@ exports[`small.jsx 1`] = `
       class="t-anchor t-size-m"
     >
       <div
-        class="t-anchor_line"
+        class="t-anchor__line"
       >
         <div
-          class="cursor-wrapper"
+          class="t-anchor__line-cursor-wrapper"
           style="top: 0px; height: 0px; opacity: 1;"
         >
           <div
-            class="cursor"
+            class="t-anchor__line-cursor"
           />
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#default"
           title="基础锚点"
         >
@@ -494,10 +494,10 @@ exports[`small.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#multiple"
           title="多级锚点"
         >
@@ -505,20 +505,20 @@ exports[`small.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor-item t-is-active"
+        class="t-anchor__item t-is-active"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#size"
           title="尺寸大小"
         >
           尺寸大小
         </a>
         <div
-          class="t-anchor-item t-is-active"
+          class="t-anchor__item t-is-active"
         >
           <a
-            class="t-anchor-item_link"
+            class="t-anchor__item-link"
             href="#size"
             title="size-medium"
           >
@@ -526,10 +526,10 @@ exports[`small.jsx 1`] = `
           </a>
         </div>
         <div
-          class="t-anchor-item"
+          class="t-anchor__item"
         >
           <a
-            class="t-anchor-item_link"
+            class="t-anchor__item-link"
             href="#size-large"
             title="size-large"
           >
@@ -538,10 +538,10 @@ exports[`small.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-anchor-item"
+        class="t-anchor__item"
       >
         <a
-          class="t-anchor-item_link"
+          class="t-anchor__item-link"
           href="#attach"
           title="指定容器"
         >
@@ -560,7 +560,7 @@ exports[`target.jsx 1`] = `
     id="/components/anchor/#anchor-target"
   >
     <h1
-      class="t-anchor-target"
+      class="t-anchor__target"
       id="/components/anchor/#default"
     >
       基础锚点
@@ -588,7 +588,7 @@ exports[`target.jsx 1`] = `
       </div>
     </h1>
     <h1
-      class="t-anchor-target"
+      class="t-anchor__target"
       id="/components/anchor/#multiple"
     >
       多级锚点
@@ -616,7 +616,7 @@ exports[`target.jsx 1`] = `
       </div>
     </h1>
     <h1
-      class="t-anchor-target"
+      class="t-anchor__target"
       id="/components/anchor/#size"
     >
       尺寸大小
@@ -644,7 +644,7 @@ exports[`target.jsx 1`] = `
       </div>
     </h1>
     <h1
-      class="t-anchor-target"
+      class="t-anchor__target"
       id="/components/anchor/#attach"
     >
       指定容器
