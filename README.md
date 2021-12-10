@@ -5,14 +5,14 @@
 </p>
 
 <p align="center">
+   <a href="https://www.npmjs.com/package/tdesign-react">
+    <img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License" />
+  </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/v/tdesign-react.svg?sanitize=true" alt="Version">
   </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/dt/tdesign-react.svg?sanitize=true" alt="Downloads" />
-  </a>
-  <a href="https://www.npmjs.com/package/tdesign-react">
-    <img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License" />
   </a>
 </p>
 
