@@ -10,15 +10,16 @@ export interface SingleFileProps {
   display?: string;
   placeholder?: string;
   onRemove?: (context: UploadRemoveContext) => void;
+  showUploadProgress: boolean;
 }
 
 const SingleFile: FC<SingleFileProps> = (props) => {
-  const { display = 'file', onRemove, file } = props;
+  const { display = 'file', onRemove, file, showUploadProgress } = props;
   const { classPrefix } = useConfig();
 
   const fileClass = classNames(`${classPrefix}-upload__single`, `${classPrefix}-upload__single-${display}`);
 
-  const showProgress = file && file.status !== 'success';
+  const showProgress = showUploadProgress && file && file.status !== 'success';
 
   const inputName = file?.name;
 
