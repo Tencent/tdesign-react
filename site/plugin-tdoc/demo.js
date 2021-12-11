@@ -1,5 +1,4 @@
 import path from 'path';
-import mdContainer from 'markdown-it-container';
 import Markdownitfence from 'markdown-it-fence';
 
 function mdInJsx(_md) {
@@ -7,16 +6,13 @@ function mdInJsx(_md) {
     validate: () => true,
     render(tokens, idx) {
       const { content, info } = tokens[idx];
-      return `<pre className="language-${info}"><code className="language-${info}">{\`${content.replace(
-        /`/g,
-        '\\`',
-      )}\`}</code></pre>`;
+      return `<pre className="language-${info}"><code className="language-${info}">{\`${content.replace(/`/g, '\\`')}\`}</code></pre>`;
     },
   });
 }
 
-export default function renderDemo(md) {
-  md.use(mdInJsx).use(mdContainer, 'demo', {
+export default function renderDemo(md, container) {
+  md.use(mdInJsx).use(container, 'demo', {
     validate(params) {
       return params.trim().match(/^demo\s+([\\/.\w-]+)(\s+(.+?))?(\s+--dev)?$/);
     },

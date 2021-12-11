@@ -21,7 +21,7 @@ onChange | Function |  | 值变化时触发。`(checked: boolean, context: { e: 
 disabled | Boolean | false | 是否禁用组件 | N
 max | Number | undefined | 支持最多选中的数量 | N
 name | String | - | 统一设置内部复选框 HTML 属性 | N
-options | Array | [] | 以配置形式设置子元素。示例1：['北京', '上海'] ，示例2: [{ label: '全选', checkAll: true }, { label: '上海', value: 'shanghai' }]。checkAll 值为 true 表示当前选项为「全选选项」。TS 类型：`Array<CheckboxOption>`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/checkbox/type.ts) | N
+options | Array | [] | 以配置形式设置子元素。示例1：`['北京', '上海']` ，示例2: `[{ label: '全选', checkAll: true }, { label: '上海', value: 'shanghai' }]`。checkAll 值为 true 表示当前选项为「全选选项」。TS 类型：`Array<CheckboxOption>`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/checkbox/type.ts) | N
 value | Array | [] | 选中值。TS 类型：`CheckboxGroupValue`。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/checkbox/type.ts) | N
 defaultValue | Array | [] | 选中值。非受控属性。TS 类型：`CheckboxGroupValue`。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/checkbox/type.ts) | N
 onChange | Function |  | 值变化时触发。`(value: CheckboxGroupValue, context: { e: ChangeEvent }) => {}` | N

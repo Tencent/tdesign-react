@@ -23,7 +23,7 @@ treeProps | Object | - | 透传 Tree 组件属性。TS 类型：`TreeProps`。[�
 value | String / Number / Object / Array | - | 选中值。TS 类型：`TreeSelectValue`。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/tree-select/type.ts) | N
 defaultValue | String / Number / Object / Array | - | 选中值。非受控属性。TS 类型：`TreeSelectValue`。[详细类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/tree-select/type.ts) | N
 valueDisplay | TElement | - | 自定义选中项呈现方式。TS 类型：`TNode<{ value: DataOption[]; onClose: () => void }>`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts) | N
-valueType | String | value | 用于控制选中值的类型。假设数据选项为：[{ label: '姓名', value: 'name' }]，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。可选项：value/object | N
+valueType | String | value | 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。可选项：value/object | N
 onBlur | Function |  | 输入框失去焦点时触发。`(context: { value: TreeSelectValue; e: FocusEvent }) => {}` | N
 onChange | Function |  | 节点选中状态变化时触发，context.node 表示当前变化的选项。`(value: TreeSelectValue, context: { node: TreeNodeModel<DataOption> }) => {}` | N
 onClear | Function |  | 点击清除按钮时触发。`(context: { e: MouseEvent }) => {}` | N

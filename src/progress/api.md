@@ -2,7 +2,7 @@
 ### Progress Props
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-color | String / Object / Array | '' | 进度条颜色。示例：'#ED7B2F' 或 'orange' 或 ['#f00', '#0ff', '#f0f'] 或 { '0%': '#f00', '100%': '#0ff' } 或  { from: '#000', to: '#000' } 等。TS 类型：`string | Array<string> | Record<string, string>` | N
+color | String / Object / Array | '' | 进度条颜色。示例：'#ED7B2F' 或 'orange' 或 ['#f00', '#0ff', '#f0f'] 或 `{ '0%': '#f00', '100%': '#0ff' }` 或  `{ from: '#000', to: '#000' }` 等。TS 类型：`string | Array<string> | Record<string, string>` | N
 label | TNode | true | 进度百分比，可自定义。TS 类型：`string | boolean | TNode`。[通用类型定义](https://github.com/TDesignOteam/tdesign-react/blob/main/src/common.ts) | N
 percentage | Number | 0 | 进度条百分比 | N
 size | String / Number | 'medium' | 进度条尺寸，示例：small/medium/large/240。small 值为 72； medium 值为 112；large 值为 160 | N

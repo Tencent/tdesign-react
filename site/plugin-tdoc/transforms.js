@@ -3,7 +3,7 @@
 import path from 'path';
 import fs from 'fs';
 
-import createComponent from './component';
+import mdToReact from './md-to-react';
 
 let demoImports = {};
 let demoCodesImports = {};
@@ -11,9 +11,9 @@ let demoCodesImports = {};
 const transformDemo = ['table'];
 
 export default {
-  before(source, id) {
-    const resouceDir = path.dirname(id);
-    const reg = id.match(/src\/(\w+-?\w+)\/\w+\.md/);
+  before({ source, file }) {
+    const resouceDir = path.dirname(file);
+    const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.md/);
     const name = reg && reg[1];
     demoImports = {};
     demoCodesImports = {};
@@ -41,7 +41,12 @@ export default {
     });
 
     if (source.includes(':: BASE_PROPS ::')) {
-      const apiDoc = fs.readFileSync(path.resolve(resouceDir, './api.md'), 'utf-8');
+      let apiDoc = fs.readFileSync(path.resolve(resouceDir, './api.md'), 'utf-8');
+      // fix table | render error
+      apiDoc = apiDoc.replace(/`([^`]+)`/g, (str) => str.replace(/\|/g, '\\|')).replace(/`([^`]+)`/g, (str, codeStr) => {
+        if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
+        return str;
+      });
       source = source.replace(':: BASE_PROPS ::', apiDoc);
     }
 
@@ -63,10 +68,7 @@ export default {
 
     return source;
   },
-  after(_, id, renderInfo, md) {
-    const reg = id.match(/src\/(\w+-?\w+)\/\w+\.md/);
-    const name = reg && reg[1];
-
+  render({ source, file, md }) {
     const demoDefsStr = Object.keys(demoImports)
       .map((key) => demoImports[key])
       .join('\n');
@@ -74,20 +76,14 @@ export default {
       .map((key) => demoCodesImports[key])
       .join('\n');
 
-    const { title, description, isComponent, docMd, demoMd, apiMd, designMd } = renderInfo;
+    const sfc = mdToReact({
+      md,
+      file,
+      source,
+      demoDefsStr,
+      demoCodesDefsStr,
+    });
 
-    const mdSegment = {
-      title,
-      description,
-      isComponent,
-      componentName: name,
-      // issueInfo: {},
-      docMd: md.render.call(md, `\${toc}\r\n${docMd}`).replace(/<!--[\s\S]+-->/g, ''),
-      apiMd: md.render.call(md, `\${toc}\r\n${apiMd}`).replace(/<!--[\s\S]+-->/g, ''),
-      demoMd: md.render.call(md, `\${toc}\r\n${demoMd}`).replace(/<!--[\s\S]+-->/g, ''),
-      designMd: md.render.call(md, `\${toc}\r\n${designMd}`).replace(/<!--[\s\S]+-->/g, ''),
-    };
-
-    return createComponent(mdSegment, demoDefsStr, demoCodesDefsStr);
+    return sfc;
   },
 };

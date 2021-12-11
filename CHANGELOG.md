@@ -1,4 +1,8 @@
-# Changelog
+---
+title: CHANGELOG
+timeline: true
+spline: explain
+---
 
 ## 0.19.1 (2021-12-08)
 

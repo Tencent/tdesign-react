@@ -25,7 +25,7 @@ NotificationProps | - | - | 继承 `NotificationProps` 中的全部 API | N
 
 ### notification 或 NotificationPlugin
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -34,7 +34,7 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationOp
 
 ### notification.info 或 NotificationPlugin.info
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -44,7 +44,7 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.warning 或 NotificationPlugin.warning
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -54,7 +54,7 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.error 或 NotificationPlugin.error
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -64,7 +64,7 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.success 或 NotificationPlugin.success
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -74,7 +74,7 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 ### notification.close 或 NotificationPlugin.close
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
@@ -82,7 +82,7 @@ options | Object | - | 必需。该插件参数为 $Notification.info() 等插�
 
 ### notification.closeall 或 NotificationPlugin.closeAll
 
-这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：({ a, b, c })）。顺序参数如下，
+这是一个插件函数，参数形式为顺序参数（形如：(a, b, c)），而非对象参数（形如：`({ a, b, c })`）。顺序参数如下，
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
