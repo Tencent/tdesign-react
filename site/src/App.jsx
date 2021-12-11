@@ -102,7 +102,7 @@ function Components(props) {
 }
 
 function App() {
-  const Router = process.env.NODE_ENV === 'staging' ? HashRouter : BrowserRouter;
+  const Router = process.env.NODE_ENV === 'preview' ? HashRouter : BrowserRouter;
 
   return (
     <Router>
