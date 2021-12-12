@@ -1,10 +1,12 @@
-# React for Web
-
-TDesign 适配桌面端的组件库，适合在 React 技术栈项目中使用。
+---
+title: React for Web
+description: TDesign 适配桌面端的组件库，适合在 React 技术栈项目中使用。
+spline: explain
+---
 
 ## 安装
 
-```shell
+```bash
 npm i tdesign-react
 ```
 

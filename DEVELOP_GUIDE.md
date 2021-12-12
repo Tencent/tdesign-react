@@ -200,7 +200,7 @@ npm run update:coverage-badge
 # 编译站点
 npm run site
 # 编译站点预览
-npm run site:staging
+npm run site:preview
 # 编译组件库
 npm run build
 # 快速创建组件及其相关文件

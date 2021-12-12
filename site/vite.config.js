@@ -1,18 +1,15 @@
 import path from 'path';
 
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import tdocPlugin from './plugin-tdoc';
 import { VitePWA } from 'vite-plugin-pwa';
 import replace from '@rollup/plugin-replace';
 import pwaConfig from './pwaConfig';
 
-// cdn-go 插件会自动部署官网历史版本，需要增加 cdn-go 外网地址前缀
-process.env.CDN_PATH = process.env.CDN_URL ? process.env.CDN_URL : './';
-
 export default {
-  base: process.env.NODE_ENV === 'production' ? '/react/' : process.env.CDN_PATH,
+  base: process.env.NODE_ENV === 'production' ? '/react/' : './',
   define: {
-    __VERSION__: JSON.stringify(process.env.npm_package_version),
+    __VERSION__: JSON.stringify('12.3.5'),
   },
   resolve: {
     alias: {
@@ -37,7 +34,7 @@ export default {
     },
   },
   plugins: [
-    reactRefresh(),
+    react(),
     tdocPlugin(),
     VitePWA(pwaConfig),
     replace({ __DATE__: new Date().toISOString() }),

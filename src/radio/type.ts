@@ -2,13 +2,18 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-09-09 11:44:25
+ * updated at 2021-12-12 18:01:23
  * */
 
 import { TNode, SizeEnum } from '../common';
 import { ChangeEvent } from 'react';
 
 export interface TdRadioProps {
+  /**
+   * 【开发中】是否允许取消选中
+   * @default false
+   */
+  allowUncheck?: boolean;
   /**
    * 是否选中
    */
@@ -88,7 +93,7 @@ export interface TdRadioGroupProps {
   onChange?: (value: RadioValue, context: { e: ChangeEvent<HTMLInputElement> }) => void;
 }
 
-export type RadioValue = string | number;
+export type RadioValue = string | number | boolean;
 
 export type RadioOption = string | number | RadioOptionObj;
 
