@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 14:46:40
+ * updated at 2021-12-12 18:01:23
  * */
 
 import { TNode, AttachNode } from '../common';
@@ -23,7 +23,7 @@ export interface TdMessageProps {
    */
   duration?: number;
   /**
-   * 消息提醒前面的图标，可以自定义
+   * 用于自定义消息前面的图标，优先级大于 theme 设定的图标。值为 false 则不显示图标，值为 true 显示 theme 设定图标
    * @default true
    */
   icon?: TNode;

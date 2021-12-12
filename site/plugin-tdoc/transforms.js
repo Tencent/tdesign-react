@@ -40,16 +40,6 @@ export default {
       return `\n::: demo _example/${demoFileName} ${name}\n:::\n`;
     });
 
-    if (source.includes(':: BASE_PROPS ::')) {
-      let apiDoc = fs.readFileSync(path.resolve(resouceDir, './api.md'), 'utf-8');
-      // fix table | render error
-      apiDoc = apiDoc.replace(/`([^`]+)`/g, (str) => str.replace(/\|/g, '\\|')).replace(/`([^`]+)`/g, (str, codeStr) => {
-        if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
-        return str;
-      });
-      source = source.replace(':: BASE_PROPS ::', apiDoc);
-    }
-
     source.replace(/:::\s*demo\s+([\\/.\w-]+)/g, (demoStr, relativeDemoPath) => {
       const demoPathOnlyLetters = relativeDemoPath.replace(/[^a-zA-Z\d]/g, '');
       const demoDefName = `Demo${demoPathOnlyLetters}`;
@@ -58,13 +48,11 @@ export default {
       demoCodesImports[demoCodeDefName] = `import ${demoCodeDefName} from './${relativeDemoPath}?raw';`;
     });
 
-    // 转义 { } 字符
-    if (transformDemo.includes(name)) {
-      source = source.replace(/\`([^`]+)\`/g, (demoStr, codeStr) => {
-        if (codeStr.includes('{')) return `<td-code text="${codeStr}"></td-code>`;
-        return demoStr;
-      });
-    }
+    // fix table | render error、jsx { } render error
+    source = source.replace(/`([^`]+)`/g, (str, codeStr) => {
+      codeStr = codeStr.replace(/\|/g, '\\|');
+      return `<td-code text="${codeStr}"></td-code>`;
+    });
 
     return source;
   },

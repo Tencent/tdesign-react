@@ -101,7 +101,7 @@ export default function mdToReact(options) {
                 <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${mdSegment.apiMd}\` }}></div>
                 <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${mdSegment.designMd}\` }}></div>
               </>
-            ) : <div name="DOC">${mdSegment.docMd.replace(/class=/g, 'className=').replace(/tabindex/g, 'tabIndex')}</div>
+            ) : <div name="DOC">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }
         </>
       )
@@ -129,7 +129,7 @@ const DEAULT_TABS = [
 
 // 解析 markdown 内容
 function customRender({ source, file, md }) {
-  const { content, data } = matter(source);
+  let { content, data } = matter(source);
   // console.log('data', data);
 
   // md top data
@@ -155,11 +155,18 @@ function customRender({ source, file, md }) {
   const mdSegment = {
     ...pageData,
     componentName,
-    docMd: md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${content.replace(/<!--[\s\S]+?-->/g, '')}`).html,
-    demoMd: md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`).html,
-    apiMd: md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${apiMd.replace(/<!--[\s\S]+?-->/g, '')}`).html,
+    docMd: '<td-doc-empty></td-doc-empty>',
+    demoMd: '<td-doc-empty></td-doc-empty>',
+    apiMd: '<td-doc-empty></td-doc-empty>',
     designMd: '<td-doc-empty></td-doc-empty>',
   };
+
+  if (pageData.isComponent) {
+    mdSegment.demoMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;
+    mdSegment.apiMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${apiMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;
+  } else {
+    mdSegment.docMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${content.replace(/<!--[\s\S]+?-->/g, '')}`).html;
+  }
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {

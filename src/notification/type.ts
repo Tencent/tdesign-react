@@ -2,10 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-08 11:32:15
+ * updated at 2021-12-12 18:01:23
  * */
 
-import { TNode, TElement, AttachNode } from '../common';
+import { TNode, AttachNode } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdNotificationProps {
@@ -31,9 +31,10 @@ export interface TdNotificationProps {
    */
   footer?: TNode;
   /**
-   * 用于自定义消息通知前面的图标，优先级大于 theme 设定的图标
+   * 用于自定义消息通知前面的图标，优先级大于 theme 设定的图标。值为 false 则不显示图标，值为 true 显示 theme 设定图标
+   * @default true
    */
-  icon?: TElement;
+  icon?: TNode;
   /**
    * 消息类型
    * @default info
