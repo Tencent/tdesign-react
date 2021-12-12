@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Message } from 'tdesign-react';
+import { Button, MessagePlugin } from 'tdesign-react';
 
 export default function () {
   return (
     <div className="tdesign-demo-block-row">
       <Button
         onClick={() => {
-          Message.info({
+          MessagePlugin.info({
             content: 'This is info Message',
             close: true,
           });
@@ -17,7 +17,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.success({
+          MessagePlugin.success({
             content: 'This is success Message',
             close: true,
           });
@@ -28,7 +28,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.warning({
+          MessagePlugin.warning({
             content: 'This is warning Message',
             close: true,
           });
@@ -39,7 +39,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.error({
+          MessagePlugin.error({
             content: 'This is error Message',
             close: true,
           });
@@ -50,7 +50,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.question({
+          MessagePlugin.question({
             content: 'This is question Message',
             close: true,
           });
@@ -61,7 +61,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.loading({
+          MessagePlugin.loading({
             content: 'This is loading Message',
             close: true,
           });

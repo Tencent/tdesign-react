@@ -13,12 +13,11 @@ import {
   MessageQuestionMethod,
   MessageSuccessMethod,
   MessageWarningMethod,
-  TdMessageProps,
   MessageThemeList,
 } from './type';
 import { AttachNodeReturnValue } from '../common';
 import noop from '../_util/noop';
-import { PlacementOffset, THEME_ARRAY } from './const';
+import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 
 // 定义全局的 message 列表，closeAll 函数需要使用
@@ -32,7 +31,8 @@ const globalConfig = {
   top: 32,
 };
 
-export interface MessageProps extends React.FC<TdMessageProps> {
+interface MessagePlugin {
+  (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
   info: MessageInfoMethod;
   success: MessageSuccessMethod;
   warning: MessageWarningMethod;
@@ -146,11 +146,6 @@ function renderElement(theme, config: MessageOptions): Promise<MessageInstance> 
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// :todo 需要 api 定义完全的 message 格式，否则用户使用时没法得到 message.info 的提示.
-const Message: MessageProps = MessageComponent;
-
 // 判断是否是 messageOptions
 function isConfig(content: MessageOptions | React.ReactNode): content is MessageOptions {
   return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
@@ -176,16 +171,20 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
   return renderElement(theme, config);
 };
 
-THEME_ARRAY.forEach((theme) => {
-  Message[theme] = (content, duration) => messageMethod(theme, content, duration);
-});
+export const MessagePlugin: MessagePlugin = (theme, message, duration) => messageMethod(theme, message, duration);
+MessagePlugin.info = (content, duration) => messageMethod('info', content, duration);
+MessagePlugin.error = (content, duration) => messageMethod('error', content, duration);
+MessagePlugin.warning = (content, duration) => messageMethod('warning', content, duration);
+MessagePlugin.success = (content, duration) => messageMethod('success', content, duration);
+MessagePlugin.question = (content, duration) => messageMethod('question', content, duration);
+MessagePlugin.loading = (content, duration) => messageMethod('loading', content, duration);
 
 /**
  * @date 2021-05-16 13:11:24
  * @desc Message 顶层内置函数，传入 message promise，关闭传入的 message.
  */
-Message.close = (message) => {
-  message.then((instance) => instance.close());
+MessagePlugin.close = (messageInstance) => {
+  messageInstance.then((instance) => instance.close());
 };
 
 /**
@@ -194,7 +193,7 @@ Message.close = (message) => {
  * :todo 需明确关闭范围，目前 message 中暂无 namespace 类似概念，暂时做全 message 关闭
  * 可预见到的扩展: 根据不同的 attach 做关闭,根据不同的类型做关闭，根据不同的 namespace 做关闭等等
  */
-Message.closeAll = (): MessageCloseAllMethod => {
+MessagePlugin.closeAll = (): MessageCloseAllMethod => {
   MessageList.forEach((message) => {
     typeof message.close === 'function' && message.close();
   });
@@ -202,4 +201,6 @@ Message.closeAll = (): MessageCloseAllMethod => {
   return;
 };
 
-export default Message;
+export const message = MessagePlugin;
+
+export default MessageComponent;
