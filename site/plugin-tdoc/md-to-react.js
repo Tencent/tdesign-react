@@ -83,12 +83,12 @@ export default function mdToReact(options) {
       return (
         <>
           ${
-            mdSegment.tdDocHeader &&
+            mdSegment.tdDocHeader ?
               `<td-doc-header
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
-              ></td-doc-header>`
+              ></td-doc-header>` : ''
           }
           {
             isComponent ? (
