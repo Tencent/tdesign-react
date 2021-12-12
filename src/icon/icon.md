@@ -10,9 +10,7 @@
 
 你可以使用以下方式，通过 iconfont 形式来使用图标
 
-```
-import { IconFont } from 'tdesign-icons-react'
-```
+`import { IconFont } from 'tdesign-icons-react';`
 
 {{ IconFontExample }}
 

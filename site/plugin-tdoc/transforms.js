@@ -8,8 +8,6 @@ import mdToReact from './md-to-react';
 let demoImports = {};
 let demoCodesImports = {};
 
-const transformDemo = ['table'];
-
 export default {
   before({ source, file }) {
     const resouceDir = path.dirname(file);
@@ -46,12 +44,6 @@ export default {
       const demoCodeDefName = `Demo${demoPathOnlyLetters}Code`;
       demoImports[demoDefName] = `import ${demoDefName} from './${relativeDemoPath}';`;
       demoCodesImports[demoCodeDefName] = `import ${demoCodeDefName} from './${relativeDemoPath}?raw';`;
-    });
-
-    // fix table | render error、jsx { } render error
-    source = source.replace(/`([^`]+)`/g, (str, codeStr) => {
-      codeStr = codeStr.replace(/\|/g, '\\|');
-      return `<td-code text="${codeStr}"></td-code>`;
     });
 
     return source;

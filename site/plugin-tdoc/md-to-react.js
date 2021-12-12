@@ -150,7 +150,18 @@ function customRender({ source, file, md }) {
   const componentName = reg && reg[1];
 
   // split md
-  const [demoMd = '', apiMd = ''] = content.split(pageData.apiFlag);
+  let [demoMd = '', apiMd = ''] = content.split(pageData.apiFlag);
+
+  // fix table | render error
+  demoMd = demoMd.replace(/`([^`]+)`/g, (str, codeStr) => {
+    codeStr = codeStr.replace(/\|/g, '\\|');
+    return `<td-code text="${codeStr}"></td-code>`;
+  });
+
+  apiMd = apiMd.replace(/`([^`]+)`/g, (str, codeStr) => {
+    codeStr = codeStr.replace(/\|/g, '\\|');
+    return `<td-code text="${codeStr}"></td-code>`;
+  });
 
   const mdSegment = {
     ...pageData,
