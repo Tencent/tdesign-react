@@ -256,7 +256,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   function handleScroll(e, duration = 100) {
     const { scrollLeft, scrollTop } = e.target;
 
-    throttle(() => {
+    const scrollFn = throttle(() => {
       checkScrollableToLeftOrRight();
       const direction = getScrollDirection(scrollLeft, scrollTop);
       if (direction !== ScrollDirection.UNKNOWN) {
@@ -265,6 +265,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
         scrollListenerFn?.(scrollParams);
       }
     }, duration);
+    scrollFn();
   }
 
   return (
