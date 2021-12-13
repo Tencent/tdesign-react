@@ -27,9 +27,6 @@ exports[`base.jsx 1`] = `
           />
         </foreignobject>
       </svg>
-      <div
-        class="t-loading__text"
-      />
     </div>
   </div>
 </DocumentFragment>
@@ -63,9 +60,6 @@ exports[`delay.jsx 1`] = `
             />
           </foreignobject>
         </svg>
-        <div
-          class="t-loading__text"
-        />
       </div>
     </div>
     <div>
@@ -366,9 +360,6 @@ exports[`wrap.jsx 1`] = `
               />
             </foreignobject>
           </svg>
-          <div
-            class="t-loading__text"
-          />
         </div>
       </div>
     </div>

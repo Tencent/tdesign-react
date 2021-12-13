@@ -103,7 +103,7 @@ const Loading: FC<LoadingProps> = (props) => {
     return (
       <>
         {indicator ? renderIndicator : null}
-        <div className={textClass}>{text}</div>
+        {text ? <div className={textClass}>{text}</div> : null}
       </>
     );
   };
