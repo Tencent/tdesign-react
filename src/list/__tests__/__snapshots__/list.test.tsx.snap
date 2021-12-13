@@ -300,7 +300,7 @@ exports[`multiline.jsx 1`] = `
     >
       <div>
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-loading--center t-size-m"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -321,6 +321,9 @@ exports[`multiline.jsx 1`] = `
               />
             </foreignobject>
           </svg>
+          <div
+            class="t-loading__text"
+          />
         </div>
         <span>
           正在加载中，请稍等
