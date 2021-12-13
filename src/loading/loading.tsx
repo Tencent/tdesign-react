@@ -77,10 +77,14 @@ const Loading: FC<LoadingProps> = (props) => {
     medium: `${classPrefix}-size-m`,
   };
 
-  const baseClasses = classnames(centerClass, sizeMap[size], {
-    [inheritColorClass]: inheritColor,
+  const baseClasses = classnames(
+    centerClass,
+    sizeMap[size],
+    {
+      [inheritColorClass]: inheritColor,
+    },
     className,
-  });
+  );
 
   if (preventScrollThrough && fullscreen) {
     if (loading) {
