@@ -16,5 +16,5 @@ ReactDOM.render(
     <App />
     <ReloadPrompt />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('app'),
 );
