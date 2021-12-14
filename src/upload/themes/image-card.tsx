@@ -6,6 +6,7 @@ import useConfig from '../../_util/useConfig';
 import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
 import { TdUploadFile } from '../types';
+import BooleanRender from '../boolean-render';
 
 export interface ImageCardProps {
   files?: TdUploadFile[];
@@ -13,10 +14,11 @@ export interface ImageCardProps {
   max?: number;
   onTrigger: () => void;
   onRemove?: (options: UploadRemoveContext) => void;
+  showUploadProgress: boolean;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-  const { files, multiple = false, max = 0, onRemove } = props;
+  const { files, multiple = false, max = 0, onRemove, showUploadProgress } = props;
   const { classPrefix } = useConfig();
   const [showImg, setShowImg] = useState(false);
   const [imgURL, setImgURL] = useState();
@@ -54,46 +56,50 @@ const ImageCard: FC<ImageCardProps> = (props) => {
         </p>
       </Dialog>
       <ul className={`${classPrefix}-upload-card`}>
-        {files &&
-          files.map((file, index) => (
+        <BooleanRender boolExpression={!!files}>
+          {files.map((file, index) => (
             <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} key={index}>
-              {!finishUpload(file.status) ? (
+              <BooleanRender
+                falseRender={() => (
+                  <div className={`${classPrefix}-upload-card__content ${classPrefix}-upload-card__box`}>
+                    <img className={`${classPrefix}-upload-card__image`} src={file.url} />
+                    <div className={`${classPrefix}-upload-card__mask`}>
+                      <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                        <BrowseIcon
+                          onClick={() => {
+                            preview(file);
+                          }}
+                        />
+                      </span>
+                      <span className={`${classPrefix}-upload-card__mask__item-divider`} />
+                      <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                        <DeleteIcon
+                          onClick={(e) => {
+                            onRemove?.({ e, file, index });
+                          }}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                )}
+                boolExpression={showUploadProgress && !finishUpload(file.status)}
+              >
                 <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
                   <Loading loading={true} size="medium" />
                   <p>上传中 {Math.min(files[0].percent, 99)}%</p>
                 </div>
-              ) : (
-                <div className={`${classPrefix}-upload-card__content ${classPrefix}-upload-card__box`}>
-                  <img className={`${classPrefix}-upload-card__image`} src={file.url} />
-                  <div className={`${classPrefix}-upload-card__mask`}>
-                    <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
-                      <BrowseIcon
-                        onClick={() => {
-                          preview(file);
-                        }}
-                      />
-                    </span>
-                    <span className={`${classPrefix}-upload-card__mask__item-divider`} />
-                    <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
-                      <DeleteIcon
-                        onClick={(e) => {
-                          onRemove?.({ e, file, index });
-                        }}
-                      />
-                    </span>
-                  </div>
-                </div>
-              )}
+              </BooleanRender>
             </li>
           ))}
-        {showTrigger && (
+        </BooleanRender>
+        <BooleanRender boolExpression={showTrigger}>
           <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
               <AddIcon />
               <p className={`${classPrefix}-upload__small`}>点击上传图片</p>
             </div>
           </li>
-        )}
+        </BooleanRender>
       </ul>
     </Fragment>
   );

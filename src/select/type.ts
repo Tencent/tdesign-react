@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 14:46:40
+ * updated at 2021-12-12 18:01:23
  * */
 
 import { PopupProps } from '../popup';
@@ -123,7 +123,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   valueDisplay?: TNode<{ value: T[]; onClose: () => void }>;
   /**
-   * 用于控制选中值的类型。假设数据选项为：[{ label: '姓名', value: 'name' }]，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。
+   * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。
    * @default value
    */
   valueType?: 'value' | 'object';

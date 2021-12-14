@@ -6,7 +6,7 @@ import styleContent from './codesandbox/index.css';
 import '../styles/Codesandbox.less';
 
 packageJSON.dependencies['tdesign-react'] = __VERSION__;
-packageJSON.dependencies['tdesign-icons-react'] = '0.0.5';
+packageJSON.dependencies['tdesign-icons-react'] = '0.0.6';
 
 const packageJSONContent = JSON.stringify(packageJSON, null, 2);
 

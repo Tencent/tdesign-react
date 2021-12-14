@@ -1,20 +1,45 @@
-import React, { useState } from 'react';
-import { Switch, Loading } from 'tdesign-react';
+import React, { useEffect, useState } from 'react';
+import { Loading, Button } from 'tdesign-react';
 
 export default function LoadingDelay() {
-  const [checked, setChecked] = useState(false);
+  const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const onChange = (value) => {
-    console.log('value', value);
-    setChecked(value);
-    setLoading(value);
+  const loadingData = (time) => {
+    setLoading(true);
+    setData('');
+    const timer = setTimeout(() => {
+      setLoading(false);
+      setData('数据加载完成，短时间的数据加载并未出现 loading');
+      clearTimeout(timer);
+    }, time || 100);
   };
+
+  useEffect(() => {
+    loadingData();
+  }, []);
+
   return (
-    <div style={{ position: 'relative' }}>
-      <Loading loading={loading} delay={2000}></Loading>
-      Loading state:
-      <Switch value={checked} onChange={onChange} />
+    <div className="tdesign-demo-block-column">
+      <div>
+        {loading ? <Loading delay={500} size="small" loading={loading}></Loading> : null}
+        {data ? <div>{`loading 作为独立元素：${data}`}</div> : null}
+      </div>
+
+      <div>
+        <Loading loading={loading} delay={500} size="small" showOverlay>
+          <div>{data ? `loading 作为包裹元素：${data}` : ''}</div>
+        </Loading>
+      </div>
+
+      <div className="tdesign-demo-block-row">
+        <Button onClick={loadingData} size="small">
+          快速重新加载数据（无loading）
+        </Button>
+        <Button onClick={() => loadingData(1000)} size="small">
+          慢速重新加载数据
+        </Button>
+      </div>
     </div>
   );
 }

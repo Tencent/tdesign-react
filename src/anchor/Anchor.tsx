@@ -155,7 +155,7 @@ const Anchor = (props: AnchorProps) => {
 
   const CursorCmp = () => {
     if (isFunction(cursor)) return cursor();
-    if (isEmpty(cursor)) return <div className="cursor"></div>;
+    if (isEmpty(cursor)) return <div className={`${classPrefix}-anchor__line-cursor`}></div>;
     return cursor;
   };
 
@@ -169,8 +169,8 @@ const Anchor = (props: AnchorProps) => {
       }}
     >
       <div className={anchorClass} ref={anchorEl}>
-        <div className={`${classPrefix}-anchor_line`}>
-          <div className="cursor-wrapper" style={cursorStyle}>
+        <div className={`${classPrefix}-anchor__line`}>
+          <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
             {CursorCmp()}
           </div>
         </div>

@@ -24,7 +24,7 @@ exports[`closable-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-app t-size-m"
+            class="t-icon t-icon-app"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -49,7 +49,7 @@ exports[`closable-side.jsx 1`] = `
             class="t-menu__item t-is-active"
           >
             <svg
-              class="t-icon t-icon-code t-size-m"
+              class="t-icon t-icon-code"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -114,7 +114,7 @@ exports[`closable-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-file t-size-m"
+              class="t-icon t-icon-file"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -191,7 +191,7 @@ exports[`closable-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user t-size-m"
+              class="t-icon t-icon-user"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -266,7 +266,7 @@ exports[`closable-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-rollback t-size-m"
+            class="t-icon t-icon-rollback"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -291,7 +291,7 @@ exports[`closable-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-mail t-size-m"
+              class="t-icon t-icon-mail"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -366,7 +366,7 @@ exports[`closable-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -1094,7 +1094,7 @@ exports[`group-side.jsx 1`] = `
             style="position: relative;"
           >
             <svg
-              class="t-icon t-icon-chart t-size-m"
+              class="t-icon t-icon-chart"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1171,7 +1171,7 @@ exports[`group-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-size-m"
+          class="t-icon t-icon-view-list"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -1206,7 +1206,7 @@ exports[`multi-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-app t-size-m"
+            class="t-icon t-icon-app"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1231,7 +1231,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item t-is-opened t-is-active"
           >
             <svg
-              class="t-icon t-icon-code t-size-m"
+              class="t-icon t-icon-code"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1292,7 +1292,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item t-is-opened"
           >
             <svg
-              class="t-icon t-icon-file t-size-m"
+              class="t-icon t-icon-file"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1417,7 +1417,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user t-size-m"
+              class="t-icon t-icon-user"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1488,7 +1488,7 @@ exports[`multi-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-rollback t-size-m"
+            class="t-icon t-icon-rollback"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1513,7 +1513,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-mail t-size-m"
+              class="t-icon t-icon-mail"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1584,7 +1584,7 @@ exports[`multi-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -1614,7 +1614,7 @@ exports[`multi-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-app t-size-m"
+            class="t-icon t-icon-app"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1639,7 +1639,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item t-is-opened t-is-active"
           >
             <svg
-              class="t-icon t-icon-code t-size-m"
+              class="t-icon t-icon-code"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1700,7 +1700,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item t-is-opened"
           >
             <svg
-              class="t-icon t-icon-file t-size-m"
+              class="t-icon t-icon-file"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1773,7 +1773,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user t-size-m"
+              class="t-icon t-icon-user"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1844,7 +1844,7 @@ exports[`multi-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-rollback t-size-m"
+            class="t-icon t-icon-rollback"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1869,7 +1869,7 @@ exports[`multi-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-mail t-size-m"
+              class="t-icon t-icon-mail"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1940,7 +1940,7 @@ exports[`multi-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -2355,7 +2355,7 @@ exports[`popup-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-app t-size-m"
+            class="t-icon t-icon-app"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2380,7 +2380,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item t-is-active"
           >
             <svg
-              class="t-icon t-icon-code t-size-m"
+              class="t-icon t-icon-code"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2445,7 +2445,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-file t-size-m"
+              class="t-icon t-icon-file"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2579,7 +2579,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user t-size-m"
+              class="t-icon t-icon-user"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2654,7 +2654,7 @@ exports[`popup-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-rollback t-size-m"
+            class="t-icon t-icon-rollback"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2679,7 +2679,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-mail t-size-m"
+              class="t-icon t-icon-mail"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2754,7 +2754,7 @@ exports[`popup-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -2784,7 +2784,7 @@ exports[`popup-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-app t-size-m"
+            class="t-icon t-icon-app"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2809,7 +2809,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item t-is-active"
           >
             <svg
-              class="t-icon t-icon-code t-size-m"
+              class="t-icon t-icon-code"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2874,7 +2874,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-file t-size-m"
+              class="t-icon t-icon-file"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2951,7 +2951,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-user t-size-m"
+              class="t-icon t-icon-user"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -3026,7 +3026,7 @@ exports[`popup-side.jsx 1`] = `
           style="position: relative;"
         >
           <svg
-            class="t-icon t-icon-rollback t-size-m"
+            class="t-icon t-icon-rollback"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -3051,7 +3051,7 @@ exports[`popup-side.jsx 1`] = `
             class="t-menu__item"
           >
             <svg
-              class="t-icon t-icon-mail t-size-m"
+              class="t-icon t-icon-mail"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -3126,7 +3126,7 @@ exports[`popup-side.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-view-list t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-view-list t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3218,7 +3218,7 @@ exports[`single.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-user-add t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-user-add t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3230,7 +3230,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-app t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-app t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3243,7 +3243,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-call t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-call t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3329,7 +3329,7 @@ exports[`single.jsx 1`] = `
         class="t-menu__operations"
       >
         <svg
-          class="t-icon t-icon-user-add t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-user-add t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3341,7 +3341,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-app t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-app t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -3354,7 +3354,7 @@ exports[`single.jsx 1`] = `
           />
         </svg>
         <svg
-          class="t-icon t-icon-call t-menu__operations-icon t-size-m"
+          class="t-icon t-icon-call t-menu__operations-icon"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"

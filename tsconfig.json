@@ -18,7 +18,6 @@
       "tdesign-react/*": ["src/*"],
       "@test/utils": ["test/utils"],
       "@common/*": ["src/_common/*"],
-      "@TdTypes/*": ["src/_type/*"],
     },
     "allowJs": true,
     "checkJs": true,

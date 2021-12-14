@@ -49,11 +49,11 @@ export default function Example() {
   return (
     <div className="tdesign-demo-block-column">
       {/* 非受控 */}
-      <Cascader style={itemStyle} options={options} size="small" defaultValue={value} clearable size="small" placeholder='请选择' />
+      <Cascader style={itemStyle} options={options} defaultValue={value} clearable size="small" placeholder='请选择' />
       {/* 受控 */}
       <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="medium" clearable placeholder='请选择' />
       {/* 受控 */}
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable size="large" placeholder='请选择' />
+      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="large" clearable placeholder='请选择' />
     </div>
   );
 }

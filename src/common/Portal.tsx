@@ -48,6 +48,6 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   return createPortal(children, container);
 });
 
-Portal.displayName = 'Partal';
+Portal.displayName = 'Portal';
 
 export default Portal;
