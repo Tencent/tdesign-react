@@ -113,7 +113,7 @@ exports[`activable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--fx"
     >
       暂无数据
     </div>
