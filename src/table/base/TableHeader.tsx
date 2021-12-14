@@ -90,13 +90,27 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
     return () => null;
   }
 
+  /**
+   * 行的第一列td css设置borderWidth为0（其余列默认为1），上一行第一列存在跨行时，需补回该borderWidth为1
+   */
+  function getIsFirstChildTdSetBorderWidth({ trsColumns, rowIndex, colIndex }) {
+    if (colIndex === 0 && rowIndex > 0) {
+      const preRowColumns = trsColumns[rowIndex - 1];
+      if (preRowColumns[0].rowSpan > 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return (
     <thead>
-      {trsColumns.map((trsColumnsItem: CellProps<D>[], index) => (
-        <tr key={index}>
+      {trsColumns.map((trsColumnsItem: CellProps<D>[], rowIndex) => (
+        <tr key={rowIndex}>
           {trsColumnsItem.map((column: CellProps<D>, colIndex) => {
             const { title, colKey, rowSpan, colSpan, render, ...rest } = column;
             const customRender = getCustomRender({ title, render });
+            const isFirstChildTdSetBorderWidth = getIsFirstChildTdSetBorderWidth({ trsColumns, rowIndex, colIndex });
 
             return (
               <TableCell
@@ -107,6 +121,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
                 customRender={customRender}
                 rowSpan={rowSpan}
                 colSpan={colSpan}
+                isFirstChildTdSetBorderWidth={isFirstChildTdSetBorderWidth}
                 {...rest}
               ></TableCell>
             );
