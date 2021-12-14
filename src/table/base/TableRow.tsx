@@ -3,8 +3,9 @@ import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
-import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams } from '../type';
-import { RowSkipTdSpanColIndexsMap } from './TableBody';
+import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams, TdPrimaryTableProps } from '../type';
+import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
+import { ExpandInnerProps } from './Table';
 
 interface MergeCellsProps {
   rowspanAndColspan?: TdBaseTableProps['rowspanAndColspan'];
@@ -12,13 +13,16 @@ interface MergeCellsProps {
   rowSkipTdSpanColIndexsMap?: RowSkipTdSpanColIndexsMap;
   dataLength?: number;
 }
-
-interface RowProps<D extends DataType> extends MergeCellsProps {
+interface ExpandProps extends ExpandInnerProps {
+  expandedRow?: TdPrimaryTableProps['expandedRow'];
+  expandOnRowClick?: TdPrimaryTableProps['expandOnRowClick'];
+}
+interface RowProps<D extends DataType> extends MergeCellsProps, ExpandProps {
   record: D;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
-  onTrClick?: () => void;
-  expandOnRowClick?: boolean;
+  rowEvents?: RowEvents;
+  rowKey: TdBaseTableProps['rowKey'];
 }
 
 const TableRow = <D extends DataType>(props: RowProps<D>) => {
@@ -26,12 +30,15 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     record,
     rowClassName,
     rowIndex,
+    rowKey,
     rowspanAndColspan,
     isRowspanAndColspanFn,
     rowSkipTdSpanColIndexsMap,
     dataLength,
-    onTrClick,
+    rowEvents = {},
+    expandedRow,
     expandOnRowClick,
+    handleExpandChange,
   } = props;
   const { flattenColumns } = useTableContext();
   const flattenColumnsLength = flattenColumns?.length;
@@ -191,8 +198,31 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     return false;
   }
 
+  function getExpandOnClickEvent() {
+    if (expandOnRowClick && expandedRow) {
+      const apiEvent = rowEvents.onClick;
+      const rowKeyValue = get(record, rowKey) || rowIndex;
+      let onClick;
+      if (apiEvent) {
+        onClick = (e) => {
+          apiEvent(e);
+          handleExpandChange(record, rowKeyValue);
+        };
+      } else {
+        onClick = () => {
+          handleExpandChange(record, rowKeyValue);
+        };
+      }
+
+      return {
+        onClick,
+      };
+    }
+    return {};
+  }
+
   return (
-    <tr className={classes} {...(expandOnRowClick ? { onClick: onTrClick } : {})}>
+    <tr className={classes} {...rowEvents} {...getExpandOnClickEvent()}>
       {baseRow}
     </tr>
   );
