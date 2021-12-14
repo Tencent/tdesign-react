@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Loading, Select, ConfigProvider } from 'tdesign-react';
 import siteConfig from '../site.config.js';
 import { getRoute } from './utils';
 import DemoList, { demoFiles } from './components/DemoList';
 // import locale from 'tdesign-react/locale/en_US';
-import { Loading, Select, ConfigProvider } from 'tdesign-react';
 import packageJson from '@/package.json';
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
@@ -42,13 +42,7 @@ function Components(props) {
     return docRoutes.map((nav, i) => {
       const LazyCom = lazy(nav.component);
 
-      return (
-        <Route
-          key={i}
-          path={nav.path}
-          component={() => <LazyCom {...props} docType={nav.docType} />}
-        />
-      );
+      return <Route key={i} path={nav.path} component={() => <LazyCom {...props} docType={nav.docType} />} />;
     });
   }
 
@@ -81,19 +75,15 @@ function Components(props) {
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          {
-            historyVersion.length ? (
-              <div slot="extra">
-                <Select value={version} options={versionOptions} onChange={changeVersion} />
-              </div>
-            ) : null
-          }
+          {historyVersion.length ? (
+            <div slot="extra">
+              <Select value={version} options={versionOptions} onChange={changeVersion} />
+            </div>
+          ) : null}
         </td-doc-aside>
 
         <td-doc-content ref={tdDocContentRef}>
-          <Suspense fallback={<Loading text="拼命加载中..." loading />}>
-            {renderRouter}
-          </Suspense>
+          <Suspense fallback={<Loading text="拼命加载中..." loading />}>{renderRouter}</Suspense>
           <td-doc-footer slot="doc-footer"></td-doc-footer>
         </td-doc-content>
       </td-doc-layout>
@@ -107,12 +97,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Redirect exact from="/react" to="/react/components/button" />
-        <Redirect exact from="/react/components" to="/react/components/button" />
+        <Redirect exact from="/react" to="/react/components/overview" />
+        <Redirect exact from="/react/components" to="/react/components/overview" />
         <Route path="/react/components/*" component={Components} />
         {renderDemoRoutes()}
         <Route path="/react/demos/:componentName" component={DemoList} />
-        <Redirect from="*" to="/react/components/button" />
+        <Redirect from="*" to="/react/components/overview" />
         {/* TODO: 404 */}
       </Switch>
     </Router>

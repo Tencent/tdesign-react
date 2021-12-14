@@ -62,6 +62,7 @@ export default () => {
         expandOnClickNode={expandOnClickNode}
         onClick={handleClick}
         onActive={handleActive}
+        hover
       />
     </div>
   );

@@ -1,26 +1,24 @@
 :: BASE_DOC ::
 
-### 不同类型的Message
+### 关闭全局提示
 
-{{ methods }}
-
-### 关闭按钮
+#### 带关闭按钮的全局提示
 
 {{ close }}
 
-### 关闭提示
+#### 使用关闭函数控制全局提示
 
 {{ closeFunction }}
 
-### 关闭全部
+#### 关闭多条全局提示
 
 {{ closeAll }}
 
-### 带位置偏移 offset 的Message
+### 控制全局提示显示位置
 
 {{ offset }}
 
-### 带duration的Message 可关闭单个Message，可关闭所有Message
+### 函数式调用
 
 {{ duration }}
 
