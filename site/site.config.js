@@ -12,16 +12,16 @@ export default {
           component: () => import('@docs/getting-started.md'),
         },
         {
-          title: '组件概览',
-          name: 'overview',
-          path: '/react/components/overview',
-          component: () => import('@common/docs/web/overview.md'),
-        },
-        {
           title: '更新日志',
           name: 'changelog',
           path: '/react/components/changelog',
           component: () => import('@/CHANGELOG.md'),
+        },
+        {
+          title: '组件概览',
+          name: 'overview',
+          path: '/react/components/overview',
+          component: () => import('@common/docs/web/overview.md'),
         },
       ],
     },
@@ -145,8 +145,7 @@ export default {
         {
           title: 'Cascader 级联组件',
           name: 'cascader',
-          meta: {
-          },
+          meta: {},
           path: '/react/components/cascader',
           component: () => import('tdesign-react/cascader/cascader.md'),
         },
