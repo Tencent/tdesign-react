@@ -102,7 +102,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-thumb-up t-size-m"
+                        class="t-icon t-icon-thumb-up"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -114,7 +114,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-chat t-size-m"
+                        class="t-icon t-icon-chat"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -178,7 +178,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-thumb-up t-size-m"
+                        class="t-icon t-icon-thumb-up"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -190,7 +190,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-chat t-size-m"
+                        class="t-icon t-icon-chat"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -254,7 +254,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-thumb-up t-size-m"
+                        class="t-icon t-icon-thumb-up"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -266,7 +266,7 @@ exports[`list.jsx 1`] = `
                   <li>
                     <span>
                       <i
-                        class="t-icon t-icon-chat t-size-m"
+                        class="t-icon t-icon-chat"
                       />
                       <span
                         style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -331,7 +331,7 @@ exports[`operation.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-thumb-up t-size-m"
+                class="t-icon t-icon-thumb-up"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -343,7 +343,7 @@ exports[`operation.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-chat t-size-m"
+                class="t-icon t-icon-chat"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -434,7 +434,7 @@ exports[`quote.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-thumb-up t-size-m"
+                class="t-icon t-icon-thumb-up"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -446,7 +446,7 @@ exports[`quote.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-chat t-size-m"
+                class="t-icon t-icon-chat"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -507,7 +507,7 @@ exports[`reply.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-thumb-up t-size-m"
+                class="t-icon t-icon-thumb-up"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -519,7 +519,7 @@ exports[`reply.jsx 1`] = `
           <li>
             <span>
               <i
-                class="t-icon t-icon-chat t-size-m"
+                class="t-icon t-icon-chat"
               />
               <span
                 style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -586,7 +586,7 @@ exports[`reply.jsx 1`] = `
               <li>
                 <span>
                   <i
-                    class="t-icon t-icon-thumb-up t-size-m"
+                    class="t-icon t-icon-thumb-up"
                   />
                   <span
                     style="display: inline-block; margin-left: 6px; line-height: 15px;"
@@ -598,7 +598,7 @@ exports[`reply.jsx 1`] = `
               <li>
                 <span>
                   <i
-                    class="t-icon t-icon-chat t-size-m"
+                    class="t-icon t-icon-chat"
                   />
                   <span
                     style="display: inline-block; margin-left: 6px; line-height: 15px;"

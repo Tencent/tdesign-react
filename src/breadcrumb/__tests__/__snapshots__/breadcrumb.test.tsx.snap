@@ -22,7 +22,7 @@ exports[`base.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -54,7 +54,7 @@ exports[`base.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -86,7 +86,7 @@ exports[`base.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -127,7 +127,7 @@ exports[`custom.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -159,7 +159,7 @@ exports[`custom.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -191,7 +191,7 @@ exports[`custom.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -235,7 +235,7 @@ exports[`href.jsx 1`] = `
           class="t-breadcrumb__separator"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             style="color: rgba(0, 0, 0, 0.3);"
@@ -267,7 +267,7 @@ exports[`href.jsx 1`] = `
           class="t-breadcrumb__separator"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             style="color: rgba(0, 0, 0, 0.3);"
@@ -299,7 +299,7 @@ exports[`href.jsx 1`] = `
           class="t-breadcrumb__separator"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             style="color: rgba(0, 0, 0, 0.3);"
@@ -340,7 +340,7 @@ exports[`icon.jsx 1`] = `
           style="max-width: 120px;"
         >
           <svg
-            class="t-icon t-icon-books t-size-m"
+            class="t-icon t-icon-books"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -359,7 +359,7 @@ exports[`icon.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -385,7 +385,7 @@ exports[`icon.jsx 1`] = `
           style="max-width: 120px;"
         >
           <svg
-            class="t-icon t-icon-books t-size-m"
+            class="t-icon t-icon-books"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -404,7 +404,7 @@ exports[`icon.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -430,7 +430,7 @@ exports[`icon.jsx 1`] = `
           style="max-width: 120px;"
         >
           <svg
-            class="t-icon t-icon-books t-size-m"
+            class="t-icon t-icon-books"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -449,7 +449,7 @@ exports[`icon.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -490,7 +490,7 @@ exports[`options.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -522,7 +522,7 @@ exports[`options.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -555,7 +555,7 @@ exports[`options.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -596,7 +596,7 @@ exports[`to.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"
@@ -628,7 +628,7 @@ exports[`to.jsx 1`] = `
         class="t-breadcrumb__separator"
       >
         <svg
-          class="t-icon t-icon-chevron-right t-size-m"
+          class="t-icon t-icon-chevron-right"
           fill="none"
           height="1em"
           style="color: rgba(0, 0, 0, 0.3);"

@@ -22,7 +22,7 @@ exports[`base.jsx 1`] = `
             type="button"
           >
             <svg
-              class="t-icon t-icon-upload t-size-m"
+              class="t-icon t-icon-upload"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -171,7 +171,7 @@ exports[`image.jsx 1`] = `
               class="t-upload-card-container t-upload-card__box"
             >
               <svg
-                class="t-icon t-icon-add t-size-m"
+                class="t-icon t-icon-add"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -229,7 +229,7 @@ exports[`image.jsx 1`] = `
                   class="t-upload-card__mask__item"
                 >
                   <svg
-                    class="t-icon t-icon-browse t-size-m"
+                    class="t-icon t-icon-browse"
                     fill="none"
                     height="1em"
                     viewBox="0 0 16 16"
@@ -254,7 +254,7 @@ exports[`image.jsx 1`] = `
                   class="t-upload-card__mask__item"
                 >
                   <svg
-                    class="t-icon t-icon-delete t-size-m"
+                    class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
                     viewBox="0 0 16 16"
@@ -305,7 +305,7 @@ exports[`image.jsx 1`] = `
               class="t-upload-card-container t-upload-card__box"
             >
               <svg
-                class="t-icon t-icon-add t-size-m"
+                class="t-icon t-icon-add"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
