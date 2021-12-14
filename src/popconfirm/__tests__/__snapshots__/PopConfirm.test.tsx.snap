@@ -9,7 +9,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-size-m"
+        class="t-icon t-icon-info-circle-filled"
         fill="none"
         height="1em"
         style="color: rgb(255, 62, 0);"
@@ -51,7 +51,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-size-m"
+        class="t-icon t-icon-info-circle-filled"
         fill="none"
         height="1em"
         style="color: rgb(255, 170, 0);"
@@ -93,7 +93,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-size-m"
+        class="t-icon t-icon-info-circle-filled"
         fill="none"
         height="1em"
         style="color: rgb(0, 82, 217);"
@@ -135,7 +135,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-size-m"
+        class="t-icon t-icon-info-circle-filled"
         fill="none"
         height="1em"
         style="color: rgb(0, 82, 217);"
@@ -177,7 +177,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-check-circle t-size-m"
+        class="t-icon t-icon-check-circle"
         fill="none"
         height="1em"
         style="color: rgb(255, 62, 0);"
@@ -257,7 +257,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-check-circle t-size-m"
+        class="t-icon t-icon-check-circle"
         fill="none"
         height="1em"
         style="color: rgb(0, 82, 217);"
@@ -304,7 +304,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
       class="t-popconfirm__body"
     >
       <svg
-        class="t-icon t-icon-check-circle t-size-m"
+        class="t-icon t-icon-check-circle"
         fill="none"
         height="1em"
         style="color: rgb(0, 82, 217);"

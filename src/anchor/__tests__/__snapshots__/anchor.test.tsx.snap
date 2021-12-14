@@ -568,7 +568,7 @@ exports[`target.jsx 1`] = `
         class="t-popup-reference"
       >
         <svg
-          class="t-icon t-icon-file-copy t-anchor__copy t-size-m"
+          class="t-icon t-icon-file-copy t-anchor__copy"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -596,7 +596,7 @@ exports[`target.jsx 1`] = `
         class="t-popup-reference"
       >
         <svg
-          class="t-icon t-icon-file-copy t-anchor__copy t-size-m"
+          class="t-icon t-icon-file-copy t-anchor__copy"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -624,7 +624,7 @@ exports[`target.jsx 1`] = `
         class="t-popup-reference"
       >
         <svg
-          class="t-icon t-icon-file-copy t-anchor__copy t-size-m"
+          class="t-icon t-icon-file-copy t-anchor__copy"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -652,7 +652,7 @@ exports[`target.jsx 1`] = `
         class="t-popup-reference"
       >
         <svg
-          class="t-icon t-icon-file-copy t-anchor__copy t-size-m"
+          class="t-icon t-icon-file-copy t-anchor__copy"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"

@@ -30,7 +30,7 @@ exports[`OperateSteps.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -170,7 +170,7 @@ exports[`OperateSteps.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -315,7 +315,7 @@ exports[`ReverseSteps.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -358,7 +358,7 @@ exports[`ReverseSteps.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -472,7 +472,7 @@ exports[`extra.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -644,7 +644,7 @@ exports[`icon.jsx 1`] = `
           class="t-steps-item-icon t-steps-item-finish"
         >
           <svg
-            class="t-icon t-icon-login t-size-m"
+            class="t-icon t-icon-login"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -688,7 +688,7 @@ exports[`icon.jsx 1`] = `
           class="t-steps-item-icon "
         >
           <svg
-            class="t-icon t-icon-cart t-size-m"
+            class="t-icon t-icon-cart"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -727,7 +727,7 @@ exports[`icon.jsx 1`] = `
           class="t-steps-item-icon "
         >
           <svg
-            class="t-icon t-icon-wallet t-size-m"
+            class="t-icon t-icon-wallet"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -766,7 +766,7 @@ exports[`icon.jsx 1`] = `
           class="t-steps-item-icon "
         >
           <svg
-            class="t-icon t-icon-check-circle t-size-m"
+            class="t-icon t-icon-check-circle"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -931,7 +931,7 @@ exports[`sequence.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1072,7 +1072,7 @@ exports[`sequence.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1115,7 +1115,7 @@ exports[`sequence.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1229,7 +1229,7 @@ exports[`status.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1358,7 +1358,7 @@ exports[`status.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-check t-size-m"
+              class="t-icon t-icon-check"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1432,7 +1432,7 @@ exports[`status.jsx 1`] = `
             class="t-steps-item-icon__number"
           >
             <svg
-              class="t-icon t-icon-close t-size-m"
+              class="t-icon t-icon-close"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -1729,7 +1729,7 @@ exports[`vertical-sequence.jsx 1`] = `
               class="t-steps-item-icon__number"
             >
               <svg
-                class="t-icon t-icon-check t-size-m"
+                class="t-icon t-icon-check"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -1869,7 +1869,7 @@ exports[`vertical-sequence.jsx 1`] = `
               class="t-steps-item-icon__number"
             >
               <svg
-                class="t-icon t-icon-check t-size-m"
+                class="t-icon t-icon-check"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"

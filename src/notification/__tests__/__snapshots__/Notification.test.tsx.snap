@@ -9,7 +9,7 @@ exports[`base.jsx 1`] = `
       class="t-notification__icon"
     >
       <svg
-        class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+        class="t-icon t-icon-info-circle-filled t-is-info"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -180,7 +180,7 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -219,7 +219,7 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-error t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-error"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -258,7 +258,7 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-warning t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-warning"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -297,7 +297,7 @@ exports[`icon.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-check-circle-filled t-is-success t-size-m"
+          class="t-icon t-icon-check-circle-filled t-is-success"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -345,7 +345,7 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -401,7 +401,7 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -457,7 +457,7 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -520,7 +520,7 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -592,7 +592,7 @@ exports[`operation.jsx 1`] = `
         class="t-notification__icon"
       >
         <svg
-          class="t-icon t-icon-info-circle-filled t-is-info t-size-m"
+          class="t-icon t-icon-info-circle-filled t-is-info"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
