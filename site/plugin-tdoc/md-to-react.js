@@ -30,7 +30,7 @@ export default function mdToReact(options) {
       return new URLSearchParams(useLocation().search);
     }
 
-    export default function TdDoc() {
+    export default function TdDoc(props) {
       const tdDocHeader = useRef();
       const tdDocTabs = useRef();
 

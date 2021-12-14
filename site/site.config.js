@@ -245,7 +245,7 @@ export default {
           name: 'avatar',
           docType: 'data',
           path: '/react/components/avatar',
-          component: () => import('tdesign-react/avatar/README.md'),
+          component: () => import('tdesign-react/avatar/avatar.md'),
         },
         {
           title: 'Badge 徽标数',
