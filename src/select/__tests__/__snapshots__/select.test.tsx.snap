@@ -1165,7 +1165,7 @@ exports[`status.jsx 1`] = `
             -请选择-
           </span>
           <div
-            class="t-loading t-size-s t-select-right-icon t-select-active-icon"
+            class="t-loading t-loading--center t-size-s t-select-right-icon t-select-active-icon"
           >
             <svg
               class="t-loading__gradient t-icon-loading"

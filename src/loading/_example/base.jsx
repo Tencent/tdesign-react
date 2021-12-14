@@ -4,7 +4,7 @@ import { Loading } from 'tdesign-react';
 export default function BaseLoadingExample() {
   return (
     <div style={{ position: 'relative' }}>
-      <Loading loading={true}></Loading>
+      <Loading></Loading>
     </div>
   );
 }
