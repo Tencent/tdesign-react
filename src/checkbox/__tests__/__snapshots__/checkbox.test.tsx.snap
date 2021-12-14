@@ -363,7 +363,7 @@ exports[`max.jsx 1`] = `
           type="button"
         >
           <svg
-            class="t-icon t-icon-remove t-size-m"
+            class="t-icon t-icon-remove"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -382,7 +382,7 @@ exports[`max.jsx 1`] = `
           type="button"
         >
           <svg
-            class="t-icon t-icon-add t-size-m"
+            class="t-icon t-icon-add"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
