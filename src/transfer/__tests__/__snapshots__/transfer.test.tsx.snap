@@ -445,7 +445,7 @@ exports[`base.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -469,7 +469,7 @@ exports[`base.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-left t-size-m"
+            class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1017,7 +1017,7 @@ exports[`checked.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1041,7 +1041,7 @@ exports[`checked.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-left t-size-m"
+            class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2198,7 +2198,7 @@ exports[`custom-render.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2222,7 +2222,7 @@ exports[`custom-render.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-left t-size-m"
+            class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2355,7 +2355,7 @@ exports[`empty.jsx 1`] = `
             class="t-button__text"
           >
             <svg
-              class="t-icon t-icon-chevron-right t-size-m"
+              class="t-icon t-icon-chevron-right"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2379,7 +2379,7 @@ exports[`empty.jsx 1`] = `
             class="t-button__text"
           >
             <svg
-              class="t-icon t-icon-chevron-left t-size-m"
+              class="t-icon t-icon-chevron-left"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2504,7 +2504,7 @@ exports[`empty.jsx 1`] = `
             class="t-button__text"
           >
             <svg
-              class="t-icon t-icon-chevron-right t-size-m"
+              class="t-icon t-icon-chevron-right"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2528,7 +2528,7 @@ exports[`empty.jsx 1`] = `
             class="t-button__text"
           >
             <svg
-              class="t-icon t-icon-chevron-left t-size-m"
+              class="t-icon t-icon-chevron-left"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2847,7 +2847,7 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
           >
             <svg
-              class="t-icon t-icon-chevron-left t-size-m"
+              class="t-icon t-icon-chevron-left"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2904,7 +2904,7 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__btn t-pagination__btn--next"
           >
             <svg
-              class="t-icon t-icon-chevron-right t-size-m"
+              class="t-icon t-icon-chevron-right"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -2933,7 +2933,7 @@ exports[`pagination.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -2957,7 +2957,7 @@ exports[`pagination.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-left t-size-m"
+            class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -3026,7 +3026,7 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
           >
             <svg
-              class="t-icon t-icon-chevron-left t-size-m"
+              class="t-icon t-icon-chevron-left"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -3083,7 +3083,7 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__btn t-pagination__btn--next t-is-disabled"
           >
             <svg
-              class="t-icon t-icon-chevron-right t-size-m"
+              class="t-icon t-icon-chevron-right"
               fill="none"
               height="1em"
               viewBox="0 0 16 16"
@@ -3155,7 +3155,7 @@ exports[`search.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-search t-size-m"
+                class="t-icon t-icon-search"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -3598,7 +3598,7 @@ exports[`search.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-right t-size-m"
+            class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -3622,7 +3622,7 @@ exports[`search.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-chevron-left t-size-m"
+            class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -3684,7 +3684,7 @@ exports[`search.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-search t-size-m"
+                class="t-icon t-icon-search"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"

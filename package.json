@@ -113,6 +113,7 @@
     "autoprefixer": "^10.4.0",
     "babel-jest": "^26.0.1",
     "babel-polyfill": "^6.26.0",
+    "camelcase": "^6.2.1",
     "chalk": "^4.1.0",
     "concurrently": "^6.4.0",
     "cross-env": "^5.2.1",
@@ -155,8 +156,7 @@
     "ts-jest": "^26.5.6",
     "ts-morph": "^12.2.0",
     "ts-node": "^8.8.1",
-    "typescript": "^3.9.7",
-    "camelcase": "^6.2.1"
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "@babel/runtime": "~7.15.4",
@@ -169,10 +169,12 @@
     "raf": "~3.4.1",
     "react-popper": "~2.2.3",
     "react-transition-group": "~4.4.1",
-    "tdesign-icons-react": "~0.0.5",
+    "tdesign-icons-react": "0.0.6",
     "tslib": "~2.2.0",
     "uuid": "~8.3.2",
     "validator": "~13.7.0"
   },
-  "workspaces": ["./site"]
+  "workspaces": [
+    "./site"
+  ]
 }

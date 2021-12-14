@@ -687,7 +687,7 @@ exports[`icon.jsx 1`] = `
       type="button"
     >
       <svg
-        class="t-icon t-icon-add t-size-m"
+        class="t-icon t-icon-add"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -711,7 +711,7 @@ exports[`icon.jsx 1`] = `
       type="button"
     >
       <svg
-        class="t-icon t-icon-cloud-upload t-size-m"
+        class="t-icon t-icon-cloud-upload"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -740,7 +740,7 @@ exports[`icon.jsx 1`] = `
       type="button"
     >
       <svg
-        class="t-icon t-icon-discount t-size-m"
+        class="t-icon t-icon-discount"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -766,7 +766,7 @@ exports[`icon.jsx 1`] = `
       type="button"
     >
       <svg
-        class="t-icon t-icon-cloud-download t-size-m"
+        class="t-icon t-icon-cloud-download"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -790,7 +790,7 @@ exports[`icon.jsx 1`] = `
       type="button"
     >
       <svg
-        class="t-icon t-icon-search t-size-m"
+        class="t-icon t-icon-search"
         fill="none"
         height="1em"
         viewBox="0 0 16 16"
@@ -840,7 +840,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -874,7 +874,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -912,7 +912,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -946,7 +946,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -984,7 +984,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1018,7 +1018,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1056,7 +1056,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -1090,7 +1090,7 @@ exports[`shape.jsx 1`] = `
           class="t-button__text"
         >
           <svg
-            class="t-icon t-icon-calendar t-size-m"
+            class="t-icon t-icon-calendar"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
