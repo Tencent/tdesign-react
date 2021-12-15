@@ -17,7 +17,7 @@ export default function LoadingFullscreen() {
   };
   return (
     <div>
-      <Loading loading={loading} fullscreen preventScrollThrough={true}></Loading>
+      <Loading loading={loading} fullscreen preventScrollThrough={true} text="加载中"></Loading>
       Loading state:
       <Switch value={checked} onChange={onChange} />
     </div>

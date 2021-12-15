@@ -7,6 +7,7 @@ import request from '../_common/js/upload/xhr';
 import useConfig from '../_util/useConfig';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
+import BooleanRender from './boolean-render';
 import { finishUpload, updateFileList, isSingleFile } from './util';
 import { TdUploadFile, UploadProps } from './types';
 import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from './type';
@@ -24,6 +25,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     theme = 'file',
     max = 0,
     name = 'file',
+    showUploadProgress = true,
     action,
     tips,
     format,
@@ -299,26 +301,28 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         hidden
         onChange={handleChange}
       />
-      {!draggable && ['file', 'file-input'].includes(theme) && (
+      <BooleanRender boolExpression={!draggable && ['file', 'file-input'].includes(theme)}>
         <SingleFile
           file={fileList && fileList[0]}
           display={theme}
           placeholder={placeholder}
           onRemove={handleSingleRemove}
+          showUploadProgress={showUploadProgress}
         >
           <UploadTrigger onClick={triggerUpload} />
         </SingleFile>
-      )}
-      {!draggable && theme === 'image' && (
+      </BooleanRender>
+      <BooleanRender boolExpression={!draggable && theme === 'image'}>
         <ImageCard
           multiple={multiple}
           max={max}
           onRemove={handleMultipleRemove}
           onTrigger={triggerUpload}
           files={fileList}
+          showUploadProgress={showUploadProgress}
         />
-      )}
-      {singleDraggable && (
+      </BooleanRender>
+      <BooleanRender boolExpression={singleDraggable}>
         <Dragger
           onChange={handleDragChange}
           onDragenter={handleDragenter}
@@ -332,9 +336,13 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           }}
           onTrigger={triggerUpload}
         />
-      )}
-      {!errorMsg && showTips && <Tips>{tips}</Tips>}
-      {showErrorMsg && <Tips type="error">{errorMsg}</Tips>}
+      </BooleanRender>
+      <BooleanRender boolExpression={!errorMsg && showTips}>
+        <Tips>{tips}</Tips>
+      </BooleanRender>
+      <BooleanRender boolExpression={showErrorMsg}>
+        <Tips type="error">{errorMsg}</Tips>
+      </BooleanRender>
     </div>
   );
 };

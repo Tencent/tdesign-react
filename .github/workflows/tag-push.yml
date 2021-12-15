@@ -1,16 +1,12 @@
-# tag_push
-# todo: before npm publish , delete oa woa , edit packagename
 name: TAG_PUSH
 
 on: create
 
 jobs:
-  All_ON_PUSH:
+  Publish:
     runs-on: ubuntu-latest
     if: github.event.ref_type == 'tag'
     steps:
-      - name: Fix up git URLs
-        run: echo -e '[url "https://github.com/"]\n  insteadOf = "git@github.com:"' >> ~/.gitmodules
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.TEMP_REPO_TOKEN }}
@@ -23,11 +19,13 @@ jobs:
           git submodule init
           git submodule update
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm i npm@latest -g
+          npm install
         shell: bash
       - run: echo '${{ github.ref }} ...  ${{ github.ref_name }}'
       - name: Build site
-        run: npm run site:staging
+        run: npm run site:preview
       - name: upload surge service
         id: deploy
         run: |

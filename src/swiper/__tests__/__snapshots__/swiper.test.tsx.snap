@@ -71,7 +71,7 @@ exports[`current-props.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -107,7 +107,7 @@ exports[`current-props.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-info-circle-filled t-size-m"
+                  class="t-icon t-icon-info-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -143,7 +143,7 @@ exports[`current-props.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -179,7 +179,7 @@ exports[`current-props.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -215,7 +215,7 @@ exports[`current-props.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -289,7 +289,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -325,7 +325,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-info-circle-filled t-size-m"
+                  class="t-icon t-icon-info-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -361,7 +361,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -397,7 +397,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -433,7 +433,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -498,7 +498,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -534,7 +534,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-info-circle-filled t-size-m"
+                  class="t-icon t-icon-info-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -570,7 +570,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -606,7 +606,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-error-circle-filled t-size-m"
+                  class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -642,7 +642,7 @@ exports[`swiper.jsx 1`] = `
                 class="t-alert__icon"
               >
                 <svg
-                  class="t-icon t-icon-check-circle-filled t-size-m"
+                  class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -713,7 +713,7 @@ exports[`vertical.jsx 1`] = `
               class="t-alert__icon"
             >
               <svg
-                class="t-icon t-icon-check-circle-filled t-size-m"
+                class="t-icon t-icon-check-circle-filled"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -749,7 +749,7 @@ exports[`vertical.jsx 1`] = `
               class="t-alert__icon"
             >
               <svg
-                class="t-icon t-icon-info-circle-filled t-size-m"
+                class="t-icon t-icon-info-circle-filled"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -785,7 +785,7 @@ exports[`vertical.jsx 1`] = `
               class="t-alert__icon"
             >
               <svg
-                class="t-icon t-icon-error-circle-filled t-size-m"
+                class="t-icon t-icon-error-circle-filled"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -821,7 +821,7 @@ exports[`vertical.jsx 1`] = `
               class="t-alert__icon"
             >
               <svg
-                class="t-icon t-icon-error-circle-filled t-size-m"
+                class="t-icon t-icon-error-circle-filled"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -857,7 +857,7 @@ exports[`vertical.jsx 1`] = `
               class="t-alert__icon"
             >
               <svg
-                class="t-icon t-icon-check-circle-filled t-size-m"
+                class="t-icon t-icon-check-circle-filled"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"

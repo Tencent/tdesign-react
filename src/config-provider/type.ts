@@ -2,12 +2,83 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-01 14:46:40
+ * updated at 2021-12-12 18:01:23
  * */
 
 import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
 import { TNode, TElement } from '../common';
+
+export interface GlobalConfigProvider {
+  /**
+   * 日历组件全局配置
+   */
+  calendar?: CalendarConfig;
+  /**
+   * 级联选择器全局配置
+   */
+  cascader?: CascaderConfig;
+  /**
+   * 日期选择器全局配置
+   */
+  datePicker?: DatePickerConfig;
+  /**
+   * 对话框全局配置
+   */
+  dialog?: DialogConfig;
+  /**
+   * 抽屉全局配置
+   */
+  drawer?: DrawerConfig;
+  /**
+   * 表单组件全局配置
+   */
+  form?: FormConfig;
+  /**
+   * 分页组件全局配置
+   */
+  pagination?: PaginationConfig;
+  /**
+   * 气泡确认框全局配置
+   */
+  popconfirm?: PopconfirmConfig;
+  /**
+   * 选择器组件全局配置
+   */
+  select?: SelectConfig;
+  /**
+   * 步骤条组件全局配置
+   */
+  steps?: StepsConfig;
+  /**
+   * 表格组件全局配置
+   */
+  table?: TableConfig;
+  /**
+   * 标签全局配置
+   */
+  tag?: TagConfig;
+  /**
+   * 时间选择器全局配置
+   */
+  timePicker?: TimePickerConfig;
+  /**
+   * 穿梭框全局配置
+   */
+  transfer?: TransferConfig;
+  /**
+   * 树组件全局配置
+   */
+  tree?: TreeConfig;
+  /**
+   * 树选择器组件全局配置
+   */
+  treeSelect?: TreeSelectConfig;
+  /**
+   * 上传组件全局配置
+   */
+  upload?: UploadConfig;
+}
 
 export interface PaginationConfig {
   /**
@@ -214,7 +285,7 @@ export interface DatePickerConfig {
    */
   now?: string;
   /**
-   * 占位符文本提示，默认值：{ date: '请选择日期',  month: '请选择月份',  year: '请选择年份' }
+   * 占位符文本提示，默认值：`{ date: '请选择日期',  month: '请选择月份',  year: '请选择年份' }`
    */
   placeholder?: { date?: string; month?: string; year?: string };
   /**
@@ -228,7 +299,7 @@ export interface DatePickerConfig {
    */
   preMonth?: string;
   /**
-   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }
+   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
    */
   presets?: ConfigPresetDate;
   /**

@@ -5,14 +5,14 @@
 </p>
 
 <p align="center">
+   <a href="https://www.npmjs.com/package/tdesign-react">
+    <img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License" />
+  </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/v/tdesign-react.svg?sanitize=true" alt="Version">
   </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/dt/tdesign-react.svg?sanitize=true" alt="Downloads" />
-  </a>
-  <a href="https://www.npmjs.com/package/tdesign-react">
-    <img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License" />
   </a>
 </p>
 
@@ -46,7 +46,7 @@ npm package 中提供了多种构建产物，可以阅读 [这里](https://githu
 
 # 其他技术栈实现
 - 桌面端 Vue 3 实现：[web-vue-next](https://github.com/Tencent/tdesign-vue-next)
-- 桌面端 Vue 实现： [web-react](https://github.com/Tencent/tdesign-vue)
+- 桌面端 Vue 实现： [web-vue](https://github.com/Tencent/tdesign-vue)
 - 移动端小程序实现： [小程序](https://github.com/Tencent/tdesign-miniprogram)
 
 

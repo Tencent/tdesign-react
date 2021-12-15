@@ -22,7 +22,7 @@ exports[`disabled.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -70,7 +70,7 @@ exports[`hide-clear-button.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -148,7 +148,7 @@ exports[`hide-clear-button.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -226,7 +226,7 @@ exports[`hm.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -271,7 +271,7 @@ exports[`hms.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -315,7 +315,7 @@ exports[`keyboard.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -390,7 +390,7 @@ exports[`range.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -435,7 +435,7 @@ exports[`show-steps.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
@@ -480,7 +480,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
           class="t-input__suffix"
         >
           <svg
-            class="t-icon t-icon-time t-size-m"
+            class="t-icon t-icon-time"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
