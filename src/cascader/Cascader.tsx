@@ -163,7 +163,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     <Popup
       placement="bottom-left"
       visible={visible}
-      overlayClassName={`${name}-dropdown`}
+      overlayClassName={`${name}__dropdown`}
       expandAnimation={true}
       {...props?.popupProps}
       content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}

@@ -34,7 +34,8 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
   useRipple(ref || dropdownItemRef);
 
   const dropdownItemClass = `${classPrefix}-dropdown__item`;
-  const renderSuffix = () => (hasChildren ? <TIconChevronRight className="children-suffix" /> : null);
+  const renderSuffix = () =>
+    hasChildren ? <TIconChevronRight className={`${classPrefix}-dropdown__item-icon`} /> : null;
   const handleItemClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
     if (!hasChildren && !disabled) {
       const data = {
@@ -52,7 +53,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     <div>
       <div
         className={classNames(dropdownItemClass, {
-          'has-suffix': hasChildren,
+          [`${classPrefix}-dropdown--suffix`]: hasChildren,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-active`]: active,
         })}
@@ -64,8 +65,8 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
         onMouseOver={handleMouseover}
         ref={ref || dropdownItemRef}
       >
-        <div className={`${dropdownItemClass}__content`}>
-          <span className={`${dropdownItemClass}__content__text`}>{content}</span>
+        <div className={`${dropdownItemClass}-content`}>
+          <span className={`${dropdownItemClass}-text`}>{content}</span>
         </div>
         {renderSuffix()}
       </div>

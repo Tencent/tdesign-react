@@ -31,7 +31,7 @@ const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: Cascade
     return (() => (
       <>
         {ctx[0]}
-        <span className={`${name}__label--filter`}>{inputVal}</span>
+        <span className={`${name}-label--filter`}>{inputVal}</span>
         {ctx[1]}
       </>
     ))();
@@ -41,7 +41,7 @@ const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: Cascade
 
 const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
   const { classPrefix: prefix } = useConfig();
-  const name = `${prefix}-cascader-item`;
+  const name = `${prefix}-cascader__item`;
 
   const label = RenderLabelInner(name, node, cascaderContext);
   const isEllipsis = getLabelIsEllipsis(node, cascaderContext.size);
@@ -61,7 +61,7 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
 
 const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, handleChange) => {
   const { classPrefix: prefix } = useConfig();
-  const name = `${prefix}-cascader-item`;
+  const name = `${prefix}-cascader__item`;
 
   const { checkProps, value, max } = cascaderContext;
   const label = RenderLabelInner(name, node, cascaderContext);

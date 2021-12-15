@@ -458,7 +458,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                           if (cell && typeof cell === 'function') return cell(createCalendarCell(dateCell));
                           if (cell && typeof cell !== 'function') return cell;
                           return (
-                            <div className={prefixCls([blockName, 'table-body-cell-value'])}>
+                            <div className={prefixCls([blockName, 'table-body-cell-display'])}>
                               {fix0(dateCell.date.getDate())}
                             </div>
                           );
@@ -494,7 +494,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
                         className={prefixCls(
                           [blockName, 'table-body-cell'],
                           [monthCell.isCurrent && 'is-checked'],
-                          [isNow && 'is-now'],
+                          [isNow && 'calendar__table-body-cell--now'],
                         )}
                         onClick={(event) => clickCell(event, monthCell)}
                         onDoubleClick={(event) => doubleClickCell(event, monthCell)}

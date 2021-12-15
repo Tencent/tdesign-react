@@ -11,7 +11,7 @@ import { TreeNode, CascaderContextType, TreeNodeValue, CascaderProps } from '../
 export function getCloseIconClass(prefix: string, CLASSNAMES: any, cascaderContext: CascaderContextType) {
   const { visible, disabled } = cascaderContext;
   return [
-    `${prefix}-cascader-icon`,
+    `${prefix}-cascader__icon`,
     {
       [CLASSNAMES.STATUS.visible]: visible,
       [CLASSNAMES.STATUS.disabled]: disabled,
@@ -29,7 +29,7 @@ export function getCloseIconClass(prefix: string, CLASSNAMES: any, cascaderConte
 export function getFakeArrowIconClass(prefix: string, CLASSNAMES: any, cascaderContext: CascaderContextType) {
   const { disabled } = cascaderContext;
   return [
-    `${prefix}-cascader-icon`,
+    `${prefix}-cascader__icon`,
     {
       [CLASSNAMES.STATUS.disabled]: disabled,
     },
@@ -51,7 +51,7 @@ export function getCascaderInnerClasses(prefix: string, CLASSNAMES: any, cascade
       [CLASSNAMES.STATUS.disabled]: disabled,
       [CLASSNAMES.STATUS.active]: visible,
       [CLASSNAMES.SIZE[size]]: size,
-      [`${prefix}-cascader-is-multiple`]: multiple,
+      [`${prefix}-cascader-is--multiple`]: multiple,
     },
   ];
 }

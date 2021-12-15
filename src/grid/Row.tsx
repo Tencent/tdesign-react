@@ -104,8 +104,8 @@ const Row = (props: RowProps) => {
 
   const { classPrefix } = useConfig();
   const rowClassNames = classNames(`${classPrefix}-row`, className, {
-    [`${classPrefix}-row-${justify}`]: true,
-    [`${classPrefix}-row-${align}`]: true,
+    [`${classPrefix}-row--${justify}`]: true,
+    [`${classPrefix}-row--${align}`]: true,
   });
   const rowStyle = {
     ...calcRowStyle(gutter, size),

@@ -278,7 +278,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
         </div>
       ) : null}
       <div
-        className={classNames(`${name}__btn`, `${name}__btn--prev`, {
+        className={classNames(`${name}__btn`, `${name}__btn-prev`, {
           [`${classPrefix}-is-disabled`]: disabled || current === min,
         })}
         onClick={() => changeCurrent(current - 1)}
@@ -302,7 +302,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
         </div>
       )}
       <div
-        className={classNames(`${name}__btn`, `${name}__btn--next`, {
+        className={classNames(`${name}__btn`, `${name}__btn-next`, {
           [`${classPrefix}-is-disabled`]: disabled || current === pageCount,
         })}
         onClick={() => changeCurrent(current + 1)}

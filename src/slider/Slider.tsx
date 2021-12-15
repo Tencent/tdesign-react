@@ -191,7 +191,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     return (
       <div
         style={{ ...style }}
-        className={classNames(`${classPrefix}-slider-contianer`, {
+        className={classNames(`${classPrefix}-slider__container`, {
           'is-vertical': isVertical,
         })}
         ref={ref}
@@ -200,7 +200,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           ref={sliderRef}
           className={classNames(className, `${classPrefix}-slider`, {
             [`${classPrefix}-is-disabled`]: disabled,
-            [`${classPrefix}-slider-vertical`]: isVertical,
+            [`${classPrefix}-slider--vertical`]: isVertical,
             [`${classPrefix}-slider--with-input`]: inputNumberProps,
           })}
           onClick={onSliderChange}
@@ -236,7 +236,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           </div>
         </div>
         {inputNumberProps ? (
-          <div className={classNames(`${classPrefix}-slider-input-container`)}>
+          <div className={classNames(`${classPrefix}-slider__input-container`)}>
             {range && createInput(LEFT_NODE)}
             {createInput(RIGHT_NODE)}
           </div>

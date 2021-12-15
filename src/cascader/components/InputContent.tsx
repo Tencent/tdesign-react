@@ -84,7 +84,7 @@ const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => 
   );
 
   const generalContent = !multiple ? (
-    <span className={`${prefix}-cascader-content`}>{singleContent}</span>
+    <span className={`${prefix}-cascader__content`}>{singleContent}</span>
   ) : (
     <>
       {minCollapsedNum > 0 && multipleContent.length > minCollapsedNum ? (
@@ -148,7 +148,7 @@ const Content: React.FC<ContentProps> = (props: ContentProps) => {
       placeholder={placeholder}
     />
   ) : (
-    <span className={`${prefix}-cascader-placeholder`}>{placeholder || '请选择'}</span>
+    <span className={`${prefix}-cascader__placeholder`}>{placeholder || '请选择'}</span>
   );
   return content;
 };

@@ -30,7 +30,7 @@ const DropdownMenu = (props: DropdownProps) => {
   };
   const renderDropdownColumn = (children: Array<DropdownOption>, showSubmenu: boolean, pathPrefix: string) => {
     // eslint-disable-next-line
-    const menuClass = [`${dropdownMenuClass}__column`, 'narrow-scrollbar', { submenu__visible: showSubmenu }];
+    const menuClass = [`${dropdownMenuClass}-column`, 'narrow-scrollbar', { submenu__visible: showSubmenu }];
     return (
       <div
         key={`/${pathPrefix}`}

@@ -18,7 +18,7 @@ const Sider = (props: SiderProps) => {
   const { width, className, style, children, ...otherSiderProps } = props;
 
   const { classPrefix } = useConfig();
-  const siderClassNames = classNames(`${classPrefix}-layout--sider`, className);
+  const siderClassNames = classNames(`${classPrefix}-layout__sider`, className);
   const siderWidth = typeof width === 'number' ? `${width}px` : String(width);
 
   const siderStyle = {

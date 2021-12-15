@@ -113,7 +113,7 @@ exports[`activable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -127,7 +127,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -231,7 +231,7 @@ exports[`checkable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <div
-                class="t-radio-group t-radio-group-medium t-radio-group-outline"
+                class="t-radio-group t-size-m t-radio-group__outline"
               >
                 <label
                   class="t-radio t-is-checked"
@@ -295,7 +295,7 @@ exports[`checkable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>
@@ -360,7 +360,7 @@ exports[`controlled.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-tree t-tree--checkable t-tree--fx"
+      class="t-tree t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>
@@ -415,7 +415,7 @@ exports[`disabled.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-is-disabled t-tree--hoverable t-tree--checkable t-tree--fx"
+      class="t-tree t-is-disabled t-tree--hoverable t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>
@@ -429,19 +429,19 @@ exports[`empty.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       暂无数据
     </div>
     <br />
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       😊 空数据（string）
     </div>
     <br />
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       <div>
         😊 空数据（ empty props ）
@@ -565,7 +565,7 @@ exports[`expand-all.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -579,7 +579,7 @@ exports[`expand-level.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -667,7 +667,7 @@ exports[`expand-mutex.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx t-tree--block-node"
+      class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
     >
       暂无数据
     </div>
@@ -698,7 +698,7 @@ exports[`filter.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx t-tree--block-node"
+      class="t-tree t-tree--hoverable t-tree--transition t-tree--block-node"
     >
       暂无数据
     </div>
@@ -715,7 +715,7 @@ exports[`icon.jsx 1`] = `
       render 1:
     </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -723,7 +723,7 @@ exports[`icon.jsx 1`] = `
       render 2:
     </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -737,7 +737,7 @@ exports[`label.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       暂无数据
     </div>
@@ -751,7 +751,7 @@ exports[`lazy.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -839,7 +839,7 @@ exports[`line.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       暂无数据
     </div>
@@ -847,7 +847,7 @@ exports[`line.jsx 1`] = `
       render
     </h3>
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--transition"
     >
       暂无数据
     </div>
@@ -861,7 +861,7 @@ exports[`load.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -880,7 +880,7 @@ exports[`operations.jsx 1`] = `
       render:
     </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--transition"
     >
       暂无数据
     </div>
@@ -985,7 +985,7 @@ exports[`operations.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>
@@ -1145,7 +1145,7 @@ exports[`state.jsx 1`] = `
       state:
     </h3>
     <div
-      class="t-tree t-tree--hoverable t-tree--checkable t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>
@@ -1230,7 +1230,7 @@ exports[`sync.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-tree t-tree--checkable t-tree--fx"
+      class="t-tree t-tree--checkable t-tree--transition"
     >
       暂无数据
     </div>

@@ -15,7 +15,7 @@ export function useTreeConfig() {
       treeIconRight: `${prefix}-icon-arrow-right`,
       treeIconDown: `${prefix}-icon-arrow-down`,
       tree,
-      treeFx: `${tree}--fx`,
+      treeFx: `${tree}--transition`,
       treeBlockNode: `${tree}--block-node`,
       treeEmpty: `${tree}__empty`,
       treeList: `${tree}__list`,
@@ -36,8 +36,8 @@ export function useTreeConfig() {
       treeNodeShow: `${tree}__item--show`,
       treeClickable: `${tree}__item--clickable`,
       loading: `${prefix}-icon-loading ${prefix}-icon-loading-blue`,
-      toggleEnter: `${tree}-toggle-enter-active`, // 节点展开动画
-      toggleLeave: `${tree}-toggle-leave-active`, // 节点关闭动画
+      toggleEnter: `${tree}__item--enter-active`, // 节点展开动画
+      toggleLeave: `${tree}__item--leave-active`, // 节点关闭动画
     };
 
     const transitionNames = {

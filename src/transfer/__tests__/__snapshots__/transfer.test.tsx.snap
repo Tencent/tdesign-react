@@ -2844,7 +2844,7 @@ exports[`pagination.jsx 1`] = `
           class="t-pagination t-size-s"
         >
           <div
-            class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+            class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
           >
             <svg
               class="t-icon t-icon-chevron-left"
@@ -2901,7 +2901,7 @@ exports[`pagination.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-pagination__btn t-pagination__btn--next"
+            class="t-pagination__btn t-pagination__btn-next"
           >
             <svg
               class="t-icon t-icon-chevron-right"
@@ -3023,7 +3023,7 @@ exports[`pagination.jsx 1`] = `
           class="t-pagination t-size-s"
         >
           <div
-            class="t-pagination__btn t-pagination__btn--prev t-is-disabled"
+            class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
           >
             <svg
               class="t-icon t-icon-chevron-left"
@@ -3080,7 +3080,7 @@ exports[`pagination.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-pagination__btn t-pagination__btn--next t-is-disabled"
+            class="t-pagination__btn t-pagination__btn-next t-is-disabled"
           >
             <svg
               class="t-icon t-icon-chevron-right"

@@ -46,17 +46,17 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     let info: React.ReactNode;
     // 为布尔值，默认百分百展示，否则之间展示label内容
     if (typeof label === 'boolean') {
-      info = <div className={`${classPrefix}-progress--info`}>{`${percentage}%`}</div>;
+      info = <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>;
       if (['success', 'error', 'warning'].includes(status)) {
         const Icon = iconMap[status];
         info = (
-          <div className={`${classPrefix}-progress--info`}>
-            <Icon className={`${classPrefix}-progress--icon`} />
+          <div className={`${classPrefix}-progress__info`}>
+            <Icon className={`${classPrefix}-progress__icon`} />
           </div>
         );
       }
     } else {
-      info = <div className={`${classPrefix}-progress--info`}>{label}</div>;
+      info = <div className={`${classPrefix}-progress__info`}>{label}</div>;
     }
     return info;
   };
@@ -151,7 +151,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
             fill="none"
             transform={`matrix(0,-1,1,0,0,${diameter})`}
             strokeDasharray={strokeDasharray}
-            className={`${classPrefix}-circle--inner`}
+            className={`${classPrefix}-progress__circle-inner`}
             style={circlePathStyle}
           ></circle>
         </svg>
@@ -180,17 +180,17 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     progressDom = (
       <div
         ref={ref}
-        className={classNames(`${classPrefix}-progress--bar`, `${classPrefix}-progress--plump`, {
+        className={classNames(`${classPrefix}-progress__bar`, `${classPrefix}-progress--plump`, {
           [`${statusClassName}`]: status,
           [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPERATE,
           [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPERATE,
         })}
         style={trackStyle}
       >
-        <div className={`${classPrefix}-progress--inner`} style={barStyle}>
+        <div className={`${classPrefix}-progress__inner`} style={barStyle}>
           {label && (
             <div
-              className={`${classPrefix}-progress--info`}
+              className={`${classPrefix}-progress__info`}
               style={percentage > 10 ? { color: '#fff' } : { right: '-2.5em' }}
             >{`${percentage}%`}</div>
           )}
@@ -205,8 +205,8 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
           [`${statusClassName}`]: status,
         })}
       >
-        <div className={`${classPrefix}-progress--bar`} style={trackStyle}>
-          <div className={`${classPrefix}-progress--inner`} style={barStyle}></div>
+        <div className={`${classPrefix}-progress__bar`} style={trackStyle}>
+          <div className={`${classPrefix}-progress__inner`} style={barStyle}></div>
         </div>
         {getInfoContent()}
       </div>
