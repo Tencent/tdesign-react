@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Button, Message } from 'tdesign-react';
+import React from "react";
+import { Button, MessagePlugin } from 'tdesign-react';
 
 let message = null;
 
 export default function () {
-  const list = useState([]);
+  const list = [];
 
   return (
     <div className="tdesign-demo-block-row">
       <Button
         onClick={() => {
-          message = Message.info('I am duration 20s Message', 20 * 1000);
+          message = MessagePlugin.info('I am duration 20s Message', 20 * 1000);
           list.unshift(message);
         }}
       >
@@ -19,7 +19,7 @@ export default function () {
       <Button
         onClick={() => {
           if (list.length !== 0) {
-            Message.close(list.shift());
+            MessagePlugin.close(list.shift());
           }
         }}
       >
@@ -28,7 +28,7 @@ export default function () {
 
       <Button
         onClick={() => {
-          Message.closeAll();
+          MessagePlugin.closeAll();
         }}
       >
         close all Message

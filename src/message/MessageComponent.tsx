@@ -15,7 +15,7 @@ import MessageIcon from './MessageIcon';
 import { useMessageClass } from './useMessageClass';
 
 // Message 组件参数，需在 api 定义上做部分扩展
-interface MessageComponentProps extends TdMessageProps {
+export interface MessageComponentProps extends TdMessageProps {
   style?: React.CSSProperties;
 }
 

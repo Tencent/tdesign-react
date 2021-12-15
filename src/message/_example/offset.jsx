@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Message, Input } from 'tdesign-react';
+import React, { useState } from "react";
+import { Button, MessagePlugin, Input } from "tdesign-react";
 
 const placementStyle = {
   position: 'relative',
@@ -83,8 +83,8 @@ export default function () {
         <Button
           style={placementCenterStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
               placement: 'center',
               offset: [Number(offsetX), Number(offsetY)],
             });
@@ -95,9 +95,9 @@ export default function () {
         <Button
           style={placementTopStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'top',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "top",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -107,9 +107,9 @@ export default function () {
         <Button
           style={placementLeftStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'left',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "left",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -119,9 +119,9 @@ export default function () {
         <Button
           style={placementRightStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'right',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "right",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -131,9 +131,9 @@ export default function () {
         <Button
           style={placementBottomStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'bottom',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "bottom",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -143,9 +143,9 @@ export default function () {
         <Button
           style={placementTopLeftStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'top-left',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "top-left",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -155,9 +155,9 @@ export default function () {
         <Button
           style={placementTopRightStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'top-right',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "top-right",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -167,9 +167,9 @@ export default function () {
         <Button
           style={placementBottomLeftStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'bottom-left',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "bottom-left",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
@@ -179,9 +179,9 @@ export default function () {
         <Button
           style={placementBottomRightStyle}
           onClick={() => {
-            Message.info({
-              content: '用户表示普通操作信息提示',
-              placement: 'bottom-right',
+            MessagePlugin.info({
+              content: "用户表示普通操作信息提示",
+              placement: "bottom-right",
               offset: [Number(offsetX), Number(offsetY)],
             });
           }}
