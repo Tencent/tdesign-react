@@ -21,7 +21,7 @@ export interface FooterProps extends TdFooterProps, StyledProps {
 const Header = (props: HeaderProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
-  const headerClassNames = classNames(`${classPrefix}-layout--header`, className);
+  const headerClassNames = classNames(`${classPrefix}-layout__header`, className);
   return (
     <header className={headerClassNames} style={style} {...others}>
       {children}
@@ -32,7 +32,7 @@ const Header = (props: HeaderProps) => {
 const Footer = (props: FooterProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
-  const footerClassNames = classNames(`${classPrefix}-layout--footer`, className);
+  const footerClassNames = classNames(`${classPrefix}-layout__footer`, className);
   return (
     <footer className={footerClassNames} style={style} {...others}>
       {children}
@@ -43,7 +43,7 @@ const Footer = (props: FooterProps) => {
 const Content = (props: ContentProps) => {
   const { classPrefix } = useConfig();
   const { className, style, children, ...others } = props;
-  const contentClassNames = classNames(`${classPrefix}-layout--content`, className);
+  const contentClassNames = classNames(`${classPrefix}-layout__content`, className);
   return (
     <main className={contentClassNames} style={style} {...others}>
       {children}
@@ -68,7 +68,7 @@ const Layout = (props: LayoutProps) => {
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout-has-sider`]: !!siders.length,
+      [`${classPrefix}-layout--with-sider`]: !!siders.length,
     },
     className,
   );

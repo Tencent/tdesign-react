@@ -33,7 +33,7 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload__highlight`}>点击上传</span>
+        <span className={`${classPrefix}-upload--highlight`}>点击上传</span>
         <span>&nbsp;&nbsp;/&nbsp;&nbsp;拖拽到此区域</span>
       </div>
     );

@@ -6,10 +6,10 @@ exports[`aside.jsx 1`] = `
     侧边导航布局
   </h4>
   <div
-    class="t-layout t-layout-has-sider"
+    class="t-layout t-layout--with-sider"
   >
     <aside
-      class="t-layout--sider"
+      class="t-layout__sider"
       style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
     >
       <div
@@ -87,14 +87,14 @@ exports[`aside.jsx 1`] = `
       class="t-layout"
     >
       <main
-        class="t-layout--content"
+        class="t-layout__content"
       >
         <div>
           Content
         </div>
       </main>
       <footer
-        class="t-layout--footer"
+        class="t-layout__footer"
       >
         Copyright @ 2019-2020 Tencent. All Rights Reserved
       </footer>
@@ -112,17 +112,17 @@ exports[`base.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <main
-      class="t-layout--content"
+      class="t-layout__content"
     >
       Content
     </main>
     <footer
-      class="t-layout--footer"
+      class="t-layout__footer"
     >
       Copyright @ 2019-2021 Tencent. All Rights Reserved
     </footer>
@@ -132,10 +132,10 @@ exports[`base.jsx 1`] = `
     侧边导航布局
   </h4>
   <div
-    class="t-layout t-layout-has-sider"
+    class="t-layout t-layout--with-sider"
   >
     <aside
-      class="t-layout--sider"
+      class="t-layout__sider"
       style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
     >
       Aside
@@ -144,12 +144,12 @@ exports[`base.jsx 1`] = `
       class="t-layout"
     >
       <main
-        class="t-layout--content"
+        class="t-layout__content"
       >
         Content
       </main>
       <footer
-        class="t-layout--footer"
+        class="t-layout__footer"
       >
         Copyright @ 2019-2021 Tencent. All Rights Reserved
       </footer>
@@ -163,15 +163,15 @@ exports[`base.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <div
-      class="t-layout t-layout-has-sider"
+      class="t-layout t-layout--with-sider"
     >
       <aside
-        class="t-layout--sider"
+        class="t-layout__sider"
         style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
       >
         Aside
@@ -180,12 +180,12 @@ exports[`base.jsx 1`] = `
         class="t-layout"
       >
         <main
-          class="t-layout--content"
+          class="t-layout__content"
         >
           Content
         </main>
         <footer
-          class="t-layout--footer"
+          class="t-layout__footer"
         >
           Copyright @ 2019-2021 Tencent. All Rights Reserved
         </footer>
@@ -197,29 +197,29 @@ exports[`base.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <div
-      class="t-layout t-layout-has-sider"
+      class="t-layout t-layout--with-sider"
     >
       <div
         class="t-layout"
       >
         <main
-          class="t-layout--content"
+          class="t-layout__content"
         >
           Content
         </main>
         <footer
-          class="t-layout--footer"
+          class="t-layout__footer"
         >
           Copyright @ 2019-2021 Tencent. All Rights Reserved
         </footer>
       </div>
       <aside
-        class="t-layout--sider"
+        class="t-layout__sider"
         style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
       >
         Aside
@@ -231,15 +231,15 @@ exports[`base.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <div
-      class="t-layout t-layout-has-sider"
+      class="t-layout t-layout--with-sider"
     >
       <aside
-        class="t-layout--sider"
+        class="t-layout__sider"
         style="width: 80px; max-width: 80px; min-width: 80px; flex: 0 0 80px;"
       >
         Aside
@@ -248,12 +248,12 @@ exports[`base.jsx 1`] = `
         class="t-layout"
       >
         <main
-          class="t-layout--content"
+          class="t-layout__content"
         >
           Content
         </main>
         <footer
-          class="t-layout--footer"
+          class="t-layout__footer"
         >
           Copyright @ 2019-2021 Tencent. All Rights Reserved
         </footer>
@@ -272,15 +272,15 @@ exports[`combine.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <div
-      class="t-layout t-layout-has-sider"
+      class="t-layout t-layout--with-sider"
     >
       <aside
-        class="t-layout--sider"
+        class="t-layout__sider"
         style="width: 232px; max-width: 232px; min-width: 232px; flex: 0 0 232px;"
       >
         <div
@@ -358,14 +358,14 @@ exports[`combine.jsx 1`] = `
         class="t-layout"
       >
         <main
-          class="t-layout--content"
+          class="t-layout__content"
         >
           <div>
             Content
           </div>
         </main>
         <footer
-          class="t-layout--footer"
+          class="t-layout__footer"
         >
           Copyright @ 2019-2020 Tencent. All Rights Reserved
         </footer>
@@ -384,19 +384,19 @@ exports[`top.jsx 1`] = `
     class="t-layout"
   >
     <header
-      class="t-layout--header"
+      class="t-layout__header"
     >
       Header
     </header>
     <main
-      class="t-layout--content"
+      class="t-layout__content"
     >
       <div>
         Content
       </div>
     </main>
     <footer
-      class="t-layout--footer"
+      class="t-layout__footer"
     >
       Copyright @ 2019-2020 Tencent. All Rights Reserved
     </footer>

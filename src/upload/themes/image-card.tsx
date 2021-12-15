@@ -43,7 +43,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
         showOverlay
         width="auto"
         top="10%"
-        className={`${classPrefix}-upload-dialog`}
+        className={`${classPrefix}-upload__dialog`}
         footer={false}
         header={false}
         onClose={() => {
@@ -51,28 +51,28 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           setImgURL(null);
         }}
       >
-        <p className={`${classPrefix}-dialog__body-img-box`}>
+        <p className={`${classPrefix}-dialog__dialog-body-img-box`}>
           <img src={imgURL} alt="" />
         </p>
       </Dialog>
-      <ul className={`${classPrefix}-upload-card`}>
+      <ul className={`${classPrefix}-upload__card`}>
         <BooleanRender boolExpression={!!files}>
           {files.map((file, index) => (
-            <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} key={index}>
+            <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} key={index}>
               <BooleanRender
                 falseRender={() => (
-                  <div className={`${classPrefix}-upload-card__content ${classPrefix}-upload-card__box`}>
-                    <img className={`${classPrefix}-upload-card__image`} src={file.url} />
-                    <div className={`${classPrefix}-upload-card__mask`}>
-                      <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                  <div className={`${classPrefix}-upload__card-content ${classPrefix}-upload__card-box`}>
+                    <img className={`${classPrefix}-upload__card-image`} src={file.url} />
+                    <div className={`${classPrefix}-upload__card-mask`}>
+                      <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
                         <BrowseIcon
                           onClick={() => {
                             preview(file);
                           }}
                         />
                       </span>
-                      <span className={`${classPrefix}-upload-card__mask__item-divider`} />
-                      <span className={`${classPrefix}-upload-card__mask__item`} onClick={(e) => e.stopPropagation()}>
+                      <span className={`${classPrefix}-upload__card-mask-item-divider`} />
+                      <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
                         <DeleteIcon
                           onClick={(e) => {
                             onRemove?.({ e, file, index });
@@ -84,7 +84,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 )}
                 boolExpression={showUploadProgress && !finishUpload(file.status)}
               >
-                <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
+                <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
                   <p>上传中 {Math.min(files[0].percent, 99)}%</p>
                 </div>
@@ -93,10 +93,10 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           ))}
         </BooleanRender>
         <BooleanRender boolExpression={showTrigger}>
-          <li className={`${classPrefix}-upload-card__item ${classPrefix}-is--background`} onClick={props.onTrigger}>
-            <div className={`${classPrefix}-upload-card-container ${classPrefix}-upload-card__box`}>
+          <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
+            <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-upload__small`}>点击上传图片</p>
+              <p className={`${classPrefix}-size-s`}>点击上传图片</p>
             </div>
           </li>
         </BooleanRender>

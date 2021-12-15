@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdRadioGroupProps } from './type';
 import useDefault from '../_util/useDefault';
+import useCommonClassName from '../_util/useCommonClassName';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';
 /**
@@ -31,6 +32,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
   const [barStyle, setBarStyle] = useState({});
   const groupRef = useRef(null);
+  const { SIZE: sizeMap } = useCommonClassName();
 
   const context: CheckContextValue = {
     inject: (checkProps) => {
@@ -73,7 +75,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   const renderBlock = () => {
     if (!variant.includes('filled')) return null;
 
-    return <div style={barStyle} className={`${classPrefix}-radio-group-filled-bg-block`}></div>;
+    return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
   };
 
   const renderOptions = () =>
@@ -96,10 +98,10 @@ const RadioGroup = (props: RadioGroupProps) => {
     <CheckContext.Provider value={context}>
       <div
         ref={groupRef}
-        className={classNames(`${classPrefix}-radio-group`, `${classPrefix}-radio-group-${size}`, {
-          [`${classPrefix}-radio-group-outline`]: variant === 'outline',
-          [`${classPrefix}-radio-group-filled`]: variant.includes('filled'),
-          [`${classPrefix}-radio-group-primary-filled`]: variant === 'primary-filled',
+        className={classNames(`${classPrefix}-radio-group`, sizeMap[size], {
+          [`${classPrefix}-radio-group__outline`]: variant === 'outline',
+          [`${classPrefix}-radio-group--filled`]: variant.includes('filled'),
+          [`${classPrefix}-radio-group--primary-filled`]: variant === 'primary-filled',
         })}
       >
         {children || renderOptions()}

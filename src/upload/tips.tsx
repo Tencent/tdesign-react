@@ -11,7 +11,7 @@ const Tips: FC<TipsProps> = (props) => {
   const { classPrefix } = useConfig();
   const tipsClass = classNames(
     `${classPrefix}-upload__tips`,
-    `${classPrefix}-upload__small`,
+    `${classPrefix}-size-s`,
     type === 'error' ? `${classPrefix}-upload__tips-error` : null,
   );
   return <small className={tipsClass}>{children}</small>;

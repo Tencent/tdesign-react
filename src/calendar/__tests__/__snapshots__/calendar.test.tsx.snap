@@ -100,7 +100,7 @@ exports[`base.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -140,7 +140,7 @@ exports[`base.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -230,7 +230,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -239,7 +239,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -248,7 +248,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -257,7 +257,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -266,7 +266,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -275,7 +275,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -284,7 +284,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -297,7 +297,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -306,7 +306,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -315,7 +315,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -324,7 +324,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -333,7 +333,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -342,7 +342,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 7
               </div>
@@ -351,7 +351,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 8
               </div>
@@ -364,7 +364,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 9
               </div>
@@ -373,7 +373,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 10
               </div>
@@ -382,7 +382,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 11
               </div>
@@ -391,7 +391,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 12
               </div>
@@ -400,7 +400,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 13
               </div>
@@ -409,7 +409,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 14
               </div>
@@ -418,7 +418,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 15
               </div>
@@ -431,7 +431,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 16
               </div>
@@ -440,7 +440,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 17
               </div>
@@ -449,7 +449,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 18
               </div>
@@ -458,7 +458,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 19
               </div>
@@ -467,7 +467,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 20
               </div>
@@ -476,7 +476,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 21
               </div>
@@ -485,7 +485,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 22
               </div>
@@ -498,7 +498,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 23
               </div>
@@ -507,7 +507,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 24
               </div>
@@ -516,7 +516,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 25
               </div>
@@ -525,7 +525,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -534,7 +534,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-checked t-is-now"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -543,7 +543,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -552,7 +552,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -565,7 +565,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -574,7 +574,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -583,7 +583,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -592,7 +592,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -601,7 +601,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -610,7 +610,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -619,7 +619,7 @@ exports[`base.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -805,7 +805,7 @@ exports[`card.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -845,7 +845,7 @@ exports[`card.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -910,7 +910,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -919,7 +919,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -928,7 +928,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -937,7 +937,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -946,7 +946,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -955,7 +955,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -964,7 +964,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -977,7 +977,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -986,7 +986,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -995,7 +995,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -1004,7 +1004,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -1013,7 +1013,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -1022,7 +1022,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -1031,7 +1031,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -1044,7 +1044,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -1053,7 +1053,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -1062,7 +1062,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -1071,7 +1071,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -1080,7 +1080,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -1089,7 +1089,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -1098,7 +1098,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -1111,7 +1111,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -1120,7 +1120,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -1129,7 +1129,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -1138,7 +1138,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -1147,7 +1147,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -1156,7 +1156,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -1165,7 +1165,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -1178,7 +1178,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -1187,7 +1187,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -1196,7 +1196,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -1205,7 +1205,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -1214,7 +1214,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -1223,7 +1223,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -1232,7 +1232,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -1245,7 +1245,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -1254,7 +1254,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -1263,7 +1263,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -1272,7 +1272,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -1281,7 +1281,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -1290,7 +1290,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -1299,7 +1299,7 @@ exports[`card.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -1413,7 +1413,7 @@ exports[`cell.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -1453,7 +1453,7 @@ exports[`cell.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -2244,7 +2244,7 @@ exports[`cell-append.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -2284,7 +2284,7 @@ exports[`cell-append.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -2374,7 +2374,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -2386,7 +2386,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -2398,7 +2398,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -2410,7 +2410,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -2422,7 +2422,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -2434,7 +2434,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -2446,7 +2446,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -2462,7 +2462,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -2474,7 +2474,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -2486,7 +2486,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -2498,7 +2498,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -2510,7 +2510,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -2522,7 +2522,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 7
               </div>
@@ -2534,7 +2534,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 8
               </div>
@@ -2550,7 +2550,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 9
               </div>
@@ -2562,7 +2562,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 10
               </div>
@@ -2574,7 +2574,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 11
               </div>
@@ -2586,7 +2586,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 12
               </div>
@@ -2598,7 +2598,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 13
               </div>
@@ -2610,7 +2610,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 14
               </div>
@@ -2622,7 +2622,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 15
               </div>
@@ -2638,7 +2638,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 16
               </div>
@@ -2650,7 +2650,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 17
               </div>
@@ -2662,7 +2662,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 18
               </div>
@@ -2674,7 +2674,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 19
               </div>
@@ -2686,7 +2686,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 20
               </div>
@@ -2698,7 +2698,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 21
               </div>
@@ -2710,7 +2710,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 22
               </div>
@@ -2726,7 +2726,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 23
               </div>
@@ -2738,7 +2738,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 24
               </div>
@@ -2750,7 +2750,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 25
               </div>
@@ -2762,7 +2762,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -2774,7 +2774,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-checked t-is-now"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -2796,7 +2796,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -2808,7 +2808,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -2824,7 +2824,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -2836,7 +2836,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -2848,7 +2848,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -2860,7 +2860,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -2872,7 +2872,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -2884,7 +2884,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -2896,7 +2896,7 @@ exports[`cell-append.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -3258,7 +3258,7 @@ exports[`controller-config.jsx 1`] = `
               style="height: auto;"
             >
               <div
-                class="t-radio-group t-radio-group-medium t-radio-group-filled"
+                class="t-radio-group t-size-m t-radio-group--filled"
               >
                 <label
                   class="t-radio-button t-is-checked"
@@ -3298,7 +3298,7 @@ exports[`controller-config.jsx 1`] = `
                   </span>
                 </label>
                 <div
-                  class="t-radio-group-filled-bg-block"
+                  class="t-radio-group__bg-block"
                   style="width: 0px; left: 0px;"
                 />
               </div>
@@ -3388,7 +3388,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       26
                     </div>
@@ -3397,7 +3397,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       27
                     </div>
@@ -3406,7 +3406,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       28
                     </div>
@@ -3415,7 +3415,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       29
                     </div>
@@ -3424,7 +3424,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       30
                     </div>
@@ -3433,7 +3433,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       31
                     </div>
@@ -3442,7 +3442,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       1
                     </div>
@@ -3455,7 +3455,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       2
                     </div>
@@ -3464,7 +3464,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       3
                     </div>
@@ -3473,7 +3473,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       4
                     </div>
@@ -3482,7 +3482,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       5
                     </div>
@@ -3491,7 +3491,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       6
                     </div>
@@ -3500,7 +3500,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       7
                     </div>
@@ -3509,7 +3509,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       8
                     </div>
@@ -3522,7 +3522,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       9
                     </div>
@@ -3531,7 +3531,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       10
                     </div>
@@ -3540,7 +3540,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       11
                     </div>
@@ -3549,7 +3549,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       12
                     </div>
@@ -3558,7 +3558,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       13
                     </div>
@@ -3567,7 +3567,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       14
                     </div>
@@ -3576,7 +3576,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       15
                     </div>
@@ -3589,7 +3589,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       16
                     </div>
@@ -3598,7 +3598,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       17
                     </div>
@@ -3607,7 +3607,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       18
                     </div>
@@ -3616,7 +3616,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       19
                     </div>
@@ -3625,7 +3625,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       20
                     </div>
@@ -3634,7 +3634,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       21
                     </div>
@@ -3643,7 +3643,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       22
                     </div>
@@ -3656,7 +3656,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       23
                     </div>
@@ -3665,7 +3665,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       24
                     </div>
@@ -3674,7 +3674,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       25
                     </div>
@@ -3683,7 +3683,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       26
                     </div>
@@ -3692,7 +3692,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-checked t-is-now"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       27
                     </div>
@@ -3701,7 +3701,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       28
                     </div>
@@ -3710,7 +3710,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       29
                     </div>
@@ -3723,7 +3723,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       30
                     </div>
@@ -3732,7 +3732,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       31
                     </div>
@@ -3741,7 +3741,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       1
                     </div>
@@ -3750,7 +3750,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       2
                     </div>
@@ -3759,7 +3759,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       3
                     </div>
@@ -3768,7 +3768,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       4
                     </div>
@@ -3777,7 +3777,7 @@ exports[`controller-config.jsx 1`] = `
                     class="t-calendar__table-body-cell t-is-disabled"
                   >
                     <div
-                      class="t-calendar__table-body-cell-value"
+                      class="t-calendar__table-body-cell-display"
                     >
                       5
                     </div>
@@ -3913,7 +3913,7 @@ exports[`event-props-api.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -3953,7 +3953,7 @@ exports[`event-props-api.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -4043,7 +4043,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -4052,7 +4052,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -4061,7 +4061,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -4070,7 +4070,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -4079,7 +4079,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -4088,7 +4088,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -4097,7 +4097,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -4110,7 +4110,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -4119,7 +4119,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -4128,7 +4128,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -4137,7 +4137,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -4146,7 +4146,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -4155,7 +4155,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -4164,7 +4164,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -4177,7 +4177,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -4186,7 +4186,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -4195,7 +4195,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -4204,7 +4204,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -4213,7 +4213,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -4222,7 +4222,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -4231,7 +4231,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -4244,7 +4244,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -4253,7 +4253,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -4262,7 +4262,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -4271,7 +4271,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -4280,7 +4280,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -4289,7 +4289,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -4298,7 +4298,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -4311,7 +4311,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -4320,7 +4320,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -4329,7 +4329,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -4338,7 +4338,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -4347,7 +4347,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -4356,7 +4356,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -4365,7 +4365,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -4378,7 +4378,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -4387,7 +4387,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -4396,7 +4396,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -4405,7 +4405,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -4414,7 +4414,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -4423,7 +4423,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -4432,7 +4432,7 @@ exports[`event-props-api.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -4584,7 +4584,7 @@ exports[`events.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -4624,7 +4624,7 @@ exports[`events.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -4714,7 +4714,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -4723,7 +4723,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -4732,7 +4732,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -4741,7 +4741,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -4750,7 +4750,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -4759,7 +4759,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -4768,7 +4768,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -4781,7 +4781,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -4790,7 +4790,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -4799,7 +4799,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -4808,7 +4808,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -4817,7 +4817,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -4826,7 +4826,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -4835,7 +4835,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -4848,7 +4848,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -4857,7 +4857,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -4866,7 +4866,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -4875,7 +4875,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -4884,7 +4884,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -4893,7 +4893,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -4902,7 +4902,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -4915,7 +4915,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -4924,7 +4924,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -4933,7 +4933,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -4942,7 +4942,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -4951,7 +4951,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -4960,7 +4960,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -4969,7 +4969,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -4982,7 +4982,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -4991,7 +4991,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -5000,7 +5000,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -5009,7 +5009,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -5018,7 +5018,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -5027,7 +5027,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -5036,7 +5036,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -5049,7 +5049,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -5058,7 +5058,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -5067,7 +5067,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -5076,7 +5076,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -5085,7 +5085,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -5094,7 +5094,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -5103,7 +5103,7 @@ exports[`events.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -5237,7 +5237,7 @@ exports[`filter.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -5277,7 +5277,7 @@ exports[`filter.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -5367,7 +5367,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -5376,7 +5376,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -5385,7 +5385,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -5394,7 +5394,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -5403,7 +5403,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -5412,7 +5412,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -5421,7 +5421,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -5434,7 +5434,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -5443,7 +5443,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -5452,7 +5452,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -5461,7 +5461,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -5470,7 +5470,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -5479,7 +5479,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -5488,7 +5488,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -5501,7 +5501,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -5510,7 +5510,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -5519,7 +5519,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -5528,7 +5528,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -5537,7 +5537,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -5546,7 +5546,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -5555,7 +5555,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -5568,7 +5568,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -5577,7 +5577,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -5586,7 +5586,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -5595,7 +5595,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -5604,7 +5604,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -5613,7 +5613,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -5622,7 +5622,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -5635,7 +5635,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -5644,7 +5644,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -5653,7 +5653,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -5662,7 +5662,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -5671,7 +5671,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -5680,7 +5680,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -5689,7 +5689,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -5702,7 +5702,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -5711,7 +5711,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -5720,7 +5720,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -5729,7 +5729,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -5738,7 +5738,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -5747,7 +5747,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -5756,7 +5756,7 @@ exports[`filter.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -5915,7 +5915,7 @@ exports[`first-day-of-week.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -5955,7 +5955,7 @@ exports[`first-day-of-week.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -6045,7 +6045,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -6054,7 +6054,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -6063,7 +6063,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -6072,7 +6072,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -6081,7 +6081,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -6090,7 +6090,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -6099,7 +6099,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -6112,7 +6112,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -6121,7 +6121,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -6130,7 +6130,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -6139,7 +6139,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -6148,7 +6148,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -6157,7 +6157,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -6166,7 +6166,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -6179,7 +6179,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -6188,7 +6188,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -6197,7 +6197,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -6206,7 +6206,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -6215,7 +6215,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -6224,7 +6224,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -6233,7 +6233,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -6246,7 +6246,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -6255,7 +6255,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -6264,7 +6264,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -6273,7 +6273,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -6282,7 +6282,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -6291,7 +6291,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -6300,7 +6300,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -6313,7 +6313,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -6322,7 +6322,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -6331,7 +6331,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -6340,7 +6340,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -6349,7 +6349,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -6358,7 +6358,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -6367,7 +6367,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -6485,7 +6485,7 @@ exports[`head.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -6525,7 +6525,7 @@ exports[`head.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -6615,7 +6615,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -6624,7 +6624,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -6633,7 +6633,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -6642,7 +6642,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -6651,7 +6651,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -6660,7 +6660,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -6669,7 +6669,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -6682,7 +6682,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -6691,7 +6691,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -6700,7 +6700,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -6709,7 +6709,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -6718,7 +6718,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -6727,7 +6727,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 7
               </div>
@@ -6736,7 +6736,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 8
               </div>
@@ -6749,7 +6749,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 9
               </div>
@@ -6758,7 +6758,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 10
               </div>
@@ -6767,7 +6767,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 11
               </div>
@@ -6776,7 +6776,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 12
               </div>
@@ -6785,7 +6785,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 13
               </div>
@@ -6794,7 +6794,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 14
               </div>
@@ -6803,7 +6803,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 15
               </div>
@@ -6816,7 +6816,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 16
               </div>
@@ -6825,7 +6825,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 17
               </div>
@@ -6834,7 +6834,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 18
               </div>
@@ -6843,7 +6843,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 19
               </div>
@@ -6852,7 +6852,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 20
               </div>
@@ -6861,7 +6861,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 21
               </div>
@@ -6870,7 +6870,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 22
               </div>
@@ -6883,7 +6883,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 23
               </div>
@@ -6892,7 +6892,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 24
               </div>
@@ -6901,7 +6901,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 25
               </div>
@@ -6910,7 +6910,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -6919,7 +6919,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-checked t-is-now"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -6928,7 +6928,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -6937,7 +6937,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -6950,7 +6950,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -6959,7 +6959,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -6968,7 +6968,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -6977,7 +6977,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -6986,7 +6986,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -6995,7 +6995,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -7004,7 +7004,7 @@ exports[`head.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -7125,7 +7125,7 @@ exports[`mode.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button"
@@ -7165,7 +7165,7 @@ exports[`mode.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -7287,7 +7287,7 @@ exports[`mode.jsx 1`] = `
                 />
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-value"
@@ -7459,7 +7459,7 @@ exports[`range.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -7499,7 +7499,7 @@ exports[`range.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -7589,7 +7589,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -7598,7 +7598,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -7607,7 +7607,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -7616,7 +7616,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -7625,7 +7625,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -7634,7 +7634,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -7643,7 +7643,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -7656,7 +7656,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -7665,7 +7665,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -7674,7 +7674,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -7683,7 +7683,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -7692,7 +7692,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -7701,7 +7701,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 7
               </div>
@@ -7710,7 +7710,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 8
               </div>
@@ -7723,7 +7723,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 9
               </div>
@@ -7732,7 +7732,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 10
               </div>
@@ -7741,7 +7741,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 11
               </div>
@@ -7750,7 +7750,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 12
               </div>
@@ -7759,7 +7759,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 13
               </div>
@@ -7768,7 +7768,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 14
               </div>
@@ -7777,7 +7777,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 15
               </div>
@@ -7790,7 +7790,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 16
               </div>
@@ -7799,7 +7799,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 17
               </div>
@@ -7808,7 +7808,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 18
               </div>
@@ -7817,7 +7817,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 19
               </div>
@@ -7826,7 +7826,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 20
               </div>
@@ -7835,7 +7835,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 21
               </div>
@@ -7844,7 +7844,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 22
               </div>
@@ -7857,7 +7857,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 23
               </div>
@@ -7866,7 +7866,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 24
               </div>
@@ -7875,7 +7875,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 25
               </div>
@@ -7884,7 +7884,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -7893,7 +7893,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-checked t-is-now"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -7902,7 +7902,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -7911,7 +7911,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -7924,7 +7924,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -7933,7 +7933,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -7942,7 +7942,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -7951,7 +7951,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -7960,7 +7960,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -7969,7 +7969,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -7978,7 +7978,7 @@ exports[`range.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -8095,7 +8095,7 @@ exports[`slot-props-api.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -8135,7 +8135,7 @@ exports[`slot-props-api.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -8926,7 +8926,7 @@ exports[`value.jsx 1`] = `
         style="height: auto;"
       >
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-filled"
+          class="t-radio-group t-size-m t-radio-group--filled"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -8966,7 +8966,7 @@ exports[`value.jsx 1`] = `
             </span>
           </label>
           <div
-            class="t-radio-group-filled-bg-block"
+            class="t-radio-group__bg-block"
             style="width: 0px; left: 0px;"
           />
         </div>
@@ -9056,7 +9056,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -9065,7 +9065,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -9074,7 +9074,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -9083,7 +9083,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -9092,7 +9092,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -9101,7 +9101,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 31
               </div>
@@ -9110,7 +9110,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -9123,7 +9123,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -9132,7 +9132,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -9141,7 +9141,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -9150,7 +9150,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -9159,7 +9159,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -9168,7 +9168,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 7
               </div>
@@ -9177,7 +9177,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 8
               </div>
@@ -9190,7 +9190,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 9
               </div>
@@ -9199,7 +9199,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 10
               </div>
@@ -9208,7 +9208,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-checked"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 11
               </div>
@@ -9217,7 +9217,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 12
               </div>
@@ -9226,7 +9226,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 13
               </div>
@@ -9235,7 +9235,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 14
               </div>
@@ -9244,7 +9244,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 15
               </div>
@@ -9257,7 +9257,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 16
               </div>
@@ -9266,7 +9266,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 17
               </div>
@@ -9275,7 +9275,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 18
               </div>
@@ -9284,7 +9284,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 19
               </div>
@@ -9293,7 +9293,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 20
               </div>
@@ -9302,7 +9302,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 21
               </div>
@@ -9311,7 +9311,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 22
               </div>
@@ -9324,7 +9324,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 23
               </div>
@@ -9333,7 +9333,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 24
               </div>
@@ -9342,7 +9342,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 25
               </div>
@@ -9351,7 +9351,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 26
               </div>
@@ -9360,7 +9360,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 27
               </div>
@@ -9369,7 +9369,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 28
               </div>
@@ -9378,7 +9378,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 29
               </div>
@@ -9391,7 +9391,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 30
               </div>
@@ -9400,7 +9400,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 1
               </div>
@@ -9409,7 +9409,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 2
               </div>
@@ -9418,7 +9418,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 3
               </div>
@@ -9427,7 +9427,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 4
               </div>
@@ -9436,7 +9436,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 5
               </div>
@@ -9445,7 +9445,7 @@ exports[`value.jsx 1`] = `
               class="t-calendar__table-body-cell t-is-disabled"
             >
               <div
-                class="t-calendar__table-body-cell-value"
+                class="t-calendar__table-body-cell-display"
               >
                 6
               </div>
@@ -9561,7 +9561,7 @@ exports[`week.jsx 1`] = `
           style="height: auto;"
         >
           <div
-            class="t-radio-group t-radio-group-medium t-radio-group-filled"
+            class="t-radio-group t-size-m t-radio-group--filled"
           >
             <label
               class="t-radio-button t-is-checked"
@@ -9601,7 +9601,7 @@ exports[`week.jsx 1`] = `
               </span>
             </label>
             <div
-              class="t-radio-group-filled-bg-block"
+              class="t-radio-group__bg-block"
               style="width: 0px; left: 0px;"
             />
           </div>
@@ -9705,7 +9705,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -9714,7 +9714,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -9723,7 +9723,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -9732,7 +9732,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -9741,7 +9741,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -9750,7 +9750,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -9759,7 +9759,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -9772,7 +9772,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -9781,7 +9781,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -9790,7 +9790,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -9799,7 +9799,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>
@@ -9808,7 +9808,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   6
                 </div>
@@ -9817,7 +9817,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   7
                 </div>
@@ -9826,7 +9826,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   8
                 </div>
@@ -9839,7 +9839,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   9
                 </div>
@@ -9848,7 +9848,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   10
                 </div>
@@ -9857,7 +9857,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   11
                 </div>
@@ -9866,7 +9866,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   12
                 </div>
@@ -9875,7 +9875,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   13
                 </div>
@@ -9884,7 +9884,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   14
                 </div>
@@ -9893,7 +9893,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   15
                 </div>
@@ -9906,7 +9906,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   16
                 </div>
@@ -9915,7 +9915,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   17
                 </div>
@@ -9924,7 +9924,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   18
                 </div>
@@ -9933,7 +9933,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   19
                 </div>
@@ -9942,7 +9942,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   20
                 </div>
@@ -9951,7 +9951,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   21
                 </div>
@@ -9960,7 +9960,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   22
                 </div>
@@ -9973,7 +9973,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   23
                 </div>
@@ -9982,7 +9982,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   24
                 </div>
@@ -9991,7 +9991,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   25
                 </div>
@@ -10000,7 +10000,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   26
                 </div>
@@ -10009,7 +10009,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-checked t-is-now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   27
                 </div>
@@ -10018,7 +10018,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   28
                 </div>
@@ -10027,7 +10027,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   29
                 </div>
@@ -10040,7 +10040,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   30
                 </div>
@@ -10049,7 +10049,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   31
                 </div>
@@ -10058,7 +10058,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   1
                 </div>
@@ -10067,7 +10067,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   2
                 </div>
@@ -10076,7 +10076,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   3
                 </div>
@@ -10085,7 +10085,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   4
                 </div>
@@ -10094,7 +10094,7 @@ exports[`week.jsx 1`] = `
                 class="t-calendar__table-body-cell t-is-disabled"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   5
                 </div>

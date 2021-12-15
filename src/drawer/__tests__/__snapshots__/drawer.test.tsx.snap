@@ -17,7 +17,7 @@ exports[`attach-parent.jsx 1`] = `
           抽屉弹出方向：
         </span>
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-outline"
+          class="t-radio-group t-size-m t-radio-group__outline"
         >
           <label
             class="t-radio-button"
@@ -99,7 +99,7 @@ exports[`attach-parent.jsx 1`] = `
           抽屉弹出模式：
         </span>
         <div
-          class="t-radio-group t-radio-group-medium t-radio-group-outline"
+          class="t-radio-group t-size-m t-radio-group__outline"
         >
           <label
             class="t-radio-button t-is-checked"
@@ -155,14 +155,14 @@ exports[`attach-parent.jsx 1`] = `
       </div>
       <div>
         <div
-          class="t-drawer t-drawer-right t-drawer-attach"
+          class="t-drawer t-drawer--right t-drawer--attach"
           tabindex="0"
         >
           <div
             class="t-drawer__mask"
           />
           <div
-            class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+            class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
             style="width: 300px;"
           >
             <div
@@ -201,7 +201,7 @@ exports[`attach-parent.jsx 1`] = `
                 style="display: flex; justify-content: flex-start;"
               >
                 <button
-                  class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                  class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                   style="position: relative;"
                   type="button"
                 >
@@ -212,7 +212,7 @@ exports[`attach-parent.jsx 1`] = `
                   </span>
                 </button>
                 <button
-                  class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                  class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                   style="position: relative;"
                   type="button"
                 >
@@ -248,14 +248,14 @@ exports[`base.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -294,7 +294,7 @@ exports[`base.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -305,7 +305,7 @@ exports[`base.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -340,14 +340,14 @@ exports[`custom.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -419,14 +419,14 @@ exports[`destroy.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -460,7 +460,7 @@ exports[`destroy.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -471,7 +471,7 @@ exports[`destroy.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -506,11 +506,11 @@ exports[`no-mask.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right t-drawer-no-mask"
+        class="t-drawer t-drawer--right t-drawer--without-mask"
         tabindex="0"
       >
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -549,7 +549,7 @@ exports[`no-mask.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -560,7 +560,7 @@ exports[`no-mask.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -595,14 +595,14 @@ exports[`operation.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -700,7 +700,7 @@ exports[`operation.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -711,7 +711,7 @@ exports[`operation.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -734,7 +734,7 @@ exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-radio-group t-radio-group-medium t-radio-group-outline"
+      class="t-radio-group t-size-m t-radio-group__outline"
     >
       <label
         class="t-radio-button"
@@ -823,14 +823,14 @@ exports[`placement.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -864,7 +864,7 @@ exports[`placement.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -875,7 +875,7 @@ exports[`placement.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -904,7 +904,7 @@ exports[`popup.jsx 1`] = `
         抽屉弹出方向：
       </span>
       <div
-        class="t-radio-group t-radio-group-medium t-radio-group-outline"
+        class="t-radio-group t-size-m t-radio-group__outline"
       >
         <label
           class="t-radio-button"
@@ -986,7 +986,7 @@ exports[`popup.jsx 1`] = `
         抽屉弹出模式：
       </span>
       <div
-        class="t-radio-group t-radio-group-medium t-radio-group-outline"
+        class="t-radio-group t-size-m t-radio-group__outline"
       >
         <label
           class="t-radio-button t-is-checked"
@@ -1050,7 +1050,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-radio-group t-radio-group-medium t-radio-group-outline"
+      class="t-radio-group t-size-m t-radio-group__outline"
     >
       <label
         class="t-radio-button"
@@ -1127,7 +1127,7 @@ exports[`size.jsx 1`] = `
       </label>
     </div>
     <div
-      class="t-radio-group t-radio-group-medium t-radio-group-outline"
+      class="t-radio-group t-size-m t-radio-group__outline"
     >
       <label
         class="t-radio-button t-is-checked"
@@ -1254,14 +1254,14 @@ exports[`size.jsx 1`] = `
     </div>
     <div>
       <div
-        class="t-drawer t-drawer-right"
+        class="t-drawer t-drawer--right"
         tabindex="0"
       >
         <div
           class="t-drawer__mask"
         />
         <div
-          class="t-drawer__content-wrapper t-drawer__content-wrapper-right"
+          class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
           style="width: 300px;"
         >
           <div
@@ -1295,7 +1295,7 @@ exports[`size.jsx 1`] = `
               style="display: flex; justify-content: flex-start;"
             >
               <button
-                class="t-drawer-confirm t-button t-button--theme-primary t-button--variant-base"
+                class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >
@@ -1306,7 +1306,7 @@ exports[`size.jsx 1`] = `
                 </span>
               </button>
               <button
-                class="t-drawer-cancel t-button t-button--theme-default t-button--variant-base"
+                class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
                 style="position: relative;"
                 type="button"
               >

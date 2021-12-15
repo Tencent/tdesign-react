@@ -34,7 +34,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
   const { classPrefix } = useConfig();
 
   const [startTime, endTime] = value || [];
-  const panelClassName = `${classPrefix}-time-picker-panel`;
+  const panelClassName = `${classPrefix}-time-picker__panel`;
 
   const handlePanelValueChange = (value: string, index: number) => {
     if (index === 0) {
@@ -47,7 +47,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
 
   return (
     <div className={classNames(panelClassName, `${panelClassName}-section`)}>
-      <div className={`${panelClassName}-section__body`}>
+      <div className={`${panelClassName}-section-body`}>
         <SinglePanel
           {...props}
           steps={steps}
@@ -64,7 +64,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
         />
       </div>
       {isFooterDisplay ? (
-        <div className={`${panelClassName}-section__footer`}>
+        <div className={`${panelClassName}-section-footer`}>
           <Button theme="primary" variant="base" onClick={handleConfirmClick}>
             {TEXT_CONFIG.confirm}
           </Button>

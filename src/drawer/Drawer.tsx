@@ -161,13 +161,16 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     }
   }
 
-  const drawerClass = classnames(prefixCls, className, `${prefixCls}-${placement}`, {
-    [`${prefixCls}-open`]: visible,
-    [`${prefixCls}-attach`]: showInAttachedElement,
-    [`${prefixCls}-no-mask`]: !showOverlay,
+  const drawerClass = classnames(prefixCls, className, `${prefixCls}--${placement}`, {
+    [`${prefixCls}--open`]: visible,
+    [`${prefixCls}--attach`]: showInAttachedElement,
+    [`${prefixCls}--without-mask`]: !showOverlay,
   });
 
-  const contentWrapperClass = classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper-${placement}`);
+  const contentWrapperClass = classnames(
+    `${prefixCls}__content-wrapper`,
+    `${prefixCls}__content-wrapper--${placement}`,
+  );
   const contentWrapperStyle = {
     transform: visible ? 'translateX(0)' : undefined,
     width: ['left', 'right'].includes(placement) ? getSizeValue(size) : '',
@@ -178,13 +181,13 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     if (footer !== true) return footer;
 
     const defaultCancelBtn = (
-      <Button theme="default" onClick={onCancelClick} className={`${prefixCls}-cancel`}>
+      <Button theme="default" onClick={onCancelClick} className={`${prefixCls}__cancel`}>
         {cancelText}
       </Button>
     );
 
     const defaultConfirmBtn = (
-      <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}-confirm`}>
+      <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}__confirm`}>
         {confirmText}
       </Button>
     );

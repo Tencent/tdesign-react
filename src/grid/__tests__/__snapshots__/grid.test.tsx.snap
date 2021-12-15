@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -116,7 +116,7 @@ exports[`base.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -175,7 +175,7 @@ exports[`base.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -216,7 +216,7 @@ exports[`base.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -248,7 +248,7 @@ exports[`base.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -271,7 +271,7 @@ exports[`base.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -290,7 +290,7 @@ exports[`base.jsx 1`] = `
 exports[`flex.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -313,7 +313,7 @@ exports[`flex.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -336,7 +336,7 @@ exports[`flex.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -359,7 +359,7 @@ exports[`flex.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -389,7 +389,7 @@ exports[`flex.jsx 1`] = `
 exports[`gutter.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: -8px; margin-right: -8px;"
   >
     <div
@@ -430,7 +430,7 @@ exports[`gutter.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: -12px; margin-right: -12px;"
   >
     <div
@@ -471,7 +471,7 @@ exports[`gutter.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: -8px; margin-right: -8px; row-gap: 24px;"
   >
     <div
@@ -556,7 +556,7 @@ exports[`halign.jsx 1`] = `
     align left
   </p>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -600,7 +600,7 @@ exports[`halign.jsx 1`] = `
     align center
   </p>
   <div
-    class="t-row t-row-center t-row-top"
+    class="t-row t-row--center t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -644,7 +644,7 @@ exports[`halign.jsx 1`] = `
     align right
   </p>
   <div
-    class="t-row t-row-end t-row-top"
+    class="t-row t-row--end t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -688,7 +688,7 @@ exports[`halign.jsx 1`] = `
     space-between
   </p>
   <div
-    class="t-row t-row-space-between t-row-top"
+    class="t-row t-row--space-between t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -732,7 +732,7 @@ exports[`halign.jsx 1`] = `
     space-around
   </p>
   <div
-    class="t-row t-row-space-around t-row-top"
+    class="t-row t-row--space-around t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -778,7 +778,7 @@ exports[`halign.jsx 1`] = `
 exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -801,7 +801,7 @@ exports[`offset.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -824,7 +824,7 @@ exports[`offset.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -843,13 +843,13 @@ exports[`offset.jsx 1`] = `
 exports[`order.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     通过 \`order\` 来改变元素的排序。
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -890,7 +890,7 @@ exports[`order.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -952,7 +952,7 @@ exports[`order.jsx 1`] = `
 exports[`responsive.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -990,13 +990,13 @@ exports[`responsive.jsx 1`] = `
 exports[`sort.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     通过 \`pull\` \`push\` 进行排序
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -1019,7 +1019,7 @@ exports[`sort.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-row t-row-start t-row-top"
+    class="t-row t-row--start t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -1050,7 +1050,7 @@ exports[`valign.jsx 1`] = `
     align top
   </p>
   <div
-    class="t-row t-row-center t-row-top"
+    class="t-row t-row--center t-row--top"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -1102,7 +1102,7 @@ exports[`valign.jsx 1`] = `
     Align Middle
   </p>
   <div
-    class="t-row t-row-space-around t-row-middle"
+    class="t-row t-row--space-around t-row--middle"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div
@@ -1154,7 +1154,7 @@ exports[`valign.jsx 1`] = `
     Align Bottom
   </p>
   <div
-    class="t-row t-row-space-between t-row-bottom"
+    class="t-row t-row--space-between t-row--bottom"
     style="margin-left: 0px; margin-right: 0px;"
   >
     <div

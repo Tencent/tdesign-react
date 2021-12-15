@@ -17,10 +17,10 @@ describe('Pagination test', () => {
     fireEvent.click(wrapper.getByText('20'));
     expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
 
-    fireEvent.click(document.querySelector('.t-pagination__btn--next'));
+    fireEvent.click(document.querySelector('.t-pagination__btn-next'));
     expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
 
-    fireEvent.click(document.querySelector('.t-pagination__btn--prev'));
+    fireEvent.click(document.querySelector('.t-pagination__btn-prev'));
     expect(document.querySelector('.t-is-current')).toHaveTextContent('19');
   });
 

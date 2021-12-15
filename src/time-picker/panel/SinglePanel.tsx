@@ -25,7 +25,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const { classPrefix } = useConfig();
   const TEXT_CONFIG = useTimePickerTextConfig();
 
-  const panelClassName = `${classPrefix}-time-picker-panel`;
+  const panelClassName = `${classPrefix}-time-picker__panel`;
 
   const [cols, setCols] = useState<Array<EPickerCols>>([]);
   const colsRef = useRef([]);
@@ -254,13 +254,13 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       <ul
         key={`${col}_${idx}`}
         ref={(el) => (colsRef.current[idx] = el)}
-        className={`${panelClassName}__body-scroll`}
+        className={`${panelClassName}-body-scroll`}
         onWheel={debounce(() => handleScroll(col, idx), 50)}
       >
         {getColList(col).map((el) => (
           <li
             key={el}
-            className={classNames(`${panelClassName}__body-scroll-item`, {
+            className={classNames(`${panelClassName}-body-scroll-item`, {
               [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col, el),
               [`${classPrefix}-is-current`]: isCurrent(col, el),
             })}
@@ -274,9 +274,9 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   }
 
   return (
-    <div className={`${panelClassName}__body`}>
+    <div className={`${panelClassName}-body`}>
       {/* render mask */}
-      <div className={`${panelClassName}__body-active-mask`} ref={maskRef}>
+      <div className={`${panelClassName}-body-active-mask`} ref={maskRef}>
         {cols.map((col, idx) => (
           <div key={`${col}_${idx}`} />
         ))}

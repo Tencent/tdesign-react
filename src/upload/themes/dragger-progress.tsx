@@ -54,8 +54,8 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
           {file?.status !== 'success' && renderUploading()}
           {file?.status === 'success' && <CheckCircleFilledIcon />}
         </div>
-        <small className={`${classPrefix}-upload__small`}>文件大小：{returnFileSize(file?.size)}</small>
-        <small className={`${classPrefix}-upload__small`}>上传日期：{getCurrentDate()}</small>
+        <small className={`${classPrefix}-size-s`}>文件大小：{returnFileSize(file?.size)}</small>
+        <small className={`${classPrefix}-size-s`}>上传日期：{getCurrentDate()}</small>
         {!['success', 'fail'].includes(file?.status) && (
           <div className={`${classPrefix}-upload__dragger-btns`}>
             <Button

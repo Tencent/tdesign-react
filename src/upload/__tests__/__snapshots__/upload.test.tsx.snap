@@ -48,7 +48,7 @@ exports[`base.jsx 1`] = `
         </div>
       </div>
       <small
-        class="t-upload__tips t-upload__small"
+        class="t-upload__tips t-size-s"
       >
         上传文件大小在 5M 以内
       </small>
@@ -77,7 +77,7 @@ exports[`draggable.jsx 1`] = `
       <br />
     </div>
     <div
-      class="t-radio-group t-radio-group-medium t-radio-group-outline"
+      class="t-radio-group t-size-m t-radio-group__outline"
     >
       <label
         class="t-radio t-is-checked"
@@ -134,7 +134,7 @@ exports[`draggable.jsx 1`] = `
         >
           <div>
             <span
-              class="t-upload__highlight"
+              class="t-upload--highlight"
             >
               点击上传
             </span>
@@ -162,13 +162,13 @@ exports[`image.jsx 1`] = `
           type="file"
         />
         <ul
-          class="t-upload-card"
+          class="t-upload__card"
         >
           <li
-            class="t-upload-card__item t-is--background"
+            class="t-upload__card-item t-is--background"
           >
             <div
-              class="t-upload-card-container t-upload-card__box"
+              class="t-upload__card-container t-upload__card-box"
             >
               <svg
                 class="t-icon t-icon-add"
@@ -184,7 +184,7 @@ exports[`image.jsx 1`] = `
                 />
               </svg>
               <p
-                class="t-upload__small"
+                class="t-size-s"
               >
                 点击上传图片
               </p>
@@ -192,7 +192,7 @@ exports[`image.jsx 1`] = `
           </li>
         </ul>
         <small
-          class="t-upload__tips t-upload__small"
+          class="t-upload__tips t-size-s"
         >
           请选择单张图片文件上传
         </small>
@@ -210,23 +210,23 @@ exports[`image.jsx 1`] = `
           type="file"
         />
         <ul
-          class="t-upload-card"
+          class="t-upload__card"
         >
           <li
-            class="t-upload-card__item t-is--background"
+            class="t-upload__card-item t-is--background"
           >
             <div
-              class="t-upload-card__content t-upload-card__box"
+              class="t-upload__card-content t-upload__card-box"
             >
               <img
-                class="t-upload-card__image"
+                class="t-upload__card-image"
                 src="http://0729iwiki-75822.gzc.vod.tencent-cloud.com/u=1595072465,3644073269&fm=193&f=GIF.jpeg"
               />
               <div
-                class="t-upload-card__mask"
+                class="t-upload__card-mask"
               >
                 <span
-                  class="t-upload-card__mask__item"
+                  class="t-upload__card-mask-item"
                 >
                   <svg
                     class="t-icon t-icon-browse"
@@ -248,10 +248,10 @@ exports[`image.jsx 1`] = `
                   </svg>
                 </span>
                 <span
-                  class="t-upload-card__mask__item-divider"
+                  class="t-upload__card-mask-item-divider"
                 />
                 <span
-                  class="t-upload-card__mask__item"
+                  class="t-upload__card-mask-item"
                 >
                   <svg
                     class="t-icon t-icon-delete"
@@ -277,7 +277,7 @@ exports[`image.jsx 1`] = `
           </li>
         </ul>
         <small
-          class="t-upload__tips t-upload__small"
+          class="t-upload__tips t-size-s"
         >
           默认已上传文件
         </small>
@@ -296,13 +296,13 @@ exports[`image.jsx 1`] = `
           type="file"
         />
         <ul
-          class="t-upload-card"
+          class="t-upload__card"
         >
           <li
-            class="t-upload-card__item t-is--background"
+            class="t-upload__card-item t-is--background"
           >
             <div
-              class="t-upload-card-container t-upload-card__box"
+              class="t-upload__card-container t-upload__card-box"
             >
               <svg
                 class="t-icon t-icon-add"
@@ -318,7 +318,7 @@ exports[`image.jsx 1`] = `
                 />
               </svg>
               <p
-                class="t-upload__small"
+                class="t-size-s"
               >
                 点击上传图片
               </p>
@@ -326,7 +326,7 @@ exports[`image.jsx 1`] = `
           </li>
         </ul>
         <small
-          class="t-upload__tips t-upload__small"
+          class="t-upload__tips t-size-s"
         >
           允许选择多张图片文件上传，最多只能上传 3 张图片
         </small>

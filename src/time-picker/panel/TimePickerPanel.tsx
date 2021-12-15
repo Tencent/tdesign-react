@@ -26,16 +26,16 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
 
   const TEXT_CONFIG = useTimePickerTextConfig();
 
-  const panelClassName = `${classPrefix}-time-picker-panel`;
+  const panelClassName = `${classPrefix}-time-picker__panel`;
   const showNowTimeBtn = !!steps.filter((v) => v > 1).length;
 
   return (
     <div className={panelClassName}>
-      <div className={`${panelClassName}-section__body`}>
+      <div className={`${panelClassName}-section-body`}>
         <SinglePanel {...props} format={format} steps={steps} value={value} />
       </div>
       {isFooterDisplay ? (
-        <div className={`${panelClassName}-section__footer`}>
+        <div className={`${panelClassName}-section-footer`}>
           <Button theme="primary" variant="base" onClick={handleConfirmClick}>
             {TEXT_CONFIG.confirm}
           </Button>

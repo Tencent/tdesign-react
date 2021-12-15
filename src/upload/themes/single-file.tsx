@@ -51,12 +51,12 @@ const SingleFile: FC<SingleFileProps> = (props) => {
   const renderFilePreviewAsText = useCallback(() => {
     if (!inputName) return;
     return (
-      <div className={`${classPrefix}-upload__single-display-text ${classPrefix}-display-text--margin`}>
+      <div className={`${classPrefix}-upload__single-display-text ${classPrefix}-upload__display-text--margin`}>
         <span className={`${classPrefix}-upload__single-name`}>{inputName}</span>
         {showProgress ? (
           renderProgress()
         ) : (
-          <CloseCircleFilledIcon className={`${classPrefix}-upload-icon-delete`} onClick={handleRemove} />
+          <CloseCircleFilledIcon className={`${classPrefix}-upload__icon-delete`} onClick={handleRemove} />
         )}
       </div>
     );
