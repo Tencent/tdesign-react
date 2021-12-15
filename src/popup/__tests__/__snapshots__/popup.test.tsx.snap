@@ -1,6 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attach.jsx 1`] = `
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup-reference"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        Hover me
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`container.jsx 1`] = `
 <DocumentFragment>
   <div
     class="tdesign-demo-block-row"
@@ -33,44 +52,6 @@ exports[`attach.jsx 1`] = `
         </span>
       </button>
     </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`base.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-popup-reference"
-  >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        Hover me
-      </span>
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`controlled.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-popup-reference"
-  >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        一直显示
-      </span>
-    </button>
   </div>
 </DocumentFragment>
 `;
@@ -113,44 +94,7 @@ exports[`disabled.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`overlay-style.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-row"
-  >
-    <div
-      class="t-popup-reference"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          click我试试
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-popup-reference"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          根据 trigger 元素定制 overlayStyle
-        </span>
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`placements.jsx 1`] = `
+exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <div
     style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
@@ -339,7 +283,44 @@ exports[`placements.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`triggers.jsx 1`] = `
+exports[`style.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          click我试试
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          根据 trigger 元素定制 overlayStyle
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`trigger.jsx 1`] = `
 <DocumentFragment>
   <div
     class="tdesign-demo-block-row"
@@ -400,6 +381,62 @@ exports[`triggers.jsx 1`] = `
         </span>
       </button>
     </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`trigger-element.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          默认子节点元素触发
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-popup-reference"
+    >
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          使用 triggerElement 元素触发
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`visible.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup-reference"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        一直显示
+      </span>
+    </button>
   </div>
 </DocumentFragment>
 `;
