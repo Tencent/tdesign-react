@@ -27,7 +27,7 @@ export default function PrimaryTable(props: PrimaryTableProps) {
       {...props}
       columns={mergeColumns}
       data={mergedData}
-      onTrClick={handleExpandChange}
+      handleExpandChange={handleExpandChange}
       renderExpandRow={renderExpandRow}
     />
   );
