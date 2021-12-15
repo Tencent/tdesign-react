@@ -14,6 +14,7 @@ export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   rowSpan?: number;
   colSpan?: number;
   customRender: Function;
+  isFirstChildTdSetBorderWidth?: Boolean;
 }
 
 const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) => {
@@ -33,6 +34,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     className,
     rowSpan,
     colSpan,
+    isFirstChildTdSetBorderWidth,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -69,15 +71,15 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     cellStyle.position = 'sticky';
     cellStyle[fixed] = offset;
   }
-  if (width) {
-    style.overflow = 'hidden';
+  if (width && !fixed) {
+    cellStyle.overflow = 'hidden';
+  }
+  if (isFirstChildTdSetBorderWidth) {
+    cellStyle.borderWidth = 1;
   }
 
-  // 样式依靠 td，之后实现请改为 th
-  // const Component = type === 'title' ? 'td' : 'td'; // codecc error
-  const Component = 'td';
   return (
-    <Component
+    <td
       ref={ref}
       style={cellStyle}
       className={classnames({
@@ -91,7 +93,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
       colSpan={colSpan}
     >
       {cellNode}
-    </Component>
+    </td>
   );
 };
 

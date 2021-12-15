@@ -42,11 +42,10 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   } = props;
   const { flattenColumns } = useTableContext();
   const flattenColumnsLength = flattenColumns?.length;
-
   const baseRow = flattenColumns.map((column, colIndex) => {
     const { colKey, cell, render, ...restColumnProps } = column;
 
-    const { isSkipRenderTd, rowSpan, colSpan } = getRowSpanAndColSpanAndIsSkipRenderTd({
+    const { isSkipRenderTd, rowSpan, colSpan, isFirstChildTdSetBorderWidth } = getRowSpanAndColSpanAndIsSkipRenderTd({
       isRowspanAndColspanFn,
       rowspanAndColspan,
       rowSkipTdSpanColIndexsMap,
@@ -74,6 +73,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
         customRender={customRender}
         rowSpan={rowSpan}
         colSpan={colSpan}
+        isFirstChildTdSetBorderWidth={isFirstChildTdSetBorderWidth}
         {...restColumnProps}
       />
     );
@@ -109,10 +109,12 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     rowSpan: number | undefined;
     colSpan: number | undefined;
     isSkipRenderTd: boolean;
+    isFirstChildTdSetBorderWidth: boolean;
   } {
     let rowSpan;
     let colSpan;
     let isSkipRenderTd = false;
+    let isFirstChildTdSetBorderWidth = false;
 
     if (isRowspanAndColspanFn) {
       const rowspanAndColspanValue: RowspanColspan = rowspanAndColspan({
@@ -158,12 +160,14 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
         }
       }
       isSkipRenderTd = rowSkipTdSpanColIndexsMap[rowIndex]?.includes(colIndex);
+      isFirstChildTdSetBorderWidth = getIsFirstChildTdSetBorderWidth({ rowSkipTdSpanColIndexsMap, rowIndex });
     }
 
     return {
       rowSpan,
       colSpan,
       isSkipRenderTd,
+      isFirstChildTdSetBorderWidth,
     };
   }
 
@@ -178,6 +182,20 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     });
 
     return rowSkipTdSpanColIndexs;
+  }
+
+  /**
+   * 行的第一列td css设置borderWidth为0（其余列默认为1）上一行第一列存在跨行时，需补回该borderWidth为1
+   */
+  function getIsFirstChildTdSetBorderWidth({ rowSkipTdSpanColIndexsMap, rowIndex }) {
+    if (rowIndex > 0) {
+      const rowSkipTdSpanColIndexs = rowSkipTdSpanColIndexsMap?.[rowIndex];
+      // 简化条件判断：rowSkipTdSpanColIndexs对应第一列td不渲染时，说明上一行存在跨行，当前行所有列borderWidth都设为1
+      if (rowSkipTdSpanColIndexs && rowSkipTdSpanColIndexs[0] === 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   function getExpandOnClickEvent() {
