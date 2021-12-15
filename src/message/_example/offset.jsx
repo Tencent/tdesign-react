@@ -1,6 +1,58 @@
 import React, { useState } from "react";
 import { Button, MessagePlugin, Input } from "tdesign-react";
 
+const placementStyle = {
+  position: 'relative',
+  margin: '0 auto',
+  width: '500px',
+  height: '260px',
+};
+const placementCenterStyle = {
+  position: 'absolute',
+  right: '42%',
+  bottom: '42%',
+};
+const placementTopStyle = {
+  position: 'absolute',
+  top: '0',
+  left: '42%',
+};
+const placementTopLeftStyle = {
+  position: 'absolute',
+  top: '0',
+  left: '70px',
+};
+const placementTopRightStyle = {
+  position: 'absolute',
+  top: '0',
+  right: '70px',
+};
+const placementBottomStyle = {
+  position: 'absolute',
+  bottom: '0',
+  left: '42%',
+};
+const placementBottomLeftStyle = {
+  position: 'absolute',
+  bottom: '0',
+  left: '70px',
+};
+const placementBottomRightStyle = {
+  position: 'absolute',
+  bottom: '0',
+  right: '70px',
+};
+const placementLeftStyle = {
+  position: 'absolute',
+  left: '0',
+  top: '42%',
+};
+const placementRightStyle = {
+  position: 'absolute',
+  right: '0',
+  top: '42%',
+};
+
 export default function () {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
