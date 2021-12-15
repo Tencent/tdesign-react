@@ -19,14 +19,13 @@ import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
 
-export interface ExpandProps {
-  onTrClick?: Function;
+export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData>;
+export interface ExpandInnerProps {
+  handleExpandChange?: Function;
   renderExpandRow?: Function;
 }
 
-export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData>;
-
-export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandProps) {
+export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandInnerProps) {
   const { classPrefix } = useConfig();
 
   const {
@@ -43,8 +42,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     data = [],
     pagination,
     onPageChange,
-    onTrClick,
-    renderExpandRow,
     onScrollX,
     onScrollY,
     asyncLoading,
@@ -142,14 +139,14 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
           <TableEmptyBody empty={null} />
         </TableFooter>
       ) : (
-        <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
+        <TableBody {...props} data={pageData} />
       );
     }
     // eslint-disable-next-line
     if (!!asyncLoading) {
       return (
         <>
-          <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />
+          <TableBody {...props} data={pageData} />
           <TableFooter colspan={columns.length}>
             <TableAsyncLoadingBody {...props} />
           </TableFooter>
@@ -164,7 +161,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       );
     }
 
-    return <TableBody {...props} data={pageData} onTrClick={onTrClick} renderExpandRow={renderExpandRow} />;
+    return <TableBody {...props} data={pageData} />;
   }
 
   let paginationNode: ReactNode;
