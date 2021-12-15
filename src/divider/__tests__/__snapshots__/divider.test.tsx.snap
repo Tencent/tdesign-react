@@ -29,7 +29,7 @@ exports[`text.jsx 1`] = `
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-left"
   >
     <span
-      class="t-divider-inner-text"
+      class="t-divider__inner-text"
     >
       TDesign
     </span>
@@ -41,7 +41,7 @@ exports[`text.jsx 1`] = `
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-center"
   >
     <span
-      class="t-divider-inner-text"
+      class="t-divider__inner-text"
     >
       TDesign
     </span>
@@ -53,7 +53,7 @@ exports[`text.jsx 1`] = `
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-right"
   >
     <span
-      class="t-divider-inner-text"
+      class="t-divider__inner-text"
     >
       TDesign
     </span>

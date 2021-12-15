@@ -27,7 +27,7 @@ exports[`activable.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -60,7 +60,7 @@ exports[`activable.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch"
@@ -93,7 +93,7 @@ exports[`activable.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch"
@@ -113,7 +113,7 @@ exports[`activable.jsx 1`] = `
       </form>
     </div>
     <div
-      class="t-tree t-tree--fx"
+      class="t-tree t-tree--hoverable t-tree--fx"
     >
       暂无数据
     </div>
@@ -162,7 +162,7 @@ exports[`checkable.jsx 1`] = `
             style="margin-left: 100px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -195,7 +195,7 @@ exports[`checkable.jsx 1`] = `
             style="margin-left: 100px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch"
@@ -228,7 +228,7 @@ exports[`checkable.jsx 1`] = `
             style="margin-left: 100px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <div
                 class="t-radio-group t-radio-group-medium t-radio-group-outline"
@@ -395,7 +395,7 @@ exports[`disabled.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -479,7 +479,7 @@ exports[`expand-all.jsx 1`] = `
             style="margin-left: 150px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch"
@@ -512,7 +512,7 @@ exports[`expand-all.jsx 1`] = `
             style="margin-left: 150px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -545,7 +545,7 @@ exports[`expand-all.jsx 1`] = `
             style="margin-left: 150px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -614,7 +614,7 @@ exports[`expand-mutex.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -647,7 +647,7 @@ exports[`expand-mutex.jsx 1`] = `
             style="margin-left: 120px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -786,7 +786,7 @@ exports[`line.jsx 1`] = `
             style="margin-left: 100px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -819,7 +819,7 @@ exports[`line.jsx 1`] = `
             style="margin-left: 100px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"
@@ -911,7 +911,7 @@ exports[`operations.jsx 1`] = `
             style="margin-left: 200px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch"
@@ -944,7 +944,7 @@ exports[`operations.jsx 1`] = `
             style="margin-left: 200px;"
           >
             <div
-              class="t-form__controls--content"
+              class="t-form__controls-content"
             >
               <button
                 class="t-switch t-is-checked"

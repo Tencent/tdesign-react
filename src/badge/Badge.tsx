@@ -23,7 +23,7 @@ const Badge: React.FC<BadgeProps> = ({
   const { classPrefix } = useConfig();
 
   const badgeClassName = classNames(
-    !children && `${classPrefix}-badge-static`,
+    !children && `${classPrefix}-badge--static`,
     dot ? `${classPrefix}-badge--dot` : shape && `${classPrefix}-badge--${shape}`,
     size === 'small' && `${classPrefix}-size-s`,
     !children && className,

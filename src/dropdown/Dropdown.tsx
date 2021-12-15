@@ -43,7 +43,7 @@ const Dropdown = (props: DropdownProps) => {
   };
 
   return (
-    <Popup ref={popupRef} {...popupParams}>
+    <Popup ref={popupRef} expandAnimation={true} {...popupParams}>
       {children}
     </Popup>
   );

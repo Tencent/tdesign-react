@@ -27,7 +27,7 @@ exports[`base.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-calendar t-size-m"
+                class="t-icon t-icon-calendar"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -75,7 +75,7 @@ exports[`date-presets-alt.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-calendar t-size-m"
+                class="t-icon t-icon-calendar"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -127,7 +127,7 @@ exports[`date-range.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-calendar t-size-m"
+                class="t-icon t-icon-calendar"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -166,7 +166,7 @@ exports[`date-range.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-time t-size-m"
+                class="t-icon t-icon-time"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -219,7 +219,7 @@ exports[`date-time.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-time t-size-m"
+                class="t-icon t-icon-time"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -275,7 +275,7 @@ exports[`disable-date.jsx 1`] = `
                 class="t-input__suffix"
               >
                 <svg
-                  class="t-icon t-icon-calendar t-size-m"
+                  class="t-icon t-icon-calendar"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -318,7 +318,7 @@ exports[`disable-date.jsx 1`] = `
                 class="t-input__suffix"
               >
                 <svg
-                  class="t-icon t-icon-calendar t-size-m"
+                  class="t-icon t-icon-calendar"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -361,7 +361,7 @@ exports[`disable-date.jsx 1`] = `
                 class="t-input__suffix"
               >
                 <svg
-                  class="t-icon t-icon-calendar t-size-m"
+                  class="t-icon t-icon-calendar"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -404,7 +404,7 @@ exports[`disable-date.jsx 1`] = `
                 class="t-input__suffix"
               >
                 <svg
-                  class="t-icon t-icon-calendar t-size-m"
+                  class="t-icon t-icon-calendar"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -447,7 +447,7 @@ exports[`disable-date.jsx 1`] = `
                 class="t-input__suffix"
               >
                 <svg
-                  class="t-icon t-icon-calendar t-size-m"
+                  class="t-icon t-icon-calendar"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -496,7 +496,7 @@ exports[`month.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-calendar t-size-m"
+                class="t-icon t-icon-calendar"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"
@@ -544,7 +544,7 @@ exports[`year.jsx 1`] = `
               class="t-input__suffix"
             >
               <svg
-                class="t-icon t-icon-calendar t-size-m"
+                class="t-icon t-icon-calendar"
                 fill="none"
                 height="1em"
                 viewBox="0 0 16 16"

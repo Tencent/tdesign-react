@@ -8,8 +8,8 @@ export default function NotificationExample() {
       content="这是一条消息通知"
       footer={
         <div className="t-notification__detail">
-          <span className="t-notification__detail--item">重启</span>
-          <span className="t-notification__detail--item t-is-active">查看详情</span>
+          <span className="t-notification__detail-item">重启</span>
+          <span className="t-notification__detail-item t-is-active">查看详情</span>
         </div>
       }
     />

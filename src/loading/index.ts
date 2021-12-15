@@ -5,7 +5,8 @@ import './style/index.js';
 export type { LoadingProps } from './loading';
 export * from './type';
 
-export { loading } from './loading';
+export { LoadingPlugin, loading } from './plugin';
 
 export const Loading = _Loading;
+
 export default Loading;

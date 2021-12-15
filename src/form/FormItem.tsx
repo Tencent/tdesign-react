@@ -266,7 +266,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         </div>
       )}
       <div className={contentClasses} style={contentStyle}>
-        <div className={`${classPrefix}-form__controls--content`}>
+        <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
 

@@ -9,6 +9,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import Popper from '@popperjs/core';
@@ -19,9 +20,13 @@ import composeRefs from '../_util/composeRefs';
 import usePrevious from '../_util/usePrevious';
 import { TdPopupProps } from './type';
 import Portal from './Portal';
-import useTriggerProps from './useTriggerProps';
+import useTriggerProps from './hooks/useTriggerProps';
+import usePopupCssTransition from './hooks/usePopupCssTransition';
 
-export interface PopupProps extends TdPopupProps, StyledProps {}
+export interface PopupProps extends TdPopupProps, StyledProps {
+  // 是否触发展开收起动画，内部下拉式组件使用
+  expandAnimation?: boolean;
+}
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -62,6 +67,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     defaultVisible = false,
     zIndex,
     onVisibleChange,
+    expandAnimation,
   } = props;
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
@@ -70,7 +76,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   // https://popper.js.org/react-popper/v2/faq/
   const [firstUpdate, setFirstUpdate] = useState<boolean>(false);
@@ -127,42 +133,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     ...triggerProps,
   });
 
-  // portal
-  let portal: React.ReactElement = null;
-  // 如果要展示，或者已经渲染过，默认不销毁
-  if (visible || overlayRef) {
-    portal = (
-      <Portal attach={attach}>
-        <div
-          ref={composeRefs(setOverlayRef, ref)}
-          style={styles.popper}
-          className={classNames(
-            `${classPrefix}-popup`,
-            `${classPrefix}-popup_animation-enter-active`,
-            visible ? `${classPrefix}-popup_animation-leave` : `${classPrefix}-popup_animation-leave-to`,
-          )}
-          {...attributes.popper}
-          {...popupProps}
-        >
-          <div
-            className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
-              [`${classPrefix}-popup-content--arrow`]: showArrow,
-            })}
-            style={overlayVisibleStyle}
-            ref={contentRef}
-          >
-            {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
-            {content}
-          </div>
-        </div>
-      </Portal>
-    );
-  }
-
-  // 强制销毁
-  if (!visible && destroyOnClose) {
-    portal = null;
-  }
+  const cssTransitionState = usePopupCssTransition({ contentRef, classPrefix, expandAnimation });
 
   // 弹出框展示的时候，重新计算一下位置
   useEffect(() => {
@@ -177,6 +148,33 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     window.addEventListener('mousemove', update);
     window.addEventListener('mouseup', removeUpdate);
   };
+
+  // 初次不渲染.
+  const portal =
+    visible || overlayRef ? (
+      <Portal attach={attach}>
+        <CSSTransition in={visible} appear={true} unmountOnExit={destroyOnClose} {...cssTransitionState.props}>
+          <div
+            ref={composeRefs(setOverlayRef, ref)}
+            style={styles.popper}
+            className={`${classPrefix}-popup`}
+            {...attributes.popper}
+            {...popupProps}
+          >
+            <div
+              className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
+                [`${classPrefix}-popup-content--arrow`]: showArrow,
+              })}
+              style={overlayVisibleStyle}
+              ref={contentRef}
+            >
+              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+              {content}
+            </div>
+          </div>
+        </CSSTransition>
+      </Portal>
+    ) : null;
 
   return (
     <div

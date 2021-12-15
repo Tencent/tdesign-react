@@ -373,8 +373,8 @@ const Select = forwardRefWithStatics(
             width: width ? `${width}px` : 'none',
           }}
           overlayClassName={classNames(className, `${name}-dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
-          destroyOnClose
           className={`${name}-popup-reference`}
+          expandAnimation={true}
           {...popupProps}
           ref={overlayRef}
         >

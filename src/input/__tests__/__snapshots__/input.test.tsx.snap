@@ -178,7 +178,7 @@ exports[`password.jsx 1`] = `
         class="t-input__prefix"
       >
         <svg
-          class="t-icon t-icon-lock-on t-size-m"
+          class="t-icon t-icon-lock-on"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -206,7 +206,7 @@ exports[`password.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-error-circle-filled t-size-m"
+          class="t-icon t-icon-error-circle-filled"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -227,7 +227,7 @@ exports[`password.jsx 1`] = `
         class="t-input__prefix"
       >
         <svg
-          class="t-icon t-icon-lock-on t-size-m"
+          class="t-icon t-icon-lock-on"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -255,7 +255,7 @@ exports[`password.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-error-circle-filled t-size-m"
+          class="t-icon t-icon-error-circle-filled"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -348,7 +348,7 @@ exports[`textarea.jsx 1`] = `
         class="t-input__prefix"
       >
         <svg
-          class="t-icon t-icon-search t-size-m"
+          class="t-icon t-icon-search"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"
@@ -370,7 +370,7 @@ exports[`textarea.jsx 1`] = `
         class="t-input__suffix"
       >
         <svg
-          class="t-icon t-icon-error-circle-filled t-size-m"
+          class="t-icon t-icon-error-circle-filled"
           fill="none"
           height="1em"
           viewBox="0 0 16 16"

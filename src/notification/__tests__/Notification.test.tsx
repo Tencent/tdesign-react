@@ -28,7 +28,7 @@ describe('Notification test', () => {
         closeBtn={<div data-testid={closeBtnId}>{closeBtnText}</div>}
         footer={
           <div data-testid={footerId} className="t-notification__detail">
-            <span className="t-notification__detail--item">确定</span>
+            <span className="t-notification__detail-item">确定</span>
           </div>
         }
       />,

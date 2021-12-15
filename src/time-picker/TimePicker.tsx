@@ -88,6 +88,7 @@ const TimePicker = forwardRefWithStatics(
         overlayClassName={classNames(`${name}-panel__container`)}
         placement="bottom-left"
         trigger="click"
+        expandAnimation={true}
       >
         {/* TODO active与date picker保持一致 */}
         <div className={classNames(name, className)} ref={ref} style={style}>

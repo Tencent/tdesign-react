@@ -83,7 +83,7 @@ exports[`align.jsx 1`] = `
           style="margin-left: 80px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -112,7 +112,7 @@ exports[`align.jsx 1`] = `
           style="margin-left: 80px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -151,7 +151,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <div
             class="t-input"
@@ -180,7 +180,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <div
             class="t-date-picker t-size-m"
@@ -204,7 +204,7 @@ exports[`base.jsx 1`] = `
                     class="t-input__suffix"
                   >
                     <svg
-                      class="t-icon t-icon-calendar t-size-m"
+                      class="t-icon t-icon-calendar"
                       fill="none"
                       height="1em"
                       viewBox="0 0 16 16"
@@ -240,7 +240,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <div
             class="t-radio-group t-radio-group-medium t-radio-group-outline"
@@ -301,7 +301,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <div
             class="t-checkbox-group"
@@ -382,7 +382,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <button
             class="t-switch"
@@ -407,7 +407,7 @@ exports[`base.jsx 1`] = `
         style="margin-left: 100px;"
       >
         <div
-          class="t-form__controls--content"
+          class="t-form__controls-content"
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
@@ -460,7 +460,7 @@ exports[`custom-validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -489,7 +489,7 @@ exports[`custom-validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -518,7 +518,7 @@ exports[`custom-validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -539,7 +539,7 @@ exports[`custom-validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
@@ -638,7 +638,7 @@ exports[`layout.jsx 1`] = `
           class="t-form__controls"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -666,7 +666,7 @@ exports[`layout.jsx 1`] = `
           class="t-form__controls"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -699,7 +699,7 @@ exports[`login.jsx 1`] = `
           class="t-form__controls"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input t-input--prefix"
@@ -708,7 +708,7 @@ exports[`login.jsx 1`] = `
                 class="t-input__prefix"
               >
                 <svg
-                  class="t-icon t-icon-desktop t-size-m"
+                  class="t-icon t-icon-desktop"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -737,7 +737,7 @@ exports[`login.jsx 1`] = `
           class="t-form__controls"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input t-input--prefix"
@@ -746,7 +746,7 @@ exports[`login.jsx 1`] = `
                 class="t-input__prefix"
               >
                 <svg
-                  class="t-icon t-icon-lock-on t-size-m"
+                  class="t-icon t-icon-lock-on"
                   fill="none"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -781,7 +781,7 @@ exports[`login.jsx 1`] = `
           class="t-form__controls"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
@@ -824,7 +824,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -858,7 +858,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -892,7 +892,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -921,7 +921,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-radio-group t-radio-group-medium t-radio-group-outline"
@@ -982,7 +982,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-checkbox-group"
@@ -1079,7 +1079,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1108,7 +1108,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1129,7 +1129,7 @@ exports[`validator.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
@@ -1183,7 +1183,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1217,7 +1217,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1246,7 +1246,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1275,7 +1275,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1305,7 +1305,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1334,7 +1334,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1383,7 +1383,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1441,7 +1441,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <div
               class="t-input"
@@ -1491,7 +1491,7 @@ exports[`validator-status.jsx 1`] = `
           style="margin-left: 100px;"
         >
           <div
-            class="t-form__controls--content"
+            class="t-form__controls-content"
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"

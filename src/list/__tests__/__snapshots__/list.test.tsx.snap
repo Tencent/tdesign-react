@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="t-list t-list--split"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
@@ -55,7 +55,7 @@ exports[`image-text.jsx 1`] = `
     class="t-list t-list--split t-size-s"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
@@ -180,7 +180,7 @@ exports[`multiline.jsx 1`] = `
     class="t-list t-list--split"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
@@ -300,7 +300,7 @@ exports[`multiline.jsx 1`] = `
     >
       <div>
         <div
-          class="t-loading t-size-m"
+          class="t-loading t-loading--center t-size-m"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -337,7 +337,7 @@ exports[`operation.jsx 1`] = `
     class="t-list t-list--split"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
@@ -459,7 +459,7 @@ exports[`scroll.jsx 1`] = `
     style="height: 150px; overflow: auto;"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
@@ -590,7 +590,7 @@ exports[`size.jsx 1`] = `
       class="t-list t-list--split t-size-s"
     >
       <ul
-        class="t-list-items"
+        class="t-list__inner"
       >
         <li
           class="t-list-item"
@@ -639,7 +639,7 @@ exports[`size.jsx 1`] = `
       class="t-list t-list--split"
     >
       <ul
-        class="t-list-items"
+        class="t-list__inner"
       >
         <li
           class="t-list-item"
@@ -688,7 +688,7 @@ exports[`size.jsx 1`] = `
       class="t-list t-list--split t-size-l"
     >
       <ul
-        class="t-list-items"
+        class="t-list__inner"
       >
         <li
           class="t-list-item"
@@ -738,7 +738,7 @@ exports[`stripe.jsx 1`] = `
     class="t-list t-list--stripe"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Message, Button } from 'tdesign-react';
+import { MessagePlugin, Button } from 'tdesign-react';
 
 export default function () {
   const [instance, setInstance] = useState(null);
@@ -11,10 +11,10 @@ export default function () {
       <Button
         onClick={() => {
           if (isMessageOpen) {
-            const ins = Message.info('调用关闭函数关闭信息提示框', 0);
+            const ins = MessagePlugin.info('调用关闭函数关闭信息提示框', 0);
             setInstance(ins);
           } else {
-            Message.close(instance);
+            MessagePlugin.close(instance);
             setInstance(null);
           }
         }}
