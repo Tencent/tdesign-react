@@ -44,7 +44,7 @@ describe('Badge 组件测试', () => {
     ).toHaveClass('t-badge--circle', 't-size-s');
 
     // not a wrapper
-    expect(renderBadge(<Badge count={1} />)).toHaveClass('t-badge-static', 't-badge--circle');
+    expect(renderBadge(<Badge count={1} />)).toHaveClass('t-badge--static', 't-badge--circle');
   });
 
   test('content', async () => {

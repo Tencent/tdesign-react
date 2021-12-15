@@ -88,7 +88,7 @@ const List = forwardRefWithStatics(
         })}
       >
         {header}
-        <ul className={`${classPrefix}-list-items`}>{children}</ul>
+        <ul className={`${classPrefix}-list__inner`}>{children}</ul>
         {loadElement}
         {footer}
       </div>

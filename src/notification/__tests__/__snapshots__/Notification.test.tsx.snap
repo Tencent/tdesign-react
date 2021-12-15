@@ -152,12 +152,12 @@ exports[`footer.jsx 1`] = `
           class="t-notification__detail"
         >
           <span
-            class="t-notification__detail--item"
+            class="t-notification__detail-item"
           >
             重启
           </span>
           <span
-            class="t-notification__detail--item t-is-active"
+            class="t-notification__detail-item t-is-active"
           >
             查看详情
           </span>

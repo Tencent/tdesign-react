@@ -74,75 +74,75 @@ exports[`color.jsx 1`] = `
   </label>
   <div>
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(244, 67, 54);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(233, 30, 99);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(156, 39, 176);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(63, 81, 181);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(33, 150, 243);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(3, 169, 244);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(0, 188, 212);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(0, 150, 136);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(76, 175, 80);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(139, 195, 74);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(205, 220, 57);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(255, 235, 59);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(255, 193, 7);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(255, 152, 0);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(255, 87, 34);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(121, 85, 72);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(158, 158, 158);"
     />
     <span
-      class="t-badge-static t-badge--dot"
+      class="t-badge--static t-badge--dot"
       style="background-color: rgb(96, 125, 139);"
     />
   </div>

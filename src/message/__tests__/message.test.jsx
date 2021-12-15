@@ -30,7 +30,7 @@ describe('Message Component props test', () => {
       expect(getByText(defaultMessage)).toBeInTheDocument();
       expect(container.firstChild).toHaveClass('t-message');
       expect(container.firstChild).toHaveClass('t-is-info');
-      expect(container.firstChild).not.toHaveClass('t-message-close');
+      expect(container.firstChild).not.toHaveClass('t-message__close');
       expect(container).toMatchSnapshot();
       expect(() => {
         unmount();
@@ -51,21 +51,21 @@ describe('Message Component props test', () => {
     it(':closeBtn is true, render default close button.', () => {
       const { container } = render(<Message closeBtn={true}>{defaultMessage}</Message>);
       expect(container.firstChild).toHaveClass('t-is-closable');
-      expect(container.getElementsByClassName('t-message-close').length).toBe(1);
+      expect(container.getElementsByClassName('t-message__close').length).toBe(1);
       expect(container).toMatchSnapshot();
     });
 
     it(':closeBtn is a tring, equal "关闭".', () => {
       const closeBtnTxt = '关闭';
       const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);
-      expect(container.getElementsByClassName('t-message-close').length).toBe(1);
+      expect(container.getElementsByClassName('t-message__close').length).toBe(1);
       expect(getByText(closeBtnTxt).textContent).toBe(closeBtnTxt);
       expect(container).toMatchSnapshot();
     });
 
     it(':closeBtn is a function, () => VNode.', () => {
       const { container, getByText } = render(<Message closeBtn={() => <b>x</b>}>{defaultMessage}</Message>);
-      expect(container.getElementsByClassName('t-message-close').length).toBe(1);
+      expect(container.getElementsByClassName('t-message__close').length).toBe(1);
       expect(getByText('x')).toBeInTheDocument();
       expect(container).toMatchSnapshot();
     });

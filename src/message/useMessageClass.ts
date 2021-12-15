@@ -10,9 +10,9 @@ export function useMessageClass() {
   // message 样式前缀
   const tdMessagePrefix = `${classPrefix}-message`;
   // message list(message 内容区的样式名)
-  const tdMessageListClass = `${tdMessagePrefix}-list`;
+  const tdMessageListClass = `${tdMessagePrefix}__list`;
   const tdClassIsGenerator = (append: string) => `${classPrefix}-is-${append}`;
-  const tdMessageClassGenerator = (append: string) => `${tdMessagePrefix}-${append}`;
+  const tdMessageClassGenerator = (append: string) => `${tdMessagePrefix}__${append}`;
 
   return {
     tdMessagePrefix,

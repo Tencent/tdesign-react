@@ -242,7 +242,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           key="mask"
           nodeRef={maskRef}
         >
-          <div key="mask" onClick={onMaskClick} className={`${prefixCls}-mask`} />
+          <div key="mask" onClick={onMaskClick} className={`${prefixCls}__mask`} />
         </CSSTransition>
       );
     }
@@ -260,7 +260,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
-    const wrapClass = classnames(props.className, `${prefixCls}-ctx`, `${prefixCls}-ctx--fixed`);
+    const wrapClass = classnames(props.className, `${prefixCls}__ctx`, `${prefixCls}__ctx--fixed`);
     const dialog = (
       <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
         {mode === 'modal' && renderMask()}

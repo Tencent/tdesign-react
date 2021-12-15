@@ -65,7 +65,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions) 
   }
 
   // :todo 暂时写死，需要 pmc 确定如何在非组件中拿到动态配置的样式前缀
-  const tdMessageListClass = 't-message-list';
+  const tdMessageListClass = 't-message__list';
   const tdMessagePlacementClass = `t-message-placement--${placement}`;
 
   // 选择器找到一个挂载 message 的容器，不存在则创建

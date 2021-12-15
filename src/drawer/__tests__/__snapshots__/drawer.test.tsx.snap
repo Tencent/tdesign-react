@@ -649,7 +649,7 @@ exports[`operation.jsx 1`] = `
                   style="margin-left: 60px;"
                 >
                   <div
-                    class="t-form__controls--content"
+                    class="t-form__controls-content"
                   >
                     <div
                       class="t-input"
@@ -678,7 +678,7 @@ exports[`operation.jsx 1`] = `
                   style="margin-left: 60px;"
                 >
                   <div
-                    class="t-form__controls--content"
+                    class="t-form__controls-content"
                   >
                     <div
                       class="t-input"

@@ -51,7 +51,7 @@ exports[`list.jsx 1`] = `
     class="t-list t-list--split"
   >
     <ul
-      class="t-list-items"
+      class="t-list__inner"
     >
       <li
         class="t-list-item"
