@@ -8,9 +8,6 @@ import pwaConfig from './pwaConfig';
 
 export default {
   base: process.env.NODE_ENV === 'production' ? '/react/' : './',
-  define: {
-    __VERSION__: JSON.stringify('12.3.5'),
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../'),

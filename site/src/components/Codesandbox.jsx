@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Tooltip from 'tdesign-react/tooltip';
 import Loading from 'tdesign-react/loading';
+
+import pkg from '@/package.json';
 import packageJSON from './codesandbox/package.json';
 import mainJsContent from './codesandbox/main.js?raw';
 import styleContent from './codesandbox/index.css';
 import '../styles/Codesandbox.less';
 
-packageJSON.dependencies['tdesign-react'] = __VERSION__;
-packageJSON.dependencies['tdesign-icons-react'] = '0.0.6';
+packageJSON.dependencies['tdesign-react'] = pkg.version;
+packageJSON.dependencies['tdesign-icons-react'] = pkg.dependencies['tdesign-icons-react'];
 
 const packageJSONContent = JSON.stringify(packageJSON, null, 2);
 
