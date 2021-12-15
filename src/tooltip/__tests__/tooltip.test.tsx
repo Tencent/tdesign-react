@@ -44,6 +44,6 @@ describe('Tooltip 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(tooltipTestId));
     expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement.parentElement).toHaveClass('t-popup_animation-leave-to');
+    expect(popupElement3.parentElement).toHaveClass('t-popup_animation-leave-to');
   });
 });
