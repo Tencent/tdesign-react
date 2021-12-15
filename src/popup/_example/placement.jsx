@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Popup } from 'tdesign-react';
 import styles from './placementStyle';
-export default function Placements() {
+
+export default function Placement() {
   return (
     <div style={styles.container}>
       <Popup content="这是Popup内容" placement="top" showArrow destroyOnClose>
