@@ -19,7 +19,7 @@
 ## 开发
 
 ```bash
-git clone https://github.com/TDesignOteam/tdesign-react.git
+git clone https://github.com/Tencent/tdesign-react.git
 cd tdesign-react
 git submodule init
 git submodule update
