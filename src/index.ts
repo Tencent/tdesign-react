@@ -45,3 +45,4 @@ export * from './upload';
 export * from './swiper';
 export * from './comment';
 export * from './transfer';
+export * from './avatar';
