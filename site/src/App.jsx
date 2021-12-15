@@ -87,6 +87,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Redirect exact from="/" to="/react/components/overview" />
         <Redirect exact from="/react" to="/react/components/overview" />
         <Redirect exact from="/react/components" to="/react/components/overview" />
         <Route path="/react/components/*" component={Components} />
