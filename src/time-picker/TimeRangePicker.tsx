@@ -75,6 +75,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
       visible={isPanelShowed}
       onVisibleChange={handleShowPopup}
       trigger="click"
+      expandAnimation={true}
     >
       <div className={classNames(name, className)} style={style}>
         <Input

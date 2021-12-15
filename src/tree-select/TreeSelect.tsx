@@ -278,6 +278,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         overlayStyle={popupObject.overlayStyle}
         overlayClassName={popupClassName}
         onVisibleChange={popupVisibleChange}
+        expandAnimation={true}
         content={
           <>
             {loadingTip}
