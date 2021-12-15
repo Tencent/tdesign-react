@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tooltip, Loading } from 'tdesign-react';
+import Tooltip from 'tdesign-react/tooltip';
+import Loading from 'tdesign-react/loading';
 import packageJSON from './codesandbox/package.json';
 import mainJsContent from './codesandbox/main.js?raw';
 import styleContent from './codesandbox/index.css';
