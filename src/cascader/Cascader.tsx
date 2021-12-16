@@ -16,7 +16,8 @@ import { getTreeValue } from './utils/helper';
 import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
 
 // types
-import { CascaderProps, CascaderContextType, TreeNodeValue } from './interface';
+import { CascaderProps, CascaderContextType, TreeNodeValue, TreeNodeModel } from './interface';
+import { CascaderChangeSource, CascaderValue } from './type';
 
 const Cascader: React.FC<CascaderProps> = (props) => {
   /**
@@ -32,6 +33,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const [treeStore, setTreeStore] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [inputVal, setInputVal] = useState('');
+  const [inputWidth, setInputWidth] = useState(0);
   const [treeNodes, setTreeNodes] = useState([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
 
@@ -58,7 +60,12 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       multiple,
       filterable,
       value,
-      setValue,
+      setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => {
+        setValue(val, {
+          source,
+          node,
+        });
+      },
       visible,
       setVisible,
       treeStore,
@@ -74,8 +81,10 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       setInputVal,
       setExpend,
       minCollapsedNum,
+      inputWidth,
+      setInputWidth,
     } as CascaderContextType;
-  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive]);
+  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive, inputWidth, setInputWidth]);
 
   /**
    * build tree

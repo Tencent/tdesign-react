@@ -1,8 +1,8 @@
-import { TdCascaderProps, CascaderValue } from './type';
+import { TdCascaderProps, CascaderValue, CascaderChangeSource } from './type';
 import { StyledProps } from '../common';
 import TreeStore from '../_common/js/tree/tree-store';
 import TreeNode from '../_common/js/tree/tree-node';
-import { TreeNodeValue } from '../_common/js/tree/types';
+import { TreeNodeModel, TreeNodeValue } from '../_common/js/tree/types';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
@@ -19,11 +19,14 @@ export interface CascaderContextType
     | 'checkProps'
     | 'showAllLevels'
     | 'max'
-    | 'minCollapsedNum'
     | 'value'
+    | 'minCollapsedNum'
+    | 'loading'
   > {
-  setValue: (val: CascaderValue) => void;
   treeStore: TreeStore;
+  inputWidth: number;
+  setInputWidth: (val: number) => void;
+  setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => void;
   visible: boolean;
   setVisible: (val: boolean) => void;
   treeNodes: TreeNode[];
@@ -34,7 +37,6 @@ export interface CascaderContextType
   setInputVal: (val: string) => void;
   setExpend: (val: TreeNodeValue[]) => void;
 }
-
 export interface CascaderPanelProps extends Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
   cascaderContext: CascaderContextType;
 }
@@ -90,3 +92,4 @@ export type ContextType = { e?: React.MouseEvent; node?: TreeNode };
 export { TreeNode } from '../_common/js/tree/tree-node';
 export type { TreeNodeValue } from '../_common/js/tree/types';
 export type { TreeOptionData } from '../_common/js/common';
+export type { TreeNodeModel } from '../tree';

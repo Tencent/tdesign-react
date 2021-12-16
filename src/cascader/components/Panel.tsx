@@ -13,9 +13,8 @@ import { CascaderPanelProps, TreeNode, ContextType } from '../interface';
 
 const Panel = (props: CascaderPanelProps) => {
   const {
-    cascaderContext: { treeNodes, filterActive },
+    cascaderContext: { filterActive, treeNodes, inputWidth },
     cascaderContext,
-    onChange,
     empty,
   } = props;
 
@@ -25,31 +24,20 @@ const Panel = (props: CascaderPanelProps) => {
     const { node } = ctx;
     const { trigger: propsTrigger, cascaderContext } = props;
 
-    expendClickEffect(propsTrigger, trigger, node, cascaderContext, onChange, ctx);
+    expendClickEffect(propsTrigger, trigger, node, cascaderContext);
   };
 
   const handleChange = (ctx: ContextType) => {
     const { node } = ctx;
 
-    valueChangeEffect(node, cascaderContext, onChange, ctx);
+    valueChangeEffect(node, cascaderContext);
   };
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
 
   // innerComponents
-  const renderEmpty = (
-    <ul
-      className={classNames([
-        `${name}__menu`,
-        {
-          [`${name}__menu__filter`]: filterActive,
-        },
-      ])}
-    >
-      <li className={classNames([`${name}__item`, `${name}__empty`])}>{empty}</li>
-    </ul>
-  );
+  const renderEmpty = <div className={`${name}__panel--empty`}>{empty}</div>;
 
   const renderItem = (node: TreeNode) => (
     <Item
@@ -68,15 +56,17 @@ const Panel = (props: CascaderPanelProps) => {
 
   const panelsContainer = panels.map((panel, index) => (
     <ul
+      className={classNames(`${name}__menu`, 'narrow-scrollbar', {
+        [`${name}__menu--segment`]: index !== panels.length - 1,
+      })}
       key={index}
-      className={classNames(`${name}__menu`, { [`${name}__menu-seperator`]: index !== panels.length - 1 })}
     >
       {panel.map((node: TreeNode) => renderItem(node))}
     </ul>
   ));
 
   const filterPanelsContainer = (
-    <ul className={classNames(`${name}__menu`, `${name}__menu-seperator`, `${name}__menu-filter`)}>
+    <ul className={classNames(`${name}__menu`, 'narrow-scrollbar', `${name}__menu--segment`, `${name}__menu--filter`)}>
       {treeNodes.map((node: TreeNode) => renderItem(node))}
     </ul>
   );
@@ -84,7 +74,12 @@ const Panel = (props: CascaderPanelProps) => {
   const renderPanels = filterActive ? filterPanelsContainer : panelsContainer;
 
   return (
-    <div className={classNames(`${name}__panel`, `${name}--normal`)}>
+    <div
+      className={classNames(`${name}__panel`, { [`${name}--normal`]: panels.length })}
+      style={{
+        width: panels.length === 0 ? `${inputWidth}px` : null,
+      }}
+    >
       {panels && panels.length ? renderPanels : renderEmpty}
     </div>
   );
