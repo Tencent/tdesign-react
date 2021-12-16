@@ -1,4 +1,5 @@
 import isFunction from 'lodash/isFunction';
+import isEmpty from 'lodash/isEmpty';
 import { TreeNode, CascaderContextType, TreeNodeValue, CascaderProps } from '../interface';
 
 /**
@@ -51,7 +52,7 @@ export function getCascaderInnerClasses(prefix: string, CLASSNAMES: any, cascade
       [CLASSNAMES.STATUS.disabled]: disabled,
       [CLASSNAMES.STATUS.active]: visible,
       [CLASSNAMES.SIZE[size]]: size,
-      [`${prefix}-cascader-is--multiple`]: multiple,
+      [`${prefix}-cascader--multiple`]: multiple,
     },
   ];
 }
@@ -63,14 +64,8 @@ export function getCascaderInnerClasses(prefix: string, CLASSNAMES: any, cascade
  * @returns
  */
 export function getCloseShow(isHover: boolean, cascaderContext: CascaderContextType) {
-  const { multiple, value, disabled, clearable, visible } = cascaderContext;
-  return !!(
-    !visible &&
-    clearable &&
-    isHover &&
-    !disabled &&
-    ((!multiple && value) || (multiple && (value as TreeNodeValue[]).length))
-  );
+  const { value, disabled, clearable, visible } = cascaderContext;
+  return !!(!visible && clearable && isHover && !disabled && !isEmpty(value));
 }
 
 /**
@@ -164,7 +159,7 @@ export function outerClickListenerEffect(
  * closeIcon点击副作用
  * @param cascaderContext
  */
-export function closeIconClickEffect(cascaderContext: CascaderContextType, onChange: CascaderProps['onChange']) {
+export function closeIconClickEffect(cascaderContext: CascaderContextType) {
   const { setVisible, multiple, setExpend, setValue } = cascaderContext;
 
   setVisible(false);
@@ -174,11 +169,7 @@ export function closeIconClickEffect(cascaderContext: CascaderContextType, onCha
     setExpend([]);
   }
 
-  setValue(multiple ? [] : '');
-
-  if (onChange && isFunction(onChange)) {
-    onChange(multiple ? [] : '', { e: MouseEvent });
-  }
+  setValue(multiple ? [] : '', 'clear');
 }
 
 /**
@@ -194,9 +185,9 @@ export function handleRemoveTagEffect(
 
   if (disabled) return;
   const checked = node.setChecked(!node.isChecked());
-  setValue(checked);
+  setValue(checked, 'unchecked', node.getModel());
   if (isFunction(onRemove)) {
-    onRemove({ value: checked, node });
+    onRemove({ value: checked, node: node as any });
   }
 }
 

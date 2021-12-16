@@ -12,7 +12,7 @@ import { getCascaderItemClass, getCascaderItemIconClass, getLabelIsEllipsis } fr
 import { getFullPathLabel } from '../utils/helper';
 
 // component
-import Loading from '../../loading';
+import TLoading from '../../loading';
 import Tooltip from '../../tooltip/Tooltip';
 import Checkbox from '../../checkbox/Checkbox';
 
@@ -25,18 +25,21 @@ import { CheckboxProps } from '../../checkbox';
 const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: CascaderContextType) => {
   const { filterActive, inputVal } = cascaderContext;
   const labelText = filterActive ? getFullPathLabel(node) : node.label;
-
   if (filterActive) {
-    const ctx = labelText.split(inputVal);
-    return (() => (
-      <>
-        {ctx[0]}
-        <span className={`${name}-label--filter`}>{inputVal}</span>
-        {ctx[1]}
-      </>
-    ))();
+    const texts = labelText.split(inputVal);
+    const doms = [];
+    for (let index = 0; index < texts.length; index++) {
+      doms.push(<span key={index}>{texts[index]}</span>);
+      if (index === texts.length - 1) break;
+      doms.push(
+        <span key={`${index}filter`} className={`${name}-label--filter`}>
+          {inputVal}
+        </span>,
+      );
+    }
+    return doms;
   }
-  return (() => <>{labelText}</>)();
+  return labelText;
 };
 
 const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
@@ -48,9 +51,9 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
 
   if (isEllipsis) {
     return (
-      <span className={`${name}__label`} role="label">
+      <span className={`${name}-label`} role="label">
         {label}
-        <div className={`${name}__label--ellipsis`}>
+        <div className={`${name}-label--ellipsis`}>
           <Tooltip content={node.label} placement="top-left" />
         </div>
       </span>
@@ -139,7 +142,7 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
       {multiple ? RenderCheckBox(node, cascaderContext, handleChange) : RenderLabelContent(node, cascaderContext)}
       {node.children &&
         (node.loading ? (
-          <Loading className={iconClass} loading={true} size="small" />
+          <TLoading className={iconClass} loading={true} size="small" />
         ) : (
           <ChevronRightIcon className={iconClass} />
         ))}
