@@ -61,7 +61,6 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       filterable,
       value,
       setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => {
-        console.log(val, source);
         setValue(val, {
           source,
           node,
