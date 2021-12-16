@@ -113,7 +113,7 @@
     "cssnano": "^4.0.1",
     "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.12.16",
-    "eslint": "^7.32.0",
+    "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.0",
