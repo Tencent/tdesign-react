@@ -37,16 +37,16 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     onMouseEnter,
   } = props;
 
-  const cellClass = classNames(`${classPrefix}-date-picker-cell`, {
-    [`${classPrefix}-date-cell--now`]: now,
-    [`${classPrefix}-date-cell--active`]: active,
-    [`${classPrefix}-date-cell--disabled`]: disabled,
-    [`${classPrefix}-date-cell--highlight`]: highlight,
-    [`${classPrefix}-date-cell--active-start`]: startOfRange,
-    [`${classPrefix}-date-cell--active-end`]: endOfRange,
-    [`${classPrefix}-date-cell--additional`]: additional,
-    [`${classPrefix}-date-cell--first-day-of-month`]: firstDayOfMonth,
-    [`${classPrefix}-date-cell--last-day-of-month`]: lastDayOfMonth,
+  const cellClass = classNames(`${classPrefix}-date-picker__cell`, {
+    [`${classPrefix}-date-picker__cell--now`]: now,
+    [`${classPrefix}-date-picker__cell--active`]: active,
+    [`${classPrefix}-date-picker__cell--disabled`]: disabled,
+    [`${classPrefix}-date-picker__cell--highlight`]: highlight,
+    [`${classPrefix}-date-picker__cell--active-start`]: startOfRange,
+    [`${classPrefix}-date-picker__cell--active-end`]: endOfRange,
+    [`${classPrefix}-date-picker__cell--additional`]: additional,
+    [`${classPrefix}-date-picker__cell--first-day-of-month`]: firstDayOfMonth,
+    [`${classPrefix}-date-picker__cell--last-day-of-month`]: lastDayOfMonth,
   });
 
   function handleClick() {
@@ -59,8 +59,8 @@ const DatePickerCell = (props: DatePickerCellProps) => {
 
   return (
     <td className={cellClass}>
-      <div className={`${classPrefix}-date-cell__wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
-        <span className={`${classPrefix}-date-cell__text`}>{text}</span>
+      <div className={`${classPrefix}-date-picker__cell-wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+        <span className={`${classPrefix}-date-picker__cell-text`}>{text}</span>
       </div>
     </td>
   );

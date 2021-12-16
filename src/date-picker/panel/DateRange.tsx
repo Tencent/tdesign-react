@@ -255,8 +255,8 @@ const DateRangePanel = (props: DateRangePanelProps) => {
   );
 
   return (
-    <div className={`${classPrefix}-date-range`}>
-      <div className={`${classPrefix}-date`}>
+    <div className={`${classPrefix}-date-picker__panels`}>
+      <div className={`${classPrefix}-date-picker__panel`}>
         <DateHeader
           year={leftYear}
           month={leftMonth}
@@ -273,7 +273,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
           onCellMouseEnter={onMouseEnter}
         />
       </div>
-      <div className={`${classPrefix}-date`}>
+      <div className={`${classPrefix}-date-picker__panel`}>
         <DateHeader
           year={rightYear}
           month={rightMonth}
