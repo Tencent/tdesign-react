@@ -1,10 +1,16 @@
-import { ReactNode } from 'react';
-import { UploadFile, ProgressContext, TdUploadProps } from './type';
+import { MouseEvent, ReactNode } from 'react';
+import { ProgressContext, TdUploadProps, UploadFile } from './type';
 
 export interface XhrSuccessContext {
   e: ProgressEvent;
   file: UploadFile;
   response: any;
+}
+
+export interface FlowRemoveContext {
+  e: MouseEvent<HTMLElement>;
+  index: number;
+  file: UploadFile;
 }
 
 export interface UploadProps extends Omit<TdUploadProps, 'files'> {
