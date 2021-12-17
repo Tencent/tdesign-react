@@ -10,7 +10,7 @@ exports[`base.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -53,7 +53,7 @@ exports[`collapsed.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -111,7 +111,7 @@ exports[`creatable.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -160,7 +160,7 @@ exports[`custom-options.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -206,7 +206,7 @@ exports[`custom-selected.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -252,7 +252,7 @@ exports[`disabled.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-is-disabled"
@@ -295,7 +295,7 @@ exports[`filterable.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -340,7 +340,7 @@ exports[`group.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -382,7 +382,7 @@ exports[`keys.jsx 1`] = `
     style="width: 200px; display: inline-block; margin-right: 20px;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -419,7 +419,7 @@ exports[`keys.jsx 1`] = `
     style="width: 200px; display: inline-block;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -477,7 +477,7 @@ exports[`label-in-value.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -514,7 +514,7 @@ exports[`label-in-value.jsx 1`] = `
       style="width: 40%; margin-left: 10%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -551,7 +551,7 @@ exports[`label-in-value.jsx 1`] = `
       style="width: 40%; margin-left: 10%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -607,7 +607,7 @@ exports[`max.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -662,7 +662,7 @@ exports[`multiple.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -717,7 +717,7 @@ exports[`noborder.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select t-no-border"
@@ -759,7 +759,7 @@ exports[`options.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -807,7 +807,7 @@ exports[`popup-props.jsx 1`] = `
       style="width: 40%;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -850,7 +850,7 @@ exports[`prefix.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select t-has-prefix"
@@ -911,7 +911,7 @@ exports[`remote-search.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -957,7 +957,7 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select t-size-s"
@@ -994,7 +994,7 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select"
@@ -1031,7 +1031,7 @@ exports[`size.jsx 1`] = `
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup-reference t-select-popup-reference"
+      class="t-popup__reference t-select-popup-reference"
     >
       <div
         class="t-select t-size-l"
@@ -1076,7 +1076,7 @@ exports[`status.jsx 1`] = `
       style="width: 200px; margin-right: 20px;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
@@ -1113,7 +1113,7 @@ exports[`status.jsx 1`] = `
       style="width: 200px; margin-right: 20px;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-is-disabled"
@@ -1150,7 +1150,7 @@ exports[`status.jsx 1`] = `
       style="width: 200px;"
     >
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select"
