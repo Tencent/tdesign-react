@@ -38,10 +38,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       return dayjs(value, format);
     }
     if (isStepsSet) {
-      return dayjs()
-        .hour(Number(steps[0]) - 1)
-        .minute(Number(steps[1]) - 1)
-        .second(Number(steps[2]) - 1);
+      return dayjs().hour(0).minute(0).second(0);
     }
     return dayjs();
   }, [value, format, steps]);
@@ -62,6 +59,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       secondCol && second,
       endCol && meridiem,
     ].filter((v) => !!v);
+
     setCols(renderCol);
   }, [format]);
 
@@ -93,16 +91,17 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       let count = 0;
 
       if (timeArr.includes(col)) {
-        // hour/minute/second column scorller render
+        // hour/minute/second column scroller render
         const colIdx = timeArr.indexOf(col);
         const colStep = steps[colIdx];
+
         if (col === EPickerCols.hour) {
           count = /[h]{1}/.test(format) ? 11 : 23;
         } else {
           count = 59;
         }
-        const colList =
-          range(Number(colStep) - 1, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
+
+        const colList = range(0, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
 
         return hideDisabledTime && !!disableTime
           ? colList.filter((t) => {
@@ -126,7 +125,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       }
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
-
       const timeItemTotalHeight = getItemHeight();
       const distance = Math.abs(itemIdx * timeItemTotalHeight + timeItemTotalHeight / 2);
       return distance;
@@ -135,23 +133,25 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   );
 
   const handleScroll = (col: EPickerCols, idx: number) => {
-    let val: number;
+    let val: number | string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
     if (timeArr.includes(col)) {
-      // hour/minute/second col scorll
+      // hour/minute/second col scroll
       let max = 59;
       if (col === EPickerCols.hour) {
         max = /[h]{1}/.test(format) ? 11 : 23;
       }
       const colIdx = timeArr.indexOf(col);
+      const colStep = Math.abs(Math.round(scrollTop / getItemHeight()));
 
-      val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), max);
+      val = Math.min(colStep > 0 ? colStep - 1 : colStep, max);
 
       val = closestLookup(
-        range(Number(steps[colIdx]) - 1, max + 1, Number(steps[colIdx])),
+        range(0, max + 1, Number(steps[colIdx])),
         Number(getColList(col)[val]),
         Number(steps[colIdx]),
       );
+
       if (col === EPickerCols.hour && cols.includes(EPickerCols.meridiem) && dayjsValue.hour() > 12) {
         // 如果是十二小时制需要再判断
         val = Number(val) + 12;
@@ -159,13 +159,17 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       if (timeItemCanUsed(col, val))
         value ? onChange(dayjsValue[col]?.(val).format(format)) : onChange(dayjsValue[col]?.(val).format(format));
     } else {
-      // meridiem col scorll
-      const val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
-      const m = MERIDIEM_LIST[val].toLowerCase(); // 处理PM/AM与am/pm
+      // meridiem col scroll
+      val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
+
+      const meridiem = MERIDIEM_LIST[val].toLowerCase(); // 处理PM/AM与am/pm
+
+      val = meridiem;
+
       const currentHour = dayjsValue.hour();
-      if (m === AM && currentHour >= 12) {
+      if (meridiem === AM && currentHour >= 12) {
         onChange(dayjsValue.hour(currentHour - 12).format(format));
-      } else if (m === PM && currentHour < 12) {
+      } else if (meridiem === PM && currentHour < 12) {
         onChange(dayjsValue.hour(currentHour + 12).format(format));
       }
     }
