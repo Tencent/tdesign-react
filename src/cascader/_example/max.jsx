@@ -5,38 +5,34 @@ export default function Example() {
   const [value1, setValue1] = useState([]);
   const options = [
     {
-      label: '上海',
+      label: '选项一',
       value: '1',
       children: [
         {
-          label: '黄浦区',
+          label: '子选项一',
           value: '1.1',
         },
         {
-          label: '静安区',
+          label: '子选项二',
           value: '1.2',
         },
         {
-          label: '浦东新区',
+          label: '子选项三',
           value: '1.3',
         },
       ],
     },
     {
-      label: '深圳',
+      label: '选项二',
       value: '2',
       children: [
         {
-          label: '宝安区',
+          label: '子选项一',
           value: '2.1',
         },
         {
-          label: '南山区',
+          label: '子选项二',
           value: '2.2',
-        },
-        {
-          label: '福田区',
-          value: '2.3',
         },
       ],
     },
@@ -52,7 +48,6 @@ export default function Example() {
 
   return (
     <div className="tdesign-demo-block-column">
-      <div>最多可选3项</div>
       <Cascader style={itemStyle} options={options} value={value1} max={3} onChange={onChange1} multiple />
     </div>
   );
