@@ -1,12 +1,18 @@
 import React, { DragEvent, MouseEvent, ReactNode, useState } from 'react';
 import classNames from 'classnames';
-import useConfig from 'tdesign-react/_util/useConfig';
-import { Button } from 'tdesign-react';
+import useConfig from '../../../_util/useConfig';
+import Button from '../../../button';
 import { UploadFile } from '../../type';
 import { FlowRemoveContext } from '../../types';
 import ImgList from './img-list';
 import FileList from './file-list';
 import BooleanRender from '../../boolean-render';
+
+export interface CommonListProps {
+  renderDragger: () => React.ReactElement;
+  showInitial: boolean;
+  listFiles: UploadFile[];
+}
 
 export interface FlowListProps {
   children?: ReactNode;
@@ -106,8 +112,8 @@ const Index: React.FC<FlowListProps> = (props) => {
       </BooleanRender>
       <BooleanRender boolExpression={display === 'image-flow'}>
         <ImgList
-          showInitial={showInitial}
           listFiles={listFiles}
+          showInitial={showInitial}
           renderDragger={renderDragger}
           onImgPreview={onImgPreview}
           remove={remove}

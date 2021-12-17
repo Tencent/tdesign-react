@@ -1,14 +1,18 @@
-import { abridgeName, returnFileSize } from 'tdesign-react/upload/util';
 import React, { MouseEvent } from 'react';
-import useConfig from 'tdesign-react/_util/useConfig';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
-import { Loading } from 'tdesign-react';
+import { abridgeName, returnFileSize } from '../../util';
+import useConfig from '../../../_util/useConfig';
+import Loading from '../../../Loading';
+import type { CommonListProps, FlowListProps } from './index';
+import type { UploadFile } from '../../type';
 
-const FileList = (props) => {
+type FileListProps = CommonListProps & Pick<FlowListProps, 'showUploadProgress' | 'remove'>;
+
+const FileList = (props: FileListProps) => {
   const { listFiles, showInitial, renderDragger, showUploadProgress, remove } = props;
   const { classPrefix: prefix } = useConfig();
   const UPLOAD_NAME = `${prefix}-upload`;
-  const renderStatus = ({ file }) => {
+  const renderStatus = (file: UploadFile) => {
     const STATUS_MAP = {
       success: {
         icon: <CheckCircleFilledIcon />,
@@ -27,6 +31,7 @@ const FileList = (props) => {
         text: '待上传',
       },
     };
+
     if (file.status === 'progress' && !showUploadProgress) return null;
     return (
       <div className={`${UPLOAD_NAME}__flow-status`}>
@@ -38,32 +43,36 @@ const FileList = (props) => {
 
   return (
     <table className={`${UPLOAD_NAME}__flow-table`}>
-      <tr>
-        <th>文件名</th>
-        <th>大小</th>
-        <th>状态</th>
-        <th>操作</th>
-      </tr>
-      {showInitial && (
+      <thead>
         <tr>
-          <td colSpan={4}>{renderDragger()}</td>
+          <th>文件名</th>
+          <th>大小</th>
+          <th>状态</th>
+          <th>操作</th>
         </tr>
-      )}
-      {listFiles.map((file, index) => (
-        <tr key={index}>
-          <td>{abridgeName(file.name, 7, 10)}</td>
-          <td>{returnFileSize(file.size)}</td>
-          <td>{renderStatus(file)}</td>
-          <td>
-            <span
-              className={`${UPLOAD_NAME}__flow-button`}
-              onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
-            >
-              删除
-            </span>
-          </td>
-        </tr>
-      ))}
+      </thead>
+      <tbody>
+        {showInitial && (
+          <tr>
+            <td colSpan={4}>{renderDragger()}</td>
+          </tr>
+        )}
+        {listFiles.map((file, index) => (
+          <tr key={index}>
+            <td>{abridgeName(file.name, 7, 10)}</td>
+            <td>{returnFileSize(file.size)}</td>
+            <td>{renderStatus(file)}</td>
+            <td>
+              <span
+                className={`${UPLOAD_NAME}__flow-button`}
+                onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
+              >
+                删除
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };
