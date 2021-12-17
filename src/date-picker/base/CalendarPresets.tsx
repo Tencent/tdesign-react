@@ -13,7 +13,7 @@ const CalendarPresets = (props: CalendarPresetsProps) => {
   const { classPrefix } = useConfig();
 
   return (
-    <div className={`${classPrefix}-date-picker-presets`}>
+    <div className={`${classPrefix}-date-picker__presets`}>
       <ul>
         {presets &&
           Object.keys(presets).map((key: string) => (

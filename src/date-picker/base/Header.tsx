@@ -62,8 +62,8 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   }
 
   return (
-    <div className={`${classPrefix}-date-picker-header`}>
-      <span className={`${classPrefix}-date-picker-header-title`}>
+    <div className={`${classPrefix}-date-picker__header`}>
+      <span className={`${classPrefix}-date-picker__header-title`}>
         {type === 'year' && (
           <div>
             <span>{startYear}</span>
@@ -76,39 +76,44 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             variant="text"
             size="small"
             onClick={() => onTypeChange('year')}
-            className={`${classPrefix}-date-header__btn`}
+            className={`${classPrefix}-date-picker__header-btn`}
           >
             {`${year} ${yearAriaLabel}`}
           </Button>
         )}
         {type === 'date' && (
-          <Button className="t-date-header__btn" variant="text" size="small" onClick={() => onTypeChange('month')}>
+          <Button
+            className={`${classPrefix}-date-picker__header-btn`}
+            variant="text"
+            size="small"
+            onClick={() => onTypeChange('month')}
+          >
             {`${month === 12 ? 1 : month + 1} ${monthAriaLabel}`}
           </Button>
         )}
       </span>
 
-      <span className={`${classPrefix}-date-picker-header-controller`}>
+      <span className={`${classPrefix}-date-picker__header-controller`}>
         <Button
           title={preLabel}
           variant="text"
           onClick={() => onBtnClick(-1)}
           icon={<ChevronLeftIcon />}
-          className={`${classPrefix}-date-picker-header-controller__btn`}
+          className={`${classPrefix}-date-picker__header-controller__btn`}
         ></Button>
         <Button
           title={now}
           variant="text"
           onClick={() => onBtnClick(0)}
           icon={<RoundIcon />}
-          className={`${classPrefix}-date-picker-header-controller__btn ${classPrefix}-date-picker-header-controller__btn--now`}
+          className={`${classPrefix}-date-picker__header-controller__btn ${classPrefix}-date-picker__header-controller__btn--now`}
         ></Button>
         <Button
           title={nextLabel}
           variant="text"
           onClick={() => onBtnClick(1)}
           icon={<ChevronRightIcon />}
-          className={`${classPrefix}-date-picker-header-controller__btn`}
+          className={`${classPrefix}-date-picker__header-controller__btn`}
         ></Button>
       </span>
     </div>

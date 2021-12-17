@@ -323,10 +323,9 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function renderContent() {
-    const pickerStyles = classNames(`${classPrefix}-date-picker--container`, {
-      [`${classPrefix}-date-picker--container`]: popupShow,
-      [`${classPrefix}-date-picker--ranges-show`]: range,
-      [`${classPrefix}-date-picker--date`]: !!presets && range,
+    const pickerStyles = classNames(`${classPrefix}-date-picker__container`, {
+      [`${classPrefix}-date-picker--open`]: popupShow,
+      [`${classPrefix}-date-picker--range`]: range,
     });
 
     const panelProps = {
@@ -391,7 +390,7 @@ const DatePicker = (props: DatePickerProps) => {
         visible={popupShow}
         content={renderContent()}
         overlayClassName={`${classPrefix}-date-picker`}
-        className={`${classPrefix}-date-picker-popup-reference`}
+        className={`${classPrefix}-date-picker__popup-reference`}
         expandAnimation={true}
         {...popupProps}
       >

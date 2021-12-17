@@ -29,7 +29,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     wi = (wi + len + 1) % len;
   }
 
-  const panelClass = `${classPrefix}-date-picker-${type}`;
+  const panelClass = `${classPrefix}-date-picker--${type}`;
 
   return (
     <div className={panelClass}>
