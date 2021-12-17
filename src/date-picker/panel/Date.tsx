@@ -122,9 +122,8 @@ const DatePanel = (props: DatePanelProps) => {
   }
 
   return (
-    <div className={`${classPrefix}-date`}>
+    <div className={`${classPrefix}-date-picker__panel`}>
       <DateHeader year={year} month={month} type={type} onBtnClick={clickHeader} onTypeChange={setType} />
-
       <DateTable
         type={type}
         firstDayOfWeek={firstDayOfWeek}
