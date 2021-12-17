@@ -9,7 +9,7 @@ import request from '../_common/js/upload/xhr';
 import useConfig from '../_util/useConfig';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
-import FlowList from './themes/flow-list';
+import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
 import { finishUpload, isSingleFile, updateFileList } from './util';
 import { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
