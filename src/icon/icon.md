@@ -6,7 +6,7 @@
 
 ### IconFont 图标
 
-你可以使用以下方式，通过 IconFont 形式来使用图标
+你可以使用以下方式，通过 IconFont 形式来使用图标。
 
 `import { IconFont } from 'tdesign-icons-react';`
 
