@@ -33,19 +33,13 @@ import { InputContentProps, InnerContentProps, ContentProps, SuffixIconProps, Tr
  */
 
 const SuffixIcon = (props: SuffixIconProps) => {
-  const {
-    cascaderContext,
-    listeners: { onChange },
-    closeShow,
-    fakeArrowIconClass,
-    closeIconClass,
-  } = props;
+  const { cascaderContext, closeShow, fakeArrowIconClass, closeIconClass } = props;
   const { visible, disabled, size } = cascaderContext;
 
   const closeIconClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    closeIconClickEffect(cascaderContext, onChange);
+    closeIconClickEffect(cascaderContext);
   };
 
   if (closeShow) {
@@ -70,7 +64,7 @@ const InnerContent: React.FC<InnerContentProps> = (props: InnerContentProps) => 
 
   const renderSelfTag = (node: TreeNode, index: number) => (
     <Tag
-      closable
+      closable={!disabled}
       key={index}
       disabled={disabled}
       onClose={(ctx) => {
@@ -170,13 +164,17 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
   /**
    * outside click
    */
-  const selectRef = useRef(null);
+  const inputContentRef = useRef<HTMLDivElement>();
   // handle click outside
   useEffect(() => {
     const outerClickListenerFn = (event: MouseEvent | TouchEvent) =>
-      outerClickListenerEffect(selectRef.current as HTMLElement, cascaderContext, event);
+      outerClickListenerEffect(inputContentRef.current as HTMLElement, cascaderContext, event);
 
     document.addEventListener('click', outerClickListenerFn);
+
+    const { width } = inputContentRef.current.getBoundingClientRect();
+    cascaderContext.setInputWidth(width);
+
     return () => {
       document.removeEventListener('click', outerClickListenerFn);
     };
@@ -204,7 +202,7 @@ const InputContent: React.FC<InputContentProps> = (props: InputContentProps) => 
       onMouseLeave={() => {
         setIsHover(false);
       }}
-      ref={selectRef}
+      ref={inputContentRef}
       onClick={(e: React.MouseEvent) => {
         e.preventDefault();
         innerContentClickEffect(cascaderContext);
