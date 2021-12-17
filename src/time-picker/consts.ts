@@ -5,8 +5,8 @@ export const useTimePickerTextConfig = () => {
   return {
     nowtime: t(local.nowtime),
     confirm: t(local.confirm),
-    am: t(local.am),
-    pm: t(local.pm),
+    am: t(local.anteMeridiem),
+    pm: t(local.postMeridiem),
     placeholder: t(local.placeholder),
   };
 };
