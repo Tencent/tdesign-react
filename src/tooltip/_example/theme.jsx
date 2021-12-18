@@ -5,19 +5,22 @@ export default function Cumstomize() {
   return (
     <div className="tdesign-tooltip-demo">
       <Tooltip content="文字提示仅展示文本内容">
-        <Button>default</Button>
+        <Button theme="default">default</Button>
       </Tooltip>
       <Tooltip content="文字提示仅展示文本内容" theme="primary">
-        <Button>primary</Button>
+        <Button theme="primary">primary</Button>
       </Tooltip>
       <Tooltip content="文字提示仅展示文本内容" theme="success">
-        <Button>success</Button>
+        <Button theme="success">success</Button>
       </Tooltip>
       <Tooltip content="文字提示仅展示文本内容" theme="danger">
-        <Button>danger</Button>
+        <Button theme="danger">danger</Button>
       </Tooltip>
       <Tooltip content="文字提示仅展示文本内容" theme="warning">
-        <Button>warning</Button>
+        <Button theme="warning">warning</Button>
+      </Tooltip>
+      <Tooltip content="文字提示仅展示文本内容" theme="light">
+        <Button variant="outline">light</Button>
       </Tooltip>
     </div>
   );

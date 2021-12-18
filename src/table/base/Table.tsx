@@ -168,7 +168,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   if (hasPagination) {
     paginationNode = (
-      <div className={`${classPrefix}-table-pagination`}>
+      <div className={`${classPrefix}-table__pagination`}>
         <Pagination
           {...pagination}
           current={innerCurrent}
@@ -273,7 +273,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
         [`${classPrefix}-size-l`]: size === 'large',
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-table--hoverable`]: hover,
-        [`${classPrefix}-table-valign__${verticalAlign}`]: verticalAlign,
+        [`${classPrefix}-table--align-${verticalAlign}`]: verticalAlign,
         [`${classPrefix}-table__header--fixed`]: fixedHeader,
         [`${classPrefix}-table__cell--fixed ${classPrefix}-table--has-fixed`]: hasFixedColumns,
       })}
@@ -287,9 +287,9 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
         >
           <div
             ref={tableContentRef}
-            className={classNames(`${classPrefix}-table-content`, {
-              [`${classPrefix}-table-content--scrollable-to-right`]: scrollableToRight,
-              [`${classPrefix}-table-content--scrollable-to-left`]: scrollableToLeft,
+            className={classNames(`${classPrefix}-table__content`, {
+              [`${classPrefix}-table__content--scrollable-to-right`]: scrollableToRight,
+              [`${classPrefix}-table__content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
             {...(hasFixedColumns ? { onScroll: handleScroll } : {})}

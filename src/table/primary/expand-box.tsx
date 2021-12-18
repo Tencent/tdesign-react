@@ -45,7 +45,7 @@ const ExpandButton: FC<Props> = (props) => {
 
   return (
     <span
-      className={`${classPrefix}-table-expand-box`}
+      className={`${classPrefix}-table__expand-box`}
       {...(!expandOnRowClick ? { onClick: () => handleExpandChange(row, rowKeyValue) } : {})}
     >
       {getExpandIcon(expanded)}

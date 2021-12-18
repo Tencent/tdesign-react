@@ -6,25 +6,39 @@ export default function Placements() {
   return (
     <div style={styles.container}>
       <Tooltip content="这是Tooltip内容" placement="top" showArrow destroyOnClose>
-        <Button style={styles.placementTop}>top</Button>
+        <Button variant="outline" style={styles.placementTop}>
+          top
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容 top-left" placement="top-left" showArrow destroyOnClose>
-        <Button style={styles.placementTopLeft}>top-left</Button>
+        <Button variant="outline" style={styles.placementTopLeft}>
+          top-left
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容top-right" placement="top-right" showArrow destroyOnClose>
-        <Button style={styles.placementTopRight}>top-right</Button>
+        <Button variant="outline" style={styles.placementTopRight}>
+          top-right
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容" placement="bottom" showArrow destroyOnClose>
-        <Button style={styles.placementBottom}>bottom</Button>
+        <Button variant="outline" style={styles.placementBottom}>
+          bottom
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容 bottom-left" placement="bottom-left" showArrow destroyOnClose>
-        <Button style={styles.placementBottomLeft}>bottom-left</Button>
+        <Button variant="outline" style={styles.placementBottomLeft}>
+          bottom-left
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容 bottom-right" placement="bottom-right" showArrow destroyOnClose>
-        <Button style={styles.placementBottomRight}>bottom-right</Button>
+        <Button variant="outline" style={styles.placementBottomRight}>
+          bottom-right
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容" placement="left" showArrow destroyOnClose>
-        <Button style={styles.placementLeft}>left</Button>
+        <Button variant="outline" style={styles.placementLeft}>
+          left
+        </Button>
       </Tooltip>
       <Tooltip
         content="这是Tooltip内容   left-top"
@@ -33,7 +47,9 @@ export default function Placements() {
         showArrow
         destroyOnClose
       >
-        <Button style={styles.placementLeftTop}>left-top</Button>
+        <Button variant="outline" style={styles.placementLeftTop}>
+          left-top
+        </Button>
       </Tooltip>
       <Tooltip
         content="这是Tooltip内容 left-bottom"
@@ -42,10 +58,14 @@ export default function Placements() {
         showArrow
         destroyOnClose
       >
-        <Button style={styles.placementLeftBottom}>left-bottom</Button>
+        <Button variant="outline" style={styles.placementLeftBottom}>
+          left-bottom
+        </Button>
       </Tooltip>
       <Tooltip content="这是Tooltip内容" placement="right" showArrow destroyOnClose>
-        <Button style={styles.placementRight}>right</Button>
+        <Button variant="outline" style={styles.placementRight}>
+          right
+        </Button>
       </Tooltip>
       <Tooltip
         content="这是Tooltip内容 right-top"
@@ -54,7 +74,9 @@ export default function Placements() {
         showArrow
         destroyOnClose
       >
-        <Button style={styles.placementRightTop}>right-top</Button>
+        <Button variant="outline" style={styles.placementRightTop}>
+          right-top
+        </Button>
       </Tooltip>
       <Tooltip
         content="这是Tooltip内容 right-bottom"
@@ -63,7 +85,9 @@ export default function Placements() {
         showArrow
         destroyOnClose
       >
-        <Button style={styles.placementRightBottom}>right-bottom</Button>
+        <Button variant="outline" style={styles.placementRightBottom}>
+          right-bottom
+        </Button>
       </Tooltip>
     </div>
   );

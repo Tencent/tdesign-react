@@ -72,7 +72,7 @@ export default function EmptyTable() {
       asyncLoading === 'loading-custom' ? (
         <>
           <div className={`t-table--loading-progressbar`} style={{ width: '50%' }} />
-          <div className="t-table--loading-async">这是自定义加载状态和内容</div>
+          <div className="t-table__async-loading">这是自定义加载状态和内容</div>
         </>
       ) : (
         asyncLoading

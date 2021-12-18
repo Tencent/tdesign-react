@@ -7,7 +7,7 @@ exports[`base.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -95,7 +95,7 @@ exports[`filterable.jsx 1`] = `
     </div>
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -139,7 +139,7 @@ exports[`lazy.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -179,7 +179,7 @@ exports[`multiple.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -250,7 +250,7 @@ exports[`prefix.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m t-has-prefix"
@@ -307,7 +307,7 @@ exports[`props.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -348,7 +348,7 @@ exports[`valuetype.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup-reference t-select-popup-reference"
+        class="t-popup__reference t-select-popup-reference"
       >
         <div
           class="t-select t-size-m"

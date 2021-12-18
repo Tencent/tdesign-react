@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -33,7 +33,7 @@ exports[`base.jsx 1`] = `
 exports[`button.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -58,7 +58,7 @@ exports[`button.jsx 1`] = `
 exports[`click.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -77,7 +77,7 @@ exports[`click.jsx 1`] = `
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"
@@ -107,7 +107,7 @@ exports[`disabled.jsx 1`] = `
 exports[`height.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -126,7 +126,7 @@ exports[`height.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
@@ -151,7 +151,7 @@ exports[`multiple.jsx 1`] = `
 exports[`other.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -170,7 +170,7 @@ exports[`other.jsx 1`] = `
 exports[`split.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-default t-button--variant-text"

@@ -21,7 +21,7 @@ exports[`base.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -61,7 +61,7 @@ exports[`base.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -646,7 +646,7 @@ exports[`card.jsx 1`] = `
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -726,7 +726,7 @@ exports[`card.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -766,7 +766,7 @@ exports[`card.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -1334,7 +1334,7 @@ exports[`cell.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -1374,7 +1374,7 @@ exports[`cell.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -2165,7 +2165,7 @@ exports[`cell-append.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -2205,7 +2205,7 @@ exports[`cell-append.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -3179,7 +3179,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-select-wrap"
                 >
                   <div
-                    class="t-popup-reference t-select-popup-reference"
+                    class="t-popup__reference t-select-popup-reference"
                   >
                     <div
                       class="t-select"
@@ -3219,7 +3219,7 @@ exports[`controller-config.jsx 1`] = `
                   class="t-select-wrap"
                 >
                   <div
-                    class="t-popup-reference t-select-popup-reference"
+                    class="t-popup__reference t-select-popup-reference"
                   >
                     <div
                       class="t-select"
@@ -3834,7 +3834,7 @@ exports[`event-props-api.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -3874,7 +3874,7 @@ exports[`event-props-api.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -4505,7 +4505,7 @@ exports[`events.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -4545,7 +4545,7 @@ exports[`events.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -5158,7 +5158,7 @@ exports[`filter.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -5198,7 +5198,7 @@ exports[`filter.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -5784,7 +5784,7 @@ exports[`first-day-of-week.jsx 1`] = `
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -5836,7 +5836,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -5876,7 +5876,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -6406,7 +6406,7 @@ exports[`head.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -6446,7 +6446,7 @@ exports[`head.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -7031,7 +7031,7 @@ exports[`mode.jsx 1`] = `
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -7083,7 +7083,7 @@ exports[`mode.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -7380,7 +7380,7 @@ exports[`range.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -7420,7 +7420,7 @@ exports[`range.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -8016,7 +8016,7 @@ exports[`slot-props-api.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -8056,7 +8056,7 @@ exports[`slot-props-api.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -8847,7 +8847,7 @@ exports[`value.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -8887,7 +8887,7 @@ exports[`value.jsx 1`] = `
             class="t-select-wrap"
           >
             <div
-              class="t-popup-reference t-select-popup-reference"
+              class="t-popup__reference t-select-popup-reference"
             >
               <div
                 class="t-select"
@@ -9482,7 +9482,7 @@ exports[`week.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"
@@ -9522,7 +9522,7 @@ exports[`week.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select"

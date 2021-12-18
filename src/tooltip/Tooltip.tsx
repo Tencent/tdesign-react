@@ -13,7 +13,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
-      [`${classPrefix}-tooltip-${theme}`]: theme,
+      [`${classPrefix}-tooltip--${theme}`]: theme,
     },
     overlayClassName,
   );

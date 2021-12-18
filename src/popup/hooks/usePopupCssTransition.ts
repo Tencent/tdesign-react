@@ -28,7 +28,7 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
     }
   };
 
-  const popupAnimationClassPrefix = `${classPrefix}-popup_animation`;
+  const popupAnimationClassPrefix = `${classPrefix}-popup--animation`;
 
   // 不需要扩展动画时，不需要生命周期函数
   const lifeCircleEvent = expandAnimation

@@ -9,7 +9,7 @@ exports[`base.jsx 1`] = `
       class="t-date-picker t-size-m"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -57,7 +57,7 @@ exports[`date-presets-alt.jsx 1`] = `
       class="t-date-picker t-size-m"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -109,7 +109,7 @@ exports[`date-range.jsx 1`] = `
       class="t-date-picker t-size-m"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -148,7 +148,7 @@ exports[`date-range.jsx 1`] = `
       class="t-date-picker t-size-m"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -201,7 +201,7 @@ exports[`date-time.jsx 1`] = `
       class="t-date-picker t-size-m"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -257,7 +257,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker t-size-m"
       >
         <div
-          class="t-popup-reference t-date-picker__popup-reference"
+          class="t-popup__reference t-date-picker__popup-reference"
         >
           <div
             class="t-form-controls"
@@ -300,7 +300,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker t-size-m"
       >
         <div
-          class="t-popup-reference t-date-picker__popup-reference"
+          class="t-popup__reference t-date-picker__popup-reference"
         >
           <div
             class="t-form-controls"
@@ -343,7 +343,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker t-size-m"
       >
         <div
-          class="t-popup-reference t-date-picker__popup-reference"
+          class="t-popup__reference t-date-picker__popup-reference"
         >
           <div
             class="t-form-controls"
@@ -386,7 +386,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker t-size-m"
       >
         <div
-          class="t-popup-reference t-date-picker__popup-reference"
+          class="t-popup__reference t-date-picker__popup-reference"
         >
           <div
             class="t-form-controls"
@@ -429,7 +429,7 @@ exports[`disable-date.jsx 1`] = `
         class="t-date-picker t-size-m"
       >
         <div
-          class="t-popup-reference t-date-picker__popup-reference"
+          class="t-popup__reference t-date-picker__popup-reference"
         >
           <div
             class="t-form-controls"
@@ -478,7 +478,7 @@ exports[`month.jsx 1`] = `
       class="t-date-picker t-size-m t-date-picker--month-picker"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
@@ -526,7 +526,7 @@ exports[`year.jsx 1`] = `
       class="t-date-picker t-size-m t-date-picker--month-picker"
     >
       <div
-        class="t-popup-reference t-date-picker__popup-reference"
+        class="t-popup__reference t-date-picker__popup-reference"
       >
         <div
           class="t-form-controls"
