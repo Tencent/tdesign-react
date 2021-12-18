@@ -328,7 +328,7 @@ export function getWeeks(
     });
   }
 
-  if (prependDay.getDay() !== firstDayOfWeek) {
+  if (prependDay.getDay() !== firstDayOfWeek - 1) {
     prependDay.setDate(0); // 上一月
 
     const FLAG = true;
