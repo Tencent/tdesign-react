@@ -85,8 +85,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
       className={classnames({
         [`${classPrefix}-table__cell--fixed-${fixed}`]: fixed,
         [`${classPrefix}-table__cell--fixed-${fixed}-${fixed === 'left' ? 'last' : 'first'}`]: fixed && isBoundary,
-        [`align-${align}`]: align,
-        'text-ellipsis': ellipsis,
+        [`${classPrefix}-align-${align}`]: align,
+        [`${classPrefix}-text-ellipsis`]: ellipsis,
         [`${className}`]: !!className,
       })}
       rowSpan={rowSpan}
