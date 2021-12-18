@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { StyledProps , TNode } from '../common';
+import { StyledProps, TNode } from '../common';
 import { TdMenuGroupProps } from './type';
 import useConfig from '../_util/useConfig';
 
@@ -13,7 +13,7 @@ const MenuGroup = ({ title, children }: MenuGroupProps) => {
 
   return (
     <div className={classNames(`${classPrefix}-menu-group`)}>
-      <div className={classNames(`${classPrefix}-menu-group-title`)}>{title}</div>
+      <div className={classNames(`${classPrefix}-menu-group__title`)}>{title}</div>
       {children}
     </div>
   );

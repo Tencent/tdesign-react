@@ -22,9 +22,9 @@ const renderIcon = (classPrefix: string, icon: TElement) => {
   if (icon) result = icon;
   if (typeof icon === 'function') result = icon();
   if (result) {
-    result = <span className={`${classPrefix}-table-filter-icon`}>{result}</span>;
+    result = <span className={`${classPrefix}-table__filter-icon`}>{result}</span>;
   } else {
-    result = <TIconFilter className={`${classPrefix}-table-filter-icon`} />;
+    result = <TIconFilter className={`${classPrefix}-table__filter-icon`} />;
   }
   return result;
 };
@@ -52,7 +52,7 @@ function FilterButton(props: Props) {
       return;
     }
     return (
-      <div className={`${classPrefix}-table-filter-pop-content__inner`}>
+      <div className={`${classPrefix}-table__filter-pop-content-inner`}>
         <>
           {filter.type === 'multiple' ? (
             <Checkbox.Group
@@ -128,9 +128,9 @@ function FilterButton(props: Props) {
             trigger="click"
             placement="bottom"
             showArrow
-            overlayClassName={`${classPrefix}-table-filter-pop`}
+            overlayClassName={`${classPrefix}-table__filter-pop`}
             content={
-              <div className={`${classPrefix}-table-filter-pop-content`}>
+              <div className={`${classPrefix}-table__filter-pop-content`}>
                 {getFilterContent(filter, colKey, column)}
               </div>
             }
