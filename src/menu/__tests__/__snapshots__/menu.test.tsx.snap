@@ -1085,7 +1085,7 @@ exports[`group-side.jsx 1`] = `
           class="t-menu-group"
         >
           <div
-            class="t-menu-group-title"
+            class="t-menu-group__title"
           >
             Classification A
           </div>
@@ -1122,7 +1122,7 @@ exports[`group-side.jsx 1`] = `
           class="t-menu-group"
         >
           <div
-            class="t-menu-group-title"
+            class="t-menu-group__title"
           >
             Classification B
           </div>
@@ -1151,7 +1151,7 @@ exports[`group-side.jsx 1`] = `
           class="t-menu-group"
         >
           <div
-            class="t-menu-group-title"
+            class="t-menu-group__title"
           >
             Classification C
           </div>
