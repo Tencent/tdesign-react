@@ -19,13 +19,13 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   const [local, t] = useLocaleReceiver('datePicker');
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const shorthand = t(local.weekdays.shorthand);
+  const weekdays = t(local.weekdays);
 
   const weekArr = [];
-  let wi = firstDayOfWeek;
-  const len = shorthand.length;
+  let wi = firstDayOfWeek - 1;
+  const len = weekdays.length;
   while (weekArr.length < len) {
-    weekArr.push(shorthand[wi]);
+    weekArr.push(weekdays[wi]);
     wi = (wi + len + 1) % len;
   }
 
