@@ -8,7 +8,7 @@ export default function YearDatePicker() {
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      <DatePicker theme="primary" mode="date" onChange={handleChange} />
+      <DatePicker mode="date" onChange={handleChange} />
     </div>
   );
 }

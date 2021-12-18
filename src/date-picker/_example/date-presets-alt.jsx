@@ -17,9 +17,11 @@ export default function YearDatePicker() {
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      <DatePicker value={selectedDates} theme="primary" mode="date" presets={presets} range onChange={handleChange}></DatePicker>
+      <DatePicker value={selectedDates} mode="date" presets={presets} range onChange={handleChange}></DatePicker>
       <br />
-      <div>{ dateText }: { selectedDates.join(' 至 ') }</div>
+      <div>
+        {dateText}: {selectedDates.join(' 至 ')}
+      </div>
     </div>
   );
 }

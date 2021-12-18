@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import { DatePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
@@ -32,19 +32,19 @@ export default function YearDatePicker() {
   return (
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-item--datepicker">
-        <DatePicker theme="primary" mode="date" disableDate={disableDate} onChange={handleChange} />
+        <DatePicker mode="date" disableDate={disableDate} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
-        <DatePicker theme="primary" mode="date" disableDate={disableDate2} onChange={handleChange} />
+        <DatePicker mode="date" disableDate={disableDate2} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
-        <DatePicker theme="primary" mode="date" disableDate={disableDate3} onChange={handleChange} />
+        <DatePicker mode="date" disableDate={disableDate3} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
-        <DatePicker theme="primary" mode="date" range disableDate={disableDate4} onChange={handleChange} />
+        <DatePicker mode="date" range disableDate={disableDate4} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
-        <DatePicker theme="primary" mode="date" disableDate={getDisableDate} onChange={handleChange} />
+        <DatePicker mode="date" disableDate={getDisableDate} onChange={handleChange} />
       </div>
     </div>
   );
