@@ -1,5 +1,5 @@
 import React from 'react';
-import Upload from 'tdesign-react/upload';
+import { Upload } from 'tdesign-react';
 
 export default function FileFlowList() {
   return (

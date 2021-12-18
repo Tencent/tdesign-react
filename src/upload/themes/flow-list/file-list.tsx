@@ -2,7 +2,7 @@ import React, { MouseEvent } from 'react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
 import { abridgeName, returnFileSize } from '../../util';
 import useConfig from '../../../_util/useConfig';
-import Loading from '../../../Loading';
+import Loading from '../../../loading';
 import type { CommonListProps, FlowListProps } from './index';
 import type { UploadFile } from '../../type';
 
