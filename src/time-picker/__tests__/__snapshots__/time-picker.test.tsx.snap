@@ -3,7 +3,7 @@
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-is-disabled t-time-picker"
@@ -53,7 +53,7 @@ exports[`hide-clear-button.jsx 1`] = `
   </h3>
   <br />
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -131,7 +131,7 @@ exports[`hide-clear-button.jsx 1`] = `
   </h3>
   <br />
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -208,7 +208,7 @@ exports[`hide-clear-button.jsx 1`] = `
 exports[`hm.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -253,7 +253,7 @@ exports[`hm.jsx 1`] = `
 exports[`hms.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -298,7 +298,7 @@ exports[`hms.jsx 1`] = `
 exports[`keyboard.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -372,7 +372,7 @@ exports[`keyboard.jsx 1`] = `
 exports[`range.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -417,7 +417,7 @@ exports[`range.jsx 1`] = `
 exports[`show-steps.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"
@@ -462,7 +462,7 @@ exports[`show-steps.jsx 1`] = `
 exports[`twelve-hour-meridian.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <div
       class="t-time-picker"

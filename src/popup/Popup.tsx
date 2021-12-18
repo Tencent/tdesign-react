@@ -162,8 +162,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             {...popupProps}
           >
             <div
-              className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
-                [`${classPrefix}-popup-content--arrow`]: showArrow,
+              className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
+                [`${classPrefix}-popup__content--arrow`]: showArrow,
               })}
               style={overlayVisibleStyle}
               ref={contentRef}
@@ -178,7 +178,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-popup-reference`, className)}
+      className={classNames(`${classPrefix}-popup__reference`, className)}
       onMouseDown={handlePopupWrapperMouseDown}
       style={style}
     >

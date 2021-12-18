@@ -565,7 +565,7 @@ exports[`target.jsx 1`] = `
     >
       基础锚点
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <svg
           class="t-icon t-icon-file-copy t-anchor__copy"
@@ -593,7 +593,7 @@ exports[`target.jsx 1`] = `
     >
       多级锚点
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <svg
           class="t-icon t-icon-file-copy t-anchor__copy"
@@ -621,7 +621,7 @@ exports[`target.jsx 1`] = `
     >
       尺寸大小
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <svg
           class="t-icon t-icon-file-copy t-anchor__copy"
@@ -649,7 +649,7 @@ exports[`target.jsx 1`] = `
     >
       指定容器
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <svg
           class="t-icon t-icon-file-copy t-anchor__copy"

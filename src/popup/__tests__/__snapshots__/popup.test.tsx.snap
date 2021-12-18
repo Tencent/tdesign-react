@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -25,7 +25,7 @@ exports[`container.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -39,7 +39,7 @@ exports[`container.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -59,7 +59,7 @@ exports[`container.jsx 1`] = `
 exports[`destroy.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -78,7 +78,7 @@ exports[`destroy.jsx 1`] = `
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-is-disabled t-button t-button--theme-primary t-button--variant-base"
@@ -100,7 +100,7 @@ exports[`placement.jsx 1`] = `
     style="margin: 0px auto; width: 500px; height: 260px; position: relative;"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -115,7 +115,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -130,7 +130,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -145,7 +145,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -160,7 +160,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -175,7 +175,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -190,7 +190,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -205,7 +205,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -220,7 +220,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -235,7 +235,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -250,7 +250,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -265,7 +265,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -289,7 +289,7 @@ exports[`style.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -303,7 +303,7 @@ exports[`style.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -326,7 +326,7 @@ exports[`trigger.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
@@ -340,7 +340,7 @@ exports[`trigger.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <div
         class="t-input"
@@ -354,7 +354,7 @@ exports[`trigger.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
@@ -368,7 +368,7 @@ exports[`trigger.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
@@ -391,7 +391,7 @@ exports[`trigger-element.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
@@ -405,7 +405,7 @@ exports[`trigger-element.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -425,7 +425,7 @@ exports[`trigger-element.jsx 1`] = `
 exports[`visible.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
