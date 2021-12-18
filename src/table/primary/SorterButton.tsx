@@ -60,9 +60,9 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
       style.bottom = '-1px';
     }
     const sortClassName = classNames([
-      `${classPrefix}-table-sort-icon`,
+      `${classPrefix}-table__sort-icon`,
       className,
-      `${classPrefix}-table-sort-${direction}`,
+      `${classPrefix}-table__sort-${direction}`,
     ]);
 
     return (
@@ -84,7 +84,7 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
     }
     const sortIcons = allowSortTypes.map((direction: string) => {
       const className =
-        direction === currentSortType ? `${classPrefix}-table-sort-icon-active` : `${classPrefix}-icon-sort-default`;
+        direction === currentSortType ? `${classPrefix}-table__sort-icon--active` : `${classPrefix}-icon-sort-default`;
       return renderIcon(direction, className);
     });
     return sortIcons.length > 1 ? <div style={{ lineHeight: 0 }}>{sortIcons}</div> : sortIcons;
@@ -111,7 +111,7 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
     <div
       className={classNames([
         `${classPrefix}-table__cell--sort-trigger`,
-        { [`${classPrefix}-table-double-icons`]: true },
+        { [`${classPrefix}-table__double-icons`]: true },
       ])}
       onClick={handleSort}
     >
