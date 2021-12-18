@@ -6,7 +6,7 @@ export default function TableEmptyBody(props) {
   const { empty = '暂无数据' } = props;
 
   return (
-    <div className={`${classPrefix}-table--empty`} style={{ borderBottom: 0 }}>
+    <div className={`${classPrefix}-table__empty`} style={{ borderBottom: 0 }}>
       {typeof empty === 'function' ? empty() : empty}
     </div>
   );
