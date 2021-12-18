@@ -2867,7 +2867,7 @@ exports[`pagination.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select t-size-s"
@@ -3046,7 +3046,7 @@ exports[`pagination.jsx 1`] = `
               class="t-select-wrap"
             >
               <div
-                class="t-popup-reference t-select-popup-reference"
+                class="t-popup__reference t-select-popup-reference"
               >
                 <div
                   class="t-select t-size-s"

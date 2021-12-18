@@ -379,7 +379,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -393,7 +393,7 @@ exports[`base.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -407,7 +407,7 @@ exports[`base.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -421,7 +421,7 @@ exports[`base.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
@@ -445,7 +445,7 @@ exports[`button.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -459,7 +459,7 @@ exports[`button.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -482,7 +482,7 @@ exports[`describe.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -496,7 +496,7 @@ exports[`describe.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-danger t-button--variant-outline"
@@ -516,7 +516,7 @@ exports[`describe.jsx 1`] = `
 exports[`extends.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-popup-reference"
+    class="t-popup__reference"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -541,7 +541,7 @@ exports[`icon.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
@@ -555,7 +555,7 @@ exports[`icon.jsx 1`] = `
         </button>
       </div>
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <button
           class="t-button t-button--theme-warning t-button--variant-base"
@@ -569,7 +569,7 @@ exports[`icon.jsx 1`] = `
         </button>
       </div>
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <button
           class="t-button t-button--theme-danger t-button--variant-base"
@@ -587,7 +587,7 @@ exports[`icon.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
-        class="t-popup-reference"
+        class="t-popup__reference"
       >
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
@@ -611,7 +611,7 @@ exports[`inherit.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -625,7 +625,7 @@ exports[`inherit.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -648,7 +648,7 @@ exports[`placement.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -662,7 +662,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -676,7 +676,7 @@ exports[`placement.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -699,7 +699,7 @@ exports[`theme.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline"
@@ -713,7 +713,7 @@ exports[`theme.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -727,7 +727,7 @@ exports[`theme.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-danger t-button--variant-base"
@@ -741,7 +741,7 @@ exports[`theme.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-popup-reference"
+      class="t-popup__reference"
     >
       <button
         class="t-button t-button--theme-danger t-button--variant-base"

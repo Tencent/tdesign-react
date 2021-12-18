@@ -17,7 +17,7 @@ exports[`base.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -156,7 +156,7 @@ exports[`jump.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -308,7 +308,7 @@ exports[`mini.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select t-size-s"
@@ -447,7 +447,7 @@ exports[`more.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -586,7 +586,7 @@ exports[`page-num.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -725,7 +725,7 @@ exports[`simple.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -782,7 +782,7 @@ exports[`simple.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
@@ -853,7 +853,7 @@ exports[`simple-mini.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select t-size-s"
@@ -910,7 +910,7 @@ exports[`simple-mini.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select t-size-s"
@@ -981,7 +981,7 @@ exports[`total.jsx 1`] = `
         class="t-select-wrap"
       >
         <div
-          class="t-popup-reference t-select-popup-reference"
+          class="t-popup__reference t-select-popup-reference"
         >
           <div
             class="t-select"
