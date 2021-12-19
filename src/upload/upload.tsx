@@ -1,5 +1,7 @@
-import React, { ChangeEvent, useRef, useState, useCallback, useMemo } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import findIndex from 'lodash/findIndex';
+import Dialog from '../dialog';
 import Dragger from './dragger';
 import UploadTrigger from './upload-trigger';
 import Tips from './tips';
@@ -7,10 +9,11 @@ import request from '../_common/js/upload/xhr';
 import useConfig from '../_util/useConfig';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
+import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
-import { finishUpload, updateFileList, isSingleFile } from './util';
-import { TdUploadFile, UploadProps } from './types';
-import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from './type';
+import { finishUpload, isSingleFile, updateFileList } from './util';
+import { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
+import { ProgressContext, SuccessContext, TdUploadProps, UploadFile, UploadRemoveContext } from './type';
 import useDefaultValue from './hooks/useDefaultValue';
 
 const urlCreator = window.webkitURL || window.URL;
@@ -49,6 +52,22 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   const uploadRef = useRef<HTMLInputElement>();
   const [errorMsg, setErrorMsg] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [toUploadFiles, setToUploadFiles] = useState([]); // 等待上传的文件队列
+  // region img preview dialog
+  const showImgDialog = ['image', 'image-flow', 'custom'].includes(theme);
+  const [showImg, setShowImg] = useState(false);
+  const [imgURL, setImgURL] = useState('');
+  const closePreview = useCallback(() => {
+    setShowImg(false);
+    setImgURL('');
+  }, []);
+  // handle event of preview img dialog event
+  const handlePreviewImg = useCallback((event: MouseEvent, file: UploadFile) => {
+    if (!file.url) throw new Error('Error file');
+    setImgURL(file.url);
+    setShowImg(true);
+  }, []);
+  // endregion
 
   const triggerUpload = () => {
     if (disabled) return;
@@ -117,7 +136,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         e,
         response,
       };
-      // setFileList((prevFileList) => updateFileList(file, prevFileList));
+      setToUploadFiles((toUploadFiles) => toUploadFiles.filter((toUploadFile) => toUploadFile.name !== file.name));
       onChange?.(nextFileList, context);
       onSuccess?.(sContext);
     },
@@ -195,6 +214,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     fileList.forEach((uploadFile) => {
       handleBeforeUpload(uploadFile).then((canUpload) => {
         if (!canUpload) return;
+        const newFiles = [...toUploadFiles, uploadFile];
+        setToUploadFiles([...new Set(newFiles)]);
         if (autoUpload) {
           upload(uploadFile);
         }
@@ -259,12 +280,37 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     return Boolean(tips);
   }, [fileList, theme, tips]);
 
-  const handleMultipleRemove = (options: UploadRemoveContext) => {
-    const files = fileList.concat();
-    files.splice(options.index, 1);
-    onChange?.(files, { trigger: 'remove' });
-    onRemove?.(options);
-  };
+  // region multiple upload
+  const handleMultipleRemove = useCallback(
+    (options: UploadRemoveContext) => {
+      const files = fileList.concat();
+      files.splice(options.index, 1);
+      onChange?.(files, { trigger: 'remove' });
+      onRemove?.(options);
+    },
+    [fileList, onChange, onRemove],
+  );
+  const handleListRemove = useCallback(
+    (context: FlowRemoveContext) => {
+      const { file } = context;
+      const index = findIndex(toUploadFiles, (o) => o.name === file.name);
+      if (index >= 0) {
+        setToUploadFiles((toUploadFiles) => toUploadFiles.splice(index, 1));
+      } else {
+        const index = findIndex(fileList, (o) => o.name === file.name);
+        handleMultipleRemove({ e: context.e, index });
+      }
+    },
+    [fileList, handleMultipleRemove, toUploadFiles],
+  );
+  const multipleUpload = useCallback(
+    (fileList: UploadFile[]) => {
+      for (const file of fileList) {
+        upload(file);
+      }
+    },
+    [upload],
+  );
 
   React.useEffect(() => {
     if (uploading) {
@@ -336,6 +382,40 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           }}
           onTrigger={triggerUpload}
         />
+      </BooleanRender>
+      <BooleanRender boolExpression={showUploadList}>
+        <FlowList
+          files={fileList}
+          placeholder={placeholder}
+          toUploadFiles={toUploadFiles}
+          remove={handleListRemove}
+          showUploadProgress={showUploadProgress}
+          upload={multipleUpload}
+          cancel={cancelUpload}
+          display={theme as 'image-flow' | 'file-flow'}
+          onImgPreview={handlePreviewImg}
+          onChange={handleDragChange}
+          onDragenter={handleDragenter}
+          onDragleave={handleDragleave}
+        >
+          <UploadTrigger onClick={triggerUpload} />
+        </FlowList>
+      </BooleanRender>
+      <BooleanRender boolExpression={showImgDialog}>
+        <Dialog
+          visible={showImg}
+          showOverlay
+          width="auto"
+          top="10%"
+          className={`${classPrefix}-upload__dialog`}
+          footer={false}
+          header={false}
+          onClose={closePreview}
+        >
+          <p className={`${classPrefix}-dialog__dialog-body-img-box`}>
+            <img src={imgURL} alt="" />
+          </p>
+        </Dialog>
       </BooleanRender>
       <BooleanRender boolExpression={!errorMsg && showTips}>
         <Tips>{tips}</Tips>

@@ -149,6 +149,130 @@ exports[`draggable.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`file-flow-list.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-upload__file-flow-demo"
+  >
+    <div
+      class="t-upload"
+    >
+      <input
+        hidden=""
+        multiple=""
+        type="file"
+      />
+      <div
+        class="t-upload__flow t-upload__flow-file-flow"
+      >
+        <div
+          class="t-upload__flow-op"
+        >
+          <div
+            class="t-upload__trigger"
+          >
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              style="position: relative;"
+              type="button"
+            >
+              <svg
+                class="t-icon t-icon-upload"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M3.74 6.68L7.5 2.9v8.59h1V2.91l3.76 3.77.71-.7-4.62-4.63a.5.5 0 00-.7 0L3.03 5.97l.7.7z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2h-1v2H3v-2H2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+              <span
+                class="t-button__text"
+              >
+                选择文件
+              </span>
+            </button>
+          </div>
+          <small
+            class="t-upload__small t-upload__flow-placeholder"
+          >
+            支持批量上传文件，文件格式不限，最多只能上传 10 份文件
+          </small>
+        </div>
+        <table
+          class="t-upload__flow-table"
+        >
+          <thead>
+            <tr>
+              <th>
+                文件名
+              </th>
+              <th>
+                大小
+              </th>
+              <th>
+                状态
+              </th>
+              <th>
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                colspan="4"
+              >
+                <div
+                  class="t-upload__flow-empty"
+                >
+                  点击上方“选择文件”或将文件拖拽到此区域
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="t-upload__flow-bottom"
+        >
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+            disabled=""
+            style="position: relative;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              开始上传
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`image.jsx 1`] = `
 <DocumentFragment>
   <div>
@@ -330,6 +454,107 @@ exports[`image.jsx 1`] = `
         >
           允许选择多张图片文件上传，最多只能上传 3 张图片
         </small>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`img-flow-list.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-upload__img-flow-demo"
+  >
+    <div
+      class="t-upload"
+    >
+      <input
+        accept="image/*"
+        hidden=""
+        multiple=""
+        type="file"
+      />
+      <div
+        class="t-upload__flow t-upload__flow-image-flow"
+      >
+        <div
+          class="t-upload__flow-op"
+        >
+          <div
+            class="t-upload__trigger"
+          >
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              style="position: relative;"
+              type="button"
+            >
+              <svg
+                class="t-icon t-icon-upload"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M3.74 6.68L7.5 2.9v8.59h1V2.91l3.76 3.77.71-.7-4.62-4.63a.5.5 0 00-.7 0L3.03 5.97l.7.7z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+                <path
+                  d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2h-1v2H3v-2H2z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+              <span
+                class="t-button__text"
+              >
+                选择文件
+              </span>
+            </button>
+          </div>
+          <small
+            class="t-upload__small t-upload__flow-placeholder"
+          >
+            支持批量上传图片文件
+          </small>
+        </div>
+        <div
+          class="t-upload__flow-card-area"
+        >
+          <div
+            class="t-upload__flow-empty"
+          >
+            点击上方“选择文件”或将文件拖拽到此区域
+          </div>
+        </div>
+        <div
+          class="t-upload__flow-bottom"
+        >
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            style="position: relative;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              取消
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+            disabled=""
+            style="position: relative;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              开始上传
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
