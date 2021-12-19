@@ -6,7 +6,7 @@
  * */
 
 import { TNode } from '../common';
-import { MouseEvent, DragEvent } from 'react';
+import { DragEvent, MouseEvent } from 'react';
 
 export interface TdUploadProps {
   /**
@@ -254,7 +254,7 @@ export type UploadProgressType = 'real' | 'mock';
 export interface UploadRemoveContext {
   index?: number;
   file?: UploadFile;
-  e: MouseEvent<HTMLDivElement | SVGElement>;
+  e: MouseEvent<HTMLElement | SVGElement>;
 }
 
 export interface SuccessContext {
