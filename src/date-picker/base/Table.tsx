@@ -16,10 +16,10 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
   const { type, data, onCellClick, onCellMouseEnter, firstDayOfWeek } = props;
 
-  const [local, t] = useLocaleReceiver('datePicker');
+  const [local] = useLocaleReceiver('datePicker');
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const weekdays = t(local.weekdays);
+  const { weekdays } = local;
 
   const weekArr = [];
   let wi = firstDayOfWeek - 1;
