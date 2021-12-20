@@ -50,30 +50,28 @@ const PopupContent = (props: SelectPopupProps) => {
   if (!children && !props.options) return null;
 
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, restData }) => {
-    if (selectedValue) {
-      const isValObj = valueType === 'object';
-      let objVal = {};
-      if (isValObj) {
-        objVal = { ...restData };
-        if (!keys?.label) {
-          Object.assign(objVal, { label });
-        }
-        if (!keys?.value) {
-          Object.assign(objVal, { value: selectedValue });
-        }
+    const isValObj = valueType === 'object';
+    let objVal = {};
+    if (isValObj) {
+      objVal = { ...restData };
+      if (!keys?.label) {
+        Object.assign(objVal, { label });
       }
-
-      if (multiple) {
-        // calc multiple select values
-        const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-        onChange(values, { label });
-      } else {
-        // calc single select value
-        const selectVal = valueType === 'object' ? objVal : selectedValue;
-
-        onChange(selectVal, { label });
-        setShowPopup(!showPopup);
+      if (!keys?.value) {
+        Object.assign(objVal, { value: selectedValue });
       }
+    }
+
+    if (multiple) {
+      // calc multiple select values
+      const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
+      onChange(values, { label });
+    } else {
+      // calc single select value
+      const selectVal = valueType === 'object' ? objVal : selectedValue;
+
+      onChange(selectVal, { label });
+      setShowPopup(!showPopup);
     }
   };
 
