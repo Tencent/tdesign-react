@@ -3,4 +3,4 @@
 
 npx lint-staged
 
-exec < /dev/tty && git-cz --hook || true
+exec < /dev/tty && git cz --hook || true
