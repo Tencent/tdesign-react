@@ -14,19 +14,25 @@ export function useLocaleReceiver<T extends LocaleComponentName>(
 ): [Locale[T], Function] {
   const { locale: tdLocale } = React.useContext(ConfigContext);
 
-  function transformLocale(pattern: LocalRule<Placement>, placement?: Placement): string {
+  function transformLocale(pattern: LocalRule<Placement>, placement?: Placement): string | Array<string> {
+    const REGX = /\{\s*([\w-]+)\s*\}/g;
+
     if (typeof pattern === 'string') {
-      if (!placement) return pattern;
-      const regx = /\{\s*([\w-]+)\s*\}/g;
-      const translated = pattern.replace(regx, (_, key) => {
-        if (placement) {
-          return String(placement[key]);
-        }
+      if (!placement || !REGX.test(pattern)) return pattern;
+      const translated = pattern.replace(REGX, (_, key) => {
+        if (placement) return String(placement[key]);
         return '';
       });
       return translated;
-    }
-    if (typeof pattern === 'function') {
+    } if (Array.isArray(pattern)) {
+      return pattern.map((p, index) => {
+        const translated = p.replace(REGX, (_: string, key: string) => {
+          if (placement) return String(placement[index][key]);
+          return '';
+        });
+        return translated;
+      });
+    } if (typeof pattern === 'function') {
       return pattern(placement);
     }
     return '';
