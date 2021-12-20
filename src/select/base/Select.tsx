@@ -114,9 +114,10 @@ const Select = forwardRefWithStatics(
       }
     }, [showPopup]);
 
-    useEffect(() => {
-      onVisibleChange?.(showPopup);
-    }, [showPopup, onVisibleChange]);
+    const handleShowPopup = (visible: boolean) => {
+      setShowPopup(visible);
+      onVisibleChange?.(visible);
+    };
 
     // 处理设置option的逻辑
     useEffect(() => {
@@ -132,25 +133,6 @@ const Select = forwardRefWithStatics(
         setCurrentOptions(options);
       }
     }, [options, keys, children]);
-
-    // handle click outside
-    useEffect(() => {
-      const listener = (event: MouseEvent | TouchEvent) => {
-        if (!selectRef.current || selectRef.current.contains(event.target)) {
-          return;
-        }
-        if (showPopup) {
-          setShowPopup(false);
-        }
-        if (!showPopup) {
-          toggleHover(false);
-        }
-      };
-      document.addEventListener('click', listener);
-      return () => {
-        document.removeEventListener('click', listener);
-      };
-    }, [showPopup, onVisibleChange]);
 
     // 移除 Tag
     const removeTag = (
@@ -307,7 +289,6 @@ const Select = forwardRefWithStatics(
       } else {
         onChange('');
       }
-      // Icon组件目前的ref
       onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
     };
 
@@ -366,17 +347,19 @@ const Select = forwardRefWithStatics(
         onMouseLeave={() => toggleHover(false)}
       >
         <Popup
+          trigger="click"
+          ref={overlayRef}
           content={renderContent()}
           placement="bottom-left"
           visible={showPopup}
           overlayStyle={{
             width: width ? `${width}px` : 'none',
           }}
+          onVisibleChange={handleShowPopup}
           overlayClassName={classNames(className, `${name}-dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
           className={`${name}-popup-reference`}
           expandAnimation={true}
           {...popupProps}
-          ref={overlayRef}
         >
           <div
             className={classNames(className, name, {

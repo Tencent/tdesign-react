@@ -67,7 +67,6 @@ const PopupContent = (props: SelectPopupProps) => {
         // calc multiple select values
         const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
         onChange(values, { label });
-        requestAnimationFrame(() => setShowPopup(true));
       } else {
         // calc single select value
         const selectVal = valueType === 'object' ? objVal : selectedValue;
