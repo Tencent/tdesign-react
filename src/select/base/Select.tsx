@@ -5,6 +5,7 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 
+import { isNumber } from 'lodash';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import composeRefs from '../../_util/composeRefs';
@@ -94,9 +95,7 @@ const Select = forwardRefWithStatics(
     const selectRef = useRef(null);
     const overlayRef = useRef(null);
 
-    if (value) {
-      selectedLabel = getLabel(children, value, currentOptions, keys);
-    }
+    selectedLabel = getLabel(children, value, currentOptions, keys);
 
     // 计算Select的宽高
     useEffect(() => {
@@ -203,7 +202,7 @@ const Select = forwardRefWithStatics(
       <span
         className={classNames(
           className,
-          { [`${name}-placeholder`]: !value || (Array.isArray(value) && value.length < 1) },
+          { [`${name}-placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1) },
           {
             [`${name}-selectedSingle`]: selectedLabel,
           },
@@ -260,25 +259,23 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
-    const renderInput = () => {
-      const isEmpty = !value || (Array.isArray(value) && value.length === 0);
-      return (
-        <Input
-          value={isString(inputVal) ? inputVal : selectedLabel}
-          placeholder={isEmpty ? placeholder || '-请选择-' : undefined}
-          className={`${name}-input`}
-          onChange={handleInputChange}
-          onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
-          onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
-          onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
-        />
-      );
-    };
+    const renderInput = () => (
+      <Input
+        value={isString(inputVal) ? inputVal : selectedLabel}
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
+        className={`${name}-input`}
+        onChange={handleInputChange}
+        onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
+        onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
+        onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
+      />
+    );
 
     const onInputClick = (e: React.MouseEvent) => {
       e.preventDefault();
       if (!disabled) {
-        setShowPopup(!showPopup);
+        setShowPopup(true);
+        setInputVal('');
       }
     };
 
