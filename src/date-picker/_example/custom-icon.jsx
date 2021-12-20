@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePicker } from 'tdesign-react';
+import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 
 export default function YearDatePicker() {
   function handleChange(value) {
@@ -8,13 +9,7 @@ export default function YearDatePicker() {
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      <DatePicker
-        mode="date"
-        format="YYYY-MM-DD HH:mm:ss"
-        enableTimePicker
-        defaultValue="2021-05-01 11:30:20"
-        onChange={handleChange}
-      />
+      <DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} mode="date" onChange={handleChange} />
     </div>
   );
 }

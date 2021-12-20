@@ -46,6 +46,7 @@ const DatePicker = (props: DatePickerProps) => {
     suffixIcon,
     value,
     defaultValue,
+    firstDayOfWeek,
     onChange,
     // onBlur,
     // onFocus,
@@ -330,7 +331,7 @@ const DatePicker = (props: DatePickerProps) => {
 
     const panelProps = {
       mode,
-      firstDayOfWeek: 0,
+      firstDayOfWeek: firstDayOfWeek === undefined ? 1 : firstDayOfWeek,
       onChange: dateClick,
       disableDate: isEnabled,
       minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : null,
