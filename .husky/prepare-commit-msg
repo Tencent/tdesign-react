@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx git-cz
+exec < /dev/tty && npx git-cz --hook || true
