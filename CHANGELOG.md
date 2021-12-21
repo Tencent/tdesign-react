@@ -1,6 +1,7 @@
 ---
 title: CHANGELOG
 docClass: timeline
+toc: false
 spline: explain
 ---
 
