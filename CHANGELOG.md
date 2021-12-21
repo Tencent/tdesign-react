@@ -1,6 +1,6 @@
 ---
 title: CHANGELOG
-timeline: true
+docClass: timeline
 spline: explain
 ---
 
