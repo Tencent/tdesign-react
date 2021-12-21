@@ -116,6 +116,9 @@ const Select = forwardRefWithStatics(
     const handleShowPopup = (visible: boolean) => {
       setShowPopup(visible);
       onVisibleChange?.(visible);
+      if (!visible && !multiple && filterable) {
+        setInputVal(selectedLabel);
+      }
     };
 
     // 处理设置option的逻辑
