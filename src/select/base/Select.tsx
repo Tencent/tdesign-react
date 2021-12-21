@@ -89,6 +89,7 @@ const Select = forwardRefWithStatics(
     const [isHover, toggleHover] = useState(false);
     const [inputVal, setInputVal] = useState<string>(undefined);
     const [currentOptions, setCurrentOptions] = useState([]);
+    const [tmpPropOptions, setTmpPropOptions] = useState([]);
 
     const [width, setWidth] = useState(0);
 
@@ -96,7 +97,6 @@ const Select = forwardRefWithStatics(
     const overlayRef = useRef(null);
 
     selectedLabel = getLabel(children, value, currentOptions, keys);
-
     // 计算Select的宽高
     useEffect(() => {
       if (showPopup && selectRef?.current) {
@@ -131,8 +131,10 @@ const Select = forwardRefWithStatics(
           label: get(option, keys?.label || 'label'),
         }));
         setCurrentOptions(transformedOptions);
+        setTmpPropOptions(transformedOptions);
       } else {
         setCurrentOptions(options);
+        setTmpPropOptions(options);
       }
     }, [options, keys, children]);
 
@@ -170,7 +172,7 @@ const Select = forwardRefWithStatics(
     // 处理filter逻辑
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType;
-      if (value.length === 0) {
+      if (!value) {
         setCurrentOptions(options);
         return;
       }
@@ -205,7 +207,9 @@ const Select = forwardRefWithStatics(
       <span
         className={classNames(
           className,
-          { [`${name}-placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1) },
+          {
+            [`${name}-placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1),
+          },
           {
             [`${name}-selectedSingle`]: selectedLabel,
           },
@@ -220,8 +224,8 @@ const Select = forwardRefWithStatics(
         let tags: OptionsType;
         let optionValue = [];
         if (valueType === 'value') {
-          if (currentOptions) {
-            optionValue = currentOptions.filter((option) => value.includes(option?.value));
+          if (tmpPropOptions) {
+            optionValue = tmpPropOptions.filter((option) => value.includes(option?.value));
           }
           if (children && Array.isArray(children)) {
             optionValue = children
@@ -232,11 +236,11 @@ const Select = forwardRefWithStatics(
               )
               .filter((option) => value.includes(option?.value));
           }
-
           tags = getMultipleTags(optionValue, keys);
         } else {
           tags = getMultipleTags(value, keys);
         }
+
         if (tags.length > 0)
           return (
             <>
@@ -268,6 +272,7 @@ const Select = forwardRefWithStatics(
         placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
         className={`${name}-input`}
         onChange={handleInputChange}
+        size={size}
         onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
         onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
         onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
