@@ -125,6 +125,7 @@ exports[`creatable.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="Apple"
               value="Apple"
             />
           </div>
@@ -309,6 +310,7 @@ exports[`filterable.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="Apple"
             value="Apple"
           />
         </div>
@@ -773,6 +775,7 @@ exports[`options.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="Apple"
             value="Apple"
           />
         </div>
