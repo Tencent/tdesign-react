@@ -18,6 +18,7 @@ jobs:
         run: npm install
         shell: bash
       - run: echo '${{ github.ref }} ...  ${{ github.sha }}'
+      - run: echo '${{ secrets.TDESIGN_SURGE_TOKEN }}'
       - name: Build site
         run: npm run site:preview
       - name: Upload surge service and generate preview URL
