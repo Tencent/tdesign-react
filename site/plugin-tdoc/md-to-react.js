@@ -103,6 +103,9 @@ export default function mdToReact(options) {
               </>
             ) : <div name="DOC">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }
+          <div style={{ marginTop: 48 }}>
+            <td-doc-history time="${mdSegment.lastUpdated}"></td-doc-history>
+          </div>
         </>
       )
     }
@@ -142,6 +145,7 @@ function customRender({ source, file, md }) {
     tdDocHeader: true,
     tdDocTabs: DEAULT_TABS,
     apiFlag: /#+\s*API/,
+    lastUpdated: Math.round(fs.statSync(file).mtimeMs),
     ...data,
   };
 
