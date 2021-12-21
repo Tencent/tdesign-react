@@ -58,16 +58,18 @@ async function updateChangeLog() {
 
   const lastCommit = getLastChangeLogCommit();
   let initialChangelogStr = fs.readFileSync('CHANGELOG.md', 'utf8');
-  initialChangelogStr = initialChangelogStr.replace(/## (\d+\.\d+\.\d+)/, '## $1');
 
-  const data = initialChangelogStr.split('\n');
+  const pageDataStr = initialChangelogStr.match(/---[\s\S]+---/)[0] + '\n';
+  const data = initialChangelogStr.split(/---[\s\S]+---/);
+  data.unshift(pageDataStr);
 
   new Promise((resolve) => {
     standardChangelog({}, null, { from: lastCommit, to: 'HEAD' })
       .on('data', (chunk) => {
         let changeLogStr = chunk.toString().trim();
-        changeLogStr = changeLogStr.replace(/\[(\d+\.\d+\.\d+)\]\(.+?\)/, '$1');
-        data.splice(2, 0, `${changeLogStr}\n`);
+        changeLogStr = changeLogStr.replace(/\(([\d\-]+)\)/g, '`$1`');
+        changeLogStr = changeLogStr.replace(/^#\s/g, '## ').trim();
+        data.splice(1, 0, `${changeLogStr}\n`);
       })
       .on('end', resolve);
   }).then(() => {

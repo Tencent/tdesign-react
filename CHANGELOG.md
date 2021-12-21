@@ -4,7 +4,7 @@ docClass: timeline
 spline: explain
 ---
 
-## 0.19.1 (2021-12-08)
+## 0.19.1 `2021-12-08`
 
 
 ### Bug Fixes
@@ -12,7 +12,7 @@ spline: explain
 * 修复 Notification 引用路径报错 [@HQ-Lin](https://github.com/HQ-Lin)
 
 
-## 0.19.0 (2021-12-08)
+## 0.19.0 `2021-12-08`
 
 ### BREAKING CHANGES
 * Notification: 插件化使用方式调整，支持  `NotificationPlugin`,`notification` 的调用，废弃 `Notification.info` [@kenzyyang](https://github.com/kenzyyang)
@@ -34,7 +34,7 @@ spline: explain
 * Dialog: 支持 `DialogPlugin` 调用方式 [@HQ-Lin](https://github.com/HQ-Lin)
 * Doc: 优化文档内容 [@HQ-Lin](https://github.com/HQ-Lin)
 
-## 0.18.2 (2021-11-29)
+## 0.18.2 `2021-11-29`
 
 
 ### Bug Fixes
@@ -48,13 +48,13 @@ spline: explain
 * Checkbox: 支持 `options`、`checkAll` Api  [@kenzyyang](https://github.com/kenzyyang)
 * Select: 新增 `valueDisplay`、`minCollapsedNum`、`collapsedItems`、`onEnter`, `onVisibleChange` 等API, `Select.Group` 新增 `divider` API  [@uyarn](https://github.com/uyarn)
 
-## 0.18.1 (2021-11-22)
+## 0.18.1 `2021-11-22`
 
 ### Features
 
 * TS: 导出所有组件 TS 类型 [@HQ-Lin](https://github.com/HQ-Lin)
 
-## 0.18.0 (2021-11-19)
+## 0.18.0 `2021-11-19`
 
 ### BREAKING CHANGES
 * Grid: 优化 gutter 逻辑，传入 number 类型不指定纵向间隔 (merge request !395) [@HQ-Lin](https://github.com/HQ-Lin)
@@ -64,18 +64,18 @@ spline: explain
 * Popup: 修复 popup 动画移除仍可交互问题 (merge request !396) [@HQ-Lin](https://github.com/HQ-Lin)
 
 
-## 0.17.1 (2021-11-16)
+## 0.17.1 `2021-11-16`
 
 ### Bug Fixes
 
 * Slider: 第一次鼠标移入控制按钮的时候，`Tooltip` 位置是不正确的 (merge request !393)  [@andyjxli](https://github.com/andyjxli) [@vision-yip](https://github.com/vision-yip)
 
-## 0.17.0 (2021-11-15)
+## 0.17.0 `2021-11-15`
 
 ### BREAKING CHANGES
 * Icon: 💥 移除 `@tencent` 前缀、切换 `tdesign-icons-react` 为 npm 包。(React 已发布至 npm 源并移除 `@tencent` 前缀，使用者升级版本时注意更改 `package.json`!)  [@HQ-Lin](https://github.com/HQ-Lin)
 
-## 0.16.1 (2021-11-12)
+## 0.16.1 `2021-11-12`
 
 
 ### Bug Fixes
@@ -93,7 +93,7 @@ spline: explain
 * Popup: 调整 popup arrow 为css 定位 (merge request !387)  [@HQ-Lin](https://github.com/HQ-Lin)
 * Datepicker: 优化 Datepicker footer 样式 (merge request !378)  [@xiaosansiji](https://github.com/xiaosansiji)
 
-## 0.16.0 (2021-11-05)
+## 0.16.0 `2021-11-05`
 
 ### BREAKING CHANGES
 
@@ -102,7 +102,7 @@ spline: explain
 * Table: 替换展开老api showExpandArrow 为 expandIcon  [@yunfeic](https://github.com/yunfeic)
 
 
-## 0.15.2 (2021-10-30)
+## 0.15.2 `2021-10-30`
 
 ### Bug Fixes
 
@@ -114,7 +114,7 @@ spline: explain
 * Locale: 支持国际化配置  [@HQ-Lin](https://github.com/HQ-Lin) [@kenzyyang](https://github.com/kenzyyang)
 
 
-## 0.15.1 (2021-10-27)
+## 0.15.1 `2021-10-27`
 
 
 ### Bug Fixes
@@ -122,7 +122,7 @@ spline: explain
 * InputNumber: 修复 InputNumber descrease button 样式问题 (merge request !367)  [@HQ-Lin](https://github.com/HQ-Lin)
 
 
-## 0.15.0 (2021-10-22)
+## 0.15.0 `2021-10-22`
 
 ### BREAKING CHANGES
 * Button: 新增 rectangle shape类型 & 废弃 icon-only 样式 (merge request !360)  [@HQ-Lin](https://github.com/HQ-Lin)
@@ -143,7 +143,7 @@ spline: explain
 * Form: FormItem 支持 upload 类型  [@HQ-Lin](https://github.com/HQ-Lin)
 * Menu: Menu 支持多层级 (merge request !344)  [@andyjxli](https://github.com/andyjxli) 
 
-## 0.14.4 (2021-10-14)
+## 0.14.4 `2021-10-14`
 
 
 ### Bug Fixes
@@ -158,7 +158,7 @@ spline: explain
 * Tree: 组件支持受控能力  [@Ruoleery](https://github.com/Ruoleery)
 * Dialog: 优化弹出动画、避免弹出时页面滚动条禁用导致页面跳动  [@psaren](https://github.com/psaren)
 
-## 0.14.3 (2021-10-09)
+## 0.14.3 `2021-10-09`
 
 
 ### Bug Fixes
@@ -174,7 +174,7 @@ spline: explain
 
 * Popconfirm: 重构 popconfirm 组件  [@kenzyyang](https://github.com/kenzyyang)
 
-## 0.14.2 (2021-09-29)
+## 0.14.2 `2021-09-29`
 
 ### Bug Fixes 🐛 
 
@@ -193,7 +193,7 @@ spline: explain
 * Table: 支持加载状态 (merge request !322) [@tengcaifeng](https://github.com/tengcaifeng) [@yunfeic](https://github.com/yunfeic)
 * Select: 选项宽度展示优化  [@uyarn](https://github.com/uyarn)
 
-## 0.14.1 (2021-09-24)
+## 0.14.1 `2021-09-24`
 
 
 ### Bug Fixes
@@ -213,7 +213,7 @@ spline: explain
 * Form: 支持多种错误提示展示 (merge request !317)  [@HQ-Lin](https://github.com/HQ-Lin)
 * Form: 组件调整 labelWidth 默认值为 100px (merge request !309)  [@HQ-Lin](https://github.com/HQ-Lin)
 
-## 0.14.0 (2021-09-17)
+## 0.14.0 `2021-09-17`
 
 ### BREAKING CHANGES
 * Menu: 去除顶部导航菜单 operations 区域内 icon 默认样式，升级用户请手动为 icon 实现样式，或增加 t-menu__operations-icon class 名称
@@ -237,7 +237,7 @@ spline: explain
 * Dialog: 重构 Dialog 组件 & 支持 快捷调用方式 (merge request !278) 
 * Form: FormItem 支持 labelWidth & labelAlign 控制 (merge request !303) 
 
-## 0.13.0 (2021-09-10)
+## 0.13.0 `2021-09-10`
 
 ### BREAKING CHANGES
 * Radio: 调整 Radio button 样式 & 支持 variant api & buttonStyle api 废弃 
@@ -257,7 +257,7 @@ spline: explain
 * 重构 Drawer 组件 (merge request !266) 
 * Table: 新增选中功能 
 
-## 0.12.2 (2021-09-02)
+## 0.12.2 `2021-09-02`
 
 ### BREAKING CHANGES
 * anchor api 变动调整： attach => container, affix => affixProps 
@@ -272,7 +272,7 @@ spline: explain
 
 * 添加 Textarea 组件 
 
-## 0.11.5 (2021-08-30)
+## 0.11.5 `2021-08-30`
 
 
 ### Bug Fixes
@@ -287,7 +287,7 @@ spline: explain
 * Tag add disabled api and demo (merge request !260) 
 * Form add setfields api  
 
-## 0.11.4 (2021-08-27)
+## 0.11.4 `2021-08-27`
 
 ### Bug Fixes
 
@@ -309,7 +309,7 @@ spline: explain
 * Calendar逻辑修复，**api更新**，demo完善 
 
 
-## 0.10.3 (2021-08-18)
+## 0.10.3 `2021-08-18`
 
 
 ### Bug Fixes
@@ -326,14 +326,14 @@ spline: explain
 * table 组件 排序onSortChange补充支持sortOptions参数,补充类型和注释 
 * loading 对齐最新 API & 更新Loading的默认样式为渐变色 & 支持函数方式调用 
 
-## 0.10.2 (2021-08-13)
+## 0.10.2 `2021-08-13`
 
 
 ### Bug Fixes
 
 * 修复引用 icon 丢失 css 样式问题 (merge request !212) 
 
-## 0.10.1 (2021-08-11)
+## 0.10.1 `2021-08-11`
 
 
 ### Bug Fixes
@@ -342,7 +342,7 @@ spline: explain
 * 修复 es 构建产物 css 丢失问题 
 * **menu:** operations与侧边导航同步vue的实现 解决： 1. 侧边导航在固定高度场景下操作区域无法显示的问题 2. 侧边导航在固定高度场景下内容过长无法上下滚动的问题 (merge request !209) 
 
-## 0.10.0 (2021-08-10)
+## 0.10.0 `2021-08-10`
 
 ### BREAKING CHANGES
 * icon 名称变更 
@@ -358,14 +358,14 @@ spline: explain
 * 更新icon资源 
 * button: 更新组件样式及DEMO 
 
-## 0.9.1 (2021-08-04)
+## 0.9.1 `2021-08-04`
 
 
 ### Bug Fixes
 
 * 修复 form validate 方法报错 (merge request !201) 
 
-## 0.9.0 (2021-07-30)
+## 0.9.0 `2021-07-30`
 
 ### BREAKING CHANGES
 
@@ -399,7 +399,7 @@ spline: explain
 * Pagination remove self hidden control 
 * 新增 MenuGroup 子组件 
 
-## 0.8.0 (2021-07-12)
+## 0.8.0 `2021-07-12`
 
 ### BREAKING CHANGES
 
@@ -424,7 +424,7 @@ spline: explain
 
 * 增加 input-number 默认导出 
 
-## 0.7.1 (2021-06-02)
+## 0.7.1 `2021-06-02`
 
 
 ### Bug Fixes
@@ -435,7 +435,7 @@ spline: explain
 * tabs example 删除debug代码 
 * tabs onRemove事件触发逻辑修正，现在tabs和tabsPanel上都监听后两个事件都能正常被触发 
 
-## 0.7.0 (2021-05-31)
+## 0.7.0 `2021-05-31`
 
 ### BREAKING CHANGES
 
@@ -451,7 +451,7 @@ spline: explain
 ### Features
 
 * Tab onChange onRemove，tabPanel onRemove renderOnHide api实现 
-## 0.6.1 (2021-05-18)
+## 0.6.1 `2021-05-18`
 
 
 ### Bug Fixes
@@ -463,7 +463,7 @@ spline: explain
 
 * formItem 支持嵌套 formItem (merge request !154) 
 
-## 0.6.0 (2021-05-14)
+## 0.6.0 `2021-05-14`
 
 ### BREAKING CHANGES
 
@@ -480,7 +480,7 @@ spline: explain
 * **dialog:** 修复dialog组件部分参数未传报错问题 
 * **timepicker:** fix click popup changeTime when disable 
 
-## 0.5.0 (2021-04-27)
+## 0.5.0 `2021-04-27`
 
 ### BREAKING CHANGES
 
@@ -496,7 +496,7 @@ spline: explain
 * 🌈 添加 Textarea 组件 (merge request !142) 
 * 🌈 添加 Timepicker 组件 
 
-## 0.4.0 (2021-04-23)
+## 0.4.0 `2021-04-23`
 
 ### BREAKING CHANGES
 
@@ -510,7 +510,7 @@ spline: explain
 
 * 🌈 添加 Breadcrumb 组件 
 
-## 0.3.1 (2021-04-13)
+## 0.3.1 `2021-04-13`
 
 
 ### Bug Fixes
@@ -520,7 +520,7 @@ spline: explain
 * 文档切换自动滚动至顶部 
 * 文档样式调整 
 
-## 0.3.0 (2021-04-08)
+## 0.3.0 `2021-04-08`
 
 ### BREAKING CHANGES
 
@@ -542,7 +542,7 @@ spline: explain
 
 * 🌈 新增 Anchor 组件 
 
-## 0.2.0 (2021-03-26)
+## 0.2.0 `2021-03-26`
 
 
 ### Bug Fixes
