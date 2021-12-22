@@ -5,6 +5,7 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 
+import { isNumber } from 'lodash';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import composeRefs from '../../_util/composeRefs';
@@ -88,16 +89,14 @@ const Select = forwardRefWithStatics(
     const [isHover, toggleHover] = useState(false);
     const [inputVal, setInputVal] = useState<string>(undefined);
     const [currentOptions, setCurrentOptions] = useState([]);
+    const [tmpPropOptions, setTmpPropOptions] = useState([]);
 
     const [width, setWidth] = useState(0);
 
     const selectRef = useRef(null);
     const overlayRef = useRef(null);
 
-    if (value) {
-      selectedLabel = getLabel(children, value, currentOptions, keys);
-    }
-
+    selectedLabel = getLabel(children, value, currentOptions, keys);
     // 计算Select的宽高
     useEffect(() => {
       if (showPopup && selectRef?.current) {
@@ -114,9 +113,13 @@ const Select = forwardRefWithStatics(
       }
     }, [showPopup]);
 
-    useEffect(() => {
-      onVisibleChange?.(showPopup);
-    }, [showPopup, onVisibleChange]);
+    const handleShowPopup = (visible: boolean) => {
+      setShowPopup(visible);
+      onVisibleChange?.(visible);
+      if (!visible && !multiple && filterable) {
+        setInputVal(selectedLabel);
+      }
+    };
 
     // 处理设置option的逻辑
     useEffect(() => {
@@ -128,29 +131,12 @@ const Select = forwardRefWithStatics(
           label: get(option, keys?.label || 'label'),
         }));
         setCurrentOptions(transformedOptions);
+        setTmpPropOptions(transformedOptions);
       } else {
         setCurrentOptions(options);
+        setTmpPropOptions(options);
       }
     }, [options, keys, children]);
-
-    // handle click outside
-    useEffect(() => {
-      const listener = (event: MouseEvent | TouchEvent) => {
-        if (!selectRef.current || selectRef.current.contains(event.target)) {
-          return;
-        }
-        if (showPopup) {
-          setShowPopup(false);
-        }
-        if (!showPopup) {
-          toggleHover(false);
-        }
-      };
-      document.addEventListener('click', listener);
-      return () => {
-        document.removeEventListener('click', listener);
-      };
-    }, [showPopup, onVisibleChange]);
 
     // 移除 Tag
     const removeTag = (
@@ -171,8 +157,6 @@ const Select = forwardRefWithStatics(
 
     // 选中 Popup 某项
     const handleChange: SelectOptionProps['onSelect'] = (value, { label }) => {
-      onChange(value);
-
       if (filterable) {
         setInputVal(!multiple || (reserveKeyword && multiple) ? label : '');
       }
@@ -181,22 +165,24 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
+      onChange(value);
     };
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType;
-      if (value.length === 0) {
-        setCurrentOptions(options);
+      if (!value) {
+        setCurrentOptions(tmpPropOptions);
         return;
       }
 
       if (filter && isFunction(filter)) {
         // 如果有自定义的filter方法 使用自定义的filter方法
-        filteredOptions = Array.isArray(options) && options.filter((option) => filter(value, option));
+        filteredOptions = Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filter(value, option));
       } else {
         const filterRegExp = new RegExp(value, 'i');
-        filteredOptions = Array.isArray(options) && options.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        filteredOptions =
+          Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
       }
 
       if (creatable) {
@@ -221,7 +207,9 @@ const Select = forwardRefWithStatics(
       <span
         className={classNames(
           className,
-          { [`${name}-placeholder`]: !value || (Array.isArray(value) && value.length < 1) },
+          {
+            [`${name}-placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1),
+          },
           {
             [`${name}-selectedSingle`]: selectedLabel,
           },
@@ -236,8 +224,8 @@ const Select = forwardRefWithStatics(
         let tags: OptionsType;
         let optionValue = [];
         if (valueType === 'value') {
-          if (currentOptions) {
-            optionValue = currentOptions.filter((option) => value.includes(option?.value));
+          if (tmpPropOptions) {
+            optionValue = tmpPropOptions.filter((option) => value.includes(option?.value));
           }
           if (children && Array.isArray(children)) {
             optionValue = children
@@ -248,11 +236,11 @@ const Select = forwardRefWithStatics(
               )
               .filter((option) => value.includes(option?.value));
           }
-
           tags = getMultipleTags(optionValue, keys);
         } else {
           tags = getMultipleTags(value, keys);
         }
+
         if (tags.length > 0)
           return (
             <>
@@ -278,25 +266,24 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
-    const renderInput = () => {
-      const isEmpty = !value || (Array.isArray(value) && value.length === 0);
-      return (
-        <Input
-          value={isString(inputVal) ? inputVal : selectedLabel}
-          placeholder={isEmpty ? placeholder || '-请选择-' : undefined}
-          className={`${name}-input`}
-          onChange={handleInputChange}
-          onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
-          onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
-          onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
-        />
-      );
-    };
+    const renderInput = () => (
+      <Input
+        value={isString(inputVal) ? inputVal : selectedLabel}
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
+        className={`${name}-input`}
+        onChange={handleInputChange}
+        size={size}
+        onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
+        onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
+        onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
+      />
+    );
 
     const onInputClick = (e: React.MouseEvent) => {
       e.preventDefault();
       if (!disabled) {
-        setShowPopup(!showPopup);
+        setShowPopup(true);
+        setInputVal('');
       }
     };
 
@@ -307,7 +294,6 @@ const Select = forwardRefWithStatics(
       } else {
         onChange('');
       }
-      // Icon组件目前的ref
       onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
     };
 
@@ -366,17 +352,19 @@ const Select = forwardRefWithStatics(
         onMouseLeave={() => toggleHover(false)}
       >
         <Popup
+          trigger="click"
+          ref={overlayRef}
           content={renderContent()}
           placement="bottom-left"
           visible={showPopup}
           overlayStyle={{
             width: width ? `${width}px` : 'none',
           }}
+          onVisibleChange={handleShowPopup}
           overlayClassName={classNames(className, `${name}-dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
           className={`${name}-popup-reference`}
           expandAnimation={true}
           {...popupProps}
-          ref={overlayRef}
         >
           <div
             className={classNames(className, name, {
