@@ -157,8 +157,6 @@ const Select = forwardRefWithStatics(
 
     // 选中 Popup 某项
     const handleChange: SelectOptionProps['onSelect'] = (value, { label }) => {
-      onChange(value);
-
       if (filterable) {
         setInputVal(!multiple || (reserveKeyword && multiple) ? label : '');
       }
@@ -167,22 +165,24 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
+      onChange(value);
     };
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
       let filteredOptions: OptionsType;
       if (!value) {
-        setCurrentOptions(options);
+        setCurrentOptions(tmpPropOptions);
         return;
       }
 
       if (filter && isFunction(filter)) {
         // 如果有自定义的filter方法 使用自定义的filter方法
-        filteredOptions = Array.isArray(options) && options.filter((option) => filter(value, option));
+        filteredOptions = Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filter(value, option));
       } else {
         const filterRegExp = new RegExp(value, 'i');
-        filteredOptions = Array.isArray(options) && options.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        filteredOptions =
+          Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
       }
 
       if (creatable) {

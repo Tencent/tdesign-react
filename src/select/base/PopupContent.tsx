@@ -62,6 +62,9 @@ const PopupContent = (props: SelectPopupProps) => {
       }
     }
 
+    if (!Object.keys(objVal).length) {
+      Object.assign(objVal, { [keys?.label || 'label']: selectedValue, [keys?.value || 'value']: selectedValue });
+    }
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
