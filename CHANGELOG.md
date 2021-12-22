@@ -9,7 +9,7 @@ spline: explain
 
 ### Bug Fixes
 
-* upload style import error ([ed19506](https://github.com/Tencent/tdesign-react/commit/ed195067247fbd6c6c70b0b25d937f99cf5b2c71))
+* upload style import error ([ed19506](https://github.com/Tencent/tdesign-react/commit/ed195067247fbd6c6c70b0b25d937f99cf5b2c71)) [@HQ-Lin](https://github.com/HQ-Lin)
 
 
 ## 0.20.0 `2021-12-22`
