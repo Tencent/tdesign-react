@@ -5,6 +5,39 @@ toc: false
 spline: explain
 ---
 
+## 0.20.0 `2021-12-22`
+
+### BREAKING CHANGES
+
+* Message: 支持 `MessagePlugin`, `message.info` 调用方式，废弃 `Messzge.info` 调用([5d3dc04](https://github.com/Tencent/tdesign-react/commit/5d3dc0463bf66489dfe4d5c79902fe707ae32e48)) [@kenzyyang](https://github.com/kenzyyang)
+* Notification: 组件插件化使用方式破坏性修改，支持 `NotificationPlugin`,`notification` 调用 ([98c3d0a](https://github.com/Tencent/tdesign-react/commit/98c3d0af845354c969ff01feb35ec2ab3a46b091)) [@kenzyyang](https://github.com/kenzyyang)
+
+### Bug Fixes
+
+* Form: 修复 status 重置失效 ([#45](https://github.com/Tencent/tdesign-react/issues/45)) ([8114ac9](https://github.com/Tencent/tdesign-react/commit/8114ac9baf32846966f249c132444afeae7c330a)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Popup: 修复 CSSTransition 动画导致 maxHeight 判断错误 ([#46](https://github.com/Tencent/tdesign-react/issues/46)) ([47e4779](https://github.com/Tencent/tdesign-react/commit/47e47792bdd89b8155746cbf1866bdc018e7acc6)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Select: call onvisibleChange many time in multiple ([4eacffc](https://github.com/Tencent/tdesign-react/commit/4eacffc5aa15175ce17805ab04d030192bffc588)) [@uyarn](https://github.com/uyarn)
+* Select multiple filterable render result ([7108f78](https://github.com/Tencent/tdesign-react/commit/7108f78819184107d2e54b2d9b9d48c5c77b1d02)) [@uyarn](https://github.com/uyarn)
+* Select: support 0 value to be selected ([c716e92](https://github.com/Tencent/tdesign-react/commit/c716e92c5de4e08b665b2d14116223385468c90a)) [@uyarn](https://github.com/uyarn)
+* Select: creatable in object valueType ([30db786](https://github.com/Tencent/tdesign-react/commit/30db786605096593e8b251591e2ab82751dc178c)) [@uyarn](https://github.com/uyarn)
+* Table: 修复合并单元格中 `borderLeft` 不显示([69da5ee](https://github.com/Tencent/tdesign-react/commit/69da5ee9088ea43d4f77fc82126a4863b8b40349)) [@yunfeic](https://github.com/yunfeic)
+* Table: 固定头列滚动阴影不显示([d057839](https://github.com/Tencent/tdesign-react/commit/d05783987f80ce607cb73be2cee3602376975719)) [@yunfeic](https://github.com/yunfeic)
+* Table: 修复固定列 react16 滚动报错引起固定头列滚动失效([9af655c](https://github.com/Tencent/tdesign-react/commit/9af655c62a7df4d14225b176ecb12860ec8ca800)) [@yunfeic](https://github.com/yunfeic)
+* Upload: showUploadProgress为false不生效([eae4771](https://github.com/Tencent/tdesign-react/commit/eae47716bca4d57e85f268f5b63fd9f0664432d3)) [@wookaoer](https://github.com/wookaoer)
+* DatePicker: date select show weekdays ([61ba52d](https://github.com/Tencent/tdesign-react/commit/61ba52d6756275d0f041ec8eb60b47ea8d506eef)) [@xiaosansiji](https://github.com/xiaosansiji)
+* DatePicker: 修复年份禁用判断错误 ([5654da4](https://github.com/Tencent/tdesign-react/commit/5654da4d70405d71d555329153c6427abd614cc3)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+### Features
+
+* Avatar: 新增 Avatar 组件 ([018eea1](https://github.com/Tencent/tdesign-react/commit/018eea1234a6e73ab257f12758e8bef015a097b6)) [@zj2015262624](https://github.com/zj2015262624)
+* Select: optimize filter logic ([1e646ce](https://github.com/Tencent/tdesign-react/commit/1e646ce2eb6165fc04fabeadaece21dabc508170)) [@uyarn](https://github.com/uyarn)
+* Popup: 添加下拉动画 ([4c475fc](https://github.com/Tencent/tdesign-react/commit/4c475fcdcf39a5721d334cf340f8e50ae3326cbf)) [@andyjxli](https://github.com/andyjxli)
+* Table: 合并行展开点击和onRowClick事件 ([b2d1578](https://github.com/Tencent/tdesign-react/commit/b2d1578fb50cdaf75804cc2e46fcc4847267d3e0)) [@yunfeic](https://github.com/yunfeic)
+* Table: 支持行点击和鼠标事件 ([d42e9a9](https://github.com/Tencent/tdesign-react/commit/d42e9aa7501d6fc326aae33c84c6395da33792e5)) [@yunfeic](https://github.com/yunfeic)
+* Upload: support customize request method ([5bc70be](https://github.com/Tencent/tdesign-react/commit/5bc70be02d2efaf1b724fdc530d03900fa886d8d)) [@teal-front](https://github.com/teal-front)
+* Upload: support multiple files & images upload ([7154072](https://github.com/Tencent/tdesign-react/commit/7154072111f3b6a7044c7da5df126508643a2ab4)) [@teal-front](https://github.com/teal-front)
+
+
 ## 0.19.1 `2021-12-08`
 
 
