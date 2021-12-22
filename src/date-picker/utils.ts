@@ -378,8 +378,8 @@ export function getYears(year: number, { disableDate = () => false, minDate, max
     let outOfRangeMonth = 0;
 
     for (let j = 0; j < 12; j++) {
-      const d = new Date(i, j);
-      if (disableDate(d)) disabledMonth += 1;
+      const d = new Date(i, j, j === 11 ? 31 : 1);
+      if (typeof disableDate === 'function' && disableDate(d)) disabledMonth += 1;
       if (outOfRanges(d, minDate, maxDate)) outOfRangeMonth += 1;
     }
 

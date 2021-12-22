@@ -49,7 +49,7 @@ export default function HorizontalStepsWithNumbers() {
 
   return (
     <>
-      <Steps direction="vertical" current={current}>
+      <Steps layout="vertical" current={current}>
         <StepItem title="步骤1" content="这里是提示文字">
           {current === 0 ? nextBtn : null}
         </StepItem>

@@ -4,9 +4,17 @@
 
 图标相对其他基础组件较为独立，所以作为一个独立的 npm 包做发布管理。如果项目中直接使用，请安装`tdesign-icons-react`。
 
+### 按需引入图标
+
+推荐使用按需引入的方式使用图标，通过如下方式按需引入。
+
+`import { CloseIcon } from 'tdesign-icons-react';`
+
+{{ IconExample }}
+
 ### IconFont 图标
 
-你可以使用以下方式，通过 IconFont 形式来使用图标。
+您也可以以 IconFont的形式使用图标，通过如下来使用图标。
 
 `import { IconFont } from 'tdesign-icons-react';`
 
@@ -14,7 +22,7 @@
 
 ### 全部图标
 
-{{ IconExample }}
+<td-icons-view />
 
 ## API
 
