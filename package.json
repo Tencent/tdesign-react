@@ -144,7 +144,7 @@
     "rollup-plugin-static-import": "^0.1.1",
     "rollup-plugin-styles": "^3.14.1",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.1",
     "standard-changelog": "^2.0.27",
     "tdesign-icons-view": "^0.0.1",
     "tdesign-publish-cli": "^0.0.6",
