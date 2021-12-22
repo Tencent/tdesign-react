@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Message } from 'tdesign-react';
+import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -9,13 +9,13 @@ export default function BaseForm() {
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {
-      Message.info('提交成功');
+      MessagePlugin.info('提交成功');
     }
   };
 
   const onReset = (e) => {
     console.log(e);
-    Message.info('重置成功');
+    MessagePlugin.info('重置成功');
   };
 
   // 自定义异步校验器

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import { FileCopyIcon } from 'tdesign-icons-react';
 import Popup from '../popup';
-import Message from '../message';
+import { MessagePlugin } from '../message';
 import useConfig from '../_util/useConfig';
 
 import { TdAnchorTargetProps } from './type';
@@ -23,7 +23,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
     const a = document.createElement('a');
     a.href = `#${id}`;
     copyText(a.href);
-    Message.success('链接复制成功', 1000);
+    MessagePlugin.success('链接复制成功', 1000);
   };
 
   const Content = () => (

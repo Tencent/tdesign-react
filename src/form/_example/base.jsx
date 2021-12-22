@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, Switch, Message, DatePicker } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -9,14 +9,14 @@ export default function BaseForm() {
   const onSubmit = (e) => {
     console.log(e);
     if (e.validateResult === true) {
-      Message.info('提交成功');
+      MessagePlugin.info('提交成功');
     }
     console.log(formRef.current.getAllFieldsValue());
   };
 
   const onReset = (e) => {
     console.log(e);
-    Message.info('重置成功');
+    MessagePlugin.info('重置成功');
   };
 
   return (

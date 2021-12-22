@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
-import { Menu, Message } from 'tdesign-react';
+import { Menu, MessagePlugin } from 'tdesign-react';
 import { UserAddIcon, AppIcon, CallIcon } from 'tdesign-icons-react';
 
 const { HeadMenu, MenuItem } = Menu;
@@ -25,7 +25,7 @@ function Single() {
         }
         style={{ marginBottom: 20 }}
       >
-        <MenuItem value={'0'} onClick={() => Message.info('click 菜单1')}>
+        <MenuItem value={'0'} onClick={() => MessagePlugin.info('click 菜单1')}>
           <span>菜单1</span>
         </MenuItem>
         <MenuItem value={'1'}>
