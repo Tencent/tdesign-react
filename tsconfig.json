@@ -24,7 +24,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./global.d.ts"],
+  "include": ["./src", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",
