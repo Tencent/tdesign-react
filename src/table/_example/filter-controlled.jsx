@@ -38,7 +38,6 @@ const columns = [
     title: '存活时间(s)',
     width: 150,
     sortType: 'all',
-    sorter: true,
     filter: {
       type: 'multiple',
       list: [
@@ -135,9 +134,6 @@ export default function TableSingleSort() {
         // filterValue={filterValue}
         defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
-        onSortChange={(v) => {
-          console.log('排序变化', v);
-        }}
       />
     </div>
   );

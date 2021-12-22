@@ -2337,68 +2337,7 @@ exports[`filter-controlled.jsx 1`] = `
                     class="t-table__cell--title"
                   >
                     <div>
-                      <div
-                        class="t-table__cell--sortable"
-                      >
-                        <div
-                          class="t-table__cell--title"
-                        >
-                          <div>
-                            存活时间(s)
-                          </div>
-                          <div
-                            class="t-table__cell--sort-trigger t-table__double-icons"
-                          >
-                            <div
-                              class="t-popup__reference"
-                            >
-                              <div
-                                class=""
-                                style="line-height: 0;"
-                              >
-                                <div
-                                  class="t-table__sort-icon t-icon-sort-default t-table__sort-asc"
-                                  style="transform: rotate(-180deg); top: -1px;"
-                                >
-                                  <svg
-                                    class="t-icon t-icon-chevron-down"
-                                    fill="none"
-                                    height="1em"
-                                    style="font-size: 16px;"
-                                    viewBox="0 0 16 16"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                      fill="currentColor"
-                                      fill-opacity="0.9"
-                                    />
-                                  </svg>
-                                </div>
-                                <div
-                                  class="t-table__sort-icon t-icon-sort-default t-table__sort-desc"
-                                  style="bottom: -1px;"
-                                >
-                                  <svg
-                                    class="t-icon t-icon-chevron-down"
-                                    fill="none"
-                                    height="1em"
-                                    style="font-size: 16px;"
-                                    viewBox="0 0 16 16"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                      fill="currentColor"
-                                      fill-opacity="0.9"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      存活时间(s)
                     </div>
                     <div
                       class="t-table__cell--filter"
