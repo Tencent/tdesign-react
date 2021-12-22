@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 0.20.2 `2021-12-22`
+
+### Bug Fixes
+
+* reset select style ([edffb5e](https://github.com/Tencent/tdesign-react/commit/edffb5ee9cbb088db932d1fb80ac59bfc7a34e4a)) [@HQ-Lin](https://github.com/HQ-Lin)
+
 ## 0.20.1 `2021-12-22`
 
 ### Bug Fixes
