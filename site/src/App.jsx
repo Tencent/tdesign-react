@@ -12,17 +12,15 @@ const lazyDemo = lazy(() => import('./components/Demo'));
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
-const historyVersion = [];
-const versionOptions = [
-  { value: packageJson.version, label: packageJson.version },
-  ...historyVersion.map((v) => ({ value: v, label: v })),
-];
+const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
 
 function Components(props) {
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
   const tdDocSearch = useRef();
+
+  const [versionOptions, setVersionOptions] = useState([]);
   const [version] = useState(packageJson.version);
 
   const docRoutes = getRoute(siteConfig.docs, []);
@@ -38,7 +36,20 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === packageJson.version) return;
-    location.href = `//preview-${version}-tdesign-react.surge.sh`;
+    const histryUrl = `//preview-${version}-tdesign-react.surge.sh`;
+    window.open(histryUrl, '_blank');
+  }
+
+  function initHistoryVersions() {
+    fetch(registryUrl).then(res => res.json()).then(res => {
+      const options = [];
+      Object.keys(res.versions).forEach((v) => {
+        const nums = v.split('.');
+        if (nums[0] === '0' && nums[1] < 20) return false;
+        options.push({ label: v, value: v });
+      });
+      setVersionOptions(options);
+    });
   }
 
   useEffect(() => {
@@ -56,6 +67,8 @@ function Components(props) {
         window.scrollTo(0, 0);
       });
     };
+
+    initHistoryVersions();
   }, []);
 
   return (
@@ -65,7 +78,7 @@ function Components(props) {
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          {historyVersion.length ? (
+          {versionOptions.length ? (
             <div slot="extra">
               <Select value={version} options={versionOptions} onChange={changeVersion} />
             </div>
