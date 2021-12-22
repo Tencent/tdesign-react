@@ -1,1 +1,1 @@
-declare type ResizeObserverSize = string;
+declare type ResizeObserverSize = object;
