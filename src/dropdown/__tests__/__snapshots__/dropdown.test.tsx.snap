@@ -74,6 +74,25 @@ exports[`click.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`custom.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup__reference"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        点击我试试
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -104,7 +123,7 @@ exports[`disabled.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`height.jsx 1`] = `
+exports[`long.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-popup__reference"
@@ -142,25 +161,6 @@ exports[`multiple.jsx 1`] = `
             xlink:href="#t-icon-ellipsis"
           />
         </svg>
-      </span>
-    </button>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`other.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-popup__reference"
-  >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        点击我试试
       </span>
     </button>
   </div>

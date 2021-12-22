@@ -72,6 +72,7 @@ export const getLabel = (
       return false;
     });
   }
+
   return selectedLabel;
 };
 
