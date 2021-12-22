@@ -35,7 +35,7 @@ export default function OperateSteps() {
         <StepItem title="步骤4" content="这里是提示文字"></StepItem>
       </Steps>
 
-      <Steps direction="vertical" current={current}>
+      <Steps layout="vertical" current={current}>
         <StepItem title="步骤1" content="这里是提示文字"></StepItem>
         <StepItem title="步骤3" content="这里是提示文字"></StepItem>
         <StepItem title="步骤4" content="这里是提示文字"></StepItem>
