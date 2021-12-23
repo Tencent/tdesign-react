@@ -29,11 +29,11 @@ const OptionGroup = (props: SelectGOptionGroupProps) => {
 
   return (
     <li
-      className={classNames(`${classPrefix}-option-group`, {
-        [`${classPrefix}-option-group__divider`]: divider,
+      className={classNames(`${classPrefix}-select-option-group`, {
+        [`${classPrefix}-select-option-group__divider`]: divider,
       })}
     >
-      <ul className={`${classPrefix}-option-group-header`}>{label}</ul>
+      <ul className={`${classPrefix}-select-option-group__header`}>{label}</ul>
       <ul>{childrenWithProps}</ul>
     </li>
   );

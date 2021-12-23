@@ -127,7 +127,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     const isTargetDisabled = targetDisable || !checkeds.target.length;
 
     return (
-      <div className={`${transferClassName}-operations`}>
+      <div className={`${transferClassName}__operations`}>
         <Button
           key={isSourceDisabled ? 'right-outline' : 'right-base'}
           variant={isSourceDisabled ? 'outline' : 'base'}
@@ -189,13 +189,13 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   return (
     <div
       className={classnames(transferClassName, {
-        [`${transferClassName}-search`]: search,
-        [`${transferClassName}-pagination`]: pagination,
-        [`${transferClassName}-footer`]: footer,
+        [`${transferClassName}__search`]: search,
+        [`${transferClassName}__pagination`]: pagination,
+        [`${transferClassName}__footer`]: footer,
       })}
     >
       <TransferList
-        className={`${transferClassName}-list-source`}
+        className={`${transferClassName}__list-source`}
         data={sourceData}
         search={search}
         checked={checkeds.source}
@@ -211,7 +211,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
       ></TransferList>
       {OperationsCmp()}
       <TransferList
-        className={`${transferClassName}-list-target`}
+        className={`${transferClassName}__list-target`}
         data={targetData}
         search={search}
         checked={checkeds.target}

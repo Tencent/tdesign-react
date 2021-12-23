@@ -116,11 +116,11 @@ const PopupContent = (props: SelectPopupProps) => {
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
   if (isEmpty) {
-    return <div className={`${classPrefix}-select-empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
+    return <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
   }
 
   if (loading) {
-    return <div className={`${classPrefix}-select-loading-tips`}>{loadingText}</div>;
+    return <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>;
   }
   return <div>{renderOptions()}</div>;
 };
