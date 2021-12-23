@@ -1,15 +1,7 @@
 // @ts-nocheck
 import React, { Fragment, useState } from 'react';
 import { Menu } from 'tdesign-react';
-import {
-  AppIcon,
-  CodeIcon,
-  FileIcon,
-  UserIcon,
-  ViewListIcon,
-  MailIcon,
-  RollbackIcon,
-} from 'tdesign-icons-react';
+import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
 const { SubMenu, MenuItem } = Menu;
 
@@ -81,7 +73,9 @@ function MultiSide() {
         expanded={darkExpands}
         onExpand={(values) => setDarkExpands(values)}
         onChange={(v) => setDarkActive(v)}
-        operations={<ViewListIcon className="t-menu__operations-icon" onClick={() => setDarkCollapsed(!collapsed)} />}
+        operations={
+          <ViewListIcon className="t-menu__operations-icon" onClick={() => setDarkCollapsed(!darkCollapsed)} />
+        }
       >
         <MenuItem value="0" icon={<AppIcon />}>
           仪表盘
