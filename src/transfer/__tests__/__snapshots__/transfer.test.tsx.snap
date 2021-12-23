@@ -6,10 +6,10 @@ exports[`base.jsx 1`] = `
     class="t-transfer"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -35,16 +35,16 @@ exports[`base.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -65,7 +65,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -85,7 +85,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -105,7 +105,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -126,7 +126,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -146,7 +146,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -166,7 +166,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -186,7 +186,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -207,7 +207,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -227,7 +227,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -247,7 +247,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -267,7 +267,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -288,7 +288,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -308,7 +308,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -328,7 +328,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -348,7 +348,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -369,7 +369,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -389,7 +389,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -409,7 +409,7 @@ exports[`base.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -433,7 +433,7 @@ exports[`base.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -485,10 +485,10 @@ exports[`base.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -514,16 +514,16 @@ exports[`base.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -556,10 +556,10 @@ exports[`checked.jsx 1`] = `
     class="t-transfer"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -585,16 +585,16 @@ exports[`checked.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -615,7 +615,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-checked"
+              class="t-transfer__list-item t-checkbox t-is-checked"
             >
               <input
                 checked=""
@@ -636,7 +636,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-checked"
+              class="t-transfer__list-item t-checkbox t-is-checked"
             >
               <input
                 checked=""
@@ -657,7 +657,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-checked"
+              class="t-transfer__list-item t-checkbox t-is-checked"
             >
               <input
                 checked=""
@@ -678,7 +678,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -699,7 +699,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -719,7 +719,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -739,7 +739,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -759,7 +759,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -780,7 +780,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -800,7 +800,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -820,7 +820,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -840,7 +840,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -861,7 +861,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -881,7 +881,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -901,7 +901,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -921,7 +921,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -942,7 +942,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -962,7 +962,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -982,7 +982,7 @@ exports[`checked.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1006,7 +1006,7 @@ exports[`checked.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
@@ -1057,10 +1057,10 @@ exports[`checked.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -1086,13 +1086,13 @@ exports[`checked.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
-            class="t-transfer-empty"
+            class="t-transfer__empty"
           >
             <span>
               暂无数据
@@ -1108,13 +1108,13 @@ exports[`checked.jsx 1`] = `
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-transfer t-transfer-footer"
+    class="t-transfer t-transfer__footer"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -1142,16 +1142,16 @@ exports[`custom.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -1172,7 +1172,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1192,7 +1192,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1212,7 +1212,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1232,7 +1232,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -1253,7 +1253,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1273,7 +1273,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1293,7 +1293,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1313,7 +1313,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -1334,7 +1334,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1354,7 +1354,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1374,7 +1374,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1394,7 +1394,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -1415,7 +1415,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1435,7 +1435,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1455,7 +1455,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1475,7 +1475,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -1496,7 +1496,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1516,7 +1516,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1536,7 +1536,7 @@ exports[`custom.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1559,7 +1559,7 @@ exports[`custom.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-footer"
+        class="t-transfer__footer"
       >
         <div
           style="padding: 10px 20px;"
@@ -1569,7 +1569,7 @@ exports[`custom.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -1597,10 +1597,10 @@ exports[`custom.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -1630,13 +1630,13 @@ exports[`custom.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
-            class="t-transfer-empty"
+            class="t-transfer__empty"
           >
             <span>
               暂无数据
@@ -1645,7 +1645,7 @@ exports[`custom.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-footer"
+        class="t-transfer__footer"
       >
         <div
           style="padding: 10px 20px;"
@@ -1664,10 +1664,10 @@ exports[`custom-render.jsx 1`] = `
     class="t-transfer"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -1693,16 +1693,16 @@ exports[`custom-render.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1726,7 +1726,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1750,7 +1750,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1774,7 +1774,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1798,7 +1798,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1822,7 +1822,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1846,7 +1846,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1870,7 +1870,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1894,7 +1894,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1918,7 +1918,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1942,7 +1942,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1966,7 +1966,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -1990,7 +1990,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2014,7 +2014,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2038,7 +2038,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2062,7 +2062,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2086,7 +2086,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2110,7 +2110,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2134,7 +2134,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2158,7 +2158,7 @@ exports[`custom-render.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2186,7 +2186,7 @@ exports[`custom-render.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -2238,10 +2238,10 @@ exports[`custom-render.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -2267,13 +2267,13 @@ exports[`custom-render.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
-            class="t-transfer-empty"
+            class="t-transfer__empty"
           >
             <span>
               暂无数据
@@ -2298,10 +2298,10 @@ exports[`empty.jsx 1`] = `
       class="t-transfer"
     >
       <div
-        class="t-transfer-list t-transfer-list-source"
+        class="t-transfer__list t-transfer__list-source"
       >
         <div
-          class="t-transfer-list__header"
+          class="t-transfer__list-header"
         >
           <div>
             <label
@@ -2327,13 +2327,13 @@ exports[`empty.jsx 1`] = `
           <span />
         </div>
         <div
-          class="t-transfer-list__body"
+          class="t-transfer__list-body"
         >
           <div
-            class="t-transfer-list__content narrow-scrollbar"
+            class="t-transfer__list-content narrow-scrollbar"
           >
             <div
-              class="t-transfer-empty"
+              class="t-transfer__empty"
             >
               <span>
                 暂无数据
@@ -2343,7 +2343,7 @@ exports[`empty.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-operations"
+        class="t-transfer__operations"
       >
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -2395,10 +2395,10 @@ exports[`empty.jsx 1`] = `
         </button>
       </div>
       <div
-        class="t-transfer-list t-transfer-list-target"
+        class="t-transfer__list t-transfer__list-target"
       >
         <div
-          class="t-transfer-list__header"
+          class="t-transfer__list-header"
         >
           <div>
             <label
@@ -2424,13 +2424,13 @@ exports[`empty.jsx 1`] = `
           <span />
         </div>
         <div
-          class="t-transfer-list__body"
+          class="t-transfer__list-body"
         >
           <div
-            class="t-transfer-list__content narrow-scrollbar"
+            class="t-transfer__list-content narrow-scrollbar"
           >
             <div
-              class="t-transfer-empty"
+              class="t-transfer__empty"
             >
               <span>
                 暂无数据
@@ -2447,10 +2447,10 @@ exports[`empty.jsx 1`] = `
       class="t-transfer"
     >
       <div
-        class="t-transfer-list t-transfer-list-source"
+        class="t-transfer__list t-transfer__list-source"
       >
         <div
-          class="t-transfer-list__header"
+          class="t-transfer__list-header"
         >
           <div>
             <label
@@ -2476,13 +2476,13 @@ exports[`empty.jsx 1`] = `
           <span />
         </div>
         <div
-          class="t-transfer-list__body"
+          class="t-transfer__list-body"
         >
           <div
-            class="t-transfer-list__content narrow-scrollbar"
+            class="t-transfer__list-content narrow-scrollbar"
           >
             <div
-              class="t-transfer-empty"
+              class="t-transfer__empty"
             >
               <span>
                 No Source
@@ -2492,7 +2492,7 @@ exports[`empty.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-operations"
+        class="t-transfer__operations"
       >
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -2544,10 +2544,10 @@ exports[`empty.jsx 1`] = `
         </button>
       </div>
       <div
-        class="t-transfer-list t-transfer-list-target"
+        class="t-transfer__list t-transfer__list-target"
       >
         <div
-          class="t-transfer-list__header"
+          class="t-transfer__list-header"
         >
           <div>
             <label
@@ -2573,13 +2573,13 @@ exports[`empty.jsx 1`] = `
           <span />
         </div>
         <div
-          class="t-transfer-list__body"
+          class="t-transfer__list-body"
         >
           <div
-            class="t-transfer-list__content narrow-scrollbar"
+            class="t-transfer__list-content narrow-scrollbar"
           >
             <div
-              class="t-transfer-empty"
+              class="t-transfer__empty"
             >
               No Target
             </div>
@@ -2594,13 +2594,13 @@ exports[`empty.jsx 1`] = `
 exports[`pagination.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-transfer t-transfer-pagination"
+    class="t-transfer t-transfer__pagination"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -2626,16 +2626,16 @@ exports[`pagination.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2655,7 +2655,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2675,7 +2675,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2695,7 +2695,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2715,7 +2715,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2735,7 +2735,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2755,7 +2755,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2775,7 +2775,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2795,7 +2795,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2815,7 +2815,7 @@ exports[`pagination.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -2838,7 +2838,7 @@ exports[`pagination.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-list__pagination"
+        class="t-transfer__list-pagination"
       >
         <div
           class="t-pagination t-size-s"
@@ -2864,25 +2864,25 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__select"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select t-size-s"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     1/2
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -2921,7 +2921,7 @@ exports[`pagination.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -2973,10 +2973,10 @@ exports[`pagination.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -3002,13 +3002,13 @@ exports[`pagination.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body"
+        class="t-transfer__list-body"
       >
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
-            class="t-transfer-empty"
+            class="t-transfer__empty"
           >
             <span>
               暂无数据
@@ -3017,7 +3017,7 @@ exports[`pagination.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-transfer-list__pagination"
+        class="t-transfer__list-pagination"
       >
         <div
           class="t-pagination t-size-s"
@@ -3043,25 +3043,25 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__select"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select t-size-s"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     1/1
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -3106,13 +3106,13 @@ exports[`pagination.jsx 1`] = `
 exports[`search.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-transfer t-transfer-search"
+    class="t-transfer t-transfer__search"
   >
     <div
-      class="t-transfer-list t-transfer-list-source"
+      class="t-transfer__list t-transfer__list-source"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -3138,10 +3138,10 @@ exports[`search.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body t-transfer-list-with-search"
+        class="t-transfer__list-body t-transfer__list--with-search"
       >
         <div
-          class="t-transfer-list-search-wrapper"
+          class="t-transfer__search-wrapper"
         >
           <div
             class="t-input t-input--suffix"
@@ -3171,13 +3171,13 @@ exports[`search.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
             class="t-checkbox-group"
           >
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -3198,7 +3198,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3218,7 +3218,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3238,7 +3238,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3258,7 +3258,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -3279,7 +3279,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3299,7 +3299,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3319,7 +3319,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3339,7 +3339,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -3360,7 +3360,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3380,7 +3380,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3400,7 +3400,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3420,7 +3420,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -3441,7 +3441,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3461,7 +3461,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3481,7 +3481,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3501,7 +3501,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox t-is-disabled"
+              class="t-transfer__list-item t-checkbox t-is-disabled"
             >
               <input
                 class="t-checkbox__former"
@@ -3522,7 +3522,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3542,7 +3542,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3562,7 +3562,7 @@ exports[`search.jsx 1`] = `
               </span>
             </label>
             <label
-              class="t-transfer-list__item t-checkbox"
+              class="t-transfer__list-item t-checkbox"
             >
               <input
                 class="t-checkbox__former"
@@ -3586,7 +3586,7 @@ exports[`search.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-transfer-operations"
+      class="t-transfer__operations"
     >
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
@@ -3638,10 +3638,10 @@ exports[`search.jsx 1`] = `
       </button>
     </div>
     <div
-      class="t-transfer-list t-transfer-list-target"
+      class="t-transfer__list t-transfer__list-target"
     >
       <div
-        class="t-transfer-list__header"
+        class="t-transfer__list-header"
       >
         <div>
           <label
@@ -3667,10 +3667,10 @@ exports[`search.jsx 1`] = `
         <span />
       </div>
       <div
-        class="t-transfer-list__body t-transfer-list-with-search"
+        class="t-transfer__list-body t-transfer__list--with-search"
       >
         <div
-          class="t-transfer-list-search-wrapper"
+          class="t-transfer__search-wrapper"
         >
           <div
             class="t-input t-input--suffix"
@@ -3700,10 +3700,10 @@ exports[`search.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-transfer-list__content narrow-scrollbar"
+          class="t-transfer__list-content narrow-scrollbar"
         >
           <div
-            class="t-transfer-empty"
+            class="t-transfer__empty"
           >
             <span>
               暂无数据
