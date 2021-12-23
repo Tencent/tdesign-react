@@ -111,7 +111,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
 
   const singleDraggable = useMemo(
-    () => !multiple && draggable && ['file', 'file-input', 'image'].includes(theme),
+    () => !multiple && draggable && ['file', 'file-input', 'image', 'custom'].includes(theme),
     [draggable, multiple, theme],
   );
 
@@ -211,13 +211,21 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   };
 
   const uploadFiles = () => {
+    const { length } = fileList;
+    let count = 0;
+    const newFileList = [];
     fileList.forEach((uploadFile) => {
       handleBeforeUpload(uploadFile).then((canUpload) => {
-        if (!canUpload) return;
-        const newFiles = [...toUploadFiles, uploadFile];
-        setToUploadFiles([...new Set(newFiles)]);
-        if (autoUpload) {
-          upload(uploadFile);
+        count += 1;
+        if (canUpload) {
+          newFileList.push(uploadFile);
+          if (autoUpload) {
+            upload(uploadFile);
+          }
+        }
+        if (count === length) {
+          setToUploadFiles([...new Set([...toUploadFiles, ...newFileList])]);
+          onChange?.(newFileList, { trigger: 'remove' });
         }
       });
     });
@@ -229,7 +237,6 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     let tmpFiles = Array.from(files);
     const uploadList = formatFiles(tmpFiles);
     tmpFiles = getLimitedFiles(uploadList);
-    // setFileList(() => tmpFiles);
     setUploading(true);
     uploadRef.current.value = '';
     onChange?.(tmpFiles, { trigger: 'upload' });
@@ -347,6 +354,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         hidden
         onChange={handleChange}
       />
+      <BooleanRender boolExpression={!draggable && theme === 'custom'}>
+        <UploadTrigger onClick={triggerUpload}>{props.children}</UploadTrigger>
+      </BooleanRender>
       <BooleanRender boolExpression={!draggable && ['file', 'file-input'].includes(theme)}>
         <SingleFile
           file={fileList && fileList[0]}

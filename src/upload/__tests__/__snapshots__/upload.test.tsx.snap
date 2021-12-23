@@ -560,3 +560,43 @@ exports[`img-flow-list.jsx 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`single-custom.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-upload"
+  >
+    <div>
+      <div
+        class="t-upload"
+      >
+        <input
+          hidden=""
+          multiple=""
+          type="file"
+        />
+        <div
+          class="t-upload__trigger"
+        >
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base"
+            style="position: relative;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              自定义上传
+            </span>
+          </button>
+        </div>
+        <small
+          class="t-upload__tips t-size-s"
+        >
+          上传文件大小在 1M 以内
+        </small>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
