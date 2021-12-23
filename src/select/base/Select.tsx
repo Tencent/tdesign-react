@@ -208,10 +208,10 @@ const Select = forwardRefWithStatics(
         className={classNames(
           className,
           {
-            [`${name}-placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1),
+            [`${name}__placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1),
           },
           {
-            [`${name}-selectedSingle`]: selectedLabel,
+            [`${name}__single`]: selectedLabel,
           },
         )}
       >
@@ -270,7 +270,7 @@ const Select = forwardRefWithStatics(
       <Input
         value={isString(inputVal) ? inputVal : selectedLabel}
         placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
-        className={`${name}-input`}
+        className={`${name}__input`}
         onChange={handleInputChange}
         size={size}
         onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
@@ -302,7 +302,7 @@ const Select = forwardRefWithStatics(
       if (loading) {
         return (
           <Loading
-            className={classNames(className, `${name}-right-icon`, `${name}-active-icon`)}
+            className={classNames(className, `${name}__right-icon`, `${name}__active-icon`)}
             loading={true}
             size="small"
           />
@@ -312,11 +312,11 @@ const Select = forwardRefWithStatics(
         return (
           <CloseCircleFilledIcon
             onClick={clearable ? onClearValue : undefined}
-            className={classNames(className, `${name}-right-icon`, `${name}-right-icon__clear`)}
+            className={classNames(className, `${name}__right-icon`, `${name}__right-icon-clear`)}
           />
         );
       }
-      return <FakeArrow overlayClassName={`${name}-right-icon`} isActive={showPopup} disabled={disabled} />;
+      return <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
     };
 
     const popupContentProps = {
@@ -346,7 +346,7 @@ const Select = forwardRefWithStatics(
     };
     return (
       <div
-        className={`${name}-wrap`}
+        className={`${name}__wrap`}
         style={{ ...style }}
         onMouseEnter={() => toggleHover(true)}
         onMouseLeave={() => toggleHover(false)}
@@ -361,8 +361,8 @@ const Select = forwardRefWithStatics(
             width: width ? `${width}px` : 'none',
           }}
           onVisibleChange={handleShowPopup}
-          overlayClassName={classNames(className, `${name}-dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
-          className={`${name}-popup-reference`}
+          overlayClassName={classNames(className, `${name}__dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
+          className={`${name}__popup-reference`}
           expandAnimation={true}
           {...popupProps}
         >
@@ -379,7 +379,7 @@ const Select = forwardRefWithStatics(
             style={{ userSelect: 'none' }}
             onClick={onInputClick}
           >
-            {<span className={`${name}-left-icon`}>{prefixIcon}</span>}
+            {<span className={`${name}__left-icon`}>{prefixIcon}</span>}
             {multiple ? renderMultipleInput() : null}
             {filterable && renderInput()}
             {!multiple && !filterable && defaultLabel}
