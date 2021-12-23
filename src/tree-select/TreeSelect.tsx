@@ -248,7 +248,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       activable={!multiple}
       checkable={multiple}
       disabled={disabled || multiLimitDisabled}
-      empty={empty || <div className={`${classPrefix}-select-empty`}>{emptyText}</div>}
+      empty={empty || <div className={`${classPrefix}-select__empty`}>{emptyText}</div>}
       filter={filterByText}
       actived={actived}
       expanded={expanded}
@@ -261,8 +261,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   );
 
   const loadingTip = showLoading && (
-    <p className={`${classPrefix}-select-loading-tips`}>
-      {loadingText || <div className={`${classPrefix}-select-empty`}>{loadingTextLabel}</div>}
+    <p className={`${classPrefix}-select__loading-tips`}>
+      {loadingText || <div className={`${classPrefix}-select__empty`}>{loadingTextLabel}</div>}
     </p>
   );
 
@@ -270,7 +270,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     <div ref={ref} className={treeSelectClassName} style={treeSelectStyle}>
       <Popup
         ref={popupRef}
-        className={`${classPrefix}-select-popup-reference`}
+        className={`${classPrefix}-select__popup-reference`}
         visible={visible}
         disabled={disabled}
         placement={popupObject.placement}
@@ -292,7 +292,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          {prefixIcon && <span className={`${classPrefix}-select-left-icon`}>{prefixIcon}</span>}
+          {prefixIcon && <span className={`${classPrefix}-select__left-icon`}>{prefixIcon}</span>}
 
           <TreeSelectTags tagList={tagList} {...props} />
 

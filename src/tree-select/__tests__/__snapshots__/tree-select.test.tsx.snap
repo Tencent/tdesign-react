@@ -7,19 +7,19 @@ exports[`base.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             广东省
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -95,14 +95,14 @@ exports[`filterable.jsx 1`] = `
     </div>
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <div
-            class="t-select-input t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
@@ -111,7 +111,7 @@ exports[`filterable.jsx 1`] = `
             />
           </div>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -139,19 +139,19 @@ exports[`lazy.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             广东省
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -179,7 +179,7 @@ exports[`multiple.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
@@ -222,7 +222,7 @@ exports[`multiple.jsx 1`] = `
             </svg>
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -250,14 +250,14 @@ exports[`prefix.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m t-has-prefix"
           style="min-height: 30px;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           >
             <svg
               class="t-icon t-icon-user"
@@ -274,12 +274,12 @@ exports[`prefix.jsx 1`] = `
             </svg>
           </span>
           <span
-            class="t-select-placeholder"
+            class="t-select__placeholder"
           >
             请输入
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -307,19 +307,19 @@ exports[`props.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             深圳市
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -348,19 +348,19 @@ exports[`valuetype.jsx 1`] = `
   >
     <div>
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-size-m"
           style="min-height: 30px;"
         >
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             深圳市
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
