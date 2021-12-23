@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 0.21.0 `2021-12-23`
+
+
+### BREAKING CHANGES
+
+* `Select`、`Tree` 组件 css 样式变更，如果之前有对类名进行样式覆盖，请务必参考该列表 [组件类名调整列表](https://github.com/Tencent/tdesign-react/issues/54)
+
+### Bug Fixes
+
+* remove engines limit ([68371fb](https://github.com/Tencent/tdesign-react/commit/68371fbe02142e15a73bba7734392c1ec105eb67)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+### Features
+
+* TreeSelect: follow bem ([3be1947](https://github.com/Tencent/tdesign-react/commit/3be1947f8d5e73cb7c4f1083dcdc94ae06cf0356)) [@uyarn](https://github.com/uyarn)
+
+
 ## 0.20.2 `2021-12-22`
 
 ### BREAKING CHANGES
