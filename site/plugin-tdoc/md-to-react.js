@@ -88,6 +88,8 @@ export default function mdToReact(options) {
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
+                ${mdSegment.isComponent ? `component-name="${mdSegment.componentName}"` : ''}
+                platform="web"
               ></td-doc-header>` : ''
           }
           {
