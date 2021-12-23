@@ -18,25 +18,25 @@ exports[`base.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -58,25 +58,25 @@ exports[`base.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -642,26 +642,26 @@ exports[`card.jsx 1`] = `
         请选择风格：
       </label>
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               卡片风格
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -723,25 +723,25 @@ exports[`card.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -763,25 +763,25 @@ exports[`card.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -1331,25 +1331,25 @@ exports[`cell.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -1371,25 +1371,25 @@ exports[`cell.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -2162,25 +2162,25 @@ exports[`cell-append.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -2202,25 +2202,25 @@ exports[`cell-append.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -3176,25 +3176,25 @@ exports[`controller-config.jsx 1`] = `
                 class="t-calendar__control-section-cell"
               >
                 <div
-                  class="t-select-wrap"
+                  class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select-popup-reference"
+                    class="t-popup__reference t-select__popup-reference"
                   >
                     <div
                       class="t-select"
                       style="user-select: none;"
                     >
                       <span
-                        class="t-select-left-icon"
+                        class="t-select__left-icon"
                       />
                       <span
-                        class="t-select-selectedSingle"
+                        class="t-select__single"
                       >
                         2021 年
                       </span>
                       <svg
-                        class="t-fake-arrow t-select-right-icon"
+                        class="t-fake-arrow t-select__right-icon"
                         fill="none"
                         height="16"
                         viewBox="0 0 16 16"
@@ -3216,25 +3216,25 @@ exports[`controller-config.jsx 1`] = `
                 class="t-calendar__control-section-cell"
               >
                 <div
-                  class="t-select-wrap"
+                  class="t-select__wrap"
                 >
                   <div
-                    class="t-popup__reference t-select-popup-reference"
+                    class="t-popup__reference t-select__popup-reference"
                   >
                     <div
                       class="t-select"
                       style="user-select: none;"
                     >
                       <span
-                        class="t-select-left-icon"
+                        class="t-select__left-icon"
                       />
                       <span
-                        class="t-select-selectedSingle"
+                        class="t-select__single"
                       >
                         8 月
                       </span>
                       <svg
-                        class="t-fake-arrow t-select-right-icon"
+                        class="t-fake-arrow t-select__right-icon"
                         fill="none"
                         height="16"
                         viewBox="0 0 16 16"
@@ -3831,25 +3831,25 @@ exports[`event-props-api.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -3871,25 +3871,25 @@ exports[`event-props-api.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -4502,25 +4502,25 @@ exports[`events.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -4542,25 +4542,25 @@ exports[`events.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -5155,25 +5155,25 @@ exports[`filter.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -5195,25 +5195,25 @@ exports[`filter.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -5780,26 +5780,26 @@ exports[`first-day-of-week.jsx 1`] = `
         日历的第一列为：
       </label>
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               周三
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -5833,25 +5833,25 @@ exports[`first-day-of-week.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -5873,25 +5873,25 @@ exports[`first-day-of-week.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -6403,25 +6403,25 @@ exports[`head.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -6443,25 +6443,25 @@ exports[`head.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -7027,26 +7027,26 @@ exports[`mode.jsx 1`] = `
         可以在组件外切换成：
       </label>
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
         style="width: 200px; display: inline-block; margin: 0px 10px 0px 0px;"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               月历
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -7080,25 +7080,25 @@ exports[`mode.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -7377,25 +7377,25 @@ exports[`range.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -7417,25 +7417,25 @@ exports[`range.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -8013,25 +8013,25 @@ exports[`slot-props-api.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   2021 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -8053,25 +8053,25 @@ exports[`slot-props-api.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   8 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -8844,25 +8844,25 @@ exports[`value.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   1998 年
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -8884,25 +8884,25 @@ exports[`value.jsx 1`] = `
           class="t-calendar__control-section-cell"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   11 月
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -9479,25 +9479,25 @@ exports[`week.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     2021 年
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -9519,25 +9519,25 @@ exports[`week.jsx 1`] = `
             class="t-calendar__control-section-cell"
           >
             <div
-              class="t-select-wrap"
+              class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select-popup-reference"
+                class="t-popup__reference t-select__popup-reference"
               >
                 <div
                   class="t-select"
                   style="user-select: none;"
                 >
                   <span
-                    class="t-select-left-icon"
+                    class="t-select__left-icon"
                   />
                   <span
-                    class="t-select-selectedSingle"
+                    class="t-select__single"
                   >
                     8 月
                   </span>
                   <svg
-                    class="t-fake-arrow t-select-right-icon"
+                    class="t-fake-arrow t-select__right-icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"

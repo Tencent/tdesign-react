@@ -56,14 +56,14 @@ export default function StepItem(props: StepItemProps) {
     switch (status) {
       case 'error':
         iconEle = (
-          <span className={`${classPrefix}-steps-item-icon__number`}>
+          <span className={`${classPrefix}-steps-item__icon--number`}>
             <CloseIcon />
           </span>
         );
         break;
       case 'finish':
         iconEle = (
-          <span className={`${classPrefix}-steps-item-icon__number`}>
+          <span className={`${classPrefix}-steps-item__icon--number`}>
             <CheckIcon />
           </span>
         );
@@ -71,7 +71,7 @@ export default function StepItem(props: StepItemProps) {
       case 'default':
       case 'process':
         iconEle = (
-          <span className={`${classPrefix}-steps-item-icon__number`}>
+          <span className={`${classPrefix}-steps-item__icon--number`}>
             {Number.isNaN(valueNum) ? value : valueNum + 1}
           </span>
         );
@@ -85,14 +85,14 @@ export default function StepItem(props: StepItemProps) {
     <div className={className} style={style}>
       <div className={`${classPrefix}-steps-item__inner`}>
         <div
-          className={`${classPrefix}-steps-item-icon ${status === 'finish' ? `${classPrefix}-steps-item-finish` : ''}`}
+          className={`${classPrefix}-steps-item__icon ${status === 'finish' ? `${classPrefix}-steps-item-finish` : ''}`}
         >
           {iconEle}
         </div>
-        <div className={`${classPrefix}-steps-item-content`}>
-          <div className={`${classPrefix}-steps-item-title`}>{title}</div>
-          <div className={`${classPrefix}-steps-item-description`}>{content}</div>
-          {children ? <div className={`${classPrefix}-steps-item-extra`}>{children}</div> : null}
+        <div className={`${classPrefix}-steps-item__content`}>
+          <div className={`${classPrefix}-steps-item__title`}>{title}</div>
+          <div className={`${classPrefix}-steps-item__description`}>{content}</div>
+          {children ? <div className={`${classPrefix}-steps-item__extra`}>{children}</div> : null}
         </div>
       </div>
     </div>

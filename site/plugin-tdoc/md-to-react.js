@@ -88,6 +88,8 @@ export default function mdToReact(options) {
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
+                ${mdSegment.isComponent ? `component-name="${mdSegment.componentName}"` : ''}
+                platform="web"
               ></td-doc-header>` : ''
           }
           {
@@ -101,8 +103,11 @@ export default function mdToReact(options) {
                 <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${mdSegment.apiMd}\` }}></div>
                 <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${mdSegment.designMd}\` }}></div>
               </>
-            ) : <div name="DOC">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
+            ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }
+          <div style={{ marginTop: 48 }}>
+            <td-doc-history time="${mdSegment.lastUpdated}"></td-doc-history>
+          </div>
         </>
       )
     }
@@ -142,6 +147,8 @@ function customRender({ source, file, md }) {
     tdDocHeader: true,
     tdDocTabs: DEAULT_TABS,
     apiFlag: /#+\s*API/,
+    docClass: '',
+    lastUpdated: Math.round(fs.statSync(file).mtimeMs),
     ...data,
   };
 

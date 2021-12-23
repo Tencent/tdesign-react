@@ -831,25 +831,25 @@ exports[`base.jsx 1`] = `
           class="t-pagination__select"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   10 条/页
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -941,182 +941,168 @@ exports[`base.jsx 1`] = `
 
 exports[`custom-cell.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <ul>
-      <li>
-        单元格默认使用 row[colKey] 渲染数据内容，自定义单元格有以下 2 种方式
-      </li>
-      <li>
-        1) 使用 cell 作为渲染函数，函数参数为：cell({col, colIndex, row, rowIndex})
-      </li>
-      <li>
-        2)【不推荐使用】使用 render 作为渲染函数，函数参数为：render({col, colIndex, row, rowIndex, type})，单元格的 type 值为 cell，标题的 type 值为 title
-      </li>
-    </ul>
-    <br />
+  <div
+    class="t-table t-table--bordered t-table--align-center"
+  >
     <div
-      class="t-table t-table--bordered t-table--align-center"
+      class="t-loading__parent"
     >
       <div
-        class="t-loading__parent"
+        class="t-table__content"
+        style="overflow: auto;"
       >
-        <div
-          class="t-table__content"
-          style="overflow: auto;"
+        <table
+          style="table-layout: fixed; height: 100%;"
         >
-          <table
-            style="table-layout: fixed; height: 100%;"
+          <colgroup>
+            <col
+              style="width: 80px;"
+            />
+            <col
+              style="width: 236px;"
+            />
+            <col
+              style="width: 290px;"
+            />
+            <col
+              style="width: 235px;"
+            />
+          </colgroup>
+          <thead>
+            <tr>
+              <td
+                class=""
+                colspan="1"
+                rowspan="1"
+                style="overflow: hidden;"
+              >
+                类型
+              </td>
+              <td
+                class=""
+                colspan="1"
+                rowspan="1"
+                style="overflow: hidden;"
+              >
+                平台
+              </td>
+              <td
+                class=""
+                colspan="1"
+                rowspan="1"
+                style="overflow: hidden;"
+              >
+                属性名
+              </td>
+              <td
+                class=""
+                colspan="1"
+                rowspan="1"
+                style="overflow: hidden;"
+              >
+                render
+              </td>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
           >
-            <colgroup>
-              <col
-                style="width: 80px;"
-              />
-              <col
-                style="width: 236px;"
-              />
-              <col
-                style="width: 290px;"
-              />
-              <col
-                style="width: 235px;"
-              />
-            </colgroup>
-            <thead>
-              <tr>
-                <td
-                  class=""
-                  colspan="1"
-                  rowspan="1"
-                  style="overflow: hidden;"
-                >
-                  类型
-                </td>
-                <td
-                  class=""
-                  colspan="1"
-                  rowspan="1"
-                  style="overflow: hidden;"
-                >
-                  平台
-                </td>
-                <td
-                  class=""
-                  colspan="1"
-                  rowspan="1"
-                  style="overflow: hidden;"
-                >
-                  属性名
-                </td>
-                <td
-                  class=""
-                  colspan="1"
-                  rowspan="1"
-                  style="overflow: hidden;"
-                >
-                  render
-                </td>
-              </tr>
-            </thead>
-            <tbody
-              class="t-table__body"
-            >
-              <tr>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  any[]
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  <span>
-                    <svg
-                      class="t-icon t-icon-attach"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
-                    >
-                      <path
-                        d="M12.13 3.86a2.02 2.02 0 00-2.85 0l-7.2 7.21-.71-.7 7.2-7.21a3.02 3.02 0 114.27 4.26L7 13.26a1.88 1.88 0 01-2.66-2.66L10 4.93l.71.7-5.67 5.68a.88.88 0 101.25 1.25l5.84-5.84c.79-.8.78-2.08-.01-2.86z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                    <a
-                      href="#"
-                    >
-                      公有
-                    </a>
-                  </span>
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  <div>
-                    使用 cell 方法自定义单元格：data
-                  </div>
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  render 方法渲染单元格: 0-3
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  String
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  <span>
-                    <svg
-                      class="t-icon t-icon-attach"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
-                    >
-                      <path
-                        d="M12.13 3.86a2.02 2.02 0 00-2.85 0l-7.2 7.21-.71-.7 7.2-7.21a3.02 3.02 0 114.27 4.26L7 13.26a1.88 1.88 0 01-2.66-2.66L10 4.93l.71.7-5.67 5.68a.88.88 0 101.25 1.25l5.84-5.84c.79-.8.78-2.08-.01-2.86z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                    <a
-                      href="#"
-                    >
-                      公有
-                    </a>
-                  </span>
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  <div>
-                    使用 cell 方法自定义单元格：rowkey
-                  </div>
-                </td>
-                <td
-                  class=""
-                  style="overflow: hidden;"
-                >
-                  render 方法渲染单元格: 1-3
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            <tr>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                any[]
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                <span>
+                  <svg
+                    class="t-icon t-icon-attach"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M12.13 3.86a2.02 2.02 0 00-2.85 0l-7.2 7.21-.71-.7 7.2-7.21a3.02 3.02 0 114.27 4.26L7 13.26a1.88 1.88 0 01-2.66-2.66L10 4.93l.71.7-5.67 5.68a.88.88 0 101.25 1.25l5.84-5.84c.79-.8.78-2.08-.01-2.86z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                  <a
+                    href="#"
+                  >
+                    公有
+                  </a>
+                </span>
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                <div>
+                  使用 cell 方法自定义单元格：data
+                </div>
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                render 方法渲染单元格: 0-3
+              </td>
+            </tr>
+            <tr>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                String
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                <span>
+                  <svg
+                    class="t-icon t-icon-attach"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M12.13 3.86a2.02 2.02 0 00-2.85 0l-7.2 7.21-.71-.7 7.2-7.21a3.02 3.02 0 114.27 4.26L7 13.26a1.88 1.88 0 01-2.66-2.66L10 4.93l.71.7-5.67 5.68a.88.88 0 101.25 1.25l5.84-5.84c.79-.8.78-2.08-.01-2.86z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                  <a
+                    href="#"
+                  >
+                    公有
+                  </a>
+                </span>
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                <div>
+                  使用 cell 方法自定义单元格：rowkey
+                </div>
+              </td>
+              <td
+                class=""
+                style="overflow: hidden;"
+              >
+                render 方法渲染单元格: 1-3
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -2351,68 +2337,7 @@ exports[`filter-controlled.jsx 1`] = `
                     class="t-table__cell--title"
                   >
                     <div>
-                      <div
-                        class="t-table__cell--sortable"
-                      >
-                        <div
-                          class="t-table__cell--title"
-                        >
-                          <div>
-                            存活时间(s)
-                          </div>
-                          <div
-                            class="t-table__cell--sort-trigger t-table__double-icons"
-                          >
-                            <div
-                              class="t-popup__reference"
-                            >
-                              <div
-                                class=""
-                                style="line-height: 0;"
-                              >
-                                <div
-                                  class="t-table__sort-icon t-icon-sort-default t-table__sort-asc"
-                                  style="transform: rotate(-180deg); top: -1px;"
-                                >
-                                  <svg
-                                    class="t-icon t-icon-chevron-down"
-                                    fill="none"
-                                    height="1em"
-                                    style="font-size: 16px;"
-                                    viewBox="0 0 16 16"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                      fill="currentColor"
-                                      fill-opacity="0.9"
-                                    />
-                                  </svg>
-                                </div>
-                                <div
-                                  class="t-table__sort-icon t-icon-sort-default t-table__sort-desc"
-                                  style="bottom: -1px;"
-                                >
-                                  <svg
-                                    class="t-icon t-icon-chevron-down"
-                                    fill="none"
-                                    height="1em"
-                                    style="font-size: 16px;"
-                                    viewBox="0 0 16 16"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                      fill="currentColor"
-                                      fill-opacity="0.9"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      存活时间(s)
                     </div>
                     <div
                       class="t-table__cell--filter"
@@ -6925,25 +6850,25 @@ exports[`pagination.jsx 1`] = `
           class="t-pagination__select"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   5 条/页
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"
@@ -7202,25 +7127,25 @@ exports[`pagination-ajax.jsx 1`] = `
           class="t-pagination__select"
         >
           <div
-            class="t-select-wrap"
+            class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select-popup-reference"
+              class="t-popup__reference t-select__popup-reference"
             >
               <div
                 class="t-select"
                 style="user-select: none;"
               >
                 <span
-                  class="t-select-left-icon"
+                  class="t-select__left-icon"
                 />
                 <span
-                  class="t-select-selectedSingle"
+                  class="t-select__single"
                 >
                   5 条/页
                 </span>
                 <svg
-                  class="t-fake-arrow t-select-right-icon"
+                  class="t-fake-arrow t-select__right-icon"
                   fill="none"
                   height="16"
                   viewBox="0 0 16 16"

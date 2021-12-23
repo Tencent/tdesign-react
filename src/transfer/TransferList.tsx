@@ -50,7 +50,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   }, [checked, notDisabledData]);
 
   const { classPrefix } = useConfig();
-  const CLASSPREFIX = `${classPrefix}-transfer-list`;
+  const CLASSPREFIX = `${classPrefix}-transfer__list`;
 
   const handleCheckbox = (vals: Array<TransferValue>) => {
     if (isFunction(onCheckbox)) onCheckbox(vals);
@@ -61,7 +61,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   };
 
   const HeaderCmp = () => (
-    <div className={`${CLASSPREFIX}__header`}>
+    <div className={`${CLASSPREFIX}-header`}>
       <div>
         <Checkbox
           indeterminate={indeterminate}
@@ -79,7 +79,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
 
   const SearchCmp = () =>
     search ? (
-      <div className={`${CLASSPREFIX}-search-wrapper`}>
+      <div className={`${classPrefix}-transfer__search-wrapper`}>
         <Input placeholder="请输入关键词搜索" suffixIcon={<SearchIcon></SearchIcon>} onChange={onSearch}></Input>
       </div>
     ) : null;
@@ -95,7 +95,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
 
   const EmptyCmp = () =>
     isString(empty) ? (
-      <div className={`${classPrefix}-transfer-empty`}>
+      <div className={`${classPrefix}-transfer__empty`}>
         <span>{empty || '暂无数据'}</span>
       </div>
     ) : (
@@ -109,7 +109,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     return (
       <Checkbox.Group value={checked} onChange={handleCheckbox} disabled={disabled}>
         {viewData.map((item, index) => (
-          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}__item`}>
+          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
             <span>
               {typeof transferItem === 'function' ? transferItem({ data: item, index, type: 'source' }) : item.label}
             </span>
@@ -120,12 +120,12 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   };
   const BodyCmp = () => (
     <div
-      className={classnames(`${CLASSPREFIX}__body`, {
-        [`${CLASSPREFIX}-with-search`]: search,
+      className={classnames(`${CLASSPREFIX}-body`, {
+        [`${CLASSPREFIX}--with-search`]: search,
       })}
     >
       {SearchCmp()}
-      <div className={`${CLASSPREFIX}__content narrow-scrollbar`}>{viewData.length ? contentCmp() : EmptyCmp()}</div>
+      <div className={`${CLASSPREFIX}-content narrow-scrollbar`}>{viewData.length ? contentCmp() : EmptyCmp()}</div>
     </div>
   );
 
@@ -138,7 +138,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     };
 
     return pagination ? (
-      <div className={`${CLASSPREFIX}__pagination`}>
+      <div className={`${CLASSPREFIX}-pagination`}>
         <Pagination
           size="small"
           theme="simple"
@@ -152,7 +152,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     ) : null;
   };
 
-  const footerCmp = () => (!isEmpty(footer) ? <div className={`${classPrefix}-transfer-footer`}>{footer}</div> : null);
+  const footerCmp = () => (!isEmpty(footer) ? <div className={`${classPrefix}-transfer__footer`}>{footer}</div> : null);
 
   return (
     <div style={style} className={classnames(CLASSPREFIX, className)}>

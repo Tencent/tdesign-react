@@ -85,7 +85,7 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
     <Input
       ref={ref}
       value={filterText}
-      className={`${classPrefix}-select-input`}
+      className={`${classPrefix}-select__input`}
       size={size}
       disabled={disabled}
       placeholder={filterPlaceholder}
@@ -97,10 +97,10 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
 
   return (
     <>
-      {showPlaceholder && <span className={`${classPrefix}-select-placeholder`}>{placeholder}</span>}
+      {showPlaceholder && <span className={`${classPrefix}-select__placeholder`}>{placeholder}</span>}
 
       {!multiple && !showPlaceholder && !showFilter && (
-        <span className={`${classPrefix}-select-selectedSingle`}>{selectedSingle}</span>
+        <span className={`${classPrefix}-select__single`}>{selectedSingle}</span>
       )}
 
       {searchInput}

@@ -50,31 +50,31 @@ const PopupContent = (props: SelectPopupProps) => {
   if (!children && !props.options) return null;
 
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, restData }) => {
-    if (selectedValue) {
-      const isValObj = valueType === 'object';
-      let objVal = {};
-      if (isValObj) {
-        objVal = { ...restData };
-        if (!keys?.label) {
-          Object.assign(objVal, { label });
-        }
-        if (!keys?.value) {
-          Object.assign(objVal, { value: selectedValue });
-        }
+    const isValObj = valueType === 'object';
+    let objVal = {};
+    if (isValObj) {
+      objVal = { ...restData };
+      if (!keys?.label) {
+        Object.assign(objVal, { label });
       }
-
-      if (multiple) {
-        // calc multiple select values
-        const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-        onChange(values, { label });
-        requestAnimationFrame(() => setShowPopup(true));
-      } else {
-        // calc single select value
-        const selectVal = valueType === 'object' ? objVal : selectedValue;
-
-        onChange(selectVal, { label });
-        setShowPopup(!showPopup);
+      if (!keys?.value) {
+        Object.assign(objVal, { value: selectedValue });
       }
+    }
+
+    if (!Object.keys(objVal).length) {
+      Object.assign(objVal, { [keys?.label || 'label']: selectedValue, [keys?.value || 'value']: selectedValue });
+    }
+    if (multiple) {
+      // calc multiple select values
+      const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
+      onChange(values, { label });
+    } else {
+      // calc single select value
+      const selectVal = valueType === 'object' ? objVal : selectedValue;
+
+      onChange(selectVal, { label });
+      setShowPopup(!showPopup);
     }
   };
 
@@ -116,11 +116,11 @@ const PopupContent = (props: SelectPopupProps) => {
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
   if (isEmpty) {
-    return <div className={`${classPrefix}-select-empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
+    return <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
   }
 
   if (loading) {
-    return <div className={`${classPrefix}-select-loading-tips`}>{loadingText}</div>;
+    return <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>;
   }
   return <div>{renderOptions()}</div>;
 };

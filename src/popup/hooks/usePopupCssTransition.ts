@@ -13,7 +13,7 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
     }
   };
 
-  const handleEntering = () => {
+  const handleEntered = () => {
     const contentEle = contentRef?.current;
     if (contentEle) {
       const { scrollHeight } = contentEle;
@@ -34,7 +34,7 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   const lifeCircleEvent = expandAnimation
     ? {
         onEnter: handleBeforeEnter,
-        onEntering: handleEntering,
+        onEntered: handleEntered,
         onExiting: handleExiting,
       }
     : {};

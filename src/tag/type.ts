@@ -88,5 +88,5 @@ export interface TdCheckTagProps {
   /**
    * 点击标签时触发
    */
-  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClick?: (context: { e: MouseEvent<HTMLSpanElement> }) => void;
 }

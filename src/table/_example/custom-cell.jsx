@@ -56,18 +56,5 @@ const data = [
 ];
 
 export default function TableFixHeader() {
-  return (
-    <div>
-      <ul>
-        <li>单元格默认使用 row[colKey] 渲染数据内容，自定义单元格有以下 2 种方式</li>
-        <li>1) 使用 cell 作为渲染函数，函数参数为：{'cell({col, colIndex, row, rowIndex})'}</li>
-        <li>
-          2)【不推荐使用】使用 render 作为渲染函数，函数参数为：{'render({col, colIndex, row, rowIndex, type})'}
-          ，单元格的 type 值为 cell，标题的 type 值为 title
-        </li>
-      </ul>
-      <br />
-      <Table bordered data={data} columns={columns} rowKey="property" />
-    </div>
-  );
+  return <Table bordered data={data} columns={columns} rowKey="property" />;
 }
