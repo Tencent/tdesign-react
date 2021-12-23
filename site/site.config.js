@@ -278,6 +278,12 @@ export default {
           component: () => import('tdesign-react/progress/progress.md'),
         },
         {
+          title: 'Swiper 轮播框',
+          name: 'swiper',
+          path: '/react/components/swiper',
+          component: () => import('tdesign-react/swiper/swiper.md'),
+        },
+        {
           title: 'Table 表格',
           name: 'table',
           path: '/react/components/table',
@@ -321,7 +327,7 @@ export default {
           component: () => import('tdesign-react/dialog/dialog.md'),
         },
         {
-          title: 'Drawer 模态抽屉',
+          title: 'Drawer 抽屉',
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
@@ -355,12 +361,6 @@ export default {
           name: 'popup',
           path: '/react/components/popup',
           component: () => import('tdesign-react/popup/popup.md'),
-        },
-        {
-          title: 'Swiper 轮播框',
-          name: 'swiper',
-          path: '/react/components/swiper',
-          component: () => import('tdesign-react/swiper/swiper.md'),
         },
       ],
     },

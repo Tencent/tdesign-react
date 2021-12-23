@@ -6,26 +6,26 @@ exports[`base.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -49,18 +49,18 @@ exports[`base.jsx 1`] = `
 exports[`collapsed.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -81,7 +81,7 @@ exports[`collapsed.jsx 1`] = `
           </svg>
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -107,29 +107,30 @@ exports[`creatable.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <div
-            class="t-select-input t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
+              placeholder="Apple"
               value="Apple"
             />
           </div>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -156,26 +157,26 @@ exports[`custom-options.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -202,18 +203,18 @@ exports[`custom-selected.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -221,7 +222,7 @@ exports[`custom-selected.jsx 1`] = `
             apple选项
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -248,26 +249,26 @@ exports[`disabled.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-is-disabled"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -291,29 +292,30 @@ exports[`disabled.jsx 1`] = `
 exports[`filterable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <div
-          class="t-select-input t-input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
+            placeholder="Apple"
             value="Apple"
           />
         </div>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -336,26 +338,26 @@ exports[`filterable.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-selectedSingle"
+          class="t-select__single"
         >
           Apple
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -378,26 +380,26 @@ exports[`group.jsx 1`] = `
 exports[`keys.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 200px; display: inline-block; margin-right: 20px;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-selectedSingle"
+          class="t-select__single"
         >
           已选择的选项
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -415,18 +417,18 @@ exports[`keys.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 200px; display: inline-block;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -447,7 +449,7 @@ exports[`keys.jsx 1`] = `
           </svg>
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -473,26 +475,26 @@ exports[`label-in-value.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -510,26 +512,26 @@ exports[`label-in-value.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%; margin-left: 10%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -547,18 +549,18 @@ exports[`label-in-value.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%; margin-left: 10%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
             class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -579,7 +581,7 @@ exports[`label-in-value.jsx 1`] = `
             </svg>
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -603,18 +605,18 @@ exports[`label-in-value.jsx 1`] = `
 exports[`max.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -635,7 +637,7 @@ exports[`max.jsx 1`] = `
           </svg>
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -658,18 +660,18 @@ exports[`max.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
           class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -690,7 +692,7 @@ exports[`multiple.jsx 1`] = `
           </svg>
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -713,26 +715,26 @@ exports[`multiple.jsx 1`] = `
 exports[`noborder.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select t-no-border"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-selectedSingle"
+          class="t-select__single"
         >
           Apple
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -755,29 +757,30 @@ exports[`noborder.jsx 1`] = `
 exports[`options.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <div
-          class="t-select-input t-input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
+            placeholder="Apple"
             value="Apple"
           />
         </div>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -803,26 +806,26 @@ exports[`popup-props.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 40%;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-selectedSingle"
+            class="t-select__single"
           >
             Apple
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -846,18 +849,18 @@ exports[`popup-props.jsx 1`] = `
 exports[`prefix.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select t-has-prefix"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         >
           <svg
             class="t-icon t-icon-browse"
@@ -879,12 +882,12 @@ exports[`prefix.jsx 1`] = `
           </svg>
         </span>
         <span
-          class="t-select-selectedSingle"
+          class="t-select__single"
         >
           Apple
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -907,21 +910,21 @@ exports[`prefix.jsx 1`] = `
 exports[`remote-search.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <div
-          class="t-select-input t-input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
@@ -930,7 +933,7 @@ exports[`remote-search.jsx 1`] = `
           />
         </div>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -953,26 +956,26 @@ exports[`remote-search.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select t-size-s"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-placeholder"
+          class="t-select__placeholder"
         >
           -请选择-
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -990,26 +993,26 @@ exports[`size.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-placeholder"
+          class="t-select__placeholder"
         >
           -请选择-
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -1027,26 +1030,26 @@ exports[`size.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-select-wrap"
+    class="t-select__wrap"
     style="width: 30%; margin-right: 20px; display: inline-block;"
   >
     <div
-      class="t-popup__reference t-select-popup-reference"
+      class="t-popup__reference t-select__popup-reference"
     >
       <div
         class="t-select t-size-l"
         style="user-select: none;"
       >
         <span
-          class="t-select-left-icon"
+          class="t-select__left-icon"
         />
         <span
-          class="t-select-placeholder"
+          class="t-select__placeholder"
         >
           -请选择-
         </span>
         <svg
-          class="t-fake-arrow t-select-right-icon"
+          class="t-fake-arrow t-select__right-icon"
           fill="none"
           height="16"
           viewBox="0 0 16 16"
@@ -1072,26 +1075,26 @@ exports[`status.jsx 1`] = `
     style="display: flex;"
   >
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 200px; margin-right: 20px;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-placeholder"
+            class="t-select__placeholder"
           >
             -请选择-
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -1109,26 +1112,26 @@ exports[`status.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 200px; margin-right: 20px;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select t-is-disabled"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-placeholder"
+            class="t-select__placeholder"
           >
             -请选择-
           </span>
           <svg
-            class="t-fake-arrow t-select-right-icon"
+            class="t-fake-arrow t-select__right-icon"
             fill="none"
             height="16"
             viewBox="0 0 16 16"
@@ -1146,26 +1149,26 @@ exports[`status.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-select-wrap"
+      class="t-select__wrap"
       style="width: 200px;"
     >
       <div
-        class="t-popup__reference t-select-popup-reference"
+        class="t-popup__reference t-select__popup-reference"
       >
         <div
           class="t-select"
           style="user-select: none;"
         >
           <span
-            class="t-select-left-icon"
+            class="t-select__left-icon"
           />
           <span
-            class="t-select-placeholder"
+            class="t-select__placeholder"
           >
             -请选择-
           </span>
           <div
-            class="t-loading t-loading--center t-size-s t-select-right-icon t-select-active-icon"
+            class="t-loading t-loading--center t-size-s t-select__right-icon t-select__active-icon"
           >
             <svg
               class="t-loading__gradient t-icon-loading"

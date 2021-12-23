@@ -41,11 +41,11 @@ export default function TreeSelectSuffix(props: TreeSelectSuffixProps) {
   return (
     <>
       {showArrow && !showLoading && (
-        <FakeArrow overlayClassName={`${classPrefix}-select-right-icon`} isActive={visible} disabled={disabled} />
+        <FakeArrow overlayClassName={`${classPrefix}-select__right-icon`} isActive={visible} disabled={disabled} />
       )}
       {showClose && !showLoading && (
         <CloseCircleFilledIcon
-          className={`${classPrefix}-select-right-icon ${classPrefix}-select-right-icon__clear`}
+          className={`${classPrefix}-select__right-icon ${classPrefix}-select__right-icon-clear`}
           size={size}
           onClick={handleClear}
         />
@@ -53,7 +53,7 @@ export default function TreeSelectSuffix(props: TreeSelectSuffixProps) {
       {showLoading && (
         <Loading
           loading={true}
-          className={classNames(`${classPrefix}-select-right-icon`, `${classPrefix}-select-active-icon`)}
+          className={classNames(`${classPrefix}-select__right-icon`, `${classPrefix}-select__active-icon`)}
           size="small"
         />
       )}

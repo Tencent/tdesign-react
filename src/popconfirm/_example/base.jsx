@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Button, PopConfirm, Message } from 'tdesign-react';
+import { Button, PopConfirm, MessagePlugin } from 'tdesign-react';
 
 export default function BasicExample() {
   const [visible, setVisible] = useState(false);
 
   const deleteClickHandler = () => {
-    const msg = Message.info('提交中', 0);
+    const msg = MessagePlugin.info('提交中', 0);
     setTimeout(() => {
-      Message.close(msg);
-      Message.success('提交成功！');
+      MessagePlugin.close(msg);
+      MessagePlugin.success('提交成功！');
       setVisible(false);
     }, 1000);
   };

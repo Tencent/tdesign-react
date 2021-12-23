@@ -13,7 +13,14 @@ import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
 import { finishUpload, isSingleFile, updateFileList } from './util';
 import { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
-import { ProgressContext, SuccessContext, TdUploadProps, UploadFile, UploadRemoveContext } from './type';
+import {
+  ProgressContext,
+  RequestMethodResponse,
+  SuccessContext,
+  TdUploadProps,
+  UploadFile,
+  UploadRemoveContext,
+} from './type';
 import useDefaultValue from './hooks/useDefaultValue';
 
 const urlCreator = window.webkitURL || window.URL;
@@ -45,6 +52,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     onRemove,
     onDragenter,
     onDragleave,
+    requestMethod,
     files: fileList = [],
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
 
@@ -92,7 +100,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   };
 
   const onError = useCallback(
-    (options: { event: ProgressEvent; file: TdUploadFile; response?: any }) => {
+    (options: { event?: ProgressEvent; file: TdUploadFile; response?: any }) => {
       const { event, file, response } = options;
       file.status = 'fail';
       let res = response;
@@ -156,19 +164,41 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     [fileList, onChange, onProgress],
   );
 
+  const handleRequestMethod = useCallback(
+    (file: UploadFile) => {
+      if (typeof requestMethod !== 'function') {
+        console.warn('TDesign Upload Warn: `requestMethod` must be a function.');
+        return;
+      }
+      requestMethod(file).then((res: RequestMethodResponse) => {
+        if (!handleRequestMethodResponse(res)) return;
+        if (res.status === 'success') {
+          return handleSuccess({ file, response: res.response });
+        }
+        if (res.status === 'fail') {
+          const r = res.response || {};
+          onError({ file, response: { ...r, error: res.error } });
+        }
+      });
+    },
+    [handleSuccess, onError, requestMethod],
+  );
   const upload = useCallback(
-    (uploadFile: TdUploadFile): Promise<void> => {
+    async (uploadFile: TdUploadFile): Promise<void> => {
       const file = { ...uploadFile };
       if (file.status !== 'waiting') {
         return;
       }
-      if (!action) {
-        console.error('TDesign Upload Error: action is required.');
+      if (!action && !requestMethod) {
+        console.error('TDesign Upload Error: action or requestMethod is required.');
         return;
       }
       setErrorMsg('');
       // eslint-disable-next-line no-param-reassign
       file.status = 'progress';
+      if (requestMethod) {
+        return handleRequestMethod(file);
+      }
       request({
         action,
         data,
@@ -181,8 +211,40 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         onSuccess: handleSuccess,
       });
     },
-    [action, data, handleProgress, handleSuccess, headers, name, onError, withCredentials],
+    [
+      action,
+      data,
+      handleProgress,
+      handleRequestMethod,
+      handleSuccess,
+      headers,
+      name,
+      onError,
+      requestMethod,
+      withCredentials,
+    ],
   );
+
+  function handleRequestMethodResponse(res: RequestMethodResponse) {
+    if (!res) {
+      console.error('TDesign Upload Error: `requestMethodResponse` is required.');
+      return false;
+    }
+    if (!res.status) {
+      console.error(
+        'TDesign Upload Error: `requestMethodResponse.status` is missing, which value is `success` or `fail`',
+      );
+      return false;
+    }
+    if (!['success', 'fail'].includes(res.status)) {
+      console.error('TDesign Upload Error: `requestMethodResponse.status` must be `success` or `fail`');
+      return false;
+    }
+    if (res.status === 'success' && (!res.response || !res.response.url)) {
+      console.warn('TDesign Upload Warn: `requestMethodResponse.response.url` is required, when `status` is `success`');
+    }
+    return true;
+  }
 
   const formatFiles = (files: File[] = []): TdUploadFile[] =>
     files.map((fileRaw) => {
