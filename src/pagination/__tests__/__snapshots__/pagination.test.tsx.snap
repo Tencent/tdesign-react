@@ -14,25 +14,25 @@ exports[`base.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               5 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -153,25 +153,25 @@ exports[`jump.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               20 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -305,25 +305,25 @@ exports[`mini.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select t-size-s"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               5 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -444,25 +444,25 @@ exports[`more.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               5 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -583,25 +583,25 @@ exports[`page-num.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               20 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -722,25 +722,25 @@ exports[`simple.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               5 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -779,25 +779,25 @@ exports[`simple.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               1/20
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -850,25 +850,25 @@ exports[`simple-mini.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select t-size-s"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               5 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -907,25 +907,25 @@ exports[`simple-mini.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select t-size-s"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               1/20
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
@@ -978,25 +978,25 @@ exports[`total.jsx 1`] = `
       class="t-pagination__select"
     >
       <div
-        class="t-select-wrap"
+        class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select-popup-reference"
+          class="t-popup__reference t-select__popup-reference"
         >
           <div
             class="t-select"
             style="user-select: none;"
           >
             <span
-              class="t-select-left-icon"
+              class="t-select__left-icon"
             />
             <span
-              class="t-select-selectedSingle"
+              class="t-select__single"
             >
               10 条/页
             </span>
             <svg
-              class="t-fake-arrow t-select-right-icon"
+              class="t-fake-arrow t-select__right-icon"
               fill="none"
               height="16"
               viewBox="0 0 16 16"
