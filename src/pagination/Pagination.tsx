@@ -11,6 +11,7 @@ import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import Select from '../select';
+import InputNumber from '../input-number';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import { TdPaginationProps } from './type';
@@ -153,19 +154,14 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     });
   };
 
-  const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = event;
-    const value = Number(target.value);
-    if (Number.isNaN(value) || value < min) target.value = '';
-    else if (value > pageCount) target.value = String(pageCount);
-
+  const onPageInputChange = (value: number) => {
     setCurrent(value, { current: value, previous: current, pageSize });
   };
 
-  const onPageInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.keyCode !== KeyCode.ENTER) return;
-    const value = Number((event.target as HTMLInputElement).value);
-    if (!Number.isNaN(value)) changeCurrent(value);
+  const onPageInputKeyUp = (value: number, context: { e: React.KeyboardEvent<HTMLDivElement> }) => {
+    const { e } = context;
+    if (e.keyCode !== KeyCode.ENTER) return;
+    changeCurrent(value);
   };
 
   // 渲染total相关逻辑
@@ -312,14 +308,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       {showJumper && (
         <div className={`${name}__jump`}>
           {t(locale.jumpTo)}
-          <div className={classNames(`${classPrefix}-input`, { [`${classPrefix}-input__is-disabled`]: disabled })}>
-            <input
-              className={`${classPrefix}-input__inner`}
-              disabled={disabled}
-              onChange={onPageInputChange}
-              onKeyUp={onPageInputKeyUp}
-            />
-          </div>
+          <InputNumber
+            className={`${classPrefix}-pagination__input`}
+            min={min}
+            theme="normal"
+            max={pageCount}
+            disabled={disabled}
+            onChange={onPageInputChange}
+            onKeyup={onPageInputKeyUp}
+          />
           {t(locale.page)}
         </div>
       )}
