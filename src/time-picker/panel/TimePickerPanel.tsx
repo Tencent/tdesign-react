@@ -31,7 +31,6 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
 
   const defaultValue = useMemo(() => {
     const isStepsSet = !!steps.filter((v) => v > 1).length;
-
     if (value) {
       return dayjs(value, format);
     }

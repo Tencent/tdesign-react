@@ -52,7 +52,6 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
     return value;
   }, [value, format]);
 
-  console.log(defaultValue);
   return (
     <div className={classNames(panelClassName, `${panelClassName}-section`)}>
       <div className={`${panelClassName}-section-body`}>
