@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import isObject from 'lodash/isObject';
 import isDate from 'lodash/isDate';
 import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
@@ -79,26 +80,23 @@ const DatePicker = (props: DatePickerProps) => {
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
 
+  function isValidDate(date: string | number | Date | (string | number | Date)[]) {
+    if (isArray(date) && isDate(new Date(date[0])) && isDate(new Date(date[1]))) return true;
+    if (isString(date) && isDate(new Date(date))) return true;
+    return false;
+  }
+
   function initDatePicker() {
     const val: any = value || defaultValue;
-    if (val) {
-      let startVal = null;
-      let endVal = null;
-      if (range && isArray(val) && isDate(new Date(val[0])) && isDate(new Date(val[1]))) {
-        startVal = new Date(val[0]);
-        endVal = new Date(val[1]);
-      } else if (isDate(new Date(val))) {
-        const valForTime = new Date(val);
-        startVal = valForTime;
-        endVal = valForTime;
-      }
-      if (startVal && endVal) {
-        setStart(startVal);
-        setEnd(endVal);
-        setTimeValue(dayjs(startVal).format(TIME_FORMAT));
-        setTimeRangeValue([dayjs(startVal).format(TIME_FORMAT), dayjs(endVal).format(TIME_FORMAT)]);
-        setSelectedDates(range ? [val[0], val[1]] : [val]);
-      }
+    if (val && isValidDate(val)) {
+      const startVal = range ? new Date(val[0]) : new Date(val);
+      const endVal = range ? new Date(val[1]) : new Date(val);
+
+      setStart(startVal);
+      setEnd(endVal);
+      setTimeValue(dayjs(startVal).format(TIME_FORMAT));
+      setTimeRangeValue([dayjs(startVal).format(TIME_FORMAT), dayjs(endVal).format(TIME_FORMAT)]);
+      setSelectedDates(range ? [val[0], val[1]] : [val]);
     }
   }
 
