@@ -46,7 +46,7 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
   };
 
   const defaultValue = useMemo(() => {
-    if (value.length === 0) {
+    if (value && value.length === 0) {
       return [dayjs().format(format), dayjs().format(format)];
     }
     return value;
