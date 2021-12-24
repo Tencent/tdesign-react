@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
@@ -14,7 +14,7 @@ import { TdTimeRangePickerProps } from '../type';
 export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value' | 'onChange'> {
   // 是否展示footer
   isFooterDisplay?: boolean;
-  handleConfirmClick?: () => void;
+  handleConfirmClick?: (value) => void;
   value: TdTimeRangePickerProps['value'];
   onChange: TdTimeRangePickerProps['onChange'];
 }
@@ -45,6 +45,14 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
     }
   };
 
+  const defaultValue = useMemo(() => {
+    if (value.length === 0) {
+      return [dayjs().format(format), dayjs().format(format)];
+    }
+    return value;
+  }, [value, format]);
+
+  console.log(defaultValue);
   return (
     <div className={classNames(panelClassName, `${panelClassName}-section`)}>
       <div className={`${panelClassName}-section-body`}>
@@ -65,7 +73,13 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section-footer`}>
-          <Button theme="primary" variant="base" onClick={handleConfirmClick}>
+          <Button
+            theme="primary"
+            variant="base"
+            onClick={() => {
+              handleConfirmClick(defaultValue);
+            }}
+          >
             {TEXT_CONFIG.confirm}
           </Button>
         </div>
