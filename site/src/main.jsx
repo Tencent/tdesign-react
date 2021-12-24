@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import ReloadPrompt from './components/ReloadPrompt';
 
+import '@common/style/web/_reset.less';
 import '@common/style/web/docs.less';
 
 import 'tdesign-site-components';
