@@ -36,7 +36,7 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === packageJson.version) return;
-    const histryUrl = `//preview-${version}-tdesign-react.surge.sh`;
+    const histryUrl = `//${version}-tdesign-react.surge.sh`;
     window.open(histryUrl, '_blank');
   }
 
@@ -45,7 +45,7 @@ function Components(props) {
       const options = [];
       Object.keys(res.versions).forEach((v) => {
         const nums = v.split('.');
-        if (nums[0] === '0' && nums[1] < 20) return false;
+        if (nums[0] === '0' && nums[1] < 21) return false;
         options.push({ label: v, value: v });
       });
       setVersionOptions(options);
