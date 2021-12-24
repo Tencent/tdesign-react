@@ -103,7 +103,6 @@
     "@types/validator": "^13.1.3",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
-    "@vitejs/plugin-react-refresh": "^1.3.6",
     "autoprefixer": "^10.4.0",
     "babel-jest": "^26.0.1",
     "babel-polyfill": "^6.26.0",
@@ -123,13 +122,11 @@
     "husky": "^7.0.4",
     "jest": "^26.6.3",
     "jest-transform-stub": "^2.0.0",
-    "less": "^4.1.1",
     "lint-staged": "^10.1.3",
     "markdown-it-fence": "^0.1.3",
     "mockdate": "^3.0.5",
     "postcss": "^8.3.11",
     "prettier": "^2.3.2",
-    "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -151,7 +148,16 @@
     "ts-jest": "^26.5.6",
     "ts-morph": "^12.2.0",
     "ts-node": "^8.8.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "gray-matter": "^4.0.3",
+    "less": "^4.1.2",
+    "vite": "^2.7.0",
+    "@vitejs/plugin-react": "^1.1.1",
+    "vite-plugin-pwa": "^0.11.11",
+    "vite-plugin-tdoc": "^2.0.1",
+    "workbox-precaching": "^6.3.0",
+    "prismjs": "^1.25.0",
+    "tdesign-site-components": "~0.5.28"
   },
   "dependencies": {
     "@babel/runtime": "~7.15.4",
@@ -169,8 +175,5 @@
     "use-resize-observer": "^8.0.0",
     "uuid": "~8.3.2",
     "validator": "~13.7.0"
-  },
-  "workspaces": [
-    "./site"
-  ]
+  }
 }
