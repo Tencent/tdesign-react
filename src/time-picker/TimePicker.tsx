@@ -78,7 +78,10 @@ const TimePicker = forwardRefWithStatics(
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             onChange={onChange}
-            handleConfirmClick={() => setPanelShow(false)}
+            handleConfirmClick={(value) => {
+              onChange(dayjs(value).format(format));
+              setPanelShow(false);
+            }}
             value={value}
           />
         }
