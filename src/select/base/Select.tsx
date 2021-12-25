@@ -282,7 +282,7 @@ const Select = forwardRefWithStatics(
     const onInputClick = (e: React.MouseEvent) => {
       e.preventDefault();
       if (!disabled) {
-        setShowPopup(true);
+        setShowPopup(!showPopup);
         setInputVal('');
       }
     };
