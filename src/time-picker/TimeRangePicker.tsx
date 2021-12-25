@@ -67,7 +67,10 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           isFooterDisplay={true}
           value={value}
           onChange={onChange}
-          handleConfirmClick={() => setPanelShow(false)}
+          handleConfirmClick={(value) => {
+            onChange(value);
+            setPanelShow(false);
+          }}
         />
       }
       disabled={disabled as boolean}
