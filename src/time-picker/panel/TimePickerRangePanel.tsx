@@ -9,12 +9,12 @@ import Button from '../../button';
 
 import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
 
-import { TdTimeRangePickerProps } from '../type';
+import { TdTimeRangePickerProps, TimeRangeValue } from '../type';
 
 export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value' | 'onChange'> {
   // 是否展示footer
   isFooterDisplay?: boolean;
-  handleConfirmClick?: (value) => void;
+  handleConfirmClick?: (value: TimeRangeValue) => void;
   value: TdTimeRangePickerProps['value'];
   onChange: TdTimeRangePickerProps['onChange'];
 }
