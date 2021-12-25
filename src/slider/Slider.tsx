@@ -236,7 +236,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           </div>
         </div>
         {inputNumberProps ? (
-          <div className={classNames(`${classPrefix}-slider__input-container`)}>
+          <div
+            className={classNames(`${classPrefix}-slider__input-container`, {
+              'is-vertical': isVertical,
+            })}
+          >
             {range && createInput(LEFT_NODE)}
             {createInput(RIGHT_NODE)}
           </div>

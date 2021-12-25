@@ -925,11 +925,16 @@ exports[`base.jsx 1`] = `
         >
           跳至
           <div
-            class="t-input"
+            class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
-            <input
-              class="t-input__inner"
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
           页
         </div>
@@ -6976,11 +6981,16 @@ exports[`pagination.jsx 1`] = `
         >
           跳至
           <div
-            class="t-input"
+            class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
-            <input
-              class="t-input__inner"
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
           页
         </div>
@@ -7253,11 +7263,16 @@ exports[`pagination-ajax.jsx 1`] = `
         >
           跳至
           <div
-            class="t-input"
+            class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
-            <input
-              class="t-input__inner"
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
           页
         </div>
