@@ -16,8 +16,8 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   const handleEntered = () => {
     const contentEle = contentRef?.current;
     if (contentEle) {
-      const { scrollHeight } = contentEle;
-      contentEle.style.maxHeight = `${scrollHeight}px`;
+      contentEle.style.maxHeight = `${300}px`;
+      contentEle.style.overflow = 'auto';
     }
   };
 
