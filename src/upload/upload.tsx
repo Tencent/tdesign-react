@@ -403,6 +403,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
   React.useImperativeHandle(ref, () => ({
     upload: uploadRef.current,
+    triggerUpload,
   }));
 
   return (
@@ -447,6 +448,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           onDragleave={handleDragleave}
           file={fileList && fileList[0]}
           display={theme}
+          draggerRender={props.draggerRender}
           onCancel={cancelUpload}
           onRemove={handleSingleRemove}
           onUpload={(file) => {
