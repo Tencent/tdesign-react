@@ -1,5 +1,6 @@
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent } from 'react';
 import { ProgressContext, TdUploadProps, UploadFile } from './type';
+import { TNode } from '../common';
 
 export interface XhrSuccessContext {
   e: ProgressEvent;
@@ -15,7 +16,7 @@ export interface FlowRemoveContext {
 
 export interface UploadProps extends Omit<TdUploadProps, 'files'> {
   files?: Array<TdUploadFile>;
-  children?: ReactNode | undefined;
+  children?: TNode<{ dragActive: boolean }> | TNode;
   value?: Array<TdUploadFile>;
 }
 
