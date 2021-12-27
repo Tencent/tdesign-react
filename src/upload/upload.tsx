@@ -403,6 +403,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
   React.useImperativeHandle(ref, () => ({
     upload: uploadRef.current,
+    triggerUpload,
   }));
 
   return (
