@@ -1,6 +1,8 @@
 import React from 'react';
-import { Avatar, AvatarGroup } from 'tdesign-react';
+import { Avatar } from 'tdesign-react';
 import { UserIcon, EllipsisIcon } from 'tdesign-icons-react';
+
+const { Group: AvatarGroup } = Avatar;
 
 export default function GroupMaxAvatar() {
   return (

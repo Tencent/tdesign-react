@@ -2,11 +2,11 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 20:29:58
  * */
 
 import { TNode } from '../common';
-import { DragEvent, MouseEvent } from 'react';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps {
   /**
@@ -258,8 +258,8 @@ export interface UploadRemoveContext {
 }
 
 export interface SuccessContext {
-  e?: ProgressEvent;
+  e: ProgressEvent;
   file: UploadFile;
-  fileList?: UploadFile[];
+  fileList: UploadFile[];
   response: any;
 }

@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode } from '../common';
@@ -26,6 +26,11 @@ export interface TdStepsProps {
    * 步骤条数据列表（作用和 StepItem 效果一样）
    */
   options?: Array<TdStepItemProps>;
+  /**
+   * 是否只读
+   * @default false
+   */
+  readonly?: boolean;
   /**
    * 步骤条顺序，纵向步骤有效（direction = horizontal）
    * @default positive
