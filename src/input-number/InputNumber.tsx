@@ -1,4 +1,12 @@
-import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler, useEffect } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useCallback,
+  useMemo,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+} from 'react';
 import classNames from 'classnames';
 
 import { StyledProps } from '../common';
@@ -16,7 +24,7 @@ export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
 export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
-const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
+const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     className,
     style,
