@@ -87,9 +87,33 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     [],
   );
 
+  const popperOptions = useMemo(() => {
+    if (!visible) return { padding: 0 };
+    const childElement = contentRef.current?.firstElementChild as HTMLElement;
+    const height = childElement?.offsetHeight ?? 0;
+    const width = childElement?.offsetWidth ?? 0;
+    return {
+      padding: {
+        top: height,
+        left: width,
+        right: width,
+        bottom: height,
+      },
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, overlayRef]);
+
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
     onFirstUpdate: onPopperFirstUpdate,
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          ...popperOptions,
+        },
+      },
+    ],
   });
 
   useImperativeHandle(ref, (): any => ({
