@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect, useMemo } from 'react';
 import isString from 'lodash/isString';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -165,4 +165,4 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
   );
 };
 
-export default React.forwardRef(Dialog);
+export default forwardRef(Dialog);

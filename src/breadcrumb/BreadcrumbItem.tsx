@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 
 import { ChevronRightIcon } from 'tdesign-icons-react';
@@ -7,7 +7,7 @@ import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 
-export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
+export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const {
     children,
     theme = 'light',
