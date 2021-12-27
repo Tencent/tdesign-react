@@ -454,7 +454,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
             upload(file);
           }}
           onTrigger={triggerUpload}
-        />
+        >
+          {(dragActive: boolean) => props.children({ dragActive })}
+        </Dragger>
       </BooleanRender>
       <BooleanRender boolExpression={showUploadList}>
         <FlowList

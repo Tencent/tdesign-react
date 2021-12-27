@@ -50,6 +50,7 @@ export default function CustomDrag() {
         draggable
         theme="custom"
         onChange={handleChange}
+        onTrigger={handleChange}
         onFail={handleFail}
         onSuccess={handleSuccess}
         onProgress={onProgress}
