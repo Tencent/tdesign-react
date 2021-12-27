@@ -10,11 +10,11 @@ clearable | Boolean | false | 是否允许清空 | N
 collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。TS 类型：`TNode<{ value: DataOption[]; collapsedSelectedItems: DataOption[]; count: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 data | Array | [] | 数据。TS 类型：`Array<DataOption>` | N
 disabled | Boolean | false | 是否禁用组件 | N
-empty | TNode | '' | 当下拉列表为空时显示的内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+empty | TNode | '' | 当下拉列表为空时显示的内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 filter | Function | - | 过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。TS 类型：`(filterWords: string, option: DataOption) => boolean` | N
 filterable | Boolean | false | 是否可搜索 | N
 loading | Boolean | false | 是否正在加载数据 | N
-loadingText | TNode | '' | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+loadingText | TNode | '' | 远程加载时显示的文字，支持自定义。如加上超链接。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 max | Number | 0 | 用于控制多选数量，值为 0 则不限制 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于多选情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 multiple | Boolean | false | 是否允许多选 | N

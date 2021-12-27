@@ -19,7 +19,7 @@ onError | Function |  | 图片加载失败时触发。`() => {}` | N
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 cascading | String | 'right-up' | 图片之间的层叠关系，可选值：左侧图片在上和右侧图片在上。可选项：left-up/right-up。TS 类型：`CascadingValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/avatar/type.ts) | N
-collapseAvatar | TNode | - | 头像数量超出时，会出现一个头像折叠元素。该元素内容可自定义。默认为 `+N`。示例：`+5`，`...`, `更多`。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+collapseAvatar | TNode | - | 头像数量超出时，会出现一个头像折叠元素。该元素内容可自定义。默认为 `+N`。示例：`+5`，`...`, `更多`。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 max | Number | - | 能够同时显示的最多头像数量 | N
 placement | String | - | 超出的头像呈现位置。可选项：left/top/bottom/right。TS 类型：`MaxOverPlacement`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/avatar/type.ts) | N
 popupProps | Object | - | 头像右上角提示信息。TS 类型：`PopupProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/avatar/type.ts) | N

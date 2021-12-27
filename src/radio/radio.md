@@ -9,9 +9,9 @@
 allowUncheck | Boolean | false | 【开发中】是否允许取消选中 | N
 checked | Boolean | - | 是否选中 | N
 defaultChecked | Boolean | - | 是否选中。非受控属性 | N
-children | TNode | - | 单选内容，同 label。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+children | TNode | - | 单选内容，同 label。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | undefined | 是否为禁用态 | N
-label | TNode | - | 主文案。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+label | TNode | - | 主文案。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 name | String | - | HTM 元素原生属性 | N
 value | String / Number / Boolean | undefined | 单选按钮的值。TS 类型：`RadioValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/radio/type.ts) | N
 onChange | Function |  | 选中状态变化时触发。`(checked: boolean, context: { e: ChangeEvent }) => {}` | N

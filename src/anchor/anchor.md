@@ -21,7 +21,7 @@ onClick | Function |  | 锚点被点击时触发。`(link: { href: string; title
 -- | -- | -- | -- | --
 href | String | - | 必需。锚点链接, 如果是 hash 模式需要加上当前 path | Y
 target | String | _self | 锚点文本。可选项：_self/_blank/_parent/_top | N
-title | TNode | '' | 锚点文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+title | TNode | '' | 锚点文本。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 
 ### AnchorTarget Props
 

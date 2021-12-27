@@ -8,7 +8,7 @@
 -- | -- | -- | -- | --
 decimalPlaces | Number | undefined | [小数位数](https://en.wiktionary.org/wiki/decimal_place) | N
 disabled | Boolean | false | 禁用组件 | N
-format | Function | - | 指定输入框展示值的格式。TS 类型：`(value: number) => number | string` | N
+format | Function | - | 指定输入框展示值的格式。TS 类型：<code>(value: number) => number &#124; string</code> | N
 max | Number | Infinity | 最大值 | N
 min | Number | -Infinity | 最小值 | N
 placeholder | String | - | 占位符 | N

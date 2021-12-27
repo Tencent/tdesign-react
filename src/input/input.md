@@ -18,12 +18,12 @@ prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用�
 readonly | Boolean | false | 输入框是否只读 | N
 size | String | medium | 输入框尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 status | String | undefined | 输入框状态。可选项：success/warning/error | N
-suffixIcon | TNode | - | 组件后置图标。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+suffixIcon | TNode | - | 组件后置图标。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 type | String | text | 输入框类型。可选项：text/number/url/tel/password/search/submit/hidden | N
 value | String / Number | - | 输入框的值。TS 类型：`InputValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/input/type.ts) | N
 defaultValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/input/type.ts) | N
 onBlur | Function |  | 失去焦点时触发。`(value: InputValue, context: { e: FocusEvent }) => {}` | N
-onChange | Function |  | 输入框值发生变化时触发。`(value: InputValue, context?: { e?: InputEvent | MouseEvent }) => {}` | N
+onChange | Function |  | 输入框值发生变化时触发。<code>(value: InputValue, context?: { e?: InputEvent &#124; MouseEvent }) => {}</code> | N
 onClear | Function |  | 清空按钮点击时触发。`(context: { e: MouseEvent }) => {}` | N
 onEnter | Function |  | 回车键按下时触发。`(value: InputValue, context: { e: KeyboardEvent }) => {}` | N
 onFocus | Function |  | 获得焦点时触发。`(value: InputValue, context: { e: FocusEvent }) => {}` | N

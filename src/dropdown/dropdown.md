@@ -23,8 +23,8 @@ onClick | Function |  | 下拉操作项点击时触发。`(dropdownItem: Dropdow
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 active | Boolean | false | 是否高亮当前操作项 | N
-content | TNode | '' | 下拉操作项内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+content | TNode | '' | 下拉操作项内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | false | 是否禁用操作项 | N
 divider | Boolean | false | 是否显示操作项之间的分隔线（分隔线默认在下方） | N
-value | String / Number / Object | - | 下拉操作项唯一标识。TS 类型：`string | number | { [key: string]: any }` | N
+value | String / Number / Object | - | 下拉操作项唯一标识。TS 类型：<code>string &#124; number &#124; { [key: string]: any }</code> | N
 onClick | Function |  | 点击时触发。`(dropdownItem: DropdownOption, context: { e: MouseEvent }) => {}` | N

@@ -14,13 +14,13 @@ format | String | 'HH:mm:ss' | 用于格式化时间，[详细文档](https://da
 hideDisabledTime | Boolean | true | 是否隐藏禁用状态的时间项 | N
 placeholder | String | - | 占位符 | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
-steps | Array | () => [1, 1, 1] | 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']。TS 类型：`Array<string | number>` | N
+steps | Array | () => [1, 1, 1] | 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']。TS 类型：<code>Array&lt;string &#124; number&gt;</code> | N
 value | String | - | 选中值。TS 类型：`TimePickerValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/time-picker/type.ts) | N
 defaultValue | String | - | 选中值。非受控属性。TS 类型：`TimePickerValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/time-picker/type.ts) | N
-onBlur | Function |  | 当输入框失去焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头。`(context: { trigger: 'hour' | 'minute' | 'second'; input: string; value: TimePickerValue; e: FocusEvent }) => {}` | N
+onBlur | Function |  | 当输入框失去焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头。<code>(context: { trigger: 'hour' &#124; 'minute' &#124; 'second'; input: string; value: TimePickerValue; e: FocusEvent }) => {}</code> | N
 onChange | Function |  | 选中值发生变化时触发。`(value: TimePickerValue) => {}` | N
 onClose | Function |  | 面板关闭时触发。`(context: { e: MouseEvent }) => {}` | N
-onFocus | Function |  | 输入框获得焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头。`(context: { trigger: 'hour' | 'minute' | 'second'; input: string; value: TimePickerValue; e: FocusEvent }) => {}` | N
+onFocus | Function |  | 输入框获得焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头。<code>(context: { trigger: 'hour' &#124; 'minute' &#124; 'second'; input: string; value: TimePickerValue; e: FocusEvent }) => {}</code> | N
 onInput | Function |  | 当输入框内容发生变化时触发，参数 input 表示输入框内容，value 表示组件当前有效值。`(context: { input: string; value: TimePickerValue; e: InputEvent }) => {}` | N
 onOpen | Function |  | 面板打开时触发。`(context: { e: MouseEvent }) => {}` | N
 
@@ -30,13 +30,13 @@ onOpen | Function |  | 面板打开时触发。`(context: { e: MouseEvent }) => 
 -- | -- | -- | -- | --
 allowInput | Boolean | false | 是否允许直接输入时间 | N
 clearable | Boolean | false | 是否允许清除选中值 | N
-disabled | Boolean / Array | false | 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用。TS 类型：`boolean | Array<boolean>` | N
+disabled | Boolean / Array | false | 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用。TS 类型：<code>boolean &#124; Array&lt;boolean&gt;</code> | N
 disableTime | Function | - | 禁用时间项。TS 类型：`(h: number, m: number, s: number, context: { partial: TimeRangePickerPartial }) => boolean`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/time-picker/type.ts) | N
 format | String | 'HH:mm:ss' | 用于格式化时间，[详细文档](https://day.js.org/docs/en/display/format) | N
 hideDisabledTime | Boolean | true | 是否隐藏禁用状态的时间项 | N
-placeholder | String / Array | - | 占位符，值为数组表示可分别为开始日期和结束日期设置占位符。TS 类型：`string | Array<string>` | N
+placeholder | String / Array | - | 占位符，值为数组表示可分别为开始日期和结束日期设置占位符。TS 类型：<code>string &#124; Array&lt;string&gt;</code> | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
-steps | Array | () => [1, 1, 1] | 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']。TS 类型：`Array<string | number>` | N
+steps | Array | () => [1, 1, 1] | 时间间隔步数，数组排列 [小时, 分钟, 秒]，示例：[2, 1, 1] 或者 ['2', '1', '1']。TS 类型：<code>Array&lt;string &#124; number&gt;</code> | N
 value | Array | - | 选中值。TS 类型：`TimeRangeValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/time-picker/type.ts) | N
 defaultValue | Array | - | 选中值。非受控属性。TS 类型：`TimeRangeValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/time-picker/type.ts) | N
 onBlur | Function |  | 当输入框失去焦点时触发。`(context: { value: TimeRangeValue; e: FocusEvent }) => {}` | N

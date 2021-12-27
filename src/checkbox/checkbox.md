@@ -14,13 +14,13 @@
 checkAll | Boolean | false | 用于标识是否为「全选选项」。单独使用无效，需在 CheckboxGroup 中使用 | N
 checked | Boolean | false | 是否选中 | N
 defaultChecked | Boolean | false | 是否选中。非受控属性 | N
-children | TNode | - | 复选框内容，同 label。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+children | TNode | - | 复选框内容，同 label。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | undefined | 是否禁用组件 | N
 indeterminate | Boolean | false | 是否为半选 | N
-label | TNode | - | 主文案。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+label | TNode | - | 主文案。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 name | String | - | HTML 元素原生属性 | N
 readonly | Boolean | false | 组件是否只读 | N
-value | String / Number | - | 复选框的值。TS 类型：`string | number` | N
+value | String / Number | - | 复选框的值。TS 类型：<code>string &#124; number</code> | N
 onChange | Function |  | 值变化时触发。`(checked: boolean, context: { e: ChangeEvent }) => {}` | N
 
 ### CheckboxGroup Props

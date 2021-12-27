@@ -7,8 +7,8 @@
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 block | Boolean | false | 是否为块级元素 | N
-children | TNode | - | 按钮内容，同 content。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-content | TNode | - | 按钮内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+children | TNode | - | 按钮内容，同 content。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+content | TNode | - | 按钮内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | false | 是否禁用按钮 | N
 ghost | Boolean | false | 是否为幽灵按钮（镂空按钮） | N
 icon | TElement | - | 按钮内部图标，可完全自定义。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N

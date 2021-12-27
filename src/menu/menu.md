@@ -16,7 +16,7 @@ operations | TElement | - | 导航操作区域。TS 类型：`TNode`。[通用�
 theme | String | light | 菜单风格。可选项：light/dark | N
 value | String / Number | - | 激活菜单项。TS 类型：`MenuValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/menu/type.ts) | N
 defaultValue | String / Number | - | 激活菜单项。非受控属性。TS 类型：`MenuValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/menu/type.ts) | N
-width | String / Number / Array | '232px' | 菜单宽度。值类型为数组时，分别表示菜单展开和折叠的宽度。[ 展开时的宽度, 折叠时的宽度 ]，示例：['200px', '80px']。TS 类型：`string | number | Array<string | number>` | N
+width | String / Number / Array | '232px' | 菜单宽度。值类型为数组时，分别表示菜单展开和折叠的宽度。[ 展开时的宽度, 折叠时的宽度 ]，示例：['200px', '80px']。TS 类型：<code>string &#124; number &#124; Array&lt;string &#124; number&gt;</code> | N
 onChange | Function |  | 激活菜单项发生变化时触发。`(value: MenuValue) => {}` | N
 onCollapsed | Function |  | 侧边栏导航展开/收起发生变化时触发。`(options: { collapsed: boolean; e?: MouseEvent }) => {}` | N
 onExpand | Function |  | 展开的菜单项发生变化时触发。`(value: Array<MenuValue>) => {}` | N
@@ -40,19 +40,19 @@ onExpand | Function |  | 展开的菜单项发生变化时触发。`(value: Arra
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-children | TNode | - | 菜单项内容，同 content。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-content | TNode | - | 菜单项内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+children | TNode | - | 菜单项内容，同 content。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+content | TNode | - | 菜单项内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | - | 是否禁用菜单项展开/收起/跳转等功能 | N
 icon | TElement | - | 菜单项图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-title | TNode | - | 二级菜单内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+title | TNode | - | 二级菜单内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 value | String / Number | - | 菜单项唯一标识。TS 类型：`MenuValue` | N
 
 ### MenuItem Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-children | TNode | - | 菜单项内容，同 content。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-content | TNode | - | 菜单项内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+children | TNode | - | 菜单项内容，同 content。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+content | TNode | - | 菜单项内容。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | - | 是否禁用菜单项展开/收起/跳转等功能 | N
 href | String | - | 跳转链接 | N
 icon | TElement | - | 图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
@@ -64,4 +64,4 @@ onClick | Function |  | 点击时触发。`(context: { e: MouseEvent }) => {}` |
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-title | TNode | - | 菜单组标题。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+title | TNode | - | 菜单组标题。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N

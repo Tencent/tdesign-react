@@ -9,9 +9,9 @@
 accept | String | - | 接受上传的文件类型，[查看 W3C示例](https://www.w3schools.com/tags/att_input_accept.asp)，[查看 MDN 示例](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/file) | N
 action | String | - | 上传接口 | N
 autoUpload | Boolean | true | 是否选取文件后自动上传 | N
-beforeUpload | Function | - | 上传文件之前的钩子，参数为上传的文件，返回值决定是否上传。TS 类型：`(file: File | UploadFile) => boolean | Promise<boolean>` | N
-children | TNode | - | 触发上传的内容，同 trigger。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-data | Object | - | 上传文件时所需的额外数据。TS 类型：`Record<string, any> | ((file: File) => Record<string, any>)` | N
+beforeUpload | Function | - | 上传文件之前的钩子，参数为上传的文件，返回值决定是否上传。TS 类型：<code>(file: File &#124; UploadFile) => boolean &#124; Promise&lt;boolean&gt;</code> | N
+children | TNode | - | 触发上传的内容，同 trigger。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+data | Object | - | 上传文件时所需的额外数据。TS 类型：<code>Record&lt;string, any&gt; &#124; ((file: File) => Record&lt;string, any&gt;)</code> | N
 disabled | Boolean | false | 是否禁用 | N
 draggable | Boolean | false | 是否启用拖拽上传 | N
 files | Array | - | 已上传文件列表。TS 类型：`Array<UploadFile>` | N
@@ -26,10 +26,10 @@ name | String | 'file' | 文件上传时的名称 | N
 placeholder | String | - | 占位符 | N
 requestMethod | Function | - | 自定义上传方法。返回值 status 表示上传成功或失败，error 表示上传失败的原因，response 表示请求上传成功后的返回数据，response.url 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`。TS 类型：`(files: UploadFile) => Promise<RequestMethodResponse>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/upload/type.ts) | N
 showUploadProgress | Boolean | true | 是否显示上传进度 | N
-sizeLimit | Number / Object | - | 图片文件大小限制，单位 KB。可选单位有：`'B' | 'KB' | 'MB' | 'GB'`。示例一：`1000`。示例二：`{ size: 2, unit: 'MB', message: '图片大小不超过 {sizeLimit} MB' }`。TS 类型：`number | SizeLimitObj`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/upload/type.ts) | N
+sizeLimit | Number / Object | - | 图片文件大小限制，单位 KB。可选单位有：<code>'B' &#124; 'KB' &#124; 'MB' &#124; 'GB'</code>。示例一：`1000`。示例二：`{ size: 2, unit: 'MB', message: '图片大小不超过 {sizeLimit} MB' }`。TS 类型：<code>number &#124; SizeLimitObj</code>。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/upload/type.ts) | N
 theme | String | file | 组件风格。custom 表示完全自定义风格；file 表示默认文件上传风格；file-input 表示输入框形式的文件上传；file-flow 表示文件批量上传；image 表示默认图片上传风格；image-flow 表示图片批量上传。可选项：custom/file/file-input/file-flow/image/image-flow | N
 tips | String | - | 小文本提示 | N
-trigger | TNode | - | 触发上传的内容。TS 类型：`string | TNode<TriggerContext>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/upload/type.ts) | N
+trigger | TNode | - | 触发上传的内容。TS 类型：<code>string &#124; TNode&lt;TriggerContext&gt;</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/upload/type.ts) | N
 useMockProgress | Boolean | true | 是否显示为模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传 | N
 withCredentials | Boolean | false | 上传请求时是否携带 cookie | N
 onCancelUpload | Function |  | 点击「取消上传」时触发。`() => {}` | N
@@ -52,7 +52,7 @@ percent | Number | - | 下载进度 | N
 raw | Object | - | 原始文件对象。TS 类型：`File` | N
 response | Object | - | 上传接口返回的数据 | N
 size | Number | - | 必需。文件大小 | Y
-status | String | - | 文件上传状态：上传成功，上传失败，上传中，等待上传。TS 类型：` 'success' | 'fail' | 'progress' | 'waiting'` | N
+status | String | - | 文件上传状态：上传成功，上传失败，上传中，等待上传。TS 类型：<code>'success' &#124; 'fail' &#124; 'progress' &#124; 'waiting'</code> | N
 type | String | - | 必需。文件类型 | Y
 url | String | - | 文件上传成功后的下载/访问地址 | N
 File | - | - | 继承 `File` 中的全部 API | N

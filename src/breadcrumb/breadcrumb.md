@@ -8,15 +8,15 @@
 -- | -- | -- | -- | --
 maxItemWidth | String | undefined | 单项最大宽度，超出后会以省略号形式呈现 | N
 options | Array | - | 面包屑项，功能同 BreadcrumbItem。TS 类型：`Array<TdBreadcrumbItemProps>` | N
-separator | TNode | - | 自定义分隔符。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+separator | TNode | - | 自定义分隔符。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 theme | String | light | 组件风格。可选项：light | N
 
 ### BreadcrumbItem Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-content | TNode | - | 子元素。TS 类型：`string | number | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
-default | TNode | - | 子元素，同 content。TS 类型：`string | number | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+content | TNode | - | 子元素。TS 类型：<code>string &#124; number &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+default | TNode | - | 子元素，同 content。TS 类型：<code>string &#124; number &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 disabled | Boolean | - | 是否禁用当前项点击 | N
 href | String | - | 跳转链接 | N
 maxWidth | String | undefined | 最大宽度，超出后会以省略号形式呈现。优先级高于 Breadcrum 中的 maxItemWidth | N

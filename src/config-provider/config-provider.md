@@ -107,23 +107,23 @@ yearAriaLabel | String | '年' | “年” 描述文本 | N
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-cancel | Object | - | 取消按钮风格。TS 类型：`string | ButtonProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/config-provider/type.ts) | N
-confirm | Object | - | 确认按钮风格。TS 类型：`string | ButtonProps` | N
+cancel | Object | - | 取消按钮风格。TS 类型：<code>string &#124; ButtonProps</code>。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/config-provider/type.ts) | N
+confirm | Object | - | 确认按钮风格。TS 类型：<code>string &#124; ButtonProps</code> | N
 confirmBtnTheme | Object | - | 确认按钮主题色，即 Dialog 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }。TS 类型：`{ default: string; info: string; warning: string; danger: string; success: string; }` | N
 
 ### DrawerConfig
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-cancel | String | '取消' | “取消”描述文本。TS 类型：`string | ButtonProps` | N
-confirm | String | '确认' | “确认”描述文本。TS 类型：`string | ButtonProps` | N
+cancel | String | '取消' | “取消”描述文本。TS 类型：<code>string &#124; ButtonProps</code> | N
+confirm | String | '确认' | “确认”描述文本。TS 类型：<code>string &#124; ButtonProps</code> | N
 
 ### PopconfirmConfig
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-cancel | String / Object | '取消' | “取消”描述文本。TS 类型：`string | ButtonProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/config-provider/type.ts) | N
-confirm | String / Object | '确定' | “确定”描述文本。TS 类型：`string | ButtonProps` | N
+cancel | String / Object | '取消' | “取消”描述文本。TS 类型：<code>string &#124; ButtonProps</code>。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/config-provider/type.ts) | N
+confirm | String / Object | '确定' | “确定”描述文本。TS 类型：<code>string &#124; ButtonProps</code> | N
 confirmBtnTheme | Object | - | 确认按钮主题色，即 Popconfirm 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }。TS 类型：`{ default: string; warning: string; danger: string; }` | N
 
 ### TableConfig

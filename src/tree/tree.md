@@ -14,9 +14,9 @@ checkable | Boolean | false | 隐藏节点复选框 | N
 checkProps | Object | - | 透传属性到 checkbox 组件。参考 checkbox 组件 API。TS 类型：`CheckboxProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/tree/type.ts) | N
 checkStrictly | Boolean | false | 父子节点选中状态不再关联，可各自选中或取消 | N
 data | Array | [] | 树数据，泛型 `T` 表示树节点 TS 类型。TS 类型：`Array<T>` | N
-disableCheck | Boolean / Function | false | 禁用复选框，可支持禁用不同的行。TS 类型：`boolean | ((node: TreeNodeModel) => boolean)` | N
+disableCheck | Boolean / Function | false | 禁用复选框，可支持禁用不同的行。TS 类型：<code>boolean &#124; ((node: TreeNodeModel) => boolean)</code> | N
 disabled | Boolean | - | 是否禁用树操作 | N
-empty | TNode | '' | 数据为空时展示的文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+empty | TNode | '' | 数据为空时展示的文本。TS 类型：<code>string &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 expandAll | Boolean | false | 是否展开全部节点 | N
 expanded | Array | [] | 展开的节点值。TS 类型：`Array<TreeNodeValue>` | N
 defaultExpanded | Array | [] | 展开的节点值。非受控属性。TS 类型：`Array<TreeNodeValue>` | N
@@ -26,11 +26,11 @@ expandOnClickNode | Boolean | false | 是否支持点击节点也能展开收起
 expandParent | Boolean | false | 展开子节点时是否自动展开父节点 | N
 filter | Function | - | 节点过滤方法，只呈现返回值为 true 的节点，泛型 `T` 表示树节点 TS 类型。TS 类型：`(node: TreeNodeModel<T>) => boolean` | N
 hover | Boolean | - | 节点是否有悬浮状态 | N
-icon | TNode | true | 节点图标，可自定义。TS 类型：`boolean | TNode<TreeNodeModel>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+icon | TNode | true | 节点图标，可自定义。TS 类型：<code>boolean &#124; TNode&lt;TreeNodeModel&gt;</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 keys | Object | - | 用来定义 value / label / children 在 `options` 中对应的字段别名。TS 类型：`TreeKeysType`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/tree/type.ts) | N
-label | TNode | true | 自定义节点内容，值为 false 不显示，值为 true 显示默认 label，值为字符串直接输出该字符串。泛型 `T` 表示树节点 TS 类型。TS 类型：`string | boolean | TNode<TreeNodeModel<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+label | TNode | true | 自定义节点内容，值为 false 不显示，值为 true 显示默认 label，值为字符串直接输出该字符串。泛型 `T` 表示树节点 TS 类型。TS 类型：<code>string &#124; boolean &#124; TNode&lt;TreeNodeModel&lt;T&gt;&gt;</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 lazy | Boolean | true | 延迟加载 children 为 true 的节点的子节点数据，即使 expandAll 被设置为 true，也同样延迟加载 | N
-line | TNode | false | 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
+line | TNode | false | 连接线。值为 false 不显示连接线；值为 true 显示默认连接线；值类型为 Function 表示自定义连接线。TS 类型：<code>boolean &#124; TNode</code>。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 load | Function | - | 加载子数据的方法，在展开节点时调用（仅当节点 children 为 true 时生效），泛型 `T` 表示树节点 TS 类型。TS 类型：`(node: TreeNodeModel<T>) => Promise<Array<T>>` | N
 operations | TElement | - | 自定义节点操作项，泛型 `T` 表示树节点 TS 类型。TS 类型：`TNode<TreeNodeModel<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/main/src/common.ts) | N
 transition | Boolean | true | 节点展开折叠时是否使用过渡动画 | N
@@ -92,7 +92,7 @@ TreeNodeState | - | - | 继承 `TreeNodeState` 中的全部 API | N
 名称 | 参数 | 返回值 | 描述
 -- | -- | -- | --
 appendData | `(data: T | Array<T>)` | - | 必需。追加子节点数据，泛型 `T` 表示树节点 TS 类型
-getChildren | `(deep: boolean)` | `Array<TreeNodeModel> | boolean` | 必需。默认获取当前节点的全部子节点，deep 值为 true 则表示获取全部子孙节点
+getChildren | `(deep: boolean)` | <code>Array&lt;TreeNodeModel&gt; &#124; boolean</code> | 必需。默认获取当前节点的全部子节点，deep 值为 true 则表示获取全部子孙节点
 getIndex | - | `number` | 必需。获取节点在父节点的子节点列表中的位置，如果没有父节点，则获取节点在根节点列表的位置
 getLevel | - | `number` | 必需。获取节点所在的层级
 getParent | - | `TreeNodeModel` | 必需。获取单个父节点

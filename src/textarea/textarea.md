@@ -7,7 +7,7 @@
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 autofocus | Boolean | false | 自动聚焦，拉起键盘 | N
-autosize | Boolean / Object | false | 高度自动撑开。 autosize = true 表示组件高度自动撑开，同时，依旧允许手动拖高度。如果设置了 autosize.maxRows 或者 autosize.minRows 则不允许手动调整高度。TS 类型：`boolean | { minRows?: number; maxRows?: number }` | N
+autosize | Boolean / Object | false | 高度自动撑开。 autosize = true 表示组件高度自动撑开，同时，依旧允许手动拖高度。如果设置了 autosize.maxRows 或者 autosize.minRows 则不允许手动调整高度。TS 类型：<code>boolean &#124; { minRows?: number; maxRows?: number }</code> | N
 disabled | Boolean | false | 是否禁用文本框 | N
 maxcharacter | Number | - | 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度 | N
 maxlength | Number | - | 用户最多可以输入的字符个数 | N
