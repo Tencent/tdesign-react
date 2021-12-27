@@ -88,10 +88,10 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   );
 
   const popperOptions = useMemo(() => {
+    if (!visible) return { padding: 0 };
     const childElement = contentRef.current?.firstElementChild as HTMLElement;
     const height = childElement?.offsetHeight ?? 0;
     const width = childElement?.offsetWidth ?? 0;
-    if (!visible) return { padding: 0 };
     return {
       padding: {
         top: height,
