@@ -20,7 +20,7 @@ export default function CloseableTabs() {
       defaultValue={1}
       addable
       onRemove={({ value }) => {
-        const newPanels = panels.filter((panel) =>  panel.value !== value);
+        const newPanels = panels.filter((panel) => panel.value !== value);
         setPanels(newPanels);
       }}
       onAdd={() => {
