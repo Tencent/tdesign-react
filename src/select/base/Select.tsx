@@ -114,6 +114,7 @@ const Select = forwardRefWithStatics(
     }, [showPopup]);
 
     const handleShowPopup = (visible: boolean) => {
+      if (disabled) return;
       setShowPopup(visible);
       onVisibleChange?.(visible);
       if (!visible && !multiple && filterable) {
