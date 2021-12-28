@@ -18,12 +18,12 @@ export interface DividerProps extends TdDividerProps, StyledProps {
  * 分割线组件
  */
 const Divider = (props: DividerProps) => {
-  const { theme = 'horizontal', dashed, align = 'center', className, style, children, ...otherDividerProps } = props;
+  const { layout = 'horizontal', dashed, align = 'center', className, style, children, ...otherDividerProps } = props;
 
   const { classPrefix } = useConfig();
   const dividerClassNames = classNames(`${classPrefix}-divider`, className, {
-    [`${classPrefix}-divider--horizontal`]: theme === 'horizontal',
-    [`${classPrefix}-divider--vertical`]: theme === 'vertical',
+    [`${classPrefix}-divider--horizontal`]: layout === 'horizontal',
+    [`${classPrefix}-divider--vertical`]: layout === 'vertical',
     [`${classPrefix}-divider--dashed`]: !!dashed,
     [`${classPrefix}-divider--with-text`]: !!children,
     [`${classPrefix}-divider--with-text-${align}`]: !!children,
