@@ -343,11 +343,10 @@ exports[`trigger.jsx 1`] = `
       class="t-popup__reference"
     >
       <div
-        class="t-input"
+        class="t-input t-input__inner"
         style="width: 200px;"
       >
         <input
-          class="t-input__inner"
           placeholder="获得焦点时触发"
           value=""
         />
