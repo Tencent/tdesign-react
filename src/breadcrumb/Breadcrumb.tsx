@@ -6,7 +6,7 @@ import { BreadcrumbProps } from './BreadcrumbProps';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
-    const { children, options, theme = 'light', separator, maxItemWidth = '120', ...restProps } = props;
+    const { children, options, separator, maxItemWidth, ...restProps } = props;
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -21,11 +21,10 @@ const Breadcrumb = forwardRefWithStatics(
           to={option.to}
           router={option.router}
           replace={option.replace}
-          theme={theme}
           separator={separator}
           maxItemWidth={maxItemWidth}
         >
-          {option.default || option.content}
+          {option.content || option.children}
         </BreadcrumbItem>
       ));
     }
