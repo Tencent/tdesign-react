@@ -8,7 +8,7 @@ import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
 import { TElement } from '../../common';
-import { Filter, FilterValue, PrimaryTableCol, DataType } from '../type';
+import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType } from '../type';
 import { ConfigContext } from '../../config-provider';
 
 interface Props {
@@ -45,7 +45,7 @@ function FilterButton(props: Props) {
   const { classPrefix } = useContext(ConfigContext);
   const [filterVal, setfilterVal] = useState<any>();
 
-  const getFilterContent = (filter: Filter, colKey: string, column: PrimaryTableCol<DataType>) => {
+  const getFilterContent = (filter: TableColumnFilter, colKey: string, column: PrimaryTableCol<DataType>) => {
     const types = ['single', 'multiple', 'input'];
     if (filter.type && !types.includes(filter.type)) {
       console.error(`column.type must be the following: ${JSON.stringify(types)}`);

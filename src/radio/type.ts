@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, SizeEnum } from '../common';
@@ -35,7 +35,7 @@ export interface TdRadioProps {
    */
   label?: TNode;
   /**
-   * HTM 元素原生属性
+   * HTML 元素原生属性
    * @default ''
    */
   name?: string;
@@ -50,12 +50,6 @@ export interface TdRadioProps {
 }
 
 export interface TdRadioGroupProps {
-  /**
-   * 单选组件按钮形式（请使用 variant 代替）
-   * @default outline
-   * @deprecated
-   */
-  buttonStyle?: 'outline' | 'solid';
   /**
    * 是否禁用全部子单选框
    */
