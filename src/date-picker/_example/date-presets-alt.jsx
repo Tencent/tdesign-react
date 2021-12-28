@@ -4,8 +4,8 @@ import { DatePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [presets] = useState({
-    最近7天: [dayjs().subtract(7, 'day'), dayjs().subtract(1, 'day')],
-    最近3天: [dayjs().subtract(3, 'day'), dayjs().subtract(1, 'day')],
+    最近7天: [dayjs().subtract(6, 'day'), dayjs().subtract(0, 'day')],
+    最近3天: [dayjs().subtract(2, 'day'), dayjs().subtract(0, 'day')],
     今天: [dayjs()],
   });
   const [dateText] = useState('日期');
