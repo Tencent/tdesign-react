@@ -1,11 +1,15 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useRef } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 
-export interface TextareaProps extends TdTextareaProps, StyledProps {}
+export interface TextareaProps extends TdTextareaProps, StyledProps {
+  onCompositionStart?: Function;
+  onCompositionEnd?: Function;
+}
 
 const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputElement>) => {
   const {
@@ -19,10 +23,14 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     onKeypress = noop,
     onKeyup = noop,
     onChange = noop,
+    onCompositionStart,
+    onCompositionEnd,
     autosize = false,
     ...otherProps
   } = props;
 
+  const composingRef = useRef(false);
+  const [composingRefValue, setComposingValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState(false);
   const [currentLength, setCurrentLength] = useState(() => {
     if (typeof value !== 'undefined') {
@@ -61,9 +69,26 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   });
 
   function handleChange(e) {
-    setCurrentLength(e.currentTarget.value.length);
+    const { value } = e.currentTarget;
+    setCurrentLength(value.length);
+    if (composingRef.current) {
+      setComposingValue(value);
+    } else {
+      onChange(value, { e });
+    }
+  }
 
-    onChange(e.currentTarget.value, { e });
+  function handleCompositionStart(event: React.CompositionEvent<HTMLTextAreaElement>) {
+    composingRef.current = true;
+    isFunction(onCompositionStart) && onCompositionStart(event);
+  }
+  function handleCompositionEnd(event: React.CompositionEvent<HTMLTextAreaElement>) {
+    if (composingRef.current) {
+      composingRef.current = false;
+      handleChange(event);
+    }
+    setComposingValue('');
+    isFunction(onCompositionEnd) && onCompositionEnd(event);
   }
 
   // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
@@ -72,7 +97,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
       <textarea
         {...textareaProps}
         {...eventProps}
-        value={value}
+        value={composingRef.current ? composingRefValue : value}
         style={{
           height: Array.isArray(autosize) || autosize ? null : 'auto',
         }}
@@ -84,6 +109,8 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
       />
       {maxlength ? <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span> : null}
     </div>
