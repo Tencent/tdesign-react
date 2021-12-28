@@ -6,7 +6,7 @@ const { TabPanel } = Tabs;
 export default function AddTabs() {
   const [panels, setPanels] = useState([
     {
-      value: 0,
+      value: 1,
       label: '选项卡1',
     },
   ]);
@@ -16,7 +16,7 @@ export default function AddTabs() {
       size={'medium'}
       disabled={false}
       theme={'card'}
-      defaultValue={0}
+      defaultValue={1}
       addable
       onRemove={({ value }) => {
         const newPanels = panels.filter((panel) => panel.value !== value);
@@ -43,7 +43,9 @@ export default function AddTabs() {
             });
           }}
         >
-          <div className="tabs-content" style={{ margin: 20 }}>{label}</div>
+          <div className="tabs-content" style={{ margin: 20 }}>
+            {label}内容区
+          </div>
         </TabPanel>
       ))}
     </Tabs>
