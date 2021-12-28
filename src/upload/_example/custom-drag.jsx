@@ -55,14 +55,18 @@ export default function CustomDrag() {
         onSuccess={handleSuccess}
         onProgress={onProgress}
       >
-        {files?.length ? renderFiles(files) : renderCustomDrag()}
-        {files?.length && (
-          <Button size="small" style={{ marginTop: '36px' }}>
-            更换文件
-          </Button>
+        {({ dragActive }) => (
+          <>
+            {files?.length ? renderFiles(files) : renderCustomDrag({ dragActive })}
+            {files?.length && (
+              <Button size="small" style={{ marginTop: '36px' }}>
+                更换文件
+              </Button>
+            )}
+            <br />
+            <br />
+          </>
         )}
-        <br />
-        <br />
       </Upload>
     </div>
   );
