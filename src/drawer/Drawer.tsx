@@ -1,7 +1,8 @@
 import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import classnames from 'classnames';
-
 import { CloseIcon } from 'tdesign-icons-react';
+
+import { addClass, removeClass } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
@@ -59,6 +60,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     zIndex,
     destroyOnClose,
     mode,
+    preventScrollThrough = true,
   } = props;
 
   // 国际化文本初始化
@@ -71,6 +73,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const contentWrapperRef = useRef<HTMLDivElement>();
   const drawerRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
+  const lockCls = `${prefixCls}--lock`;
 
   const transform = visible ? 'translate(0px)' : '';
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
@@ -78,6 +81,16 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
 
   useImperativeHandle(ref, () => containerRef.current);
+
+  useEffect(() => {
+    if (preventScrollThrough) {
+      if (visible && !showInAttachedElement) {
+        addClass(document.body, lockCls);
+      } else {
+        removeClass(document.body, lockCls);
+      }
+    }
+  }, [visible, showInAttachedElement, lockCls, preventScrollThrough]);
 
   // 重置销毁钩子判断
   useEffect(() => {

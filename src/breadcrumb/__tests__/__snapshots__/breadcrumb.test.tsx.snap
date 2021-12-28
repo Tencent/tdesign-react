@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -38,7 +38,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -70,7 +70,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -111,7 +111,7 @@ exports[`custom.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -143,7 +143,7 @@ exports[`custom.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -175,7 +175,7 @@ exports[`custom.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -217,7 +217,7 @@ exports[`href.jsx 1`] = `
       class="t-breadcrumb"
     >
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <a
           class="t-breadcrumb--text-oveflow t-link"
@@ -251,7 +251,7 @@ exports[`href.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <span
           class="t-breadcrumb--text-oveflow t-is-disabled"
@@ -283,7 +283,7 @@ exports[`href.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <span
           class="t-breadcrumb--text-oveflow"
@@ -330,7 +330,7 @@ exports[`icon.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -375,7 +375,7 @@ exports[`icon.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -420,7 +420,7 @@ exports[`icon.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -474,14 +474,14 @@ exports[`options.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面1
         </span>
@@ -506,14 +506,14 @@ exports[`options.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面2
         </span>
@@ -538,7 +538,7 @@ exports[`options.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"
@@ -546,7 +546,7 @@ exports[`options.jsx 1`] = `
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面3
         </span>
@@ -580,7 +580,7 @@ exports[`to.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"
@@ -612,7 +612,7 @@ exports[`to.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"

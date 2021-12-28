@@ -282,10 +282,9 @@ exports[`jump.jsx 1`] = `
         class="t-pagination__input t-input-number t-size-m t-input-number--normal"
       >
         <div
-          class="t-input"
+          class="t-input t-input__inner"
         >
           <input
-            class="t-input__inner"
             value=""
           />
         </div>

@@ -295,6 +295,7 @@ const Select = forwardRefWithStatics(
       } else {
         onChange('');
       }
+      setInputVal(undefined);
       onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
     };
 
