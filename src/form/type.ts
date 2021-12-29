@@ -2,12 +2,13 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
+ * updated at 2021-12-29 16:18:25
  * */
 
 import { IsEmailOptions } from 'validator/es/lib/isEmail';
 import { IsURLOptions } from 'validator/es/lib/isURL';
 import { TNode, FormResetEvent, FormSubmitEvent } from '../common';
+import { FormEvent } from 'react';
 
 export interface TdFormProps<FormData extends Data = Data> {
   /**
@@ -74,6 +75,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    * 表单提交时触发。其中 context.validateResult 表示校验结果，context .firstError 表示校验不通过的第一个规则提醒。context.validateResult 值为 true 表示校验通过；如果校验不通过，context.validateResult 值为校验结果列表
    */
   onSubmit?: (context: SubmitContext<FormData>) => void;
+  /**
+   * 字段值更新时触发的回调事件
+   */
+  onValuesChange?: (changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => void;
 }
 
 export interface TdFormItemProps {
@@ -207,31 +212,31 @@ export interface FormInstance {
   /**
    * 获取全部表单数据
    */
-  getAllFieldsValue?: () => Record<string, unknown>;
+  getAllFieldsValue: () => Record<string, unknown>;
   /**
    * 获取单个字段值
    */
-  getFieldValue?: (field: string) => unknown;
+  getFieldValue: (field: string) => unknown;
   /**
    * 重置表单，与点击 reset 按钮效果相同
    */
-  reset?: () => void;
+  reset: (e?: FormEvent<HTMLFormElement>) => void;
   /**
    * 设置多组字段状态
    */
-  setFields?: (fields: FieldData[]) => void;
+  setFields: (fields: FieldData[]) => void;
   /**
    * 设置表单字段值
    */
-  setFieldsValue?: (field: FieldOption) => void;
+  setFieldsValue: (field: FieldOption) => void;
   /**
    * 提交表单，与点击 submit 按钮效果相同
    */
-  submit?: () => void;
+  submit: (e?: FormEvent<HTMLFormElement>) => void;
   /**
    * 校验
    */
-  validate?: () => ValidateResult<{ [key: string]: boolean | ErrorList }>;
+  validate: () => Promise<Result>;
 }
 
 export interface SubmitContext<T extends Data = Data> {
@@ -283,3 +288,5 @@ export interface FieldData {
 }
 
 export type FieldOption = Record<string, unknown>;
+
+export type Result = FormValidateResult<FormData>;

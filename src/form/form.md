@@ -19,6 +19,7 @@ size | String | medium | 表单尺寸。可选项：medium/large | N
 statusIcon | TNode | undefined | 校验状态图标。TS 类型：`boolean | TNode<TdFormItemProps>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 onReset | Function |  | 表单重置时触发。`(context: { e?: FormResetEvent }) => {}` | N
 onSubmit | Function |  | 表单提交时触发。其中 context.validateResult 表示校验结果，context .firstError 表示校验不通过的第一个规则提醒。context.validateResult 值为 true 表示校验通过；如果校验不通过，context.validateResult 值为校验结果列表。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。`(context: SubmitContext<FormData>) => {}` | N
+onValuesChange | Function |  | 字段值更新时触发的回调事件。`(changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => {}` | N
 
 ### FormItem Props
 
@@ -62,10 +63,10 @@ validator | Function | - | 自定义校验规则。TS 类型：`CustomValidator`
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-getAllFieldsValue | Function | - | 获取全部表单数据。TS 类型：`() => Record<string, unknown>` | N
-getFieldValue | Function | - | 获取单个字段值。TS 类型：`(field: string) => unknown` | N
-reset | Function | - | 重置表单，与点击 reset 按钮效果相同。TS 类型：`() => void` | N
-setFields | Function | - | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-setFieldsValue | Function | - | 设置表单字段值。TS 类型：`(field: FieldOption) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-submit | Function | - | 提交表单，与点击 submit 按钮效果相同。TS 类型：`() => void` | N
-validate | Function | - | 校验。TS 类型：`() => ValidateResult<{ [key: string]: boolean | ErrorList }>` | N
+getAllFieldsValue | Function | - | 必需。获取全部表单数据。TS 类型：`() => Record<string, unknown>` | Y
+getFieldValue | Function | - | 必需。获取单个字段值。TS 类型：`(field: string) => unknown` | Y
+reset | Function | - | 必需。重置表单，与点击 reset 按钮效果相同。TS 类型：`(e?: FormEvent<HTMLFormElement>) => void` | Y
+setFields | Function | - | 必需。设置多组字段状态。TS 类型：`(fields: FieldData[]) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | Y
+setFieldsValue | Function | - | 必需。设置表单字段值。TS 类型：`(field: FieldOption) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | Y
+submit | Function | - | 必需。提交表单，与点击 submit 按钮效果相同。TS 类型：`(e?: FormEvent<HTMLFormElement>) => void` | Y
+validate | Function | - | 必需。校验。TS 类型：`() => Promise<Result>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | Y
