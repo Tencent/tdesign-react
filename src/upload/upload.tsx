@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, forwardRef, useCallback, useMemo, useRef, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import findIndex from 'lodash/findIndex';
 import Dialog from '../dialog';
@@ -501,4 +501,4 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
 };
 
-export default React.forwardRef<unknown, TdUploadProps>(Upload);
+export default forwardRef<unknown, TdUploadProps>(Upload);

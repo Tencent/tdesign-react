@@ -44,9 +44,9 @@ function PopupSide() {
         </SubMenu>
         <SubMenu value="2" title={<span>调度平台</span>} icon={<FileIcon />}>
           <SubMenu value="2-1" title="二级菜单-1">
-            <MenuItem value="3-1">三级菜单-1</MenuItem>
-            <MenuItem value="3-2">三级菜单-2</MenuItem>
-            <MenuItem value="3-3">三级菜单-3</MenuItem>
+            <MenuItem value="2-1-1">三级菜单-1</MenuItem>
+            <MenuItem value="2-1-2">三级菜单-2</MenuItem>
+            <MenuItem value="2-1-3">三级菜单-3</MenuItem>
           </SubMenu>
           <MenuItem value="2-2">
             <span>二级菜单-2</span>

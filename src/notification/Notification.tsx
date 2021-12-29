@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
@@ -12,7 +12,7 @@ export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
 }
 
-export const NotificationComponent = React.forwardRef<any, NotificationProps>((props, ref) => {
+export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
   const {
     title = null,
     content = null,

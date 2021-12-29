@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { forwardRef, useContext, useMemo } from 'react';
 import classNames from 'classnames';
 
 import { ChevronRightIcon } from 'tdesign-icons-react';
@@ -6,11 +6,11 @@ import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
+import { BreadcrumbContext } from './BreadcrumbContext';
 
-export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
+export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const {
     children,
-    theme = 'light',
     separator = <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />,
     disabled,
     maxItemWidth,
@@ -23,10 +23,12 @@ export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemPro
     ...restProps
   } = props;
 
+  const { maxItemWidthInContext } = useContext(BreadcrumbContext);
+
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
 
-  const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`, theme);
+  const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
   const textClassNames = classNames(`${classPrefix}-breadcrumb--text-oveflow`, {
     [commonClassNames.STATUS.disabled]: disabled,
@@ -34,15 +36,15 @@ export const BreadcrumbItem = React.forwardRef<HTMLDivElement, BreadcrumbItemPro
   const separatorClassName = `${classPrefix}-breadcrumb__separator`;
   const linkClassName = `${classPrefix}-link`;
 
-  const maxWith = useMemo(
+  const maxWidthForItem = useMemo(
     () => ({
-      maxWidth: maxWidth || maxItemWidth || '120px',
+      maxWidth: maxWidth || maxItemWidth || maxItemWidthInContext || '120px',
     }),
-    [maxItemWidth, maxWidth],
+    [maxItemWidth, maxWidth, maxItemWidthInContext],
   );
 
   const textContent = (
-    <span className={textWrapperClassName} style={maxWith}>
+    <span className={textWrapperClassName} style={maxWidthForItem}>
       {children}
     </span>
   );
