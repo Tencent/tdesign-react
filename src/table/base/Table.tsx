@@ -13,7 +13,6 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableLoadingBody from './TableLoadingBody';
 import TableAsyncLoadingBody from './TableAsyncLoadingBody';
-
 import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
@@ -48,36 +47,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   } = props;
 
   const [columns, flattenColumns] = useColumns(props);
-
-  // ==================== 固定表头、固定列 ====================
-  const [scrollBarWidth, setScrollBarWidth] = useState(0);
-  const fixedHeader = height > 0 || maxHeight > 0;
-  const table = useMemo(() => ({ fixedHeader, flattenColumns }), [fixedHeader, flattenColumns]);
-  const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
-  const scrollHeaderRef = useRef<HTMLDivElement>();
-  const scrollBodyRef = useRef<HTMLDivElement>();
-  const tableContentRef = useRef<HTMLDivElement>();
-  const [scrollableToLeft, setScrollableToLeft] = useState(false);
-  const [scrollableToRight, setScrollableToRight] = useState(false);
-
-  useLayoutEffect(() => {
-    if (fixedHeader) {
-      setStateScrollBarWidth();
-    }
-
-    let checkScrollableToLeftOrRightDebounce: EventListenerOrEventListenerObject | undefined;
-    if (hasFixedColumns) {
-      checkScrollableToLeftOrRight();
-      checkScrollableToLeftOrRightDebounce = debounce(checkScrollableToLeftOrRight);
-      window.addEventListener('resize', checkScrollableToLeftOrRightDebounce);
-    }
-
-    return () => {
-      if (hasFixedColumns) {
-        window.removeEventListener('resize', checkScrollableToLeftOrRightDebounce);
-      }
-    };
-  }, [fixedHeader, hasFixedColumns]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ==================== 翻页 ====================
   let hasPagination = false;
@@ -129,6 +98,48 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     return data;
   }, [data, innerPageSize, hasPagination, innerCurrent]);
 
+  // ==================== 固定表头、固定列 ====================
+  const [scrollBarWidth, setScrollBarWidth] = useState(0);
+  const fixedHeader = height > 0 || maxHeight > 0;
+  const table = useMemo(() => ({ fixedHeader, flattenColumns }), [fixedHeader, flattenColumns]);
+  const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
+  const scrollHeaderRef = useRef<HTMLDivElement>();
+  const scrollBodyRef = useRef<HTMLDivElement>();
+  const tableRef = useRef<HTMLTableElement>();
+  const tableContentRef = useRef<HTMLDivElement>();
+  const [scrollableToLeft, setScrollableToLeft] = useState(false);
+  const [scrollableToRight, setScrollableToRight] = useState(false);
+  const [isHasScrollbar, setIsHasScrollbar] = useState(false);
+
+  useLayoutEffect(() => {
+    if (fixedHeader) {
+      setStateScrollBarWidth();
+    }
+  }, [fixedHeader]);
+  useLayoutEffect(() => {
+    if (fixedHeader) {
+      const limitHeight = height || maxHeight;
+      const tableNode = tableRef.current;
+      const isHasScrollbarNew = tableNode.offsetHeight > limitHeight;
+      setIsHasScrollbar(isHasScrollbarNew);
+    }
+  }, [pageData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useLayoutEffect(() => {
+    let checkScrollableToLeftOrRightDebounce: EventListenerOrEventListenerObject | undefined;
+    if (hasFixedColumns) {
+      checkScrollableToLeftOrRight();
+      checkScrollableToLeftOrRightDebounce = debounce(checkScrollableToLeftOrRight);
+      window.addEventListener('resize', checkScrollableToLeftOrRightDebounce);
+    }
+
+    return () => {
+      if (hasFixedColumns) {
+        window.removeEventListener('resize', checkScrollableToLeftOrRightDebounce);
+      }
+    };
+  }, [hasFixedColumns]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // ==================== render ====================
   const isEmpty = !data.length;
   function renderTableBodyAndTableFooter() {
@@ -165,7 +176,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   }
 
   let paginationNode: ReactNode;
-
   if (hasPagination) {
     paginationNode = (
       <div className={`${classPrefix}-table__pagination`}>
@@ -180,25 +190,10 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     );
   }
 
-  function setStateScrollBarWidth() {
-    const scrollDiv = document.createElement('div');
-    scrollDiv.style.cssText = `
-      width: 99px;
-      height: 99px;
-      overflow: scroll;
-      position: absolute;
-      top: -9999px;`;
-    scrollDiv.classList.add('scrollbar');
-    document.body.appendChild(scrollDiv);
-    const scrollBarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    setScrollBarWidth(scrollBarWidth);
-    document.body.removeChild(scrollDiv);
-  }
-
   function getTable(params?: { enableHeader?: boolean; enableBody?: boolean }): ReactNode {
     const { enableHeader = true, enableBody = true } = params || {};
     return (
-      <table style={{ tableLayout, height: '100%' }}>
+      <table ref={tableRef} style={{ tableLayout, height: '100%' }}>
         <TableColGroup columns={columns} />
         {enableHeader ? <TableHeader<D> columns={columns} /> : null}
         {enableBody ? renderTableBodyAndTableFooter() : null}
@@ -207,8 +202,12 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   }
 
   function getTableWithFixedHeader(): ReactNode {
+    let style = {};
+    if (isHasScrollbar) {
+      style = { ...style, paddingRight: scrollBarWidth };
+    }
     const fixedHeaderRN = (
-      <div ref={scrollHeaderRef} className={`${classPrefix}-table__header`} style={{ paddingRight: scrollBarWidth }}>
+      <div ref={scrollHeaderRef} className={`${classPrefix}-table__header`} style={style}>
         {getTable({ enableBody: false })}
       </div>
     );
@@ -242,6 +241,22 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     );
   }
 
+  // ==================== functions ====================
+  function setStateScrollBarWidth() {
+    const scrollDiv = document.createElement('div');
+    scrollDiv.style.cssText = `
+      width: 99px;
+      height: 99px;
+      overflow: scroll;
+      position: absolute;
+      top: -9999px;`;
+    scrollDiv.classList.add('scrollbar');
+    document.body.appendChild(scrollDiv);
+    const scrollBarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    setScrollBarWidth(scrollBarWidth);
+    document.body.removeChild(scrollDiv);
+  }
+
   function checkScrollableToLeftOrRight() {
     const scrollContainer = fixedHeader ? scrollBodyRef.current : tableContentRef.current;
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
@@ -250,6 +265,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     const scrollableToRight = scrollLeft + clientWidth < scrollWidth;
     setScrollableToRight(scrollableToRight);
   }
+
   function handleScroll(e, duration = 100) {
     const { scrollLeft, scrollTop } = e.target;
 
