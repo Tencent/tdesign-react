@@ -10,7 +10,7 @@ import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../const
 export interface TimePickerPanelProps extends SinglePanelProps {
   // 是否展示footer
   isFooterDisplay?: boolean;
-  handleConfirmClick: (defaultValue: dayjs.Dayjs) => void;
+  handleConfirmClick?: (defaultValue: dayjs.Dayjs) => void;
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
