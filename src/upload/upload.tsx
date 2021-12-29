@@ -54,6 +54,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     onDragleave,
     requestMethod,
     files: fileList = [],
+    customDraggerRender,
+    children,
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
 
   const { classPrefix } = useConfig();
@@ -418,7 +420,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         onChange={handleChange}
       />
       <BooleanRender boolExpression={!draggable && theme === 'custom'}>
-        <UploadTrigger onClick={triggerUpload}>{props.children}</UploadTrigger>
+        <UploadTrigger onClick={triggerUpload}>{children}</UploadTrigger>
       </BooleanRender>
       <BooleanRender boolExpression={!draggable && ['file', 'file-input'].includes(theme)}>
         <SingleFile
@@ -448,16 +450,14 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           onDragleave={handleDragleave}
           file={fileList && fileList[0]}
           display={theme}
-          customDraggerRender={props.customDraggerRender}
+          customDraggerRender={customDraggerRender}
           onCancel={cancelUpload}
           onRemove={handleSingleRemove}
           onUpload={(file) => {
             upload(file);
           }}
           onTrigger={triggerUpload}
-        >
-          {(dragActive: boolean) => props.children({ dragActive })}
-        </Dragger>
+        />
       </BooleanRender>
       <BooleanRender boolExpression={showUploadList}>
         <FlowList
