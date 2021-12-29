@@ -3,6 +3,7 @@ import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';
+import { BreadcrumbContext } from './BreadcrumbContext';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
@@ -30,9 +31,15 @@ const Breadcrumb = forwardRefWithStatics(
     }
 
     return (
-      <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
-        {content}
-      </div>
+      <BreadcrumbContext.Provider
+        value={{
+          maxItemWidthInContext: maxItemWidth,
+        }}
+      >
+        <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
+          {content}
+        </div>
+      </BreadcrumbContext.Provider>
     );
   },
   { BreadcrumbItem },
