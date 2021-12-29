@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
@@ -32,7 +32,7 @@ export interface TdTextareaProps {
    */
   maxlength?: number;
   /**
-   * 名称
+   * 名称，HTML 元素原生属性
    * @default ''
    */
   name?: string;

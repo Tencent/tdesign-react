@@ -8,7 +8,7 @@ export default function CustomDrag() {
   const uploadDom = React.createRef();
 
   const handleChange = useCallback((files) => {
-    setFiles(files);
+    setFiles(files.slice(-1));
   }, []);
   const handleFail = useCallback(({ file }) => {
     message.error(`文件 ${file.name} 上传失败`);
@@ -22,19 +22,40 @@ export default function CustomDrag() {
   const onProgress = useCallback((val) => {
     setProgress(val);
   }, []);
-  const renderFiles = (files) => (
-    <ul>
-      {files.map((file) => (
-        <li key={file.name}>{file.name}</li>
-      ))}
-    </ul>
+  const customDraggerRender = useCallback(
+    ({ dragActive }) => {
+      function renderCustomDrag() {
+        if (dragActive) {
+          return <p>释放鼠标</p>;
+        }
+        return progress < 1 ? <Button>自定义拖拽区域</Button> : null;
+      }
+
+      function renderFiles(files) {
+        return (
+          <ul>
+            {files.map((file) => (
+              <li key={file.name}>{file.name}</li>
+            ))}
+          </ul>
+        );
+      }
+
+      return (
+        <>
+          {files?.length ? renderFiles(files) : renderCustomDrag()}
+          {files?.length > 0 && (
+            <Button variant="base" style={{ marginTop: '36px' }}>
+              更换文件
+            </Button>
+          )}
+          <br />
+          <br />
+        </>
+      );
+    },
+    [files, progress],
   );
-  const renderCustomDrag = (dragActive) => {
-    if (dragActive) {
-      return <p>释放鼠标</p>;
-    }
-    return progress < 1 ? <Button>自定义拖拽区域</Button> : null;
-  };
   return (
     <div className="tdesign-demo-upload t-upload">
       <Button variant="outline" onClick={upload}>
@@ -49,25 +70,13 @@ export default function CustomDrag() {
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         draggable
         theme="custom"
+        customDraggerRender={customDraggerRender}
         onChange={handleChange}
         onTrigger={handleChange}
         onFail={handleFail}
         onSuccess={handleSuccess}
         onProgress={onProgress}
-      >
-        {({ dragActive }) => (
-          <>
-            {files?.length ? renderFiles(files) : renderCustomDrag({ dragActive })}
-            {files?.length && (
-              <Button size="small" style={{ marginTop: '36px' }}>
-                更换文件
-              </Button>
-            )}
-            <br />
-            <br />
-          </>
-        )}
-      </Upload>
+      />
     </div>
   );
 }

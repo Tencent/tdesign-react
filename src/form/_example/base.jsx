@@ -25,7 +25,7 @@ export default function BaseForm() {
         <Input />
       </FormItem>
       <FormItem label="出生日期" name="birthday">
-        <DatePicker theme="primary" mode="date" />
+        <DatePicker mode="date" />
       </FormItem>
       <FormItem label="性别" name="gender">
         <Radio.Group>

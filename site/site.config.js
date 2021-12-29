@@ -106,6 +106,12 @@ export default {
           component: () => import('tdesign-react/anchor/anchor.md'),
         },
         {
+          title: 'Breadcrumb 面包屑',
+          name: 'breadcrumb',
+          path: '/react/components/breadcrumb',
+          component: () => import('tdesign-react/breadcrumb/breadcrumb.md'),
+        },
+        {
           title: 'Dropdown 下拉菜单',
           name: 'dropdown',
           path: '/react/components/dropdown',

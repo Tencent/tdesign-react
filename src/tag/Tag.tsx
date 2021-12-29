@@ -73,10 +73,10 @@ const Tag = forwardRefWithStatics(
         {icon}
         {maxWidth ? (
           <span className={`${tagClassPrefix}--text`} style={{ ...(style || {}), ...{ maxWidth } }}>
-            {children || content}
+            {content || children}
           </span>
         ) : (
-          children || content
+          content || children
         )}
         {closable && deleteIcon}
       </span>
