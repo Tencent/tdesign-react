@@ -2,7 +2,7 @@ import { MouseEvent } from 'react';
 import { ProgressContext, TdUploadProps, UploadFile } from './type';
 import { TNode } from '../common';
 
-export interface DraggerRenderProps {
+export interface CustomDraggerRenderProps {
   dragActive: boolean;
 }
 
@@ -21,7 +21,7 @@ export interface FlowRemoveContext {
 export interface UploadProps extends Omit<TdUploadProps, 'files'> {
   files?: Array<TdUploadFile>;
   children?: TNode;
-  draggerRender?: (props: DraggerRenderProps) => TNode;
+  customDraggerRender?: (props: CustomDraggerRenderProps) => TNode;
   value?: Array<TdUploadFile>;
 }
 

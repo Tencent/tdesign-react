@@ -22,7 +22,7 @@ export default function CustomDrag() {
   const onProgress = useCallback((val) => {
     setProgress(val);
   }, []);
-  const draggerRender = useCallback(
+  const customDraggerRender = useCallback(
     ({ dragActive }) => {
       function renderCustomDrag() {
         if (dragActive) {
@@ -70,7 +70,7 @@ export default function CustomDrag() {
         action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
         draggable
         theme="custom"
-        draggerRender={draggerRender}
+        customDraggerRender={customDraggerRender}
         onChange={handleChange}
         onTrigger={handleChange}
         onFail={handleFail}

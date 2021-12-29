@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, forwardRef, useCallback, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, forwardRef, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import findIndex from 'lodash/findIndex';
 import Dialog from '../dialog';
@@ -448,7 +448,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           onDragleave={handleDragleave}
           file={fileList && fileList[0]}
           display={theme}
-          draggerRender={props.draggerRender}
+          customDraggerRender={props.customDraggerRender}
           onCancel={cancelUpload}
           onRemove={handleSingleRemove}
           onUpload={(file) => {
