@@ -1,5 +1,13 @@
 :: BASE_DOC ::
 
+### 使用 maxWidth 和 maxItemWidth 配置面包屑最大宽度
+
+通过 `<Breadcrumb>` 的属性 `maxItemWidth` 修改子项最大宽度，超出后会以省略号形式呈现
+
+通过 `<BreadcrumbItem>` 的属性 `maxWidth` 修改自身最大宽度，超出后会以省略号形式呈现，优先级高于 `<Breadcrumb>` 中的 `maxItemWidth`
+
+{{ width }}
+
 ## API
 ### Breadcrumb Props
 
