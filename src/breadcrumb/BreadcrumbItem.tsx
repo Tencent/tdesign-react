@@ -10,7 +10,6 @@ import { BreadcrumbItemProps } from './BreadcrumbProps';
 export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const {
     children,
-    theme = 'light',
     separator = <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />,
     disabled,
     maxItemWidth,
@@ -26,7 +25,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
 
-  const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`, theme);
+  const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
   const textClassNames = classNames(`${classPrefix}-breadcrumb--text-oveflow`, {
     [commonClassNames.STATUS.disabled]: disabled,
