@@ -12,7 +12,19 @@ import { TreeItemProps } from './interface';
  * 树节点组件
  */
 const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement>) => {
-  const { node, icon, label, line, expandOnClickNode, activable, checkProps, operations, onClick, onChange } = props;
+  const {
+    node,
+    icon,
+    label,
+    line,
+    expandOnClickNode,
+    activable,
+    checkProps,
+    disableCheck,
+    operations,
+    onClick,
+    onChange,
+  } = props;
   const { level } = node;
 
   const { treeClassNames } = useTreeConfig();
@@ -160,13 +172,24 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
     });
 
     if (node.isCheckable()) {
+      let checkboxDisabled: boolean;
+      if (typeof disableCheck === 'function') {
+        checkboxDisabled = disableCheck(node.getModel());
+      } else {
+        checkboxDisabled = !!disableCheck;
+      }
+
+      if (node.isDisabled()) {
+        checkboxDisabled = true;
+      }
+
       return (
         <Checkbox
           ref={labelRef}
           // value={node.value}
           checked={node.checked}
           indeterminate={node.indeterminate}
-          disabled={node.isDisabled()}
+          disabled={checkboxDisabled}
           name={String(node.value)}
           onChange={() => onChange(node)}
           className={labelClasses}
