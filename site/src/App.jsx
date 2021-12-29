@@ -100,14 +100,14 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Redirect exact from="/" to="/react/components/overview" />
-        <Redirect exact from="/react" to="/react/components/overview" />
-        <Redirect exact from="/react/components" to="/react/components/overview" />
+        <Redirect exact from="/" to="/react/overview" />
+        <Redirect exact from="/react" to="/react/overview" />
+        <Route path="/react/*" component={Components} />
         <Route path="/react/components/*" component={Components} />
         <Suspense fallback={<Loading text="拼命加载中..." loading />}>
           <Route path="/react/demos/:componentName/:demoName" component={lazyDemo} /> 
         </Suspense>
-        <Redirect from="*" to="/react/components/overview" />
+        <Redirect from="*" to="/react/overview" />
         {/* TODO: 404 */}
       </Switch>
     </Router>
