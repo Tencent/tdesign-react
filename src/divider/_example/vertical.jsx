@@ -5,11 +5,11 @@ export default function BasicDivider() {
   return (
     <>
       <span>正直</span>
-      <Divider theme="vertical"></Divider>
+      <Divider layout="vertical"></Divider>
       <span>进取</span>
-      <Divider theme="vertical"></Divider>
+      <Divider layout="vertical"></Divider>
       <span>合作</span>
-      <Divider theme="vertical"></Divider>
+      <Divider layout="vertical"></Divider>
       <span>创新</span>
     </>
   );

@@ -37,7 +37,7 @@ const Loading: FC<LoadingProps> = (props) => {
   const inheritColorClass = `${classPrefix}-loading--inherit-color`;
   const fullClass = `${classPrefix}-loading--full`;
   const fullscreenClass = `${classPrefix}-loading__fullscreen`;
-  const lockClass = `${classPrefix}-loading-lock`;
+  const lockClass = `${classPrefix}-loading--lock`;
   const overlayClass = `${classPrefix}-loading__overlay`;
   const relativeClass = `${classPrefix}-loading__parent`;
   const textClass = `${classPrefix}-loading__text`;

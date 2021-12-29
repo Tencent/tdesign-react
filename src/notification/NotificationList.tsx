@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React, { forwardRef } from 'react';
+import ReactDOM from 'react-dom';
 import useConfig from '../_util/useConfig';
 import {
   NotificationInfoOptions,
@@ -36,7 +36,7 @@ let seed = 0;
 
 export const listMap: Map<NotificationPlacementList, NotificationListInstance> = new Map();
 
-const NotificationList = React.forwardRef<NotificationListInstance, NotificationListProps>((props, ref) => {
+const NotificationList = forwardRef<NotificationListInstance, NotificationListProps>((props, ref) => {
   const { attach, placement, zIndex } = props;
   const { classPrefix } = useConfig();
   const [list, dispatchList] = React.useReducer(
