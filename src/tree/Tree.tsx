@@ -31,6 +31,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     disabled,
     checkable,
     checkProps,
+    disableCheck,
     hover,
     icon,
     line,
@@ -235,6 +236,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               activable={activable}
               operations={operations}
               checkProps={checkProps}
+              disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
             />
