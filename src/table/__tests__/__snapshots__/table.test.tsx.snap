@@ -2860,7 +2860,6 @@ exports[`fixed-header.jsx 1`] = `
       >
         <div
           class="t-table__header"
-          style="padding-right: 0px;"
         >
           <table
             style="table-layout: fixed; height: 100%;"
@@ -4326,7 +4325,6 @@ exports[`fixed-header-col.jsx 1`] = `
       >
         <div
           class="t-table__header"
-          style="padding-right: 0px;"
         >
           <table
             style="table-layout: fixed; height: 100%;"
