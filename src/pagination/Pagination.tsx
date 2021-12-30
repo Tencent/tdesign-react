@@ -177,78 +177,76 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     }
   };
 
-  const renderPaginationBtns = () => {
-    const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
+  const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
-    return (
-      <>
-        {isFolded && (
-          <>
-            <li
-              key={1}
-              className={classNames(`${name}__number`, {
-                [`${classPrefix}-is-disabled`]: disabled,
-                [`${classPrefix}-is-current`]: current === 1,
-              })}
-              onClick={() => changeCurrent(1)}
-            >
-              1
-            </li>
-            {2 + pivot < current && (
-              <li
-                className={classNames(`${name}__number`, `${name}__number--more`, {
-                  [`${classPrefix}-is-disabled`]: disabled,
-                })}
-                onMouseOver={() => toggleHoverPreMore(true)}
-                onMouseOut={() => toggleHoverPreMore(false)}
-                onClick={() => changeCurrent(current - foldedMaxPageBtn)}
-              >
-                {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
-              </li>
-            )}
-          </>
-        )}
-        {pageList.map((item) => (
+  const renderPaginationBtns = (
+    <>
+      {isFolded && (
+        <>
           <li
-            key={item}
+            key={1}
             className={classNames(`${name}__number`, {
               [`${classPrefix}-is-disabled`]: disabled,
-              [`${classPrefix}-is-current`]: current === item,
+              [`${classPrefix}-is-current`]: current === 1,
             })}
-            onClick={() => changeCurrent(item)}
+            onClick={() => changeCurrent(1)}
           >
-            {item}
+            1
           </li>
-        ))}
-        {isFolded && (
-          <>
-            {pageCount - 1 - pivot > current && (
-              <li
-                className={classNames(`${name}__number`, `${name}__number--more`, {
-                  [`${classPrefix}-is-disabled`]: disabled,
-                })}
-                onMouseOver={() => toggleHoverNextMore(true)}
-                onMouseOut={() => toggleHoverNextMore(false)}
-                onClick={() => changeCurrent(current + foldedMaxPageBtn)}
-              >
-                {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}
-              </li>
-            )}
+          {2 + pivot < current && (
             <li
-              key={pageCount}
-              className={classNames(`${name}__number`, {
+              className={classNames(`${name}__number`, `${name}__number--more`, {
                 [`${classPrefix}-is-disabled`]: disabled,
-                [`${classPrefix}-is-current`]: current === pageCount,
               })}
-              onClick={() => changeCurrent(pageCount)}
+              onMouseEnter={() => toggleHoverPreMore(true)}
+              onMouseLeave={() => toggleHoverPreMore(false)}
+              onClick={() => changeCurrent(current - foldedMaxPageBtn)}
             >
-              {pageCount}
+              {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
             </li>
-          </>
-        )}
-      </>
-    );
-  };
+          )}
+        </>
+      )}
+      {pageList.map((item) => (
+        <li
+          key={item}
+          className={classNames(`${name}__number`, {
+            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-is-current`]: current === item,
+          })}
+          onClick={() => changeCurrent(item)}
+        >
+          {item}
+        </li>
+      ))}
+      {isFolded && (
+        <>
+          {pageCount - 1 - pivot > current && (
+            <li
+              className={classNames(`${name}__number`, `${name}__number--more`, {
+                [`${classPrefix}-is-disabled`]: disabled,
+              })}
+              onMouseEnter={() => toggleHoverNextMore(true)}
+              onMouseLeave={() => toggleHoverNextMore(false)}
+              onClick={() => changeCurrent(current + foldedMaxPageBtn)}
+            >
+              {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}
+            </li>
+          )}
+          <li
+            key={pageCount}
+            className={classNames(`${name}__number`, {
+              [`${classPrefix}-is-disabled`]: disabled,
+              [`${classPrefix}-is-current`]: current === pageCount,
+            })}
+            onClick={() => changeCurrent(pageCount)}
+          >
+            {pageCount}
+          </li>
+        </>
+      )}
+    </>
+  );
 
   return (
     <div
@@ -281,7 +279,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       >
         <ChevronLeftIcon />
       </div>
-      {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns()}</ul>}
+      {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns}</ul>}
       {/* 极简版 */}
       {theme === 'simple' && (
         <div className={`${name}__select`}>

@@ -8,19 +8,19 @@ export default {
         {
           title: '快速开始',
           name: 'expain',
-          path: '/react/components/getting-started',
+          path: '/react/getting-started',
           component: () => import('@docs/getting-started.md'),
         },
         {
           title: '更新日志',
           name: 'changelog',
-          path: '/react/components/changelog',
+          path: '/react/changelog',
           component: () => import('@/CHANGELOG.md'),
         },
         {
           title: '组件概览',
           name: 'overview',
-          path: '/react/components/overview',
+          path: '/react/overview',
           component: () => import('@common/docs/web/overview.md'),
         },
       ],
@@ -33,13 +33,13 @@ export default {
         {
           title: '自定义主题',
           name: 'custom-theme',
-          path: '/react/components/custom-theme',
+          path: '/react/custom-theme',
           component: () => import('@common/theme.md'),
         },
         {
           title: '暗黑模式',
           name: 'dark-mode',
-          path: '/react/components/dark-mode',
+          path: '/react/dark-mode',
           component: () => import('@common/dark-mode.md'),
         },
       ],

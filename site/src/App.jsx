@@ -8,7 +8,7 @@ import { getRoute } from './utils';
 // import locale from 'tdesign-react/locale/en_US';
 import packageJson from '@/package.json';
 
-const lazyDemo = lazy(() => import('./components/Demo'));
+const LazyDemo = lazy(() => import('./components/Demo'));
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
@@ -100,14 +100,15 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Redirect exact from="/" to="/react/components/overview" />
-        <Redirect exact from="/react" to="/react/components/overview" />
-        <Redirect exact from="/react/components" to="/react/components/overview" />
-        <Route path="/react/components/*" component={Components} />
+        <Redirect exact from="/" to="/react/overview" />
+        <Redirect exact from="/react" to="/react/overview" />
         <Suspense fallback={<Loading text="拼命加载中..." loading />}>
-          <Route path="/react/demos/:componentName/:demoName" component={lazyDemo} /> 
+          <Route path="/react/:docName" component={(props) => {
+            if (props.match.params.docName === 'demos') return <LazyDemo {...props} />;
+            return <Components {...props} />;
+          }} />
         </Suspense>
-        <Redirect from="*" to="/react/components/overview" />
+        <Redirect from="*" to="/react/overview" />
         {/* TODO: 404 */}
       </Switch>
     </Router>
