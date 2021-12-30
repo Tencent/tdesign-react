@@ -16,6 +16,7 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, re
   return (
     <Popup
       ref={ref}
+      destroyOnClose={true}
       {...props}
       visible={visible}
       trigger="click"

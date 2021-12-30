@@ -56,6 +56,7 @@ describe('PopConfirm 组件测试', () => {
         content={<div data-testid={testId}>{text}</div>}
         onCancel={onCancelMock}
         onConfirm={onConfirmMock}
+        destroyOnClose={false}
         confirmBtn="确认提交"
         cancelBtn="取消操作"
       >
