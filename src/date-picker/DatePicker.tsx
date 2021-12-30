@@ -405,6 +405,7 @@ const DatePicker = (props: DatePickerProps) => {
         overlayClassName={`${classPrefix}-date-picker`}
         className={`${classPrefix}-date-picker__popup-reference`}
         expandAnimation={true}
+        destroyOnClose={true}
         {...popupProps}
       >
         <div className={triggerClassName} onClick={showPopup}>
