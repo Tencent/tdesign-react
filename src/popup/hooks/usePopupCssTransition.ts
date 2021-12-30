@@ -23,15 +23,16 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   const handleEntered = () => {
     if (contentEle) {
       const { scrollHeight } = contentEle;
-      const minHeight = Math.min(presetMaxHeight, scrollHeight);
+      const minHeight = presetMaxHeight !== Infinity ? presetMaxHeight : scrollHeight;
       contentEle.style.maxHeight = `${minHeight}px`;
-      if (minHeight < scrollHeight) contentEle.style.overflow = '';
+      contentEle.style.overflow = '';
     }
   };
 
   const handleExiting = () => {
     if (contentEle) {
       contentEle.style.maxHeight = '0';
+      contentEle.style.overflow = 'hidden';
     }
   };
 

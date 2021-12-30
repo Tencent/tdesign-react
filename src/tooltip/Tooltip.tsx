@@ -8,7 +8,7 @@ import { TdTooltipProps } from './type';
 export type TooltipProps = TdTooltipProps;
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
-  const { theme, showArrow = true, overlayClassName, children, ...restProps } = props;
+  const { theme, showArrow = true, destroyOnClose = true, overlayClassName, children, ...restProps } = props;
   const { classPrefix } = useConfig();
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
@@ -19,7 +19,13 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   );
   return (
     <>
-      <Popup ref={ref} {...restProps} showArrow={showArrow} overlayClassName={toolTipClass}>
+      <Popup
+        ref={ref}
+        destroyOnClose={destroyOnClose}
+        showArrow={showArrow}
+        overlayClassName={toolTipClass}
+        {...restProps}
+      >
         {children}
       </Popup>
     </>
@@ -27,6 +33,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
 });
 
 Tooltip.displayName = 'Tooltip';
+
 Tooltip.propTypes = {
   theme: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'warning']),
   showArrow: PropTypes.bool,
