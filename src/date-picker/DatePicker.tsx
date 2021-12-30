@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import isObject from 'lodash/isObject';
+import isDate from 'lodash/isDate';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
@@ -77,10 +80,15 @@ const DatePicker = (props: DatePickerProps) => {
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
 
+  function isValidDate(date: string | number | Date | (string | number | Date)[]) {
+    if (isArray(date) && isDate(new Date(date[0])) && isDate(new Date(date[1]))) return true;
+    if (isString(date) && isDate(new Date(date))) return true;
+    return false;
+  }
+
   function initDatePicker() {
     const val: any = value || defaultValue;
-
-    if (val) {
+    if (val && isValidDate(val)) {
       const startVal = range ? new Date(val[0]) : new Date(val);
       const endVal = range ? new Date(val[1]) : new Date(val);
 
