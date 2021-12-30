@@ -34,7 +34,7 @@ export default function useTreeSelectConfig(props: TreeSelectConfigProps) {
 
     const popupObject = Object.assign(defaultPopupProps, popupProps);
 
-    const popupClassName = classNames(popupObject.overlayClassName, `${prefix}-select-dropdown`, 'narrow-scrollbar');
+    const popupClassName = classNames(popupObject.overlayClassName, `${prefix}-select__dropdown`, 'narrow-scrollbar');
 
     return {
       selectClassName,
