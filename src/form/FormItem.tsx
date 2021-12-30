@@ -51,6 +51,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     resetType,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
+    onFormItemValueChange,
   } = useFormContext();
 
   const [errorList, setErrorList] = useState([]);
@@ -62,6 +63,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(null);
+  const isMounted = useRef(false);
 
   const innerRules: FormRule[] = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
@@ -185,8 +187,15 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
+    // value change event
+    if (isMounted.current) {
+      if (!name) console.warn('FormItem prop name is required.');
+      name && onFormItemValueChange({ [name]: formValue });
+    }
+
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
-    if (!shouldValidate.current) {
+    if (!shouldValidate.current || !isMounted.current) {
+      isMounted.current = true;
       shouldValidate.current = true;
       return;
     }
