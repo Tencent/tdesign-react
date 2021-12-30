@@ -82,7 +82,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
         {...eventProps}
         value={value}
         style={{
-          height: typeof autosize !== 'undefined' ? null : 'auto',
+          height: autosize ? null : 'auto',
         }}
         className={textareaClassNames}
         readOnly={readonly}
