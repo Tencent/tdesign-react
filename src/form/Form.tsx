@@ -5,8 +5,9 @@ import isNil from 'lodash/isNil';
 import isFunction from 'lodash/isFunction';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
+import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdFormProps, FormValidateResult } from './type';
+import { TdFormProps, FormInstance, Result } from './type';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -14,8 +15,6 @@ import FormItem from './FormItem';
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
-
-export type Result = FormValidateResult<FormData>;
 
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
@@ -36,6 +35,7 @@ const Form = forwardRefWithStatics(
       children,
       onSubmit,
       onReset,
+      onValuesChange = noop,
     } = props;
     const { classPrefix } = useConfig();
     const formClass = classNames(className, `${classPrefix}-form`, {
@@ -150,15 +150,23 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    useImperativeHandle(ref, (): any => ({
-      submit: submitHandler,
-      reset: resetHandler,
-      getFieldValue,
-      setFieldsValue,
-      setFields,
-      validate,
-      getAllFieldsValue,
-    }));
+    useImperativeHandle(
+      ref,
+      (): FormInstance => ({
+        submit: submitHandler,
+        reset: resetHandler,
+        getFieldValue,
+        setFieldsValue,
+        setFields,
+        validate,
+        getAllFieldsValue,
+      }),
+    );
+
+    function onFormItemValueChange(changedValue: Record<string, unknown>) {
+      const allFileds = getAllFieldsValue();
+      onValuesChange(changedValue, allFileds);
+    }
 
     return (
       <FormContext.Provider
@@ -174,6 +182,7 @@ const Form = forwardRefWithStatics(
           scrollToFirstError,
           resetType,
           rules,
+          onFormItemValueChange,
         }}
       >
         <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
