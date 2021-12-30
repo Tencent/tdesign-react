@@ -20,6 +20,10 @@ export default function CalendarExample() {
     console.log('控件值变化', data);
   };
 
+  const monthChange = (data) => {
+    console.log('月份变化', data);
+  };
+
   return (
     <div>
       <div style={{ margin: '12px 0' }}>
@@ -32,6 +36,7 @@ export default function CalendarExample() {
         onCellDoubleClick={cellDoubleClick}
         onCellRightClick={cellRightClick}
         onControllerChange={controllerChange}
+        onMonthChange={monthChange}
       />
     </div>
   );
