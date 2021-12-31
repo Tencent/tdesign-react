@@ -12,7 +12,7 @@ describe('Tooltip 组件测试', () => {
 
   test('hover 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Tooltip placement="top" content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
+      <Tooltip placement="top" destroyOnClose={false} content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
         {triggerElement}
       </Tooltip>,
     );
