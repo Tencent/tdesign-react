@@ -1,10 +1,76 @@
 import { ReactElement } from 'react';
 import { isPlainObject, get } from 'lodash';
 import OptionGroup from '../base/OptionGroup';
+import Option from '../base/Option';
 
 import { SelectValue, TdOptionProps, SelectKeysType } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
+
+type ValueToOption = {
+  [value: string | number]: TdOptionProps;
+};
+
+function setValueToOptionFormOptionDom(dom, valueToOption: ValueToOption, keys: SelectKeysType) {
+  const { value, label, children } = dom.props;
+  // eslint-disable-next-line no-param-reassign
+  valueToOption[value] = {
+    [keys?.value || 'value']: value,
+    [keys?.label || 'label']: label || children || value,
+  };
+}
+
+// 获取value => option，用于快速基于value找到对应的option
+export const getValueToOption = (children, options: TdOptionProps[], keys: SelectKeysType): ValueToOption => {
+  const valueToOption = {};
+
+  // options优先级高于children
+  if (Array.isArray(options)) {
+    options.forEach((option) => {
+      valueToOption[get(option, keys?.value || 'value')] = option;
+    });
+    return valueToOption;
+  }
+
+  if (isPlainObject(children)) {
+    const { name } = children.type as { name: string };
+    if (name === Option.name) {
+      setValueToOptionFormOptionDom(children, valueToOption, keys);
+      return valueToOption;
+    }
+
+    if (name === OptionGroup.name) {
+      const groupChildren = children.props.children;
+
+      if (Array.isArray(groupChildren)) {
+        groupChildren.forEach((item) => {
+          setValueToOptionFormOptionDom(item, valueToOption, keys);
+        });
+        return valueToOption;
+      }
+    }
+  }
+
+  if (Array.isArray(children)) {
+    children.forEach((item: ReactElement) => {
+      const { name } = item.type as { name: string };
+      if (name === Option.name) {
+        setValueToOptionFormOptionDom(item, valueToOption, keys);
+      }
+
+      if (name === OptionGroup.name) {
+        const groupChildren = item.props.children;
+        if (Array.isArray(groupChildren)) {
+          groupChildren.forEach((groupItem) => {
+            setValueToOptionFormOptionDom(groupItem, valueToOption, keys);
+          });
+        }
+      }
+    });
+  }
+
+  return valueToOption;
+};
 
 // 获取单选的label
 export const getLabel = (
