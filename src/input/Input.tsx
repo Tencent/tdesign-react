@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
@@ -55,6 +55,7 @@ const Input = forwardRefWithStatics(
     } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
+    const inputRef = useRef(null);
     const [isHover, toggleIsHover] = useState(false);
     const [composingRefValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = clearable && value && !disabled && isHover;
@@ -85,8 +86,16 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
+    useImperativeHandle(ref, (): any => ({
+      inputElementRef: inputRef,
+      onFocus() {
+        inputRef.current.focus();
+      },
+    }));
+
     const renderInput = (
       <input
+        ref={inputRef}
         className={`${classPrefix}-${componentType}__inner`}
         readOnly={readonly}
         disabled={disabled}
