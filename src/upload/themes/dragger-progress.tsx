@@ -8,7 +8,7 @@ import { returnFileSize, abridgeName, getCurrentDate } from '../util';
 
 export interface DraggerProgressProps {
   display?: string;
-  file: UploadFile;
+  file?: UploadFile;
   onTrigger?: () => void;
   onRemove?: (context: UploadRemoveContext) => void;
   onUpload?: () => void;
@@ -46,7 +46,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
   return (
     <div className={`${classPrefix}-upload__dragger-progress`}>
       {display === 'image' && (
-        <div className="t-upload__dragger-img-wrap">{file && <img src={file.url || 'default.png'} />}</div>
+        <div className="t-upload__dragger-img-wrap">{file && <img src={file?.url || 'default.png'} alt="" />}</div>
       )}
       <div className={`${classPrefix}-upload__dragger-progress-info`}>
         <div className={`${classPrefix}-upload__dragger-text`}>

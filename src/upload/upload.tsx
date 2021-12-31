@@ -1,17 +1,20 @@
 import React, { ChangeEvent, useRef, useState, useCallback, useMemo } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import Dragger from './dragger';
-import UploadTrigger from './upload-trigger';
-import Tips from './tips';
-import request from '../_common/js/upload/xhr';
+
 import useConfig from '../_util/useConfig';
+import request from '../_common/js/upload/xhr';
+
+import Dragger from './dragger';
+import Tips from './tips';
+import UploadTrigger from './upload-trigger';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
 import BooleanRender from './boolean-render';
 import { finishUpload, updateFileList, isSingleFile } from './util';
-import { TdUploadFile, UploadProps } from './types';
-import { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from './type';
 import useDefaultValue from './hooks/useDefaultValue';
+
+import type { TdUploadFile, UploadProps } from './types';
+import type { ProgressContext, SuccessContext, TdUploadProps, UploadRemoveContext } from './type';
 
 const urlCreator = window.webkitURL || window.URL;
 
@@ -202,25 +205,25 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     });
   };
 
+  const generateUploadFiles = (files: FileList): TdUploadFile[] => {
+    const uploadList = formatFiles(Array.from(files));
+    return getLimitedFiles(uploadList);
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     const { files } = event.target;
-    let tmpFiles = Array.from(files);
-    const uploadList = formatFiles(tmpFiles);
-    tmpFiles = getLimitedFiles(uploadList);
-    // setFileList(() => tmpFiles);
+    const uploadFiles = generateUploadFiles(files);
     setUploading(true);
     uploadRef.current.value = '';
-    onChange?.(tmpFiles, { trigger: 'upload' });
+    onChange?.(uploadFiles, { trigger: 'upload' });
   };
 
   const handleDragChange = (files: FileList): void => {
     if (disabled) return;
-    let tmpFiles = Array.from(files);
-    const uploadList = formatFiles(tmpFiles);
-    tmpFiles = getLimitedFiles(uploadList);
+    const uploadFiles = generateUploadFiles(files);
     setUploading(true);
-    onChange?.(tmpFiles, { trigger: 'drag' });
+    onChange?.(uploadFiles, { trigger: 'drag' });
   };
 
   const handleDragenter = useCallback(
