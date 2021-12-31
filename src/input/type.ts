@@ -6,7 +6,7 @@
  * */
 
 import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import React, { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdInputProps {
   /**
@@ -117,3 +117,8 @@ export interface TdInputProps {
 }
 
 export type InputValue = string | number;
+
+export interface InputRefInterface {
+  inputElementRef: React.Ref<HTMLInputElement>;
+  onFocus: () => void;
+}

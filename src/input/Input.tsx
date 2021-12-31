@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
-import { TdInputProps, InputValue } from './type';
+import { TdInputProps, InputValue, InputRefInterface } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
@@ -86,10 +86,10 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
-    useImperativeHandle(ref, (): any => ({
+    useImperativeHandle(ref as unknown as React.Ref<InputRefInterface>, () => ({
       inputElementRef: inputRef,
       onFocus() {
-        inputRef.current.focus();
+        inputRef.current?.focus();
       },
     }));
 
