@@ -16,7 +16,7 @@ export interface Config {
    *
    * @default defaultLocale
    */
-  locale?: object;
+  locale?: typeof defaultLocale;
 }
 
 export const defaultContext = {
