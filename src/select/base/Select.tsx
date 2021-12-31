@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Ref, ReactElement } from 'react';
+import React, { useState, useRef, useEffect, Ref, useMemo } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -11,7 +11,7 @@ import useConfig from '../../_util/useConfig';
 import composeRefs from '../../_util/composeRefs';
 import useDefaultValue from '../../_util/useDefaultValue';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getLabel, getMultipleTags, getSelectValueArr } from '../util/helper';
+import { getMultipleTags, getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';
 
 import FakeArrow from '../../common/FakeArrow';
@@ -83,20 +83,24 @@ const Select = forwardRefWithStatics(
 
     const name = `${classPrefix}-select`; // t-select
 
-    let selectedLabel = '';
-
     const [showPopup, setShowPopup] = useState(false);
     const [isHover, toggleHover] = useState(false);
     const [inputVal, setInputVal] = useState<string>(undefined);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
+    const [valueToOption, setValueToOption] = useState({});
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     const [width, setWidth] = useState(0);
 
     const selectRef = useRef(null);
     const overlayRef = useRef(null);
 
-    selectedLabel = getLabel(children, value, currentOptions, keys);
+    const selectedLabel = useMemo(
+      () => get(selectedOptions[0] || {}, keys?.label || 'label') || '',
+      [selectedOptions, keys],
+    );
+
     // 计算Select的宽高
     useEffect(() => {
       if (showPopup && selectRef?.current) {
@@ -137,7 +141,46 @@ const Select = forwardRefWithStatics(
         setCurrentOptions(options);
         setTmpPropOptions(options);
       }
+      setValueToOption(getValueToOption(children, options, keys) || {});
     }, [options, keys, children]);
+
+    // 同步value对应的options
+    useEffect(() => {
+      setSelectedOptions((oldSelectedOptions) => {
+        const valueKey = keys?.value || 'value';
+        const labelKey = keys?.label || 'label';
+        if (Array.isArray(value)) {
+          return value
+            .map((item) => {
+              if (valueType === 'value') {
+                return (
+                  valueToOption[item] ||
+                  oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
+                    [valueKey]: item,
+                    [labelKey]: item,
+                  }
+                );
+              }
+              return item;
+            })
+            .filter(Boolean);
+        }
+
+        if (value !== undefined && value !== null) {
+          if (valueType === 'value') {
+            return [
+              valueToOption[value] ||
+                oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
+                  [valueKey]: value,
+                  [labelKey]: value,
+                },
+            ].filter(Boolean);
+          }
+          return [value];
+        }
+        return [];
+      });
+    }, [value, keys, valueType, valueToOption]);
 
     // 移除 Tag
     const removeTag = (
@@ -223,21 +266,8 @@ const Select = forwardRefWithStatics(
     const renderMultipleTags = () => {
       if (multiple && Array.isArray(value) && value.length > 0) {
         let tags: OptionsType;
-        let optionValue = [];
         if (valueType === 'value') {
-          if (tmpPropOptions) {
-            optionValue = tmpPropOptions.filter((option) => value.includes(option?.value));
-          }
-          if (children && Array.isArray(children)) {
-            optionValue = children
-              .reduce(
-                (acc, item: ReactElement) =>
-                  acc.concat({ value: item.props.value, label: item.props.label || item.props.children }),
-                [],
-              )
-              .filter((option) => value.includes(option?.value));
-          }
-          tags = getMultipleTags(optionValue, keys);
+          tags = getMultipleTags(selectedOptions, keys);
         } else {
           tags = getMultipleTags(value, keys);
         }
