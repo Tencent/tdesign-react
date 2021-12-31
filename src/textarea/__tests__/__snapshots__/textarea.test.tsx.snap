@@ -34,7 +34,7 @@ exports[`maxlength.jsx 1`] = `
     class="t-textarea"
   >
     <textarea
-      class="t-textarea__inner t-resize-none"
+      class="t-textarea__inner"
       maxlength="20"
       placeholder="请输入内容"
       style="height: auto;"
