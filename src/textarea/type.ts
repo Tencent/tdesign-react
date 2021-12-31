@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
+ * updated at 2021-12-30 11:31:00
  * */
 
 import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
@@ -38,7 +38,6 @@ export interface TdTextareaProps {
   name?: string;
   /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -61,7 +60,7 @@ export interface TdTextareaProps {
   /**
    * 输入内容变化时触发
    */
-  onChange?: (value: TextareaValue, context?: { e?: FormEvent<HTMLDivElement> }) => void;
+  onChange?: (value: TextareaValue, context?: { e?: FormEvent<HTMLTextAreaElement> }) => void;
   /**
    * 获得焦点时触发
    */
