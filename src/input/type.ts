@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, TElement, SizeEnum } from '../common';
@@ -30,11 +30,15 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
+   * 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度。`maxcharacter` 和 `maxlength` 二选一使用
    */
   maxcharacter?: number;
   /**
-   * 用户最多可以输入的文本长度。值小于等于 0 的时候，则不限制输入长度
+   * 用户最多可以输入的文本长度。值小于等于 0 的时候，则不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
    */
   maxlength?: number;
   /**
@@ -66,9 +70,13 @@ export interface TdInputProps {
    */
   status?: 'success' | 'warning' | 'error';
   /**
+   * 后置图标前的后置内容
+   */
+  suffix?: TNode;
+  /**
    * 组件后置图标
    */
-  suffixIcon?: TNode;
+  suffixIcon?: TElement;
   /**
    * 输入框类型
    * @default text

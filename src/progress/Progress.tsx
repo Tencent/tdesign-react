@@ -111,7 +111,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     // 内环半径
     const innerRadius = radius - circleStokeWidth;
 
-    const perimeter = Math.PI * 2 * (radius - circleStokeWidth);
+    const perimeter = Math.PI * 2 * radius;
     const percent = percentage / 100;
     const strokeDasharray = `${perimeter * percent}  ${perimeter * (1 - percent)}`;
     // 自适应文字，根据半路，适度调整
@@ -125,6 +125,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       stroke: color,
       strokeLinecap: circleStokeWidth < 30 ? 'round' : 'buff',
     } as React.CSSProperties;
+    const circleCenterInViewBox = radius + circleStokeWidth / 2;
     progressDom = (
       <div
         ref={ref}
@@ -134,22 +135,26 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
         style={circleBoxStyle}
       >
         {getInfoContent()}
-        <svg width={diameter} height={diameter} viewBox={`0 0 ${diameter} ${diameter}`}>
+        <svg
+          width={diameter}
+          height={diameter}
+          viewBox={`0 0 ${diameter + circleStokeWidth} ${diameter + circleStokeWidth}`}
+        >
           <circle
-            cx={radius}
-            cy={radius}
-            r={innerRadius}
+            cx={circleCenterInViewBox}
+            cy={circleCenterInViewBox}
+            r={radius}
             strokeWidth={circleStokeWidth}
             stroke={trackColor}
             fill="none"
           ></circle>
           <circle
-            cx={radius}
-            cy={radius}
-            r={innerRadius}
+            cx={circleCenterInViewBox}
+            cy={circleCenterInViewBox}
+            r={radius}
             strokeWidth={circleStokeWidth}
             fill="none"
-            transform={`matrix(0,-1,1,0,0,${diameter})`}
+            transform={`matrix(0,-1,1,0,0,${diameter + circleStokeWidth})`}
             strokeDasharray={strokeDasharray}
             className={`${classPrefix}-progress__circle-inner`}
             style={circlePathStyle}

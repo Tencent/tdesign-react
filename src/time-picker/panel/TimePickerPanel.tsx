@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import dayjs from 'dayjs';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
@@ -10,7 +10,7 @@ import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../const
 export interface TimePickerPanelProps extends SinglePanelProps {
   // 是否展示footer
   isFooterDisplay?: boolean;
-  handleConfirmClick?: () => void;
+  handleConfirmClick?: (defaultValue: dayjs.Dayjs) => void;
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
@@ -29,6 +29,17 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   const panelClassName = `${classPrefix}-time-picker__panel`;
   const showNowTimeBtn = !!steps.filter((v) => v > 1).length;
 
+  const defaultValue = useMemo(() => {
+    const isStepsSet = !!steps.filter((v) => v > 1).length;
+    if (value) {
+      return dayjs(value, format);
+    }
+    if (isStepsSet) {
+      return dayjs().hour(0).minute(0).second(0);
+    }
+    return dayjs();
+  }, [value, format, steps]);
+
   return (
     <div className={panelClassName}>
       <div className={`${panelClassName}-section-body`}>
@@ -36,7 +47,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section-footer`}>
-          <Button theme="primary" variant="base" onClick={handleConfirmClick}>
+          <Button
+            theme="primary"
+            variant="base"
+            onClick={() => {
+              handleConfirmClick(defaultValue);
+            }}
+          >
             {TEXT_CONFIG.confirm}
           </Button>
           {!showNowTimeBtn ? (

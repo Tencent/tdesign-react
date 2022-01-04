@@ -317,10 +317,9 @@ exports[`controlled.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="1.1.1.1, 1.1.1.2"
         />
       </div>
@@ -334,10 +333,9 @@ exports[`controlled.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="1, 1.1, 1.1.1, 2"
         />
       </div>
@@ -351,10 +349,9 @@ exports[`controlled.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="2"
         />
       </div>
@@ -689,10 +686,9 @@ exports[`filter.jsx 1`] = `
         filter:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value=""
         />
       </div>
@@ -975,10 +971,9 @@ exports[`operations.jsx 1`] = `
           filter:
         </span>
         <div
-          class="t-input"
+          class="t-input t-input__inner"
         >
           <input
-            class="t-input__inner"
             value=""
           />
         </div>
@@ -1187,10 +1182,9 @@ exports[`sync.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="{1.1.1.1}, {1.1.1.2}"
         />
       </div>
@@ -1204,10 +1198,9 @@ exports[`sync.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="{1}, {1.1}, {1.1.1}, {2}"
         />
       </div>
@@ -1221,10 +1214,9 @@ exports[`sync.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
       >
         <input
-          class="t-input__inner"
           value="{2}"
         />
       </div>

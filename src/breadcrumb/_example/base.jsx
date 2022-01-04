@@ -5,10 +5,10 @@ const { BreadcrumbItem } = Breadcrumb;
 
 export default function BreadcrumbExample() {
   return (
-    <Breadcrumb maxItemWidth="150">
+    <Breadcrumb maxItemWidth="200px">
       <BreadcrumbItem>页面1</BreadcrumbItem>
       <BreadcrumbItem>页面2页面2页面2页面2页面2页面2页面2页面2</BreadcrumbItem>
-      <BreadcrumbItem maxItemWidth="160">
+      <BreadcrumbItem maxWidth="120px">
         页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3
       </BreadcrumbItem>
     </Breadcrumb>

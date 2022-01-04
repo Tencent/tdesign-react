@@ -396,10 +396,9 @@ exports[`max.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input t-input__inner"
         >
           <input
-            class="t-input__inner"
             value="1"
           />
         </div>

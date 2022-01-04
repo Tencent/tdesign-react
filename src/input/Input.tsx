@@ -147,7 +147,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={ref}
         style={style}
-        className={classNames(className, `${classPrefix}-${componentType}`, {
+        className={classNames(className, `${classPrefix}-${componentType}`, `${classPrefix}-${componentType}__inner`, {
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
