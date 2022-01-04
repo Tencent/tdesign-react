@@ -17,7 +17,7 @@ function BasicUsage(props) {
   );
 }
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
@@ -26,9 +26,9 @@ export default function BasicDivider() {
       <Layout>
         <Header>Header</Header>
         <Layout>
-          <Sider>
+          <Aside>
             <BasicUsage />
-          </Sider>
+          </Aside>
           <Layout>
             <Content>
               <div>Content</div>

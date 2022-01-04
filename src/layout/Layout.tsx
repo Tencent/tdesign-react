@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdHeaderProps, TdFooterProps } from './type';
-import Sider from './Sider';
+import Aside from './Aside';
 
 export interface LayoutProps extends StyledProps {
   children?: React.ReactNode;
@@ -56,11 +56,11 @@ const Content = (props: ContentProps) => {
  */
 const Layout = (props: LayoutProps) => {
   const { className, style, children, ...otherLayoutProps } = props;
-  const [siders, setSiders] = useState([]);
+  const [asides, setAsides] = useState([]);
 
   useEffect(() => {
     React.Children.forEach(children, (child: any) => {
-      if (child.type === Sider) setSiders([child]);
+      if (child.type === Aside) setAsides([child]);
     });
   }, [children]);
 
@@ -68,7 +68,7 @@ const Layout = (props: LayoutProps) => {
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout--with-sider`]: !!siders.length,
+      [`${classPrefix}-layout--with-sider`]: !!asides.length,
     },
     className,
   );
@@ -83,7 +83,7 @@ const Layout = (props: LayoutProps) => {
 Layout.Header = Header;
 Layout.Content = Content;
 Layout.Footer = Footer;
-Layout.Sider = Sider;
+Layout.Aside = Aside;
 
 Header.displayName = 'Header';
 Content.displayName = 'Content';
