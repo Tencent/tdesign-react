@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Button, Message } from 'tdesign-react';
+import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
 export default function BasicDropdown() {
@@ -23,7 +23,7 @@ export default function BasicDropdown() {
     },
   ];
   const clickHandler = (data) => {
-    Message.success(`选中【${data.value}】`);
+    MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
     <Dropdown options={options} onClick={clickHandler}>

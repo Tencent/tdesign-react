@@ -8,7 +8,7 @@ import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
 import { TElement } from '../../common';
-import { Filter, FilterValue, PrimaryTableCol, DataType } from '../type';
+import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType } from '../type';
 import { ConfigContext } from '../../config-provider';
 
 interface Props {
@@ -22,9 +22,9 @@ const renderIcon = (classPrefix: string, icon: TElement) => {
   if (icon) result = icon;
   if (typeof icon === 'function') result = icon();
   if (result) {
-    result = <span className={`${classPrefix}-table-filter-icon`}>{result}</span>;
+    result = <span className={`${classPrefix}-table__filter-icon`}>{result}</span>;
   } else {
-    result = <TIconFilter className={`${classPrefix}-table-filter-icon`} />;
+    result = <TIconFilter className={`${classPrefix}-table__filter-icon`} />;
   }
   return result;
 };
@@ -45,14 +45,14 @@ function FilterButton(props: Props) {
   const { classPrefix } = useContext(ConfigContext);
   const [filterVal, setfilterVal] = useState<any>();
 
-  const getFilterContent = (filter: Filter, colKey: string, column: PrimaryTableCol<DataType>) => {
+  const getFilterContent = (filter: TableColumnFilter, colKey: string, column: PrimaryTableCol<DataType>) => {
     const types = ['single', 'multiple', 'input'];
     if (filter.type && !types.includes(filter.type)) {
       console.error(`column.type must be the following: ${JSON.stringify(types)}`);
       return;
     }
     return (
-      <div className={`${classPrefix}-table-filter-pop-content__inner`}>
+      <div className={`${classPrefix}-table__filter-pop-content-inner`}>
         <>
           {filter.type === 'multiple' ? (
             <Checkbox.Group
@@ -128,9 +128,9 @@ function FilterButton(props: Props) {
             trigger="click"
             placement="bottom"
             showArrow
-            overlayClassName={`${classPrefix}-table-filter-pop`}
+            overlayClassName={`${classPrefix}-table__filter-pop`}
             content={
-              <div className={`${classPrefix}-table-filter-pop-content`}>
+              <div className={`${classPrefix}-table__filter-pop-content`}>
                 {getFilterContent(filter, colKey, column)}
               </div>
             }

@@ -76,6 +76,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   // https://popper.js.org/react-popper/v2/faq/
@@ -87,9 +88,33 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     [],
   );
 
+  const popperOptions = useMemo(() => {
+    if (!visible) return { padding: 0 };
+    const childElement = contentRef.current?.firstElementChild as HTMLElement;
+    const height = childElement?.offsetHeight ?? 0;
+    const width = childElement?.offsetWidth ?? 0;
+    return {
+      padding: {
+        top: height,
+        left: width,
+        right: width,
+        bottom: height,
+      },
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, overlayRef]);
+
   const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
     onFirstUpdate: onPopperFirstUpdate,
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          ...popperOptions,
+        },
+      },
+    ],
   });
 
   useImperativeHandle(ref, (): any => ({
@@ -97,12 +122,13 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     getContentRef: contentRef?.current,
   }));
 
-  const defaulstStyles = useMemo(() => {
+  const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
     return { ...overlayStyle, zIndex };
   }, [overlayStyle, zIndex, triggerRef]);
+
   // 设置 style 决定展示与隐藏
-  const overlayVisibleStyle: CSSProperties = defaulstStyles;
+  const overlayVisibleStyle: CSSProperties = defaultStyles;
 
   const triggerNodeTemp = useMemo(() => {
     const [triggerChildNode] = React.Children.toArray(children);
@@ -162,8 +188,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             {...popupProps}
           >
             <div
-              className={classNames(`${classPrefix}-popup-content`, overlayClassName, {
-                [`${classPrefix}-popup-content--arrow`]: showArrow,
+              className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
+                [`${classPrefix}-popup__content--arrow`]: showArrow,
               })}
               style={overlayVisibleStyle}
               ref={contentRef}
@@ -178,7 +204,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-popup-reference`, className)}
+      className={classNames(`${classPrefix}-popup__reference`, className)}
       onMouseDown={handlePopupWrapperMouseDown}
       style={style}
     >

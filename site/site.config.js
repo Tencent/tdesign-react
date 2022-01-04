@@ -8,19 +8,19 @@ export default {
         {
           title: '快速开始',
           name: 'expain',
-          path: '/react/components/getting-started',
+          path: '/react/getting-started',
           component: () => import('@docs/getting-started.md'),
         },
         {
           title: '更新日志',
           name: 'changelog',
-          path: '/react/components/changelog',
+          path: '/react/changelog',
           component: () => import('@/CHANGELOG.md'),
         },
         {
           title: '组件概览',
           name: 'overview',
-          path: '/react/components/overview',
+          path: '/react/overview',
           component: () => import('@common/docs/web/overview.md'),
         },
       ],
@@ -33,13 +33,13 @@ export default {
         {
           title: '自定义主题',
           name: 'custom-theme',
-          path: '/react/components/custom-theme',
+          path: '/react/custom-theme',
           component: () => import('@common/theme.md'),
         },
         {
           title: '暗黑模式',
           name: 'dark-mode',
-          path: '/react/components/dark-mode',
+          path: '/react/dark-mode',
           component: () => import('@common/dark-mode.md'),
         },
       ],
@@ -104,6 +104,12 @@ export default {
           name: 'anchor',
           path: '/react/components/anchor',
           component: () => import('tdesign-react/anchor/anchor.md'),
+        },
+        {
+          title: 'Breadcrumb 面包屑',
+          name: 'breadcrumb',
+          path: '/react/components/breadcrumb',
+          component: () => import('tdesign-react/breadcrumb/breadcrumb.md'),
         },
         {
           title: 'Dropdown 下拉菜单',
@@ -278,6 +284,12 @@ export default {
           component: () => import('tdesign-react/progress/progress.md'),
         },
         {
+          title: 'Swiper 轮播框',
+          name: 'swiper',
+          path: '/react/components/swiper',
+          component: () => import('tdesign-react/swiper/swiper.md'),
+        },
+        {
           title: 'Table 表格',
           name: 'table',
           path: '/react/components/table',
@@ -321,7 +333,7 @@ export default {
           component: () => import('tdesign-react/dialog/dialog.md'),
         },
         {
-          title: 'Drawer 模态抽屉',
+          title: 'Drawer 抽屉',
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
@@ -355,12 +367,6 @@ export default {
           name: 'popup',
           path: '/react/components/popup',
           component: () => import('tdesign-react/popup/popup.md'),
-        },
-        {
-          title: 'Swiper 轮播框',
-          name: 'swiper',
-          path: '/react/components/swiper',
-          component: () => import('tdesign-react/swiper/swiper.md'),
         },
       ],
     },

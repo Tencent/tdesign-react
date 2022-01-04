@@ -665,21 +665,19 @@ exports[`placement.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
-        class="t-input"
+        class="t-input t-input__inner"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
         <input
-          class="t-input__inner"
           placeholder="请输入横向偏移量"
           value=""
         />
       </div>
       <div
-        class="t-input"
+        class="t-input t-input__inner"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
         <input
-          class="t-input__inner"
           placeholder="请输入纵向偏移量"
           value=""
         />

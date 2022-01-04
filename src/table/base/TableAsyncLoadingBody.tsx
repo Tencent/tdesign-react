@@ -11,7 +11,7 @@ export default function TableEmptyBody(props) {
   if (asyncLoading === 'loading') {
     return (
       <div
-        className={`${classPrefix}-table--loading-async ${classPrefix}-table--loading-status-loading`}
+        className={`${classPrefix}-table__async-loading ${classPrefix}-is-loading`}
         onClick={() => {
           onAsyncLoadingClick({ status: 'loading' });
         }}
@@ -25,7 +25,7 @@ export default function TableEmptyBody(props) {
   if (asyncLoading === 'load-more') {
     return (
       <div
-        className={`${classPrefix}-table--loading-async ${classPrefix}-table--loading-status-load-more`}
+        className={`${classPrefix}-table__async-loading ${classPrefix}-is-load-more`}
         onClick={() => {
           onAsyncLoadingClick({ status: 'load-more' });
         }}

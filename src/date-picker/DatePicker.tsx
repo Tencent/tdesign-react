@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import isObject from 'lodash/isObject';
+import isDate from 'lodash/isDate';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
@@ -46,6 +49,7 @@ const DatePicker = (props: DatePickerProps) => {
     suffixIcon,
     value,
     defaultValue,
+    firstDayOfWeek,
     onChange,
     // onBlur,
     // onFocus,
@@ -76,10 +80,15 @@ const DatePicker = (props: DatePickerProps) => {
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
 
+  function isValidDate(date: string | number | Date | (string | number | Date)[]) {
+    if (isArray(date) && isDate(new Date(date[0])) && isDate(new Date(date[1]))) return true;
+    if (isString(date) && isDate(new Date(date))) return true;
+    return false;
+  }
+
   function initDatePicker() {
     const val: any = value || defaultValue;
-
-    if (val) {
+    if (val && isValidDate(val)) {
       const startVal = range ? new Date(val[0]) : new Date(val);
       const endVal = range ? new Date(val[1]) : new Date(val);
 
@@ -286,40 +295,52 @@ const DatePicker = (props: DatePickerProps) => {
   }
 
   function isEnabled(value: Date): boolean {
-    if (!disableDate) return false;
+    if (!disableDate) return true;
 
+    let isEnabled = true;
     // 值类型为 Function 则表示返回值为 true 的日期会被禁用
     if (typeof disableDate === 'function') {
-      return disableDate(value);
+      return !disableDate(value);
     }
 
     // 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。
     if (Array.isArray(disableDate)) {
+      let isIncludes = false;
       const formatedDisabledDate = disableDate.map((item: string) => dayjs(item, format));
-      return formatedDisabledDate.some((item) => item.isSame(dayjs(value)));
-    }
-
-    // { before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。
-    const { before, after } = disableDate;
-    if (before && after) {
-      const compareMin = dayjs(new Date(disableDate.before)).startOf('day');
-      const compareMax = dayjs(new Date(disableDate.after)).startOf('day');
-
-      // check min
-      return !dayjs(value).isBetween(compareMin, compareMax, null, '[]');
+      formatedDisabledDate.forEach((item) => {
+        if (item.isSame(dayjs(value))) {
+          isIncludes = true;
+        }
+      });
+      return !isIncludes;
     }
 
     // { from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。
-    const { from, to } = disableDate;
+    const { from, to, before, after } = disableDate;
     if (from && to) {
-      const compareMin = dayjs(new Date(from)).startOf('day');
-      const compareMax = dayjs(new Date(to)).startOf('day');
+      const compareMin = dayjs(new Date(from));
+      const compareMax = dayjs(new Date(to));
 
-      // check min
-      return dayjs(value).isBetween(compareMin, compareMax, null, '[]');
+      return !dayjs(value).isBetween(compareMin, compareMax, mode, '[]');
     }
 
-    return true;
+    const min = before ? new Date(before) : null;
+    const max = after ? new Date(after) : null;
+
+    // { before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。
+    if (max && min) {
+      const compareMin = dayjs(new Date(min));
+      const compareMax = dayjs(new Date(max));
+
+      isEnabled = dayjs(value).isBetween(compareMin, compareMax, mode, '[]');
+    } else if (min) {
+      const compareMin = dayjs(new Date(min));
+      isEnabled = !dayjs(value).isBefore(compareMin, mode);
+    } else if (max) {
+      const compareMax = dayjs(new Date(max));
+      isEnabled = !dayjs(value).isAfter(compareMax, mode);
+    }
+    return isEnabled;
   }
 
   function renderContent() {
@@ -330,9 +351,9 @@ const DatePicker = (props: DatePickerProps) => {
 
     const panelProps = {
       mode,
-      firstDayOfWeek: 0,
+      firstDayOfWeek: firstDayOfWeek === undefined ? 1 : firstDayOfWeek,
       onChange: dateClick,
-      disableDate: isEnabled,
+      disableDate: (d: Date) => !isEnabled(d),
       minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : null,
       maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
     };
@@ -392,6 +413,7 @@ const DatePicker = (props: DatePickerProps) => {
         overlayClassName={`${classPrefix}-date-picker`}
         className={`${classPrefix}-date-picker__popup-reference`}
         expandAnimation={true}
+        destroyOnClose={true}
         {...popupProps}
       >
         <div className={triggerClassName} onClick={showPopup}>

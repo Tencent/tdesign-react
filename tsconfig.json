@@ -24,16 +24,16 @@
     "downlevelIteration": true,
     "esModuleInterop": true
   },
-  "include": ["./src", "./global.d.ts"],
+  "include": ["./src", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",
     "node_modules",
     "src/_common",
-    "src/_type",
     "dist",
     "lib",
     "esm",
+    "cjs",
     "es"
   ],
   "compileOnSave": false

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface UsePopupCssTransitionParams {
   contentRef: React.MutableRefObject<HTMLDivElement>;
   classPrefix: String;
@@ -5,36 +7,40 @@ interface UsePopupCssTransitionParams {
 }
 
 const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: UsePopupCssTransitionParams) => {
-  const handleBeforeEnter = () => {
-    const contentEle = contentRef?.current;
+  const [presetMaxHeight, setPresetMaxHeight] = useState<number>(null);
+  const contentEle = contentRef?.current;
+
+  const popupAnimationClassPrefix = `${classPrefix}-popup--animation`;
+
+  const handleEntering = () => {
+    setPresetMaxHeight(parseInt(getComputedStyle(contentEle).maxHeight, 10) || Infinity);
     if (contentEle) {
       contentEle.style.overflow = 'hidden';
       contentEle.style.maxHeight = '0';
     }
   };
 
-  const handleEntering = () => {
-    const contentEle = contentRef?.current;
+  const handleEntered = () => {
     if (contentEle) {
       const { scrollHeight } = contentEle;
-      contentEle.style.maxHeight = `${scrollHeight}px`;
+      const minHeight = presetMaxHeight !== Infinity ? presetMaxHeight : scrollHeight;
+      contentEle.style.maxHeight = `${minHeight}px`;
+      contentEle.style.overflow = '';
     }
   };
 
   const handleExiting = () => {
-    const contentEle = contentRef?.current;
     if (contentEle) {
       contentEle.style.maxHeight = '0';
+      contentEle.style.overflow = 'hidden';
     }
   };
-
-  const popupAnimationClassPrefix = `${classPrefix}-popup_animation`;
 
   // 不需要扩展动画时，不需要生命周期函数
   const lifeCircleEvent = expandAnimation
     ? {
-        onEnter: handleBeforeEnter,
         onEntering: handleEntering,
+        onEntered: handleEntered,
         onExiting: handleExiting,
       }
     : {};

@@ -6,14 +6,14 @@ exports[`base.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120px;"
+          style="max-width: 200px;"
         >
           页面1
         </span>
@@ -38,14 +38,14 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120px;"
+          style="max-width: 200px;"
         >
           页面2页面2页面2页面2页面2页面2页面2页面2
         </span>
@@ -70,14 +70,14 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 160;"
+          style="max-width: 120px;"
         >
           页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3页面3
         </span>
@@ -111,14 +111,14 @@ exports[`custom.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120px;"
+          style="max-width: 150;"
         >
           页面1
         </span>
@@ -143,14 +143,14 @@ exports[`custom.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120px;"
+          style="max-width: 150;"
         >
           页面2
         </span>
@@ -175,7 +175,7 @@ exports[`custom.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -217,7 +217,7 @@ exports[`href.jsx 1`] = `
       class="t-breadcrumb"
     >
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <a
           class="t-breadcrumb--text-oveflow t-link"
@@ -226,7 +226,7 @@ exports[`href.jsx 1`] = `
         >
           <span
             class="t-breadcrumb__inner"
-            style="max-width: 120px;"
+            style="max-width: 150;"
           >
             页面1
           </span>
@@ -251,14 +251,14 @@ exports[`href.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <span
           class="t-breadcrumb--text-oveflow t-is-disabled"
         >
           <span
             class="t-breadcrumb__inner"
-            style="max-width: 120px;"
+            style="max-width: 150;"
           >
             页面2
           </span>
@@ -283,7 +283,7 @@ exports[`href.jsx 1`] = `
         </span>
       </div>
       <div
-        class="t-breadcrumb__item light"
+        class="t-breadcrumb__item"
       >
         <span
           class="t-breadcrumb--text-oveflow"
@@ -330,7 +330,7 @@ exports[`icon.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -375,7 +375,7 @@ exports[`icon.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -420,7 +420,7 @@ exports[`icon.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
@@ -474,14 +474,14 @@ exports[`options.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面1
         </span>
@@ -506,14 +506,14 @@ exports[`options.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-oveflow"
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面2
         </span>
@@ -538,7 +538,7 @@ exports[`options.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"
@@ -546,7 +546,7 @@ exports[`options.jsx 1`] = `
       >
         <span
           class="t-breadcrumb__inner"
-          style="max-width: 120;"
+          style="max-width: 120px;"
         >
           页面3
         </span>
@@ -580,7 +580,7 @@ exports[`to.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"
@@ -612,7 +612,7 @@ exports[`to.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <a
         class="t-breadcrumb--text-oveflow t-link"
@@ -624,6 +624,143 @@ exports[`to.jsx 1`] = `
           页面1
         </span>
       </a>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          style="color: rgba(0, 0, 0, 0.3);"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`width.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-breadcrumb"
+  >
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-oveflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 100px;"
+        >
+          父级设置100px父级设置100px
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          style="color: rgba(0, 0, 0, 0.3);"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </span>
+    </div>
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-oveflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 160px;"
+        >
+          设置最大宽度160px设置最大宽度160px设置最大宽度160px
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          style="color: rgba(0, 0, 0, 0.3);"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </span>
+    </div>
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-oveflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 240px;"
+        >
+          设置最大宽度240px设置最大宽度240px设置最大宽度240px设置最大宽度240px设置最大宽度240px
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        <svg
+          class="t-icon t-icon-chevron-right"
+          fill="none"
+          height="1em"
+          style="color: rgba(0, 0, 0, 0.3);"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </span>
+    </div>
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-oveflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 100px;"
+        >
+          父级设置100px父级设置100px
+        </span>
+      </span>
       <span
         class="t-breadcrumb__separator"
       >

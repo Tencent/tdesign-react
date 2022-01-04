@@ -1,9 +1,21 @@
-import { ReactNode } from 'react';
-import { UploadFile, TdUploadProps } from './type';
+import { MouseEvent } from 'react';
+import { TdUploadProps, UploadFile } from './type';
+import { TNode } from '../common';
+
+export interface CustomDraggerRenderProps {
+  dragActive: boolean;
+}
+
+export interface FlowRemoveContext {
+  e: MouseEvent<HTMLElement>;
+  index?: number;
+  file?: UploadFile;
+}
 
 export interface UploadProps extends Omit<TdUploadProps, 'files'> {
   files?: Array<TdUploadFile>;
-  children?: ReactNode | undefined;
+  children?: TNode;
+  customDraggerRender?: (props: CustomDraggerRenderProps) => TNode;
   value?: Array<TdUploadFile>;
 }
 

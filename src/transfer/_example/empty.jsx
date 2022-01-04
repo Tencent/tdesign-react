@@ -7,7 +7,14 @@ export default function BaseExample() {
       <p>默认暂无数据</p>
       <Transfer></Transfer>
       <p>自定义暂无数据</p>
-      <Transfer empty={['No Source', <div className="t-transfer-empty">No Target</div>]}></Transfer>
+      <Transfer
+        empty={[
+          'No Source',
+          <div key="empty" className="t-transfer__empty">
+            No Target
+          </div>,
+        ]}
+      ></Transfer>
     </div>
   );
 }

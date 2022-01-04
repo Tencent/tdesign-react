@@ -45,7 +45,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
           {
             colKey: expandedColKey,
             width: 25,
-            className: [`${classPrefix}-table-expandable-icon-cell`],
+            className: [`${classPrefix}-table__expandable-icon-cell`],
             cell: ({ row }) => renderExpandIconCell({ row }),
           },
           ...columns,
@@ -95,7 +95,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
   function renderExpandRow(row, index, rowKeyValue) {
     return (
       <tr
-        className={`${classPrefix}-table-expanded-cell`}
+        className={`${classPrefix}-table__expanded-cell`}
         style={innerExpandRowKeys?.includes?.(rowKeyValue) ? {} : { display: 'none' }}
       >
         <td colSpan={transformedExpandColumns?.length}>{expandedRow && expandedRow({ row, index })}</td>

@@ -1,9 +1,11 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
+import useDefault from '../_util/useDefault';
+import { getCharacterLength } from '../_util/helper';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}
 
@@ -11,28 +13,30 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   const {
     disabled,
     maxlength,
+    maxcharacter,
     className,
     readonly,
-    value,
+    autofocus,
+    defaultValue,
     style,
     onKeydown = noop,
     onKeypress = noop,
     onKeyup = noop,
-    onChange = noop,
     autosize = false,
     ...otherProps
   } = props;
 
+  const [value = '', setValue] = useDefault(props.value, defaultValue, props.onChange);
   const [isFocused, setIsFocused] = useState(false);
-  const [currentLength, setCurrentLength] = useState(() => {
-    if (typeof value !== 'undefined') {
-      return String(value).length;
-    }
-    if (typeof props.defaultValue !== 'undefined') {
-      return String(props.defaultValue).length;
-    }
-    return 0;
-  });
+
+  const hasMaxcharacter = typeof maxcharacter !== 'undefined';
+
+  const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
+  const characterLength = useMemo(() => {
+    const characterInfo = getCharacterLength(String(value), maxcharacter);
+    if (typeof characterInfo === 'object') return characterInfo.length;
+    return characterInfo;
+  }, [value, maxcharacter]);
 
   const { classPrefix } = useConfig();
 
@@ -57,13 +61,17 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
-    [`${classPrefix}-resize-none`]: maxlength,
+    [`${classPrefix}-resize-none`]: typeof autosize === 'object',
   });
 
-  function handleChange(e) {
-    setCurrentLength(e.currentTarget.value.length);
-
-    onChange(e.currentTarget.value, { e });
+  function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
+    const { target } = e;
+    let val = (target as HTMLInputElement).value;
+    if (maxcharacter && maxcharacter >= 0) {
+      const stringInfo = getCharacterLength(val, maxcharacter);
+      val = typeof stringInfo === 'object' && stringInfo.characters;
+    }
+    setValue(val, { e });
   }
 
   // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
@@ -74,18 +82,24 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
         {...eventProps}
         value={value}
         style={{
-          height: Array.isArray(autosize) || autosize ? null : 'auto',
+          height: autosize ? null : 'auto',
         }}
         className={textareaClassNames}
         readOnly={readonly}
+        autoFocus={autofocus}
         disabled={disabled}
         maxLength={maxlength}
-        onChange={handleChange}
+        onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
       />
-      {maxlength ? <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span> : null}
+      {hasMaxcharacter ? (
+        <span className={`${classPrefix}-textarea__limit`}>{`${characterLength}/${maxcharacter}`}</span>
+      ) : null}
+      {!hasMaxcharacter && maxlength ? (
+        <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
+      ) : null}
     </div>
   );
 });

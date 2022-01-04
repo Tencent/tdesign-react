@@ -24,10 +24,10 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -45,15 +45,15 @@ exports[`OperateSteps.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤1
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -67,24 +67,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤2
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -98,24 +98,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤3
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -129,24 +129,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤4
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -155,7 +155,7 @@ exports[`OperateSteps.jsx 1`] = `
     </div>
   </div>
   <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -164,10 +164,10 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -185,15 +185,15 @@ exports[`OperateSteps.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤1
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -207,24 +207,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤3
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -238,24 +238,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤4
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -269,24 +269,24 @@ exports[`OperateSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤5
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -300,7 +300,7 @@ exports[`OperateSteps.jsx 1`] = `
 exports[`ReverseSteps.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--reverse"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--reverse"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -309,10 +309,10 @@ exports[`ReverseSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -330,15 +330,15 @@ exports[`ReverseSteps.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
-            未进行的步骤
+            已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -352,10 +352,10 @@ exports[`ReverseSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -373,15 +373,15 @@ exports[`ReverseSteps.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
-            未进行的步骤
+            进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -395,24 +395,24 @@ exports[`ReverseSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
-            进行中的步骤
+            未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -426,24 +426,24 @@ exports[`ReverseSteps.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
-            已完成的步骤
+            未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -457,7 +457,7 @@ exports[`ReverseSteps.jsx 1`] = `
 exports[`extra.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
+    class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
   >
     <div
       class="t-steps-item t-steps-item--finish"
@@ -466,10 +466,10 @@ exports[`extra.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -487,15 +487,15 @@ exports[`extra.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤1
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -509,29 +509,29 @@ exports[`extra.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤2
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
           <div
-            class="t-steps-item-extra"
+            class="t-steps-item__extra"
           >
             <button
               class="t-button t-button--theme-default t-button--variant-text t-size-s"
@@ -570,24 +570,24 @@ exports[`extra.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤3
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -601,24 +601,24 @@ exports[`extra.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             步骤4
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -641,7 +641,7 @@ exports[`icon.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <svg
             class="t-icon t-icon-login"
@@ -663,15 +663,15 @@ exports[`icon.jsx 1`] = `
           </svg>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             登录
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             已完成状态
           </div>
@@ -685,7 +685,7 @@ exports[`icon.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <svg
             class="t-icon t-icon-cart"
@@ -702,15 +702,15 @@ exports[`icon.jsx 1`] = `
           </svg>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             购物
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             进行中状态
           </div>
@@ -724,7 +724,7 @@ exports[`icon.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <svg
             class="t-icon t-icon-wallet"
@@ -741,15 +741,15 @@ exports[`icon.jsx 1`] = `
           </svg>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             支付
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             未开始
           </div>
@@ -763,7 +763,7 @@ exports[`icon.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <svg
             class="t-icon t-icon-check-circle"
@@ -785,15 +785,15 @@ exports[`icon.jsx 1`] = `
           </svg>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             完成
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             未开始
           </div>
@@ -816,18 +816,18 @@ exports[`no-sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -841,18 +841,18 @@ exports[`no-sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -866,18 +866,18 @@ exports[`no-sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -891,18 +891,18 @@ exports[`no-sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -925,10 +925,10 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -946,15 +946,15 @@ exports[`sequence.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -968,24 +968,24 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -999,24 +999,24 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1030,24 +1030,24 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1066,10 +1066,10 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -1087,15 +1087,15 @@ exports[`sequence.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1109,10 +1109,10 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -1130,15 +1130,15 @@ exports[`sequence.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1152,24 +1152,24 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             3
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1183,24 +1183,24 @@ exports[`sequence.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             4
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1223,10 +1223,10 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -1244,15 +1244,15 @@ exports[`status.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1266,24 +1266,24 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1297,18 +1297,18 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1322,18 +1322,18 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1352,10 +1352,10 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon t-steps-item-finish"
+          class="t-steps-item__icon t-steps-item-finish"
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-check"
@@ -1373,15 +1373,15 @@ exports[`status.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             已完成的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1395,24 +1395,24 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             2
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             进行中的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1426,10 +1426,10 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         >
           <span
-            class="t-steps-item-icon__number"
+            class="t-steps-item__icon--number"
           >
             <svg
               class="t-icon t-icon-close"
@@ -1447,15 +1447,15 @@ exports[`status.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             错误的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             优先展示\`t-step\`中设置的 status
           </div>
@@ -1469,18 +1469,18 @@ exports[`status.jsx 1`] = `
         class="t-steps-item__inner"
       >
         <div
-          class="t-steps-item-icon "
+          class="t-steps-item__icon "
         />
         <div
-          class="t-steps-item-content"
+          class="t-steps-item__content"
         >
           <div
-            class="t-steps-item-title"
+            class="t-steps-item__title"
           >
             未进行的步骤
           </div>
           <div
-            class="t-steps-item-description"
+            class="t-steps-item__description"
           >
             这里是提示文字
           </div>
@@ -1497,7 +1497,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
     style="display: flex; justify-content: space-between;"
   >
     <div
-      class="t-steps t-steps--horizontal t-steps--positive t-steps--dot-anchor"
+      class="t-steps t-steps--vertical t-steps--positive t-steps--dot-anchor"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1506,18 +1506,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-finish"
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               已完成的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1531,18 +1531,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               进行中的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1556,18 +1556,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1581,18 +1581,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1601,7 +1601,7 @@ exports[`vertical-no-sequence.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps t-steps--horizontal t-steps--reverse t-steps--dot-anchor"
+      class="t-steps t-steps--vertical t-steps--reverse t-steps--dot-anchor"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1610,18 +1610,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-finish"
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              已完成的步骤
+              未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1635,18 +1635,43 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
+            >
+              未进行的步骤
+            </div>
+            <div
+              class="t-steps-item__description"
+            >
+              这里是提示文字
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-steps-item t-steps-item--wait"
+      >
+        <div
+          class="t-steps-item__inner"
+        >
+          <div
+            class="t-steps-item__icon "
+          />
+          <div
+            class="t-steps-item__content"
+          >
+            <div
+              class="t-steps-item__title"
             >
               进行中的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1660,43 +1685,18 @@ exports[`vertical-no-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           />
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              未进行的步骤
+              已完成的步骤
             </div>
             <div
-              class="t-steps-item-description"
-            >
-              这里是提示文字
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-steps-item t-steps-item--wait"
-      >
-        <div
-          class="t-steps-item__inner"
-        >
-          <div
-            class="t-steps-item-icon "
-          />
-          <div
-            class="t-steps-item-content"
-          >
-            <div
-              class="t-steps-item-title"
-            >
-              未进行的步骤
-            </div>
-            <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1714,7 +1714,7 @@ exports[`vertical-sequence.jsx 1`] = `
     style="display: flex; justify-content: space-between;"
   >
     <div
-      class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--positive"
+      class="t-steps t-steps--vertical t-steps--default-anchor t-steps--positive"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1723,10 +1723,10 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-finish"
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               <svg
                 class="t-icon t-icon-check"
@@ -1744,15 +1744,15 @@ exports[`vertical-sequence.jsx 1`] = `
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               已完成的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1766,24 +1766,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               2
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               进行中的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1797,24 +1797,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               3
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1828,24 +1828,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               4
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
               未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1854,7 +1854,7 @@ exports[`vertical-sequence.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-steps t-steps--horizontal t-steps--default-anchor t-steps--reverse"
+      class="t-steps t-steps--vertical t-steps--default-anchor t-steps--reverse"
     >
       <div
         class="t-steps-item t-steps-item--finish"
@@ -1863,10 +1863,10 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-finish"
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               <svg
                 class="t-icon t-icon-check"
@@ -1884,15 +1884,15 @@ exports[`vertical-sequence.jsx 1`] = `
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              已完成的步骤
+              未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1906,24 +1906,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               2
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              进行中的步骤
+              未进行的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1937,24 +1937,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               3
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              未进行的步骤
+              进行中的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
@@ -1968,24 +1968,24 @@ exports[`vertical-sequence.jsx 1`] = `
           class="t-steps-item__inner"
         >
           <div
-            class="t-steps-item-icon "
+            class="t-steps-item__icon "
           >
             <span
-              class="t-steps-item-icon__number"
+              class="t-steps-item__icon--number"
             >
               4
             </span>
           </div>
           <div
-            class="t-steps-item-content"
+            class="t-steps-item__content"
           >
             <div
-              class="t-steps-item-title"
+              class="t-steps-item__title"
             >
-              未进行的步骤
+              已完成的步骤
             </div>
             <div
-              class="t-steps-item-description"
+              class="t-steps-item__description"
             >
               这里是提示文字
             </div>
