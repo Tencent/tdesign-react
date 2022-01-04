@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'tdesign-react';
 
 const data = [];
@@ -18,6 +18,9 @@ for (let i = 0; i < total; i++) {
 }
 
 export default function TableBasic() {
+  const [currentPage, setCurrentPage] = useState(2);
+  const [pageSize, setPageSize] = useState(10);
+
   return (
     <Table
       data={data}
@@ -86,9 +89,9 @@ export default function TableBasic() {
       rowClassName={(rowKey) => `${rowKey}-class`}
       // 与pagination对齐
       pagination={{
-        pageSize: 10,
+        pageSize,
         total,
-        current: 2,
+        current: currentPage,
         showJumper: true,
         showSizer: true,
         visibleWithOnePage: true,
@@ -96,10 +99,12 @@ export default function TableBasic() {
           console.log(pageInfo, 'onChange pageInfo');
         },
         onCurrentChange(current, pageInfo) {
+          setCurrentPage(current);
           console.log(current, 'onCurrentChange current');
           console.log(pageInfo, 'onCurrentChange pageInfo');
         },
         onPageSizeChange(size, pageInfo) {
+          setPageSize(size);
           console.log(size, 'onPageSizeChange size');
           console.log(pageInfo, 'onPageSizeChange pageInfo');
         },
