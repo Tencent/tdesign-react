@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdHeaderProps, TdFooterProps } from './type';
+import { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
 import Aside from './Aside';
 
-export interface LayoutProps extends StyledProps {
+export interface LayoutProps extends TdLayoutProps, StyledProps {
   children?: React.ReactNode;
 }
 export interface HeaderProps extends TdHeaderProps, StyledProps {
@@ -55,11 +55,13 @@ const Content = (props: ContentProps) => {
  * 布局组件
  */
 const Layout = (props: LayoutProps) => {
-  const { className, style, children, ...otherLayoutProps } = props;
+  const { direction, className, style, children, ...otherLayoutProps } = props;
   const [asides, setAsides] = useState([]);
 
   useEffect(() => {
-    React.Children.forEach(children, (child: any) => {
+    React.Children.forEach(children, (child: React.ReactChild) => {
+      if (typeof child !== 'object') return;
+
       if (child.type === Aside) setAsides([child]);
     });
   }, [children]);
@@ -69,6 +71,7 @@ const Layout = (props: LayoutProps) => {
     `${classPrefix}-layout`,
     {
       [`${classPrefix}-layout--with-sider`]: !!asides.length,
+      [`${classPrefix}-layout__direction-${direction}`]: direction,
     },
     className,
   );
