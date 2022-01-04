@@ -161,7 +161,7 @@ function customRender({ source, file, md }) {
 
   // fix table | render error
   demoMd = demoMd.replace(/`([^`]+)`/g, (str, codeStr) => {
-    codeStr = codeStr.replace(/\|/g, '\\|');
+    codeStr = codeStr.replace(/"/g, '\'');
     return `<td-code text="${codeStr}"></td-code>`;
   });
 
