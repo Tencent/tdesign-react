@@ -7,7 +7,7 @@
 
 export interface TdLayoutProps {
   /**
-   * 【开发中】布局方向
+   * 布局方向
    */
   direction?: 'vertical' | 'horizontal';
 }
