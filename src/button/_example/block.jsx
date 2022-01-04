@@ -3,20 +3,13 @@ import { Button } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <div style={{ display: 'flex' }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '50%',
-          margin: 'auto',
-        }}
-      >
+    <div className="tdesign-demo-block-row" style={{ justifyContent: 'center' }}>
+    <div className="tdesign-demo-block-column" style={{ minWidth: '320px', maxWidth: '640px' }}>
         <Button block variant="base">
-          主按钮
+          填充按钮
         </Button>
         <Button block variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button block variant="dashed">
           虚框按钮
