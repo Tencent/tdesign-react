@@ -7,13 +7,13 @@ export default function ButtonExample() {
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
         <Button shape="rectangle" variant="base">
-          主要按钮
+          填充按钮
         </Button>
         <Button shape="square" variant="base">
           <CalendarIcon />
         </Button>
         <Button shape="round" variant="base">
-          主要按钮
+          填充按钮
         </Button>
         <Button shape="circle" variant="base">
           <CalendarIcon />
@@ -21,13 +21,13 @@ export default function ButtonExample() {
       </div>
       <div className="tdesign-demo-block-row">
         <Button shape="rectangle" variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button shape="square" variant="outline">
           <CalendarIcon />
         </Button>
         <Button shape="round" variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button shape="circle" variant="outline">
           <CalendarIcon />
