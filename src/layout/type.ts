@@ -2,8 +2,15 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
+ * updated at 2022-01-04 17:16:25
  * */
+
+export interface TdLayoutProps {
+  /**
+   * 布局方向
+   */
+  direction?: 'vertical' | 'horizontal';
+}
 
 export interface TdHeaderProps {
   /**
