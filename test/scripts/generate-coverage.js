@@ -12,7 +12,7 @@ const resolveCwd = (...args) => {
   return path.join(...args);
 };
 
-fs.readFile(resolveCwd('test/unit/coverage/index.html'), 'utf8', (err, html) => {
+fs.readFile(resolveCwd('test/unit/coverage/lcov-report/index.html'), 'utf8', (err, html) => {
   if (err) {
     console.log('please execute npm run test:coverage frist!', err);
     return;
@@ -37,7 +37,7 @@ fs.readFile(resolveCwd('test/unit/coverage/index.html'), 'utf8', (err, html) => 
       }
     });
 
-    const finalRes = `module.exports = ${JSON.stringify(result, null, 2)}`;
+    const finalRes = `module.exports = { unit: ${JSON.stringify(result, null, 2)}}`;
     fs.writeFileSync(resolveCwd('site/test-coverage.js'), finalRes);
     console.log('successful re-generate coverage');
   }
