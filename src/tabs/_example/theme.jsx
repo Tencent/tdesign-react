@@ -12,11 +12,11 @@ export default function ThemeTabs() {
         <Button onClick={() => setTheme('card')}>card</Button>
       </div>
       <Tabs placement={'top'} size={'medium'} theme={theme} disabled={false}>
-        <TabPanel value={'1'} label={'1'}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'1'} label={'选项卡1'}>
+          <div style={{ margin: 20 }}>选项卡1内容区</div>
         </TabPanel>
-        <TabPanel value={'2'} label={<div>2</div>}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'2'} label={'选项卡2'}>
+          <div style={{ margin: 20 }}>选项卡2内容区</div>
         </TabPanel>
       </Tabs>
     </div>

@@ -121,9 +121,10 @@ exports[`creatable.jsx 1`] = `
             class="t-select__left-icon"
           />
           <div
-            class="t-select__input t-input t-input__inner"
+            class="t-select__input t-input"
           >
             <input
+              class="t-input__inner"
               placeholder="Apple"
               value="Apple"
             />
@@ -305,9 +306,10 @@ exports[`filterable.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input t-input__inner"
+          class="t-select__input t-input"
         >
           <input
+            class="t-input__inner"
             placeholder="Apple"
             value="Apple"
           />
@@ -769,9 +771,10 @@ exports[`options.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input t-input__inner"
+          class="t-select__input t-input"
         >
           <input
+            class="t-input__inner"
             placeholder="Apple"
             value="Apple"
           />
@@ -921,9 +924,10 @@ exports[`remote-search.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input t-input__inner"
+          class="t-select__input t-input"
         >
           <input
+            class="t-input__inner"
             placeholder="-请选择-"
             value=""
           />

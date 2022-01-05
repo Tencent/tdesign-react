@@ -215,19 +215,19 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     return (
       <div style={footerStyle}>
-        {placement === 'right' ? renderConfirmBtn : null}
+        {placement === 'right' && renderConfirmBtn}
         {renderCancelBtn}
-        {placement !== 'right' ? renderConfirmBtn : null}
+        {placement !== 'right' && renderConfirmBtn}
       </div>
     );
   }
 
-  const renderOverlay = showOverlay ? <div className={`${prefixCls}__mask`} onClick={onMaskClick} /> : null;
-  const renderCloseBtn = closeBtn ? (
+  const renderOverlay = showOverlay && <div className={`${prefixCls}__mask`} onClick={onMaskClick} />;
+  const renderCloseBtn = closeBtn && (
     <div onClick={onClickCloseBtn} className={`${prefixCls}__close-btn`}>
       {closeIcon}
     </div>
-  ) : null;
+  );
   const renderHeader = header && <div className={`${prefixCls}__header`}>{header}</div>;
   const renderBody = <div className={`${prefixCls}__body`}>{body || children}</div>;
   const renderFooter = footer && <div className={`${prefixCls}__footer`}>{getFooter()}</div>;

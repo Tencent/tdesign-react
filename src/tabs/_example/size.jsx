@@ -16,19 +16,19 @@ export default function SizeTabs() {
         </Button>
       </div>
       <Tabs placement={'top'} size={size} theme="normal" disabled={false} defaultValue={'1'}>
-        <TabPanel value={'1'} label={'选项卡一'}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'1'} label={'选项卡1'}>
+          <div style={{ margin: 20 }}>选项卡1内容区</div>
         </TabPanel>
-        <TabPanel value={'2'} label={'选项卡二'}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'2'} label={'选项卡2'}>
+          <div style={{ margin: 20 }}>选项卡2内容区</div>
         </TabPanel>
       </Tabs>
       <Tabs placement={'top'} size={size} theme="card" disabled={false} defaultValue={'1'}>
-        <TabPanel value={'1'} label={'选项卡一'}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'1'} label={'选项卡1'}>
+          <div style={{ margin: 20 }}>选项卡1内容区</div>
         </TabPanel>
-        <TabPanel value={'2'} label={'选项卡二'}>
-          <div style={{ margin: 20 }}>这是一个Tabs</div>
+        <TabPanel value={'2'} label={'选项卡2'}>
+          <div style={{ margin: 20 }}>选项卡2内容区</div>
         </TabPanel>
       </Tabs>
     </div>

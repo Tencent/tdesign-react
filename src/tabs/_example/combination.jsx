@@ -28,7 +28,9 @@ export default function AddTabs() {
     >
       {panels.map(({ value, label }) => (
         <TabPanel key={value} value={value} label={label}>
-          <div className="tabs-content" style={{ margin: 20 }}>{label}</div>
+          <div className="tabs-content" style={{ margin: 20 }}>
+            {label}内容区
+          </div>
         </TabPanel>
       ))}
     </Tabs>
