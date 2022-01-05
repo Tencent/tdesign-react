@@ -17,16 +17,16 @@ function BasicUsage(props) {
   );
 }
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
     <>
       <h4>侧边导航布局</h4>
       <Layout>
-        <Sider>
+        <Aside>
           <BasicUsage />
-        </Sider>
+        </Aside>
         <Layout>
           <Content>
             <div>Content</div>
