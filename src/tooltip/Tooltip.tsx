@@ -35,7 +35,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
 Tooltip.displayName = 'Tooltip';
 
 Tooltip.propTypes = {
-  theme: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'warning']),
+  theme: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'warning', 'light']),
   showArrow: PropTypes.bool,
 };
 Tooltip.defaultProps = {
