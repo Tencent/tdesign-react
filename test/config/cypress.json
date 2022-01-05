@@ -13,7 +13,7 @@
   "viewportWidth": 1600,
   "reporter": "junit",
   "reporterOptions": {
-    "mochaFile": "results/cypress-output-[hash].xml",
+    "mochaFile": "results/cypress/cypress-output-[hash].xml",
     "toConsole": true
   }
 }
