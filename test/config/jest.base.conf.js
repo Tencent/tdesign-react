@@ -22,7 +22,7 @@ module.exports = {
     '^.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
   },
   transformIgnorePatterns: ['node_modules'],
-  testPathIgnorePatterns: ['/node_modules/', '.history'],
+  testPathIgnorePatterns: ['/node_modules/', '.history', '<rootDir>/src/_common'],
   setupFiles: ['<rootDir>/test/scripts/setup-framework'],
   globals: {
     'ts-jest': {
@@ -30,12 +30,21 @@ module.exports = {
       babelConfig: true,
     },
   },
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.{ts,tsx,js,jsx}',
+    '!**/node_modules/**',
+    '!**/_common/**',
+    '!**/__tests__/**',
+    '!**/style/**',
+    '!**/coverage/**',
+  ],
   reporters: [
     'default',
     [
       './node_modules/jest-html-reporter',
       {
-        pageTitle: 'TDesign Test Report',
+        pageTitle: 'TDesign Web React Test Report',
+        outputPath: '<rootDir>/test/unit/coverage/test-report.html',
       },
     ],
   ],
