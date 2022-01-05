@@ -24,7 +24,8 @@ export function useLocaleReceiver<T extends LocaleComponentName>(
         return '';
       });
       return translated;
-    } if (Array.isArray(pattern)) {
+    }
+    if (Array.isArray(pattern)) {
       return pattern.map((p, index) => {
         const translated = p.replace(REGX, (_: string, key: string) => {
           if (placement) return String(placement[index][key]);
@@ -32,7 +33,8 @@ export function useLocaleReceiver<T extends LocaleComponentName>(
         });
         return translated;
       });
-    } if (typeof pattern === 'function') {
+    }
+    if (typeof pattern === 'function') {
       return pattern(placement);
     }
     return '';
