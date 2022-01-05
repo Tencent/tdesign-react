@@ -109,16 +109,16 @@ describe('Pagination test', () => {
   test('jumper', () => {
     render(<Pagination total={300} pageSize={15} showJumper />);
 
-    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner input'), { target: { value: '5' } });
-    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner input'), { keyCode: 13 });
+    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5' } });
+    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
     expect(document.querySelector('.t-is-current')).toHaveTextContent('5');
 
-    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner input'), { target: { value: '30' } });
-    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner input'), { keyCode: 13 });
+    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '30' } });
+    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
     expect(document.querySelector('.t-is-current')).toHaveTextContent('20');
 
-    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner input'), { target: { value: '-1' } });
-    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner input'), { keyCode: 13 });
+    fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '-1' } });
+    fireEvent.keyUp(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
     expect(document.querySelector('.t-is-current')).toHaveTextContent('1');
   });
 });
