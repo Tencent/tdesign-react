@@ -2,14 +2,16 @@ name: PREVIEW_PUBLISH
 
 on:
   workflow_run:
-    workflows: ['MAIN_PULL_REQUEST']
+    workflows: ["MAIN_PULL_REQUEST"]
     types:
       - completed
 
 jobs:
-  success:
+  preview-success:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
     steps:
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
@@ -53,9 +55,11 @@ jobs:
             PR 预览生成失败。
           number: ${{ steps.pr.outputs.id }}
 
-  failed:
+  preview-failed:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'failure'
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'failure'
     steps:
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
@@ -70,5 +74,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Deploy PR Preview failed.
+            Deploy PR Preview failed， {{ github.event.workflow_run.conclusion }} at ${{ github.event.workflow_run.workflow_id }}.
           number: ${{ steps.pr.outputs.id }}
