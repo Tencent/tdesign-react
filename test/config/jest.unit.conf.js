@@ -1,14 +1,20 @@
 const baseConfig = require('./jest.base.conf.js');
+const path = require('path');
+process.env.TZ = 'Asia/Shanghai';
 
 module.exports = {
   ...baseConfig,
+  reporters: [
+    'default',
+    [
+      './node_modules/jest-html-reporter',
+      {
+        pageTitle: 'TDesign Web React Test Report',
+        outputPath: '<rootDir>/test/unit/coverage/test-report.html',
+      },
+    ],
+  ],
   coverageDirectory: '<rootDir>/test/unit/coverage',
   modulePathIgnorePatterns: ['<rootDir>/test/unit/coverage/'],
-  moduleNameMapper: {
-    // 测试工具便捷引入
-    '^@test/(.*)': '<rootDir>/test/$1',
-    // 组件 alias
-    '^tdesign-react(.*)': '<rootDir>/src$1',
-  },
   testMatch: ['<rootDir>/src/**/__tests__/**/*.test.{ts,tsx}'],
 };
