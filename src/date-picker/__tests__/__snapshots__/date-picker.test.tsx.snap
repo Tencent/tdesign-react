@@ -282,7 +282,7 @@ exports[`date-time.jsx 1`] = `
             <input
               placeholder="请选择日期"
               readonly=""
-              value="2021-05-01 11:30:20"
+              value=""
             />
             <span
               class="t-input__suffix"
@@ -647,7 +647,7 @@ exports[`year.jsx 1`] = `
             <input
               placeholder="请选择年份"
               readonly=""
-              value="2025"
+              value=""
             />
             <span
               class="t-input__suffix"
