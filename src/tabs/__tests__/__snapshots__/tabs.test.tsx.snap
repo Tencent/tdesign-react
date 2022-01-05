@@ -43,7 +43,7 @@ exports[`ban.jsx 1`] = `
                   <span
                     class="t-tabs__nav-item-text-wrapper"
                   >
-                    选项卡一
+                    选项卡1
                   </span>
                 </div>
               </div>
@@ -57,7 +57,7 @@ exports[`ban.jsx 1`] = `
                   <span
                     class="t-tabs__nav-item-text-wrapper"
                   >
-                    选项卡二
+                    选项卡2
                   </span>
                 </div>
               </div>
@@ -75,7 +75,7 @@ exports[`ban.jsx 1`] = `
         <div
           style="margin: 20px;"
         >
-          这是一个Tabs
+          选项卡2内容区
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@ exports[`base.jsx 1`] = `
           class="tabs-content"
           style="margin: 20px;"
         >
-          选项卡1
+          选项卡1内容区
         </div>
       </div>
     </div>
@@ -252,7 +252,7 @@ exports[`combination.jsx 1`] = `
           class="tabs-content"
           style="margin: 20px;"
         >
-          选项卡1
+          选项卡1内容区
         </div>
       </div>
     </div>
@@ -331,7 +331,7 @@ exports[`custom.jsx 1`] = `
           class="tabs-content"
           style="margin: 20px;"
         >
-          选项卡1
+          选项卡1内容区
         </div>
       </div>
     </div>
@@ -346,7 +346,7 @@ exports[`icon.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
+      style="margin-bottom: 10px; position: relative;"
       type="button"
     >
       <span
@@ -396,29 +396,27 @@ exports[`icon.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        <svg
-                          class="t-icon t-icon-discount"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                          <path
-                            clip-rule="evenodd"
-                            d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                        选项卡
-                      </div>
+                      <svg
+                        class="t-icon t-icon-discount"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                      选项卡1
                     </span>
                   </div>
                 </div>
@@ -432,29 +430,20 @@ exports[`icon.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        <svg
-                          class="t-icon t-icon-discount"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                          <path
-                            clip-rule="evenodd"
-                            d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                        选项卡
-                      </div>
+                      <svg
+                        class="t-icon t-icon-tools"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M9.75 8.25l.56.15c1 .28 2.09.03 2.85-.73.67-.67.94-1.6.8-2.5l-1.05 1.05a1.5 1.5 0 01-2.12 0l-.43-.42a1.5 1.5 0 010-2.12l1.06-1.06a2.9 2.9 0 00-2.5.8c-.76.77-1.01 1.85-.74 2.85l.16.57-5.8 5.8 1.4 1.41 5.81-5.8zm2.5-6.45c.32.1.64.26.94.46l-2.12 2.12a.5.5 0 000 .71l.42.43c.2.2.52.2.71 0l2.12-2.13a3.92 3.92 0 01-.46 4.98 3.91 3.91 0 01-3.81 1l-5.4 5.4a1 1 0 01-1.41 0l-1.42-1.42a1 1 0 010-1.42l5.4-5.39a3.91 3.91 0 01.99-3.82 3.92 3.92 0 014.03-.92z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                      选项卡2
                     </span>
                   </div>
                 </div>
@@ -468,29 +457,20 @@ exports[`icon.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        <svg
-                          class="t-icon t-icon-discount"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M7.84 5.01A2 2 0 115 7.84 2 2 0 017.84 5zm-.7.7a1 1 0 10-1.42 1.42 1 1 0 001.41-1.41z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                          <path
-                            clip-rule="evenodd"
-                            d="M2 7.95V2h5.95a1 1 0 01.7.3l6.14 6.13a1 1 0 010 1.41L9.84 14.8a1 1 0 01-1.41 0L2.29 8.66A1 1 0 012 7.95zM7.95 3l6.13 6.13-4.95 4.95L3 7.95V3h4.95z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                        选项卡
-                      </div>
+                      <svg
+                        class="t-icon t-icon-tips"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M8 1c-1.38 0-2.63.55-3.53 1.47a4.96 4.96 0 000 7.06c.3.32.65.58 1.03.8V12a1 1 0 001 1h3a1 1 0 001-1v-1.67A4.96 4.96 0 0013 6a5 5 0 00-5-5zM5.18 3.17a4 4 0 115.65 5.65v.01c-.3.3-.66.55-1.05.75l-.28.14V12h-3V9.72l-.28-.14A3.96 3.96 0 014 6c0-1.1.44-2.1 1.17-2.82zM5.5 14v1h5v-1h-5z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                      选项卡3
                     </span>
                   </div>
                 </div>
@@ -509,7 +489,7 @@ exports[`icon.jsx 1`] = `
             class="tabs-content"
             style="margin: 20px;"
           >
-            选项卡1
+            选项卡1内容区
           </div>
         </div>
       </div>
@@ -704,9 +684,7 @@ exports[`position.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        选项卡2
-                      </div>
+                      选项卡2
                     </span>
                   </div>
                 </div>
@@ -748,9 +726,7 @@ exports[`position.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        选项卡5
-                      </div>
+                      选项卡5
                     </span>
                   </div>
                 </div>
@@ -764,9 +740,7 @@ exports[`position.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        选项卡6
-                      </div>
+                      选项卡6
                     </span>
                   </div>
                 </div>
@@ -780,9 +754,7 @@ exports[`position.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        选项卡7
-                      </div>
+                      选项卡7
                     </span>
                   </div>
                 </div>
@@ -801,7 +773,7 @@ exports[`position.jsx 1`] = `
             class="tabs-content"
             style="margin: 20px;"
           >
-            这是一个Tabs
+            选项卡1内容区
           </div>
         </div>
       </div>
@@ -882,7 +854,7 @@ exports[`size.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      选项卡一
+                      选项卡1
                     </span>
                   </div>
                 </div>
@@ -896,7 +868,7 @@ exports[`size.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      选项卡二
+                      选项卡2
                     </span>
                   </div>
                 </div>
@@ -914,7 +886,7 @@ exports[`size.jsx 1`] = `
           <div
             style="margin: 20px;"
           >
-            这是一个Tabs
+            选项卡1内容区
           </div>
         </div>
       </div>
@@ -952,7 +924,7 @@ exports[`size.jsx 1`] = `
                   <span
                     class="t-tabs__nav-item-text-wrapper"
                   >
-                    选项卡一
+                    选项卡1
                   </span>
                 </div>
                 <div
@@ -961,7 +933,7 @@ exports[`size.jsx 1`] = `
                   <span
                     class="t-tabs__nav-item-text-wrapper"
                   >
-                    选项卡二
+                    选项卡2
                   </span>
                 </div>
               </div>
@@ -978,7 +950,7 @@ exports[`size.jsx 1`] = `
           <div
             style="margin: 20px;"
           >
-            这是一个Tabs
+            选项卡1内容区
           </div>
         </div>
       </div>
@@ -1059,7 +1031,7 @@ exports[`theme.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      1
+                      选项卡1
                     </span>
                   </div>
                 </div>
@@ -1073,9 +1045,7 @@ exports[`theme.jsx 1`] = `
                     <span
                       class="t-tabs__nav-item-text-wrapper"
                     >
-                      <div>
-                        2
-                      </div>
+                      选项卡2
                     </span>
                   </div>
                 </div>
@@ -1093,7 +1063,7 @@ exports[`theme.jsx 1`] = `
           <div
             style="margin: 20px;"
           >
-            这是一个Tabs
+            选项卡1内容区
           </div>
         </div>
       </div>
