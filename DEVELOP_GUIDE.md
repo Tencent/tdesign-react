@@ -224,7 +224,6 @@ npm run test:e2e-gui
 npm run test:update
 
 # 生成测试覆盖率
-npm run test:coverage
 npm run update:coverage-badge
 生成分组件格式化覆盖率到site/test-coverage.js
 
