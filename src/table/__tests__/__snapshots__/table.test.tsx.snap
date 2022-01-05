@@ -928,9 +928,10 @@ exports[`base.jsx 1`] = `
             class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
             <div
-              class="t-input t-input__inner"
+              class="t-input"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -6981,9 +6982,10 @@ exports[`pagination.jsx 1`] = `
             class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
             <div
-              class="t-input t-input__inner"
+              class="t-input"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -7262,9 +7264,10 @@ exports[`pagination-ajax.jsx 1`] = `
             class="t-pagination__input t-input-number t-size-m t-input-number--normal"
           >
             <div
-              class="t-input t-input__inner"
+              class="t-input"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>

@@ -3144,9 +3144,10 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input__inner t-input--suffix"
+            class="t-input t-input--suffix"
           >
             <input
+              class="t-input__inner"
               placeholder="请输入关键词搜索"
               value=""
             />
@@ -3672,9 +3673,10 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input__inner t-input--suffix"
+            class="t-input t-input--suffix"
           >
             <input
+              class="t-input__inner"
               placeholder="请输入关键词搜索"
               value=""
             />

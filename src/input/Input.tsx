@@ -89,6 +89,7 @@ const Input = forwardRefWithStatics(
       <input
         readOnly={readonly}
         disabled={disabled}
+        className={`${classPrefix}-${componentType}__inner`}
         {...inputProps}
         value={composingRef.current ? composingRefValue : value}
         {...eventProps}
@@ -137,7 +138,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={ref}
         style={style}
-        className={classNames(className, `${classPrefix}-${componentType}`, `${classPrefix}-${componentType}__inner`, {
+        className={classNames(className, `${classPrefix}-${componentType}`, {
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
