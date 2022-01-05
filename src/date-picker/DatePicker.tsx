@@ -105,9 +105,9 @@ const DatePicker = (props: DatePickerProps) => {
   });
 
   useEffect(() => {
-    initDatePicker();
+    popupShow && initDatePicker();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [popupShow]);
 
   useEffect(() => {
     updateFormatValue();

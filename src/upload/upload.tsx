@@ -12,8 +12,8 @@ import ImageCard from './themes/image-card';
 import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
 import { finishUpload, isSingleFile, updateFileList } from './util';
-import { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
-import {
+import type { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
+import type {
   ProgressContext,
   RequestMethodResponse,
   SuccessContext,
@@ -32,9 +32,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     accept,
     draggable,
     placeholder,
-    theme = 'file',
     max = 0,
     name = 'file',
+    theme = 'file',
     showUploadProgress = true,
     action,
     tips,
@@ -295,24 +295,25 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     });
   };
 
+  const generateUploadFiles = (files: FileList): TdUploadFile[] => {
+    const uploadList = formatFiles(Array.from(files));
+    return getLimitedFiles(uploadList);
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     const { files } = event.target;
-    let tmpFiles = Array.from(files);
-    const uploadList = formatFiles(tmpFiles);
-    tmpFiles = getLimitedFiles(uploadList);
+    const uploadFiles = generateUploadFiles(files);
     setUploading(true);
     uploadRef.current.value = '';
-    onChange?.(tmpFiles, { trigger: 'upload' });
+    onChange?.(uploadFiles, { trigger: 'upload' });
   };
 
   const handleDragChange = (files: FileList): void => {
     if (disabled) return;
-    let tmpFiles = Array.from(files);
-    const uploadList = formatFiles(tmpFiles);
-    tmpFiles = getLimitedFiles(uploadList);
+    const uploadFiles = generateUploadFiles(files);
     setUploading(true);
-    onChange?.(tmpFiles, { trigger: 'drag' });
+    onChange?.(uploadFiles, { trigger: 'drag' });
   };
 
   const handleDragenter = useCallback(

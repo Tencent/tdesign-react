@@ -154,7 +154,7 @@ const Select = forwardRefWithStatics(
             .map((item) => {
               if (valueType === 'value') {
                 return (
-                  valueToOption[item] ||
+                  valueToOption[item as string | number] ||
                   oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
                     [valueKey]: item,
                     [labelKey]: item,
@@ -169,7 +169,7 @@ const Select = forwardRefWithStatics(
         if (value !== undefined && value !== null) {
           if (valueType === 'value') {
             return [
-              valueToOption[value] ||
+              valueToOption[value as string | number] ||
                 oldSelectedOptions.find((option) => get(option, valueKey) === value) || {
                   [valueKey]: value,
                   [labelKey]: value,
