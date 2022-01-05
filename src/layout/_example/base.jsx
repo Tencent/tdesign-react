@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'tdesign-react';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
@@ -17,7 +17,7 @@ export default function BasicDivider() {
 
       <h4>侧边导航布局</h4>
       <Layout>
-        <Sider>Aside</Sider>
+        <Aside>Aside</Aside>
         <Layout>
           <Content>Content</Content>
           <Footer>Copyright @ 2019-2021 Tencent. All Rights Reserved</Footer>
@@ -30,7 +30,7 @@ export default function BasicDivider() {
       <Layout>
         <Header>Header</Header>
         <Layout>
-          <Sider>Aside</Sider>
+          <Aside>Aside</Aside>
           <Layout>
             <Content>Content</Content>
             <Footer>Copyright @ 2019-2021 Tencent. All Rights Reserved</Footer>
@@ -47,7 +47,7 @@ export default function BasicDivider() {
             <Content>Content</Content>
             <Footer>Copyright @ 2019-2021 Tencent. All Rights Reserved</Footer>
           </Layout>
-          <Sider>Aside</Sider>
+          <Aside>Aside</Aside>
         </Layout>
       </Layout>
 
@@ -56,7 +56,7 @@ export default function BasicDivider() {
       <Layout>
         <Header>Header</Header>
         <Layout>
-          <Sider width={80}>Aside</Sider>
+          <Aside width={80}>Aside</Aside>
           <Layout>
             <Content>Content</Content>
             <Footer>Copyright @ 2019-2021 Tencent. All Rights Reserved</Footer>
