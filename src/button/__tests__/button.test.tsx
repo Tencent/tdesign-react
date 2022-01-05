@@ -16,10 +16,14 @@ describe('Button 组件测试', () => {
     fireEvent.click(container.firstChild);
     expect(clickFn).toBeCalledTimes(1);
   });
-  // test('content', async () => {
-  //   const { queryByText } = render(<Button content={ButtonText} />);
-  //   expect(queryByText(ButtonText)).toBeInTheDocument();
-  // });
+  test('content', async () => {
+    const { queryByText } = render(<Button content={ButtonText} />);
+    expect(queryByText(ButtonText)).toBeInTheDocument();
+  });
+  test('children & content', async () => {
+    const { queryByText } = render(<Button content={ButtonText}>foo</Button>);
+    expect(queryByText('foo')).toBeInTheDocument();
+  });
   test('theme', async () => {
     const { container } = render(<Button theme="success" />);
     expect(container.firstChild.classList.contains('t-button--theme-success')).toBeTruthy();

@@ -6,10 +6,10 @@ export default function ButtonExample() {
     <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
         <Button size="small" variant="base">
-          主按钮
+          填充按钮
         </Button>
         <Button size="small" variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button size="small" variant="dashed">
           虚框按钮
@@ -20,10 +20,10 @@ export default function ButtonExample() {
       </div>
       <div className="tdesign-demo-block-row">
         <Button size="medium" variant="base">
-          主按钮
+          填充按钮
         </Button>
         <Button size="medium" variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button size="medium" variant="dashed">
           虚框按钮
@@ -34,10 +34,10 @@ export default function ButtonExample() {
       </div>
       <div className="tdesign-demo-block-row">
         <Button size="large" variant="base">
-          主按钮
+          填充按钮
         </Button>
         <Button size="large" variant="outline">
-          次要按钮
+          描边按钮
         </Button>
         <Button size="large" variant="dashed">
           虚框按钮
