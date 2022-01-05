@@ -15,7 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+// https://testing-library.com/docs/cypress-testing-library/intro
 import '@testing-library/cypress/add-commands';
 import '@cypress/code-coverage/support';
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
