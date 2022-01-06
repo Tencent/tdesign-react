@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from './type';
@@ -56,12 +56,14 @@ const Input = forwardRefWithStatics(
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
     const [isHover, toggleIsHover] = useState(false);
+    const [isFocused, toggleIsFocused] = useState(false);
+
     const [composingRefValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = clearable && value && !disabled && isHover;
     const componentType = 'input';
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (
-      <ClearIcon
+      <CloseCircleFilledIcon
         className={`${classPrefix}-input__suffix-clear`}
         onClick={handleClear}
         onMouseUp={(e) => e.preventDefault()}
@@ -138,16 +140,24 @@ const Input = forwardRefWithStatics(
       <div
         ref={ref}
         style={style}
-        className={classNames(className, `${classPrefix}-${componentType}`, {
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-is-${status}`]: status,
-          [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
-          [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
-        })}
+        className={classNames(
+          `${classPrefix}-${componentType}`,
+          {
+            [`${classPrefix}-is-disabled`]: disabled,
+            [`${classPrefix}-is-focused`]: isFocused,
+            [`${classPrefix}-size-s`]: size === 'small',
+            [`${classPrefix}-size-l`]: size === 'large',
+            [`${classPrefix}-is-${status}`]: status,
+            [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
+            [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
+            [`${classPrefix}-${componentType}--focused`]: isFocused,
+          },
+          className,
+        )}
         onMouseEnter={() => toggleIsHover(true)}
         onMouseLeave={() => toggleIsHover(false)}
+        onFocus={() => toggleIsFocused(true)}
+        onBlur={() => toggleIsFocused(false)}
       >
         {prefixIconContent}
         {renderInput}
