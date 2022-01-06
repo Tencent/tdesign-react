@@ -15,7 +15,28 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+
+const path = require("path");
+const { startDevServer } = require("@cypress/vite-dev-server");
+const codeCoverageTask = require("@cypress/code-coverage/task");
+const istanbul = require("vite-plugin-istanbul");
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  on("dev-server:start", (options) => startDevServer({
+    options,
+    viteConfig: {
+      logLevel: "warn",
+      configFile: path.resolve(__dirname, '../../../../site/vite.config.js'),
+      plugins: [istanbul({
+        include: ['src/**/_example/*.spec.*'],
+        extension: ['.js', '.ts', '.jsx', '.tsx'],
+        requireEnv: false,
+        cypress: true,
+      })],
+    },
+  })
+  );
+
+  codeCoverageTask(on, config);
+  return config;
 };
