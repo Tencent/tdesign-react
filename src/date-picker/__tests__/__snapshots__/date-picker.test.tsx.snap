@@ -288,7 +288,7 @@ exports[`date-time.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择日期"
               readonly=""
-              value=""
+              value="2022-02-02 11:11:11"
             />
             <span
               class="t-input__suffix"
@@ -661,7 +661,7 @@ exports[`year.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择年份"
               readonly=""
-              value=""
+              value="2025"
             />
             <span
               class="t-input__suffix"
