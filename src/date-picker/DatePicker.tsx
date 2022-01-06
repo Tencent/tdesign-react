@@ -29,6 +29,7 @@ export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
 const TIME_FORMAT = 'HH:mm:ss';
 
+// TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
 const DatePicker = (props: DatePickerProps) => {
   const {
     className,
@@ -80,6 +81,8 @@ const DatePicker = (props: DatePickerProps) => {
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
 
+  const isControlled = typeof value !== 'undefined';
+
   function isValidDate(date: string | number | Date | (string | number | Date)[]) {
     if (isArray(date) && isDate(new Date(date[0])) && isDate(new Date(date[1]))) return true;
     if (isString(date) && isDate(new Date(date))) return true;
@@ -105,9 +108,9 @@ const DatePicker = (props: DatePickerProps) => {
   });
 
   useEffect(() => {
-    popupShow && initDatePicker();
+    initDatePicker();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popupShow]);
+  }, []);
 
   useEffect(() => {
     updateFormatValue();
@@ -118,7 +121,7 @@ const DatePicker = (props: DatePickerProps) => {
     let dates = selectedDates;
 
     // 受控模式
-    if (typeof value !== 'undefined') {
+    if (isControlled) {
       if (Array.isArray(value)) {
         dates = value.map((d: string) => (d ? new Date(d) : new Date()));
       } else {
@@ -136,12 +139,13 @@ const DatePicker = (props: DatePickerProps) => {
       case 'date':
       case 'month':
       case 'year':
+        dates[0] && setStart(new Date(dates[0]));
         nextValue = selectedFmtDates.join('');
         break;
       case 'range':
-        if (popupShow) {
-          nextValue = [formatDate(start), formatDate(end)].join(rangeSeparatorText);
-        } else if (selectedFmtDates.length > 1) {
+        if (selectedFmtDates.length > 1) {
+          setStart(new Date(dates[0]));
+          setEnd(new Date(dates[1]));
           nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(rangeSeparatorText);
         }
         break;
@@ -273,8 +277,10 @@ const DatePicker = (props: DatePickerProps) => {
       case 'month':
       case 'date': {
         if (value instanceof Date) {
-          setStart(value);
-          setEnd(value);
+          if (!isControlled) {
+            setStart(value);
+            setEnd(value);
+          }
           setSelectedDates([value]);
           // 有时间选择时，点击日期不关闭弹窗
           clickedApply(!enableTimePicker, [value]);
@@ -283,8 +289,10 @@ const DatePicker = (props: DatePickerProps) => {
       }
       case 'range': {
         if (Array.isArray(value)) {
-          setStart(value[0]);
-          setEnd(value[1]);
+          if (!isControlled) {
+            setStart(value[0]);
+            setEnd(value[1]);
+          }
           setSelectedDates(value);
           // 有时间选择时，点击日期不关闭弹窗
           clickedApply(!enableTimePicker, value);
