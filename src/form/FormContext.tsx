@@ -13,6 +13,7 @@ const FormContext = React.createContext<{
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
   rules: TdFormProps['rules'];
+  formItemsRef: React.RefObject<Array<React.RefObject<HTMLElement>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   labelWidth: 'calc(1 / 12 * 100%)',
@@ -27,6 +28,7 @@ const FormContext = React.createContext<{
   rules: undefined,
   statusIcon: false,
   onFormItemValueChange: undefined,
+  formItemsRef: null,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

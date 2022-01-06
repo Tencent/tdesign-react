@@ -1,7 +1,6 @@
-import React, { useRef, createRef, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
 import isFunction from 'lodash/isFunction';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
@@ -42,9 +41,7 @@ const Form = forwardRefWithStatics(
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
-    const formRef = useRef(null);
     const formItemsRef = useRef([]);
-    formItemsRef.current = React.Children.map(children, (_child, index) => (formItemsRef.current[index] = createRef()));
 
     const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
 
@@ -72,7 +69,7 @@ const Form = forwardRefWithStatics(
     }
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
       e?.preventDefault();
-      formItemsRef.current.forEach((formItemRef) => {
+      formItemsRef.current.forEach(({ current: formItemRef }) => {
         if (!isFunction(formItemRef.resetField)) return;
         formItemRef.resetField();
       });
@@ -88,8 +85,10 @@ const Form = forwardRefWithStatics(
 
       const { fields, trigger = 'all' } = param || {};
       const list = formItemsRef.current
-        .filter((formItemRef) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields))
-        .map((formItemRef) => formItemRef.validate(trigger));
+        .filter(
+          ({ current: formItemRef }) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields),
+        )
+        .map(({ current: formItemRef }) => formItemRef.validate(trigger));
 
       return new Promise((resolve) => {
         Promise.all(flatten(list))
@@ -109,9 +108,9 @@ const Form = forwardRefWithStatics(
     // 对外方法，获取整个表单的值
     function getAllFieldsValue() {
       const fieldsValue = {};
-      formItemsRef.current.forEach((formItemRef) => {
-        // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
-        if (formItemRef?.name && !isNil(formItemRef.value)) {
+      formItemsRef.current.forEach(({ current: formItemRef }) => {
+        // 过滤无 name 的数据
+        if (formItemRef.name) {
           fieldsValue[formItemRef.name] = formItemRef.value;
         }
       });
@@ -122,7 +121,7 @@ const Form = forwardRefWithStatics(
     // 对外方法，获取对应 formItem 的值
     function getFieldValue(name: string) {
       if (!name) return null;
-      const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
+      const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef.name === name);
       return target && target.value;
     }
 
@@ -182,21 +181,12 @@ const Form = forwardRefWithStatics(
           scrollToFirstError,
           resetType,
           rules,
+          formItemsRef,
           onFormItemValueChange,
         }}
       >
-        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
-          {React.Children.map(children, (child: React.ReactElement, index) => {
-            if (!child) return null;
-
-            const { cloneElement } = React;
-            return cloneElement(child, {
-              ref: (el: React.ReactElement) => {
-                if (!el) return;
-                formItemsRef.current[index] = el;
-              },
-            });
-          })}
+        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
+          {children}
         </form>
       </FormContext.Provider>
     );
