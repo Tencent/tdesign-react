@@ -74,6 +74,4 @@ const DropdownMenu = (props: DropdownProps) => {
   return <div className={dropdownMenuClass}>{renderDropdownItems}</div>;
 };
 
-DropdownMenu.displayName = 'DropdownMenu';
-
 export default DropdownMenu;

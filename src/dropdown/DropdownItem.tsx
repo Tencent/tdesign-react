@@ -76,6 +76,4 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
   );
 });
 
-DropdownItem.displayName = 'DropdownItem';
-
 export default DropdownItem;
