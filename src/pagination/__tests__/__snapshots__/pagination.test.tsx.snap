@@ -285,6 +285,7 @@ exports[`jump.jsx 1`] = `
           class="t-input t-input__inner"
         >
           <input
+            class="t-input__inner"
             value=""
           />
         </div>

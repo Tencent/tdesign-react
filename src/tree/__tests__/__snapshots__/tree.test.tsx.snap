@@ -320,6 +320,7 @@ exports[`controlled.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="1.1.1.1, 1.1.1.2"
         />
       </div>
@@ -336,6 +337,7 @@ exports[`controlled.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="1, 1.1, 1.1.1, 2"
         />
       </div>
@@ -352,6 +354,7 @@ exports[`controlled.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="2"
         />
       </div>
@@ -689,6 +692,7 @@ exports[`filter.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value=""
         />
       </div>
@@ -974,6 +978,7 @@ exports[`operations.jsx 1`] = `
           class="t-input t-input__inner"
         >
           <input
+            class="t-input__inner"
             value=""
           />
         </div>
@@ -1185,6 +1190,7 @@ exports[`sync.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="{1.1.1.1}, {1.1.1.2}"
         />
       </div>
@@ -1201,6 +1207,7 @@ exports[`sync.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="{1}, {1.1}, {1.1.1}, {2}"
         />
       </div>
@@ -1217,6 +1224,7 @@ exports[`sync.jsx 1`] = `
         class="t-input t-input__inner"
       >
         <input
+          class="t-input__inner"
           value="{2}"
         />
       </div>

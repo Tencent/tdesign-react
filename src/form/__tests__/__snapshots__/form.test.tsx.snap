@@ -89,6 +89,7 @@ exports[`align.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -117,6 +118,7 @@ exports[`align.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -155,6 +157,7 @@ exports[`base.jsx 1`] = `
             class="t-input t-input__inner"
           >
             <input
+              class="t-input__inner"
               value=""
             />
           </div>
@@ -192,6 +195,7 @@ exports[`base.jsx 1`] = `
                   class="t-input t-input__inner t-input--suffix"
                 >
                   <input
+                    class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
                     value=""
@@ -462,6 +466,7 @@ exports[`custom-validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -490,6 +495,7 @@ exports[`custom-validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -518,6 +524,7 @@ exports[`custom-validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -637,6 +644,7 @@ exports[`layout.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -664,6 +672,7 @@ exports[`layout.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -713,6 +722,7 @@ exports[`login.jsx 1`] = `
                 </svg>
               </span>
               <input
+                class="t-input__inner"
                 placeholder="请输入账户名"
                 value=""
               />
@@ -755,6 +765,7 @@ exports[`login.jsx 1`] = `
                 </svg>
               </span>
               <input
+                class="t-input__inner"
                 placeholder="请输入密码"
                 type="password"
                 value=""
@@ -819,6 +830,7 @@ exports[`validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value="张三"
               />
             </div>
@@ -852,6 +864,7 @@ exports[`validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -885,6 +898,7 @@ exports[`validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1071,6 +1085,7 @@ exports[`validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1099,6 +1114,7 @@ exports[`validator.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1173,6 +1189,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1206,6 +1223,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1234,6 +1252,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1262,6 +1281,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 placeholder="隐藏状态icon"
                 value=""
               />
@@ -1291,6 +1311,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1319,6 +1340,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 placeholder="正在校验中，请稍等"
                 value=""
               />
@@ -1367,6 +1389,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
@@ -1424,6 +1447,7 @@ exports[`validator-status.jsx 1`] = `
               class="t-input t-input__inner"
             >
               <input
+                class="t-input__inner"
                 value=""
               />
             </div>
