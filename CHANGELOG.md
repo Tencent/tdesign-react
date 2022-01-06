@@ -50,7 +50,7 @@ spline: explain
 * Form: 新增 `onValuesChange` 事件 ([#121](https://github.com/Tencent/tdesign-react/issues/121)) ([1b2b349](https://github.com/Tencent/tdesign-react/commit/1b2b349eab5d46c25b3a45dc1cf080dcf5b5ba50)) [@HQ-Lin](https://github.com/HQ-Lin)
 * Layout: 支持 `direction` api ([8448581](https://github.com/Tencent/tdesign-react/commit/84485811f5f7f99188fe8c9661a74570004c7571)) [@HQ-Lin](https://github.com/HQ-Lin)
 * Pagination: 调整 `Input` 为 `InputNumber` 组件 ([#77](https://github.com/Tencent/tdesign-react/issues/77)) ([0bee39f](https://github.com/Tencent/tdesign-react/commit/0bee39f14ade40627a2746739fffc91dc04caf71)) [@HQ-Lin](https://github.com/HQ-Lin)
-* Upload: 同步最新 API 改动 ([b8c864b](https://github.com/Tencent/tdesign-react/pull/159/commits/b8c864b502d8d91f192902a6189eb70186e9b8da))
+* Upload: 同步最新 API 改动 ([b8c864b](https://github.com/Tencent/tdesign-react/pull/159/commits/b8c864b502d8d91f192902a6189eb70186e9b8da)) [@wookaoer](https://github.com/wookaoer)
 * Demo: 完善 `Upload` 自定义拖拽上传 demo ([a9c620e](https://github.com/Tencent/tdesign-react/commit/a9c620e36530903989e076e15795412f7509db4b)) [@teal-front](https://github.com/teal-front)
 * Demo: 完善 `Upload` 自定义上传 demo ([eda0697](https://github.com/Tencent/tdesign-react/commit/eda0697823ed03e5b62b8dfc99ebdae672ecb16d)) [@teal-front](https://github.com/teal-front)
 * Test: 生成单测覆盖率报告脚本更新，优化配置 ([d0f0de4](https://github.com/Tencent/tdesign-react/commit/d0f0de4393109693efa8b528eff6d6c6bc2755cd)) [@carolin913](https://github.com/carolin913)
