@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Dropdown, Button, MessagePlugin,
-} from 'tdesign-react';
+import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
 
 export default function BasicDropdown() {
   const options = Array.from({ length: 20 }).map((v, k) => ({
@@ -12,10 +10,8 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown options={options} onClick={clickHandler} maxHeight={400} minColumnWidth={90}>
-      <Button>
-        hover我试试
-      </Button>
+    <Dropdown options={options} onClick={clickHandler} maxHeight={400} minColumnWidth={'90px'}>
+      <Button>hover我试试</Button>
     </Dropdown>
   );
 }
