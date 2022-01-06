@@ -4,6 +4,7 @@ import { ChevronRightIcon as TIconChevronRight } from 'tdesign-icons-react';
 import { DropdownOption, TdDropdownProps } from './type';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
+import { pxCompat } from '../_util/helper';
 import TDivider from '../divider';
 
 type DropdownItemProps = Pick<DropdownOption, 'content' | 'value' | 'divider' | 'onClick'> &
@@ -58,8 +59,8 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
           [`${classPrefix}-is-active`]: active,
         })}
         style={{
-          maxWidth: `${maxColumnWidth}px`,
-          minWidth: `${minColumnWidth}px`,
+          maxWidth: pxCompat(maxColumnWidth),
+          minWidth: pxCompat(minColumnWidth),
         }}
         onClick={handleItemClick}
         onMouseOver={handleMouseover}
@@ -74,5 +75,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     </div>
   );
 });
+
+DropdownItem.displayName = 'DropdownItem';
 
 export default DropdownItem;

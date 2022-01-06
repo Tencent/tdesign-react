@@ -12,7 +12,7 @@ export default function BasicDropdown() {
     MessagePlugin.success(`选中【${data.value}】`);
   };
   return (
-    <Dropdown options={options} onClick={clickHandler} maxHeight={400} minColumnWidth={90}>
+    <Dropdown options={options} onClick={clickHandler} maxHeight={400} minColumnWidth={'90px'}>
       <Button>
         hover我试试
       </Button>
