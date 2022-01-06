@@ -139,13 +139,13 @@ const DatePicker = (props: DatePickerProps) => {
       case 'date':
       case 'month':
       case 'year':
-        setStart(dates[0]);
+        dates[0] && setStart(new Date(dates[0]));
         nextValue = selectedFmtDates.join('');
         break;
       case 'range':
         if (selectedFmtDates.length > 1) {
-          setStart(dates[0]);
-          setEnd(dates[1]);
+          setStart(new Date(dates[0]));
+          setEnd(new Date(dates[1]));
           nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(rangeSeparatorText);
         }
         break;
