@@ -41,7 +41,7 @@ import { Button } from 'tdesign-react';
 import 'tdesign-react/es/style/index.css'; // 少量公共样式
 ```
 
-npm package 中提供了多种构建产物，可以阅读 [这里](https://github.com/Tencent/tdesign-common/blob/develop/develop-install.md) 了解不同目录下产物的差别。
+npm package 中提供了多种构建产物，可以阅读 [这里](https://github.com/Tencent/tdesign/blob/main/develop-install.md) 了解不同目录下产物的差别。
 
 # 浏览器兼容性
 
