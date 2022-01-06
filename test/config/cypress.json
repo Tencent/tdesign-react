@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://127.0.0.1:9999",
-  "integrationFolder": "test/e2e",
-  "testFiles": "**/*.spec.js",
+  "baseUrl": "http://127.0.0.1:15000",
+  "integrationFolder": "./",
+  "testFiles": ["./src/**/*.spec.*"],
   "fileServerFolder": "test/scripts/cypress",
   "fixturesFolder": "test/scripts/cypress/fixtures",
   "pluginsFile": "test/scripts/cypress/plugins/index.js",
@@ -13,7 +13,7 @@
   "viewportWidth": 1600,
   "reporter": "junit",
   "reporterOptions": {
-    "mochaFile": "results/cypress-output-[hash].xml",
+    "mochaFile": "results/cypress/cypress-output-[hash].xml",
     "toConsole": true
   }
 }
