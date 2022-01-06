@@ -105,7 +105,7 @@ const Select = forwardRefWithStatics(
     useEffect(() => {
       if (showPopup && selectRef?.current) {
         const domRect = selectRef.current.getBoundingClientRect();
-        const overlayRect = overlayRef?.current?.getContentRef?.getBoundingClientRect?.();
+        const overlayRect = overlayRef?.current?.getBoundingClientRect?.();
 
         // 获取overlay的内容的宽度进行比较 如果比select本身宽，则优先使用overlay内容宽度，减少text被省略展示的情况
         const width =

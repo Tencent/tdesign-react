@@ -6,7 +6,6 @@ import React, {
   cloneElement,
   isValidElement,
   useMemo,
-  useImperativeHandle,
   useRef,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
@@ -27,6 +26,7 @@ export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
 }
+
 /**
  * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
  */
@@ -54,7 +54,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     trigger = 'hover',
     content = null,
     placement = 'top',
-    attach,
+    attach = 'body',
     showArrow = false,
     destroyOnClose = false,
     className,
@@ -116,11 +116,6 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
       },
     ],
   });
-
-  useImperativeHandle(ref, (): any => ({
-    setVisible,
-    getContentRef: contentRef?.current,
-  }));
 
   const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
