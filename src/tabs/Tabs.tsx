@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -12,7 +12,7 @@ export interface TabsProps extends TdTabsProps {
 
 const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
-    const { children, placement, onRemove } = props;
+    const { children, placement, onRemove, value: tabValue } = props;
     let { defaultValue } = props;
 
     // 样式工具引入
@@ -31,6 +31,10 @@ const Tabs = forwardRefWithStatics(
     }
 
     const [value, setValue] = useState<TabValue>(defaultValue);
+
+    useEffect(() => {
+      tabValue !== undefined && setValue(tabValue);
+    }, [tabValue]);
 
     const renderTabNav = () => (
       <TabNav {...props} activeValue={value} onRemove={onRemove} itemList={itemList} tabClick={setValue} />
