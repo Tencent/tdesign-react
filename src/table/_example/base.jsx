@@ -86,9 +86,9 @@ export default function TableBasic() {
       rowClassName={(rowKey) => `${rowKey}-class`}
       // 与pagination对齐
       pagination={{
-        pageSize: 10,
+        defaultCurrent: 2,
+        defaultPageSize: 10,
         total,
-        current: 2,
         showJumper: true,
         showSizer: true,
         visibleWithOnePage: true,
