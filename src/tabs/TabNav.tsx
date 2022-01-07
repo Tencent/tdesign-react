@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
 import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
@@ -36,17 +36,23 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // :todo 兼容老版本 TabBar 的实现
   const navContainerRef = useRef<HTMLDivElement>(null);
-  const getIndex = (value = activeValue) => {
-    let index = 0;
-    itemList.forEach((v, i) => {
-      if (v.value === value) {
-        index = i;
-      }
-    });
-    return index;
-  };
+  const getIndex = useCallback(
+    (value) => {
+      let index = 0;
+      itemList.forEach((v, i) => {
+        if (v.value === value) {
+          index = i;
+        }
+      });
+      return index;
+    },
+    [itemList],
+  );
 
-  const [activeIndex, setActiveIndex] = useState(getIndex());
+  const [activeIndex, setActiveIndex] = useState(getIndex(activeValue));
+  useEffect(() => {
+    setActiveIndex(getIndex(activeValue));
+  }, [activeValue, getIndex]);
 
   // 判断滚动条是否需要展示
   const [isScrollVisible, setIsScrollVisible] = useState(false);

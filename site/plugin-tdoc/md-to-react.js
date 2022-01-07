@@ -2,9 +2,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-// import camelCase from 'camelcase';
+import camelCase from 'camelcase';
 
-// import testCoverage from '../test-coverage';
+import testCoverage from '../test-coverage';
 
 import { transformSync } from '@babel/core';
 
@@ -12,10 +12,10 @@ export default function mdToReact(options) {
   const mdSegment = customRender(options);
   const { demoDefsStr, demoCodesDefsStr } = options;
 
-  // let coverage = '';
-  // if (mdSegment.isComponent) {
-  //   coverage = testCoverage[camelCase(mdSegment.componentName)] || '0%';
-  // }
+  let unitCoverage = '';
+  if (mdSegment.isComponent) {
+    unitCoverage = testCoverage.unit[camelCase(mdSegment.componentName)] || '0%';
+  }
 
   const reactSource = `
     import React, { useEffect, useRef, useState } from 'react';\n
@@ -90,7 +90,9 @@ export default function mdToReact(options) {
                 spline="${mdSegment.spline}"
                 ${mdSegment.isComponent ? `component-name="${mdSegment.componentName}"` : ''}
                 platform="web"
-              ></td-doc-header>` : ''
+              >
+                ${mdSegment.isComponent ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />` : ''}
+              </td-doc-header>` : ''
           }
           {
             isComponent ? (
