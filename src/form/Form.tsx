@@ -127,7 +127,7 @@ const Form = forwardRefWithStatics(
 
     // 对外方法，设置对应 formItem 的值
     function setFieldsValue(fileds = {}) {
-      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
+      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
         const { name } = currItem;
         return { ...acc, [name]: currItem };
       }, {});
@@ -139,7 +139,7 @@ const Form = forwardRefWithStatics(
     // 对外方法，设置对应 formItem 的数据
     function setFields(fileds = []) {
       if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
-      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
+      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
         const { name } = currItem;
         return { ...acc, [name]: currItem };
       }, {});
