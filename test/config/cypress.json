@@ -1,6 +1,7 @@
 {
   "baseUrl": "http://127.0.0.1:15000",
   "integrationFolder": "./",
+  "componentFolder": "./src",
   "testFiles": ["./src/**/*.spec.*"],
   "fileServerFolder": "test/scripts/cypress",
   "fixturesFolder": "test/scripts/cypress/fixtures",
@@ -13,7 +14,7 @@
   "viewportWidth": 1600,
   "reporter": "junit",
   "reporterOptions": {
-    "mochaFile": "results/cypress/cypress-output-[hash].xml",
+    "mochaFile": "test/e2e/cy-report/cypress-output-[hash].xml",
     "toConsole": true
   }
 }
