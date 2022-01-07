@@ -1,20 +1,21 @@
 import React from 'react';
-import { Locale, ComponentLocale, LocalRule } from './type';
+import { Locale } from './type';
 import { ConfigContext } from '../config-provider';
+
+import type { Config } from '../config-provider';
 
 export interface Placement {
   [propName: string]: string | number;
 }
 
-export type LocaleComponentName = Exclude<keyof Locale, 'locale'>;
-
-export function useLocaleReceiver<T extends LocaleComponentName>(
-  componentName: string,
+export function useLocaleReceiver<T extends keyof Config['locale']>(
+  componentName: T,
   defaultLocale?: Locale[T] | Function,
-): [Locale[T], Function] {
+) {
   const { locale: tdLocale } = React.useContext(ConfigContext);
 
-  function transformLocale(pattern: LocalRule<Placement>, placement?: Placement): string | Array<string> {
+  // @TODO: Check type of { pattern }
+  function transformLocale(pattern: Config['locale'][T], placement?: Placement): string | Array<string> {
     const REGX = /\{\s*([\w-]+)\s*\}/g;
 
     if (typeof pattern === 'string') {
@@ -40,15 +41,18 @@ export function useLocaleReceiver<T extends LocaleComponentName>(
     return '';
   }
 
-  const componentLocale: ComponentLocale = React.useMemo(() => {
+  /** @TypeA => 确保此参数是属于 tdLocale[componentName] 下的子属性 */
+  const componentLocale = React.useMemo<Config['locale'][T] | Function>(() => {
     const locale = defaultLocale || {};
-    const localeFromContext = componentName && tdLocale ? tdLocale[componentName] : {};
+    const connectLocaleByName = tdLocale[componentName];
+
+    const localeFromContext = componentName && tdLocale ? connectLocaleByName : {};
 
     return {
       ...(typeof locale === 'function' ? (locale as Function)() : locale),
-      ...(localeFromContext || {}),
+      ...((localeFromContext || {}) as typeof connectLocaleByName),
     };
   }, [componentName, defaultLocale, tdLocale]);
 
-  return [componentLocale, transformLocale];
+  return [componentLocale, transformLocale] as [Config['locale'][T], Function];
 }
