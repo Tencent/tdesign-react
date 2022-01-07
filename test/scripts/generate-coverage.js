@@ -37,7 +37,6 @@ const generateReportJson = async (filepath, type) => {
 }
 
 exec('npm run test:coverage', async (err, stdout, stderr) => {
-  await Promise.all([])
   const [resultunit = '{}', resulte2e = '{}', resultssr = '{}'] = await Promise.all([
     generateReportJson('test/unit/coverage/index.html', 'unit'),
     generateReportJson('test/e2e/cy-report/coverage/lcov-report/index.html', 'e2e'),

@@ -39,8 +39,9 @@ export default {
     replace({ __DATE__: new Date().toISOString() }),
     istanbul({
       cwd: resolvePath('../'),
-      include: ['./src/**/*'],
-      extension: ['.js', '.ts', '.jsx', '.tsx']
+      include: ['src/**/*'],
+      exclude: ['src/_common/**/*'],
+      extension: ['.js', '.ts', '.jsx', '.tsx'],
     }),
   ],
 };
