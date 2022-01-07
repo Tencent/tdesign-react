@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
-import { TdInputProps, InputValue } from './type';
+import { TdInputProps, InputValue, InputRefInterface } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
@@ -55,6 +55,7 @@ const Input = forwardRefWithStatics(
     } = useDefaultValue<InputValue, InputProps>(props, '');
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
+    const inputRef = useRef(null);
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
 
@@ -87,8 +88,16 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
+    useImperativeHandle(ref as unknown as React.Ref<InputRefInterface>, () => ({
+      inputElementRef: inputRef,
+      onFocus() {
+        inputRef.current?.focus();
+      },
+    }));
+
     const renderInput = (
       <input
+        ref={inputRef}
         readOnly={readonly}
         disabled={disabled}
         className={`${classPrefix}-${componentType}__inner`}
