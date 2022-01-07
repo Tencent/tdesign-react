@@ -225,7 +225,7 @@ npm run test:update
 
 # 生成测试覆盖率
 npm run update:coverage-badge
-生成分组件格式化覆盖率到site/test-coverage.js
+# 生成分组件格式化后的覆盖率到site/test-coverage.js，区分unit和e2e
 
 # 自动修复 eslint 错误
 npm run lint:fix

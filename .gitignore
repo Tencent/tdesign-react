@@ -23,3 +23,5 @@ temp*
 robotMsg.json
 .nyc_output
 cypress-coverage
+instrumented
+cy-report
