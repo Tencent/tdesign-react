@@ -31,7 +31,7 @@ const generateReportJson = async (filepath, type) => {
           result[key] = item.innerHTML;
       }
     });
-    console.log(`successful re-generate ${type} coverage`);
+    console.log(`👍successful re-generate ${type} coverage`);
     return JSON.stringify(result, null, 2);
   } catch (err) {
     console.error(`未能生成${type}覆盖率报告`, err);
@@ -138,5 +138,5 @@ coverageExec.stdout.on('data', () => {
   process.stdout.cursorTo(0);
   data += 1;
 
-  process.stdout.write(data % 2 ? 'loading...' : '...');
+  process.stdout.write(data % 2 ? '努力生成中💪...' : '再耐心等一下⌛️...');
 });
