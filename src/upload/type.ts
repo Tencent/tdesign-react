@@ -6,7 +6,7 @@
  * */
 
 import { TNode } from '../common';
-import { MouseEvent, DragEvent } from 'react';
+import { DragEvent, MouseEvent } from 'react';
 
 export interface TdUploadProps {
   /**
@@ -227,7 +227,8 @@ export interface SizeLimitObj {
   message?: string;
 }
 
-export type SizeUnit = 'B' | 'KB' | 'MB' | 'GB';
+export type SizeUnitArray = ['B', 'KB', 'MB', 'GB'];
+export type SizeUnit = SizeUnitArray[number];
 
 export interface TriggerContext {
   dragActive?: boolean;
