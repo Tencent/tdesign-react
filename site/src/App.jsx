@@ -46,7 +46,7 @@ function Components(props) {
       Object.keys(res.versions).forEach((v) => {
         const nums = v.split('.');
         if (nums[0] === '0' && nums[1] < 21) return false;
-        options.push({ label: v, value: v });
+        options.unshift({ label: v, value: v });
       });
       setVersionOptions(options);
     });
