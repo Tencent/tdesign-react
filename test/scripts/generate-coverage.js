@@ -124,7 +124,11 @@ const coverageExec = exec('npm run test:coverage', async () => {
 
   result = formatCoverageResult(result);
   const [resultunit = '{}', resulte2e = '{}', resultssr = '{}'] = result;
-  const finalRes = `export default = { unit: ${resultunit}, e2e: ${resulte2e}, ssr: ${resultssr}}`;
+  const finalRes = `export default { 
+    unit: ${resultunit}, 
+    e2e: ${resulte2e}, 
+    ssr: ${resultssr}
+  }`;
 
   fs.writeFileSync(resolveCwd('site/test-coverage.js'), finalRes);
 
