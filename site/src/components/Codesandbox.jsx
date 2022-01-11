@@ -4,6 +4,7 @@ import Loading from 'tdesign-react/loading';
 
 import pkg from '@/package.json';
 import packageJSON from './codesandbox/package.json';
+import htmlContent from './codesandbox/index.html?raw';
 import mainJsContent from './codesandbox/main.js?raw';
 import styleContent from './codesandbox/index.css';
 import '../styles/Codesandbox.less';
@@ -37,6 +38,9 @@ export default function Codesandbox(props) {
         files: {
           'package.json': {
             content: packageJSONContent,
+          },
+          'public/index.html': {
+            content: htmlContent,
           },
           'src/main.js': {
             content: mainJsContent,

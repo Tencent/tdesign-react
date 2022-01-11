@@ -46,7 +46,7 @@ const Divider = (props: DividerProps) => {
   });
 
   return (
-    <div className={dividerClassNames} style={style} {...otherDividerProps}>
+    <div {...otherDividerProps} className={dividerClassNames} style={style}>
       {childrenNode ? <span className={`${classPrefix}-divider__inner-text`}>{childrenNode}</span> : null}
     </div>
   );

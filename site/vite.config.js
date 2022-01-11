@@ -9,7 +9,7 @@ import pwaConfig from './pwaConfig';
 const resolvePath = (r) => path.resolve(__dirname, r);
 
 export default {
-  base: process.env.NODE_ENV === 'production' ? '/react/' : './',
+  base: process.env.NODE_ENV === 'production' ? '/react/' : '/',
   resolve: {
     alias: {
       '@': resolvePath('../'),

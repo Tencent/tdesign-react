@@ -5,5 +5,5 @@ import Demo from './demo';
 import './index.css';
 import 'tdesign-react/dist/tdesign.css';
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('app');
 ReactDOM.render(<Demo />, rootElement);
