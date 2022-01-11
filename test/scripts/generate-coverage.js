@@ -14,6 +14,8 @@ const resolveCwd = (...args) => {
   return path.join(...args);
 };
 
+const coveragePath = resolveCwd('site/test-coverage.js');
+
 const generateReportJson = async (filepath, type) => {
   try {
     const html = await fs.readFileSync(filepath, 'utf8');
@@ -31,14 +33,14 @@ const generateReportJson = async (filepath, type) => {
           result[key] = item.innerHTML;
       }
     });
-    console.log(`👍successful re-generate ${type} coverage`);
+    console.log(`\n 已生成${type}覆盖率目录`);
     return JSON.stringify(result, null, 2);
   } catch (err) {
-    console.error(`未能生成${type}覆盖率报告`, err);
+    console.error(`未能生成${type}覆盖率报告，将沿用现有数据`, err);
   }
 }
 
-function calculate(start, end) {
+const calculate = (start, end) => {
   try {
     return `${(((start / end) || 0) * 100).toFixed(DECIMAL)}%`;
   } catch (err) {
@@ -47,73 +49,54 @@ function calculate(start, end) {
 }
 
 // 格式化处理value，四舍五入保留两位小数
-function formatValue(value) {
+const formatValue = (value) => {
   const [start, end] = value.split('/');
   return calculate(start, end);
 }
 
-function formatCoverageResult(result) {
-  return result.map((coverageOld) => {
-    let coverage = coverageOld;
-
-    try {
-      coverage = JSON.parse(coverage);
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-
-    const statistics = {};
-
-    coverage = Object.entries(coverage).reduce((covs, [keyPath, value]) => {
-      const newCovs = covs;
-      newCovs[keyPath] = formatValue(value);
-
-      // EXAMPLE_FILE直接保留返回
-      if (keyPath.endsWith(EXAMPLE_FILE)) {
-        return newCovs;
-      }
-
-      const [root, sub] = keyPath.split('/');
-
-      // 根文件
-      if (!sub) {
-        statistics[keyPath] = value;
-        return newCovs;
-      }
-
-      const preValue = statistics[root];
-      // 根文件存在子目录
-      if (preValue) {
-        const [preStart, preEnd] = preValue.split('/').map(item => Number(item));
-        const [start, end] = value.split('/').map(item => Number(item));
-        statistics[root] = `${preStart + start} / ${preEnd + end}`;
-        newCovs[root] = calculate((preStart + start), (preEnd + end));
-        delete newCovs[keyPath];
-        return newCovs;
-      }
-
-      return newCovs;
-    }, {});
-
-    return JSON.stringify(coverage);
-  });
-}
-
-function getTypeName(result) {
-  let type = 'unit';
-  if (!result[0]) {
-    if (result[1]) {
-      type = 'e2e';
-    } else if (result[2]) {
-      type = 'ssr';
-    } else {
-      type = '';
-    }
+const formatCoverageResult = (result) => result.map((coverageOld) => {
+  let coverage = coverageOld;
+  try {
+    coverage = JSON.parse(coverage);
+  } catch (err) {
+    console.error(err);
+    return;
   }
 
-  return type;
-}
+  const statistics = {};
+
+  coverage = Object.entries(coverage).reduce((covs, [keyPath, value]) => {
+    const newCovs = covs;
+    newCovs[keyPath] = formatValue(value);
+
+    // EXAMPLE_FILE直接保留返回
+    if (keyPath.endsWith(EXAMPLE_FILE)) {
+      return newCovs;
+    }
+
+    const [root, sub] = keyPath.split('/');
+
+    // 根文件
+    if (!sub) {
+      statistics[keyPath] = value;
+      return newCovs;
+    }
+
+    const preValue = statistics[root];
+    // 根文件存在子目录
+    if (preValue) {
+      const [preStart, preEnd] = preValue.split('/').map(item => Number(item));
+      const [start, end] = value.split('/').map(item => Number(item));
+      statistics[root] = `${preStart + start} / ${preEnd + end}`;
+      newCovs[root] = calculate((preStart + start), (preEnd + end));
+      delete newCovs[keyPath];
+      return newCovs;
+    }
+
+    return newCovs;
+  }, {});
+  return JSON.stringify(coverage);
+})
 
 const coverageExec = exec('npm run test:coverage', async () => {
   let result = await Promise.all([
@@ -121,19 +104,18 @@ const coverageExec = exec('npm run test:coverage', async () => {
     generateReportJson('test/e2e/cy-report/coverage/lcov-report/index.html', 'e2e'),
     generateReportJson('test/ssr/coverage/index.html', 'ssr'),
   ]);
+  result = await formatCoverageResult(result);
+  const originalCoverage = await fs.readFileSync(coveragePath, 'utf8'); // 如果解析失败，有上一次生成的结果文件兜底
+  const { unit = {}, e2e = {}, ssr = {} } = JSON.parse(originalCoverage.replace('export default ', ''));
+  const [resultunit = JSON.stringify(unit), resulte2e = JSON.stringify(e2e), resultssr = JSON.stringify(ssr)] = result;
+  const finalRes = `export default {
+      "unit": ${resultunit}, 
+      "e2e": ${resulte2e}, 
+      "ssr": ${resultssr}
+    }`;
 
-  result = formatCoverageResult(result);
-  const [resultunit = '{}', resulte2e = '{}', resultssr = '{}'] = result;
-  const finalRes = `export default { 
-    unit: ${resultunit}, 
-    e2e: ${resulte2e}, 
-    ssr: ${resultssr}
-  }`;
-
-  fs.writeFileSync(resolveCwd('site/test-coverage.js'), finalRes);
-
-  const type = getTypeName(result);
-  type && console.log(`已成功生成${type} 覆盖率报告，请于site/test-coverage.js查看`);
+  fs.writeFileSync(coveragePath, finalRes);
+  console.log('👍覆盖率报告解析完毕，请于site/test-coverage.js查看');
 });
 
 let data = 0;
