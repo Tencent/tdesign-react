@@ -88,7 +88,6 @@ export default function mdToReact(options) {
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
-                ${mdSegment.isComponent ? `component-name="${mdSegment.componentName}"` : ''}
                 platform="web"
               >
                 ${mdSegment.isComponent ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />` : ''}
