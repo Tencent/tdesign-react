@@ -26,8 +26,8 @@ shape | String | square | 标签类型，有三种：方形、圆角方形、标
 size | String | medium | 标签尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | default | 组件风格，用于描述组件不同的应用场景。可选项：default/primary/warning/danger/success | N
 variant | String | dark | 影响标签风格（theme）。可选项：dark/light/plain | N
-onClick | Function |  | 点击时触发。`(context: { e: MouseEvent }) => {}` | N
-onClose | Function |  | 如果关闭按钮存在，点击关闭按钮时触发。`(context: { e: MouseEvent }) => {}` | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时触发 | N
+onClose | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>如果关闭按钮存在，点击关闭按钮时触发 | N
 
 ### CheckTag Props
 
@@ -37,5 +37,5 @@ checked | Boolean | false | 标签选中的状态，默认风格（theme=default
 defaultChecked | Boolean | false | 标签选中的状态，默认风格（theme=default）才有选中态。非受控属性 | N
 content | TNode | - | 组件子元素。TS 类型：`string | number | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 disabled | Boolean | false | 标签禁用态，失效标签不能触发事件。默认风格（theme=default）才有禁用态 | N
-onChange | Function |  | 组件子元素。`(checked: boolean) => {}` | N
-onClick | Function |  | 点击标签时触发。`(context: { e: MouseEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(checked: boolean) => void`<br/>组件子元素 | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击标签时触发 | N
