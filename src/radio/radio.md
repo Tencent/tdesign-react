@@ -5,7 +5,7 @@
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-allowUncheck | Boolean | false | 【开发中】是否允许取消选中 | N
+allowUncheck | Boolean | false | 是否允许取消选中 | N
 checked | Boolean | - | 是否选中 | N
 defaultChecked | Boolean | - | 是否选中。非受控属性 | N
 children | TNode | - | 单选内容，同 label。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -13,7 +13,7 @@ disabled | Boolean | undefined | 是否为禁用态 | N
 label | TNode | - | 主文案。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 name | String | - | HTML 元素原生属性 | N
 value | String / Number / Boolean | undefined | 单选按钮的值。TS 类型：`RadioValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/radio/type.ts) | N
-onChange | Function |  | 选中状态变化时触发。`(checked: boolean, context: { e: ChangeEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/>选中状态变化时触发 | N
 
 ### RadioGroup Props
 
@@ -26,4 +26,4 @@ size | String | medium | 组件尺寸。可选项：small/medium/large。TS 类�
 value | String / Number / Boolean | undefined | 选中的值。TS 类型：`RadioValue` | N
 defaultValue | String / Number / Boolean | undefined | 选中的值。非受控属性。TS 类型：`RadioValue` | N
 variant | String | outline | 单选组件按钮形式。可选项：outline/primary-filled/default-filled | N
-onChange | Function |  | 选中值发生变化时触发。`(value: RadioValue, context: { e: ChangeEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(value: RadioValue, context: { e: ChangeEvent }) => void`<br/>选中值发生变化时触发 | N

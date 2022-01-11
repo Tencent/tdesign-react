@@ -17,8 +17,8 @@ footer | TNode | - | 用于自定义底部内容。TS 类型：`string | TNode`�
 icon | TNode | true | 用于自定义消息通知前面的图标，优先级大于 theme 设定的图标。值为 false 则不显示图标，值为 true 显示 theme 设定图标。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 theme | String | info | 消息类型。可选项：info/success/warning/error。TS 类型：`NotificationThemeList`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/notification/type.ts) | N
 title | TNode | - | 标题。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-onCloseBtnClick | Function |  | 点击关闭按钮时触发。`(context: { e: MouseEvent }) => {}` | N
-onDurationEnd | Function |  | 计时结束时触发。`() => {}` | N
+onCloseBtnClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击关闭按钮时触发 | N
+onDurationEnd | Function |  | TS 类型：`() => void`<br/>计时结束时触发 | N
 
 ### NotificationOptions
 
@@ -38,6 +38,8 @@ NotificationProps | - | - | 继承 `NotificationProps` 中的全部 API | N
 -- | -- | -- | --
 theme | String | info | 必需。消息类型。可选项：info/success/warning/error。TS 类型：`NotificationThemeList`
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationOptions`
+
+插件返回值：`Promise<NotificationInstance>【interface NotificationInstance { close: () => void }】`
 
 ### notification.info 或 NotificationPlugin.info
 
@@ -93,4 +95,4 @@ options | Object | - | 必需。该插件参数为 $Notification.info() 等插�
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
--- | -- | -- | --
+-- | - | - | --。TS 类型：`--`
