@@ -33,10 +33,10 @@ const generateReportJson = async (filepath, type) => {
           result[key] = item.innerHTML;
       }
     });
-    console.log(`\n 已生成${type}覆盖率目录`);
+    console.log(`\n 已完成 ${type} coverage产出`);
     return JSON.stringify(result, null, 2);
   } catch (err) {
-    console.error(`未能生成${type}覆盖率报告，将沿用现有数据`, err);
+    console.error(`\n 未能生成${type}覆盖率报告，将延用现有数据`, err);
   }
 }
 
