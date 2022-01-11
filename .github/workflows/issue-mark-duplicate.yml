@@ -1,3 +1,4 @@
+# force copy from tencent/tdesign
 # 当在 issue 的 comment 回复类似 `Duplicate of #111` 这样的话，issue 将被自动打上 重复提交标签 并且 cloese
 name: Issue Mark Duplicate
 
@@ -12,7 +13,7 @@ jobs:
       - name: mark-duplicate
         uses: actions-cool/issues-helper@v2
         with:
-          actions: 'mark-duplicate'
+          actions: "mark-duplicate"
           token: ${{ secrets.GITHUB_TOKEN }}
-          duplicate-labels: 'duplicate'
+          duplicate-labels: "duplicate"
           close-issue: true

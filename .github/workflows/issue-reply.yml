@@ -1,5 +1,7 @@
+# force copy from tencent/tdesign
 # 当被打上 Need Reproduce 标签时候，自动提示需要重现实例
-name: Issue Reply
+
+name: ISSUE_REPLY
 
 on:
   issues:
