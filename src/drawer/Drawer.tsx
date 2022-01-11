@@ -201,7 +201,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     const defaultConfirmBtn = (
       <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}__confirm`}>
-        {confirmBtn || confirmText}
+        {confirmBtn?.toString() || confirmText}
       </Button>
     );
 
