@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
 import { DataType, TdPrimaryTableProps } from '../type';
+import { StyledProps } from '../../common';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 import { getScrollDirection, ScrollDirection } from '../util';
@@ -18,10 +19,7 @@ import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
 
-export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData> & {
-  className?: String;
-  style?: React.CSSProperties;
-};
+export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData> & StyledProps;
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
