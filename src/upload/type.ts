@@ -2,11 +2,11 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-30 19:36:24
+ * updated at 2022-01-11 14:36:25
  * */
 
 import { TNode } from '../common';
-import { DragEvent, MouseEvent } from 'react';
+import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps {
   /**
@@ -228,6 +228,7 @@ export interface SizeLimitObj {
 }
 
 export type SizeUnitArray = ['B', 'KB', 'MB', 'GB'];
+
 export type SizeUnit = SizeUnitArray[number];
 
 export interface TriggerContext {
