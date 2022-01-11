@@ -199,7 +199,7 @@
     "raf": "~3.4.1",
     "react-popper": "~2.2.3",
     "react-transition-group": "~4.4.1",
-    "tdesign-icons-react": "0.0.6",
+    "tdesign-icons-react": "~0.0.7",
     "tslib": "~2.3.1",
     "use-resize-observer": "^8.0.0",
     "uuid": "~8.3.2",
