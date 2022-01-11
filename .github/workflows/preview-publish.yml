@@ -13,14 +13,10 @@ jobs:
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: echo workflow_run.workflow_id
-        run: echo ${{ github.event.workflow_run.workflow_id }}
-      - run: echo ${{ github.event.workflow_run.id }}
-
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: ${{ github.event.workflow_run.workflow_id }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
         id: pr
@@ -32,8 +28,7 @@ jobs:
       - name: download _site artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: ${{ github.event.workflow_run.workflow_id }}
-          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
           name: _site
       - run: |
           unzip _site.zip
@@ -72,7 +67,7 @@ jobs:
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: ${{ github.event.workflow_run.workflow_id }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
         id: pr
@@ -82,5 +77,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Deploy PR Preview failed， {{ github.event.workflow_run.conclusion }} at ${{ github.event.workflow_run.workflow_id }}.
+            Deploy PR Preview failed， {{ github.event.workflow_run.conclusion }} at ${{ github.event.workflow_run.id }}.
           number: ${{ steps.pr.outputs.id }}
