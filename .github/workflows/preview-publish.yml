@@ -16,6 +16,7 @@ jobs:
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
@@ -28,6 +29,7 @@ jobs:
       - name: download _site artifact
         uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
           name: _site
       - run: |
@@ -67,6 +69,7 @@ jobs:
       - name: download pr artifact
         uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
