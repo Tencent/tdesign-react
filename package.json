@@ -40,6 +40,7 @@
     "site": "cd site && vite build",
     "site:serve": "cd site && vite preview",
     "site:preview": "cd site && vite build --mode preview",
+    "postsite:preview": "cp _site/index.html _site/404.html",
     "lint": "eslint --ext .ts,.tsx ./ --max-warnings 0",
     "lint:fix": "eslint --ext .ts,.tsx ./ --max-warnings 0 --fix",
     "test": "npm run test:unit && npm run test:node",
