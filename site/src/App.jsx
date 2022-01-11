@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
 import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
@@ -46,7 +46,7 @@ function Components(props) {
       Object.keys(res.versions).forEach((v) => {
         const nums = v.split('.');
         if (nums[0] === '0' && nums[1] < 21) return false;
-        options.push({ label: v, value: v });
+        options.unshift({ label: v, value: v });
       });
       setVersionOptions(options);
     });
@@ -95,10 +95,8 @@ function Components(props) {
 }
 
 function App() {
-  const Router = process.env.NODE_ENV === 'preview' ? HashRouter : BrowserRouter;
-
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
         <Redirect exact from="/" to="/react/overview" />
         <Redirect exact from="/react" to="/react/overview" />
@@ -111,7 +109,7 @@ function App() {
         <Redirect from="*" to="/react/overview" />
         {/* TODO: 404 */}
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 

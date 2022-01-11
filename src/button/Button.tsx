@@ -63,6 +63,7 @@ const Button = forwardRef(
 
     return (
       <button
+        {...buttonProps}
         ref={ref || btnRef}
         type={type}
         className={classNames(
@@ -84,7 +85,6 @@ const Button = forwardRef(
         )}
         onClick={!disabled && !loading ? onClick : undefined}
         disabled={disabled || loading}
-        {...buttonProps}
       >
         {iconNode ? (
           <>
