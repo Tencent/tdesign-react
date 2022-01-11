@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
 import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
@@ -95,10 +95,8 @@ function Components(props) {
 }
 
 function App() {
-  const Router = process.env.NODE_ENV === 'preview' ? HashRouter : BrowserRouter;
-
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
         <Redirect exact from="/" to="/react/overview" />
         <Redirect exact from="/react" to="/react/overview" />
@@ -111,7 +109,7 @@ function App() {
         <Redirect from="*" to="/react/overview" />
         {/* TODO: 404 */}
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
