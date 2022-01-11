@@ -17,15 +17,20 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
         id: pr
         run: echo "::set-output name=id::$(<pr-id.txt)"
+
+      - name: echo pr
+        run: echo ${{ steps.pr.outputs.id }}
+
       - name: download _site artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
-          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
           name: _site
       - run: |
           unzip _site.zip
@@ -65,6 +70,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: pr
       - name: save PR id
         id: pr
@@ -74,5 +80,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Deploy PR Preview failed， {{ github.event.workflow_run.conclusion }} at ${{ github.event.workflow_run.workflow_id }}.
+            Deploy PR Preview failed， {{ github.event.workflow_run.conclusion }} at ${{ github.event.workflow_run.id }}.
           number: ${{ steps.pr.outputs.id }}
