@@ -127,6 +127,6 @@ export interface TdInputProps {
 export type InputValue = string | number;
 
 export interface InputRefInterface {
-  inputElementRef: React.Ref<HTMLInputElement>;
+  element: React.Ref<HTMLInputElement>;
   onFocus: () => void;
 }
