@@ -79,7 +79,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const popupRef = useRef(null);
   const popperRef = useRef(null);
 
-  // 展开时候动态判断上下翻转
+  // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
     const referenceElmRect = popupRef.current.getBoundingClientRect();
     const { top: referenceElmTop, left: referenceElmLeft, bottom, right } = referenceElmRect;
@@ -88,26 +88,24 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
     const { scrollHeight: contentScrollHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
 
+    let newPlacement = state.options.placement;
     // 底部不够向上翻转
     if (referenceElmBottom < contentScrollHeight && referenceElmTop >= contentScrollHeight) {
-      const newPlacement = state.options.placement.replace('bottom', 'top');
-      Object.assign(state.options, { ...state.options, placement: newPlacement });
+      newPlacement = state.options.placement.replace('bottom', 'top');
     }
     // 顶部不够向下翻转
     if (referenceElmTop < contentScrollHeight && referenceElmBottom >= contentScrollHeight) {
-      const newPlacement = state.options.placement.replace('top', 'bottom');
-      Object.assign(state.options, { ...state.options, placement: newPlacement });
+      newPlacement = state.options.placement.replace('top', 'bottom');
     }
     // 左侧不够向右翻转
     if (referenceElmLeft < contentOffsetWidth && referenceElmRight >= contentOffsetWidth) {
-      const newPlacement = state.options.placement.replace('left', 'right');
-      Object.assign(state.options, { ...state.options, placement: newPlacement });
+      newPlacement = state.options.placement.replace('left', 'right');
     }
     // 右侧不够向左翻转
     if (referenceElmRight < contentOffsetWidth && referenceElmLeft >= contentOffsetWidth) {
-      const newPlacement = state.options.placement.replace('right', 'left');
-      Object.assign(state.options, { ...state.options, placement: newPlacement });
+      newPlacement = state.options.placement.replace('right', 'left');
     }
+    Object.assign(state.options, { ...state.options, placement: newPlacement });
     popperRef.current.update();
   }, []);
 
