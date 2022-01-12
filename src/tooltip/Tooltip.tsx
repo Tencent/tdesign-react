@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popup from '../popup';
@@ -7,9 +7,24 @@ import { TdTooltipProps } from './type';
 
 export type TooltipProps = TdTooltipProps;
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
-  const { theme, showArrow = true, destroyOnClose = true, overlayClassName, children, ...restProps } = props;
+interface RefProps {
+  setVisible: (v) => void;
+}
+
+const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
+  const {
+    theme,
+    showArrow = true,
+    destroyOnClose = true,
+    overlayClassName,
+    children,
+    duration = 0,
+    ...restProps
+  } = props;
   const { classPrefix } = useConfig();
+  const [isTipShowed, setTipshow] = useState(duration !== 0);
+  const [timeup, setTimeup] = useState(false);
+  const popupRef = useRef<HTMLDivElement>();
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
@@ -17,13 +32,44 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
     },
     overlayClassName,
   );
+
+  const setVisible = (v: boolean): void => {
+    if (duration !== 0) setTimeup(false);
+    setTipshow(v);
+  };
+
+  const handleShowTip = (visible: boolean) => {
+    if (duration === 0 || (duration !== 0 && timeup)) {
+      setTipshow(visible);
+    }
+  };
+
+  useEffect(() => {
+    let timer;
+    if (duration !== 0 && !timeup) {
+      timer = setTimeout(() => {
+        setTipshow(false);
+        setTimeup(true);
+      }, duration);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [duration, timeup]);
+
+  useImperativeHandle(ref, () => ({
+    setVisible,
+  }));
+
   return (
     <>
       <Popup
-        ref={ref}
+        ref={popupRef}
         destroyOnClose={destroyOnClose}
         showArrow={showArrow}
         overlayClassName={toolTipClass}
+        visible={isTipShowed}
+        onVisibleChange={handleShowTip}
         {...restProps}
       >
         {children}

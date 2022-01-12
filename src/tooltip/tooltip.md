@@ -1,5 +1,10 @@
 :: BASE_DOC ::
 
+
+### 定时消失
+{{ duration }}
+
+
 ## API
 ### Tooltip Props
 
