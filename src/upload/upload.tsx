@@ -22,6 +22,7 @@ import type {
   UploadRemoveContext,
 } from './type';
 import useDefaultValue from './hooks/useDefaultValue';
+import useSizeLimit from './hooks/useSizeLimit';
 
 const urlCreator = window.webkitURL || window.URL;
 
@@ -43,6 +44,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     headers,
     withCredentials,
     autoUpload = true,
+    files: fileList = [],
+    sizeLimit,
     formatResponse,
     beforeUpload,
     onProgress,
@@ -53,7 +56,6 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     onDragenter,
     onDragleave,
     requestMethod,
-    files: fileList = [],
     customDraggerRender,
     children,
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
@@ -71,6 +73,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     setShowImg(false);
     setImgURL('');
   }, []);
+  const handleSizeLimit = useSizeLimit();
   // handle event of preview img dialog event
   const handlePreviewImg = useCallback((event: MouseEvent, file: UploadFile) => {
     if (!file.url) throw new Error('Error file');
@@ -269,9 +272,16 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     if (typeof beforeUpload === 'function') {
       const r = beforeUpload(file);
       if (r instanceof Promise) return r;
-      return new Promise((resolve) => resolve(r));
+      return Promise.resolve(r);
     }
-    return new Promise((resolve) => resolve(true));
+    if (sizeLimit) {
+      const [overrideSize, errorMsg] = handleSizeLimit(file.size, sizeLimit);
+      if (errorMsg) {
+        setErrorMsg(errorMsg);
+      }
+      return Promise.resolve(overrideSize);
+    }
+    return Promise.resolve(true);
   };
 
   const uploadFiles = () => {
