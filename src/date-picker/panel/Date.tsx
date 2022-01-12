@@ -4,7 +4,15 @@ import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
-import { getWeeks, getYears, getMonths, flagActive, subtractMonth, addMonth, getToday } from '../utils';
+import {
+  getWeeks,
+  getYears,
+  getMonths,
+  flagActive,
+  subtractMonth,
+  addMonth,
+  getToday,
+} from '../../_common/js/date-picker/utils';
 
 export type DateType = 'year' | 'month' | 'date';
 export interface DatePanelProps {
