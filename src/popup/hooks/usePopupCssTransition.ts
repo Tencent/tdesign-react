@@ -8,6 +8,7 @@ interface UsePopupCssTransitionParams {
 
 const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: UsePopupCssTransitionParams) => {
   const [presetMaxHeight, setPresetMaxHeight] = useState<number>(null);
+
   const contentEle = contentRef?.current;
 
   const popupAnimationClassPrefix = `${classPrefix}-popup--animation`;
@@ -25,7 +26,9 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
       const { scrollHeight } = contentEle;
       const minHeight = presetMaxHeight !== Infinity ? presetMaxHeight : scrollHeight;
       contentEle.style.maxHeight = `${minHeight}px`;
-      contentEle.style.overflow = '';
+      if (presetMaxHeight !== Infinity) {
+        contentEle.style.overflow = '';
+      }
     }
   };
 
