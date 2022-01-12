@@ -89,7 +89,7 @@ const Input = forwardRefWithStatics(
     }, {});
 
     useImperativeHandle(ref as unknown as React.Ref<InputRefInterface>, () => ({
-      inputElementRef: inputRef,
+      element: inputRef.current,
       onFocus() {
         inputRef.current?.focus();
       },
