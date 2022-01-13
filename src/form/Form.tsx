@@ -70,8 +70,9 @@ const Form = forwardRefWithStatics(
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
       e?.preventDefault();
       formItemsRef.current.forEach(({ current: formItemRef }) => {
-        if (!isFunction(formItemRef.resetField)) return;
-        formItemRef.resetField();
+        if (formItemRef && isFunction(formItemRef.resetField)) {
+          formItemRef.resetField();
+        }
       });
       onReset?.({ e });
     }
@@ -86,7 +87,8 @@ const Form = forwardRefWithStatics(
       const { fields, trigger = 'all' } = param || {};
       const list = formItemsRef.current
         .filter(
-          ({ current: formItemRef }) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields),
+          ({ current: formItemRef }) =>
+            formItemRef && isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields),
         )
         .map(({ current: formItemRef }) => formItemRef.validate(trigger));
 
@@ -110,7 +112,7 @@ const Form = forwardRefWithStatics(
       const fieldsValue = {};
       formItemsRef.current.forEach(({ current: formItemRef }) => {
         // 过滤无 name 的数据
-        if (formItemRef.name) {
+        if (formItemRef?.name) {
           fieldsValue[formItemRef.name] = formItemRef.value;
         }
       });
@@ -121,15 +123,18 @@ const Form = forwardRefWithStatics(
     // 对外方法，获取对应 formItem 的值
     function getFieldValue(name: string) {
       if (!name) return null;
-      const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef.name === name);
+      const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef?.name === name);
       return target && target.value;
     }
 
     // 对外方法，设置对应 formItem 的值
     function setFieldsValue(fileds = {}) {
       const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
-        const { name } = currItem;
-        return { ...acc, [name]: currItem };
+        if (currItem?.name) {
+          const { name } = currItem;
+          return { ...acc, [name]: currItem };
+        }
+        return acc;
       }, {});
       Object.keys(fileds).forEach((key) => {
         formItemsMap[key]?.setValue(fileds[key]);
@@ -140,8 +145,11 @@ const Form = forwardRefWithStatics(
     function setFields(fileds = []) {
       if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
       const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
-        const { name } = currItem;
-        return { ...acc, [name]: currItem };
+        if (currItem?.name) {
+          const { name } = currItem;
+          return { ...acc, [name]: currItem };
+        }
+        return acc;
       }, {});
       fileds.forEach((filed) => {
         const { name, value, status } = filed;
