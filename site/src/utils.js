@@ -10,7 +10,7 @@ export function getRoute(list, docRoutes) {
 
 // 过滤小版本号
 export function filterVersions(versions = [], deep = 1) {
-  const versionMap = {};
+  const versionMap = Object.create(null);
 
   versions.forEach(v => {
     const nums = v.split('.');
