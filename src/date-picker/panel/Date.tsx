@@ -12,6 +12,7 @@ import {
   subtractMonth,
   addMonth,
   getToday,
+  DateValue,
 } from '../../_common/js/date-picker/utils';
 
 export type DateType = 'year' | 'month' | 'date';
@@ -21,7 +22,7 @@ export interface DatePanelProps {
   minDate: Date;
   maxDate: Date;
   firstDayOfWeek: number;
-  disableDate: Function;
+  disableDate: (date: DateValue) => boolean;
   onChange: Function;
 }
 
@@ -30,7 +31,7 @@ const TODAY = getToday();
 const DatePanel = (props: DatePanelProps) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('datePicker');
-  const monthAriaLabel = t(local.monthAriaLabel);
+  const monthAriaLabel = t(local.months);
 
   const { classPrefix } = useConfig();
   const { value, mode, minDate, maxDate, firstDayOfWeek, disableDate, onChange } = props;
@@ -88,7 +89,7 @@ const DatePanel = (props: DatePanelProps) => {
       minDate,
       maxDate,
       firstDayOfWeek,
-      monthText: monthAriaLabel,
+      monthLocal: monthAriaLabel,
     };
 
     switch (type) {
