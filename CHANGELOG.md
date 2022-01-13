@@ -15,6 +15,7 @@ spline: explain
 ### Bug Fixes
 
 * Popup: 修复定位动态计算错误问题 ([#226](https://github.com/Tencent/tdesign-react/issues/226)) ([6c54abf](https://github.com/Tencent/tdesign-react/commit/6c54abf076cd7897c5ee4846bb037bf64dc8f0a0)) [@HQ-Lin](https://github.com/HQ-Lin) [@uyarn](https://github.com/uyarn)
+* Drawer: 修复字符串控制 confirmBtn 无效问题 ([#216](https://github.com/Tencent/tdesign-react/pull/216)) [@samhou1988](https://github.com/samhou1988)
 * Form: 修复 `FormItem` 动态变化导致 `formItemsRef` 中存在 `null` 值 bug ([eaa4f70](https://github.com/Tencent/tdesign-react/commit/eaa4f70024e9e9ccd6f268b981683ad882bee3ce)) [@yume316](https://github.com/yume316)
 * TimePicker: 限制输入框内容为数字类型 ([e90118c](https://github.com/Tencent/tdesign-react/commit/e90118cbe78872b36bb454d4e3a3cfaae931c98c)) [@uyarn](https://github.com/uyarn)
 
