@@ -65,7 +65,7 @@ const Input = forwardRefWithStatics(
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
     const inputRef: React.RefObject<HTMLInputElement> = useRef();
-    const wraperRef: React.RefObject<HTMLDivElement> = useRef();
+    const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
 
@@ -93,7 +93,7 @@ const Input = forwardRefWithStatics(
     }, {});
 
     // tips 会引起 dom 变动，抽离透传属性
-    const wrapProps = { style, ref: wraperRef };
+    const wrapperProps = { style, ref: wrapperRef };
 
     const renderInput = (
       <input
@@ -117,7 +117,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        {...wrapProps}
+        {...wrapperProps}
         className={classNames(tips ? '' : className, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
@@ -200,7 +200,7 @@ const Input = forwardRefWithStatics(
     }
 
     useImperativeHandle(ref as InputRefInterface, () => ({
-      currentElement: wraperRef.current,
+      currentElement: wrapperRef.current,
       inputElement: inputRef.current,
       focus: () => inputRef.current?.focus(),
       blur: () => inputRef.current?.blur(),
@@ -209,7 +209,7 @@ const Input = forwardRefWithStatics(
 
     if (tips) {
       return (
-        <div {...wrapProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
+        <div {...wrapperProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
           {renderInputNode}
           <div className={`${classPrefix}-input__tips ${classPrefix}-input__tips--${status || 'normal'}`}>{tips}</div>
         </div>
