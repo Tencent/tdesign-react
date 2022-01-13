@@ -33,7 +33,7 @@ const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
     overlayClassName,
   );
 
-  const setVisible = (v: boolean): void => {
+  const setVisible = (v: boolean) => {
     if (duration !== 0) setTimeup(false);
     setTipshow(v);
   };
