@@ -317,7 +317,7 @@ exports[`controlled.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -334,7 +334,7 @@ exports[`controlled.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -351,7 +351,7 @@ exports[`controlled.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -689,7 +689,7 @@ exports[`filter.jsx 1`] = `
         filter:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -975,7 +975,7 @@ exports[`operations.jsx 1`] = `
           filter:
         </span>
         <div
-          class="t-input t-is-normal"
+          class="t-input"
         >
           <input
             class="t-input__inner"
@@ -1187,7 +1187,7 @@ exports[`sync.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -1204,7 +1204,7 @@ exports[`sync.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"
@@ -1221,7 +1221,7 @@ exports[`sync.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
       >
         <input
           class="t-input__inner"

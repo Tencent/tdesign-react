@@ -665,7 +665,7 @@ exports[`placement.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
-        class="t-input t-is-normal"
+        class="t-input"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
         <input
@@ -675,7 +675,7 @@ exports[`placement.jsx 1`] = `
         />
       </div>
       <div
-        class="t-input t-is-normal"
+        class="t-input"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
         <input

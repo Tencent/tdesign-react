@@ -343,7 +343,7 @@ exports[`trigger.jsx 1`] = `
       class="t-popup__reference"
     >
       <div
-        class="t-input t-is-normal"
+        class="t-input"
         style="width: 200px;"
       >
         <input
