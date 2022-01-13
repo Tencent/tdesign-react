@@ -102,7 +102,7 @@ exports[`filterable.jsx 1`] = `
           style="min-height: 30px;"
         >
           <div
-            class="t-input t-select__input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
