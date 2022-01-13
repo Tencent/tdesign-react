@@ -11,7 +11,7 @@ exports[`Input 组件测试 addon 1`] = `
       http://
     </span>
     <div
-      class="t-input"
+      class="t-input t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -26,7 +26,7 @@ exports[`Input 组件测试 addon 1`] = `
 exports[`Input 组件测试 clearable 1`] = `
 <DocumentFragment>
   <div
-    class="t-input"
+    class="t-input t-is-normal"
   >
     <input
       class="t-input__inner"
@@ -40,7 +40,7 @@ exports[`Input 组件测试 clearable 1`] = `
 exports[`Input 组件测试 maxLength 1`] = `
 <DocumentFragment>
   <div
-    class="t-input"
+    class="t-input t-is-normal"
   >
     <input
       class="t-input__inner"
@@ -55,7 +55,7 @@ exports[`Input 组件测试 maxLength 1`] = `
 exports[`Input 组件测试 prefixIcon is function 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-input--prefix"
+    class="t-input t-is-normal t-input--prefix"
   >
     <span
       class="t-input__prefix"
@@ -76,7 +76,7 @@ exports[`Input 组件测试 prefixIcon is function 1`] = `
 exports[`Input 组件测试 prefixIcon suffixIcon 1`] = `
 <DocumentFragment>
   <div
-    class="t-input t-input--prefix t-input--suffix"
+    class="t-input t-is-normal t-input--prefix t-input--suffix"
   >
     <span
       class="t-input__prefix"
@@ -141,7 +141,7 @@ exports[`addon.jsx 1`] = `
         http://
       </span>
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -159,7 +159,7 @@ exports[`addon.jsx 1`] = `
         http://
       </span>
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -183,7 +183,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input"
+      class="t-input t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -192,7 +192,7 @@ exports[`base.jsx 1`] = `
       />
     </div>
     <div
-      class="t-input"
+      class="t-input t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -210,7 +210,7 @@ exports[`clearable.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input"
+      class="t-input t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -228,7 +228,7 @@ exports[`disabled.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input t-is-disabled"
+      class="t-input t-is-disabled t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -249,7 +249,7 @@ exports[`group.jsx 1`] = `
       class="t-input-group"
     >
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -258,7 +258,7 @@ exports[`group.jsx 1`] = `
         />
       </div>
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -271,7 +271,7 @@ exports[`group.jsx 1`] = `
       class="t-input-group t-input-group--seperate"
     >
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -280,7 +280,7 @@ exports[`group.jsx 1`] = `
         />
       </div>
       <div
-        class="t-input"
+        class="t-input t-is-normal"
       >
         <input
           class="t-input__inner"
@@ -299,7 +299,7 @@ exports[`password.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input t-input--prefix t-input--suffix"
+      class="t-input t-is-normal t-input--prefix t-input--suffix"
     >
       <span
         class="t-input__prefix"
@@ -348,7 +348,7 @@ exports[`password.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-input t-input--prefix t-input--suffix"
+      class="t-input t-is-normal t-input--prefix t-input--suffix"
     >
       <span
         class="t-input__prefix"
@@ -406,7 +406,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input t-size-l"
+      class="t-input t-size-l t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -415,7 +415,7 @@ exports[`size.jsx 1`] = `
       />
     </div>
     <div
-      class="t-input"
+      class="t-input t-is-normal"
     >
       <input
         class="t-input__inner"
@@ -469,7 +469,7 @@ exports[`textarea.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input t-input--prefix t-input--suffix"
+      class="t-input t-is-normal t-input--prefix t-input--suffix"
     >
       <span
         class="t-input__prefix"

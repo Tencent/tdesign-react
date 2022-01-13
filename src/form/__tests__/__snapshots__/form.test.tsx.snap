@@ -86,7 +86,7 @@ exports[`align.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -115,7 +115,7 @@ exports[`align.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -154,7 +154,7 @@ exports[`base.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input t-is-normal"
           >
             <input
               class="t-input__inner"
@@ -192,7 +192,7 @@ exports[`base.jsx 1`] = `
                 class="t-form-controls"
               >
                 <div
-                  class="t-input t-input--suffix"
+                  class="t-input t-is-normal t-input--suffix"
                 >
                   <input
                     class="t-input__inner"
@@ -463,7 +463,7 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -492,7 +492,7 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -521,7 +521,7 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -641,7 +641,7 @@ exports[`layout.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -669,7 +669,7 @@ exports[`layout.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -702,7 +702,7 @@ exports[`login.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input t-input--prefix"
+              class="t-input t-is-normal t-input--prefix"
             >
               <span
                 class="t-input__prefix"
@@ -740,7 +740,7 @@ exports[`login.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input t-input--prefix"
+              class="t-input t-is-normal t-input--prefix"
             >
               <span
                 class="t-input__prefix"
@@ -827,7 +827,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -861,7 +861,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -895,7 +895,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1082,7 +1082,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1111,7 +1111,7 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1186,7 +1186,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1220,7 +1220,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1249,7 +1249,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1278,7 +1278,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1308,7 +1308,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1337,7 +1337,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1386,7 +1386,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"
@@ -1444,7 +1444,7 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input t-is-normal"
             >
               <input
                 class="t-input__inner"

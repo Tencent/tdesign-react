@@ -3144,7 +3144,7 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input--suffix"
+            class="t-input t-is-normal t-input--suffix"
           >
             <input
               class="t-input__inner"
@@ -3673,7 +3673,7 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input--suffix"
+            class="t-input t-is-normal t-input--suffix"
           >
             <input
               class="t-input__inner"

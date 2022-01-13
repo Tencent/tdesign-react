@@ -652,7 +652,7 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input t-is-normal"
                     >
                       <input
                         class="t-input__inner"
@@ -681,7 +681,7 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input t-is-normal"
                     >
                       <input
                         class="t-input__inner"

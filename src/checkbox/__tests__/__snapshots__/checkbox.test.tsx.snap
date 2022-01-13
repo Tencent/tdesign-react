@@ -396,7 +396,7 @@ exports[`max.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input t-is-normal"
         >
           <input
             class="t-input__inner"
