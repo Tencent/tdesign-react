@@ -10,7 +10,7 @@ spline: explain
 ### BREAKING CHANGES
 
 * 调整 ref 获取 Input 组件最外层 Dom 方式为 `inputRef.current.currentElement` ([7fd11cb](https://github.com/Tencent/tdesign-react/commit/7fd11cbe7320442f40c50d797cfed1d351ab6288)) [@HQ-Lin](https://github.com/HQ-Lin)
-* 调整 ref 获取 Form 组件最外层 Dom 方式为 `formRef.curent.currentElement` ([46abe0b](https://github.com/Tencent/tdesign-react/commit/46abe0b73db3dbd6a5ac4805a670c97b348795ad)) [@HQ-Lin](https://github.com/HQ-Lin)
+* 调整 ref 获取 Form 组件最外层 Dom 方式为 `formRef.current.currentElement` ([46abe0b](https://github.com/Tencent/tdesign-react/commit/46abe0b73db3dbd6a5ac4805a670c97b348795ad)) [@HQ-Lin](https://github.com/HQ-Lin)
 
 ### Bug Fixes
 
