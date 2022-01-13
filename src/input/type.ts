@@ -2,11 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, ClipboardEvent } from 'react';
 
 export interface TdInputProps {
   /**
@@ -48,7 +47,6 @@ export interface TdInputProps {
   name?: string;
   /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -78,6 +76,10 @@ export interface TdInputProps {
    */
   suffixIcon?: TElement;
   /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
+  /**
    * 输入框类型
    * @default text
    */
@@ -93,15 +95,18 @@ export interface TdInputProps {
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: InputValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
+  onBlur?: (value: InputValue, context: { e: FocusEvent<HTMLInputElement> }) => void;
   /**
    * 输入框值发生变化时触发
    */
-  onChange?: (value: InputValue, context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> }) => void;
+  onChange?: (
+    value: InputValue,
+    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+  ) => void;
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
    * 回车键按下时触发
    */
@@ -109,7 +114,7 @@ export interface TdInputProps {
   /**
    * 获得焦点时触发
    */
-  onFocus?: (value: InputValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
+  onFocus?: (value: InputValue, context: { e: FocusEvent<HTMLInputElement> }) => void;
   /**
    * 键盘按下时触发
    */
@@ -122,6 +127,18 @@ export interface TdInputProps {
    * 释放键盘时触发
    */
   onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  /**
+   * 进入输入框时触发
+   */
+  onMouseenter?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 离开输入框时触发
+   */
+  onMouseleave?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 粘贴事件，`pasteValue` 表示粘贴板的内容
+   */
+  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
 }
 
 export type InputValue = string | number;
