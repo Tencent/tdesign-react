@@ -15,6 +15,10 @@ export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
+export interface FormRefInterface extends React.RefObject<unknown>, FormInstance {
+  currentElement: HTMLFormElement;
+}
+
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
     const {
@@ -41,6 +45,7 @@ const Form = forwardRefWithStatics(
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
+    const formRef = useRef();
     const formItemsRef = useRef([]);
 
     const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
@@ -157,18 +162,16 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    useImperativeHandle(
-      ref,
-      (): FormInstance => ({
-        submit: submitHandler,
-        reset: resetHandler,
-        getFieldValue,
-        setFieldsValue,
-        setFields,
-        validate,
-        getAllFieldsValue,
-      }),
-    );
+    useImperativeHandle(ref as FormRefInterface, () => ({
+      currentElement: formRef.current,
+      submit: submitHandler,
+      reset: resetHandler,
+      getFieldValue,
+      setFieldsValue,
+      setFields,
+      validate,
+      getAllFieldsValue,
+    }));
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
       const allFileds = getAllFieldsValue();
@@ -193,7 +196,7 @@ const Form = forwardRefWithStatics(
           onFormItemValueChange,
         }}
       >
-        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={ref}>
+        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
           {children}
         </form>
       </FormContext.Provider>
