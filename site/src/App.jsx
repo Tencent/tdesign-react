@@ -4,7 +4,7 @@ import Loading from 'tdesign-react/loading';
 import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
 import siteConfig from '../site.config.js';
-import { getRoute } from './utils';
+import { getRoute, filterVersions } from './utils';
 // import locale from 'tdesign-react/locale/en_US';
 import packageJson from '@/package.json';
 
@@ -21,7 +21,7 @@ function Components(props) {
   const tdDocSearch = useRef();
 
   const [versionOptions, setVersionOptions] = useState([]);
-  const [version] = useState(packageJson.version);
+  const [version] = useState(packageJson.version.replace(/\./g, '_'));
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -43,10 +43,13 @@ function Components(props) {
   function initHistoryVersions() {
     fetch(registryUrl).then(res => res.json()).then(res => {
       const options = [];
-      Object.keys(res.versions).forEach((v) => {
+      const versions = filterVersions(Object.keys(res.versions), 1);
+
+      versions.forEach(v => {
         const nums = v.split('.');
         if (nums[0] === '0' && nums[1] < 21) return false;
-        options.unshift({ label: v, value: v });
+
+        options.unshift({ label: v, value: v.replace(/\./g, '_') });
       });
       setVersionOptions(options);
     });
