@@ -39,7 +39,7 @@ const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
     const {
       disabled,
-      status = 'normal',
+      status,
       size,
       className,
       style,
@@ -117,6 +117,7 @@ const Input = forwardRefWithStatics(
       <div
         {...wrapProps}
         className={classNames(tips ? '' : className, `${classPrefix}-input`, {
+          [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
@@ -202,7 +203,7 @@ const Input = forwardRefWithStatics(
       return (
         <div {...wrapProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
           {renderInputNode}
-          <div className={`${classPrefix}-input__tips ${classPrefix}-input__tips--${status}`}>{tips}</div>
+          <div className={`${classPrefix}-input__tips ${classPrefix}-input__tips--${status || 'normal'}`}>{tips}</div>
         </div>
       );
     }
