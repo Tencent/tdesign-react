@@ -19,13 +19,10 @@
 ## 开发
 
 ```bash
-git clone https://github.com/Tencent/tdesign-react.git
-cd tdesign-react
-git submodule init
-git submodule update
+git clone --recurse-submodules https://github.com/Tencent/tdesign-react.git
 
 # 开发预览
-cd ..
+cd tdesign-react
 npm i
 npm run dev
 

@@ -121,7 +121,7 @@ exports[`creatable.jsx 1`] = `
             class="t-select__left-icon"
           />
           <div
-            class="t-input t-select__input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
@@ -306,7 +306,7 @@ exports[`filterable.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-input t-select__input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
@@ -771,7 +771,7 @@ exports[`options.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-input t-select__input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
@@ -924,7 +924,7 @@ exports[`remote-search.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-input t-select__input"
+          class="t-select__input t-input"
         >
           <input
             class="t-input__inner"
