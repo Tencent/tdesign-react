@@ -261,6 +261,13 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   useEffect(() => {
     formItemsRef.current.push(currentFormItemRef);
+    return () => {
+      const index = formItemsRef.current.indexOf(currentFormItemRef);
+      if (index !== -1) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        formItemsRef?.current?.splice(index, 1);
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
