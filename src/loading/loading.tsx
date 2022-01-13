@@ -26,6 +26,7 @@ const Loading: FC<LoadingProps> = (props) => {
     inheritColor = false,
     zIndex,
     className,
+    style,
   } = props;
 
   const [showLoading, setShowLoading] = useState(delay ? false : loading);
@@ -68,8 +69,8 @@ const Loading: FC<LoadingProps> = (props) => {
       styles['font-size'] = size;
     }
 
-    return styles;
-  }, [size, zIndex]);
+    return style ? { ...styles, ...style } : styles;
+  }, [size, zIndex, style]);
 
   const sizeMap = {
     large: `${classPrefix}-size-l`,
