@@ -24,6 +24,24 @@ exports[`base.jsx 1`] = `
       </span>
     </label>
     <label
+      class="t-radio"
+    >
+      <input
+        class="t-radio__former"
+        readonly=""
+        type="radio"
+        value=""
+      />
+      <span
+        class="t-radio__input"
+      />
+      <span
+        class="t-radio__label"
+      >
+        取消选中
+      </span>
+    </label>
+    <label
       class="t-radio t-is-checked"
     >
       <input
