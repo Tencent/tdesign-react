@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.22.1",
+  "version": "0.23.0",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "cjs/index.js",
