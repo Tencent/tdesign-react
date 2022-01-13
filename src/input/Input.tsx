@@ -54,6 +54,7 @@ const Input = forwardRefWithStatics(
       onKeydown,
       onFocus,
       onBlur,
+      onPaste,
       onCompositionStart,
       onCompositionEnd,
       autofocus,
@@ -110,6 +111,7 @@ const Input = forwardRefWithStatics(
         onCompositionEnd={handleCompositionEnd}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onPaste={handlePaste}
       />
     );
 
@@ -189,6 +191,12 @@ const Input = forwardRefWithStatics(
       } = e;
       onBlur?.(value, { e });
       toggleIsFocused(false);
+    }
+
+    function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
+      const clipData = e.clipboardData;
+      const pasteValue = clipData?.getData('text/plain');
+      onPaste?.({ e, pasteValue });
     }
 
     useImperativeHandle(ref as InputRefInterface, () => ({
