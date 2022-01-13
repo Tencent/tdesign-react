@@ -30,7 +30,7 @@ export interface DateRangePanelProps extends Omit<DatePanelProps, 'value'> {
 const DateRangePanel = (props: DateRangePanelProps) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('datePicker');
-  const monthAriaLabel = t(local.monthAriaLabel);
+  const monthAriaLabel = t(local.months);
 
   const { classPrefix } = useConfig();
   const { value, mode, minDate, maxDate, firstDayOfWeek, disableDate, onChange } = props;
@@ -208,7 +208,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
         minDate,
         maxDate,
         firstDayOfWeek,
-        monthText: monthAriaLabel,
+        monthLocal: monthAriaLabel,
       };
 
       switch (type) {
