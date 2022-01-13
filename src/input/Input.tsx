@@ -211,7 +211,11 @@ const Input = forwardRefWithStatics(
       return (
         <div {...wrapperProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
           {renderInputNode}
-          <div className={`${classPrefix}-input__tips ${classPrefix}-input__tips--${status || 'normal'}`}>{tips}</div>
+          <div
+            className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status || 'normal'}`)}
+          >
+            {tips}
+          </div>
         </div>
       );
     }
