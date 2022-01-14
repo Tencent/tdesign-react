@@ -13,6 +13,7 @@ const LazyDemo = lazy(() => import('./components/Demo'));
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
 const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
+const currentVersion = packageJson.version.replace(/\./g, '_');
 
 function Components(props) {
   const tdHeaderRef = useRef();
@@ -21,7 +22,7 @@ function Components(props) {
   const tdDocSearch = useRef();
 
   const [versionOptions, setVersionOptions] = useState([]);
-  const [version] = useState(packageJson.version.replace(/\./g, '_'));
+  const [version] = useState(currentVersion);
 
   const docRoutes = getRoute(siteConfig.docs, []);
   const [renderRouter] = useState(renderRoutes(docRoutes));
@@ -35,7 +36,7 @@ function Components(props) {
   }
 
   function changeVersion(version) {
-    if (version === packageJson.version) return;
+    if (version === currentVersion) return;
     const histryUrl = `//${version}-tdesign-react.surge.sh`;
     window.open(histryUrl, '_blank');
   }
@@ -48,6 +49,7 @@ function Components(props) {
       versions.forEach(v => {
         const nums = v.split('.');
         if (nums[0] === '0' && nums[1] < 21) return false;
+        if (v.includes('alpha') || v.includes('beta')) return false;
 
         options.unshift({ label: v, value: v.replace(/\./g, '_') });
       });
