@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Ref, useMemo } from 'react';
+import React, { useState, useRef, useEffect, Ref, useMemo, useCallback } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -145,6 +145,7 @@ const Select = forwardRefWithStatics(
     }, [options, keys, children]);
 
     // 同步value对应的options
+    // 没太看明白effect的必要，感觉是一个useMemo而已
     useEffect(() => {
       setSelectedOptions((oldSelectedOptions) => {
         const valueKey = keys?.value || 'value';
@@ -297,12 +298,33 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
+    /**
+     * 1. keycode是否需要在tdesign-common维护一个枚举配置
+     * 2. value是否需要一个hook，把操作value状态维护在hook中，暴露出api来修改value，简单类似于:
+     * const [
+     *  value: selectedValue,
+     *  {remove: removeTag, replace: changeValue, add: addTag}
+     * ] = useSelectValue(value);
+     * useEffect(() => onChangeValue(value), [value]);
+     */
+    const handleInputKeyDown = useCallback(
+      (inputValue, { e }) => {
+        if (!inputValue && multiple && Array.isArray(value) && e.which === 8) {
+          const lastValue = value[value.length - 1];
+          const values = getSelectValueArr(value, lastValue, true, valueType, keys);
+          onChange(values);
+        }
+      },
+      [value, onChange, multiple, valueType, keys],
+    );
+
     const renderInput = () => (
       <Input
-        value={isString(inputVal) ? inputVal : selectedLabel}
+        value={isString(inputVal) || multiple ? inputVal : selectedLabel}
         placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
         className={`${name}__input`}
         onChange={handleInputChange}
+        onKeydown={handleInputKeyDown}
         size={size}
         onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
         onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
