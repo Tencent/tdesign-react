@@ -9,6 +9,10 @@ export default function AddTabs() {
       value: 1,
       label: '选项卡1',
     },
+    {
+      value: 2,
+      label: '选项卡2',
+    },
   ]);
   return (
     <Tabs
@@ -24,7 +28,7 @@ export default function AddTabs() {
       }}
       onAdd={() => {
         const newPanels = panels.concat({
-          value: panels.length + 1,
+          value: panels[panels.length - 1].value + 1,
           label: `选项卡${panels.length + 1}`,
         });
         setPanels(newPanels);
