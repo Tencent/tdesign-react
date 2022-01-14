@@ -10,11 +10,6 @@ import { ChangeEvent } from 'react';
 
 export interface TdCheckboxProps {
   /**
-   * 是否允许取消选中, 仅支持 radio。
-   * @default false
-   */
-  allowUncheck?: boolean;
-  /**
    * 用于标识是否为「全选选项」。单独使用无效，需在 CheckboxGroup 中使用
    * @default false
    */
