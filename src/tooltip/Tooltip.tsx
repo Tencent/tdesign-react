@@ -8,7 +8,7 @@ import { TdTooltipProps } from './type';
 export type TooltipProps = TdTooltipProps;
 
 interface RefProps {
-  setVisible: (v) => void;
+  setVisible: (v: boolean) => void;
 }
 
 const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
@@ -25,6 +25,7 @@ const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
   const [isTipShowed, setTipshow] = useState(duration !== 0);
   const [timeup, setTimeup] = useState(false);
   const popupRef = useRef<HTMLDivElement>();
+  const timerRef = useRef<number | null>(null);
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
@@ -45,15 +46,14 @@ const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
   };
 
   useEffect(() => {
-    let timer;
     if (duration !== 0 && !timeup) {
-      timer = setTimeout(() => {
+      timerRef.current = window.setTimeout(() => {
         setTipshow(false);
         setTimeup(true);
       }, duration);
     }
     return () => {
-      if (timer) clearTimeout(timer);
+      if (timerRef.current) window.clearTimeout(timerRef.current);
     };
   }, [duration, timeup]);
 
@@ -62,19 +62,17 @@ const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
   }));
 
   return (
-    <>
-      <Popup
-        ref={popupRef}
-        destroyOnClose={destroyOnClose}
-        showArrow={showArrow}
-        overlayClassName={toolTipClass}
-        visible={isTipShowed}
-        onVisibleChange={handleShowTip}
-        {...restProps}
-      >
-        {children}
-      </Popup>
-    </>
+    <Popup
+      ref={popupRef}
+      destroyOnClose={destroyOnClose}
+      showArrow={showArrow}
+      overlayClassName={toolTipClass}
+      visible={isTipShowed}
+      onVisibleChange={handleShowTip}
+      {...restProps}
+    >
+      {children}
+    </Popup>
   );
 });
 
