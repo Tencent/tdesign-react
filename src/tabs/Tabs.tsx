@@ -12,7 +12,7 @@ export interface TabsProps extends TdTabsProps {
 
 const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
-    const { children, placement, onRemove, value: tabValue } = props;
+    const { children, placement, onRemove, value: tabValue, onChange } = props;
     let { defaultValue } = props;
 
     // 样式工具引入
@@ -36,8 +36,28 @@ const Tabs = forwardRefWithStatics(
       tabValue !== undefined && setValue(tabValue);
     }, [tabValue]);
 
+    const handleChange = (v) => {
+      if (tabValue === undefined) {
+        setValue(v);
+      }
+      onChange?.(v);
+    };
+
+    const handleClickTab = (v) => {
+      if (tabValue === undefined) {
+        setValue(v);
+      }
+    };
+
     const renderTabNav = () => (
-      <TabNav {...props} activeValue={value} onRemove={onRemove} itemList={itemList} tabClick={setValue} />
+      <TabNav
+        {...props}
+        activeValue={value}
+        onRemove={onRemove}
+        itemList={itemList}
+        tabClick={handleClickTab}
+        onChange={handleChange}
+      />
     );
 
     return (
