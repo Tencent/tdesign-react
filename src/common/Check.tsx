@@ -29,9 +29,10 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   const props = context ? context.inject(_props) : _props;
 
   const {
+    allowUncheck = false,
     type,
     checked,
-    defaultChecked,
+    defaultChecked = false,
     disabled,
     name,
     value,
@@ -46,7 +47,14 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
 
   const { classPrefix } = useConfig();
 
-  const [internalChecked, setInternalChecked] = useDefault(checked, defaultChecked, onChange);
+  const TdonChange: (
+    checked: boolean,
+    context: {
+      e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>;
+    },
+  ) => void = onChange;
+
+  const [internalChecked, setInternalChecked] = useDefault(checked, defaultChecked, TdonChange);
 
   const labelClassName = classNames(className, `${classPrefix}-${type}`, {
     [`${classPrefix}-is-checked`]: internalChecked,
@@ -63,7 +71,12 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
       disabled={disabled}
       name={name}
       value={value}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        if ((type === 'radio-button' || type === 'radio') && allowUncheck) {
+          setInternalChecked(!e.currentTarget.checked, { e });
+        }
+      }}
       onChange={(e) => setInternalChecked(e.currentTarget.checked, { e })}
     />
   );
