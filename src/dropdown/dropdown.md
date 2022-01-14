@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### options为传入child方式
+
+options为child形式
+
+{{ child }}
+
 ## API
 ### Dropdown Props
 
