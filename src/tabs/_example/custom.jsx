@@ -14,6 +14,7 @@ export default function AddTabs() {
       label: '选项卡2',
     },
   ]);
+  const [value, setValue] = useState(1);
   return (
     <Tabs
       placement={'top'}
@@ -21,16 +22,20 @@ export default function AddTabs() {
       disabled={false}
       theme={'card'}
       defaultValue={1}
+      value={value}
+      onChange={setValue}
       addable
       onRemove={({ value }) => {
         const newPanels = panels.filter((panel) => panel.value !== value);
         setPanels(newPanels);
       }}
       onAdd={() => {
+        const newValue = panels.length > 0 ? panels[panels.length - 1].value + 1 : 1;
         const newPanels = panels.concat({
-          value: panels[panels.length - 1].value + 1,
+          value: newValue,
           label: `选项卡${panels.length + 1}`,
         });
+        setValue(newValue)
         setPanels(newPanels);
       }}
     >
@@ -39,7 +44,7 @@ export default function AddTabs() {
           key={value}
           value={value}
           label={label}
-          removable={panels.length > 1}
+          removable={true}
           onRemove={() => {
             setPanels((panels) => {
               panels.splice(index, 1);

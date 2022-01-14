@@ -135,7 +135,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const handleTabItemRemove = (removeItem) => {
     const { value: removeValue, index: removeIndex } = removeItem;
     if (removeValue === activeValue) {
-      onChange(removeIndex === 0 ? itemList[removeIndex + 1].value : itemList[removeIndex - 1].value);
+      onChange(removeIndex === 0 ? itemList[removeIndex + 1]?.value : itemList[removeIndex - 1].value);
     }
     onRemove(removeItem);
   };
@@ -155,7 +155,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   return (
     <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
-      <div className={classNames(tdTabsClassGenerator('nav'))}>
+      <div className={classNames(tdTabsClassGenerator('nav'))} style={{ minHeight: 48 }}>
         <div className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--left'))}>
           {leftScrollBtnVisible ? (
             <div
