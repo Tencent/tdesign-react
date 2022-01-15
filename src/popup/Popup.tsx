@@ -162,7 +162,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         <CSSTransition in={visible} appear={true} unmountOnExit={destroyOnClose} {...cssTransitionState.props}>
           <div
             ref={composeRefs(setOverlayRef, ref)}
-            style={styles.popper}
+            style={visible ? styles.popper : { ...styles.popper, display: 'none' }}
             className={`${classPrefix}-popup`}
             {...attributes.popper}
             {...popupProps}
