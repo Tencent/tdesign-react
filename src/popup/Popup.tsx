@@ -17,7 +17,7 @@ import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
 import { TdPopupProps } from './type';
-import Portal from './Portal';
+import Portal from '../common/Portal';
 import useTriggerProps from './hooks/useTriggerProps';
 import usePopupCssTransition from './hooks/usePopupCssTransition';
 
@@ -158,28 +158,30 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 初次不渲染.
   const portal =
     visible || overlayRef ? (
-      <Portal attach={attach}>
-        <CSSTransition in={visible} appear={true} unmountOnExit={destroyOnClose} {...cssTransitionState.props}>
-          <div
-            ref={composeRefs(setOverlayRef, ref)}
-            style={visible ? styles.popper : { ...styles.popper, display: 'none' }}
-            className={`${classPrefix}-popup`}
-            {...attributes.popper}
-            {...popupProps}
-          >
+      <CSSTransition in={visible} timeout={400} appear unmountOnExit={destroyOnClose}>
+        <Portal attach={attach}>
+          <CSSTransition in={visible} appear {...cssTransitionState.props}>
             <div
-              className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
-                [`${classPrefix}-popup__content--arrow`]: showArrow,
-              })}
-              style={overlayVisibleStyle}
-              ref={contentRef}
+              ref={composeRefs(setOverlayRef, ref)}
+              style={styles.popper}
+              className={`${classPrefix}-popup`}
+              {...attributes.popper}
+              {...popupProps}
             >
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
-              {content}
+              <div
+                className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
+                  [`${classPrefix}-popup__content--arrow`]: showArrow,
+                })}
+                style={overlayVisibleStyle}
+                ref={contentRef}
+              >
+                {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+                {content}
+              </div>
             </div>
-          </div>
-        </CSSTransition>
-      </Portal>
+          </CSSTransition>
+        </Portal>
+      </CSSTransition>
     ) : null;
 
   return (

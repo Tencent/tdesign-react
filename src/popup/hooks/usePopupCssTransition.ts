@@ -13,15 +13,26 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
 
   const popupAnimationClassPrefix = `${classPrefix}-popup--animation`;
 
-  const handleEntering = () => {
+  const defaultEvents = {
+    onEnter: handleEnter,
+    onExited: handleExited,
+  };
+
+  function handleEnter() {
+    if (contentEle && contentEle.style.display === 'none') {
+      contentEle.style.display = 'block';
+    }
+  }
+
+  function handleEntering() {
     setPresetMaxHeight(parseInt(getComputedStyle(contentEle).maxHeight, 10) || Infinity);
     if (contentEle) {
       contentEle.style.overflow = 'hidden';
       contentEle.style.maxHeight = '0';
     }
-  };
+  }
 
-  const handleEntered = () => {
+  function handleEntered() {
     if (contentEle) {
       const { scrollHeight } = contentEle;
       const minHeight = presetMaxHeight !== Infinity ? presetMaxHeight : scrollHeight;
@@ -30,23 +41,33 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
         contentEle.style.overflow = '';
       }
     }
-  };
+  }
 
-  const handleExiting = () => {
+  function handleExiting() {
     if (contentEle) {
       contentEle.style.maxHeight = '0';
       contentEle.style.overflow = 'hidden';
     }
-  };
+  }
+
+  function handleExited() {
+    // 动画结束后隐藏
+    if (contentEle) {
+      setTimeout(() => {
+        contentEle.style.display = 'none';
+      }, 200);
+    }
+  }
 
   // 不需要扩展动画时，不需要生命周期函数
   const lifeCircleEvent = expandAnimation
     ? {
+        ...defaultEvents,
         onEntering: handleEntering,
         onEntered: handleEntered,
         onExiting: handleExiting,
       }
-    : {};
+    : { ...defaultEvents };
 
   return {
     props: {
