@@ -6,11 +6,11 @@ export interface PortalProps {
   /**
    * 指定挂载的 HTML 节点, false 为挂载在 body
    */
-  getContainer?: React.ReactElement | AttachNode | boolean;
+  attach?: React.ReactElement | AttachNode | boolean;
   children: React.ReactNode;
 }
 
-export function getAttach(attach: PortalProps['getContainer']) {
+export function getAttach(attach: PortalProps['attach']) {
   let parent: AttachNodeReturnValue;
   if (typeof attach === 'string') {
     parent = document.querySelector(attach);
@@ -25,25 +25,36 @@ export function getAttach(attach: PortalProps['getContainer']) {
 }
 
 const Portal = forwardRef((props: PortalProps, ref) => {
-  const { getContainer, children } = props;
-  const [parentContainer, container] = useMemo(() => {
-    const parent = getAttach(getContainer);
+  const { attach, children } = props;
 
-    if (parent) {
-      const div = document.createElement('div');
-      parent.appendChild(div);
-      return [parent, div];
+  const container = useMemo(() => {
+    const el = document.createElement('div');
+    return el;
+  }, []);
+
+  useEffect(() => {
+    let parentElement = document.body;
+    let el = null;
+
+    // 处理 attach
+    if (typeof attach === 'function') {
+      el = attach();
+    } else if (typeof attach === 'string') {
+      el = document.querySelector(attach);
     }
-  }, [getContainer]);
 
-  useEffect(
-    () => () => {
-      container.remove();
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
+    // fix el in iframe
+    if (el && el.nodeType === 1) {
+      parentElement = el;
+    }
 
-  useImperativeHandle(ref, () => parentContainer);
+    parentElement.appendChild(container);
+    return () => {
+      parentElement.removeChild(container);
+    };
+  }, [container, attach]);
+
+  useImperativeHandle(ref, () => container);
 
   return createPortal(children, container);
 });

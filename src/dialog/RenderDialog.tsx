@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
-import { AttachNode } from '../common';
 import noop from '../_util/noop';
 import { DialogProps } from './Dialog';
 
@@ -13,7 +12,6 @@ enum KeyCode {
 export interface RenderDialogProps extends DialogProps {
   prefixCls?: string;
   classPrefix: string;
-  getContainer?: React.ReactElement | AttachNode | boolean;
 }
 
 const transitionTime = 300;
@@ -33,7 +31,7 @@ if (typeof window !== 'undefined' && window.document && window.document.document
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const {
     prefixCls,
-    getContainer,
+    attach,
     visible,
     mode,
     zIndex,
@@ -79,7 +77,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     } else if (isModal) {
       document.body.style.cssText = bodyCssTextRef.current;
     }
-  }, [preventScrollThrough, getContainer, visible, mode, isModal]);
+  }, [preventScrollThrough, attach, visible, mode, isModal]);
 
   useEffect(() => {
     if (visible) {
@@ -271,10 +269,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     let dom = null;
 
     if (visible || wrap.current) {
-      if (getContainer === false) {
+      if (!attach) {
         dom = dialog;
       } else {
-        dom = <Portal getContainer={getContainer}>{dialog}</Portal>;
+        dom = <Portal attach={attach}>{dialog}</Portal>;
       }
     }
 
