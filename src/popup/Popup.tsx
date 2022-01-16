@@ -78,6 +78,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef(null);
   const popperRef = useRef(null);
+  const portalRef = useRef(null);
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
@@ -158,8 +159,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   // 初次不渲染.
   const portal =
     visible || overlayRef ? (
-      <CSSTransition in={visible} timeout={400} appear unmountOnExit={destroyOnClose}>
-        <Portal attach={attach}>
+      <CSSTransition in={visible} nodeRef={portalRef} timeout={400} appear unmountOnExit={destroyOnClose}>
+        <Portal attach={attach} ref={portalRef}>
           <CSSTransition in={visible} appear {...cssTransitionState.props}>
             <div
               ref={composeRefs(setOverlayRef, ref)}

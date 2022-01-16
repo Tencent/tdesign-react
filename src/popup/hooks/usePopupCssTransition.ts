@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface UsePopupCssTransitionParams {
   contentRef: React.MutableRefObject<HTMLDivElement>;
@@ -8,6 +8,7 @@ interface UsePopupCssTransitionParams {
 
 const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: UsePopupCssTransitionParams) => {
   const [presetMaxHeight, setPresetMaxHeight] = useState<number>(null);
+  const timerRef = useRef(null);
 
   const contentEle = contentRef?.current;
 
@@ -19,6 +20,7 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   };
 
   function handleEnter() {
+    clearTimeout(timerRef.current);
     if (contentEle && contentEle.style.display === 'none') {
       contentEle.style.display = 'block';
     }
@@ -53,7 +55,7 @@ const usePopupCssTransition = ({ contentRef, classPrefix, expandAnimation }: Use
   function handleExited() {
     // 动画结束后隐藏
     if (contentEle) {
-      setTimeout(() => {
+      timerRef.current = setTimeout(() => {
         contentEle.style.display = 'none';
       }, 200);
     }
