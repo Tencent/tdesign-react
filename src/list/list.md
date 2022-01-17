@@ -16,6 +16,10 @@
 
 {{ scroll }}
 
+### 无限滚动加载列表
+
+{{ infinite-scroll }}
+
 ## API
 ### List Props
 
