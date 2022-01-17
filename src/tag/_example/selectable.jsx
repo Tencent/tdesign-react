@@ -15,7 +15,7 @@ export default function CheckTagExample() {
         未选
       </CheckTag>
       <CheckTag disabled={true}>
-        Disabled
+        禁用
       </CheckTag>
     </div>
   );
