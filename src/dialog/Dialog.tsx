@@ -39,7 +39,7 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
 
   const {
     visible,
-    attach: getContainer = 'body',
+    attach = 'body',
     closeBtn,
     footer,
     onCancel = noop,
@@ -156,7 +156,7 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
       visible={visible}
       prefixCls={prefixCls}
       header={renderHeader}
-      getContainer={getContainer}
+      attach={attach}
       closeBtn={renderCloseIcon()}
       classPrefix={classPrefix}
       onClose={onClose}

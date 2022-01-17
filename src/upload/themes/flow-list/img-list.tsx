@@ -49,7 +49,7 @@ const ImgList = (props: ImgListProps) => {
                 <div className={`${UPLOAD_NAME_CARD}-mask`}>
                   {file.url && (
                     <span className={`${UPLOAD_NAME_CARD}__mask__item`}>
-                      <BrowseIcon onClick={(e: MouseEvent) => onImgPreview(e, file)} />
+                      <BrowseIcon onClick={(e: MouseEvent) => onImgPreview(file, e)} />
                       <span className={`${UPLOAD_NAME_CARD}__mask__item-divider`} />
                     </span>
                   )}
