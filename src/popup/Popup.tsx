@@ -2,10 +2,10 @@ import React, {
   forwardRef,
   CSSProperties,
   useState,
-  useEffect,
   cloneElement,
   isValidElement,
   useMemo,
+  useCallback,
   useRef,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
@@ -16,9 +16,8 @@ import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
-import usePrevious from '../_util/usePrevious';
 import { TdPopupProps } from './type';
-import Portal from './Portal';
+import Portal from '../common/Portal';
 import useTriggerProps from './hooks/useTriggerProps';
 import usePopupCssTransition from './hooks/usePopupCssTransition';
 
@@ -71,51 +70,52 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   } = props;
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
-  const preVisible = usePrevious(visible);
 
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef(null);
+  const popperRef = useRef(null);
+  const portalRef = useRef(null);
 
-  // https://popper.js.org/react-popper/v2/faq/
-  const [firstUpdate, setFirstUpdate] = useState<boolean>(false);
-  const onPopperFirstUpdate = useMemo(
-    () => () => {
-      setFirstUpdate(true);
-    },
-    [],
-  );
+  // 展开时候动态判断上下左右翻转
+  const onPopperFirstUpdate = useCallback((state) => {
+    const referenceElmRect = popupRef.current.getBoundingClientRect();
+    const { top: referenceElmTop, left: referenceElmLeft, bottom, right } = referenceElmRect;
+    const referenceElmBottom = window.innerHeight - bottom;
+    const referenceElmRight = window.innerWidth - right;
 
-  const popperOptions = useMemo(() => {
-    if (!visible) return { padding: 0 };
-    const childElement = contentRef.current?.firstElementChild as HTMLElement;
-    const height = childElement?.offsetHeight ?? 0;
-    const width = childElement?.offsetWidth ?? 0;
-    return {
-      padding: {
-        top: height,
-        left: width,
-        right: width,
-        bottom: height,
-      },
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, overlayRef]);
+    const { scrollHeight: contentScrollHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
 
-  const { styles, attributes, update } = usePopper(triggerRef, overlayRef, {
+    let newPlacement = state.options.placement;
+    // 底部不够向上翻转
+    if (referenceElmBottom < contentScrollHeight && referenceElmTop >= contentScrollHeight) {
+      newPlacement = state.options.placement.replace('bottom', 'top');
+    }
+    // 顶部不够向下翻转
+    if (referenceElmTop < contentScrollHeight && referenceElmBottom >= contentScrollHeight) {
+      newPlacement = state.options.placement.replace('top', 'bottom');
+    }
+    // 左侧不够向右翻转
+    if (referenceElmLeft < contentOffsetWidth && referenceElmRight >= contentOffsetWidth) {
+      newPlacement = state.options.placement.replace('left', 'right');
+    }
+    // 右侧不够向左翻转
+    if (referenceElmRight < contentOffsetWidth && referenceElmLeft >= contentOffsetWidth) {
+      newPlacement = state.options.placement.replace('right', 'left');
+    }
+    Object.assign(state.options, { ...state.options, placement: newPlacement });
+    popperRef.current.update();
+  }, []);
+
+  popperRef.current = usePopper(triggerRef, overlayRef, {
     placement: placementMap[placement],
     onFirstUpdate: onPopperFirstUpdate,
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          ...popperOptions,
-        },
-      },
-    ],
   });
+
+  const { styles, attributes } = popperRef.current;
 
   const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
@@ -156,53 +156,37 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   const cssTransitionState = usePopupCssTransition({ contentRef, classPrefix, expandAnimation });
 
-  // 弹出框展示的时候，重新计算一下位置
-  useEffect(() => {
-    if ((visible || firstUpdate) && update) {
-      update();
-    }
-  }, [visible, preVisible, update, children, firstUpdate]);
-
-  const handlePopupWrapperMouseDown = () => {
-    const removeUpdate = () => window.removeEventListener('mousemove', update);
-    window.removeEventListener('mouseup', removeUpdate);
-    window.addEventListener('mousemove', update);
-    window.addEventListener('mouseup', removeUpdate);
-  };
-
   // 初次不渲染.
   const portal =
     visible || overlayRef ? (
-      <Portal attach={attach}>
-        <CSSTransition in={visible} appear={true} unmountOnExit={destroyOnClose} {...cssTransitionState.props}>
-          <div
-            ref={composeRefs(setOverlayRef, ref)}
-            style={styles.popper}
-            className={`${classPrefix}-popup`}
-            {...attributes.popper}
-            {...popupProps}
-          >
+      <CSSTransition in={visible} nodeRef={portalRef} timeout={400} appear unmountOnExit={destroyOnClose}>
+        <Portal attach={attach} ref={portalRef}>
+          <CSSTransition in={visible} appear {...cssTransitionState.props}>
             <div
-              className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
-                [`${classPrefix}-popup__content--arrow`]: showArrow,
-              })}
-              style={overlayVisibleStyle}
-              ref={contentRef}
+              ref={composeRefs(setOverlayRef, ref)}
+              style={styles.popper}
+              className={`${classPrefix}-popup`}
+              {...attributes.popper}
+              {...popupProps}
             >
-              {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
-              {content}
+              <div
+                className={classNames(`${classPrefix}-popup__content`, overlayClassName, {
+                  [`${classPrefix}-popup__content--arrow`]: showArrow,
+                })}
+                style={overlayVisibleStyle}
+                ref={contentRef}
+              >
+                {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
+                {content}
+              </div>
             </div>
-          </div>
-        </CSSTransition>
-      </Portal>
+          </CSSTransition>
+        </Portal>
+      </CSSTransition>
     ) : null;
 
   return (
-    <div
-      className={classNames(`${classPrefix}-popup__reference`, className)}
-      onMouseDown={handlePopupWrapperMouseDown}
-      style={style}
-    >
+    <div className={classNames(`${classPrefix}-popup__reference`, className)} style={style} ref={popupRef}>
       {triggerNode}
       {portal}
     </div>

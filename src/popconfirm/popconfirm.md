@@ -18,6 +18,6 @@ theme | String | default | 文字提示风格。可选项：default/warning/dang
 triggerElement | TNode | - | 触发元素。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 visible | Boolean | - | 是否显示气泡确认框 | N
 defaultVisible | Boolean | - | 是否显示气泡确认框。非受控属性 | N
-onCancel | Function |  | 点击取消按钮时触发。`(options: { e: MouseEvent }) => {}` | N
-onConfirm | Function |  | 点击确认按钮时触发。`(options: { e: MouseEvent }) => {}` | N
-onVisibleChange | Function |  | 确认框显示或隐藏时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/popconfirm/type.ts)。`(visible: boolean, context?: PopconfirmVisibleChangeContext) => {}` | N
+onCancel | Function |  | TS 类型：`(options: { e: MouseEvent }) => void`<br/>点击取消按钮时触发 | N
+onConfirm | Function |  | TS 类型：`(options: { e: MouseEvent }) => void`<br/>点击确认按钮时触发 | N
+onVisibleChange | Function |  | TS 类型：`(visible: boolean, context?: PopconfirmVisibleChangeContext) => void`<br/>确认框显示或隐藏时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/popconfirm/type.ts)。<br/>`interface PopconfirmVisibleChangeContext { trigger?: TriggerSource; e?: MouseEvent }`<br/><br/>`type TriggerSource = 'cancel' | 'confirm' | 'document' | 'trigger-element-click'`<br/> | N

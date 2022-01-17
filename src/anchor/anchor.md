@@ -11,8 +11,8 @@ container | String / Function | () => (() => window) | 指定滚动的容器。�
 cursor | TElement | - | 用于自定义选中项左侧游标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 size | String | medium | 组件尺寸，small(120px)，medium(200px)，large(320px)。可选项：small / medium / large | N
 targetOffset | Number | 0 | 锚点滚动偏移量 | N
-onChange | Function |  | 锚点改变时触发。`(currentLink: string, prevLink: string) => {}` | N
-onClick | Function |  | 锚点被点击时触发。`(link: { href: string; title: string; e: MouseEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(currentLink: string, prevLink: string) => void`<br/>锚点改变时触发 | N
+onClick | Function |  | TS 类型：`(link: { href: string; title: string; e: MouseEvent }) => void`<br/>锚点被点击时触发 | N
 
 ### AnchorItem Props
 

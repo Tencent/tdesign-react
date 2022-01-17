@@ -30,4 +30,14 @@ describe('Divider 组件测试', () => {
 
     expect(getByText(text).textContent).toBe(text);
   });
+  test('Divider content带文字 ', () => {
+    const text = '腾讯中content';
+    const { container, getByText } = render(<Divider content={text}></Divider>);
+
+    // 校验默认className
+    const defaultClass = ['t-divider', 't-divider--horizontal', 't-divider--with-text'];
+    expect(container.firstChild).toHaveClass(...defaultClass);
+
+    expect(getByText(text).textContent).toBe(text);
+  });
 });

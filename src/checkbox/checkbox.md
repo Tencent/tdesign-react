@@ -20,7 +20,7 @@ label | TNode | - | 主文案。TS 类型：`string | TNode`。[通用类型定�
 name | String | - | HTML 元素原生属性 | N
 readonly | Boolean | false | 组件是否只读 | N
 value | String / Number | - | 复选框的值。TS 类型：`string | number` | N
-onChange | Function |  | 值变化时触发。`(checked: boolean, context: { e: ChangeEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/>值变化时触发 | N
 
 ### CheckboxGroup Props
 
@@ -32,4 +32,4 @@ name | String | - | 统一设置内部复选框 HTML 属性 | N
 options | Array | [] | 以配置形式设置子元素。示例1：`['北京', '上海']` ，示例2: `[{ label: '全选', checkAll: true }, { label: '上海', value: 'shanghai' }]`。checkAll 值为 true 表示当前选项为「全选选项」。TS 类型：`Array<CheckboxOption>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/checkbox/type.ts) | N
 value | Array | [] | 选中值。TS 类型：`CheckboxGroupValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/checkbox/type.ts) | N
 defaultValue | Array | [] | 选中值。非受控属性。TS 类型：`CheckboxGroupValue`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/checkbox/type.ts) | N
-onChange | Function |  | 值变化时触发。`(value: CheckboxGroupValue, context: { e: ChangeEvent }) => {}` | N
+onChange | Function |  | TS 类型：`(value: CheckboxGroupValue, context: { e: ChangeEvent }) => void`<br/>值变化时触发 | N
