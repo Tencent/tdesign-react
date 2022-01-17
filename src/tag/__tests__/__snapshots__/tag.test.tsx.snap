@@ -273,7 +273,7 @@ exports[`selectable.jsx 1`] = `
     <span
       class="t-tag t-tag--default t-tag--check t-tag--disabled"
     >
-      Disabled
+      禁用
     </span>
   </div>
 </DocumentFragment>

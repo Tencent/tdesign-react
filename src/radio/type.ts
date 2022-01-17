@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, SizeEnum } from '../common';
@@ -10,7 +9,7 @@ import { ChangeEvent } from 'react';
 
 export interface TdRadioProps {
   /**
-   * 【开发中】是否允许取消选中
+   * 是否允许取消选中
    * @default false
    */
   allowUncheck?: boolean;
