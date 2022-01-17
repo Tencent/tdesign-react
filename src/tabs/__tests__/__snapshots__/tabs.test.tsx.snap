@@ -3,80 +3,145 @@
 exports[`ban.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-tabs"
+    class="tdesign-demo-block-column-large"
   >
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="normal"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            常规型
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="card"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            卡片型
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
     <div
-      class="t-tabs__header t-is-top"
+      class="t-tabs"
     >
       <div
-        class="t-tabs__nav"
-        style="min-height: 48px;"
+        class="t-tabs__header t-is-top"
       >
         <div
-          class="t-tabs__operations t-tabs__operations--left"
-        />
-        <div
-          class="t-tabs__operations t-tabs__operations--right"
-        />
-        <div
-          class="t-tabs__nav-container t-is-top"
+          class="t-tabs__nav"
+          style="min-height: 48px;"
         >
           <div
-            class="t-tabs__nav-scroll"
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
+            class="t-tabs__nav-container t-is-top"
           >
             <div
-              class="t-tabs__nav-wrap"
+              class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__bar t-is-top"
-                style="transform: translateX(0px);"
-              />
-              <div
-                class="t-tabs__bar t-is-top"
-              />
-              <div
-                class="t-tabs__nav-item t-size-m t-is-top t-is-disabled"
+                class="t-tabs__nav-wrap"
               >
                 <div
-                  class="t-tabs__nav-item-wrapper"
-                  style="position: relative;"
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__bar t-is-top"
+                />
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
                 >
-                  <span
-                    class="t-tabs__nav-item-text-wrapper"
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
                   >
-                    选项卡1
-                  </span>
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡1
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="t-tabs__nav-item t-size-m t-is-active t-is-top"
-              >
                 <div
-                  class="t-tabs__nav-item-wrapper"
-                  style="position: relative;"
+                  class="t-tabs__nav-item t-size-m t-is-top t-is-disabled"
                 >
-                  <span
-                    class="t-tabs__nav-item-text-wrapper"
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
                   >
-                    选项卡2
-                  </span>
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡2
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡3
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="t-tabs__content t-is-top"
-    >
       <div
-        class="t-tab-panel"
+        class="t-tabs__content t-is-top"
       >
         <div
-          style="margin: 20px;"
+          class="t-tab-panel"
         >
-          选项卡2内容区
+          <div
+            style="margin: 20px;"
+          >
+            选项卡1内容区
+          </div>
         </div>
       </div>
     </div>
@@ -208,7 +273,7 @@ exports[`combination.jsx 1`] = `
           <span
             class="t-radio-button__label"
           >
-            常规
+            常规型
           </span>
         </label>
         <label
@@ -226,7 +291,7 @@ exports[`combination.jsx 1`] = `
           <span
             class="t-radio-button__label"
           >
-            卡片
+            卡片型
           </span>
         </label>
         <div
@@ -686,19 +751,55 @@ exports[`custom.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-tabs"
+    class="tdesign-demo-block-column-large"
   >
-    <button
-      class="t-button t-button--theme-default t-button--variant-outline"
-      style="margin-bottom: 10px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
       >
-        切换到卡片型
-      </span>
-    </button>
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="normal"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            常规
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="card"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            卡片
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
     <div
       class="t-tabs"
     >
@@ -927,50 +1028,87 @@ exports[`position.jsx 1`] = `
     <div
       class="tdesign-demo-block-row"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
       >
-        <span
-          class="t-button__text"
+        <label
+          class="t-radio-button t-is-checked"
         >
-          top
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="top"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            top
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
         >
-          bottom
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="right"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            right
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
         >
-          left
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="bottom"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            bottom
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
         >
-          right
-        </span>
-      </button>
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="left"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            left
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
     </div>
     <div
       class="t-tabs"
@@ -1046,62 +1184,6 @@ exports[`position.jsx 1`] = `
                     </span>
                   </div>
                 </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡4
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡5
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡6
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡7
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -1132,31 +1214,172 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="tdesign-demo-block-row"
+      class="t-tabs"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
+      <div
+        class="t-tabs__header t-is-top"
       >
-        <span
-          class="t-button__text"
+        <div
+          class="t-tabs__nav"
+          style="min-height: 48px;"
         >
-          medium
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        style="position: relative;"
-        type="button"
+          <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
+            class="t-tabs__nav-container t-is-top"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__bar t-is-top"
+                />
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡1
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-m t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡2
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content t-is-top"
       >
-        <span
-          class="t-button__text"
+        <div
+          class="t-tab-panel"
         >
-          large
-        </span>
-      </button>
+          <div
+            style="margin: 20px;"
+          >
+            选项卡1内容区
+          </div>
+        </div>
+      </div>
     </div>
+    <div
+      class="t-tabs"
+    >
+      <div
+        class="t-tabs__header t-is-top"
+      >
+        <div
+          class="t-tabs__nav"
+          style="min-height: 48px;"
+        >
+          <div
+            class="t-tabs__operations t-tabs__operations--left"
+          />
+          <div
+            class="t-tabs__operations t-tabs__operations--right"
+          />
+          <div
+            class="t-tabs__nav-container t-is-top"
+          >
+            <div
+              class="t-tabs__nav-scroll"
+            >
+              <div
+                class="t-tabs__nav-wrap"
+              >
+                <div
+                  class="t-tabs__bar t-is-top"
+                  style="transform: translateX(0px);"
+                />
+                <div
+                  class="t-tabs__bar t-is-top"
+                />
+                <div
+                  class="t-tabs__nav-item t-size-l t-is-active t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡1
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="t-tabs__nav-item t-size-l t-is-top"
+                >
+                  <div
+                    class="t-tabs__nav-item-wrapper"
+                    style="position: relative;"
+                  >
+                    <span
+                      class="t-tabs__nav-item-text-wrapper"
+                    >
+                      选项卡2
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-tabs__content t-is-top"
+      >
+        <div
+          class="t-tab-panel"
+        >
+          <div
+            style="margin: 20px;"
+          >
+            选项卡1内容区
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+  >
     <div
       class="t-tabs"
     >
@@ -1278,120 +1501,6 @@ exports[`size.jsx 1`] = `
                   >
                     选项卡2
                   </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-tabs__content t-is-top"
-      >
-        <div
-          class="t-tab-panel"
-        >
-          <div
-            style="margin: 20px;"
-          >
-            选项卡1内容区
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`theme.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="tdesign-demo-block-row"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          default
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          card
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-tabs"
-    >
-      <div
-        class="t-tabs__header t-is-top"
-      >
-        <div
-          class="t-tabs__nav"
-          style="min-height: 48px;"
-        >
-          <div
-            class="t-tabs__operations t-tabs__operations--left"
-          />
-          <div
-            class="t-tabs__operations t-tabs__operations--right"
-          />
-          <div
-            class="t-tabs__nav-container t-is-top"
-          >
-            <div
-              class="t-tabs__nav-scroll"
-            >
-              <div
-                class="t-tabs__nav-wrap"
-              >
-                <div
-                  class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
-                />
-                <div
-                  class="t-tabs__bar t-is-top"
-                />
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-active t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡1
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="t-tabs__nav-item t-size-m t-is-top"
-                >
-                  <div
-                    class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
-                  >
-                    <span
-                      class="t-tabs__nav-item-text-wrapper"
-                    >
-                      选项卡2
-                    </span>
-                  </div>
                 </div>
               </div>
             </div>
