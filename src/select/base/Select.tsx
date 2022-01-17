@@ -35,6 +35,10 @@ export interface SelectProps extends TdSelectProps, StyledProps {
 
 type OptionsType = TdOptionProps[];
 
+enum KeyCode {
+  BACKSPACE = 8,
+}
+
 const Select = forwardRefWithStatics(
   (props: SelectProps, ref: Ref<HTMLDivElement>) => {
     // 国际化文本初始化
@@ -298,18 +302,9 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
-    /**
-     * 1. keycode是否需要在tdesign-common维护一个枚举配置
-     * 2. value是否需要一个hook，把操作value状态维护在hook中，暴露出api来修改value，简单类似于:
-     * const [
-     *  value: selectedValue,
-     *  {remove: removeTag, replace: changeValue, add: addTag}
-     * ] = useSelectValue(value);
-     * useEffect(() => onChangeValue(value), [value]);
-     */
     const handleInputKeyDown = useCallback(
       (inputValue, { e }) => {
-        if (!inputValue && multiple && Array.isArray(value) && e.which === 8) {
+        if (!inputValue && multiple && Array.isArray(value) && e.which === KeyCode.BACKSPACE) {
           const lastValue = value[value.length - 1];
           const values = getSelectValueArr(value, lastValue, true, valueType, keys);
           onChange(values);
