@@ -36,7 +36,7 @@ const Dropdown = forwardRefWithStatics(
       if (hideAfterItemClick) {
         togglePopupVisible(false);
       }
-      props.onClick?.(data, context);
+      props?.onClick?.(data, context);
     };
 
     const DropdownContent = () => <DropdownMenu {...props} onClick={handleMenuClick}></DropdownMenu>;

@@ -5,8 +5,10 @@ import useConfig from '../_util/useConfig';
 import { DropdownProps } from './Dropdown';
 import DropdownItem from './DropdownItem';
 
+type RenderType = 'Normal' | 'DropdownItem';
+
 const DropdownMenu = (props: DropdownProps) => {
-  const { options = [], maxHeight = 300, maxColumnWidth = 300, minColumnWidth = 10 } = props;
+  const { options = [], maxHeight = 300, maxColumnWidth = 100, minColumnWidth = 10 } = props;
   const [path, setPath] = useState<string>('');
   const { classPrefix } = useConfig();
   const dropdownMenuClass = `${classPrefix}-dropdown__menu`;
@@ -28,7 +30,7 @@ const DropdownMenu = (props: DropdownProps) => {
     return false;
   };
 
-  const getActiveItemChild = (children, type: 'DropdownItem' | 'Normal' = 'DropdownItem') => {
+  const getActiveItemChild = (children, type: RenderType = 'DropdownItem') => {
     if (!children) {
       return [];
     }
@@ -43,11 +45,20 @@ const DropdownMenu = (props: DropdownProps) => {
   };
 
   const handleItemClick = (
-    data: DropdownOption,
-    context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> },
-    idx: number,
+    options: {
+      data: DropdownOption;
+      context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> };
+      idx: number;
+    },
+    type: RenderType = 'Normal',
+    child?: React.ReactElement,
   ) => {
-    options[idx]?.onClick?.(data, context);
+    const { data, context, idx } = options;
+    if (type === 'Normal') {
+      options[idx]?.onClick?.(data, context);
+    } else {
+      child?.props?.onClick?.(data, context);
+    }
     props.onClick(data, context);
   };
   const renderDropdownColumn = (
@@ -81,7 +92,7 @@ const DropdownMenu = (props: DropdownProps) => {
                 maxColumnWidth={maxColumnWidth}
                 minColumnWidth={minColumnWidth}
                 onClick={(data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) =>
-                  handleItemClick(data, context, idx)
+                  handleItemClick({ data, context, idx })
                 }
                 onHover={handleHoverItem}
               />
@@ -97,6 +108,8 @@ const DropdownMenu = (props: DropdownProps) => {
             onHover: handleHoverItem,
             active: isActive(item, pathPrefix) || childItem.props.active,
             children: getActiveItemChild(childItem.props.children, 'Normal'),
+            onClick: (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) =>
+              handleItemClick({ data, context, idx }, 'DropdownItem', childItem),
           });
         })}
       </div>

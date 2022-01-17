@@ -1,8 +1,8 @@
 :: BASE_DOC ::
 
-### options为传入child方式
+### 通过传入Children方式使用下拉菜单
 
-options为child形式
+下拉菜单操作项支持通过传入Children的方式传递操作项。
 
 {{ child }}
 
