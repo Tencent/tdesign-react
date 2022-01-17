@@ -4443,7 +4443,7 @@ exports[`event-props-api.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-list t-list--split"
+      class="t-list"
       style="max-height: 130px;"
     >
       <ul

@@ -1,6 +1,7 @@
 import React, { MouseEvent, WheelEvent } from 'react';
 import classNames from 'classnames';
 
+import isString from 'lodash/isString';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
@@ -27,7 +28,7 @@ const List = forwardRefWithStatics(
       footer,
       asyncLoading,
       size = 'medium',
-      split = true,
+      split = false,
       stripe = false,
       layout = 'horizontal',
       children,
@@ -52,26 +53,24 @@ const List = forwardRefWithStatics(
       onScroll({ e: event, scrollTop, scrollBottom });
     };
 
-    // prettier-ignore
-    const loadElement = asyncLoading === undefined ? (
-      ''
+    const loadElement = isString(asyncLoading) ? (
+      <div
+        className={classNames(`${classPrefix}-list__load`, {
+          [`${classPrefix}-list__load--loading`]: asyncLoading === 'loading',
+          [`${classPrefix}-list__load--load-more`]: asyncLoading === 'load-more',
+        })}
+        onClick={handleClickLoad}
+      >
+        {asyncLoading === 'loading' && (
+          <div>
+            <Loading loading={true} />
+            <span>正在加载中，请稍等</span>
+          </div>
+        )}
+        {asyncLoading === 'load-more' && <span>点击加载更多</span>}
+      </div>
     ) : (
-    <div
-      className={classNames(`${classPrefix}-list__load`, {
-        [`${classPrefix}-list__load--loading`]: asyncLoading === 'loading',
-        [`${classPrefix}-list__load--load-more`]: asyncLoading === 'load-more',
-      })}
-      onClick={handleClickLoad}
-    >
-      {asyncLoading === 'loading' ? (
-        <div>
-          <Loading loading={true} />
-          <span>正在加载中，请稍等</span>
-        </div>
-      ) : (
-        <span>点击加载更多</span>
-      )}
-    </div>
+      asyncLoading
     );
 
     return (
@@ -87,10 +86,10 @@ const List = forwardRefWithStatics(
           [`${classPrefix}-size-l`]: size === 'large',
         })}
       >
-        {header}
+        {header && <div className={`${classPrefix}-list__header`}>{header}</div>}
         <ul className={`${classPrefix}-list__inner`}>{children}</ul>
-        {loadElement}
-        {footer}
+        {asyncLoading && loadElement}
+        {footer && <div className={`${classPrefix}-list__footer`}>{footer}</div>}
       </div>
     );
   },
