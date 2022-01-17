@@ -55,6 +55,36 @@ exports[`button.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`child.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup__reference"
+  >
+    <button
+      class="t-button t-button--theme-default t-button--variant-text"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        <span
+          style="display: inline-flex;"
+        >
+          更多
+          <svg
+            class="t-icon t-icon-chevron-down"
+          >
+            <use
+              xlink:href="#t-icon-chevron-down"
+            />
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`click.jsx 1`] = `
 <DocumentFragment>
   <div

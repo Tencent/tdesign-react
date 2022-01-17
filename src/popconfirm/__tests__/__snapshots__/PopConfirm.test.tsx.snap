@@ -402,36 +402,7 @@ exports[`base.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          点我看按钮
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-popup__reference"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
           提交审核
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-popup__reference"
-    >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
-        disabled=""
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          禁用按钮
         </span>
       </button>
     </div>
@@ -448,7 +419,7 @@ exports[`button.jsx 1`] = `
       class="t-popup__reference"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-default t-button--variant-outline"
         type="button"
       >
         <span
@@ -462,7 +433,7 @@ exports[`button.jsx 1`] = `
       class="t-popup__reference"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-default t-button--variant-outline"
         type="button"
       >
         <span
@@ -491,7 +462,7 @@ exports[`describe.jsx 1`] = `
         <span
           class="t-button__text"
         >
-          自定义content
+          自定义浮层内容
         </span>
       </button>
     </div>
@@ -499,13 +470,13 @@ exports[`describe.jsx 1`] = `
       class="t-popup__reference"
     >
       <button
-        class="t-button t-button--theme-danger t-button--variant-outline"
+        class="t-button t-button--theme-warning t-button--variant-base"
         type="button"
       >
         <span
           class="t-button__text"
         >
-          自定义content
+          自定义浮层内容
         </span>
       </button>
     </div>
@@ -590,13 +561,13 @@ exports[`icon.jsx 1`] = `
         class="t-popup__reference"
       >
         <button
-          class="t-button t-button--theme-primary t-button--variant-base"
+          class="t-button t-button--theme-default t-button--variant-outline"
           type="button"
         >
           <span
             class="t-button__text"
           >
-            图标（属性）
+            自定义图标（属性）
           </span>
         </button>
       </div>
@@ -614,7 +585,7 @@ exports[`inherit.jsx 1`] = `
       class="t-popup__reference"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-default t-button--variant-outline"
         type="button"
       >
         <span
@@ -628,7 +599,7 @@ exports[`inherit.jsx 1`] = `
       class="t-popup__reference"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-default t-button--variant-outline"
         type="button"
       >
         <span

@@ -4,11 +4,15 @@
 
 {{ stripe }}
 
-### 列表尺寸
+### 异步加载的列表
 
-{{ size }}
+{{ asyncLoading }}
 
-### 滚动事件
+### 带头部及尾部的列表
+
+{{ header-footer }}
+
+### 带滚动事件的列表
 
 {{ scroll }}
 

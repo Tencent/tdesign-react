@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { ButtonProps } from '../button';
@@ -26,7 +25,7 @@ export interface TdDialogProps {
    */
   cancelBtn?: ButtonProps | TNode;
   /**
-   * 抽屉内容，同 body
+   * 对话框内容，同 body
    */
   children?: TNode;
   /**
@@ -35,7 +34,7 @@ export interface TdDialogProps {
    */
   closeBtn?: TNode;
   /**
-   * 按下 ESC 时是否触发抽屉关闭事件
+   * 按下 ESC 时是否触发对话框关闭事件
    * @default true
    */
   closeOnEscKeydown?: boolean;
@@ -45,7 +44,7 @@ export interface TdDialogProps {
    */
   closeOnOverlayClick?: boolean;
   /**
-   * 确认按钮。值为 null 则不显示取消按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制确认事件
+   * 确认按钮。值为 null 则不显示确认按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制确认事件
    * @default ''
    */
   confirmBtn?: ButtonProps | TNode;
@@ -103,11 +102,6 @@ export interface TdDialogProps {
    * @default false
    */
   visible?: boolean;
-  /**
-   * 控制对话框是否显示，非受控属性
-   * @default false
-   */
-  defaultVisible?: boolean;
   /**
    * 对话框宽度，示例：320, '500px', '80%'
    */
