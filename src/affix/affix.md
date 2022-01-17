@@ -9,4 +9,4 @@ container | String / Function | () => (() => window) | 指定滚动的容器。�
 offsetBottom | Number | 0 |  距离容器顶部达到指定距离后触发固定 | N
 offsetTop | Number | 0 |  距离容器底部达到指定距离后触发固定 | N
 zIndex | Number | - | 固钉定位层级，样式默认为 500 | N
-onFixedChange | Function |  | 固定状态发生变化时触发。`(affixed: boolean, context: { top: number }) => {}` | N
+onFixedChange | Function |  | TS 类型：`(affixed: boolean, context: { top: number }) => void`<br/>固定状态发生变化时触发 | N

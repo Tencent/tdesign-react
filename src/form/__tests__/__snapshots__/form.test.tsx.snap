@@ -192,7 +192,7 @@ exports[`base.jsx 1`] = `
                 class="t-form-controls"
               >
                 <div
-                  class="t-input t-input--suffix"
+                  class="t-input t-is-readonly t-input--suffix"
                 >
                   <input
                     class="t-input__inner"

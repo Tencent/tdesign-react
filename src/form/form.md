@@ -17,9 +17,9 @@ scrollToFirstError | String | - | 表单校验不通过时，是否自动滚动�
 showErrorMessage | Boolean | true | 校验不通过时，是否显示错误提示信息 | N
 size | String | medium | 表单尺寸。可选项：medium/large | N
 statusIcon | TNode | undefined | 校验状态图标。TS 类型：`boolean | TNode<TdFormItemProps>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-onReset | Function |  | 表单重置时触发。`(context: { e?: FormResetEvent }) => {}` | N
-onSubmit | Function |  | 表单提交时触发。其中 context.validateResult 表示校验结果，context .firstError 表示校验不通过的第一个规则提醒。context.validateResult 值为 true 表示校验通过；如果校验不通过，context.validateResult 值为校验结果列表。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。`(context: SubmitContext<FormData>) => {}` | N
-onValuesChange | Function |  | 字段值更新时触发的回调事件。`(changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => {}` | N
+onReset | Function |  | TS 类型：`(context: { e?: FormResetEvent }) => void`<br/>表单重置时触发 | N
+onSubmit | Function |  | TS 类型：`(context: SubmitContext<FormData>) => void`<br/>表单提交时触发。其中 context.validateResult 表示校验结果，context .firstError 表示校验不通过的第一个规则提醒。context.validateResult 值为 true 表示校验通过；如果校验不通过，context.validateResult 值为校验结果列表。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface SubmitContext<T extends Data = Data> { e?: FormSubmitEvent; validateResult: FormValidateResult<T>; firstError?: string }`<br/><br/>`type FormValidateResult<T> = boolean | ValidateResultObj<T>`<br/><br/>`type ValidateResultObj<T> = { [key in keyof T]: boolean | ValidateResultList }`<br/><br/>`type ValidateResultList = Array<AllValidateResult>`<br/><br/>`type AllValidateResult = CustomValidateObj | ValidateResultType`<br/><br/>`interface ValidateResultType extends FormRule { result: boolean }`<br/><br/>`type ValidateResult<T> = { [key in keyof T]: boolean | ErrorList }`<br/><br/>`type ErrorList = Array<FormRule>`<br/> | N
+onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => void`<br/>字段值更新时触发的回调事件 | N
 
 ### FormItem Props
 

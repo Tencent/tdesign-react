@@ -1,4 +1,4 @@
-import React, { DragEvent, MouseEvent, ReactNode, useState } from 'react';
+import React, { DragEvent, MouseEvent, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../../_util/useConfig';
 import Button from '../../../button';
@@ -24,7 +24,7 @@ export interface FlowListProps {
   remove: (ctx: FlowRemoveContext) => void;
   upload: (files: UploadFile[], e: MouseEvent) => void;
   cancel: (e: MouseEvent) => void;
-  onImgPreview: (e: MouseEvent, files: UploadFile) => void;
+  onImgPreview: (file: UploadFile, e: MouseEvent) => void;
   onChange: (files: FileList) => void;
   onDragenter: (e: React.DragEvent) => void;
   onDragleave: (e: React.DragEvent) => void;
@@ -77,6 +77,14 @@ const Index: React.FC<FlowListProps> = (props) => {
   const handleDragover = (event: DragEvent) => {
     event.preventDefault();
   };
+  const onInternalImgPreview = useCallback(
+    (file, event) => {
+      if (!onImgPreview) return;
+      event.preventDefault();
+      onImgPreview(file, event);
+    },
+    [onImgPreview],
+  );
 
   const renderDragger = () => (
     <div
@@ -115,7 +123,7 @@ const Index: React.FC<FlowListProps> = (props) => {
           listFiles={listFiles}
           showInitial={showInitial}
           renderDragger={renderDragger}
-          onImgPreview={onImgPreview}
+          onImgPreview={onInternalImgPreview}
           remove={remove}
         />
       </BooleanRender>
