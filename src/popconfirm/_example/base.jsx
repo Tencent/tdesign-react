@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, PopConfirm, MessagePlugin } from 'tdesign-react';
 
 export default function BasicExample() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   const deleteClickHandler = () => {
     const msg = MessagePlugin.info('提交中', 0);
@@ -15,20 +15,13 @@ export default function BasicExample() {
 
   return (
     <div className="tdesign-demo-block-row">
-      <PopConfirm content={'确定删除订单吗'}>
+      <PopConfirm content={'确认删除订单吗'}>
         <Button theme="primary">删除订单</Button>
       </PopConfirm>
       <PopConfirm
-        content={'你看到了吗'}
-        confirmBtn={<Button theme={'primary'} variant={'outline'} size={'small'}>看到了</Button>}
-        cancelBtn={null}
-      >
-        <Button theme="primary">点我看按钮</Button>
-      </PopConfirm>
-      <PopConfirm
         visible={visible}
-        content={'是否提交审核？（自定义按钮内容）'}
-        confirmBtn={<Button size={'small'} onClick={deleteClickHandler}>删除</Button>}
+        content={'是否提交审核？（自由控制浮层显示或隐藏）'}
+        confirmBtn={<Button size={'small'} onClick={deleteClickHandler}>确定</Button>}
         onCancel={() => {
           setVisible(false);
         }}
@@ -41,9 +34,6 @@ export default function BasicExample() {
         >
           提交审核
         </Button>
-      </PopConfirm>
-      <PopConfirm>
-        <Button theme="primary" disabled>禁用按钮</Button>
       </PopConfirm>
     </div>
   );

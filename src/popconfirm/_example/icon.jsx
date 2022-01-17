@@ -17,8 +17,8 @@ export default function IconUsageExample() {
         </PopConfirm>
       </div>
       <div className="tdesign-demo-block-row">
-        <PopConfirm content={'基础气泡确认框文案示意文字按钮'} icon={<BrowseIcon />}>
-          <Button theme="primary">图标（属性）</Button>
+        <PopConfirm content={'基础气泡确认框文案示意文字按钮'} icon={<BrowseIcon />} popupProps={{ placement: 'bottom' }}>
+          <Button theme="default" variant="outline">自定义图标（属性）</Button>
         </PopConfirm>
       </div>
     </div>
