@@ -38,12 +38,13 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     labelWidth,
     labelAlign,
     initialData,
+    requiredMark,
     className,
     style: formItemStyle,
   } = props;
   const {
     colon,
-    requiredMark,
+    requiredMark: requiredMarkFromContext,
     layout,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
@@ -70,6 +71,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerRules: FormRule[] = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
+  const innerRequiredMark = isNil(requiredMark) ? requiredMarkFromContext : requiredMark;
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
@@ -78,7 +80,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+      innerRequiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: innerLabelAlign === 'top' || !innerLabelWidth,
     [`${classPrefix}-form__label--left`]: innerLabelAlign === 'left' && innerLabelWidth,
