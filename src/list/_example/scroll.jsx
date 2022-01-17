@@ -26,7 +26,7 @@ export default function BasicList() {
     <List size="small" style={style} onScroll={handleScroll}>
       {listData.map((item) => (
         <ListItem key={item.id}>
-          <ListItemMeta avatar={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
+          <ListItemMeta image={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
         </ListItem>
       ))}
     </List>
