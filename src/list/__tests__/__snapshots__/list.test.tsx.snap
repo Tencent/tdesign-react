@@ -2835,7 +2835,7 @@ exports[`operation.jsx 1`] = `
 exports[`scroll.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-list t-size-s"
+    class="t-list"
     style="height: 300px; overflow: auto;"
   >
     <ul
