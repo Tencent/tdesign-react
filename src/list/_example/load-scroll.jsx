@@ -1,12 +1,9 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { List } from 'tdesign-react';
-import VirtualList from 'rc-virtual-list';
 
 const { ListItem, ListItemMeta } = List;
 
 export default function BasicList() {
-  const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
-
   const [listData,setListData] = useState([]);
   const [isLoading, setIsLoading] = useState('');
   const [pageNum, setPageNum] = useState(1);
@@ -15,7 +12,7 @@ export default function BasicList() {
   const dataSource = [];
   const total = 30;
   for (let i = 0; i < total; i++) {
-    dataSource.push({ id: i, content: '列表内容列表内容列表内容' });
+    dataSource.push({ id: i, content: '列表内容列表内容列表内容', icon: 'https://tdesign.gtimg.com/list-icon.png', title: '列表主内容' });
   }
 
   const height = 300;
@@ -42,8 +39,8 @@ export default function BasicList() {
     }
   }
 
-  const handleScroll = (e) => {
-    if (e.target.scrollHeight - e.target.scrollTop === height  && listData.length < total) {
+  const handleScroll = ({ scrollBottom }) => {
+    if (!scrollBottom  && listData.length < total) {
       fetchData({ pageNum: pageNum + 1, pageSize });
     }
 
@@ -55,19 +52,11 @@ export default function BasicList() {
 
   return (
     <List asyncLoading={isLoading ? 'loading': ''} size="small" style={style} onScroll={handleScroll}>
-      <VirtualList
-        data={listData}
-        height={height}
-        itemKey="id"
-        itemHeight={64}
-        onScroll={handleScroll}
-      >
         {
-          item => <ListItem key={item.id}>
-                    <ListItemMeta image={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
-                  </ListItem>
+          listData.map(item => <ListItem key={item.id}>
+            <ListItemMeta image={item.icon} title={item.title} description={item.content} />
+          </ListItem>)
         }
-      </VirtualList>
     </List>
   );
 }

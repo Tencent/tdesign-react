@@ -2515,7 +2515,7 @@ exports[`image-text.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`infinite-scroll.jsx 1`] = `
+exports[`load-scroll.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-list t-size-s"
@@ -2523,33 +2523,7 @@ exports[`infinite-scroll.jsx 1`] = `
   >
     <ul
       class="t-list__inner"
-    >
-      <div
-        class="rc-virtual-list"
-        style="position: relative;"
-      >
-        <div
-          class="rc-virtual-list-holder"
-          style="height: 300px; overflow-y: hidden;"
-        >
-          <div>
-            <div
-              class="rc-virtual-list-holder-inner"
-              style="display: flex; flex-direction: column;"
-            />
-          </div>
-        </div>
-        <div
-          class="rc-virtual-list-scrollbar"
-          style="width: 8px; top: 0px; bottom: 0px; right: 0px; position: absolute; display: none;"
-        >
-          <div
-            class="rc-virtual-list-scrollbar-thumb"
-            style="width: 100%; height: 150px; top: 0px; left: 0px; position: absolute; background: rgba(0, 0, 0, 0.5); border-radius: 99px; cursor: pointer; user-select: none;"
-          />
-        </div>
-      </div>
-    </ul>
+    />
     <div
       class="t-list__load t-list__load--loading"
     >
@@ -2851,13 +2825,33 @@ exports[`scroll.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
+              class="t-list-item__meta-content"
             >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
+              <h3
+                class="t-list-item__meta-title"
+              >
+                列表主内容
+              </h3>
+              <div
+                class="t-list-item__meta-description"
+              >
+                <p>
+                  列表内容列表内容列表内容
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="t-list-item"
+      >
+        <div
+          class="t-list-item-main"
+        >
+          <div
+            class="t-list-item__meta"
+          >
             <div
               class="t-list-item__meta-content"
             >
@@ -2887,14 +2881,6 @@ exports[`scroll.jsx 1`] = `
             class="t-list-item__meta"
           >
             <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
               class="t-list-item__meta-content"
             >
               <h3
@@ -2922,50 +2908,6 @@ exports[`scroll.jsx 1`] = `
           <div
             class="t-list-item__meta"
           >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
             <div
               class="t-list-item__meta-content"
             >
