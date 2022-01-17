@@ -210,7 +210,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     return (
       <CSSTransition
-        key="dialog"
         in={props.visible}
         appear
         mountOnEnter
@@ -234,13 +233,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           in={visible}
           appear
           timeout={transitionTime}
-          classNames={`${prefixCls}-dialog-fade`}
+          classNames={`${prefixCls}-fade`}
           mountOnEnter
           unmountOnExit
-          key="mask"
           nodeRef={maskRef}
         >
-          <div key="mask" onClick={onMaskClick} className={`${prefixCls}__mask`} />
+          <div ref={maskRef} onClick={onMaskClick} className={`${prefixCls}__mask`} />
         </CSSTransition>
       );
     }
