@@ -192,14 +192,18 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
         })}
         style={trackStyle}
       >
-        <div className={`${classPrefix}-progress__inner`} style={barStyle}>
-          {label && (
-            <div
-              className={`${classPrefix}-progress__info`}
-              style={percentage > 10 ? { color: '#fff' } : { right: '-2.5em' }}
-            >{`${percentage}%`}</div>
-          )}
-        </div>
+        {percentage > PLUMP_SEPERATE ? (
+          <div className={`${classPrefix}-progress__inner`} style={barStyle}>
+            {label && (
+              <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>{`${percentage}%`}</div>
+            )}
+          </div>
+        ) : (
+          <>
+            <div className={`${classPrefix}-progress__inner`} style={barStyle}></div>
+            {label && <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>}
+          </>
+        )}
       </div>
     );
   } else {
