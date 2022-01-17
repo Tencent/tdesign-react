@@ -58,6 +58,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // 滚动条 ref 定义
   const scrollBarRef = useRef(null);
+  const leftScrollBtnRef = useRef(null);
+  const rightScrollBtnRef = useRef(null);
 
   /**
    * @date 2021-07-26 15:57:46
@@ -96,7 +98,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // 滚动条处理逻辑
   const scrollClickHandler = (position: 'left' | 'right') => {
-    const doubleScrollBtnWidth = 80;
+    const doubleScrollBtnWidth =
+      (leftScrollBtnRef.current?.clientWidth || rightScrollBtnRef.current?.clientWidth || 0) * 2;
     const scrollLength = scrollBarRef.current.clientWidth - doubleScrollBtnWidth;
     const ref = scrollBarRef.current;
     if (ref) {
@@ -167,6 +170,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 tdTabsClassGenerator('btn--left'),
                 tdSizeClassGenerator(size),
               )}
+              ref={leftScrollBtnRef}
             >
               <ChevronLeftIcon />
             </div>
@@ -183,6 +187,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 tdTabsClassGenerator('btn--right'),
                 tdSizeClassGenerator(size),
               )}
+              ref={rightScrollBtnRef}
             >
               <ChevronRightIcon />
             </div>
