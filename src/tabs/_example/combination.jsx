@@ -13,8 +13,8 @@ export default function AddTabs() {
     <div className="tdesign-demo-block-column-large">
       <div>
         <Radio.Group variant="default-filled" defaultValue="normal" onChange={setTheme}>
-          <Radio.Button value="normal">常规</Radio.Button>
-          <Radio.Button value="card">卡片</Radio.Button>
+          <Radio.Button value="normal">常规型</Radio.Button>
+          <Radio.Button value="card">卡片型</Radio.Button>
         </Radio.Group>
       </div>
 
