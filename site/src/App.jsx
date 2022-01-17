@@ -37,8 +37,8 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === currentVersion) return;
-    const histryUrl = `//${version}-tdesign-react.surge.sh`;
-    window.open(histryUrl, '_blank');
+    const historyUrl = `//${version}-tdesign-react.surge.sh`;
+    window.open(historyUrl, '_blank');
   }
 
   function initHistoryVersions() {

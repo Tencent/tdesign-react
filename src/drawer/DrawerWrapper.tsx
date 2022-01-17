@@ -25,7 +25,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
     portal = <div ref={portalRef}>{cloneElement(children)}</div>;
   } else {
     portal = (
-      <Portal getContainer={attach} ref={portalRef}>
+      <Portal attach={attach} ref={portalRef}>
         {children}
       </Portal>
     );
