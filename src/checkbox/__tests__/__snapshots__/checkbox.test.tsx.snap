@@ -329,7 +329,7 @@ exports[`link.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        删除
+        重置
       </span>
     </button>
     <button
@@ -340,7 +340,7 @@ exports[`link.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        开启
+        全选
       </span>
     </button>
   </div>
