@@ -1,8 +1,10 @@
 // https://github.com/validatorjs/validator.js
+
 import isDate from 'validator/lib/isDate';
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
+import isNumber from 'lodash/isNumber';
 import { getCharacterLength } from '../_util/helper';
 import { CustomValidator, FormRule, ValueType, AllValidateResult } from './type';
 
@@ -24,10 +26,10 @@ const VALIDATE_MAP = {
   email: isEmail,
   required: (val: ValueType): boolean => !isValueEmpty(val),
   boolean: (val: ValueType): boolean => typeof val === 'boolean',
-  max: (val: ValueType, num: number): boolean => getCharacterLength(val) <= num,
-  min: (val: ValueType, num: number): boolean => val.length >= num,
-  len: (val: ValueType, num: number): boolean => val.length === num,
-  number: (val: ValueType): boolean => !isNaN(val),
+  max: (val: ValueType, num: number): boolean => (isNumber(val) ? val <= num : getCharacterLength(val) <= num),
+  min: (val: ValueType, num: number): boolean => (isNumber(val) ? val >= num : getCharacterLength(val) >= num),
+  len: (val: ValueType, num: number): boolean => getCharacterLength(val) === num,
+  number: (val: ValueType): boolean => !Number.isNaN(val),
   enum: (val: ValueType, strs: Array<string>): boolean => strs.includes(val),
   idcard: (val: ValueType): boolean => /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i.test(val),
   telnumber: (val: ValueType): boolean => /^1[3-9]\d{9}$/.test(val),
@@ -49,8 +51,8 @@ export async function validateOneRule(value: ValueType, rule: FormRule): Promise
   let vValidateFun;
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
-    // 非必填选项，值为空，无需校验，直接返回 true
-    if (!rule.required && isValueEmpty(value)) {
+    // 非必填选项，值为空，非自定义规则：无需校验，直接返回 true
+    if (!rule.required && isValueEmpty(value) && !rule.validator) {
       return validateResult;
     }
     const validateRule = VALIDATE_MAP[key];
