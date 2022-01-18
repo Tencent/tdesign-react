@@ -49,8 +49,10 @@ export default function mdToReact(options) {
 
         if (isComponent) {
           tdDocTabs.current.tabs = ${JSON.stringify(mdSegment.tdDocTabs)};
-        } else {
         }
+
+        document.title = \`${mdSegment.title} | TDesign\`;
+
         Prismjs.highlightAll();
 
         document.querySelector('td-doc-content').initAnchorHighlight();
