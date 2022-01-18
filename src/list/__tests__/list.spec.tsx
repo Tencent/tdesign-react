@@ -65,6 +65,6 @@ describe('list', () => {
   });
 
   it('scroll', () => {
-    cy.get('.t-list:not(.t-size-s)').last().scrollTo('bottom').get('.t-list-item').last().should('be.visible');
+    cy.get('.t-list').last().scrollTo('bottom').get('.t-list-item').last().should('be.visible');
   });
 });
