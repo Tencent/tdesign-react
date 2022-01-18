@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { InputNumber } from 'tdesign-react';
 
 export default function InputNumberExample() {
-  const [value, setValue] = useState(0);
 
   return (
     <div className="tdesign-demo-block-column">
@@ -11,30 +10,18 @@ export default function InputNumberExample() {
           size="small"
           max={15}
           min={-12}
-          value={value}
-          onChange={(value) => {
-            console.log(value);
-            setValue(value);
-          }}
+          defaultValue={3}
         />
         <InputNumber
           max={15}
           min={-12}
-          value={value}
-          onChange={(value) => {
-            console.log(value);
-            setValue(value);
-          }}
+          defaultValue={6}
         />
         <InputNumber
           size="large"
           max={15}
           min={-12}
-          value={value}
-          onChange={(value) => {
-            console.log(value);
-            setValue(value);
-          }}
+          defaultValue={9}
         />
       </div>
 
