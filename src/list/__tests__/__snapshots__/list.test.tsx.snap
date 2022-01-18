@@ -2765,156 +2765,43 @@ exports[`scroll.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-list t-size-s"
-    style="height: 150px; overflow: auto;"
+    style="height: 300px; overflow: auto;"
   >
     <ul
       class="t-list__inner"
+    />
+    <div
+      class="t-list__load t-list__load--loading"
     >
-      <li
-        class="t-list-item"
-      >
+      <div>
         <div
-          class="t-list-item-main"
+          class="t-loading t-loading--center t-size-m"
         >
-          <div
-            class="t-list-item__meta"
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              class="t-list-item__meta-avatar"
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
             >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
               <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
+                class="t-loading__gradient-conic"
               />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
+            </foreignobject>
+          </svg>
         </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li
-        class="t-list-item"
-      >
-        <div
-          class="t-list-item-main"
-        >
-          <div
-            class="t-list-item__meta"
-          >
-            <div
-              class="t-list-item__meta-avatar"
-            >
-              <img
-                alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
-              />
-            </div>
-            <div
-              class="t-list-item__meta-content"
-            >
-              <h3
-                class="t-list-item__meta-title"
-              >
-                列表主内容
-              </h3>
-              <div
-                class="t-list-item__meta-description"
-              >
-                <p>
-                  列表内容列表内容列表内容
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
+        <span>
+          正在加载中，请稍等
+        </span>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
