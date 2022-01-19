@@ -2,9 +2,9 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-30 11:31:00
  * */
 
+import { TNode } from '../common';
 import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
@@ -45,6 +45,14 @@ export interface TdTextareaProps {
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 文本框状态
+   */
+  status?: 'success' | 'warning' | 'error';
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 文本框值
    */
