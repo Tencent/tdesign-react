@@ -2,11 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, ClassName, Styles, AttachNode } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
+import { MouseEvent, KeyboardEvent, FocusEvent, WheelEvent } from 'react';
 
 export interface TdPopupProps {
   /**
@@ -85,6 +84,10 @@ export interface TdPopupProps {
    * 组件层级，Web 侧样式默认为 5500，移动端和小程序样式默认为 1500
    */
   zIndex?: number;
+  /**
+   * 下拉选项滚动事件
+   */
+  onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
    * 当浮层隐藏或显示时触发
    */
