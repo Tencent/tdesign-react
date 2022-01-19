@@ -66,6 +66,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     defaultVisible = false,
     zIndex,
     onVisibleChange,
+    onScroll,
     expandAnimation,
   } = props;
   const { classPrefix } = useConfig();
@@ -175,6 +176,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
                 })}
                 style={overlayVisibleStyle}
                 ref={contentRef}
+                onScroll={(e) => onScroll?.({ e: e as React.WheelEvent<HTMLDivElement> })}
               >
                 {showArrow ? <div style={styles.arrow} className={`${classPrefix}-popup__arrow`} /> : null}
                 {content}
