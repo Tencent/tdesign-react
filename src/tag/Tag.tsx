@@ -66,17 +66,33 @@ const Tag = forwardRefWithStatics(
     /**
      * 删除 Icon
      */
-    const deleteIcon = <CloseIcon onClick={(e) => onClose({ e })} className={`${tagClassPrefix}__icon-close`} />;
+    const deleteIcon = (
+      <CloseIcon
+        onClick={(e) => {
+          if (disabled) return;
+          onClose({ e });
+        }}
+        className={`${tagClassPrefix}__icon-close`}
+      />
+    );
 
     const tag: JSX.Element = (
-      <span ref={ref} className={tagClassNames} onClick={(e) => onClick({ e })} {...otherTagProps}>
+      <span
+        ref={ref}
+        className={tagClassNames}
+        onClick={(e) => {
+          if (disabled) return;
+          onClick({ e });
+        }}
+        {...otherTagProps}
+      >
         {icon}
         {maxWidth ? (
           <span className={`${tagClassPrefix}--text`} style={{ ...(style || {}), ...{ maxWidth } }}>
-            {content || children}
+            {children || content}
           </span>
         ) : (
-          content || children
+          children || content
         )}
         {closable && deleteIcon}
       </span>
