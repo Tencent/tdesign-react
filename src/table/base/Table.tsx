@@ -19,11 +19,23 @@ import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
 
-export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData> & StyledProps;
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
 }
+type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, rowIndex?: number, record?: DataType) => void;
+export interface DragSortInnerProps {
+  dragging?: boolean;
+  onDragStart?: DragFnType;
+  onDragOver?: DragFnType;
+  onDrop?: DragFnType;
+  onDragEnd?: DragFnType;
+}
+export interface BaseTableProps<RowData extends DataType = DataType>
+  extends TdPrimaryTableProps<RowData>,
+    StyledProps,
+    ExpandInnerProps,
+    DragSortInnerProps {}
 
 export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandInnerProps) {
   const { classPrefix } = useConfig();
