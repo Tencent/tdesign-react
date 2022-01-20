@@ -39,6 +39,7 @@ const Anchor = (props: AnchorProps) => {
     cursor,
     onClick = noop,
     onChange = noop,
+    ...rest
   } = props;
 
   const { classPrefix } = useConfig();
@@ -168,7 +169,7 @@ const Anchor = (props: AnchorProps) => {
         unregisterItem,
       }}
     >
-      <div className={anchorClass} ref={anchorEl}>
+      <div className={anchorClass} ref={anchorEl} {...rest}>
         <div className={`${classPrefix}-anchor__line`}>
           <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
             {CursorCmp()}
