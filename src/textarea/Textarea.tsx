@@ -23,6 +23,8 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     onKeypress = noop,
     onKeyup = noop,
     autosize = false,
+    status,
+    tips,
     ...otherProps
   } = props;
 
@@ -59,6 +61,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   }, {});
 
   const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
+    [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
     [`${classPrefix}-resize-none`]: typeof autosize === 'object',
@@ -99,6 +102,16 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
       ) : null}
       {!hasMaxcharacter && maxlength ? (
         <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
+      ) : null}
+      {tips ? (
+        <div
+          className={classNames(`${classPrefix}-textarea__tips`, {
+            [`${classPrefix}-textarea__tips--normal`]: !status,
+            [`${classPrefix}-textarea__tips--${status}`]: status,
+          })}
+        >
+          {tips}
+        </div>
       ) : null}
     </div>
   );
