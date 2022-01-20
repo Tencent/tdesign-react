@@ -11,7 +11,7 @@ interface RefProps {
   setVisible: (v: boolean) => void;
 }
 
-const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
+const Tooltip = forwardRef((props: TooltipProps, ref) => {
   const {
     theme,
     showArrow = true,
@@ -57,9 +57,12 @@ const Tooltip = forwardRef<RefProps, TooltipProps>((props, ref) => {
     };
   }, [duration, timeup]);
 
-  useImperativeHandle(ref, () => ({
-    setVisible,
-  }));
+  useImperativeHandle(
+    ref,
+    (): RefProps => ({
+      setVisible,
+    }),
+  );
 
   return (
     <Popup
