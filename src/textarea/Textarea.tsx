@@ -103,7 +103,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
       {!hasMaxcharacter && maxlength ? (
         <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
       ) : null}
-      {tips && (
+      {tips ? (
         <div
           className={classNames(`${classPrefix}-textarea__tips`, {
             [`${classPrefix}-textarea__tips--normal`]: !status,
@@ -112,7 +112,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
         >
           {tips}
         </div>
-      )}
+      ) : null}
     </div>
   );
 });
