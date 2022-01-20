@@ -5,7 +5,7 @@ import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams, TdPrimaryTableProps } from '../type';
 import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
-import { ExpandInnerProps } from './Table';
+import { ExpandInnerProps, DragSortInnerProps } from './Table';
 
 interface MergeCellsProps {
   rowspanAndColspan?: TdBaseTableProps['rowspanAndColspan'];
@@ -17,7 +17,10 @@ interface ExpandProps extends ExpandInnerProps {
   expandedRow?: TdPrimaryTableProps['expandedRow'];
   expandOnRowClick?: TdPrimaryTableProps['expandOnRowClick'];
 }
-interface RowProps<D extends DataType> extends MergeCellsProps, ExpandProps {
+interface DragRowProps extends DragSortInnerProps {
+  sortOnRowDraggable?: TdPrimaryTableProps['sortOnRowDraggable'];
+}
+interface RowProps<D extends DataType> extends MergeCellsProps, ExpandProps, DragRowProps {
   record: D;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
@@ -39,6 +42,11 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     expandedRow,
     expandOnRowClick,
     handleExpandChange,
+    sortOnRowDraggable,
+    onDragStart,
+    onDragOver,
+    onDrop,
+    onDragEnd,
   } = props;
   const { flattenColumns } = useTableContext();
   const flattenColumnsLength = flattenColumns?.length;
@@ -221,8 +229,29 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     return {};
   }
 
+  function getDragProps() {
+    if (sortOnRowDraggable) {
+      return {
+        draggable: true,
+        onDragStart: (e) => {
+          onDragStart(e, rowIndex, record);
+        },
+        onDragOver: (e) => {
+          onDragOver(e, rowIndex, record);
+        },
+        onDrop: (e) => {
+          onDrop(e, rowIndex, record);
+        },
+        onDragEnd: (e) => {
+          onDragEnd(e, rowIndex, record);
+        },
+      };
+    }
+    return {};
+  }
+
   return (
-    <tr className={classes} {...rowEvents} {...getExpandOnClickEvent()}>
+    <tr className={classes} {...rowEvents} {...getExpandOnClickEvent()} {...getDragProps()}>
       {baseRow}
     </tr>
   );

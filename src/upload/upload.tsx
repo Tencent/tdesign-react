@@ -55,6 +55,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     onRemove,
     onDragenter,
     onDragleave,
+    onPreview,
     requestMethod,
     customDraggerRender,
     children,
@@ -75,11 +76,15 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   }, []);
   const handleSizeLimit = useSizeLimit();
   // handle event of preview img dialog event
-  const handlePreviewImg = useCallback((event: MouseEvent, file: UploadFile) => {
-    if (!file.url) throw new Error('Error file');
-    setImgURL(file.url);
-    setShowImg(true);
-  }, []);
+  const handlePreviewImg = useCallback(
+    (file: UploadFile, event: MouseEvent<HTMLDivElement>) => {
+      if (!file.url) throw new Error('Error file');
+      setImgURL(file.url);
+      setShowImg(true);
+      onPreview?.({ file, e: event });
+    },
+    [onPreview],
+  );
   // endregion
 
   const triggerUpload = () => {

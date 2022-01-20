@@ -49,10 +49,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     [itemList],
   );
 
-  const [activeIndex, setActiveIndex] = useState(getIndex(activeValue));
-  useEffect(() => {
-    setActiveIndex(getIndex(activeValue));
-  }, [activeValue, getIndex]);
+  const activeIndex = getIndex(activeValue);
 
   // 判断滚动条是否需要展示
   const [isScrollVisible, setIsScrollVisible] = useState(false);
@@ -61,6 +58,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // 滚动条 ref 定义
   const scrollBarRef = useRef(null);
+  const leftScrollBtnRef = useRef(null);
+  const rightScrollBtnRef = useRef(null);
 
   /**
    * @date 2021-07-26 15:57:46
@@ -99,9 +98,12 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
   // 滚动条处理逻辑
   const scrollClickHandler = (position: 'left' | 'right') => {
+    const doubleScrollBtnWidth =
+      (leftScrollBtnRef.current?.clientWidth || rightScrollBtnRef.current?.clientWidth || 0) * 2;
+    const scrollLength = scrollBarRef.current.clientWidth - doubleScrollBtnWidth;
     const ref = scrollBarRef.current;
     if (ref) {
-      const scrollLeft = position === 'left' ? ref.scrollLeft - 200 : ref.scrollLeft + 200;
+      const scrollLeft = position === 'left' ? ref.scrollLeft - scrollLength : ref.scrollLeft + scrollLength;
       ref.scrollTo({
         left: scrollLeft,
         behavior: 'smooth',
@@ -131,11 +133,32 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   useEffect(() => {
     setScrollBtnVisibleHandler();
     // eslint-disable-next-line
-  }, []);
+  }, [itemList.length]);
+
+  const handleTabItemRemove = (removeItem) => {
+    const { value: removeValue, index: removeIndex } = removeItem;
+    if (removeValue === activeValue) {
+      onChange(removeIndex === 0 ? itemList[removeIndex + 1]?.value : itemList[removeIndex - 1].value);
+    }
+    onRemove(removeItem);
+  };
+
+  const handleTabItemClick = (clickItem) => {
+    tabClick(clickItem.value);
+    onChange(clickItem.value);
+  };
+
+  const handleTabAdd = (e) => {
+    onAdd({ e });
+    // 新增逻辑执行完成，数据渲染完成之后，判断是否需要展示右侧的数据
+    setTimeout(() => {
+      scrollToRightEnd();
+    }, 0);
+  };
 
   return (
     <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
-      <div className={classNames(tdTabsClassGenerator('nav'))}>
+      <div className={classNames(tdTabsClassGenerator('nav'))} style={{ minHeight: 48 }}>
         <div className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--left'))}>
           {leftScrollBtnVisible ? (
             <div
@@ -147,6 +170,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 tdTabsClassGenerator('btn--left'),
                 tdSizeClassGenerator(size),
               )}
+              ref={leftScrollBtnRef}
             >
               <ChevronLeftIcon />
             </div>
@@ -163,6 +187,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 tdTabsClassGenerator('btn--right'),
                 tdSizeClassGenerator(size),
               )}
+              ref={rightScrollBtnRef}
             >
               <ChevronRightIcon />
             </div>
@@ -174,13 +199,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 tdTabsClassGenerator('btn'),
                 tdSizeClassGenerator(size),
               )}
-              onClick={(e) => {
-                onAdd({ e });
-                // 新增逻辑执行完成，数据渲染完成之后，判断是否需要展示右侧的数据
-                setTimeout(() => {
-                  scrollToRightEnd();
-                }, 0);
-              }}
+              onClick={handleTabAdd}
             >
               <AddIcon />
             </div>
@@ -209,7 +228,9 @@ const TabNav: React.FC<TabNavProps> = (props) => {
               ref={navContainerRef}
             >
               {placement !== 'bottom' ? TabBarCom : null}
-              <div className={classNames(tdTabsClassGenerator('bar'), tdClassGenerator(`is-${placement}`))} />
+              {!isCard && (
+                <div className={classNames(tdTabsClassGenerator('bar'), tdClassGenerator(`is-${placement}`))} />
+              )}
               {itemList.map((v, index) => (
                 <TabNavItem
                   {...props}
@@ -223,12 +244,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                   placement={placement}
                   index={index}
                   disabled={disabled || v.disabled}
-                  onClick={() => {
-                    tabClick(v.value);
-                    onChange(v.value);
-                    setActiveIndex(getIndex(v.value));
-                  }}
-                  onTabRemove={onRemove}
+                  onClick={() => handleTabItemClick(v)}
+                  onTabRemove={handleTabItemRemove}
                 />
               ))}
               {placement === 'bottom' ? TabBarCom : null}

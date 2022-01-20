@@ -37,19 +37,18 @@ function Components(props) {
 
   function changeVersion(version) {
     if (version === currentVersion) return;
-    const histryUrl = `//${version}-tdesign-react.surge.sh`;
-    window.open(histryUrl, '_blank');
+    const historyUrl = `//${version}-tdesign-react.surge.sh`;
+    window.open(historyUrl, '_blank');
   }
 
   function initHistoryVersions() {
     fetch(registryUrl).then(res => res.json()).then(res => {
       const options = [];
-      const versions = filterVersions(Object.keys(res.versions), 1);
+      const versions = filterVersions(Object.keys(res.versions).filter(v => !v.includes('alpha')), 1);
 
       versions.forEach(v => {
         const nums = v.split('.');
         if (nums[0] === '0' && nums[1] < 21) return false;
-        if (v.includes('alpha') || v.includes('beta')) return false;
 
         options.unshift({ label: v, value: v.replace(/\./g, '_') });
       });

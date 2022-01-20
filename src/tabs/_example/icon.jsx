@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import { Tabs, Button } from 'tdesign-react';
+import { Tabs, Radio } from 'tdesign-react';
 import { DiscountIcon, ToolsIcon, TipsIcon } from 'tdesign-icons-react';
 
 const { TabPanel } = Tabs;
 
 export default function IconTabs() {
-  const [isCard, setIsCard] = useState(false);
-  const desc = `切换到${isCard ? '常规型' : '卡片型'}`;
-  const theme = isCard ? 'card' : 'normal';
-  const toggle = () => {
-    setIsCard(!isCard);
+  const [theme, setTheme] = useState(false);
+
+  const handleChange = (value) => {
+    setTheme(value);
   };
   return (
-    <div className="tdesign-demo-tabs">
-      <Button variant="outline" style={{ marginBottom: 10 }} onClick={toggle}>
-        {desc}
-      </Button>
+    <div className="tdesign-demo-block-column-large">
+      <div>
+        <Radio.Group variant="default-filled" defaultValue="normal" onChange={handleChange}>
+          <Radio.Button value="normal">常规</Radio.Button>
+          <Radio.Button value="card">卡片</Radio.Button>
+        </Radio.Group>
+      </div>
       <Tabs placement={'top'} defaultValue={'a'} theme={theme}>
         <TabPanel
           value="a"
