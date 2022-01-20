@@ -41,7 +41,7 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
   const transformedFilterColumns = filterButton({
     columns,
     onChange: onChangeFilterButton,
-    innerfiltVal: isControlled ? filterValue : defaultFilterValue,
+    innerfilterVal: isControlled ? filterValue : defaultFilterValue,
     filterIcon,
   });
 
