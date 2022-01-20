@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
 import { StyledProps, Styles, TNode } from '../common';
-import { defaultClassPrefix } from '../config-provider/ConfigContext';
-
-const name = `${defaultClassPrefix}-skeleton`;
+import useConfig from '../_util/useConfig';
+import { pxCompat } from '../_util/helper';
 
 export type SkeletonProps = TdSkeletonProps & StyledProps & { children: TNode };
 
@@ -19,28 +18,15 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   article: [
     { type: 'rect', height: '30px', width: '100%' },
     { type: 'rect', height: '200px', width: '100%' },
-    [
-      { type: 'text', height: '30px' },
-      { type: 'text', height: '30px' },
-      { type: 'text', height: '30px' },
-    ],
-    [
-      { type: 'text', height: '30px' },
-      { type: 'text', height: '30px' },
-    ],
-    [
-      { type: 'text', height: '30px' },
-      { type: 'text', height: '30px' },
-    ],
-    [
-      { type: 'text', height: '30px' },
-      { type: 'text', height: '30px' },
-    ],
+    ...[3, 2, 2, 2].map((value) => Array(value).fill({ type: 'text', height: '30px' })),
   ],
 };
 
 const Skeleton = (props: SkeletonProps) => {
   const { animation, loading = true, rowCol, theme, className, style } = props;
+
+  const { classPrefix } = useConfig();
+  const name = `${classPrefix}-skeleton`; // t-skeleton
 
   const renderCols = (_cols: Number | SkeletonRowColObj | Array<SkeletonRowColObj>) => {
     const getColItemClass = (obj: SkeletonRowColObj) =>
@@ -62,7 +48,7 @@ const Skeleton = (props: SkeletonProps) => {
       const style: Styles = {};
       styleName.forEach((name) => {
         if (name in obj) {
-          const px = isNumber(obj[name]) ? `${obj[name]}px` : obj[name];
+          const px = pxCompat(obj[name]);
           if (name === 'size') {
             [style.width, style.height] = [px, px];
           } else {
