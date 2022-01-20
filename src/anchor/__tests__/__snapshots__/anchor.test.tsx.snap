@@ -465,7 +465,7 @@ exports[`multiple.jsx 1`] = `
 exports[`small.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="small"
+    id="size-small"
   >
     <div
       class="t-anchor t-size-s"

@@ -5,7 +5,7 @@ const { AnchorItem } = Anchor;
 
 export default function AnchorSize() {
   return (
-    <div id="small">
+    <div id="size-small">
       <Anchor bounds={100} targetOffset={50} size="small">
         <AnchorItem href="#default" title="基础锚点" />
         <AnchorItem href="#multiple" title="多级锚点" />
