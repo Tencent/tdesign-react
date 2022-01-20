@@ -1,6 +1,7 @@
 :: BASE_DOC ::
 
 ### 超长省略文本标签
+通过 maxWidth 设置最大宽度，超出部分自动省略。
 
 {{ long-text }}
 
