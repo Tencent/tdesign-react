@@ -12,7 +12,6 @@ export default function Placements() {
     timerRef.current = setInterval(() => {
       countRef.current -= 1;
       setCount(countRef.current);
-      console.log(countRef.current)
       if (countRef.current <= 0) {
         clearInterval(timerRef.current);
         setReset(true);

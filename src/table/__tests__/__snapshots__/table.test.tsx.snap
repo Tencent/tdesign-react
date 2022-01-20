@@ -1539,7 +1539,213 @@ exports[`data-sort.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`draggable.jsx 1`] = `<DocumentFragment />`;
+exports[`drag-sort.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="demo-container"
+  >
+    <div
+      class="t-table t-table--align-center"
+    >
+      <div
+        class="t-loading__parent"
+      >
+        <div
+          class="t-table__content"
+          style="overflow: auto;"
+        >
+          <table
+            style="table-layout: fixed; height: 100%;"
+          >
+            <colgroup>
+              <col
+                style="width: 150px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col
+                style="width: 200px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+            </colgroup>
+            <thead>
+              <tr>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  集群名称
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  状态
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  存活时间(s)
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  管理员
+                </td>
+              </tr>
+            </thead>
+            <tbody
+              class="t-table__body"
+            >
+              <tr
+                draggable="true"
+              >
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  JQTest1
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status"
+                  >
+                    健康
+                  </p>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  1000
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  jenny;peter
+                </td>
+              </tr>
+              <tr
+                draggable="true"
+              >
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  JQTest2
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status warning"
+                  >
+                    警告
+                  </p>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  1000
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  jenny
+                </td>
+              </tr>
+              <tr
+                draggable="true"
+              >
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  JQTest3
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status unhealth"
+                  >
+                    异常
+                  </p>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  500
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  jenny
+                </td>
+              </tr>
+              <tr
+                draggable="true"
+              >
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  JQTest4
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status warning"
+                  >
+                    警告
+                  </p>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  1500
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  peter
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
 
 exports[`empty.jsx 1`] = `
 <DocumentFragment>
