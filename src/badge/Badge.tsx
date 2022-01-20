@@ -10,7 +10,7 @@ const Badge: React.FC<BadgeProps> = ({
   color,
   dot = false,
   maxCount = 99,
-  count,
+  count = 0,
   size = 'medium',
   shape = 'circle',
   showZero = false,
@@ -66,7 +66,7 @@ const Badge: React.FC<BadgeProps> = ({
   if (!childNode) return badge;
 
   return (
-    <span {...childNode} className={classNames(`${classPrefix}-badge`, className)}>
+    <span {...restProps} className={classNames(`${classPrefix}-badge`, className)}>
       {childNode}
       {badge}
     </span>
