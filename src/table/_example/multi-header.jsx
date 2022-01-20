@@ -78,6 +78,9 @@ const columns = [
         ellipsis: true,
         colKey: 'property',
         title: '属性',
+        filter: {
+          type: 'input',
+        },
       },
       {
         align: 'left',
