@@ -3,7 +3,11 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
@@ -29,7 +33,11 @@ exports[`base.jsx 1`] = `
     />
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <svg
       class="t-icon t-icon-user"
@@ -152,7 +160,11 @@ exports[`color.jsx 1`] = `
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="div"
   >
     <div
       style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
@@ -162,7 +174,11 @@ exports[`custom.jsx 1`] = `
     />
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="div"
   >
     <div
       style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
@@ -174,7 +190,11 @@ exports[`custom.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="div"
   >
     <div
       style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
@@ -187,7 +207,11 @@ exports[`custom.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="div"
   >
     <div
       style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
@@ -205,7 +229,11 @@ exports[`custom.jsx 1`] = `
 exports[`number.jsx 1`] = `
 <DocumentFragment>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
@@ -225,7 +253,11 @@ exports[`number.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
@@ -245,7 +277,11 @@ exports[`number.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
@@ -270,7 +306,11 @@ exports[`number.jsx 1`] = `
 exports[`offset.jsx 1`] = `
 <DocumentFragment>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -290,7 +330,11 @@ exports[`offset.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -305,13 +349,17 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: -10px; margin-top: -10px;"
+      style="right: 10px; margin-top: 10px;"
     >
       2
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -326,13 +374,17 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: 10px; margin-top: -10px;"
+      style="right: -10px; margin-top: 10px;"
     >
       2
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -347,13 +399,17 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: 10px; margin-top: 10px;"
+      style="right: -10px; margin-top: -10px;"
     >
       2
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -368,7 +424,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: -10px; margin-top: 10px;"
+      style="right: 10px; margin-top: -10px;"
     >
       2
     </span>
@@ -379,7 +435,11 @@ exports[`offset.jsx 1`] = `
 exports[`shape.jsx 1`] = `
 <DocumentFragment>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -399,7 +459,11 @@ exports[`shape.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -429,7 +493,11 @@ exports[`size.jsx 1`] = `
     1.默认大小
   </h3>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -449,7 +517,11 @@ exports[`size.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -469,7 +541,11 @@ exports[`size.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -494,7 +570,11 @@ exports[`size.jsx 1`] = `
     2.小
   </h3>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -514,7 +594,11 @@ exports[`size.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
@@ -534,7 +618,11 @@ exports[`size.jsx 1`] = `
     </span>
   </span>
   <span
+    _owner="[object Object]"
+    _store="[object Object]"
     class="t-badge"
+    props="[object Object]"
+    type="[object Object]"
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
