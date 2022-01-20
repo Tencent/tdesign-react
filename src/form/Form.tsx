@@ -129,7 +129,7 @@ const Form = forwardRefWithStatics(
     function getFieldValue(name: string) {
       if (!name) return null;
       const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef?.name === name);
-      return target && target.value;
+      return target.current?.value;
     }
 
     // 对外方法，设置对应 formItem 的值
