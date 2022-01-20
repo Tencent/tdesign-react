@@ -691,6 +691,14 @@ exports[`multiple.jsx 1`] = `
             />
           </svg>
         </span>
+        <div
+          class="t-select__input t-input"
+        >
+          <input
+            class="t-input__inner"
+            value=""
+          />
+        </div>
         <svg
           class="t-fake-arrow t-select__right-icon"
           fill="none"
