@@ -9,7 +9,7 @@ exports[`base.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -41,7 +41,7 @@ exports[`base.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -73,7 +73,7 @@ exports[`base.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -114,7 +114,7 @@ exports[`custom.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -146,7 +146,7 @@ exports[`custom.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -178,7 +178,7 @@ exports[`custom.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -220,7 +220,7 @@ exports[`href.jsx 1`] = `
         class="t-breadcrumb__item"
       >
         <a
-          class="t-breadcrumb--text-oveflow t-link"
+          class="t-breadcrumb--text-overflow t-link"
           href="/"
           target="_blank"
         >
@@ -254,7 +254,7 @@ exports[`href.jsx 1`] = `
         class="t-breadcrumb__item"
       >
         <span
-          class="t-breadcrumb--text-oveflow t-is-disabled"
+          class="t-breadcrumb--text-overflow t-is-disabled"
         >
           <span
             class="t-breadcrumb__inner"
@@ -286,7 +286,7 @@ exports[`href.jsx 1`] = `
         class="t-breadcrumb__item"
       >
         <span
-          class="t-breadcrumb--text-oveflow"
+          class="t-breadcrumb--text-overflow"
         >
           <span
             class="t-breadcrumb__inner"
@@ -333,7 +333,7 @@ exports[`icon.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -378,7 +378,7 @@ exports[`icon.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -423,7 +423,7 @@ exports[`icon.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -477,7 +477,7 @@ exports[`options.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -509,7 +509,7 @@ exports[`options.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -541,7 +541,7 @@ exports[`options.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <a
-        class="t-breadcrumb--text-oveflow t-link"
+        class="t-breadcrumb--text-overflow t-link"
         href="https://github.com/"
       >
         <span
@@ -583,7 +583,7 @@ exports[`to.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <a
-        class="t-breadcrumb--text-oveflow t-link"
+        class="t-breadcrumb--text-overflow t-link"
       >
         <span
           class="t-breadcrumb__inner"
@@ -615,7 +615,7 @@ exports[`to.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <a
-        class="t-breadcrumb--text-oveflow t-link"
+        class="t-breadcrumb--text-overflow t-link"
       >
         <span
           class="t-breadcrumb__inner"
@@ -656,7 +656,7 @@ exports[`width.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -688,7 +688,7 @@ exports[`width.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -720,7 +720,7 @@ exports[`width.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
@@ -752,7 +752,7 @@ exports[`width.jsx 1`] = `
       class="t-breadcrumb__item"
     >
       <span
-        class="t-breadcrumb--text-oveflow"
+        class="t-breadcrumb--text-overflow"
       >
         <span
           class="t-breadcrumb__inner"
