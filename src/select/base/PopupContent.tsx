@@ -104,7 +104,7 @@ const PopupContent = (props: SelectPopupProps) => {
     if (options) {
       // 通过options API配置的
       return (
-        <ul>
+        <ul className={`${classPrefix}-select__list`}>
           {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
             <Option
               key={index}
@@ -123,7 +123,7 @@ const PopupContent = (props: SelectPopupProps) => {
         </ul>
       );
     }
-    return <ul>{childrenWithProps}</ul>;
+    return <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>;
   };
 
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
