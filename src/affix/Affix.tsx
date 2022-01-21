@@ -20,7 +20,6 @@ export interface AffixRef {
   handleScroll: () => void;
 }
 
-console.log(1);
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   const { children, zIndex, container = () => window, offsetBottom, offsetTop, onFixedChange } = props;
 

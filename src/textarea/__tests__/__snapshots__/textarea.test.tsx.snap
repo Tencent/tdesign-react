@@ -48,6 +48,76 @@ exports[`maxlength.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`status.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-textarea"
+  >
+    <textarea
+      class="t-textarea__inner"
+      placeholder="normal"
+      style="height: auto;"
+    />
+    <div
+      class="t-textarea__tips t-textarea__tips--normal"
+    >
+      正常提示
+    </div>
+  </div>
+  <div
+    style="height: 20px;"
+  />
+  <div
+    class="t-textarea"
+  >
+    <textarea
+      class="t-textarea__inner t-is-success"
+      placeholder="success"
+      style="height: auto;"
+    />
+    <div
+      class="t-textarea__tips t-textarea__tips--success"
+    >
+      成功提示
+    </div>
+  </div>
+  <div
+    style="height: 20px;"
+  />
+  <div
+    class="t-textarea"
+  >
+    <textarea
+      class="t-textarea__inner t-is-warning"
+      placeholder="warning"
+      style="height: auto;"
+    />
+    <div
+      class="t-textarea__tips t-textarea__tips--warning"
+    >
+      警告提示
+    </div>
+  </div>
+  <div
+    style="height: 20px;"
+  />
+  <div
+    class="t-textarea"
+  >
+    <textarea
+      class="t-textarea__inner t-is-error"
+      placeholder="error"
+      style="height: auto;"
+    />
+    <div
+      class="t-textarea__tips t-textarea__tips--error"
+    >
+      错误提示
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`type.jsx 1`] = `
 <DocumentFragment>
   <div
