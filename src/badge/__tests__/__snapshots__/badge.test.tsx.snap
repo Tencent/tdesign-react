@@ -305,7 +305,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: -10px; margin-top: -10px;"
+      style="right: 10px; margin-top: 10px;"
     >
       2
     </span>
@@ -326,7 +326,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: 10px; margin-top: -10px;"
+      style="right: -10px; margin-top: 10px;"
     >
       2
     </span>
@@ -347,7 +347,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: 10px; margin-top: 10px;"
+      style="right: -10px; margin-top: -10px;"
     >
       2
     </span>
@@ -368,7 +368,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: -10px; margin-top: 10px;"
+      style="right: 10px; margin-top: -10px;"
     >
       2
     </span>
