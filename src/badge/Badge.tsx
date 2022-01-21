@@ -10,23 +10,26 @@ const Badge: React.FC<BadgeProps> = ({
   color,
   dot = false,
   maxCount = 99,
-  count,
+  count = 0,
   size = 'medium',
   shape = 'circle',
   showZero = false,
   offset = [],
   className,
+  content = null,
   children = null,
   style = {},
   ...restProps
 }) => {
   const { classPrefix } = useConfig();
 
+  const childNode = children || content;
+
   const badgeClassName = classNames(
-    !children && `${classPrefix}-badge--static`,
+    !childNode && `${classPrefix}-badge--static`,
     dot ? `${classPrefix}-badge--dot` : shape && `${classPrefix}-badge--${shape}`,
     size === 'small' && `${classPrefix}-size-s`,
-    !children && className,
+    !childNode && className,
   );
   const getDisplayCount = () => {
     if (typeof count === 'number' && count > maxCount) {
@@ -45,26 +48,26 @@ const Badge: React.FC<BadgeProps> = ({
     if (color) mergedStyle.backgroundColor = color;
     if (offset) {
       if (offset[0]) {
-        mergedStyle.right = -offset[0];
+        mergedStyle.right = +offset[0];
       }
       if (offset[1]) {
-        mergedStyle.marginTop = -offset[1];
+        mergedStyle.marginTop = +offset[1];
       }
     }
     return mergedStyle;
   };
 
   const badge = !isHidden ? (
-    <span {...(children ? {} : restProps)} className={badgeClassName} style={getStyle()}>
+    <span {...(childNode ? {} : restProps)} className={badgeClassName} style={getStyle()}>
       {!dot ? getDisplayCount() : null}
     </span>
   ) : null;
 
-  if (!children) return badge;
+  if (!childNode) return badge;
 
   return (
     <span {...restProps} className={classNames(`${classPrefix}-badge`, className)}>
-      {children}
+      {childNode}
       {badge}
     </span>
   );

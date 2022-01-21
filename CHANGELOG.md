@@ -5,6 +5,42 @@ toc: false
 spline: explain
 ---
 
+## 0.23.1 `2022-01-21`
+
+
+### Bug Fixes
+
+* Form:
+  * 修复 `getFieldValue` api 取值失效 bug ([9ee8921](https://github.com/Tencent/tdesign-react/commit/9ee892127712c2c345140c3bbbd0e22c24aae5c9)) [@yume316](https://github.com/yume316)
+  * 优化 `form` 校验失败滚动问题 ([#278](https://github.com/Tencent/tdesign-react/issues/278)) ([4870d28](https://github.com/Tencent/tdesign-react/commit/4870d28bea47604ab8f4cbdc8c506c75f12bfb5f)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Affix: 修复 `zIndex` 参数无效和 `offsetTop` 为 0 无法固定的问题 ([ebeb69c](https://github.com/Tencent/tdesign-react/commit/ebeb69c8d471baa9fd723523e1d52c25fef840e4)) [@jas0ncn](https://github.com/jas0ncn)
+* Tabs: 修复滚动问题，支持受控/非受控 ([84f033c](https://github.com/Tencent/tdesign-react/commit/84f033c82a7d7f73ecb4b7be5363e15f9f874f99)) [@insekkei](https://github.com/insekkei)
+* Dialog: 修复 `mask` 动画缺失问题 ([#247](https://github.com/Tencent/tdesign-react/issues/247)) ([37d59c1](https://github.com/Tencent/tdesign-react/commit/37d59c1e0ca4d9aeae5a608e9bec7ae74c8bf2fb)), closes [#65](https://github.com/Tencent/tdesign-react/issues/65) [@HQ-Lin](https://github.com/HQ-Lin)
+* Icon: `size` 类名 `t-size-middle` 改为 `t-size-medium` ([aea3f01](https://github.com/Tencent/tdesign-react/commit/aea3f01e98d257a2ff02c1380deea640b61a7677)) [@uyarn](https://github.com/uyarn)
+* Popup: 优化 `destroy` 动画 & 添加 `display: none` & 优化全局 `portal` 逻辑 ([#246](https://github.com/Tencent/tdesign-react/issues/246)) ([391de56](https://github.com/Tencent/tdesign-react/commit/391de565fb99fbe2c3af50da70351a980e10d656)), closes [#231](https://github.com/Tencent/tdesign-react/issues/231) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+### Features
+
+* Form:
+  * 更新校验逻辑 ([#257](https://github.com/Tencent/tdesign-react/issues/257)) ([6f0ab86](https://github.com/Tencent/tdesign-react/commit/6f0ab864fa72d449b32dd0d7a76fc6e0ab4fed6c)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * `formItem` 支持 `requireMark` ([#252](https://github.com/Tencent/tdesign-react/issues/252)) ([12bc822](https://github.com/Tencent/tdesign-react/commit/12bc822b98b0c282d83c39e5e81251d1d6efef2b)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Select:
+  * 支持删除键删除 tag ([#241](https://github.com/Tencent/tdesign-react/issues/241)) ([01cde96](https://github.com/Tencent/tdesign-react/commit/01cde9607891b516e86e1b5b065c7364b5c7da86)), closes [#206](https://github.com/Tencent/tdesign-react/issues/206) [@zhangbocodes](https://github.com/zhangbocodes)
+  * 支持 `panelBottomContent`、`panelTopContent`、`showArrow`、`inputProps` api ([c126604](https://github.com/Tencent/tdesign-react/commit/c12660413d7c1fbba7b872352c947bd8b2388cdf)) [@uyarn](https://github.com/uyarn)
+* Table:
+  * 多级表头支持排序 ([7315333](https://github.com/Tencent/tdesign-react/commit/731533398c9ee08e28efcd194fabb30516a31811)) [@yunfeic](https://github.com/yunfeic)
+  * 支持行拖拽排序 ([9a004c6](https://github.com/Tencent/tdesign-react/commit/9a004c6a2b88a1fdd784b60b05d212f522b343eb)) [@yunfeic](https://github.com/yunfeic)
+* Dropdown: dropdown options 支持child方式传入 ([#242](https://github.com/Tencent/tdesign-react/issues/242)) ([0cbfd67](https://github.com/Tencent/tdesign-react/commit/0cbfd6792a517cb2270e0b8e34d992ed45815a4c)) [@duenyang](https://github.com/duenyang)
+* Popup: 支持 `onScroll` API ([fc8d613](https://github.com/Tencent/tdesign-react/commit/fc8d613bf202af0043758e21da2fe17345572af2)) [@uyarn](https://github.com/uyarn)
+* Skeleton: 新增骨架屏 ([#265](https://github.com/Tencent/tdesign-react/issues/265)) ([fd8d980](https://github.com/Tencent/tdesign-react/commit/fd8d98043e9851cafe08bb12a6137031b1de8942)) [@Yilun-Sun](https://github.com/Yilun-Sun)
+* Textarea: 新增 `tips` 和 `status` api ([#266](https://github.com/Tencent/tdesign-react/issues/266)) ([9cc5b72](https://github.com/Tencent/tdesign-react/commit/9cc5b728805ba942ccce6c0ee21fbf0792a7884e)) [@duenyang](https://github.com/duenyang)
+* Tooltip: 支持 `duration` api ([b28b200](https://github.com/Tencent/tdesign-react/commit/b28b200fa04293bf68c3d25fa9bbefdfb8957a63)) [@carolin913](https://github.com/carolin913)
+* Upload: 支持 `onPreview` api ([a004227](https://github.com/Tencent/tdesign-react/commit/a004227ddb42dba3793b4d168297e0bb5b0c8a9e)) [@teal-front](https://github.com/teal-front)
+
+
+
+
 ## 0.23.0 `2022-01-13`
 
 ### BREAKING CHANGES

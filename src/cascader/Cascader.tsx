@@ -51,6 +51,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       max = 0,
       showAllLevels = true,
       minCollapsedNum = false,
+      loadingText = '',
     } = props;
     return {
       size,
@@ -83,6 +84,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       minCollapsedNum,
       inputWidth,
       setInputWidth,
+      loadingText,
     } as CascaderContextType;
   }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive, inputWidth, setInputWidth]);
 
@@ -166,7 +168,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const { empty = t(local.empty), trigger = 'click' } = props;
 
   // inputContent props
-  const { placeholder = '请输入', onRemove, onBlur, onFocus } = props;
+  const { placeholder = t(local.placeholder), onRemove, onBlur, onFocus } = props;
 
   return (
     <Popup

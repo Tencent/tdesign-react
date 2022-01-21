@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { TdSliderProps } from './type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
-import { numberToPencent } from './utils/handleNumber';
+import { numberToPercent } from './utils/handleNumber';
 import { StyledProps, TNode } from '../common';
 import InputNumber from '../input-number/InputNumber';
 import SliderHandleButton from './SliderHandleButton';
@@ -41,9 +41,9 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const [value, setValue] = useDefault(propsValue, defaultValue, onChange);
     const isVertical = layout === 'vertical';
 
-    const renderVaule = Array.isArray(value) ? value : [min, value];
-    const start = (renderVaule[LEFT_NODE] - min) / (max - min);
-    const width = (renderVaule[RIGHT_NODE] - renderVaule[LEFT_NODE]) / (max - min);
+    const renderValue = Array.isArray(value) ? value : [min, value];
+    const start = (renderValue[LEFT_NODE] - min) / (max - min);
+    const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
     const end = start + width;
 
     const dots: { value: number; label: TNode; position: number }[] = useMemo(() => {
@@ -115,7 +115,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const createInput = (nodeIndex: SliderHandleNode) => {
       const inputProps = typeof inputNumberProps === 'object' ? inputNumberProps : {};
-      const currentValue = renderVaule[nodeIndex];
+      const currentValue = renderValue[nodeIndex];
 
       return (
         <InputNumber
@@ -133,7 +133,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const nearbyValueChange = (value: number) => {
       const buttonBias =
-        Math.abs(value - renderVaule[LEFT_NODE]) > Math.abs(value - renderVaule[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
+        Math.abs(value - renderValue[LEFT_NODE]) > Math.abs(value - renderValue[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
       handleInputChange(value, buttonBias);
     };
 
@@ -169,7 +169,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     };
 
     const createHandleButton = (nodeIndex: SliderHandleNode, style: React.CSSProperties) => {
-      const currentValue = renderVaule[nodeIndex];
+      const currentValue = renderValue[nodeIndex];
       // 模板替换
       let tipLabel = typeof label === 'string' ? label.replace(/\$\{value\}/g, currentValue.toString()) : label;
       if (tipLabel === true || !tipLabel) tipLabel = currentValue;
@@ -207,16 +207,16 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         >
           <div className={classNames(`${classPrefix}-slider__rail`)}>
             <div
-              style={{ [startDirection]: numberToPencent(start), [sizeKey]: numberToPencent(width) }}
+              style={{ [startDirection]: numberToPercent(start), [sizeKey]: numberToPercent(width) }}
               className={classNames(`${classPrefix}-slider__track`)}
             ></div>
-            {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPencent(start) }) : null}
-            {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPencent(end) })}
+            {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
+            {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
             <div className={classNames(`${classPrefix}-slider__step`)}>
               {renderDots.map(({ position, value }) => (
                 <div
                   key={value}
-                  style={{ [stepDirection]: numberToPencent(position) }}
+                  style={{ [stepDirection]: numberToPercent(position) }}
                   className={classNames(`${classPrefix}-slider__stop`)}
                 ></div>
               ))}
@@ -226,7 +226,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                 <div
                   key={value}
                   onClick={(event) => handleClickMarks(event, value)}
-                  style={{ [stepDirection]: numberToPencent(position) }}
+                  style={{ [stepDirection]: numberToPercent(position) }}
                   className={classNames(`${classPrefix}-slider__mark-text`)}
                 >
                   {label}
