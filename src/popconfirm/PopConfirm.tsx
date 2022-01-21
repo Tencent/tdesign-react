@@ -9,21 +9,27 @@ import PopContent from './PopContent';
 
 export type PopConfirmProps = TdPopconfirmProps;
 
-const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, ref) => {
-  const { classPrefix } = useConfig();
+const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
+  const { classPrefix, locale } = useConfig();
+  const { cancelBtn = locale.popconfirm.cancel, confirmBtn = locale.popconfirm.confirm } = props;
+
   const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 
   return (
     <Popup
       ref={ref}
-      destroyOnClose={true}
       {...props}
       visible={visible}
       trigger="click"
       onVisibleChange={(visible) => setVisible(visible)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={
-        <PopContent {...props} onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)} />
+        <PopContent
+          cancelBtn={cancelBtn}
+          confirmBtn={confirmBtn}
+          {...props}
+          onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)}
+        />
       }
       {...props.popupProps}
     />
@@ -33,9 +39,8 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, re
 PopConfirm.displayName = 'PopConfirm';
 
 PopConfirm.defaultProps = {
+  destroyOnClose: true,
   showArrow: true,
-  cancelBtn: '取消',
-  confirmBtn: '确定',
   onCancel: noop,
   onConfirm: noop,
   theme: 'default',
