@@ -46,3 +46,4 @@ export * from './swiper';
 export * from './comment';
 export * from './transfer';
 export * from './avatar';
+export * from './skeleton';
