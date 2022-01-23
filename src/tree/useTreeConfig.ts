@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export function useTreeConfig() {
-  const { classPrefix: prefix, locale } = useConfig();
+  const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('tree');
 
   return useMemo(() => {
     const tree = `${prefix}-tree`;
@@ -54,7 +56,7 @@ export function useTreeConfig() {
       transitionNames,
       transitionClassNames,
       transitionDuration: 300,
-      locale: locale.tree,
+      locale: (key) => t(locale[key]),
     };
-  }, [locale.tree, prefix]);
+  }, [locale, prefix, t]);
 }

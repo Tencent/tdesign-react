@@ -87,7 +87,7 @@ const Select = forwardRefWithStatics(
       panelTopContent,
     } = useDefaultValue(props);
 
-    const { classPrefix, locale } = useConfig();
+    const { classPrefix } = useConfig();
 
     const name = `${classPrefix}-select`; // t-select
 
@@ -268,7 +268,7 @@ const Select = forwardRefWithStatics(
           },
         )}
       >
-        {selectedLabel || placeholder || locale.select.placeholder}
+        {selectedLabel || placeholder || t(local.placeholder)}
       </span>
     );
 
@@ -320,9 +320,7 @@ const Select = forwardRefWithStatics(
     const renderInput = () => (
       <Input
         value={isString(inputVal) || multiple ? inputVal : selectedLabel}
-        placeholder={
-          multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || locale.select.placeholder
-        }
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
         className={`${name}__input`}
         onChange={handleInputChange}
         onKeydown={handleInputKeyDown}

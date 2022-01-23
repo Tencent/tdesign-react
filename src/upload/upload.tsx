@@ -7,6 +7,7 @@ import UploadTrigger from './upload-trigger';
 import Tips from './tips';
 import request from '../_common/js/upload/xhr';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
 import FlowList from './themes/flow-list/index';
@@ -61,7 +62,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     children,
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
 
-  const { classPrefix, locale } = useConfig();
+  const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const uploadRef = useRef<HTMLInputElement>();
   const [errorMsg, setErrorMsg] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -87,7 +89,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
   // endregion
 
-  const errorText = locale.upload.progress.fail;
+  const errorText = t(locale.progress.fail);
 
   const triggerUpload = () => {
     if (disabled) return;

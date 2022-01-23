@@ -150,4 +150,8 @@ export default {
       success: 'Success',
     },
   },
+  list: {
+    loading: 'loading...',
+    loadmore: 'loading more',
+  },
 };

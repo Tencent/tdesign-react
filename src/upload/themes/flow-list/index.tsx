@@ -1,6 +1,7 @@
 import React, { DragEvent, MouseEvent, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Button from '../../../button';
 import { UploadFile } from '../../type';
 import { FlowRemoveContext } from '../../types';
@@ -47,16 +48,17 @@ const Index: React.FC<FlowListProps> = (props) => {
     children = null,
   } = props;
   const target = React.useRef();
-  const { classPrefix: prefix, locale } = useConfig();
+  const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const [dragActive, setDragActive] = useState(false);
   const showInitial = !listFiles.length;
   const failedList = toUploadFiles.filter((file) => file.status === 'fail');
   const isUploading = toUploadFiles.filter((file) => file.status === 'progress').length > 0;
   const allowUpload = toUploadFiles.length > 0 && !isUploading;
-  const progressText = locale.upload.progress;
-  let uploadText = failedList.length ? progressText.reupload : progressText.start;
-  if (isUploading) uploadText = progressText.uploading;
+  const progressText = locale.progress;
+  let uploadText = failedList.length ? t(progressText.reupload) : t(progressText.start);
+  if (isUploading) uploadText = t(progressText.uploading);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -96,7 +98,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       onDragOver={handleDragover}
       onDragLeave={handleDragleave}
     >
-      {dragActive ? locale.upload.dragger.drop : locale.upload.dragger.clickAndDrag}
+      {dragActive ? t(locale.dragger.drop) : t(locale.dragger.clickAndDrag)}
     </div>
   );
   const wrapperClassNames = classNames({
@@ -130,7 +132,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       </BooleanRender>
       <div className={`${UPLOAD_NAME}__flow-bottom`}>
         <Button theme="default" onClick={cancel}>
-          {locale.upload.trigger.cancel}
+          {t(locale.trigger.cancel)}
         </Button>
         <Button disabled={!allowUpload} theme="primary" onClick={(e: MouseEvent) => upload(toUploadFiles, e)}>
           {uploadText}

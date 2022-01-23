@@ -2,9 +2,11 @@ import React from 'react';
 import isFunction from 'lodash/isFunction';
 import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function TableEmptyBody(props) {
-  const { classPrefix, locale } = useConfig();
+  const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('table');
   const { asyncLoading, onAsyncLoadingClick } = props;
   if (!asyncLoading) return null;
 
@@ -17,7 +19,7 @@ export default function TableEmptyBody(props) {
         }}
       >
         <Loading loading={true} size="small"></Loading>
-        <span>{locale.table.loadingText}</span>
+        <span>{t(locale.loadingText)}</span>
       </div>
     );
   }
