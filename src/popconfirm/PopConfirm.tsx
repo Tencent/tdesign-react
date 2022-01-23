@@ -4,14 +4,16 @@ import Popup from '../popup/Popup';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
 import PopContent from './PopContent';
 
 export type PopConfirmProps = TdPopconfirmProps;
 
 const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
-  const { classPrefix, locale } = useConfig();
-  const { cancelBtn = locale.popconfirm.cancel, confirmBtn = locale.popconfirm.confirm } = props;
+  const { classPrefix } = useConfig();
+  const [local, t] = useLocaleReceiver('popconfirm');
+  const { cancelBtn = t(local.cancel), confirmBtn = t(local.confirm) } = props;
 
   const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 

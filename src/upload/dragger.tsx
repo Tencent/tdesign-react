@@ -4,6 +4,7 @@ import { TNode } from '../common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
 import { CustomDraggerRenderProps } from './types';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import DraggerProgress from './themes/dragger-progress';
 
 export interface DraggerProps {
@@ -22,10 +23,11 @@ export interface DraggerProps {
 
 const Dragger: FC<DraggerProps> = (props) => {
   const { file, display, onUpload, onRemove, customDraggerRender } = props;
-  const { classPrefix, locale } = useConfig();
+  const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
-  const draggerLocaleText = locale.upload.dragger;
+  const draggerLocaleText = locale.dragger;
 
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
@@ -36,13 +38,13 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload--highlight`}>{draggerLocaleText.click}</span>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{draggerLocaleText.drag}</span>
+        <span className={`${classPrefix}-upload--highlight`}>{t(draggerLocaleText.click)}</span>
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{t(draggerLocaleText.drag)}</span>
       </div>
     );
-    const activeElement = <div>{draggerLocaleText.drop}</div>;
+    const activeElement = <div>{t(draggerLocaleText.drop)}</div>;
     return dragActive ? activeElement : unActiveElement;
-  }, [classPrefix, dragActive, draggerLocaleText]);
+  }, [classPrefix, dragActive, draggerLocaleText, t]);
 
   const dragElement = React.useMemo(() => {
     let content: React.ReactNode;

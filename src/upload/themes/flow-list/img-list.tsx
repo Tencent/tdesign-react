@@ -3,6 +3,7 @@ import { BrowseIcon, DeleteIcon, ErrorCircleFilledIcon } from 'tdesign-icons-rea
 import React, { MouseEvent } from 'react';
 import type { CommonListProps, FlowListProps } from './index';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { abridgeName } from '../../util';
 import Loading from '../../../loading';
 
@@ -10,7 +11,8 @@ type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remo
 
 const ImgList = (props: ImgListProps) => {
   const { showInitial, listFiles, renderDragger, onImgPreview, remove } = props;
-  const { classPrefix: prefix, locale } = useConfig();
+  const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const UPLOAD_NAME_CARD = `${UPLOAD_NAME}__card`;
 
@@ -30,14 +32,14 @@ const ImgList = (props: ImgListProps) => {
                 {file.status === 'fail' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <ErrorCircleFilledIcon />
-                    <p>{locale.upload.progress.fail}</p>
+                    <p>{t(locale.progress.fail)}</p>
                   </div>
                 )}
                 {file.status === 'progress' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <Loading />
                     <p>
-                      {locale.upload.progress.uploading} {Math.min(file.percent, 99)}
+                      {t(locale.progress.uploading)} {Math.min(file.percent, 99)}
                     </p>
                   </div>
                 )}

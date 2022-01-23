@@ -159,7 +159,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   useRipple(labelRef);
 
   const renderLabel = () => {
-    const emptyView = locale.empty;
+    const emptyView = locale('empty');
     let labelText: string | ReactNode = '';
     if (label instanceof Function) {
       labelText = label(node.getModel()) || emptyView;

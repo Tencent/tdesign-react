@@ -138,4 +138,8 @@ export default {
       success: '上传成功',
     },
   },
+  list: {
+    loading: '正在加载中，请稍等',
+    loadmore: '点击加载更多',
+  },
 };

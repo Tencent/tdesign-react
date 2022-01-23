@@ -2,6 +2,7 @@ import React, { MouseEvent } from 'react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
 import { abridgeName, returnFileSize } from '../../util';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Loading from '../../../loading';
 import type { CommonListProps, FlowListProps } from './index';
 import type { UploadFile } from '../../type';
@@ -10,27 +11,28 @@ type FileListProps = CommonListProps & Pick<FlowListProps, 'showUploadProgress' 
 
 const FileList = (props: FileListProps) => {
   const { listFiles, showInitial, renderDragger, showUploadProgress, remove } = props;
-  const { classPrefix: prefix, locale } = useConfig();
+  const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
-  const { progress: progressText, infoTable: infoText } = locale.upload;
+  const { progress: progressText, infoTable: infoText } = locale;
 
   const renderStatus = (file: UploadFile) => {
     const STATUS_MAP = {
       success: {
         icon: <CheckCircleFilledIcon />,
-        text: progressText.success,
+        text: t(progressText.success),
       },
       fail: {
         icon: <ErrorCircleFilledIcon />,
-        text: progressText.fail,
+        text: t(progressText.fail),
       },
       progress: {
         icon: <Loading />,
-        text: `${progressText.uploading} ${Math.min(file.percent, 99)}%`,
+        text: `${t(progressText.uploading)} ${Math.min(file.percent, 99)}%`,
       },
       waiting: {
         icon: <TimeFilledIcon />,
-        text: progressText.waiting,
+        text: t(progressText.waiting),
       },
     };
 
@@ -47,10 +49,10 @@ const FileList = (props: FileListProps) => {
     <table className={`${UPLOAD_NAME}__flow-table`}>
       <thead>
         <tr>
-          <th>{infoText.name}</th>
-          <th>{infoText.size}</th>
-          <th>{infoText.status}</th>
-          <th>{infoText.operation}</th>
+          <th>{t(infoText.name)}</th>
+          <th>{t(infoText.size)}</th>
+          <th>{t(infoText.status)}</th>
+          <th>{t(infoText.operation)}</th>
         </tr>
       </thead>
       <tbody>
@@ -69,7 +71,7 @@ const FileList = (props: FileListProps) => {
                 className={`${UPLOAD_NAME}__flow-button`}
                 onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
               >
-                {progressText.delete}
+                {t(progressText.delete)}
               </span>
             </td>
           </tr>

@@ -3,6 +3,7 @@ import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-reac
 import Button from '../../button';
 import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadFile, UploadRemoveContext } from '../type';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
 
@@ -16,9 +17,9 @@ export interface DraggerProgressProps {
 
 const DraggerProgress: FC<DraggerProgressProps> = (props) => {
   const { file, onUpload, onRemove, display, onTrigger } = props;
-  const { classPrefix, locale } = useConfig();
-
-  const { progress: progressText, infoTable: infoText } = locale.upload;
+  const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
+  const { progress: progressText, infoTable: infoText } = locale;
   const reUpload = (e) => {
     onRemove?.({ e, file, index: 0 });
     onTrigger?.();
@@ -56,10 +57,10 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
           {file?.status === 'success' && <CheckCircleFilledIcon />}
         </div>
         <small className={`${classPrefix}-size-s`}>
-          {infoText.size}：{returnFileSize(file?.size)}
+          {t(infoText.size)}：{returnFileSize(file?.size)}
         </small>
         <small className={`${classPrefix}-size-s`}>
-          {infoText.date}：{getCurrentDate()}
+          {t(infoText.date)}：{getCurrentDate()}
         </small>
         {!['success', 'fail'].includes(file?.status) && (
           <div className={`${classPrefix}-upload__dragger-btns`}>
@@ -69,20 +70,20 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
               className={`${classPrefix}-upload__dragger-progress-cancel`}
               onClick={handleRemove}
             >
-              {progressText.cancel}
+              {t(progressText.cancel)}
             </Button>
             <Button theme="primary" variant="text" onClick={onUpload}>
-              {progressText.start}
+              {t(progressText.start)}
             </Button>
           </div>
         )}
         {showResultOperate && (
           <div className="t-upload__dragger-btns">
             <Button theme="primary" variant="text" className="t-upload__dragger-progress-cancel" onClick={reUpload}>
-              {progressText.reupload}
+              {t(progressText.reupload)}
             </Button>
             <Button theme="primary" variant="text" onClick={handleRemove}>
-              {progressText.delete}
+              {t(progressText.delete)}
             </Button>
           </div>
         )}
