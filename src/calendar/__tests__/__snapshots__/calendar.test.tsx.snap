@@ -7204,7 +7204,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  1月
+                  一月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7216,7 +7216,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  2月
+                  二月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7228,7 +7228,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  3月
+                  三月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7240,7 +7240,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  4月
+                  四月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7256,7 +7256,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  5月
+                  五月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7268,7 +7268,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  6月
+                  六月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7280,7 +7280,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  7月
+                  七月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7292,7 +7292,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  8月
+                  八月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7308,7 +7308,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  9月
+                  九月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7320,7 +7320,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  10月
+                  十月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7332,7 +7332,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  11月
+                  十一月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
@@ -7344,7 +7344,7 @@ exports[`mode.jsx 1`] = `
                 <div
                   class="t-calendar__table-body-cell-value"
                 >
-                  12月
+                  十二月
                 </div>
                 <div
                   class="t-calendar__table-body-cell-content"
