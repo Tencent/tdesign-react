@@ -150,13 +150,4 @@ export default {
       success: 'Success',
     },
   },
-  tag: {
-    closeIcon: undefined,
-  },
-  form: {
-    requiredMark: true,
-  },
-  input: {
-    placeholder: '',
-  },
 };
