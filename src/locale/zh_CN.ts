@@ -138,13 +138,4 @@ export default {
       success: '上传成功',
     },
   },
-  tag: {
-    closeIcon: undefined,
-  },
-  form: {
-    requiredMark: true,
-  },
-  input: {
-    placeholder: '',
-  },
 };
