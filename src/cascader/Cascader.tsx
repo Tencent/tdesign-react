@@ -36,8 +36,10 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const [inputWidth, setInputWidth] = useState(0);
   const [treeNodes, setTreeNodes] = useState([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
+  const [local, t] = useLocaleReceiver('cascader');
 
   // cascaderContext, center status
+  const loadingLocalText = t(local.loadingText);
   const cascaderContext = useMemo(() => {
     const {
       size = 'medium',
@@ -51,7 +53,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       max = 0,
       showAllLevels = true,
       minCollapsedNum = false,
-      loadingText = '',
+      loadingText = loadingLocalText,
     } = props;
     return {
       size,
@@ -86,7 +88,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       setInputWidth,
       loadingText,
     } as CascaderContextType;
-  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive, inputWidth, setInputWidth]);
+  }, [loadingLocalText, props, value, visible, treeStore, treeNodes, filterActive, inputVal, inputWidth, setValue]);
 
   /**
    * build tree
@@ -161,8 +163,6 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       setInputVal('');
     }
   }, [filterActive]);
-
-  const [local, t] = useLocaleReceiver('cascader');
 
   // panel props
   const { empty = t(local.empty), trigger = 'click' } = props;

@@ -10,6 +10,7 @@ export default {
   },
   cascader: {
     empty: 'Empty Data',
+    loadingText: '',
     placeholder: '',
   },
   calendar: {
