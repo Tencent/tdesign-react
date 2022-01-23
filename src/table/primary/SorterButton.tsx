@@ -19,19 +19,16 @@ interface SorterButtonProps {
 
 // 用于点击排序图标时tooltip的顺序显示标准
 const sortTypeOrder = [SortTypeEnum.desc, SortTypeEnum.asc, SortTypeEnum.all];
-const tooltips = {
-  desc: '点击降序',
-  asc: '点击升序',
-  all: '点击取消排序', // 单个/多个排序，取消时，均使用all
-};
 
 const SorterButton: FC<SorterButtonProps> = (props) => {
   const { column: currentColumn, singleSort: currentSort, onChange } = props;
   const { sortType = SortTypeEnum.all } = currentColumn;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix, locale } = useContext(ConfigContext);
   const [currentSortType, setCurrentSortType] = useState<SortType>(SortTypeEnum.all);
   const isAllSortType = sortType === SortTypeEnum.all;
   const nextSortType = getNextSortType(currentSortType);
+
+  const tooltips = locale.table.sortTooltips; // 单个/多个排序：升序，降序，取消；取消时，均使用all
 
   /**
    * 设置tooltip文案提示对应的key
