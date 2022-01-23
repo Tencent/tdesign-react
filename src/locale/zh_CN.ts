@@ -22,7 +22,7 @@ export default {
     today: '今天',
     thisMonth: '本月',
     week: '一,二,三,四,五,六,日',
-    cellMonth: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月',
+    cellMonth: '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
   },
   transfer: {
     title: '{checked} / {total} 项',
@@ -77,7 +77,7 @@ export default {
       year: '请选择年份',
     },
     weekdays: ['一', '二', '三', '四', '五', '六', '日'],
-    months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    months: ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月'],
     firstDayOfWeek: 0,
     rangeSeparator: ' 至 ',
     direction: 'ltr',
