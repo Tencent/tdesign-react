@@ -3,19 +3,19 @@ import { Table } from 'tdesign-react';
 
 const data = [];
 const total = 30;
-// for (let i = 0; i < total; i++) {
-//   data.push({
-//     index: i,
-//     platform: '公有',
-//     type: 'any[]',
-//     default: '[]',
-//     needed: 'Y',
-//     description: '数据源',
-//     detail: {
-//       name: '嵌套信息读取',
-//     },
-//   });
-// }
+for (let i = 0; i < total; i++) {
+  data.push({
+    index: i,
+    platform: '公有',
+    type: 'any[]',
+    default: '[]',
+    needed: 'Y',
+    description: '数据源',
+    detail: {
+      name: '嵌套信息读取',
+    },
+  });
+}
 
 export default function TableBasic() {
   return (
