@@ -22,7 +22,7 @@ export default {
     today: '今天',
     thisMonth: '本月',
     week: '一,二,三,四,五,六,日',
-    cellMonth: '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
+    cellMonth: '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月',
   },
   transfer: {
     title: '{checked} / {total} 项',
