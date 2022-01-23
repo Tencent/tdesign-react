@@ -285,7 +285,7 @@ exports[`file-flow-list.jsx 1`] = `
                 文件名
               </th>
               <th>
-                大小
+                文件大小
               </th>
               <th>
                 状态
@@ -332,7 +332,7 @@ exports[`file-flow-list.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              开始上传
+              点击上传
             </span>
           </button>
         </div>
@@ -620,7 +620,7 @@ exports[`img-flow-list.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              开始上传
+              点击上传
             </span>
           </button>
         </div>

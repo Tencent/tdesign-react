@@ -10,7 +10,7 @@ type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remo
 
 const ImgList = (props: ImgListProps) => {
   const { showInitial, listFiles, renderDragger, onImgPreview, remove } = props;
-  const { classPrefix: prefix } = useConfig();
+  const { classPrefix: prefix, locale } = useConfig();
   const UPLOAD_NAME = `${prefix}-upload`;
   const UPLOAD_NAME_CARD = `${UPLOAD_NAME}__card`;
 
@@ -30,13 +30,15 @@ const ImgList = (props: ImgListProps) => {
                 {file.status === 'fail' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <ErrorCircleFilledIcon />
-                    <p>上传失败</p>
+                    <p>{locale.upload.progress.fail}</p>
                   </div>
                 )}
                 {file.status === 'progress' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <Loading />
-                    <p>上传中 {Math.min(file.percent, 99)}</p>
+                    <p>
+                      {locale.upload.progress.uploading} {Math.min(file.percent, 99)}
+                    </p>
                   </div>
                 )}
                 {(['waiting', 'success'].includes(file.status) || (!file.status && file.url)) && (

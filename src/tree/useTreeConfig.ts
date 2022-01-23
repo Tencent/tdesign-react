@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import useConfig from '../_util/useConfig';
 
 export function useTreeConfig() {
-  const { classPrefix: prefix } = useConfig();
+  const { classPrefix: prefix, locale } = useConfig();
 
   return useMemo(() => {
     const tree = `${prefix}-tree`;
@@ -54,6 +54,7 @@ export function useTreeConfig() {
       transitionNames,
       transitionClassNames,
       transitionDuration: 300,
+      locale: locale.tree,
     };
-  }, [prefix]);
+  }, [locale.tree, prefix]);
 }

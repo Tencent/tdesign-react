@@ -19,7 +19,7 @@ export interface ImageCardProps {
 
 const ImageCard: FC<ImageCardProps> = (props) => {
   const { files, multiple = false, max = 0, onRemove, showUploadProgress } = props;
-  const { classPrefix } = useConfig();
+  const { classPrefix, locale } = useConfig();
   const [showImg, setShowImg] = useState(false);
   const [imgURL, setImgURL] = useState();
 
@@ -86,7 +86,9 @@ const ImageCard: FC<ImageCardProps> = (props) => {
               >
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
-                  <p>上传中 {Math.min(files[0].percent, 99)}%</p>
+                  <p>
+                    {locale.upload.progress.uploading} {Math.min(files[0].percent, 99)}%
+                  </p>
                 </div>
               </BooleanRender>
             </li>
@@ -96,7 +98,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>点击上传图片</p>
+              <p className={`${classPrefix}-size-s`}>{locale.upload.trigger.image}</p>
             </div>
           </li>
         </BooleanRender>

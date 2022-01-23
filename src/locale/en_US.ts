@@ -91,6 +91,7 @@ export default {
   treeSelect: {
     empty: 'Empty Data',
     loadingText: 'loading...',
+    placeholder: '',
   },
   datePicker: {
     placeholder: {
@@ -120,7 +121,34 @@ export default {
   },
   upload: {
     sizeLimitMessage: 'File is too large to upload. {sizeLimit}',
-    cancelUploadText: 'Cancel',
+    trigger: {
+      file: 'Upload',
+      image: 'Click to upload',
+      cancel: 'Cancel',
+    },
+    dragger: {
+      drop: 'Drop hear',
+      click: 'Click',
+      drag: 'Drag file to this area to upload',
+      clickAndDrag: 'Click "Upload" or Drag file to this area to upload',
+    },
+    infoTable: {
+      name: 'filename',
+      size: 'size',
+      status: 'status',
+      operation: 'operation',
+      date: 'date',
+    },
+    progress: {
+      cancel: 'Cancel',
+      reupload: 'Reupload',
+      delete: 'Delete',
+      start: 'Upload',
+      uploading: 'Uploading',
+      waiting: 'Waiting',
+      fail: 'Failed',
+      success: 'Success',
+    },
   },
   tag: {
     closeIcon: undefined,
