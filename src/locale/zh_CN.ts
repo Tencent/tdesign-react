@@ -50,6 +50,13 @@ export default {
   },
   table: {
     empty: '暂无数据',
+    loadingText: '正在加载中，请稍后',
+    filterPlaceholder: '请输入内容（无默认值）',
+    sortTooltips: {
+      desc: '点击降序',
+      asc: '点击升序',
+      all: '点击取消排序',
+    },
     // 展开和收起图标（使用收起图标）
     expandIcon: null,
     // 排序图标（使用降序图标）

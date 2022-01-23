@@ -64,6 +64,13 @@ export default {
   },
   table: {
     empty: 'Empty Data',
+    loadingText: 'loading...',
+    filterPlaceholder: '',
+    sortTooltips: {
+      desc: 'click to sort descending',
+      asc: 'click to sort ascending',
+      all: 'click to cancel sorting',
+    },
     // 展开和收起图标（使用收起图标）
     expandIcon: undefined,
     // 排序图标（使用降序图标）

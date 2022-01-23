@@ -4,7 +4,7 @@ import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';
 
 export default function TableEmptyBody(props) {
-  const { classPrefix } = useConfig();
+  const { classPrefix, locale } = useConfig();
   const { asyncLoading, onAsyncLoadingClick } = props;
   if (!asyncLoading) return null;
 
@@ -17,7 +17,7 @@ export default function TableEmptyBody(props) {
         }}
       >
         <Loading loading={true} size="small"></Loading>
-        <span>正在加载中，请稍后</span>
+        <span>{locale.table.loadingText}</span>
       </div>
     );
   }
