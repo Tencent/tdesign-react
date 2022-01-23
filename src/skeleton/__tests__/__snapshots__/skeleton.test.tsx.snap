@@ -6,15 +6,15 @@ exports[`advance.jsx 1`] = `
     style="width: 100%;"
   >
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        网页（使用 rowCol）
+        组合成网页效果
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -87,15 +87,15 @@ exports[`advance.jsx 1`] = `
               style="width: 100%; height: 300px;"
             >
               <div
-                style="width: 100%; text-align: center;"
+                class="row-col-content"
               >
                 <h3
-                  style="padding: 10px; border-bottom: 1px solid #ccc;"
+                  class="row-col-content__header"
                 >
                   标题
                 </h3>
                 <div
-                  style="padding: 10px; height: 200px;"
+                  class="row-col-content__content"
                 >
                   内容
                 </div>
@@ -106,22 +106,22 @@ exports[`advance.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        列表（组合使用）
+        组合成列表效果
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <ul>
           <li
-            style="padding: 16px 0px;"
+            style="padding: 16px 0px; display: flex;"
           >
             <div
-              style="display: inline-block; margin-right: 20px;"
+              style="display: inline-block; height: 56px; margin: 6px 16px 6px 0px; flex-shrink: 0;"
             >
               <div
                 class="t-skeleton__row"
@@ -133,7 +133,7 @@ exports[`advance.jsx 1`] = `
               </div>
             </div>
             <div
-              style="display: inline-block; width: 80%;"
+              style="display: inline-block; width: 90%;"
             >
               <div
                 class="t-skeleton__row"
@@ -160,10 +160,10 @@ exports[`advance.jsx 1`] = `
             </div>
           </li>
           <li
-            style="padding: 16px 0px;"
+            style="padding: 16px 0px; display: flex;"
           >
             <div
-              style="display: inline-block; margin-right: 20px;"
+              style="display: inline-block; height: 56px; margin: 6px 16px 6px 0px; flex-shrink: 0;"
             >
               <div
                 class="t-skeleton__row"
@@ -175,7 +175,7 @@ exports[`advance.jsx 1`] = `
               </div>
             </div>
             <div
-              style="display: inline-block; width: 80%;"
+              style="display: inline-block; width: 90%;"
             >
               <div
                 class="t-skeleton__row"
@@ -202,10 +202,10 @@ exports[`advance.jsx 1`] = `
             </div>
           </li>
           <li
-            style="padding: 16px 0px;"
+            style="padding: 16px 0px; display: flex;"
           >
             <div
-              style="display: inline-block; margin-right: 20px;"
+              style="display: inline-block; height: 56px; margin: 6px 16px 6px 0px; flex-shrink: 0;"
             >
               <div
                 class="t-skeleton__row"
@@ -217,7 +217,7 @@ exports[`advance.jsx 1`] = `
               </div>
             </div>
             <div
-              style="display: inline-block; width: 80%;"
+              style="display: inline-block; width: 90%;"
             >
               <div
                 class="t-skeleton__row"
@@ -256,15 +256,15 @@ exports[`animation.jsx 1`] = `
     class="t-skeleton-demo"
   >
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
         渐变加载动画
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -300,15 +300,15 @@ exports[`animation.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
         闪烁加载动画
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -366,9 +366,7 @@ exports[`base.jsx 1`] = `
       </button>
     </div>
     <div>
-      <div
-        style="margin-bottom: 20px;"
-      >
+      <div>
         <div
           class="t-skeleton__row"
         >
@@ -410,15 +408,15 @@ exports[`theme.jsx 1`] = `
     class="t-skeleton-demo"
   >
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        text
+        文本
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -432,15 +430,15 @@ exports[`theme.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        avatar
+        头像
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -455,15 +453,15 @@ exports[`theme.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        paragraph
+        段落
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -492,15 +490,15 @@ exports[`theme.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        avatar-text
+        头像描述
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -518,15 +516,15 @@ exports[`theme.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        tab
+        选项卡
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
@@ -549,15 +547,15 @@ exports[`theme.jsx 1`] = `
       </div>
     </div>
     <div
-      style="margin: 16px; border: 1px solid #eee;"
+      class="t-skeleton-demo-card"
     >
       <div
-        style="padding: 16px; border-bottom: 1px solid #eee;"
+        class="header"
       >
-        article
+        文章
       </div>
       <div
-        style="padding: 16px;"
+        class="content"
       >
         <div>
           <div
