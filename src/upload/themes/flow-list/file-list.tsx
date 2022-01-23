@@ -10,25 +10,27 @@ type FileListProps = CommonListProps & Pick<FlowListProps, 'showUploadProgress' 
 
 const FileList = (props: FileListProps) => {
   const { listFiles, showInitial, renderDragger, showUploadProgress, remove } = props;
-  const { classPrefix: prefix } = useConfig();
+  const { classPrefix: prefix, locale } = useConfig();
   const UPLOAD_NAME = `${prefix}-upload`;
+  const { progress: progressText, infoTable: infoText } = locale.upload;
+
   const renderStatus = (file: UploadFile) => {
     const STATUS_MAP = {
       success: {
         icon: <CheckCircleFilledIcon />,
-        text: '上传成功',
+        text: progressText.success,
       },
       fail: {
         icon: <ErrorCircleFilledIcon />,
-        text: '上传失败',
+        text: progressText.fail,
       },
       progress: {
         icon: <Loading />,
-        text: `上传中 ${Math.min(file.percent, 99)}%`,
+        text: `${progressText.uploading} ${Math.min(file.percent, 99)}%`,
       },
       waiting: {
         icon: <TimeFilledIcon />,
-        text: '待上传',
+        text: progressText.waiting,
       },
     };
 
@@ -45,10 +47,10 @@ const FileList = (props: FileListProps) => {
     <table className={`${UPLOAD_NAME}__flow-table`}>
       <thead>
         <tr>
-          <th>文件名</th>
-          <th>大小</th>
-          <th>状态</th>
-          <th>操作</th>
+          <th>{infoText.name}</th>
+          <th>{infoText.size}</th>
+          <th>{infoText.status}</th>
+          <th>{infoText.operation}</th>
         </tr>
       </thead>
       <tbody>
@@ -67,7 +69,7 @@ const FileList = (props: FileListProps) => {
                 className={`${UPLOAD_NAME}__flow-button`}
                 onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
               >
-                删除
+                {progressText.delete}
               </span>
             </td>
           </tr>

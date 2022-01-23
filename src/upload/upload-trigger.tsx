@@ -8,7 +8,7 @@ export interface UploadTriggerProps {
 }
 
 const UploadTrigger: FC<UploadTriggerProps> = (props) => {
-  const { classPrefix } = useConfig();
+  const { classPrefix, locale } = useConfig();
 
   return (
     <div className={`${classPrefix}-upload__trigger`} onClick={props.onClick}>
@@ -16,7 +16,7 @@ const UploadTrigger: FC<UploadTriggerProps> = (props) => {
         props.children
       ) : (
         <Button icon={<UploadIcon />} variant="outline">
-          选择文件
+          {locale.upload.trigger.file}
         </Button>
       )}
     </div>

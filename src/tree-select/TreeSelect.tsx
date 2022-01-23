@@ -27,6 +27,12 @@ export interface NodeOptions {
 }
 
 const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivElement>) => {
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('treeSelect');
+  const emptyText = t(local.empty);
+  const placeholderText = t(local.placeholder);
+  const loadingTextLabel = t(local.loadingText);
+
   const {
     className: treeSelectClassName,
     style: treeSelectStyle,
@@ -36,6 +42,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     valueType,
     loading,
     max,
+    placeholder = placeholderText,
     treeProps,
     empty,
     data,
@@ -232,11 +239,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     }
   }
 
-  // 国际化文本初始化
-  const [local, t] = useLocaleReceiver('treeSelect');
-  const emptyText = t(local.empty);
-  const loadingTextLabel = t(local.loadingText);
-
   const treeItem = !loading && (
     <Tree
       ref={treeRef}
@@ -304,6 +306,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
             selectedSingle={selectedSingle}
             setFocusing={setFocusing}
             setFilterText={setFilterText}
+            placeholder={placeholder}
             {...props}
           />
 
@@ -332,7 +335,6 @@ TreeSelect.defaultProps = {
   loadingText: '',
   max: 0,
   multiple: false,
-  placeholder: '请输入',
   size: 'medium',
   valueType: 'value',
   minCollapsedNum: 0,

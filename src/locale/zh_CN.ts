@@ -65,6 +65,7 @@ export default {
   select: {
     empty: '暂无数据',
     loadingText: '加载中',
+    placeholder: '-请选择-',
     // 清除按钮
     clearIcon: null,
   },
@@ -76,6 +77,7 @@ export default {
   treeSelect: {
     empty: '暂无数据',
     loadingText: '加载中',
+    placeholder: '请选择',
   },
   datePicker: {
     placeholder: {
@@ -107,5 +109,42 @@ export default {
   steps: {},
   upload: {
     sizeLimitMessage: '图片大小不能超过 {sizeLimit}',
+    trigger: {
+      file: '选择文件',
+      image: '点击上传图片',
+      cancel: '取消',
+    },
+    dragger: {
+      drop: '释放鼠标',
+      click: '点击上传',
+      drag: '拖拽到此区域',
+      clickAndDrag: '点击上方“选择文件”或将文件拖拽到此区域',
+    },
+    infoTable: {
+      name: '文件名',
+      size: '文件大小',
+      status: '状态',
+      operation: '操作',
+      date: '上传日期',
+    },
+    progress: {
+      start: '点击上传',
+      cancel: '取消上传',
+      reupload: '重新上传',
+      delete: '删除',
+      uploading: '上传中',
+      waiting: '待上传',
+      fail: '上传失败',
+      success: '上传成功',
+    },
+  },
+  tag: {
+    closeIcon: undefined,
+  },
+  form: {
+    requiredMark: true,
+  },
+  input: {
+    placeholder: '',
   },
 };

@@ -47,15 +47,16 @@ const Index: React.FC<FlowListProps> = (props) => {
     children = null,
   } = props;
   const target = React.useRef();
-  const { classPrefix: prefix } = useConfig();
+  const { classPrefix: prefix, locale } = useConfig();
   const UPLOAD_NAME = `${prefix}-upload`;
   const [dragActive, setDragActive] = useState(false);
   const showInitial = !listFiles.length;
   const failedList = toUploadFiles.filter((file) => file.status === 'fail');
   const isUploading = toUploadFiles.filter((file) => file.status === 'progress').length > 0;
   const allowUpload = toUploadFiles.length > 0 && !isUploading;
-  let uploadText = failedList.length ? '重新上传' : '开始上传';
-  if (isUploading) uploadText = '上传中...';
+  const progressText = locale.upload.progress;
+  let uploadText = failedList.length ? progressText.reupload : progressText.start;
+  if (isUploading) uploadText = progressText.uploading;
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -95,7 +96,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       onDragOver={handleDragover}
       onDragLeave={handleDragleave}
     >
-      {dragActive ? '释放鼠标' : '点击上方“选择文件”或将文件拖拽到此区域'}
+      {dragActive ? locale.upload.dragger.drop : locale.upload.dragger.clickAndDrag}
     </div>
   );
   const wrapperClassNames = classNames({
@@ -129,7 +130,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       </BooleanRender>
       <div className={`${UPLOAD_NAME}__flow-bottom`}>
         <Button theme="default" onClick={cancel}>
-          取消
+          {locale.upload.trigger.cancel}
         </Button>
         <Button disabled={!allowUpload} theme="primary" onClick={(e: MouseEvent) => upload(toUploadFiles, e)}>
           {uploadText}

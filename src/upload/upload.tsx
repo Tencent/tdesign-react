@@ -61,7 +61,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     children,
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, locale } = useConfig();
   const uploadRef = useRef<HTMLInputElement>();
   const [errorMsg, setErrorMsg] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -86,6 +86,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     [onPreview],
   );
   // endregion
+
+  const errorText = locale.upload.progress.fail;
 
   const triggerUpload = () => {
     if (disabled) return;
@@ -118,14 +120,14 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         res = formatResponse(response, { file });
       }
 
-      setErrorMsg(res?.error || '上传失败');
+      setErrorMsg(res?.error || errorText);
       const context = { e: event, file };
       const nextFileList = updateFileList(file, fileList);
       // setFileList((prevFileList) => updateFileList(file, prevFileList));
       onChange?.(nextFileList, { trigger: 'upload fail' });
       onFail?.(context);
     },
-    [fileList, formatResponse, onChange, onFail],
+    [fileList, formatResponse, errorText, onChange, onFail],
   );
 
   const singleDraggable = useMemo(

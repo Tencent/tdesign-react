@@ -22,9 +22,10 @@ export interface DraggerProps {
 
 const Dragger: FC<DraggerProps> = (props) => {
   const { file, display, onUpload, onRemove, customDraggerRender } = props;
-  const { classPrefix } = useConfig();
+  const { classPrefix, locale } = useConfig();
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
+  const draggerLocaleText = locale.upload.dragger;
 
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
@@ -35,13 +36,13 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload--highlight`}>点击上传</span>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;拖拽到此区域</span>
+        <span className={`${classPrefix}-upload--highlight`}>{draggerLocaleText.click}</span>
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{draggerLocaleText.drag}</span>
       </div>
     );
-    const activeElement = <div>释放鼠标</div>;
+    const activeElement = <div>{draggerLocaleText.drop}</div>;
     return dragActive ? activeElement : unActiveElement;
-  }, [classPrefix, dragActive]);
+  }, [classPrefix, dragActive, draggerLocaleText]);
 
   const dragElement = React.useMemo(() => {
     let content: React.ReactNode;
