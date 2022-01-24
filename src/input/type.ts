@@ -9,6 +9,11 @@ import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, ClipboardEvent } from
 
 export interface TdInputProps {
   /**
+   * 文本内容位置，居左/居中/居右
+   * @default left
+   */
+  align?: 'left' | 'center' | 'right';
+  /**
    * 是否开启自动填充功能
    * @default false
    */
@@ -28,6 +33,10 @@ export interface TdInputProps {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 【讨论中】指定输入框展示值的格式
+   */
+  format?: (value: number | number) => number | string;
   /**
    * 左侧文本
    */
@@ -138,7 +147,7 @@ export interface TdInputProps {
   /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
+  onPaste?: (context: { e: ClipboardEvent; pasteValue: string }) => void;
 }
 
 export type InputValue = string | number;
