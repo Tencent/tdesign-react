@@ -19,7 +19,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
   const { file, onUpload, onRemove, display, onTrigger } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
-  const { progress: progressText, infoTable: infoText } = locale;
+  const { triggerUploadText, file: infoText, cancelUploadText } = locale;
   const reUpload = (e) => {
     onRemove?.({ e, file, index: 0 });
     onTrigger?.();
@@ -57,10 +57,10 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
           {file?.status === 'success' && <CheckCircleFilledIcon />}
         </div>
         <small className={`${classPrefix}-size-s`}>
-          {t(infoText.size)}：{returnFileSize(file?.size)}
+          {t(infoText.fileSizeText)}：{returnFileSize(file?.size)}
         </small>
         <small className={`${classPrefix}-size-s`}>
-          {t(infoText.date)}：{getCurrentDate()}
+          {t(infoText.fileOperationDateText)}：{getCurrentDate()}
         </small>
         {!['success', 'fail'].includes(file?.status) && (
           <div className={`${classPrefix}-upload__dragger-btns`}>
@@ -70,20 +70,20 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
               className={`${classPrefix}-upload__dragger-progress-cancel`}
               onClick={handleRemove}
             >
-              {t(progressText.cancel)}
+              {t(cancelUploadText)}
             </Button>
             <Button theme="primary" variant="text" onClick={onUpload}>
-              {t(progressText.start)}
+              {t(triggerUploadText.normal)}
             </Button>
           </div>
         )}
         {showResultOperate && (
           <div className="t-upload__dragger-btns">
             <Button theme="primary" variant="text" className="t-upload__dragger-progress-cancel" onClick={reUpload}>
-              {t(progressText.reupload)}
+              {t(triggerUploadText.reupload)}
             </Button>
             <Button theme="primary" variant="text" onClick={handleRemove}>
-              {t(progressText.delete)}
+              {t(triggerUploadText.delete)}
             </Button>
           </div>
         )}

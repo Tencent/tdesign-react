@@ -5,6 +5,7 @@ import { SortInfo, PrimaryTableCol, SortType } from '../type';
 import { Styles } from '../../common';
 import Tooltip from '../../tooltip';
 import { ConfigContext } from '../../config-provider';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export const SortTypeEnum: { [key in SortType]: SortType } = {
   desc: 'desc',
@@ -23,12 +24,18 @@ const sortTypeOrder = [SortTypeEnum.desc, SortTypeEnum.asc, SortTypeEnum.all];
 const SorterButton: FC<SorterButtonProps> = (props) => {
   const { column: currentColumn, singleSort: currentSort, onChange } = props;
   const { sortType = SortTypeEnum.all } = currentColumn;
-  const { classPrefix, locale } = useContext(ConfigContext);
+  const { classPrefix } = useContext(ConfigContext);
+  const [locale, t] = useLocaleReceiver('table');
   const [currentSortType, setCurrentSortType] = useState<SortType>(SortTypeEnum.all);
   const isAllSortType = sortType === SortTypeEnum.all;
   const nextSortType = getNextSortType(currentSortType);
 
-  const tooltips = locale.table.sortTooltips; // 单个/多个排序：升序，降序，取消；取消时，均使用all
+  // 单个/多个排序：升序，降序，取消；取消时，均使用all
+  const tooltips = {
+    asc: t(locale.sortAscendingOperationText),
+    desc: t(locale.sortDescendingOperationText),
+    all: t(locale.sortCancelOperationText),
+  };
 
   /**
    * 设置tooltip文案提示对应的key

@@ -56,9 +56,9 @@ const Index: React.FC<FlowListProps> = (props) => {
   const failedList = toUploadFiles.filter((file) => file.status === 'fail');
   const isUploading = toUploadFiles.filter((file) => file.status === 'progress').length > 0;
   const allowUpload = toUploadFiles.length > 0 && !isUploading;
-  const progressText = locale.progress;
-  let uploadText = failedList.length ? t(progressText.reupload) : t(progressText.start);
-  if (isUploading) uploadText = t(progressText.uploading);
+  const { progress, triggerUploadText } = locale;
+  let uploadText = failedList.length ? t(triggerUploadText.reupload) : t(triggerUploadText.normal);
+  if (isUploading) uploadText = t(progress.uploadingText);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -98,7 +98,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       onDragOver={handleDragover}
       onDragLeave={handleDragleave}
     >
-      {dragActive ? t(locale.dragger.drop) : t(locale.dragger.clickAndDrag)}
+      {dragActive ? t(locale.dragger.dragDropText) : t(locale.dragger.clickAndDragText)}
     </div>
   );
   const wrapperClassNames = classNames({
@@ -132,7 +132,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       </BooleanRender>
       <div className={`${UPLOAD_NAME}__flow-bottom`}>
         <Button theme="default" onClick={cancel}>
-          {t(locale.trigger.cancel)}
+          {t(locale.cancelUploadText)}
         </Button>
         <Button disabled={!allowUpload} theme="primary" onClick={(e: MouseEvent) => upload(toUploadFiles, e)}>
           {uploadText}

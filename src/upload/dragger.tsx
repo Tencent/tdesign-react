@@ -27,8 +27,8 @@ const Dragger: FC<DraggerProps> = (props) => {
   const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
-  const draggerLocaleText = locale.dragger;
-
+  const { draggingText, dragDropText } = locale.dragger;
+  const dragTriggerText = t(locale.triggerUploadText.normal);
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
     !file ? `${classPrefix}-upload__dragger-center` : '',
@@ -38,13 +38,13 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload--highlight`}>{t(draggerLocaleText.click)}</span>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{t(draggerLocaleText.drag)}</span>
+        <span className={`${classPrefix}-upload--highlight`}>{dragTriggerText}</span>
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{t(draggingText)}</span>
       </div>
     );
-    const activeElement = <div>{t(draggerLocaleText.drop)}</div>;
+    const activeElement = <div>{t(dragDropText)}</div>;
     return dragActive ? activeElement : unActiveElement;
-  }, [classPrefix, dragActive, draggerLocaleText, t]);
+  }, [classPrefix, dragActive, dragDropText, dragTriggerText, draggingText, t]);
 
   const dragElement = React.useMemo(() => {
     let content: React.ReactNode;

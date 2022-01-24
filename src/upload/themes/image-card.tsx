@@ -89,7 +89,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
                   <p>
-                    {t(locale.progress.uploading)} {Math.min(files[0].percent, 99)}%
+                    {t(locale.progress.uploadingText)} {Math.min(files[0].percent, 99)}%
                   </p>
                 </div>
               </BooleanRender>
@@ -100,7 +100,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>{t(locale.trigger.image)}</p>
+              <p className={`${classPrefix}-size-s`}>{t(locale.triggerUploadText.image)}</p>
             </div>
           </li>
         </BooleanRender>
