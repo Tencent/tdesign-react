@@ -66,10 +66,10 @@ const List = forwardRefWithStatics(
         {asyncLoading === 'loading' && (
           <div>
             <Loading loading={true} />
-            <span>{t(local.loading)}</span>
+            <span>{t(local.loadingText)}</span>
           </div>
         )}
-        {asyncLoading === 'load-more' && <span>{t(local.loadmore)}</span>}
+        {asyncLoading === 'load-more' && <span>{t(local.loadingMoreText)}</span>}
       </div>
     ) : (
       asyncLoading

@@ -14,25 +14,25 @@ const FileList = (props: FileListProps) => {
   const { classPrefix: prefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
-  const { progress: progressText, infoTable: infoText } = locale;
+  const { progress: progressText, file: infoText, triggerUploadText } = locale;
 
   const renderStatus = (file: UploadFile) => {
     const STATUS_MAP = {
       success: {
         icon: <CheckCircleFilledIcon />,
-        text: t(progressText.success),
+        text: t(progressText.successText),
       },
       fail: {
         icon: <ErrorCircleFilledIcon />,
-        text: t(progressText.fail),
+        text: t(progressText.failText),
       },
       progress: {
         icon: <Loading />,
-        text: `${t(progressText.uploading)} ${Math.min(file.percent, 99)}%`,
+        text: `${t(progressText.uploadingText)} ${Math.min(file.percent, 99)}%`,
       },
       waiting: {
         icon: <TimeFilledIcon />,
-        text: t(progressText.waiting),
+        text: t(progressText.waitingText),
       },
     };
 
@@ -49,10 +49,10 @@ const FileList = (props: FileListProps) => {
     <table className={`${UPLOAD_NAME}__flow-table`}>
       <thead>
         <tr>
-          <th>{t(infoText.name)}</th>
-          <th>{t(infoText.size)}</th>
-          <th>{t(infoText.status)}</th>
-          <th>{t(infoText.operation)}</th>
+          <th>{t(infoText.fileNameText)}</th>
+          <th>{t(infoText.fileSizeText)}</th>
+          <th>{t(infoText.fileStatusText)}</th>
+          <th>{t(infoText.fileOperationText)}</th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +71,7 @@ const FileList = (props: FileListProps) => {
                 className={`${UPLOAD_NAME}__flow-button`}
                 onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
               >
-                {t(progressText.delete)}
+                {t(triggerUploadText.delete)}
               </span>
             </td>
           </tr>

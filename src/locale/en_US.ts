@@ -1,10 +1,9 @@
-// 文件有效，为国际化做准备
-export default {
+import { GlobalConfigProvider } from '../config-provider/type';
+
+const GLOBAL_CONFIG_EN: GlobalConfigProvider = {
   pagination: {
     itemsPerPage: '{size} / page',
     jumpTo: 'jump to',
-    prev: 'prev',
-    next: 'next',
     page: '',
     total: '{total} items',
   },
@@ -33,7 +32,7 @@ export default {
     placeholder: 'enter keyworkd to search',
   },
   timePicker: {
-    nowtime: 'Now',
+    now: 'Now',
     confirm: 'Confirm',
     anteMeridiem: 'AM',
     postMeridiem: 'PM',
@@ -66,12 +65,10 @@ export default {
   table: {
     empty: 'Empty Data',
     loadingText: 'loading...',
-    filterPlaceholder: '',
-    sortTooltips: {
-      desc: 'click to sort descending',
-      asc: 'click to sort ascending',
-      all: 'click to cancel sorting',
-    },
+    filterInputPlaceholder: '',
+    sortAscendingOperationText: 'click to sort ascending',
+    sortCancelOperationText: 'click to cancel sorting',
+    sortDescendingOperationText: 'click to sort descending',
     // 展开和收起图标（使用收起图标）
     expandIcon: undefined,
     // 排序图标（使用降序图标）
@@ -122,37 +119,37 @@ export default {
   },
   upload: {
     sizeLimitMessage: 'File is too large to upload. {sizeLimit}',
-    trigger: {
-      file: 'Upload',
+    cancelUploadText: 'Cancel',
+    triggerUploadText: {
+      fileInput: 'Upload',
       image: 'Click to upload',
-      cancel: 'Cancel',
-    },
-    dragger: {
-      drop: 'Drop hear',
-      click: 'Click',
-      drag: 'Drag file to this area to upload',
-      clickAndDrag: 'Click "Upload" or Drag file to this area to upload',
-    },
-    infoTable: {
-      name: 'filename',
-      size: 'size',
-      status: 'status',
-      operation: 'operation',
-      date: 'date',
-    },
-    progress: {
-      cancel: 'Cancel',
+      normal: 'Upload',
       reupload: 'Reupload',
       delete: 'Delete',
-      start: 'Upload',
-      uploading: 'Uploading',
-      waiting: 'Waiting',
-      fail: 'Failed',
-      success: 'Success',
+    },
+    dragger: {
+      dragDropText: 'Drop hear',
+      draggingText: 'Drag file to this area to upload',
+      clickAndDragText: 'Click "Upload" or Drag file to this area to upload',
+    },
+    file: {
+      fileNameText: 'filename',
+      fileSizeText: 'size',
+      fileStatusText: 'status',
+      fileOperationText: 'operation',
+      fileOperationDateText: 'date',
+    },
+    progress: {
+      uploadingText: 'Uploading',
+      waitingText: 'Waiting',
+      failText: 'Failed',
+      successText: 'Success',
     },
   },
   list: {
-    loading: 'loading...',
-    loadmore: 'loading more',
+    loadingText: 'loading...',
+    loadingMoreText: 'loading more',
   },
 };
+
+export default GLOBAL_CONFIG_EN;

@@ -18,7 +18,7 @@ const UploadTrigger: FC<UploadTriggerProps> = (props) => {
         props.children
       ) : (
         <Button icon={<UploadIcon />} variant="outline">
-          {t(locale.trigger.file)}
+          {t(locale.triggerUploadText.fileInput)}
         </Button>
       )}
     </div>
