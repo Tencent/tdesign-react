@@ -89,7 +89,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
   // endregion
 
-  const errorText = t(locale.progress.fail);
+  const errorText = t(locale.progress.failText);
 
   const triggerUpload = () => {
     if (disabled) return;

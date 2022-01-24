@@ -32,14 +32,14 @@ const ImgList = (props: ImgListProps) => {
                 {file.status === 'fail' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <ErrorCircleFilledIcon />
-                    <p>{t(locale.progress.fail)}</p>
+                    <p>{t(locale.progress.failText)}</p>
                   </div>
                 )}
                 {file.status === 'progress' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <Loading />
                     <p>
-                      {t(locale.progress.uploading)} {Math.min(file.percent, 99)}
+                      {t(locale.progress.uploadingText)} {Math.min(file.percent, 99)}
                     </p>
                   </div>
                 )}
