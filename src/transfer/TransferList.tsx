@@ -10,6 +10,7 @@ import { TNode, StyledProps } from '../common';
 import Checkbox from '../checkbox';
 import Input from '../input';
 import Pagination, { PaginationProps } from '../pagination';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 interface TransferListProps extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem'>, StyledProps {
   disabled?: boolean;
@@ -51,6 +52,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
 
   const { classPrefix } = useConfig();
   const CLASSPREFIX = `${classPrefix}-transfer__list`;
+  const [local, t] = useLocaleReceiver('transfer');
 
   const handleCheckbox = (vals: Array<TransferValue>) => {
     if (isFunction(onCheckbox)) onCheckbox(vals);
@@ -69,9 +71,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
           disabled={disabled}
           onChange={handleAllCheckbox}
         ></Checkbox>
-        <span>
-          {checked.length} / {data.length} 项
-        </span>
+        <span>{t(local.title, { checked: checked.length, total: data.length })}</span>
       </div>
       <span>{title}</span>
     </div>
@@ -80,7 +80,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   const SearchCmp = () =>
     search ? (
       <div className={`${classPrefix}-transfer__search-wrapper`}>
-        <Input placeholder="请输入关键词搜索" suffixIcon={<SearchIcon></SearchIcon>} onChange={onSearch}></Input>
+        <Input placeholder={local.placeholder} suffixIcon={<SearchIcon></SearchIcon>} onChange={onSearch}></Input>
       </div>
     ) : null;
 

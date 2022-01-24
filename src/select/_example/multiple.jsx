@@ -11,6 +11,7 @@ const MultipleSelect = () => {
     <Select
       value={value}
       onChange={onChange}
+      filterable
       multiple
       style={{ width: '40%' }}
       options={[

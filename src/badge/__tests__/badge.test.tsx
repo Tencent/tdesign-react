@@ -47,7 +47,7 @@ describe('Badge 组件测试', () => {
     expect(renderBadge(<Badge count={1} />)).toHaveClass('t-badge--static', 't-badge--circle');
   });
 
-  test('content', async () => {
+  test('count', async () => {
     // count 0
     expect(renderBadge(<Badge />)).toBeNull();
     expect(renderBadge(<Badge showZero count={0} />)).toBeTruthy();
@@ -56,15 +56,20 @@ describe('Badge 组件测试', () => {
     expect(renderBadge(<Badge count={100} />)).toHaveTextContent('99+');
     expect(renderBadge(<Badge count={100} maxCount={100} />)).toHaveTextContent('100');
 
-    // content vs count
+    // count
     expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
   });
 
   test('offset', async () => {
-    expect(renderBadge(<Badge offset={[1, 2]} count={1} />)).toHaveStyle({ right: '-1px', marginTop: '-2px' });
+    const badge = renderBadge(
+      <Badge offset={[1, 2]} count={1}>
+        test
+      </Badge>,
+    );
+    expect(badge.lastChild).toHaveStyle({ right: '1px', 'margin-top': '2px' });
   });
 
   test('color', async () => {
-    expect(renderBadge(<Badge color="red" count={1} />)).toHaveStyle({ backgroundColor: 'red' });
+    expect(renderBadge(<Badge color="red" count={1} />)).toHaveStyle({ 'background-color': 'red' });
   });
 });

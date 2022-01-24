@@ -5,6 +5,7 @@ import useSorter from './useSorter';
 import useFilter from './useFilter';
 import useSelect from './useSelect';
 import useExpand from './useExpand';
+import useDragSorter from './useDragSorter';
 
 export type PrimaryTableProps = TdPrimaryTableProps;
 
@@ -15,6 +16,11 @@ export default function PrimaryTable(props: PrimaryTableProps) {
   const [expandColumns, handleExpandChange, renderExpandRow] = useExpand({
     ...props,
     columns: selectColumns,
+    data: filterData,
+  });
+  const { dragging, onDragStart, onDragOver, onDrop, onDragEnd } = useDragSorter({
+    ...props,
+    columns: expandColumns,
     data: filterData,
   });
 
@@ -29,6 +35,11 @@ export default function PrimaryTable(props: PrimaryTableProps) {
       data={mergedData}
       handleExpandChange={handleExpandChange}
       renderExpandRow={renderExpandRow}
+      dragging={dragging}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
     />
   );
 }

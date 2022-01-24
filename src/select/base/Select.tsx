@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Ref, useMemo } from 'react';
+import React, { useState, useRef, useEffect, Ref, useMemo, useCallback } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
@@ -34,6 +34,10 @@ export interface SelectProps extends TdSelectProps, StyledProps {
 }
 
 type OptionsType = TdOptionProps[];
+
+enum KeyCode {
+  BACKSPACE = 8,
+}
 
 const Select = forwardRefWithStatics(
   (props: SelectProps, ref: Ref<HTMLDivElement>) => {
@@ -77,6 +81,10 @@ const Select = forwardRefWithStatics(
       valueDisplay,
       onEnter,
       onVisibleChange,
+      showArrow = true,
+      inputProps,
+      panelBottomContent,
+      panelTopContent,
     } = useDefaultValue(props);
 
     const { classPrefix } = useConfig();
@@ -145,6 +153,7 @@ const Select = forwardRefWithStatics(
     }, [options, keys, children]);
 
     // 同步value对应的options
+    // 没太看明白effect的必要，感觉是一个useMemo而已
     useEffect(() => {
       setSelectedOptions((oldSelectedOptions) => {
         const valueKey = keys?.value || 'value';
@@ -259,7 +268,7 @@ const Select = forwardRefWithStatics(
           },
         )}
       >
-        {selectedLabel || placeholder || '-请选择-'}
+        {selectedLabel || placeholder || t(local.placeholder)}
       </span>
     );
 
@@ -297,16 +306,29 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
+    const handleInputKeyDown = useCallback(
+      (inputValue, { e }) => {
+        if (!inputValue && multiple && Array.isArray(value) && e.which === KeyCode.BACKSPACE) {
+          const lastValue = value[value.length - 1];
+          const values = getSelectValueArr(value, lastValue, true, valueType, keys);
+          onChange(values);
+        }
+      },
+      [value, onChange, multiple, valueType, keys],
+    );
+
     const renderInput = () => (
       <Input
-        value={isString(inputVal) ? inputVal : selectedLabel}
-        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
+        value={isString(inputVal) || multiple ? inputVal : selectedLabel}
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
         className={`${name}__input`}
         onChange={handleInputChange}
+        onKeydown={handleInputKeyDown}
         size={size}
         onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
         onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
         onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
+        {...inputProps}
       />
     );
 
@@ -348,7 +370,9 @@ const Select = forwardRefWithStatics(
           />
         );
       }
-      return <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
+      return (
+        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
+      );
     };
 
     const popupContentProps = {
@@ -366,6 +390,8 @@ const Select = forwardRefWithStatics(
       loading,
       valueType,
       keys,
+      panelBottomContent,
+      panelTopContent,
     };
 
     const renderContent = () => <PopupContent {...popupContentProps}>{children}</PopupContent>;

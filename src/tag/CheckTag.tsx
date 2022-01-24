@@ -50,7 +50,10 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
       className={checkTagClassNames}
       {...tagOtherProps}
       onClick={(e) => {
-        !disabled && onValueChange(!value);
+        if (disabled) {
+          return;
+        }
+        onValueChange(!value);
         onClick({ e });
       }}
     >

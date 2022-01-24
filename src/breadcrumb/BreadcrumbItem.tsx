@@ -30,7 +30,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
 
   const breadcrumbItemClassNames = classNames(`${classPrefix}-breadcrumb__item`);
   const textWrapperClassName = `${classPrefix}-breadcrumb__inner`;
-  const textClassNames = classNames(`${classPrefix}-breadcrumb--text-oveflow`, {
+  const textClassNames = classNames(`${classPrefix}-breadcrumb--text-overflow`, {
     [commonClassNames.STATUS.disabled]: disabled,
   });
   const separatorClassName = `${classPrefix}-breadcrumb__separator`;
