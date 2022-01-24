@@ -31,7 +31,6 @@ export default function Example() {
       <TreeSelect
         data={options}
         clearable
-        placeholder="请选择"
         value={value}
         // defaultValue="guangdong"
         onChange={(val) => {

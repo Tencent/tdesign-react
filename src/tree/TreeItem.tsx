@@ -27,7 +27,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   } = props;
   const { level } = node;
 
-  const { treeClassNames } = useTreeConfig();
+  const { treeClassNames, locale } = useTreeConfig();
 
   const handleClick = (evt: MouseEvent<HTMLDivElement>) => {
     onClick?.(node, {
@@ -159,7 +159,7 @@ const TreeItem = forwardRef((props: TreeItemProps, ref: React.Ref<HTMLDivElement
   useRipple(labelRef);
 
   const renderLabel = () => {
-    const emptyView = '暂无数据';
+    const emptyView = locale('empty');
     let labelText: string | ReactNode = '';
     if (label instanceof Function) {
       labelText = label(node.getModel()) || emptyView;

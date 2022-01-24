@@ -10,6 +10,7 @@ import { Input } from '../../input';
 import { TElement } from '../../common';
 import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType, TdPrimaryTableProps } from '../type';
 import { ConfigContext } from '../../config-provider';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 interface Props {
   columns?: Array<PrimaryTableCol>;
@@ -45,6 +46,7 @@ function getTitle(column: PrimaryTableCol, colIndex: number) {
 function FilterButton(props: Props) {
   const { onChange, filterIcon, innerfilterVal, columns } = props;
   const { classPrefix } = useContext(ConfigContext);
+  const [locale, t] = useLocaleReceiver('table');
   const [filterVal, setfilterVal] = useState<any>();
 
   const filterColumns = getFilterColumns(columns);
@@ -133,7 +135,7 @@ function FilterButton(props: Props) {
 
           {filter.type === 'input' ? (
             <Input
-              placeholder="请输入内容（无默认值）"
+              placeholder={t(locale.filterInputPlaceholder)}
               clearable
               value={filterVal?.[colKey] || ''}
               onChange={(value) => {

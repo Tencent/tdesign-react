@@ -1,17 +1,19 @@
-export default {
+import { GlobalConfigProvider } from '../config-provider/type';
+
+const GLOBAL_CONFIG_ZH: GlobalConfigProvider = {
   pagination: {
     itemsPerPage: '{size} 条/页',
     jumpTo: '跳至',
     page: '页',
-    prev: '上一页',
-    next: '下一页',
     total: '共 {total} 项数据',
   },
   cascader: {
     empty: '暂无数据',
-    loadingText: '加载中',
+    loadingText: '',
+    placeholder: '请选择',
   },
   calendar: {
+    firstDayOfWeek: 1,
     fillWithZero: true,
     yearSelection: '{year} 年',
     monthSelection: '{month} 月',
@@ -30,7 +32,7 @@ export default {
     placeholder: '请输入关键词搜索',
   },
   timePicker: {
-    nowtime: '此刻',
+    now: '此刻',
     confirm: '确定',
     anteMeridiem: '上午',
     postMeridiem: '下午',
@@ -50,6 +52,12 @@ export default {
   },
   table: {
     empty: '暂无数据',
+    loadingText: '正在加载中，请稍后',
+    loadingMoreText: '',
+    filterInputPlaceholder: '请输入内容（无默认值）',
+    sortAscendingOperationText: '点击升序',
+    sortCancelOperationText: '点击取消排序',
+    sortDescendingOperationText: '点击降序',
     // 展开和收起图标（使用收起图标）
     expandIcon: null,
     // 排序图标（使用降序图标）
@@ -58,6 +66,7 @@ export default {
   select: {
     empty: '暂无数据',
     loadingText: '加载中',
+    placeholder: '-请选择-',
     // 清除按钮
     clearIcon: null,
   },
@@ -69,6 +78,7 @@ export default {
   treeSelect: {
     empty: '暂无数据',
     loadingText: '加载中',
+    placeholder: '请选择',
   },
   datePicker: {
     placeholder: {
@@ -100,5 +110,37 @@ export default {
   steps: {},
   upload: {
     sizeLimitMessage: '图片大小不能超过 {sizeLimit}',
+    cancelUploadText: '取消上传',
+    triggerUploadText: {
+      fileInput: '选择文件',
+      image: '点击上传图片',
+      normal: '点击上传',
+      reupload: '重新上传',
+      delete: '删除',
+    },
+    dragger: {
+      dragDropText: '释放鼠标',
+      draggingText: '拖拽到此区域',
+      clickAndDragText: '点击上方“选择文件”或将文件拖拽到此区域',
+    },
+    file: {
+      fileNameText: '文件名',
+      fileSizeText: '文件大小',
+      fileStatusText: '状态',
+      fileOperationText: '操作',
+      fileOperationDateText: '上传日期',
+    },
+    progress: {
+      uploadingText: '上传中',
+      waitingText: '待上传',
+      failText: '上传失败',
+      successText: '上传成功',
+    },
+  },
+  list: {
+    loadingText: '正在加载中，请稍等',
+    loadingMoreText: '点击加载更多',
   },
 };
+
+export default GLOBAL_CONFIG_ZH;
