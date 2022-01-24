@@ -320,7 +320,7 @@ exports[`file-flow-list.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              取消
+              取消上传
             </span>
           </button>
           <button
@@ -608,7 +608,7 @@ exports[`img-flow-list.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              取消
+              取消上传
             </span>
           </button>
           <button
