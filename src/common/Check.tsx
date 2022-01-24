@@ -8,6 +8,7 @@ import { TdCheckboxProps } from '../checkbox/type';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
+  allowUncheck?: boolean;
   children?: React.ReactNode;
 }
 

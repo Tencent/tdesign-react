@@ -45,7 +45,7 @@ const Form = forwardRefWithStatics(
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
-    const formRef = useRef();
+    const formRef: React.RefObject<HTMLFormElement> = useRef();
     const formItemsRef = useRef([]);
 
     const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
@@ -60,7 +60,7 @@ const Form = forwardRefWithStatics(
     }
     // 校验不通过时，滚动到第一个错误表单
     function scrollTo(selector: string) {
-      const dom = document.querySelector(selector);
+      const dom = formRef.current.querySelector(selector);
       const behavior = scrollToFirstError as ScrollBehavior;
       dom && dom.scrollIntoView({ behavior });
     }
@@ -129,7 +129,7 @@ const Form = forwardRefWithStatics(
     function getFieldValue(name: string) {
       if (!name) return null;
       const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef?.name === name);
-      return target && target.value;
+      return target.current?.value;
     }
 
     // 对外方法，设置对应 formItem 的值

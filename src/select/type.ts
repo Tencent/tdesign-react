@@ -2,9 +2,9 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
+import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
@@ -49,6 +49,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   filterable?: boolean;
   /**
+   * 透传 Input 组件全部属性
+   */
+  inputProps?: InputProps;
+  /**
    * 用来定义 value / label 在 `options` 中对应的字段别名
    */
   keys?: SelectKeysType;
@@ -83,8 +87,15 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   options?: Array<T>;
   /**
+   * 面板内的底部内容
+   */
+  panelBottomContent?: TNode;
+  /**
+   * 面板内的顶部内容
+   */
+  panelTopContent?: TNode;
+  /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -100,6 +111,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * @default false
    */
   reserveKeyword?: boolean;
+  /**
+   * 是否显示右侧箭头，默认显示
+   * @default true
+   */
+  showArrow?: boolean;
   /**
    * 组件尺寸
    * @default medium

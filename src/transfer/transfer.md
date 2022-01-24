@@ -5,6 +5,8 @@
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 checkboxProps | Object | - | 用于控制复选框属性。TS 类型：`CheckboxProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/transfer/type.ts) | N
 checked | Array | [] | 数据列表选中项。TS 类型：`Array<TransferValue>` | N
 defaultChecked | Array | [] | 数据列表选中项。非受控属性。TS 类型：`Array<TransferValue>` | N
@@ -21,6 +23,7 @@ showCheckAll | Boolean / Array | true | 是否显示全选，值类型为数组�
 targetSort | String | original | 目标数据列表排列顺序。可选项：original/push/unshift | N
 title | TNode | [] | 穿梭框标题，示例：['源列表', '目标列表'] 或者 `[() => 'A', () => 'B']` 或者 `({ type }) => type === 'source' ? '源' : '目标'`。TS 类型：`Array<TitleType> | TNode<{ type: TransferListType }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/transfer/type.ts) | N
 transferItem | TElement | - | 自定义渲染节点。TS 类型：`TNode<TransferItem<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/transfer/type.ts) | N
+tree | TElement | 传入 Tree 组件定义树形结构 | TS 类型：`(tree: TreeProps) => TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/transfer/type.ts) | N
 value | Array | [] | 目标数据列表数据。TS 类型：`Array<TransferValue>` | N
 defaultValue | Array | [] | 目标数据列表数据。非受控属性。TS 类型：`Array<TransferValue>` | N
 onChange | Function |  | TS 类型：`(targetValue: Array<TransferValue>, context: TargetParams) => void`<br/>数据列表发生变化时触发，`type` 值为 `source`，表示源列表移动到目标列表，值为 `target` 表示目标列表移动到源列表，movedValue 则表示被移动的选项。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/transfer/type.ts)。<br/>`interface TargetParams { type: TransferListType; movedValue: Array<TransferValue> }`<br/> | N

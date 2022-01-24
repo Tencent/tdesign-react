@@ -34,7 +34,7 @@ const OptionGroup = (props: SelectGOptionGroupProps) => {
       })}
     >
       <ul className={`${classPrefix}-select-option-group__header`}>{label}</ul>
-      <ul>{childrenWithProps}</ul>
+      <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>
     </li>
   );
 };
