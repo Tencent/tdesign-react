@@ -29,10 +29,10 @@ export default function () {
         <div>
           <span>抽屉弹出方向：</span>
           <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
-            <Radio.Button value="left">left</Radio.Button>
-            <Radio.Button value="right">right</Radio.Button>
-            <Radio.Button value="top">top</Radio.Button>
-            <Radio.Button value="bottom">bottom</Radio.Button>
+            <Radio.Button value="left">左侧</Radio.Button>
+            <Radio.Button value="right">右侧</Radio.Button>
+            <Radio.Button value="top">上方</Radio.Button>
+            <Radio.Button value="bottom">下方</Radio.Button>
           </Radio.Group>
         </div>
 

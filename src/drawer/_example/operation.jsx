@@ -13,9 +13,9 @@ export default function () {
   return (
     <div>
       <Button theme="primary" onClick={handleClick}>
-        Open
+        打开抽屉
       </Button>
-      <Drawer header="标题名称" visible={visible} onClose={handleClose}>
+      <Drawer header="抽屉标题" visible={visible} onClose={handleClose}>
         <Form labelWidth={60}>
           <Form.FormItem label="Label A">
             <Input />
