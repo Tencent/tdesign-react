@@ -13,7 +13,7 @@ export default function () {
   return (
     <div>
       <Button theme="primary" onClick={handleClick}>
-        Open
+        打开抽屉
       </Button>
       <Drawer
         header={<div>自定义头部</div>}
@@ -21,8 +21,7 @@ export default function () {
         footer={<Button theme="primary">自定义底部按钮</Button>}
         visible={visible}
         onClose={handleClose}
-      >
-      </Drawer>
+      ></Drawer>
     </div>
   );
 }
