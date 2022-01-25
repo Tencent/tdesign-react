@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -6,6 +6,7 @@ import { TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
 import TableRow from './TableRow';
 import { ExpandInnerProps, DragSortInnerProps } from './Table';
+import { EnhancedTableContext } from '../enhanced/TableContext';
 
 interface TableBodyProps extends TdPrimaryTableProps, ExpandInnerProps, DragSortInnerProps {}
 
@@ -59,13 +60,14 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
     onDrop,
     onDragEnd,
   } = props;
+  const { useTreeData } = useContext(EnhancedTableContext);
+  const mergedData = useTreeData?.(data) || data;
   const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
   const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
-
   const rowEvents = getRowEvents();
 
   // ==================== render ====================
-  const rows = data.map((row, index) => {
+  const rows = mergedData.map((row, index) => {
     const rowKeyValue = get(row, rowKey) || index;
 
     return (
