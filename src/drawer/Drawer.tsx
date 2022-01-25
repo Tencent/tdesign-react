@@ -1,16 +1,16 @@
-import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef } from 'react';
 import classnames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
 
 import { addClass, removeClass } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
 import { TdDrawerProps, DrawerEventSource } from './type';
 import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
+import useConfig from '../_util/useConfig';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -68,7 +68,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
 
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const containerRef = useRef<HTMLDivElement>();
   const contentWrapperRef = useRef<HTMLDivElement>();
   const drawerRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body

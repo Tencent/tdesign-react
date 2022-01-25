@@ -12,14 +12,16 @@ export const defaultGlobalConfig = {
 
 export type Locale = typeof defaultLocale;
 
+export type GlobalConfig = typeof defaultGlobalConfig;
+
 export interface Config {
-  globalConfig?: typeof defaultGlobalConfig;
+  globalConfig?: GlobalConfig;
 }
 
 export const defaultContext = {
   globalConfig: defaultGlobalConfig,
 };
 
-const ConfigContext = createContext<Config>(defaultContext);
+const ConfigContext = createContext(defaultContext);
 
 export default ConfigContext;

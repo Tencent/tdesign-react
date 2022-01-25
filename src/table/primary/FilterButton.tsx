@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
@@ -9,7 +9,7 @@ import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
 import { TElement } from '../../common';
 import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType, TdPrimaryTableProps } from '../type';
-import { ConfigContext } from '../../config-provider';
+import useConfig from '../../_util/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 interface Props {
@@ -45,7 +45,7 @@ function getTitle(column: PrimaryTableCol, colIndex: number) {
 // 处理tilte字段，添加筛选icon
 function FilterButton(props: Props) {
   const { onChange, filterIcon, innerfilterVal, columns } = props;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('table');
   const [filterVal, setfilterVal] = useState<any>();
 
