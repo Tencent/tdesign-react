@@ -1,5 +1,7 @@
 import _Tree from './Tree';
 
+import './style/index.js';
+
 export type { TreeProps } from './Tree';
 export * from './type';
 

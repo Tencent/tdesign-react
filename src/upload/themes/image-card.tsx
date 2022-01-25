@@ -3,6 +3,7 @@ import { BrowseIcon, DeleteIcon, AddIcon } from 'tdesign-icons-react';
 import Loading from '../../loading';
 import Dialog from '../../dialog';
 import useConfig from '../../_util/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadRemoveContext } from '../type';
 import { finishUpload } from '../util';
 import { TdUploadFile } from '../types';
@@ -20,6 +21,7 @@ export interface ImageCardProps {
 const ImageCard: FC<ImageCardProps> = (props) => {
   const { files, multiple = false, max = 0, onRemove, showUploadProgress } = props;
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const [showImg, setShowImg] = useState(false);
   const [imgURL, setImgURL] = useState();
 
@@ -86,7 +88,9 @@ const ImageCard: FC<ImageCardProps> = (props) => {
               >
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
-                  <p>上传中 {Math.min(files[0].percent, 99)}%</p>
+                  <p>
+                    {t(locale.progress.uploadingText)} {Math.min(files[0].percent, 99)}%
+                  </p>
                 </div>
               </BooleanRender>
             </li>
@@ -96,7 +100,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
           <li className={`${classPrefix}-upload__card-item ${classPrefix}-is--background`} onClick={props.onTrigger}>
             <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
               <AddIcon />
-              <p className={`${classPrefix}-size-s`}>点击上传图片</p>
+              <p className={`${classPrefix}-size-s`}>{t(locale.triggerUploadText.image)}</p>
             </div>
           </li>
         </BooleanRender>

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import get from 'lodash/get';
 import { ConfigContext } from '../../config-provider';
-import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort } from '../type';
+import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort, TdPrimaryTableProps } from '../type';
 import SorterButton, { SortTypeEnum } from './SorterButton';
 import { PrimaryTableProps } from './Table';
+import { useColumns } from '../hooks/useColumns';
 
 interface ColKeySorterMap {
   [colKey: string]: PrimaryTableCol['sorter'];
@@ -11,41 +12,23 @@ interface ColKeySorterMap {
 interface SortInfoWithSorter extends SortInfo {
   sorter: PrimaryTableCol['sorter'];
 }
+type Columns = TdPrimaryTableProps['columns'];
 
 /**
  * 排序hook
  * 1.修改column中的title
  * 2.排序data
  */
-function useSorter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
+function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
+  const [, flattenColumns] = useColumns(props);
   const { classPrefix } = useContext(ConfigContext);
   const { columns, sort, defaultSort, multipleSort, onSortChange, data } = props;
   const isControlled = typeof sort !== 'undefined';
   const [innerSort, setInnerSort] = useState<TableSort>(defaultSort || []);
-  const sorts = getSorts(innerSort, columns);
+  const sorts = getSorts(innerSort, flattenColumns as Columns);
 
   // 导出：添加排序图标后columns
-  const transformedSorterColumns = columns.map((column: PrimaryTableCol) => {
-    const { title, sorter, sortType, colKey } = column;
-    if (!sorter || !SortTypeEnum[sortType]) {
-      return column;
-    }
-
-    const singleSort = sorts.find?.((sortItem: SortInfo) => sortItem?.sortBy === colKey);
-    const titleNew = () => (
-      <div className={`${classPrefix}-table__cell--sortable`}>
-        <div className={`${classPrefix}-table__cell--title`}>
-          <div>{title}</div>
-          <SorterButton column={column} singleSort={singleSort} onChange={onChangeSortButton} />
-        </div>
-      </div>
-    );
-
-    return {
-      ...column,
-      title: titleNew,
-    };
-  });
+  const transformedSorterColumns = getSorterColumns(columns);
 
   // 导出：排序后data。受控直接导出、非受控多级排序
   const transformedSorterData = useMemo<DataType[]>(() => {
@@ -55,31 +38,61 @@ function useSorter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
     return [...data].sort(comparer(sorts));
   }, [data, sorts, isControlled]);
 
+  function getSorterColumns(columns: Columns): Columns {
+    return columns.map((column) => {
+      const { title, sorter, colKey, children } = column;
+      if (children && children.length) {
+        return {
+          ...column,
+          children: getSorterColumns(children as Columns),
+        };
+      }
+
+      if (!sorter) {
+        return column;
+      }
+
+      const singleSort = sorts.find?.((sortItem: SortInfo) => sortItem?.sortBy === colKey);
+      const titleNew = () => (
+        <div className={`${classPrefix}-table__cell--sortable`}>
+          <div className={`${classPrefix}-table__cell--title`}>
+            <div>{title}</div>
+            <SorterButton column={column} singleSort={singleSort} onChange={onChangeSortButton} />
+          </div>
+        </div>
+      );
+
+      return {
+        ...column,
+        title: titleNew,
+      };
+    });
+  }
+
   /**
    * 格式化sort
    * 1.PrimaryTableCol的sort改为数组sorts；
    * 2.依据TdPrimaryTableProps的sort过滤出validSorts
    * 3.TdPrimaryTableProps的sort添加至validSortItem，用于data排序
    */
-  function getSorts(innerSort: TableSort, columns: PrimaryTableCol[]): SortInfoWithSorter[] {
+  function getSorts(innerSort: TableSort, columns: Columns): SortInfoWithSorter[] {
     let validSorts = [];
     const sortColumns = columns.filter(({ sorter }) => !!sorter);
     const colKeySorterMap: ColKeySorterMap = {};
     sortColumns.forEach(({ colKey, sorter }) => {
       colKeySorterMap[colKey] = sorter;
     });
+
     const sortColKeys = sortColumns.map(({ colKey }) => colKey);
     if (Array.isArray(innerSort)) {
       validSorts = innerSort.filter((sortItem: SortInfo) => sortColKeys.includes(sortItem?.sortBy));
     } else if (sortColKeys.includes(innerSort?.sortBy)) {
       validSorts = [innerSort];
     }
-
     const validSortsWithSorter = validSorts?.map((sortItem: SortInfo) => ({
       ...sortItem,
       sorter: colKeySorterMap[sortItem.sortBy],
     }));
-
     return validSortsWithSorter;
   }
 
@@ -119,7 +132,7 @@ function useSorter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
         }
       }
       setInnerSort(sortsNew);
-      onSortChange(sortsNew, sortOptions);
+      onSortChange?.(sortsNew, sortOptions);
     } else {
       let sortNew: SortInfo | undefined;
       if (activeSort) {
@@ -136,7 +149,7 @@ function useSorter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
         };
       }
       setInnerSort(sortNew);
-      onSortChange(sortNew, sortOptions);
+      onSortChange?.(sortNew, sortOptions);
     }
   }
 

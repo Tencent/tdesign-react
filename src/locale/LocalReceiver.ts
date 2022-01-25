@@ -1,12 +1,13 @@
 import React from 'react';
 import { Locale } from './type';
 import { ConfigContext } from '../config-provider';
-
 import type { Config } from '../config-provider';
 
 export interface Placement {
   [propName: string]: string | number;
 }
+
+export type TransformPattern = string | Function | Array<string>;
 
 export function useLocaleReceiver<T extends keyof Config['locale']>(
   componentName: T,
@@ -15,9 +16,8 @@ export function useLocaleReceiver<T extends keyof Config['locale']>(
   const { locale: tdLocale } = React.useContext(ConfigContext);
 
   // @TODO: Check type of { pattern }
-  function transformLocale(pattern: Config['locale'][T], placement?: Placement): string | Array<string> {
+  function transformLocale(pattern: TransformPattern, placement?: Placement): string | Array<string> {
     const REGX = /\{\s*([\w-]+)\s*\}/g;
-
     if (typeof pattern === 'string') {
       if (!placement || !REGX.test(pattern)) return pattern;
       const translated = pattern.replace(REGX, (_, key) => {

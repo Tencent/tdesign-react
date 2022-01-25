@@ -1,6 +1,7 @@
 import React, { DragEvent, MouseEvent, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Button from '../../../button';
 import { UploadFile } from '../../type';
 import { FlowRemoveContext } from '../../types';
@@ -48,14 +49,16 @@ const Index: React.FC<FlowListProps> = (props) => {
   } = props;
   const target = React.useRef();
   const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const [dragActive, setDragActive] = useState(false);
   const showInitial = !listFiles.length;
   const failedList = toUploadFiles.filter((file) => file.status === 'fail');
   const isUploading = toUploadFiles.filter((file) => file.status === 'progress').length > 0;
   const allowUpload = toUploadFiles.length > 0 && !isUploading;
-  let uploadText = failedList.length ? '重新上传' : '开始上传';
-  if (isUploading) uploadText = '上传中...';
+  const { progress, triggerUploadText } = locale;
+  let uploadText = failedList.length ? t(triggerUploadText.reupload) : t(triggerUploadText.normal);
+  if (isUploading) uploadText = t(progress.uploadingText);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -95,7 +98,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       onDragOver={handleDragover}
       onDragLeave={handleDragleave}
     >
-      {dragActive ? '释放鼠标' : '点击上方“选择文件”或将文件拖拽到此区域'}
+      {dragActive ? t(locale.dragger.dragDropText) : t(locale.dragger.clickAndDragText)}
     </div>
   );
   const wrapperClassNames = classNames({
@@ -129,7 +132,7 @@ const Index: React.FC<FlowListProps> = (props) => {
       </BooleanRender>
       <div className={`${UPLOAD_NAME}__flow-bottom`}>
         <Button theme="default" onClick={cancel}>
-          取消
+          {t(locale.cancelUploadText)}
         </Button>
         <Button disabled={!allowUpload} theme="primary" onClick={(e: MouseEvent) => upload(toUploadFiles, e)}>
           {uploadText}

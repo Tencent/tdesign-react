@@ -278,10 +278,22 @@ export default {
           component: () => import('tdesign-react/list/list.md'),
         },
         {
+          title: 'Loading 加载',
+          name: 'loading',
+          path: '/react/components/loading',
+          component: () => import('tdesign-react/loading/loading.md'),
+        },
+        {
           title: 'Progress 进度条',
           name: 'progress',
           path: '/react/components/progress',
           component: () => import('tdesign-react/progress/progress.md'),
+        },
+        {
+          title: 'Skeleton 骨架屏',
+          name: 'skeleton',
+          path: '/react/components/skeleton',
+          component: () => import('tdesign-react/skeleton/skeleton.md'),
         },
         {
           title: 'Swiper 轮播框',
@@ -337,12 +349,6 @@ export default {
           name: 'drawer',
           path: '/react/components/drawer',
           component: () => import('tdesign-react/drawer/drawer.md'),
-        },
-        {
-          title: 'Loading 加载',
-          name: 'loading',
-          path: '/react/components/loading',
-          component: () => import('tdesign-react/loading/loading.md'),
         },
         {
           title: 'Message 全局提醒',

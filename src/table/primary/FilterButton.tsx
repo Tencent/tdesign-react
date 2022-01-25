@@ -8,15 +8,18 @@ import { Radio } from '../../radio';
 import { Checkbox } from '../../checkbox';
 import { Input } from '../../input';
 import { TElement } from '../../common';
-import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType } from '../type';
+import { TableColumnFilter, FilterValue, PrimaryTableCol, DataType, TdPrimaryTableProps } from '../type';
 import { ConfigContext } from '../../config-provider';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 interface Props {
   columns?: Array<PrimaryTableCol>;
   onChange?: Function;
-  innerfiltVal?: FilterValue;
+  innerfilterVal?: FilterValue;
   filterIcon?: TElement;
 }
+type Columns = TdPrimaryTableProps['columns'];
+
 const renderIcon = (classPrefix: string, icon: TElement) => {
   let result: React.ReactNode = null;
   if (icon) result = icon;
@@ -41,11 +44,55 @@ function getTitle(column: PrimaryTableCol, colIndex: number) {
 
 // 处理tilte字段，添加筛选icon
 function FilterButton(props: Props) {
-  const { onChange, filterIcon, innerfiltVal, columns } = props;
+  const { onChange, filterIcon, innerfilterVal, columns } = props;
   const { classPrefix } = useContext(ConfigContext);
+  const [locale, t] = useLocaleReceiver('table');
   const [filterVal, setfilterVal] = useState<any>();
 
-  const getFilterContent = (filter: TableColumnFilter, colKey: string, column: PrimaryTableCol<DataType>) => {
+  const filterColumns = getFilterColumns(columns);
+
+  function getFilterColumns(columns: Columns): Columns {
+    return columns.map((column: PrimaryTableCol, index: number) => {
+      const { filter, colKey, children } = column;
+      if (children && children.length) {
+        return {
+          ...column,
+          children: getFilterColumns(children as Columns),
+        };
+      }
+
+      if (!filter) {
+        return column;
+      }
+      const lastTitle = getTitle(column, index);
+      const titleNew = () => (
+        <div className={`${classPrefix}-table__cell--title`}>
+          <div>{lastTitle}</div>
+          <div className={classNames([`${classPrefix}-table__cell--filter`])}>
+            <Popup
+              trigger="click"
+              placement="bottom"
+              showArrow
+              overlayClassName={`${classPrefix}-table__filter-pop`}
+              content={
+                <div className={`${classPrefix}-table__filter-pop-content`}>
+                  {getFilterContent(filter, colKey, column)}
+                </div>
+              }
+            >
+              {renderIcon(classPrefix, filterIcon)}
+            </Popup>
+          </div>
+        </div>
+      );
+      return {
+        ...column,
+        title: titleNew,
+      };
+    });
+  }
+
+  function getFilterContent(filter: TableColumnFilter, colKey: string, column: PrimaryTableCol<DataType>) {
     const types = ['single', 'multiple', 'input'];
     if (filter.type && !types.includes(filter.type)) {
       console.error(`column.type must be the following: ${JSON.stringify(types)}`);
@@ -88,7 +135,7 @@ function FilterButton(props: Props) {
 
           {filter.type === 'input' ? (
             <Input
-              placeholder="请输入内容（无默认值）"
+              placeholder={t(locale.filterInputPlaceholder)}
               clearable
               value={filterVal?.[colKey] || ''}
               onChange={(value) => {
@@ -99,7 +146,7 @@ function FilterButton(props: Props) {
         </>
       </div>
     );
-  };
+  }
 
   function onChangeFilter(value: any, colKey: string, column: PrimaryTableCol<DataType>) {
     setfilterVal({
@@ -111,40 +158,10 @@ function FilterButton(props: Props) {
 
   // 初始筛选条件变化，更新状态
   useEffect(() => {
-    setfilterVal(innerfiltVal);
-  }, [innerfiltVal]);
+    setfilterVal(innerfilterVal);
+  }, [innerfilterVal]);
 
-  return columns.map((column: PrimaryTableCol, index: number) => {
-    const { filter, colKey } = column;
-    if (!filter) {
-      return column;
-    }
-    const lastTitle = getTitle(column, index);
-    const titleNew = () => (
-      <div className={`${classPrefix}-table__cell--title`}>
-        <div>{lastTitle}</div>
-        <div className={classNames([`${classPrefix}-table__cell--filter`])}>
-          <Popup
-            trigger="click"
-            placement="bottom"
-            showArrow
-            overlayClassName={`${classPrefix}-table__filter-pop`}
-            content={
-              <div className={`${classPrefix}-table__filter-pop-content`}>
-                {getFilterContent(filter, colKey, column)}
-              </div>
-            }
-          >
-            {renderIcon(classPrefix, filterIcon)}
-          </Popup>
-        </div>
-      </div>
-    );
-    return {
-      ...column,
-      title: titleNew,
-    };
-  });
+  return filterColumns;
 }
 
 export default FilterButton;

@@ -81,6 +81,10 @@ const Select = forwardRefWithStatics(
       valueDisplay,
       onEnter,
       onVisibleChange,
+      showArrow = true,
+      inputProps,
+      panelBottomContent,
+      panelTopContent,
     } = useDefaultValue(props);
 
     const { classPrefix } = useConfig();
@@ -264,7 +268,7 @@ const Select = forwardRefWithStatics(
           },
         )}
       >
-        {selectedLabel || placeholder || '-请选择-'}
+        {selectedLabel || placeholder || t(local.placeholder)}
       </span>
     );
 
@@ -316,7 +320,7 @@ const Select = forwardRefWithStatics(
     const renderInput = () => (
       <Input
         value={isString(inputVal) || multiple ? inputVal : selectedLabel}
-        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
         className={`${name}__input`}
         onChange={handleInputChange}
         onKeydown={handleInputKeyDown}
@@ -324,6 +328,7 @@ const Select = forwardRefWithStatics(
         onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
         onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
         onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
+        {...inputProps}
       />
     );
 
@@ -365,7 +370,9 @@ const Select = forwardRefWithStatics(
           />
         );
       }
-      return <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
+      return (
+        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
+      );
     };
 
     const popupContentProps = {
@@ -383,6 +390,8 @@ const Select = forwardRefWithStatics(
       loading,
       valueType,
       keys,
+      panelBottomContent,
+      panelTopContent,
     };
 
     const renderContent = () => <PopupContent {...popupContentProps}>{children}</PopupContent>;

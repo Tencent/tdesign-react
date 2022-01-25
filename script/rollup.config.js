@@ -25,7 +25,7 @@ const banner = `/**
  * @license ${pkg.license}
  */
 `;
-const input = 'src/index.ts';
+const input = 'src/index-lib.ts';
 const inputList = [
   'src/**/*.ts',
   'src/**/*.jsx',
@@ -70,18 +70,18 @@ const getPlugins = ({
 
   // css
   if (extractOneCss) {
-    plugins.push(postcss({
-      extract: `${isProd ? `${name}.min` : name}.css`,
-      minimize: isProd,
-      sourceMap: true,
-      extensions: ['.sass', '.scss', '.css', '.less'],
-    }));
+    plugins.push(
+      postcss({
+        extract: `${isProd ? `${name}.min` : name}.css`,
+        minimize: isProd,
+        sourceMap: true,
+        extensions: ['.sass', '.scss', '.css', '.less'],
+      }),
+    );
   } else if (extractMultiCss) {
     plugins.push(
       staticImport({
-        include: [
-          'src/**/style/css.js',
-        ],
+        include: ['src/**/style/css.js'],
       }),
       ignoreImport({
         include: ['src/*/style/*', 'src/*/*/style/*'],
@@ -93,10 +93,7 @@ const getPlugins = ({
   } else {
     plugins.push(
       staticImport({
-        include: [
-          'src/**/style/index.js',
-          'src/_common/style/web/**/*.less',
-        ],
+        include: ['src/**/style/index.js', 'src/_common/style/web/**/*.less'],
       }),
       ignoreImport({
         include: ['src/*/style/*'],
@@ -106,22 +103,26 @@ const getPlugins = ({
   }
 
   if (env) {
-    plugins.push(replace({
-      preventAssignment: true,
-      values: {
-        'process.env.NODE_ENV': JSON.stringify(env),
-      },
-    }));
+    plugins.push(
+      replace({
+        preventAssignment: true,
+        values: {
+          'process.env.NODE_ENV': JSON.stringify(env),
+        },
+      }),
+    );
   }
 
   if (isProd) {
-    plugins.push(terser({
-      output: {
-        /* eslint-disable */
-        ascii_only: true,
-        /* eslint-enable */
-      },
-    }));
+    plugins.push(
+      terser({
+        output: {
+          /* eslint-disable */
+          ascii_only: true,
+          /* eslint-enable */
+        },
+      }),
+    );
   }
 
   return plugins;
@@ -130,10 +131,7 @@ const getPlugins = ({
 /** @type {import('rollup').RollupOptions} */
 const cssConfig = {
   input: ['src/**/style/index.js'],
-  plugins: [
-    multiInput(),
-    styles({ mode: 'extract' }),
-  ],
+  plugins: [multiInput(), styles({ mode: 'extract' })],
   output: {
     banner,
     dir: 'es/',
@@ -142,24 +140,10 @@ const cssConfig = {
   },
 };
 
-// 不带样式打包 es 模块
-const libConfig = {
-  input: inputList,
-  external: externalDeps.concat(externalPeerDeps),
-  plugins: [multiInput()].concat(getPlugins()),
-  output: {
-    banner,
-    dir: 'lib/',
-    format: 'esm',
-    sourcemap: true,
-    chunkFileNames: '_chunks/dep-[hash].js',
-  },
-};
-
 // 按需加载组件 带 css 样式
 /** @type {import('rollup').RollupOptions} */
 const esConfig = {
-  input: inputList,
+  input: inputList.concat('!src/index-lib.ts'),
   // 为了保留 style/css.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
@@ -175,7 +159,7 @@ const esConfig = {
 
 // 按需加载组件 带原始 less 文件，可定制主题
 const esmConfig = {
-  input: inputList,
+  input: inputList.concat('!src/index-lib.ts'),
   // 为了保留 style/index.js
   treeshake: false,
   external: externalDeps.concat(externalPeerDeps),
@@ -190,13 +174,13 @@ const esmConfig = {
 };
 
 /** @type {import('rollup').RollupOptions} */
-const cjsConfig = {
+const libConfig = {
   input: inputList,
   external: externalDeps.concat(externalPeerDeps),
   plugins: [multiInput()].concat(getPlugins()),
   output: {
     banner,
-    dir: 'cjs/',
+    dir: 'lib/',
     format: 'cjs',
     sourcemap: true,
     exports: 'named',
@@ -243,4 +227,4 @@ const umdMinConfig = {
   },
 };
 
-export default [cssConfig, libConfig, esConfig, esmConfig, cjsConfig, umdConfig, umdMinConfig];
+export default [cssConfig, libConfig, esConfig, esmConfig, umdConfig, umdMinConfig];
