@@ -18,6 +18,10 @@ export default function BaseForm() {
     MessagePlugin.info('重置成功');
   };
 
+  const resetValidate = () => {
+    form.current.clearValidate();
+  }
+
   // 自定义异步校验器
   function rePassword(val) {
     return new Promise((resolve) => {
@@ -40,7 +44,7 @@ export default function BaseForm() {
 
   // 自定义校验器，不同的值输出不同的校验结果。支持异步校验（文案选自某密码重置站点，如有侵权，请联系我们删除）
   function passwordValidator(val) {
-    if (val.length > 0 && val.length <= 2) {
+    if (!val || val.length > 0 && val.length <= 2) {
       return { result: false, message: '太简单了！再开动一下你的小脑筋吧！', type: 'error' };
     }
     if (val.length > 2 && val.length < 4) {
@@ -80,10 +84,11 @@ export default function BaseForm() {
           <Input />
         </FormItem>
         <FormItem statusIcon={false}>
-          <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
+          <Button theme="primary" type="submit">
             提交
           </Button>
-          <Button type="reset">重置</Button>
+          <Button theme="default" type="reset" style={{ margin: '0 12px' }}>重置</Button>
+          <Button theme="default" onClick={resetValidate}>清除校验状态</Button>
         </FormItem>
       </Form>
     </div>
