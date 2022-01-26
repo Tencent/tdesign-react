@@ -145,19 +145,19 @@ const Form = forwardRefWithStatics(
     }
 
     // 对外方法，设置对应 formItem 的值
-    function setFieldsValue(fileds = {}) {
+    function setFieldsValue(fields = {}) {
       const formItemsMap = getFormItemsMap();
-      Object.keys(fileds).forEach((key) => {
-        formItemsMap[key]?.setValue(fileds[key]);
+      Object.keys(fields).forEach((key) => {
+        formItemsMap[key]?.setValue(fields[key]);
       });
     }
 
     // 对外方法，设置对应 formItem 的数据
-    function setFields(fileds = []) {
-      if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
+    function setFields(fields = []) {
+      if (!Array.isArray(fields)) throw new Error('setFields 参数需要 Array 类型');
       const formItemsMap = getFormItemsMap();
-      fileds.forEach((filed) => {
-        const { name, value, status } = filed;
+      fields.forEach((field) => {
+        const { name, value, status } = field;
         formItemsMap[name]?.setField({ value, status });
       });
     }
@@ -178,6 +178,22 @@ const Form = forwardRefWithStatics(
       }
     }
 
+    // 对外方法，重置对应 formItem 的状态
+    function clearValidate(fields?: Array<keyof FormData>) {
+      // reset all
+      if (typeof fields === 'undefined') {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          formItemRef && formItemRef?.resetValidate();
+        });
+      } else {
+        if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
+        const formItemsMap = getFormItemsMap();
+        fields.forEach((name) => {
+          formItemsMap[name]?.resetValidate();
+        });
+      }
+    }
+
     useImperativeHandle(ref as FormRefInterface, () => ({
       currentElement: formRef.current,
       submit: submitHandler,
@@ -187,11 +203,12 @@ const Form = forwardRefWithStatics(
       setFields,
       validate,
       getAllFieldsValue,
+      clearValidate,
     }));
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFileds = getAllFieldsValue();
-      onValuesChange(changedValue, allFileds);
+      const allFields = getAllFieldsValue();
+      onValuesChange(changedValue, allFields);
     }
 
     return (

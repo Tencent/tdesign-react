@@ -223,7 +223,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetHandler() {
-    shouldValidate.current = false;
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
@@ -286,6 +285,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setField,
     validate,
     resetField,
+    resetValidate: resetHandler,
   }));
 
   return (

@@ -543,7 +543,7 @@ exports[`custom-validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="position: relative;"
               type="submit"
             >
               <span
@@ -553,14 +553,25 @@ exports[`custom-validator.jsx 1`] = `
               </span>
             </button>
             <button
-              class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
+              class="t-button t-button--theme-default t-button--variant-base"
+              style="margin: 0px 12px; position: relative;"
               type="reset"
             >
               <span
                 class="t-button__text"
               >
                 重置
+              </span>
+            </button>
+            <button
+              class="t-button t-button--theme-default t-button--variant-base"
+              style="position: relative;"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                清除校验状态
               </span>
             </button>
           </div>
