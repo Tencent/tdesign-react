@@ -75,10 +75,9 @@ exports[`CheckboxGroup max 1`] = `
     class="t-checkbox-group"
   >
     <label
-      class="t-checkbox t-is-checked"
+      class="t-checkbox"
     >
       <input
-        checked=""
         class="t-checkbox__former"
         readonly=""
         type="checkbox"
@@ -113,11 +112,10 @@ exports[`CheckboxGroup max 1`] = `
       </span>
     </label>
     <label
-      class="t-checkbox t-is-disabled"
+      class="t-checkbox"
     >
       <input
         class="t-checkbox__former"
-        disabled=""
         readonly=""
         type="checkbox"
         value="bj"
@@ -241,6 +239,42 @@ exports[`CheckboxGroup option 1`] = `
         class="t-checkbox__label"
       >
         北京
+      </span>
+    </label>
+    <label
+      class="t-checkbox"
+    >
+      <input
+        class="t-checkbox__former"
+        readonly=""
+        type="checkbox"
+        value="1"
+      />
+      <span
+        class="t-checkbox__input"
+      />
+      <span
+        class="t-checkbox__label"
+      >
+        1
+      </span>
+    </label>
+    <label
+      class="t-checkbox"
+    >
+      <input
+        class="t-checkbox__former"
+        readonly=""
+        type="checkbox"
+        value="重庆"
+      />
+      <span
+        class="t-checkbox__input"
+      />
+      <span
+        class="t-checkbox__label"
+      >
+        重庆
       </span>
     </label>
     <label

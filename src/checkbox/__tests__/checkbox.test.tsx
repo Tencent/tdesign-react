@@ -83,6 +83,8 @@ describe('CheckboxGroup', () => {
           { value: '上海', label: '上海' },
           { value: '广州', label: '广州', disabled: true },
           { value: '北京', label: '北京', name: '北京' },
+          1,
+          '重庆',
           { label: '全选', checkAll: true },
         ]}
       ></Checkbox.Group>,
@@ -102,8 +104,13 @@ describe('CheckboxGroup', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('value', () => {
+  test('value is string', () => {
     const { container } = render(<Checkbox.Group options={['北京', '广州']} value={['北京']}></Checkbox.Group>);
+    expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+  });
+
+  test('value is number', () => {
+    const { container } = render(<Checkbox.Group options={[1, 2]} value={[1]}></Checkbox.Group>);
     expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
   });
 
@@ -138,13 +145,14 @@ describe('CheckboxGroup', () => {
 
   test('max', () => {
     const { container, asFragment } = render(
-      <Checkbox.Group max={2} defaultValue={['gz', 'sz']}>
+      <Checkbox.Group max={2} defaultValue={['sz']}>
         <Checkbox value="gz">广州</Checkbox>
         <Checkbox value="sz">深圳</Checkbox>
         <Checkbox value="bj">北京</Checkbox>
       </Checkbox.Group>,
     );
     expect(asFragment()).toMatchSnapshot();
+    fireEvent.click(container.firstChild.firstChild);
     expect(container.firstChild.lastChild).toHaveClass('t-is-disabled');
   });
 });
