@@ -4,6 +4,7 @@ import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import { SearchIcon } from 'tdesign-icons-react';
+import { getLeafNodes } from './utils';
 import useConfig from '../_util/useConfig';
 import { TdTransferProps, TransferValue } from './type';
 import { TNode, StyledProps } from '../common';
@@ -12,7 +13,9 @@ import Input from '../input';
 import Pagination, { PaginationProps } from '../pagination';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
-interface TransferListProps extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem'>, StyledProps {
+interface TransferListProps
+  extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,
+    StyledProps {
   disabled?: boolean;
   empty?: TNode | string;
   title?: TNode;
@@ -39,9 +42,11 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     disabled = false,
     pagination,
     transferItem,
+    tree: treeNode,
   } = props;
-
-  const notDisabledData = data.filter((item) => !item.disabled);
+  const notDisabledData = !treeNode
+    ? data.filter((item) => !item.disabled)
+    : getLeafNodes(data, []).filter((item) => !item.disabled);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [indeterminate, allChecked] = useMemo(() => {
@@ -62,20 +67,23 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     if (isFunction(onCheckbox)) onCheckbox(checked ? notDisabledData.map((item) => item.value) : []);
   };
 
-  const HeaderCmp = () => (
-    <div className={`${CLASSPREFIX}-header`}>
-      <div>
-        <Checkbox
-          indeterminate={indeterminate}
-          checked={allChecked}
-          disabled={disabled}
-          onChange={handleAllCheckbox}
-        ></Checkbox>
-        <span>{t(local.title, { checked: checked.length, total: data.length })}</span>
+  const HeaderCmp = () => {
+    const total = treeNode ? getLeafNodes(data, []).length : data.length;
+    return (
+      <div className={`${CLASSPREFIX}-header`}>
+        <div>
+          <Checkbox
+            indeterminate={indeterminate}
+            checked={allChecked}
+            disabled={disabled}
+            onChange={handleAllCheckbox}
+          ></Checkbox>
+          <span>{t(local.title, { checked: checked.length, total })}</span>
+        </div>
+        <span>{title}</span>
       </div>
-      <span>{title}</span>
-    </div>
-  );
+    );
+  };
 
   const SearchCmp = () =>
     search ? (
@@ -103,6 +111,9 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     );
 
   const contentCmp = () => {
+    if (typeof treeNode === 'function') {
+      return treeNode({ data: viewData, value: checked, onChange: handleCheckbox });
+    }
     if (typeof content === 'function') {
       return content({ data: viewData });
     }
