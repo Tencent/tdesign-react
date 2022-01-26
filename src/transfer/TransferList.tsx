@@ -46,7 +46,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   } = props;
   const notDisabledData = !treeNode
     ? data.filter((item) => !item.disabled)
-    : getLeafNodes(data, []).filter((item) => !item.disabled);
+    : getLeafNodes(data).filter((item) => !item.disabled);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [indeterminate, allChecked] = useMemo(() => {
@@ -68,7 +68,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   };
 
   const HeaderCmp = () => {
-    const total = treeNode ? getLeafNodes(data, []).length : data.length;
+    const total = treeNode ? getLeafNodes(data).length : data.length;
     return (
       <div className={`${CLASSPREFIX}-header`}>
         <div>

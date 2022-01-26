@@ -26,13 +26,17 @@ export const getJSX = (value: string | TNode) => {
 };
 
 // 获取所有叶子节点
-export const getLeafNodes = (nodes: DataOption[], resData: DataOption[]): DataOption[] => {
-  nodes.forEach((child) => {
-    if (child.children && child.children.length > 0) {
-      return getLeafNodes(child.children, resData);
-    }
-    resData.push(child);
-  });
+export const getLeafNodes = (nodes: DataOption[]): DataOption[] => {
+  const resData = [];
+  const map = (nodes: DataOption[]) => {
+    nodes.forEach((child) => {
+      if (child.children && child.children.length > 0) {
+        return map(child.children);
+      }
+      resData.push(child);
+    });
+  };
+  map(nodes);
   return resData;
 };
 
@@ -51,6 +55,6 @@ export const filterCheckedTreeNodes = (nodes: DataOption[], checkeds: TransferVa
 
 // 获取目的树结构
 export const getTargetNodes = (sourceNodes: DataOption[], data: DataOption[]): DataOption[] => {
-  const source = getLeafNodes(sourceNodes, []).map((item) => item.value);
+  const source = getLeafNodes(sourceNodes).map((item) => item.value);
   return filterCheckedTreeNodes(data, source);
 };
