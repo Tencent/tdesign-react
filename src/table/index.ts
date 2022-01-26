@@ -1,6 +1,6 @@
 import _SimpleTable, { BaseTableProps } from './base/Table';
 import _PrimaryTable, { PrimaryTableProps } from './primary/Table';
-// import _EnhancedTable from './enhanced/Table';
+import _EnhancedTable from './enhanced/Table';
 
 import './style/index.js';
 
@@ -9,7 +9,6 @@ export * from './type';
 
 export const SimpleTable = _SimpleTable;
 export const Table = _PrimaryTable;
-// export const EnhancedTable = _EnhancedTable;
+export const EnhancedTable = _EnhancedTable;
 
 export default Table;
-// export default EnhancedTabled;

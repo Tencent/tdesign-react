@@ -1,7 +1,5 @@
 import React from 'react';
-import { Locale } from './type';
-import { ConfigContext } from '../config-provider';
-import type { Config } from '../config-provider';
+import { ConfigContext , Locale } from '../config-provider';
 
 export interface Placement {
   [propName: string]: string | number;
@@ -9,13 +7,9 @@ export interface Placement {
 
 export type TransformPattern = string | Function | Array<string>;
 
-export function useLocaleReceiver<T extends keyof Config['locale']>(
-  componentName: T,
-  defaultLocale?: Locale[T] | Function,
-) {
-  const { locale: tdLocale } = React.useContext(ConfigContext);
+export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defaultLocale?: Locale[T] | Function) {
+  const { globalConfig } = React.useContext(ConfigContext);
 
-  // @TODO: Check type of { pattern }
   function transformLocale(pattern: TransformPattern, placement?: Placement): string | Array<string> {
     const REGX = /\{\s*([\w-]+)\s*\}/g;
     if (typeof pattern === 'string') {
@@ -41,18 +35,18 @@ export function useLocaleReceiver<T extends keyof Config['locale']>(
     return '';
   }
 
-  /** @TypeA => 确保此参数是属于 tdLocale[componentName] 下的子属性 */
-  const componentLocale = React.useMemo<Config['locale'][T] | Function>(() => {
+  /** @TypeA => 确保此参数是属于 globalConfig[componentName] 下的子属性 */
+  const componentLocale = React.useMemo<Locale[T] | Function>(() => {
     const locale = defaultLocale || {};
-    const connectLocaleByName = tdLocale[componentName];
+    const connectLocaleByName = globalConfig[componentName];
 
-    const localeFromContext = componentName && tdLocale ? connectLocaleByName : {};
+    const localeFromContext = componentName && globalConfig ? connectLocaleByName : {};
 
     return {
       ...(typeof locale === 'function' ? (locale as Function)() : locale),
       ...((localeFromContext || {}) as typeof connectLocaleByName),
     };
-  }, [componentName, defaultLocale, tdLocale]);
+  }, [componentName, defaultLocale, globalConfig]);
 
-  return [componentLocale, transformLocale] as [Config['locale'][T], Function];
+  return [componentLocale, transformLocale] as [Locale[T], Function];
 }

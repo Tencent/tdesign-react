@@ -1,11 +1,11 @@
-import React, { FC, useState, useContext, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import { SortInfo, PrimaryTableCol, SortType } from '../type';
 import { Styles } from '../../common';
 import Tooltip from '../../tooltip';
-import { ConfigContext } from '../../config-provider';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useConfig from '../../_util/useConfig';
 
 export const SortTypeEnum: { [key in SortType]: SortType } = {
   desc: 'desc',
@@ -24,7 +24,7 @@ const sortTypeOrder = [SortTypeEnum.desc, SortTypeEnum.asc, SortTypeEnum.all];
 const SorterButton: FC<SorterButtonProps> = (props) => {
   const { column: currentColumn, singleSort: currentSort, onChange } = props;
   const { sortType = SortTypeEnum.all } = currentColumn;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('table');
   const [currentSortType, setCurrentSortType] = useState<SortType>(SortTypeEnum.all);
   const isAllSortType = sortType === SortTypeEnum.all;
