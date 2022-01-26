@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button, Form } from 'tdesign-react';
+import { Drawer, Radio, Button } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
-  const [placement, setPlacement] = useState('right');
   const [mode, setMode] = useState('push');
 
   const handleClick = () => {
@@ -15,16 +14,6 @@ export default function () {
   return (
     <div className="tdesign-demo-block-column">
       <div>
-        <span>抽屉弹出方向：</span>
-        <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
-          <Radio.Button value="left">left</Radio.Button>
-          <Radio.Button value="right">right</Radio.Button>
-          <Radio.Button value="top">top</Radio.Button>
-          <Radio.Button value="bottom">bottom</Radio.Button>
-        </Radio.Group>
-      </div>
-
-      <div>
         <span>抽屉弹出模式：</span>
         <Radio.Group value={mode} onChange={(value) => setMode(value)}>
           <Radio.Button value="push">push</Radio.Button>
@@ -34,12 +23,12 @@ export default function () {
 
       <div>
         <Button theme="primary" onClick={handleClick}>
-          Open
+          打开抽屉
         </Button>
       </div>
 
-      <Drawer placement={placement} key={placement} attach={'body'}  header="Drawer" visible={visible} onClose={handleClose} mode={mode}>
-        <p>This is a drawer</p>
+      <Drawer placement="right" attach={'body'} header="抽屉标题" visible={visible} onClose={handleClose} mode={mode}>
+        <p>抽屉的内容</p>
       </Drawer>
     </div>
   );
