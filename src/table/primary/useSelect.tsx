@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { ConfigContext } from '../../config-provider';
 import { PrimaryTableCol, DataType } from '../type';
 import { PrimaryTableProps } from './Table';
 import { Checkbox } from '../../checkbox';
 import { Radio } from '../../radio';
+import useConfig from '../../_util/useConfig';
 
 type SelectType = PrimaryTableCol['type'];
 
@@ -19,7 +19,7 @@ const defaultWidth = 50;
  * 选中hook
  */
 function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const { columns, data, rowKey, defaultSelectedRowKeys, selectedRowKeys, onSelectChange } = props;
   const isControlled = !!selectedRowKeys;
   const [innerSelectedRowKeys, setInnerSelectedRowKeys] = useState(defaultSelectedRowKeys || []);

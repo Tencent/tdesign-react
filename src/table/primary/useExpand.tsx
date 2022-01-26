@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import get from 'lodash/get';
-import { ConfigContext } from '../../config-provider';
 import { PrimaryTableCol } from '../type';
 import { PrimaryTableProps } from './Table';
 import ExpandBox from './expand-box';
+import useConfig from '../../_util/useConfig';
 
 const expandedColKey = 'expanded-icon-cell';
 
@@ -26,7 +26,7 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
     expandIcon = true,
     expandOnRowClick = false,
   } = props;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const isControlled = typeof expandedRowKeys !== 'undefined'; // 是否受控
   const [innerExpandRowKeys, setThisExpandRowKeys] = useState<RowkeyType>(
     expandedRowKeys || defaultExpandedRowKeys || [],
