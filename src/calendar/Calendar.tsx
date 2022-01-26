@@ -104,7 +104,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const { visible: visibleForWeekendToggle = true, showWeekendButtonProps = {}, hideWeekendButtonProps = {} } = weekend;
   const { visible: visibleForCurrent = true, currentDayButtonProps = {}, currentMonthButtonProps = {} } = current;
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, calendar: calendarConfig } = useConfig();
   const [mode, setMode] = useState<string>('month');
   const [value, setValue] = useState<dayjs.Dayjs>(dayjs(valueFromProps || dayjs().format('YYYY-MM-DD')));
   const [year, setYearState] = useState<number>(value.year());
@@ -335,7 +335,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const getMonthCN = (month: number): string => monthLabelList[month];
 
   const fix0 = (num: number) => {
-    const fillZero = num < 10 && (fillWithZero ?? local.fillWithZero ?? true);
+    const fillZero = num < 10 && (fillWithZero ?? calendarConfig.fillWithZero ?? true);
     return fillZero ? `0${num}` : num;
   };
 
