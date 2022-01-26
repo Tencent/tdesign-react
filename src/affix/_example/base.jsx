@@ -10,7 +10,7 @@ export default function BaseExample() {
 
   return (
     <Affix offsetTop={top} offsetBottom={10}>
-      <Button onClick={handleClick}>Base</Button>
+      <Button onClick={handleClick}>固钉</Button>
     </Affix>
   );
 }
