@@ -124,8 +124,16 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
           ? options.map((v, index) => {
               const type = typeof v;
               switch (type) {
-                case 'number' || 'string': {
-                  const vs = v as number | string;
+                case 'string': {
+                  const vs = v as string;
+                  return (
+                    <Checkbox key={vs} label={vs} value={vs}>
+                      {v}
+                    </Checkbox>
+                  );
+                }
+                case 'number': {
+                  const vs = v as number;
                   return (
                     <Checkbox key={vs} label={vs} value={vs}>
                       {v}
