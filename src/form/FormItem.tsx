@@ -49,7 +49,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
     showErrorMessage,
-    resetType,
+    disabled: disabledFromContext,
+    resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
     formItemsRef,
@@ -202,8 +203,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     return emptyValue;
   }
 
-  function resetField() {
+  function resetField(type: string) {
     if (!name) return;
+    shouldValidate.current = false;
+
+    const resetType = type || resetTypeFromContext;
     if (resetType === 'empty') {
       setFormValue(getEmptyValue());
     }
@@ -219,7 +223,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetHandler() {
-    shouldValidate.current = false;
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
@@ -282,6 +285,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setField,
     validate,
     resetField,
+    resetValidate: resetHandler,
   }));
 
   return (
@@ -319,6 +323,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
               }
               return React.cloneElement(child, {
                 ...child.props,
+                disabled: disabledFromContext,
                 [ctrlKey]: formValue,
                 onChange: (value) => {
                   onChangeFromProps.call(null, value);
