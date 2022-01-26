@@ -71,7 +71,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const { classPrefix } = useConfig();
   const containerRef = useRef<HTMLDivElement>();
   const contentWrapperRef = useRef<HTMLDivElement>();
-  const drawerRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
+  const drawerWrapperRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
   const lockCls = `${prefixCls}--lock`;
 
@@ -115,7 +115,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     }
 
     if (mode === 'push') {
-      drawerRef.current.style.cssText = 'transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s';
+      drawerWrapperRef.current.style.cssText = 'transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s';
 
       const marginStr = {
         left: `margin: 0 0 0 ${getSizeValue(size)}`,
@@ -125,9 +125,9 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
       }[placement];
 
       if (visible) {
-        drawerRef.current.style.cssText += marginStr;
+        drawerWrapperRef.current.style.cssText += marginStr;
       } else {
-        drawerRef.current.style.cssText = drawerRef.current.style.cssText.replace(/margin:.+;/, '');
+        drawerWrapperRef.current.style.cssText = drawerWrapperRef.current.style.cssText.replace(/margin:.+;/, '');
       }
     }
 
@@ -235,7 +235,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   if (isDestroyOnClose && !visible) return null;
 
   return (
-    <DrawerWrapper attach={attach} ref={drawerRef}>
+    <DrawerWrapper attach={attach} ref={drawerWrapperRef}>
       <div
         ref={containerRef}
         className={drawerClass}
