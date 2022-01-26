@@ -7,81 +7,77 @@ import useConfig from '../_util/useConfig';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 
 export interface DropdownProps extends TdDropdownProps {
   className?: ClassName;
   children?: React.ReactNode;
 }
 
-const Dropdown = forwardRefWithStatics(
-  (props: DropdownProps) => {
-    const {
-      popupProps = {},
-      disabled,
-      placement = 'bottom-left',
-      trigger = 'hover',
-      className = '',
-      children,
-      hideAfterItemClick = true,
-    } = props;
-    let content = null;
-    const arrayChildren = React.Children.toArray(children);
+const Dropdown = (props: DropdownProps) => {
+  const {
+    popupProps = {},
+    disabled,
+    placement = 'bottom-left',
+    trigger = 'hover',
+    className = '',
+    children,
+    hideAfterItemClick = true,
+  } = props;
+  let content = null;
+  const arrayChildren = React.Children.toArray(children);
 
-    const { classPrefix } = useConfig();
-    const [isPopupVisible, togglePopupVisible] = useState(false);
-    const dropdownClass = `${classPrefix}-dropdown`;
+  const { classPrefix } = useConfig();
+  const [isPopupVisible, togglePopupVisible] = useState(false);
+  const dropdownClass = `${classPrefix}-dropdown`;
 
-    const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
-      if (hideAfterItemClick) {
-        togglePopupVisible(false);
-      }
-      props?.onClick?.(data, context);
-    };
+  const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
+    if (hideAfterItemClick) {
+      togglePopupVisible(false);
+    }
+    props?.onClick?.(data, context);
+  };
 
-    const DropdownContent = () => <DropdownMenu {...props} onClick={handleMenuClick}></DropdownMenu>;
+  const DropdownContent = () => <DropdownMenu {...props} onClick={handleMenuClick}></DropdownMenu>;
 
-    const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
-      togglePopupVisible(visible);
-      popupProps?.onVisibleChange?.(visible, context);
-    };
+  const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
+    togglePopupVisible(visible);
+    popupProps?.onVisibleChange?.(visible, context);
+  };
 
-    React.Children.forEach(arrayChildren, (child: React.ReactChild, idx) => {
-      if (typeof child !== 'object') return;
+  React.Children.forEach(arrayChildren, (child: React.ReactChild, idx) => {
+    if (typeof child !== 'object') return;
 
-      if (child.type === DropdownMenu) {
-        content = React.cloneElement(child, { onClick: handleMenuClick });
-        arrayChildren.splice(idx, 1);
-      }
-    });
+    if (child.type === DropdownMenu) {
+      content = React.cloneElement(child, { onClick: handleMenuClick });
+      arrayChildren.splice(idx, 1);
+    }
+  });
 
-    const popupParams = {
-      disabled,
-      placement,
-      trigger,
-      showArrow: false,
-      overlayClassName: classNames(dropdownClass, className),
-      content: content || DropdownContent(),
-      ...omit(popupProps, 'onVisibleChange'),
-    };
+  const popupParams = {
+    disabled,
+    placement,
+    trigger,
+    showArrow: false,
+    overlayClassName: classNames(dropdownClass, className),
+    content: content || DropdownContent(),
+    ...omit(popupProps, 'onVisibleChange'),
+  };
 
-    return (
-      <Popup
-        expandAnimation={true}
-        destroyOnClose={true}
-        visible={isPopupVisible}
-        onVisibleChange={handleVisibleChange}
-        {...popupParams}
-      >
-        {arrayChildren}
-      </Popup>
-    );
-  },
-  {
-    displayName: 'Dropdown',
-    DropdownMenu,
-    DropdownItem,
-  },
-);
+  return (
+    <Popup
+      expandAnimation={true}
+      destroyOnClose={true}
+      visible={isPopupVisible}
+      onVisibleChange={handleVisibleChange}
+      {...popupParams}
+    >
+      {arrayChildren}
+    </Popup>
+  );
+};
+
+Dropdown.displayName = 'Dropdown';
+Dropdown.DropdownMenu = DropdownMenu;
+Dropdown.DropdownItem = DropdownItem;
 
 export default Dropdown;

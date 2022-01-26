@@ -14,17 +14,19 @@ export default function () {
   return (
     <div>
       <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
-        <Radio.Button value="left">left</Radio.Button>
-        <Radio.Button value="right">right</Radio.Button>
-        <Radio.Button value="top">top</Radio.Button>
-        <Radio.Button value="bottom">bottom</Radio.Button>
+        <Radio.Button value="left">左侧</Radio.Button>
+        <Radio.Button value="right">右侧</Radio.Button>
+        <Radio.Button value="top">上方</Radio.Button>
+        <Radio.Button value="bottom">下方</Radio.Button>
       </Radio.Group>
 
-      <Button theme="primary" onClick={handleClick} style={{ marginLeft: 16 }}>
-        Open
-      </Button>
+      <div>
+        <Button theme="primary" onClick={handleClick} style={{ marginTop: 20 }}>
+          打开抽屉
+        </Button>
+      </div>
       <Drawer placement={placement} key={placement} title="Drawer" visible={visible} onClose={handleClose}>
-        <p>This is a drawer</p>
+        <p>抽屉的内容</p>
       </Drawer>
     </div>
   );
