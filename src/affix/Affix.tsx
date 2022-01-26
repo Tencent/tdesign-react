@@ -5,7 +5,9 @@ import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 
-export interface AffixProps extends TdAffixProps, StyledProps {}
+export interface AffixProps extends TdAffixProps, StyledProps {
+  children: React.ReactNode;
+}
 
 interface StateRef {
   ticking: boolean;
