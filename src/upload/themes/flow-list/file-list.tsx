@@ -2,6 +2,7 @@ import React, { MouseEvent } from 'react';
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
 import { abridgeName, returnFileSize } from '../../util';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Loading from '../../../loading';
 import type { CommonListProps, FlowListProps } from './index';
 import type { UploadFile } from '../../type';
@@ -11,24 +12,27 @@ type FileListProps = CommonListProps & Pick<FlowListProps, 'showUploadProgress' 
 const FileList = (props: FileListProps) => {
   const { listFiles, showInitial, renderDragger, showUploadProgress, remove } = props;
   const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
+  const { progress: progressText, file: infoText, triggerUploadText } = locale;
+
   const renderStatus = (file: UploadFile) => {
     const STATUS_MAP = {
       success: {
         icon: <CheckCircleFilledIcon />,
-        text: '上传成功',
+        text: t(progressText.successText),
       },
       fail: {
         icon: <ErrorCircleFilledIcon />,
-        text: '上传失败',
+        text: t(progressText.failText),
       },
       progress: {
         icon: <Loading />,
-        text: `上传中 ${Math.min(file.percent, 99)}%`,
+        text: `${t(progressText.uploadingText)} ${Math.min(file.percent, 99)}%`,
       },
       waiting: {
         icon: <TimeFilledIcon />,
-        text: '待上传',
+        text: t(progressText.waitingText),
       },
     };
 
@@ -45,10 +49,10 @@ const FileList = (props: FileListProps) => {
     <table className={`${UPLOAD_NAME}__flow-table`}>
       <thead>
         <tr>
-          <th>文件名</th>
-          <th>大小</th>
-          <th>状态</th>
-          <th>操作</th>
+          <th>{t(infoText.fileNameText)}</th>
+          <th>{t(infoText.fileSizeText)}</th>
+          <th>{t(infoText.fileStatusText)}</th>
+          <th>{t(infoText.fileOperationText)}</th>
         </tr>
       </thead>
       <tbody>
@@ -67,7 +71,7 @@ const FileList = (props: FileListProps) => {
                 className={`${UPLOAD_NAME}__flow-button`}
                 onClick={(e: MouseEvent<HTMLElement>) => remove({ e, index, file })}
               >
-                删除
+                {t(triggerUploadText.delete)}
               </span>
             </td>
           </tr>

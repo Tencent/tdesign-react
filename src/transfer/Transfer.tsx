@@ -9,6 +9,7 @@ import Button from '../button';
 import TransferList from './TransferList';
 import { getDefaultValue, getJSX } from './utils';
 import { TNode, StyledProps } from '../common';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface TransferProps extends TdTransferProps, StyledProps {
   content?: Array<TNode>;
@@ -63,6 +64,8 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const { classPrefix } = useConfig();
   const transferClassName = `${classPrefix}-transfer`;
 
+  const [local, t] = useLocaleReceiver('transfer');
+
   const [sourceData, targetData] = useMemo(() => {
     const { source, target } = state;
     const { source: searchSource, target: searchTarget } = searchState;
@@ -72,7 +75,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     ];
   }, [searchState, state]);
 
-  const [SourceEmptyCmp, TargetEmptyCmp] = getDefaultValue(empty, '暂无数据').map((item) => getJSX(item));
+  const [SourceEmptyCmp, TargetEmptyCmp] = getDefaultValue(empty, t(local.empty)).map((item) => getJSX(item));
   const [sourceDisable, targetDisable] = getDefaultValue(disabled, false);
   const [sourcePagonation, targetPagonation] = getDefaultValue(pagination);
   const [sourceTitle, targetTitle] = getDefaultValue(title).map((item) => getJSX(item));
