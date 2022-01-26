@@ -1,7 +1,7 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { ChevronDownCircleIcon } from 'tdesign-icons-react';
-import { ConfigContext } from '../../config-provider';
 import { Styles, TNode } from '../../common';
+import useConfig from '../../_util/useConfig';
 
 interface Props {
   expanded?: boolean;
@@ -14,7 +14,7 @@ interface Props {
 
 const ExpandButton: FC<Props> = (props) => {
   const { expanded, handleExpandChange, rowKeyValue, row, expandIcon, expandOnRowClick } = props;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
 
   const renderIcon = (icon: TNode) => {
     let result: React.ReactNode = null;
