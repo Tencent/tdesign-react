@@ -4,6 +4,7 @@ import { TNode } from '../common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
 import { CustomDraggerRenderProps } from './types';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import DraggerProgress from './themes/dragger-progress';
 
 export interface DraggerProps {
@@ -23,9 +24,11 @@ export interface DraggerProps {
 const Dragger: FC<DraggerProps> = (props) => {
   const { file, display, onUpload, onRemove, customDraggerRender } = props;
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
-
+  const { draggingText, dragDropText } = locale.dragger;
+  const dragTriggerText = t(locale.triggerUploadText.normal);
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
     !file ? `${classPrefix}-upload__dragger-center` : '',
@@ -35,13 +38,13 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload--highlight`}>点击上传</span>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;拖拽到此区域</span>
+        <span className={`${classPrefix}-upload--highlight`}>{dragTriggerText}</span>
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{t(draggingText)}</span>
       </div>
     );
-    const activeElement = <div>释放鼠标</div>;
+    const activeElement = <div>{t(dragDropText)}</div>;
     return dragActive ? activeElement : unActiveElement;
-  }, [classPrefix, dragActive]);
+  }, [classPrefix, dragActive, dragDropText, dragTriggerText, draggingText, t]);
 
   const dragElement = React.useMemo(() => {
     let content: React.ReactNode;
