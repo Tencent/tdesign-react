@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode } from '../common';
@@ -20,6 +19,12 @@ export interface TdBreadcrumbProps {
    * 自定义分隔符
    */
   separator?: TNode;
+
+  /**
+   * 组件风格
+   * @default light
+   */
+  theme?: 'light';
 }
 
 export interface TdBreadcrumbItemProps {
@@ -41,7 +46,7 @@ export interface TdBreadcrumbItemProps {
    */
   href?: string;
   /**
-   * 最大宽度，超出后会以省略号形式呈现。优先级高于 Breadcrum 中的 maxItemWidth
+   * 最大宽度，超出后会以省略号形式呈现。优先级高于 Breadcrumb 中的 maxItemWidth
    */
   maxWidth?: string;
   /**

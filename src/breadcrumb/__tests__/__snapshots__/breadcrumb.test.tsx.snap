@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="t-breadcrumb"
   >
     <div
-      class="t-breadcrumb__item"
+      class="t-breadcrumb__item light"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -38,7 +38,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item"
+      class="t-breadcrumb__item light"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -70,7 +70,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item"
+      class="t-breadcrumb__item light"
     >
       <span
         class="t-breadcrumb--text-overflow"

@@ -23,7 +23,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
     ...restProps
   } = props;
 
-  const { maxItemWidthInContext } = useContext(BreadcrumbContext);
+  const { maxItemWidthInContext, theme } = useContext(BreadcrumbContext);
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
@@ -66,7 +66,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
   const separatorContent = typeof separator === 'function' ? separator() : separator;
 
   return (
-    <div className={breadcrumbItemClassNames} ref={ref} {...restProps}>
+    <div className={classNames(breadcrumbItemClassNames, theme)} ref={ref} {...restProps}>
       {itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
