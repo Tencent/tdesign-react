@@ -205,15 +205,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   function resetField(type: string) {
     if (!name) return;
-    shouldValidate.current = false;
 
     const resetType = type || resetTypeFromContext;
-    if (resetType === 'empty') {
-      setFormValue(getEmptyValue());
+    const resetValue = resetType === 'initial' ? initialData : getEmptyValue();
+    // 防止触发校验
+    if (resetValue !== formValue) {
+      shouldValidate.current = false;
     }
-    if (resetType === 'initial') {
-      setFormValue(initialData);
-    }
+    setFormValue(resetValue);
 
     if (resetValidating) {
       setNeedResetField(true);
@@ -251,6 +250,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       name && onFormItemValueChange({ [name]: formValue });
     }
 
+    console.log('shouldValidate.current', shouldValidate.current);
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
     if (!shouldValidate.current || !isMounted.current) {
       isMounted.current = true;
