@@ -35,7 +35,7 @@ const Tag = forwardRefWithStatics(
       onClick = noop,
       onClose = noop,
       className,
-      style,
+      style = {},
       disabled,
       children,
       ...otherTagProps
@@ -84,11 +84,12 @@ const Tag = forwardRefWithStatics(
           if (disabled) return;
           onClick({ e });
         }}
+        style={style}
         {...otherTagProps}
       >
         {icon}
         {maxWidth ? (
-          <span className={`${tagClassPrefix}--text`} style={{ ...(style || {}), ...{ maxWidth } }}>
+          <span className={`${tagClassPrefix}--text`} style={{ maxWidth }}>
             {children || content}
           </span>
         ) : (
