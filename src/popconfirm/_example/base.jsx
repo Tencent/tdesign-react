@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, PopConfirm, MessagePlugin } from 'tdesign-react';
 
 export default function BasicExample() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const deleteClickHandler = () => {
     const msg = MessagePlugin.info('提交中', 0);
@@ -15,7 +15,7 @@ export default function BasicExample() {
 
   return (
     <div className="tdesign-demo-block-row">
-      <PopConfirm content={'确认删除订单吗'}>
+      <PopConfirm content={'确认删除订单吗'} cancelBtn={null}>
         <Button theme="primary">删除订单</Button>
       </PopConfirm>
       <PopConfirm

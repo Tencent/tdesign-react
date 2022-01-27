@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import get from 'lodash/get';
-import { ConfigContext } from '../../config-provider';
 import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort, TdPrimaryTableProps } from '../type';
 import SorterButton, { SortTypeEnum } from './SorterButton';
 import { PrimaryTableProps } from './Table';
 import { useColumns } from '../hooks/useColumns';
+import useConfig from '../../_util/useConfig';
 
 interface ColKeySorterMap {
   [colKey: string]: PrimaryTableCol['sorter'];
@@ -21,7 +21,7 @@ type Columns = TdPrimaryTableProps['columns'];
  */
 function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
   const [, flattenColumns] = useColumns(props);
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const { columns, sort, defaultSort, multipleSort, onSortChange, data } = props;
   const isControlled = typeof sort !== 'undefined';
   const [innerSort, setInnerSort] = useState<TableSort>(defaultSort || []);

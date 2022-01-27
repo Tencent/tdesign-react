@@ -7,7 +7,7 @@ import { BreadcrumbContext } from './BreadcrumbContext';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
-    const { children, options, separator, maxItemWidth, ...restProps } = props;
+    const { children, options, separator, maxItemWidth, theme, ...restProps } = props;
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -34,6 +34,7 @@ const Breadcrumb = forwardRefWithStatics(
       <BreadcrumbContext.Provider
         value={{
           maxItemWidthInContext: maxItemWidth,
+          theme,
         }}
       >
         <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>

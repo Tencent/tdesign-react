@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import isFunction from 'lodash/isFunction';
-import { ConfigContext } from '../../config-provider';
+
 import { PrimaryTableCol, DataType, PrimaryTableRenderParams, SelectOptions, TableRowData } from '../type';
 import { PrimaryTableProps } from './Table';
 import { Checkbox } from '../../checkbox';
 import { Radio } from '../../radio';
 import { useEnhancedTableContext } from '../enhanced/TableContext';
+import useConfig from '../../_util/useConfig';
 
 type SelectType = PrimaryTableCol['type'];
 type CellParams = PrimaryTableRenderParams<DataType>;
@@ -21,7 +22,7 @@ const defaultWidth = 50;
  * 选中hook
  */
 function useSelect(props: PrimaryTableProps): [PrimaryTableCol[]] {
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const { columns, data, rowKey, defaultSelectedRowKeys, selectedRowKeys, onSelectChange } = props;
   const { checkStrictly, childrenKey = 'children', useFlattenRowData, getFlattenPageData } = useEnhancedTableContext();
   const isControlled = !!selectedRowKeys;

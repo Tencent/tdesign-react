@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import isString from 'lodash/isString';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import { TdListProps } from './type';
@@ -39,6 +40,7 @@ const List = forwardRefWithStatics(
     } = props;
 
     const { classPrefix } = useConfig();
+    const [local, t] = useLocaleReceiver('list');
 
     const handleClickLoad = (e: MouseEvent<HTMLDivElement>) => {
       if (asyncLoading === 'load-more') {
@@ -64,10 +66,10 @@ const List = forwardRefWithStatics(
         {asyncLoading === 'loading' && (
           <div>
             <Loading loading={true} />
-            <span>正在加载中，请稍等</span>
+            <span>{t(local.loadingText)}</span>
           </div>
         )}
-        {asyncLoading === 'load-more' && <span>点击加载更多</span>}
+        {asyncLoading === 'load-more' && <span>{t(local.loadingMoreText)}</span>}
       </div>
     ) : (
       asyncLoading

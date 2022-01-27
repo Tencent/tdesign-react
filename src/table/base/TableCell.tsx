@@ -51,6 +51,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
       const fixedColumns = flattenColumns.filter((column) => column.fixed === fixed);
       const indexInFixedColumns = fixedColumns.findIndex(({ colKey: key }) => key === colKey);
 
+      if (indexInFixedColumns === -1) return;
+
       fixedColumns.forEach((_, cur) => {
         if ((fixed === 'right' && cur > indexInFixedColumns) || (fixed === 'left' && cur < indexInFixedColumns)) {
           offset += clientWidth;

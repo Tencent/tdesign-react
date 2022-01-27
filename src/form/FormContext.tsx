@@ -12,6 +12,7 @@ const FormContext = React.createContext<{
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
+  disabled: TdFormProps['disabled'];
   rules: TdFormProps['rules'];
   formItemsRef: React.RefObject<Array<React.RefObject<HTMLElement>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
@@ -25,6 +26,7 @@ const FormContext = React.createContext<{
   scrollToFirstError: undefined,
   showErrorMessage: true,
   resetType: 'empty',
+  disabled: false,
   rules: undefined,
   statusIcon: false,
   onFormItemValueChange: undefined,

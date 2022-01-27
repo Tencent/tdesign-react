@@ -11,7 +11,7 @@ export default function BreadcrumbExample() {
         <BreadcrumbItem href="/" target="_blank">
           页面1
         </BreadcrumbItem>
-        <BreadcrumbItem href="/vue/components/button" disabled>
+        <BreadcrumbItem href="/react/components/button" disabled>
           页面2
         </BreadcrumbItem>
         <BreadcrumbItem maxItemWidth="160" onClick={() => setCount(count + 1)}>

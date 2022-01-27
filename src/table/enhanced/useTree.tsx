@@ -1,8 +1,8 @@
-import React, { useContext, isValidElement, useState, useMemo } from 'react';
+import React, { isValidElement, useState, useMemo } from 'react';
 import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
-import { ConfigContext } from '../../config-provider';
+import useConfig from '../../_util/useConfig';
 import { TdPrimaryTableProps, PrimaryTableCol, PrimaryTableRenderParams, DataType } from '../type';
 import { EnhancedTableProps } from './Table';
 
@@ -20,7 +20,7 @@ interface UseTreeResult {
 
 function useTree(props: EnhancedTableProps): UseTreeResult {
   const { columns, tree, rowKey, data } = props;
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const childrenKey = tree?.childrenKey || 'children';
   const indent = tree?.indent || 24;
 
