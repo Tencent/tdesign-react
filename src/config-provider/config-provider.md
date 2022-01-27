@@ -263,7 +263,7 @@ fileStatusText | String | '状态' | 语言配置，'状态' 描述文本 | N
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-requiredMark | Boolean | true | 是否显示必填符号，默认显示 | N
+requiredMark | Boolean | true | 是否显示必填符号（*），默认显示 | N
 
 ### TagConfig
 
