@@ -614,7 +614,7 @@ export interface UploadConfigFileList {
 
 export interface FormConfig {
   /**
-   * 是否显示必填符号，默认显示
+   * 是否显示必填符号（*），默认显示
    * @default true
    */
   requiredMark?: boolean;

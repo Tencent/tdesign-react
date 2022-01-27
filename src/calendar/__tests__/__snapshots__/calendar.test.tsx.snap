@@ -149,7 +149,7 @@ exports[`base.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -1462,7 +1462,7 @@ exports[`cell.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -2293,7 +2293,7 @@ exports[`cell-append.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -3307,7 +3307,7 @@ exports[`controller-config.jsx 1`] = `
               class="t-calendar__control-section"
             >
               <span
-                class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+                class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
                 theme="default"
               >
                 隐藏周末
@@ -3962,7 +3962,7 @@ exports[`event-props-api.jsx 1`] = `
           class="t-calendar__control-section"
         >
           <span
-            class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+            class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
             theme="default"
           >
             隐藏周末
@@ -4633,7 +4633,7 @@ exports[`events.jsx 1`] = `
           class="t-calendar__control-section"
         >
           <span
-            class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+            class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
             theme="default"
           >
             隐藏周末
@@ -5286,7 +5286,7 @@ exports[`filter.jsx 1`] = `
           class="t-calendar__control-section"
         >
           <span
-            class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+            class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
             theme="default"
           >
             隐藏周末
@@ -5964,7 +5964,7 @@ exports[`first-day-of-week.jsx 1`] = `
           class="t-calendar__control-section"
         >
           <span
-            class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+            class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
             theme="default"
           >
             隐藏周末
@@ -6534,7 +6534,7 @@ exports[`head.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -7508,7 +7508,7 @@ exports[`range.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -8144,7 +8144,7 @@ exports[`slot-props-api.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -8975,7 +8975,7 @@ exports[`value.jsx 1`] = `
         class="t-calendar__control-section"
       >
         <span
-          class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+          class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
           theme="default"
         >
           隐藏周末
@@ -9610,7 +9610,7 @@ exports[`week.jsx 1`] = `
           class="t-calendar__control-section"
         >
           <span
-            class="t-tag t-calendar__control-tag t-tag--default t-tag--check"
+            class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
             theme="default"
           >
             隐藏周末
