@@ -126,6 +126,7 @@ const Form = forwardRefWithStatics(
 
     // 对外方法，获取整个表单的值
     function getAllFieldsValue() {
+      console.error('getAllFieldsValue methods will combine to getFieldsValue, please change to getFieldsValue(true)');
       const fieldsValue = {};
       formItemsRef.current.forEach(({ current: formItemRef }) => {
         // 过滤无 name 的数据
@@ -142,6 +143,27 @@ const Form = forwardRefWithStatics(
       if (!name) return null;
       const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef?.name === name);
       return target.current?.value;
+    }
+
+    // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
+    function getFieldsValue(nameList: string[] | boolean) {
+      const fieldsValue = {};
+      const formItemsMap = getFormItemsMap();
+
+      if (nameList === true) {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          // 过滤无 name 的数据
+          if (formItemRef?.name) {
+            fieldsValue[formItemRef.name] = formItemRef.value;
+          }
+        });
+      } else {
+        if (!Array.isArray(nameList)) throw new Error('getFieldsValue 参数需要 Array 类型');
+        nameList.forEach((name) => {
+          if (formItemsMap[name]) fieldsValue[name] = formItemsMap[name].value;
+        });
+      }
+      return fieldsValue;
     }
 
     // 对外方法，设置对应 formItem 的值
@@ -199,6 +221,7 @@ const Form = forwardRefWithStatics(
       submit: submitHandler,
       reset,
       getFieldValue,
+      getFieldsValue,
       setFieldsValue,
       setFields,
       validate,
@@ -207,7 +230,7 @@ const Form = forwardRefWithStatics(
     }));
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = getAllFieldsValue();
+      const allFields = getFieldsValue(true);
       onValuesChange(changedValue, allFields);
     }
 
