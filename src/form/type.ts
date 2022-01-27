@@ -103,25 +103,29 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   clearValidate?: (fields?: Array<keyof FormData>) => void;
   /**
-   * 获取全部表单数据
+   * 【即将废弃，请使用 getFieldsValue】获取全部表单数据
    */
-  getAllFieldsValue: () => Record<keyof FormData, unknown>;
+  getAllFieldsValue?: () => Record<keyof FormData, unknown>;
+  /**
+   * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
+   */
+  getFieldsValue?: (nameList: string[] | boolean) => Record<keyof FormData, unknown>;
   /**
    * 获取单个字段值
    */
-  getFieldValue: (field: keyof FormData) => unknown;
+  getFieldValue?: (field: keyof FormData) => unknown;
   /**
-   * 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`，
+   * 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`
    */
   reset?: (params?: FormResetParams) => void;
   /**
    * 设置多组字段状态
    */
-  setFields: (fields: FieldData[]) => void;
+  setFields?: (fields: FieldData[]) => void;
   /**
    * 设置表单字段值
    */
-  setFieldsValue: (field: Array<keyof FormData>) => void;
+  setFieldsValue?: (field: Array<keyof FormData>) => void;
   /**
    * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
    */
