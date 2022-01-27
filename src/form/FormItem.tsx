@@ -250,7 +250,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       name && onFormItemValueChange({ [name]: formValue });
     }
 
-    console.log('shouldValidate.current', shouldValidate.current);
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
     if (!shouldValidate.current || !isMounted.current) {
       isMounted.current = true;
