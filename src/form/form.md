@@ -34,11 +34,12 @@ onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unkno
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | - | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
-getAllFieldsValue | - | `Record<keyof FormData, unknown>` | 必需。获取全部表单数据
-getFieldValue | `(field: keyof FormData)` | `unknown` | 必需。获取单个字段值
-reset | `(params?: FormResetParams)` | - | 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`， 。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams { type: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | - | 必需。设置多组字段状态。TS 类型：`(fields: FieldData[]) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
-setFieldsValue | `(field: Array<keyof FormData>)` | - | 必需。设置表单字段值
+getAllFieldsValue | - | `Record<keyof FormData, unknown>` | 【即将废弃，请使用 getFieldsValue】获取全部表单数据
+getFieldsValue | `(nameList: string[] | boolean)` | `Record<keyof FormData, unknown>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
+getFieldValue | `(field: keyof FormData)` | `unknown` | 获取单个字段值
+reset | `(params?: FormResetParams)` | - | 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams { type: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
+setFields | `(fields: FieldData[])` | - | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFieldsValue | `(field: Array<keyof FormData>)` | - | 设置表单字段值
 submit | - | - | 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
 validate | `(params?: FormValidateParams)` | `FormValidateResult<FormData>` | 校验函数，泛型 `FormData` 表示表单数据 TS 类型。【关于参数】params.fields 表示校验字段，如果设置了 fields ，本次校验将仅对这些字段进行校验。params.trigger 表示本次触发校验的范围，'blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormValidateParams { fields?: Array<string>; trigger?: ValidateTriggerType }`<br/><br/>`type ValidateTriggerType = 'blur' | 'change' | 'all'`<br/>
 
