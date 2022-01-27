@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConfigContext , Locale } from '../config-provider';
+import { ConfigContext, Locale } from '../config-provider';
 
 export interface Placement {
   [propName: string]: string | number;

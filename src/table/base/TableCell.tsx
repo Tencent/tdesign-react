@@ -38,7 +38,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
   } = props;
 
   const { classPrefix } = useConfig();
-  const { flattenColumns } = useTableContext();
+  const { flattenColumns, flattenData, pageData } = useTableContext();
   const [offset, setOffset] = useState(0);
   const [isBoundary, setIsBoundary] = useState(false);
 
@@ -65,7 +65,15 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     }
   }, [ref, flattenColumns, colKey, fixed]);
 
-  const cellNode = customRender({ type, row: record, rowIndex, col: columns?.[colIndex], colIndex });
+  const cellNode = customRender({
+    type,
+    row: record,
+    rowIndex,
+    col: columns?.[colIndex],
+    colIndex,
+    flattenData,
+    pageData,
+  });
 
   // ==================== styles ====================
   const cellStyle = { ...style };

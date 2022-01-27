@@ -18,6 +18,7 @@ import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
+import { useEnhancedTableContext } from '../enhanced/TableContext';
 
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
@@ -116,7 +117,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   // ==================== 固定表头、固定列 ====================
   const [scrollBarWidth, setScrollBarWidth] = useState(0);
   const fixedHeader = height > 0 || maxHeight > 0;
-  const table = useMemo(() => ({ fixedHeader, flattenColumns }), [fixedHeader, flattenColumns]);
   const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
   const scrollHeaderRef = useRef<HTMLDivElement>();
   const scrollBodyRef = useRef<HTMLDivElement>();
@@ -125,6 +125,14 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const [scrollableToLeft, setScrollableToLeft] = useState(false);
   const [scrollableToRight, setScrollableToRight] = useState(false);
   const [isHasScrollbar, setIsHasScrollbar] = useState(false);
+
+  // ==================== Context ====================
+  const { useFlattenData } = useEnhancedTableContext();
+  const flattenData = useFlattenData?.(pageData);
+  const tableContextValue = useMemo(
+    () => ({ fixedHeader, flattenColumns, flattenData, pageData }),
+    [fixedHeader, flattenColumns, flattenData, pageData],
+  );
 
   useLayoutEffect(() => {
     if (fixedHeader) {
@@ -314,7 +322,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       )}
       style={style}
     >
-      <TableContextProvider value={table}>
+      <TableContextProvider value={tableContextValue}>
         <Loading
           loading={!!loading}
           showOverlay
