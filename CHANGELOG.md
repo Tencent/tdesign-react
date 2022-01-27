@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 0.24.1 `2022-01-27`
+
+### Bug Fixes
+
+* Form: 修复 `reset` 后首次更改值不触发校验 ([#317](https://github.com/Tencent/tdesign-react/issues/317)) ([796ed8c](https://github.com/Tencent/tdesign-react/commit/796ed8c3983e7fdbdae5189a611ba545b962e60b)) [@HQ-Lin](https://github.com/HQ-Lin)
+
 ## 0.24.0 `2022-01-27`
 
 ### ❗️ BREAKING CHANGES
