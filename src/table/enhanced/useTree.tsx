@@ -11,8 +11,15 @@ type Data = TdPrimaryTableProps['data'];
 type CellParams = PrimaryTableRenderParams<DataType>;
 type Column = PrimaryTableCol<DataType>;
 
-function useTree(props: EnhancedTableProps): [Columns, Function] {
-  const { columns, tree, rowKey } = props;
+interface UseTreeResult {
+  treeColumns: Columns;
+  useFlattenData: Function;
+  useFlattenRowData: Function;
+  getFlattenPageData: Function;
+}
+
+function useTree(props: EnhancedTableProps): UseTreeResult {
+  const { columns, tree, rowKey, data } = props;
   const { classPrefix } = useContext(ConfigContext);
   const childrenKey = tree?.childrenKey || 'children';
   const indent = tree?.indent || 24;
@@ -21,25 +28,43 @@ function useTree(props: EnhancedTableProps): [Columns, Function] {
   const mergedExpandedKeys = React.useMemo(() => new Set(innerExpandedKeys || []), [innerExpandedKeys]);
 
   const treeNodeColumnIndex = getTreeNodeColumnIndex();
-  const transformedTreeColumns = getTreeColumns(columns);
+  const treeColumns = getTreeColumns(columns);
 
-  function useTreeData(pageData) {
-    const expandedData = useMemo(() => flattenData(pageData), [pageData]);
-    return expandedData;
+  function useFlattenData(pageData) {
+    const flattenData = useMemo(() => flatVisibleData(pageData), [pageData]);
+    return flattenData;
   }
 
-  function flattenData(data: Data, level = 0): Data {
-    const flatData = [];
-    data.forEach((row) => {
-      flatData.push({ ...row, level });
+  function useFlattenRowData(needFlat) {
+    return needFlat ? flatData(data) : data;
+  }
+
+  function getFlattenPageData(pageData) {
+    return flatData(pageData, 0, true);
+  }
+
+  function flatData(data: Data, level = 0, needParentRowKey?, parentRowKey?): Data {
+    const flattenData = [];
+    data?.forEach((row) => {
+      flattenData.push({ ...row, level, parentRowKey });
+      const childrenNodes = get(row, childrenKey);
+      flattenData.push(...flatData(childrenNodes, level + 1, needParentRowKey, row[rowKey]));
+    });
+    return flattenData;
+  }
+
+  function flatVisibleData(data: Data, level = 0, parentRowKey?): Data {
+    const flattenData = [];
+    data?.forEach((row) => {
+      flattenData.push({ ...row, level, parentRowKey });
       const childrenNodes = get(row, childrenKey);
       const rowValue = get(row, rowKey);
       const needExpand = Array.isArray(childrenNodes) && childrenNodes.length && mergedExpandedKeys.has(rowValue);
       if (needExpand) {
-        flatData.push(...flattenData(childrenNodes, level + 1));
+        flattenData.push(...flatVisibleData(childrenNodes, level + 1, rowValue));
       }
     });
-    return flatData;
+    return flattenData;
   }
 
   function getTreeNodeColumnIndex() {
@@ -121,7 +146,7 @@ function useTree(props: EnhancedTableProps): [Columns, Function] {
     return get(cellParams.row, colKey);
   }
 
-  return [transformedTreeColumns, useTreeData];
+  return { treeColumns, useFlattenData, useFlattenRowData, getFlattenPageData };
 }
 
 export default useTree;
