@@ -59,7 +59,7 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
       </span>
     );
   }
-  return <span className={`${name}__label`}>{label}</span>;
+  return <span className={`${name}-label`}>{label}</span>;
 };
 
 const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, handleChange) => {
