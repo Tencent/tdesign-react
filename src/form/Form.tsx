@@ -6,7 +6,7 @@ import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdFormProps, FormInstance, Result } from './type';
+import { TdFormProps, FormInstanceFunctions, FormValidateResult, FormResetParams } from './type';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -15,7 +15,7 @@ export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
-export interface FormRefInterface extends React.RefObject<unknown>, FormInstance {
+export interface FormRefInterface extends React.RefObject<unknown>, FormInstanceFunctions {
   currentElement: HTMLFormElement;
 }
 
@@ -35,6 +35,7 @@ const Form = forwardRefWithStatics(
       showErrorMessage = true,
       resetType = 'empty',
       rules,
+      disabled,
       children,
       onSubmit,
       onReset,
@@ -50,7 +51,20 @@ const Form = forwardRefWithStatics(
 
     const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
 
-    function getFirstError(r: Result) {
+    // calc all formItems
+    function getFormItemsMap() {
+      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
+        if (currItem?.name) {
+          const { name } = currItem;
+          return { ...acc, [name]: currItem };
+        }
+        return acc;
+      }, {});
+
+      return formItemsMap;
+    }
+
+    function getFirstError(r: FormValidateResult<FormData>) {
       if (r === true) return;
       const [firstKey] = Object.keys(r);
       if (scrollToFirstError) {
@@ -75,15 +89,13 @@ const Form = forwardRefWithStatics(
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
       e?.preventDefault();
       formItemsRef.current.forEach(({ current: formItemRef }) => {
-        if (formItemRef && isFunction(formItemRef.resetField)) {
-          formItemRef.resetField();
-        }
+        formItemRef && formItemRef?.resetField();
       });
       onReset?.({ e });
     }
 
     // 对外方法，该方法会触发全部表单组件错误信息显示
-    function validate(param?: Record<string, any>): Promise<Result> {
+    function validate(param?: Record<string, any>): Promise<FormValidateResult<FormData>> {
       function needValidate(name: string, fields: string[]) {
         if (!fields || !Array.isArray(fields)) return true;
         return fields.indexOf(name) !== -1;
@@ -114,6 +126,7 @@ const Form = forwardRefWithStatics(
 
     // 对外方法，获取整个表单的值
     function getAllFieldsValue() {
+      console.error('getAllFieldsValue methods will combine to getFieldsValue, please change to getFieldsValue(true)');
       const fieldsValue = {};
       formItemsRef.current.forEach(({ current: formItemRef }) => {
         // 过滤无 name 的数据
@@ -132,50 +145,93 @@ const Form = forwardRefWithStatics(
       return target.current?.value;
     }
 
+    // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
+    function getFieldsValue(nameList: string[] | boolean) {
+      const fieldsValue = {};
+      const formItemsMap = getFormItemsMap();
+
+      if (nameList === true) {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          // 过滤无 name 的数据
+          if (formItemRef?.name) {
+            fieldsValue[formItemRef.name] = formItemRef.value;
+          }
+        });
+      } else {
+        if (!Array.isArray(nameList)) throw new Error('getFieldsValue 参数需要 Array 类型');
+        nameList.forEach((name) => {
+          if (formItemsMap[name]) fieldsValue[name] = formItemsMap[name].value;
+        });
+      }
+      return fieldsValue;
+    }
+
     // 对外方法，设置对应 formItem 的值
-    function setFieldsValue(fileds = {}) {
-      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
-        if (currItem?.name) {
-          const { name } = currItem;
-          return { ...acc, [name]: currItem };
-        }
-        return acc;
-      }, {});
-      Object.keys(fileds).forEach((key) => {
-        formItemsMap[key]?.setValue(fileds[key]);
+    function setFieldsValue(fields = {}) {
+      const formItemsMap = getFormItemsMap();
+      Object.keys(fields).forEach((key) => {
+        formItemsMap[key]?.setValue(fields[key]);
       });
     }
 
     // 对外方法，设置对应 formItem 的数据
-    function setFields(fileds = []) {
-      if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
-      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
-        if (currItem?.name) {
-          const { name } = currItem;
-          return { ...acc, [name]: currItem };
-        }
-        return acc;
-      }, {});
-      fileds.forEach((filed) => {
-        const { name, value, status } = filed;
+    function setFields(fields = []) {
+      if (!Array.isArray(fields)) throw new Error('setFields 参数需要 Array 类型');
+      const formItemsMap = getFormItemsMap();
+      fields.forEach((field) => {
+        const { name, value, status } = field;
         formItemsMap[name]?.setField({ value, status });
       });
+    }
+
+    // 对外方法，重置对应 formItem 的数据
+    function reset(params: FormResetParams) {
+      // reset all
+      if (typeof params === 'undefined') {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          formItemRef && formItemRef?.resetField();
+        });
+      } else {
+        const { type = 'initial', fields = [] } = params;
+        const formItemsMap = getFormItemsMap();
+        fields.forEach((name) => {
+          formItemsMap[name]?.resetField(type);
+        });
+      }
+    }
+
+    // 对外方法，重置对应 formItem 的状态
+    function clearValidate(fields?: Array<keyof FormData>) {
+      // reset all
+      if (typeof fields === 'undefined') {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          formItemRef && formItemRef?.resetValidate();
+        });
+      } else {
+        if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
+        const formItemsMap = getFormItemsMap();
+        fields.forEach((name) => {
+          formItemsMap[name]?.resetValidate();
+        });
+      }
     }
 
     useImperativeHandle(ref as FormRefInterface, () => ({
       currentElement: formRef.current,
       submit: submitHandler,
-      reset: resetHandler,
+      reset,
       getFieldValue,
+      getFieldsValue,
       setFieldsValue,
       setFields,
       validate,
       getAllFieldsValue,
+      clearValidate,
     }));
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFileds = getAllFieldsValue();
-      onValuesChange(changedValue, allFileds);
+      const allFields = getFieldsValue(true);
+      onValuesChange(changedValue, allFields);
     }
 
     return (
@@ -192,6 +248,7 @@ const Form = forwardRefWithStatics(
           scrollToFirstError,
           resetType,
           rules,
+          disabled,
           formItemsRef,
           onFormItemValueChange,
         }}

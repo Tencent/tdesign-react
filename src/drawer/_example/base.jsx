@@ -13,10 +13,10 @@ export default function () {
   return (
     <div>
       <Button theme="primary" onClick={handleClick}>
-        Open a Drawer
+        打开抽屉
       </Button>
-      <Drawer header="这是标题" visible={visible} onClose={handleClose}>
-        <p>This is a drawer</p>
+      <Drawer header="抽屉标题" visible={visible} onClose={handleClose}>
+        <p>抽屉的内容</p>
       </Drawer>
     </div>
   );

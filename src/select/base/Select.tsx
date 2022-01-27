@@ -268,7 +268,7 @@ const Select = forwardRefWithStatics(
           },
         )}
       >
-        {selectedLabel || placeholder || '-请选择-'}
+        {selectedLabel || placeholder || t(local.placeholder)}
       </span>
     );
 
@@ -320,7 +320,7 @@ const Select = forwardRefWithStatics(
     const renderInput = () => (
       <Input
         value={isString(inputVal) || multiple ? inputVal : selectedLabel}
-        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || '-请选择-'}
+        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
         className={`${name}__input`}
         onChange={handleInputChange}
         onKeydown={handleInputKeyDown}

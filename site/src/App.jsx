@@ -3,9 +3,10 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
 import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
+// import locale from 'tdesign-react/locale/zh_CN';
+// import locale from 'tdesign-react/locale/en_US';
 import siteConfig from '../site.config.js';
 import { getRoute, filterVersions } from './utils';
-// import locale from 'tdesign-react/locale/en_US';
 import packageJson from '@/package.json';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
@@ -84,7 +85,7 @@ function Components(props) {
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
           {versionOptions.length ? (
             <div slot="extra">
-              <Select value={version} options={versionOptions} onChange={changeVersion} />
+              <Select popupProps={{ zIndex: 800 }} value={version} options={versionOptions} onChange={changeVersion} />
             </div>
           ) : null}
         </td-doc-aside>

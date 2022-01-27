@@ -59,7 +59,7 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
       </span>
     );
   }
-  return <span className={`${name}__label`}>{label}</span>;
+  return <span className={`${name}-label`}>{label}</span>;
 };
 
 const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, handleChange) => {
@@ -85,7 +85,7 @@ const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, ha
 const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIElement>) => {
   const {
     node,
-    cascaderContext: { multiple },
+    cascaderContext: { multiple, loadingText },
     onClick,
     onChange,
     onMouseEnter,
@@ -142,7 +142,7 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
       {multiple ? RenderCheckBox(node, cascaderContext, handleChange) : RenderLabelContent(node, cascaderContext)}
       {node.children &&
         (node.loading ? (
-          <TLoading className={iconClass} loading={true} size="small" />
+          <TLoading className={iconClass} loading={true} text={loadingText} size="small" />
         ) : (
           <ChevronRightIcon className={iconClass} />
         ))}

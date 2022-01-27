@@ -119,9 +119,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const { styles, attributes } = popperRef.current;
 
   const defaultStyles = useMemo(() => {
-    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef), zIndex };
-    return { ...overlayStyle, zIndex };
-  }, [overlayStyle, zIndex, triggerRef]);
+    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef) };
+    return { ...overlayStyle };
+  }, [overlayStyle, triggerRef]);
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = defaultStyles;
@@ -165,7 +165,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
           <CSSTransition in={visible} appear {...cssTransitionState.props}>
             <div
               ref={composeRefs(setOverlayRef, ref)}
-              style={styles.popper}
+              style={{ ...styles.popper, zIndex }}
               className={`${classPrefix}-popup`}
               {...attributes.popper}
               {...popupProps}

@@ -103,8 +103,8 @@ export default function mdToReact(options) {
                   ${mdSegment.demoMd.replace(/class=/g, 'className=')}
                   <td-contributors platform="web" framework="react" component-name="${mdSegment.componentName}" ></td-contributors>
                 </div>
-                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${mdSegment.apiMd}\` }}></div>
-                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${mdSegment.designMd}\` }}></div>
+                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.apiMd)} }}></div>
+                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.designMd)} }}></div>
               </>
             ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }

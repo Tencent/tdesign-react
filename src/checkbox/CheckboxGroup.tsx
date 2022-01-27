@@ -15,8 +15,10 @@ export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
 // 将 checkBox 的 value 转换为 string|number
 const getCheckboxValue = (v: CheckboxOption): string | number => {
   switch (typeof v) {
-    case 'number' || 'string':
-      return v as string | number;
+    case 'number':
+      return v as number;
+    case 'string':
+      return v as string;
     case 'object': {
       const vs = v as CheckboxOptionObj;
       return vs.value;
@@ -124,8 +126,16 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
           ? options.map((v, index) => {
               const type = typeof v;
               switch (type) {
-                case 'number' || 'string': {
-                  const vs = v as number | string;
+                case 'string': {
+                  const vs = v as string;
+                  return (
+                    <Checkbox key={vs} label={vs} value={vs}>
+                      {v}
+                    </Checkbox>
+                  );
+                }
+                case 'number': {
+                  const vs = v as number;
                   return (
                     <Checkbox key={vs} label={vs} value={vs}>
                       {v}
