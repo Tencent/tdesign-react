@@ -4,7 +4,7 @@ import { Tag } from 'tdesign-react';
 const { CheckTag } = Tag;
 
 export default function Size() {
-  const style = { marginRight: 30 };
+  const style = { marginRight: 10 };
   const styleTop = { marginTop: 10 };
   return (
     <>
@@ -20,9 +20,9 @@ export default function Size() {
         </Tag>
       </div>
       <div className="tdesign-demo-block-row" style={styleTop}>
-        <CheckTag size="small">小型标签</CheckTag>
-        <CheckTag size="medium">默认标签</CheckTag>
-        <CheckTag size="large">大型标签</CheckTag>
+        <CheckTag size="small" style={style}>小型标签</CheckTag>
+        <CheckTag size="medium" style={style}>默认标签</CheckTag>
+        <CheckTag size="large" style={style}>大型标签</CheckTag>
       </div>
     </>
   );
