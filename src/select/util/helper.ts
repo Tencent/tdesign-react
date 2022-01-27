@@ -33,13 +33,12 @@ export const getValueToOption = (children, options: TdOptionProps[], keys: Selec
   }
 
   if (isPlainObject(children)) {
-    const { name } = children.type as { name: string };
-    if (name === Option.name) {
+    if (children.type === Option) {
       setValueToOptionFormOptionDom(children, valueToOption, keys);
       return valueToOption;
     }
 
-    if (name === OptionGroup.name) {
+    if (children.type === OptionGroup) {
       const groupChildren = children.props.children;
 
       if (Array.isArray(groupChildren)) {
@@ -53,12 +52,11 @@ export const getValueToOption = (children, options: TdOptionProps[], keys: Selec
 
   if (Array.isArray(children)) {
     children.forEach((item: ReactElement) => {
-      const { name } = item.type as { name: string };
-      if (name === Option.name) {
+      if (item.type === Option) {
         setValueToOptionFormOptionDom(item, valueToOption, keys);
       }
 
-      if (name === OptionGroup.name) {
+      if (item.type === OptionGroup) {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           groupChildren.forEach((groupItem) => {
@@ -96,7 +94,7 @@ export const getLabel = (
   if (isPlainObject(children)) {
     selectedLabel = children.props.label;
 
-    if (children.type.name === OptionGroup.name) {
+    if (children.type === OptionGroup) {
       const groupChildren = children.props.children;
 
       if (Array.isArray(groupChildren)) {
@@ -115,8 +113,7 @@ export const getLabel = (
   if (Array.isArray(children)) {
     children.some((item: ReactElement) => {
       // 处理分组
-      const { name } = item.type as { name: string };
-      if (name === OptionGroup.name) {
+      if (item.type === OptionGroup) {
         const groupChildren = item.props.children;
         if (Array.isArray(groupChildren)) {
           const isSelected = groupChildren.some((item) => {
