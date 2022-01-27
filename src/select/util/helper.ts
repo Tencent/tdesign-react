@@ -34,11 +34,12 @@ export const getValueToOption = (children, options: TdOptionProps[], keys: Selec
 
   if (isPlainObject(children)) {
     const { name } = children.type as { name: string };
+    console.log(Option.name, 'Option.name');
     if (name === Option.name) {
       setValueToOptionFormOptionDom(children, valueToOption, keys);
       return valueToOption;
     }
-
+    console.log(OptionGroup.name, 'OptionGroup.name');
     if (name === OptionGroup.name) {
       const groupChildren = children.props.children;
 
