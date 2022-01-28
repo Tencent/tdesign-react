@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import { BaseTableCol, DataType } from '../type';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
+import { isNodeOverflow } from '../../_util/dom';
+import Popup from '../../popup';
 
 export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   columns?: BaseTableCol[];
@@ -41,8 +43,18 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
   const { flattenColumns, flattenData, pageData } = useTableContext();
   const [offset, setOffset] = useState(0);
   const [isBoundary, setIsBoundary] = useState(false);
+  const [isCellNodeOverflow, setIsCellNodeOverflow] = useState(false);
 
   const ref = useRef<HTMLTableDataCellElement | HTMLTableHeaderCellElement>();
+  const isEllipsis = ellipsis === true || typeof ellipsis === 'function';
+
+  useLayoutEffect(() => {
+    const tdRef = ref.current;
+    if (!tdRef || !isEllipsis) return;
+
+    const isCellNodeOverflow = isNodeOverflow(tdRef);
+    setIsCellNodeOverflow(isCellNodeOverflow);
+  }, [ref, isEllipsis]);
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -65,16 +77,6 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     }
   }, [ref, flattenColumns, colKey, fixed]);
 
-  const cellNode = customRender({
-    type,
-    row: record,
-    rowIndex,
-    col: columns?.[colIndex],
-    colIndex,
-    flattenData,
-    pageData,
-  });
-
   // ==================== styles ====================
   const cellStyle = { ...style };
   if (fixed) {
@@ -88,6 +90,52 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     cellStyle.borderWidth = 1;
   }
 
+  function getCellNode(className?) {
+    const cellNode = customRender({
+      type,
+      row: record,
+      rowIndex,
+      col: columns?.[colIndex],
+      colIndex,
+      flattenData,
+      pageData,
+      className,
+    });
+    return cellNode;
+  }
+
+  function getOverflowCellNode() {
+    const className = `${classPrefix}-text-ellipsis`;
+    const cellNode = getCellNode(className);
+    let popupCellContent;
+    if (typeof ellipsis === 'function') {
+      popupCellContent = ellipsis({
+        row: record,
+        col: columns?.[colIndex],
+        rowIndex,
+        colIndex,
+      });
+    } else {
+      popupCellContent = cellNode;
+    }
+
+    return (
+      <Popup
+        style={{ display: 'inline' }}
+        overlayStyle={{
+          width: '100%',
+          maxWidth: 400,
+          wordBreak: 'break-all',
+        }}
+        placement="bottom-left"
+        showArrow={false}
+        content={popupCellContent}
+      >
+        {cellNode}
+      </Popup>
+    );
+  }
+
   return (
     <td
       ref={ref}
@@ -96,13 +144,13 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
         [`${classPrefix}-table__cell--fixed-${fixed}`]: fixed,
         [`${classPrefix}-table__cell--fixed-${fixed}-${fixed === 'left' ? 'last' : 'first'}`]: fixed && isBoundary,
         [`${classPrefix}-align-${align}`]: align,
-        [`${classPrefix}-text-ellipsis`]: ellipsis,
+        [`${classPrefix}-text-ellipsis`]: isEllipsis,
         [`${className}`]: !!className,
       })}
       rowSpan={rowSpan}
       colSpan={colSpan}
     >
-      {cellNode}
+      {!isCellNodeOverflow ? getCellNode() : getOverflowCellNode()}
     </td>
   );
 };

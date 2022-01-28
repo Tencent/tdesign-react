@@ -59,7 +59,7 @@ export default function TableBasic() {
       columns={columns}
       rowKey="key"
       tree={{ childrenKey: 'list' }}
-      pagination={{ defaultPageSize: 5, defaultCurrent: 1, total: data.length }}
+      pagination={{ defaultPageSize: 5 }}
     />
   );
 }
