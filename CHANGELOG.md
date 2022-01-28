@@ -5,6 +5,14 @@ toc: false
 spline: explain
 ---
 
+## 0.24.2 `2022-01-28`
+
+### Bug Fixes
+
+* Table: 修复缺失style目录导致组件不可用的问题 ([f11d37c](https://github.com/Tencent/tdesign-react/commit/f11d37ca881b4573d288f5d97a84a1a697202b46)) [@yunfeic](https://github.com/yunfeic)
+
+
+
 ## 0.24.1 `2022-01-27`
 
 ### Bug Fixes
