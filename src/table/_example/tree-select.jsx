@@ -137,7 +137,7 @@ export default function TableSingleSort() {
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
         tree={{ checkStrictly }}
-        pagination={{ defaultPageSize: 5, defaultCurrent: 1, total: data.length }}
+        pagination={{ defaultPageSize: 5 }}
       />
     </div>
   );

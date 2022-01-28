@@ -65,7 +65,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const [columns, flattenColumns] = useColumns(props);
 
   // ==================== 翻页 ====================
-  let hasPagination = false;
+  const hasPagination = pagination ? (pagination.total || data.length) > 0 : false;
   const [innerCurrent, setInnerCurrentPagination] = useState<number>(
     pagination?.current || pagination?.defaultCurrent || 1,
   );
@@ -83,11 +83,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const onPageSizeChange = (pageSize: number, pageInfo: PageInfo) => {
     pagination?.onPageSizeChange?.(pageSize, pageInfo);
   };
-
-  if (pagination) {
-    const { total, showJumper } = pagination;
-    hasPagination = total > innerPageSize || (showJumper && total <= innerPageSize);
-  }
 
   const onInnerPaginationChange = (pageInfo: PageInfo) => {
     const { current, pageSize } = pageInfo;
@@ -203,6 +198,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     paginationNode = (
       <div className={`${classPrefix}-table__pagination`}>
         <Pagination
+          total={data?.length}
           {...pagination}
           current={innerCurrent}
           pageSize={innerPageSize}

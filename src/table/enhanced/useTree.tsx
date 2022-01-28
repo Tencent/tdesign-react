@@ -1,4 +1,5 @@
 import React, { isValidElement, useState, useMemo } from 'react';
+import classnames from 'classnames';
 import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -8,7 +9,9 @@ import { EnhancedTableProps } from './Table';
 
 type Columns = TdPrimaryTableProps['columns'];
 type Data = TdPrimaryTableProps['data'];
-type CellParams = PrimaryTableRenderParams<DataType>;
+interface CellParams extends PrimaryTableRenderParams<DataType> {
+  className?: string;
+}
 type Column = PrimaryTableCol<DataType>;
 
 interface UseTreeResult {
@@ -83,7 +86,7 @@ function useTree(props: EnhancedTableProps): UseTreeResult {
 
       const cell = (cellParams: CellParams) => {
         const originCellResult = getOriginCellResult(column, cellParams);
-        const { row } = cellParams;
+        const { row, className } = cellParams;
         const childrenNodes = get(row, childrenKey);
         const colStyle = { paddingLeft: row.level * indent };
 
@@ -92,7 +95,7 @@ function useTree(props: EnhancedTableProps): UseTreeResult {
           const expanded = mergedExpandedKeys.has(rowValue);
           const style = { marginRight: 8 };
           return (
-            <div className={`${classPrefix}-table__tree-col`} style={colStyle}>
+            <div className={classnames(`${classPrefix}-table__tree-col`, className)} style={colStyle}>
               {expanded ? (
                 <MinusRectangleIcon
                   style={style}
@@ -112,11 +115,19 @@ function useTree(props: EnhancedTableProps): UseTreeResult {
             </div>
           );
         }
-        return <div style={colStyle}>{originCellResult}</div>;
+        return (
+          <div className={className} style={colStyle}>
+            {originCellResult}
+          </div>
+        );
       };
+
       return {
         ...column,
         cell,
+        ...(column.ellipsis === true
+          ? { ellipsis: (cellParams: CellParams) => getOriginCellResult(column, cellParams) }
+          : {}),
       };
     });
   }
