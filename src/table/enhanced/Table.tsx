@@ -7,14 +7,18 @@ import { EnhancedTableContextProvider } from './TableContext';
 export type EnhancedTableProps = TdEnhancedTableProps & TdPrimaryTableProps;
 
 export default function EnhancedTable(props: EnhancedTableProps) {
-  const [treeColumns, useTreeData] = useTree(props);
+  const { treeColumns, useFlattenData, useFlattenRowData, getFlattenPageData } = useTree(props);
 
   const mergeColumns = treeColumns;
 
   return (
     <EnhancedTableContextProvider
       value={{
-        useTreeData,
+        checkStrictly: props?.tree?.checkStrictly,
+        childrenKey: props?.tree?.childrenKey,
+        useFlattenData,
+        useFlattenRowData,
+        getFlattenPageData,
       }}
     >
       <PrimaryTable {...props} columns={mergeColumns} />

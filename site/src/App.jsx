@@ -85,7 +85,7 @@ function Components(props) {
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
           {versionOptions.length ? (
             <div slot="extra">
-              <Select value={version} options={versionOptions} onChange={changeVersion} />
+              <Select popupProps={{ zIndex: 800 }} value={version} options={versionOptions} onChange={changeVersion} />
             </div>
           ) : null}
         </td-doc-aside>

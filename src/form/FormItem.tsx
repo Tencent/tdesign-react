@@ -205,15 +205,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   function resetField(type: string) {
     if (!name) return;
-    shouldValidate.current = false;
 
     const resetType = type || resetTypeFromContext;
-    if (resetType === 'empty') {
-      setFormValue(getEmptyValue());
+    const resetValue = resetType === 'initial' ? initialData : getEmptyValue();
+    // 防止触发校验
+    if (resetValue !== formValue) {
+      shouldValidate.current = false;
     }
-    if (resetType === 'initial') {
-      setFormValue(initialData);
-    }
+    setFormValue(resetValue);
 
     if (resetValidating) {
       setNeedResetField(true);
