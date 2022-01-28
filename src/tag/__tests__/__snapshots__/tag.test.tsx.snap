@@ -6,13 +6,13 @@ Object {
   "baseElement": <body>
     <div>
       <span
-        class="t-tag t-tag--default t-tag--check t-tag--checked"
+        class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--checked"
       />
     </div>
   </body>,
   "container": <div>
     <span
-      class="t-tag t-tag--default t-tag--check t-tag--checked"
+      class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--checked"
     />
   </div>,
   "debug": [Function],
@@ -326,22 +326,22 @@ exports[`base.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <span
-        class="t-tag t-tag--primary t-tag--plain t-tag--medium t-tag--square"
+        class="t-tag t-tag--primary t-tag--outline t-tag--medium t-tag--square"
       >
         标签一
       </span>
       <span
-        class="t-tag t-tag--warning t-tag--plain t-tag--medium t-tag--square"
+        class="t-tag t-tag--warning t-tag--outline t-tag--medium t-tag--square"
       >
         标签二
       </span>
       <span
-        class="t-tag t-tag--danger t-tag--plain t-tag--medium t-tag--square"
+        class="t-tag t-tag--danger t-tag--outline t-tag--medium t-tag--square"
       >
         标签三
       </span>
       <span
-        class="t-tag t-tag--success t-tag--plain t-tag--medium t-tag--square"
+        class="t-tag t-tag--success t-tag--outline t-tag--medium t-tag--square"
       >
         标签四
       </span>
@@ -360,6 +360,7 @@ exports[`delete.jsx 1`] = `
     >
       <span
         class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+        style="margin-right: 30px;"
       >
         可删除标签0
         <svg
@@ -378,6 +379,7 @@ exports[`delete.jsx 1`] = `
       </span>
       <span
         class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+        style="margin-right: 30px;"
       >
         <svg
           class="t-icon t-icon-discount"
@@ -416,6 +418,7 @@ exports[`delete.jsx 1`] = `
       </span>
       <span
         class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+        style="margin-right: 30px;"
       >
         可删除标签2
         <svg
@@ -510,17 +513,17 @@ exports[`selectable.jsx 1`] = `
     class="tdesign-demo-block-row"
   >
     <span
-      class="t-tag t-tag--default t-tag--check t-tag--checked"
+      class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--checked"
     >
       选中
     </span>
     <span
-      class="t-tag t-tag--default t-tag--check"
+      class="t-tag t-tag--default t-tag--check t-tag--medium"
     >
       未选
     </span>
     <span
-      class="t-tag t-tag--default t-tag--check t-tag--disabled"
+      class="t-tag t-tag--default t-tag--check t-tag--medium t-tag--disabled"
     >
       禁用
     </span>
@@ -552,6 +555,7 @@ exports[`shape.jsx 1`] = `
     >
       <span
         class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--round"
+        style="margin-right: 5px;"
       >
         标签一
       </span>
@@ -586,16 +590,42 @@ exports[`size.jsx 1`] = `
   >
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+      style="margin-right: 10px;"
     >
       小型标签
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+      style="margin-right: 10px;"
     >
       默认标签
     </span>
     <span
       class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+      style="margin-right: 10px;"
+    >
+      大型标签
+    </span>
+  </div>
+  <div
+    class="tdesign-demo-block-row"
+    style="margin-top: 10px;"
+  >
+    <span
+      class="t-tag t-size-s t-tag--default t-tag--check t-tag--small"
+      style="margin-right: 10px;"
+    >
+      小型标签
+    </span>
+    <span
+      class="t-tag t-tag--default t-tag--check t-tag--medium"
+      style="margin-right: 10px;"
+    >
+      默认标签
+    </span>
+    <span
+      class="t-tag t-size-l t-tag--default t-tag--check t-tag--large"
+      style="margin-right: 10px;"
     >
       大型标签
     </span>
