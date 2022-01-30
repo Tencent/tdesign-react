@@ -222,22 +222,21 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       onKeyUp={handleKeyup}
       onKeyPress={handleKeypress}
     >
-      {theme !== 'normal' && (
-        <StepHandler
-          prefixClassName={inputClassName}
-          theme={theme}
-          disabledDecrease={disabledDecrease}
-          disabledIncrease={disabledIncrease}
-          onStep={onInternalStep}
+      <StepHandler
+        theme={theme}
+        prefixClassName={inputClassName}
+        disabledDecrease={disabledDecrease}
+        disabledIncrease={disabledIncrease}
+        onStep={onInternalStep}
+      >
+        <Input
+          disabled={disabled}
+          value={internalInputValue}
+          onChange={onInternalInput}
+          status={isError ? 'error' : undefined}
+          {...restInputProps}
         />
-      )}
-      <Input
-        disabled={disabled}
-        value={internalInputValue}
-        onChange={onInternalInput}
-        status={isError ? 'error' : undefined}
-        {...restInputProps}
-      />
+      </StepHandler>
     </div>
   );
 });
