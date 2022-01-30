@@ -8991,3 +8991,551 @@ exports[`tree.jsx 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`tree-select.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="demo-table-tree-select"
+  >
+    <div
+      class="t-radio-group t-size-m t-radio-group__outline"
+    >
+      <label
+        class="t-radio-button t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+          value="true"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          父子行选中独立
+        </span>
+      </label>
+      <label
+        class="t-radio-button"
+      >
+        <input
+          class="t-radio-button__former"
+          readonly=""
+          type="radio"
+          value="false"
+        />
+        <span
+          class="t-radio-button__input"
+        />
+        <span
+          class="t-radio-button__label"
+        >
+          父子行选中关联
+        </span>
+      </label>
+    </div>
+    <div
+      class="t-table t-table--align-center"
+    >
+      <div
+        class="t-loading__parent"
+      >
+        <div
+          class="t-table__content"
+          style="overflow: auto;"
+        >
+          <table
+            style="table-layout: fixed; height: 100%;"
+          >
+            <colgroup>
+              <col
+                style="width: 50px;"
+              />
+              <col
+                style="width: 150px;"
+              />
+              <col
+                style="width: 100px;"
+              />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  colspan="1"
+                  rowspan="1"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox t-is-indeterminate"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  集群名称
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                  style="overflow: hidden;"
+                >
+                  状态
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                >
+                  管理员
+                </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                >
+                  描述
+                </td>
+              </tr>
+            </thead>
+            <tbody
+              class="t-table__body"
+            >
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox t-is-checked"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <div
+                    style="padding-left: 0px;"
+                  >
+                    JQTest1
+                  </div>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status"
+                  >
+                    健康
+                  </p>
+                </td>
+                <td
+                  class=""
+                >
+                  jenny;peter
+                </td>
+                <td
+                  class=""
+                >
+                  test
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox t-is-checked t-is-disabled"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      disabled=""
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <div
+                    style="padding-left: 0px;"
+                  >
+                    JQTest2
+                  </div>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status unhealth"
+                  >
+                    异常
+                  </p>
+                </td>
+                <td
+                  class=""
+                >
+                  jenny
+                </td>
+                <td
+                  class=""
+                >
+                  test
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <div
+                    class="t-table__tree-col"
+                    style="padding-left: 0px;"
+                  >
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      style="margin-right: 8px;"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                    JQTest3
+                  </div>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status"
+                  >
+                    健康
+                  </p>
+                </td>
+                <td
+                  class=""
+                >
+                  jenny
+                </td>
+                <td
+                  class=""
+                >
+                  test
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <div
+                    style="padding-left: 0px;"
+                  >
+                    JQTest4
+                  </div>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status unhealth"
+                  >
+                    异常
+                  </p>
+                </td>
+                <td
+                  class=""
+                >
+                  peter
+                </td>
+                <td
+                  class=""
+                >
+                  test
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="t-table__cell--selectable"
+                  style="padding: 10px 0px 10px 24px; overflow: hidden;"
+                >
+                  <label
+                    class="t-checkbox"
+                  >
+                    <input
+                      class="t-checkbox__former"
+                      readonly=""
+                      type="checkbox"
+                      value=""
+                    />
+                    <span
+                      class="t-checkbox__input"
+                    />
+                    <span
+                      class="t-checkbox__label"
+                    />
+                  </label>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <div
+                    class="t-table__tree-col"
+                    style="padding-left: 0px;"
+                  >
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      style="margin-right: 8px;"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                    JQTest5
+                  </div>
+                </td>
+                <td
+                  class=""
+                  style="overflow: hidden;"
+                >
+                  <p
+                    class="status unhealth"
+                  >
+                    异常
+                  </p>
+                </td>
+                <td
+                  class=""
+                >
+                  peter
+                </td>
+                <td
+                  class=""
+                >
+                  test
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div
+        class="t-table__pagination"
+      >
+        <div
+          class="t-pagination"
+        >
+          <div
+            class="t-pagination__total"
+          >
+            共 6 项数据
+          </div>
+          <div
+            class="t-pagination__select"
+          >
+            <div
+              class="t-select__wrap"
+            >
+              <div
+                class="t-popup__reference t-select__popup-reference"
+              >
+                <div
+                  class="t-select"
+                  style="user-select: none;"
+                >
+                  <span
+                    class="t-select__left-icon"
+                  />
+                  <span
+                    class="t-select__single"
+                  >
+                    5 条/页
+                  </span>
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-pagination__btn t-pagination__btn-prev t-is-disabled"
+          >
+            <svg
+              class="t-icon t-icon-chevron-left"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </div>
+          <ul
+            class="t-pagination__pager"
+          >
+            <li
+              class="t-pagination__number t-is-current"
+            >
+              1
+            </li>
+            <li
+              class="t-pagination__number"
+            >
+              2
+            </li>
+          </ul>
+          <div
+            class="t-pagination__btn t-pagination__btn-next"
+          >
+            <svg
+              class="t-icon t-icon-chevron-right"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
