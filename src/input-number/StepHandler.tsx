@@ -13,12 +13,14 @@ export interface StepHandlerProps {
   onStep: React.Dispatch<ChangeContext>;
   disabledDecrease: boolean;
   disabledIncrease: boolean;
+  children: React.ReactElement;
 }
 
 export default function StepHandler(props: StepHandlerProps) {
-  const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease } = props;
+  const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease, children } = props;
   const commonClassNames = useCommonClassName();
 
+  const isNormalTheme = theme === 'normal';
   const decreaseIcon = theme === 'column' ? <ChevronDownIcon /> : <RemoveIcon />;
   const increaseIcon = theme === 'column' ? <ChevronUpIcon /> : <AddIcon />;
 
@@ -27,24 +29,30 @@ export default function StepHandler(props: StepHandlerProps) {
 
   return (
     <>
-      <Button
-        variant="outline"
-        className={classNames(`${prefixClassName}__decrease`, {
-          [commonClassNames.STATUS.disabled]: disabledDecrease,
-        })}
-        onClick={onStepDecrease}
-        icon={decreaseIcon}
-        shape="square"
-      ></Button>
-      <Button
-        variant="outline"
-        className={classNames(`${prefixClassName}__increase`, {
-          [commonClassNames.STATUS.disabled]: disabledIncrease,
-        })}
-        onClick={onStepIncrease}
-        icon={increaseIcon}
-        shape="square"
-      ></Button>
+      {!isNormalTheme && (
+        <Button
+          variant="outline"
+          className={classNames(`${prefixClassName}__decrease`, {
+            [commonClassNames.STATUS.disabled]: disabledDecrease,
+          })}
+          onClick={onStepDecrease}
+          icon={decreaseIcon}
+          shape="square"
+        ></Button>
+      )}
+
+      {children}
+      {!isNormalTheme && (
+        <Button
+          variant="outline"
+          className={classNames(`${prefixClassName}__increase`, {
+            [commonClassNames.STATUS.disabled]: disabledIncrease,
+          })}
+          onClick={onStepIncrease}
+          icon={increaseIcon}
+          shape="square"
+        ></Button>
+      )}
     </>
   );
 }
