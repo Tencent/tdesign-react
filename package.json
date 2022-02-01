@@ -94,7 +94,7 @@
     "@babel/preset-react": "^7.16.5",
     "@babel/preset-typescript": "^7.16.5",
     "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
+    "@commitlint/config-conventional": "^16.0.0",
     "@cypress/code-coverage": "^3.9.12",
     "@cypress/react": "^5.10.3",
     "@cypress/vite-dev-server": "^2.2.0",
