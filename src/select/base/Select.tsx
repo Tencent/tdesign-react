@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 
-import { isNumber } from 'lodash';
+import isNumber from 'lodash/isNumber';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import composeRefs from '../../_util/composeRefs';
