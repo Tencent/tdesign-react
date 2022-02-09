@@ -85,8 +85,8 @@ describe('Input 组件测试', () => {
     const { queryByPlaceholderText } = render(
       <Input
         placeholder={InputPlaceholder}
-        onCompositionStart={onCompositionStartFn}
-        onCompositionEnd={onCompositionEndFn}
+        onCompositionstart={onCompositionStartFn}
+        onCompositionend={onCompositionEndFn}
       />,
     );
     const InputDom = queryByPlaceholderText(InputPlaceholder);
