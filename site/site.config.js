@@ -180,10 +180,16 @@ export default {
           component: () => import('tdesign-react/input/input.md'),
         },
         {
-          title: 'InputNumber 数字输入',
+          title: 'InputNumber 数字输入框',
           name: 'input-number',
           path: '/react/components/input-number',
           component: () => import('tdesign-react/input-number/input-number.md'),
+        },
+        {
+          title: 'TagInput 标签输入框',
+          name: 'tag-input',
+          path: '/react/components/tag-input',
+          component: () => import('tdesign-react/tag-input/tag-input.md'),
         },
         {
           title: 'Radio 单选框',

@@ -1,0 +1,35 @@
+import React, { useState } from 'react';
+import { TagInput } from 'tdesign-react';
+
+export default function TagInputBaseExample() {
+  const [tags1, setTags1] = useState(['Vue', 'React']);
+  const [tags2] = useState(['Vue', 'React']);
+  const [tags3] = useState(['Vue', 'React']);
+
+  const onTagInputEnter = (val, context) => {
+    console.log(val, context);
+  };
+  const onChange = (val, context) => {
+    console.log(val, context);
+    setTags1(val);
+  };
+  const onPaste = (context) => {
+    console.log(context);
+  };
+
+  return (
+    <div className="tdesign-demo-block-column" style={{ width: '80%' }}>
+      <TagInput
+        value={tags1}
+        onChange={onChange}
+        clearable
+        onPaste={onPaste}
+        onEnter={onTagInputEnter}
+      />
+
+      <TagInput value={tags2} label="Controlled: " clearable />
+
+      <TagInput defaultValue={tags3} label="UnControlled: " clearable />
+    </div>
+  )
+}
