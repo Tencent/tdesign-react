@@ -177,6 +177,39 @@ exports[`addon.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`align.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-item--input__input-box"
+  >
+    <div
+      class="t-input t-align-left"
+    >
+      <input
+        class="t-input__inner"
+        value="居左对齐"
+      />
+    </div>
+    <div
+      class="t-input t-align-center"
+    >
+      <input
+        class="t-input__inner"
+        value="居中对齐"
+      />
+    </div>
+    <div
+      class="t-input t-align-right"
+    >
+      <input
+        class="t-input__inner"
+        value="居右对齐"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
