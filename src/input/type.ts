@@ -5,7 +5,7 @@
  * */
 
 import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, ClipboardEvent } from 'react';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, WheelEvent, FormEvent } from 'react';
 
 export interface TdInputProps {
   /**
@@ -145,9 +145,13 @@ export interface TdInputProps {
    */
   onMouseleave?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
+   * 输入框中滚动鼠标时触发
+   */
+  onMousewheel?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
+  /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent; pasteValue: string }) => void;
+  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
 }
 
 export type InputValue = string | number;

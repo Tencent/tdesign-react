@@ -1,6 +1,7 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { isFunction } from 'lodash';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from './type';
@@ -60,6 +61,8 @@ const Input = forwardRefWithStatics(
       onCompositionEnd,
       autofocus,
       readonly,
+      label,
+      suffix,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
 
@@ -80,6 +83,8 @@ const Input = forwardRefWithStatics(
       suffixIcon
     );
     const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+    const labelContent = isFunction(label) ? label() : label;
+    const suffixContent = isFunction(suffix) ? suffix() : suffix;
 
     const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
     const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {
@@ -127,15 +132,17 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-size-l`]: size === 'large',
           [`${classPrefix}-align-${align}`]: align,
           [`${classPrefix}-is-${status}`]: status,
-          [`${classPrefix}-input--prefix`]: prefixIcon,
-          [`${classPrefix}-input--suffix`]: suffixIconContent,
+          [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
+          [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
         })}
         onMouseEnter={() => toggleIsHover(true)}
         onMouseLeave={() => toggleIsHover(false)}
       >
         {prefixIconContent}
+        {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
         {renderInput}
+        {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}
         {suffixIconContent}
       </div>
     );
