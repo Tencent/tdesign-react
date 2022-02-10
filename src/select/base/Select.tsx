@@ -281,7 +281,12 @@ const Select = forwardRefWithStatics(
           tags = getMultipleTags(value, keys);
         }
 
-        if (tags.length > 0)
+        if (tags.length > 0) {
+          const tagProps = {
+            size,
+            style: { maxWidth: '100%' },
+            maxWidth: '100%',
+          };
           return (
             <>
               {tags.slice(0, minCollapsedNum).map((item) => (
@@ -290,17 +295,18 @@ const Select = forwardRefWithStatics(
                   key={item.value}
                   onClose={({ e }) => removeTag(e, item.value, item)}
                   disabled={disabled}
-                  size={size}
+                  {...tagProps}
                 >
                   {item.label}
                 </Tag>
               ))}
               {collapsedItems}
               {minCollapsedNum && tags.length - minCollapsedNum > 0 && !collapsedItems ? (
-                <Tag size={size}> {`+${tags.length - minCollapsedNum}`}</Tag>
+                <Tag {...tagProps}> {`+${tags.length - minCollapsedNum}`}</Tag>
               ) : null}
             </>
           );
+        }
         return !filterable ? defaultLabel : null;
       }
       return !filterable ? defaultLabel : null;

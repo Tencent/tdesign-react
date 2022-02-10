@@ -40,7 +40,7 @@ const Tag = forwardRefWithStatics(
       children,
       ...otherTagProps
     } = props;
-
+    console.log('==maxWidth', maxWidth);
     const { classPrefix } = useConfig();
     const tagClassPrefix = `${classPrefix}-tag`;
 
