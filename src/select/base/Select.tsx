@@ -284,7 +284,6 @@ const Select = forwardRefWithStatics(
         if (tags.length > 0) {
           const tagProps = {
             size,
-            style: { maxWidth: '100%' },
             maxWidth: '100%',
           };
           return (
