@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo, useRef, useCallback, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
@@ -9,8 +9,12 @@ import { getCharacterLength } from '../_util/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}
+export interface TextareaRefInterface extends React.RefObject<unknown> {
+  currentElement: HTMLDivElement;
+  textareaElement: HTMLTextAreaElement;
+}
 
-const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputElement>) => {
+const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) => {
   const {
     disabled,
     maxlength,
@@ -33,7 +37,8 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   const [isFocused, setIsFocused] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState({});
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
-  const textareaRef = useRef<HTMLTextAreaElement>();
+  const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
+  const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
   const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
   const characterLength = useMemo(() => {
     const characterInfo = getCharacterLength(String(value), maxcharacter);
@@ -74,6 +79,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     } else if (typeof autosize === 'object') {
       setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
     } else {
+      // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
       setTextareaStyle({ height: 'auto', minHeight: 'auto' });
     }
   }, [autosize]);
@@ -93,9 +99,13 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
     adjustTextareaHeight();
   }, [adjustTextareaHeight]);
 
-  // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+  useImperativeHandle(ref as TextareaRefInterface, () => ({
+    currentElement: wrapperRef.current,
+    textareaElement: textareaRef.current,
+  }));
+
   return (
-    <div style={style} ref={ref} className={classNames(className, `${classPrefix}-textarea`)}>
+    <div style={style} ref={wrapperRef} className={classNames(className, `${classPrefix}-textarea`)}>
       <textarea
         {...textareaProps}
         {...eventProps}
