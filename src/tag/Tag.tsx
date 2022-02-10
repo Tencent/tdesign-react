@@ -40,7 +40,7 @@ const Tag = forwardRefWithStatics(
       children,
       ...otherTagProps
     } = props;
-    console.log('==maxWidth', maxWidth);
+
     const { classPrefix } = useConfig();
     const tagClassPrefix = `${classPrefix}-tag`;
 
@@ -84,17 +84,11 @@ const Tag = forwardRefWithStatics(
           if (disabled) return;
           onClick({ e });
         }}
-        style={style}
+        style={maxWidth ? { maxWidth, ...style } : style}
         {...otherTagProps}
       >
         {icon}
-        {maxWidth ? (
-          <span className={`${tagClassPrefix}--text`} style={{ maxWidth }}>
-            {children || content}
-          </span>
-        ) : (
-          children || content
-        )}
+        {maxWidth ? <span className={`${tagClassPrefix}--text`}>{children || content}</span> : children || content}
         {closable && deleteIcon}
       </span>
     );
