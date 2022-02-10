@@ -496,10 +496,10 @@ exports[`long-text.jsx 1`] = `
 <DocumentFragment>
   <span
     class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+    style="max-width: 150px;"
   >
     <span
       class="t-tag--text"
-      style="max-width: 150px;"
     >
       默认超八个字超长文本标签超长省略文本标签
     </span>

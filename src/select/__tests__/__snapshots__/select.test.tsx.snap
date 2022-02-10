@@ -68,7 +68,6 @@ exports[`collapsed.jsx 1`] = `
         >
           <span
             class="t-tag--text"
-            style="max-width: 100%;"
           >
             Banana
           </span>
@@ -442,7 +441,6 @@ exports[`keys.jsx 1`] = `
         >
           <span
             class="t-tag--text"
-            style="max-width: 100%;"
           >
             上海
           </span>
@@ -580,7 +578,6 @@ exports[`label-in-value.jsx 1`] = `
           >
             <span
               class="t-tag--text"
-              style="max-width: 100%;"
             >
               Apple
             </span>
@@ -642,7 +639,6 @@ exports[`max.jsx 1`] = `
         >
           <span
             class="t-tag--text"
-            style="max-width: 100%;"
           >
             Apple
           </span>
@@ -703,7 +699,6 @@ exports[`multiple.jsx 1`] = `
         >
           <span
             class="t-tag--text"
-            style="max-width: 100%;"
           >
             Banana
           </span>
