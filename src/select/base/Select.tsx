@@ -281,7 +281,11 @@ const Select = forwardRefWithStatics(
           tags = getMultipleTags(value, keys);
         }
 
-        if (tags.length > 0)
+        if (tags.length > 0) {
+          const tagProps = {
+            size,
+            maxWidth: '100%',
+          };
           return (
             <>
               {tags.slice(0, minCollapsedNum).map((item) => (
@@ -290,17 +294,18 @@ const Select = forwardRefWithStatics(
                   key={item.value}
                   onClose={({ e }) => removeTag(e, item.value, item)}
                   disabled={disabled}
-                  size={size}
+                  {...tagProps}
                 >
                   {item.label}
                 </Tag>
               ))}
               {collapsedItems}
               {minCollapsedNum && tags.length - minCollapsedNum > 0 && !collapsedItems ? (
-                <Tag size={size}> {`+${tags.length - minCollapsedNum}`}</Tag>
+                <Tag {...tagProps}> {`+${tags.length - minCollapsedNum}`}</Tag>
               ) : null}
             </>
           );
+        }
         return !filterable ? defaultLabel : null;
       }
       return !filterable ? defaultLabel : null;
@@ -336,7 +341,7 @@ const Select = forwardRefWithStatics(
       e.preventDefault();
       if (!disabled) {
         setShowPopup(!showPopup);
-        setInputVal('');
+        setInputVal(undefined);
       }
     };
 
@@ -345,7 +350,7 @@ const Select = forwardRefWithStatics(
       if (Array.isArray(value)) {
         onChange([]);
       } else {
-        onChange('');
+        onChange(null);
       }
       setInputVal(undefined);
       onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
@@ -362,7 +367,8 @@ const Select = forwardRefWithStatics(
           />
         );
       }
-      if (clearable && value && isHover) {
+
+      if (clearable && value !== undefined && value !== null && isHover) {
         return (
           <CloseCircleFilledIcon
             onClick={clearable ? onClearValue : undefined}
