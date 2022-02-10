@@ -17,7 +17,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const [tInputValue, setTInputValue] = useState<InputValue>();
 
   const {
-    excessTagsDisplayType,
+    excessTagsDisplayType = 'scroll',
     readonly,
     disabled,
     clearable,
@@ -58,9 +58,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
   useImperativeHandle(ref, () => ({
-    ...{
-      currentElement: tagInputRef.current,
-    },
+    currentElement: tagInputRef.current,
   }));
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
@@ -85,7 +83,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onChange={(val: InputValue) => {
         setTInputValue(val);
       }}
-      onMousewheel={onWheel}
+      onWheel={onWheel}
       size={size}
       readonly={readonly}
       disabled={disabled}

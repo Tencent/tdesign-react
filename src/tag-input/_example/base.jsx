@@ -25,11 +25,12 @@ export default function TagInputBaseExample() {
         clearable
         onPaste={onPaste}
         onEnter={onTagInputEnter}
+        placeholder='请输入'
       />
 
-      <TagInput value={tags2} label="Controlled: " clearable />
+      <TagInput value={tags2} label="Controlled: " placeholder='请输入' clearable />
 
-      <TagInput defaultValue={tags3} label="UnControlled: " clearable />
+      <TagInput defaultValue={tags3} label="UnControlled: " placeholder='请输入' clearable />
     </div>
   )
 }
