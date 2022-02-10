@@ -57,6 +57,10 @@ npm package 中提供了多种构建产物，可以阅读 [这里](https://githu
 - 桌面端 Vue 实现： [web-vue](https://github.com/Tencent/tdesign-vue)
 - 移动端小程序实现： [小程序](https://github.com/Tencent/tdesign-miniprogram)
 
+# 参与贡献
+
+如果需要本地运行代码或参与贡献，请参考[参与贡献](https://github.com/Tencent/tdesign-react/blob/develop/CONTRIBUTING.md)
+
 # 开源协议
 
 TDesign 遵循 [MIT 协议](https://github.com/Tencent/tdesign-react/LICENSE)。
