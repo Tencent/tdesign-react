@@ -342,7 +342,7 @@ const Select = forwardRefWithStatics(
       e.preventDefault();
       if (!disabled) {
         setShowPopup(!showPopup);
-        setInputVal('');
+        setInputVal(undefined);
       }
     };
 
@@ -351,7 +351,7 @@ const Select = forwardRefWithStatics(
       if (Array.isArray(value)) {
         onChange([]);
       } else {
-        onChange('');
+        onChange(null);
       }
       setInputVal(undefined);
       onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
@@ -368,7 +368,8 @@ const Select = forwardRefWithStatics(
           />
         );
       }
-      if (clearable && value && isHover) {
+
+      if (clearable && value !== undefined && value !== null && isHover) {
         return (
           <CloseCircleFilledIcon
             onClick={clearable ? onClearValue : undefined}
