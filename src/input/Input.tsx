@@ -1,7 +1,7 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { isFunction } from 'lodash';
+import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { TdInputProps, InputValue } from './type';
