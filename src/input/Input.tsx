@@ -9,10 +9,7 @@ import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
 
-export interface InputProps extends TdInputProps, StyledProps {
-  onCompositionStart?: Function;
-  onCompositionEnd?: Function;
-}
+export interface InputProps extends TdInputProps, StyledProps {}
 
 export interface InputRefInterface extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
@@ -54,11 +51,16 @@ const Input = forwardRefWithStatics(
       onClear,
       onEnter,
       onKeydown,
+      onKeyup,
+      onKeypress,
       onFocus,
       onBlur,
       onPaste,
-      onCompositionStart,
-      onCompositionEnd,
+      onMouseenter,
+      onMouseleave,
+      onWheel,
+      onCompositionstart,
+      onCompositionend,
       autofocus,
       readonly,
       label,
@@ -113,6 +115,8 @@ const Input = forwardRefWithStatics(
         autoFocus={autofocus}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onKeyPress={handleKeyPress}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
         onFocus={handleFocus}
@@ -136,8 +140,9 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
         })}
-        onMouseEnter={() => toggleIsHover(true)}
-        onMouseLeave={() => toggleIsHover(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onWheel={handleWheel}
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
@@ -167,12 +172,24 @@ const Input = forwardRefWithStatics(
       key === 'Enter' && onEnter?.(value, { e });
       onKeydown?.(value, { e });
     }
+    function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      onKeyup?.(value, { e });
+    }
+    function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      onKeypress?.(value, { e });
+    }
     function handleCompositionStart(e: React.CompositionEvent<HTMLInputElement>) {
       composingRef.current = true;
       const {
         currentTarget: { value },
       } = e;
-      onCompositionStart?.(value, { e });
+      onCompositionstart?.(value, { e });
     }
     function handleCompositionEnd(e: React.CompositionEvent<HTMLInputElement>) {
       const {
@@ -183,7 +200,7 @@ const Input = forwardRefWithStatics(
         handleChange(e);
       }
       setComposingValue('');
-      onCompositionEnd?.(value, { e });
+      onCompositionend?.(value, { e });
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
@@ -206,6 +223,20 @@ const Input = forwardRefWithStatics(
       const clipData = e.clipboardData;
       const pasteValue = clipData?.getData('text/plain');
       onPaste?.({ e, pasteValue });
+    }
+
+    function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+      toggleIsHover(true);
+      onMouseenter?.({ e });
+    }
+
+    function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
+      toggleIsHover(false);
+      onMouseleave?.({ e });
+    }
+
+    function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
+      onWheel?.({ e });
     }
 
     useImperativeHandle(ref as InputRefInterface, () => ({
