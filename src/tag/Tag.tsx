@@ -84,7 +84,7 @@ const Tag = forwardRefWithStatics(
           if (disabled) return;
           onClick({ e });
         }}
-        style={maxWidth ? { maxWidth, ...style } : style}
+        style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
         {...otherTagProps}
       >
         {icon}
