@@ -1,6 +1,6 @@
 import React, { useState, KeyboardEvent, useImperativeHandle, forwardRef } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { isFunction } from 'lodash';
+import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
 import TInput, { InputValue } from '../input';
@@ -15,26 +15,30 @@ export interface TagInputProps extends TdTagInputProps, StyledProps {}
 const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { classPrefix: prefix } = useConfig();
   const [tInputValue, setTInputValue] = useState<InputValue>();
+
   const {
     excessTagsDisplayType,
     readonly,
     disabled,
     clearable,
     placeholder,
-    suffixIcon,
     valueDisplay,
     label,
     inputProps,
     size,
     tips,
     status,
+    suffixIcon,
     suffix,
     onPaste,
     onFocus,
     onBlur,
   } = props;
+
   const { isHover, addHover, cancelHover } = useHover(props);
+
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
+
   // handle tag add and remove
   const { tagValue, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList(props);
 
@@ -54,7 +58,9 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
   useImperativeHandle(ref, () => ({
-    currentElement: tagInputRef.current,
+    ...{
+      currentElement: tagInputRef.current,
+    },
   }));
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
