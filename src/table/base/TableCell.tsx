@@ -59,7 +59,7 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
   useLayoutEffect(() => {
     if (ref.current) {
       let offset = 0;
-      const { clientWidth } = ref.current;
+
       const fixedColumns = flattenColumns.filter((column) => column.fixed === fixed);
       const indexInFixedColumns = fixedColumns.findIndex(({ colKey: key }) => key === colKey);
 
@@ -67,6 +67,9 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
 
       fixedColumns.forEach((_, cur) => {
         if ((fixed === 'right' && cur > indexInFixedColumns) || (fixed === 'left' && cur < indexInFixedColumns)) {
+          //  fix issue #334
+          //  这里累加的宽度应该是兄弟节点的宽度
+          const { clientWidth } = ref.current[fixed === 'left' ? 'previousElementSibling' : 'nextElementSibling'];
           offset += clientWidth;
         }
       });
