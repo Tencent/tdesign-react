@@ -57,9 +57,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
-  useImperativeHandle(ref, () => ({
-    currentElement: tagInputRef.current,
-  }));
+  useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     setTInputValue('');
