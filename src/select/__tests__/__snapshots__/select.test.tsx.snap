@@ -63,9 +63,14 @@ exports[`collapsed.jsx 1`] = `
           class="t-select__left-icon"
         />
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+          style="max-width: 100%;"
         >
-          Banana
+          <span
+            class="t-tag--text"
+          >
+            Banana
+          </span>
           <svg
             class="t-icon t-icon-close t-tag__icon-close"
             fill="none"
@@ -431,9 +436,14 @@ exports[`keys.jsx 1`] = `
           class="t-select__left-icon"
         />
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+          style="max-width: 100%;"
         >
-          上海
+          <span
+            class="t-tag--text"
+          >
+            上海
+          </span>
           <svg
             class="t-icon t-icon-close t-tag__icon-close"
             fill="none"
@@ -563,9 +573,14 @@ exports[`label-in-value.jsx 1`] = `
             class="t-select__left-icon"
           />
           <span
-            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+            style="max-width: 100%;"
           >
-            Apple
+            <span
+              class="t-tag--text"
+            >
+              Apple
+            </span>
             <svg
               class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
@@ -619,9 +634,14 @@ exports[`max.jsx 1`] = `
           class="t-select__left-icon"
         />
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+          style="max-width: 100%;"
         >
-          Apple
+          <span
+            class="t-tag--text"
+          >
+            Apple
+          </span>
           <svg
             class="t-icon t-icon-close t-tag__icon-close"
             fill="none"
@@ -674,9 +694,14 @@ exports[`multiple.jsx 1`] = `
           class="t-select__left-icon"
         />
         <span
-          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--ellipsis"
+          style="max-width: 100%;"
         >
-          Banana
+          <span
+            class="t-tag--text"
+          >
+            Banana
+          </span>
           <svg
             class="t-icon t-icon-close t-tag__icon-close"
             fill="none"
