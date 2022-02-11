@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { TdTreeSelectProps, TreeSelectValue } from './type';
 import { TreeOptionData } from '../common';
 import Tag from '../tag';
@@ -8,7 +8,21 @@ export interface TreeSelectTagsProps extends TdTreeSelectProps {
 }
 
 export default function TreeSelectTags(props: TreeSelectTagsProps) {
-  const { tagList, minCollapsedNum, collapsedItems, disabled, size, value, data, onRemove, onChange } = props;
+  const { tagList, minCollapsedNum, multiple, collapsedItems, disabled, size, value, data, onRemove, onChange } = props;
+
+  const collapsedSelectedItems = useMemo(() => {
+    if (!multiple || minCollapsedNum <= 0 || !Array.isArray(value)) return [];
+    const optionsMap: Record<string | number, TreeOptionData> = {};
+    function walk(data: TreeOptionData[]) {
+      Array.isArray(data) &&
+        data.forEach((option) => {
+          optionsMap[option.value] = option;
+          walk(option.children);
+        });
+    }
+    walk(data);
+    return value.slice(minCollapsedNum).map((value) => optionsMap[value as number | string]);
+  }, [value, minCollapsedNum, data, multiple]);
 
   if (!tagList.length) return null;
 
@@ -20,7 +34,7 @@ export default function TreeSelectTags(props: TreeSelectTagsProps) {
     onChange?.(value.filter((_, i) => i !== index) as Array<TreeSelectValue>, null);
   }
 
-  let tags = tagList.map((label, index) => (
+  const tags = tagList.slice(0, minCollapsedNum > 0 ? minCollapsedNum : undefined).map((label, index) => (
     <Tag
       key={index}
       size={size}
@@ -32,15 +46,23 @@ export default function TreeSelectTags(props: TreeSelectTagsProps) {
     </Tag>
   ));
 
-  if (minCollapsedNum) {
-    tags = tags.slice(0, minCollapsedNum);
-
+  if (minCollapsedNum > 0) {
     const nums = tagList.length - minCollapsedNum;
-    nums &&
+    nums > 0 &&
       tags.push(
-        <Tag key={`collapsed-${nums}`} size={size} disabled={disabled}>
-          {collapsedItems || `+${nums}`}
-        </Tag>,
+        <Fragment key={`collapsed-${nums}`}>
+          {typeof collapsedItems === 'function'
+            ? collapsedItems({
+                value: data,
+                collapsedSelectedItems,
+                count: nums,
+              })
+            : collapsedItems ?? (
+                <Tag size={size} disabled={disabled}>
+                  +{nums}
+                </Tag>
+              )}
+        </Fragment>,
       );
   }
 
