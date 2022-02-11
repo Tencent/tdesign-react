@@ -11,7 +11,7 @@ import React, {
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
-import Popper from '@popperjs/core';
+import { Placement } from '@popperjs/core';
 import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
 import useConfig from '../_util/useConfig';
@@ -26,28 +26,9 @@ export interface PopupProps extends TdPopupProps, StyledProps {
   expandAnimation?: boolean;
 }
 
-/**
- * 修复参数对齐popper.js 组件展示方向，与TD组件定义有差异
- */
-type PlacementDictionary = {
-  [Key in TdPopupProps['placement']]: Popper.Placement;
-};
-
-const placementMap: PlacementDictionary = {
-  top: 'top',
-  'top-left': 'top-start',
-  'top-right': 'top-end',
-  bottom: 'bottom',
-  'bottom-left': 'bottom-start',
-  'bottom-right': 'bottom-end',
-  left: 'left',
-  'left-top': 'left-start',
-  'left-bottom': 'left-end',
-  right: 'right',
-  'right-top': 'right-start',
-  'right-bottom': 'right-end',
-};
-
+function getPopperPlacement(placement: TdPopupProps['placement']) {
+  return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
+}
 const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const {
     trigger = 'hover',
@@ -77,13 +58,15 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
+  const referenceRef = useRef(null);
   const popupRef = useRef(null);
+
   const popperRef = useRef(null);
   const portalRef = useRef(null);
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
-    const referenceElmRect = popupRef.current.getBoundingClientRect();
+    const referenceElmRect = referenceRef.current.getBoundingClientRect();
     const { top: referenceElmTop, left: referenceElmLeft, bottom, right } = referenceElmRect;
     const referenceElmBottom = window.innerHeight - bottom;
     const referenceElmRight = window.innerWidth - right;
@@ -112,7 +95,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   }, []);
 
   popperRef.current = usePopper(triggerRef, overlayRef, {
-    placement: placementMap[placement],
+    placement: getPopperPlacement(placement),
     onFirstUpdate: onPopperFirstUpdate,
   });
 
@@ -173,7 +156,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         appear
         in={visible}
         timeout={200}
-        nodeRef={ref || portalRef}
+        nodeRef={popupRef}
         unmountOnExit={destroyOnClose}
         onEnter={handleEnter}
         onExited={handleExited}
@@ -183,14 +166,14 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             appear
             timeout={0}
             in={visible}
-            nodeRef={ref || portalRef}
+            nodeRef={popupRef}
             {...getTransitionParams({
               classPrefix,
               expandAnimation,
             })}
           >
             <div
-              ref={composeRefs(setOverlayRef, ref, portalRef)}
+              ref={composeRefs(setOverlayRef, ref, popupRef)}
               style={{ ...styles.popper, zIndex }}
               className={`${classPrefix}-popup`}
               {...attributes.popper}
@@ -218,7 +201,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     ) : null;
 
   return (
-    <div className={classNames(`${classPrefix}-popup__reference`, className)} style={style} ref={popupRef}>
+    <div className={classNames(`${classPrefix}-popup__reference`, className)} style={style} ref={referenceRef}>
       {triggerNode}
       {portal}
     </div>
