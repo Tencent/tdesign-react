@@ -14,7 +14,7 @@ export interface TreeSelectInputProps extends TdTreeSelectProps {
   selectedSingle: string;
 }
 
-const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<HTMLInputElement>) => {
+const TreeSelectInput = forwardRef((props: TreeSelectInputProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     selectedSingle,
     visible,
@@ -108,4 +108,6 @@ const TreeSelectTags = forwardRef((props: TreeSelectInputProps, ref: React.Ref<H
   );
 });
 
-export default TreeSelectTags;
+TreeSelectInput.displayName = 'TreeSelectInput';
+
+export default TreeSelectInput;
