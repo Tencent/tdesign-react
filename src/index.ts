@@ -15,6 +15,7 @@ export * from './steps';
 export * from './message';
 export * from './table';
 export * from './tag';
+export * from './tag-input';
 export * from './select';
 export * from './list';
 export * from './tabs';
