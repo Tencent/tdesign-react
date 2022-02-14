@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'react';
 import { createPortal } from 'react-dom';
 import { AttachNode, AttachNodeReturnValue } from '../common';
+import { canUseDocument } from '../_util/dom';
 
 export interface PortalProps {
   /**
@@ -11,6 +12,8 @@ export interface PortalProps {
 }
 
 export function getAttach(attach: PortalProps['attach']) {
+  if (!canUseDocument) return null;
+
   let parent: AttachNodeReturnValue;
   if (typeof attach === 'string') {
     parent = document.querySelector(attach);
@@ -28,29 +31,33 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   const { attach, children } = props;
 
   const container = useMemo(() => {
+    if (!canUseDocument) return null;
     const el = document.createElement('div');
     return el;
   }, []);
 
   useEffect(() => {
-    let parentElement = document.body;
-    let el = null;
+    let parentElement = canUseDocument ? document.body : null;
+    if (canUseDocument) {
+      let el = null;
 
-    // 处理 attach
-    if (typeof attach === 'function') {
-      el = attach();
-    } else if (typeof attach === 'string') {
-      el = document.querySelector(attach);
+      // 处理 attach
+      if (typeof attach === 'function') {
+        el = attach();
+      } else if (typeof attach === 'string') {
+        el = document.querySelector(attach);
+      }
+
+      // fix el in iframe
+      if (el && el.nodeType === 1) {
+        parentElement = el;
+      }
+
+      parentElement.appendChild(container);
     }
 
-    // fix el in iframe
-    if (el && el.nodeType === 1) {
-      parentElement = el;
-    }
-
-    parentElement.appendChild(container);
     return () => {
-      parentElement.removeChild(container);
+      parentElement?.removeChild(container);
     };
   }, [container, attach]);
 
