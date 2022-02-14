@@ -37,24 +37,22 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   }, []);
 
   useEffect(() => {
-    let parentElement = canUseDocument ? document.body : null;
-    if (canUseDocument) {
-      let el = null;
+    let parentElement = document.body;
+    let el = null;
 
-      // 处理 attach
-      if (typeof attach === 'function') {
-        el = attach();
-      } else if (typeof attach === 'string') {
-        el = document.querySelector(attach);
-      }
-
-      // fix el in iframe
-      if (el && el.nodeType === 1) {
-        parentElement = el;
-      }
-
-      parentElement.appendChild(container);
+    // 处理 attach
+    if (typeof attach === 'function') {
+      el = attach();
+    } else if (typeof attach === 'string') {
+      el = document.querySelector(attach);
     }
+
+    // fix el in iframe
+    if (el && el.nodeType === 1) {
+      parentElement = el;
+    }
+
+    parentElement.appendChild(container);
 
     return () => {
       parentElement?.removeChild(container);
