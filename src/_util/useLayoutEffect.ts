@@ -3,4 +3,4 @@ import { canUseDocument } from './dom';
 
 const useIsomorphicLayoutEffect = canUseDocument ? useLayoutEffect : useEffect;
 
-export default { useLayoutEffect: useIsomorphicLayoutEffect };
+export default useIsomorphicLayoutEffect;
