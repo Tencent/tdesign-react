@@ -5,6 +5,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
 import Col from './Col';
+import { canUseDocument } from '../_util/dom';
 
 /**
  * Row 组件支持的属性。
@@ -93,7 +94,7 @@ const Row = (props: RowProps) => {
     ...otherRowProps
   } = props;
 
-  const [size, setSize] = useState(calcSize(window.innerWidth));
+  const [size, setSize] = useState(canUseDocument ? calcSize(window.innerWidth) : 'xl');
 
   const updateSize = () => {
     const currentSize = calcSize(window.innerWidth);

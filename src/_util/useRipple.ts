@@ -1,6 +1,7 @@
 import { useEffect, useCallback, RefObject } from 'react';
 import useConfig from './useConfig';
 import setStyle from './setStyle';
+import { canUseDocument } from './dom';
 
 const period = 200;
 const noneRippleBg = 'rgba(0, 0, 0, 0)';
@@ -36,7 +37,8 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
 export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?: string): void {
   const { classPrefix } = useConfig();
 
-  const rippleContainer = document.createElement('div');
+  // TODO: insekkei recover
+  const rippleContainer = canUseDocument ? document.createElement('div') : null;
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
     (e) => {
