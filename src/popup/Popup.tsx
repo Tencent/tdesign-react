@@ -140,13 +140,12 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   const handleExited = () => {
     if (!destroyOnClose) {
-      portalRef.current.style = null;
       portalRef.current.style.display = 'none';
     }
   };
   const handleEnter = () => {
     if (!destroyOnClose) {
-      portalRef.current.style.display = '';
+      portalRef.current.style.display = 'block';
     }
   };
   // 初次不渲染.
@@ -155,7 +154,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
       <CSSTransition
         appear
         in={visible}
-        timeout={200}
+        timeout={180}
         nodeRef={popupRef}
         unmountOnExit={destroyOnClose}
         onEnter={handleEnter}
