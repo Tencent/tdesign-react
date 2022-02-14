@@ -25,6 +25,7 @@ const RIGHT = 'right';
 
 export interface DateRangePanelProps extends Omit<DatePanelProps, 'value'> {
   value: Array<Date>;
+  onPick: Function;
 }
 
 const DateRangePanel = (props: DateRangePanelProps) => {
@@ -126,20 +127,22 @@ const DateRangePanel = (props: DateRangePanelProps) => {
   function getClickHandler(direction: string) {
     const type = direction === LEFT ? leftType : rightType;
 
-    if (type === 'date') return (date: Date) => clickDate(date);
+    if (type === 'date') return (date: Date, e: MouseEvent) => clickDate(date, e);
 
     if (type === 'month') return (date: Date) => clickMonth(date, direction);
 
     if (type === 'year') return (date: Date) => clickYear(date, direction);
   }
 
-  function clickDate(date: Date) {
+  function clickDate(date: Date, e: MouseEvent) {
+    let partial = 'start';
     if (isFirstClick) {
       setStartValue(date);
       setEndValue(date);
       setIsFirstClick(false);
       setFirstClickValue(date);
     } else {
+      partial = 'end';
       if (dayjs(firstClickValue).isBefore(dayjs(date), 'day')) {
         setEndValue(date);
       } else {
@@ -149,6 +152,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
       onChange?.([setDateTime(startValue, 0, 0, 0), setDateTime(endValue, 23, 59, 59)]);
       setIsFirstClick(true);
     }
+    props.onPick && props.onPick(date, { e, partial });
   }
 
   function clickYear(date: Date, direction: string) {
