@@ -49,8 +49,8 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     [`${classPrefix}-date-picker__cell--last-day-of-month`]: lastDayOfMonth,
   });
 
-  function handleClick() {
-    !disabled && onClick(value);
+  function handleClick(e: React.MouseEvent) {
+    !disabled && onClick(value, { e });
   }
 
   function handleMouseEnter() {
