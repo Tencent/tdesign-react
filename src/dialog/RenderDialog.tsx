@@ -1,8 +1,9 @@
-import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react';
+import React, { useRef, CSSProperties, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
 import noop from '../_util/noop';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
 
 enum KeyCode {
