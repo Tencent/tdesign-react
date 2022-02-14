@@ -6,7 +6,7 @@ import { StyledProps } from '../common';
 import { TdAnchorProps } from './type';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { getScrollContainer } from '../_util/dom';
+import { canUseDocument, getScrollContainer } from '../_util/dom';
 import Affix from '../affix';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getScroll, scrollTo, AnchorContainer } from './_util/dom';
@@ -54,7 +54,7 @@ const Anchor = (props: AnchorProps) => {
   const anchorEl = useRef(null);
   const intervalRef = useRef<IntervalRef>({
     items: [],
-    scrollContainer: window,
+    scrollContainer: canUseDocument ? window : null,
     handleScrollLock: false,
   });
 
