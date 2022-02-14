@@ -12,10 +12,10 @@ function ssrSnapshotTest() {
         ...jest.requireActual('react'),
         useLayoutEffect: jest.requireActual('react').useEffect, // mock uselayout in ssr
       }));
-      ReactDOM.createPortal = jest.fn((element) => element); // mock createPortal in ssr
+      // ReactDOM.createPortal = jest.fn((element) => element); // mock createPortal in ssr
     });
     afterEach(() => {
-      ReactDOM.createPortal.mockClear();
+      // ReactDOM.createPortal.mockClear();
     });
     files.forEach((file) => {
       if (file.indexOf('temp') > -1) {
