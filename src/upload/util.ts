@@ -1,7 +1,5 @@
 import { TdUploadFile } from './types';
 
-const urlCreator = window.webkitURL || window.URL;
-
 export function returnFileSize(number: number) {
   if (number < 1024) {
     return `${number} Bytes`;
@@ -55,8 +53,10 @@ export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
   return nextFileList;
 }
 
+export const urlCreator = () => window.webkitURL || window.URL;
+
 export function createFileURL(file: File) {
-  return urlCreator.createObjectURL(file);
+  return urlCreator()?.createObjectURL(file);
 }
 
 export function finishUpload(state) {

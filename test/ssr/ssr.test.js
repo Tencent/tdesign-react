@@ -7,9 +7,6 @@ function ssrSnapshotTest() {
   describe('ssr snapshot test', () => {
     beforeAll(() => {
       jest.useFakeTimers().setSystemTime(new Date('2021-12-31').getTime());
-      jest.mock('react', () => ({
-        ...jest.requireActual('react'),
-      }));
     });
     files.forEach((file) => {
       if (file.indexOf('temp') > -1) {

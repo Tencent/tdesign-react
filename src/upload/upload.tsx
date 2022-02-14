@@ -12,7 +12,7 @@ import SingleFile from './themes/single-file';
 import ImageCard from './themes/image-card';
 import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
-import { finishUpload, isSingleFile, updateFileList } from './util';
+import { finishUpload, isSingleFile, updateFileList, urlCreator } from './util';
 import type { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
 import type {
   ProgressContext,
@@ -24,8 +24,6 @@ import type {
 } from './type';
 import useDefaultValue from './hooks/useDefaultValue';
 import useSizeLimit from './hooks/useSizeLimit';
-
-const urlCreator = window.webkitURL || window.URL;
 
 const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref) => {
   const {
@@ -273,7 +271,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         status: 'waiting',
         ...file,
       };
-      uploadFile.url = urlCreator.createObjectURL(fileRaw);
+      uploadFile.url = urlCreator()?.createObjectURL(fileRaw);
       return uploadFile;
     });
 
@@ -354,7 +352,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   // TODO
   const cancelUpload = useCallback(() => {
     if (!fileList[0]) {
-      urlCreator?.revokeObjectURL(fileList[0].url);
+      urlCreator()?.revokeObjectURL(fileList[0].url);
     }
     uploadRef.current.value = '';
   }, [fileList]);

@@ -47,10 +47,15 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
-  const bodyOverflow = useRef<string>(document.body.style.overflow);
-  const bodyCssTextRef = useRef<string>(document.body.style.cssText);
+  const bodyOverflow = useRef<string>();
+  const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
+
+  useEffect(() => {
+    bodyOverflow.current = document.body.style.overflow;
+    bodyCssTextRef.current = document.body.style.cssText;
+  }, []);
 
   useLayoutEffect(() => {
     if (visible) {

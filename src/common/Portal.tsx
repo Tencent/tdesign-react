@@ -61,7 +61,7 @@ const Portal = forwardRef((props: PortalProps, ref) => {
 
   useImperativeHandle(ref, () => container);
 
-  return createPortal(children, container);
+  return canUseDocument ? createPortal(children, container) : null;
 });
 
 Portal.displayName = 'Portal';
