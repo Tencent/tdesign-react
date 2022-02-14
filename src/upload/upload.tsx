@@ -25,7 +25,7 @@ import type {
 import useDefaultValue from './hooks/useDefaultValue';
 import useSizeLimit from './hooks/useSizeLimit';
 
-const urlCreator = window.webkitURL || window.URL;
+const urlCreator = () => window.webkitURL || window.URL;
 
 const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref) => {
   const {
@@ -273,7 +273,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         status: 'waiting',
         ...file,
       };
-      uploadFile.url = urlCreator.createObjectURL(fileRaw);
+      uploadFile.url = urlCreator()?.createObjectURL(fileRaw);
       return uploadFile;
     });
 
@@ -354,7 +354,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   // TODO
   const cancelUpload = useCallback(() => {
     if (!fileList[0]) {
-      urlCreator?.revokeObjectURL(fileList[0].url);
+      urlCreator()?.revokeObjectURL(fileList[0].url);
     }
     uploadRef.current.value = '';
   }, [fileList]);
