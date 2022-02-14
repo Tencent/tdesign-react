@@ -1,9 +1,10 @@
-import React, { CSSProperties, useRef, useLayoutEffect, useState, PropsWithChildren } from 'react';
+import React, { CSSProperties, useRef, useState, PropsWithChildren } from 'react';
 import classnames from 'classnames';
 import { BaseTableCol, DataType } from '../type';
 import useConfig from '../../_util/useConfig';
 import { useTableContext } from './TableContext';
 import { isNodeOverflow } from '../../_util/dom';
+import useLayoutEffect from '../../_util/useLayoutEffect';
 import Popup from '../../popup';
 
 export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
