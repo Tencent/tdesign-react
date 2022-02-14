@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, DependencyList } from 'react';
+import { useRef, DependencyList } from 'react';
+import useLayoutEffect from './useLayoutEffect';
 
 const useUpdateEffect = (callback: () => void, dependency: DependencyList) => {
   const ref = useRef(false);

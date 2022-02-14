@@ -1,9 +1,10 @@
-import React, { useMemo, useState, ReactNode, useLayoutEffect, useRef } from 'react';
+import React, { useMemo, useState, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
+import useLayoutEffect from '../../_util/useLayoutEffect';
 import { DataType, TdPrimaryTableProps } from '../type';
 import { StyledProps } from '../../common';
 import Pagination, { PageInfo } from '../../pagination';
