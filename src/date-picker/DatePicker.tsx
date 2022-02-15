@@ -10,7 +10,7 @@ import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from 'tdesign-icon
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps } from './type';
+import { TdDatePickerProps, DateValue, PickContext } from './type';
 import useCommonClassName from '../_util/useCommonClassName';
 import useClickOutside from '../_util/useClickOutside';
 
@@ -52,6 +52,7 @@ const DatePicker = (props: DatePickerProps) => {
     defaultValue,
     firstDayOfWeek,
     onChange,
+    onPick,
     // onBlur,
     // onFocus,
     // onInput,
@@ -366,8 +367,12 @@ const DatePicker = (props: DatePickerProps) => {
       maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
     };
 
+    const handlePick = (date: DateValue, context: PickContext) => {
+      onPick?.(date, context);
+    };
+
     const panelComponent = range ? (
-      <DateRangePanel {...panelProps} value={[start, end]} />
+      <DateRangePanel {...panelProps} onPick={handlePick} value={[start, end]} />
     ) : (
       <DatePanel {...panelProps} value={start} />
     );
