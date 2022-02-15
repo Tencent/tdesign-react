@@ -423,7 +423,7 @@ exports[`base.jsx 1`] = `
             class="t-table__body"
           >
             <tr
-              class="[object Object]-class"
+              class="0-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -462,7 +462,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="1-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -501,7 +501,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="2-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -540,7 +540,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="3-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -579,7 +579,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="4-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -618,7 +618,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="5-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -657,7 +657,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="6-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -696,7 +696,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="7-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -735,7 +735,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="8-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -774,7 +774,7 @@ exports[`base.jsx 1`] = `
               </td>
             </tr>
             <tr
-              class="[object Object]-class"
+              class="9-class"
             >
               <td
                 class="t-align-center t-text-ellipsis row"
@@ -7746,7 +7746,7 @@ exports[`select-multiple.jsx 1`] = `
                   style="padding: 10px 0px 10px 24px; overflow: hidden;"
                 >
                   <label
-                    class="t-checkbox t-is-checked t-is-disabled"
+                    class="t-checkbox t-is-disabled"
                   >
                     <input
                       class="t-checkbox__former"
@@ -9183,7 +9183,7 @@ exports[`tree-select.jsx 1`] = `
                   style="padding: 10px 0px 10px 24px; overflow: hidden;"
                 >
                   <label
-                    class="t-checkbox t-is-checked t-is-disabled"
+                    class="t-checkbox t-is-disabled"
                   >
                     <input
                       class="t-checkbox__former"
