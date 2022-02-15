@@ -71,7 +71,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
 
     return (
       <TableCell
-        key={colKey}
+        key={colKey || colIndex}
         type="cell"
         rowIndex={rowIndex}
         colIndex={colIndex}

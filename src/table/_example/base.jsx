@@ -83,7 +83,7 @@ export default function TableBasic() {
       bordered
       hover
       stripe
-      rowClassName={(rowKey) => `${rowKey}-class`}
+      rowClassName={({rowIndex}) => `${rowIndex}-class`}
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,
