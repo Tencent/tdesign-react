@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, useMemo, CSSProperties } from 'react';
 import classnames from 'classnames';
 
-import { addClass, removeClass } from '../_util/dom';
+import { addClass, canUseDocument, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdLoadingProps } from './type';
@@ -87,7 +87,7 @@ const Loading: FC<LoadingProps> = (props) => {
     className,
   );
 
-  if (preventScrollThrough && fullscreen) {
+  if (preventScrollThrough && fullscreen && canUseDocument) {
     if (loading) {
       addClass(document.body, lockClass);
     } else {
