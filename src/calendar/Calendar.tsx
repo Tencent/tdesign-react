@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, forwardRef } from 'react';
+import React, { useMemo, useState, useCallback, useEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button';
 import Select from '../select';
@@ -325,7 +326,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
 
   useLayoutEffect(() => {
     onControllerChange(controllerOptions);
-  }, [onControllerChange, controllerOptions]);
+  }, [controllerOptions, onControllerChange]);
 
   /**
    * 将 month 映射为文字输出
