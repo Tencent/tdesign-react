@@ -112,8 +112,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
       setErrorMsg(res?.error || '上传失败');
       const context = { e: event, file };
-      const nextFileList = updateFileList(file, fileList);
-      // setFileList((prevFileList) => updateFileList(file, prevFileList));
+      const nextFileList = updateFileList(file, fileList, true);
       onChange?.(nextFileList, { trigger: 'upload fail' });
       onFail?.(context);
     },

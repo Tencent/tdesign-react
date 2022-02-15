@@ -20,6 +20,7 @@ export function getCurrentDate() {
   month = month < 10 ? `0${month}` : month;
   return `${d.getFullYear()}-${month}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
 }
+
 /**
  * 缩略文件名 ABCDEFG => ABC...FG
  * @param inputName 文件名
@@ -43,13 +44,23 @@ export function abridgeName(inputName = '', leftCount = 5, rightcount = 7): stri
   return name.replace(new RegExp(`^(.{${leftLength}})(.+)(.{${rightLength}})$`), '$1…$3');
 }
 
-export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
+/**
+ * 更新文件列表
+ * @param {TdUploadFile} file 待操作文件
+ * @param {TdUploadFile[]}fileList  已有文件列表
+ * @param {boolean=false} deleteFile 是否删除文件
+ */
+export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[], deleteFile = false) {
   const nextFileList = [...fileList];
   const fileIndex = nextFileList.findIndex(({ uid }: TdUploadFile) => uid === file.uid);
-  if (fileIndex === -1) {
+  if (deleteFile) {
+    if (fileIndex !== -1) {
+      nextFileList.splice(fileIndex, 1);
+    }
+  } else if (fileIndex === -1) {
     nextFileList.push(file);
   } else {
-    nextFileList[fileIndex] = file;
+    nextFileList.splice(fileIndex, 1, file);
   }
 
   return nextFileList;
