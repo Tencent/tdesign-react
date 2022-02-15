@@ -115,7 +115,7 @@ const initData = [
 
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([1, '2']);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([1]);
   const [checkStrictly, setCheckStrictly] = useState(true);
 
   function onSelectChange(value, selectOptions) {
