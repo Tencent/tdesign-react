@@ -91,7 +91,7 @@ function rehandleClickOp(record) {
 
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([1, '2']);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([1]);
 
   function onSelectChange(value, { selectedRowData }) {
     console.log(value, selectedRowData);
