@@ -85,7 +85,6 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
                 isRowspanAndColspanFn,
                 rowspanAndColspan,
                 rowSkipTdSpanColIndexsMap,
-                dataLength: data.length,
               }
             : {})}
           rowEvents={rowEvents}
