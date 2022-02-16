@@ -5,18 +5,15 @@ export default function NotificationExample() {
   const [offsetY, setOffsetY] = useState('');
   const [offsetX, setOffsetX] = useState('');
 
-  const openNotification = React.useCallback(
-    (placement) => {
-      NotificationPlugin.info({
-        title: '标题名称',
-        content: '这是一条可以自动关闭的消息通知',
-        placement,
-        duration: 3000,
-        offset: [offsetX, offsetY],
-      });
-    },
-    [offsetX, offsetY],
-  );
+  const openNotification = (placement) => {
+    NotificationPlugin.info({
+      title: '标题名称',
+      content: '这是一条可以自动关闭的消息通知',
+      placement,
+      duration: 3000,
+      offset: [offsetX, offsetY],
+    });
+  };
 
   return (
     <div className="tdesign-demo-block-column">

@@ -78,45 +78,48 @@ exports[`close-all.jsx 1`] = `
 exports[`content.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="tdesign-demo-block-columns"
   >
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__main"
       >
-        <span
-          class="t-notification__title"
+        <div
+          class="t-notification__title__wrap"
         >
-          自定义内容（字符串）
-        </span>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
+          <span
+            class="t-notification__title"
+          >
+            自定义内容（字符串）
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知
+        </div>
       </div>
     </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__main"
       >
-        <span
-          class="t-notification__title"
+        <div
+          class="t-notification__title__wrap"
         >
-          自定义内容
-        </span>
-      </div>
-      <div>
-        这是一条消息通知
+          <span
+            class="t-notification__title"
+          >
+            自定义内容
+          </span>
+        </div>
+        <div>
+          这是一条消息通知
+        </div>
       </div>
     </div>
   </div>
