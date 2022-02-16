@@ -98,6 +98,17 @@ function FilterButton(props: Props) {
       console.error(`column.type must be the following: ${JSON.stringify(types)}`);
       return;
     }
+
+    if (filter.component) {
+      const CustomFilter = React.cloneElement(filter.component, {
+        value: filterVal?.[colKey] || '',
+        onChange: (value) => {
+          onChangeFilter(value, colKey, column);
+        },
+      });
+      return <div className={`${classPrefix}-table__filter-pop-content-inner`}>{CustomFilter}</div>;
+    }
+
     return (
       <div className={`${classPrefix}-table__filter-pop-content-inner`}>
         <>
