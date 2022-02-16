@@ -46,7 +46,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     [classPrefix],
   );
 
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), []);
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: noop }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
@@ -88,7 +88,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
   };
 
   return (
-    <div ref={ref} className={prefixCls(blockName)} style={style}>
+    <div className={prefixCls(blockName)} style={style}>
       {renderIcon()}
       <div className={prefixCls([blockName, 'main'])}>
         <div className={prefixCls([blockName, 'title__wrap'])}>
