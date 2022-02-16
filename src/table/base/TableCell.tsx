@@ -14,8 +14,8 @@ export interface CellProps<D extends DataType> extends BaseTableCol<DataType> {
   style?: CSSProperties;
   rowIndex?: number;
   colIndex?: number;
-  rowSpan?: number;
-  colSpan?: number;
+  rowspan?: number;
+  colspan?: number;
   customRender: Function;
   isFirstChildTdSetBorderWidth?: Boolean;
 }
@@ -35,8 +35,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
     columns,
     rowIndex,
     className,
-    rowSpan,
-    colSpan,
+    rowspan,
+    colspan,
     isFirstChildTdSetBorderWidth,
   } = props;
 
@@ -148,8 +148,8 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
         [`${classPrefix}-text-ellipsis`]: isEllipsis,
         [`${className}`]: !!className,
       })}
-      rowSpan={rowSpan}
-      colSpan={colSpan}
+      rowSpan={rowspan}
+      colSpan={colspan}
     >
       {!isCellNodeOverflow ? getCellNode() : getOverflowCellNode()}
     </td>

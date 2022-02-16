@@ -63,7 +63,7 @@ const Skeleton = (props: SkeletonProps) => {
     if (Array.isArray(_cols)) {
       cols = _cols;
     } else if (isNumber(_cols)) {
-      cols = [{ type: 'text' }];
+      cols = new Array(_cols).fill({ type: 'text' });
     } else {
       cols = [_cols as SkeletonRowColObj];
     }
