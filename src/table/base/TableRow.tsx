@@ -11,7 +11,6 @@ interface MergeCellsProps {
   rowspanAndColspan?: TdBaseTableProps['rowspanAndColspan'];
   isRowspanAndColspanFn?: boolean;
   rowSkipTdSpanColIndexsMap?: RowSkipTdSpanColIndexsMap;
-  dataLength?: number;
 }
 interface ExpandProps extends ExpandInnerProps {
   expandedRow?: TdPrimaryTableProps['expandedRow'];
@@ -37,7 +36,6 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     rowspanAndColspan,
     isRowspanAndColspanFn,
     rowSkipTdSpanColIndexsMap,
-    dataLength,
     rowEvents = {},
     expandedRow,
     expandOnRowClick,
@@ -49,11 +47,10 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     onDragEnd,
   } = props;
   const { flattenColumns } = useTableContext();
-  const flattenColumnsLength = flattenColumns?.length;
   const baseRow = flattenColumns.map((column, colIndex) => {
     const { colKey, cell, render, ...restColumnProps } = column;
 
-    const { isSkipRenderTd, rowSpan, colSpan, isFirstChildTdSetBorderWidth } = getRowSpanAndColSpanAndIsSkipRenderTd({
+    const { isSkipRenderTd, rowspan, colspan, isFirstChildTdSetBorderWidth } = getRowspanAndColspanAndIsSkipRenderTd({
       isRowspanAndColspanFn,
       rowspanAndColspan,
       rowSkipTdSpanColIndexsMap,
@@ -79,8 +76,8 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
         colKey={colKey}
         columns={flattenColumns}
         customRender={customRender}
-        rowSpan={rowSpan}
-        colSpan={colSpan}
+        rowspan={rowspan}
+        colspan={colspan}
         isFirstChildTdSetBorderWidth={isFirstChildTdSetBorderWidth}
         {...restColumnProps}
       />
@@ -105,7 +102,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     return () => get(record, colKey);
   }
 
-  function getRowSpanAndColSpanAndIsSkipRenderTd({
+  function getRowspanAndColspanAndIsSkipRenderTd({
     isRowspanAndColspanFn,
     rowspanAndColspan,
     rowSkipTdSpanColIndexsMap,
@@ -114,13 +111,13 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     col,
     row,
   }: MergeCellsProps & RowspanAndColspanParams<DataType>): {
-    rowSpan: number | undefined;
-    colSpan: number | undefined;
+    rowspan: number | undefined;
+    colspan: number | undefined;
     isSkipRenderTd: boolean;
     isFirstChildTdSetBorderWidth: boolean;
   } {
-    let rowSpan;
-    let colSpan;
+    let rowspan;
+    let colspan;
     let isSkipRenderTd = false;
     let isFirstChildTdSetBorderWidth = false;
 
@@ -132,15 +129,15 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
         row,
       });
 
-      const isRowspanAndColspanValueValid =
-        rowspanAndColspanValue && (rowspanAndColspanValue.rowspan || rowspanAndColspanValue.colspan);
+      const isRowspanAndColspanValueValid = !!(rowspanAndColspanValue?.rowspan || rowspanAndColspanValue?.colspan);
       if (isRowspanAndColspanValueValid) {
-        rowSpan = rowspanAndColspanValue.rowspan;
-        colSpan = rowspanAndColspanValue.colspan;
+        rowspan = rowspanAndColspanValue.rowspan || 1;
+        colspan = rowspanAndColspanValue.colspan || 1;
 
-        if (colSpan && colSpan > 1 && colSpan < flattenColumnsLength) {
+        // 跨列时，存储要跳过渲染的单元格
+        if (colspan && colspan > 1) {
           const minIndex = colIndex + 1;
-          const maxIndex = colIndex + colSpan;
+          const maxIndex = colIndex + colspan;
           const rowSkipTdSpanColIndexs = getRowSkipTdSpanColIndexs({
             minIndex,
             maxIndex,
@@ -150,11 +147,12 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
           rowSkipTdSpanColIndexsMap[rowIndex] = rowSkipTdSpanColIndexs; // eslint-disable-line
         }
 
-        if (rowSpan && rowSpan > 1 && rowSpan < dataLength) {
+        // 跨行时，存储要跳过渲染的单元格
+        if (rowspan && rowspan > 1) {
           const minRowIndex = rowIndex + 1;
-          const maxRowIndex = rowIndex + rowSpan;
+          const maxRowIndex = rowIndex + rowspan;
           const minIndex = colIndex;
-          const maxIndex = colIndex + colSpan;
+          const maxIndex = colIndex + colspan;
           Array.from(new Array(maxRowIndex - minRowIndex)).forEach((item, index) => {
             const skipRowIndex = index + minRowIndex;
             const rowSkipTdSpanColIndexs = getRowSkipTdSpanColIndexs({
@@ -172,8 +170,8 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     }
 
     return {
-      rowSpan,
-      colSpan,
+      rowspan,
+      colspan,
       isSkipRenderTd,
       isFirstChildTdSetBorderWidth,
     };

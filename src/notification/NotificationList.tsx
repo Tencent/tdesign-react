@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useImperativeHandle } from 'react';
 import ReactDOM from 'react-dom';
 import useConfig from '../_util/useConfig';
 import {
@@ -30,8 +30,6 @@ interface NotificationListProps {
   placement: NotificationPlacementList;
 }
 
-type NotificationRef = React.RefObject<React.ElementRef<'div'>> & React.RefObject<NotificationInstance>;
-
 let seed = 0;
 
 export const listMap: Map<NotificationPlacementList, NotificationListInstance> = new Map();
@@ -61,12 +59,13 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     },
     [],
   );
-  const notificationMap = React.useMemo<Map<string, NotificationRef>>(() => new Map(), []);
 
-  const remove = React.useCallback(
+  const notificationMap = useRef(new Map());
+
+  const remove = useCallback(
     (key: string): void => {
       dispatchList({ type: 'remove', key });
-      notificationMap.delete(key);
+      notificationMap.current.delete(key);
     },
     [notificationMap],
   );
@@ -75,51 +74,46 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     if (!offset) return '16px';
     return isNaN(Number(offset)) ? offset : `${offset}px`;
   };
-  /* eslint-disable implicit-arrow-linebreak */
-  const push = React.useCallback(
-    (theme: NotificationThemeList, options: NotificationInfoOptions): Promise<NotificationInstance> =>
-      new Promise((resolve) => {
-        const key = String((seed += 1));
-        const style: React.CSSProperties = (() => {
-          if (Array.isArray(options.offset)) {
-            const [horizontal, vertical] = [...options.offset];
-            const horizontalOffset = calOffset(horizontal);
-            const verticalOffset = calOffset(vertical);
 
-            return {
-              marginTop: verticalOffset,
-              marginBottom: verticalOffset,
-              marginLeft: horizontalOffset,
-              marginRight: horizontalOffset,
-            };
-          }
+  const push = (theme: NotificationThemeList, options: NotificationInfoOptions): Promise<NotificationInstance> =>
+    new Promise((resolve) => {
+      const key = String((seed += 1));
+      const style: React.CSSProperties = (() => {
+        if (Array.isArray(options.offset)) {
+          const [horizontal, vertical] = [...options.offset];
+          const horizontalOffset = calOffset(horizontal);
+          const verticalOffset = calOffset(vertical);
+
           return {
-            margin: '16px',
+            marginTop: verticalOffset,
+            marginBottom: verticalOffset,
+            marginLeft: horizontalOffset,
+            marginRight: horizontalOffset,
           };
-        })();
-        notificationMap.set(key, React.createRef());
-        dispatchList({ type: 'push', value: { ...options, key, theme, style } });
-        notificationMap.get(key).current.close = () => {
-          remove(key);
+        }
+        return {
+          margin: '16px',
         };
-        resolve(notificationMap.get(key).current);
-      }),
-    [notificationMap, remove],
-  );
+      })();
+      notificationMap.current.set(key, React.createRef());
+      dispatchList({ type: 'push', value: { ...options, key, theme, style } });
+      notificationMap.current.get(key).current.close = () => remove(key);
+      resolve(notificationMap.current.get(key).current);
+    });
 
-  const removeAll = React.useCallback(() => {
+  const removeAll = () => {
     dispatchList({ type: 'removeAll' });
-    notificationMap.clear();
-  }, [notificationMap]);
+    notificationMap.current.clear();
+  };
 
-  React.useImperativeHandle(ref, () => ({
+  useImperativeHandle(ref, () => ({
     push,
     remove,
     removeAll,
   }));
 
-  React.useEffect(() => {
-    if (list.length === 0 && notificationMap.size === 0) {
+  useEffect(() => {
+    if (list.length === 0 && notificationMap.current.size === 0) {
       listMap.delete(placement);
       ReactDOM.unmountComponentAtNode(attach);
       attach.remove();
@@ -133,8 +127,7 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
 
         return (
           <NotificationComponent
-            theme={'warning'}
-            ref={notificationMap.get(props.key)}
+            ref={notificationMap.current.get(props.key)}
             key={props.key}
             {...props}
             onDurationEnd={() => {

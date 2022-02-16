@@ -3,7 +3,7 @@ import { Layout, Menu } from 'tdesign-react';
 
 const { MenuItem } = Menu;
 
-const Logo = () => <span>LOGO</span>;
+const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
 
 function BasicUsage(props) {
   return (
