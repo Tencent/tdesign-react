@@ -302,12 +302,6 @@ export default {
           component: () => import('tdesign-react/skeleton/skeleton.md'),
         },
         {
-          title: 'Swiper 轮播框',
-          name: 'swiper',
-          path: '/react/components/swiper',
-          component: () => import('tdesign-react/swiper/swiper.md'),
-        },
-        {
           title: 'Table 表格',
           name: 'table',
           path: '/react/components/table',
