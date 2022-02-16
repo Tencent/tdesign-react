@@ -100,7 +100,8 @@ function FilterButton(props: Props) {
     }
 
     if (filter.component) {
-      const CustomFilter = React.cloneElement(filter.component, {
+      const FilterComponent = typeof filter.component === 'function' ? filter.component() : filter.component;
+      const CustomFilter = React.cloneElement(FilterComponent, {
         value: filterVal?.[colKey] || '',
         onChange: (value) => {
           onChangeFilter(value, colKey, column);
