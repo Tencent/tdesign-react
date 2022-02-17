@@ -7,10 +7,11 @@ spline: explain
 
 ## 0.25.0 `2022-02-17`
 
-### BREAKING_CHANGE
+### ❗️ BREAKING CHANGES
+
 * Textarea: 调整 `ref` 导出，输出 `currentElement` 及 `textareaElement` ([b0b7dee](https://github.com/Tencent/tdesign-react/commit/b0b7dee42afcaaebed97dd8490ad7de6ceb20f08)) [@carolin913](https://github.com/carolin913)
 
-### Bug Fixes
+### 🐞 Bug Fixes
 
 * Table:
   * 兼容 `colkey` 未指定导致 `key` 重复问题 ([#347](https://github.com/Tencent/tdesign-react/issues/347)) ([950c1bc](https://github.com/Tencent/tdesign-react/commit/950c1bcf6ae1b379adcc7eb4ae2efa6afb38c3ff)) [@HQ-Lin](https://github.com/HQ-Lin)
@@ -23,7 +24,7 @@ spline: explain
 * Skeleton: 修复 `row` `col` 失效 ([c5ecfba](https://github.com/Tencent/tdesign-react/commit/c5ecfba2e536fd39142728acc469f7358e1c5cdf)) [@Yilun-Sun](https://github.com/Yilun-Sun)
 
 
-### Features
+### 🌈 Features
 
 * TagInput: 新增 TagInput 组件 ([3305efe](https://github.com/Tencent/tdesign-react/commit/3305efe7461b33f32787d7e2f3d368b26e87d58e)) [@chaishi](https://github.com/chaishi)
 * Table:
