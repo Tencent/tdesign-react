@@ -5,6 +5,41 @@ toc: false
 spline: explain
 ---
 
+## 0.25.0 `2022-02-17`
+
+### BREAKING_CHANGE
+* Textarea: 调整 `ref` 导出，输出 `currentElement` 及 `textareaElement` ([b0b7dee](https://github.com/Tencent/tdesign-react/commit/b0b7dee42afcaaebed97dd8490ad7de6ceb20f08)) [@carolin913](https://github.com/carolin913)
+
+### Bug Fixes
+
+* Table:
+  * 兼容 `colkey` 未指定导致 `key` 重复问题 ([#347](https://github.com/Tencent/tdesign-react/issues/347)) ([950c1bc](https://github.com/Tencent/tdesign-react/commit/950c1bcf6ae1b379adcc7eb4ae2efa6afb38c3ff)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * 修复合并行数大于等于分页 `data` 长度时多渲染列导致错位 ([1568871](https://github.com/Tencent/tdesign-react/commit/156887153991edd02118a77ecd513e6fa9232071)) [@yunfeic](https://github.com/yunfeic)
+  * 修复分页器切换 `pageSzie时`消失 ([d89ff67](https://github.com/Tencent/tdesign-react/commit/d89ff67d38585573c6b62659609b4abc1e77a761)) [@yunfeic](https://github.com/yunfeic)
+* Notification: 修复组件状态更新后关闭逻辑报错问题 ([#358](https://github.com/Tencent/tdesign-react/issues/358)) ([93aa507](https://github.com/Tencent/tdesign-react/commit/93aa50758739e5091e2179517d89f205a04c3af4)) [@HQ-Lin](https://github.com/HQ-Lin)
+* InputNumber: 修复间距丢失问题 ([fcabaa9](https://github.com/Tencent/tdesign-react/commit/fcabaa90aac9a072454b1fe84b9933f6a1f34e1f)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Upload: 修复 `requestMethod` 返回 `fail` 时，图片依然回显问题 ([3bbd31b](https://github.com/Tencent/tdesign-react/commit/3bbd31bbfbec9dd3425030700d13c822ff28b778)) [@teal-front](https://github.com/teal-front)
+* Select: 修复清空按钮出现时机问题 ([2c5c8b1](https://github.com/Tencent/tdesign-react/commit/2c5c8b11a1423694bd621f7a76ea253fdf2f7dd7)) [@carolin913](https://github.com/carolin913)
+* Skeleton: 修复 `row` `col` 失效 ([c5ecfba](https://github.com/Tencent/tdesign-react/commit/c5ecfba2e536fd39142728acc469f7358e1c5cdf)) [@Yilun-Sun](https://github.com/Yilun-Sun)
+
+
+### Features
+
+* TagInput: 新增 TagInput 组件 ([3305efe](https://github.com/Tencent/tdesign-react/commit/3305efe7461b33f32787d7e2f3d368b26e87d58e)) [@chaishi](https://github.com/chaishi)
+* Table:
+  * 单元格省略时新增 `tooltip` 提示 ([d89ff67](https://github.com/Tencent/tdesign-react/commit/d89ff67d38585573c6b62659609b4abc1e77a761)) [@yunfeic](https://github.com/yunfeic)
+  * `filter.component` 支持 `function` ([cb55afc](https://github.com/Tencent/tdesign-react/commit/cb55afc1f2a10dcb63449b45ad7dfda8a178a70b)) [@yunfeic](https://github.com/yunfeic)
+  * 支持自定义过滤 ([763567c](https://github.com/Tencent/tdesign-react/commit/763567cdaf4a40e31ac02e194bf8fa180e30d590)) [@yunfeic](https://github.com/yunfeic)
+* TreeSelect:
+  * 支持 `collapsed` API ([9b5d46e](https://github.com/Tencent/tdesign-react/commit/9b5d46e3f70adfdad849eff3f99ba0fb484ca021)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+  * 支持 `valueDisplay` API ([0e981de](https://github.com/Tencent/tdesign-react/commit/0e981de3898d9de6ee29c853f9d2e4622a09b438)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+* Datepicker: 支持 `onPick` 事件 ([6530e9e](https://github.com/Tencent/tdesign-react/commit/6530e9e40cc1ef1fcf607aa53e382dbd45669da6)) [@xiaosansiji](https://github.com/xiaosansiji)
+* Input: 支持 `onWheel`、`onCompositionstart`、`onCompositionend` 事件 ([b85ea42](https://github.com/Tencent/tdesign-react/commit/b85ea423e932913c841e3b2bdfb95a49b6699398)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Popup: 调整下拉动画实现，使用 `clip-path` 替代 `max-height` ([f812cd2](https://github.com/Tencent/tdesign-react/commit/f812cd2f28098c8387fb6d901c1caef46dbd8d32)) [@uyarn](https://github.com/uyarn) [@HQ-Lin](https://github.com/HQ-Lin)
+* Select: 优化选项字数过多省略展示 ([85017fc](https://github.com/Tencent/tdesign-react/commit/85017fc5f7ce1622635ca33e142563c7d6623b4d)), closes [#339](https://github.com/Tencent/tdesign-react/issues/339) [@carolin913](https://github.com/carolin913)
+* Textarea: 支持 `autosize` API ([85017fc](https://github.com/Tencent/tdesign-react/commit/85017fc5f7ce1622635ca33e142563c7d6623b4d)), closes [#339](https://github.com/Tencent/tdesign-react/issues/339) [@carolin913](https://github.com/carolin913)
+
+
 ## 0.24.2 `2022-01-28`
 
 ### Bug Fixes
