@@ -112,14 +112,6 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     removeAll,
   }));
 
-  useEffect(() => {
-    if (list.length === 0 && notificationMap.current.size === 0) {
-      listMap.delete(placement);
-      ReactDOM.unmountComponentAtNode(attach);
-      attach.remove();
-    }
-  }, [list, attach, placement, notificationMap]);
-
   return (
     <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
       {list.map((props) => {
