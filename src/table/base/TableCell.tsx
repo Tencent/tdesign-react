@@ -61,18 +61,29 @@ const TableCell = <D extends DataType>(props: PropsWithChildren<CellProps<D>>) =
       let offset = 0;
 
       const fixedColumns = flattenColumns.filter((column) => column.fixed === fixed);
-      const indexInFixedColumns = fixedColumns.findIndex(({ colKey: key }) => key === colKey);
+      let indexInFixedColumns = fixedColumns.findIndex(({ colKey: key }) => key === colKey);
 
       if (indexInFixedColumns === -1) return;
 
-      fixedColumns.forEach((_, cur) => {
-        if ((fixed === 'right' && cur > indexInFixedColumns) || (fixed === 'left' && cur < indexInFixedColumns)) {
-          //  fix issue #334
-          //  这里累加的宽度应该是兄弟节点的宽度
-          const { clientWidth } = ref.current[fixed === 'left' ? 'previousElementSibling' : 'nextElementSibling'];
-          offset += clientWidth;
+      //  fix issue #334
+      //  这里累加的宽度应该是兄弟节点的宽度
+      let currentNode: Element = ref.current;
+      if (fixed === 'left') {
+        while (indexInFixedColumns > 0) {
+          const preEl = currentNode.previousElementSibling;
+          offset += preEl?.clientWidth || 0;
+          indexInFixedColumns -= 1;
+          currentNode = preEl;
         }
-      });
+      } else if (fixed === 'right') {
+        while (indexInFixedColumns < fixedColumns.length) {
+          const nextEl = currentNode.nextElementSibling;
+          offset += nextEl?.clientWidth || 0;
+          indexInFixedColumns += 1;
+          currentNode = nextEl;
+        }
+      }
+
       setOffset(offset);
 
       const isBoundary = fixed === 'left' ? indexInFixedColumns === fixedColumns.length - 1 : indexInFixedColumns === 0;
