@@ -5,6 +5,8 @@ import isFunction from 'lodash/isFunction';
 import { TdTreeSelectProps } from './type';
 import Input, { InputValue } from '../input';
 import useConfig from '../_util/useConfig';
+import { TNode } from '../common';
+import { NodeOptions } from './TreeSelect';
 
 export interface TreeSelectInputProps extends TdTreeSelectProps {
   visible: boolean;
@@ -31,6 +33,7 @@ const TreeSelectInput = forwardRef((props: TreeSelectInputProps, ref: React.Ref<
     onSearch,
     onBlur,
     onFocus,
+    valueDisplay,
   } = props;
   const { classPrefix } = useConfig();
 
@@ -100,7 +103,13 @@ const TreeSelectInput = forwardRef((props: TreeSelectInputProps, ref: React.Ref<
       {showPlaceholder && <span className={`${classPrefix}-select__placeholder`}>{placeholder}</span>}
 
       {!multiple && !showPlaceholder && !showFilter && (
-        <span className={`${classPrefix}-select__single`}>{selectedSingle}</span>
+        <span className={`${classPrefix}-select__single`}>
+          {valueDisplay
+            ? (valueDisplay as TNode<{ value: NodeOptions }>)({
+                value: { label: selectedSingle, value: value as string | number },
+              })
+            : selectedSingle}
+        </span>
       )}
 
       {searchInput}

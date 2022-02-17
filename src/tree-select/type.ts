@@ -100,7 +100,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 自定义选中项呈现方式
    */
-  valueDisplay?: TNode<{ value: TreeSelectValue; onClose: () => void }>;
+  valueDisplay?: TNode<{ value: TreeSelectValue; onClose: (index?: number) => void }>;
   /**
    * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据
    * @default value
