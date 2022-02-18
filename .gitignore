@@ -17,6 +17,7 @@ cjs
 robotMsg
 .gitlogmap
 _site/
+_static_site/
 package-lock.json
 pnpm-lock.yaml
 temp*

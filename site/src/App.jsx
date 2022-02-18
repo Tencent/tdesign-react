@@ -5,7 +5,7 @@ import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
 // import locale from 'tdesign-react/locale/zh_CN';
 // import locale from 'tdesign-react/locale/en_US';
-import siteConfig from '../site.config.js';
+import siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 import packageJson from '@/package.json';
 
