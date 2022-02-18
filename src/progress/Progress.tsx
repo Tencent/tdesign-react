@@ -148,17 +148,19 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
             stroke={trackColor}
             fill="none"
           ></circle>
-          <circle
-            cx={circleCenterInViewBox}
-            cy={circleCenterInViewBox}
-            r={radius}
-            strokeWidth={circleStokeWidth}
-            fill="none"
-            transform={`matrix(0,-1,1,0,0,${diameter + circleStokeWidth})`}
-            strokeDasharray={strokeDasharray}
-            className={`${classPrefix}-progress__circle-inner`}
-            style={circlePathStyle}
-          ></circle>
+          {percentage > 0 && (
+            <circle
+              cx={circleCenterInViewBox}
+              cy={circleCenterInViewBox}
+              r={radius}
+              strokeWidth={circleStokeWidth}
+              fill="none"
+              transform={`matrix(0,-1,1,0,0,${diameter + circleStokeWidth})`}
+              strokeDasharray={strokeDasharray}
+              className={`${classPrefix}-progress__circle-inner`}
+              style={circlePathStyle}
+            ></circle>
+          )}
         </svg>
       </div>
     );
