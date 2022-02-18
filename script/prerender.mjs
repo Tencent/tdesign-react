@@ -4,7 +4,6 @@ import { chromium } from 'playwright';
 import { preview } from 'vite';
 import siteConfig from '../site/site.config.mjs';
 
-const publicPath = '/react';
 const prefix = 'http://127.0.0.1:9999';
 const spiderPath = path.resolve('./_static_site');
 
@@ -43,7 +42,7 @@ async function initPreviewServer() {
 
   for (let url of pageList) {
     const [, pathName] = url.split(prefix);
-    const filePath = `${spiderPath}${pathName || '/index'}.html`.replace(publicPath, '');
+    const filePath = `${spiderPath}${pathName || '/index'}.html`;
 
     console.log('\x1b[35m', `opening ${url}...`);
     await page.goto(url);
