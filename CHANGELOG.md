@@ -10,8 +10,8 @@ spline: explain
 ### 🐞 Bug Fixes
 
 * Notification: 修复组件状态更新后关闭逻辑报错问题 ([2a6eff1](https://github.com/Tencent/tdesign-react/commit/2a6eff1258352ceb24e696b9ed2519dd089c4d8e)) [@kenzyyang](https://github.com/kenzyyang)
-* Progress: render dot when percentage is 0 ([d481552](https://github.com/Tencent/tdesign-react/commit/d481552e66e8f69ab7cd476c3a68550bda5df96b)) [@uyarn](https://github.com/uyarn)
-* TimePicker: panel scroll when use mouse ([e0028d5](https://github.com/Tencent/tdesign-react/commit/e0028d59213fd8dea53eb25acefd2b34007ba9ea)) [@uyarn](https://github.com/uyarn)
+* Progress: 修复 `percentage` 为 `0` 时样式问题 ([d481552](https://github.com/Tencent/tdesign-react/commit/d481552e66e8f69ab7cd476c3a68550bda5df96b)) [@uyarn](https://github.com/uyarn)
+* TimePicker: 修复鼠标滚轮事件问题 ([e0028d5](https://github.com/Tencent/tdesign-react/commit/e0028d59213fd8dea53eb25acefd2b34007ba9ea)) [@uyarn](https://github.com/uyarn)
 
 ## 0.25.0 `2022-02-17`
 
