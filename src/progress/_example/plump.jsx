@@ -1,5 +1,5 @@
 import React from 'react';
-import Progress from '../Progress';
+import { Progress } from 'tdesign-react';
 
 export default function LineProgress() {
   const style = { margin: '20px 0 10px' };
