@@ -35,7 +35,7 @@
   "scripts": {
     "start": "cd site && vite",
     "dev": "cd site && vite",
-    "site": "run-s site:build site:prerender",
+    "site": "run-s site:build",
     "site:build": "cd site && vite build",
     "site:serve": "cd site && vite preview",
     "site:preview": "cd site && vite build --mode preview",
