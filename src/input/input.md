@@ -8,8 +8,9 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 align | String | left | 文本内容位置，居左/居中/居右。可选项：left/center/right | N
-autocomplete | Boolean | false | 是否开启自动填充功能 | N
+autocomplete | String | on | HTML 原生属性。是否开启自动填充功能。可选项：on/off | N
 autofocus | Boolean | false | 自动聚焦 | N
+autoWidth | Boolean | false | 宽度随内容自适应 | N
 clearable | Boolean | false | 是否可清空 | N
 disabled | Boolean | false | 是否禁用输入框 | N
 format | Function | - | 【讨论中】指定输入框展示值的格式。TS 类型：`(value: number | number) => number | string` | N
@@ -40,6 +41,5 @@ onKeypress | Function |  | TS 类型：`(value: InputValue, context: { e: Keyboa
 onKeyup | Function |  | TS 类型：`(value: InputValue, context: { e: KeyboardEvent }) => void`<br/>释放键盘时触发 | N
 onMouseenter | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>进入输入框时触发 | N
 onMouseleave | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>离开输入框时触发 | N
-onMousewheel | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>输入框中滚动鼠标时触发 | N
 onPaste | Function |  | TS 类型：`(context: { e: ClipboardEvent; pasteValue: string }) => void`<br/>粘贴事件，`pasteValue` 表示粘贴板的内容 | N
 onWheel | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>输入框中滚动鼠标时触发 | N
