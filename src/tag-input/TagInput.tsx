@@ -18,6 +18,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   const {
     excessTagsDisplayType = 'scroll',
+    autoWidth,
     readonly,
     disabled,
     clearable,
@@ -81,6 +82,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onChange={(val: InputValue) => {
         setTInputValue(val);
       }}
+      autoWidth={autoWidth}
       onWheel={onWheel}
       size={size}
       readonly={readonly}
