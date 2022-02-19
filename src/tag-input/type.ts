@@ -117,7 +117,7 @@ export interface TdTagInputProps {
   /**
    * 清空按钮点击时触发
    */
-  onClear?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
    * 按键按下 Enter 时触发
    */
