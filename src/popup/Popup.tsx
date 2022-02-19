@@ -102,9 +102,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const { styles, attributes } = popperRef.current;
 
   const defaultStyles = useMemo(() => {
-    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef) };
+    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef, overlayRef) };
     return { ...overlayStyle };
-  }, [overlayStyle, triggerRef]);
+  }, [overlayStyle, triggerRef, overlayRef]);
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = defaultStyles;
