@@ -157,7 +157,7 @@ const Input = forwardRefWithStatics(
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onWheel={handleWheel}
-        onClick={(e) => onClick({ e })}
+        onClick={(e) => onClick?.({ e })}
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
