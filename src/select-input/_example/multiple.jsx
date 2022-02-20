@@ -57,7 +57,6 @@ export default function SelectInputMultiple() {
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
   const onTagChange = (currentTags, context) => {
-    console.log(currentTags, context);
     const { trigger, index, item } = context;
     if (trigger === 'clear') {
       setValue([]);
