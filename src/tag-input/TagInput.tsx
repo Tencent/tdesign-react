@@ -31,6 +31,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     status,
     suffixIcon,
     suffix,
+    onClick,
     onPaste,
     onFocus,
     onBlur,
@@ -66,7 +67,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     scrollToRight();
   };
 
-  const onClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
+  const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
     (tagInputRef.current as any).inputElement.focus();
     onClick?.(context);
   };
@@ -110,7 +111,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       suffix={suffix}
       suffixIcon={suffixIconNode}
       onPaste={onPaste}
-      onClick={onClick}
+      onClick={onInnerClick}
       onEnter={onInputEnter}
       onKeyup={onInputBackspaceKeyUp}
       onMouseenter={(context) => {
