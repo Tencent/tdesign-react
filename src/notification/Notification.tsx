@@ -10,6 +10,7 @@ const blockName = 'notification';
 
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
+  close: () => void
 }
 
 export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
@@ -24,6 +25,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
+    close = noop,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -46,7 +48,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     [classPrefix],
   );
 
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: noop }));
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
