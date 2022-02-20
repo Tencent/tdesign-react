@@ -21,7 +21,7 @@ export default function useTagList(props: TdTagInputProps) {
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
-  const onClose = (p: { e: MouseEvent<SVGElement>; index: number; item: string | number }) => {
+  const onClose = (p: { e?: MouseEvent<SVGElement>; index: number; item: string | number }) => {
     const arr = [...tagValue];
     arr.splice(p.index, 1);
     setTagValue(arr, { trigger: 'tag-remove', ...p });

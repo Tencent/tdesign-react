@@ -16,14 +16,15 @@ const DEFAULT_KEYS = {
 };
 
 export default function useMultiple(props: TdSelectInputProps) {
+  const { value } = props;
   const tagInputRef = useRef();
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 
   const getTags = () => {
-    if (!(props instanceof Array)) {
-      return isObject(props) ? [props[iKeys.label]] : [props];
+    if (!(value instanceof Array)) {
+      return isObject(value) ? [value[iKeys.label]] : [value];
     }
-    return props.map((item) => (isObject(item) ? item[iKeys.label] : item));
+    return value.map((item) => (isObject(item) ? item[iKeys.label] : item));
   };
   const tags = getTags();
 
