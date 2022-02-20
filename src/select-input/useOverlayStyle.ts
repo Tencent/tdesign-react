@@ -28,7 +28,6 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
     // 如果点击触发元素（输入框），则永久显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' ? true : visible;
-    console.log(newVisible, context);
     setInnerPopupVisible(newVisible);
     props.onPopupVisibleChange?.(newVisible, context);
   };

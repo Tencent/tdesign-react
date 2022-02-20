@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SelectInput, Radio, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
+import './index.less';
 
 const OPTIONS = [
   // 全选
@@ -36,11 +37,11 @@ export default function SelectInputMultiple() {
 
   const checkboxValue = getCheckboxValue();
 
-  // 直接 checkboxgroup 组件渲染输出下拉选项
+  // 直接 checkboxgroup 组件渲染输出下拉选项，自定义处理可以避免顺序和 tagChange 冲突
   const onCheckedChange = (val, { current, type }) => {
     // current 不存在，则表示操作全选
     if (!current) {
-      const newValue = type === 'check' ? options.value.slice(1) : [];
+      const newValue = type === 'check' ? options.slice(1) : [];
       setValue(newValue);
       return;
     }
@@ -114,3 +115,12 @@ export default function SelectInputMultiple() {
     </div>
   );
 }
+
+// 下拉选项样式
+// .tdesign-demo__pannel-options {
+//   width: 100%;
+// }
+// .tdesign-demo__pannel-options .t-checkbox {
+//   display: block;
+//   margin: 12px;
+// }
