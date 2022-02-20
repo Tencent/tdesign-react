@@ -1,4 +1,4 @@
-import React, { useRef, useState, ReactNode, useEffect, MouseEvent, FormEvent } from 'react';
+import React, { useRef, useState, useEffect, MouseEvent, FormEvent } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import { SelectInputCommonProperties } from './interface';
@@ -6,8 +6,6 @@ import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
 
 export interface RenderSelectSingleInputParams {
-  prefixContent: ReactNode[];
-  singleValueDisplay: ReactNode;
   tPlaceholder: string;
 }
 
@@ -62,26 +60,35 @@ export default function useSingle(props: TdSelectInputProps) {
     setInputValue(val);
   }, [props.keys, value]);
 
-  const renderSelectSingle = (p: RenderSelectSingleInputParams) => (
-    <Input
-      ref={inputRef}
-      {...commonInputProps}
-      autoWidth={props.borderless || props.autoWidth}
-      placeholder={p.singleValueDisplay ? '' : props.placeholder}
-      value={p.singleValueDisplay ? undefined : inputValue}
-      label={p.prefixContent.length ? p.prefixContent : undefined}
-      onChange={onInnerInputChange}
-      readonly={!props.allowInput}
-      onClear={onInnerClear}
-      onBlur={(val, context) => {
-        props.onBlur?.(value, { ...context, inputValue: val });
-      }}
-      onFocus={(val, context) => {
-        props.onFocus?.(value, { ...context, inputValue: val });
-      }}
-      {...props.inputProps}
-    />
-  );
+  const renderSelectSingle = () => {
+    // 单选，值的呈现方式
+    const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
+    return (
+      <Input
+        ref={inputRef}
+        {...commonInputProps}
+        autoWidth={props.borderless || props.autoWidth}
+        placeholder={singleValueDisplay ? '' : props.placeholder}
+        value={singleValueDisplay ? undefined : inputValue}
+        label={
+          <>
+            {props.label}
+            {singleValueDisplay}
+          </>
+        }
+        onChange={onInnerInputChange}
+        readonly={!props.allowInput}
+        onClear={onInnerClear}
+        onBlur={(val, context) => {
+          props.onBlur?.(value, { ...context, inputValue: val });
+        }}
+        onFocus={(val, context) => {
+          props.onFocus?.(value, { ...context, inputValue: val });
+        }}
+        {...props.inputProps}
+      />
+    );
+  };
 
   return {
     inputRef,

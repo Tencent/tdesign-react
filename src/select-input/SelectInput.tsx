@@ -15,7 +15,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless } = props;
   const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
-  const { tPlaceholder, tagInputRef, renderSelectMultiple } = useMultiple(props);
+  const { tagInputRef, renderSelectMultiple } = useMultiple(props);
   const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
 
   const popupClasses = classNames([
@@ -37,10 +37,6 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
 
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
-  // 单选，值的呈现方式
-  const singleValueDisplay = !multiple ? props.valueDisplay : null;
-  // 左侧文本
-  const prefixContent = [singleValueDisplay, props.label].filter((v) => v);
 
   return (
     <Popup
@@ -61,11 +57,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
             commonInputProps,
             onInnerClear,
           })
-        : renderSelectSingle({
-            prefixContent,
-            singleValueDisplay,
-            tPlaceholder,
-          })}
+        : renderSelectSingle()}
     </Popup>
   );
 });

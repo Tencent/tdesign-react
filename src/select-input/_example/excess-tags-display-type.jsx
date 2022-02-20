@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { SelectInput, Radio, Checkbox } from 'tdesign-react';
-import { ChevronDownIcon } from 'tdesign-icons-react';
-import './index.less';
+import { SelectInput, Checkbox } from 'tdesign-react';
 
 const OPTIONS = [
   // 全选
@@ -14,18 +12,11 @@ const OPTIONS = [
   { label: 'tdesign-mobile-react', value: 6 },
 ];
 
-export default function SelectInputMultiple() {
-  const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
-  const [allowInput, setAllowInput] = useState(true);
-  const [creatable, setCreatable] = useState(true);
+export default function SelectInputExcessTagsDisplayType() {
   const [options, setOptions] = useState([...OPTIONS]);
-  const [value, setValue] = useState([
-    { label: 'Vue', value: 1 },
-    { label: 'React', value: 2 },
-    { label: 'Miniprogram', value: 3 },
-  ]);
+  const [value, setValue] = useState(OPTIONS.slice(1));
 
-  const getCheckboxValue = () => {
+  const checkboxValue = (() => {
     const arr = [];
     const list = value;
     // 此处不使用 forEach，减少函数迭代
@@ -33,9 +24,7 @@ export default function SelectInputMultiple() {
       list[i].value && arr.push(list[i].value);
     }
     return arr;
-  };
-
-  const checkboxValue = getCheckboxValue();
+  })();
 
   // 直接 checkboxgroup 组件渲染输出下拉选项，自定义处理可以避免顺序和 tagChange 冲突
   const onCheckedChange = (val, { current, type }) => {
@@ -67,7 +56,7 @@ export default function SelectInputMultiple() {
       setValue(newValue);
     }
     // 如果允许创建新条目
-    if (creatable && trigger === 'enter') {
+    if (trigger === 'enter') {
       const current = { label: item, value: item };
       const newValue = [...value];
       setValue(newValue.concat(current));
@@ -76,51 +65,46 @@ export default function SelectInputMultiple() {
   };
 
   return (
-    <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
-      <div>
-        <Checkbox checked={allowInput} onChange={setAllowInput}>是否允许输入</Checkbox>
-        <Checkbox checked={creatable} onChange={setCreatable}>允许创建新选项（Enter 创建）</Checkbox>
-      </div>
+    <div className="tdesign-demo__select-input-multiple" style={{ width: 'width: 100%' }}>
+      {/* <!-- excessTagsDisplayType: 'scroll'，超出时，滚动显示 --> */}
+      <p>第一种呈现方式：超出时滚动显示</p>
       <br />
-      <div>
-        <Radio.Group
-          value={excessTagsDisplayType}
-          onChange={setExcessTagsDisplayType}
-          options={[
-            { label: '选中项过多横向滚动', value: 'scroll' },
-            { label: '选中项过多换行显示', value: 'break-line' },
-          ]}
-        />
-      </div>
-      <br /><br />
-
-      {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={value}
-        allowInput={allowInput}
-        placeholder={allowInput ? '请选择或输入' : '请选择'}
-        tagInputProps={{ excessTagsDisplayType }}
-        // label={<span>多选：</span>}
+        tagInputProps={{ excessTagsDisplayType: 'scroll' }}
+        placeholder="请选择"
+        allowInput
+        clearable
+        multiple
+        onTagChange={onTagChange}
         panel={<Checkbox.Group
           value={checkboxValue}
           options={options}
           className="tdesign-demo__pannel-options"
           onChange={onCheckedChange}
         />}
-        suffixIcon={<ChevronDownIcon />}
+      ></SelectInput>
+
+      <br /><br /><br />
+
+      {/* <!-- excessTagsDisplayType: 'scroll'，超出时，换行显示 --> */}
+      <p>第二种呈现方式：超出时换行显示</p>
+      <br />
+      <SelectInput
+        value={value}
+        tagInputProps={{ excessTagsDisplayType: 'break-line' }}
+        placeholder="请选择"
+        allowInput
         clearable
         multiple
         onTagChange={onTagChange}
+        panel={<Checkbox.Group
+          value={checkboxValue}
+          options={options}
+          className="tdesign-demo__pannel-options"
+          onChange={onCheckedChange}
+        />}
       ></SelectInput>
     </div>
   );
 }
-
-// 下拉选项样式
-// .tdesign-demo__pannel-options {
-//   width: 100%;
-// }
-// .tdesign-demo__pannel-options .t-checkbox {
-//   display: block;
-//   margin: 12px;
-// }
