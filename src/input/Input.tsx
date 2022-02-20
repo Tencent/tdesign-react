@@ -26,8 +26,10 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
+  const iconClassName = icon ? `${classPrefix}-input__suffix-icon` : '';
+
   if (result) {
-    result = <span className={`${classPrefix}-input__${type}`}>{result}</span>;
+    result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
   }
 
   return result;
@@ -49,6 +51,7 @@ const Input = forwardRefWithStatics(
       value,
       tips,
       align,
+      onClick,
       onChange,
       onClear,
       onEnter,
@@ -154,6 +157,7 @@ const Input = forwardRefWithStatics(
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onWheel={handleWheel}
+        onClick={(e) => onClick({ e })}
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}

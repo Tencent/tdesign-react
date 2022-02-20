@@ -105,7 +105,7 @@ export interface TdTagInputProps {
   /**
    * 自定义值呈现的全部内容，参数为所有标签的值
    */
-  valueDisplay?: string | TNode<{ value: TagInputValue; onClose: () => void }>;
+  valueDisplay?: string | TNode<{ value: TagInputValue; onClose: (index: number, item?: any) => void }>;
   /**
    * 失去焦点时触发
    */
@@ -118,6 +118,10 @@ export interface TdTagInputProps {
    * 清空按钮点击时触发
    */
   onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  /**
+   * 点击组件时触发
+   */
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 按键按下 Enter 时触发
    */
@@ -150,7 +154,7 @@ export interface TagInputChangeContext {
   trigger: TagInputTriggerSource;
   index?: number;
   item?: string | number;
-  e: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
@@ -159,7 +163,7 @@ export interface TagInputRemoveContext {
   value: TagInputValue;
   index: number;
   item: string | number;
-  e: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
+  e?: MouseEvent<SVGElement> | KeyboardEvent<HTMLDivElement>;
   trigger: TagInputRemoveTrigger;
 }
 

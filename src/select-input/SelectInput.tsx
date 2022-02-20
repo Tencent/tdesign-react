@@ -19,6 +19,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
 
   const popupClasses = classNames([
+    props.className,
     `${prefix}-select-input`,
     {
       [`${prefix}-select-input--borderless`]: borderless,
@@ -44,6 +45,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   return (
     <Popup
       ref={selectInputRef}
+      style={props.style}
       className={popupClasses}
       trigger={popupProps?.trigger || 'click'}
       placement="bottom-left"

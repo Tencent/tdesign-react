@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
+import { TdTagInputProps } from './type';
 
 export interface UseHoverParams {
   readonly: boolean;
   disabled: boolean;
-  onMouseenter: (context: { e: MouseEvent }) => void;
-  onMouseleave: (context: { e: MouseEvent }) => void;
+  onMouseenter: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  onMouseleave: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
-export default function useHover(props: UseHoverParams) {
+export default function useHover(props: TdTagInputProps) {
   const { readonly, disabled, onMouseenter, onMouseleave } = props;
   const [isHover, setIsHover] = useState<boolean>(false);
 

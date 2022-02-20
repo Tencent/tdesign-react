@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
@@ -41,7 +41,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
   // handle tag add and remove
-  const { tagValue, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList(props);
+  const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList(props);
 
   const NAME_CLASS = `${prefix}-tag-input`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
@@ -66,13 +66,28 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     scrollToRight();
   };
 
+  const onClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
+    (tagInputRef.current as any).inputElement.focus();
+    onClick?.(context);
+  };
+
+  const onClearClick = (e: MouseEvent<SVGElement>) => {
+    clearAll({ e });
+    setTInputValue('');
+  };
+
   const suffixIconNode = showClearIcon ? (
-    <CloseCircleFilledIcon className={CLEAR_CLASS} onClick={(e) => clearAll({ e })} />
+    <CloseCircleFilledIcon className={CLEAR_CLASS} onClick={onClearClick} />
   ) : (
     suffixIcon
   );
   // 自定义 Tag 节点
-  const displayNode = isFunction(valueDisplay) ? valueDisplay({ value: tagValue }) : valueDisplay;
+  const displayNode = isFunction(valueDisplay)
+    ? valueDisplay({
+        value: tagValue,
+        onClose: (index, item) => onClose({ index, item }),
+      })
+    : valueDisplay;
 
   return (
     <TInput
@@ -95,6 +110,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       suffix={suffix}
       suffixIcon={suffixIconNode}
       onPaste={onPaste}
+      onClick={onClick}
       onEnter={onInputEnter}
       onKeyup={onInputBackspaceKeyUp}
       onMouseenter={(context) => {

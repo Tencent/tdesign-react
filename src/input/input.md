@@ -32,6 +32,7 @@ defaultValue | String / Number | - | 输入框的值。非受控属性。TS 类�
 onBlur | Function |  | TS 类型：`(value: InputValue, context: { e: FocusEvent }) => void`<br/>失去焦点时触发 | N
 onChange | Function |  | TS 类型：`(value: InputValue, context?: { e?: InputEvent | MouseEvent }) => void`<br/>输入框值发生变化时触发 | N
 onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>清空按钮点击时触发 | N
+onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击组件时触发 | N
 onCompositionend | Function |  | TS 类型：`(value: InputValue, context: { e: CompositionEvent }) => void`<br/>中文输入结束时触发 | N
 onCompositionstart | Function |  | TS 类型：`(value: InputValue, context: { e: CompositionEvent }) => void`<br/>中文输入开始时触发 | N
 onEnter | Function |  | TS 类型：`(value: InputValue, context: { e: KeyboardEvent }) => void`<br/>回车键按下时触发 | N

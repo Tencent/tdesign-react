@@ -3,11 +3,6 @@ import { TagInput, Tag } from 'tdesign-react';
 
 export default function CustomTagExample() {
   const [tags, setTags] = useState(['StudentA', 'StudentB', 'StudentC']);
-  const onTagDelete = (index) => {
-    const newTags = [...tags];
-    newTags.splice(index, 1);
-    setTags(newTags);
-  };
   return (
     <div className="tdesign-demo-block-column" style={{ width: '80%' }}>
       {/* 方式一：使用 tag 定义标签内部内容  */}
@@ -31,12 +26,12 @@ export default function CustomTagExample() {
       <TagInput
         value={tags}
         onChange={setTags}
-        valueDisplay={({ value }) => value.map((item, index) => (
+        valueDisplay={({ value, onClose }) => value.map((item, index) => (
           <Tag
             key={item}
             closable
             style={{ marginRight: '4px' }}
-            onClose={() => onTagDelete(index)}
+            onClose={() => onClose(index)}
           >
             <div>
               <img
