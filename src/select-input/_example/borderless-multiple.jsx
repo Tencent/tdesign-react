@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SelectInput, Radio, Checkbox } from 'tdesign-react';
+import { SelectInput, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import './index.less';
 
