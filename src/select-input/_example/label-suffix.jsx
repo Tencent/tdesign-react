@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
-// 包含外部样式
-import './index.less';
 
 const classStyles = `
 

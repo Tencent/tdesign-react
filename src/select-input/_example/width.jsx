@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
-import './index.less';
 
 const classStyles = `
 <style>
