@@ -47,11 +47,11 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
       trigger={popupProps?.trigger || 'click'}
       placement="bottom-left"
       content={props.panel}
-      overlayStyle={tOverlayStyle}
       hideEmptyPopup={true}
       onVisibleChange={onInnerPopupVisibleChange}
       {...visibleProps}
       {...popupProps}
+      overlayStyle={tOverlayStyle}
     >
       {multiple
         ? renderSelectMultiple({
