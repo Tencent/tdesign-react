@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 import Tooltip from '../tooltip/Tooltip';
 import { TdTooltipProps } from '../tooltip/type';
@@ -13,9 +13,11 @@ interface SliderHandleButtonProps {
 const SliderHandleButton: React.FC<SliderHandleButtonProps> = ({ onChange, style, classPrefix, toolTipProps }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isDragging, toggleIsDragging] = useState(false);
+  const tooltipRef = useRef(null);
 
   const onSliderDragging = (e: MouseEvent) => {
     toggleIsDragging(true);
+    tooltipRef.current.updatePopper();
     onChange(e);
   };
 
@@ -54,7 +56,7 @@ const SliderHandleButton: React.FC<SliderHandleButtonProps> = ({ onChange, style
       onMouseEnter={(e) => handleSliderEnter(e)}
       onMouseLeave={(e) => handleSliderLeave(e)}
     >
-      <Tooltip visible={popupVisible} placement="top" {...toolTipProps}>
+      <Tooltip ref={tooltipRef} visible={popupVisible} placement="top" {...toolTipProps}>
         <div
           className={classNames(`${classPrefix}-slider__button`, {
             [`${classPrefix}-slider__button--dragging`]: isDragging,

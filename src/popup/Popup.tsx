@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useCallback,
   useRef,
+  useImperativeHandle,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
@@ -25,11 +26,14 @@ export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
 }
+export interface PopupRefInterface extends React.RefObject<unknown> {
+  updatePopper: () => void;
+}
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
-const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
+const Popup = forwardRef((props: PopupProps, ref: PopupRefInterface) => {
   const {
     trigger = 'hover',
     content = null,
@@ -98,6 +102,11 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     placement: getPopperPlacement(placement),
     onFirstUpdate: onPopperFirstUpdate,
   });
+
+  // 外部更新 popper 样式
+  useImperativeHandle(ref, () => ({
+    updatePopper: () => popperRef.current?.update?.(),
+  }));
 
   const { styles, attributes } = popperRef.current;
 

@@ -1,17 +1,17 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popup from '../popup';
+import Popup, { PopupRefInterface } from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from './type';
 
 export type TooltipProps = TdTooltipProps;
 
-interface RefProps {
+export interface TooltipRefInterface extends PopupRefInterface {
   setVisible?: (v: boolean) => void;
 }
 
-const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
+const Tooltip = forwardRef((props: TdTooltipProps, ref: TooltipRefInterface) => {
   const {
     theme,
     showArrow = true,
@@ -57,12 +57,10 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     };
   }, [duration, timeup]);
 
-  useImperativeHandle(
-    ref,
-    (): RefProps => ({
-      setVisible,
-    }),
-  );
+  useImperativeHandle(ref, () => ({
+    setVisible,
+    ...popupRef.current,
+  }));
 
   return (
     <Popup
