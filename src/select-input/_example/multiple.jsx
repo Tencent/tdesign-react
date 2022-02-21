@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SelectInput, Radio, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import './index.less';
+
+const classStyles = `
+<style>
+.tdesign-demo__pannel-options-multiple {
+  width: 100%;
+}
+.tdesign-demo__pannel-options-multiple .t-checkbox {
+  display: block;
+  margin: 12px;
+}
+</style>
+`;
 
 const OPTIONS = [
   // 全选
@@ -75,6 +87,11 @@ export default function SelectInputMultiple() {
     }
   };
 
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   return (
     <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
       <div>
@@ -104,7 +121,7 @@ export default function SelectInputMultiple() {
         panel={<Checkbox.Group
           value={checkboxValue}
           options={options}
-          className="tdesign-demo__pannel-options"
+          className="tdesign-demo__pannel-options-multiple"
           onChange={onCheckedChange}
         />}
         suffixIcon={<ChevronDownIcon />}
@@ -115,12 +132,3 @@ export default function SelectInputMultiple() {
     </div>
   );
 }
-
-// 下拉选项样式
-// .tdesign-demo__pannel-options {
-//   width: 100%;
-// }
-// .tdesign-demo__pannel-options .t-checkbox {
-//   display: block;
-//   margin: 12px;
-// }

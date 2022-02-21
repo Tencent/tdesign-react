@@ -1,5 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox } from 'tdesign-react';
+
+const classStyles = `
+<style>
+.tdesign-demo__pannel-options-excess {
+  width: 100%;
+}
+.tdesign-demo__pannel-options-excess .t-checkbox {
+  display: block;
+  margin: 12px;
+}
+</style>
+`;
 
 const OPTIONS = [
   // 全选
@@ -64,6 +76,11 @@ export default function SelectInputExcessTagsDisplayType() {
     }
   };
 
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   return (
     <div className="tdesign-demo__select-input-multiple" style={{ width: 'width: 100%' }}>
       {/* <!-- excessTagsDisplayType: 'scroll'，超出时，滚动显示 --> */}
@@ -80,7 +97,7 @@ export default function SelectInputExcessTagsDisplayType() {
         panel={<Checkbox.Group
           value={checkboxValue}
           options={options}
-          className="tdesign-demo__pannel-options"
+          className="tdesign-demo__pannel-options-excess"
           onChange={onCheckedChange}
         />}
       ></SelectInput>
@@ -101,7 +118,7 @@ export default function SelectInputExcessTagsDisplayType() {
         panel={<Checkbox.Group
           value={checkboxValue}
           options={options}
-          className="tdesign-demo__pannel-options"
+          className="tdesign-demo__pannel-options-excess"
           onChange={onCheckedChange}
         />}
       ></SelectInput>
