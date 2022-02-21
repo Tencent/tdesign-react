@@ -1,5 +1,6 @@
 import React from 'react';
 import { SelectInput } from 'tdesign-react';
+import './index.less';
 
 const SelectInputStatus = () => {
   const selectValue = 'TDesign';
@@ -11,7 +12,7 @@ const SelectInputStatus = () => {
           value={selectValue}
           disabled
           placeholder="Please Select"
-          className="t-demo-normal"
+          tips="这是禁用状态的文本"
           panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
         ></SelectInput>
       </div>
@@ -23,7 +24,7 @@ const SelectInputStatus = () => {
           value={selectValue}
           readonly
           placeholder="Please Select"
-          tips="这是普通状态的文本提示"
+          tips="这是只读状态的文本提示"
           panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
         ></SelectInput>
       </div>
@@ -80,9 +81,7 @@ export default SelectInputStatus
 //   line-height: 32px;
 // }
 
-// .tdesign-demo-select-input-status .t-select-input {
+// .tdesign-demo-select-input-status .t-select-input__wrap {
 //   width: 300px;
-// }
-// .tdesign-demo-select-input-status .t-select-input:not(.t-demo-normal) {
-//   vertical-align: -26px;
+//   vertical-align: middle;
 // }
