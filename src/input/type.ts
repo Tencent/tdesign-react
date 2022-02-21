@@ -14,7 +14,7 @@ export interface TdInputProps {
    */
   align?: 'left' | 'center' | 'right';
   /**
-   * 是否开启自动填充功能，HTML5 原生属性
+   * 是否开启自动填充功能，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autocomplete?: 'on' | 'off';
   /**
@@ -38,7 +38,7 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 【讨论中】指定输入框展示值的格式
+   * 【开发中】指定输入框展示值的格式
    */
   format?: (value: number | number) => number | string;
   /**
