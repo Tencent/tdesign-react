@@ -8,7 +8,7 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 align | String | left | 文本内容位置，居左/居中/居右。可选项：left/center/right | N
-autocomplete | String | on | HTML 原生属性。是否开启自动填充功能。可选项：on/off | N
+autocomplete | String | - | 是否开启自动填充功能，HTML5 原生属性。可选项：on/off | N
 autofocus | Boolean | false | 自动聚焦 | N
 autoWidth | Boolean | false | 宽度随内容自适应 | N
 clearable | Boolean | false | 是否可清空 | N
