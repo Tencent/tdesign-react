@@ -12,6 +12,7 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {}
 
 const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputRef = useRef();
+  const selectInputWrapRef = useRef();
   const { classPrefix: prefix } = useConfig();
   const { multiple, value, popupVisible, popupProps, borderless } = props;
   const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
@@ -38,7 +39,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
-  return (
+  const mainContent = (
     <Popup
       ref={selectInputRef}
       style={props.style}
@@ -59,6 +60,15 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
           })
         : renderSelectSingle()}
     </Popup>
+  );
+
+  if (!props.tips) return mainContent;
+
+  return (
+    <div ref={selectInputWrapRef} className={`${prefix}-select-input__wrap`}>
+      {mainContent}
+      <div className={`${prefix}-input__tips ${prefix}-input__tips--${props.status || 'normal'}`}>{props.tips}</div>
+    </div>
   );
 });
 
