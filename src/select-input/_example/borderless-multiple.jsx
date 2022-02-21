@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
-import './index.less';
 
 const classStyles = `
 <style>
