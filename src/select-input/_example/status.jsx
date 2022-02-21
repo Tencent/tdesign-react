@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import './index.less';
 
+const classStyles = `
+<style>
+.tdesign-demo__select-empty-status {
+  text-align: center;
+  color: var(--td-text-color-disabled);
+  line-height: 32px;
+}
+
+.tdesign-demo-select-input-status .t-select-input__wrap {
+  width: 300px;
+  vertical-align: middle;
+}
+</style>
+`;
+
 const SelectInputStatus = () => {
   const selectValue = 'TDesign';
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   return (
     <div className="tdesign-demo-select-input-status">
       <div>
@@ -25,7 +46,7 @@ const SelectInputStatus = () => {
           readonly
           placeholder="Please Select"
           tips="这是只读状态的文本提示"
-          panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
+          panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
       <br /><br />
@@ -37,7 +58,7 @@ const SelectInputStatus = () => {
           status="success"
           tips="校验通过文本提示"
           placeholder="Please Select"
-          panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
+          panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
       <br />
@@ -49,7 +70,7 @@ const SelectInputStatus = () => {
           status="warning"
           tips="校验不通过文本提示"
           placeholder="Please Select"
-          panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
+          panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
       <br />
@@ -61,7 +82,7 @@ const SelectInputStatus = () => {
           status="error"
           tips="校验存在严重问题文本提示"
           placeholder="Please Select"
-          panel={<div className="tdesign-demo__select-empty">暂无数据</div>}
+          panel={<div className="tdesign-demo__select-empty-status">暂无数据</div>}
         ></SelectInput>
       </div>
       <br />
@@ -72,16 +93,3 @@ const SelectInputStatus = () => {
 SelectInputStatus.displayName = 'SelectInputStatus';
 
 export default SelectInputStatus
-
-
-// 外部样式
-// .tdesign-demo__select-empty {
-//   text-align: center;
-//   color: var(--td-text-color-disabled);
-//   line-height: 32px;
-// }
-
-// .tdesign-demo-select-input-status .t-select-input__wrap {
-//   width: 300px;
-//   vertical-align: middle;
-// }

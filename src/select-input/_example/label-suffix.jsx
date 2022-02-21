@@ -1,9 +1,38 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 // 包含外部样式
 import './index.less';
+
+const classStyles = `
+
+<style>
+.tdesign-demo__selet-input-ul-label-suffix,
+.tdesign-demo__selet-input-ul-label-suffix > li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tdesign-demo__selet-input-ul-label-suffix > li {
+  line-height: 40px;
+  min-width: 200px;
+  padding: 0 8px;
+}
+
+.tdesign-demo__selet-input-ul-label-suffix > li:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+
+.tdesign-demo__selet-input-ul-label-suffix > li > img {
+  max-width: 20px;
+  max-height: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+</style>
+`;
 
 const OPTIONS = [
   { label: 'tdesign-vue', value: 1 },
@@ -42,6 +71,11 @@ export default function SelectInputSingle() {
     setPopupVisible2(val);
   };
 
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
   return (
     <div>
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
@@ -55,7 +89,7 @@ export default function SelectInputSingle() {
         onPopupVisibleChange={onPopupVisibleChange}
         clear={onClear}
         panel={
-          <ul className="tdesign-demo__selet-input-ul">
+          <ul className="tdesign-demo__selet-input-ul-label-suffix">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
                 <img src="/favicon.ico" /> { item.label }
@@ -77,7 +111,7 @@ export default function SelectInputSingle() {
         onPopupVisibleChange={onPopupVisibleChange2}
         clear={onClear}
         panel={
-          <ul className="tdesign-demo__selet-input-ul">
+          <ul className="tdesign-demo__selet-input-ul-label-suffix">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
                 <img src="/favicon.ico" /> { item.label }
@@ -90,37 +124,3 @@ export default function SelectInputSingle() {
     </div>
   )
 }
-
-// 外部样式
-// .tdesign-demo__selet-input-ul,
-// .tdesign-demo__selet-input-ul > li {
-//   list-style: none;
-//   padding: 0;
-//   margin: 0;
-// }
-
-// .tdesign-demo__selet-input-ul > li {
-//   line-height: 40px;
-//   min-width: 200px;
-//   padding: 0 8px;
-// }
-
-// .tdesign-demo__selet-input-ul > li:hover {
-//   background-color: var(--td-bg-color-container-hover);
-// }
-
-// .tdesign-demo__selet-input-ul > li > img {
-//   max-width: 20px;
-//   max-height: 20px;
-//   vertical-align: middle;
-//   margin-right: 8px;
-// }
-
-// .tdesign-demo__select-input-block {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .tdesign-demo__select-input-block > label {
-//   width: 60px;
-// }

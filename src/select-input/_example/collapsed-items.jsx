@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox, Tag } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import './index.less';
+
+const classStyles = `
+<style>
+.tdesign-demo__pannel-options-collapsed {
+  width: 100%;
+}
+.tdesign-demo__pannel-options-collapsed .t-checkbox {
+  display: block;
+  margin: 12px;
+}
+</style>
+`;
 
 const OPTIONS = [
   // 全选
@@ -72,10 +84,15 @@ export default function SelectInputCollapsedItems() {
     <Checkbox.Group
       value={checkboxValue}
       options={options}
-      className="tdesign-demo__pannel-options"
+      className="tdesign-demo__pannel-options-collapsed"
       onChange={onCheckedChange}
     />
   );
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
 
   return (
     <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
@@ -108,10 +125,10 @@ export default function SelectInputCollapsedItems() {
 }
 
 // 下拉选项样式
-// .tdesign-demo__pannel-options {
+// .tdesign-demo__pannel-options-collapsed {
 //   width: 100%;
 // }
-// .tdesign-demo__pannel-options .t-checkbox {
+// .tdesign-demo__pannel-options-collapsed .t-checkbox {
 //   display: block;
 //   margin: 12px;
 // }
