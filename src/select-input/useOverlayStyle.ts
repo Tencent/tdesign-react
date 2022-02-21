@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import { TdSelectInputProps } from './type';
@@ -19,8 +19,13 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
       popupElement.offsetWidth + SCROLLBAR_WIDTH >= triggerElement.offsetWidth
         ? popupElement.offsetWidth
         : triggerElement.offsetWidth;
+    let otherOverlayStyle: React.CSSProperties = {};
+    if (typeof popupProps.overlayStyle === 'object' && !popupProps.overlayStyle.width) {
+      otherOverlayStyle = popupProps.overlayStyle;
+    }
     return {
       width: `${Math.min(width, MAX_POPUP_WIDTH)}px`,
+      ...otherOverlayStyle,
     };
   };
 
@@ -40,6 +45,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
       result = macthWidthFunc;
     }
     return result;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [borderless, popupProps?.overlayStyle]);
 
   return {

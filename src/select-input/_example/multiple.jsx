@@ -117,6 +117,7 @@ export default function SelectInputMultiple() {
         allowInput={allowInput}
         placeholder={allowInput ? '请选择或输入' : '请选择'}
         tagInputProps={{ excessTagsDisplayType }}
+        popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
         // label={<span>多选：</span>}
         panel={<Checkbox.Group
           value={checkboxValue}
