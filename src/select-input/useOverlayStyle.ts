@@ -20,7 +20,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
         ? popupElement.offsetWidth
         : triggerElement.offsetWidth;
     let otherOverlayStyle: React.CSSProperties = {};
-    if (typeof popupProps.overlayStyle === 'object' && !popupProps.overlayStyle.width) {
+    if (popupProps && typeof popupProps.overlayStyle === 'object' && !popupProps.overlayStyle.width) {
       otherOverlayStyle = popupProps.overlayStyle;
     }
     return {
