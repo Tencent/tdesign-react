@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 
@@ -10,6 +11,7 @@ const blockName = 'notification';
 
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
+  id?: string;
 }
 
 export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
@@ -24,6 +26,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
+    id = '',
   } = props;
 
   const { classPrefix } = useConfig();
@@ -46,7 +49,8 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     [classPrefix],
   );
 
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: noop }));
+  const remove = useContext(NotificationRemoveContext);
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
