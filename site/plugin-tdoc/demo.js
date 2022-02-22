@@ -28,6 +28,7 @@ export default function renderDemo(md, container) {
         const tpl = `
             <td-doc-demo code={${demoCodeDefName}} demo-name="${demoName}" component-name="${componentName.trim()}">
               <div slot="action">
+                <Stackblitz code={${demoCodeDefName}} />
                 <Codesandbox code={${demoCodeDefName}} />
               </div>
               <div className="tdesign-demo-item__body">
