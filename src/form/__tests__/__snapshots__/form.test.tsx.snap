@@ -201,7 +201,7 @@ exports[`base.jsx 1`] = `
                     value=""
                   />
                   <span
-                    class="t-input__suffix"
+                    class="t-input__suffix t-input__suffix-icon"
                   >
                     <svg
                       class="t-icon t-icon-calendar"
@@ -716,7 +716,7 @@ exports[`login.jsx 1`] = `
               class="t-input t-input--prefix"
             >
               <span
-                class="t-input__prefix"
+                class="t-input__prefix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-desktop"
@@ -754,7 +754,7 @@ exports[`login.jsx 1`] = `
               class="t-input t-input--prefix"
             >
               <span
-                class="t-input__prefix"
+                class="t-input__prefix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-lock-on"
