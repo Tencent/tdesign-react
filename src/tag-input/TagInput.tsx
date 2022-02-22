@@ -35,6 +35,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     onPaste,
     onFocus,
     onBlur,
+    onInputChange,
   } = props;
 
   const { isHover, addHover, cancelHover } = useHover(props);
@@ -95,8 +96,9 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       ref={tagInputRef}
       {...inputProps}
       value={tInputValue}
-      onChange={(val: InputValue) => {
+      onChange={(val, context) => {
         setTInputValue(val);
+        onInputChange?.(val, context);
       }}
       autoWidth={autoWidth}
       onWheel={onWheel}
