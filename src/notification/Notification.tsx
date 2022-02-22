@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+import { NotificationRemoveContext } from 'tdesign-react/notification/NotificationList';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 
@@ -7,11 +8,10 @@ import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
 
 const blockName = 'notification';
-export const notificationPluginCloseHandlerName = Symbol('notificationPluginCloseHandlerName');
 
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
-  [notificationPluginCloseHandlerName]: () => void
+  id?: string;
 }
 
 export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
@@ -26,7 +26,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
-    [notificationPluginCloseHandlerName]: close = noop,
+    id = '',
   } = props;
 
   const { classPrefix } = useConfig();
@@ -49,7 +49,8 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     [classPrefix],
   );
 
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }));
+  const remove = useContext(NotificationRemoveContext);
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
