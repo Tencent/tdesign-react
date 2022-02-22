@@ -10,7 +10,7 @@ import {
 } from './type';
 import { Styles } from '../common';
 import noop from '../_util/noop';
-import { NotificationComponent } from './Notification';
+import { notificationPluginCloseHandlerName, NotificationComponent } from './Notification';
 
 interface NotificationListInstance extends TdNotificationProps {
   push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;
@@ -42,12 +42,7 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
 
   const remove = (key: string) => {
     setList((oldList) => {
-      let index = -1;
-      for (let i = 0; i < oldList.length; i++) {
-        if (oldList[i].key === key) {
-          index = i;
-        }
-      }
+      const index = oldList.findIndex((item) => item.key === key);
 
       if (index !== -1) {
         const tempList = [...oldList];
@@ -102,15 +97,6 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     remove,
     removeAll,
   }));
-
-  // useEffect(() => {
-  //   if (list.length === 0) {
-  //     listMap.delete(placement);
-  //     ReactDOM.unmountComponentAtNode(attach);
-  //     attach.remove();
-  //   }
-  // }, [list, attach, placement]);
-
   return (
     <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
       {list.map((props) => {
@@ -119,7 +105,14 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
           <NotificationComponent
             ref={props.ref}
             key={props.key}
-            {...props}
+            {
+              ...props
+            }
+            {...{
+              [notificationPluginCloseHandlerName]: () => {
+                remove(props.key);
+              },
+            }}
             onDurationEnd={() => {
               remove(props.key);
               onDurationEnd();
@@ -128,9 +121,7 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
               remove(props.key);
               onCloseBtnClick(e);
             }}
-            close={() => {
-              remove(props.key);
-            }}
+
           />
         );
       })}
