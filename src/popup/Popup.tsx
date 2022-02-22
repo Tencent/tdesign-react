@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useCallback,
   useRef,
+  useEffect,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
@@ -58,11 +59,12 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
-  const referenceRef = useRef(null);
-  const popupRef = useRef(null);
+  const referenceRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   const popperRef = useRef(null);
   const portalRef = useRef(null);
+  const triggerObserveRef = useRef(null);
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
@@ -148,6 +150,23 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
       portalRef.current.style.display = 'block';
     }
   };
+
+  // 监听 trigger 节点变化动态更新 popup 定位
+  useEffect(() => {
+    if (!triggerRef || !popperRef) return;
+    const config = { attributes: true, childList: true, subtree: true };
+
+    triggerObserveRef.current = new MutationObserver(() => {
+      popperRef.current.update?.();
+    });
+
+    triggerObserveRef.current.observe(triggerRef, config);
+
+    return () => {
+      triggerObserveRef.current.disconnect();
+    };
+  }, [triggerRef, popperRef]);
+
   // 初次不渲染.
   const portal =
     visible || overlayRef ? (
