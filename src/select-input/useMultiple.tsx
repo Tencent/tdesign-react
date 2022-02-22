@@ -50,6 +50,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       placeholder={tPlaceholder}
       value={tags}
       onChange={onTagInputChange}
+      onInputChange={props.onInputChange}
       tagProps={props.tagProps}
       onClear={p.onInnerClear}
       onBlur={(val, context) => {

@@ -7,7 +7,7 @@
 import { InputProps, InputValue } from '../input';
 import { TagProps } from '../tag';
 import { TNode, TElement } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent } from 'react';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTagInputProps {
   /**
@@ -130,6 +130,13 @@ export interface TdTagInputProps {
    * 聚焦时触发
    */
   onFocus?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLDivElement> }) => void;
+  /**
+   * 输入框值发生变化时触发
+   */
+  onInputChange?: (
+    value: InputValue,
+    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+  ) => void;
   /**
    * 进入输入框时触发
    */

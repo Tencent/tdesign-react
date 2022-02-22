@@ -11,6 +11,11 @@ const classStyles = `
   display: block;
   margin: 12px;
 }
+.tdesign-demo__select-empty-multiple {
+  text-align: center;
+  color: var(--td-text-color-disabled);
+  line-height: 32px;
+}
 </style>
 `;
 
@@ -29,7 +34,10 @@ export default function SelectInputMultiple() {
   const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
   const [allowInput, setAllowInput] = useState(true);
   const [creatable, setCreatable] = useState(true);
+  // 全量数据
   const [options, setOptions] = useState([...OPTIONS]);
+  // 仅用作展示的数据（过滤功能需要使用）
+  const [displayOptions, setDisplayOptions] = useState([...OPTIONS]);
   const [value, setValue] = useState([
     { label: 'Vue', value: 1 },
     { label: 'React', value: 2 },
@@ -82,8 +90,17 @@ export default function SelectInputMultiple() {
       const current = { label: item, value: item };
       const newValue = [...value];
       setValue(newValue.concat(current));
-      setOptions(options.concat(current));
+      const newOptions = options.concat(current);
+      setOptions(newOptions);
+      setDisplayOptions(newOptions);
     }
+  };
+
+  // 过滤功能
+  const onInputChange = (val) => {
+    const newOptions = options.filter(t => t.label.indexOf(val) !== -1);
+    console.log(val, newOptions);
+    setDisplayOptions(newOptions);
   };
 
   useEffect(() => {
@@ -118,16 +135,23 @@ export default function SelectInputMultiple() {
         tagInputProps={{ excessTagsDisplayType }}
         popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
         // label={<span>多选：</span>}
-        panel={<Checkbox.Group
-          value={checkboxValue}
-          options={options}
-          className="tdesign-demo__pannel-options-multiple"
-          onChange={onCheckedChange}
-        />}
+        panel={
+          displayOptions.length
+          ? (
+            <Checkbox.Group
+              value={checkboxValue}
+              options={displayOptions}
+              className="tdesign-demo__pannel-options-multiple"
+              onChange={onCheckedChange}
+            />
+          )
+          : <div className="tdesign-demo__select-empty-multiple">暂无数据</div>
+        }
         suffixIcon={<ChevronDownIcon />}
         clearable
         multiple
         onTagChange={onTagChange}
+        onInputChange={onInputChange}
       ></SelectInput>
     </div>
   );
