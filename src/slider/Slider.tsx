@@ -49,7 +49,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const dots: { value: number; label: TNode; position: number }[] = useMemo(() => {
       // 当 marks 为数字数组
       if (Array.isArray(marks)) {
-        if (marks.find((mark) => typeof mark !== 'number')) {
+        if (marks.some((mark) => typeof mark !== 'number')) {
           console.warn('The props "marks" only support number!');
           return [];
         }
@@ -62,10 +62,9 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       // 当 marks 为对象
       if (marks && typeof marks === 'object') {
         const result = [];
-        // eslint-disable-next-line guard-for-in
-        for (const key in marks) {
+        Object.keys(marks).forEach((key) => {
           const numberKey = Number(key);
-          if (typeof numberKey !== 'number' || !numberKey) {
+          if (typeof numberKey !== 'number') {
             console.warn('The props "marks" key only support number!');
           } else {
             result.push({
@@ -74,7 +73,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
               position: (numberKey - min) / max,
             });
           }
-        }
+        });
         return result;
       }
       return [];
