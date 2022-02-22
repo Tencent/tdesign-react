@@ -110,7 +110,11 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
             checkedSet.delete(checkValue);
           }
 
-          setInternalValue(Array.from(checkedSet), { e });
+          setInternalValue(Array.from(checkedSet), {
+            e,
+            current: checkProps.checkAll ? undefined : checkValue,
+            type: checked ? 'check' : 'uncheck',
+          });
         },
       };
     },

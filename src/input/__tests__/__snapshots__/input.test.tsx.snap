@@ -58,7 +58,7 @@ exports[`Input 组件测试 prefixIcon is function 1`] = `
     class="t-input t-input--prefix"
   >
     <span
-      class="t-input__prefix"
+      class="t-input__prefix t-input__suffix-icon"
     >
       <span>
         prefixIcon
@@ -79,7 +79,7 @@ exports[`Input 组件测试 prefixIcon suffixIcon 1`] = `
     class="t-input t-input--prefix t-input--suffix"
   >
     <span
-      class="t-input__prefix"
+      class="t-input__prefix t-input__suffix-icon"
     >
       <svg
         class="t-icon t-icon-lock-on"
@@ -107,7 +107,7 @@ exports[`Input 组件测试 prefixIcon suffixIcon 1`] = `
       value=""
     />
     <span
-      class="t-input__suffix"
+      class="t-input__suffix t-input__suffix-icon"
     >
       <svg
         class="t-icon t-icon-error-circle-filled"
@@ -205,6 +205,30 @@ exports[`align.jsx 1`] = `
         class="t-input__inner"
         value="居右对齐"
       />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`auto-width.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="max-width: 500px;"
+  >
+    <div
+      class="t-input t-input--auto-width"
+    >
+      <input
+        class="t-input__inner"
+        style="width: 0px;"
+        value="宽度自适应"
+      />
+      <span
+        class="t-input__input-pre"
+      >
+        宽度自适应
+      </span>
     </div>
   </div>
 </DocumentFragment>
@@ -335,7 +359,7 @@ exports[`password.jsx 1`] = `
       class="t-input t-input--prefix t-input--suffix"
     >
       <span
-        class="t-input__prefix"
+        class="t-input__prefix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-lock-on"
@@ -363,7 +387,7 @@ exports[`password.jsx 1`] = `
         value=""
       />
       <span
-        class="t-input__suffix"
+        class="t-input__suffix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-error-circle-filled"
@@ -384,7 +408,7 @@ exports[`password.jsx 1`] = `
       class="t-input t-input--prefix t-input--suffix"
     >
       <span
-        class="t-input__prefix"
+        class="t-input__prefix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-lock-on"
@@ -412,7 +436,7 @@ exports[`password.jsx 1`] = `
         value=""
       />
       <span
-        class="t-input__suffix"
+        class="t-input__suffix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-error-circle-filled"
@@ -466,6 +490,28 @@ exports[`status.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
+      class="t-input t-is-disabled"
+    >
+      <input
+        class="t-input__inner"
+        disabled=""
+        placeholder="禁用状态"
+        value=""
+      />
+    </div>
+    <div
+      class="t-input t-is-readonly"
+    >
+      <input
+        class="t-input__inner"
+        placeholder="只读状态"
+        readonly=""
+        value=""
+      />
+    </div>
+    <br />
+    <br />
+    <div
       class="t-input t-is-success"
     >
       <input
@@ -492,6 +538,80 @@ exports[`status.jsx 1`] = `
         value=""
       />
     </div>
+    <br />
+    <br />
+    <div
+      class="t-input__wrap"
+    >
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="普通状态"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input__tips t-input__tips--normal"
+      >
+        这是普通文本提示
+      </div>
+    </div>
+    <div
+      class="t-input__wrap"
+    >
+      <div
+        class="t-input t-is-success"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="成功状态"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input__tips t-input__tips--success"
+      >
+        校验通过文本提示
+      </div>
+    </div>
+    <div
+      class="t-input__wrap"
+    >
+      <div
+        class="t-input t-is-warning"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="警告状态"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input__tips t-input__tips--warning"
+      >
+        校验不通过文本提示
+      </div>
+    </div>
+    <div
+      class="t-input__wrap"
+    >
+      <div
+        class="t-input t-is-error"
+      >
+        <input
+          class="t-input__inner"
+          placeholder="错误状态"
+          value=""
+        />
+      </div>
+      <div
+        class="t-input__tips t-input__tips--error"
+      >
+        校验存在严重问题文本提示
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -505,7 +625,7 @@ exports[`textarea.jsx 1`] = `
       class="t-input t-input--prefix t-input--suffix"
     >
       <span
-        class="t-input__prefix"
+        class="t-input__prefix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-search"
@@ -527,7 +647,7 @@ exports[`textarea.jsx 1`] = `
         value=""
       />
       <span
-        class="t-input__suffix"
+        class="t-input__suffix t-input__suffix-icon"
       >
         <svg
           class="t-icon t-icon-error-circle-filled"
