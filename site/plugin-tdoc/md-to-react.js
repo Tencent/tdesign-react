@@ -22,7 +22,8 @@ export default function mdToReact(options) {
     import { useLocation } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
-    import Codesandbox from '@components/Codesandbox';
+    import Stackblitz from '@components/stackblitz/index.jsx';
+    import Codesandbox from '@components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
 
