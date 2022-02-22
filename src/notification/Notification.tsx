@@ -1,6 +1,6 @@
 import React, { forwardRef, useContext } from 'react';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
-import { NotificationRemoveContext } from 'tdesign-react/notification/NotificationList';
+import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 
