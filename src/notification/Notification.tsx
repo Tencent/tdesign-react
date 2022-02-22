@@ -7,10 +7,11 @@ import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
 
 const blockName = 'notification';
+export const notificationPluginCloseHandlerName = Symbol('notificationPluginCloseHandlerName');
 
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
-  close: () => void
+  [notificationPluginCloseHandlerName]: () => void
 }
 
 export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
@@ -25,7 +26,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
-    close = noop,
+    [notificationPluginCloseHandlerName]: close = noop,
   } = props;
 
   const { classPrefix } = useConfig();
