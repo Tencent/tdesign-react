@@ -19,6 +19,7 @@ interface NotificationListInstance extends TdNotificationProps {
 }
 
 interface NotificationListOpenOption extends NotificationInfoOptions {
+  id: string;
   key: string;
   theme: NotificationThemeList;
   style: Styles;
@@ -35,6 +36,8 @@ let seed = 0;
 
 export const listMap: Map<NotificationPlacementList, NotificationListInstance> = new Map();
 
+export const NotificationRemoveContext = React.createContext<(key: string) => void>(noop);
+
 const NotificationList = forwardRef<NotificationListInstance, NotificationListProps>((props, ref) => {
   const { placement, zIndex } = props;
   const { classPrefix } = useConfig();
@@ -43,7 +46,6 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
   const remove = (key: string) => {
     setList((oldList) => {
       const index = oldList.findIndex((item) => item.key === key);
-
       if (index !== -1) {
         const tempList = [...oldList];
         tempList.splice(index, 1);
@@ -83,6 +85,7 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
       theme,
       style,
       ref,
+      id: key,
     }]);
 
     return Promise.resolve(ref.current);
@@ -97,35 +100,31 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     remove,
     removeAll,
   }));
-  return (
-    <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
-      {list.map((props) => {
-        const { onDurationEnd = noop, onCloseBtnClick = noop } = props;
-        return (
-          <NotificationComponent
-            ref={props.ref}
-            key={props.key}
-            {
-              ...props
-            }
-            {...{
-              [notificationPluginCloseHandlerName]: () => {
-                remove(props.key);
-              },
-            }}
-            onDurationEnd={() => {
-              remove(props.key);
-              onDurationEnd();
-            }}
-            onCloseBtnClick={(e) => {
-              remove(props.key);
-              onCloseBtnClick(e);
-            }}
 
-          />
-        );
-      })}
-    </div>
+  return (
+    <NotificationRemoveContext.Provider value={remove}>
+      <div className={`${classPrefix}-notification__show--${placement}`} style={{ zIndex }}>
+        {list.map((props) => {
+          const { onDurationEnd = noop, onCloseBtnClick = noop } = props;
+          return (
+            <NotificationComponent
+              ref={props.ref}
+              key={props.key}
+              {...props}
+              onDurationEnd={() => {
+                remove(props.key);
+                onDurationEnd();
+              }}
+              onCloseBtnClick={(e) => {
+                remove(props.key);
+                onCloseBtnClick(e);
+              }}
+
+            />
+          );
+        })}
+      </div>
+    </NotificationRemoveContext.Provider>
   );
 });
 
