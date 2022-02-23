@@ -55,7 +55,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         }
         return marks.map((mark) => ({
           value: mark,
-          position: (mark - min) / max,
+          position: (mark - min) / (max - min),
           label: mark,
         }));
       }
@@ -118,7 +118,6 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
       return (
         <InputNumber
-          theme="normal"
           value={currentValue}
           onChange={(value: number) => handleInputChange(Number(value), nodeIndex)}
           className={classNames(`${classPrefix}-slider-input`, {
@@ -126,6 +125,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           })}
           disabled={disabled}
           {...inputProps}
+          theme="column"
         />
       );
     };
@@ -211,7 +211,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
             ></div>
             {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
             {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
-            <div className={classNames(`${classPrefix}-slider__step`)}>
+            <div>
               {renderDots.map(({ position, value }) => (
                 <div
                   key={value}
@@ -241,6 +241,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
             })}
           >
             {range && createInput(LEFT_NODE)}
+            {range && <div className={`${classPrefix}-slider__center-line`}></div>}
             {createInput(RIGHT_NODE)}
           </div>
         ) : null}
