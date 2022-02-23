@@ -91,8 +91,6 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       return result;
     }, [max, min, step]);
 
-    if (min === -10) console.log(allDots, dots);
-
     const startDirection = isVertical ? 'bottom' : 'left';
     const stepDirection = isVertical ? 'top' : 'left';
     const sizeKey = isVertical ? 'height' : 'width';
