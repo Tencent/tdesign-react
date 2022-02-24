@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
 import useLayoutEffect from '../../_util/useLayoutEffect';
+import { DragSortInnerProps } from '../../_util/useDragSorter';
 import { DataType, TdPrimaryTableProps } from '../type';
 import { StyledProps } from '../../common';
 import Pagination, { PageInfo } from '../../pagination';
@@ -24,14 +25,6 @@ import { useEnhancedTableContext } from '../enhanced/TableContext';
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
-}
-type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, rowIndex?: number, record?: DataType) => void;
-export interface DragSortInnerProps {
-  dragging?: boolean;
-  onDragStart?: DragFnType;
-  onDragOver?: DragFnType;
-  onDrop?: DragFnType;
-  onDragEnd?: DragFnType;
 }
 export interface BaseTableProps<RowData extends DataType = DataType>
   extends TdPrimaryTableProps<RowData>,
