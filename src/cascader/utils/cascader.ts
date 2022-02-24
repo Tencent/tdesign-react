@@ -47,7 +47,11 @@ export const treeStoreExpendEffect = (
     if (val) {
       expandedMap.set(val, true);
       const node = treeStore.getNode(val);
-      if (!node) return;
+      // 无匹配数据
+      if (!node) {
+        treeStore.refreshNodes();
+        return;
+      }
       node.getParents().forEach((tn: TreeNode) => {
         expandedMap.set(tn.value, true);
       });
