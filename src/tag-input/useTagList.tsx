@@ -5,13 +5,17 @@ import { InputValue } from '../input';
 import Tag from '../tag';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
+import { DragSortInnerProps } from '../_util/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
 
+interface TagInputProps extends TdTagInputProps, DragSortInnerProps {}
+
 // handle tag add and remove
-export default function useTagList(props: TdTagInputProps) {
+export default function useTagList(props: TagInputProps) {
   const { classPrefix: prefix } = useConfig();
-  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems } = props;
+  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
+    props;
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useDefault<TdTagInputProps['value'], [TagInputChangeContext]>(
     props.value,
@@ -78,6 +82,7 @@ export default function useTagList(props: TdTagInputProps) {
               disabled={disabled}
               onClose={(context) => onClose({ e: context.e, item, index })}
               closable={!readonly && !disabled}
+              {...getDragProps?.(index, item)}
               {...tagProps}
             >
               {tagContent ?? item}
