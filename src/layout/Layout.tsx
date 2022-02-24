@@ -60,7 +60,7 @@ const Layout = (props: LayoutProps) => {
 
   useEffect(() => {
     React.Children.forEach(children, (child: React.ReactChild) => {
-      if (typeof child !== 'object') return;
+      if (!child || typeof child !== 'object') return;
 
       if (child.type === Aside) setAsides([child]);
     });
