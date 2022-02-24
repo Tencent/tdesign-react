@@ -39,9 +39,9 @@ const Panel = (props: CascaderPanelProps) => {
   // innerComponents
   const renderEmpty = <div className={`${name}__panel--empty`}>{empty}</div>;
 
-  const renderItem = (node: TreeNode) => (
+  const renderItem = (node: TreeNode, index) => (
     <Item
-      key={node.value}
+      key={index}
       node={node}
       cascaderContext={cascaderContext}
       onClick={(ctx: ContextType) => {
@@ -61,13 +61,13 @@ const Panel = (props: CascaderPanelProps) => {
       })}
       key={index}
     >
-      {panel.map((node: TreeNode) => renderItem(node))}
+      {panel.map((node: TreeNode, index) => renderItem(node, index))}
     </ul>
   ));
 
   const filterPanelsContainer = (
     <ul className={classNames(`${name}__menu`, 'narrow-scrollbar', `${name}__menu--segment`, `${name}__menu--filter`)}>
-      {treeNodes.map((node: TreeNode) => renderItem(node))}
+      {treeNodes.map((node: TreeNode, index: number) => renderItem(node, index))}
     </ul>
   );
 

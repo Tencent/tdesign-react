@@ -99,7 +99,8 @@ export function getSingleContent(cascaderContext: CascaderContextType) {
   if (Array.isArray(value)) return '';
   const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
   if (!(node && node.length)) {
-    return '';
+    // 无匹配数据直接输出
+    return value as string;
   }
   const path = node && node[0].getPath();
   if (path && path.length) {
