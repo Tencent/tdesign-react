@@ -3,6 +3,7 @@ import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
+import useDragSorter from '../_util/useDragSorter';
 import TInput, { InputValue } from '../input';
 import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
@@ -39,11 +40,18 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   } = props;
 
   const { isHover, addHover, cancelHover } = useHover(props);
+  const { getDragProps } = useDragSorter({
+    ...props,
+    sortOnDraggable: props.dragSort,
+  });
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
   // handle tag add and remove
-  const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList(props);
+  const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel } = useTagList({
+    ...props,
+    getDragProps,
+  });
 
   const NAME_CLASS = `${prefix}-tag-input`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
