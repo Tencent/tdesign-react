@@ -55,12 +55,6 @@ export default function mdToReact(options) {
         document.title = \`${mdSegment.title} | TDesign\`;
 
         Prismjs.highlightAll();
-
-        document.querySelector('td-doc-content').initAnchorHighlight();
-
-        return () => {
-          document.querySelector('td-doc-content').resetAnchorHighlight();
-        };
       }, []);
 
       useEffect(() => {
