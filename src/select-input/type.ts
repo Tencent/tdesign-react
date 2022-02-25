@@ -6,10 +6,9 @@
 
 import { InputProps, InputValue } from '../input';
 import { PopupProps } from '../popup';
-import { TagInputProps, TagInputValue } from '../tag-input';
+import { TagInputProps, TagInputValue, TagInputChangeContext } from '../tag-input';
 import { TagProps } from '../tag';
 import { PopupVisibleChangeContext } from '../popup';
-import { TagInputChangeContext } from '../tag-input';
 import { TNode, TElement } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
 
@@ -47,6 +46,14 @@ export interface TdSelectInputProps {
    * 透传 Input 输入框组件全部属性
    */
   inputProps?: InputProps;
+  /**
+   * 输入框的值
+   */
+  inputValue?: InputValue;
+  /**
+   * 输入框的值，非受控属性
+   */
+  defaultInputValue?: InputValue;
   /**
    * 定义字段别名，示例：`{ label: 'text', value: 'id', children: 'list' }`
    */
@@ -140,12 +147,9 @@ export interface TdSelectInputProps {
    */
   onFocus?: (value: SelectInputValue, context: SelectInputFocusContext) => void;
   /**
-   * 输入框值发生变化时触发
+   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
    */
-  onInputChange?: (
-    value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
-  ) => void;
+  onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
   /**
    * 进入输入框时触发
    */
@@ -180,6 +184,11 @@ export interface SelectInputFocusContext {
   inputValue: InputValue;
   tagInputValue?: TagInputValue;
   e: FocusEvent<HTMLDivElement>;
+}
+
+export interface SelectInputValueChangeContext {
+  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement>;
+  trigger: 'input' | 'clear' | 'blur';
 }
 
 export type SelectInputChangeContext = TagInputChangeContext;

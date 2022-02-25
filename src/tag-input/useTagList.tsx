@@ -17,11 +17,7 @@ export default function useTagList(props: TagInputProps) {
   const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
     props;
   // handle controlled property and uncontrolled property
-  const [tagValue, setTagValue] = useDefault<TdTagInputProps['value'], [TagInputChangeContext]>(
-    props.value,
-    props.defaultValue || [],
-    props.onChange,
-  );
+  const [tagValue, setTagValue] = useDefault(props.value, props.defaultValue || [], props.onChange);
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
