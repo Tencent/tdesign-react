@@ -63,6 +63,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
     },
+    props.className,
   ];
 
   const tagInputPlaceholder = isHover || !tagValue?.length ? placeholder : '';
@@ -115,6 +116,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       disabled={disabled}
       label={() => renderLabel({ displayNode, label })}
       className={classnames(classes)}
+      style={props.style}
       tips={tips}
       status={status}
       placeholder={tagInputPlaceholder}

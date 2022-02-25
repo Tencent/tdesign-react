@@ -49,7 +49,7 @@ export default function useSingle(props: TdSelectInputProps) {
   ) => {
     if (props.allowInput) {
       setInputValue(value);
-      props.onInputChange?.(value, context);
+      props.onInputChange?.(value, { ...context, trigger: 'input' });
     }
   };
 
