@@ -4,8 +4,9 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import { TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
+import { DragSortInnerProps } from '../../_util/useDragSorter';
 import TableRow from './TableRow';
-import { ExpandInnerProps, DragSortInnerProps } from './Table';
+import { ExpandInnerProps } from './Table';
 import { useTableContext } from './TableContext';
 
 interface TableBodyProps extends TdPrimaryTableProps, ExpandInnerProps, DragSortInnerProps {}

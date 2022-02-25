@@ -52,6 +52,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
+  const dialogOpenClass = `${prefixCls}__open`;
 
   useEffect(() => {
     bodyOverflow.current = document.body.style.overflow;
@@ -81,9 +82,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         wrap.current.focus();
       }
     } else if (isModal) {
-      document.body.style.cssText = bodyCssTextRef.current;
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (openDialogDom.length < 1) {
+        document.body.style.cssText = bodyCssTextRef.current;
+      }
     }
-  }, [preventScrollThrough, attach, visible, mode, isModal]);
+  }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
 
   useEffect(() => {
     if (visible) {
@@ -101,7 +105,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
     if (isModal && preventScrollThrough) {
       // 还原body的滚动条
-      isModal && (document.body.style.overflow = bodyOverflow.current);
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (isModal && openDialogDom.length < 1) {
+        document.body.style.overflow = bodyOverflow.current;
+      }
     }
     if (!isModal) {
       const { style } = dialog.current;
@@ -262,7 +269,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
-    const wrapClass = classnames(props.className, `${prefixCls}__ctx`, `${prefixCls}__ctx--fixed`);
+    const wrapClass = classnames(
+      props.className,
+      `${prefixCls}__ctx`,
+      `${prefixCls}__ctx--fixed`,
+      visible ? dialogOpenClass : '',
+    );
     const dialog = (
       <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
         {mode === 'modal' && renderMask()}

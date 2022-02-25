@@ -135,10 +135,17 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       load,
       lazy,
       valueMode,
-      options,
     };
     treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
+  }, [checkStrictly, disabled, keys, lazy, load, valueMode, treeStore]);
+
+  useEffect(() => {
+    if (!treeStore) return;
+    treeStore.reload(options);
+    treeStore.refreshNodes();
+    treeStoreExpendEffect(treeStore, value, []);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes);
+  }, [inputVal, options, value, treeStore]);
 
   // treeStore and expend effect
   useEffect(() => {

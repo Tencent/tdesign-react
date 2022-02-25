@@ -22,7 +22,8 @@ export default function mdToReact(options) {
     import { useLocation } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
-    import Codesandbox from '@components/Codesandbox';
+    import Stackblitz from '@components/stackblitz/index.jsx';
+    import Codesandbox from '@components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
 
@@ -54,12 +55,6 @@ export default function mdToReact(options) {
         document.title = \`${mdSegment.title} | TDesign\`;
 
         Prismjs.highlightAll();
-
-        document.querySelector('td-doc-content').initAnchorHighlight();
-
-        return () => {
-          document.querySelector('td-doc-content').resetAnchorHighlight();
-        };
       }, []);
 
       useEffect(() => {
@@ -170,7 +165,7 @@ function customRender({ source, file, md }) {
 
   apiMd = apiMd.replace(/`([^`]+)`/g, (str, codeStr) => {
     codeStr = codeStr.replace(/\|/g, '\\|');
-    return `<td-code text="${codeStr}"></td-code>`;
+    return `\`${codeStr}\``;
   });
 
   const mdSegment = {

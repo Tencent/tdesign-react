@@ -23,13 +23,13 @@ export default function NotificationExample() {
           value={offsetX}
           onChange={(v) => setOffsetX(v)}
           style={{ width: '130px', display: 'inline-block', margin: '0 20px 36px 0' }}
-        ></Input>
+        />
         <Input
           placeholder="请输入纵向偏移量"
           value={offsetY}
           onChange={(v) => setOffsetY(v)}
           style={{ width: '130px', display: 'inline-block', margin: '0 20px 36px 0' }}
-        ></Input>
+        />
       </div>
       <div className="tdesign-demo-block-row">
         <Button onClick={() => openNotification('top-left')}>左上角</Button>

@@ -24,7 +24,7 @@ exports[`base.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
@@ -66,7 +66,7 @@ exports[`custom-icon.jsx 1`] = `
             class="t-input t-is-readonly t-input--prefix t-input--suffix"
           >
             <span
-              class="t-input__prefix"
+              class="t-input__prefix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-browse"
@@ -94,7 +94,7 @@ exports[`custom-icon.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-lock-on"
@@ -147,7 +147,7 @@ exports[`date-presets-alt.jsx 1`] = `
               value="2020-01-01 至 2020-08-08"
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
@@ -199,7 +199,7 @@ exports[`date-range.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
@@ -238,7 +238,7 @@ exports[`date-range.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-time"
@@ -291,7 +291,7 @@ exports[`date-time.jsx 1`] = `
               value="2022-02-02 11:11:11"
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-time"
@@ -347,7 +347,7 @@ exports[`disable-date.jsx 1`] = `
                 value=""
               />
               <span
-                class="t-input__suffix"
+                class="t-input__suffix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-calendar"
@@ -390,7 +390,7 @@ exports[`disable-date.jsx 1`] = `
                 value=""
               />
               <span
-                class="t-input__suffix"
+                class="t-input__suffix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-calendar"
@@ -433,7 +433,7 @@ exports[`disable-date.jsx 1`] = `
                 value=""
               />
               <span
-                class="t-input__suffix"
+                class="t-input__suffix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-calendar"
@@ -476,7 +476,7 @@ exports[`disable-date.jsx 1`] = `
                 value=""
               />
               <span
-                class="t-input__suffix"
+                class="t-input__suffix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-calendar"
@@ -519,7 +519,7 @@ exports[`disable-date.jsx 1`] = `
                 value=""
               />
               <span
-                class="t-input__suffix"
+                class="t-input__suffix t-input__suffix-icon"
               >
                 <svg
                   class="t-icon t-icon-calendar"
@@ -568,7 +568,7 @@ exports[`first-day-of-week.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
@@ -616,7 +616,7 @@ exports[`month.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
@@ -664,7 +664,7 @@ exports[`year.jsx 1`] = `
               value="2025"
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-calendar"
