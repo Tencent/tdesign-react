@@ -197,12 +197,12 @@ export default {
           path: '/react/components/select',
           component: () => import('tdesign-react/select/select.md'),
         },
-        {
-          title: 'SelectInput 筛选器输入框',
-          name: 'select-input',
-          path: '/react/components/select-input',
-          component: () => import('tdesign-react/select-input/select-input.md'),
-        },
+        // {
+        //   title: 'SelectInput 筛选器输入框',
+        //   name: 'select-input',
+        //   path: '/react/components/select-input',
+        //   component: () => import('tdesign-react/select-input/select-input.md'),
+        // },
         {
           title: 'Slider 滑动输入条',
           name: 'slider',
