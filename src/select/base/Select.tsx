@@ -125,15 +125,6 @@ const Select = forwardRefWithStatics(
       }
     }, [showPopup]);
 
-    const handleShowPopup = (visible: boolean) => {
-      if (disabled) return;
-      setShowPopup(visible);
-      onVisibleChange?.(visible);
-      if (!visible && !multiple && filterable) {
-        setInputVal(selectedLabel);
-      }
-    };
-
     // 处理设置option的逻辑
     useEffect(() => {
       if (keys) {
@@ -190,6 +181,15 @@ const Select = forwardRefWithStatics(
         return [];
       });
     }, [value, keys, valueType, valueToOption]);
+
+    const handleShowPopup = (visible: boolean) => {
+      if (disabled) return;
+      setShowPopup(visible);
+      onVisibleChange?.(visible);
+      if (!visible && !multiple && filterable) {
+        setInputVal(selectedLabel);
+      }
+    };
 
     // 移除 Tag
     const removeTag = (
@@ -256,6 +256,37 @@ const Select = forwardRefWithStatics(
       handleFilter(value);
     };
 
+    const onClearValue = (event: React.MouseEvent) => {
+      event.stopPropagation();
+      if (Array.isArray(value)) {
+        onChange([]);
+      } else {
+        onChange(null);
+      }
+      setInputVal(undefined);
+      onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
+    };
+
+    const onInputClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (!disabled) {
+        setShowPopup(!showPopup);
+        setInputVal(undefined);
+      }
+    };
+
+    // 处理输入框键盘
+    const handleInputKeyDown = useCallback(
+      (inputValue, { e }) => {
+        if (!inputValue && multiple && Array.isArray(value) && e.which === KeyCode.BACKSPACE) {
+          const lastValue = value[value.length - 1];
+          const values = getSelectValueArr(value, lastValue, true, valueType, keys);
+          onChange(values);
+        }
+      },
+      [value, onChange, multiple, valueType, keys],
+    );
+
     const defaultLabel = (
       <span
         className={classNames(
@@ -271,6 +302,56 @@ const Select = forwardRefWithStatics(
         {selectedLabel || placeholder || t(local.placeholder)}
       </span>
     );
+
+    const renderPrefixIcon = () => <span className={`${name}__left-icon`}>{prefixIcon}</span>;
+
+    // 渲染后置图标
+    const renderSuffixIcon = () => {
+      if (loading) {
+        return (
+          <Loading
+            className={classNames(className, `${name}__right-icon`, `${name}__active-icon`)}
+            loading={true}
+            size="small"
+          />
+        );
+      }
+
+      if (clearable && value !== undefined && value !== null && isHover) {
+        return (
+          <CloseCircleFilledIcon
+            onClick={clearable ? onClearValue : undefined}
+            className={classNames(className, `${name}__right-icon`, `${name}__right-icon-clear`)}
+          />
+        );
+      }
+      return (
+        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
+      );
+    };
+
+    // 渲染主体内容
+    const renderContent = () => {
+      const popupContentProps = {
+        onChange: handleChange,
+        value,
+        className,
+        size,
+        multiple,
+        showPopup,
+        setShowPopup,
+        options: currentOptions,
+        empty,
+        max,
+        loadingText,
+        loading,
+        valueType,
+        keys,
+        panelBottomContent,
+        panelTopContent,
+      };
+      return <PopupContent {...popupContentProps}>{children}</PopupContent>;
+    };
 
     const renderMultipleTags = () => {
       if (multiple && Array.isArray(value) && value.length > 0) {
@@ -311,18 +392,16 @@ const Select = forwardRefWithStatics(
       return !filterable ? defaultLabel : null;
     };
 
-    const handleInputKeyDown = useCallback(
-      (inputValue, { e }) => {
-        if (!inputValue && multiple && Array.isArray(value) && e.which === KeyCode.BACKSPACE) {
-          const lastValue = value[value.length - 1];
-          const values = getSelectValueArr(value, lastValue, true, valueType, keys);
-          onChange(values);
-        }
-      },
-      [value, onChange, multiple, valueType, keys],
-    );
+    // 渲染多选输入框实现依赖 renderMultipleTags
+    const renderMultipleInput = () => {
+      if (valueDisplay) {
+        return valueDisplay({ value: value as OptionsType, onClose: removeTag }) || defaultLabel;
+      }
+      return renderMultipleTags();
+    };
 
-    const renderInput = () => (
+    // 渲染搜索输入框
+    const renderSearchInput = () => (
       <Input
         value={isString(inputVal) || multiple ? inputVal : selectedLabel}
         placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
@@ -337,77 +416,6 @@ const Select = forwardRefWithStatics(
       />
     );
 
-    const onInputClick = (e: React.MouseEvent) => {
-      e.preventDefault();
-      if (!disabled) {
-        setShowPopup(!showPopup);
-        setInputVal(undefined);
-      }
-    };
-
-    const onClearValue = (event: React.MouseEvent) => {
-      event.stopPropagation();
-      if (Array.isArray(value)) {
-        onChange([]);
-      } else {
-        onChange(null);
-      }
-      setInputVal(undefined);
-      onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
-    };
-
-    // 渲染后置图标
-    const renderSuffixIcon = () => {
-      if (loading) {
-        return (
-          <Loading
-            className={classNames(className, `${name}__right-icon`, `${name}__active-icon`)}
-            loading={true}
-            size="small"
-          />
-        );
-      }
-
-      if (clearable && value !== undefined && value !== null && isHover) {
-        return (
-          <CloseCircleFilledIcon
-            onClick={clearable ? onClearValue : undefined}
-            className={classNames(className, `${name}__right-icon`, `${name}__right-icon-clear`)}
-          />
-        );
-      }
-      return (
-        showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
-      );
-    };
-
-    const popupContentProps = {
-      onChange: handleChange,
-      value,
-      className,
-      size,
-      multiple,
-      showPopup,
-      setShowPopup,
-      options: currentOptions,
-      empty,
-      max,
-      loadingText,
-      loading,
-      valueType,
-      keys,
-      panelBottomContent,
-      panelTopContent,
-    };
-
-    const renderContent = () => <PopupContent {...popupContentProps}>{children}</PopupContent>;
-
-    const renderMultipleInput = () => {
-      if (valueDisplay) {
-        return valueDisplay({ value: value as OptionsType, onClose: removeTag }) || defaultLabel;
-      }
-      return renderMultipleTags();
-    };
     return (
       <div
         className={`${name}__wrap`}
@@ -444,10 +452,10 @@ const Select = forwardRefWithStatics(
             style={{ userSelect: 'none' }}
             onClick={onInputClick}
           >
-            {<span className={`${name}__left-icon`}>{prefixIcon}</span>}
-            {multiple ? renderMultipleInput() : null}
-            {filterable && renderInput()}
-            {!multiple && !filterable && defaultLabel}
+            {renderPrefixIcon()}
+            {/* 渲染多选 */ multiple && renderMultipleInput()}
+            {/* 渲染搜索框 */ filterable && renderSearchInput()}
+            {/* 默认样式 */ !multiple && !filterable && defaultLabel}
             {renderSuffixIcon()}
           </div>
         </Popup>
