@@ -44,6 +44,14 @@ export interface TdTagInputProps {
    */
   inputProps?: InputProps;
   /**
+   * 输入框的值
+   */
+  inputValue?: InputValue;
+  /**
+   * 输入框的值，非受控属性
+   */
+  defaultInputValue?: InputValue;
+  /**
    * 左侧文本
    */
   label?: TNode;
@@ -140,12 +148,9 @@ export interface TdTagInputProps {
    */
   onFocus?: (value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
-   * 输入框值发生变化时触发
+   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、回车键触发等
    */
-  onInputChange?: (
-    value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
-  ) => void;
+  onInputChange?: (value: InputValue, context?: InputValueChangeContext) => void;
   /**
    * 进入输入框时触发
    */
@@ -174,6 +179,11 @@ export interface TagInputChangeContext {
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
+
+export interface InputValueChangeContext {
+  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement>;
+  trigger: 'input' | 'clear' | 'enter';
+}
 
 export interface TagInputRemoveContext {
   value: TagInputValue;
