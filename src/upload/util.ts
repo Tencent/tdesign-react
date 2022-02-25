@@ -1,5 +1,3 @@
-import { TdUploadFile } from './types';
-
 export function returnFileSize(number: number) {
   if (number < 1024) {
     return `${number} Bytes`;
@@ -39,18 +37,6 @@ export function abridgeName(inputName = '', leftCount = 5, rightcount = 7): stri
     }
   }
   return name.replace(new RegExp(`^(.{${leftLength}})(.+)(.{${rightLength}})$`), '$1…$3');
-}
-
-export function updateFileList(file: TdUploadFile, fileList: TdUploadFile[]) {
-  const nextFileList = [...fileList];
-  const fileIndex = nextFileList.findIndex(({ uid }: TdUploadFile) => uid === file.uid);
-  if (fileIndex === -1) {
-    nextFileList.push(file);
-  } else {
-    nextFileList[fileIndex] = file;
-  }
-
-  return nextFileList;
 }
 
 export const urlCreator = () => window.webkitURL || window.URL;
