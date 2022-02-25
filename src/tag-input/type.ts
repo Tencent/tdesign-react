@@ -30,7 +30,7 @@ export interface TdTagInputProps {
    */
   disabled?: boolean;
   /**
-   * 【开发中】拖拽调整标签顺序
+   * 拖拽调整标签顺序
    * @default false
    */
   dragSort?: boolean;
@@ -122,6 +122,15 @@ export interface TdTagInputProps {
    * 点击组件时触发
    */
   onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 拖拽排序时触发
+   */
+  onDragSort?: (context: {
+    currentIndex: number;
+    current: string | number;
+    targetIndex: number;
+    target: string | number;
+  }) => void;
   /**
    * 按键按下 Enter 时触发
    */
