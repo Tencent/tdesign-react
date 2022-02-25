@@ -47,21 +47,21 @@ const SliderHandleButton: React.FC<SliderHandleButtonProps> = ({ onChange, style
   };
 
   return (
-    <div
-      style={style}
-      className={`${classPrefix}-slider__button-wrapper`}
-      onMouseDown={(e) => handleSliderMouseDown(e)}
-      onMouseEnter={(e) => handleSliderEnter(e)}
-      onMouseLeave={(e) => handleSliderLeave(e)}
-    >
-      <Tooltip visible={popupVisible} placement="top" {...toolTipProps}>
+    <Tooltip visible={popupVisible} placement="top" {...toolTipProps}>
+      <div
+        style={style}
+        className={`${classPrefix}-slider__button-wrapper`}
+        onMouseDown={(e) => handleSliderMouseDown(e)}
+        onMouseEnter={(e) => handleSliderEnter(e)}
+        onMouseLeave={(e) => handleSliderLeave(e)}
+      >
         <div
           className={classNames(`${classPrefix}-slider__button`, {
             [`${classPrefix}-slider__button--dragging`]: isDragging,
           })}
         ></div>
-      </Tooltip>
-    </div>
+      </div>
+    </Tooltip>
   );
 };
 

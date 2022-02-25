@@ -1,11 +1,11 @@
 import React from 'react';
+import useDragSorter from '../../_util/useDragSorter';
 import { TdPrimaryTableProps } from '../type';
 import BaseTable from '../base/Table';
 import useSorter from './useSorter';
 import useFilter from './useFilter';
 import useSelect from './useSelect';
 import useExpand from './useExpand';
-import useDragSorter from './useDragSorter';
 
 export type PrimaryTableProps = TdPrimaryTableProps;
 
@@ -19,9 +19,8 @@ export default function PrimaryTable(props: PrimaryTableProps) {
     data: filterData,
   });
   const { dragging, onDragStart, onDragOver, onDrop, onDragEnd } = useDragSorter({
-    ...props,
-    columns: expandColumns,
-    data: filterData,
+    sortOnDraggable: props.sortOnRowDraggable,
+    onDragSort: props.onDragSort,
   });
 
   // 添加其他附加功能

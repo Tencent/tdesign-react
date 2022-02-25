@@ -17,6 +17,7 @@ export * from './table';
 export * from './tag';
 export * from './tag-input';
 export * from './select';
+export * from './select-input';
 export * from './list';
 export * from './tabs';
 export * from './notification';
