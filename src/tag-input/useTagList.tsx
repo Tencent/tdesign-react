@@ -19,7 +19,7 @@ export default function useTagList(props: TagInputProps) {
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useDefault<TdTagInputProps['value'], [TagInputChangeContext]>(
     props.value,
-    props.defaultValue,
+    props.defaultValue || [],
     props.onChange,
   );
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
