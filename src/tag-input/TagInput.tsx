@@ -66,7 +66,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     props.className,
   ];
 
-  const tagInputPlaceholder = isHover || !tagValue?.length ? placeholder : '';
+  const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 

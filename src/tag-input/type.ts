@@ -131,7 +131,7 @@ export interface TdTagInputProps {
    */
   onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
-   * 拖拽排序时触发
+   * 【开发中】拖拽排序时触发
    */
   onDragSort?: (context: {
     currentIndex: number;
@@ -181,7 +181,7 @@ export interface TagInputChangeContext {
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
 
 export interface InputValueChangeContext {
-  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement>;
+  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> | KeyboardEvent<HTMLDivElement>;
   trigger: 'input' | 'clear' | 'enter';
 }
 
