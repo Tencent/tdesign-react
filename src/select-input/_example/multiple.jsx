@@ -88,11 +88,10 @@ export default function SelectInputMultiple() {
     }
   };
 
-  // 过滤功能
-  const onInputChange = (val) => {
-    const newOptions = options.filter(t => t.label.indexOf(val) !== -1);
-    setDisplayOptions(newOptions);
+  const onInputChange = (val, context) => {
     setInputValue(val);
+    // 过滤功能
+    console.log(val, context);
   };
 
   useEffect(() => {

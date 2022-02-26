@@ -183,11 +183,15 @@ export type SelectInputValue = string | number | boolean | Date | Object | Array
 export interface SelectInputFocusContext {
   inputValue: InputValue;
   tagInputValue?: TagInputValue;
-  e: FocusEvent<HTMLDivElement>;
+  e: FocusEvent<HTMLInputElement>;
 }
 
 export interface SelectInputValueChangeContext {
-  e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement>;
+  e?:
+    | FormEvent<HTMLDivElement>
+    | MouseEvent<HTMLElement | SVGElement>
+    | FocusEvent<HTMLInputElement>
+    | KeyboardEvent<HTMLDivElement>;
   trigger: 'input' | 'clear' | 'blur';
 }
 

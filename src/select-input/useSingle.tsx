@@ -25,13 +25,18 @@ const COMMON_PROPERTIES = [
   'onMouseleave',
 ];
 
-const DEFAULT_KEYS = {
+const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
   label: 'label',
-  key: 'key',
+  value: 'value',
 };
 
+function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
+  const iKeys = keys || DEFAULT_KEYS;
+  return isObject(value) ? value[iKeys.label] : value;
+}
+
 export default function useSingle(props: TdSelectInputProps) {
-  const { value } = props;
+  const { value, keys } = props;
   const inputRef = useRef();
   const [inputValue, setInputValue] = useState<string | number>('');
 
@@ -54,10 +59,8 @@ export default function useSingle(props: TdSelectInputProps) {
   };
 
   useEffect(() => {
-    const iKeys = { ...DEFAULT_KEYS, ...props.keys };
-    const val = isObject(value) ? value[iKeys.label] : value;
-    setInputValue(val);
-  }, [props.keys, value]);
+    setInputValue(getInputValue(value, keys));
+  }, [keys, value]);
 
   const renderSelectSingle = () => {
     // 单选，值的呈现方式
@@ -75,11 +78,13 @@ export default function useSingle(props: TdSelectInputProps) {
             {singleValueDisplay}
           </>
         }
+        showClearIconOnEmpty={true}
         onChange={onInnerInputChange}
         readonly={!props.allowInput}
         onClear={onInnerClear}
         onBlur={(val, context) => {
           props.onBlur?.(value, { ...context, inputValue: val });
+          setInputValue(getInputValue(value, keys));
         }}
         onFocus={(val, context) => {
           props.onFocus?.(value, { ...context, inputValue: val });
