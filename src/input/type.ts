@@ -40,7 +40,7 @@ export interface TdInputProps {
   /**
    * 【开发中】指定输入框展示值的格式
    */
-  format?: (value: number | number) => number | string;
+  format?: (value: InputValue) => number | string;
   /**
    * 左侧文本
    */
@@ -50,7 +50,7 @@ export interface TdInputProps {
    */
   maxcharacter?: number;
   /**
-   * 用户最多可以输入的文本长度。值小于等于 0 的时候，则不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
+   * 用户最多可以输入的文本长度，一个中文等于一个计数长度。值小于等于 0 的时候，则表示不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
    */
   maxlength?: number;
   /**
@@ -71,6 +71,11 @@ export interface TdInputProps {
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 输入框内容为空时，悬浮状态是否显示清空按钮，默认不显示
+   * @default false
+   */
+  showClearIconOnEmpty?: boolean;
   /**
    * 输入框尺寸
    * @default medium

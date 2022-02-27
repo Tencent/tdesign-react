@@ -3,6 +3,7 @@ import isObject from 'lodash/isObject';
 import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from './type';
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
+import useDefaultValue from '../_util/useDefault';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
@@ -18,6 +19,7 @@ const DEFAULT_KEYS = {
 export default function useMultiple(props: TdSelectInputProps) {
   const { value } = props;
   const tagInputRef = useRef();
+  const [tInputValue, setTInputValue] = useDefaultValue(props.inputValue, props.defaultInputValue, props.onInputChange);
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 
   const getTags = () => {
@@ -42,6 +44,7 @@ export default function useMultiple(props: TdSelectInputProps) {
     <TagInput
       ref={tagInputRef}
       {...p.commonInputProps}
+      readonly={!props.allowInput}
       autoWidth={props.borderless || props.autoWidth}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
@@ -49,12 +52,19 @@ export default function useMultiple(props: TdSelectInputProps) {
       valueDisplay={props.valueDisplay}
       placeholder={tPlaceholder}
       value={tags}
+      inputValue={tInputValue || ''}
       onChange={onTagInputChange}
-      onInputChange={props.onInputChange}
+      onInputChange={(val, context) => {
+        // 筛选器统一特性：筛选器按下回车时不清空输入框
+        if (context?.trigger === 'enter') return;
+        setTInputValue(val, { trigger: context.trigger, e: context.e });
+      }}
       tagProps={props.tagProps}
       onClear={p.onInnerClear}
       onBlur={(val, context) => {
         props.onBlur?.(props.value, { ...context, tagInputValue: val });
+        // 筛选器统一特性：失去焦点时，清空输入内容
+        setTInputValue('', { ...context, trigger: 'blur' });
       }}
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });

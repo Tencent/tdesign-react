@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TagInput } from 'tdesign-react';
 
 export default function TagInputBaseExample() {
-  const [tags1, setTags1] = useState(['Vue', 'React', 'angular']);
+  const [tags1, setTags1] = useState(['Vue', 'React', 'Angular']);
   const [tags2] = useState(['Vue', 'React']);
   const [tags3] = useState(['Vue', 'React']);
 
