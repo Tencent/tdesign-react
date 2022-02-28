@@ -77,7 +77,7 @@ function Components(props) {
   }, []);
 
   return (
-    <ConfigProvider /* locale={locale} */>
+    <ConfigProvider /* locale={locale}  globalConfig={{ animation: { exclude: ['ripple'] }}} */ >
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
