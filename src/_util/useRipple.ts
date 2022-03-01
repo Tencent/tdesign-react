@@ -1,5 +1,6 @@
 import { useEffect, useCallback, RefObject, useMemo } from 'react';
 import useConfig from './useConfig';
+import useAnimation from './useAnimation';
 import setStyle from './setStyle';
 import { canUseDocument } from './dom';
 
@@ -37,6 +38,9 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
 export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?: string): void {
   const { classPrefix } = useConfig();
 
+  // 全局配置
+  const { keepRipple } = useAnimation();
+
   const rippleContainer = useMemo(() => {
     if (!canUseDocument) return null;
     return document.createElement('div');
@@ -48,7 +52,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       const el = ref?.current;
       const rippleColor = getRippleColor(el, fixedRippleColor);
 
-      if (e.button !== 0 || !el) return;
+      if (e.button !== 0 || !el || !keepRipple) return;
 
       if (
         el.classList.contains(`${classPrefix}-is-active`) ||
@@ -134,7 +138,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);
     },
-    [classPrefix, ref, fixedRippleColor, rippleContainer],
+    [classPrefix, ref, fixedRippleColor, rippleContainer, keepRipple],
   );
 
   // 重置一些属性 为动画做准备 reset the node which uses the ripple animation
