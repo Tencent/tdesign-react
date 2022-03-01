@@ -115,7 +115,7 @@
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.170",
-    "@types/node": "^11.15.4",
+    "@types/node": "^17.0.21",
     "@types/raf": "^3.4.0",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
