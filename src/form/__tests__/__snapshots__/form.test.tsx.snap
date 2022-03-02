@@ -4018,21 +4018,30 @@ exports[`validator-status.jsx 1`] = `
             <span
               class="t-form__status"
             >
-              <svg
-                class="t-icon t-icon-loading"
-                fill="none"
-                height="1em"
-                name="loading"
-                style="color: rgb(24, 144, 255); font-size: 25px;"
-                viewBox="0 0 16 16"
-                width="1em"
+              <div
+                class="t-loading t-loading--center"
+                style="font-size: 25px; color: rgb(24, 144, 255);"
               >
-                <path
-                  d="M8 1.5a6.5 6.5 0 000 13v-1.63A4.87 4.87 0 1112.88 8h1.62A6.5 6.5 0 008 1.5z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
+                <svg
+                  class="t-loading__gradient t-icon-loading"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 14 14"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <foreignobject
+                    height="12"
+                    width="12"
+                    x="1"
+                    y="1"
+                  >
+                    <div
+                      class="t-loading__gradient-conic"
+                    />
+                  </foreignobject>
+                </svg>
+              </div>
             </span>
           </div>
         </div>

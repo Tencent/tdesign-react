@@ -78,8 +78,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   // errorListValue 由 validateMessage 与 rule message 一起控制，validateMessage 优先级最高
   const errorListValue = useMemo(() => {
-    const messagelist = validateMessage?.[name] || [];
-    return messagelist.length ? messagelist : errorList;
+    const messageList = validateMessage?.[name] || [];
+    return messageList.length ? messageList : errorList;
   }, [validateMessage, errorList, name]);
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
