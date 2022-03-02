@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, KeyboardEvent, ReactNode } from 'react';
+import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
 import { isFunction } from 'lodash';
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
@@ -101,7 +101,7 @@ export default function useTagList(props: TagInputProps) {
         collapsedTags: tagValue.slice(minCollapsedNum, tagValue.length),
       };
       const more = isFunction(collapsedItems) ? collapsedItems(params) : collapsedItems;
-      list.push(more ?? <Tag key="more">+{len}</Tag>);
+      list.push(<Fragment key="more">{more ?? <Tag>+{len}</Tag>}</Fragment>);
     }
     return list;
   };
