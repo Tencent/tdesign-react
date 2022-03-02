@@ -18,6 +18,7 @@ inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue` | 
 defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue` | N
 keys | Object | - | 定义字段别名，示例：`{ label: 'text', value: 'id', children: 'list' }`。TS 类型：`SelectInputKeys` `interface SelectInputKeys { label?: string; value?: string; children?: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
 label | TNode | - | 左侧文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+loading | Boolean | false | 是否处于加载状态 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 multiple | Boolean | false | 是否为多选模式，默认为单选 | N
 panel | TNode | - | 下拉框内容，可完全自定义。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
