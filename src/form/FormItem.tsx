@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
+import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
@@ -24,7 +24,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 const ctrlKeyMap = new Map();
 ctrlKeyMap.set(Checkbox, 'checked');
 ctrlKeyMap.set(Tag.CheckTag, 'checked');
-ctrlKeyMap.set(Upload, 'file');
+ctrlKeyMap.set(Upload, 'files');
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -39,6 +39,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     labelAlign,
     initialData,
     requiredMark,
+    successBorder,
     className,
     style: formItemStyle,
   } = props;
@@ -54,6 +55,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
     formItemsRef,
+    validateMessage,
     onFormItemValueChange,
   } = useFormContext();
 
@@ -74,6 +76,12 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
   const innerRequiredMark = isNil(requiredMark) ? requiredMarkFromContext : requiredMark;
 
+  // errorListValue 由 validateMessage 与 rule message 一起控制，validateMessage 优先级最高
+  const errorListValue = useMemo(() => {
+    const messageList = validateMessage?.[name] || [];
+    return messageList.length ? messageList : errorList;
+  }, [validateMessage, errorList, name]);
+
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
     [`${classPrefix}-form__item-with-help`]: help,
@@ -88,11 +96,22 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     [`${classPrefix}-form__label--right`]: innerLabelAlign === 'right' && innerLabelWidth,
   });
 
-  const contentClasses = classNames(`${classPrefix}-form__controls`, {
-    [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === ValidateStatus.SUCCESS,
-    [`${classPrefix}-is-warning`]: showErrorMessage && errorList.length && errorList[0].type === 'warning',
-    [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
-  });
+  const contentClass = () => {
+    const controlCls = `${classPrefix}-form__controls`;
+    if (!showErrorMessage) return controlCls;
+
+    const isSuccess = verifyStatus === ValidateStatus.SUCCESS;
+    if (isSuccess)
+      return classNames(controlCls, `${classPrefix}-is-success`, {
+        [`${classPrefix}-form--success-border`]: successBorder,
+      });
+
+    const firstErrorType = errorListValue.length && errorListValue[0].type;
+    return classNames(controlCls, {
+      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
+      [`${classPrefix}-is-error`]: firstErrorType === 'error',
+    });
+  };
 
   let labelStyle = {};
   let contentStyle = {};
@@ -110,8 +129,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
-    if (showErrorMessage && errorList.length && errorList[0].message) {
-      return <p className={`${classPrefix}-input__extra`}>{errorList[0].message}</p>;
+    const list = errorListValue;
+    if (showErrorMessage && list && list[0] && list[0].message) {
+      return <p className={`${classPrefix}-input__extra`}>{list[0].message}</p>;
     }
     if (successList.length) {
       return <p className={`${classPrefix}-input__extra`}>{successList[0].message}</p>;
@@ -134,8 +154,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       if (verifyStatus === ValidateStatus.SUCCESS) {
         return resultIcon(iconMap[verifyStatus]);
       }
-      if (errorList && errorList[0]) {
-        const type = errorList[0].type || 'error';
+      if (errorListValue && errorListValue[0]) {
+        const type = errorListValue[0].type || 'error';
         return resultIcon(iconMap[type]);
       }
       return null;
@@ -294,7 +314,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
           <label htmlFor={props?.for}>{label}</label>
         </div>
       )}
-      <div className={contentClasses} style={contentStyle}>
+      <div className={contentClass()} style={contentStyle}>
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
@@ -321,8 +341,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               return React.cloneElement(child, {
-                ...child.props,
                 disabled: disabledFromContext,
+                ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value) => {
                   onChangeFromProps.call(null, value);
