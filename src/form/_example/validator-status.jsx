@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
-import { LoadingIcon, AddRectangleIcon, HelpCircleIcon } from 'tdesign-icons-react';
+import { Form, Input, Button, MessagePlugin, Loading } from 'tdesign-react';
+import { AddRectangleIcon, HelpCircleIcon } from 'tdesign-icons-react';
 
 const { FormItem } = Form;
 
@@ -51,7 +51,7 @@ export default function BaseForm() {
         <FormItem
           label="加载中"
           name="loading"
-          statusIcon={<LoadingIcon name="loading" size="25px" style={{ color: '#1890ff' }} />}
+          statusIcon={<Loading loading size="25px" style={{ color: '#1890ff' }} />}
         >
           <Input placeholder="正在校验中，请稍等" />
         </FormItem>
