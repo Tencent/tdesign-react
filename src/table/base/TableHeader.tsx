@@ -22,9 +22,9 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
       }
       const trIndex = currentDepth - 1;
       const currentTr = trsColumns[trIndex];
-      const { rowSpan, colSpan } = getRowSpanAndColSpan({ node: item, columnsDepth, currentDepth });
+      const { rowspan, colspan } = getRowspanAndColspan({ node: item, columnsDepth, currentDepth });
       const tdIndex = !currentTr ? 0 : currentTr.length;
-      const currentTd = { colKey: `tr-${trIndex}_td-${tdIndex}`, ...rest, rowSpan, colSpan };
+      const currentTd = { colKey: `tr-${trIndex}_td-${tdIndex}`, ...rest, rowspan, colspan };
       if (!currentTr) {
         trsColumnsNew[trIndex] = [currentTd];
       } else {
@@ -34,19 +34,19 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
     return trsColumnsNew;
   }
 
-  function getRowSpanAndColSpan({ node, columnsDepth, currentDepth }) {
-    let rowSpan = 1;
-    let colSpan = 1;
+  function getRowspanAndColspan({ node, columnsDepth, currentDepth }) {
+    let rowspan = 1;
+    let colspan = 1;
     if (node.children) {
-      rowSpan = 1;
-      colSpan = getLeafNodeCount(node.children);
+      rowspan = 1;
+      colspan = getLeafNodeCount(node.children);
     } else {
-      rowSpan = columnsDepth - currentDepth + 1;
-      colSpan = 1;
+      rowspan = columnsDepth - currentDepth + 1;
+      colspan = 1;
     }
     return {
-      rowSpan,
-      colSpan,
+      rowspan,
+      colspan,
     };
   }
 
@@ -96,7 +96,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
   function getIsFirstChildTdSetBorderWidth({ trsColumns, rowIndex, colIndex }) {
     if (colIndex === 0 && rowIndex > 0) {
       const preRowColumns = trsColumns[rowIndex - 1];
-      if (preRowColumns[0].rowSpan > 1) {
+      if (preRowColumns[0].rowspan > 1) {
         return true;
       }
     }
@@ -108,7 +108,7 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
       {trsColumns.map((trsColumnsItem: CellProps<D>[], rowIndex) => (
         <tr key={rowIndex}>
           {trsColumnsItem.map((column: CellProps<D>, colIndex) => {
-            const { title, colKey, rowSpan, colSpan, render, ...rest } = column;
+            const { title, colKey, rowspan, colspan, render, ...rest } = column;
             const customRender = getCustomRender({ title, render });
             const isFirstChildTdSetBorderWidth = getIsFirstChildTdSetBorderWidth({ trsColumns, rowIndex, colIndex });
 
@@ -119,8 +119,8 @@ const TableHeader = <D extends DataType>(props: TableHeaderProps<D>) => {
                 colKey={colKey}
                 colIndex={colIndex}
                 customRender={customRender}
-                rowSpan={rowSpan}
-                colSpan={colSpan}
+                rowspan={rowspan}
+                colspan={colspan}
                 isFirstChildTdSetBorderWidth={isFirstChildTdSetBorderWidth}
                 {...rest}
               ></TableCell>

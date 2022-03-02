@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef, forwardRef, ElementRef } from 'react';
 
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
@@ -54,7 +54,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   const { classPrefix } = useConfig();
 
   const popupRef = useRef(null);
-  const treeRef = useRef(null);
+  const treeRef = useRef<ElementRef<typeof Tree>>(null);
   const inputRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
@@ -137,11 +137,11 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     return 'value';
   }, [treeProps]);
 
-  const tagList: Array<TreeSelectValue> = useMemo(() => {
+  const tagList: Array<NodeOptions> = useMemo(() => {
     if (nodeInfo && isArray(nodeInfo)) {
-      return nodeInfo.map((node) => node.label);
+      return nodeInfo;
     }
-    return selectedMultiple;
+    return selectedMultiple.map((value) => ({ label: value, value }));
   }, [nodeInfo, selectedMultiple]);
 
   const filterByText = useCallback(
@@ -245,7 +245,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       value={checked}
       hover
       expandAll
-      expandOnClickNode
       data={data}
       activable={!multiple}
       checkable={multiple}

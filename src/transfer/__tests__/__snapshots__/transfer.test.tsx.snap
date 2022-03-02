@@ -3152,7 +3152,7 @@ exports[`search.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-search"
@@ -3681,7 +3681,7 @@ exports[`search.jsx 1`] = `
               value=""
             />
             <span
-              class="t-input__suffix"
+              class="t-input__suffix t-input__suffix-icon"
             >
               <svg
                 class="t-icon t-icon-search"

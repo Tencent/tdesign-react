@@ -98,9 +98,13 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     uploadRef?.current.click();
   };
 
-  const multiUpdateFileList = (file: TdUploadFile) => {
+  const multiUpdateFileList = (file: TdUploadFile, deleteFile = false) => {
     const nextFileList = [...filesRef.current];
     const fileIndex = nextFileList.findIndex(({ uid }: TdUploadFile) => uid === file.uid);
+    if (deleteFile) {
+      fileIndex !== -1 && nextFileList.splice(fileIndex, 1);
+      return nextFileList;
+    }
     if (fileIndex === -1) {
       nextFileList.push(file);
     } else {
@@ -138,7 +142,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
       setErrorMsg(res?.error || errorText);
       const context = { e: event, file };
-      const nextFileList = multiUpdateFileList(file);
+      const nextFileList = multiUpdateFileList(file, true);
       onChange?.(nextFileList, { trigger: 'upload fail' });
       onFail?.(context);
     },

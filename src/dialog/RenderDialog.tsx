@@ -5,6 +5,7 @@ import Portal from '../common/Portal';
 import noop from '../_util/noop';
 import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
+import useDialogEsc from '../_util/useDialogEsc';
 
 enum KeyCode {
   ESC = 27,
@@ -44,6 +45,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     onOverlayClick = noop,
     preventScrollThrough,
     closeBtn,
+    closeOnEscKeydown = true,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
@@ -52,6 +54,8 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
+  const dialogOpenClass = `${prefixCls}__open`;
+  useDialogEsc(visible, wrap);
 
   useEffect(() => {
     bodyOverflow.current = document.body.style.overflow;
@@ -81,9 +85,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         wrap.current.focus();
       }
     } else if (isModal) {
-      document.body.style.cssText = bodyCssTextRef.current;
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (openDialogDom.length < 1) {
+        document.body.style.cssText = bodyCssTextRef.current;
+      }
     }
-  }, [preventScrollThrough, attach, visible, mode, isModal]);
+  }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
 
   useEffect(() => {
     if (visible) {
@@ -101,7 +108,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
     if (isModal && preventScrollThrough) {
       // 还原body的滚动条
-      isModal && (document.body.style.overflow = bodyOverflow.current);
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (isModal && openDialogDom.length < 1) {
+        document.body.style.overflow = bodyOverflow.current;
+      }
     }
     if (!isModal) {
       const { style } = dialog.current;
@@ -128,7 +138,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
-      onClose({ e, trigger: 'esc' });
+      if (closeOnEscKeydown) {
+        onClose({ e, trigger: 'esc' });
+      }
     }
   };
 
@@ -262,9 +274,14 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
-    const wrapClass = classnames(props.className, `${prefixCls}__ctx`, `${prefixCls}__ctx--fixed`);
+    const wrapClass = classnames(
+      props.className,
+      `${prefixCls}__ctx`,
+      `${prefixCls}__ctx--fixed`,
+      visible ? dialogOpenClass : '',
+    );
     const dialog = (
-      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>

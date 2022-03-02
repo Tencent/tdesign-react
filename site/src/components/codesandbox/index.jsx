@@ -2,25 +2,8 @@ import React, { useState } from 'react';
 import Tooltip from 'tdesign-react/tooltip';
 import Loading from 'tdesign-react/loading';
 
-import pkg from '@/package.json';
-import packageJSON from './codesandbox/package.json';
-import htmlContent from './codesandbox/index.html?raw';
-import mainJsContent from './codesandbox/main.js?raw';
-import styleContent from './codesandbox/index.css';
-import '../styles/Codesandbox.less';
-
-packageJSON.dependencies['tdesign-react'] = pkg.version;
-packageJSON.dependencies['tdesign-icons-react'] = pkg.dependencies['tdesign-icons-react'];
-
-const packageJSONContent = JSON.stringify(packageJSON, null, 2);
-
-/**
- * 处理 demo 内容，目前是只处理某些外部依赖
- * @param {string}} demoPath demo 路径
- */
- function getDemoContent(demoContent) {
-  return demoContent.replace(/@tencent\//g, '');
-}
+import { mainJsContent, htmlContent, pkgContent, styleContent } from './content';
+import '../../styles/Codesandbox.less';
 
 export default function Codesandbox(props) {
   const { code } = props;
@@ -37,27 +20,29 @@ export default function Codesandbox(props) {
       body: JSON.stringify({
         files: {
           'package.json': {
-            content: packageJSONContent,
+            content: pkgContent,
           },
           'public/index.html': {
             content: htmlContent,
           },
-          'src/main.js': {
+          'src/main.jsx': {
             content: mainJsContent,
           },
           'src/index.css': {
             content: styleContent,
           },
           'src/demo.jsx': {
-            content: getDemoContent(code),
+            content: code,
           },
         },
       }),
     })
       .then((x) => x.json())
       .then(({ sandbox_id: sandboxId }) => {
-        setLoading(false);
         window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.jsx`);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 

@@ -198,6 +198,12 @@ export default {
           component: () => import('tdesign-react/select/select.md'),
         },
         {
+          title: 'SelectInput 筛选器输入框',
+          name: 'select-input',
+          path: '/react/components/select-input',
+          component: () => import('tdesign-react/select-input/select-input.md'),
+        },
+        {
           title: 'Slider 滑动输入条',
           name: 'slider',
           path: '/react/components/slider',
@@ -300,12 +306,6 @@ export default {
           name: 'skeleton',
           path: '/react/components/skeleton',
           component: () => import('tdesign-react/skeleton/skeleton.md'),
-        },
-        {
-          title: 'Swiper 轮播框',
-          name: 'swiper',
-          path: '/react/components/swiper',
-          component: () => import('tdesign-react/swiper/swiper.md'),
         },
         {
           title: 'Table 表格',

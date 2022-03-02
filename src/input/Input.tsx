@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from 'react';
+import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
@@ -26,8 +26,10 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
+  const iconClassName = icon ? `${classPrefix}-input__suffix-icon` : '';
+
   if (result) {
-    result = <span className={`${classPrefix}-input__${type}`}>{result}</span>;
+    result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
   }
 
   return result;
@@ -36,6 +38,8 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
     const {
+      autoWidth,
+      placeholder,
       disabled,
       status,
       size,
@@ -47,6 +51,7 @@ const Input = forwardRefWithStatics(
       value,
       tips,
       align,
+      onClick,
       onChange,
       onClear,
       onEnter,
@@ -61,6 +66,7 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
+      showClearIconOnEmpty,
       autofocus,
       readonly,
       label,
@@ -71,12 +77,14 @@ const Input = forwardRefWithStatics(
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
     const inputRef: React.RefObject<HTMLInputElement> = useRef();
+    // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
+    const inputPreRef: React.RefObject<HTMLInputElement> = useRef();
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = clearable && value && !disabled && isHover;
+    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (
@@ -100,12 +108,18 @@ const Input = forwardRefWithStatics(
       return eventProps;
     }, {});
 
+    useEffect(() => {
+      if (!autoWidth) return;
+      inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
+    }, [autoWidth, value, placeholder]);
+
     // tips 会引起 dom 变动，抽离透传属性
     const wrapperProps = { style, ref: wrapperRef };
 
     const renderInput = (
       <input
         ref={inputRef}
+        placeholder={placeholder}
         {...inputProps}
         {...eventProps}
         className={classNames(inputProps.className, `${classPrefix}-input__inner`)}
@@ -139,14 +153,21 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
+          [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onWheel={handleWheel}
+        onClick={(e) => onClick?.({ e })}
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
         {renderInput}
+        {autoWidth && (
+          <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
+            {value || props.placeholder}
+          </span>
+        )}
         {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}
         {suffixIconContent}
       </div>

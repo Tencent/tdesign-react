@@ -5,7 +5,7 @@ import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
 // import locale from 'tdesign-react/locale/zh_CN';
 // import locale from 'tdesign-react/locale/en_US';
-import siteConfig from '../site.config.js';
+import siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 import packageJson from '@/package.json';
 
@@ -77,7 +77,7 @@ function Components(props) {
   }, []);
 
   return (
-    <ConfigProvider /* locale={locale} */>
+    <ConfigProvider /* locale={locale}  globalConfig={{ animation: { exclude: ['ripple'] }}} */ >
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
