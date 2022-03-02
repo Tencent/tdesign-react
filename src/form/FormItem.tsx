@@ -321,8 +321,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               return React.cloneElement(child, {
-                ...child.props,
                 disabled: disabledFromContext,
+                ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value) => {
                   onChangeFromProps.call(null, value);
