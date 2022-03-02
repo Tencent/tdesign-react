@@ -1,13 +1,16 @@
 import React, { useRef, MouseEvent } from 'react';
 import isObject from 'lodash/isObject';
+import classNames from 'classnames';
 import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from './type';
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
 import useDefaultValue from '../_util/useDefault';
+import useConfig from '../_util/useConfig';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
   onInnerClear: (context: { e: MouseEvent<SVGElement> }) => void;
+  popupVisible: boolean;
 }
 
 const DEFAULT_KEYS = {
@@ -18,6 +21,7 @@ const DEFAULT_KEYS = {
 
 export default function useMultiple(props: TdSelectInputProps) {
   const { value } = props;
+  const { classPrefix } = useConfig();
   const tagInputRef = useRef();
   const [tInputValue, setTInputValue] = useDefaultValue(props.inputValue, props.defaultInputValue, props.onInputChange);
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
@@ -70,6 +74,9 @@ export default function useMultiple(props: TdSelectInputProps) {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
       {...props.tagInputProps}
+      className={classNames(props.tagInputProps?.className, {
+        [`${classPrefix}-input--focused`]: p.popupVisible,
+      })}
     />
   );
 
