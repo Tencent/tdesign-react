@@ -1,9 +1,12 @@
-import React, { useRef, useState, useEffect, MouseEvent, FormEvent } from 'react';
+import React, { useRef, useState, useEffect, MouseEvent, FormEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
+import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
 import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
+import { Loading } from '../loading';
+import useConfig from '../_util/useConfig';
 
 export interface RenderSelectSingleInputParams {
   tPlaceholder: string;
@@ -36,11 +39,17 @@ function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputPr
 }
 
 export default function useSingle(props: TdSelectInputProps) {
-  const { value, keys } = props;
+  const { value, keys, loading, disabled } = props;
+  const { classPrefix } = useConfig();
   const inputRef = useRef();
   const [inputValue, setInputValue] = useState<string | number>('');
 
-  const commonInputProps: SelectInputCommonProperties = pick(props, COMMON_PROPERTIES);
+  const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
+
+  const commonInputProps: SelectInputCommonProperties = {
+    ...pick(props, COMMON_PROPERTIES),
+    suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
+  };
 
   const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
     context?.e?.stopPropagation();
@@ -62,7 +71,7 @@ export default function useSingle(props: TdSelectInputProps) {
     setInputValue(getInputValue(value, keys));
   }, [keys, value]);
 
-  const renderSelectSingle = () => {
+  const renderSelectSingle = (popupVisible: boolean) => {
     // 单选，值的呈现方式
     const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
     return (
@@ -78,7 +87,6 @@ export default function useSingle(props: TdSelectInputProps) {
             {singleValueDisplay}
           </>
         }
-        showClearIconOnEmpty={true}
         onChange={onInnerInputChange}
         readonly={!props.allowInput}
         onClear={onInnerClear}
@@ -90,6 +98,9 @@ export default function useSingle(props: TdSelectInputProps) {
           props.onFocus?.(value, { ...context, inputValue: val });
         }}
         {...props.inputProps}
+        className={classNames(props.inputProps?.className, {
+          [`${classPrefix}-input--focused`]: popupVisible,
+        })}
       />
     );
   };
