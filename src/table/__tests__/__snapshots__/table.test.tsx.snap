@@ -2492,6 +2492,7 @@ exports[`filter-controlled.jsx 1`] = `
               <col
                 style="width: 100px;"
               />
+              <col />
             </colgroup>
             <thead>
               <tr>
@@ -2643,6 +2644,40 @@ exports[`filter-controlled.jsx 1`] = `
                     </div>
                   </div>
                 </td>
+                <td
+                  class=""
+                  colspan="1"
+                  rowspan="1"
+                >
+                  <div
+                    class="t-table__cell--title"
+                  >
+                    <div>
+                      自定义过滤
+                    </div>
+                    <div
+                      class="t-table__cell--filter"
+                    >
+                      <div
+                        class="t-popup__reference"
+                      >
+                        <svg
+                          class="t-icon t-icon-filter t-table__filter-icon"
+                          fill="none"
+                          height="1em"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </td>
               </tr>
             </thead>
             <tbody
@@ -2683,6 +2718,11 @@ exports[`filter-controlled.jsx 1`] = `
                 >
                   广州
                 </td>
+                <td
+                  class=""
+                >
+                  2021-11-01
+                </td>
               </tr>
               <tr>
                 <td
@@ -2719,6 +2759,11 @@ exports[`filter-controlled.jsx 1`] = `
                 >
                   北京
                 </td>
+                <td
+                  class=""
+                >
+                  2022-01-01
+                </td>
               </tr>
               <tr>
                 <td
@@ -2754,6 +2799,11 @@ exports[`filter-controlled.jsx 1`] = `
                   style="overflow: hidden;"
                 >
                   深圳
+                </td>
+                <td
+                  class=""
+                >
+                  2022-03-01
                 </td>
               </tr>
             </tbody>
@@ -6102,6 +6152,7 @@ exports[`merge-cells.jsx 1`] = `
               <td
                 class="t-align-left t-text-ellipsis test3"
                 colspan="2"
+                rowspan="1"
                 style="overflow: hidden;"
               >
                 Y

@@ -14,15 +14,19 @@ export interface TdInputProps {
    */
   align?: 'left' | 'center' | 'right';
   /**
-   * 是否开启自动填充功能
-   * @default false
+   * 是否开启自动填充功能，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
-  autocomplete?: boolean;
+  autocomplete?: 'on' | 'off';
   /**
    * 自动聚焦
    * @default false
    */
   autofocus?: boolean;
+  /**
+   * 宽度随内容自适应
+   * @default false
+   */
+  autoWidth?: boolean;
   /**
    * 是否可清空
    * @default false
@@ -34,9 +38,9 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 【讨论中】指定输入框展示值的格式
+   * 【开发中】指定输入框展示值的格式
    */
-  format?: (value: number | number) => number | string;
+  format?: (value: InputValue) => number | string;
   /**
    * 左侧文本
    */
@@ -46,7 +50,7 @@ export interface TdInputProps {
    */
   maxcharacter?: number;
   /**
-   * 用户最多可以输入的文本长度。值小于等于 0 的时候，则不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
+   * 用户最多可以输入的文本长度，一个中文等于一个计数长度。值小于等于 0 的时候，则表示不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
    */
   maxlength?: number;
   /**
@@ -67,6 +71,11 @@ export interface TdInputProps {
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 输入框内容为空时，悬浮状态是否显示清空按钮，默认不显示
+   * @default false
+   */
+  showClearIconOnEmpty?: boolean;
   /**
    * 输入框尺寸
    * @default medium
@@ -116,6 +125,10 @@ export interface TdInputProps {
    * 清空按钮点击时触发
    */
   onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
+  /**
+   * 点击组件时触发
+   */
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 中文输入结束时触发
    */

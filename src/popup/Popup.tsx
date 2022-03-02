@@ -7,13 +7,16 @@ import React, {
   useMemo,
   useCallback,
   useRef,
+  useEffect,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
+
 import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
+import useAnimation from '../_util/useAnimation';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
 import { TdPopupProps } from './type';
@@ -51,6 +54,10 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     expandAnimation,
   } = props;
   const { classPrefix } = useConfig();
+
+  // 全局配置
+  const { keepExpand, keepFade } = useAnimation();
+
   const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
 
   // refs
@@ -58,11 +65,12 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
-  const referenceRef = useRef(null);
-  const popupRef = useRef(null);
+  const referenceRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   const popperRef = useRef(null);
   const portalRef = useRef(null);
+  const triggerObserveRef = useRef(null);
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
@@ -102,9 +110,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const { styles, attributes } = popperRef.current;
 
   const defaultStyles = useMemo(() => {
-    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef) };
+    if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef, overlayRef) };
     return { ...overlayStyle };
-  }, [overlayStyle, triggerRef]);
+  }, [overlayStyle, triggerRef, overlayRef]);
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = defaultStyles;
@@ -148,6 +156,23 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
       portalRef.current.style.display = 'block';
     }
   };
+
+  // 监听 trigger 节点变化动态更新 popup 定位
+  useEffect(() => {
+    if (!triggerRef || !popperRef) return;
+    const config = { attributes: true, childList: true, subtree: true };
+
+    triggerObserveRef.current = new MutationObserver(() => {
+      popperRef.current.update?.();
+    });
+
+    triggerObserveRef.current.observe(triggerRef, config);
+
+    return () => {
+      triggerObserveRef.current.disconnect();
+    };
+  }, [triggerRef, popperRef]);
+
   // 初次不渲染.
   const portal =
     visible || overlayRef ? (
@@ -168,7 +193,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
             nodeRef={popupRef}
             {...getTransitionParams({
               classPrefix,
-              expandAnimation,
+              expandAnimation: expandAnimation && keepExpand,
+              fadeAnimation: keepFade,
             })}
           >
             <div

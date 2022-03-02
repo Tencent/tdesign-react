@@ -19,7 +19,7 @@ exports[`disabled.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -67,7 +67,7 @@ exports[`hide-clear-button.jsx 1`] = `
           value=" "
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -145,7 +145,7 @@ exports[`hide-clear-button.jsx 1`] = `
           value=" "
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -223,7 +223,7 @@ exports[`hm.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -268,7 +268,7 @@ exports[`hms.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -312,7 +312,7 @@ exports[`keyboard.jsx 1`] = `
           value=" "
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -387,7 +387,7 @@ exports[`range.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -432,7 +432,7 @@ exports[`show-steps.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"
@@ -477,7 +477,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
           value=""
         />
         <span
-          class="t-input__suffix"
+          class="t-input__suffix t-input__suffix-icon"
         >
           <svg
             class="t-icon t-icon-time"

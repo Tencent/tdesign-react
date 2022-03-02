@@ -5,27 +5,27 @@ import { InputValue } from '../input';
 import Tag from '../tag';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
+import { DragSortInnerProps } from '../_util/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
 
+interface TagInputProps extends TdTagInputProps, DragSortInnerProps {}
+
 // handle tag add and remove
-export default function useTagList(props: TdTagInputProps) {
+export default function useTagList(props: TagInputProps) {
   const { classPrefix: prefix } = useConfig();
-  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems } = props;
+  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
+    props;
   // handle controlled property and uncontrolled property
-  const [tagValue, setTagValue] = useDefault<TdTagInputProps['value'], [TagInputChangeContext]>(
-    props.value,
-    props.defaultValue,
-    props.onChange,
-  );
+  const [tagValue, setTagValue] = useDefault(props.value, props.defaultValue || [], props.onChange);
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签
-  const onClose = (p: { e: MouseEvent<SVGElement>; index: number; item: string | number }) => {
+  const onClose = (p: { e?: MouseEvent<SVGElement>; index: number; item: string | number }) => {
     const arr = [...tagValue];
     arr.splice(p.index, 1);
-    setTagValue(arr, { trigger: 'tag-remove', index: p.index, e: p.e });
-    onRemove?.({ ...p, trigger: 'tag-remove', value: tagValue });
+    setTagValue(arr, { trigger: 'tag-remove', ...p });
+    onRemove?.({ ...p, trigger: 'tag-remove', value: arr });
   };
 
   const clearAll = (context: { e: MouseEvent<SVGElement> }) => {
@@ -34,7 +34,7 @@ export default function useTagList(props: TdTagInputProps) {
 
   // 按下 Enter 键，新增标签
   const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
-    const valueStr = String(value).trim();
+    const valueStr = value ? String(value).trim() : '';
     if (!valueStr) return;
     const isLimitExceeded = max && tagValue?.length >= max;
     let newValue: TagInputValue = tagValue;
@@ -43,6 +43,7 @@ export default function useTagList(props: TdTagInputProps) {
       setTagValue(newValue, {
         trigger: 'enter',
         index: newValue.length - 1,
+        item: valueStr,
         e: context.e,
       });
     }
@@ -52,10 +53,11 @@ export default function useTagList(props: TdTagInputProps) {
   // 按下回退键，删除标签
   const onInputBackspaceKeyUp = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     const { e } = context;
+    if (!tagValue || !tagValue.length) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
     if (!oldInputValue && ['Backspace', 'NumpadDelete'].includes(e.code)) {
-      const index = tagValue?.length;
-      const item = tagValue?.[index];
+      const index = tagValue.length - 1;
+      const item = tagValue[index];
       const trigger = 'backspace';
       setTagValue(tagValue.slice(0, -1), { e, index, item, trigger });
       onRemove?.({ e, index, item, trigger, value: tagValue });
@@ -76,6 +78,7 @@ export default function useTagList(props: TdTagInputProps) {
               disabled={disabled}
               onClose={(context) => onClose({ e: context.e, item, index })}
               closable={!readonly && !disabled}
+              {...getDragProps?.(index, item)}
               {...tagProps}
             >
               {tagContent ?? item}
