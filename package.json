@@ -51,7 +51,7 @@
     "test:node": "jest --config test/config/jest.ssr.conf.js",
     "test:node-update": "jest --config test/config/jest.ssr.conf.js --updateSnapshot --coverage",
     "test:watch": "jest --config test/config/jest.unit.conf.js --watch",
-    "test:coverage": "run-p test:e2e-run test:update",
+    "test:coverage": "npm run test:update",
     "test:e2e": "bash -c 'cypress run --config-file test/config/cypress.json --spec \"src/${1}/**/*\"' -- ",
     "test:e2e-run": "start-server-and-test dev http-get://127.0.0.1:15000 test:e2e",
     "test:e2e-gui": "start-server-and-test dev http-get://127.0.0.1:15000 test:cy-open",
