@@ -13,10 +13,11 @@ export interface DraggerProgressProps {
   onTrigger?: () => void;
   onRemove?: (context: UploadRemoveContext) => void;
   onUpload?: () => void;
+  onCancel?: () => void;
 }
 
 const DraggerProgress: FC<DraggerProgressProps> = (props) => {
-  const { file, onUpload, onRemove, display, onTrigger } = props;
+  const { file, onUpload, onRemove, display, onTrigger, onCancel } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const { triggerUploadText, file: infoText, cancelUploadText } = locale;
@@ -68,7 +69,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
               theme="primary"
               variant="text"
               className={`${classPrefix}-upload__dragger-progress-cancel`}
-              onClick={handleRemove}
+              onClick={onCancel}
             >
               {t(cancelUploadText)}
             </Button>

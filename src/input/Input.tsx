@@ -66,6 +66,7 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
+      showClearIconOnEmpty,
       autofocus,
       readonly,
       label,
@@ -83,7 +84,7 @@ const Input = forwardRefWithStatics(
     const [isFocused, toggleIsFocused] = useState(false);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = clearable && value && !disabled && isHover;
+    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (

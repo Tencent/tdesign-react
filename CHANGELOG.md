@@ -5,6 +5,31 @@ toc: false
 spline: explain
 ---
 
+## 0.25.2 `2022-02-25`
+
+
+### 🐞 Bug Fixes
+
+* Table: [#334](https://github.com/Tencent/tdesign-react/issues/334) 固定列定位计算问题 ([56b7a55](https://github.com/Tencent/tdesign-react/commit/56b7a55bb5686035adf733bfa06b8930f52ce242)) [@yangguansen](https://github.com/yangguansen)
+* TagInput: 兼容 value defaultValue 都未设置场景 ([a317786](https://github.com/Tencent/tdesign-react/commit/a31778646b88ad0db089ac8ad483383283217c22)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Slider: 修复刻度计算问题，input number 样式问题 ([03aa1dd](https://github.com/Tencent/tdesign-react/commit/03aa1ddd0f1005267145652599c467ef39ba7bea)) [@andyjxli](https://github.com/andyjxli)
+* Popup: 修复 trigger 元素宽高定位变化后位置不更新问题 ([933db7c](https://github.com/Tencent/tdesign-react/commit/933db7c065c3955139c4353f5ce6fe3f27d51587)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Cascader: fix cascader issue 371&&304 ([96536c0](https://github.com/Tencent/tdesign-react/commit/96536c00827bbff22d67167accc67d37838190c0)) [@pengYYYYY](https://github.com/pengYYYYY)
+* Checkbox: 修复checkbox组件options为空数组时的问题 ([ce671c2](https://github.com/Tencent/tdesign-react/commit/ce671c2ba4cef467c7057e7e62448d1e65c166f8)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Layout: 支持内嵌动态节点 ([54a297f](https://github.com/Tencent/tdesign-react/commit/54a297ffa763d2cd31db111d111cb4b2c8cc433b)) [@insekkei](https://github.com/insekkei)
+* Dialog: 多个弹窗关闭一个后出现滚动条 ([5cf75c1](https://github.com/Tencent/tdesign-react/commit/5cf75c11d03a83a298c01cb518864e8517bc8cab)), closes [#382](https://github.com/Tencent/tdesign-react/issues/382) [@psaren](https://github.com/psaren)
+
+
+### 🌈 Features
+
+* SelectInput: 新增组件 SelectInpput 组件 ([d2d9cf8](https://github.com/Tencent/tdesign-react/commit/d2d9cf89d9e53762fd8e689b88b918358824fd0b)) [@chaishi](https://github.com/chaishi)
+* Input: 支持 auto-width API ([cf24ca5](https://github.com/Tencent/tdesign-react/commit/cf24ca548cf07328a527d546e2ee4733062677bd)) [@chaishi](https://github.com/chaishi)
+* Notification: 优化组件内部细节 ([9cd0a08](https://github.com/Tencent/tdesign-react/commit/9cd0a089b24457520e5ef8695e4f5ec5e6574923)) [@kenzyyang](https://github.com/kenzyyang)
+* TagInput: 
+  * 支持 auto-width API ([cf24ca5](https://github.com/Tencent/tdesign-react/commit/cf24ca548cf07328a527d546e2ee4733062677bd)) [@chaishi](https://github.com/chaishi)
+  * 支持 dragSort 功能 ([6872bd9](https://github.com/Tencent/tdesign-react/commit/6872bd9d8ee42e840a529480360646e68585cad4)) [@LittlehorseXie](https://github.com/LittlehorseXie)
+
+
 ## 0.25.1 `2022-02-18`
 
 ### 🐞 Bug Fixes

@@ -34,6 +34,7 @@ export default function SelectInputMultiple() {
   const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
   const [allowInput, setAllowInput] = useState(true);
   const [creatable, setCreatable] = useState(true);
+  const [inputValue, setInputValue] = useState('');
   // 全量数据
   const [options, setOptions] = useState([...OPTIONS]);
   // 仅用作展示的数据（过滤功能需要使用）
@@ -76,7 +77,7 @@ export default function SelectInputMultiple() {
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
   const onTagChange = (currentTags, context) => {
-    const { trigger, index, item } = context;
+    const { trigger, index } = context;
     if (trigger === 'clear') {
       setValue([]);
     }
@@ -85,28 +86,31 @@ export default function SelectInputMultiple() {
       newValue.splice(index, 1);
       setValue(newValue);
     }
-    // 如果允许创建新条目
-    if (creatable && trigger === 'enter') {
-      const current = { label: item, value: item };
-      const newValue = [...value];
-      setValue(newValue.concat(current));
-      const newOptions = options.concat(current);
-      setOptions(newOptions);
-      setDisplayOptions(newOptions);
-    }
   };
 
-  // 过滤功能
-  const onInputChange = (val) => {
-    const newOptions = options.filter(t => t.label.indexOf(val) !== -1);
-    console.log(val, newOptions);
-    setDisplayOptions(newOptions);
+  const onInputChange = (val, context) => {
+    setInputValue(val);
+    // 过滤功能
+    console.log(val, context);
   };
 
   useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
+
+  const onInputEnter = (_, { inputValue }) => {
+    // 如果允许创建新条目
+    if (creatable) {
+      const current = { label: inputValue, value: inputValue };
+      const newValue = [...value];
+      setValue(newValue.concat(current));
+      const newOptions = options.concat(current);
+      setOptions(newOptions);
+      setDisplayOptions(newOptions);
+      setInputValue('');
+    }
+  };
 
   return (
     <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
@@ -131,6 +135,7 @@ export default function SelectInputMultiple() {
       <SelectInput
         value={value}
         allowInput={allowInput}
+        inputValue={inputValue}
         placeholder={allowInput ? '请选择或输入' : '请选择'}
         tagInputProps={{ excessTagsDisplayType }}
         popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
@@ -152,6 +157,7 @@ export default function SelectInputMultiple() {
         multiple
         onTagChange={onTagChange}
         onInputChange={onInputChange}
+        onEnter={onInputEnter}
       ></SelectInput>
     </div>
   );

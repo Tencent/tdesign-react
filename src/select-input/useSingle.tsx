@@ -1,9 +1,12 @@
-import React, { useRef, useState, useEffect, MouseEvent, FormEvent } from 'react';
+import React, { useRef, useState, useEffect, MouseEvent, FormEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
+import classNames from 'classnames';
 import { SelectInputCommonProperties } from './interface';
 import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
+import { Loading } from '../loading';
+import useConfig from '../_util/useConfig';
 
 export interface RenderSelectSingleInputParams {
   tPlaceholder: string;
@@ -25,17 +28,28 @@ const COMMON_PROPERTIES = [
   'onMouseleave',
 ];
 
-const DEFAULT_KEYS = {
+const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
   label: 'label',
-  key: 'key',
+  value: 'value',
 };
 
+function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
+  const iKeys = keys || DEFAULT_KEYS;
+  return isObject(value) ? value[iKeys.label] : value;
+}
+
 export default function useSingle(props: TdSelectInputProps) {
-  const { value } = props;
+  const { value, keys, loading, disabled } = props;
+  const { classPrefix } = useConfig();
   const inputRef = useRef();
   const [inputValue, setInputValue] = useState<string | number>('');
 
-  const commonInputProps: SelectInputCommonProperties = pick(props, COMMON_PROPERTIES);
+  const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
+
+  const commonInputProps: SelectInputCommonProperties = {
+    ...pick(props, COMMON_PROPERTIES),
+    suffixIcon: showLoading ? <Loading loading size="small" /> : props.suffixIcon,
+  };
 
   const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
     context?.e?.stopPropagation();
@@ -49,17 +63,15 @@ export default function useSingle(props: TdSelectInputProps) {
   ) => {
     if (props.allowInput) {
       setInputValue(value);
-      props.onInputChange?.(value, context);
+      props.onInputChange?.(value, { ...context, trigger: 'input' });
     }
   };
 
   useEffect(() => {
-    const iKeys = { ...DEFAULT_KEYS, ...props.keys };
-    const val = isObject(value) ? value[iKeys.label] : value;
-    setInputValue(val);
-  }, [props.keys, value]);
+    setInputValue(getInputValue(value, keys));
+  }, [keys, value]);
 
-  const renderSelectSingle = () => {
+  const renderSelectSingle = (popupVisible: boolean) => {
     // 单选，值的呈现方式
     const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
     return (
@@ -80,11 +92,15 @@ export default function useSingle(props: TdSelectInputProps) {
         onClear={onInnerClear}
         onBlur={(val, context) => {
           props.onBlur?.(value, { ...context, inputValue: val });
+          setInputValue(getInputValue(value, keys));
         }}
         onFocus={(val, context) => {
           props.onFocus?.(value, { ...context, inputValue: val });
         }}
         {...props.inputProps}
+        className={classNames(props.inputProps?.className, {
+          [`${classPrefix}-input--focused`]: popupVisible,
+        })}
       />
     );
   };

@@ -35,6 +35,8 @@ const Form = forwardRefWithStatics(
       showErrorMessage = true,
       resetType = 'empty',
       rules,
+      validateMessage,
+      preventSubmitDefault = true,
       disabled,
       children,
       onSubmit,
@@ -80,14 +82,20 @@ const Form = forwardRefWithStatics(
     }
 
     function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-      e?.preventDefault();
+      if (preventSubmitDefault) {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
       validate().then((r) => {
         getFirstError(r);
         onSubmit?.({ validateResult: r, e });
       });
     }
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
-      e?.preventDefault();
+      if (preventSubmitDefault) {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
       formItemsRef.current.forEach(({ current: formItemRef }) => {
         formItemRef && formItemRef?.resetField();
       });
@@ -234,6 +242,13 @@ const Form = forwardRefWithStatics(
       onValuesChange(changedValue, allFields);
     }
 
+    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
+      if (preventSubmitDefault && e.key === 'Enter') {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
+    }
+
     return (
       <FormContext.Provider
         value={{
@@ -248,12 +263,20 @@ const Form = forwardRefWithStatics(
           scrollToFirstError,
           resetType,
           rules,
+          validateMessage,
           disabled,
           formItemsRef,
           onFormItemValueChange,
         }}
       >
-        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
+        <form
+          ref={formRef}
+          style={style}
+          className={formClass}
+          onSubmit={submitHandler}
+          onReset={resetHandler}
+          onKeyDown={onKeyDownHandler}
+        >
           {children}
         </form>
       </FormContext.Provider>
