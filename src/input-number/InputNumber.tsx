@@ -157,10 +157,11 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
 
-    let updateValue;
+    let updateValue: number;
     switch (type) {
       case 'add': {
-        updateValue = Number((currentValue + step).toFixed(precision));
+        const increasedVal = currentValue + step;
+        updateValue = Number((increasedVal >= min ? increasedVal : min).toFixed(precision));
         break;
       }
       case 'reduce': {
@@ -169,7 +170,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       }
     }
 
-    setInputValue(updateValue);
+    setInputValue(String(updateValue));
     triggerValueUpdate({ value: updateValue, type, e });
     e.preventDefault();
   };
