@@ -68,6 +68,7 @@ const Input = forwardRefWithStatics(
       onCompositionend,
       showClearIconOnEmpty,
       autofocus,
+      autocomplete,
       readonly,
       label,
       suffix,
@@ -126,6 +127,7 @@ const Input = forwardRefWithStatics(
         value={composingRef.current ? composingRefValue : value}
         readOnly={readonly}
         disabled={disabled}
+        autoComplete={autocomplete}
         autoFocus={autofocus}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
