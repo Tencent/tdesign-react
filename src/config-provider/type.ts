@@ -10,6 +10,11 @@ import { TNode, TElement } from '../common';
 
 export interface GlobalConfigProvider {
   /**
+   * 动画效果控制，`ripple`指波纹动画， `expand` 指展开动画，`fade` 指渐变动画
+   * @default { include: ['ripple','expand','fade'], exclude: [] }
+   */
+  animation?: Record<'include' | 'exclude', Array<AnimationType>>;
+  /**
    * 日历组件全局配置
    */
   calendar?: CalendarConfig;
@@ -17,6 +22,11 @@ export interface GlobalConfigProvider {
    * 级联选择器全局配置
    */
   cascader?: CascaderConfig;
+  /**
+   * CSS 类名前缀
+   * @default t
+   */
+  classPrefix?: string;
   /**
    * 日期选择器全局配置
    */
@@ -633,6 +643,8 @@ export interface StepsConfig {
    */
   errorIcon?: TElement;
 }
+
+export type AnimationType = 'ripple' | 'expand' | 'fade';
 
 export interface ConfigPresetDate {
   [name: string]: DateConfigValue | (() => DateConfigValue);

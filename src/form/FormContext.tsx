@@ -14,6 +14,7 @@ const FormContext = React.createContext<{
   resetType: TdFormProps['resetType'];
   disabled: TdFormProps['disabled'];
   rules: TdFormProps['rules'];
+  validateMessage: TdFormProps['validateMessage'];
   formItemsRef: React.RefObject<Array<React.RefObject<HTMLElement>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
@@ -28,6 +29,7 @@ const FormContext = React.createContext<{
   resetType: 'empty',
   disabled: false,
   rules: undefined,
+  validateMessage: {},
   statusIcon: false,
   onFormItemValueChange: undefined,
   formItemsRef: null,
