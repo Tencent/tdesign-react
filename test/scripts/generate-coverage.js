@@ -101,8 +101,8 @@ const formatCoverageResult = (result) => result.map((coverageOld) => {
 const coverageExec = exec('npm run test:coverage', async () => {
   let result = await Promise.all([
     generateReportJson('test/unit/coverage/index.html', 'unit'),
-    generateReportJson('test/e2e/cy-report/coverage/lcov-report/index.html', 'e2e'),
-    generateReportJson('test/ssr/coverage/index.html', 'ssr'),
+    // generateReportJson('test/e2e/cy-report/coverage/lcov-report/index.html', 'e2e'),
+    // generateReportJson('test/ssr/coverage/index.html', 'ssr'),
   ]);
   result = await formatCoverageResult(result);
   const originalCoverage = await fs.readFileSync(coveragePath, 'utf8'); // 如果解析失败，有上一次生成的结果文件兜底
