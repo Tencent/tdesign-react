@@ -750,35 +750,39 @@ exports[`clear-validate.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select__popup-reference"
+              class="t-popup__reference t-select t-select-input t-select-input--empty"
             >
               <div
-                class="t-select"
-                style="user-select: none;"
+                class="t-input t-is-readonly t-input--prefix t-input--suffix"
               >
-                <span
-                  class="t-select__left-icon"
+                <div
+                  class="t-input__prefix"
+                />
+                <input
+                  class="t-input__inner"
+                  placeholder="-请选择-"
+                  readonly=""
+                  value=""
                 />
                 <span
-                  class="t-select__placeholder"
+                  class="t-input__suffix t-input__suffix-icon"
                 >
-                  -请选择-
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
                 </span>
-                <svg
-                  class="t-fake-arrow t-select__right-icon"
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                    stroke="black"
-                    stroke-opacity="0.9"
-                    stroke-width="1.3"
-                  />
-                </svg>
               </div>
             </div>
           </div>
@@ -1158,35 +1162,40 @@ exports[`disabled.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select__popup-reference"
+                class="t-popup__reference t-select t-select-input t-select-input--empty"
               >
                 <div
-                  class="t-select t-is-disabled"
-                  style="user-select: none;"
+                  class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
                 >
-                  <span
-                    class="t-select__left-icon"
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    disabled=""
+                    placeholder="-请选择-"
+                    readonly=""
+                    value=""
                   />
                   <span
-                    class="t-select__placeholder"
+                    class="t-input__suffix t-input__suffix-icon"
                   >
-                    -请选择-
+                    <svg
+                      class="t-fake-arrow t-select__right-icon"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
                   </span>
-                  <svg
-                    class="t-fake-arrow t-select__right-icon"
-                    fill="none"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                      stroke="black"
-                      stroke-opacity="0.9"
-                      stroke-width="1.3"
-                    />
-                  </svg>
                 </div>
               </div>
             </div>
@@ -3333,35 +3342,39 @@ exports[`validate-message.jsx 1`] = `
             class="t-select__wrap"
           >
             <div
-              class="t-popup__reference t-select__popup-reference"
+              class="t-popup__reference t-select t-select-input t-select-input--empty"
             >
               <div
-                class="t-select"
-                style="user-select: none;"
+                class="t-input t-is-readonly t-input--prefix t-input--suffix"
               >
-                <span
-                  class="t-select__left-icon"
+                <div
+                  class="t-input__prefix"
+                />
+                <input
+                  class="t-input__inner"
+                  placeholder="-请选择-"
+                  readonly=""
+                  value=""
                 />
                 <span
-                  class="t-select__placeholder"
+                  class="t-input__suffix t-input__suffix-icon"
                 >
-                  -请选择-
+                  <svg
+                    class="t-fake-arrow t-select__right-icon"
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                      stroke="black"
+                      stroke-opacity="0.9"
+                      stroke-width="1.3"
+                    />
+                  </svg>
                 </span>
-                <svg
-                  class="t-fake-arrow t-select__right-icon"
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                    stroke="black"
-                    stroke-opacity="0.9"
-                    stroke-width="1.3"
-                  />
-                </svg>
               </div>
             </div>
           </div>
