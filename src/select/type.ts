@@ -6,6 +6,10 @@
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputProps } from '../select';
+import { TagInputProps } from '../tag-input';
+import { TagProps } from '../tag';
+import { SelectInputValueChangeContext } from '../select-input';
 import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
@@ -49,9 +53,17 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   filterable?: boolean;
   /**
-   * 透传 Input 组件全部属性
+   * 透传 Input 输入框组件的全部属性
    */
   inputProps?: InputProps;
+  /**
+   * 输入框的值
+   */
+  inputValue?: InputValue;
+  /**
+   * 输入框的值，非受控属性
+   */
+  defaultInputValue?: InputValue;
   /**
    * 用来定义 value / label 在 `options` 中对应的字段别名
    */
@@ -99,7 +111,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   placeholder?: string;
   /**
-   * 透传给 popup 组件的参数
+   * 透传给 popup 组件的全部属性
    */
   popupProps?: PopupProps;
   /**
@@ -112,6 +124,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   reserveKeyword?: boolean;
   /**
+   * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
+   */
+  selectInputProps?: SelectInputProps;
+  /**
    * 是否显示右侧箭头，默认显示
    * @default true
    */
@@ -121,6 +137,14 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * @default medium
    */
   size?: SizeEnum;
+  /**
+   * 【开发中】透传 TagInput 标签输入框组件的全部属性
+   */
+  tagInputProps?: TagInputProps;
+  /**
+   * 【开发中】透传 Tag 标签组件全部属性
+   */
+  tagProps?: TagProps;
   /**
    * 选中值
    */
@@ -132,7 +156,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 自定义选中项呈现方式
    */
-  valueDisplay?: TNode<{ value: T[]; onClose: () => void }>;
+  valueDisplay?: string | TNode<{ value: SelectValue; onClose: (index: number, item?: any) => void }>;
   /**
    * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。
    * @default value
@@ -143,9 +167,15 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   onBlur?: (context: { value: SelectValue; e: FocusEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
   /**
-   * 选中值变化时触发
+   * 选中值变化时触发，`context. trigger` 表示触发变化的来源
    */
-  onChange?: (value: SelectValue) => void;
+  onChange?: (
+    value: SelectValue,
+    context: {
+      trigger: SelectValueChangeTrigger;
+      e: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+    },
+  ) => void;
   /**
    * 点击清除按钮时触发
    */
@@ -162,6 +192,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 输入框获得焦点时触发
    */
   onFocus?: (context: { value: SelectValue; e: FocusEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> }) => void;
+  /**
+   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
+   */
+  onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
   /**
    * 多选模式下，选中数据被移除时触发
    */
@@ -220,6 +254,8 @@ export interface SelectKeysType {
 }
 
 export type SelectValue<T extends SelectOption = SelectOption> = string | number | T | Array<SelectValue<T>>;
+
+export type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace';
 
 export interface SelectRemoveContext<T> {
   value: string | number;
