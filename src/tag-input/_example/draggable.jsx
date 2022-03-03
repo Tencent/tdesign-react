@@ -19,17 +19,28 @@ export default function TagInputBaseExample() {
     console.log(context);
   };
 
+  function onDragSort({ currentIndex, targetIndex }) {
+    const temp = tags1[currentIndex];
+    tags1[currentIndex] = tags1[targetIndex];
+    tags1[targetIndex] = temp;
+    setTags1([...tags1]);
+  }
+
   return (
     <div className="tdesign-demo-block-column" style={{ width: '80%' }}>
       <TagInput
         value={tags1}
         onChange={onChange}
         clearable
+        dragSort
         onPaste={onPaste}
         onEnter={onTagInputEnter}
+        onDragSort={onDragSort}
         placeholder="请输入"
       />
+
       <TagInput value={tags2} label="Controlled: " placeholder="请输入" clearable />
+
       <TagInput defaultValue={tags3} label="UnControlled: " placeholder="请输入" clearable />
     </div>
   );
