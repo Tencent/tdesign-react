@@ -1,9 +1,10 @@
-import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
+import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
+import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import { TdFormItemProps, ValueType, FormRule } from './type';
+import type { TdFormItemProps, ValueType, FormRule, FormItemValidateMessage } from './type';
 import Checkbox from '../checkbox';
 import Upload from '../upload';
 import Tag from '../tag';
@@ -11,7 +12,7 @@ import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext } from './FormContext';
 
-enum ValidateStatus {
+enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
@@ -54,14 +55,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
+    errorMessage,
     formItemsRef,
-    validateMessage,
     onFormItemValueChange,
   } = useFormContext();
 
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
-  const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
+  const [verifyStatus, setVerifyStatus] = useState(VALIDATE_STATUS.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(initialData);
@@ -75,12 +76,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
   const innerRequiredMark = isNil(requiredMark) ? requiredMarkFromContext : requiredMark;
-
-  // errorListValue 由 validateMessage 与 rule message 一起控制，validateMessage 优先级最高
-  const errorListValue = useMemo(() => {
-    const messageList = validateMessage?.[name] || [];
-    return messageList.length ? messageList : errorList;
-  }, [validateMessage, errorList, name]);
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
@@ -100,13 +95,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     const controlCls = `${classPrefix}-form__controls`;
     if (!showErrorMessage) return controlCls;
 
-    const isSuccess = verifyStatus === ValidateStatus.SUCCESS;
-    if (isSuccess)
+    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
+    if (isSuccess) {
       return classNames(controlCls, `${classPrefix}-is-success`, {
         [`${classPrefix}-form--success-border`]: successBorder,
       });
+    }
 
-    const firstErrorType = errorListValue.length && errorListValue[0].type;
+    const firstErrorType = errorList.length && (errorList[0].type || 'error');
     return classNames(controlCls, {
       [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
       [`${classPrefix}-is-error`]: firstErrorType === 'error',
@@ -129,7 +125,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
-    const list = errorListValue;
+    const list = errorList;
     if (showErrorMessage && list && list[0] && list[0].message) {
       return <p className={`${classPrefix}-input__extra`}>{list[0].message}</p>;
     }
@@ -151,11 +147,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         error: <CloseCircleFilledIcon size="25px" />,
         warning: <ErrorCircleFilledIcon size="25px" />,
       };
-      if (verifyStatus === ValidateStatus.SUCCESS) {
+      if (verifyStatus === VALIDATE_STATUS.SUCCESS) {
         return resultIcon(iconMap[verifyStatus]);
       }
-      if (errorListValue && errorListValue[0]) {
-        const type = errorListValue[0].type || 'error';
+      if (errorList && errorList[0]) {
+        const type = errorList[0].type || 'error';
         return resultIcon(iconMap[type]);
       }
       return null;
@@ -186,14 +182,26 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     // 校验结果，包含正确的校验信息
     return new Promise((resolve) => {
       validateModal(formValue, rules).then((r) => {
-        const filterErrorList = r.filter((item) => item.result !== true);
+        const filterErrorList = r
+          .filter((item) => item.result !== true)
+          .map((item) => {
+            Object.keys(item).forEach((key) => {
+              if (!item.message && errorMessage[key]) {
+                const compiled = lodashTemplate(errorMessage[key]);
+                // eslint-disable-next-line no-param-reassign
+                item.message = compiled({ name: label, validate: item[key] });
+              }
+            });
+            return item;
+          });
         setErrorList(filterErrorList);
         // 仅有自定义校验方法才会存在 successList
         setSuccessList(r.filter((item) => item.result === true && item.message && item.type === 'success'));
-        let nextVerifyStatus = filterErrorList.length && rules.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
+        // 根据校验结果设置校验状态
+        let nextVerifyStatus = filterErrorList.length && rules.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
         // 非 require 且值为空 状态置为默认，无校验规则的都为默认
         if ((!rules.some((rule) => rule.required) && isValueEmpty(formValue)) || !rules.length) {
-          nextVerifyStatus = ValidateStatus.TO_BE_VALIDATED;
+          nextVerifyStatus = VALIDATE_STATUS.TO_BE_VALIDATED;
         }
         setVerifyStatus(nextVerifyStatus);
         needResetField && resetHandler();
@@ -245,10 +253,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
-    setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
+    setVerifyStatus(VALIDATE_STATUS.TO_BE_VALIDATED);
   }
 
-  function setField(field: { value?: string; status?: ValidateStatus }) {
+  function setField(field: { value?: string; status?: VALIDATE_STATUS }) {
     const { value, status } = field;
     // 手动设置 status 则不需要校验 交给用户判断
     if (typeof status !== 'undefined') {
@@ -263,10 +271,20 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
   }
 
+  function setValidateMessage(validateMessage: FormItemValidateMessage[]) {
+    if (!validateMessage || !Array.isArray(validateMessage)) return;
+    if (validateMessage.length === 0) {
+      setErrorList([]);
+      setVerifyStatus(VALIDATE_STATUS.SUCCESS);
+      return;
+    }
+    setErrorList(validateMessage);
+    setVerifyStatus(VALIDATE_STATUS.FAIL);
+  }
+
   useEffect(() => {
     // value change event
     if (isMounted.current) {
-      if (!name) console.warn('FormItem prop name is required.');
       name && onFormItemValueChange({ [name]: formValue });
     }
 
@@ -304,6 +322,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     setField,
     validate,
     resetField,
+    setValidateMessage,
     resetValidate: resetHandler,
   }));
 

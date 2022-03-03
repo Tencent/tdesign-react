@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import merge from 'lodash/merge';
 import defaultLocale from '../locale/zh_CN';
-import DEFAULT_GLOBAL_CONFIG from './defaultConfig';
+import DEFAULT_GLOBAL_CONFIG from './zh_CN_config';
 
 export enum EAnimationType {
   ripple = 'ripple',

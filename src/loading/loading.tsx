@@ -66,7 +66,7 @@ const Loading: FC<LoadingProps> = (props) => {
     }
 
     if (!['small', 'medium', 'large'].includes(size)) {
-      styles['font-size'] = size;
+      styles.fontSize = size;
     }
 
     return style ? { ...styles, ...style } : styles;
