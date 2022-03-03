@@ -45,7 +45,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     onKeydown,
     onKeyup,
     onKeypress,
-
     ...restInputProps
   } = props;
 
@@ -92,8 +91,8 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
 
   const [isError, setError] = useState<boolean>(false);
-  const disabledDecrease = disabled || isError || decimalValue - step < min;
-  const disabledIncrease = disabled || isError || decimalValue + step > max;
+  const disabledDecrease = disabled || isError || (decimalValue - step < min && internalInputValue !== '');
+  const disabledIncrease = disabled || isError || (decimalValue + step > max && internalInputValue !== '');
 
   const isOutOfRange = (number: number): boolean => number > max || number < min;
   const checkInput = (inputStr: InputNumberInternalValue): boolean => {
@@ -157,19 +156,21 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
 
-    let updateValue;
+    let updateValue: number;
     switch (type) {
       case 'add': {
-        updateValue = Number((currentValue + step).toFixed(precision));
+        const addedVal = currentValue + step;
+        updateValue = Number(Math.max(addedVal, min).toFixed(precision));
         break;
       }
       case 'reduce': {
-        updateValue = Number((currentValue - step).toFixed(precision));
+        const reducedVal = currentValue - step;
+        updateValue = Number(Math.max(reducedVal, min).toFixed(precision));
         break;
       }
     }
 
-    setInputValue(updateValue);
+    setInputValue(String(updateValue));
     triggerValueUpdate({ value: updateValue, type, e });
     e.preventDefault();
   };
