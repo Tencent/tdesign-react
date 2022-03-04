@@ -1,7 +1,7 @@
 import orgPkg from '../../../../package.json';
 
 export const htmlContent = `
-  <div id="app"></div>
+  <div id="app" style="padding: 24px;"></div>
   <script type="module" src="/src/main.jsx"></script>
 `;
 

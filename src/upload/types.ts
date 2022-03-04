@@ -22,6 +22,7 @@ export interface UploadProps extends Omit<TdUploadProps, 'files'> {
 export interface TdUploadFile extends UploadFile {
   // fileList中每个文件的唯一标识
   uid?: string;
+  xhr?: XMLHttpRequest;
 }
 
 export interface HTMLInputEvent extends Event {

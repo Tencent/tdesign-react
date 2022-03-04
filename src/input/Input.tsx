@@ -4,6 +4,7 @@ import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
+import { getCharacterLength } from '../_util/helper';
 import { TdInputProps, InputValue } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
@@ -51,6 +52,9 @@ const Input = forwardRefWithStatics(
       value,
       tips,
       align,
+      maxlength,
+      maxcharacter,
+      format,
       onClick,
       onChange,
       onClear,
@@ -66,7 +70,9 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
+      showClearIconOnEmpty,
       autofocus,
+      autocomplete,
       readonly,
       label,
       suffix,
@@ -83,7 +89,7 @@ const Input = forwardRefWithStatics(
     const [isFocused, toggleIsFocused] = useState(false);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = clearable && value && !disabled && isHover;
+    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
     const suffixIconNew = isShowClearIcon ? (
@@ -112,9 +118,6 @@ const Input = forwardRefWithStatics(
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
 
-    // tips 会引起 dom 变动，抽离透传属性
-    const wrapperProps = { style, ref: wrapperRef };
-
     const renderInput = (
       <input
         ref={inputRef}
@@ -125,7 +128,9 @@ const Input = forwardRefWithStatics(
         value={composingRef.current ? composingRefValue : value}
         readOnly={readonly}
         disabled={disabled}
+        autoComplete={autocomplete}
         autoFocus={autofocus}
+        maxLength={maxlength}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
@@ -140,8 +145,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        {...wrapperProps}
-        className={classNames(tips ? '' : className, `${classPrefix}-input`, {
+        className={classNames(`${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
@@ -152,7 +156,6 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
-          [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -173,10 +176,14 @@ const Input = forwardRefWithStatics(
     );
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
-      const { value } = e.currentTarget;
+      let { value } = e.currentTarget;
       if (composingRef.current) {
         setComposingValue(value);
       } else {
+        if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
+          const stringInfo = getCharacterLength(value, maxcharacter);
+          value = typeof stringInfo === 'object' && stringInfo.characters;
+        }
         onChange(value, { e });
       }
     }
@@ -235,6 +242,7 @@ const Input = forwardRefWithStatics(
       const {
         currentTarget: { value },
       } = e;
+      format && onChange(format(value), { e });
       onBlur?.(value, { e });
       toggleIsFocused(false);
     }
@@ -267,20 +275,24 @@ const Input = forwardRefWithStatics(
       select: () => inputRef.current?.select(),
     }));
 
-    if (tips) {
-      return (
-        <div {...wrapperProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
-          {renderInputNode}
+    return (
+      <div
+        ref={wrapperRef}
+        style={style}
+        className={classNames(className, `${classPrefix}-input__wrap`, {
+          [`${classPrefix}-input--auto-width`]: autoWidth,
+        })}
+      >
+        {renderInputNode}
+        {tips && (
           <div
             className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status || 'normal'}`)}
           >
             {tips}
           </div>
-        </div>
-      );
-    }
-
-    return renderInputNode;
+        )}
+      </div>
+    );
   },
   { Group: InputGroup },
 );
