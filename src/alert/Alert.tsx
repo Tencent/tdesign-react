@@ -9,7 +9,18 @@ import { StyledProps } from '../common';
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
 const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
-  const { message, title, operation, theme = 'info', icon, close, maxLine, onClose = noop, ...alertProps } = props;
+  const {
+    message,
+    title,
+    operation,
+    theme = 'info',
+    icon,
+    close,
+    maxLine,
+    onClose = noop,
+    className,
+    ...alertProps
+  } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -75,9 +86,13 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   return closed ? null : (
     <div
       ref={ref}
-      className={classNames(`${classPrefix}-alert`, {
-        [`${classPrefix}-alert--${theme}`]: true,
-      })}
+      className={classNames(
+        `${classPrefix}-alert`,
+        {
+          [`${classPrefix}-alert--${theme}`]: true,
+        },
+        className,
+      )}
       {...alertProps}
     >
       <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
