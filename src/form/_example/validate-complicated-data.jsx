@@ -97,7 +97,7 @@ export default function BaseForm() {
     });
     setFormData(formData);
     setStudentTab(id);
-  }
+  };
 
   return (
     <Form rules={rules} resetType="initial" onReset={onReset} onSubmit={onSubmit}>
@@ -115,34 +115,23 @@ export default function BaseForm() {
         {formData.students.map((student, index) => (
           <Tabs.TabPanel key={student.id} value={student.id} label={student.label} destroyOnHide={false}>
             <div style={{ padding: '24px 24px 24px 0' }}>
-              <FormItem
-                label="姓名"
-                name={`students[${index}].name`}
-                label-width={80}
-                initialData={student.name}
-              >
+              <FormItem label="姓名" name={`students[${index}].name`} label-width={80} initialData={student.name}>
                 <Input placeholder="请输入内容" />
               </FormItem>
 
-              <FormItem
-                label="选科"
-                name={`students[${index}].name`}
-                label-width={80}
-                initialData={student.courseType}
-              >
+              <FormItem label="选科" name={`students[${index}].name`} label-width={80} initialData={student.courseType}>
                 <Radio.Group>
                   <Radio value="wenke">文科</Radio>
                   <Radio value="like">理科</Radio>
                 </Radio.Group>
               </FormItem>
 
-              <FormItem
-                label="课程"
-                name={`students[${index}].name`}
-                label-width={80}
-                initialData={student.course}
-              >
-                <Checkbox.Group options={courseOptions} />
+              <FormItem label="课程" name={`students[${index}].name`} label-width={80} initialData={student.course}>
+                <Checkbox.Group>
+                  {courseOptions.map(({ value, name, label }, index) => (
+                    <Checkbox key={index} value={value} name={name} label={label} />
+                  ))}
+                </Checkbox.Group>
               </FormItem>
 
               <FormItem style={{ paddingTop: 8 }} label-width={80}>
