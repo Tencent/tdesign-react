@@ -86,12 +86,16 @@ exports[`align.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -115,12 +119,16 @@ exports[`align.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -154,12 +162,16 @@ exports[`base.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -192,31 +204,35 @@ exports[`base.jsx 1`] = `
                 class="t-form-controls"
               >
                 <div
-                  class="t-input t-is-readonly t-input--suffix"
+                  class="t-input__wrap"
                 >
-                  <input
-                    class="t-input__inner"
-                    placeholder="请选择日期"
-                    readonly=""
-                    value=""
-                  />
-                  <span
-                    class="t-input__suffix t-input__suffix-icon"
+                  <div
+                    class="t-input t-is-readonly t-input--suffix"
                   >
-                    <svg
-                      class="t-icon t-icon-calendar"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <input
+                      class="t-input__inner"
+                      placeholder="请选择日期"
+                      readonly=""
+                      value=""
+                    />
+                    <span
+                      class="t-input__suffix t-input__suffix-icon"
                     >
-                      <path
-                        d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
-                  </span>
+                      <svg
+                        class="t-icon t-icon-calendar"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -462,12 +478,16 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
         <div
@@ -496,12 +516,16 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
         <div
@@ -530,13 +554,17 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              type="password"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                type="password"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -560,12 +588,16 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -804,12 +836,16 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -833,12 +869,16 @@ exports[`clear-validate.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -930,12 +970,16 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -959,12 +1003,16 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -988,12 +1036,16 @@ exports[`custom-validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1125,13 +1177,17 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input t-is-disabled"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                disabled=""
-                value=""
-              />
+              <div
+                class="t-input t-is-disabled"
+              >
+                <input
+                  class="t-input__inner"
+                  disabled=""
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1215,36 +1271,40 @@ exports[`disabled.jsx 1`] = `
               class="t-popup__reference t-tree-select t-select-input"
             >
               <div
-                class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                class="t-input__wrap"
               >
                 <div
-                  class="t-input__prefix"
-                />
-                <input
-                  class="t-input__inner"
-                  placeholder="请选择"
-                  readonly=""
-                  value="江苏"
-                />
-                <span
-                  class="t-input__suffix t-input__suffix-icon"
+                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
                 >
-                  <svg
-                    class="t-fake-arrow"
-                    fill="none"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="t-input__prefix"
+                  />
+                  <input
+                    class="t-input__inner"
+                    placeholder="请选择"
+                    readonly=""
+                    value="江苏"
+                  />
+                  <span
+                    class="t-input__suffix t-input__suffix-icon"
                   >
-                    <path
-                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                      stroke="black"
-                      stroke-opacity="0.9"
-                      stroke-width="1.3"
-                    />
-                  </svg>
-                </span>
+                    <svg
+                      class="t-fake-arrow"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -1331,32 +1391,36 @@ exports[`disabled.jsx 1`] = `
                   class="t-form-controls"
                 >
                   <div
-                    class="t-input t-is-readonly t-is-disabled t-input--suffix"
+                    class="t-input__wrap"
                   >
-                    <input
-                      class="t-input__inner"
-                      disabled=""
-                      placeholder="请选择日期"
-                      readonly=""
-                      value=""
-                    />
-                    <span
-                      class="t-input__suffix t-input__suffix-icon"
+                    <div
+                      class="t-input t-is-readonly t-is-disabled t-input--suffix"
                     >
-                      <svg
-                        class="t-icon t-icon-calendar"
-                        fill="none"
-                        height="1em"
-                        viewBox="0 0 16 16"
-                        width="1em"
+                      <input
+                        class="t-input__inner"
+                        disabled=""
+                        placeholder="请选择日期"
+                        readonly=""
+                        value=""
+                      />
+                      <span
+                        class="t-input__suffix t-input__suffix-icon"
                       >
-                        <path
-                          d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                          fill="currentColor"
-                          fill-opacity="0.9"
-                        />
-                      </svg>
-                    </span>
+                        <svg
+                          class="t-icon t-icon-calendar"
+                          fill="none"
+                          height="1em"
+                          viewBox="0 0 16 16"
+                          width="1em"
+                        >
+                          <path
+                            d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                            fill="currentColor"
+                            fill-opacity="0.9"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1598,14 +1662,18 @@ exports[`disabled.jsx 1`] = `
               class="t-input-number t-size-m t-is-disabled t-input-number--normal"
             >
               <div
-                class="t-input t-is-disabled"
+                class="t-input__wrap"
               >
-                <input
-                  class="t-input__inner"
-                  disabled=""
-                  placeholder="数字"
-                  value=""
-                />
+                <div
+                  class="t-input t-is-disabled"
+                >
+                  <input
+                    class="t-input__inner"
+                    disabled=""
+                    placeholder="数字"
+                    value=""
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -1847,12 +1915,16 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
           <div
@@ -1881,12 +1953,16 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
           <div
@@ -1915,13 +1991,17 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                type="password"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  type="password"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1945,12 +2025,16 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2189,12 +2273,16 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2218,12 +2306,16 @@ exports[`error-message.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2350,12 +2442,16 @@ exports[`layout.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2378,12 +2474,16 @@ exports[`layout.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2411,30 +2511,34 @@ exports[`login.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input t-input--prefix"
+              class="t-input__wrap"
             >
-              <span
-                class="t-input__prefix t-input__suffix-icon"
+              <div
+                class="t-input t-input--prefix"
               >
-                <svg
-                  class="t-icon t-icon-desktop"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
+                <span
+                  class="t-input__prefix t-input__suffix-icon"
                 >
-                  <path
-                    d="M2.5 11h5v2H3v1h10v-1H8.5v-2h5a1 1 0 001-1V3a1 1 0 00-1-1h-11a1 1 0 00-1 1v7a1 1 0 001 1zm0-8h11v7h-11V3z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </span>
-              <input
-                class="t-input__inner"
-                placeholder="请输入账户名"
-                value=""
-              />
+                  <svg
+                    class="t-icon t-icon-desktop"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M2.5 11h5v2H3v1h10v-1H8.5v-2h5a1 1 0 001-1V3a1 1 0 00-1-1h-11a1 1 0 00-1 1v7a1 1 0 001 1zm0-8h11v7h-11V3z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入账户名"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2449,36 +2553,40 @@ exports[`login.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input t-input--prefix"
+              class="t-input__wrap"
             >
-              <span
-                class="t-input__prefix t-input__suffix-icon"
+              <div
+                class="t-input t-input--prefix"
               >
-                <svg
-                  class="t-icon t-icon-lock-on"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
+                <span
+                  class="t-input__prefix t-input__suffix-icon"
                 >
-                  <path
-                    d="M6 10v1h4v-1H6z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                  <path
-                    d="M4.5 5v1H3a.5.5 0 00-.5.5v7c0 .28.22.5.5.5h10a.5.5 0 00.5-.5v-7A.5.5 0 0013 6h-1.5V5a3.5 3.5 0 00-7 0zm6 1h-5V5a2.5 2.5 0 015 0v1zm-7 1h9v6h-9V7z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </span>
-              <input
-                class="t-input__inner"
-                placeholder="请输入密码"
-                type="password"
-                value=""
-              />
+                  <svg
+                    class="t-icon t-icon-lock-on"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M6 10v1h4v-1H6z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                    <path
+                      d="M4.5 5v1H3a.5.5 0 00-.5.5v7c0 .28.22.5.5.5h10a.5.5 0 00.5-.5v-7A.5.5 0 0013 6h-1.5V5a3.5 3.5 0 00-7 0zm6 1h-5V5a2.5 2.5 0 015 0v1zm-7 1h9v6h-9V7z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入密码"
+                  type="password"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2593,13 +2701,17 @@ exports[`reset.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="请输入内容"
-                value="TDesign"
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入内容"
+                  value="TDesign"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2623,13 +2735,17 @@ exports[`reset.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="请输入内容"
-                value="12345678910"
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入内容"
+                  value="12345678910"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2829,13 +2945,17 @@ exports[`size.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="请输入内容"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入内容"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2859,13 +2979,17 @@ exports[`size.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="请输入内容"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="请输入内容"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -3264,13 +3388,17 @@ exports[`validate-complicated-data.jsx 1`] = `
                   class="t-form__controls-content"
                 >
                   <div
-                    class="t-input"
+                    class="t-input__wrap"
                   >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入内容"
-                      value="StudentA"
-                    />
+                    <div
+                      class="t-input"
+                    >
+                      <input
+                        class="t-input__inner"
+                        placeholder="请输入内容"
+                        value="StudentA"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -3557,12 +3685,16 @@ exports[`validate-message.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
         <p
@@ -3591,12 +3723,16 @@ exports[`validate-message.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                value=""
+              />
+            </div>
           </div>
         </div>
         <p
@@ -3625,13 +3761,17 @@ exports[`validate-message.jsx 1`] = `
           class="t-form__controls-content"
         >
           <div
-            class="t-input"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              type="password"
-              value=""
-            />
+            <div
+              class="t-input"
+            >
+              <input
+                class="t-input__inner"
+                type="password"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -3711,12 +3851,16 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value="张三"
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value="张三"
+                />
+              </div>
             </div>
           </div>
           <div
@@ -3745,12 +3889,16 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
           <div
@@ -3779,12 +3927,16 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -3966,12 +4118,16 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -3995,12 +4151,16 @@ exports[`validator.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -4070,12 +4230,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
           <div
@@ -4104,12 +4268,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -4133,12 +4301,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -4162,13 +4334,17 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="隐藏状态icon"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="隐藏状态icon"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -4192,12 +4368,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -4221,13 +4401,17 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                placeholder="正在校验中，请稍等"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  placeholder="正在校验中，请稍等"
+                  value=""
+                />
+              </div>
             </div>
             <span
               class="t-form__status"
@@ -4279,12 +4463,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
             <span
               class="t-form__status"
@@ -4337,12 +4525,16 @@ exports[`validator-status.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input"
+              class="t-input__wrap"
             >
-              <input
-                class="t-input__inner"
-                value=""
-              />
+              <div
+                class="t-input"
+              >
+                <input
+                  class="t-input__inner"
+                  value=""
+                />
+              </div>
             </div>
             <span
               class="t-form__status"
