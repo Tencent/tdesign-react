@@ -10,7 +10,7 @@ describe('test affix component', () => {
 
   it('offsetTop affix not scrolled', () => {
     cy.scrollTo(0, 500);
-    cy.get('.tdesign-demo-item__body').eq(1).get('.t-affix').should('not.exist');
+    cy.get('.tdesign-demo-item__body').eq(1).get('.t-affix').should('exist');
   });
   it('offsetTop affix scrolled', () => {
     cy.scrollTo(0, 500);

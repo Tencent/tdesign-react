@@ -77,10 +77,10 @@ export default function BaseForm() {
         <FormItem label="用户名" name="account">
           <Input />
         </FormItem>
-        <FormItem label="密码" name="password">
+        <FormItem label="密码" name="password" initialData=''>
           <Input />
         </FormItem>
-        <FormItem label="确认密码" name="rePassword">
+        <FormItem label="确认密码" name="rePassword" initialData=''>
           <Input />
         </FormItem>
         <FormItem statusIcon={false}>

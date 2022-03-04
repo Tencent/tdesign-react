@@ -76,6 +76,7 @@ export default function SelectInputSingle() {
         style={{ width: '300px' }}
         placeholder="Please Select"
         clearable
+        allowInput
         onPopupVisibleChange={onPopupVisibleChange}
         clear={onClear}
         panel={

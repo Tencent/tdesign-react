@@ -652,12 +652,16 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input__wrap"
                     >
-                      <input
-                        class="t-input__inner"
-                        value=""
-                      />
+                      <div
+                        class="t-input"
+                      >
+                        <input
+                          class="t-input__inner"
+                          value=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -681,12 +685,16 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input__wrap"
                     >
-                      <input
-                        class="t-input__inner"
-                        value=""
-                      />
+                      <div
+                        class="t-input"
+                      >
+                        <input
+                          class="t-input__inner"
+                          value=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

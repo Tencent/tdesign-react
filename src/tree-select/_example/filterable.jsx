@@ -40,19 +40,15 @@ export default function Example() {
       </div>
       {
         type === 'default' ? (
-          <TreeSelect
-            data={options}
-            clearable
-            filterable
-            placeholder="请选择"
-          />
+          <>
+            <TreeSelect data={options} clearable filterable placeholder="请选择" />
+            <TreeSelect data={options} multiple clearable filterable placeholder="请选择" />
+          </>
         ) : (
-          <TreeSelect
-            data={options}
-            clearable
-            filter={filterFunction}
-            placeholder="请选择"
-          />
+          <>
+            <TreeSelect data={options} clearable filter={filterFunction} placeholder="请选择" />
+            <TreeSelect data={options} multiple clearable filter={filterFunction} placeholder="请选择" />
+          </>
         )
       }
     </div>
