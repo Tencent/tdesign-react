@@ -83,7 +83,7 @@ export default function BaseForm() {
       <FormItem label="用户名" help="这是用户名字段帮助说明" name="account">
         <Input />
       </FormItem>
-      <FormItem label="个人简介" help="一句话介绍自己" name="description">
+      <FormItem label="个人简介" help="一句话介绍自己" name="description" initialData=''>
         <Input />
       </FormItem>
       <FormItem label="密码" name="password">
@@ -98,7 +98,7 @@ export default function BaseForm() {
           <Radio value="femal">女</Radio>
         </Radio.Group>
       </FormItem>
-      <FormItem label="课程" name="course">
+      <FormItem label="课程" name="course" initialData={[]}>
         <Checkbox.Group options={courseOptions}></Checkbox.Group>
       </FormItem>
       <FormItem label="学院" name="college">
