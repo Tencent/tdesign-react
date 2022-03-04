@@ -14,7 +14,7 @@ exports[`disabled.jsx 1`] = `
         <input
           class="t-input__inner"
           disabled=""
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
@@ -218,7 +218,7 @@ exports[`hm.jsx 1`] = `
       >
         <input
           class="t-input__inner"
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
@@ -263,7 +263,7 @@ exports[`hms.jsx 1`] = `
       >
         <input
           class="t-input__inner"
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
@@ -382,7 +382,7 @@ exports[`range.jsx 1`] = `
       >
         <input
           class="t-input__inner"
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
@@ -427,7 +427,7 @@ exports[`show-steps.jsx 1`] = `
       >
         <input
           class="t-input__inner"
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
@@ -472,7 +472,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
       >
         <input
           class="t-input__inner"
-          placeholder="选择时间"
+          placeholder="请选择时间"
           readonly=""
           value=""
         />
