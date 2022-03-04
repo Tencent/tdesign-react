@@ -9,13 +9,13 @@ className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInput | Boolean | false | 是否允许输入 | N
 autoWidth | Boolean | false | 宽度随内容自适应 | N
-borderless | Boolean | false | 无边框模式 | N
+borderless | Boolean | false | 【开发中】无边框模式 | N
 clearable | Boolean | false | 是否可清空 | N
 collapsedItems | TElement | - | 标签过多的情况下，折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 `collapsedItems` 自定义。`value` 表示所有标签值，`collapsedTags` 表示折叠标签值，`count` 表示总标签数量。TS 类型：`TNode<{ value: SelectInputValue; collapsedTags: SelectInputValue; count: number }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 disabled | Boolean | false | 是否禁用 | N
 inputProps | Object | - | 透传 Input 输入框组件全部属性。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
-inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue` | N
-defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue` | N
+inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
+defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
 keys | Object | - | 定义字段别名，示例：`{ label: 'text', value: 'id', children: 'list' }`。TS 类型：`SelectInputKeys` `interface SelectInputKeys { label?: string; value?: string; children?: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts) | N
 label | TNode | - | 左侧文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 loading | Boolean | false | 是否处于加载状态 | N
