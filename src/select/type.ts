@@ -5,8 +5,9 @@
  * */
 
 import { InputProps } from '../input';
+import { InputValue } from '../input';
 import { PopupProps } from '../popup';
-import { SelectInputProps } from '../select';
+import { SelectInputProps } from '../select-input';
 import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
@@ -15,10 +16,20 @@ import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
+   * 宽度随内容自适应
+   * @default false
+   */
+  autoWidth?: boolean;
+  /**
    * 是否有边框
    * @default true
    */
   bordered?: boolean;
+  /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
   /**
    * 是否可以清空选项
    * @default false

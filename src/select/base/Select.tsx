@@ -6,7 +6,6 @@ import isString from 'lodash/isString';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
-import useDefaultValue from '../../_util/useDefaultValue';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';
@@ -40,6 +39,7 @@ const Select = forwardRefWithStatics(
 
     const {
       bordered = true,
+      borderless,
       creatable,
       filter,
       loadingText = emptyText,
@@ -75,10 +75,12 @@ const Select = forwardRefWithStatics(
       onEnter,
       onVisibleChange,
       showArrow = true,
+      inputValue,
+      defaultInputValue,
       inputProps,
       panelBottomContent,
       panelTopContent,
-    } = useDefaultValue(props);
+    } = props;
 
     const { classPrefix } = useConfig();
 
@@ -170,13 +172,13 @@ const Select = forwardRefWithStatics(
       const { trigger, index, item, e: event } = context;
       if (trigger === 'clear') {
         event.stopPropagation();
-        onChange([]);
+        onChange([], context);
       }
 
       if (trigger === 'tag-remove') {
         event.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        onChange(values);
+        onChange(values, context);
         if (isFunction(onRemove)) {
           onRemove({
             value: value[index],
@@ -200,7 +202,7 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
-      onChange(value);
+      onChange(value, null);
     };
 
     // 处理filter逻辑
@@ -238,15 +240,15 @@ const Select = forwardRefWithStatics(
       handleFilter(value);
     };
 
-    const onClearValue = (event: React.MouseEvent) => {
-      event.stopPropagation();
+    const onClearValue = (context) => {
+      context.e.stopPropagation();
       if (Array.isArray(value)) {
-        onChange([]);
+        onChange([], context);
       } else {
-        onChange(null);
+        onChange(null, context);
       }
       setInputVal(undefined);
-      onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
+      onClear(context);
     };
 
     // 渲染后置图标
@@ -291,7 +293,12 @@ const Select = forwardRefWithStatics(
 
     const renderValueDisplay = () => {
       if (!valueDisplay) return '';
-      if (multiple) return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
+      if (typeof valueDisplay === 'string') {
+        return valueDisplay;
+      }
+      if (multiple) {
+        return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
+      }
       return selectedLabel.length ? (valueDisplay({ value: selectedLabel[0], onClose: noop }) as string) : '';
     };
 
@@ -319,11 +326,13 @@ const Select = forwardRefWithStatics(
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}
-          borderless={!bordered}
+          borderless={borderless || !bordered}
           label={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
           placeholder={placeholder || t(local.placeholder)}
+          inputValue={inputValue}
+          defaultInputValue={defaultInputValue}
           inputProps={{
             size,
             ...inputProps,
