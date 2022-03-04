@@ -87,7 +87,6 @@ const Select = forwardRefWithStatics(
     const name = `${classPrefix}-select`; // t-select
 
     const [showPopup, setShowPopup] = useState(false);
-    // const [isHover, toggleHover] = useState(false);
     const [inputVal, setInputVal] = useState<string>(undefined);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
@@ -347,8 +346,8 @@ const Select = forwardRefWithStatics(
           onFocus={onFocus}
           onEnter={onEnter}
           onBlur={onBlur}
-          onClear={({ e }) => {
-            onClearValue(e);
+          onClear={(context) => {
+            onClearValue(context);
           }}
         ></SelectInput>
       </div>
