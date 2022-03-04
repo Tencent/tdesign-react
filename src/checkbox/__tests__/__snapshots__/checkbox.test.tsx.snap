@@ -766,12 +766,16 @@ exports[`max.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="1"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="1"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
