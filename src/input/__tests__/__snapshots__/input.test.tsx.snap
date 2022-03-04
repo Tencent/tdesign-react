@@ -257,10 +257,10 @@ exports[`auto-width.jsx 1`] = `
     style="max-width: 500px;"
   >
     <div
-      class="t-input__wrap"
+      class="t-input__wrap t-input--auto-width"
     >
       <div
-        class="t-input t-input--auto-width"
+        class="t-input"
       >
         <input
           class="t-input__inner"
