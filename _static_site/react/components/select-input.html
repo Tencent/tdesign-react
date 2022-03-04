@@ -13,11 +13,11 @@
       #app { display: none; }
     </style>
     <![endif]-->
-  <script type="module" crossorigin="" src="/assets/index.d72db923.js"></script>
-  <link rel="modulepreload" href="/assets/vendor.2b69bc99.js">
+  <script type="module" crossorigin="" src="/assets/index.6a1cf320.js"></script>
+  <link rel="modulepreload" href="/assets/vendor.3916bda8.js">
   <link rel="stylesheet" href="/assets/vendor.130fa4eb.css">
   <link rel="stylesheet" href="/assets/index.c3f1179d.css">
-<link rel="manifest" href="/manifest.webmanifest"><link rel="modulepreload" as="script" crossorigin="" href="/assets/select-input.48133081.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/Codesandbox.39984dcf.js"><link rel="stylesheet" href="/assets/Codesandbox.f2638373.css"><link rel="modulepreload" as="script" crossorigin="" href="/assets/index.8451de1a.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/index.05fdbfb2.js"><link rel="stylesheet" href="/assets/index.b115cabc.css"><link rel="modulepreload" as="script" crossorigin="" href="/assets/borderless-multiple.d9973ef6.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/_index.a3b4b02f.js"><link rel="stylesheet" href="/assets/_index.d16fc8da.css"><script async="" id="horizon-tracker" type="text/javascript" src="https://horizon-assets.qq.com/analytics.js" data-account="tdesign"></script>
+<link rel="manifest" href="/manifest.webmanifest"><link rel="modulepreload" as="script" crossorigin="" href="/assets/select-input.b4c6a1db.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/Codesandbox.73b4a05b.js"><link rel="stylesheet" href="/assets/Codesandbox.f2638373.css"><link rel="modulepreload" as="script" crossorigin="" href="/assets/index.7775debd.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/index.5d247b4a.js"><link rel="stylesheet" href="/assets/index.b115cabc.css"><link rel="modulepreload" as="script" crossorigin="" href="/assets/autowidth-multiple.fc6770b7.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/_index.66595b98.js"><link rel="stylesheet" href="/assets/_index.2a90848b.css"><script async="" id="horizon-tracker" type="text/javascript" src="https://horizon-assets.qq.com/analytics.js" data-account="tdesign"></script>
 <style>
 .tdesign-demo__selet-input-ul-single,
 .tdesign-demo__selet-input-ul-single > li {
@@ -233,6 +233,57 @@
   margin: 12px;
 }
 </style>
+
+<style>
+.tdesign-demo__select-input-ul-auto-width {
+  padding: 4px 0;
+}
+.tdesign-demo__select-input-ul-auto-width > li {
+  display: block;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tdesign-demo__select-input-ul-auto-width > li:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
+
+<style>
+.tdesign-demo__panel-options-borderless-multiple {
+  width: 100%;
+  padding: 4px 0;
+}
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
 </head>
 
 <body>
@@ -430,7 +481,7 @@
 </svg>
 </span>
         </div>
-      </td-doc-search></td-header><td-doc-aside title="React for Web"><div slot="extra"><div class="t-select__wrap"><div class="t-popup__reference t-select__popup-reference"><div class="t-select" style="user-select: none;"><span class="t-select__left-icon"></span><span class="t-select__single">0.25.2</span><svg class="t-fake-arrow t-select__right-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></div></div></div></div></td-doc-aside><td-doc-content platform="web" page-status="show"><td-doc-header slot="doc-header" spline="data" platform="web"><td-doc-badge slot="badge" label="coverage" message="0%"></td-doc-badge><h1 id="__td_doc_title__">SelectInput 筛选器输入框</h1></td-doc-header><td-doc-tabs tab="demo"></td-doc-tabs><div name="DEMO" style="display: block;"><nav class="tdesign-toc_container"><ol class="tdesign-toc_list"><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#筛选器输入框">筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#单选筛选器输入框">单选筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#多选筛选器输入框">多选筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#自动填充筛选器">自动填充筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#有前置或后置内容的输入框">有前置或后置内容的输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#不同状态的筛选器输入框">不同状态的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可调整下拉框宽度的筛选器输入框">可调整下拉框宽度的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#选中项数量超出的输入框">选中项数量超出的输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可折叠选中项的筛选器输入框">可折叠选中项的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可自定义选中项的筛选器输入框">可自定义选中项的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#无边框模式的单选筛选器">无边框模式的单选筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#无边框模式的多选筛选器">无边框模式的多选筛选器</a></li></ol></nav><h3 id="筛选器输入框">筛选器输入框 <a class="header-anchor" href="#筛选器输入框"></a></h3><p>统一筛选器逻辑包含：输入框、下拉框、无边框模式等，可以使用筛选器输入框定制复杂的筛选器。</p><p>基于 <td-code text="TagInput"></td-code> <td-code text="Input"></td-code> <td-code text="Popup"></td-code> 等组件开发，支持这些组件的全部特性。将主要应用于 <td-code text="Select"></td-code> <td-code text="Cascader"></td-code> <td-code text="TreeSelect"></td-code> <td-code text="DatePicker"></td-code> <td-code text="TimePicker"></td-code> 等筛选器组件。</p><h3 id="单选筛选器输入框">单选筛选器输入框 <a class="header-anchor" href="#单选筛选器输入框"></a></h3><p>可使用 SelectInput 自由定制任何风格的单选选择器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-single tdesign-demo-item--select-input"><td-doc-demo code="
+      </td-doc-search></td-header><td-doc-aside title="React for Web"><div slot="extra"><div class="t-select__wrap"><div class="t-popup__reference t-select__popup-reference"><div class="t-select" style="user-select: none;"><span class="t-select__left-icon"></span><span class="t-select__single">0.26.0</span><svg class="t-fake-arrow t-select__right-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></div></div></div></div></td-doc-aside><td-doc-content platform="web" page-status="show"><td-doc-header slot="doc-header" spline="data" platform="web"><td-doc-badge slot="badge" label="coverage" message="70.33%"></td-doc-badge><h1 id="__td_doc_title__">SelectInput 筛选器输入框</h1></td-doc-header><td-doc-tabs tab="demo"></td-doc-tabs><div name="DEMO" style="display: block;"><nav class="tdesign-toc_container"><ol class="tdesign-toc_list"><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#筛选器输入框">筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#单选筛选器输入框">单选筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#多选筛选器输入框">多选筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#自动填充筛选器">自动填充筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#有前置或后置内容的输入框">有前置或后置内容的输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#不同状态的筛选器输入框">不同状态的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可调整下拉框宽度的筛选器输入框">可调整下拉框宽度的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#选中项数量超出的输入框">选中项数量超出的输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可折叠选中项的筛选器输入框">可折叠选中项的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#可自定义选中项的筛选器输入框">可自定义选中项的筛选器输入框</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#无边框模式的单选筛选器">无边框模式的单选筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#无边框模式的多选筛选器">无边框模式的多选筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#自动宽度的单选筛选器">自动宽度的单选筛选器</a></li><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#自动宽度的多选筛选器">自动宽度的多选筛选器</a></li></ol></nav><h3 id="筛选器输入框">筛选器输入框 <a class="header-anchor" href="#筛选器输入框"></a></h3><p>统一筛选器逻辑包含：输入框、下拉框、无边框模式等，可以使用筛选器输入框定制复杂的筛选器。</p><p>基于 <td-code text="TagInput"></td-code> <td-code text="Input"></td-code> <td-code text="Popup"></td-code> 等组件开发，支持这些组件的全部特性。将主要应用于 <td-code text="Select"></td-code> <td-code text="Cascader"></td-code> <td-code text="TreeSelect"></td-code> <td-code text="DatePicker"></td-code> <td-code text="TimePicker"></td-code> 等筛选器组件。</p><h3 id="单选筛选器输入框">单选筛选器输入框 <a class="header-anchor" href="#单选筛选器输入框"></a></h3><p>可使用 <td-code text="SelectInput"></td-code> 自由定制任何风格的单选选择器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-single tdesign-demo-item--select-input"><td-doc-demo code="
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
@@ -508,6 +559,7 @@ export default function SelectInputSingle() {
         style={{ width: '300px' }}
         placeholder=&quot;Please Select&quot;
         clearable
+        allowInput
         onPopupVisibleChange={onPopupVisibleChange}
         clear={onClear}
         panel={
@@ -602,6 +654,7 @@ export default function SelectInputSingle() {
         style={{ width: '300px' }}
         placeholder=&quot;Please Select&quot;
         clearable
+        allowInput
         onPopupVisibleChange={onPopupVisibleChange}
         clear={onClear}
         panel={
@@ -649,7 +702,7 @@ export default function SelectInputSingle() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -661,7 +714,7 @@ export default function SelectInputSingle() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -682,7 +735,7 @@ export default function SelectInputSingle() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue"><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="多选筛选器输入框">多选筛选器输入框 <a class="header-anchor" href="#多选筛选器输入框"></a></h3><p>可使用 SelectInput 自由定制任何风格的多选选择器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-multiple tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input__wrap"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" value="tdesign-vue"><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="多选筛选器输入框">多选筛选器输入框 <a class="header-anchor" href="#多选筛选器输入框"></a></h3><p>可使用 <td-code text="SelectInput"></td-code> 自由定制任何风格的多选选择器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-multiple tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput, Radio, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
@@ -718,6 +771,7 @@ export default function SelectInputMultiple() {
   const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
   const [allowInput, setAllowInput] = useState(true);
   const [creatable, setCreatable] = useState(true);
+  const [inputValue, setInputValue] = useState('');
   // 全量数据
   const [options, setOptions] = useState([...OPTIONS]);
   // 仅用作展示的数据（过滤功能需要使用）
@@ -760,7 +814,7 @@ export default function SelectInputMultiple() {
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
   const onTagChange = (currentTags, context) => {
-    const { trigger, index, item } = context;
+    const { trigger, index } = context;
     if (trigger === 'clear') {
       setValue([]);
     }
@@ -769,28 +823,31 @@ export default function SelectInputMultiple() {
       newValue.splice(index, 1);
       setValue(newValue);
     }
-    // 如果允许创建新条目
-    if (creatable &amp;&amp; trigger === 'enter') {
-      const current = { label: item, value: item };
-      const newValue = [...value];
-      setValue(newValue.concat(current));
-      const newOptions = options.concat(current);
-      setOptions(newOptions);
-      setDisplayOptions(newOptions);
-    }
   };
 
-  // 过滤功能
-  const onInputChange = (val) => {
-    const newOptions = options.filter(t => t.label.indexOf(val) !== -1);
-    console.log(val, newOptions);
-    setDisplayOptions(newOptions);
+  const onInputChange = (val, context) => {
+    setInputValue(val);
+    // 过滤功能
+    console.log(val, context);
   };
 
   useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
+
+  const onInputEnter = (_, { inputValue }) => {
+    // 如果允许创建新条目
+    if (creatable) {
+      const current = { label: inputValue, value: inputValue };
+      const newValue = [...value];
+      setValue(newValue.concat(current));
+      const newOptions = options.concat(current);
+      setOptions(newOptions);
+      setDisplayOptions(newOptions);
+      setInputValue('');
+    }
+  };
 
   return (
     <div className=&quot;tdesign-demo__select-input-multiple&quot; style={{ width: '100%' }}>
@@ -815,6 +872,7 @@ export default function SelectInputMultiple() {
       <SelectInput
         value={value}
         allowInput={allowInput}
+        inputValue={inputValue}
         placeholder={allowInput ? '请选择或输入' : '请选择'}
         tagInputProps={{ excessTagsDisplayType }}
         popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
@@ -836,6 +894,7 @@ export default function SelectInputMultiple() {
         multiple
         onTagChange={onTagChange}
         onInputChange={onInputChange}
+        onEnter={onInputEnter}
       ></SelectInput>
     </div>
   );
@@ -876,6 +935,7 @@ export default function SelectInputMultiple() {
   const [excessTagsDisplayType, setExcessTagsDisplayType] = useState('break-line');
   const [allowInput, setAllowInput] = useState(true);
   const [creatable, setCreatable] = useState(true);
+  const [inputValue, setInputValue] = useState('');
   // 全量数据
   const [options, setOptions] = useState([...OPTIONS]);
   // 仅用作展示的数据（过滤功能需要使用）
@@ -918,7 +978,7 @@ export default function SelectInputMultiple() {
 
   // 可以根据触发来源，自由定制标签变化时的筛选器行为
   const onTagChange = (currentTags, context) => {
-    const { trigger, index, item } = context;
+    const { trigger, index } = context;
     if (trigger === 'clear') {
       setValue([]);
     }
@@ -927,28 +987,31 @@ export default function SelectInputMultiple() {
       newValue.splice(index, 1);
       setValue(newValue);
     }
-    // 如果允许创建新条目
-    if (creatable &amp;&amp; trigger === 'enter') {
-      const current = { label: item, value: item };
-      const newValue = [...value];
-      setValue(newValue.concat(current));
-      const newOptions = options.concat(current);
-      setOptions(newOptions);
-      setDisplayOptions(newOptions);
-    }
   };
 
-  // 过滤功能
-  const onInputChange = (val) => {
-    const newOptions = options.filter(t => t.label.indexOf(val) !== -1);
-    console.log(val, newOptions);
-    setDisplayOptions(newOptions);
+  const onInputChange = (val, context) => {
+    setInputValue(val);
+    // 过滤功能
+    console.log(val, context);
   };
 
   useEffect(() => {
     // 添加示例代码所需样式
     document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
+
+  const onInputEnter = (_, { inputValue }) => {
+    // 如果允许创建新条目
+    if (creatable) {
+      const current = { label: inputValue, value: inputValue };
+      const newValue = [...value];
+      setValue(newValue.concat(current));
+      const newOptions = options.concat(current);
+      setOptions(newOptions);
+      setDisplayOptions(newOptions);
+      setInputValue('');
+    }
+  };
 
   return (
     <div className=&quot;tdesign-demo__select-input-multiple&quot; style={{ width: '100%' }}>
@@ -973,6 +1036,7 @@ export default function SelectInputMultiple() {
       <SelectInput
         value={value}
         allowInput={allowInput}
+        inputValue={inputValue}
         placeholder={allowInput ? '请选择或输入' : '请选择'}
         tagInputProps={{ excessTagsDisplayType }}
         popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
@@ -994,6 +1058,7 @@ export default function SelectInputMultiple() {
         multiple
         onTagChange={onTagChange}
         onInputChange={onInputChange}
+        onEnter={onInputEnter}
       ></SelectInput>
     </div>
   );
@@ -1029,7 +1094,7 @@ export default function SelectInputMultiple() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -1041,7 +1106,7 @@ export default function SelectInputMultiple() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -1062,7 +1127,7 @@ export default function SelectInputMultiple() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple" style="width: 100%;"><div><label class="t-checkbox t-is-checked"><input readonly="" type="checkbox" class="t-checkbox__former" value="" checked=""><span class="t-checkbox__input"></span><span class="t-checkbox__label">是否允许输入</span></label><label class="t-checkbox t-is-checked"><input readonly="" type="checkbox" class="t-checkbox__former" value="" checked=""><span class="t-checkbox__input"></span><span class="t-checkbox__label">允许创建新选项（Enter 创建）</span></label></div><br><div><div class="t-radio-group t-size-m t-radio-group__outline"><label class="t-radio"><input readonly="" type="radio" class="t-radio__former" value="scroll"><span class="t-radio__input"></span><span class="t-radio__label">选中项过多横向滚动</span></label><label class="t-radio t-is-checked"><input readonly="" type="radio" class="t-radio__former" value="break-line" checked=""><span class="t-radio__input"></span><span class="t-radio__label">选中项过多换行显示</span></label></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">React<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="自动填充筛选器">自动填充筛选器 <a class="header-anchor" href="#自动填充筛选器"></a></h3><p>可使用 SelectInput 自由定制任何风格的自动填充筛选器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-autocomplete tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple" style="width: 100%;"><div><label class="t-checkbox t-is-checked"><input readonly="" type="checkbox" class="t-checkbox__former" value="" checked=""><span class="t-checkbox__input"></span><span class="t-checkbox__label">是否允许输入</span></label><label class="t-checkbox t-is-checked"><input readonly="" type="checkbox" class="t-checkbox__former" value="" checked=""><span class="t-checkbox__input"></span><span class="t-checkbox__label">允许创建新选项（Enter 创建）</span></label></div><br><div><div class="t-radio-group t-size-m t-radio-group__outline"><label class="t-radio"><input readonly="" type="radio" class="t-radio__former" value="scroll"><span class="t-radio__input"></span><span class="t-radio__label">选中项过多横向滚动</span></label><label class="t-radio t-is-checked"><input readonly="" type="radio" class="t-radio__former" value="break-line" checked=""><span class="t-radio__input"></span><span class="t-radio__label">选中项过多换行显示</span></label></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-tag-input--break-line t-input__wrap"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">React<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="自动填充筛选器">自动填充筛选器 <a class="header-anchor" href="#自动填充筛选器"></a></h3><p>可使用 <td-code text="SelectInput"></td-code> 自由定制任何风格的自动填充筛选器。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-autocomplete tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { SearchIcon } from 'tdesign-icons-react';
 
@@ -1263,7 +1328,7 @@ export default function SelectInputAutocomplete() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -1275,7 +1340,7 @@ export default function SelectInputAutocomplete() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -1296,7 +1361,7 @@ export default function SelectInputAutocomplete() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input t-select-input--empty" style="width: 300px;"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="请输入任意关键词" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-search"><path fill="currentColor" d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="有前置或后置内容的输入框">有前置或后置内容的输入框 <a class="header-anchor" href="#有前置或后置内容的输入框"></a></h3><ul><li>前置内容使用 <td-code text="label"></td-code> 自定义。</li><li>后置内容使用 <td-code text="suffix"></td-code> 自定义。</li><li>前置图标使用 <td-code text="prefixIcon"></td-code> 自定义。</li><li>后置图标使用 <td-code text="suffixIcon"></td-code> 自定义。</li></ul><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-label-suffix tdesign-demo-item--select-input"><td-doc-demo code="
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input t-select-input--empty" style="width: 300px;"><div class="t-input__wrap"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="请输入任意关键词" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-search"><path fill="currentColor" d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="有前置或后置内容的输入框">有前置或后置内容的输入框 <a class="header-anchor" href="#有前置或后置内容的输入框"></a></h3><ul><li>前置内容使用 <td-code text="label"></td-code> 自定义。</li><li>后置内容使用 <td-code text="suffix"></td-code> 自定义。</li><li>前置图标使用 <td-code text="prefixIcon"></td-code> 自定义。</li><li>后置图标使用 <td-code text="suffixIcon"></td-code> 自定义。</li></ul><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-label-suffix tdesign-demo-item--select-input"><td-doc-demo code="
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
@@ -1575,7 +1640,7 @@ export default function SelectInputSingle() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -1587,7 +1652,7 @@ export default function SelectInputSingle() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -1608,7 +1673,7 @@ export default function SelectInputSingle() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"><span>前置内容：</span></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue"><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div><br> <br><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue"><div class="t-input__suffix"><span>单位：元</span></div><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="不同状态的筛选器输入框">不同状态的筛选器输入框 <a class="header-anchor" href="#不同状态的筛选器输入框"></a></h3><p>使用 <td-code text="status"></td-code> 和 <td-code text="tips"></td-code> 控制状态和提示文案。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-status tdesign-demo-item--select-input"><td-doc-demo code="import React, { useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"><span>前置内容：</span></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue"><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div><br> <br><div class="t-popup__reference t-select-input" style="width: 300px;"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue"><div class="t-input__suffix"><span>单位：元</span></div><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="不同状态的筛选器输入框">不同状态的筛选器输入框 <a class="header-anchor" href="#不同状态的筛选器输入框"></a></h3><p>使用 <td-code text="status"></td-code> 和 <td-code text="tips"></td-code> 控制状态和提示文案。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-status tdesign-demo-item--select-input"><td-doc-demo code="import React, { useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 
 const classStyles = `
@@ -1827,7 +1892,7 @@ export default SelectInputStatus
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -1839,7 +1904,7 @@ export default SelectInputStatus
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -1860,7 +1925,7 @@ export default SelectInputStatus
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo-select-input-status"><div><span>禁用状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-is-disabled t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" disabled="" value="TDesign"></div></div><div class="t-input__tips t-input__tips--normal">这是禁用状态的文本</div></div></div><br><div><span>只读状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div><div class="t-input__tips t-input__tips--normal">这是只读状态的文本提示</div></div></div><br><br><div><span>成功状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-is-success t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div><div class="t-input__tips t-input__tips--success">校验通过文本提示</div></div></div><br><div><span>警告状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-is-warning t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div><div class="t-input__tips t-input__tips--warning">校验不通过文本提示</div></div></div><br><div><span>错误状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-is-error t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div><div class="t-input__tips t-input__tips--error">校验存在严重问题文本提示</div></div></div><br></div></div></div></td-doc-demo></div><h3 id="可调整下拉框宽度的筛选器输入框">可调整下拉框宽度的筛选器输入框 <a class="header-anchor" href="#可调整下拉框宽度的筛选器输入框"></a></h3><p>下拉框宽度规则：下拉框宽度默认和触发元素宽度保持同宽，如果下拉框宽度超出输入框组件会自动撑开下拉框宽度，但最大宽度不超过 <td-code text="1000px"></td-code>。也可以通过 <td-code text="popupProps.overlayStyle.width"></td-code> 自由设置下拉框宽度。<td-code text="popupProps.overlayStyle"></td-code> 类型为函数时，可以更灵活地动态控制下拉框宽度。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-width tdesign-demo-item--select-input"><td-doc-demo code="import React, { useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo-select-input-status"><div><span>禁用状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-is-disabled t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" disabled="" value="TDesign"></div></div></div><div class="t-input__tips t-input__tips--normal">这是禁用状态的文本</div></div></div><br><div><span>只读状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><div class="t-input__tips t-input__tips--normal">这是只读状态的文本提示</div></div></div><br><br><div><span>成功状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-is-success t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><div class="t-input__tips t-input__tips--success">校验通过文本提示</div></div></div><br><div><span>警告状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-is-warning t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><div class="t-input__tips t-input__tips--warning">校验不通过文本提示</div></div></div><br><div><span>错误状态：</span><div class="t-select-input__wrap"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-is-error t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><div class="t-input__tips t-input__tips--error">校验存在严重问题文本提示</div></div></div><br></div></div></div></td-doc-demo></div><h3 id="可调整下拉框宽度的筛选器输入框">可调整下拉框宽度的筛选器输入框 <a class="header-anchor" href="#可调整下拉框宽度的筛选器输入框"></a></h3><p>下拉框宽度规则：下拉框宽度默认和触发元素宽度保持同宽，如果下拉框宽度超出输入框组件会自动撑开下拉框宽度，但最大宽度不超过 <td-code text="1000px"></td-code>。也可以通过 <td-code text="popupProps.overlayStyle.width"></td-code> 自由设置下拉框宽度。<td-code text="popupProps.overlayStyle"></td-code> 类型为函数时，可以更灵活地动态控制下拉框宽度。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-width tdesign-demo-item--select-input"><td-doc-demo code="import React, { useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 
 const classStyles = `
@@ -2067,7 +2132,7 @@ export default SelectInputWidth;
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -2079,7 +2144,7 @@ export default SelectInputWidth;
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -2100,7 +2165,7 @@ export default SelectInputWidth;
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-width"><div><span>下拉框默认宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><br><div><span>下拉框最大宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><br><div><span>与内容宽度一致：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><br><div><span>下拉框固定宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div><br></div></div></div></td-doc-demo></div><h3 id="选中项数量超出的输入框">选中项数量超出的输入框 <a class="header-anchor" href="#选中项数量超出的输入框"></a></h3><p>使用 <td-code text="excessTagsDisplayType"></td-code> 控制标签超出时的呈现方式：横向滚动显示和换行显示，默认为横向滚动。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-excess-tags-display-type tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-width"><div><span>下拉框默认宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div></div><br><div><span>下拉框最大宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div></div><br><div><span>与内容宽度一致：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div></div><br><div><span>下拉框固定宽度：</span><div class="t-popup__reference t-demo-normal t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="TDesign"></div></div></div></div><br></div></div></div></td-doc-demo></div><h3 id="选中项数量超出的输入框">选中项数量超出的输入框 <a class="header-anchor" href="#选中项数量超出的输入框"></a></h3><p>使用 <td-code text="excessTagsDisplayType"></td-code> 控制标签超出时的呈现方式：横向滚动显示和换行显示，默认为横向滚动。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-excess-tags-display-type tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox } from 'tdesign-react';
 
 const classStyles = `
@@ -2385,7 +2450,7 @@ export default function SelectInputExcessTagsDisplayType() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -2397,7 +2462,7 @@ export default function SelectInputExcessTagsDisplayType() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -2418,7 +2483,7 @@ export default function SelectInputExcessTagsDisplayType() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple"><p>第一种呈现方式：超出时滚动显示</p><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-angular<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div><br><br><br><p>第二种呈现方式：超出时换行显示</p><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-tag-input--break-line t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-angular<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div></div></div></div></td-doc-demo></div><h3 id="可折叠选中项的筛选器输入框">可折叠选中项的筛选器输入框 <a class="header-anchor" href="#可折叠选中项的筛选器输入框"></a></h3><p>选中项数量超过 <td-code text="minCollapsedNum"></td-code> 时会被折叠，可使用 <td-code text="collapsedItems"></td-code> 自定义折叠选项中的呈现方式。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-collapsed-items tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple"><p>第一种呈现方式：超出时滚动显示</p><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap"><div class="t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-angular<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div></div><br><br><br><p>第二种呈现方式：超出时换行显示</p><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-tag-input--break-line t-input__wrap"><div class="t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-miniprogram<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-angular<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-mobile-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div></div></div></div></div></td-doc-demo></div><h3 id="可折叠选中项的筛选器输入框">可折叠选中项的筛选器输入框 <a class="header-anchor" href="#可折叠选中项的筛选器输入框"></a></h3><p>选中项数量超过 <td-code text="minCollapsedNum"></td-code> 时会被折叠，可使用 <td-code text="collapsedItems"></td-code> 自定义折叠选项中的呈现方式。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-collapsed-items tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox, Tag } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
@@ -2715,7 +2780,7 @@ export default function SelectInputCollapsedItems() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -2727,7 +2792,7 @@ export default function SelectInputCollapsedItems() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -2748,7 +2813,7 @@ export default function SelectInputCollapsedItems() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple" style="width: 100%;"><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">+5</span></div><input placeholder="" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div><br> <br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">More(+4)</span></div><input placeholder="" class="t-input__inner" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="可自定义选中项的筛选器输入框">可自定义选中项的筛选器输入框 <a class="header-anchor" href="#可自定义选中项的筛选器输入框"></a></h3><p>使用 <td-code text="valueDisplay"></td-code> 或者 <td-code text="tag"></td-code> 自定义选中项。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-custom-tag tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-multiple" style="width: 100%;"><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue</span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">+5</span></div><input placeholder="" class="t-input__inner" readonly="" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div><br> <br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-vue</span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">tdesign-react</span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">More(+4)</span></div><input placeholder="" class="t-input__inner" readonly="" value=""><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="可自定义选中项的筛选器输入框">可自定义选中项的筛选器输入框 <a class="header-anchor" href="#可自定义选中项的筛选器输入框"></a></h3><p>使用 <td-code text="valueDisplay"></td-code> 或者 <td-code text="tag"></td-code> 自定义选中项。</p><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-custom-tag tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput, Tag } from 'tdesign-react';
 
 const classStyles = `
@@ -3079,7 +3144,7 @@ export default SelectInputCustomTag;
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -3091,7 +3156,7 @@ export default SelectInputCustomTag;
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -3112,7 +3177,7 @@ export default SelectInputCustomTag;
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo-select-input-custom-tag"><div class="t-popup__reference t-select-input"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"><span><img src="/favicon.ico" class="tdesign-demo-select-input__img">tdesign-vue</span></div><input placeholder="" class="t-input__inner" readonly="" value=""></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"><span><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img">tdesign-vue</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"><span><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img">tdesign-react</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-vue</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-react</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-mobile-vue</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" value=""></div></div></div></div></div></td-doc-demo></div><h3 id="无边框模式的单选筛选器">无边框模式的单选筛选器 <a class="header-anchor" href="#无边框模式的单选筛选器"></a></h3><td-code text="borderless"></td-code> 用于控制是否呈现为无边框模式。<div class="tdesign-demo-wrapper tdesign-demo-item--select-input-borderless tdesign-demo-item--select-input"><td-doc-demo code="
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo-select-input-custom-tag"><div class="t-popup__reference t-select-input"><div class="t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"><span><img src="/favicon.ico" class="tdesign-demo-select-input__img">tdesign-vue</span></div><input placeholder="" class="t-input__inner" readonly="" value=""></div></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"><span><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img">tdesign-vue</span></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"><span><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img">tdesign-react</span></span></div><input placeholder="" class="t-input__inner" readonly="" value=""></div></div></div><br><br><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap"><div class="t-input t-is-readonly t-input--prefix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-vue</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-react</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square" style="margin-right: 4px;"><img src="https://tdesign.gtimg.com/site/avatar.jpg" class="tdesign-demo-select-input__img"><span>tdesign-mobile-vue</span><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span></div><input placeholder="" class="t-input__inner" readonly="" value=""></div></div></div></div></div></div></td-doc-demo></div><h3 id="无边框模式的单选筛选器">无边框模式的单选筛选器 <a class="header-anchor" href="#无边框模式的单选筛选器"></a></h3><td-code text="borderless"></td-code> 用于控制是否呈现为无边框模式。<div class="tdesign-demo-wrapper tdesign-demo-item--select-input-borderless tdesign-demo-item--select-input"><td-doc-demo code="
 import React, { useState, useEffect } from 'react';
 import { SelectInput } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
@@ -3331,7 +3396,7 @@ export default function SelectInputSingle() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -3343,7 +3408,7 @@ export default function SelectInputSingle() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -3364,7 +3429,7 @@ export default function SelectInputSingle() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input t-select-input--borderless"><div class="t-input t-is-readonly t-input--prefix t-input--suffix t-input--auto-width"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue" style="width: 78px;"><span class="t-input__input-pre">tdesign-vue</span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="无边框模式的多选筛选器">无边框模式的多选筛选器 <a class="header-anchor" href="#无边框模式的多选筛选器"></a></h3><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-borderless-multiple tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div><div class="t-popup__reference t-select-input t-select-input--borderless"><div class="t-input__wrap t-input--auto-width"><div class="t-input t-is-readonly t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" readonly="" value="tdesign-vue" style="width: 78px;"><span class="t-input__input-pre">tdesign-vue</span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="无边框模式的多选筛选器">无边框模式的多选筛选器 <a class="header-anchor" href="#无边框模式的多选筛选器"></a></h3><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-borderless-multiple tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
 import { SelectInput, Checkbox } from 'tdesign-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 
@@ -3623,7 +3688,7 @@ export default function SelectInputMultiple() {
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
 "><input type="hidden" name="project[files][index.html]" value="
-  <div id=&quot;app&quot;></div>
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
   <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
 "><input type="hidden" name="project[files][package.json]" value="{
   &quot;name&quot;: &quot;tdesign-react-demo&quot;,
@@ -3635,7 +3700,7 @@ export default function SelectInputMultiple() {
     &quot;serve&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;tdesign-react&quot;: &quot;0.25.2&quot;,
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
     &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
     &quot;react&quot;: &quot;^17.0.2&quot;,
     &quot;react-dom&quot;: &quot;^17.0.2&quot;
@@ -3656,7 +3721,569 @@ export default function SelectInputMultiple() {
     &quot;installDependencies&quot;: true,
     &quot;startCommand&quot;: &quot;npm run dev&quot;
   }
-"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div style="width: 100%;"><div class="t-popup__reference t-select-input t-select-input--borderless t-select-input--multiple"><div class="t-tag-input t-input t-input--prefix t-input--suffix t-input--auto-width"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">+2</span></div><input placeholder="" class="t-input__inner" value="" style="width: 0px;"><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><td-contributors platform="web" framework="react" component-name="select-input"></td-contributors></div><div name="API" style="display: none;"><nav class="tdesign-toc_container"><ol class="tdesign-toc_list"><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#selectinput-props">SelectInput Props</a></li></ol></nav><h3 id="selectinput-props">SelectInput Props <a class="header-anchor" href="#selectinput-props"></a></h3>
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div style="width: 100%;"><div class="t-popup__reference t-select-input t-select-input--borderless t-select-input--multiple"><div class="t-tag-input t-input__wrap t-input--auto-width"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">+2</span></div><input placeholder="" class="t-input__inner" value="" style="width: 0px;"><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><h3 id="自动宽度的单选筛选器">自动宽度的单选筛选器 <a class="header-anchor" href="#自动宽度的单选筛选器"></a></h3><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-autowidth tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect } from 'react';
+import { SelectInput } from 'tdesign-react';
+import { ChevronDownIcon } from 'tdesign-icons-react';
+
+const classStyles = `
+<style>
+.tdesign-demo__select-input-ul-auto-width {
+  padding: 4px 0;
+}
+.tdesign-demo__select-input-ul-auto-width > li {
+  display: block;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tdesign-demo__select-input-ul-auto-width > li:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
+`;
+
+const OPTIONS = [
+  { label: 'tdesign-vue', value: 1 },
+  { label: 'tdesign-react', value: 2 },
+  { label: 'tdesign-miniprogram', value: 3 },
+  { label: 'tdesign-angular', value: 4 },
+  { label: 'tdesign-mobile-vue', value: 5 },
+  { label: 'tdesign-mobile-react', value: 6 },
+];
+
+export default function SelectInputAutocomplete() {
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [selectValue, setSelectValue] = useState({ label: 'tdesign-vue', value: 1 });
+
+  const onOptionClick = (item) => {
+    setSelectValue(item);
+    setPopupVisible(false);
+  };
+
+  const onClear = () => {
+    setSelectValue(undefined);
+  };
+
+  const onPopupVisibleChange = (val, context) => {
+    console.log(context);
+    setPopupVisible(val);
+  };
+
+  const onInputChange = (val, context) => {
+    // 过滤功能
+    console.log(val, context);
+  };
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
+  // 如果需要输入框宽度自适应，可以使用 autoWidth
+  return (
+    <SelectInput
+      value={selectValue}
+      popupVisible={popupVisible}
+      placeholder=&quot;Please Select&quot;
+      clearable
+      autoWidth
+      allowInput
+      onPopupVisibleChange={onPopupVisibleChange}
+      onClear={onClear}
+      onInputChange={onInputChange}
+      suffixIcon={<ChevronDownIcon />}
+      panel={
+        <ul className=&quot;tdesign-demo__select-input-ul-auto-width&quot;>
+          {OPTIONS.map((item) => (
+            <li key={item.value} onClick={() => onOptionClick(item)}>
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      }
+    />
+  );
+}
+" demo-name="autowidth" component-name="select-input" language="jsx" mode="auto"><div slot="action"><div class="t-popup__reference"><form method="post" action="https://stackblitz.com/run" target="_blank" class=""><input type="hidden" name="project[files][src/demo.jsx]" value="import React, { useState, useEffect } from 'react';
+import { SelectInput } from 'tdesign-react';
+import { ChevronDownIcon } from 'tdesign-icons-react';
+
+const classStyles = `
+<style>
+.tdesign-demo__select-input-ul-auto-width {
+  padding: 4px 0;
+}
+.tdesign-demo__select-input-ul-auto-width > li {
+  display: block;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tdesign-demo__select-input-ul-auto-width > li:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
+`;
+
+const OPTIONS = [
+  { label: 'tdesign-vue', value: 1 },
+  { label: 'tdesign-react', value: 2 },
+  { label: 'tdesign-miniprogram', value: 3 },
+  { label: 'tdesign-angular', value: 4 },
+  { label: 'tdesign-mobile-vue', value: 5 },
+  { label: 'tdesign-mobile-react', value: 6 },
+];
+
+export default function SelectInputAutocomplete() {
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [selectValue, setSelectValue] = useState({ label: 'tdesign-vue', value: 1 });
+
+  const onOptionClick = (item) => {
+    setSelectValue(item);
+    setPopupVisible(false);
+  };
+
+  const onClear = () => {
+    setSelectValue(undefined);
+  };
+
+  const onPopupVisibleChange = (val, context) => {
+    console.log(context);
+    setPopupVisible(val);
+  };
+
+  const onInputChange = (val, context) => {
+    // 过滤功能
+    console.log(val, context);
+  };
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
+  // 如果需要输入框宽度自适应，可以使用 autoWidth
+  return (
+    <SelectInput
+      value={selectValue}
+      popupVisible={popupVisible}
+      placeholder=&quot;Please Select&quot;
+      clearable
+      autoWidth
+      allowInput
+      onPopupVisibleChange={onPopupVisibleChange}
+      onClear={onClear}
+      onInputChange={onInputChange}
+      suffixIcon={<ChevronDownIcon />}
+      panel={
+        <ul className=&quot;tdesign-demo__select-input-ul-auto-width&quot;>
+          {OPTIONS.map((item) => (
+            <li key={item.value} onClick={() => onOptionClick(item)}>
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      }
+    />
+  );
+}
+"><input type="hidden" name="project[files][src/index.css]" value="
+  /* 竖排展示 demo 行间距 16px */
+  .tdesign-demo-block-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+  }
+
+  /* 竖排展示 demo 行间距 32px */
+  .tdesign-demo-block-column-large {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+  }
+
+  /* 横排排展示 demo 列间距 16px */
+  .tdesign-demo-block-row {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+  }
+"><input type="hidden" name="project[files][src/main.jsx]" value="
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import Demo from './demo';
+  import './index.css';
+  import 'tdesign-react/es/style/index.css';
+
+  const rootElement = document.getElementById('app');
+  ReactDOM.render(<Demo />, rootElement);
+"><input type="hidden" name="project[files][index.html]" value="
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
+  <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
+"><input type="hidden" name="project[files][package.json]" value="{
+  &quot;name&quot;: &quot;tdesign-react-demo&quot;,
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;vite&quot;,
+    &quot;build&quot;: &quot;vite build&quot;,
+    &quot;serve&quot;: &quot;vite preview&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
+    &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
+    &quot;react&quot;: &quot;^17.0.2&quot;,
+    &quot;react-dom&quot;: &quot;^17.0.2&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;vite&quot;: &quot;^2.7.0&quot;,
+    &quot;@vitejs/plugin-react&quot;: &quot;^1.1.1&quot;
+  }
+}"><input type="hidden" name="project[files][vite.config.js]" value="
+  import react from '@vitejs/plugin-react';
+
+  export default {
+    jsx: 'react',
+    plugins: [react()],
+  };
+"><input type="hidden" name="project[files][.stackblitzrc]" value="
+  {
+    &quot;installDependencies&quot;: true,
+    &quot;startCommand&quot;: &quot;npm run dev&quot;
+  }
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="t-popup__reference t-select-input"><div class="t-input__wrap t-input--auto-width"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"></div><input placeholder="Please Select" class="t-input__inner" value="tdesign-vue" style="width: 78px;"><span class="t-input__input-pre">tdesign-vue</span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></td-doc-demo></div><h3 id="自动宽度的多选筛选器">自动宽度的多选筛选器 <a class="header-anchor" href="#自动宽度的多选筛选器"></a></h3><div class="tdesign-demo-wrapper tdesign-demo-item--select-input-autowidth-multiple tdesign-demo-item--select-input"><td-doc-demo code="import React, { useState, useEffect, useMemo } from 'react';
+import { SelectInput, Checkbox } from 'tdesign-react';
+import { ChevronDownIcon } from 'tdesign-icons-react';
+
+const classStyles = `
+<style>
+.tdesign-demo__panel-options-borderless-multiple {
+  width: 100%;
+  padding: 4px 0;
+}
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
+`;
+
+const OPTIONS = [
+  // 全选
+  { label: 'all frameworks', checkAll: true },
+  { label: 'tdesign-vue', value: 1 },
+  { label: 'tdesign-react', value: 2 },
+  { label: 'tdesign-miniprogram', value: 3 },
+  { label: 'tdesign-angular', value: 4 },
+  { label: 'tdesign-mobile-vue', value: 5 },
+  { label: 'tdesign-mobile-react', value: 6 },
+];
+
+export default function SelectInputAutocomplete() {
+  const [options, setOptions] = useState(OPTIONS);
+  const [value, setValue] = useState([
+    { label: 'Vue', value: 1 },
+    { label: 'React', value: 2 },
+    { label: 'Miniprogram', value: 3 },
+  ]);
+
+  const checkboxValue = useMemo(() => {
+    const arr = [];
+    // 此处不使用 forEach，减少函数迭代
+    for (let i = 0, len = value.length; i < len; i++) {
+      value[i].value &amp;&amp; arr.push(value[i].value);
+    }
+    return arr;
+  }, [value]);
+
+  // 直接 checkboxgroup 组件渲染输出下拉选项
+  const onCheckedChange = (val, { current, type }) => {
+    // current 不存在，则表示操作全选
+    if (!current) {
+      setValue(type === 'check' ? options.slice(1) : []);
+      return;
+    }
+    // 普通操作
+    if (type === 'check') {
+      const option = options.find((t) => t.value === current);
+      setValue(value.concat(option));
+    } else {
+      setValue(value.filter((v) => v.value !== current));
+    }
+  };
+
+  // 可以根据触发来源，自由定制标签变化时的筛选器行为
+  const onTagChange = (currentTags, context) => {
+    console.log(currentTags, context);
+    const { trigger, index, item } = context;
+    if (trigger === 'clear') {
+      setValue([]);
+    }
+    if (['tag-remove', 'backspace'].includes(trigger)) {
+      setValue(value.filter((v, i) => i !== index));
+    }
+    // 如果允许创建新条目
+    if (trigger === 'enter') {
+      const current = { label: item, value: item };
+      setValue(value.concat(current));
+      setOptions(options.concat(current));
+    }
+  };
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
+  // 如果需要输入框宽度自适应，可以使用 autoWidth
+  return (
+    <div className=&quot;tdesign-demo__select-input-borderless-multiple&quot; style={{ width: '100%' }}>
+      <SelectInput
+        value={value}
+        minCollapsedNum={1}
+        autoWidth
+        allowInput
+        placeholder=&quot;select frameworks&quot;
+        clearable
+        multiple
+        onTagChange={onTagChange}
+        suffixIcon={<ChevronDownIcon />}
+        panel={
+          <Checkbox.Group
+            value={checkboxValue}
+            options={options}
+            className=&quot;tdesign-demo__panel-options-borderless-multiple&quot;
+            onChange={onCheckedChange}
+          />
+        }
+      />
+    </div>
+  );
+}
+" demo-name="autowidth-multiple" component-name="select-input" language="jsx" mode="auto"><div slot="action"><div class="t-popup__reference"><form method="post" action="https://stackblitz.com/run" target="_blank" class=""><input type="hidden" name="project[files][src/demo.jsx]" value="import React, { useState, useEffect, useMemo } from 'react';
+import { SelectInput, Checkbox } from 'tdesign-react';
+import { ChevronDownIcon } from 'tdesign-icons-react';
+
+const classStyles = `
+<style>
+.tdesign-demo__panel-options-borderless-multiple {
+  width: 100%;
+  padding: 4px 0;
+}
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox {
+  display: flex;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 22px;
+  cursor: pointer;
+  padding: 9px 8px;
+  color: var(--td-text-color-primary);
+  transition: background-color 0.2s cubic-bezier(0.38, 0, 0.24, 1);
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.tdesign-demo__panel-options-borderless-multiple .t-checkbox:hover {
+  background-color: var(--td-bg-color-container-hover);
+}
+</style>
+`;
+
+const OPTIONS = [
+  // 全选
+  { label: 'all frameworks', checkAll: true },
+  { label: 'tdesign-vue', value: 1 },
+  { label: 'tdesign-react', value: 2 },
+  { label: 'tdesign-miniprogram', value: 3 },
+  { label: 'tdesign-angular', value: 4 },
+  { label: 'tdesign-mobile-vue', value: 5 },
+  { label: 'tdesign-mobile-react', value: 6 },
+];
+
+export default function SelectInputAutocomplete() {
+  const [options, setOptions] = useState(OPTIONS);
+  const [value, setValue] = useState([
+    { label: 'Vue', value: 1 },
+    { label: 'React', value: 2 },
+    { label: 'Miniprogram', value: 3 },
+  ]);
+
+  const checkboxValue = useMemo(() => {
+    const arr = [];
+    // 此处不使用 forEach，减少函数迭代
+    for (let i = 0, len = value.length; i < len; i++) {
+      value[i].value &amp;&amp; arr.push(value[i].value);
+    }
+    return arr;
+  }, [value]);
+
+  // 直接 checkboxgroup 组件渲染输出下拉选项
+  const onCheckedChange = (val, { current, type }) => {
+    // current 不存在，则表示操作全选
+    if (!current) {
+      setValue(type === 'check' ? options.slice(1) : []);
+      return;
+    }
+    // 普通操作
+    if (type === 'check') {
+      const option = options.find((t) => t.value === current);
+      setValue(value.concat(option));
+    } else {
+      setValue(value.filter((v) => v.value !== current));
+    }
+  };
+
+  // 可以根据触发来源，自由定制标签变化时的筛选器行为
+  const onTagChange = (currentTags, context) => {
+    console.log(currentTags, context);
+    const { trigger, index, item } = context;
+    if (trigger === 'clear') {
+      setValue([]);
+    }
+    if (['tag-remove', 'backspace'].includes(trigger)) {
+      setValue(value.filter((v, i) => i !== index));
+    }
+    // 如果允许创建新条目
+    if (trigger === 'enter') {
+      const current = { label: item, value: item };
+      setValue(value.concat(current));
+      setOptions(options.concat(current));
+    }
+  };
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
+
+  // 如果需要输入框宽度自适应，可以使用 autoWidth
+  return (
+    <div className=&quot;tdesign-demo__select-input-borderless-multiple&quot; style={{ width: '100%' }}>
+      <SelectInput
+        value={value}
+        minCollapsedNum={1}
+        autoWidth
+        allowInput
+        placeholder=&quot;select frameworks&quot;
+        clearable
+        multiple
+        onTagChange={onTagChange}
+        suffixIcon={<ChevronDownIcon />}
+        panel={
+          <Checkbox.Group
+            value={checkboxValue}
+            options={options}
+            className=&quot;tdesign-demo__panel-options-borderless-multiple&quot;
+            onChange={onCheckedChange}
+          />
+        }
+      />
+    </div>
+  );
+}
+"><input type="hidden" name="project[files][src/index.css]" value="
+  /* 竖排展示 demo 行间距 16px */
+  .tdesign-demo-block-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+  }
+
+  /* 竖排展示 demo 行间距 32px */
+  .tdesign-demo-block-column-large {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+  }
+
+  /* 横排排展示 demo 列间距 16px */
+  .tdesign-demo-block-row {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+  }
+"><input type="hidden" name="project[files][src/main.jsx]" value="
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import Demo from './demo';
+  import './index.css';
+  import 'tdesign-react/es/style/index.css';
+
+  const rootElement = document.getElementById('app');
+  ReactDOM.render(<Demo />, rootElement);
+"><input type="hidden" name="project[files][index.html]" value="
+  <div id=&quot;app&quot; style=&quot;padding: 24px;&quot;></div>
+  <script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;></script>
+"><input type="hidden" name="project[files][package.json]" value="{
+  &quot;name&quot;: &quot;tdesign-react-demo&quot;,
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;vite&quot;,
+    &quot;build&quot;: &quot;vite build&quot;,
+    &quot;serve&quot;: &quot;vite preview&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;tdesign-react&quot;: &quot;0.26.0&quot;,
+    &quot;tdesign-icons-react&quot;: &quot;~0.0.8&quot;,
+    &quot;react&quot;: &quot;^17.0.2&quot;,
+    &quot;react-dom&quot;: &quot;^17.0.2&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;vite&quot;: &quot;^2.7.0&quot;,
+    &quot;@vitejs/plugin-react&quot;: &quot;^1.1.1&quot;
+  }
+}"><input type="hidden" name="project[files][vite.config.js]" value="
+  import react from '@vitejs/plugin-react';
+
+  export default {
+    jsx: 'react',
+    plugins: [react()],
+  };
+"><input type="hidden" name="project[files][.stackblitzrc]" value="
+  {
+    &quot;installDependencies&quot;: true,
+    &quot;startCommand&quot;: &quot;npm run dev&quot;
+  }
+"><input type="hidden" name="project[template]" value="node"><div class="action-online"><svg viewBox="0 0 28 28" height="20"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div></form></div><div class="t-popup__reference"><div class=""><div class="t-loading__parent"><div class="action-online"><svg fill="none" height="20" viewBox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div></div></div></div></div><div class="tdesign-demo-item__body"><div style="width: 100%;"><div class="tdesign-demo__select-input-borderless-multiple" style="width: 100%;"><div class="t-popup__reference t-select-input t-select-input--multiple"><div class="t-tag-input t-input__wrap t-input--auto-width"><div class="t-input t-input--prefix t-input--suffix"><div class="t-input__prefix"><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">Vue<svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close"><path fill="currentColor" d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z" fill-opacity="0.9"></path></svg></span><span class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square">+2</span></div><input placeholder="" class="t-input__inner" value="" style="width: 0px;"><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="t-icon t-icon-chevron-down"><path fill="currentColor" d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z" fill-opacity="0.9"></path></svg></span></div></div></div></div></div></div></td-doc-demo></div><td-contributors platform="web" framework="react" component-name="select-input"></td-contributors></div><div name="API" style="display: none;"><nav class="tdesign-toc_container"><ol class="tdesign-toc_list"><li class="tdesign-toc_list_item"><a class="tdesign-toc_list_item_a" href="#selectinput-props">SelectInput Props</a></li></ol></nav><h3 id="selectinput-props">SelectInput Props <a class="header-anchor" href="#selectinput-props"></a></h3>
 <table>
 <thead>
 <tr>
@@ -3700,7 +4327,7 @@ export default function SelectInputMultiple() {
 <td>borderless</td>
 <td>Boolean</td>
 <td>false</td>
-<td>无边框模式</td>
+<td>【开发中】无边框模式</td>
 <td>N</td>
 </tr>
 <tr>
@@ -3732,6 +4359,20 @@ export default function SelectInputMultiple() {
 <td>N</td>
 </tr>
 <tr>
+<td>inputValue</td>
+<td>String / Number</td>
+<td>-</td>
+<td>输入框的值。TS 类型：<code>InputValue</code>，<a href="./input?tab=api">Input API Documents</a>。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts" target="_blank" rel="noopener noreferrer">详细类型定义</a></td>
+<td>N</td>
+</tr>
+<tr>
+<td>defaultInputValue</td>
+<td>String / Number</td>
+<td>-</td>
+<td>输入框的值。非受控属性。TS 类型：<code>InputValue</code>，<a href="./input?tab=api">Input API Documents</a>。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts" target="_blank" rel="noopener noreferrer">详细类型定义</a></td>
+<td>N</td>
+</tr>
+<tr>
 <td>keys</td>
 <td>Object</td>
 <td>-</td>
@@ -3743,6 +4384,13 @@ export default function SelectInputMultiple() {
 <td>TNode</td>
 <td>-</td>
 <td>左侧文本。TS 类型：<code>string | TNode</code>。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts" target="_blank" rel="noopener noreferrer">通用类型定义</a></td>
+<td>N</td>
+</tr>
+<tr>
+<td>loading</td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否处于加载状态</td>
 <td>N</td>
 </tr>
 <tr>
@@ -3889,7 +4537,7 @@ export default function SelectInputMultiple() {
 <td>onInputChange</td>
 <td>Function</td>
 <td></td>
-<td>TS 类型：<code>(value: InputValue, context?: { e?: InputEvent | MouseEvent }) =&gt; void</code><br>输入框值发生变化时触发</td>
+<td>TS 类型：<code>(value: InputValue, context?: SelectInputValueChangeContext) =&gt; void</code><br>输入框值发生变化时触发，<code>context.trigger</code> 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts" target="_blank" rel="noopener noreferrer">详细类型定义</a>。<br><code>interface SelectInputValueChangeContext { e?: InputEvent | MouseEvent | FocusEvent | KeyboardEvent; trigger: 'input' | 'clear' | 'blur' }</code><br></td>
 <td>N</td>
 </tr>
 <tr>
@@ -3924,12 +4572,12 @@ export default function SelectInputMultiple() {
 <td>onTagChange</td>
 <td>Function</td>
 <td></td>
-<td>TS 类型：<code>(value: SelectInputValue, context: SelectInputChangeContext) =&gt; void</code><br>值变化时触发，参数 <code>context.trigger</code> 表示数据变化的触发来源；<code>context.index</code> 指当前变化项的下标；<code>context.item</code> 指当前变化项；<code>context.e</code> 表示事件参数。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts" target="_blank" rel="noopener noreferrer">详细类型定义</a>。<br><code>type SelectInputChangeContext = TagInputChangeContext</code><br><br><code>import { TagInputChangeContext } from '@TagInput'</code><br></td>
+<td>TS 类型：<code>(value: SelectInputValue, context: SelectInputChangeContext) =&gt; void</code><br>值变化时触发，参数 <code>context.trigger</code> 表示数据变化的触发来源；<code>context.index</code> 指当前变化项的下标；<code>context.item</code> 指当前变化项；<code>context.e</code> 表示事件参数。<a href="https://github.com/Tencent/tdesign-react/blob/develop/src/select-input/type.ts" target="_blank" rel="noopener noreferrer">详细类型定义</a>。<br><code>type SelectInputChangeContext = TagInputChangeContext</code><br></td>
 <td>N</td>
 </tr>
 </tbody>
 </table>
-</div><div name="DESIGN" style="display: none;"><td-doc-empty type="design"></td-doc-empty></div><div style="margin-top: 48px;"><td-doc-history time="1645760608590"></td-doc-history></div><td-doc-footer slot="doc-footer" platform="web"></td-doc-footer></td-doc-content></td-doc-layout><div class="ReloadPrompt-container"><div class="ReloadPrompt-date">2022-02-25T03:50:10.395Z</div></div></div>
+</div><div name="DESIGN" style="display: none;"><td-doc-empty type="design"></td-doc-empty></div><div style="margin-top: 48px;"><td-doc-history time="1646388017874"></td-doc-history></div><td-doc-footer slot="doc-footer" platform="web"></td-doc-footer></td-doc-content></td-doc-layout><div class="ReloadPrompt-container"><div class="ReloadPrompt-date">2022-03-04T10:19:40.316Z</div></div></div>
   
   <script>
     if (window.Cypress) {
