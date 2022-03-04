@@ -50,6 +50,4 @@ const alert: DialogAlertMethod = (props: Omit<DialogOptions, 'confirmBtn'>) => {
 createDialog.alert = alert;
 createDialog.confirm = confirm;
 
-export const dialog = createDialog;
-
 export const DialogPlugin = createDialog;
