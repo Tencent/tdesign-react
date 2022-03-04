@@ -6,12 +6,13 @@
 
 import { CalendarController } from '../calendar';
 import { ButtonProps } from '../button';
+import { FormErrorMessage } from '../form';
 import { TNode, TElement } from '../common';
 
 export interface GlobalConfigProvider {
   /**
    * 动画效果控制，`ripple`指波纹动画， `expand` 指展开动画，`fade` 指渐变动画
-   * @default { include: ['ripple','expand','fade'], exclude: [] }
+   * @default `{ include: ['ripple','expand','fade'], exclude: [] }`
    */
   animation?: Record<'include' | 'exclude', Array<AnimationType>>;
   /**
@@ -623,6 +624,10 @@ export interface UploadConfigFileList {
 }
 
 export interface FormConfig {
+  /**
+   * 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`
+   */
+  errorMessage?: FormErrorMessage;
   /**
    * 是否显示必填符号（*），默认显示
    * @default true

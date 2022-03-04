@@ -14,7 +14,7 @@ describe('Input 组件测试', () => {
   test('create', async () => {
     const changeFn = jest.fn();
     const { container, queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} onChange={changeFn} />);
-    expect(container.firstChild.classList.contains('t-input')).toBeTruthy();
+    expect(container.firstChild.firstChild.classList.contains('t-input')).toBeTruthy();
     expect(queryByPlaceholderText(InputPlaceholder)).toBeInTheDocument();
     fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
     expect(changeFn).toBeCalledTimes(1);
@@ -51,16 +51,16 @@ describe('Input 组件测试', () => {
     fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
     expect(queryByPlaceholderText(InputPlaceholder).value).toEqual(InputValue);
     expect(asFragment()).toMatchSnapshot();
-    fireEvent.mouseEnter(container.firstChild);
+    fireEvent.mouseEnter(container.firstChild.firstChild);
     fireEvent.click(container.querySelector('.t-input__suffix-clear'));
     expect(queryByPlaceholderText(InputPlaceholder).value).toEqual('');
   });
   test('clearable can not work when mouseLeave', async () => {
     const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} clearable />);
     fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
-    fireEvent.mouseEnter(container.firstChild);
+    fireEvent.mouseEnter(container.firstChild.firstChild);
     expect(container.querySelector('.t-input__suffix-clear')).toBeInTheDocument();
-    fireEvent.mouseLeave(container.firstChild);
+    fireEvent.mouseLeave(container.firstChild.firstChild);
     expect(container.querySelector('.t-input__suffix-clear')).not.toBeInTheDocument();
   });
   test('should not lost focus when clear input', async () => {
@@ -70,7 +70,7 @@ describe('Input 组件测试', () => {
     );
     const InputDom = queryByPlaceholderText(InputPlaceholder);
     fireEvent.change(InputDom, { target: { value: InputValue } });
-    fireEvent.mouseEnter(container.firstChild);
+    fireEvent.mouseEnter(container.firstChild.firstChild);
     const clearIcon = container.querySelector('.t-input__suffix-clear');
     fireEvent.mouseDown(clearIcon);
     fireEvent.mouseUp(clearIcon);
@@ -126,10 +126,10 @@ describe('Input 组件测试', () => {
   });
   test('status', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);
-    expect(container.firstChild.classList.contains('t-is-error')).toBeTruthy();
+    expect(container.firstChild.firstChild.classList.contains('t-is-error')).toBeTruthy();
   });
   test('size', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
-    expect(container.firstChild.classList.contains('t-size-l')).toBeTruthy();
+    expect(container.firstChild.firstChild.classList.contains('t-size-l')).toBeTruthy();
   });
 });
