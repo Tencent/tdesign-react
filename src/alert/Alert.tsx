@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon, CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import noop from '../_util/noop';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
@@ -25,6 +26,8 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
   const { classPrefix } = useConfig();
+  const [local, t] = useLocaleReceiver('alert');
+
   const iconMap = {
     success: CheckCircleFilledIcon,
     info: InfoCircleFilledIcon,
@@ -49,7 +52,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
         }),
       });
     }
-    return React.createElement(iconMap[theme]);
+    return React.createElement(iconMap[theme] || iconMap.info);
   };
 
   const renderMessage = () => {
@@ -68,7 +71,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
           })}
           {+maxLine > 0 ? (
             <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
-              {!collapsed ? '展开更多' : '收起'}
+              {!collapsed ? t(local.expandText) : t(local.collapseText)}
             </div>
           ) : null}
         </div>
@@ -86,13 +89,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   return closed ? null : (
     <div
       ref={ref}
-      className={classNames(
-        `${classPrefix}-alert`,
-        {
-          [`${classPrefix}-alert--${theme}`]: true,
-        },
-        className,
-      )}
+      className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
       {...alertProps}
     >
       <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
