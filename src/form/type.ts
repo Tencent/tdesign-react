@@ -83,10 +83,6 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   submitWithWarningMessage?: boolean;
   /**
-   * 校验信息提示，主要用于非组件内部的校验信息呈现，如：表单初次呈现的远程校验结果。如果要启动组件内部的校验功能，该值必须设置为空。`FormData` 是泛型约束，表单的数据类型。**半受控属性**，值为空时，会启动内部校验，否则不启动内部校验
-   */
-  validateMessage?: FormValidateMessage<FormData>;
-  /**
    * 表单重置时触发
    */
   onReset?: (context: { e?: FormResetEvent }) => void;
@@ -107,10 +103,6 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   clearValidate?: (fields?: Array<keyof FormData>) => void;
   /**
-   * 【即将废弃，请使用 getFieldsValue】获取全部表单数据
-   */
-  getAllFieldsValue?: () => Record<keyof FormData, unknown>;
-  /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
   getFieldsValue?: (nameList: string[] | boolean) => Record<keyof FormData, unknown>;
@@ -130,6 +122,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    * 设置表单字段值
    */
   setFieldsValue?: (field: Array<keyof FormData>) => void;
+  /**
+   * 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型
+   */
+  setValidateMessage?: (message: FormValidateMessage<FormData>) => void;
   /**
    * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
    */
@@ -335,10 +331,6 @@ export interface FormErrorMessage {
   validator?: string;
 }
 
-export type FormValidateMessage<FormData> = {
-  [field in keyof FormData]: Array<{ type: 'warning' | 'error'; message: string }>;
-};
-
 export interface SubmitContext<T extends Data = Data> {
   e?: FormSubmitEvent;
   validateResult: FormValidateResult<T>;
@@ -370,6 +362,13 @@ export interface FieldData {
   name: string;
   value: unknown;
   status: string;
+}
+
+export type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] };
+
+export interface FormItemValidateMessage {
+  type: 'warning' | 'error';
+  message: string;
 }
 
 export interface FormValidateParams {

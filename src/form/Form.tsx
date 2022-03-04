@@ -6,7 +6,14 @@ import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdFormProps, FormInstanceFunctions, FormValidateResult, FormResetParams } from './type';
+import type {
+  TdFormProps,
+  FormInstanceFunctions,
+  FormValidateResult,
+  FormResetParams,
+  FormValidateMessage,
+  AllValidateResult,
+} from './type';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -21,6 +28,8 @@ export interface FormRefInterface extends React.RefObject<unknown>, FormInstance
 
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
+    const { classPrefix, form: globalFormConfig } = useConfig();
+
     const {
       style,
       className,
@@ -30,12 +39,12 @@ const Form = forwardRefWithStatics(
       layout = 'vertical',
       size = 'medium',
       colon = false,
-      requiredMark = true,
+      requiredMark = globalFormConfig.requiredMark,
       scrollToFirstError,
       showErrorMessage = true,
       resetType = 'empty',
       rules,
-      validateMessage,
+      errorMessage = globalFormConfig.errorMessage,
       preventSubmitDefault = true,
       disabled,
       children,
@@ -43,7 +52,6 @@ const Form = forwardRefWithStatics(
       onReset,
       onValuesChange = noop,
     } = props;
-    const { classPrefix } = useConfig();
     const formClass = classNames(className, `${classPrefix}-form`, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
@@ -87,8 +95,8 @@ const Form = forwardRefWithStatics(
         e.stopPropagation?.();
       }
       validate().then((r) => {
-        getFirstError(r);
-        onSubmit?.({ validateResult: r, e });
+        const firstError = getFirstError(r);
+        onSubmit?.({ validateResult: r, firstError, e });
       });
     }
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -124,26 +132,14 @@ const Form = forwardRefWithStatics(
             Object.keys(r).forEach((key) => {
               if (r[key] === true) {
                 delete r[key];
+              } else {
+                r[key] = r[key].filter((fr: AllValidateResult) => fr.result === false);
               }
             });
             resolve(isEmpty(r) ? true : r);
           })
           .catch(console.error);
       });
-    }
-
-    // 对外方法，获取整个表单的值
-    function getAllFieldsValue() {
-      console.error('getAllFieldsValue methods will combine to getFieldsValue, please change to getFieldsValue(true)');
-      const fieldsValue = {};
-      formItemsRef.current.forEach(({ current: formItemRef }) => {
-        // 过滤无 name 的数据
-        if (formItemRef?.name) {
-          fieldsValue[formItemRef.name] = formItemRef.value;
-        }
-      });
-
-      return fieldsValue;
     }
 
     // 对外方法，获取对应 formItem 的值
@@ -224,6 +220,14 @@ const Form = forwardRefWithStatics(
       }
     }
 
+    // 对外方法，设置 formItem 的错误信息
+    function setValidateMessage(message: FormValidateMessage<FormData>) {
+      const formItemsMap = getFormItemsMap();
+      Object.keys(message).forEach((name) => {
+        formItemsMap[name].setValidateMessage(message[name]);
+      });
+    }
+
     useImperativeHandle(ref as FormRefInterface, () => ({
       currentElement: formRef.current,
       submit: submitHandler,
@@ -233,8 +237,8 @@ const Form = forwardRefWithStatics(
       setFieldsValue,
       setFields,
       validate,
-      getAllFieldsValue,
       clearValidate,
+      setValidateMessage,
     }));
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
@@ -259,11 +263,11 @@ const Form = forwardRefWithStatics(
           size,
           colon,
           requiredMark,
+          errorMessage,
           showErrorMessage,
           scrollToFirstError,
           resetType,
           rules,
-          validateMessage,
           disabled,
           formItemsRef,
           onFormItemValueChange,
