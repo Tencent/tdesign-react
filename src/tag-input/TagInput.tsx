@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import React, { KeyboardEvent, useState, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
@@ -39,11 +39,39 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   } = props;
 
   const [tInputValue, setTInputValue] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
+  const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
 
   const { isHover, addHover, cancelHover } = useHover(props);
   const { getDragProps } = useDragSorter({
     ...props,
     sortOnDraggable: props.dragSort,
+    onDragStart: (e) => {
+      const { x, width } = e.target.getBoundingClientRect();
+      setStartInfo({
+        nodeX: x,
+        nodeWidth: width,
+        mouseX: e.clientX,
+      });
+    },
+    onDragOverCheck: (e) => {
+      if (!startInfo.nodeWidth) return false;
+      const { x, width } = e.target.getBoundingClientRect();
+      const targetNodeMiddleX = x + width / 2;
+      const draggingNodeLeft = e.clientX - (startInfo.mouseX - startInfo.nodeX);
+      const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
+
+      let overlap = false;
+      if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
+        overlap = draggingNodeLeft < targetNodeMiddleX;
+      } else {
+        overlap = draggingNodeRight > targetNodeMiddleX;
+      }
+
+      if (overlap && e.target?.className?.includes?.(`${prefix}-tag`)) {
+        return true;
+      }
+      return false;
+    },
   });
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);

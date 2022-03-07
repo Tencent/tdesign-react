@@ -3,6 +3,8 @@ import { useState } from 'react';
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
   onDragSort?: (context: DragSortContext<T>) => void;
+  onDragStart?: (e: any) => any;
+  onDragOverCheck?: (e: any) => boolean;
 }
 
 type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, index?: number, record?: any) => void;
@@ -26,7 +28,7 @@ export interface DragSortContext<T> {
 }
 
 function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
-  const { sortOnDraggable, onDragSort } = props;
+  const { sortOnDraggable, onDragSort, onDragStart: onDragStartListener, onDragOverCheck } = props;
   const [draggingIndex, setDraggingIndex] = useState(-1);
   const [dragStartData, setDragStartData] = useState(null);
   const [isDroped, setIsDroped] = useState(null);
@@ -38,13 +40,15 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   function onDragStart(e, index, record: T) {
     setDraggingIndex(index);
     setDragStartData(record);
+    onDragStartListener?.(e);
   }
   function onDragOver(e, index, record: T) {
     e.preventDefault();
     if (draggingIndex === index || draggingIndex === -1) return;
-
-    onDragSort?.({ currentIndex: draggingIndex, current: dragStartData, target: record, targetIndex: index });
-    setDraggingIndex(index);
+    if (!onDragOverCheck || onDragOverCheck(e)) {
+      onDragSort?.({ currentIndex: draggingIndex, current: dragStartData, target: record, targetIndex: index });
+      setDraggingIndex(index);
+    }
   }
   function onDrop() {
     setIsDroped(true);
