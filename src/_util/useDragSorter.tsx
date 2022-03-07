@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
@@ -31,6 +31,23 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   const [dragStartData, setDragStartData] = useState(null);
   const [isDroped, setIsDroped] = useState(null);
 
+  const onDragSortRef = useRef(onDragSort);
+  const onDragOver = useCallback(
+    (e, index, record: T) => {
+      e.preventDefault();
+      if (draggingIndex === index || draggingIndex === -1) return;
+
+      onDragSortRef.current?.({
+        currentIndex: draggingIndex,
+        current: dragStartData,
+        target: record,
+        targetIndex: index,
+      });
+      setDraggingIndex(index);
+    },
+    [draggingIndex, dragStartData],
+  );
+
   if (!sortOnDraggable) {
     return {};
   }
@@ -39,13 +56,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
     setDraggingIndex(index);
     setDragStartData(record);
   }
-  function onDragOver(e, index, record: T) {
-    e.preventDefault();
-    if (draggingIndex === index || draggingIndex === -1) return;
 
-    onDragSort?.({ currentIndex: draggingIndex, current: dragStartData, target: record, targetIndex: index });
-    setDraggingIndex(index);
-  }
   function onDrop() {
     setIsDroped(true);
   }
