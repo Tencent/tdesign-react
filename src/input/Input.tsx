@@ -156,7 +156,6 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
-          [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -277,7 +276,13 @@ const Input = forwardRefWithStatics(
     }));
 
     return (
-      <div ref={wrapperRef} style={style} className={classNames(className, `${classPrefix}-input__wrap`)}>
+      <div
+        ref={wrapperRef}
+        style={style}
+        className={classNames(className, `${classPrefix}-input__wrap`, {
+          [`${classPrefix}-input--auto-width`]: autoWidth,
+        })}
+      >
         {renderInputNode}
         {tips && (
           <div
