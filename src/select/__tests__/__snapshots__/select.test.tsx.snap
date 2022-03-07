@@ -126,10 +126,10 @@ exports[`creatable.jsx 1`] = `
             class="t-select__left-icon"
           />
           <div
-            class="t-select__input t-input__wrap"
+            class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-select__input t-input"
             >
               <input
                 class="t-input__inner"
@@ -315,10 +315,10 @@ exports[`filterable.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input__wrap"
+          class="t-input__wrap"
         >
           <div
-            class="t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
@@ -725,10 +725,10 @@ exports[`multiple.jsx 1`] = `
           </svg>
         </span>
         <div
-          class="t-select__input t-input__wrap"
+          class="t-input__wrap"
         >
           <div
-            class="t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
@@ -816,10 +816,10 @@ exports[`options.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input__wrap"
+          class="t-input__wrap"
         >
           <div
-            class="t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
@@ -1056,10 +1056,10 @@ exports[`remote-search.jsx 1`] = `
           class="t-select__left-icon"
         />
         <div
-          class="t-select__input t-input__wrap"
+          class="t-input__wrap"
         >
           <div
-            class="t-input"
+            class="t-select__input t-input"
           >
             <input
               class="t-input__inner"
