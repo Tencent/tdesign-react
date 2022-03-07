@@ -65,11 +65,11 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   const flattenDataVisible = flattenData || data;
   const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
   const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
-  const rowEvents = getRowEvents();
 
   // ==================== render ====================
   const rows = flattenDataVisible.map((row, index) => {
     const rowKeyValue = get(row, rowKey) || index;
+    const rowEvents = getRowEvents(row, index);
 
     return (
       <React.Fragment key={rowKeyValue}>
@@ -104,13 +104,19 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
     );
   });
 
-  function getRowEvents(): RowEvents {
+  function getRowEvents(row, index): RowEvents {
     const rowEventProps = {};
     Object.keys(rowEventsMap).forEach((eventName) => {
       const apiEventName = rowEventsMap[eventName];
       const apiEvent = props[apiEventName];
       if (apiEvent) {
-        rowEventProps[eventName] = apiEvent;
+        rowEventProps[eventName] = (e) => {
+          apiEvent({
+            row,
+            index,
+            e,
+          });
+        };
       }
     });
     return rowEventProps;
