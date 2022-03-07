@@ -80,6 +80,9 @@ const Select = forwardRefWithStatics(
       inputProps,
       panelBottomContent,
       panelTopContent,
+      selectInputProps,
+      tagInputProps,
+      tagProps,
     } = props;
 
     const { classPrefix } = useConfig();
@@ -332,6 +335,8 @@ const Select = forwardRefWithStatics(
           placeholder={placeholder || t(local.placeholder)}
           inputValue={inputValue}
           defaultInputValue={defaultInputValue}
+          tagInputProps={tagInputProps}
+          tagProps={tagProps}
           inputProps={{
             size,
             ...inputProps,
@@ -349,6 +354,7 @@ const Select = forwardRefWithStatics(
           onClear={(context) => {
             onClearValue(context);
           }}
+          {...selectInputProps}
         ></SelectInput>
       </div>
     );
