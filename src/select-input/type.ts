@@ -24,7 +24,7 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
-   * 无边框模式
+   * 【开发中】无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -196,7 +196,7 @@ export interface SelectInputValueChangeContext {
     | FormEvent<HTMLDivElement>
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
-    | KeyboardEvent<HTMLDivElement>;
+    | KeyboardEvent<HTMLInputElement>;
   trigger: 'input' | 'clear' | 'blur';
 }
 
