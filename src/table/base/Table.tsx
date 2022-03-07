@@ -25,6 +25,7 @@ import { useEnhancedTableContext } from '../enhanced/TableContext';
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
+  innerExpandRowKeys?: Array<string | number>;
 }
 export interface BaseTableProps<RowData extends DataType = DataType>
   extends TdPrimaryTableProps<RowData>,
@@ -116,8 +117,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const [isHasScrollbar, setIsHasScrollbar] = useState(false);
 
   // ==================== Context ====================
-  const { useFlattenData } = useEnhancedTableContext();
-  const flattenData = useFlattenData?.(pageData);
+  const { getFlattenData } = useEnhancedTableContext();
+  const flattenData = getFlattenData?.(pageData);
   const tableContextValue = useMemo(
     () => ({ fixedHeader, flattenColumns, flattenData, pageData }),
     [fixedHeader, flattenColumns, flattenData, pageData],
