@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -39,6 +39,10 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   const [rowSkipTdSpanColIndexsMap] = useState<RowSkipTdSpanColIndexsMap>({}); // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
   const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
 
+  const onDragStartRef = useRef(onDragStart);
+  const onDragEndRef = useRef(onDragEnd);
+  const onDropRef = useRef(onDrop);
+
   // ==================== render ====================
   const rows = useMemo(
     () =>
@@ -65,10 +69,10 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
               {...(sortOnRowDraggable
                 ? {
                     sortOnRowDraggable,
-                    onDragStart,
+                    onDragStart: onDragStartRef.current,
                     onDragOver,
-                    onDrop,
-                    onDragEnd,
+                    onDrop: onDropRef.current,
+                    onDragEnd: onDragEndRef.current,
                   }
                 : {})}
             />
@@ -76,8 +80,21 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
           </React.Fragment>
         );
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [flattenVisibleData, innerExpandRowKeys, onDragOver],
+    [
+      expandOnRowClick,
+      expandedRow,
+      flattenVisibleData,
+      handleExpandChange,
+      innerExpandRowKeys,
+      isRowspanAndColspanFn,
+      onDragOver,
+      renderExpandRow,
+      rowClassName,
+      rowKey,
+      rowSkipTdSpanColIndexsMap,
+      rowspanAndColspan,
+      sortOnRowDraggable,
+    ],
   );
 
   return (
