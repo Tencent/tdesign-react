@@ -3,6 +3,10 @@ import { useCallback, useRef, useState } from 'react';
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
   onDragSort?: (context: DragSortContext<T>) => void;
+  onDragOverCheck?: {
+    x?: boolean;
+    targetClassNameRegExp?: RegExp;
+  };
 }
 
 type DragFnType = (e?: React.DragEvent<HTMLTableRowElement>, index?: number, record?: any) => void;
@@ -26,16 +30,38 @@ export interface DragSortContext<T> {
 }
 
 function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
-  const { sortOnDraggable, onDragSort } = props;
+  const { sortOnDraggable, onDragSort, onDragOverCheck } = props;
   const [draggingIndex, setDraggingIndex] = useState(-1);
   const [dragStartData, setDragStartData] = useState(null);
   const [isDroped, setIsDroped] = useState(null);
+  const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
 
   const onDragSortRef = useRef(onDragSort);
   const onDragOver = useCallback(
     (e, index, record: T) => {
       e.preventDefault();
       if (draggingIndex === index || draggingIndex === -1) return;
+      if (onDragOverCheck?.targetClassNameRegExp && !onDragOverCheck?.targetClassNameRegExp.test(e.target?.className)) {
+        return;
+      }
+
+      if (onDragOverCheck.x) {
+        if (!startInfo.nodeWidth) return;
+
+        const { x, width } = e.target.getBoundingClientRect();
+        const targetNodeMiddleX = x + width / 2;
+        const draggingNodeLeft = e.clientX - (startInfo.mouseX - startInfo.nodeX);
+        const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
+
+        let overlap = false;
+        if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
+          overlap = draggingNodeLeft < targetNodeMiddleX;
+        } else {
+          overlap = draggingNodeRight > targetNodeMiddleX;
+        }
+
+        if (!overlap) return;
+      }
 
       onDragSortRef.current?.({
         currentIndex: draggingIndex,
@@ -45,7 +71,15 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
       });
       setDraggingIndex(index);
     },
-    [draggingIndex, dragStartData],
+    [
+      draggingIndex,
+      onDragOverCheck?.targetClassNameRegExp,
+      onDragOverCheck?.x,
+      dragStartData,
+      startInfo.nodeWidth,
+      startInfo.mouseX,
+      startInfo.nodeX,
+    ],
   );
 
   if (!sortOnDraggable) {
@@ -55,6 +89,14 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   function onDragStart(e, index, record: T) {
     setDraggingIndex(index);
     setDragStartData(record);
+    if (onDragOverCheck) {
+      const { x, width } = e.target.getBoundingClientRect();
+      setStartInfo({
+        nodeX: x,
+        nodeWidth: width,
+        mouseX: e.clientX,
+      });
+    }
   }
 
   function onDrop() {

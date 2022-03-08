@@ -5,10 +5,39 @@ toc: false
 spline: explain
 ---
 
+## 0.26.0 `2022-03-04`
+
+### BREAKING CHANGES
+
+* Form: 移除 `getAllFieldsValue` API，使用 `getFieldsValue(true)` 替代 ([28f9c8d](https://github.com/Tencent/tdesign-react/commit/28f9c8d6b52afe20314be8a9fa083de2c3803dc6)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+### Bug Fixes
+
+* SelectInput: 
+  * 修复点击弹框输入框不高亮 ([6dba37f](https://github.com/Tencent/tdesign-react/commit/6dba37fe848662bb2c499e8c271b130f1f9e80b8)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+  * 修复 `allowInput` 无效问题 ([4353b93](https://github.com/Tencent/tdesign-react/commit/4353b93dec65e463693e17dc2e0474e06b53c5fc)) [@chaishi](https://github.com/chaishi)
+* Affix：修复 affix 导出问题 ([1a2f705](https://github.com/Tencent/tdesign-react/commit/1a2f705b836cad1d8a6d33a6c4ff731e2857cb8c)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog： 修复 dialog plugin 聚焦 button 通过键盘频繁触发问题 ([41a236c](https://github.com/Tencent/tdesign-react/commit/41a236c53856c84b3b89f06fa17fc2cb921be805)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Alert: 修复 `classname` 自定义被覆盖 ([fd2864b](https://github.com/Tencent/tdesign-react/commit/fd2864bedccfea0ef1c42969e09bbd4111a04846)) [@carolin913](https://github.com/carolin913)
+* InputNumber: 修复加减按钮边界问题 ([8ac9250](https://github.com/Tencent/tdesign-react/commit/8ac925055a3c9740e68a3f0cfb494d0fe82ec5a8)) [@uyarn](https://github.com/uyarn)
+* Taginput: 修复 `ondragsort` 参数类型问题 ([99d94b5](https://github.com/Tencent/tdesign-react/commit/99d94b5ae0a119ef0bb8b7c6f6a3bf4c657f58f6)) [@carolin913](https://github.com/carolin913)
+
+
+### Features
+
+* Input: 支持 `maxcharacter`、`maxlength`、`format` API ([cf6f771](https://github.com/Tencent/tdesign-react/commit/cf6f77184b45f7f8a593c57dc8d90a2883c28184)) [@HQ-Lin](https://github.com/HQ-Lin)
+* TagInput: 支持透传 `className`、`style` ([666f64b](https://github.com/Tencent/tdesign-react/commit/666f64b04d42a4e5bd81ebf52db82b825c085f4a)) [@chaishi](https://github.com/chaishi)
+* Animation: 支持 `globalConfig` 全局控制动画开关 ([4ac5f0d](https://github.com/Tencent/tdesign-react/commit/4ac5f0d9355f9296d9f95f9c8aa57525327bfe8d)) [@uyarn](https://github.com/uyarn)
+* Dialog: 支持Esc关闭 ([fb66a5d](https://github.com/Tencent/tdesign-react/commit/fb66a5d6234539d94cd9bcfecd390058a4ba2a59)) [@psaren](https://github.com/psaren)
+* Form: 支持 `setValidateMessage`、`errorMessage` API ([28f9c8d](https://github.com/Tencent/tdesign-react/commit/28f9c8d6b52afe20314be8a9fa083de2c3803dc6)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Upload: 支持 `onCancelUpload` & `onSelectChange` api ([5c39c74](https://github.com/Tencent/tdesign-react/commit/5c39c741ca3cc32348056e1221e1e7f12d35a691)) [@wookaoer](https://github.com/wookaoer)
+* TreeSelect: 使用 `SelectInput` 组件重构 ([edc387d](https://github.com/Tencent/tdesign-react/pull/415/commits/edc387d6a13a35af6ff06cead56aa679e7b5bcb8)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+
+
 ## 0.25.2 `2022-02-25`
 
 
-### Bug Fixes
+### 🐞 Bug Fixes
 
 * Table: [#334](https://github.com/Tencent/tdesign-react/issues/334) 固定列定位计算问题 ([56b7a55](https://github.com/Tencent/tdesign-react/commit/56b7a55bb5686035adf733bfa06b8930f52ce242)) [@yangguansen](https://github.com/yangguansen)
 * TagInput: 兼容 value defaultValue 都未设置场景 ([a317786](https://github.com/Tencent/tdesign-react/commit/a31778646b88ad0db089ac8ad483383283217c22)) [@HQ-Lin](https://github.com/HQ-Lin)
@@ -20,7 +49,7 @@ spline: explain
 * Dialog: 多个弹窗关闭一个后出现滚动条 ([5cf75c1](https://github.com/Tencent/tdesign-react/commit/5cf75c11d03a83a298c01cb518864e8517bc8cab)), closes [#382](https://github.com/Tencent/tdesign-react/issues/382) [@psaren](https://github.com/psaren)
 
 
-### Features
+### 🌈 Features
 
 * SelectInput: 新增组件 SelectInpput 组件 ([d2d9cf8](https://github.com/Tencent/tdesign-react/commit/d2d9cf89d9e53762fd8e689b88b918358824fd0b)) [@chaishi](https://github.com/chaishi)
 * Input: 支持 auto-width API ([cf24ca5](https://github.com/Tencent/tdesign-react/commit/cf24ca548cf07328a527d546e2ee4733062677bd)) [@chaishi](https://github.com/chaishi)

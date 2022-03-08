@@ -22,7 +22,7 @@ export interface DraggerProps {
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
-  const { file, display, onUpload, onRemove, customDraggerRender } = props;
+  const { file, display, onUpload, onRemove, customDraggerRender, onCancel } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
@@ -58,6 +58,7 @@ const Dragger: FC<DraggerProps> = (props) => {
           onUpload={() => {
             onUpload?.(file);
           }}
+          onCancel={onCancel}
         />
       );
     } else {
@@ -69,7 +70,18 @@ const Dragger: FC<DraggerProps> = (props) => {
     }
 
     return content;
-  }, [classPrefix, defaultDragElement, display, dragActive, file, onRemove, onUpload, props, customDraggerRender]);
+  }, [
+    file,
+    display,
+    onRemove,
+    props.onTrigger,
+    onCancel,
+    onUpload,
+    classPrefix,
+    customDraggerRender,
+    dragActive,
+    defaultDragElement,
+  ]);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();

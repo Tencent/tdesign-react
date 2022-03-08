@@ -1,9 +1,14 @@
 export interface IAnimationTransitionParams {
   classPrefix: String;
   expandAnimation: boolean;
+  fadeAnimation: boolean;
 }
 
-const getTransitionParams = ({ classPrefix, expandAnimation }: IAnimationTransitionParams) => {
+const getTransitionParams = ({ classPrefix, expandAnimation, fadeAnimation }: IAnimationTransitionParams) => {
+  if (!fadeAnimation) {
+    return {};
+  }
+
   const popupAnimationClassPrefix = expandAnimation
     ? `${classPrefix}-popup--animation-expand`
     : `${classPrefix}-popup--animation`;

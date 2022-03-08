@@ -15,34 +15,6 @@ export interface RowSkipTdSpanColIndexsMap {
   [key: number]: number[];
 }
 
-type RowEventName =
-  | 'onClick'
-  | 'onDoubleClick'
-  | 'onMouseOver'
-  | 'onMouseDown'
-  | 'onMouseEnter'
-  | 'onMouseLeave'
-  | 'onMouseUp';
-type APIRowEventName =
-  | 'onRowClick'
-  | 'onRowDbClick'
-  | 'onRowHover'
-  | 'onRowMousedown'
-  | 'onRowMouseenter'
-  | 'onRowMouseleave'
-  | 'onRowMouseup';
-export type RowEvents = Record<RowEventName, React.MouseEventHandler<HTMLElement>> | { [key: string]: Function };
-
-const rowEventsMap: Record<RowEventName, APIRowEventName> = {
-  onClick: 'onRowClick',
-  onDoubleClick: 'onRowDbClick',
-  onMouseOver: 'onRowHover',
-  onMouseDown: 'onRowMousedown',
-  onMouseEnter: 'onRowMouseenter',
-  onMouseLeave: 'onRowMouseleave',
-  onMouseUp: 'onRowMouseup',
-};
-
 const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSectionElement>): any => {
   const { classPrefix } = useConfig();
   const {
@@ -66,7 +38,6 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   const flattenVisibleData = flattenData || data;
   const [rowSkipTdSpanColIndexsMap] = useState<RowSkipTdSpanColIndexsMap>({}); // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
   const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
-  const rowEvents = getRowEvents();
 
   // ==================== render ====================
   const rows = useMemo(
@@ -91,7 +62,6 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
                     rowSkipTdSpanColIndexsMap,
                   }
                 : {})}
-              rowEvents={rowEvents}
               {...(sortOnRowDraggable
                 ? {
                     sortOnRowDraggable,
@@ -109,18 +79,6 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [flattenVisibleData, innerExpandRowKeys, onDragOver],
   );
-
-  function getRowEvents(): RowEvents {
-    const rowEventProps = {};
-    Object.keys(rowEventsMap).forEach((eventName) => {
-      const apiEventName = rowEventsMap[eventName];
-      const apiEvent = props[apiEventName];
-      if (apiEvent) {
-        rowEventProps[eventName] = apiEvent;
-      }
-    });
-    return rowEventProps;
-  }
 
   return (
     <tbody
