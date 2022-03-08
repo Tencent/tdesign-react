@@ -5,7 +5,7 @@ import { DragSortInnerProps } from '../../_util/useDragSorter';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams, TdPrimaryTableProps } from '../type';
-import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
+import { RowSkipTdSpanColIndexsMap } from './TableBody';
 import { ExpandInnerProps } from './Table';
 
 interface MergeCellsProps {
