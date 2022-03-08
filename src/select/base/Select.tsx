@@ -204,7 +204,7 @@ const Select = forwardRefWithStatics(
           onCreate(value);
         }
       }
-      onChange(value, null);
+      onChange ? onChange(value, null) : setInputVal(label);
     };
 
     // 处理filter逻辑
@@ -335,7 +335,10 @@ const Select = forwardRefWithStatics(
           placeholder={placeholder || t(local.placeholder)}
           inputValue={inputValue}
           defaultInputValue={defaultInputValue}
-          tagInputProps={tagInputProps}
+          tagInputProps={{
+            excessTagsDisplayType: 'break-line',
+            ...tagInputProps,
+          }}
           tagProps={tagProps}
           inputProps={{
             size,
