@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 interface DragSortProps<T> {
   sortOnDraggable: boolean;
@@ -36,6 +36,52 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   const [isDroped, setIsDroped] = useState(null);
   const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
 
+  const onDragSortRef = useRef(onDragSort);
+  const onDragOver = useCallback(
+    (e, index, record: T) => {
+      e.preventDefault();
+      if (draggingIndex === index || draggingIndex === -1) return;
+      if (onDragOverCheck?.targetClassNameRegExp && !onDragOverCheck?.targetClassNameRegExp.test(e.target?.className)) {
+        return;
+      }
+
+      if (onDragOverCheck.x) {
+        if (!startInfo.nodeWidth) return;
+
+        const { x, width } = e.target.getBoundingClientRect();
+        const targetNodeMiddleX = x + width / 2;
+        const draggingNodeLeft = e.clientX - (startInfo.mouseX - startInfo.nodeX);
+        const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
+
+        let overlap = false;
+        if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
+          overlap = draggingNodeLeft < targetNodeMiddleX;
+        } else {
+          overlap = draggingNodeRight > targetNodeMiddleX;
+        }
+
+        if (!overlap) return;
+      }
+
+      onDragSortRef.current?.({
+        currentIndex: draggingIndex,
+        current: dragStartData,
+        target: record,
+        targetIndex: index,
+      });
+      setDraggingIndex(index);
+    },
+    [
+      draggingIndex,
+      onDragOverCheck?.targetClassNameRegExp,
+      onDragOverCheck?.x,
+      dragStartData,
+      startInfo.nodeWidth,
+      startInfo.mouseX,
+      startInfo.nodeX,
+    ],
+  );
+
   if (!sortOnDraggable) {
     return {};
   }
@@ -52,34 +98,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
       });
     }
   }
-  function onDragOver(e, index, record: T) {
-    e.preventDefault();
-    if (draggingIndex === index || draggingIndex === -1) return;
-    if (onDragOverCheck.targetClassNameRegExp && !onDragOverCheck.targetClassNameRegExp.test(e.target?.className)) {
-      return;
-    }
 
-    if (onDragOverCheck.x) {
-      if (!startInfo.nodeWidth) return;
-
-      const { x, width } = e.target.getBoundingClientRect();
-      const targetNodeMiddleX = x + width / 2;
-      const draggingNodeLeft = e.clientX - (startInfo.mouseX - startInfo.nodeX);
-      const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
-
-      let overlap = false;
-      if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
-        overlap = draggingNodeLeft < targetNodeMiddleX;
-      } else {
-        overlap = draggingNodeRight > targetNodeMiddleX;
-      }
-
-      if (!overlap) return;
-    }
-
-    onDragSort?.({ currentIndex: draggingIndex, current: dragStartData, target: record, targetIndex: index });
-    setDraggingIndex(index);
-  }
   function onDrop() {
     setIsDroped(true);
   }

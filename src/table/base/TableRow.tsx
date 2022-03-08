@@ -5,7 +5,7 @@ import { DragSortInnerProps } from '../../_util/useDragSorter';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
 import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams, TdPrimaryTableProps } from '../type';
-import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
+import { RowSkipTdSpanColIndexsMap } from './TableBody';
 import { ExpandInnerProps } from './Table';
 
 interface MergeCellsProps {
@@ -24,9 +24,36 @@ interface RowProps<D extends DataType> extends MergeCellsProps, ExpandProps, Dra
   record: D;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
-  rowEvents?: RowEvents;
   rowKey: TdBaseTableProps['rowKey'];
 }
+
+type RowEventName =
+  | 'onClick'
+  | 'onDoubleClick'
+  | 'onMouseOver'
+  | 'onMouseDown'
+  | 'onMouseEnter'
+  | 'onMouseLeave'
+  | 'onMouseUp';
+type APIRowEventName =
+  | 'onRowClick'
+  | 'onRowDbClick'
+  | 'onRowHover'
+  | 'onRowMousedown'
+  | 'onRowMouseenter'
+  | 'onRowMouseleave'
+  | 'onRowMouseup';
+export type RowEvents = Record<RowEventName, React.MouseEventHandler<HTMLElement>> | { [key: string]: Function };
+
+const rowEventsMap: Record<RowEventName, APIRowEventName> = {
+  onClick: 'onRowClick',
+  onDoubleClick: 'onRowDbClick',
+  onMouseOver: 'onRowHover',
+  onMouseDown: 'onRowMousedown',
+  onMouseEnter: 'onRowMouseenter',
+  onMouseLeave: 'onRowMouseleave',
+  onMouseUp: 'onRowMouseup',
+};
 
 const TableRow = <D extends DataType>(props: RowProps<D>) => {
   const {
@@ -37,7 +64,6 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     rowspanAndColspan,
     isRowspanAndColspanFn,
     rowSkipTdSpanColIndexsMap,
-    rowEvents = {},
     expandedRow,
     expandOnRowClick,
     handleExpandChange,
@@ -89,6 +115,8 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
   if (typeof rowClassName === 'function') {
     classes = rowClassName({ row: record, rowIndex });
   }
+
+  const rowEvents = getRowEvents(record, rowIndex);
 
   function getCustomRender({ record, colKey, cell, render }) {
     if (typeof cell === 'string' || isValidElement(cell)) {
@@ -247,6 +275,24 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
       };
     }
     return {};
+  }
+
+  function getRowEvents(row, index): RowEvents {
+    const rowEventProps = {};
+    Object.keys(rowEventsMap).forEach((eventName) => {
+      const apiEventName = rowEventsMap[eventName];
+      const apiEvent = props[apiEventName];
+      if (apiEvent) {
+        rowEventProps[eventName] = (e) => {
+          apiEvent({
+            row,
+            index,
+            e,
+          });
+        };
+      }
+    });
+    return rowEventProps;
   }
 
   return (

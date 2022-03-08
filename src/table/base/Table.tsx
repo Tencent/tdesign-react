@@ -25,6 +25,7 @@ import { useEnhancedTableContext } from '../enhanced/TableContext';
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
+  innerExpandRowKeys?: Array<string | number>;
 }
 export interface BaseTableProps<RowData extends DataType = DataType>
   extends TdPrimaryTableProps<RowData>,
@@ -116,8 +117,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const [isHasScrollbar, setIsHasScrollbar] = useState(false);
 
   // ==================== Context ====================
-  const { useFlattenData } = useEnhancedTableContext();
-  const flattenData = useFlattenData?.(pageData);
+  const { getFlattenData } = useEnhancedTableContext();
+  const flattenData = getFlattenData?.(pageData);
   const tableContextValue = useMemo(
     () => ({ fixedHeader, flattenColumns, flattenData, pageData }),
     [fixedHeader, flattenColumns, flattenData, pageData],
@@ -225,11 +226,21 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
       </div>
     );
 
-    const onScroll = (e) => {
+    const throttleScroll = throttle((e) => {
+      checkScrollableToLeftOrRight();
+      onScrollXOrY(e);
+      headerScroll(e);
+    }, 10);
+
+    function headerScroll(e) {
       const { scrollLeft } = e.target;
       scrollHeaderRef.current.scrollLeft = scrollLeft;
-      handleScroll(e, 10);
-    };
+    }
+
+    function onScroll(e) {
+      e.persist();
+      throttleScroll(e);
+    }
 
     const fixedBodyRN = (
       <div
@@ -271,6 +282,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   }
 
   function checkScrollableToLeftOrRight() {
+    if (!hasFixedColumns) return;
     const scrollContainer = fixedHeader ? scrollBodyRef.current : tableContentRef.current;
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
     const scrollableToLeft = scrollLeft > 0;
@@ -279,19 +291,24 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     setScrollableToRight(scrollableToRight);
   }
 
-  function handleScroll(e, duration = 100) {
+  function onScrollXOrY(e) {
     const { scrollLeft, scrollTop } = e.target;
+    const direction = getScrollDirection(scrollLeft, scrollTop);
+    if (direction !== ScrollDirection.UNKNOWN) {
+      const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
+      const scrollParams = { e };
+      scrollListenerFn?.(scrollParams);
+    }
+  }
 
-    const scrollFn = throttle(() => {
-      checkScrollableToLeftOrRight();
-      const direction = getScrollDirection(scrollLeft, scrollTop);
-      if (direction !== ScrollDirection.UNKNOWN) {
-        const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
-        const scrollParams = { e };
-        scrollListenerFn?.(scrollParams);
-      }
-    }, duration);
-    scrollFn();
+  const throttleScroll = throttle((e) => {
+    checkScrollableToLeftOrRight();
+    onScrollXOrY(e);
+  }, 100);
+
+  function onScroll(e) {
+    e.persist(); // 处理：react 16及以下，event pooling导致异步获取event.target时为null. ref: https://reactjs.org/docs/legacy-event-pooling.html
+    throttleScroll(e);
   }
 
   return (
@@ -326,7 +343,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
               [`${classPrefix}-table__content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
-            {...(hasFixedColumns ? { onScroll: handleScroll } : {})}
+            {...(hasFixedColumns ? { onScroll } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}
           </div>
