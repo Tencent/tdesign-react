@@ -55,11 +55,11 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   function onDragOver(e, index, record: T) {
     e.preventDefault();
     if (draggingIndex === index || draggingIndex === -1) return;
-    if (onDragOverCheck.targetClassNameRegExp && !onDragOverCheck.targetClassNameRegExp.test(e.target?.className)) {
+    if (onDragOverCheck?.targetClassNameRegExp && !onDragOverCheck.targetClassNameRegExp.test(e.target?.className)) {
       return;
     }
 
-    if (onDragOverCheck.x) {
+    if (onDragOverCheck?.x) {
       if (!startInfo.nodeWidth) return;
 
       const { x, width } = e.target.getBoundingClientRect();
