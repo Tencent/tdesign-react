@@ -66,7 +66,7 @@ const Loading: FC<LoadingProps> = (props) => {
     }
 
     if (!['small', 'medium', 'large'].includes(size)) {
-      styles['font-size'] = size;
+      styles.fontSize = size;
     }
 
     return style ? { ...styles, ...style } : styles;
@@ -87,13 +87,14 @@ const Loading: FC<LoadingProps> = (props) => {
     className,
   );
 
-  if (preventScrollThrough && fullscreen && canUseDocument) {
-    if (loading) {
+  useEffect(() => {
+    if (preventScrollThrough && fullscreen && canUseDocument && loading) {
       addClass(document.body, lockClass);
-    } else {
-      removeClass(document.body, lockClass);
     }
-  }
+    return () => {
+      removeClass(document.body, lockClass);
+    };
+  }, [loading, preventScrollThrough, fullscreen, lockClass]);
 
   const commonContent = () => {
     let renderIndicator = <Gradient />;

@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import React, { KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
@@ -9,13 +9,13 @@ import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
 import useTagList from './useTagList';
 import useHover from './useHover';
+import useDefault from '../_util/useDefault';
 import { StyledProps } from '../common';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
 const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { classPrefix: prefix } = useConfig();
-  const [tInputValue, setTInputValue] = useState<InputValue>();
 
   const {
     excessTagsDisplayType = 'scroll',
@@ -36,13 +36,18 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     onPaste,
     onFocus,
     onBlur,
-    onInputChange,
   } = props;
+
+  const [tInputValue, setTInputValue] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
 
   const { isHover, addHover, cancelHover } = useHover(props);
   const { getDragProps } = useDragSorter({
     ...props,
     sortOnDraggable: props.dragSort,
+    onDragOverCheck: {
+      x: true,
+      targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
+    },
   });
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
@@ -62,16 +67,17 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
     },
+    props.className,
   ];
 
-  const tagInputPlaceholder = isHover || !tagValue?.length ? placeholder : '';
+  const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
   const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
 
   useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
-    setTInputValue('');
+    setTInputValue('', { e: context.e, trigger: 'enter' });
     onInnerEnter(value, context);
     scrollToRight();
   };
@@ -83,7 +89,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   const onClearClick = (e: MouseEvent<SVGElement>) => {
     clearAll({ e });
-    setTInputValue('');
+    setTInputValue('', { e, trigger: 'clear' });
   };
 
   const suffixIconNode = showClearIcon ? (
@@ -105,8 +111,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       {...inputProps}
       value={tInputValue}
       onChange={(val, context) => {
-        setTInputValue(val);
-        onInputChange?.(val, context);
+        setTInputValue(val, { ...context, trigger: 'input' });
       }}
       autoWidth={autoWidth}
       onWheel={onWheel}
@@ -115,6 +120,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       disabled={disabled}
       label={() => renderLabel({ displayNode, label })}
       className={classnames(classes)}
+      style={props.style}
       tips={tips}
       status={status}
       placeholder={tagInputPlaceholder}

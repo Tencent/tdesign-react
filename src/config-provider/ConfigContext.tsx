@@ -1,11 +1,23 @@
 import { createContext } from 'react';
 import merge from 'lodash/merge';
 import defaultLocale from '../locale/zh_CN';
-import DEFAULT_GLOBAL_CONFIG from './defaultConfig';
+import DEFAULT_GLOBAL_CONFIG from './zh_CN_config';
+
+export enum EAnimationType {
+  ripple = 'ripple',
+  expand = 'expand',
+  fade = 'fade',
+}
 
 export const defaultClassPrefix = 't';
 
+export const defaultAnimation = {
+  include: [EAnimationType.ripple, EAnimationType.expand, EAnimationType.fade],
+  exclude: [],
+};
+
 export const defaultGlobalConfig = {
+  animation: defaultAnimation,
   classPrefix: defaultClassPrefix,
   ...merge(defaultLocale, DEFAULT_GLOBAL_CONFIG),
 };

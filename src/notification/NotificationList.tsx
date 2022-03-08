@@ -79,14 +79,17 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
     }
     const ref = React.createRef<NotificationInstance>();
 
-    setList((oldList) => [...oldList, {
-      ...options,
-      key,
-      theme,
-      style,
-      ref,
-      id: key,
-    }]);
+    setList((oldList) => [
+      ...oldList,
+      {
+        ...options,
+        key,
+        theme,
+        style,
+        ref,
+        id: key,
+      },
+    ]);
 
     return Promise.resolve(ref.current);
   };
@@ -119,7 +122,6 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
                 remove(props.key);
                 onCloseBtnClick(e);
               }}
-
             />
           );
         })}

@@ -37,5 +37,3 @@ export const LoadingPlugin: LoadingMethod = (options) => {
     },
   };
 };
-
-export const loading = LoadingPlugin;

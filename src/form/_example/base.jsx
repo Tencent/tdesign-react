@@ -11,7 +11,6 @@ export default function BaseForm() {
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
-    console.log('getAllFieldsValue: ', formRef.current.getAllFieldsValue?.());
     console.log('getFieldsValue all: ', formRef.current.getFieldsValue?.(true));
     console.log('getFieldsValue: ', formRef.current.getFieldsValue?.(['name']));
     console.log('getFieldValue: ', formRef.current.getFieldValue?.('name'));
