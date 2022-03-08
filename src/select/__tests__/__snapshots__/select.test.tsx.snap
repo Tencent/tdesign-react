@@ -64,7 +64,7 @@ exports[`collapsed.jsx 1`] = `
       class="t-popup__reference t-select t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-input__wrap"
+        class="t-tag-input t-tag-input--break-line t-input__wrap"
       >
         <div
           class="t-input t-input--prefix t-input--suffix"
@@ -242,7 +242,7 @@ exports[`custom-selected.jsx 1`] = `
         class="t-popup__reference t-select t-select-input t-select-input--multiple"
       >
         <div
-          class="t-tag-input t-input__wrap"
+          class="t-tag-input t-tag-input--break-line t-input__wrap"
         >
           <div
             class="t-input t-input--prefix t-input--suffix"
@@ -497,7 +497,7 @@ exports[`keys.jsx 1`] = `
       class="t-popup__reference t-select t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-input__wrap"
+        class="t-tag-input t-tag-input--break-line t-input__wrap"
       >
         <div
           class="t-input t-input--prefix t-input--suffix"
@@ -658,7 +658,7 @@ exports[`label-in-value.jsx 1`] = `
         class="t-popup__reference t-select t-select-input t-select-input--multiple"
       >
         <div
-          class="t-tag-input t-input__wrap"
+          class="t-tag-input t-tag-input--break-line t-input__wrap"
         >
           <div
             class="t-input t-input--prefix t-input--suffix"
@@ -727,7 +727,7 @@ exports[`max.jsx 1`] = `
       class="t-popup__reference t-select t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-input__wrap"
+        class="t-tag-input t-tag-input--break-line t-input__wrap"
       >
         <div
           class="t-input t-input--prefix t-input--suffix"
@@ -795,7 +795,7 @@ exports[`multiple.jsx 1`] = `
       class="t-popup__reference t-select t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-input__wrap"
+        class="t-tag-input t-tag-input--break-line t-input__wrap"
       >
         <div
           class="t-input t-input--prefix t-input--suffix"
