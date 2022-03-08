@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -15,34 +15,6 @@ export interface RowSkipTdSpanColIndexsMap {
   [key: number]: number[];
 }
 
-type RowEventName =
-  | 'onClick'
-  | 'onDoubleClick'
-  | 'onMouseOver'
-  | 'onMouseDown'
-  | 'onMouseEnter'
-  | 'onMouseLeave'
-  | 'onMouseUp';
-type APIRowEventName =
-  | 'onRowClick'
-  | 'onRowDbClick'
-  | 'onRowHover'
-  | 'onRowMousedown'
-  | 'onRowMouseenter'
-  | 'onRowMouseleave'
-  | 'onRowMouseup';
-export type RowEvents = Record<RowEventName, React.MouseEventHandler<HTMLElement>> | { [key: string]: Function };
-
-const rowEventsMap: Record<RowEventName, APIRowEventName> = {
-  onClick: 'onRowClick',
-  onDoubleClick: 'onRowDbClick',
-  onMouseOver: 'onRowHover',
-  onMouseDown: 'onRowMousedown',
-  onMouseEnter: 'onRowMouseenter',
-  onMouseLeave: 'onRowMouseleave',
-  onMouseUp: 'onRowMouseup',
-};
-
 const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSectionElement>): any => {
   const { classPrefix } = useConfig();
   const {
@@ -53,6 +25,7 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
     expandOnRowClick,
     handleExpandChange,
     renderExpandRow,
+    innerExpandRowKeys,
     rowspanAndColspan,
     sortOnRowDraggable,
     dragging,
@@ -62,65 +35,67 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
     onDragEnd,
   } = props;
   const { flattenData } = useTableContext();
-  const flattenDataVisible = flattenData || data;
-  const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
+  const flattenVisibleData = flattenData || data;
+  const [rowSkipTdSpanColIndexsMap] = useState<RowSkipTdSpanColIndexsMap>({}); // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
   const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
 
+  const onDragStartRef = useRef(onDragStart);
+  const onDragEndRef = useRef(onDragEnd);
+  const onDropRef = useRef(onDrop);
+
   // ==================== render ====================
-  const rows = flattenDataVisible.map((row, index) => {
-    const rowKeyValue = get(row, rowKey) || index;
-    const rowEvents = getRowEvents(row, index);
+  const rows = useMemo(
+    () =>
+      flattenVisibleData.map((row, index) => {
+        const rowKeyValue = get(row, rowKey) || index;
 
-    return (
-      <React.Fragment key={rowKeyValue}>
-        <TableRow
-          record={row}
-          rowIndex={index}
-          rowKey={rowKey}
-          rowClassName={rowClassName}
-          expandedRow={expandedRow}
-          expandOnRowClick={expandOnRowClick}
-          handleExpandChange={handleExpandChange}
-          {...(isRowspanAndColspanFn
-            ? {
-                isRowspanAndColspanFn,
-                rowspanAndColspan,
-                rowSkipTdSpanColIndexsMap,
-              }
-            : {})}
-          rowEvents={rowEvents}
-          {...(sortOnRowDraggable
-            ? {
-                sortOnRowDraggable,
-                onDragStart,
-                onDragOver,
-                onDrop,
-                onDragEnd,
-              }
-            : {})}
-        />
-        {expandedRow ? renderExpandRow(row, index, rowKeyValue) : null}
-      </React.Fragment>
-    );
-  });
-
-  function getRowEvents(row, index): RowEvents {
-    const rowEventProps = {};
-    Object.keys(rowEventsMap).forEach((eventName) => {
-      const apiEventName = rowEventsMap[eventName];
-      const apiEvent = props[apiEventName];
-      if (apiEvent) {
-        rowEventProps[eventName] = (e) => {
-          apiEvent({
-            row,
-            index,
-            e,
-          });
-        };
-      }
-    });
-    return rowEventProps;
-  }
+        return (
+          <React.Fragment key={rowKeyValue}>
+            <TableRow
+              record={row}
+              rowIndex={index}
+              rowKey={rowKey}
+              rowClassName={rowClassName}
+              expandedRow={expandedRow}
+              expandOnRowClick={expandOnRowClick}
+              handleExpandChange={handleExpandChange}
+              {...(isRowspanAndColspanFn
+                ? {
+                    isRowspanAndColspanFn,
+                    rowspanAndColspan,
+                    rowSkipTdSpanColIndexsMap,
+                  }
+                : {})}
+              {...(sortOnRowDraggable
+                ? {
+                    sortOnRowDraggable,
+                    onDragStart: onDragStartRef.current,
+                    onDragOver,
+                    onDrop: onDropRef.current,
+                    onDragEnd: onDragEndRef.current,
+                  }
+                : {})}
+            />
+            {expandedRow && innerExpandRowKeys ? renderExpandRow(row, index, rowKeyValue) : null}
+          </React.Fragment>
+        );
+      }),
+    [
+      expandOnRowClick,
+      expandedRow,
+      flattenVisibleData,
+      handleExpandChange,
+      innerExpandRowKeys,
+      isRowspanAndColspanFn,
+      onDragOver,
+      renderExpandRow,
+      rowClassName,
+      rowKey,
+      rowSkipTdSpanColIndexsMap,
+      rowspanAndColspan,
+      sortOnRowDraggable,
+    ],
+  );
 
   return (
     <tbody
@@ -132,4 +107,4 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   );
 });
 
-export default TableBody;
+export default React.memo(TableBody);
