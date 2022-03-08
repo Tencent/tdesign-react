@@ -83,7 +83,7 @@ export default function TableBasic() {
       bordered
       hover
       stripe
-      rowClassName={({rowIndex}) => `${rowIndex}-class`}
+      rowClassName={({ rowIndex }) => `${rowIndex}-class`}
       // 与pagination对齐
       pagination={{
         defaultCurrent: 2,
@@ -103,6 +103,9 @@ export default function TableBasic() {
           console.log(size, 'onPageSizeChange size');
           console.log(pageInfo, 'onPageSizeChange pageInfo');
         },
+      }}
+      onRowClick={({ row, index, e }) => {
+        console.log('onRowClick', { row, index, e });
       }}
     />
   );
