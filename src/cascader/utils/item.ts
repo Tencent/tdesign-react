@@ -45,10 +45,10 @@ export function getCascaderItemClass(
     `${prefix}-cascader__item`,
     ...getNodeStatusClass(node, CLASSNAMES, cascaderContext),
     {
-      [`${prefix}-cascader__item--with-icon`]: node.children,
+      [`${prefix}-cascader__item--with-icon`]: !!node.children,
       [`${prefix}-cascader__item--leaf`]: node.isLeaf(),
-      [CLASSNAMES.SIZE[size]]: size,
     },
+    CLASSNAMES.SIZE[size],
   ];
 }
 
