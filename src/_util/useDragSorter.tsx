@@ -45,7 +45,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
         return;
       }
 
-      if (onDragOverCheck.x) {
+      if (onDragOverCheck?.x) {
         if (!startInfo.nodeWidth) return;
 
         const { x, width } = e.target.getBoundingClientRect();
