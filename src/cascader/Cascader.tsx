@@ -95,57 +95,48 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
-  const createStore = (onLoad: () => void) => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-      onLoad,
-    };
-    const store = new TreeStore(treeProps);
-
-    store.append(options);
-    return store;
-  };
-
-  if (!treeStore) {
-    const store = createStore(() => {
-      setTimeout(() => {
+  useEffect(() => {
+    if (!options.length) return;
+    if (!treeStore) {
+      const createStore = (onLoad: () => void) => {
+        const treeProps = {
+          onLoad,
+          options,
+        };
+        const store = new TreeStore(treeProps);
+        store.append(options);
+        return store;
+      };
+      const store = createStore(() => {
         store.refreshNodes();
         treeNodesEffect(inputVal, store, setTreeNodes);
-      }, 0);
-    });
-    setTreeStore(store);
-  }
-
-  useEffect(() => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-    };
-    treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, valueMode, treeStore]);
+      });
+      setTreeStore(store);
+    } else {
+      if (treeStore.config.options === options) return;
+      treeStore.reload(options);
+      treeStore.refreshNodes();
+      treeStoreExpendEffect(treeStore, value, []);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes);
+    }
+  }, [inputVal, options, value, treeStore]);
 
   useEffect(() => {
     if (!treeStore) return;
-    treeStore.reload(options);
-    treeStore.refreshNodes();
-    treeStoreExpendEffect(treeStore, value, []);
-    treeNodesEffect(inputVal, treeStore, setTreeNodes);
-  }, [inputVal, options, value, treeStore]);
+    const treeProps = {
+      keys: keys || {},
+      checkable: true,
+      checkStrictly,
+      expandMutex: true,
+      expandParent: true,
+      disabled,
+      load,
+      lazy,
+      valueMode,
+      options,
+    };
+    treeStore.setConfig(treeProps);
+  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
 
   // treeStore and expend effect
   useEffect(() => {
