@@ -11,6 +11,34 @@ import { useTableContext } from './TableContext';
 
 interface TableBodyProps extends TdPrimaryTableProps, ExpandInnerProps, DragSortInnerProps {}
 
+type RowEventName =
+  | 'onClick'
+  | 'onDoubleClick'
+  | 'onMouseOver'
+  | 'onMouseDown'
+  | 'onMouseEnter'
+  | 'onMouseLeave'
+  | 'onMouseUp';
+type APIRowEventName =
+  | 'onRowClick'
+  | 'onRowDbClick'
+  | 'onRowHover'
+  | 'onRowMousedown'
+  | 'onRowMouseenter'
+  | 'onRowMouseleave'
+  | 'onRowMouseup';
+export type RowEvents = Record<RowEventName, React.MouseEventHandler<HTMLElement>> | { [key: string]: Function };
+
+const rowEventsMap: Record<RowEventName, APIRowEventName> = {
+  onClick: 'onRowClick',
+  onDoubleClick: 'onRowDbClick',
+  onMouseOver: 'onRowHover',
+  onMouseDown: 'onRowMousedown',
+  onMouseEnter: 'onRowMouseenter',
+  onMouseLeave: 'onRowMouseleave',
+  onMouseUp: 'onRowMouseup',
+};
+
 export interface RowSkipTdSpanColIndexsMap {
   [key: number]: number[];
 }
@@ -43,11 +71,15 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   const onDragEndRef = useRef(onDragEnd);
   const onDropRef = useRef(onDrop);
 
+  const getRowEventsRef = useRef(getRowEvents);
+  getRowEventsRef.current = getRowEvents;
+
   // ==================== render ====================
   const rows = useMemo(
     () =>
       flattenVisibleData.map((row, index) => {
         const rowKeyValue = get(row, rowKey) || index;
+        const rowEvents = getRowEventsRef.current(row, index);
 
         return (
           <React.Fragment key={rowKeyValue}>
@@ -59,6 +91,7 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
               expandedRow={expandedRow}
               expandOnRowClick={expandOnRowClick}
               handleExpandChange={handleExpandChange}
+              rowEvents={rowEvents}
               {...(isRowspanAndColspanFn
                 ? {
                     isRowspanAndColspanFn,
@@ -96,6 +129,24 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
       sortOnRowDraggable,
     ],
   );
+
+  function getRowEvents(row, index): RowEvents {
+    const rowEventProps = {};
+    Object.keys(rowEventsMap).forEach((eventName) => {
+      const apiEventName = rowEventsMap[eventName];
+      const apiEvent = props[apiEventName];
+      if (apiEvent) {
+        rowEventProps[eventName] = (e) => {
+          apiEvent({
+            row,
+            index,
+            e,
+          });
+        };
+      }
+    });
+    return rowEventProps;
+  }
 
   return (
     <tbody
