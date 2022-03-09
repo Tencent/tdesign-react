@@ -349,7 +349,10 @@ const Select = forwardRefWithStatics(
           }}
           minCollapsedNum={minCollapsedNum}
           collapsedItems={renderCollapsedItems}
-          popupProps={popupProps}
+          popupProps={{
+            overlayClassName: `${name}__dropdown`,
+            ...popupProps,
+          }}
           popupVisible={showPopup}
           onPopupVisibleChange={handleShowPopup}
           onTagChange={onTagChange}
