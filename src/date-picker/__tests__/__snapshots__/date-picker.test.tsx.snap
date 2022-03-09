@@ -73,7 +73,7 @@ exports[`custom-icon.jsx 1`] = `
               class="t-input t-is-readonly t-input--prefix t-input--suffix"
             >
               <span
-                class="t-input__prefix t-input__suffix-icon"
+                class="t-input__prefix t-input__prefix-icon"
               >
                 <svg
                   class="t-icon t-icon-browse"

@@ -24,8 +24,8 @@ interface RowProps<D extends DataType> extends MergeCellsProps, ExpandProps, Dra
   record: D;
   rowClassName?: TdBaseTableProps['rowClassName'];
   rowIndex?: number;
-  rowEvents?: RowEvents;
   rowKey: TdBaseTableProps['rowKey'];
+  rowEvents: RowEvents;
 }
 
 const TableRow = <D extends DataType>(props: RowProps<D>) => {
@@ -37,11 +37,11 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     rowspanAndColspan,
     isRowspanAndColspanFn,
     rowSkipTdSpanColIndexsMap,
-    rowEvents = {},
     expandedRow,
     expandOnRowClick,
     handleExpandChange,
     sortOnRowDraggable,
+    rowEvents,
     onDragStart,
     onDragOver,
     onDrop,
