@@ -43,7 +43,9 @@ export default function StepHandler(props: StepHandlerProps) {
     }, 500);
   };
   const stopInterval = () => {
-    clearInterval(timer);
+    setTimeout(() => {
+      clearInterval(timer);
+    }, 500);
   };
 
   return (
