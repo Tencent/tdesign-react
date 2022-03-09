@@ -36,8 +36,10 @@ export default function StepHandler(props: StepHandlerProps) {
 
   const handleMouseDown = (e, type) => {
     onStepSaver.current({ type, e });
-    timer = setInterval(() => {
-      onStepSaver.current({ type, e });
+    setTimeout(() => {
+      timer = setInterval(() => {
+        onStepSaver.current({ type, e });
+      }, 200);
     }, 500);
   };
   const stopInterval = () => {
