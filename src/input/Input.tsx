@@ -1,6 +1,6 @@
 import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
@@ -27,7 +27,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
-  const iconClassName = icon ? `${classPrefix}-input__suffix-icon` : '';
+  const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
 
   if (result) {
     result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
@@ -39,6 +39,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
     const {
+      type,
       autoWidth,
       placeholder,
       disabled,
@@ -87,31 +88,29 @@ const Input = forwardRefWithStatics(
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
+    const [renderType, setRenderType] = useState(type);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-    const suffixIconNew = isShowClearIcon ? (
-      <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />
-    ) : (
-      suffixIcon
-    );
+    let suffixIconNew = suffixIcon;
+
+    if (isShowClearIcon)
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+    if (type === 'password') {
+      if (renderType === 'password') {
+        suffixIconNew = (
+          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+        );
+      } else if (renderType === 'text') {
+        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
+      }
+    }
+
     const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
-
-    const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
-    const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {
-      className: '',
-    });
-    const eventPropsNames = Object.keys(restProps).filter((key) => /^on[A-Z]/.test(key));
-    const eventProps = eventPropsNames.reduce((eventProps, key) => {
-      Object.assign(eventProps, {
-        [key]: (e: any) => props[key](e.currentTarget.value, { e }),
-      });
-      return eventProps;
-    }, {});
 
     useEffect(() => {
       if (!autoWidth) return;
@@ -122,9 +121,8 @@ const Input = forwardRefWithStatics(
       <input
         ref={inputRef}
         placeholder={placeholder}
-        {...inputProps}
-        {...eventProps}
-        className={classNames(inputProps.className, `${classPrefix}-input__inner`)}
+        type={renderType}
+        className={`${classPrefix}-input__inner`}
         value={composingRef.current ? composingRefValue : value}
         readOnly={readonly}
         disabled={disabled}
@@ -145,7 +143,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(`${classPrefix}-input`, {
+        className={classNames(className, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
@@ -174,6 +172,11 @@ const Input = forwardRefWithStatics(
         {suffixIconContent}
       </div>
     );
+
+    function togglePasswordVisible() {
+      const toggleType = renderType === 'password' ? 'text' : 'password';
+      setRenderType(toggleType);
+    }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
       let { value } = e.currentTarget;
@@ -279,9 +282,10 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(className, `${classPrefix}-input__wrap`, {
+        className={classNames(`${classPrefix}-input__wrap`, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
+        {...restProps}
       >
         {renderInputNode}
         {tips && (
