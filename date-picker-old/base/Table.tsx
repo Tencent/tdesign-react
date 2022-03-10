@@ -5,19 +5,20 @@ import DatePickerCell from './Cell';
 
 export interface DatePickerTableProps {
   data: Array<any>;
-  panelType: string;
+  type: string;
   firstDayOfWeek: number;
   onCellClick: Function;
   onCellMouseEnter: Function;
-  onCellMouseLeave: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { panelType = 'date', data, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
+  const { type, data, onCellClick, onCellMouseEnter, firstDayOfWeek } = props;
 
   const [local, t] = useLocaleReceiver('datePicker');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const weekdays = t(local.weekdays);
 
   const weekArr = [];
@@ -28,12 +29,12 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     wi = (wi + len + 1) % len;
   }
 
-  const panelClass = `${classPrefix}-date-picker__panel--${panelType}`;
+  const panelClass = `${classPrefix}-date-picker--${type}`;
 
   return (
-    <div className={panelClass} onMouseLeave={onCellMouseLeave}>
+    <div className={panelClass}>
       <table>
-        {panelType === 'date' && (
+        {type === 'date' && (
           <thead>
             <tr>
               {weekArr.map((value: string, i: number) => (
@@ -57,5 +58,9 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 };
 
 DatePickerTable.displayName = 'DatePickerTable';
+
+DatePickerTable.defaultProps = {
+  type: 'day',
+};
 
 export default DatePickerTable;
