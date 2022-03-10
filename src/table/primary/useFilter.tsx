@@ -8,7 +8,10 @@ import useFilterButton from './useFilterButton';
  * 1.返回加入筛选icon后的title
  * 2.返回筛选后的data
  */
-function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
+function useFilter(
+  props: PrimaryTableProps,
+  onChange?: (filter: FilterValue) => void,
+): [PrimaryTableCol[], DataType[]] {
   const { columns, filterIcon, filterValue, defaultFilterValue, onFilterChange, data } = props;
   const isControlled = typeof filterValue !== 'undefined';
   const [filterVal, setFilterVal] = useState<FilterValue>(defaultFilterValue);
@@ -47,8 +50,9 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
       };
       setFilterVal(newFilterVal);
       onFilterChangeRef.current?.(newFilterVal, { col });
+      onChange?.(newFilterVal);
     },
-    [filterVal],
+    [filterVal, onChange],
   );
 
   // 导出：添加筛选图标后的columns

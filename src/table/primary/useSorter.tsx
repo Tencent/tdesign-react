@@ -19,7 +19,7 @@ type Columns = TdPrimaryTableProps['columns'];
  * 1.修改column中的title
  * 2.排序data
  */
-function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
+function useSorter(props: PrimaryTableProps, onChange?: () => void): [Columns, DataType[]] {
   const [, flattenColumns] = useColumns(props);
   const { classPrefix } = useConfig();
   const { columns, sort, defaultSort, multipleSort, onSortChange, data } = props;
@@ -106,6 +106,7 @@ function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
         }
         setInnerSort(sortsNew);
         onSortChangeRef.current?.(sortsNew, sortOptions);
+        onChange?.();
       } else {
         let sortNew: SortInfo | undefined;
         if (activeSort) {
@@ -123,11 +124,12 @@ function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
         }
         setInnerSort(sortNew);
         onSortChangeRef.current?.(sortNew, sortOptions);
+        onChange?.();
       }
     }
 
     return getSorterColumns(columns);
-  }, [classPrefix, columns, multipleSort, sorts, transformedSorterData]);
+  }, [classPrefix, columns, multipleSort, onChange, sorts, transformedSorterData]);
 
   useEffect(() => {
     if (isControlled) {

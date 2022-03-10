@@ -6,18 +6,23 @@ import useSorter from './useSorter';
 import useFilter from './useFilter';
 import useSelect from './useSelect';
 import useExpand from './useExpand';
+import usePagination from '../hooks/usePagination';
 
 export type PrimaryTableProps = TdPrimaryTableProps;
 
 export default function PrimaryTable(props: PrimaryTableProps) {
+  const [innerPagination, refreshPagination] = usePagination(props.pagination);
   const [sorterColumns, sortData] = useSorter(props);
-  const [filterColumns, filterData] = useFilter({ ...props, columns: sorterColumns, data: sortData });
+  const [filterColumns, filterData] = useFilter({ ...props, columns: sorterColumns, data: sortData }, () =>
+    refreshPagination(),
+  );
   const [selectColumns] = useSelect({ ...props, columns: filterColumns, data: filterData });
   const [expandColumns, handleExpandChange, renderExpandRow, innerExpandRowKeys] = useExpand({
     ...props,
     columns: selectColumns,
     data: filterData,
   });
+
   const { dragging, onDragStart, onDragOver, onDrop, onDragEnd } = useDragSorter({
     sortOnDraggable: props.sortOnRowDraggable,
     onDragSort: props.onDragSort,
@@ -40,6 +45,7 @@ export default function PrimaryTable(props: PrimaryTableProps) {
       onDragOver={onDragOver}
       onDrop={onDrop}
       onDragEnd={onDragEnd}
+      pagination={innerPagination}
     />
   );
 }
