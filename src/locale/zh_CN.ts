@@ -1,3 +1,3 @@
-import zhCN from '../_common/js/locale/zh_CN';
+import zhCN from '../_common/js/global-config/locale/zh_CN';
 
 export default zhCN;
