@@ -11,7 +11,8 @@ export interface SwiperItemProps extends SwiperProps {
   getWrapAttribute?: (attr: string) => number;
 }
 
-const CARD_SCALE = 0.63;
+const CARD_SCALE = 210 / 332; // 缩放比例
+const itemWidth = 0.415; // 依据设计稿使用t-swiper__card控制每个swiper的宽度为41.5%
 
 const SwiperItem = (props: SwiperItemProps) => {
   const {
@@ -26,7 +27,6 @@ const SwiperItem = (props: SwiperItemProps) => {
     getWrapAttribute,
   } = props;
   const { classPrefix } = useConfig();
-  const wrapWidth = getWrapAttribute('offsetWidth');
 
   const disposeIndex = (index, currentIndex, childrenLength) => {
     if (currentIndex === 0 && index === childrenLength - 1) {
@@ -46,25 +46,13 @@ const SwiperItem = (props: SwiperItemProps) => {
   };
 
   const calculateTranslate = (index: number, currentIndex: number, parentWidth: number, inStage: boolean) => {
-    const denominator = 3.4;
     if (inStage) {
-      // if (index === -1) {
-      //   console.log('====', (2 - CARD_SCALE) * (index - currentIndex) + 1);
-      // }
-      // // console.log((parentWidth * ((2 - CARD_SCALE) * (index - currentIndex) + 1)) / denominator, '=======');
-      // return (parentWidth * ((2 - CARD_SCALE) * (index - currentIndex) + 1)) / denominator;
-      if (index < currentIndex) return -parentWidth * 0.07625;
-      if (index === currentIndex) return parentWidth * 0.2925;
-      if (index > currentIndex) {
-        return parentWidth * 0.66125;
-      }
-      // return parentWidth - parentWidth * 0.415 * CARD_SCALE - parentWidth * 0.415 * (1 - CARD_SCALE) * 0.5;
+      return (parentWidth * ((index - currentIndex) * (1 - itemWidth * CARD_SCALE) - itemWidth + 1)) / 2;
     }
     if (index < currentIndex) {
-      // console.log('===index', index);
-      return (-(1 + CARD_SCALE) * parentWidth) / denominator;
+      return (-itemWidth * (1 + CARD_SCALE) * parentWidth) / 2;
     }
-    return ((denominator - 1 + CARD_SCALE) * parentWidth) / denominator;
+    return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
   };
 
   const getZindex = (isActivity, inStage) => {
@@ -85,21 +73,22 @@ const SwiperItem = (props: SwiperItemProps) => {
       };
     }
     if (type === 'card') {
+      const wrapWidth = getWrapAttribute('offsetWidth');
       const translateIndex =
         index !== currentIndex && childrenLength > 2 ? disposeIndex(index, currentIndex, childrenLength) : index;
       const inStage = Math.round(Math.abs(translateIndex - currentIndex)) <= 1;
-      console.log('translateIndex', translateIndex, inStage);
       const translate = calculateTranslate(translateIndex, currentIndex, wrapWidth, inStage).toFixed(2);
       const isActivity = translateIndex === currentIndex;
+      const zIndex = getZindex(isActivity, inStage);
       return {
         msTransform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
         WebkitTransform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
         transform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
-        transition: `transform ${duration / 1000}s`,
-        zIndex: getZindex(isActivity, inStage),
-        translateIndex,
+        transition: `transform ${duration / 1000}s ease`,
+        zIndex,
       };
     }
+    return {};
   };
 
   return (
@@ -112,11 +101,6 @@ const SwiperItem = (props: SwiperItemProps) => {
       style={getSwiperItemStyle()}
     >
       {children}
-      {/* {
-        <div style={{ color: 'red', position: 'absolute', top: '10px', left: '50px', fontSize: '20px' }}>
-          {getSwiperItemStyle().translateIndex}
-        </div>
-      } */}
     </div>
   );
 };
