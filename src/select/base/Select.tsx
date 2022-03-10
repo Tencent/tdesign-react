@@ -34,13 +34,17 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
+      readonly = false,
       bordered = true,
       borderless,
+      autoWidth = false,
       creatable,
       filter,
       loadingText = emptyText,
       max = 0,
       popupProps,
+      popupVisible,
+      onPopupVisibleChange,
       reserveKeyword,
       value,
       className,
@@ -85,7 +89,7 @@ const Select = forwardRefWithStatics(
 
     const name = `${classPrefix}-select`; // t-select
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState(popupVisible || false);
     const [inputVal, setInputVal] = useState<string>(undefined);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
@@ -212,7 +216,7 @@ const Select = forwardRefWithStatics(
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
-      let filteredOptions: OptionsType;
+      let filteredOptions: OptionsType = [];
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
@@ -220,11 +224,12 @@ const Select = forwardRefWithStatics(
 
       if (filter && isFunction(filter)) {
         // 如果有自定义的filter方法 使用自定义的filter方法
-        filteredOptions = Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filter(value, option));
-      } else {
+        if (Array.isArray(tmpPropOptions)) {
+          filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
+        }
+      } else if (Array.isArray(tmpPropOptions)) {
         const filterRegExp = new RegExp(value, 'i');
-        filteredOptions =
-          Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        filteredOptions = tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
       }
 
       if (creatable) {
@@ -325,6 +330,8 @@ const Select = forwardRefWithStatics(
         <SelectInput
           className={name}
           ref={ref}
+          readonly={readonly}
+          autoWidth={!(style?.width || filterable) || autoWidth}
           allowInput={multiple || filterable}
           multiple={multiple}
           value={isString(inputVal) && !multiple ? inputVal : selectedLabel}
@@ -339,7 +346,6 @@ const Select = forwardRefWithStatics(
           inputValue={inputValue}
           defaultInputValue={defaultInputValue}
           tagInputProps={{
-            excessTagsDisplayType: 'break-line',
             ...tagInputProps,
           }}
           tagProps={tagProps}
@@ -350,11 +356,11 @@ const Select = forwardRefWithStatics(
           minCollapsedNum={minCollapsedNum}
           collapsedItems={renderCollapsedItems}
           popupProps={{
-            overlayClassName: `${name}__dropdown`,
+            overlayClassName: [`${name}__dropdown`, ['narrow-scrollbar']],
             ...popupProps,
           }}
           popupVisible={showPopup}
-          onPopupVisibleChange={handleShowPopup}
+          onPopupVisibleChange={onPopupVisibleChange || handleShowPopup}
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}
