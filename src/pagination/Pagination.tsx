@@ -257,7 +257,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
       {pageSizeOptions instanceof Array && pageSizeOptions.length ? (
         <div className={`${name}__select`}>
-          <Select size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+          <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
             {pageSizeOptions.map(
               // eslint-disable-next-line no-confusing-arrow
               (item) =>
