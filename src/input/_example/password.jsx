@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input } from 'tdesign-react';
-import { LockOnIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { LockOnIcon } from 'tdesign-icons-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');
@@ -8,8 +8,7 @@ export default function InputExample() {
     <div className="tdesign-demo-item--input__input-box">
       <Input
         prefixIcon={<LockOnIcon />}
-        suffixIcon={<ErrorCircleFilledIcon />}
-        placeholder="请输入内容"
+        placeholder="请输入"
         value={value}
         type="password"
         onChange={(value) => {
@@ -18,8 +17,7 @@ export default function InputExample() {
       />
       <Input
         prefixIcon={<LockOnIcon />}
-        suffixIcon={<ErrorCircleFilledIcon />}
-        placeholder="请输入内容"
+        placeholder="请输入"
         value={value}
         type="password"
         onChange={(value) => {

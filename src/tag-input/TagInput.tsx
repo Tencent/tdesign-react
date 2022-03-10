@@ -44,6 +44,10 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { getDragProps } = useDragSorter({
     ...props,
     sortOnDraggable: props.dragSort,
+    onDragOverCheck: {
+      x: true,
+      targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
+    },
   });
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);

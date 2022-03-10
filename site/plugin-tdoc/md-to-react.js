@@ -19,7 +19,7 @@ export default function mdToReact(options) {
 
   const reactSource = `
     import React, { useEffect, useRef, useState } from 'react';\n
-    import { useLocation } from 'react-router-dom';
+    import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
     import Stackblitz from '@components/stackblitz/index.jsx';
@@ -31,13 +31,14 @@ export default function mdToReact(options) {
       return new URLSearchParams(useLocation().search);
     }
 
-    export default function TdDoc(props) {
+    export default function TdDoc() {
       const tdDocHeader = useRef();
       const tdDocTabs = useRef();
 
       const isComponent  = ${mdSegment.isComponent};
 
       const location = useLocation();
+      const navigate = useNavigate();
 
       const query = useQuery();
       const [tab, setTab] = useState(query.get('tab') || 'demo');
@@ -69,7 +70,7 @@ export default function mdToReact(options) {
           setTab(currentTab);
           const query = new URLSearchParams(location.search);
           if (query.get('tab') === currentTab) return;
-          props.history.push({ search: '?tab=' + currentTab });
+          navigate({ search: '?tab=' + currentTab });
         }
       }, [location])
 
