@@ -1,26 +1,372 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`current-props.jsx 1`] = `
+exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block--swiper"
   >
+    <div
+      class="t-swiper"
+    >
+      <div
+        class="t-swiper__wrap t-swiper-inside"
+      >
+        <div
+          class="t-swiper__content"
+        >
+          <div
+            class="t-swiper__container"
+            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+          >
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                2
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                3
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                4
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                5
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
+        <div
+          class="t-swiper__arrow t-swiper__arrow-default"
+        >
+          <div
+            class="t-swiper__arrow__left"
+          >
+            <i
+              class="t-icon t-icon-chevron-left"
+            />
+          </div>
+          <div
+            class="t-swiper__arrow__right"
+          >
+            <i
+              class="t-icon t-icon-chevron-right"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`card.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block--swiper"
+  >
+    <div
+      class="t-swiper"
+    >
+      <div
+        class="t-swiper__wrap t-swiper-inside"
+      >
+        <div
+          class="t-swiper__content t-swiper-card"
+        >
+          <div
+            class="t-swiper__container"
+            style="height: 280px;"
+          >
+            <div
+              class="t-swiper__container__item t-swiper__card t-is-active"
+              style="transform: translateX(0.00px) scale(1); transition: transform 0.3s ease; z-index: 2;"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__card"
+              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
+            >
+              <div
+                class="demo-item"
+              >
+                2
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__card"
+              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+            >
+              <div
+                class="demo-item"
+              >
+                3
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__card"
+              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+            >
+              <div
+                class="demo-item"
+              >
+                4
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__card"
+              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+            >
+              <div
+                class="demo-item"
+              >
+                5
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__card"
+              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
+            >
+              <div
+                class="demo-item"
+              >
+                6
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
+        <div
+          class="t-swiper__arrow t-swiper__arrow-default"
+        >
+          <div
+            class="t-swiper__arrow__left"
+          >
+            <i
+              class="t-icon t-icon-chevron-left"
+            />
+          </div>
+          <div
+            class="t-swiper__arrow__right"
+          >
+            <i
+              class="t-icon t-icon-chevron-right"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`current.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block--swiper"
+  >
+    <div
+      class="t-swiper"
+    >
+      <div
+        class="t-swiper__wrap t-swiper-inside"
+      >
+        <div
+          class="t-swiper__content"
+        >
+          <div
+            class="t-swiper__container"
+            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+          >
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                2
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                3
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                4
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                5
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
+      </div>
+    </div>
     <div
       class="tdesign-demo-block-row"
     >
       <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          跳转到第 1 项
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
+        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
         style="position: relative;"
         type="button"
       >
@@ -30,243 +376,12 @@ exports[`current-props.jsx 1`] = `
           跳转到第 2 项
         </span>
       </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          跳转到第 3 项
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          跳转到第 4 项
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-swiper"
-    >
-      <div
-        class="t-swiper__content"
-      >
-        <div
-          class="t-swiper__swiper-wrap--horizontal"
-          style="width: 500%; left: -0%; transition: left 0.3s;"
-        >
-          <div>
-            <div
-              class="t-alert t-alert--success"
-            >
-              <div
-                class="t-alert__icon"
-              >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="t-alert t-alert--info"
-            >
-              <div
-                class="t-alert__icon"
-              >
-                <svg
-                  class="t-icon t-icon-info-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条普通的消息提示
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="t-alert t-alert--warning"
-            >
-              <div
-                class="t-alert__icon"
-              >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条警示消息
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="t-alert t-alert--error"
-            >
-              <div
-                class="t-alert__icon"
-              >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    高危操作/出错信息提示
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              class="t-alert t-alert--success"
-            >
-              <div
-                class="t-alert__icon"
-              >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul
-        class="t-swiper__trigger-wrap"
-      >
-        <li
-          class="t-swiper__trigger--active"
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-      </ul>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`swiper.jsx 1`] = `
+exports[`fade.jsx 1`] = `
 <DocumentFragment>
   <div
     class="tdesign-demo-block--swiper"
@@ -275,419 +390,373 @@ exports[`swiper.jsx 1`] = `
       class="t-swiper"
     >
       <div
-        class="t-swiper__content"
+        class="t-swiper__wrap t-swiper-inside"
       >
         <div
-          class="t-swiper__swiper-wrap--horizontal"
-          style="width: 500%; left: -0%; transition: left 0.3s;"
+          class="t-swiper__content t-swiper-fade"
         >
-          <div>
+          <div
+            class="t-swiper__container"
+            style="height: 0px;"
+          >
             <div
-              class="t-alert t-alert--success"
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 1; transition: opacity 0.3s;"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
+                1
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--info"
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-info-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条普通的消息提示
-                  </div>
-                </div>
+                2
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--warning"
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条警示消息
-                  </div>
-                </div>
+                3
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--error"
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    高危操作/出错信息提示
-                  </div>
-                </div>
+                4
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--success"
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
+                5
               </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
+            >
               <div
-                class="t-alert__content"
+                class="demo-item"
               >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item t-swiper__fade"
+              style="opacity: 0; transition: opacity 0.3s;"
+            >
+              <div
+                class="demo-item"
+              >
+                1
               </div>
             </div>
           </div>
         </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
+        <div
+          class="t-swiper__arrow t-swiper__arrow-default"
+        >
+          <div
+            class="t-swiper__arrow__left"
+          >
+            <i
+              class="t-icon t-icon-chevron-left"
+            />
+          </div>
+          <div
+            class="t-swiper__arrow__right"
+          >
+            <i
+              class="t-icon t-icon-chevron-right"
+            />
+          </div>
+        </div>
       </div>
-      <ul
-        class="t-swiper__trigger-wrap"
-      >
-        <li
-          class="t-swiper__trigger--active"
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-      </ul>
     </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`fraction.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block--swiper"
+  >
     <div
       class="t-swiper"
     >
       <div
-        class="t-swiper__content"
+        class="t-swiper__wrap t-swiper-inside"
       >
         <div
-          class="t-swiper__swiper-wrap--horizontal"
-          style="width: 500%; left: -0%; transition: left 0.5s;"
+          class="t-swiper__content"
         >
-          <div>
+          <div
+            class="t-swiper__container"
+            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+          >
             <div
-              class="t-alert t-alert--success"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
+                1
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--info"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-info-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条普通的消息提示
-                  </div>
-                </div>
+                2
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--warning"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条警示消息
-                  </div>
-                </div>
+                3
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--error"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-error-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </div>
-              <div
-                class="t-alert__content"
-              >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    高危操作/出错信息提示
-                  </div>
-                </div>
+                4
               </div>
             </div>
-          </div>
-          <div>
             <div
-              class="t-alert t-alert--success"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__icon"
+                class="demo-item"
               >
-                <svg
-                  class="t-icon t-icon-check-circle-filled"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
+                5
               </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
               <div
-                class="t-alert__content"
+                class="demo-item"
               >
-                <div
-                  class="t-alert__message"
-                >
-                  <div
-                    class="t-alert__description"
-                  >
-                    这是一条成功的消息提示
-                  </div>
-                </div>
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
               </div>
             </div>
           </div>
         </div>
+        <div
+          class="t-swiper__navigation t-swiper__navigation-fraction"
+        >
+          <div
+            class="t-swiper__arrow"
+          >
+            <div
+              class="t-swiper__arrow__left"
+            >
+              <i
+                class="t-icon t-icon-chevron-left"
+              />
+            </div>
+            <div
+              class="t-swiper__navigation__text-fraction"
+            >
+              1/6
+            </div>
+            <div
+              class="t-swiper__arrow__right"
+            >
+              <i
+                class="t-icon t-icon-chevron-right"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <ul
-        class="t-swiper__trigger-wrap"
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block--swiper"
+  >
+    <div
+      class="t-swiper"
+    >
+      <div
+        class="t-swiper__wrap t-swiper-outside"
       >
-        <li
-          class="t-swiper__trigger--active"
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-        <li
-          class=""
-        />
-      </ul>
+        <div
+          class="t-swiper__content"
+        >
+          <div
+            class="t-swiper__container"
+            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+          >
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                2
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                3
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                4
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                5
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
+        <div
+          class="t-swiper__arrow t-swiper__arrow-default"
+        >
+          <div
+            class="t-swiper__arrow__left"
+          >
+            <i
+              class="t-icon t-icon-chevron-left"
+            />
+          </div>
+          <div
+            class="t-swiper__arrow__right"
+          >
+            <i
+              class="t-icon t-icon-chevron-right"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -696,213 +765,110 @@ exports[`swiper.jsx 1`] = `
 exports[`vertical.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-swiper"
+    class="tdesign-demo-block--swiper"
   >
     <div
-      class="t-swiper__content"
+      class="t-swiper"
     >
       <div
-        class="t-swiper__swiper-wrap--vertical"
-        style="height: 500%; top: -0%; transition: top 0.3s;"
+        class="t-swiper__wrap t-swiper-inside t-swiper-vertical"
       >
-        <div>
+        <div
+          class="t-swiper__content"
+        >
           <div
-            class="t-alert t-alert--success"
+            class="t-swiper__container"
+            style="transform: translate3d(0, -0%, 0px); height: 0px; transition: transform 0.3s ease;"
           >
             <div
-              class="t-alert__icon"
-            >
-              <svg
-                class="t-icon t-icon-check-circle-filled"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </div>
-            <div
-              class="t-alert__content"
+              class="t-swiper__container__item"
             >
               <div
-                class="t-alert__message"
+                class="demo-item"
               >
-                <div
-                  class="t-alert__description"
-                >
-                  这是一条成功的消息提示
-                </div>
+                1
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                2
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                3
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                4
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                5
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                6
+              </div>
+            </div>
+            <div
+              class="t-swiper__container__item"
+            >
+              <div
+                class="demo-item"
+              >
+                1
               </div>
             </div>
           </div>
         </div>
-        <div>
-          <div
-            class="t-alert t-alert--info"
-          >
-            <div
-              class="t-alert__icon"
-            >
-              <svg
-                class="t-icon t-icon-info-circle-filled"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </div>
-            <div
-              class="t-alert__content"
-            >
-              <div
-                class="t-alert__message"
-              >
-                <div
-                  class="t-alert__description"
-                >
-                  这是一条普通的消息提示
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-alert t-alert--warning"
-          >
-            <div
-              class="t-alert__icon"
-            >
-              <svg
-                class="t-icon t-icon-error-circle-filled"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </div>
-            <div
-              class="t-alert__content"
-            >
-              <div
-                class="t-alert__message"
-              >
-                <div
-                  class="t-alert__description"
-                >
-                  这是一条警示消息
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-alert t-alert--error"
-          >
-            <div
-              class="t-alert__icon"
-            >
-              <svg
-                class="t-icon t-icon-error-circle-filled"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </div>
-            <div
-              class="t-alert__content"
-            >
-              <div
-                class="t-alert__message"
-              >
-                <div
-                  class="t-alert__description"
-                >
-                  高危操作/出错信息提示
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-alert t-alert--success"
-          >
-            <div
-              class="t-alert__icon"
-            >
-              <svg
-                class="t-icon t-icon-check-circle-filled"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 15A7 7 0 108 1a7 7 0 000 14zM4.5 8.2l.7-.7L7 9.3l3.8-3.8.7.7L7 10.7 4.5 8.2z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </div>
-            <div
-              class="t-alert__content"
-            >
-              <div
-                class="t-alert__message"
-              >
-                <div
-                  class="t-alert__description"
-                >
-                  这是一条成功的消息提示
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul
+          class="t-swiper__navigation t-swiper__navigation-bars"
+        >
+          <li
+            class="t-swiper__navigation__item t-is-active"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+          <li
+            class="t-swiper__navigation__item"
+          />
+        </ul>
       </div>
     </div>
-    <ul
-      class="t-swiper__trigger-wrap"
-    >
-      <li
-        class="t-swiper__trigger--active"
-      />
-      <li
-        class=""
-      />
-      <li
-        class=""
-      />
-      <li
-        class=""
-      />
-    </ul>
   </div>
 </DocumentFragment>
 `;
