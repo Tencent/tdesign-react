@@ -17,6 +17,8 @@ export interface StepHandlerProps {
 }
 
 let timer: NodeJS.Timer;
+const triggerDelay = 500;
+const stepDelay = 200;
 export default function StepHandler(props: StepHandlerProps) {
   const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease, children } = props;
   const commonClassNames = useCommonClassName();
@@ -39,13 +41,14 @@ export default function StepHandler(props: StepHandlerProps) {
     setTimeout(() => {
       timer = setInterval(() => {
         onStepSaver.current({ type, e });
-      }, 200);
-    }, 500);
+      }, stepDelay);
+    }, triggerDelay);
   };
   const stopInterval = () => {
+    clearInterval(timer);
     setTimeout(() => {
       clearInterval(timer);
-    }, 500);
+    }, triggerDelay);
   };
 
   return (
