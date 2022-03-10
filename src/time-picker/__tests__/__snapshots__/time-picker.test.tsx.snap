@@ -9,10 +9,10 @@ exports[`disabled.jsx 1`] = `
       class="t-is-disabled t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-is-disabled t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-is-disabled t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -63,10 +63,10 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -145,10 +145,10 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -226,10 +226,10 @@ exports[`hm.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -275,10 +275,10 @@ exports[`hms.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -324,10 +324,10 @@ exports[`keyboard.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -402,10 +402,10 @@ exports[`range.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -451,10 +451,10 @@ exports[`show-steps.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -500,10 +500,10 @@ exports[`twelve-hour-meridian.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input__wrap"
+        class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--suffix"
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
