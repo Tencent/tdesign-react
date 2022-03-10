@@ -1,12 +1,13 @@
-import React from 'react';
-import { Swiper } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Swiper, Button } from 'tdesign-react';
 
 const { SwiperItem } = Swiper;
 
 export default function BasicSwiper() {
+  const [current, setCurrent] = useState(0);
   return (
     <div className="tdesign-demo-block--swiper">
-      <Swiper duration={300} interval={2000}>
+      <Swiper current={current} navigation={{ showSlideBtn: 'never' }}>
         <SwiperItem>
           <div className="demo-item">1</div>
         </SwiperItem>
@@ -26,6 +27,16 @@ export default function BasicSwiper() {
           <div className="demo-item">6</div>
         </SwiperItem>
       </Swiper>
+      <div className="tdesign-demo-block-row">
+        <Button
+          size={'small'}
+          onClick={() => {
+            setCurrent(current + 2 > 6 ? 0 : current + 1);
+          }}
+        >
+          跳转到第 {current + 2 >= 7 ? 1 : current + 2} 项
+        </Button>
+      </div>
     </div>
   );
 }

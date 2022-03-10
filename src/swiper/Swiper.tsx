@@ -50,9 +50,10 @@ const Swiper = (props: SwiperProps) => {
   }
 
   const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
-  const [needAnimation, setNeedAnimation] = useState(true);
+  const [needAnimation, setNeedAnimation] = useState(false);
   const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef(null); // 计时器指针
+  const swiperAnimationTimer = useRef(null); // 计时器指针
   const isHovering = useRef(false);
   const swiperWrap = useRef(null);
 
@@ -135,9 +136,16 @@ const Swiper = (props: SwiperProps) => {
     }
   }, [current, childrenLength, swiperTo]);
 
-  // 动画完成后取消 css 属性
+  // 监听每次轮播结束
   useEffect(() => {
-    setTimeout(() => {
+    if (currentIndex + 1 > swiperItemLength && type === 'card') {
+      return setCurrentIndex(0);
+    }
+    if (swiperAnimationTimer.current) {
+      clearTimeout(swiperAnimationTimer.current);
+      swiperAnimationTimer.current = null;
+    }
+    swiperAnimationTimer.current = setTimeout(() => {
       setNeedAnimation(false);
       if (isEnd()) {
         clearTimer();
@@ -146,7 +154,7 @@ const Swiper = (props: SwiperProps) => {
         setCurrentIndex(0);
       }
     }, duration + 50); // 多 50ms 的间隔时间参考了 react-slick 的动画间隔取值
-  }, [currentIndex, swiperItemLength, duration, direction, animation, type, clearTimer, isEnd]);
+  }, [currentIndex, swiperItemLength, duration, type, clearTimer, isEnd]);
 
   useEffect(() => {
     if (!isHovering.current || !stopOnHover) {
@@ -185,6 +193,9 @@ const Swiper = (props: SwiperProps) => {
   };
 
   const arrowClick = (direction: 'left' | 'right') => {
+    if (needAnimation) {
+      return false;
+    }
     if (direction === 'right') {
       if (type === 'card') {
         return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
@@ -273,13 +284,17 @@ const Swiper = (props: SwiperProps) => {
       if (direction === 'vertical') {
         return {
           height: offsetHeight,
+          msTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
+          WebkitTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
           transform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
-          transition: needAnimation ? `transform ${duration / 1000}s` : '',
+          transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
         };
       }
       return {
+        msTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
+        WebkitTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
         transform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
-        transition: needAnimation ? `transform ${duration / 1000}s` : '',
+        transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
       };
     }
   };
