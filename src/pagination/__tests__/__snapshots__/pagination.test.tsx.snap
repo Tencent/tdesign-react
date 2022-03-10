@@ -878,7 +878,7 @@ exports[`simple.jsx 1`] = `
           class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-input__wrap t-input--auto-width"
+            class="t-input__wrap"
           >
             <div
               class="t-input t-is-readonly t-input--prefix t-input--suffix"
@@ -890,14 +890,8 @@ exports[`simple.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 value="1/20"
               />
-              <span
-                class="t-input__input-pre"
-              >
-                1/20
-              </span>
               <span
                 class="t-input__suffix t-input__suffix-icon"
               >
@@ -1034,7 +1028,7 @@ exports[`simple-mini.jsx 1`] = `
           class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-input__wrap t-input--auto-width"
+            class="t-input__wrap"
           >
             <div
               class="t-input t-is-readonly t-size-s t-input--prefix t-input--suffix"
@@ -1046,14 +1040,8 @@ exports[`simple-mini.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请选择"
                 readonly=""
-                style="width: 0px;"
                 value="1/20"
               />
-              <span
-                class="t-input__input-pre"
-              >
-                1/20
-              </span>
               <span
                 class="t-input__suffix t-input__suffix-icon"
               >
