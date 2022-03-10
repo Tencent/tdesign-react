@@ -427,7 +427,6 @@ exports[`base.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="position: relative;"
             type="submit"
           >
             <span
@@ -438,7 +437,7 @@ exports[`base.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="margin-left: 12px; position: relative;"
+            style="margin-left: 12px;"
             type="reset"
           >
             <span
@@ -926,7 +925,7 @@ exports[`clear-validate.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="margin-right: 10px; position: relative;"
+            style="margin-right: 10px;"
             type="submit"
           >
             <span
@@ -937,7 +936,7 @@ exports[`clear-validate.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="margin-right: 10px; position: relative;"
+            style="margin-right: 10px;"
             type="reset"
           >
             <span
@@ -948,7 +947,7 @@ exports[`clear-validate.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="margin-right: 10px; position: relative;"
+            style="margin-right: 10px;"
             type="button"
           >
             <span
@@ -959,7 +958,6 @@ exports[`clear-validate.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
@@ -1092,7 +1090,6 @@ exports[`custom-validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="submit"
             >
               <span
@@ -1103,7 +1100,7 @@ exports[`custom-validator.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="margin: 0px 12px; position: relative;"
+              style="margin: 0px 12px;"
               type="reset"
             >
               <span
@@ -1114,7 +1111,6 @@ exports[`custom-validator.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -1835,7 +1831,7 @@ exports[`disabled.jsx 1`] = `
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
               disabled=""
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -1847,7 +1843,6 @@ exports[`disabled.jsx 1`] = `
             <button
               class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
               disabled=""
-              style="position: relative;"
               type="reset"
             >
               <span
@@ -2402,7 +2397,7 @@ exports[`error-message.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -2413,7 +2408,7 @@ exports[`error-message.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="reset"
             >
               <span
@@ -2424,7 +2419,6 @@ exports[`error-message.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -2693,7 +2687,6 @@ exports[`login.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
-              style="position: relative;"
               type="submit"
             >
               <span
@@ -2934,7 +2927,7 @@ exports[`reset.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -2945,7 +2938,6 @@ exports[`reset.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="position: relative;"
               type="reset"
             >
               <span
@@ -3271,7 +3263,7 @@ exports[`size.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -3282,7 +3274,6 @@ exports[`size.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-default t-button--variant-base"
-              style="position: relative;"
               type="reset"
             >
               <span
@@ -3721,7 +3712,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                 >
                   <button
                     class="t-button t-button--theme-primary t-button--variant-base"
-                    style="margin-right: 10px; position: relative;"
+                    style="margin-right: 10px;"
                     type="submit"
                   >
                     <span
@@ -3732,7 +3723,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </button>
                   <button
                     class="t-button t-button--theme-default t-button--variant-base"
-                    style="position: relative;"
                     type="reset"
                   >
                     <span
@@ -4013,7 +4003,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                 >
                   <button
                     class="t-button t-button--theme-primary t-button--variant-base"
-                    style="margin-right: 10px; position: relative;"
+                    style="margin-right: 10px;"
                     type="submit"
                   >
                     <span
@@ -4024,7 +4014,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </button>
                   <button
                     class="t-button t-button--theme-default t-button--variant-base"
-                    style="position: relative;"
                     type="reset"
                   >
                     <span
@@ -4193,7 +4182,7 @@ exports[`validate-message.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="margin-right: 10px; position: relative;"
+            style="margin-right: 10px;"
             type="submit"
           >
             <span
@@ -4204,7 +4193,7 @@ exports[`validate-message.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="margin-right: 10px; position: relative;"
+            style="margin-right: 10px;"
             type="reset"
           >
             <span
@@ -4215,7 +4204,6 @@ exports[`validate-message.jsx 1`] = `
           </button>
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
@@ -4582,7 +4570,7 @@ exports[`validator.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -4593,7 +4581,6 @@ exports[`validator.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="reset"
             >
               <span
@@ -4985,7 +4972,7 @@ exports[`validator-status.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="margin-right: 10px; position: relative;"
+              style="margin-right: 10px;"
               type="submit"
             >
               <span
@@ -4996,7 +4983,6 @@ exports[`validator-status.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="reset"
             >
               <span
