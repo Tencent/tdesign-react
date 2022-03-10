@@ -70,8 +70,7 @@ const Tabs = forwardRefWithStatics(
               if (child.props.value === value) {
                 return child;
               }
-              // 实现 renderOnHide
-              if (child.props.renderOnHide) {
+              if (child.props.destroyOnHide === false) {
                 return <TabPanel style={{ display: 'none' }}>{child.props.children}</TabPanel>;
               }
             }
