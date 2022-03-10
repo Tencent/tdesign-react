@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
 
 import { ChevronUpIcon, ChevronDownIcon, RemoveIcon, AddIcon } from 'tdesign-icons-react';
@@ -16,6 +16,9 @@ export interface StepHandlerProps {
   children: React.ReactElement;
 }
 
+let timer: NodeJS.Timer;
+const triggerDelay = 500;
+const stepDelay = 200;
 export default function StepHandler(props: StepHandlerProps) {
   const { prefixClassName, theme, onStep, disabledDecrease, disabledIncrease, children } = props;
   const commonClassNames = useCommonClassName();
@@ -24,8 +27,29 @@ export default function StepHandler(props: StepHandlerProps) {
   const decreaseIcon = theme === 'column' ? <ChevronDownIcon /> : <RemoveIcon />;
   const increaseIcon = theme === 'column' ? <ChevronUpIcon /> : <AddIcon />;
 
-  const onStepDecrease = (e) => disabledDecrease || onStep({ type: 'reduce', e });
-  const onStepIncrease = (e) => disabledIncrease || onStep({ type: 'add', e });
+  const onStepSaver = useRef<any>();
+  onStepSaver.current = (params: ChangeContext) => {
+    const { type, e } = params;
+    if (type === 'reduce') {
+      disabledDecrease || onStep({ type, e });
+    }
+    disabledIncrease || onStep({ type, e });
+  };
+
+  const handleMouseDown = (e, type) => {
+    onStepSaver.current({ type, e });
+    setTimeout(() => {
+      timer = setInterval(() => {
+        onStepSaver.current({ type, e });
+      }, stepDelay);
+    }, triggerDelay);
+  };
+  const stopInterval = () => {
+    clearInterval(timer);
+    setTimeout(() => {
+      clearInterval(timer);
+    }, triggerDelay);
+  };
 
   return (
     <>
@@ -35,7 +59,11 @@ export default function StepHandler(props: StepHandlerProps) {
           className={classNames(`${prefixClassName}__decrease`, {
             [commonClassNames.STATUS.disabled]: disabledDecrease,
           })}
-          onClick={onStepDecrease}
+          onMouseDown={(e) => {
+            handleMouseDown(e, 'reduce');
+          }}
+          onMouseUp={stopInterval}
+          onMouseLeave={stopInterval}
           icon={decreaseIcon}
           shape="square"
         ></Button>
@@ -48,7 +76,11 @@ export default function StepHandler(props: StepHandlerProps) {
           className={classNames(`${prefixClassName}__increase`, {
             [commonClassNames.STATUS.disabled]: disabledIncrease,
           })}
-          onClick={onStepIncrease}
+          onMouseDown={(e) => {
+            handleMouseDown(e, 'add');
+          }}
+          onMouseUp={stopInterval}
+          onMouseLeave={stopInterval}
           icon={increaseIcon}
           shape="square"
         ></Button>
