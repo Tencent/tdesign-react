@@ -89,7 +89,6 @@ exports[`ban.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -103,7 +102,6 @@ exports[`ban.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -117,7 +115,6 @@ exports[`ban.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -188,7 +185,6 @@ exports[`base.jsx 1`] = `
               >
                 <div
                   class="t-tabs__nav-item-wrapper"
-                  style="position: relative;"
                 >
                   <span
                     class="t-tabs__nav-item-text-wrapper"
@@ -202,7 +198,6 @@ exports[`base.jsx 1`] = `
               >
                 <div
                   class="t-tabs__nav-item-wrapper"
-                  style="position: relative;"
                 >
                   <span
                     class="t-tabs__nav-item-text-wrapper"
@@ -216,7 +211,6 @@ exports[`base.jsx 1`] = `
               >
                 <div
                   class="t-tabs__nav-item-wrapper"
-                  style="position: relative;"
                 >
                   <span
                     class="t-tabs__nav-item-text-wrapper"
@@ -337,7 +331,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -351,7 +344,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -365,7 +357,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -379,7 +370,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -393,7 +383,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -407,7 +396,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -421,7 +409,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -435,7 +422,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -449,7 +435,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -463,7 +448,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -477,7 +461,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -491,7 +474,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -505,7 +487,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -519,7 +500,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -533,7 +513,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -547,7 +526,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -561,7 +539,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -575,7 +552,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -589,7 +565,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -603,7 +578,6 @@ exports[`combination.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -837,7 +811,6 @@ exports[`icon.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -871,7 +844,6 @@ exports[`icon.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -898,7 +870,6 @@ exports[`icon.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1147,7 +1118,6 @@ exports[`position.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1161,7 +1131,6 @@ exports[`position.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1175,7 +1144,6 @@ exports[`position.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1250,7 +1218,6 @@ exports[`size.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1264,7 +1231,6 @@ exports[`size.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1329,7 +1295,6 @@ exports[`size.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1343,7 +1308,6 @@ exports[`size.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1417,7 +1381,6 @@ exports[`theme.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
@@ -1431,7 +1394,6 @@ exports[`theme.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__nav-item-wrapper"
-                    style="position: relative;"
                   >
                     <span
                       class="t-tabs__nav-item-text-wrapper"
