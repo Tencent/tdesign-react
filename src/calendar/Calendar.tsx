@@ -356,6 +356,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForYear && (
                 <Select
+                  autoWidth={true}
                   size={controlSectionSize}
                   disabled={disabled}
                   value={year}
