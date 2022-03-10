@@ -39,7 +39,7 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 指定输入框展示值的格式
+   * 【开发中】指定输入框展示值的格式
    */
   format?: (value: InputValue) => number | string;
   /**
@@ -68,7 +68,7 @@ export interface TdInputProps {
    */
   prefixIcon?: TElement;
   /**
-   * 输入框是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;

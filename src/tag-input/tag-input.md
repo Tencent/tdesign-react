@@ -14,13 +14,13 @@ disabled | Boolean | false | 是否禁用标签输入框 | N
 dragSort | Boolean | false | 拖拽调整标签顺序 | N
 excessTagsDisplayType | String | scroll | 标签超出时的呈现方式，有两种：横向滚动显示 和 换行显示。可选项：scroll/break-line | N
 inputProps | Object | - | 透传 Input 输入框组件全部属性。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
-inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue` | N
-defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue` | N
+inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
+defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
 label | TNode | - | 左侧文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | - | 最大允许输入的标签数量 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 placeholder | String | undefined | 占位符 | N
-readonly | Boolean | false | 是否只读，值为真会隐藏标签移除按钮和输入框 | N
+readonly | Boolean | false | 只读状态，值为真会隐藏标签移除按钮和输入框 | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
 status | String | - | 输入框状态。可选项：success/warning/error | N
 suffix | TNode | - | 后置图标前的后置内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

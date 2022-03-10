@@ -323,6 +323,7 @@ const Select = forwardRefWithStatics(
     return (
       <div className={`${name}__wrap`} style={{ ...style }}>
         <SelectInput
+          autoWidth={!style?.width && props.autoWidth}
           className={name}
           ref={ref}
           allowInput={multiple || filterable}

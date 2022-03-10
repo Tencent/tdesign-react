@@ -16,7 +16,8 @@ export default function useTagScroll(props: TdTagInputProps) {
   const [scrollElement, setScrollElement] = useState<HTMLDivElement>();
 
   const updateScrollElement = (element: HTMLDivElement) => {
-    setScrollElement(element);
+    const scrollElement = element.children[0] as HTMLDivElement;
+    setScrollElement(scrollElement);
   };
 
   const updateScrollDistance = () => {

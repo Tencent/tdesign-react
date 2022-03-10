@@ -4,7 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { InputProps, InputValue } from '../input';
+import { InputProps } from '../input';
+import { InputValue } from '../input';
 import { TagProps } from '../tag';
 import { TNode, TElement } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent } from 'react';
@@ -69,7 +70,7 @@ export interface TdTagInputProps {
    */
   placeholder?: string;
   /**
-   * 是否只读，值为真会隐藏标签移除按钮和输入框
+   * 只读状态，值为真会隐藏标签移除按钮和输入框
    * @default false
    */
   readonly?: boolean;
