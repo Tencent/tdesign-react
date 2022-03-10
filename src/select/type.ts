@@ -11,6 +11,7 @@ import { SelectInputProps } from '../select-input';
 import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
+import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TElement, SizeEnum } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
@@ -126,9 +127,18 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   popupProps?: PopupProps;
   /**
+   * 是否显示下拉框
+   */
+  popupVisible?: boolean;
+  /**
    * 组件前置图标
    */
   prefixIcon?: TElement;
+  /**
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @default false
+   */
+  readonly?: boolean;
   /**
    * 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词
    * @default false
@@ -207,6 +217,10 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
    */
   onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
+  /**
+   * 下拉框显示或隐藏时触发
+   */
+  onPopupVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
   /**
    * 多选模式下，选中数据被移除时触发
    */

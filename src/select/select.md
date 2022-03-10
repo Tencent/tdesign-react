@@ -31,7 +31,9 @@ panelBottomContent | TNode | - | 面板内的底部内容。TS 类型：`string 
 panelTopContent | TNode | - | 面板内的顶部内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 placeholder | String | undefined | 占位符 | N
 popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`PopupProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
+popupVisible | Boolean | undefined | 是否显示下拉框 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 reserveKeyword | Boolean | false | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 showArrow | Boolean | true | 是否显示右侧箭头，默认显示 | N
@@ -49,6 +51,7 @@ onCreate | Function |  | TS 类型：`(value: string | number) => void`<br/>当�
 onEnter | Function |  | TS 类型：`(context: { inputValue: string; e: KeyboardEvent; value: SelectValue }) => void`<br/>回车键按下时触发。`inputValue` 表示输入框的值，`value` 表示选中值 | N
 onFocus | Function |  | TS 类型：`(context: { value: SelectValue; e: FocusEvent | KeyboardEvent }) => void`<br/>输入框获得焦点时触发 | N
 onInputChange | Function |  | TS 类型：`(value: InputValue, context?: SelectInputValueChangeContext) => void`<br/>输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts)。<br/>`import { SelectInputValueChangeContext } from '@SelectInput'`<br/> | N
+onPopupVisibleChange | Function |  | TS 类型：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>下拉框显示或隐藏时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts)。<br/>`import { PopupVisibleChangeContext } from '@Popup'`<br/> | N
 onRemove | Function |  | TS 类型：`(options: SelectRemoveContext<T>) => void`<br/>多选模式下，选中数据被移除时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts)。<br/>`interface SelectRemoveContext<T> { value: string | number; data: T; e: MouseEvent | KeyboardEvent }`<br/> | N
 onSearch | Function |  | TS 类型：`(filterWords: string) => void`<br/>输入值变化时，触发搜索事件。主要用于远程搜索新数据 | N
 onVisibleChange | Function |  | TS 类型：`(visible: boolean) => void`<br/>下拉框隐藏/显示时触发 | N
