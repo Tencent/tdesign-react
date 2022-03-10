@@ -17,6 +17,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   const name = `${classPrefix}-date-picker`;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
 const DatePicker = (props: DatePickerProps) => {
   // 国际化文本初始化
@@ -28,6 +29,8 @@ const DatePicker = (props: DatePickerProps) => {
 
 =======
 >>>>>>> e7dc10cd (feat: rebase develop)
+=======
+>>>>>>> 5f948837 (feat: 重构datepicker)
   const {
     className,
     style,
@@ -40,6 +43,7 @@ const DatePicker = (props: DatePickerProps) => {
     valueType = 'YYYY-MM-DD',
     presets,
     enableTimePicker,
+<<<<<<< HEAD
 <<<<<<< HEAD
     format = 'YYYY-MM-DD',
     inputProps,
@@ -428,6 +432,25 @@ const DatePicker = (props: DatePickerProps) => {
   const panelProps = {
     value,
     onChange,
+=======
+  } = props;
+
+  const {
+    value,
+    onChange,
+    inputValue,
+    setInputValue,
+    popupVisible,
+    setPopupVisible,
+    inputProps,
+    popupProps,
+    formatDate,
+  } = useInput(props);
+
+  const panelProps = {
+    value,
+    onChange,
+>>>>>>> 5f948837 (feat: 重构datepicker)
     inputValue,
     setInputValue,
     setPopupVisible,
@@ -443,7 +466,10 @@ const DatePicker = (props: DatePickerProps) => {
     minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : null,
     maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
   };
+<<<<<<< HEAD
 >>>>>>> e7dc10cd (feat: rebase develop)
+=======
+>>>>>>> 5f948837 (feat: 重构datepicker)
 
   return (
     <div className={classNames(name, className)} style={style} ref={ref}>
