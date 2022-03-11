@@ -3,10 +3,11 @@ import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';
+import { BreadcrumbContext } from './BreadcrumbContext';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
-    const { children, options, theme = 'light', separator, maxItemWidth = '120', ...restProps } = props;
+    const { children, options, separator, maxItemWidth, theme, ...restProps } = props;
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -21,19 +22,25 @@ const Breadcrumb = forwardRefWithStatics(
           to={option.to}
           router={option.router}
           replace={option.replace}
-          theme={theme}
           separator={separator}
           maxItemWidth={maxItemWidth}
         >
-          {option.default || option.content}
+          {option.content || option.children}
         </BreadcrumbItem>
       ));
     }
 
     return (
-      <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
-        {content}
-      </div>
+      <BreadcrumbContext.Provider
+        value={{
+          maxItemWidthInContext: maxItemWidth,
+          theme,
+        }}
+      >
+        <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
+          {content}
+        </div>
+      </BreadcrumbContext.Provider>
     );
   },
   { BreadcrumbItem },

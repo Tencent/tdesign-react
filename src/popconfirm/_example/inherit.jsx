@@ -9,7 +9,7 @@ export default function InheritExample() {
         content={'直接使用 placement 进行设置'}
         placement={'bottom'}
       >
-        <Button>浮层出现在下方</Button>
+        <Button theme="default" variant="outline">浮层出现在下方</Button>
       </PopConfirm>
       <PopConfirm
         theme={'default'}
@@ -20,7 +20,7 @@ export default function InheritExample() {
         confirmBtn={<Button theme={'primary'} size={'small'}>确定提交</Button>}
         cancelBtn={<Button theme={'default'} size={'small'} variant={'outline'}>我再想想</Button>}
       >
-        <Button theme="primary">浮层出现在右侧</Button>
+        <Button theme="default" variant="outline">浮层出现在右侧</Button>
       </PopConfirm>
     </div>
   );

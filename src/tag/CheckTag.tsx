@@ -26,6 +26,7 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
     disabled,
     children,
     className,
+    size = 'medium',
     ...tagOtherProps
   } = props;
   const [value, onValueChange] = useDefault(checked, defaultChecked, onChange);
@@ -33,11 +34,18 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
+  const sizeMap = {
+    large: `${classPrefix}-size-l`,
+    small: `${classPrefix}-size-s`,
+  };
+
   const checkTagClassNames = classNames(
     tagClassPrefix,
+    sizeMap[size],
     className,
     `${tagClassPrefix}--default`,
     `${tagClassPrefix}--check`,
+    `${tagClassPrefix}--${size}`,
     {
       [`${tagClassPrefix}--disabled`]: disabled,
       [`${tagClassPrefix}--checked`]: value,
@@ -50,7 +58,10 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
       className={checkTagClassNames}
       {...tagOtherProps}
       onClick={(e) => {
-        !disabled && onValueChange(!value);
+        if (disabled) {
+          return;
+        }
+        onValueChange(!value);
         onClick({ e });
       }}
     >

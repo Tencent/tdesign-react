@@ -1,4 +1,12 @@
-import React, { useState, useCallback, useMemo, FocusEventHandler, KeyboardEventHandler, useEffect } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useCallback,
+  useMemo,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+} from 'react';
 import classNames from 'classnames';
 
 import { StyledProps } from '../common';
@@ -16,7 +24,7 @@ export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
 export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
-const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
+const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     className,
     style,
@@ -37,7 +45,6 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
     onKeydown,
     onKeyup,
     onKeypress,
-
     ...restInputProps
   } = props;
 
@@ -84,8 +91,8 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
   };
 
   const [isError, setError] = useState<boolean>(false);
-  const disabledDecrease = disabled || isError || decimalValue - step < min;
-  const disabledIncrease = disabled || isError || decimalValue + step > max;
+  const disabledDecrease = disabled || isError || (decimalValue - step < min && internalInputValue !== '');
+  const disabledIncrease = disabled || isError || (decimalValue + step > max && internalInputValue !== '');
 
   const isOutOfRange = (number: number): boolean => number > max || number < min;
   const checkInput = (inputStr: InputNumberInternalValue): boolean => {
@@ -149,19 +156,21 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
 
-    let updateValue;
+    let updateValue: number;
     switch (type) {
       case 'add': {
-        updateValue = Number((currentValue + step).toFixed(precision));
+        const addedVal = currentValue + step;
+        updateValue = Number(Math.max(addedVal, min).toFixed(precision));
         break;
       }
       case 'reduce': {
-        updateValue = Number((currentValue - step).toFixed(precision));
+        const reducedVal = currentValue - step;
+        updateValue = Number(Math.max(reducedVal, min).toFixed(precision));
         break;
       }
     }
 
-    setInputValue(updateValue);
+    setInputValue(String(updateValue));
     triggerValueUpdate({ value: updateValue, type, e });
     e.preventDefault();
   };
@@ -214,22 +223,21 @@ const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<HT
       onKeyUp={handleKeyup}
       onKeyPress={handleKeypress}
     >
-      {theme !== 'normal' && (
-        <StepHandler
-          prefixClassName={inputClassName}
-          theme={theme}
-          disabledDecrease={disabledDecrease}
-          disabledIncrease={disabledIncrease}
-          onStep={onInternalStep}
+      <StepHandler
+        theme={theme}
+        prefixClassName={inputClassName}
+        disabledDecrease={disabledDecrease}
+        disabledIncrease={disabledIncrease}
+        onStep={onInternalStep}
+      >
+        <Input
+          disabled={disabled}
+          value={internalInputValue}
+          onChange={onInternalInput}
+          status={isError ? 'error' : undefined}
+          {...restInputProps}
         />
-      )}
-      <Input
-        disabled={disabled}
-        value={internalInputValue}
-        onChange={onInternalInput}
-        status={isError ? 'error' : undefined}
-        {...restInputProps}
-      />
+      </StepHandler>
     </div>
   );
 });

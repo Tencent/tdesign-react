@@ -1,38 +1,50 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo, useRef, useCallback, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
+import useDefault from '../_util/useDefault';
+import { getCharacterLength } from '../_util/helper';
+import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}
+export interface TextareaRefInterface extends React.RefObject<unknown> {
+  currentElement: HTMLDivElement;
+  textareaElement: HTMLTextAreaElement;
+}
 
-const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputElement>) => {
+const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) => {
   const {
     disabled,
     maxlength,
+    maxcharacter,
     className,
     readonly,
-    value,
+    autofocus,
+    defaultValue,
     style,
     onKeydown = noop,
     onKeypress = noop,
     onKeyup = noop,
-    onChange = noop,
     autosize = false,
+    status,
+    tips,
     ...otherProps
   } = props;
 
+  const [value = '', setValue] = useDefault(props.value, defaultValue, props.onChange);
   const [isFocused, setIsFocused] = useState(false);
-  const [currentLength, setCurrentLength] = useState(() => {
-    if (typeof value !== 'undefined') {
-      return String(value).length;
-    }
-    if (typeof props.defaultValue !== 'undefined') {
-      return String(props.defaultValue).length;
-    }
-    return 0;
-  });
+  const [textareaStyle, setTextareaStyle] = useState({});
+  const hasMaxcharacter = typeof maxcharacter !== 'undefined';
+  const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
+  const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
+  const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
+  const characterLength = useMemo(() => {
+    const characterInfo = getCharacterLength(String(value), maxcharacter);
+    if (typeof characterInfo === 'object') return characterInfo.length;
+    return characterInfo;
+  }, [value, maxcharacter]);
 
   const { classPrefix } = useConfig();
 
@@ -55,37 +67,77 @@ const Textarea = forwardRef((props: TextareaProps, ref: React.Ref<HTMLInputEleme
   }, {});
 
   const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
+    [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
-    [`${classPrefix}-resize-none`]: maxlength,
+    [`${classPrefix}-resize-none`]: typeof autosize === 'object',
   });
 
-  function handleChange(e) {
-    setCurrentLength(e.currentTarget.value.length);
+  const adjustTextareaHeight = useCallback(() => {
+    if (autosize === true) {
+      setTextareaStyle(calcTextareaHeight(textareaRef.current));
+    } else if (typeof autosize === 'object') {
+      setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
+    } else {
+      // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
+    }
+  }, [autosize]);
 
-    onChange(e.currentTarget.value, { e });
+  function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
+    const { target } = e;
+    let val = (target as HTMLInputElement).value;
+    if (maxcharacter && maxcharacter >= 0) {
+      const stringInfo = getCharacterLength(val, maxcharacter);
+      val = typeof stringInfo === 'object' && stringInfo.characters;
+    }
+    setValue(val, { e });
+    adjustTextareaHeight();
   }
 
-  // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [adjustTextareaHeight]);
+
+  useImperativeHandle(ref as TextareaRefInterface, () => ({
+    currentElement: wrapperRef.current,
+    textareaElement: textareaRef.current,
+  }));
+
   return (
-    <div ref={ref} style={style} className={classNames(className, `${classPrefix}-textarea`)}>
+    <div style={style} ref={wrapperRef} className={classNames(className, `${classPrefix}-textarea`)}>
       <textarea
         {...textareaProps}
         {...eventProps}
         value={value}
-        style={{
-          height: Array.isArray(autosize) || autosize ? null : 'auto',
-        }}
+        style={textareaStyle}
         className={textareaClassNames}
         readOnly={readonly}
+        autoFocus={autofocus}
         disabled={disabled}
         maxLength={maxlength}
-        onChange={handleChange}
+        onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
+        ref={textareaRef}
       />
-      {maxlength ? <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span> : null}
+      {hasMaxcharacter ? (
+        <span className={`${classPrefix}-textarea__limit`}>{`${characterLength}/${maxcharacter}`}</span>
+      ) : null}
+      {!hasMaxcharacter && maxlength ? (
+        <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
+      ) : null}
+      {tips ? (
+        <div
+          className={classNames(`${classPrefix}-textarea__tips`, {
+            [`${classPrefix}-textarea__tips--normal`]: !status,
+            [`${classPrefix}-textarea__tips--${status}`]: status,
+          })}
+        >
+          {tips}
+        </div>
+      ) : null}
     </div>
   );
 });

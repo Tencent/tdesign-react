@@ -51,7 +51,6 @@ exports[`close-all.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -62,7 +61,6 @@ exports[`close-all.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -78,45 +76,48 @@ exports[`close-all.jsx 1`] = `
 exports[`content.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="tdesign-demo-block-columns"
   >
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__main"
       >
-        <span
-          class="t-notification__title"
+        <div
+          class="t-notification__title__wrap"
         >
-          自定义内容（字符串）
-        </span>
-      </div>
-      <div
-        class="t-notification__content"
-      >
-        这是一条消息通知
+          <span
+            class="t-notification__title"
+          >
+            自定义内容（字符串）
+          </span>
+        </div>
+        <div
+          class="t-notification__content"
+        >
+          这是一条消息通知
+        </div>
       </div>
     </div>
-  </div>
-  <br />
-  <div
-    class="t-notification"
-  >
     <div
-      class="t-notification__main"
+      class="t-notification"
     >
       <div
-        class="t-notification__title__wrap"
+        class="t-notification__main"
       >
-        <span
-          class="t-notification__title"
+        <div
+          class="t-notification__title__wrap"
         >
-          自定义内容
-        </span>
-      </div>
-      <div>
-        这是一条消息通知
+          <span
+            class="t-notification__title"
+          >
+            自定义内容
+          </span>
+        </div>
+        <div>
+          这是一条消息通知
+        </div>
       </div>
     </div>
   </div>
@@ -381,7 +382,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -437,7 +437,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -500,7 +499,6 @@ exports[`operation.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -561,7 +559,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -572,7 +569,6 @@ exports[`operation.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -628,7 +624,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -639,7 +634,6 @@ exports[`operation.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -665,24 +659,32 @@ exports[`placement.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
-        class="t-input"
+        class="t-input__wrap"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
-        <input
-          class="t-input__inner"
-          placeholder="请输入横向偏移量"
-          value=""
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入横向偏移量"
+            value=""
+          />
+        </div>
       </div>
       <div
-        class="t-input"
+        class="t-input__wrap"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
       >
-        <input
-          class="t-input__inner"
-          placeholder="请输入纵向偏移量"
-          value=""
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入纵向偏移量"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <div
@@ -690,7 +692,6 @@ exports[`placement.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -701,7 +702,6 @@ exports[`placement.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -716,7 +716,6 @@ exports[`placement.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -727,7 +726,6 @@ exports[`placement.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -748,7 +746,6 @@ exports[`plugin.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -759,7 +756,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -770,7 +766,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -781,7 +776,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -798,7 +792,6 @@ exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
     type="button"
   >
     <span

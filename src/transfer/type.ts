@@ -2,12 +2,12 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
  * */
 
 import { CheckboxProps } from '../checkbox';
 import { PaginationProps, PageInfo } from '../pagination';
 import { InputProps } from '../input';
+import { TreeProps } from '../tree';
 import { TNode, KeysType } from '../common';
 import { KeyboardEvent, FormEvent } from 'react';
 
@@ -86,6 +86,11 @@ export interface TdTransferProps<T extends DataOption = DataOption> {
    * 自定义渲染节点
    */
   transferItem?: TNode<TransferItem<T>>;
+  /**
+   * null
+   * @default 传入 Tree 组件定义树形结构
+   */
+  tree?: (tree: TreeProps) => TNode;
   /**
    * 目标数据列表数据
    * @default []

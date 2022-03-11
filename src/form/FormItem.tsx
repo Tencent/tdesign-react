@@ -1,9 +1,10 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
+import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import { TdFormItemProps, ValueType, FormRule } from './type';
+import type { TdFormItemProps, ValueType, FormRule, FormItemValidateMessage } from './type';
 import Checkbox from '../checkbox';
 import Upload from '../upload';
 import Tag from '../tag';
@@ -11,7 +12,7 @@ import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext } from './FormContext';
 
-enum ValidateStatus {
+enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
@@ -24,7 +25,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 const ctrlKeyMap = new Map();
 ctrlKeyMap.set(Checkbox, 'checked');
 ctrlKeyMap.set(Tag.CheckTag, 'checked');
-ctrlKeyMap.set(Upload, 'file');
+ctrlKeyMap.set(Upload, 'files');
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -38,34 +39,43 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     labelWidth,
     labelAlign,
     initialData,
+    requiredMark,
+    successBorder,
     className,
     style: formItemStyle,
   } = props;
   const {
     colon,
-    requiredMark,
+    requiredMark: requiredMarkFromContext,
     layout,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
     showErrorMessage,
-    resetType,
+    disabled: disabledFromContext,
+    resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
+    errorMessage,
+    formItemsRef,
+    onFormItemValueChange,
   } = useFormContext();
 
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
-  const [verifyStatus, setVerifyStatus] = useState(ValidateStatus.TO_BE_VALIDATED);
+  const [verifyStatus, setVerifyStatus] = useState(VALIDATE_STATUS.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(initialData);
 
+  const currentFormItemRef = useRef();
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(null);
+  const isMounted = useRef(false);
 
   const innerRules: FormRule[] = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
   const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
   const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
+  const innerRequiredMark = isNil(requiredMark) ? requiredMarkFromContext : requiredMark;
 
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
@@ -74,18 +84,30 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
+      innerRequiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
     [`${classPrefix}-form__label--colon`]: colon && label,
     [`${classPrefix}-form__label--top`]: innerLabelAlign === 'top' || !innerLabelWidth,
     [`${classPrefix}-form__label--left`]: innerLabelAlign === 'left' && innerLabelWidth,
     [`${classPrefix}-form__label--right`]: innerLabelAlign === 'right' && innerLabelWidth,
   });
 
-  const contentClasses = classNames(`${classPrefix}-form__controls`, {
-    [`${classPrefix}-is-success`]: showErrorMessage && verifyStatus === ValidateStatus.SUCCESS,
-    [`${classPrefix}-is-warning`]: showErrorMessage && errorList.length && errorList[0].type === 'warning',
-    [`${classPrefix}-is-error`]: showErrorMessage && errorList.length && errorList[0].type === 'error',
-  });
+  const contentClass = () => {
+    const controlCls = `${classPrefix}-form__controls`;
+    if (!showErrorMessage) return controlCls;
+
+    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
+    if (isSuccess) {
+      return classNames(controlCls, `${classPrefix}-is-success`, {
+        [`${classPrefix}-form--success-border`]: successBorder,
+      });
+    }
+
+    const firstErrorType = errorList.length && (errorList[0].type || 'error');
+    return classNames(controlCls, {
+      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
+      [`${classPrefix}-is-error`]: firstErrorType === 'error',
+    });
+  };
 
   let labelStyle = {};
   let contentStyle = {};
@@ -103,8 +125,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
 
-    if (showErrorMessage && errorList.length && errorList[0].message) {
-      return <p className={`${classPrefix}-input__extra`}>{errorList[0].message}</p>;
+    const list = errorList;
+    if (showErrorMessage && list && list[0] && list[0].message) {
+      return <p className={`${classPrefix}-input__extra`}>{list[0].message}</p>;
     }
     if (successList.length) {
       return <p className={`${classPrefix}-input__extra`}>{successList[0].message}</p>;
@@ -124,7 +147,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         error: <CloseCircleFilledIcon size="25px" />,
         warning: <ErrorCircleFilledIcon size="25px" />,
       };
-      if (verifyStatus === ValidateStatus.SUCCESS) {
+      if (verifyStatus === VALIDATE_STATUS.SUCCESS) {
         return resultIcon(iconMap[verifyStatus]);
       }
       if (errorList && errorList[0]) {
@@ -159,14 +182,26 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     // 校验结果，包含正确的校验信息
     return new Promise((resolve) => {
       validateModal(formValue, rules).then((r) => {
-        const filterErrorList = r.filter((item) => item.result !== true);
+        const filterErrorList = r
+          .filter((item) => item.result !== true)
+          .map((item) => {
+            Object.keys(item).forEach((key) => {
+              if (!item.message && errorMessage[key]) {
+                const compiled = lodashTemplate(errorMessage[key]);
+                // eslint-disable-next-line no-param-reassign
+                item.message = compiled({ name: label, validate: item[key] });
+              }
+            });
+            return item;
+          });
         setErrorList(filterErrorList);
         // 仅有自定义校验方法才会存在 successList
         setSuccessList(r.filter((item) => item.result === true && item.message && item.type === 'success'));
-        let nextVerifyStatus = filterErrorList.length && rules.length ? ValidateStatus.FAIL : ValidateStatus.SUCCESS;
+        // 根据校验结果设置校验状态
+        let nextVerifyStatus = filterErrorList.length && rules.length ? VALIDATE_STATUS.FAIL : VALIDATE_STATUS.SUCCESS;
         // 非 require 且值为空 状态置为默认，无校验规则的都为默认
         if ((!rules.some((rule) => rule.required) && isValueEmpty(formValue)) || !rules.length) {
-          nextVerifyStatus = ValidateStatus.TO_BE_VALIDATED;
+          nextVerifyStatus = VALIDATE_STATUS.TO_BE_VALIDATED;
         }
         setVerifyStatus(nextVerifyStatus);
         needResetField && resetHandler();
@@ -184,19 +219,6 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     filterRules.length && validate('blur');
   }
 
-  useEffect(() => {
-    // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
-    if (!shouldValidate.current) {
-      shouldValidate.current = true;
-      return;
-    }
-
-    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
-
-    filterRules.length && validate('change');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue]);
-
   function getEmptyValue(): ValueType {
     const type = Object.prototype.toString.call(initialData);
     let emptyValue: ValueType = '';
@@ -209,14 +231,16 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     return emptyValue;
   }
 
-  function resetField() {
+  function resetField(type: string) {
     if (!name) return;
-    if (resetType === 'empty') {
-      setFormValue(getEmptyValue());
+
+    const resetType = type || resetTypeFromContext;
+    const resetValue = resetType === 'initial' ? initialData : getEmptyValue();
+    // 防止触发校验
+    if (resetValue !== formValue) {
+      shouldValidate.current = false;
     }
-    if (resetType === 'initial') {
-      setFormValue(initialData);
-    }
+    setFormValue(resetValue);
 
     if (resetValidating) {
       setNeedResetField(true);
@@ -226,14 +250,13 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetHandler() {
-    shouldValidate.current = false;
     setNeedResetField(false);
     setErrorList([]);
     setSuccessList([]);
-    setVerifyStatus(ValidateStatus.TO_BE_VALIDATED);
+    setVerifyStatus(VALIDATE_STATUS.TO_BE_VALIDATED);
   }
 
-  function setField(field: { value?: string; status?: ValidateStatus }) {
+  function setField(field: { value?: string; status?: VALIDATE_STATUS }) {
     const { value, status } = field;
     // 手动设置 status 则不需要校验 交给用户判断
     if (typeof status !== 'undefined') {
@@ -248,14 +271,59 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
   }
 
+  function setValidateMessage(validateMessage: FormItemValidateMessage[]) {
+    if (!validateMessage || !Array.isArray(validateMessage)) return;
+    if (validateMessage.length === 0) {
+      setErrorList([]);
+      setVerifyStatus(VALIDATE_STATUS.SUCCESS);
+      return;
+    }
+    setErrorList(validateMessage);
+    setVerifyStatus(VALIDATE_STATUS.FAIL);
+  }
+
+  useEffect(() => {
+    // value change event
+    if (isMounted.current) {
+      name && onFormItemValueChange({ [name]: formValue });
+    }
+
+    // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
+    if (!shouldValidate.current || !isMounted.current) {
+      isMounted.current = true;
+      shouldValidate.current = true;
+      return;
+    }
+
+    const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
+
+    filterRules.length && validate('change');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formValue]);
+
+  useEffect(() => {
+    formItemsRef.current.push(currentFormItemRef);
+
+    return () => {
+      const index = formItemsRef.current.indexOf(currentFormItemRef);
+      if (index !== -1) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        formItemsRef.current?.splice(index, 1);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // 暴露 ref 实例方法
-  useImperativeHandle(ref, (): any => ({
+  useImperativeHandle(currentFormItemRef, (): any => ({
     name,
     value: formValue,
     setValue: setFormValue,
     setField,
     validate,
     resetField,
+    setValidateMessage,
+    resetValidate: resetHandler,
   }));
 
   return (
@@ -265,7 +333,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
           <label htmlFor={props?.for}>{label}</label>
         </div>
       )}
-      <div className={contentClasses} style={contentStyle}>
+      <div className={contentClass()} style={contentStyle}>
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
@@ -292,6 +360,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               return React.cloneElement(child, {
+                disabled: disabledFromContext,
                 ...child.props,
                 [ctrlKey]: formValue,
                 onChange: (value) => {

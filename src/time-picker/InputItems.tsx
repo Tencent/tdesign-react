@@ -26,6 +26,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
   const { allowInput, format, disabled, value, onBlur, onChange, onFocus, onInput } = props;
 
   const { classPrefix } = useConfig();
+
   const inputItemClass = `${classPrefix}-time-picker__input`;
   const itemClasses = classNames(`${inputItemClass}-item`, {
     [`${inputItemClass}-item-disabled`]: disabled,
@@ -35,7 +36,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
   const isRangePicker = Array.isArray(value) && value.length > 1;
   const [startTime, endTime] = [...value];
 
-  const [formatedValue, changeFormatedValue] = useState<
+  const [formattedValue, changeFormattedValue] = useState<
     [Record<EPickerCols, string>, Record<EPickerCols, string>] | undefined
   >(undefined);
 
@@ -46,7 +47,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     const minute = dayjsValue.minute();
     const second = dayjsValue.second();
 
-    changeFormatedValue((preVal) => [
+    changeFormattedValue((preVal) => [
       {
         hour: padStart(String(hour), 2, '0'),
         minute: padStart(String(minute), 2, '0'),
@@ -64,7 +65,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     const minute = dayjsValue.minute();
     const second = dayjsValue.second();
 
-    changeFormatedValue((preVal) => [
+    changeFormattedValue((preVal) => [
       preVal[0],
       {
         hour: padStart(String(hour), 2, '0'),
@@ -77,6 +78,14 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
 
   const handleInputChange = useCallback(
     (type: EPickerCols, result: number | string, index?: number) => {
+      let max = 59;
+      if (type === EPickerCols.hour) {
+        max = /[h]{1}/.test(format) ? 11 : 23;
+      }
+      if (isNaN(Number(result))) return;
+      // eslint-disable-next-line no-param-reassign
+      result = String(result).length > 2 ? String(result).slice(1, 3) : result;
+      if (Number(result) > max) return;
       if (!isRangePicker) {
         const currentDayjsValue = dayjs(startTime, format);
         onChange(currentDayjsValue[type]?.(result).format(format));
@@ -106,11 +115,10 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
       if ([up, down].includes(which)) {
         if (type === EPickerCols.meridiem) return;
 
-        const timeValue = formatedValue?.[index]?.[type];
+        const timeValue = formattedValue?.[index]?.[type];
         const current = timeValue ? Number(timeValue) : 0;
         const operate = which === up ? -1 : 1;
         let result = current + operate;
-
         if (type === EPickerCols.hour) {
           const maxHour = /[h]{1}/.test(format) ? 11 : 23;
           if (result > maxHour) {
@@ -119,7 +127,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
             result = maxHour;
           }
         } else if (result > 59) {
-          result = 1;
+          result = 0;
         } else if (result < 0) {
           result = 59;
         }
@@ -135,7 +143,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
         }
       }
     },
-    [allowInput, format, formatedValue, handleInputChange],
+    [allowInput, format, formattedValue, handleInputChange],
   );
 
   const TEXT_CONFIG = useTimePickerTextConfig();
@@ -172,7 +180,7 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
           disabled={!allowInput}
           onKeyDown={(e) => handleInputKeydown(e, type, index)}
           onInput={(e) => onInput({ e, input: inputValue, value: propsValue as any })}
-          onChange={(e) => handleInputChange(type, e?.target?.value)}
+          onChange={(e) => handleInputChange(type, e?.target?.value, index)}
           onBlur={(e) => onBlur({ e, trigger: type, input: inputValue, value: propsValue as any })}
           onFocus={(e) => onFocus({ e, trigger: type, input: inputValue, value: propsValue as any })}
         />
@@ -196,10 +204,10 @@ const TimePickerInputItems: FC<TimePickerInputItemsProps> = (props: TimePickerIn
     <div className={inputItemClass}>
       {isRangePicker ? (
         <>
-          {renderItems(formatedValue?.[0], 0)} - {renderItems(formatedValue?.[1], 1)}
+          {renderItems(formattedValue?.[0], 0)} - {renderItems(formattedValue?.[1], 1)}
         </>
       ) : (
-        renderItems(formatedValue?.[0], 0)
+        renderItems(formattedValue?.[0], 0)
       )}
     </div>
   );

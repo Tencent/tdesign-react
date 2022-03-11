@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdHeaderProps, TdFooterProps } from './type';
-import Sider from './Sider';
+import { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
+import Aside from './Aside';
 
-export interface LayoutProps extends StyledProps {
+export interface LayoutProps extends TdLayoutProps, StyledProps {
   children?: React.ReactNode;
 }
 export interface HeaderProps extends TdHeaderProps, StyledProps {
@@ -55,12 +55,14 @@ const Content = (props: ContentProps) => {
  * 布局组件
  */
 const Layout = (props: LayoutProps) => {
-  const { className, style, children, ...otherLayoutProps } = props;
-  const [siders, setSiders] = useState([]);
+  const { direction, className, style, children, ...otherLayoutProps } = props;
+  const [asides, setAsides] = useState([]);
 
   useEffect(() => {
-    React.Children.forEach(children, (child: any) => {
-      if (child.type === Sider) setSiders([child]);
+    React.Children.forEach(children, (child: React.ReactChild) => {
+      if (!child || typeof child !== 'object') return;
+
+      if (child.type === Aside) setAsides([child]);
     });
   }, [children]);
 
@@ -68,7 +70,8 @@ const Layout = (props: LayoutProps) => {
   const layoutClassNames = classNames(
     `${classPrefix}-layout`,
     {
-      [`${classPrefix}-layout--with-sider`]: !!siders.length,
+      [`${classPrefix}-layout--with-sider`]: !!asides.length,
+      [`${classPrefix}-layout__direction-${direction}`]: direction,
     },
     className,
   );
@@ -83,7 +86,7 @@ const Layout = (props: LayoutProps) => {
 Layout.Header = Header;
 Layout.Content = Content;
 Layout.Footer = Footer;
-Layout.Sider = Sider;
+Layout.Aside = Aside;
 
 Header.displayName = 'Header';
 Content.displayName = 'Content';

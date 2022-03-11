@@ -1,10 +1,11 @@
-import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react';
+import React, { useRef, CSSProperties, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
-import { AttachNode } from '../common';
 import noop from '../_util/noop';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
+import useDialogEsc from '../_util/useDialogEsc';
 
 enum KeyCode {
   ESC = 27,
@@ -13,7 +14,6 @@ enum KeyCode {
 export interface RenderDialogProps extends DialogProps {
   prefixCls?: string;
   classPrefix: string;
-  getContainer?: React.ReactElement | AttachNode | boolean;
 }
 
 const transitionTime = 300;
@@ -33,7 +33,7 @@ if (typeof window !== 'undefined' && window.document && window.document.document
 const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const {
     prefixCls,
-    getContainer,
+    attach,
     visible,
     mode,
     zIndex,
@@ -45,14 +45,22 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     onOverlayClick = noop,
     preventScrollThrough,
     closeBtn,
+    closeOnEscKeydown = true,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
-  const bodyOverflow = useRef<string>(document.body.style.overflow);
-  const bodyCssTextRef = useRef<string>(document.body.style.cssText);
+  const bodyOverflow = useRef<string>();
+  const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
+  const dialogOpenClass = `${prefixCls}__open`;
+  useDialogEsc(visible, wrap);
+
+  useEffect(() => {
+    bodyOverflow.current = document.body.style.overflow;
+    bodyCssTextRef.current = document.body.style.cssText;
+  }, []);
 
   useLayoutEffect(() => {
     if (visible) {
@@ -77,9 +85,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         wrap.current.focus();
       }
     } else if (isModal) {
-      document.body.style.cssText = bodyCssTextRef.current;
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (openDialogDom.length < 1) {
+        document.body.style.cssText = bodyCssTextRef.current;
+      }
     }
-  }, [preventScrollThrough, getContainer, visible, mode, isModal]);
+  }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
 
   useEffect(() => {
     if (visible) {
@@ -97,7 +108,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
     if (isModal && preventScrollThrough) {
       // 还原body的滚动条
-      isModal && (document.body.style.overflow = bodyOverflow.current);
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (isModal && openDialogDom.length < 1) {
+        document.body.style.overflow = bodyOverflow.current;
+      }
     }
     if (!isModal) {
       const { style } = dialog.current;
@@ -124,7 +138,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
-      onClose({ e, trigger: 'esc' });
+      if (closeOnEscKeydown) {
+        onClose({ e, trigger: 'esc' });
+      }
     }
   };
 
@@ -212,7 +228,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     return (
       <CSSTransition
-        key="dialog"
         in={props.visible}
         appear
         mountOnEnter
@@ -236,13 +251,12 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
           in={visible}
           appear
           timeout={transitionTime}
-          classNames={`${prefixCls}-dialog-fade`}
+          classNames={`${prefixCls}-fade`}
           mountOnEnter
           unmountOnExit
-          key="mask"
           nodeRef={maskRef}
         >
-          <div key="mask" onClick={onMaskClick} className={`${prefixCls}__mask`} />
+          <div ref={maskRef} onClick={onMaskClick} className={`${prefixCls}__mask`} />
         </CSSTransition>
       );
     }
@@ -260,9 +274,14 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
-    const wrapClass = classnames(props.className, `${prefixCls}__ctx`, `${prefixCls}__ctx--fixed`);
+    const wrapClass = classnames(
+      props.className,
+      `${prefixCls}__ctx`,
+      `${prefixCls}__ctx--fixed`,
+      visible ? dialogOpenClass : '',
+    );
     const dialog = (
-      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
@@ -271,10 +290,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     let dom = null;
 
     if (visible || wrap.current) {
-      if (getContainer === false) {
+      if (!attach) {
         dom = dialog;
       } else {
-        dom = <Portal getContainer={getContainer}>{dialog}</Portal>;
+        dom = <Portal attach={attach}>{dialog}</Portal>;
       }
     }
 

@@ -181,9 +181,9 @@ npm run init button
 
 ### Demo 调试
 
-当一个 md 文件插入了很多个 demo 之后，一些组件生命周期方法调试起来会变得困难，若想对某个 demo 单独调试，可以访问路由：/demos/组件名/demo 名，如想单独调试 button 组件 demos 文件夹下的 base demo，则可点击 demo 旁的箭头或直接访问：<http://127.0.0.1:15000/#/react/demos/button/base>
+当一个 md 文件插入了很多个 demo 之后，一些组件生命周期方法调试起来会变得困难，若想对某个 demo 单独调试，可以访问路由：/demos/组件名/demo 名，如想单独调试 button 组件 demos 文件夹下的 base demo，则可点击 demo 旁的箭头或直接访问：<http://127.0.0.1:15000/react/demos/button/base>
 
-所有 demo 路由列表页：<http://127.0.0.1:15000/#/react/demos>
+所有 demo 路由列表页：<http://127.0.0.1:15000/react/demos>
 
 ### 组件测试参考
 
@@ -205,8 +205,28 @@ npm run site:preview
 npm run build
 # 快速创建组件及其相关文件
 npm run init
-# 运行行单元测试用例
+
+# 运行全部单元测试用例(包括所有example的ssr测试)
 npm run test
+# 运行全部单元测试用例
+npm run test:unit
+# 运行指定组件单元测试用例，xxx表示组件目录名称
+npm run test:unit xxx
+
+# 运行全部e2e测试用例
+npm run test:e2e
+# 运行指定组件（空格分割）e2e测试用例，xxx表示组件目录名称
+npm run test:e2e xxx
+# gui模式运行查看e2e测试用例
+npm run test:e2e-gui
+
+# 更新测试用例snapshot
+npm run test:update
+
+# 生成测试覆盖率
+npm run update:coverage-badge
+# 生成分组件格式化后的覆盖率到site/test-coverage.js，区分unit和e2e
+
 # 自动修复 eslint 错误
 npm run lint:fix
 # 查看 eslint 错误

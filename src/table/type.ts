@@ -2,7 +2,7 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { PaginationProps, PageInfo } from '../pagination';
@@ -29,6 +29,11 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   data?: Array<T>;
   /**
+   * 是否禁用本地数据排序。当 `data` 数据长度超过分页大小时，会自动进行本地数据排序。如果 `disabledDataSort` 设置为 true，则无论何时，都不会进行本地排序
+   * @default false
+   */
+  disableDataSort?: boolean;
+  /**
    * 空表格呈现样式
    * @default ''
    */
@@ -37,6 +42,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * 展开行内容，可自定义，泛型 T 指表格数据类型
    */
   expandedRow?: string | TNode<{ row: T; index: number }>;
+  /**
+   * 首行内容
+   */
+  firstFullRow?: TNode;
   /**
    * 表格高度，超出后会出现滚动条。示例：100,  '30%',  '300px'。值为数字类型，会自动加上单位 px
    * @default 'auto'
@@ -47,6 +56,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * @default false
    */
   hover?: boolean;
+  /**
+   * 尾行内容
+   */
+  lastFullRow?: TNode;
   /**
    * 加载中状态。值为 true 会显示默认加载中样式，可以通过 Function 和 插槽 自定义加载状态呈现内容和样式
    * @default false
@@ -88,6 +101,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * @default fixed
    */
   tableLayout?: 'auto' | 'fixed';
+  /**
+   * 表格顶部内容，可以用于自定义列设置等
+   */
+  topContent?: TNode;
   /**
    * 行内容上下方向对齐
    * @default middle
@@ -202,6 +219,11 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   columns?: Array<PrimaryTableCol<T>>;
   /**
+   * 是否开始拖拽排序，会显示拖拽图标
+   * @default false
+   */
+  dragSort?: boolean;
+  /**
    * 展开行内容，泛型 T 指表格数据类型
    */
   expandedRow?: TNode<{ row: T; index: number }>;
@@ -228,6 +250,10 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    * 自定义过滤图标
    */
   filterIcon?: TElement;
+  /**
+   * 自定义过滤状态行及清空筛选等
+   */
+  filterRow?: TNode;
   /**
    * 过滤数据的值
    */
@@ -260,11 +286,11 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   showDragCol?: boolean;
   /**
-   * 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序
+   * 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序。当 `data` 数据长度超过分页大小时，会自动对本地数据 `data` 进行排序，如果不希望对于 `data` 进行排序，可以设置 `disableDatasort = true`
    */
   sort?: TableSort;
   /**
-   * 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序，非受控属性
+   * 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序。当 `data` 数据长度超过分页大小时，会自动对本地数据 `data` 进行排序，如果不希望对于 `data` 进行排序，可以设置 `disableDatasort = true`，非受控属性
    */
   defaultSort?: TableSort;
   /**
@@ -295,7 +321,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
   /**
    * 过滤参数发生变化时触发，泛型 T 指表格数据类型
    */
-  onFilterChange?: (filterValue: FilterValue, context: { col: PrimaryTableCol<T> }) => void;
+  onFilterChange?: (filterValue: FilterValue, context: { col?: PrimaryTableCol<T> }) => void;
   /**
    * 选中行发生变化时触发，泛型 T 指表格数据类型。两个参数，第一个参数为选中行 keys，第二个参数为更多参数，具体如下：`type = uncheck` 表示当前行操作为「取消行选中」；`type = check` 表示当前行操作为「行选中」； `currentRowKey` 表示当前操作行的 rowKey 值； `currentRowData` 表示当前操作行的行数据
    */
@@ -326,9 +352,9 @@ export interface PrimaryTableCol<T extends TableRowData = TableRowData>
    */
   disabled?: (options: { row: T; rowIndex: number }) => boolean;
   /**
-   * 过滤规则，支持多选(multiple)、单选(single)、输入框(input) 等三种形式。想要自定义过滤组件，可通过 `filter.component` 实现，示例：`(h) => <date-picker></date-picker>`，自定义过滤组件需要包含参数 value 和事件 change
+   * 过滤规则，支持多选(multiple)、单选(single)、输入框(input) 等三种形式。想要自定义过滤组件，可通过 `filter.component` 实现，自定义过滤组件需要包含参数 value 和事件 change
    */
-  filter?: Filter;
+  filter?: TableColumnFilter;
   /**
    * 自定义表头或单元格，泛型 T 指表格数据类型
    */
@@ -414,6 +440,35 @@ export interface TableRowState<T extends TableRowData = TableRowData> {
   rowIndex: number;
 }
 
+export interface TableColumnFilter {
+  /**
+   * 用于自定义筛选器，只要保证自定义筛选器包含 value 属性 和 change 事件，即可像内置筛选器一样正常使用
+   */
+  component?: TElement;
+  /**
+   * 用于配置当前筛选器可选值有哪些，仅当 `filter.type` 等于 `single` 或 `multiple` 时有效
+   */
+  list?: Array<OptionData>;
+  /**
+   * 用于透传筛选器属性，可以对筛选器进行任何原组件支持的属性配置
+   */
+  props?: FilterProps;
+  /**
+   * 重置时设置的值，示例：'' 或 []
+   */
+  resetValue?: any;
+  /**
+   * 是否显示重置和确认。值为真，过滤事件（filter-change）会在确定时触发；值为假，则数据变化时会立即触发过滤事件
+   * @default false
+   */
+  showConfirmAndReset?: boolean;
+  /**
+   * 用于设置筛选器类型：单选按钮筛选器、复选框筛选器、输入框筛选器
+   * @default ''
+   */
+  type?: FilterType;
+}
+
 export interface RowspanColspan {
   colspan: number;
   rowspan: number;
@@ -461,9 +516,9 @@ export interface ExpandArrowRenderParams<T> {
   index: number;
 }
 
-export type FilterValue = Record<string, FilterItemValue>;
+export type FilterValue = { [key: string]: FilterItemValue };
 
-export type FilterItemValue = string | number | Array<string | number>;
+export type FilterItemValue = string | number | undefined | Array<string | number>;
 
 export type TableSort = SortInfo | Array<SortInfo>;
 
@@ -520,17 +575,6 @@ export type CheckProps<T> =
   | RadioProps
   | ((options: { row: T; rowIndex: number }) => CheckboxProps | RadioProps);
 
-export interface Filter {
-  type: FilterType;
-  list?: Array<OptionData>;
-  props?: FilterProps;
-  component?: TNode;
-}
-
-export type FilterType = 'input' | 'single' | 'multiple';
-
-export type FilterProps = RadioProps | CheckboxProps | InputProps;
-
 export interface PrimaryTableRenderParams<T> extends PrimaryTableCellParams<T> {
   type: RenderType;
 }
@@ -549,3 +593,7 @@ export interface TableTreeConfig {
 }
 
 export type TableRowValue = string | number;
+
+export type FilterProps = RadioProps | CheckboxProps | InputProps | { [key: string]: any };
+
+export type FilterType = 'input' | 'single' | 'multiple';

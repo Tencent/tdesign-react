@@ -38,7 +38,6 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   // 样式变量和常量定义
   const { tdTabsClassGenerator, tdClassGenerator, tdSizeClassGenerator } = useTabClass();
-
   const rippleRef = useRef();
   useRipple(rippleRef);
 

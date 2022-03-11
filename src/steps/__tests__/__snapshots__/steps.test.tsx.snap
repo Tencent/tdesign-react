@@ -535,7 +535,6 @@ exports[`extra.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-default t-button--variant-text t-size-s"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -549,7 +548,6 @@ exports[`extra.jsx 1`] = `
             >
               <button
                 class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-                style="position: relative;"
                 type="button"
               >
                 <span

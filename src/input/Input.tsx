@@ -1,17 +1,23 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
+import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
-import { CloseCircleFilledIcon as ClearIcon } from 'tdesign-icons-react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
+import { getCharacterLength } from '../_util/helper';
 import { TdInputProps, InputValue } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
 
-export interface InputProps extends TdInputProps, StyledProps {
-  onCompositionStart?: Function;
-  onCompositionEnd?: Function;
+export interface InputProps extends TdInputProps, StyledProps {}
+
+export interface InputRefInterface extends React.RefObject<unknown> {
+  currentElement: HTMLDivElement;
+  inputElement: HTMLInputElement;
+  focus: () => void;
+  blur: () => void;
+  select: () => void;
 }
 
 const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode) => {
@@ -21,19 +27,21 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
+  const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
+
   if (result) {
-    result = <span className={`${classPrefix}-input__${type}`}>{result}</span>;
+    result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
   }
 
   return result;
 };
 
-/**
- * 组件
- */
 const Input = forwardRefWithStatics(
-  (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
+  (props: InputProps, ref) => {
     const {
+      type,
+      autoWidth,
+      placeholder,
       disabled,
       status,
       size,
@@ -43,115 +51,250 @@ const Input = forwardRefWithStatics(
       suffixIcon,
       clearable,
       value,
+      tips,
+      align,
+      maxlength,
+      maxcharacter,
+      format,
+      onClick,
       onChange,
       onClear,
       onEnter,
       onKeydown,
-      onCompositionStart,
-      onCompositionEnd,
+      onKeyup,
+      onKeypress,
+      onFocus,
+      onBlur,
+      onPaste,
+      onMouseenter,
+      onMouseleave,
+      onWheel,
+      onCompositionstart,
+      onCompositionend,
+      showClearIconOnEmpty,
       autofocus,
+      autocomplete,
       readonly,
+      label,
+      suffix,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
+
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
+    const inputRef: React.RefObject<HTMLInputElement> = useRef();
+    // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
+    const inputPreRef: React.RefObject<HTMLInputElement> = useRef();
+    const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
-    const [composingRefValue, setComposingValue] = useState<string>('');
-    const isShowClearIcon = clearable && value && !disabled && isHover;
-    const componentType = 'input';
-    const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-    const suffixIconNew = isShowClearIcon ? (
-      <ClearIcon
-        className={`${classPrefix}-input__suffix-clear`}
-        onClick={handleClear}
-        onMouseUp={(e) => e.preventDefault()}
-        onMouseDown={(e) => e.preventDefault()}
-      />
-    ) : (
-      suffixIcon
-    );
-    const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+    const [isFocused, toggleIsFocused] = useState(false);
+    const [renderType, setRenderType] = useState(type);
 
-    const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
-    const inputProps = inputPropsNames.reduce(
-      (inputProps, key) => Object.assign(inputProps, { [key]: props[key] }),
-      {},
-    );
-    const eventPropsNames = Object.keys(restProps).filter((key) => /^on[A-Z]/.test(key));
-    const eventProps = eventPropsNames.reduce((eventProps, key) => {
-      Object.assign(eventProps, {
-        [key]: (e) => props[key](e.currentTarget.value, { e }),
-      });
-      return eventProps;
-    }, {});
+    const [composingRefValue, setComposingValue] = useState<string>('');
+    const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
+
+    const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
+    let suffixIconNew = suffixIcon;
+
+    if (isShowClearIcon)
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+    if (type === 'password') {
+      if (renderType === 'password') {
+        suffixIconNew = (
+          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+        );
+      } else if (renderType === 'text') {
+        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
+      }
+    }
+
+    const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
+    const labelContent = isFunction(label) ? label() : label;
+    const suffixContent = isFunction(suffix) ? suffix() : suffix;
+
+    useEffect(() => {
+      if (!autoWidth) return;
+      inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
+    }, [autoWidth, value, placeholder]);
 
     const renderInput = (
       <input
-        className={`${classPrefix}-${componentType}__inner`}
+        ref={inputRef}
+        placeholder={placeholder}
+        type={renderType}
+        className={`${classPrefix}-input__inner`}
+        value={composingRef.current ? composingRefValue : value}
         readOnly={readonly}
         disabled={disabled}
-        {...inputProps}
-        value={composingRef.current ? composingRefValue : value}
-        {...eventProps}
+        autoComplete={autocomplete}
         autoFocus={autofocus}
+        maxLength={maxlength}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onKeyPress={handleKeyPress}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onPaste={handlePaste}
       />
     );
 
+    const renderInputNode = (
+      <div
+        className={classNames(className, `${classPrefix}-input`, {
+          [`${classPrefix}-is-readonly`]: readonly,
+          [`${classPrefix}-is-disabled`]: disabled,
+          [`${classPrefix}-is-focused`]: isFocused,
+          [`${classPrefix}-size-s`]: size === 'small',
+          [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-align-${align}`]: align,
+          [`${classPrefix}-is-${status}`]: status,
+          [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
+          [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
+          [`${classPrefix}-input--focused`]: isFocused,
+        })}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onWheel={handleWheel}
+        onClick={(e) => onClick?.({ e })}
+      >
+        {prefixIconContent}
+        {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
+        {renderInput}
+        {autoWidth && (
+          <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
+            {value || props.placeholder}
+          </span>
+        )}
+        {suffixContent ? <div className={`${classPrefix}-input__suffix`}>{suffixContent}</div> : null}
+        {suffixIconContent}
+      </div>
+    );
+
+    function togglePasswordVisible() {
+      const toggleType = renderType === 'password' ? 'text' : 'password';
+      setRenderType(toggleType);
+    }
+
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
-      const { value } = e.currentTarget;
+      let { value } = e.currentTarget;
       if (composingRef.current) {
         setComposingValue(value);
       } else {
+        if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
+          const stringInfo = getCharacterLength(value, maxcharacter);
+          value = typeof stringInfo === 'object' && stringInfo.characters;
+        }
         onChange(value, { e });
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      isFunction(onChange) && onChange('', { e });
-      isFunction(onClear) && onClear({ e });
+      onChange?.('', { e });
+      onClear?.({ e });
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
       const {
         key,
         currentTarget: { value },
       } = e;
-      isFunction(onEnter) && key === 'Enter' && onEnter(value, { e });
-      isFunction(onKeydown) && onKeydown(value, { e });
+      key === 'Enter' && onEnter?.(value, { e });
+      onKeydown?.(value, { e });
     }
-    function handleCompositionStart(event: React.CompositionEvent<HTMLInputElement>) {
+    function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      onKeyup?.(value, { e });
+    }
+    function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      onKeypress?.(value, { e });
+    }
+    function handleCompositionStart(e: React.CompositionEvent<HTMLInputElement>) {
       composingRef.current = true;
-      isFunction(onCompositionStart) && onCompositionStart(event);
+      const {
+        currentTarget: { value },
+      } = e;
+      onCompositionstart?.(value, { e });
     }
-    function handleCompositionEnd(event: React.CompositionEvent<HTMLInputElement>) {
+    function handleCompositionEnd(e: React.CompositionEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
       if (composingRef.current) {
         composingRef.current = false;
-        handleChange(event);
+        handleChange(e);
       }
       setComposingValue('');
-      isFunction(onCompositionEnd) && onCompositionEnd(event);
+      onCompositionend?.(value, { e });
     }
+
+    function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      onFocus?.(value, { e });
+      toggleIsFocused(true);
+    }
+
+    function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+      const {
+        currentTarget: { value },
+      } = e;
+      format && onChange(format(value), { e });
+      onBlur?.(value, { e });
+      toggleIsFocused(false);
+    }
+
+    function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
+      const clipData = e.clipboardData;
+      const pasteValue = clipData?.getData('text/plain');
+      onPaste?.({ e, pasteValue });
+    }
+
+    function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+      toggleIsHover(true);
+      onMouseenter?.({ e });
+    }
+
+    function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
+      toggleIsHover(false);
+      onMouseleave?.({ e });
+    }
+
+    function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
+      onWheel?.({ e });
+    }
+
+    useImperativeHandle(ref as InputRefInterface, () => ({
+      currentElement: wrapperRef.current,
+      inputElement: inputRef.current,
+      focus: () => inputRef.current?.focus(),
+      blur: () => inputRef.current?.blur(),
+      select: () => inputRef.current?.select(),
+    }));
 
     return (
       <div
-        ref={ref}
+        ref={wrapperRef}
         style={style}
-        className={classNames(className, `${classPrefix}-${componentType}`, {
-          [`${classPrefix}-is-disabled`]: disabled,
-          [`${classPrefix}-size-s`]: size === 'small',
-          [`${classPrefix}-size-l`]: size === 'large',
-          [`${classPrefix}-is-${status}`]: status,
-          [`${classPrefix}-${componentType}--prefix`]: prefixIcon,
-          [`${classPrefix}-${componentType}--suffix`]: suffixIconContent,
+        className={classNames(`${classPrefix}-input__wrap`, {
+          [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
-        onMouseEnter={() => toggleIsHover(true)}
-        onMouseLeave={() => toggleIsHover(false)}
+        {...restProps}
       >
-        {prefixIconContent}
-        {renderInput}
-        {suffixIconContent}
+        {renderInputNode}
+        {tips && (
+          <div
+            className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status || 'normal'}`)}
+          >
+            {tips}
+          </div>
+        )}
       </div>
     );
   },

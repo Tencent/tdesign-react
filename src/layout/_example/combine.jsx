@@ -1,34 +1,95 @@
 import React from 'react';
 import { Layout, Menu } from 'tdesign-react';
+import {
+  SearchIcon,
+  NotificationFilledIcon,
+  HomeIcon,
+  DashboardIcon,
+  ServerIcon,
+  RootListIcon,
+  ControlPlatformIcon,
+  PreciseMonitorIcon,
+  MailIcon,
+  UserCircleIcon,
+  PlayCircleIcon,
+  Edit1Icon,
+} from 'tdesign-icons-react';
 
-const { MenuItem } = Menu;
+const { HeadMenu, MenuItem } = Menu;
 
-const Logo = () => <span>LOGO</span>;
-
-function BasicUsage(props) {
+function BasicUsage() {
   return (
-    <Menu style={{ width: '100%', height: '100%', boxShadow: 'none' }} logo={<Logo />} {...props}>
-      <MenuItem value="1">侧边内容一</MenuItem>
-      <MenuItem value="2">侧边内容二</MenuItem>
-      <MenuItem value="3">侧边内容三</MenuItem>
-      <MenuItem value="4">侧边内容四</MenuItem>
-      <MenuItem value="5">侧边内容无</MenuItem>
+    <Menu theme="light" value="dashboard" style={{ marginRight: 50, height: 550 }}>
+      <MenuItem value="dashboard" icon={<DashboardIcon />}>
+        仪表盘
+      </MenuItem>
+      <MenuItem value="resource" icon={<ServerIcon />}>
+        
+        资源列表
+      </MenuItem>
+      <MenuItem value="root">
+        <RootListIcon />
+        根目录
+      </MenuItem>
+      <MenuItem value="control-platform" icon={<ControlPlatformIcon />}>
+        
+        调度平台
+      </MenuItem>
+      <MenuItem value="precise-monitor" icon={<PreciseMonitorIcon />}>
+        
+        精准监控
+      </MenuItem>
+      <MenuItem value="mail" icon={<MailIcon />}>
+        
+        消息区
+      </MenuItem>
+      <MenuItem value="user-circle" icon={<UserCircleIcon />}>
+        
+        个人中心
+      </MenuItem>
+      <MenuItem value="play-circle" icon={<PlayCircleIcon />}>
+        
+        视频区
+      </MenuItem>
+      <MenuItem value="edit1" icon={<Edit1Icon />}>
+        
+        资源编辑
+      </MenuItem>
     </Menu>
   );
 }
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
-    <>
-      <h4>组合导航布局</h4>
+    <div className="tdesign-demo-item--layout">
       <Layout>
-        <Header>Header</Header>
+        <Header>
+          <HeadMenu
+            value="item1"
+            height="120px"
+            logo={<img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />}
+            operations={
+              <div className="t-menu__operations">
+                <SearchIcon className="t-menu__operations-icon" />
+                <NotificationFilledIcon className="t-menu__operations-icon" />
+                <HomeIcon className="t-menu__operations-icon" />
+              </div>
+            }
+          >
+            <MenuItem value="item1">已选内容</MenuItem>
+            <MenuItem value="item2">菜单内容一</MenuItem>
+            <MenuItem value="item3">菜单内容二</MenuItem>
+            <MenuItem value="item4" disabled>
+              菜单内容三
+            </MenuItem>
+          </HeadMenu>
+        </Header>
         <Layout>
-          <Sider>
+          <Aside style={{ borderTop: '1px solid var(--component-border)' }}>
             <BasicUsage />
-          </Sider>
+          </Aside>
           <Layout>
             <Content>
               <div>Content</div>
@@ -37,6 +98,6 @@ export default function BasicDivider() {
           </Layout>
         </Layout>
       </Layout>
-    </>
+    </div>
   );
 }

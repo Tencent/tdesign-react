@@ -1,36 +1,62 @@
 import React, { useState } from 'react';
-import { Tabs, Button } from 'tdesign-react';
-import { DiscountIcon } from 'tdesign-icons-react';
+import { Tabs, Radio } from 'tdesign-react';
+import { DiscountIcon, ToolsIcon, TipsIcon } from 'tdesign-icons-react';
 
 const { TabPanel } = Tabs;
 
 export default function IconTabs() {
-  const [isCard, setIsCard] = useState(false);
-  const desc = `切换到${isCard ? '常规型' : '卡片型'}`;
-  const theme = isCard ? 'card' : 'normal';
-  const toggle = () => {
-    setIsCard(!isCard);
+  const [theme, setTheme] = useState(false);
+
+  const handleChange = (value) => {
+    setTheme(value);
   };
-  const label = (
-    <div>
-      <DiscountIcon />
-      选项卡
-    </div>
-  );
   return (
-    <div className="tdesign-demo-tabs">
-      <Button variant="outline" onClick={toggle}>
-        {desc}
-      </Button>
+    <div className="tdesign-demo-block-column-large">
+      <div>
+        <Radio.Group variant="default-filled" defaultValue="normal" onChange={handleChange}>
+          <Radio.Button value="normal">常规</Radio.Button>
+          <Radio.Button value="card">卡片</Radio.Button>
+        </Radio.Group>
+      </div>
       <Tabs placement={'top'} defaultValue={'a'} theme={theme}>
-        <TabPanel value="a" label={label}>
-          <div className="tabs-content" style={{ margin: 20 }}>选项卡1</div>
+        <TabPanel
+          value="a"
+          label={
+            <>
+              <DiscountIcon />
+              选项卡1
+            </>
+          }
+        >
+          <div className="tabs-content" style={{ margin: 20 }}>
+            选项卡1内容区
+          </div>
         </TabPanel>
-        <TabPanel value="b" label={label}>
-          <div className="tabs-content" style={{ margin: 20 }}>选项卡2</div>
+        <TabPanel
+          value="b"
+          label={
+            <>
+              <ToolsIcon />
+              选项卡2
+            </>
+          }
+        >
+          <div className="tabs-content" style={{ margin: 20 }}>
+            选项卡2内容区
+          </div>
         </TabPanel>
-        <TabPanel value="c" label={label}>
-          <div className="tabs-content" style={{ margin: 20 }}>选项卡3</div>
+        <TabPanel
+          value="c"
+          label={
+            <>
+              <TipsIcon />
+              选项卡3
+            </>
+          }
+        >
+          <div className="tabs-content" style={{ margin: 20 }}>
+            选项卡3内容区
+          </div>
         </TabPanel>
       </Tabs>
     </div>

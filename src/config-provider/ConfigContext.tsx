@@ -1,29 +1,39 @@
 import { createContext } from 'react';
+import merge from 'lodash/merge';
 import defaultLocale from '../locale/zh_CN';
+import DEFAULT_GLOBAL_CONFIG from './zh_CN_config';
+
+export enum EAnimationType {
+  ripple = 'ripple',
+  expand = 'expand',
+  fade = 'fade',
+}
 
 export const defaultClassPrefix = 't';
 
-export interface Config {
-  /**
-   * 组件类名前缀
-   *
-   * @default 't'
-   */
-  classPrefix?: string;
+export const defaultAnimation = {
+  include: [EAnimationType.ripple, EAnimationType.expand, EAnimationType.fade],
+  exclude: [],
+};
 
-  /**
-   * 组件语言版本
-   *
-   * @default defaultLocale
-   */
-  locale?: object;
+export const defaultGlobalConfig = {
+  animation: defaultAnimation,
+  classPrefix: defaultClassPrefix,
+  ...merge(defaultLocale, DEFAULT_GLOBAL_CONFIG),
+};
+
+export type Locale = typeof defaultLocale;
+
+export type GlobalConfig = typeof defaultGlobalConfig;
+
+export interface Config {
+  globalConfig?: GlobalConfig;
 }
 
 export const defaultContext = {
-  classPrefix: defaultClassPrefix,
-  locale: defaultLocale,
+  globalConfig: defaultGlobalConfig,
 };
 
-const ConfigContext = createContext<Config>(defaultContext);
+const ConfigContext = createContext(defaultContext);
 
 export default ConfigContext;

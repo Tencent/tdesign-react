@@ -3,7 +3,7 @@ import { Layout, Menu } from 'tdesign-react';
 
 const { MenuItem } = Menu;
 
-const Logo = () => <span>LOGO</span>;
+const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
 
 function BasicUsage(props) {
   return (
@@ -17,16 +17,16 @@ function BasicUsage(props) {
   );
 }
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
     <>
       <h4>侧边导航布局</h4>
       <Layout>
-        <Sider>
+        <Aside>
           <BasicUsage />
-        </Sider>
+        </Aside>
         <Layout>
           <Content>
             <div>Content</div>

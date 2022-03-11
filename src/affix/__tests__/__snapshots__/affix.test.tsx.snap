@@ -6,13 +6,12 @@ exports[`base.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
           class="t-button__text"
         >
-          Base
+          固钉
         </span>
       </button>
     </div>
@@ -26,19 +25,18 @@ exports[`container.jsx 1`] = `
     style="border-radius: 3px; height: 400px; overflow-x: hidden; overflow-y: auto;"
   >
     <div
-      style="height: 1500px; padding-top: 200px; background-color: rgb(238, 238, 238); background-size: 30px 30px;"
+      style="height: 1500px; padding-top: 700px; background-color: rgb(238, 238, 238); background-size: 30px 30px;"
     >
       <div>
         <div>
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
               class="t-button__text"
             >
-              Container
+              FixedTop top: 0
             </span>
           </button>
         </div>

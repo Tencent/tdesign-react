@@ -12,8 +12,8 @@ export default function CheckboxControlledExample() {
       </div>
 
       <div style={{ margin: '16px 0' }}>
-        <Button onClick={() => setChecked(false)}>删除</Button>
-        <Button style={{ marginLeft: 16 }} onClick={() => setChecked(true)}>开启</Button>
+        <Button onClick={() => setChecked(false)}>重置</Button>
+        <Button style={{ marginLeft: 16 }} onClick={() => setChecked(true)}>全选</Button>
       </div>
     </>
   );

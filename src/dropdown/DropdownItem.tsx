@@ -4,15 +4,17 @@ import { ChevronRightIcon as TIconChevronRight } from 'tdesign-icons-react';
 import { DropdownOption, TdDropdownProps } from './type';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
+import { pxCompat } from '../_util/helper';
 import TDivider from '../divider';
 
 type DropdownItemProps = Pick<DropdownOption, 'content' | 'value' | 'divider' | 'onClick'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> & {
-    path: string;
-    hasChildren: boolean;
-    active: boolean;
-    disabled: boolean;
-    onHover: (path: string) => void;
+    path?: string;
+    hasChildren?: boolean;
+    active?: boolean;
+    disabled?: boolean;
+    onHover?: (path: string) => void;
+    children?: React.ReactChild;
   };
 
 const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<HTMLButtonElement>) => {
@@ -26,8 +28,8 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     content,
     value,
     divider,
+    children,
   } = props;
-
   const { classPrefix } = useConfig();
   const dropdownItemRef = useRef(null);
 
@@ -43,7 +45,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
         path,
         content,
       };
-      props.onClick(data, { e });
+      props?.onClick?.(data, { e });
     }
   };
   const handleMouseover = (): void => {
@@ -58,15 +60,15 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
           [`${classPrefix}-is-active`]: active,
         })}
         style={{
-          maxWidth: `${maxColumnWidth}px`,
-          minWidth: `${minColumnWidth}px`,
+          maxWidth: pxCompat(maxColumnWidth),
+          minWidth: pxCompat(minColumnWidth),
         }}
         onClick={handleItemClick}
         onMouseOver={handleMouseover}
         ref={ref || dropdownItemRef}
       >
         <div className={`${dropdownItemClass}-content`}>
-          <span className={`${dropdownItemClass}-text`}>{content}</span>
+          <span className={`${dropdownItemClass}-text`}>{children || content}</span>
         </div>
         {renderSuffix()}
       </div>
@@ -74,5 +76,7 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
     </div>
   );
 });
+
+DropdownItem.displayName = 'DropdownItem';
 
 export default DropdownItem;

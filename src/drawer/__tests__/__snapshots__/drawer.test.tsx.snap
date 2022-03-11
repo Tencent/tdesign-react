@@ -34,7 +34,7 @@ exports[`attach-parent.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              left
+              左侧
             </span>
           </label>
           <label
@@ -53,7 +53,7 @@ exports[`attach-parent.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              right
+              右侧
             </span>
           </label>
           <label
@@ -71,7 +71,7 @@ exports[`attach-parent.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              top
+              上方
             </span>
           </label>
           <label
@@ -89,7 +89,7 @@ exports[`attach-parent.jsx 1`] = `
             <span
               class="t-radio-button__label"
             >
-              bottom
+              下方
             </span>
           </label>
         </div>
@@ -143,7 +143,6 @@ exports[`attach-parent.jsx 1`] = `
       <div>
         <button
           class="t-button t-button--theme-primary t-button--variant-base"
-          style="position: relative;"
           type="button"
         >
           <span
@@ -202,7 +201,6 @@ exports[`attach-parent.jsx 1`] = `
               >
                 <button
                   class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                  style="position: relative;"
                   type="button"
                 >
                   <span
@@ -213,7 +211,6 @@ exports[`attach-parent.jsx 1`] = `
                 </button>
                 <button
                   class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                  style="position: relative;"
                   type="button"
                 >
                   <span
@@ -237,13 +234,12 @@ exports[`base.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        Open a Drawer
+        打开抽屉
       </span>
     </button>
     <div>
@@ -278,13 +274,13 @@ exports[`base.jsx 1`] = `
           <div
             class="t-drawer__header"
           >
-            这是标题
+            抽屉标题
           </div>
           <div
             class="t-drawer__body"
           >
             <p>
-              This is a drawer
+              抽屉的内容
             </p>
           </div>
           <div
@@ -295,7 +291,6 @@ exports[`base.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -306,7 +301,6 @@ exports[`base.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -329,13 +323,12 @@ exports[`custom.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        Open
+        打开抽屉
       </span>
     </button>
     <div>
@@ -386,7 +379,6 @@ exports[`custom.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -408,13 +400,12 @@ exports[`destroy.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        Open
+        打开抽屉
       </span>
     </button>
     <div>
@@ -450,7 +441,7 @@ exports[`destroy.jsx 1`] = `
             class="t-drawer__body"
           >
             <p>
-              This is a drawer
+              抽屉的内容
             </p>
           </div>
           <div
@@ -461,7 +452,6 @@ exports[`destroy.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -472,7 +462,6 @@ exports[`destroy.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -495,13 +484,12 @@ exports[`no-mask.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        Open
+        打开抽屉
       </span>
     </button>
     <div>
@@ -533,13 +521,13 @@ exports[`no-mask.jsx 1`] = `
           <div
             class="t-drawer__header"
           >
-            标题名称
+            抽屉标题
           </div>
           <div
             class="t-drawer__body"
           >
             <p>
-              This is a drawer
+              抽屉的内容
             </p>
           </div>
           <div
@@ -550,7 +538,6 @@ exports[`no-mask.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -561,7 +548,6 @@ exports[`no-mask.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -584,13 +570,12 @@ exports[`operation.jsx 1`] = `
   <div>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        Open
+        打开抽屉
       </span>
     </button>
     <div>
@@ -625,7 +610,7 @@ exports[`operation.jsx 1`] = `
           <div
             class="t-drawer__header"
           >
-            标题名称
+            抽屉标题
           </div>
           <div
             class="t-drawer__body"
@@ -652,12 +637,16 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input__wrap"
                     >
-                      <input
-                        class="t-input__inner"
-                        value=""
-                      />
+                      <div
+                        class="t-input"
+                      >
+                        <input
+                          class="t-input__inner"
+                          value=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -681,12 +670,16 @@ exports[`operation.jsx 1`] = `
                     class="t-form__controls-content"
                   >
                     <div
-                      class="t-input"
+                      class="t-input__wrap"
                     >
-                      <input
-                        class="t-input__inner"
-                        value=""
-                      />
+                      <div
+                        class="t-input"
+                      >
+                        <input
+                          class="t-input__inner"
+                          value=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -701,7 +694,6 @@ exports[`operation.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -712,7 +704,6 @@ exports[`operation.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -751,7 +742,7 @@ exports[`placement.jsx 1`] = `
         <span
           class="t-radio-button__label"
         >
-          left
+          左侧
         </span>
       </label>
       <label
@@ -770,7 +761,7 @@ exports[`placement.jsx 1`] = `
         <span
           class="t-radio-button__label"
         >
-          right
+          右侧
         </span>
       </label>
       <label
@@ -788,7 +779,7 @@ exports[`placement.jsx 1`] = `
         <span
           class="t-radio-button__label"
         >
-          top
+          上方
         </span>
       </label>
       <label
@@ -806,21 +797,23 @@ exports[`placement.jsx 1`] = `
         <span
           class="t-radio-button__label"
         >
-          bottom
+          下方
         </span>
       </label>
     </div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-left: 16px; position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+    <div>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-top: 20px;"
+        type="button"
       >
-        Open
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          打开抽屉
+        </span>
+      </button>
+    </div>
     <div>
       <div
         class="t-drawer t-drawer--right"
@@ -854,7 +847,7 @@ exports[`placement.jsx 1`] = `
             class="t-drawer__body"
           >
             <p>
-              This is a drawer
+              抽屉的内容
             </p>
           </div>
           <div
@@ -865,7 +858,6 @@ exports[`placement.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -876,7 +868,6 @@ exports[`placement.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -899,88 +890,6 @@ exports[`popup.jsx 1`] = `
   <div
     class="tdesign-demo-block-column"
   >
-    <div>
-      <span>
-        抽屉弹出方向：
-      </span>
-      <div
-        class="t-radio-group t-size-m t-radio-group__outline"
-      >
-        <label
-          class="t-radio-button"
-        >
-          <input
-            class="t-radio-button__former"
-            readonly=""
-            type="radio"
-            value="left"
-          />
-          <span
-            class="t-radio-button__input"
-          />
-          <span
-            class="t-radio-button__label"
-          >
-            left
-          </span>
-        </label>
-        <label
-          class="t-radio-button t-is-checked"
-        >
-          <input
-            checked=""
-            class="t-radio-button__former"
-            readonly=""
-            type="radio"
-            value="right"
-          />
-          <span
-            class="t-radio-button__input"
-          />
-          <span
-            class="t-radio-button__label"
-          >
-            right
-          </span>
-        </label>
-        <label
-          class="t-radio-button"
-        >
-          <input
-            class="t-radio-button__former"
-            readonly=""
-            type="radio"
-            value="top"
-          />
-          <span
-            class="t-radio-button__input"
-          />
-          <span
-            class="t-radio-button__label"
-          >
-            top
-          </span>
-        </label>
-        <label
-          class="t-radio-button"
-        >
-          <input
-            class="t-radio-button__former"
-            readonly=""
-            type="radio"
-            value="bottom"
-          />
-          <span
-            class="t-radio-button__input"
-          />
-          <span
-            class="t-radio-button__label"
-          >
-            bottom
-          </span>
-        </label>
-      </div>
-    </div>
     <div>
       <span>
         抽屉弹出模式：
@@ -1030,13 +939,12 @@ exports[`popup.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
           class="t-button__text"
         >
-          Open
+          打开抽屉
         </span>
       </button>
     </div>
@@ -1049,83 +957,6 @@ exports[`size.jsx 1`] = `
   <div
     class="tdesign-demo-block-column"
   >
-    <div
-      class="t-radio-group t-size-m t-radio-group__outline"
-    >
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          readonly=""
-          type="radio"
-          value="left"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          left
-        </span>
-      </label>
-      <label
-        class="t-radio-button t-is-checked"
-      >
-        <input
-          checked=""
-          class="t-radio-button__former"
-          readonly=""
-          type="radio"
-          value="right"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          right
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          readonly=""
-          type="radio"
-          value="top"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          top
-        </span>
-      </label>
-      <label
-        class="t-radio-button"
-      >
-        <input
-          class="t-radio-button__former"
-          readonly=""
-          type="radio"
-          value="bottom"
-        />
-        <span
-          class="t-radio-button__input"
-        />
-        <span
-          class="t-radio-button__label"
-        >
-          bottom
-        </span>
-      </label>
-    </div>
     <div
       class="t-radio-group t-size-m t-radio-group__outline"
     >
@@ -1242,13 +1073,12 @@ exports[`size.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
           class="t-button__text"
         >
-          Open
+          打开抽屉
         </span>
       </button>
     </div>
@@ -1285,7 +1115,7 @@ exports[`size.jsx 1`] = `
             class="t-drawer__body"
           >
             <p>
-              This is a drawer
+              抽屉的内容
             </p>
           </div>
           <div
@@ -1296,7 +1126,6 @@ exports[`size.jsx 1`] = `
             >
               <button
                 class="t-drawer__confirm t-button t-button--theme-primary t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span
@@ -1307,7 +1136,6 @@ exports[`size.jsx 1`] = `
               </button>
               <button
                 class="t-drawer__cancel t-button t-button--theme-default t-button--variant-base"
-                style="position: relative;"
                 type="button"
               >
                 <span

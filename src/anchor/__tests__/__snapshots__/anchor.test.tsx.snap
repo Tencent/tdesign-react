@@ -279,7 +279,7 @@ exports[`large.jsx 1`] = `
     id="size-large"
   >
     <div
-      class="t-anchor t-size-m"
+      class="t-anchor t-size-l"
     >
       <div
         class="t-anchor__line"
@@ -465,17 +465,17 @@ exports[`multiple.jsx 1`] = `
 exports[`small.jsx 1`] = `
 <DocumentFragment>
   <div
-    id="size"
+    id="size-small"
   >
     <div
-      class="t-anchor t-size-m"
+      class="t-anchor t-size-s"
     >
       <div
         class="t-anchor__line"
       >
         <div
           class="t-anchor__line-cursor-wrapper"
-          style="top: 0px; height: 0px; opacity: 1;"
+          style=""
         >
           <div
             class="t-anchor__line-cursor"
@@ -505,7 +505,7 @@ exports[`small.jsx 1`] = `
         </a>
       </div>
       <div
-        class="t-anchor__item t-is-active"
+        class="t-anchor__item"
       >
         <a
           class="t-anchor__item-link"
@@ -515,7 +515,7 @@ exports[`small.jsx 1`] = `
           尺寸大小
         </a>
         <div
-          class="t-anchor__item t-is-active"
+          class="t-anchor__item"
         >
           <a
             class="t-anchor__item-link"

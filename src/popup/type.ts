@@ -2,11 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-20 13:35:48
  * */
 
 import { TNode, ClassName, Styles, AttachNode } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
+import { MouseEvent, KeyboardEvent, FocusEvent, WheelEvent } from 'react';
 
 export interface TdPopupProps {
   /**
@@ -33,13 +32,18 @@ export interface TdPopupProps {
    */
   disabled?: boolean;
   /**
+   * 【开发中】浮层是否隐藏空内容，默认不隐藏
+   * @default false
+   */
+  hideEmptyPopup?: boolean;
+  /**
    * 浮层类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
    */
   overlayClassName?: ClassName;
   /**
-   * 浮层样式
+   * 浮层样式，第一个参数 `triggerElement` 表示触发元素 DOM 节点，第二个参数 `popupElement` 表示浮层元素 DOM 节点
    */
-  overlayStyle?: Styles | ((trigger: HTMLElement) => Styles);
+  overlayStyle?: Styles | ((triggerElement: HTMLElement, popupElement: HTMLElement) => Styles);
   /**
    * 浮层出现位置
    * @default top
@@ -85,6 +89,10 @@ export interface TdPopupProps {
    * 组件层级，Web 侧样式默认为 5500，移动端和小程序样式默认为 1500
    */
   zIndex?: number;
+  /**
+   * 下拉选项滚动事件
+   */
+  onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
    * 当浮层隐藏或显示时触发
    */

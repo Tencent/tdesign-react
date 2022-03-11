@@ -3,7 +3,7 @@ import { Button } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <div className="tdesign-demo-block-column" style={{ background: '#242424', padding: 24 }}>
+    <div className="tdesign-demo-block-column">
       <div className="tdesign-demo-block-row">
         <Button variant="outline" ghost>
           幽灵按钮

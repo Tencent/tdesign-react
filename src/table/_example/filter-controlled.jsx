@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'tdesign-react';
+import { Table, Button, DatePicker } from 'tdesign-react';
 
 const columns = [
   {
@@ -68,14 +68,30 @@ const columns = [
       ],
     },
   },
+  {
+    title: '自定义过滤',
+    colKey: 'createTime',
+    // 自定义过滤组件
+    filter: {
+      component: <DatePicker clearable />,
+    },
+  },
 ];
 const initData = [
-  { id: 1, instance: 'JQTest1', status: 0, owner: 'jenny;peter', survivalTime: 300, area: '广州' },
-  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000, area: '上海' },
-  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500, area: '北京' },
-  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500, area: '成都' },
-  { id: 5, instance: 'JQTest5', status: 1, owner: 'jeff', survivalTime: 500, area: '深圳' },
-  { id: 6, instance: 'JQTest1', status: 1, owner: 'tony', survivalTime: 800, area: '南京' },
+  {
+    id: 1,
+    instance: 'JQTest1',
+    status: 0,
+    owner: 'jenny;peter',
+    survivalTime: 300,
+    area: '广州',
+    createTime: '2021-11-01',
+  },
+  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000, area: '上海', createTime: '2021-12-01' },
+  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500, area: '北京', createTime: '2022-01-01' },
+  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500, area: '成都', createTime: '2022-02-01' },
+  { id: 5, instance: 'JQTest5', status: 1, owner: 'jeff', survivalTime: 500, area: '深圳', createTime: '2022-03-01' },
+  { id: 6, instance: 'JQTest1', status: 1, owner: 'tony', survivalTime: 800, area: '南京', createTime: '2022-04-01' },
 ];
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);

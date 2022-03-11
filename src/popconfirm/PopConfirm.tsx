@@ -4,13 +4,17 @@ import Popup from '../popup/Popup';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
 import PopContent from './PopContent';
 
 export type PopConfirmProps = TdPopconfirmProps;
 
-const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, ref) => {
+const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
   const { classPrefix } = useConfig();
+  const [local, t] = useLocaleReceiver('popconfirm');
+  const { cancelBtn = t(local.cancel), confirmBtn = t(local.confirm) } = props;
+
   const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 
   return (
@@ -22,7 +26,12 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, re
       onVisibleChange={(visible) => setVisible(visible)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={
-        <PopContent {...props} onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)} />
+        <PopContent
+          cancelBtn={cancelBtn}
+          confirmBtn={confirmBtn}
+          {...props}
+          onClose={(context: PopconfirmVisibleChangeContext) => setVisible(false, context)}
+        />
       }
       {...props.popupProps}
     />
@@ -32,9 +41,8 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>(({ ...props }, re
 PopConfirm.displayName = 'PopConfirm';
 
 PopConfirm.defaultProps = {
+  destroyOnClose: true,
   showArrow: true,
-  cancelBtn: '取消',
-  confirmBtn: '确定',
   onCancel: noop,
   onConfirm: noop,
   theme: 'default',

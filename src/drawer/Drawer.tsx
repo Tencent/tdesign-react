@@ -1,15 +1,16 @@
-import React, { forwardRef, useState, useContext, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef } from 'react';
 import classnames from 'classnames';
-
 import { CloseIcon } from 'tdesign-icons-react';
+
+import { addClass, removeClass } from '../_util/dom';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ConfigContext } from '../config-provider';
 import getScrollbarWidth from '../_util/getScrollbarWidth';
 import hasScrollBar from '../_util/hasScrollBar';
 import { TdDrawerProps, DrawerEventSource } from './type';
 import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
+import useConfig from '../_util/useConfig';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -59,6 +60,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     zIndex,
     destroyOnClose,
     mode,
+    preventScrollThrough = true,
   } = props;
 
   // 国际化文本初始化
@@ -66,11 +68,12 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
 
-  const { classPrefix } = useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const containerRef = useRef<HTMLDivElement>();
   const contentWrapperRef = useRef<HTMLDivElement>();
-  const drawerRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
+  const drawerWrapperRef = useRef<HTMLElement>(); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
+  const lockCls = `${prefixCls}--lock`;
 
   const transform = visible ? 'translate(0px)' : '';
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
@@ -78,6 +81,16 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
 
   useImperativeHandle(ref, () => containerRef.current);
+
+  useEffect(() => {
+    if (preventScrollThrough) {
+      if (visible && !showInAttachedElement) {
+        addClass(document.body, lockCls);
+      } else {
+        removeClass(document.body, lockCls);
+      }
+    }
+  }, [visible, showInAttachedElement, lockCls, preventScrollThrough]);
 
   // 重置销毁钩子判断
   useEffect(() => {
@@ -102,7 +115,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     }
 
     if (mode === 'push') {
-      drawerRef.current.style.cssText = 'transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s';
+      drawerWrapperRef.current.style.cssText = 'transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s';
 
       const marginStr = {
         left: `margin: 0 0 0 ${getSizeValue(size)}`,
@@ -112,9 +125,9 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
       }[placement];
 
       if (visible) {
-        drawerRef.current.style.cssText += marginStr;
+        drawerWrapperRef.current.style.cssText += marginStr;
       } else {
-        drawerRef.current.style.cssText = drawerRef.current.style.cssText.replace(/margin:.+;/, '');
+        drawerWrapperRef.current.style.cssText = drawerWrapperRef.current.style.cssText.replace(/margin:.+;/, '');
       }
     }
 
@@ -188,7 +201,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     const defaultConfirmBtn = (
       <Button theme="primary" onClick={onConfirmClick} className={`${prefixCls}__confirm`}>
-        {confirmText}
+        {confirmBtn && typeof confirmBtn === 'string' ? confirmBtn : confirmText}
       </Button>
     );
 
@@ -202,19 +215,19 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     return (
       <div style={footerStyle}>
-        {placement === 'right' ? renderConfirmBtn : null}
+        {placement === 'right' && renderConfirmBtn}
         {renderCancelBtn}
-        {placement !== 'right' ? renderConfirmBtn : null}
+        {placement !== 'right' && renderConfirmBtn}
       </div>
     );
   }
 
-  const renderOverlay = showOverlay ? <div className={`${prefixCls}__mask`} onClick={onMaskClick} /> : null;
-  const renderCloseBtn = closeBtn ? (
+  const renderOverlay = showOverlay && <div className={`${prefixCls}__mask`} onClick={onMaskClick} />;
+  const renderCloseBtn = closeBtn && (
     <div onClick={onClickCloseBtn} className={`${prefixCls}__close-btn`}>
       {closeIcon}
     </div>
-  ) : null;
+  );
   const renderHeader = header && <div className={`${prefixCls}__header`}>{header}</div>;
   const renderBody = <div className={`${prefixCls}__body`}>{body || children}</div>;
   const renderFooter = footer && <div className={`${prefixCls}__footer`}>{getFooter()}</div>;
@@ -222,7 +235,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   if (isDestroyOnClose && !visible) return null;
 
   return (
-    <DrawerWrapper attach={attach} ref={drawerRef}>
+    <DrawerWrapper attach={attach} ref={drawerWrapperRef}>
       <div
         ref={containerRef}
         className={drawerClass}

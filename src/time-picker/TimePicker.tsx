@@ -55,6 +55,7 @@ const TimePicker = forwardRefWithStatics(
     const name = `${classPrefix}-time-picker`;
     const inputClasses = classNames(`${name}__group`, {
       [`${classPrefix}-is-focused`]: isPanelShowed,
+      [`${classPrefix}-input--focused`]: isPanelShowed,
     });
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -78,7 +79,10 @@ const TimePicker = forwardRefWithStatics(
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             onChange={onChange}
-            handleConfirmClick={() => setPanelShow(false)}
+            handleConfirmClick={(value) => {
+              onChange(dayjs(value).format(format));
+              setPanelShow(false);
+            }}
             value={value}
           />
         }

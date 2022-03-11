@@ -2,13 +2,14 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
+import { TimePickerProps } from '../time-picker';
 import { TElement } from '../common';
-import { FocusEvent, FormEvent } from 'react';
+import { MouseEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdDatePickerProps {
   /**
@@ -84,6 +85,10 @@ export interface TdDatePickerProps {
    */
   suffixIcon?: TElement;
   /**
+   * 透传 TimePicker 组件属性
+   */
+  timePickerProps?: TimePickerProps;
+  /**
    * 选中值
    */
   value?: DateValue;
@@ -107,6 +112,10 @@ export interface TdDatePickerProps {
    * 输入框数据发生变化时触发，参数 input 表示输入内容，value 表示组件当前有效值
    */
   onInput?: (context: { input: string; value: DateValue; e: FormEvent<HTMLInputElement> }) => void;
+  /**
+   * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
+   */
+  onPick?: (value: DateValue, context: PickContext) => void;
 }
 
 export interface TdDateRangePickerProps {
@@ -202,6 +211,10 @@ export interface TdDateRangePickerProps {
     partial: DateRangePickerPartial;
     e: FormEvent<HTMLDivElement>;
   }) => void;
+  /**
+   * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
+   */
+  onPick?: (value: DateValue, context: PickContext) => void;
 }
 
 export type DisableDate = Array<DateValue> | DisableDateObj | ((date: DateValue) => boolean);
@@ -233,3 +246,8 @@ export interface PresetRange {
 export type DateRange = [DateValue, DateValue];
 
 export type DateRangeValue = Array<DateValue>;
+
+export interface PickContext {
+  e: MouseEvent<HTMLDivElement>;
+  partial: DateRangePickerPartial;
+}

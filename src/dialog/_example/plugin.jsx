@@ -12,6 +12,11 @@ export default function PluginModalExample() {
         console.log('confirm clicked', e);
         mydialog.hide();
       },
+      onClose: ({ e, trigger }) => {
+        console.log('e: ', e);
+        console.log('trigger: ', trigger);
+        mydialog.hide();
+      },
     });
   };
   const handleDN = () => {
@@ -27,6 +32,11 @@ export default function PluginModalExample() {
         console.log('e: ', e);
         dialogNode.hide();
         dialogNode.destroy();
+      },
+      onClose: ({ e, trigger }) => {
+        console.log('e: ', e);
+        console.log('trigger: ', trigger);
+        dialogNode.hide();
       },
     });
   };
