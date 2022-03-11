@@ -30,7 +30,7 @@ options | Array | [] | 数据化配置选项内容。TS 类型：`Array<T>` | N
 panelBottomContent | TNode | - | 面板内的底部内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 panelTopContent | TNode | - | 面板内的顶部内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 placeholder | String | undefined | 占位符 | N
-popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
+popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`PopupProps`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/select/type.ts) | N
 popupVisible | Boolean | undefined | 是否显示下拉框 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
