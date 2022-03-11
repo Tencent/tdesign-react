@@ -4,7 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { InputProps, InputValue } from '../input';
+import { InputProps } from '../input';
+import { InputValue } from '../input';
 import { PopupProps } from '../popup';
 import { TagInputProps, TagInputValue, TagInputChangeContext } from '../tag-input';
 import { TagProps } from '../tag';
@@ -91,11 +92,11 @@ export interface TdSelectInputProps {
    */
   popupProps?: PopupProps;
   /**
-   * 是否显示下拉框，受控属性
+   * 是否显示下拉框
    */
   popupVisible?: boolean;
   /**
-   * 是否只读，值为真会隐藏输入框，且无法打开下拉框
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
    */
   readonly?: boolean;

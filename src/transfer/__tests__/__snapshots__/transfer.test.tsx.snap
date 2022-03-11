@@ -438,7 +438,6 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -462,7 +461,6 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1010,7 +1008,6 @@ exports[`checked.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1034,7 +1031,6 @@ exports[`checked.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1574,7 +1570,6 @@ exports[`custom.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1586,7 +1581,6 @@ exports[`custom.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2191,7 +2185,6 @@ exports[`custom-render.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2215,7 +2208,6 @@ exports[`custom-render.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2348,7 +2340,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2372,7 +2363,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2497,7 +2487,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2521,7 +2510,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2934,7 +2922,6 @@ exports[`pagination.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2958,7 +2945,6 @@ exports[`pagination.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3611,7 +3597,6 @@ exports[`search.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3635,7 +3620,6 @@ exports[`search.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3794,7 +3778,6 @@ exports[`tree.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3818,7 +3801,6 @@ exports[`tree.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
