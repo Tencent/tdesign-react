@@ -3,7 +3,6 @@ import { Dialog, Button } from 'tdesign-react';
 
 export default function BasicUsage() {
   const [visible, setVisible] = useState(false);
-
   const handleClick = () => {
     setVisible(true);
   };
