@@ -146,7 +146,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   return (
     <li
-      className={classNames(`${classPrefix}-submenu`, {
+      className={classNames(className, `${classPrefix}-submenu`, {
         [`${classPrefix}-is-opened`]: open,
       })}
       onMouseEnter={() => handleMouseEvent('enter')}
@@ -154,7 +154,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
     >
       <div
         ref={subMenuRef}
-        className={classNames(className, `${classPrefix}-menu__item`, {
+        className={classNames(`${classPrefix}-menu__item`, {
           [`${classPrefix}-is-active`]: isActive,
           [`${classPrefix}-is-opened`]: open,
         })}
