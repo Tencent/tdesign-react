@@ -23,6 +23,7 @@ import { TdPopupProps } from './type';
 import Portal from '../common/Portal';
 import useTriggerProps from './hooks/useTriggerProps';
 import getTransitionParams from './utils/getTransitionParams';
+import useMutationObserver from '../_util/useMutationObserver';
 
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -70,7 +71,6 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   const popperRef = useRef(null);
   const portalRef = useRef(null);
-  const triggerObserveRef = useRef(null);
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
@@ -157,21 +157,13 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     }
   };
 
-  // 监听 trigger 节点变化动态更新 popup 定位
+  // 监听 trigger 节点或内容变化动态更新 popup 定位
+  useMutationObserver(triggerRef, () => {
+    popperRef.current.update?.();
+  });
   useEffect(() => {
-    if (!triggerRef || !popperRef) return;
-    const config = { attributes: true, childList: true, subtree: true };
-
-    triggerObserveRef.current = new MutationObserver(() => {
-      popperRef.current.update?.();
-    });
-
-    triggerObserveRef.current.observe(triggerRef, config);
-
-    return () => {
-      triggerObserveRef.current.disconnect();
-    };
-  }, [triggerRef, popperRef]);
+    popperRef.current.update?.();
+  }, [content]);
 
   // 初次不渲染.
   const portal =
