@@ -328,10 +328,10 @@ const Select = forwardRefWithStatics(
     return (
       <div className={`${name}__wrap`} style={{ ...style }}>
         <SelectInput
+          autoWidth={!style?.width && autoWidth}
           className={name}
           ref={ref}
           readonly={readonly}
-          autoWidth={!style?.width && autoWidth}
           allowInput={multiple || filterable}
           multiple={multiple}
           value={isString(inputVal) && !multiple ? inputVal : selectedLabel}
