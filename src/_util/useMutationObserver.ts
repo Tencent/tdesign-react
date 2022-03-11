@@ -1,4 +1,4 @@
-import { useRef, useEffect, MutableRefObject } from 'react';
+import { useRef, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 
 const DEFAULT_OPTIONS = {
@@ -12,7 +12,7 @@ const DEFAULT_OPTIONS = {
 };
 
 export default function useMutationObservable(
-  targetEl: MutableRefObject<HTMLElement | null>,
+  targetEl: HTMLElement | null,
   cb: MutationCallback,
   options = DEFAULT_OPTIONS,
 ) {
