@@ -5,6 +5,35 @@ toc: false
 spline: explain
 ---
 
+## 0.27.0 `2022-03-11`
+
+### BREAKING CHANGES
+
+* Input: DOM 结构调整，最外层调整为 `t-input__wrap`
+* Select: 使用 `SelectInput` 组件重构，DOM 结构调整
+
+### Bug Fixes
+
+* Menu:
+  * 修复高度渲染判断问题 ([734f15e](https://github.com/Tencent/tdesign-react/commit/d6caca998090e3172c9cd59ec339440b3a82d597)) [@andyjxli](https://github.com/andyjxli)
+  * `SubMenu` 支持 `className` ([8b6f385](https://github.com/Tencent/tdesign-react/commit/8b6f385fdf0d42a35c70c774448007ba590d12df)) [@andyjxli](https://github.com/andyjxli)
+* Cascader: 修复子节点重复渲染问题 ([88b4973](https://github.com/Tencent/tdesign-react/commit/88b4973fe21bf50497c4aa829e1ddf5eb9a14b0a)) [@pengYYYYY](https://github.com/pengYYYYY)
+* Loading: 修复指令调用后锁屏样式未移除问题 ([f91218b](https://github.com/Tencent/tdesign-react/commit/f91218bf5d266efdf421dc25a4e1748f0781b798)) [@uyarn](https://github.com/uyarn)
+* Radio: 修复动态渲染滑块未展示问题 ([dcd818b](https://github.com/Tencent/tdesign-react/commit/dcd818b05ffe70db271657c51c8fa1ae203cac52)) [@carolin913](https://github.com/carolin913)
+* SelectInput: 修复 `tag` 过多时滚动模式失效 ([3e1fb87](https://github.com/Tencent/tdesign-react/commit/3e1fb874cf9f5df0d5b4477b6b3709ebc04ed66e)) [@carolin913](https://github.com/carolin913) [@LittlehorseXie](https://github.com/LittlehorseXie)
+* Table: 鼠标事件参数未按 `RowEventContext` 定义输出 ([cc102dc](https://github.com/Tencent/tdesign-react/commit/cc102dcbdb52e0935c5958eda4e741d439fa993c)) [@yunfeic](https://github.com/yunfeic)
+
+
+### Features
+
+* Input: 优化 input 样式问题 ([#436](https://github.com/Tencent/tdesign-react/issues/436)) ([87b48e3](https://github.com/Tencent/tdesign-react/commit/87b48e323602a366f5ec2c956d3e383a5f204697)) [@HQ-Lin](https://github.com/HQ-Lin)
+* InputNumber: 快速加减优化 ([c15b02e](https://github.com/Tencent/tdesign-react/commit/c15b02e7ac36cc3acfff038103d39ce842e4a48c)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Message: 支持 `className` ([#468](https://github.com/Tencent/tdesign-react/issues/468)) ([42e97b2](https://github.com/Tencent/tdesign-react/commit/42e97b2b57a7a1d161f08103c1584eb0677bc6f0)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Tabs: 支持 `destroyOnHide` ([faca349](https://github.com/Tencent/tdesign-react/commit/faca349dffd02b8d9ff1bf20c7acae18de868269)) [@docoder](https://github.com/docoder)
+* TagInput: 优化拖拽功能 ([29fc9b4](https://github.com/Tencent/tdesign-react/commit/29fc9b47af6ca7974598e0800b96a62eac53e2d5)) [@LittlehorseXie](https://github.com/LittlehorseXie)
+* Select: 使用 `SelectInput` 组件重构 ([419](https://github.com/Tencent/tdesign-react/pull/419)) [@samhou1988](https://github.com/samhou1988)
+
+
 ## 0.26.0 `2022-03-04`
 
 ### BREAKING CHANGES

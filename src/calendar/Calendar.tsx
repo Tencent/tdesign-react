@@ -374,6 +374,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForMonth && mode === 'month' && (
                 <Select
+                  autoWidth={true}
                   size={controlSectionSize}
                   disabled={disabled}
                   value={month}
