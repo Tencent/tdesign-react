@@ -103,6 +103,23 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`dynamic.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        打开弹窗
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div>
