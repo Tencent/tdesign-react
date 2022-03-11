@@ -1,12 +1,19 @@
-import React, { useRef, createRef, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
 import isFunction from 'lodash/isFunction';
 import flatten from 'lodash/flatten';
 import useConfig from '../_util/useConfig';
+import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdFormProps, FormValidateResult } from './type';
+import type {
+  TdFormProps,
+  FormInstanceFunctions,
+  FormValidateResult,
+  FormResetParams,
+  FormValidateMessage,
+  AllValidateResult,
+} from './type';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -15,10 +22,14 @@ export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
 }
 
-export type Result = FormValidateResult<FormData>;
+export interface FormRefInterface extends React.RefObject<unknown>, FormInstanceFunctions {
+  currentElement: HTMLFormElement;
+}
 
 const Form = forwardRefWithStatics(
   (props: FormProps, ref) => {
+    const { classPrefix, form: globalFormConfig } = useConfig();
+
     const {
       style,
       className,
@@ -28,27 +39,42 @@ const Form = forwardRefWithStatics(
       layout = 'vertical',
       size = 'medium',
       colon = false,
-      requiredMark = true,
+      requiredMark = globalFormConfig.requiredMark,
       scrollToFirstError,
       showErrorMessage = true,
       resetType = 'empty',
       rules,
+      errorMessage = globalFormConfig.errorMessage,
+      preventSubmitDefault = true,
+      disabled,
       children,
       onSubmit,
       onReset,
+      onValuesChange = noop,
     } = props;
-    const { classPrefix } = useConfig();
     const formClass = classNames(className, `${classPrefix}-form`, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 
-    const formRef = useRef(null);
+    const formRef: React.RefObject<HTMLFormElement> = useRef();
     const formItemsRef = useRef([]);
-    formItemsRef.current = React.Children.map(children, (_child, index) => (formItemsRef.current[index] = createRef()));
 
     const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
 
-    function getFirstError(r: Result) {
+    // calc all formItems
+    function getFormItemsMap() {
+      const formItemsMap = formItemsRef.current.reduce((acc, { current: currItem }) => {
+        if (currItem?.name) {
+          const { name } = currItem;
+          return { ...acc, [name]: currItem };
+        }
+        return acc;
+      }, {});
+
+      return formItemsMap;
+    }
+
+    function getFirstError(r: FormValidateResult<FormData>) {
       if (r === true) return;
       const [firstKey] = Object.keys(r);
       if (scrollToFirstError) {
@@ -58,29 +84,34 @@ const Form = forwardRefWithStatics(
     }
     // 校验不通过时，滚动到第一个错误表单
     function scrollTo(selector: string) {
-      const dom = document.querySelector(selector);
+      const dom = formRef.current.querySelector(selector);
       const behavior = scrollToFirstError as ScrollBehavior;
       dom && dom.scrollIntoView({ behavior });
     }
 
     function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-      e?.preventDefault();
+      if (preventSubmitDefault) {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
       validate().then((r) => {
-        getFirstError(r);
-        onSubmit?.({ validateResult: r, e });
+        const firstError = getFirstError(r);
+        onSubmit?.({ validateResult: r, firstError, e });
       });
     }
     function resetHandler(e: React.FormEvent<HTMLFormElement>) {
-      e?.preventDefault();
-      formItemsRef.current.forEach((formItemRef) => {
-        if (!isFunction(formItemRef.resetField)) return;
-        formItemRef.resetField();
+      if (preventSubmitDefault) {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
+      formItemsRef.current.forEach(({ current: formItemRef }) => {
+        formItemRef && formItemRef?.resetField();
       });
       onReset?.({ e });
     }
 
     // 对外方法，该方法会触发全部表单组件错误信息显示
-    function validate(param?: Record<string, any>): Promise<Result> {
+    function validate(param?: Record<string, any>): Promise<FormValidateResult<FormData>> {
       function needValidate(name: string, fields: string[]) {
         if (!fields || !Array.isArray(fields)) return true;
         return fields.indexOf(name) !== -1;
@@ -88,8 +119,11 @@ const Form = forwardRefWithStatics(
 
       const { fields, trigger = 'all' } = param || {};
       const list = formItemsRef.current
-        .filter((formItemRef) => isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields))
-        .map((formItemRef) => formItemRef.validate(trigger));
+        .filter(
+          ({ current: formItemRef }) =>
+            formItemRef && isFunction(formItemRef.validate) && needValidate(formItemRef.name, fields),
+        )
+        .map(({ current: formItemRef }) => formItemRef.validate(trigger));
 
       return new Promise((resolve) => {
         Promise.all(flatten(list))
@@ -98,6 +132,8 @@ const Form = forwardRefWithStatics(
             Object.keys(r).forEach((key) => {
               if (r[key] === true) {
                 delete r[key];
+              } else {
+                r[key] = r[key].filter((fr: AllValidateResult) => fr.result === false);
               }
             });
             resolve(isEmpty(r) ? true : r);
@@ -106,59 +142,116 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    // 对外方法，获取整个表单的值
-    function getAllFieldsValue() {
-      const fieldsValue = {};
-      formItemsRef.current.forEach((formItemRef) => {
-        // name 有可能为undefined。 值为空的时候，不返回（null或者undefined或者空字符串）
-        if (formItemRef?.name && !isNil(formItemRef.value)) {
-          fieldsValue[formItemRef.name] = formItemRef.value;
-        }
-      });
-
-      return fieldsValue;
-    }
-
     // 对外方法，获取对应 formItem 的值
     function getFieldValue(name: string) {
       if (!name) return null;
-      const target = formItemsRef.current.find((formItemRef) => formItemRef.name === name);
-      return target && target.value;
+      const target = formItemsRef.current.find(({ current: formItemRef }) => formItemRef?.name === name);
+      return target.current?.value;
+    }
+
+    // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
+    function getFieldsValue(nameList: string[] | boolean) {
+      const fieldsValue = {};
+      const formItemsMap = getFormItemsMap();
+
+      if (nameList === true) {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          // 过滤无 name 的数据
+          if (formItemRef?.name) {
+            fieldsValue[formItemRef.name] = formItemRef.value;
+          }
+        });
+      } else {
+        if (!Array.isArray(nameList)) throw new Error('getFieldsValue 参数需要 Array 类型');
+        nameList.forEach((name) => {
+          if (formItemsMap[name]) fieldsValue[name] = formItemsMap[name].value;
+        });
+      }
+      return fieldsValue;
     }
 
     // 对外方法，设置对应 formItem 的值
-    function setFieldsValue(fileds = {}) {
-      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
-        const { name } = currItem;
-        return { ...acc, [name]: currItem };
-      }, {});
-      Object.keys(fileds).forEach((key) => {
-        formItemsMap[key]?.setValue(fileds[key]);
+    function setFieldsValue(fields = {}) {
+      const formItemsMap = getFormItemsMap();
+      Object.keys(fields).forEach((key) => {
+        formItemsMap[key]?.setValue(fields[key]);
       });
     }
 
     // 对外方法，设置对应 formItem 的数据
-    function setFields(fileds = []) {
-      if (!Array.isArray(fileds)) throw new Error('setFields 参数需要 Array 类型');
-      const formItemsMap = formItemsRef.current.reduce((acc, currItem) => {
-        const { name } = currItem;
-        return { ...acc, [name]: currItem };
-      }, {});
-      fileds.forEach((filed) => {
-        const { name, value, status } = filed;
+    function setFields(fields = []) {
+      if (!Array.isArray(fields)) throw new Error('setFields 参数需要 Array 类型');
+      const formItemsMap = getFormItemsMap();
+      fields.forEach((field) => {
+        const { name, value, status } = field;
         formItemsMap[name]?.setField({ value, status });
       });
     }
 
-    useImperativeHandle(ref, (): any => ({
+    // 对外方法，重置对应 formItem 的数据
+    function reset(params: FormResetParams) {
+      // reset all
+      if (typeof params === 'undefined') {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          formItemRef && formItemRef?.resetField();
+        });
+      } else {
+        const { type = 'initial', fields = [] } = params;
+        const formItemsMap = getFormItemsMap();
+        fields.forEach((name) => {
+          formItemsMap[name]?.resetField(type);
+        });
+      }
+    }
+
+    // 对外方法，重置对应 formItem 的状态
+    function clearValidate(fields?: Array<keyof FormData>) {
+      // reset all
+      if (typeof fields === 'undefined') {
+        formItemsRef.current.forEach(({ current: formItemRef }) => {
+          formItemRef && formItemRef?.resetValidate();
+        });
+      } else {
+        if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
+        const formItemsMap = getFormItemsMap();
+        fields.forEach((name) => {
+          formItemsMap[name]?.resetValidate();
+        });
+      }
+    }
+
+    // 对外方法，设置 formItem 的错误信息
+    function setValidateMessage(message: FormValidateMessage<FormData>) {
+      const formItemsMap = getFormItemsMap();
+      Object.keys(message).forEach((name) => {
+        formItemsMap[name].setValidateMessage(message[name]);
+      });
+    }
+
+    useImperativeHandle(ref as FormRefInterface, () => ({
+      currentElement: formRef.current,
       submit: submitHandler,
-      reset: resetHandler,
+      reset,
       getFieldValue,
+      getFieldsValue,
       setFieldsValue,
       setFields,
       validate,
-      getAllFieldsValue,
+      clearValidate,
+      setValidateMessage,
     }));
+
+    function onFormItemValueChange(changedValue: Record<string, unknown>) {
+      const allFields = getFieldsValue(true);
+      onValuesChange(changedValue, allFields);
+    }
+
+    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
+      if (preventSubmitDefault && e.key === 'Enter') {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
+    }
 
     return (
       <FormContext.Provider
@@ -170,24 +263,25 @@ const Form = forwardRefWithStatics(
           size,
           colon,
           requiredMark,
+          errorMessage,
           showErrorMessage,
           scrollToFirstError,
           resetType,
           rules,
+          disabled,
+          formItemsRef,
+          onFormItemValueChange,
         }}
       >
-        <form className={formClass} style={style} onSubmit={submitHandler} onReset={resetHandler} ref={formRef}>
-          {React.Children.map(children, (child: React.ReactElement, index) => {
-            if (!child) return null;
-
-            const { cloneElement } = React;
-            return cloneElement(child, {
-              ref: (el: React.ReactElement) => {
-                if (!el) return;
-                formItemsRef.current[index] = el;
-              },
-            });
-          })}
+        <form
+          ref={formRef}
+          style={style}
+          className={formClass}
+          onSubmit={submitHandler}
+          onReset={resetHandler}
+          onKeyDown={onKeyDownHandler}
+        >
+          {children}
         </form>
       </FormContext.Provider>
     );

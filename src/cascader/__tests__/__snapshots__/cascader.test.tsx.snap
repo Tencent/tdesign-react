@@ -6,7 +6,7 @@ exports[`base.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -48,7 +48,7 @@ exports[`check-strictly.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -81,7 +81,7 @@ exports[`check-strictly.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -154,7 +154,7 @@ exports[`collapsed.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -205,7 +205,7 @@ exports[`collapsed.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -274,7 +274,7 @@ exports[`collapsed.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -332,7 +332,7 @@ exports[`disabled.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -365,7 +365,7 @@ exports[`disabled.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -407,7 +407,7 @@ exports[`ellipsis.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -419,7 +419,7 @@ exports[`ellipsis.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -449,7 +449,7 @@ exports[`filterable.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -461,7 +461,7 @@ exports[`filterable.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -482,7 +482,7 @@ exports[`filterable.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -537,7 +537,7 @@ exports[`keys.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -549,7 +549,7 @@ exports[`keys.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -579,7 +579,7 @@ exports[`load.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -591,7 +591,7 @@ exports[`load.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -621,7 +621,7 @@ exports[`max.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -633,7 +633,7 @@ exports[`max.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -663,7 +663,7 @@ exports[`multiple.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -718,7 +718,7 @@ exports[`show-all-levels.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -760,7 +760,7 @@ exports[`size.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -793,7 +793,7 @@ exports[`size.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -826,7 +826,7 @@ exports[`size.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -868,7 +868,7 @@ exports[`trigger.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -901,7 +901,7 @@ exports[`trigger.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -943,7 +943,7 @@ exports[`value-mode.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -955,7 +955,7 @@ exports[`value-mode.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -976,7 +976,7 @@ exports[`value-mode.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -988,7 +988,7 @@ exports[`value-mode.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"
@@ -1009,7 +1009,7 @@ exports[`value-mode.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-popup__reference t-cascader__popup"
     >
       <span
         class="t-trigger"
@@ -1021,7 +1021,7 @@ exports[`value-mode.jsx 1`] = `
           <span
             class="t-cascader__placeholder"
           >
-            请输入
+            请选择
           </span>
           <svg
             class="t-fake-arrow t-cascader__icon"

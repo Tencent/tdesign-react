@@ -1,7 +1,6 @@
 import React, { forwardRef, useState, useImperativeHandle, useMemo, RefObject } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TreeNodeState, TreeNodeValue, TypeTreeNodeModel } from '../_common/js/tree/types';
 import TreeNode from '../_common/js/tree/tree-node';
 import { TreeOptionData } from '../common';
@@ -20,7 +19,7 @@ export type TreeProps = TdTreeProps;
  * 树组件
  */
 const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>) => {
-  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration } = useTreeConfig();
+  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
@@ -31,6 +30,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     disabled,
     checkable,
     checkProps,
+    disableCheck,
     hover,
     icon,
     line,
@@ -44,8 +44,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
   const { value, onChange, expanded, onExpand, onActive, actived } = useControllable(props);
 
   // 国际化文本初始化
-  const [local, t] = useLocaleReceiver('tree');
-  const emptyText = t(local.empty);
+  const emptyText = locale('empty');
 
   const store = useStore(
     {
@@ -235,6 +234,7 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
               activable={activable}
               operations={operations}
               checkProps={checkProps}
+              disableCheck={disableCheck}
               onClick={handleItemClick}
               onChange={handleChange}
             />

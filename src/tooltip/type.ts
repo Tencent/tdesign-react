@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
  * */
 
 import { PopupProps } from '../popup';
@@ -14,8 +13,7 @@ export interface TdTooltipProps extends PopupProps {
    */
   destroyOnClose?: boolean;
   /**
-   * 用于设置显示几秒之后消失，初始第一次有效
-   * @default 3000
+   * 用于设置提示默认显示多长时间之后消失，初始第一次有效，单位：毫秒
    */
   duration?: number;
   /**

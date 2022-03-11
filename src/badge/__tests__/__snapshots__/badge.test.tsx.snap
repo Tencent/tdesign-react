@@ -7,7 +7,6 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -154,21 +153,49 @@ exports[`custom.jsx 1`] = `
   <span
     class="t-badge"
   >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-         
-      </span>
-    </button>
+    <div
+      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
+    />
     <span
-      class="t-badge--round"
+      class="t-badge--dot"
+    />
+  </span>
+  <span
+    class="t-badge"
+  >
+    <div
+      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
+    />
+    <span
+      class="t-badge--circle"
+    >
+      hot
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <div
+      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
+    />
+    <span
+      class="t-badge--circle"
+      style="background-color: rgb(0, 168, 112);"
     >
       new
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <div
+      style="width: 40px; height: 40px; background: rgb(238, 238, 238); border: 1px solid #dcdcdc; box-sizing: border-box; border-radius: 3px;"
+    />
+    <span
+      class="t-badge--round"
+      style="background-color: rgb(0, 82, 217);"
+    >
+      100
     </span>
   </span>
 </DocumentFragment>
@@ -181,7 +208,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -201,7 +227,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -221,7 +246,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -246,7 +270,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -266,55 +289,12 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
         class="t-button__text"
       >
         [10,10]
-      </span>
-    </button>
-    <span
-      class="t-badge--circle"
-      style="right: -10px; margin-top: -10px;"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        [-10,10]
-      </span>
-    </button>
-    <span
-      class="t-badge--circle"
-      style="right: 10px; margin-top: -10px;"
-    >
-      2
-    </span>
-  </span>
-  <span
-    class="t-badge"
-  >
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
-      type="button"
-    >
-      <span
-        class="t-button__text"
-      >
-        [-10,-10]
       </span>
     </button>
     <span
@@ -329,7 +309,46 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        [-10,10]
+      </span>
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: -10px; margin-top: 10px;"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        [-10,-10]
+      </span>
+    </button>
+    <span
+      class="t-badge--circle"
+      style="right: -10px; margin-top: -10px;"
+    >
+      2
+    </span>
+  </span>
+  <span
+    class="t-badge"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
       type="button"
     >
       <span
@@ -340,7 +359,7 @@ exports[`offset.jsx 1`] = `
     </button>
     <span
       class="t-badge--circle"
-      style="right: -10px; margin-top: 10px;"
+      style="right: 10px; margin-top: -10px;"
     >
       2
     </span>
@@ -355,7 +374,6 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -375,7 +393,6 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -405,7 +422,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -425,7 +441,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -445,7 +460,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -461,7 +475,7 @@ exports[`size.jsx 1`] = `
     </span>
   </span>
   <h3
-    style="margin-bottom: 16px; margin-top: 16px;"
+    style="margin-bottom: 16px; margin-top: 32px;"
   >
     2.小
   </h3>
@@ -470,7 +484,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -490,7 +503,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -510,7 +522,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span

@@ -12,7 +12,7 @@ describe('Tooltip 组件测试', () => {
 
   test('hover 触发测试', async () => {
     const { getByText, queryByTestId } = render(
-      <Tooltip placement="top" content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
+      <Tooltip placement="top" destroyOnClose={false} content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
         {triggerElement}
       </Tooltip>,
     );
@@ -44,6 +44,6 @@ describe('Tooltip 组件测试', () => {
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(tooltipTestId));
     expect(popupElement3).not.toBeNull();
-    expect(popupElement3.parentElement).toHaveClass('t-popup--animation-leave-to');
+    expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
   });
 });

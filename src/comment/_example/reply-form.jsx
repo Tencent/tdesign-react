@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Comment, Textarea, Button, Notification } from 'tdesign-react';
+import { Comment, Textarea, Button, NotificationPlugin } from 'tdesign-react';
 
 export default function BasicComment() {
-  const [replyData, setReplayData] = useState('')
+  const [replyData, setReplayData] = useState('');
 
   const formStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-  }
+  };
 
   function submitReply() {
-    Notification.info({
+    NotificationPlugin.info({
       title: '回复内容',
       content: replyData,
       duration: 3000,
@@ -24,17 +24,12 @@ export default function BasicComment() {
         placeholder="请输入内容"
         value={replyData}
         onChange={(value) => {
-          setReplayData(value)
+          setReplayData(value);
         }}
       />
       <Button onClick={submitReply}>回复</Button>
     </div>
-  )
-
-  return (
-    <Comment
-      avatar="https://tdesign.gtimg.com/list-icon.png"
-      content={replyForm}
-    />
   );
+
+  return <Comment avatar="https://tdesign.gtimg.com/list-icon.png" content={replyForm} />;
 }

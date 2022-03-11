@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, forwardRef } from 'react';
+import React, { useMemo, useState, useCallback, useEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button';
 import Select from '../select';
@@ -78,6 +79,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     onCellClick = noop,
     onCellDoubleClick = noop,
     onCellRightClick = noop,
+    onMonthChange = noop,
     fillWithZero = false,
   } = props;
 
@@ -103,14 +105,26 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const { visible: visibleForWeekendToggle = true, showWeekendButtonProps = {}, hideWeekendButtonProps = {} } = weekend;
   const { visible: visibleForCurrent = true, currentDayButtonProps = {}, currentMonthButtonProps = {} } = current;
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, calendar: calendarConfig } = useConfig();
   const [mode, setMode] = useState<string>('month');
   const [value, setValue] = useState<dayjs.Dayjs>(dayjs(valueFromProps || dayjs().format('YYYY-MM-DD')));
-  const [year, setYear] = useState<number>(value.year());
-  const [month, setMonth] = useState<number>(parseInt(value.format('M'), 10));
+  const [year, setYearState] = useState<number>(value.year());
+  const [month, setMonthState] = useState<number>(parseInt(value.format('M'), 10));
   const [isShowWeekend, setIsShowWeekend] = useState<boolean>(isShowWeekendDefault);
 
   const [local, t] = useLocaleReceiver('calendar');
+
+  // 月份年份变更
+  const setMonth = useCallback(
+    (newMonth) => {
+      setMonthState(newMonth);
+      onMonthChange({ month: String(newMonth), year: String(year) });
+    },
+    [onMonthChange, year],
+  );
+  const setYear = (newYear) => {
+    setYearState(newYear);
+  };
 
   // 表头数组
   const weekLabelList = t(local.week).split(',');
@@ -249,12 +263,15 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     [controllerOptions],
   );
 
-  const toCurrent = useCallback((valueIn = null) => {
-    const now: dayjs.Dayjs = dayjs(valueIn).isValid() ? dayjs(valueIn) : dayjs(dayjs().format('YYYY-MM-DD'));
-    setValue(now);
-    setYear(now.year());
-    setMonth(parseInt(now.format('M'), 10));
-  }, []);
+  const toCurrent = useCallback(
+    (valueIn = null) => {
+      const now: dayjs.Dayjs = dayjs(valueIn).isValid() ? dayjs(valueIn) : dayjs(dayjs().format('YYYY-MM-DD'));
+      setValue(now);
+      setYear(now.year());
+      setMonth(parseInt(now.format('M'), 10));
+    },
+    [setMonth],
+  );
 
   React.useImperativeHandle(ref, () => ({ toCurrent }), [toCurrent]);
 
@@ -309,7 +326,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
 
   useLayoutEffect(() => {
     onControllerChange(controllerOptions);
-  }, [onControllerChange, controllerOptions]);
+  }, [controllerOptions, onControllerChange]);
 
   /**
    * 将 month 映射为文字输出
@@ -319,7 +336,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const getMonthCN = (month: number): string => monthLabelList[month];
 
   const fix0 = (num: number) => {
-    const fillZero = num < 10 && (fillWithZero ?? local.fillWithZero ?? true);
+    const fillZero = num < 10 && (fillWithZero ?? calendarConfig.fillWithZero ?? true);
     return fillZero ? `0${num}` : num;
   };
 
@@ -339,6 +356,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForYear && (
                 <Select
+                  autoWidth={true}
                   size={controlSectionSize}
                   disabled={disabled}
                   value={year}

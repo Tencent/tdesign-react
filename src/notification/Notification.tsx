@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { forwardRef, useContext } from 'react';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 
@@ -10,9 +11,10 @@ const blockName = 'notification';
 
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
+  id?: string;
 }
 
-export const NotificationComponent = React.forwardRef<any, NotificationProps>((props, ref) => {
+export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
   const {
     title = null,
     content = null,
@@ -24,6 +26,7 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
+    id = '',
   } = props;
 
   const { classPrefix } = useConfig();
@@ -46,7 +49,8 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
     [classPrefix],
   );
 
-  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close }), []);
+  const remove = useContext(NotificationRemoveContext);
+  React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
@@ -88,7 +92,7 @@ export const NotificationComponent = React.forwardRef<any, NotificationProps>((p
   };
 
   return (
-    <div ref={ref} className={prefixCls(blockName)} style={style}>
+    <div className={prefixCls(blockName)} style={style}>
       {renderIcon()}
       <div className={prefixCls([blockName, 'main'])}>
         <div className={prefixCls([blockName, 'title__wrap'])}>

@@ -15,8 +15,10 @@ export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
 // 将 checkBox 的 value 转换为 string|number
 const getCheckboxValue = (v: CheckboxOption): string | number => {
   switch (typeof v) {
-    case 'number' || 'string':
-      return v as string | number;
+    case 'number':
+      return v as number;
+    case 'string':
+      return v as string;
     case 'object': {
       const vs = v as CheckboxOptionObj;
       return vs.value;
@@ -37,7 +39,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const intervalOptions =
     Array.isArray(options) && options.length > 0
       ? options
-      : React.Children.map(children, (child) => (child as ReactElement).props);
+      : React.Children.map(children, (child) => (child as ReactElement).props) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
   const optionsWithoutCheckAllValues = [];
@@ -108,7 +110,11 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
             checkedSet.delete(checkValue);
           }
 
-          setInternalValue(Array.from(checkedSet), { e });
+          setInternalValue(Array.from(checkedSet), {
+            e,
+            current: checkProps.checkAll ? undefined : checkValue,
+            type: checked ? 'check' : 'uncheck',
+          });
         },
       };
     },
@@ -124,8 +130,16 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
           ? options.map((v, index) => {
               const type = typeof v;
               switch (type) {
-                case 'number' || 'string': {
-                  const vs = v as number | string;
+                case 'string': {
+                  const vs = v as string;
+                  return (
+                    <Checkbox key={vs} label={vs} value={vs}>
+                      {v}
+                    </Checkbox>
+                  );
+                }
+                case 'number': {
+                  const vs = v as number;
                   return (
                     <Checkbox key={vs} label={vs} value={vs}>
                       {v}

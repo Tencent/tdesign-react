@@ -28,6 +28,7 @@ const Button = forwardRef(
       ghost,
       shape = 'rectangle',
       children,
+      content,
       className,
       onClick = noop,
       ...buttonProps
@@ -40,6 +41,12 @@ const Button = forwardRef(
     useRipple(ref || btnRef);
 
     const hasChildren = typeof children !== 'undefined';
+    const hasContent = typeof content !== 'undefined';
+    let childrenNode = children;
+
+    if (!hasChildren && hasContent) {
+      childrenNode = content;
+    }
 
     let iconNode = icon;
     if (loading) iconNode = <Loading loading={loading} inheritColor={true} />;
@@ -56,6 +63,7 @@ const Button = forwardRef(
 
     return (
       <button
+        {...buttonProps}
         ref={ref || btnRef}
         type={type}
         className={classNames(
@@ -77,15 +85,14 @@ const Button = forwardRef(
         )}
         onClick={!disabled && !loading ? onClick : undefined}
         disabled={disabled || loading}
-        {...buttonProps}
       >
         {iconNode ? (
           <>
             {iconNode}
-            {hasChildren && <span className={`${classPrefix}-button__text`}>{children}</span>}
+            {(hasChildren || hasContent) && <span className={`${classPrefix}-button__text`}>{childrenNode}</span>}
           </>
         ) : (
-          <span className={`${classPrefix}-button__text`}>{children}</span>
+          <span className={`${classPrefix}-button__text`}>{childrenNode}</span>
         )}
       </button>
     );

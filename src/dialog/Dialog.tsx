@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect, useMemo } from 'react';
 import isString from 'lodash/isString';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ConfigContext } from '../config-provider';
 import Button from '../button';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';
+import useConfig from '../_util/useConfig';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   /**
@@ -18,7 +18,7 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 }
 
 const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (props, ref) => {
-  const { classPrefix } = React.useContext(ConfigContext);
+  const { classPrefix } = useConfig();
   const [state, setState] = useSetState<DialogProps>({
     width: 520,
     visible: false,
@@ -39,7 +39,7 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
 
   const {
     visible,
-    attach: getContainer = 'body',
+    attach = 'body',
     closeBtn,
     footer,
     onCancel = noop,
@@ -156,7 +156,7 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
       visible={visible}
       prefixCls={prefixCls}
       header={renderHeader}
-      getContainer={getContainer}
+      attach={attach}
       closeBtn={renderCloseIcon()}
       classPrefix={classPrefix}
       onClose={onClose}
@@ -165,4 +165,4 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
   );
 };
 
-export default React.forwardRef(Dialog);
+export default forwardRef(Dialog);

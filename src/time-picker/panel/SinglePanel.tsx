@@ -24,7 +24,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const { steps, format, onChange = noop, value, hideDisabledTime = true, disableTime } = props;
   const { classPrefix } = useConfig();
   const TEXT_CONFIG = useTimePickerTextConfig();
-
   const panelClassName = `${classPrefix}-time-picker__panel`;
 
   const [cols, setCols] = useState<Array<EPickerCols>>([]);
@@ -66,7 +65,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   // 获取每个时间的高度
   const getItemHeight = useCallback(() => {
     const maskDom = maskRef?.current?.querySelector('div');
-    const timeItemTotalHeight = maskDom.offsetHeight + parseInt(getComputedStyle(maskDom).margin, 10);
+    const timeItemTotalHeight = maskDom.offsetHeight + parseInt(getComputedStyle(maskDom).marginTop, 10);
     return timeItemTotalHeight;
   }, []);
 
@@ -135,6 +134,11 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const handleScroll = (col: EPickerCols, idx: number) => {
     let val: number | string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
+
+    let colStep = Math.abs(Math.round(scrollTop / getItemHeight() + 0.5));
+    const meridiem = MERIDIEM_LIST[Math.min(colStep - 1, 1)].toLowerCase(); // 处理PM/AM与am/pm
+
+    if (Number.isNaN(colStep)) colStep = 1;
     if (timeArr.includes(col)) {
       // hour/minute/second col scroll
       let max = 59;
@@ -142,13 +146,10 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         max = /[h]{1}/.test(format) ? 11 : 23;
       }
       const colIdx = timeArr.indexOf(col);
-      const colStep = Math.abs(Math.round(scrollTop / getItemHeight()));
-
-      val = Math.min(colStep > 0 ? colStep - 1 : colStep, max);
-
+      const availableArr = range(0, max + 1, Number(steps[colIdx]));
       val = closestLookup(
-        range(0, max + 1, Number(steps[colIdx])),
-        Number(getColList(col)[val]),
+        availableArr,
+        Number(getColList(col)[Math.min(colStep - 1, max + 1, availableArr.length - 1)]),
         Number(steps[colIdx]),
       );
 
@@ -156,26 +157,24 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         // 如果是十二小时制需要再判断
         val = Number(val) + 12;
       }
-      if (timeItemCanUsed(col, val))
-        value ? onChange(dayjsValue[col]?.(val).format(format)) : onChange(dayjsValue[col]?.(val).format(format));
     } else {
       // meridiem col scroll
-      val = Math.min(Math.abs(Math.round(scrollTop / getItemHeight())), 1);
-
-      const meridiem = MERIDIEM_LIST[val].toLowerCase(); // 处理PM/AM与am/pm
 
       val = meridiem;
-
-      const currentHour = dayjsValue.hour();
-      if (meridiem === AM && currentHour >= 12) {
-        onChange(dayjsValue.hour(currentHour - 12).format(format));
-      } else if (meridiem === PM && currentHour < 12) {
-        onChange(dayjsValue.hour(currentHour + 12).format(format));
-      }
     }
     const distance = getScrollDistance(col, val);
 
     if (distance !== scrollTop) {
+      if (timeArr.includes(col)) {
+        if (timeItemCanUsed(col, val)) onChange(dayjsValue[col]?.(val).format(format));
+      } else {
+        const currentHour = dayjsValue.hour();
+        if (meridiem === AM && currentHour >= 12) {
+          onChange(dayjsValue.hour(currentHour - 12).format(format));
+        } else if (meridiem === PM && currentHour < 12) {
+          onChange(dayjsValue.hour(currentHour + 12).format(format));
+        }
+      }
       const scroller = colsRef.current[cols.indexOf(col)];
       if (!distance || !scroller || scroller.scrollTop === distance) return;
 
@@ -259,7 +258,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         key={`${col}_${idx}`}
         ref={(el) => (colsRef.current[idx] = el)}
         className={`${panelClassName}-body-scroll`}
-        onWheel={debounce(() => handleScroll(col, idx), 50)}
+        onScroll={debounce(() => handleScroll(col, idx), 50)}
       >
         {getColList(col).map((el) => (
           <li

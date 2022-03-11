@@ -1,14 +1,17 @@
-import React, { FC, useState, DragEvent } from 'react';
+import React, { DragEvent, FC, useState } from 'react';
 import classNames from 'classnames';
 import { TNode } from '../common';
 import { TriggerContext, UploadFile, UploadRemoveContext } from './type';
+import { CustomDraggerRenderProps } from './types';
 import useConfig from '../_util/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import DraggerProgress from './themes/dragger-progress';
 
 export interface DraggerProps {
   file?: UploadFile;
   display?: string;
   trigger?: string | TNode<TriggerContext>;
+  customDraggerRender?: (props: CustomDraggerRenderProps) => TNode;
   onCancel?: () => void;
   onTrigger?: () => void;
   onRemove?: (context: UploadRemoveContext) => void;
@@ -19,11 +22,13 @@ export interface DraggerProps {
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
-  const { file, display, onUpload, onRemove } = props;
+  const { file, display, onUpload, onRemove, customDraggerRender, onCancel } = props;
   const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const [dragActive, setDragActive] = useState(false);
   const target = React.useRef();
-
+  const { draggingText, dragDropText } = locale.dragger;
+  const dragTriggerText = t(locale.triggerUploadText.normal);
   const classes = classNames(
     `${classPrefix}-upload__dragger`,
     !file ? `${classPrefix}-upload__dragger-center` : '',
@@ -33,13 +38,13 @@ const Dragger: FC<DraggerProps> = (props) => {
   const defaultDragElement = React.useMemo(() => {
     const unActiveElement = (
       <div>
-        <span className={`${classPrefix}-upload--highlight`}>点击上传</span>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;拖拽到此区域</span>
+        <span className={`${classPrefix}-upload--highlight`}>{dragTriggerText}</span>
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;{t(draggingText)}</span>
       </div>
     );
-    const activeElement = <div>释放鼠标</div>;
+    const activeElement = <div>{t(dragDropText)}</div>;
     return dragActive ? activeElement : unActiveElement;
-  }, [classPrefix, dragActive]);
+  }, [classPrefix, dragActive, dragDropText, dragTriggerText, draggingText, t]);
 
   const dragElement = React.useMemo(() => {
     let content: React.ReactNode;
@@ -53,18 +58,30 @@ const Dragger: FC<DraggerProps> = (props) => {
           onUpload={() => {
             onUpload?.(file);
           }}
+          onCancel={onCancel}
         />
       );
     } else {
       content = (
         <div className={`${classPrefix}-upload__trigger`} onClick={props.onTrigger}>
-          {props.children || defaultDragElement}
+          {customDraggerRender?.({ dragActive }) || defaultDragElement}
         </div>
       );
     }
 
     return content;
-  }, [classPrefix, defaultDragElement, display, file, onRemove, onUpload, props.children, props.onTrigger]);
+  }, [
+    file,
+    display,
+    onRemove,
+    props.onTrigger,
+    onCancel,
+    onUpload,
+    classPrefix,
+    customDraggerRender,
+    dragActive,
+    defaultDragElement,
+  ]);
 
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();

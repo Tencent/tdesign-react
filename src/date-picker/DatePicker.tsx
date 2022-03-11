@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import isObject from 'lodash/isObject';
+import isDate from 'lodash/isDate';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
@@ -7,7 +10,7 @@ import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from 'tdesign-icon
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps } from './type';
+import { TdDatePickerProps, DateValue, PickContext } from './type';
 import useCommonClassName from '../_util/useCommonClassName';
 import useClickOutside from '../_util/useClickOutside';
 
@@ -26,6 +29,7 @@ export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
 const TIME_FORMAT = 'HH:mm:ss';
 
+// TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
 const DatePicker = (props: DatePickerProps) => {
   const {
     className,
@@ -48,6 +52,7 @@ const DatePicker = (props: DatePickerProps) => {
     defaultValue,
     firstDayOfWeek,
     onChange,
+    onPick,
     // onBlur,
     // onFocus,
     // onInput,
@@ -77,10 +82,17 @@ const DatePicker = (props: DatePickerProps) => {
   const [formattedValue, setFormattedValue] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
 
+  const isControlled = typeof value !== 'undefined';
+
+  function isValidDate(date: string | number | Date | (string | number | Date)[]) {
+    if (isArray(date) && isDate(new Date(date[0])) && isDate(new Date(date[1]))) return true;
+    if (isString(date) && isDate(new Date(date))) return true;
+    return false;
+  }
+
   function initDatePicker() {
     const val: any = value || defaultValue;
-
-    if (val) {
+    if (val && isValidDate(val)) {
       const startVal = range ? new Date(val[0]) : new Date(val);
       const endVal = range ? new Date(val[1]) : new Date(val);
 
@@ -110,7 +122,7 @@ const DatePicker = (props: DatePickerProps) => {
     let dates = selectedDates;
 
     // 受控模式
-    if (typeof value !== 'undefined') {
+    if (isControlled) {
       if (Array.isArray(value)) {
         dates = value.map((d: string) => (d ? new Date(d) : new Date()));
       } else {
@@ -128,12 +140,13 @@ const DatePicker = (props: DatePickerProps) => {
       case 'date':
       case 'month':
       case 'year':
+        dates[0] && setStart(new Date(dates[0]));
         nextValue = selectedFmtDates.join('');
         break;
       case 'range':
-        if (popupShow) {
-          nextValue = [formatDate(start), formatDate(end)].join(rangeSeparatorText);
-        } else if (selectedFmtDates.length > 1) {
+        if (selectedFmtDates.length > 1) {
+          setStart(new Date(dates[0]));
+          setEnd(new Date(dates[1]));
           nextValue = [selectedFmtDates[0], selectedFmtDates[1]].join(rangeSeparatorText);
         }
         break;
@@ -265,8 +278,10 @@ const DatePicker = (props: DatePickerProps) => {
       case 'month':
       case 'date': {
         if (value instanceof Date) {
-          setStart(value);
-          setEnd(value);
+          if (!isControlled) {
+            setStart(value);
+            setEnd(value);
+          }
           setSelectedDates([value]);
           // 有时间选择时，点击日期不关闭弹窗
           clickedApply(!enableTimePicker, [value]);
@@ -275,8 +290,10 @@ const DatePicker = (props: DatePickerProps) => {
       }
       case 'range': {
         if (Array.isArray(value)) {
-          setStart(value[0]);
-          setEnd(value[1]);
+          if (!isControlled) {
+            setStart(value[0]);
+            setEnd(value[1]);
+          }
           setSelectedDates(value);
           // 有时间选择时，点击日期不关闭弹窗
           clickedApply(!enableTimePicker, value);
@@ -350,8 +367,12 @@ const DatePicker = (props: DatePickerProps) => {
       maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
     };
 
+    const handlePick = (date: DateValue, context: PickContext) => {
+      onPick?.(date, context);
+    };
+
     const panelComponent = range ? (
-      <DateRangePanel {...panelProps} value={[start, end]} />
+      <DateRangePanel {...panelProps} onPick={handlePick} value={[start, end]} />
     ) : (
       <DatePanel {...panelProps} value={start} />
     );
@@ -405,6 +426,7 @@ const DatePicker = (props: DatePickerProps) => {
         overlayClassName={`${classPrefix}-date-picker`}
         className={`${classPrefix}-date-picker__popup-reference`}
         expandAnimation={true}
+        destroyOnClose={true}
         {...popupProps}
       >
         <div className={triggerClassName} onClick={showPopup}>

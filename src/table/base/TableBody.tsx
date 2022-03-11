@@ -1,14 +1,15 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import { TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
+import { DragSortInnerProps } from '../../_util/useDragSorter';
 import TableRow from './TableRow';
 import { ExpandInnerProps } from './Table';
+import { useTableContext } from './TableContext';
 
-export interface RowSkipTdSpanColIndexsMap {
-  [key: number]: number[];
-}
+interface TableBodyProps extends TdPrimaryTableProps, ExpandInnerProps, DragSortInnerProps {}
 
 type RowEventName =
   | 'onClick'
@@ -38,71 +39,123 @@ const rowEventsMap: Record<RowEventName, APIRowEventName> = {
   onMouseUp: 'onRowMouseup',
 };
 
-const TableBody = forwardRef(
-  (props: TdPrimaryTableProps & ExpandInnerProps, ref: React.Ref<HTMLTableSectionElement>): any => {
-    const { classPrefix } = useConfig();
-    const {
-      data = [],
-      rowKey,
-      rowClassName,
-      expandedRow,
+export interface RowSkipTdSpanColIndexsMap {
+  [key: number]: number[];
+}
+
+const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSectionElement>): any => {
+  const { classPrefix } = useConfig();
+  const {
+    data = [],
+    rowKey,
+    rowClassName,
+    expandedRow,
+    expandOnRowClick,
+    handleExpandChange,
+    renderExpandRow,
+    innerExpandRowKeys,
+    rowspanAndColspan,
+    sortOnRowDraggable,
+    dragging,
+    onDragStart,
+    onDragOver,
+    onDrop,
+    onDragEnd,
+  } = props;
+  const { flattenData } = useTableContext();
+  const flattenVisibleData = flattenData || data;
+  const [rowSkipTdSpanColIndexsMap] = useState<RowSkipTdSpanColIndexsMap>({}); // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
+  const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
+
+  const onDragStartRef = useRef(onDragStart);
+  const onDragEndRef = useRef(onDragEnd);
+  const onDropRef = useRef(onDrop);
+
+  const getRowEventsRef = useRef(getRowEvents);
+  getRowEventsRef.current = getRowEvents;
+
+  // ==================== render ====================
+  const rows = useMemo(
+    () =>
+      flattenVisibleData.map((row, index) => {
+        const rowKeyValue = get(row, rowKey) || index;
+        const rowEvents = getRowEventsRef.current(row, index);
+
+        return (
+          <React.Fragment key={rowKeyValue}>
+            <TableRow
+              record={row}
+              rowIndex={index}
+              rowKey={rowKey}
+              rowClassName={rowClassName}
+              expandedRow={expandedRow}
+              expandOnRowClick={expandOnRowClick}
+              handleExpandChange={handleExpandChange}
+              rowEvents={rowEvents}
+              {...(isRowspanAndColspanFn
+                ? {
+                    isRowspanAndColspanFn,
+                    rowspanAndColspan,
+                    rowSkipTdSpanColIndexsMap,
+                  }
+                : {})}
+              {...(sortOnRowDraggable
+                ? {
+                    sortOnRowDraggable,
+                    onDragStart: onDragStartRef.current,
+                    onDragOver,
+                    onDrop: onDropRef.current,
+                    onDragEnd: onDragEndRef.current,
+                  }
+                : {})}
+            />
+            {expandedRow && innerExpandRowKeys ? renderExpandRow(row, index, rowKeyValue) : null}
+          </React.Fragment>
+        );
+      }),
+    [
       expandOnRowClick,
+      expandedRow,
+      flattenVisibleData,
       handleExpandChange,
+      innerExpandRowKeys,
+      isRowspanAndColspanFn,
+      onDragOver,
       renderExpandRow,
+      rowClassName,
+      rowKey,
+      rowSkipTdSpanColIndexsMap,
       rowspanAndColspan,
-    } = props;
-    const rowSkipTdSpanColIndexsMap: RowSkipTdSpanColIndexsMap = {}; // 引用，不可重置。eg: { 0: [1, 3] } 表示第1行，第2、4列两个cell不渲染
-    const isRowspanAndColspanFn = isFunction(rowspanAndColspan);
+      sortOnRowDraggable,
+    ],
+  );
 
-    const rowEvents = getRowEvents();
-
-    // ==================== render ====================
-    const rows = data.map((row, index) => {
-      const rowKeyValue = get(row, rowKey) || index;
-
-      return (
-        <React.Fragment key={rowKeyValue}>
-          <TableRow
-            record={row}
-            rowIndex={index}
-            rowKey={rowKey}
-            rowClassName={rowClassName}
-            expandedRow={expandedRow}
-            expandOnRowClick={expandOnRowClick}
-            handleExpandChange={handleExpandChange}
-            {...(isRowspanAndColspanFn
-              ? {
-                  isRowspanAndColspanFn,
-                  rowspanAndColspan,
-                  rowSkipTdSpanColIndexsMap,
-                  dataLength: data.length,
-                }
-              : {})}
-            rowEvents={rowEvents}
-          />
-          {expandedRow ? renderExpandRow(row, index, rowKeyValue) : null}
-        </React.Fragment>
-      );
+  function getRowEvents(row, index): RowEvents {
+    const rowEventProps = {};
+    Object.keys(rowEventsMap).forEach((eventName) => {
+      const apiEventName = rowEventsMap[eventName];
+      const apiEvent = props[apiEventName];
+      if (apiEvent) {
+        rowEventProps[eventName] = (e) => {
+          apiEvent({
+            row,
+            index,
+            e,
+          });
+        };
+      }
     });
+    return rowEventProps;
+  }
 
-    function getRowEvents(): RowEvents {
-      const rowEventProps = {};
-      Object.keys(rowEventsMap).forEach((eventName) => {
-        const apiEventName = rowEventsMap[eventName];
-        const apiEvent = props[apiEventName];
-        if (apiEvent) {
-          rowEventProps[eventName] = apiEvent;
-        }
-      });
-      return rowEventProps;
-    }
+  return (
+    <tbody
+      ref={ref}
+      className={classNames(`${classPrefix}-table__body`, { [`${classPrefix}-table__body--dragging`]: dragging })}
+    >
+      {rows}
+    </tbody>
+  );
+});
 
-    return (
-      <tbody ref={ref} className={`${classPrefix}-table__body`}>
-        {rows}
-      </tbody>
-    );
-  },
-);
-
-export default TableBody;
+export default React.memo(TableBody);

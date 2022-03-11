@@ -3,6 +3,7 @@ import { BrowseIcon, DeleteIcon, ErrorCircleFilledIcon } from 'tdesign-icons-rea
 import React, { MouseEvent } from 'react';
 import type { CommonListProps, FlowListProps } from './index';
 import useConfig from '../../../_util/useConfig';
+import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { abridgeName } from '../../util';
 import Loading from '../../../loading';
 
@@ -11,6 +12,7 @@ type ImgListProps = CommonListProps & Pick<FlowListProps, 'onImgPreview' | 'remo
 const ImgList = (props: ImgListProps) => {
   const { showInitial, listFiles, renderDragger, onImgPreview, remove } = props;
   const { classPrefix: prefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('upload');
   const UPLOAD_NAME = `${prefix}-upload`;
   const UPLOAD_NAME_CARD = `${UPLOAD_NAME}__card`;
 
@@ -30,13 +32,15 @@ const ImgList = (props: ImgListProps) => {
                 {file.status === 'fail' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <ErrorCircleFilledIcon />
-                    <p>上传失败</p>
+                    <p>{t(locale.progress.failText)}</p>
                   </div>
                 )}
                 {file.status === 'progress' && (
                   <div className={`${UPLOAD_NAME_CARD}-status-wrap`}>
                     <Loading />
-                    <p>上传中 {Math.min(file.percent, 99)}</p>
+                    <p>
+                      {t(locale.progress.uploadingText)} {Math.min(file.percent, 99)}
+                    </p>
                   </div>
                 )}
                 {(['waiting', 'success'].includes(file.status) || (!file.status && file.url)) && (
@@ -49,7 +53,7 @@ const ImgList = (props: ImgListProps) => {
                 <div className={`${UPLOAD_NAME_CARD}-mask`}>
                   {file.url && (
                     <span className={`${UPLOAD_NAME_CARD}__mask__item`}>
-                      <BrowseIcon onClick={(e: MouseEvent) => onImgPreview(e, file)} />
+                      <BrowseIcon onClick={(e: MouseEvent) => onImgPreview(file, e)} />
                       <span className={`${UPLOAD_NAME_CARD}__mask__item-divider`} />
                     </span>
                   )}

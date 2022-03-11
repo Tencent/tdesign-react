@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
  * */
 
 import { PopupProps } from '../popup';
@@ -71,7 +70,6 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   multiple?: boolean;
   /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -82,11 +80,6 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    * 组件前置图标
    */
   prefixIcon?: TElement;
-  /**
-   * 【讨论中】是否显示全选
-   * @default false
-   */
-  showCheckAlll?: boolean;
   /**
    * 尺寸
    * @default medium
@@ -107,7 +100,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 自定义选中项呈现方式
    */
-  valueDisplay?: TNode<{ value: DataOption[]; onClose: () => void }>;
+  valueDisplay?: TNode<{ value: TreeSelectValue; onClose: (index?: number) => void }>;
   /**
    * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据
    * @default value
@@ -144,5 +137,5 @@ export type TreeSelectValue = string | number | object | Array<TreeSelectValue>;
 export interface RemoveOptions<T> {
   value: string | number | object;
   data: T;
-  e: MouseEvent<SVGElement | HTMLDivElement>;
+  e?: MouseEvent<SVGElement | HTMLDivElement>;
 }

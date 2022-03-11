@@ -12,7 +12,11 @@ const FormContext = React.createContext<{
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
+  disabled: TdFormProps['disabled'];
   rules: TdFormProps['rules'];
+  errorMessage: TdFormProps['errorMessage'];
+  formItemsRef: React.RefObject<Array<React.RefObject<HTMLElement>>>;
+  onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   labelWidth: 'calc(1 / 12 * 100%)',
   labelAlign: 'right',
@@ -23,8 +27,12 @@ const FormContext = React.createContext<{
   scrollToFirstError: undefined,
   showErrorMessage: true,
   resetType: 'empty',
+  disabled: false,
   rules: undefined,
+  errorMessage: undefined,
   statusIcon: false,
+  onFormItemValueChange: undefined,
+  formItemsRef: null,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

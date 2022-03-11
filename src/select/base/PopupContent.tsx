@@ -10,7 +10,18 @@ type OptionsType = TdOptionProps[];
 interface SelectPopupProps
   extends Pick<
     TdSelectProps,
-    'value' | 'size' | 'multiple' | 'empty' | 'options' | 'max' | 'loadingText' | 'loading' | 'valueType' | 'keys'
+    | 'value'
+    | 'size'
+    | 'multiple'
+    | 'empty'
+    | 'options'
+    | 'max'
+    | 'loadingText'
+    | 'loading'
+    | 'valueType'
+    | 'keys'
+    | 'panelTopContent'
+    | 'panelBottomContent'
   > {
   onChange?: (value: SelectValue, context?: { label?: string | number; restData?: Record<string, any> }) => void;
   /**
@@ -40,6 +51,8 @@ const PopupContent = (props: SelectPopupProps) => {
     valueType,
     children,
     keys,
+    panelTopContent,
+    panelBottomContent,
   } = props;
 
   // 国际化文本初始化
@@ -63,7 +76,7 @@ const PopupContent = (props: SelectPopupProps) => {
     }
 
     if (!Object.keys(objVal).length) {
-      Object.assign(objVal, { [keys?.label || 'label']: selectedValue, [keys?.value || 'value']: selectedValue });
+      Object.assign(objVal, { [keys?.label || 'label']: label, [keys?.value || 'value']: selectedValue });
     }
     if (multiple) {
       // calc multiple select values
@@ -91,7 +104,7 @@ const PopupContent = (props: SelectPopupProps) => {
     if (options) {
       // 通过options API配置的
       return (
-        <ul>
+        <ul className={`${classPrefix}-select__list`}>
           {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (
             <Option
               key={index}
@@ -110,19 +123,20 @@ const PopupContent = (props: SelectPopupProps) => {
         </ul>
       );
     }
-    return <ul>{childrenWithProps}</ul>;
+    return <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>;
   };
 
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
-  if (isEmpty) {
-    return <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>;
-  }
-
-  if (loading) {
-    return <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>;
-  }
-  return <div>{renderOptions()}</div>;
+  return (
+    <div className={`${classPrefix}-select__dropdown-inner`}>
+      {panelTopContent}
+      {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
+      {!isEmpty && loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
+      {!isEmpty && !loading && renderOptions()}
+      {panelBottomContent}
+    </div>
+  );
 };
 
 export default PopupContent;

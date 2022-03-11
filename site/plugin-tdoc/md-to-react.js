@@ -2,9 +2,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-// import camelCase from 'camelcase';
+import camelCase from 'camelcase';
 
-// import testCoverage from '../test-coverage';
+import testCoverage from '../test-coverage';
 
 import { transformSync } from '@babel/core';
 
@@ -12,17 +12,18 @@ export default function mdToReact(options) {
   const mdSegment = customRender(options);
   const { demoDefsStr, demoCodesDefsStr } = options;
 
-  // let coverage = '';
-  // if (mdSegment.isComponent) {
-  //   coverage = testCoverage[camelCase(mdSegment.componentName)] || '0%';
-  // }
+  let unitCoverage = '';
+  if (mdSegment.isComponent) {
+    unitCoverage = testCoverage.unit[camelCase(mdSegment.componentName)] || '0%';
+  }
 
   const reactSource = `
     import React, { useEffect, useRef, useState } from 'react';\n
-    import { useLocation } from 'react-router-dom';
+    import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
-    import Codesandbox from '@components/Codesandbox';
+    import Stackblitz from '@components/stackblitz/index.jsx';
+    import Codesandbox from '@components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
 
@@ -30,13 +31,14 @@ export default function mdToReact(options) {
       return new URLSearchParams(useLocation().search);
     }
 
-    export default function TdDoc(props) {
+    export default function TdDoc() {
       const tdDocHeader = useRef();
       const tdDocTabs = useRef();
 
       const isComponent  = ${mdSegment.isComponent};
 
       const location = useLocation();
+      const navigate = useNavigate();
 
       const query = useQuery();
       const [tab, setTab] = useState(query.get('tab') || 'demo');
@@ -49,15 +51,11 @@ export default function mdToReact(options) {
 
         if (isComponent) {
           tdDocTabs.current.tabs = ${JSON.stringify(mdSegment.tdDocTabs)};
-        } else {
         }
+
+        document.title = \`${mdSegment.title} | TDesign\`;
+
         Prismjs.highlightAll();
-
-        document.querySelector('td-doc-content').initAnchorHighlight();
-
-        return () => {
-          document.querySelector('td-doc-content').resetAnchorHighlight();
-        };
       }, []);
 
       useEffect(() => {
@@ -72,7 +70,7 @@ export default function mdToReact(options) {
           setTab(currentTab);
           const query = new URLSearchParams(location.search);
           if (query.get('tab') === currentTab) return;
-          props.history.push({ search: '?tab=' + currentTab });
+          navigate({ search: '?tab=' + currentTab });
         }
       }, [location])
 
@@ -88,9 +86,10 @@ export default function mdToReact(options) {
                 slot="doc-header"
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
-                ${mdSegment.isComponent ? `component-name="${mdSegment.componentName}"` : ''}
                 platform="web"
-              ></td-doc-header>` : ''
+              >
+                ${mdSegment.isComponent ? `<td-doc-badge slot="badge" label="coverage" message="${unitCoverage}" />` : ''}
+              </td-doc-header>` : ''
           }
           {
             isComponent ? (
@@ -100,8 +99,8 @@ export default function mdToReact(options) {
                   ${mdSegment.demoMd.replace(/class=/g, 'className=')}
                   <td-contributors platform="web" framework="react" component-name="${mdSegment.componentName}" ></td-contributors>
                 </div>
-                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${mdSegment.apiMd}\` }}></div>
-                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${mdSegment.designMd}\` }}></div>
+                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.apiMd)} }}></div>
+                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.designMd)} }}></div>
               </>
             ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }
@@ -161,13 +160,13 @@ function customRender({ source, file, md }) {
 
   // fix table | render error
   demoMd = demoMd.replace(/`([^`]+)`/g, (str, codeStr) => {
-    codeStr = codeStr.replace(/\|/g, '\\|');
+    codeStr = codeStr.replace(/"/g, '\'');
     return `<td-code text="${codeStr}"></td-code>`;
   });
 
   apiMd = apiMd.replace(/`([^`]+)`/g, (str, codeStr) => {
     codeStr = codeStr.replace(/\|/g, '\\|');
-    return `<td-code text="${codeStr}"></td-code>`;
+    return `\`${codeStr}\``;
   });
 
   const mdSegment = {

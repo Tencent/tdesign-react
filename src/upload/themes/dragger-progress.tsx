@@ -3,21 +3,24 @@ import { CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-reac
 import Button from '../../button';
 import Loading from '../../loading';
 import useConfig from '../../_util/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { UploadFile, UploadRemoveContext } from '../type';
 import { returnFileSize, abridgeName, getCurrentDate } from '../util';
 
 export interface DraggerProgressProps {
   display?: string;
-  file: UploadFile;
+  file?: UploadFile;
   onTrigger?: () => void;
   onRemove?: (context: UploadRemoveContext) => void;
   onUpload?: () => void;
+  onCancel?: () => void;
 }
 
 const DraggerProgress: FC<DraggerProgressProps> = (props) => {
-  const { file, onUpload, onRemove, display, onTrigger } = props;
+  const { file, onUpload, onRemove, display, onTrigger, onCancel } = props;
   const { classPrefix } = useConfig();
-
+  const [locale, t] = useLocaleReceiver('upload');
+  const { triggerUploadText, file: infoText, cancelUploadText } = locale;
   const reUpload = (e) => {
     onRemove?.({ e, file, index: 0 });
     onTrigger?.();
@@ -46,7 +49,7 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
   return (
     <div className={`${classPrefix}-upload__dragger-progress`}>
       {display === 'image' && (
-        <div className="t-upload__dragger-img-wrap">{file && <img src={file.url || 'default.png'} />}</div>
+        <div className="t-upload__dragger-img-wrap">{file && <img src={file?.url || 'default.png'} alt="" />}</div>
       )}
       <div className={`${classPrefix}-upload__dragger-progress-info`}>
         <div className={`${classPrefix}-upload__dragger-text`}>
@@ -54,30 +57,34 @@ const DraggerProgress: FC<DraggerProgressProps> = (props) => {
           {file?.status !== 'success' && renderUploading()}
           {file?.status === 'success' && <CheckCircleFilledIcon />}
         </div>
-        <small className={`${classPrefix}-size-s`}>文件大小：{returnFileSize(file?.size)}</small>
-        <small className={`${classPrefix}-size-s`}>上传日期：{getCurrentDate()}</small>
+        <small className={`${classPrefix}-size-s`}>
+          {t(infoText.fileSizeText)}：{returnFileSize(file?.size)}
+        </small>
+        <small className={`${classPrefix}-size-s`}>
+          {t(infoText.fileOperationDateText)}：{getCurrentDate()}
+        </small>
         {!['success', 'fail'].includes(file?.status) && (
           <div className={`${classPrefix}-upload__dragger-btns`}>
             <Button
               theme="primary"
               variant="text"
               className={`${classPrefix}-upload__dragger-progress-cancel`}
-              onClick={handleRemove}
+              onClick={onCancel}
             >
-              取消上传
+              {t(cancelUploadText)}
             </Button>
             <Button theme="primary" variant="text" onClick={onUpload}>
-              点击上传
+              {t(triggerUploadText.normal)}
             </Button>
           </div>
         )}
         {showResultOperate && (
           <div className="t-upload__dragger-btns">
             <Button theme="primary" variant="text" className="t-upload__dragger-progress-cancel" onClick={reUpload}>
-              重新上传
+              {t(triggerUploadText.reupload)}
             </Button>
             <Button theme="primary" variant="text" onClick={handleRemove}>
-              删除
+              {t(triggerUploadText.delete)}
             </Button>
           </div>
         )}

@@ -2,9 +2,9 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
  * */
 
+import { TNode } from '../common';
 import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
@@ -32,13 +32,12 @@ export interface TdTextareaProps {
    */
   maxlength?: number;
   /**
-   * 名称
+   * 名称，HTML 元素原生属性
    * @default ''
    */
   name?: string;
   /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -46,6 +45,14 @@ export interface TdTextareaProps {
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 文本框状态
+   */
+  status?: 'success' | 'warning' | 'error';
+  /**
+   * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
+   */
+  tips?: TNode;
   /**
    * 文本框值
    */
@@ -61,7 +68,7 @@ export interface TdTextareaProps {
   /**
    * 输入内容变化时触发
    */
-  onChange?: (value: TextareaValue, context?: { e?: FormEvent<HTMLDivElement> }) => void;
+  onChange?: (value: TextareaValue, context?: { e?: FormEvent<HTMLTextAreaElement> }) => void;
   /**
    * 获得焦点时触发
    */

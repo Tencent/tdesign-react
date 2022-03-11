@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DataType, FilterValue, PrimaryTableCol } from '../type';
 import { PrimaryTableProps } from '..';
-import filterButton from './FilterButton';
+import useFilterButton from './useFilterButton';
 
 /**
  * 筛选hook
@@ -12,10 +12,6 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
   const { columns, filterIcon, filterValue, defaultFilterValue, onFilterChange, data } = props;
   const isControlled = typeof filterValue !== 'undefined';
   const [filterVal, setFilterVal] = useState<FilterValue>(defaultFilterValue);
-
-  useEffect(() => {
-    setFilterVal(isControlled ? filterValue : defaultFilterValue);
-  }, [filterValue, defaultFilterValue, isControlled]);
 
   // 导出：筛选后的data。受控直接导出，非受控导出筛选数据
   const transformedFilterData = useMemo<DataType[]>(() => {
@@ -37,29 +33,35 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
     return data;
   }, [data, filterVal, isControlled]);
 
-  // 导出：添加筛选图标后的columns
-  const transformedFilterColumns = filterButton({
-    columns,
-    onChange: onChangeFilterButton,
-    innerfiltVal: isControlled ? filterValue : defaultFilterValue,
-    filterIcon,
-  });
-
+  const onFilterChangeRef = useRef(onFilterChange);
   /**
    * 触发筛选按钮，触发onFilterChange回调
    * @param toast
    * @param col
    */
-  function onChangeFilterButton(toast, col: PrimaryTableCol) {
-    const newFilterVal: FilterValue = {
-      ...filterVal,
-      ...toast,
-    };
-    setFilterVal(newFilterVal);
-    if (onFilterChange) {
-      onFilterChange(newFilterVal, { col });
-    }
-  }
+  const onChangeFilterButton = useCallback(
+    (toast, col: PrimaryTableCol) => {
+      const newFilterVal: FilterValue = {
+        ...filterVal,
+        ...toast,
+      };
+      setFilterVal(newFilterVal);
+      onFilterChangeRef.current?.(newFilterVal, { col });
+    },
+    [filterVal],
+  );
+
+  // 导出：添加筛选图标后的columns
+  const transformedFilterColumns = useFilterButton({
+    columns,
+    onChange: onChangeFilterButton,
+    innerFilterVal: isControlled ? filterValue : defaultFilterValue,
+    filterIcon,
+  });
+
+  useEffect(() => {
+    setFilterVal(isControlled ? filterValue : defaultFilterValue);
+  }, [filterValue, defaultFilterValue, isControlled]);
 
   return [transformedFilterColumns, transformedFilterData];
 }

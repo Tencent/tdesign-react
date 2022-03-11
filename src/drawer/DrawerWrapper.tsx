@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle, cloneElement } from 'react';
-import Portal, { PortalProps } from '../common/Portal';
+import Portal, { PortalProps, getAttach } from '../common/Portal';
 import { DrawerProps } from './Drawer';
 
 export interface DrawerWrapperProps extends PortalProps {
@@ -17,7 +17,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
       return portalRef.current.parentElement;
     }
 
-    return portalRef.current;
+    return getAttach(attach);
   });
 
   // 如果 attach === '',渲染在当前组件节点中。
@@ -25,7 +25,7 @@ const DrawerWrapper = forwardRef((props: DrawerWrapperProps, ref) => {
     portal = <div ref={portalRef}>{cloneElement(children)}</div>;
   } else {
     portal = (
-      <Portal getContainer={attach} ref={portalRef}>
+      <Portal attach={attach} ref={portalRef}>
         {children}
       </Portal>
     );

@@ -1,10 +1,13 @@
-import React, { useMemo, useState, ReactNode, useLayoutEffect, useRef } from 'react';
+import React, { useMemo, useState, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 import useUpdateEffect from '../../_util/useUpdateEffect';
 import useConfig from '../../_util/useConfig';
+import useLayoutEffect from '../../_util/useLayoutEffect';
+import { DragSortInnerProps } from '../../_util/useDragSorter';
 import { DataType, TdPrimaryTableProps } from '../type';
+import { StyledProps } from '../../common';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
 import { getScrollDirection, ScrollDirection } from '../util';
@@ -13,22 +16,29 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableLoadingBody from './TableLoadingBody';
 import TableAsyncLoadingBody from './TableAsyncLoadingBody';
-
 import { TableContextProvider } from './TableContext';
 import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
+import { useEnhancedTableContext } from '../enhanced/TableContext';
 
-export type BaseTableProps<RowData extends DataType = DataType> = TdPrimaryTableProps<RowData>;
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
   renderExpandRow?: Function;
+  innerExpandRowKeys?: Array<string | number>;
 }
+export interface BaseTableProps<RowData extends DataType = DataType>
+  extends TdPrimaryTableProps<RowData>,
+    StyledProps,
+    ExpandInnerProps,
+    DragSortInnerProps {}
 
 export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandInnerProps) {
   const { classPrefix } = useConfig();
 
   const {
+    className,
+    style,
     bordered = false,
     stripe = false,
     hover = false,
@@ -49,38 +59,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
 
   const [columns, flattenColumns] = useColumns(props);
 
-  // ==================== 固定表头、固定列 ====================
-  const [scrollBarWidth, setScrollBarWidth] = useState(0);
-  const fixedHeader = height > 0 || maxHeight > 0;
-  const table = useMemo(() => ({ fixedHeader, flattenColumns }), [fixedHeader, flattenColumns]);
-  const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
-  const scrollHeaderRef = useRef<HTMLDivElement>();
-  const scrollBodyRef = useRef<HTMLDivElement>();
-  const tableContentRef = useRef<HTMLDivElement>();
-  const [scrollableToLeft, setScrollableToLeft] = useState(false);
-  const [scrollableToRight, setScrollableToRight] = useState(false);
-
-  useLayoutEffect(() => {
-    if (fixedHeader) {
-      setStateScrollBarWidth();
-    }
-
-    let checkScrollableToLeftOrRightDebounce: EventListenerOrEventListenerObject | undefined;
-    if (hasFixedColumns) {
-      checkScrollableToLeftOrRight();
-      checkScrollableToLeftOrRightDebounce = debounce(checkScrollableToLeftOrRight);
-      window.addEventListener('resize', checkScrollableToLeftOrRightDebounce);
-    }
-
-    return () => {
-      if (hasFixedColumns) {
-        window.removeEventListener('resize', checkScrollableToLeftOrRightDebounce);
-      }
-    };
-  }, [fixedHeader, hasFixedColumns]); // eslint-disable-line react-hooks/exhaustive-deps
-
   // ==================== 翻页 ====================
-  let hasPagination = false;
+  const hasPagination = pagination ? (pagination.total || data.length) > 0 : false;
   const [innerCurrent, setInnerCurrentPagination] = useState<number>(
     pagination?.current || pagination?.defaultCurrent || 1,
   );
@@ -98,11 +78,6 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   const onPageSizeChange = (pageSize: number, pageInfo: PageInfo) => {
     pagination?.onPageSizeChange?.(pageSize, pageInfo);
   };
-
-  if (pagination) {
-    const { total, showJumper } = pagination;
-    hasPagination = total > innerPageSize || (showJumper && total <= innerPageSize);
-  }
 
   const onInnerPaginationChange = (pageInfo: PageInfo) => {
     const { current, pageSize } = pageInfo;
@@ -128,6 +103,55 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     }
     return data;
   }, [data, innerPageSize, hasPagination, innerCurrent]);
+
+  // ==================== 固定表头、固定列 ====================
+  const [scrollBarWidth, setScrollBarWidth] = useState(0);
+  const fixedHeader = height > 0 || maxHeight > 0;
+  const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
+  const scrollHeaderRef = useRef<HTMLDivElement>();
+  const scrollBodyRef = useRef<HTMLDivElement>();
+  const tableRef = useRef<HTMLTableElement>();
+  const tableContentRef = useRef<HTMLDivElement>();
+  const [scrollableToLeft, setScrollableToLeft] = useState(false);
+  const [scrollableToRight, setScrollableToRight] = useState(false);
+  const [isHasScrollbar, setIsHasScrollbar] = useState(false);
+
+  // ==================== Context ====================
+  const { getFlattenData } = useEnhancedTableContext();
+  const flattenData = getFlattenData?.(pageData);
+  const tableContextValue = useMemo(
+    () => ({ fixedHeader, flattenColumns, flattenData, pageData }),
+    [fixedHeader, flattenColumns, flattenData, pageData],
+  );
+
+  useLayoutEffect(() => {
+    if (fixedHeader) {
+      setStateScrollBarWidth();
+    }
+  }, [fixedHeader]);
+  useLayoutEffect(() => {
+    if (fixedHeader) {
+      const limitHeight = height || maxHeight;
+      const tableNode = tableRef.current;
+      const isHasScrollbarNew = tableNode.offsetHeight > limitHeight;
+      setIsHasScrollbar(isHasScrollbarNew);
+    }
+  }, [pageData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useLayoutEffect(() => {
+    let checkScrollableToLeftOrRightDebounce: EventListenerOrEventListenerObject | undefined;
+    if (hasFixedColumns) {
+      checkScrollableToLeftOrRight();
+      checkScrollableToLeftOrRightDebounce = debounce(checkScrollableToLeftOrRight);
+      window.addEventListener('resize', checkScrollableToLeftOrRightDebounce);
+    }
+
+    return () => {
+      if (hasFixedColumns) {
+        window.removeEventListener('resize', checkScrollableToLeftOrRightDebounce);
+      }
+    };
+  }, [hasFixedColumns]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ==================== render ====================
   const isEmpty = !data.length;
@@ -165,11 +189,11 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   }
 
   let paginationNode: ReactNode;
-
   if (hasPagination) {
     paginationNode = (
       <div className={`${classPrefix}-table__pagination`}>
         <Pagination
+          total={data?.length}
           {...pagination}
           current={innerCurrent}
           pageSize={innerPageSize}
@@ -180,25 +204,10 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     );
   }
 
-  function setStateScrollBarWidth() {
-    const scrollDiv = document.createElement('div');
-    scrollDiv.style.cssText = `
-      width: 99px;
-      height: 99px;
-      overflow: scroll;
-      position: absolute;
-      top: -9999px;`;
-    scrollDiv.classList.add('scrollbar');
-    document.body.appendChild(scrollDiv);
-    const scrollBarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    setScrollBarWidth(scrollBarWidth);
-    document.body.removeChild(scrollDiv);
-  }
-
   function getTable(params?: { enableHeader?: boolean; enableBody?: boolean }): ReactNode {
     const { enableHeader = true, enableBody = true } = params || {};
     return (
-      <table style={{ tableLayout, height: '100%' }}>
+      <table ref={tableRef} style={{ tableLayout, height: '100%' }}>
         <TableColGroup columns={columns} />
         {enableHeader ? <TableHeader<D> columns={columns} /> : null}
         {enableBody ? renderTableBodyAndTableFooter() : null}
@@ -207,17 +216,31 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
   }
 
   function getTableWithFixedHeader(): ReactNode {
+    let style = {};
+    if (isHasScrollbar) {
+      style = { ...style, paddingRight: scrollBarWidth };
+    }
     const fixedHeaderRN = (
-      <div ref={scrollHeaderRef} className={`${classPrefix}-table__header`} style={{ paddingRight: scrollBarWidth }}>
+      <div ref={scrollHeaderRef} className={`${classPrefix}-table__header`} style={style}>
         {getTable({ enableBody: false })}
       </div>
     );
 
-    const onScroll = (e) => {
+    const throttleScroll = throttle((e) => {
+      checkScrollableToLeftOrRight();
+      onScrollXOrY(e);
+      headerScroll(e);
+    }, 10);
+
+    function headerScroll(e) {
       const { scrollLeft } = e.target;
       scrollHeaderRef.current.scrollLeft = scrollLeft;
-      handleScroll(e, 10);
-    };
+    }
+
+    function onScroll(e) {
+      e.persist();
+      throttleScroll(e);
+    }
 
     const fixedBodyRN = (
       <div
@@ -242,7 +265,24 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     );
   }
 
+  // ==================== functions ====================
+  function setStateScrollBarWidth() {
+    const scrollDiv = document.createElement('div');
+    scrollDiv.style.cssText = `
+      width: 99px;
+      height: 99px;
+      overflow: scroll;
+      position: absolute;
+      top: -9999px;`;
+    scrollDiv.classList.add('scrollbar');
+    document.body.appendChild(scrollDiv);
+    const scrollBarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    setScrollBarWidth(scrollBarWidth);
+    document.body.removeChild(scrollDiv);
+  }
+
   function checkScrollableToLeftOrRight() {
+    if (!hasFixedColumns) return;
     const scrollContainer = fixedHeader ? scrollBodyRef.current : tableContentRef.current;
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
     const scrollableToLeft = scrollLeft > 0;
@@ -250,35 +290,46 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     const scrollableToRight = scrollLeft + clientWidth < scrollWidth;
     setScrollableToRight(scrollableToRight);
   }
-  function handleScroll(e, duration = 100) {
-    const { scrollLeft, scrollTop } = e.target;
 
-    const scrollFn = throttle(() => {
-      checkScrollableToLeftOrRight();
-      const direction = getScrollDirection(scrollLeft, scrollTop);
-      if (direction !== ScrollDirection.UNKNOWN) {
-        const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
-        const scrollParams = { e };
-        scrollListenerFn?.(scrollParams);
-      }
-    }, duration);
-    scrollFn();
+  function onScrollXOrY(e) {
+    const { scrollLeft, scrollTop } = e.target;
+    const direction = getScrollDirection(scrollLeft, scrollTop);
+    if (direction !== ScrollDirection.UNKNOWN) {
+      const scrollListenerFn = direction === ScrollDirection.X ? onScrollX : onScrollY;
+      const scrollParams = { e };
+      scrollListenerFn?.(scrollParams);
+    }
+  }
+
+  const throttleScroll = throttle((e) => {
+    checkScrollableToLeftOrRight();
+    onScrollXOrY(e);
+  }, 100);
+
+  function onScroll(e) {
+    e.persist(); // 处理：react 16及以下，event pooling导致异步获取event.target时为null. ref: https://reactjs.org/docs/legacy-event-pooling.html
+    throttleScroll(e);
   }
 
   return (
     <div
-      className={classNames(`${classPrefix}-table`, {
-        [`${classPrefix}-table--striped`]: stripe,
-        [`${classPrefix}-table--bordered`]: bordered,
-        [`${classPrefix}-size-l`]: size === 'large',
-        [`${classPrefix}-size-s`]: size === 'small',
-        [`${classPrefix}-table--hoverable`]: hover,
-        [`${classPrefix}-table--align-${verticalAlign}`]: verticalAlign,
-        [`${classPrefix}-table__header--fixed`]: fixedHeader,
-        [`${classPrefix}-table__cell--fixed ${classPrefix}-table--has-fixed`]: hasFixedColumns,
-      })}
+      className={classNames(
+        `${classPrefix}-table`,
+        {
+          [`${classPrefix}-table--striped`]: stripe,
+          [`${classPrefix}-table--bordered`]: bordered,
+          [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-size-s`]: size === 'small',
+          [`${classPrefix}-table--hoverable`]: hover,
+          [`${classPrefix}-table--align-${verticalAlign}`]: verticalAlign,
+          [`${classPrefix}-table__header--fixed`]: fixedHeader,
+          [`${classPrefix}-table__cell--fixed ${classPrefix}-table--has-fixed`]: hasFixedColumns,
+        },
+        className,
+      )}
+      style={style}
     >
-      <TableContextProvider value={table}>
+      <TableContextProvider value={tableContextValue}>
         <Loading
           loading={!!loading}
           showOverlay
@@ -292,7 +343,7 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
               [`${classPrefix}-table__content--scrollable-to-left`]: scrollableToLeft,
             })}
             style={{ overflow: 'auto' }}
-            {...(hasFixedColumns ? { onScroll: handleScroll } : {})}
+            {...(hasFixedColumns ? { onScroll } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}
           </div>

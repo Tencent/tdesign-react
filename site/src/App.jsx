@@ -1,55 +1,74 @@
 import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { BrowserRouter, HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
 import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
-import siteConfig from '../site.config.js';
-import { getRoute } from './utils';
+// import locale from 'tdesign-react/locale/zh_CN';
 // import locale from 'tdesign-react/locale/en_US';
+import siteConfig from '../site.config';
+import { getRoute, filterVersions } from './utils';
 import packageJson from '@/package.json';
 
-const lazyDemo = lazy(() => import('./components/Demo'));
+const LazyDemo = lazy(() => import('./components/Demo'));
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
 
 const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
+const currentVersion = packageJson.version.replace(/\./g, '_');
 
-function Components(props) {
+const docRoutes = getRoute(siteConfig.docs, []);
+const renderRouter = docRoutes.map((nav, i) => {
+  const LazyCom = lazy(nav.component);
+
+  return (
+    <Route
+      key={i}
+      path={nav.path.replace('/react/', '')}
+      element={
+        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+          <LazyCom />
+        </Suspense>
+      }
+    />
+  );
+});
+
+function Components() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
   const tdDocSearch = useRef();
 
   const [versionOptions, setVersionOptions] = useState([]);
-  const [version] = useState(packageJson.version);
-
-  const docRoutes = getRoute(siteConfig.docs, []);
-  const [renderRouter] = useState(renderRoutes(docRoutes));
-
-  function renderRoutes(docRoutes) {
-    return docRoutes.map((nav, i) => {
-      const LazyCom = lazy(nav.component);
-
-      return <Route key={i} path={nav.path} component={() => <LazyCom {...props} />} />;
-    });
-  }
+  const [version] = useState(currentVersion);
 
   function changeVersion(version) {
-    if (version === packageJson.version) return;
-    const histryUrl = `//${version}-tdesign-react.surge.sh`;
-    window.open(histryUrl, '_blank');
+    if (version === currentVersion) return;
+    const historyUrl = `//${version}-tdesign-react.surge.sh`;
+    window.open(historyUrl, '_blank');
   }
 
   function initHistoryVersions() {
-    fetch(registryUrl).then(res => res.json()).then(res => {
-      const options = [];
-      Object.keys(res.versions).forEach((v) => {
-        const nums = v.split('.');
-        if (nums[0] === '0' && nums[1] < 21) return false;
-        options.push({ label: v, value: v });
+    fetch(registryUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        const options = [];
+        const versions = filterVersions(
+          Object.keys(res.versions).filter((v) => !v.includes('alpha')),
+          1,
+        );
+
+        versions.forEach((v) => {
+          const nums = v.split('.');
+          if (nums[0] === '0' && nums[1] < 21) return false;
+
+          options.unshift({ label: v, value: v.replace(/\./g, '_') });
+        });
+        setVersionOptions(options);
       });
-      setVersionOptions(options);
-    });
   }
 
   useEffect(() => {
@@ -60,7 +79,7 @@ function Components(props) {
       if (location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
       requestAnimationFrame(() => {
-        props.history.push(detail);
+        navigate(detail);
       });
       requestAnimationFrame(() => {
         tdDocContentRef.current.pageStatus = 'show';
@@ -72,7 +91,7 @@ function Components(props) {
   }, []);
 
   return (
-    <ConfigProvider /* locale={locale} */>
+    <ConfigProvider /* globalConfig={{ locale, animation: { exclude: ['ripple'] }}} */>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
@@ -80,13 +99,13 @@ function Components(props) {
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
           {versionOptions.length ? (
             <div slot="extra">
-              <Select value={version} options={versionOptions} onChange={changeVersion} />
+              <Select popupProps={{ zIndex: 800 }} value={version} options={versionOptions} onChange={changeVersion} />
             </div>
           ) : null}
         </td-doc-aside>
 
         <td-doc-content ref={tdDocContentRef}>
-          <Suspense fallback={<Loading text="拼命加载中..." loading />}>{renderRouter}</Suspense>
+          <Outlet />
           <td-doc-footer slot="doc-footer"></td-doc-footer>
         </td-doc-content>
       </td-doc-layout>
@@ -95,22 +114,25 @@ function Components(props) {
 }
 
 function App() {
-  const Router = process.env.NODE_ENV === 'preview' ? HashRouter : BrowserRouter;
-
   return (
-    <Router>
-      <Switch>
-        <Redirect exact from="/" to="/react/components/overview" />
-        <Redirect exact from="/react" to="/react/components/overview" />
-        <Redirect exact from="/react/components" to="/react/components/overview" />
-        <Route path="/react/components/*" component={Components} />
-        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
-          <Route path="/react/demos/:componentName/:demoName" component={lazyDemo} /> 
-        </Suspense>
-        <Redirect from="*" to="/react/components/overview" />
-        {/* TODO: 404 */}
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Navigate replace to="/react/overview" />} />
+        <Route exact path="/react" element={<Navigate replace to="/react/overview" />} />
+        <Route
+          path="/react/demos/*"
+          element={
+            <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+              <LazyDemo />
+            </Suspense>
+          }
+        />
+        <Route path="/react/*" element={<Components />}>
+          {renderRouter}
+        </Route>
+        <Route path="*" element={<Navigate replace to="/react/overview" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

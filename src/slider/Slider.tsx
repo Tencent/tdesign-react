@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { TdSliderProps } from './type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
-import { numberToPencent } from './utils/handleNumber';
+import { numberToPercent } from './utils/handleNumber';
 import { StyledProps, TNode } from '../common';
 import InputNumber from '../input-number/InputNumber';
 import SliderHandleButton from './SliderHandleButton';
@@ -41,31 +41,30 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const [value, setValue] = useDefault(propsValue, defaultValue, onChange);
     const isVertical = layout === 'vertical';
 
-    const renderVaule = Array.isArray(value) ? value : [min, value];
-    const start = (renderVaule[LEFT_NODE] - min) / (max - min);
-    const width = (renderVaule[RIGHT_NODE] - renderVaule[LEFT_NODE]) / (max - min);
+    const renderValue = Array.isArray(value) ? value : [min, value];
+    const start = (renderValue[LEFT_NODE] - min) / (max - min);
+    const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
     const end = start + width;
 
     const dots: { value: number; label: TNode; position: number }[] = useMemo(() => {
       // 当 marks 为数字数组
       if (Array.isArray(marks)) {
-        if (marks.find((mark) => typeof mark !== 'number')) {
+        if (marks.some((mark) => typeof mark !== 'number')) {
           console.warn('The props "marks" only support number!');
           return [];
         }
         return marks.map((mark) => ({
           value: mark,
-          position: (mark - min) / max,
+          position: (mark - min) / (max - min),
           label: mark,
         }));
       }
       // 当 marks 为对象
       if (marks && typeof marks === 'object') {
         const result = [];
-        // eslint-disable-next-line guard-for-in
-        for (const key in marks) {
+        Object.keys(marks).forEach((key) => {
           const numberKey = Number(key);
-          if (typeof numberKey !== 'number' || !numberKey) {
+          if (typeof numberKey !== 'number') {
             console.warn('The props "marks" key only support number!');
           } else {
             result.push({
@@ -74,7 +73,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
               position: (numberKey - min) / max,
             });
           }
-        }
+        });
         return result;
       }
       return [];
@@ -115,11 +114,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const createInput = (nodeIndex: SliderHandleNode) => {
       const inputProps = typeof inputNumberProps === 'object' ? inputNumberProps : {};
-      const currentValue = renderVaule[nodeIndex];
+      const currentValue = renderValue[nodeIndex];
 
       return (
         <InputNumber
-          theme="normal"
           value={currentValue}
           onChange={(value: number) => handleInputChange(Number(value), nodeIndex)}
           className={classNames(`${classPrefix}-slider-input`, {
@@ -127,13 +125,14 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           })}
           disabled={disabled}
           {...inputProps}
+          theme="column"
         />
       );
     };
 
     const nearbyValueChange = (value: number) => {
       const buttonBias =
-        Math.abs(value - renderVaule[LEFT_NODE]) > Math.abs(value - renderVaule[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
+        Math.abs(value - renderValue[LEFT_NODE]) > Math.abs(value - renderValue[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
       handleInputChange(value, buttonBias);
     };
 
@@ -169,7 +168,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     };
 
     const createHandleButton = (nodeIndex: SliderHandleNode, style: React.CSSProperties) => {
-      const currentValue = renderVaule[nodeIndex];
+      const currentValue = renderValue[nodeIndex];
       // 模板替换
       let tipLabel = typeof label === 'string' ? label.replace(/\$\{value\}/g, currentValue.toString()) : label;
       if (tipLabel === true || !tipLabel) tipLabel = currentValue;
@@ -207,16 +206,16 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         >
           <div className={classNames(`${classPrefix}-slider__rail`)}>
             <div
-              style={{ [startDirection]: numberToPencent(start), [sizeKey]: numberToPencent(width) }}
+              style={{ [startDirection]: numberToPercent(start), [sizeKey]: numberToPercent(width) }}
               className={classNames(`${classPrefix}-slider__track`)}
             ></div>
-            {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPencent(start) }) : null}
-            {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPencent(end) })}
-            <div className={classNames(`${classPrefix}-slider__step`)}>
+            {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
+            {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
+            <div>
               {renderDots.map(({ position, value }) => (
                 <div
                   key={value}
-                  style={{ [stepDirection]: numberToPencent(position) }}
+                  style={{ [stepDirection]: numberToPercent(position) }}
                   className={classNames(`${classPrefix}-slider__stop`)}
                 ></div>
               ))}
@@ -226,7 +225,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                 <div
                   key={value}
                   onClick={(event) => handleClickMarks(event, value)}
-                  style={{ [stepDirection]: numberToPencent(position) }}
+                  style={{ [stepDirection]: numberToPercent(position) }}
                   className={classNames(`${classPrefix}-slider__mark-text`)}
                 >
                   {label}
@@ -242,6 +241,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
             })}
           >
             {range && createInput(LEFT_NODE)}
+            {range && <div className={`${classPrefix}-slider__center-line`}></div>}
             {createInput(RIGHT_NODE)}
           </div>
         ) : null}

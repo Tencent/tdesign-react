@@ -1,34 +1,62 @@
-﻿import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { List } from 'tdesign-react';
 
 const { ListItem, ListItemMeta } = List;
 
 export default function BasicList() {
-  const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
+  const [listData,setListData] = useState([]);
+  const [isLoading, setIsLoading] = useState('');
+  const [pageNum, setPageNum] = useState(1);
+  const pageSize = 5;
 
-  const listData = [
-    { id: 1, content: '列表内容列表内容列表内容' },
-    { id: 2, content: '列表内容列表内容列表内容' },
-    { id: 3, content: '列表内容列表内容列表内容' },
-    { id: 4, content: '列表内容列表内容列表内容' },
-  ];
+  const dataSource = [];
+  const total = 30;
+  for (let i = 0; i < total; i++) {
+    dataSource.push({ id: i, content: '列表内容列表内容列表内容', icon: 'https://tdesign.gtimg.com/list-icon.png', title: '列表主内容' });
+  }
+
+  const height = 300;
 
   const style = {
-    height: '150px',
+    height: `${height}px`,
     overflow: 'auto',
   };
 
-  const handleScroll = ({ e: event, scrollTop, scrollBottom }) => {
-    console.log(event, scrollTop, scrollBottom);
+   // 模拟请求
+   const fetchData = async (pageInfo) => {
+    if (isLoading) return;
+    setIsLoading(true)
+    try {
+      setTimeout(() => {
+        const { pageNum, pageSize } = pageInfo;
+        const newDataSource = dataSource.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+        setListData(listData.concat(newDataSource));
+        setPageNum(pageNum);
+        setIsLoading(false)
+      }, 300);
+    } catch (err) {
+      setListData([]);
+    }
+  }
+
+  const handleScroll = ({ scrollBottom }) => {
+    if (!scrollBottom  && listData.length < total) {
+      fetchData({ pageNum: pageNum + 1, pageSize });
+    }
+
   };
 
+  useEffect(() => {
+    fetchData({ pageNum, pageSize });
+  }, []);
+
   return (
-    <List size="small" style={style} onScroll={handleScroll}>
-      {listData.map((item) => (
-        <ListItem key={item.id}>
-          <ListItemMeta avatar={avatarUrl} title="列表主内容" description="列表内容列表内容列表内容" />
-        </ListItem>
-      ))}
+    <List asyncLoading={isLoading ? 'loading': ''} size="small" style={style} onScroll={handleScroll}>
+        {
+          listData.map(item => <ListItem key={item.id}>
+            <ListItemMeta image={item.icon} title={item.title} description={item.content} />
+          </ListItem>)
+        }
     </List>
   );
 }

@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef, forwardRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, forwardRef, ElementRef, useEffect } from 'react';
 
-import isArray from 'lodash/isArray';
-import isEmpty from 'lodash/isEmpty';
-import isBoolean from 'lodash/isBoolean';
-import isFunction from 'lodash/isFunction';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdTreeSelectProps, TreeSelectValue } from './type';
-import { StyledProps, TreeOptionData } from '../common';
+import classNames from 'classnames';
+import type { TdTreeSelectProps, TreeSelectValue } from './type';
+import type { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 
-import Popup from '../popup';
-import Tree, { TreeNodeModel, TreeNodeValue } from '../tree';
-import TreeStore from '../_common/js/tree/tree-store';
+import Tree, { TreeProps } from '../tree';
+import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
 
-import TreeSelectTags from './TreeSelectTags';
-import TreeSelectInput from './TreeSelectInput';
-import TreeSelectSuffix from './TreeSelectSuffix';
-import useTreeSelectConfig from './useTreeSelectConfig';
+import { usePersistFn } from '../_util/usePersistFn';
+import useSwitch from '../_util/useSwitch';
+import noop from '../_util/noop';
+import { useTreeSelectUtils } from './useTreeSelectUtils';
+import { TreeSelectArrow } from './TreeSelectArrow';
+import { useTreeSelectPassThroughProps } from './useTreeSelectPassthoughProps';
+import { useTreeSelectLocale } from './useTreeSelectLocale';
 
 export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
 
@@ -26,296 +24,251 @@ export interface NodeOptions {
   value: string | number;
 }
 
+const useMergeFn = <T extends any[]>(...fns: Array<(...args: T) => void>) =>
+  usePersistFn((...args: T) => fns.forEach((fn) => fn?.(...args)));
+
 const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivElement>) => {
+  /* ---------------------------------config---------------------------------------- */
+
+  // 国际化文本初始化
+  const { placeholder, empty, loadingItem } = useTreeSelectLocale(props);
+
+  const { classPrefix } = useConfig();
+
+  /* ---------------------------------state---------------------------------------- */
+
   const {
-    className: treeSelectClassName,
-    style: treeSelectStyle,
+    className,
     disabled,
     multiple,
     prefixIcon,
-    valueType,
     loading,
+    size,
     max,
-    treeProps,
-    empty,
     data,
-    loadingText,
-    filter,
-    filterable,
+    filter = (text, option) => option.label.includes(text),
+    filterable: rawFilterable,
     onClear,
+    valueDisplay,
+    treeProps,
+    onBlur,
+    onFocus,
+    onSearch,
+    onRemove,
   } = props;
-  const { classPrefix } = useConfig();
 
-  const popupRef = useRef(null);
-  const treeRef = useRef(null);
-  const inputRef = useRef(null);
+  const selectInputProps = useTreeSelectPassThroughProps(props);
+  const [value, onChange] = useDefault(props.value, props.defaultValue ?? multiple ? [] : null, props.onChange);
+  const [popupVisible, popupAction] = useSwitch();
+  const [hover, hoverAction] = useSwitch();
+  const [filterInput, setFilterInput] = useState<string | number>('');
 
-  const [visible, setVisible] = useState(false);
-  const [isHover, setIsHover] = useState(false);
-  const [focusing, setFocusing] = useState(false);
-  const [filterText, setFilterText] = useState('');
-  const [actived, setActived] = useState([]);
-  const [expanded, setExpanded] = useState([]);
-  const [nodeInfo, setNodeInfo] = useState(null);
+  const $tree = useRef<ElementRef<typeof Tree>>();
 
-  const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
+  const { normalizeValue, formatValue, getNodeItem } = useTreeSelectUtils(props, $tree);
 
-  const { selectClassName, popupObject, popupClassName } = useTreeSelectConfig({ visible, ...props });
+  /* ---------------------------------computed value---------------------------------------- */
 
-  // 初始化 Tree 组件未渲染需要提供默认的树形数据结构
-  const defaultStore = new TreeStore({ ...treeProps });
-  defaultStore.append(data);
-  const defaultGetTreeItem = (value: TreeNodeValue) => {
-    const node = defaultStore.getNode(value);
-    return node?.getModel();
-  };
+  const filterable = useMemo(() => rawFilterable || !!props.filter, [props.filter, rawFilterable]);
 
-  const selectedMultiple: Array<TreeSelectValue> = useMemo(() => {
-    if (multiple && isArray(value) && !isEmpty(value)) {
-      return value;
-    }
-    return [];
-  }, [multiple, value]);
-
-  const selectedSingle: string = useMemo(() => {
-    if (multiple) return '';
-
-    if (typeof value === 'undefined') {
-      return nodeInfo ? nodeInfo.label : '';
-    }
-
-    return nodeInfo ? nodeInfo.label : `${value}`;
-  }, [multiple, value, nodeInfo]);
-
-  const checked: any = useMemo(() => {
-    if (multiple) {
-      if (valueType === 'object') {
-        return isArray(value) ? value.map((item) => (item as NodeOptions).value) : [];
-      }
-      return isArray(value) ? value : [];
-    }
-    return [];
-  }, [multiple, valueType, value]);
-
-  const showLoading: boolean = useMemo(() => loading && !disabled, [loading, disabled]);
-
-  const showFilter: boolean = useMemo(() => {
-    if (disabled) {
-      return false;
-    }
-    if (!multiple && selectedSingle && (filterable || isFunction(filter))) {
-      return visible;
-    }
-    return filterable || isFunction(filter);
-  }, [disabled, multiple, selectedSingle, filterable, visible, filter]);
-
-  const multiLimitDisabled: boolean = useMemo(() => {
-    if (multiple && max && isArray(value) && max <= value.length) {
-      return true;
-    }
-    return false;
-  }, [multiple, max, value]);
-
-  const realLabel: string = useMemo(() => {
-    if (!isEmpty(treeProps) && !isEmpty(treeProps.keys)) {
-      return treeProps.keys.label || 'label';
-    }
-    return 'label';
-  }, [treeProps]);
-
-  const realValue: string = useMemo(() => {
-    if (!isEmpty(treeProps) && !isEmpty(treeProps.keys)) {
-      return treeProps.keys.value || 'value';
-    }
-    return 'value';
-  }, [treeProps]);
-
-  const tagList: Array<TreeSelectValue> = useMemo(() => {
-    if (nodeInfo && isArray(nodeInfo)) {
-      return nodeInfo.map((node) => node.label);
-    }
-    return selectedMultiple;
-  }, [nodeInfo, selectedMultiple]);
-
-  const filterByText = useCallback(
-    (node: TreeNodeModel<TreeOptionData>): boolean => {
-      if (isFunction(filter)) {
-        const filterValue: boolean | Promise<boolean> = filter(filterText, node);
-        if (isBoolean(filterValue)) {
-          return filterValue;
-        }
-      }
-      return node.data[realLabel].indexOf(filterText) >= 0;
-    },
-    [filterText, realLabel, filter],
+  const normalizedValue = useMemo(
+    () => (multiple ? (value as TreeSelectValue[]) : [value]).map(normalizeValue).filter(({ value }) => value ?? false),
+    [multiple, normalizeValue, value],
   );
+
+  const filterText = useMemo(() => String(filterInput), [filterInput]);
+
+  const inputValue = useMemo(() => {
+    if (multiple) return normalizedValue;
+    // 可筛选、单选、弹框时内容为过滤值
+    return filterable && popupVisible ? filterText : normalizedValue[0];
+  }, [multiple, normalizedValue, filterable, popupVisible, filterText]);
+
+  const inputPlaceholader = useMemo(() => {
+    // 可筛选、单选、弹框且有值时提示当前值
+    if (filterable && !multiple && popupVisible && normalizedValue.length) {
+      return typeof normalizedValue[0].label === 'string' ? normalizedValue[0].label : normalizedValue[0].value;
+    }
+    return placeholder;
+  }, [filterable, multiple, popupVisible, normalizedValue, placeholder]);
+
+  const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
+
+  const showFakePlaceholder = useMemo(
+    // 多选不能过滤时需要展示假的 placeholder
+    () => multiple && !filterable && !normalizedValue.length,
+    [filterable, multiple, normalizedValue],
+  );
+
+  /* ---------------------------------handler---------------------------------------- */
+
+  const handleFilter = useCallback<TreeProps['filter']>(
+    (node) => (filterable ? filter(filterText, node) : true),
+    [filter, filterText, filterable],
+  );
+
+  const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
+    const $value = value.length ? value[0] : null;
+    onChange(formatValue($value, context.node.label), context);
+    // 单选选择后收起弹框
+    popupAction.off();
+  });
+
+  const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
+    (max === 0 || value.length <= max) &&
+      onChange(
+        value.map((value) => formatValue(value, getNodeItem(value)?.label)),
+        context,
+      );
+  });
+
+  const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
+    ctx.e.stopPropagation();
+    onChange(multiple ? [] : formatValue(null), { node: null });
+    onClear?.(ctx);
+    // 清空后收起弹框
+    popupAction.off();
+  });
+
+  const handleRemove = usePersistFn((index: number, e?: React.MouseEvent<any, any>) => {
+    const node = getNodeItem(normalizedValue[index].value);
+    onChange(
+      normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
+      { node },
+    );
+    onRemove?.({ value: node.value, data: { value: node.value, label: node.label }, e });
+  });
+
+  const handleTagChange = usePersistFn<SelectInputProps['onTagChange']>((tags, ctx) => {
+    switch (ctx.trigger) {
+      case 'clear':
+        handleClear({ e: ctx.e as React.MouseEvent<SVGElement, MouseEvent> });
+        break;
+      case 'tag-remove':
+        handleRemove(ctx.index, ctx.e as React.MouseEvent<SVGElement, MouseEvent>);
+        break;
+      case 'backspace':
+        handleRemove(ctx.index);
+    }
+  });
+
+  const handleBlur = usePersistFn<SelectInputProps['onBlur']>((v, ctx) => {
+    onBlur?.({ value: multiple ? normalizedValue : normalizedValue[0], e: ctx.e });
+  });
+
+  const handleFocus = usePersistFn<SelectInputProps['onFocus']>((v, ctx) => {
+    onFocus?.({ value: multiple ? normalizedValue : normalizedValue[0], e: ctx.e });
+  });
+
+  const handleEnter = usePersistFn<SelectInputProps['onEnter']>((text) => {
+    onSearch?.(text as string);
+  });
+
+  const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, { trigger }) => {
+    // blur 时不应该清空值，应该当弹出框消失时清空
+    if (trigger !== 'blur') {
+      setFilterInput(value);
+    }
+  });
+
+  /* ---------------------------------effect---------------------------------------- */
 
   useEffect(() => {
-    if (valueType === 'object') {
-      setActived(isArray(value) ? value.map((item) => (item as NodeOptions).value) : [(value as NodeOptions).value]);
-    } else {
-      setActived(isArray(value) ? value : [value]);
-    }
-    changeNodeInfo(value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, valueType]);
+    // 显示时清空过滤，隐藏时清空有动画会导致闪动
+    popupVisible && setFilterInput('');
+  }, [popupVisible]);
 
-  function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-    e.stopPropagation();
+  /* ---------------------------------render---------------------------------------- */
 
-    const defaultValue: TreeSelectValue = multiple ? [] : '';
-    onChange?.(defaultValue, null);
-    setActived([]);
-    setFilterText('');
-    setNodeInfo(null);
-    onClear?.({ e });
-  }
+  const renderTree = () =>
+    showLoading ? (
+      loadingItem
+    ) : (
+      <Tree
+        ref={$tree}
+        hover
+        transition
+        expandAll
+        filter={handleFilter}
+        data={data}
+        disabled={disabled}
+        empty={empty}
+        {...(multiple
+          ? {
+              checkable: true,
+              onChange: handleMultiChange,
+              value: normalizedValue.map(({ value }) => value),
+            }
+          : {
+              activable: true,
+              actived: normalizedValue.map(({ value }) => value),
+              onActive: handleSingleChange,
+            })}
+        {...treeProps}
+      />
+    );
 
-  function changeNodeInfo(value) {
-    if (!multiple && value) {
-      const nodeValue = valueType === 'object' ? (value as NodeOptions).value : value;
-      const node = treeRef.current?.getItem(nodeValue) || defaultGetTreeItem(nodeValue);
-      node ? setNodeInfo({ label: node.data[realLabel], value: node.data[realValue] }) : setNodeInfo(null);
-    } else if (multiple && isArray(value)) {
-      setNodeInfo(
-        value.map((value) => {
-          const nodeValue = valueType === 'object' ? (value as NodeOptions).value : value;
-          const node = treeRef.current?.getItem(nodeValue) || defaultGetTreeItem(nodeValue);
-          return node ? { label: node.data[realLabel], value: node.data[realValue] } : {};
-        }),
-      );
-    } else {
-      setNodeInfo(null);
-    }
-  }
-
-  function treeNodeChange(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TreeOptionData> }) {
-    let current: TreeSelectValue = value;
-    if (valueType === 'object') {
-      current = value.map((nodeValue) => {
-        const node = treeRef.current.getItem(nodeValue);
-        return { label: node.data[realLabel], value: node.data[realValue] };
-      });
-    }
-    onChange?.(current, context);
-  }
-
-  function treeNodeActive(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<TreeOptionData> }) {
-    // 多选模式屏蔽 Active 事件
-    if (multiple) return;
-
-    const nodeValue = isEmpty(value) ? '' : value[0];
-    const node = treeRef.current.getItem(nodeValue);
-    let current: TreeSelectValue = nodeValue;
-
-    if (valueType === 'object' && node) {
-      current = { label: node.data[realLabel], value: node.data[realValue] };
-    }
-
-    onChange?.(current, context);
-    setFilterText('');
-    setVisible(false);
-  }
-
-  function treeNodeExpand(value: Array<TreeNodeValue>) {
-    setExpanded(value);
-  }
-
-  function popupVisibleChange(visible: boolean) {
-    if (focusing && !visible) {
-      setVisible(true);
-      return;
-    }
-    setVisible(visible);
-    if (showFilter && visible) {
-      inputRef.current?.focus();
-    }
-  }
-
-  // 国际化文本初始化
-  const [local, t] = useLocaleReceiver('treeSelect');
-  const emptyText = t(local.empty);
-  const loadingTextLabel = t(local.loadingText);
-
-  const treeItem = !loading && (
-    <Tree
-      ref={treeRef}
-      value={checked}
-      hover
-      expandAll
-      expandOnClickNode
-      data={data}
-      activable={!multiple}
-      checkable={multiple}
-      disabled={disabled || multiLimitDisabled}
-      empty={empty || <div className={`${classPrefix}-select__empty`}>{emptyText}</div>}
-      filter={filterByText}
-      actived={actived}
-      expanded={expanded}
-      activeMultiple={multiple}
-      onChange={treeNodeChange}
-      onActive={treeNodeActive}
-      onExpand={treeNodeExpand}
-      {...treeProps}
-    />
+  const renderCollapsedItems = useMemo(
+    () =>
+      props.collapsedItems
+        ? () =>
+            props.collapsedItems({
+              value: normalizedValue,
+              collapsedSelectedItems: normalizedValue.slice(props.minCollapsedNum, normalizedValue.length),
+              count: normalizedValue.length - props.minCollapsedNum,
+            })
+        : null,
+    [normalizedValue, props],
   );
 
-  const loadingTip = showLoading && (
-    <p className={`${classPrefix}-select__loading-tips`}>
-      {loadingText || <div className={`${classPrefix}-select__empty`}>{loadingTextLabel}</div>}
-    </p>
-  );
+  const renderLabel = () =>
+    showFakePlaceholder ? (
+      <>
+        {prefixIcon}
+        <span className={`${classPrefix}-tree-select--placeholder`}>{placeholder}</span>
+      </>
+    ) : (
+      prefixIcon
+    );
+
+  const normalizedValueDisplay = () => {
+    if (multiple) return ({ onClose }) => valueDisplay({ value: normalizedValue, onClose });
+    return normalizedValue.length ? (valueDisplay({ value: normalizedValue[0], onClose: noop }) as string) : '';
+  };
 
   return (
-    <div ref={ref} className={treeSelectClassName} style={treeSelectStyle}>
-      <Popup
-        ref={popupRef}
-        className={`${classPrefix}-select__popup-reference`}
-        visible={visible}
-        disabled={disabled}
-        placement={popupObject.placement}
-        trigger={popupObject.trigger}
-        overlayStyle={popupObject.overlayStyle}
-        overlayClassName={popupClassName}
-        onVisibleChange={popupVisibleChange}
-        expandAnimation={true}
-        content={
-          <>
-            {loadingTip}
-            {treeItem}
-          </>
-        }
-      >
-        <div
-          style={{ minHeight: 30 }}
-          className={selectClassName}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-        >
-          {prefixIcon && <span className={`${classPrefix}-select__left-icon`}>{prefixIcon}</span>}
-
-          <TreeSelectTags tagList={tagList} {...props} />
-
-          <TreeSelectInput
-            ref={inputRef}
-            visible={visible}
-            filterText={filterText}
-            selectedSingle={selectedSingle}
-            setFocusing={setFocusing}
-            setFilterText={setFilterText}
-            {...props}
-          />
-
-          <TreeSelectSuffix
-            visible={visible}
-            isHover={isHover}
-            showLoading={showLoading}
-            handleClear={handleClear}
-            {...props}
-          />
-        </div>
-      </Popup>
-    </div>
+    <SelectInput
+      {...selectInputProps}
+      ref={ref}
+      className={classNames(
+        `${classPrefix}-tree-select`,
+        {
+          [`${classPrefix}-tree-select--without-input`]: multiple && !filterable,
+        },
+        className,
+      )}
+      value={inputValue}
+      inputValue={popupVisible ? filterText : ''}
+      panel={renderTree()}
+      allowInput={multiple || filterable}
+      inputProps={{ size }}
+      tagInputProps={{ size, excessTagsDisplayType: 'break-line' }}
+      placeholder={inputPlaceholader}
+      popupVisible={popupVisible && !disabled}
+      onInputChange={handleFilterChange}
+      onPopupVisibleChange={useMergeFn(popupAction.set)}
+      onFocus={useMergeFn(handleFocus, popupAction.on)}
+      onBlur={useMergeFn(handleBlur)}
+      onClear={handleClear}
+      onTagChange={handleTagChange}
+      onEnter={handleEnter}
+      onMouseenter={hoverAction.on}
+      onMouseleave={hoverAction.off}
+      suffixIcon={<TreeSelectArrow isActive={popupVisible} isHighlight={hover || popupVisible} disabled={disabled} />}
+      collapsedItems={renderCollapsedItems}
+      label={renderLabel()}
+      valueDisplay={valueDisplay && normalizedValueDisplay()}
+    />
   );
 });
 
@@ -325,15 +278,13 @@ TreeSelect.defaultProps = {
   clearable: false,
   data: [],
   disabled: false,
-  empty: '',
   filterable: false,
   loading: false,
-  loadingText: '',
   max: 0,
   multiple: false,
-  placeholder: '请输入',
   size: 'medium',
   valueType: 'value',
   minCollapsedNum: 0,
 };
+
 export default TreeSelect;

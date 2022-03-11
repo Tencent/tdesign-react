@@ -30,11 +30,20 @@
     "**/**/_example/*",
     "node_modules",
     "src/_common",
-    "src/_type",
     "dist",
     "lib",
     "esm",
+    "cjs",
     "es"
+  ],
+  "types": [
+    "node",
+    "jest",
+    "@testing-library/jest-dom",
+    "@testing-library/react-hooks",
+    "@testing-library/react",
+    "@testing-library/cypress",
+    "cypress",
   ],
   "compileOnSave": false
 }

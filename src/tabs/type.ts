@@ -2,10 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-12 18:01:23
+ * updated at 2021-12-27 17:08:43
  * */
 
-import { TNode, TElement } from '../common';
+import { TNode } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdTabsProps {
@@ -61,10 +61,6 @@ export interface TdTabsProps {
 }
 
 export interface TdTabPanelProps {
-  /**
-   * 用于自定义选项卡导航，同 panel
-   */
-  default?: TElement;
   /**
    * 选项卡内容隐藏时是否销毁
    * @default true

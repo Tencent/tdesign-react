@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, useMemo, CSSProperties } from 'react';
 import classnames from 'classnames';
 
-import { addClass, removeClass } from '../_util/dom';
+import { addClass, canUseDocument, removeClass } from '../_util/dom';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdLoadingProps } from './type';
@@ -26,6 +26,7 @@ const Loading: FC<LoadingProps> = (props) => {
     inheritColor = false,
     zIndex,
     className,
+    style,
   } = props;
 
   const [showLoading, setShowLoading] = useState(delay ? false : loading);
@@ -37,7 +38,7 @@ const Loading: FC<LoadingProps> = (props) => {
   const inheritColorClass = `${classPrefix}-loading--inherit-color`;
   const fullClass = `${classPrefix}-loading--full`;
   const fullscreenClass = `${classPrefix}-loading__fullscreen`;
-  const lockClass = `${classPrefix}-loading-lock`;
+  const lockClass = `${classPrefix}-loading--lock`;
   const overlayClass = `${classPrefix}-loading__overlay`;
   const relativeClass = `${classPrefix}-loading__parent`;
   const textClass = `${classPrefix}-loading__text`;
@@ -65,11 +66,11 @@ const Loading: FC<LoadingProps> = (props) => {
     }
 
     if (!['small', 'medium', 'large'].includes(size)) {
-      styles['font-size'] = size;
+      styles.fontSize = size;
     }
 
-    return styles;
-  }, [size, zIndex]);
+    return style ? { ...styles, ...style } : styles;
+  }, [size, zIndex, style]);
 
   const sizeMap = {
     large: `${classPrefix}-size-l`,
@@ -86,13 +87,14 @@ const Loading: FC<LoadingProps> = (props) => {
     className,
   );
 
-  if (preventScrollThrough && fullscreen) {
-    if (loading) {
+  useEffect(() => {
+    if (preventScrollThrough && fullscreen && canUseDocument && loading) {
       addClass(document.body, lockClass);
-    } else {
-      removeClass(document.body, lockClass);
     }
-  }
+    return () => {
+      removeClass(document.body, lockClass);
+    };
+  }, [loading, preventScrollThrough, fullscreen, lockClass]);
 
   const commonContent = () => {
     let renderIndicator = <Gradient />;
@@ -135,7 +137,7 @@ const Loading: FC<LoadingProps> = (props) => {
   }
   if (attach) {
     return (
-      <Portal getContainer={attach}>
+      <Portal attach={attach}>
         <div className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })} style={calcStyles}>
           {commonContent()}
         </div>

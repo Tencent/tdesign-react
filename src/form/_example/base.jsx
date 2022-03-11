@@ -11,7 +11,11 @@ export default function BaseForm() {
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
-    console.log(formRef.current.getAllFieldsValue());
+    console.log('getFieldsValue all: ', formRef.current.getFieldsValue?.(true));
+    console.log('getFieldsValue: ', formRef.current.getFieldsValue?.(['name']));
+    console.log('getFieldValue: ', formRef.current.getFieldValue?.('name'));
+    // console.log('setFieldsValue: ', formRef.current.setFieldsValue?.({gender: 'male'}));
+    // console.log('setFields: ', formRef.current.setFields?.([{name: 'course', value: ['la']}]));
   };
 
   const onReset = (e) => {
@@ -25,7 +29,7 @@ export default function BaseForm() {
         <Input />
       </FormItem>
       <FormItem label="出生日期" name="birthday">
-        <DatePicker theme="primary" mode="date" />
+        <DatePicker mode="date" />
       </FormItem>
       <FormItem label="性别" name="gender">
         <Radio.Group>

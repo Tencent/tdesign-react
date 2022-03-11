@@ -36,8 +36,10 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const [inputWidth, setInputWidth] = useState(0);
   const [treeNodes, setTreeNodes] = useState([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
+  const [local, t] = useLocaleReceiver('cascader');
 
   // cascaderContext, center status
+  const loadingLocalText = t(local.loadingText);
   const cascaderContext = useMemo(() => {
     const {
       size = 'medium',
@@ -51,6 +53,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       max = 0,
       showAllLevels = true,
       minCollapsedNum = false,
+      loadingText = loadingLocalText,
     } = props;
     return {
       size,
@@ -83,44 +86,43 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       minCollapsedNum,
       inputWidth,
       setInputWidth,
+      loadingText,
     } as CascaderContextType;
-  }, [props, inputVal, value, setValue, visible, treeStore, treeNodes, filterActive, inputWidth, setInputWidth]);
+  }, [loadingLocalText, props, value, visible, treeStore, treeNodes, filterActive, inputVal, inputWidth, setValue]);
 
   /**
    * build tree
    */
   const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
-  const createStore = (onLoad: () => void) => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-      onLoad,
-    };
-    const store = new TreeStore(treeProps);
-
-    store.append(options);
-    return store;
-  };
-
-  if (!treeStore) {
-    const store = createStore(() => {
-      setTimeout(() => {
+  useEffect(() => {
+    if (!options.length) return;
+    if (!treeStore) {
+      const createStore = (onLoad: () => void) => {
+        const treeProps = {
+          onLoad,
+          options,
+        };
+        const store = new TreeStore(treeProps);
+        store.append(options);
+        return store;
+      };
+      const store = createStore(() => {
         store.refreshNodes();
         treeNodesEffect(inputVal, store, setTreeNodes);
-      }, 0);
-    });
-    setTreeStore(store);
-  }
+      });
+      setTreeStore(store);
+    } else {
+      if (treeStore.config.options === options) return;
+      treeStore.reload(options);
+      treeStore.refreshNodes();
+      treeStoreExpendEffect(treeStore, value, []);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes);
+    }
+  }, [inputVal, options, value, treeStore]);
 
   useEffect(() => {
+    if (!treeStore) return;
     const treeProps = {
       keys: keys || {},
       checkable: true,
@@ -160,20 +162,20 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     }
   }, [filterActive]);
 
-  const [local, t] = useLocaleReceiver('cascader');
-
   // panel props
   const { empty = t(local.empty), trigger = 'click' } = props;
 
   // inputContent props
-  const { placeholder = '请输入', onRemove, onBlur, onFocus } = props;
+  const { placeholder = t(local.placeholder), onRemove, onBlur, onFocus } = props;
 
   return (
     <Popup
+      className={`${name}__popup`}
       placement="bottom-left"
       visible={visible}
       overlayClassName={`${name}__dropdown`}
       expandAnimation={true}
+      destroyOnClose={true}
       {...props?.popupProps}
       content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}
     >
