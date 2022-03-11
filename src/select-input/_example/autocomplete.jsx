@@ -34,7 +34,7 @@ const OPTIONS = ['Student A', 'Student B', 'Student C', 'Student D', 'Student E'
 
 export default function SelectInputAutocomplete() {
   const [popupVisible, setPopupVisible] = useState(false);
-  const [selectValue, setSelectValue] = useState();
+  const [selectValue, setSelectValue] = useState('');
   const [options, setOptions] = useState(OPTIONS);
 
   const onOptionClick = (item) => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect, Ref, useMemo } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import isString from 'lodash/isString';
 import useDefault from '../../_util/useDefault';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
@@ -74,8 +73,6 @@ const Select = forwardRefWithStatics(
       onEnter,
       onVisibleChange,
       showArrow = true,
-      inputValue,
-      defaultInputValue,
       inputProps,
       panelBottomContent,
       panelTopContent,
@@ -90,7 +87,7 @@ const Select = forwardRefWithStatics(
     const name = `${classPrefix}-select`; // t-select
 
     const [showPopup, setShowPopup] = useState(popupVisible || false);
-    const [inputVal, setInputVal] = useState<string>(undefined);
+    const [inputValue, onInputChange] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
     const [valueToOption, setValueToOption] = useState({});
@@ -164,9 +161,7 @@ const Select = forwardRefWithStatics(
       if (disabled) return;
       setShowPopup(visible);
       onVisibleChange?.(visible);
-      if (!visible && !multiple && filterable) {
-        setInputVal(selectedLabel);
-      }
+      visible && onInputChange('');
     };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
@@ -202,16 +197,16 @@ const Select = forwardRefWithStatics(
     };
 
     // 选中 Popup 某项
-    const handleChange: SelectOptionProps['onSelect'] = (value, { label }) => {
-      if (filterable) {
-        setInputVal(!multiple || (reserveKeyword && multiple) ? label : '');
+    const handleChange: SelectOptionProps['onSelect'] = (value) => {
+      if (multiple) {
+        !reserveKeyword && onInputChange('', { trigger: 'clear' });
       }
       if (creatable && isFunction(onCreate)) {
         if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
           onCreate(value);
         }
       }
-      onChange ? onChange(value, null) : setInputVal(label);
+      onChange?.(value, null);
     };
 
     // 处理filter逻辑
@@ -240,14 +235,12 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
-      setInputVal(value);
+      onInputChange(value);
 
       if (isFunction(onSearch)) {
         onSearch(value);
         return;
       }
-
-      handleFilter(value);
     };
 
     const onClearValue = (context) => {
@@ -257,9 +250,14 @@ const Select = forwardRefWithStatics(
       } else {
         onChange(null, context);
       }
-      setInputVal(undefined);
+      onInputChange(undefined);
       onClear(context);
     };
+
+    useEffect(() => {
+      handleFilter(String(inputValue));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inputValue]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
@@ -334,7 +332,7 @@ const Select = forwardRefWithStatics(
           readonly={readonly}
           allowInput={multiple || filterable}
           multiple={multiple}
-          value={isString(inputVal) && !multiple ? inputVal : selectedLabel}
+          value={selectedLabel}
           valueDisplay={renderValueDisplay()}
           clearable={clearable}
           disabled={disabled}
@@ -342,9 +340,8 @@ const Select = forwardRefWithStatics(
           label={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
-          placeholder={placeholder || t(local.placeholder)}
-          inputValue={inputValue}
-          defaultInputValue={defaultInputValue}
+          placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
+          inputValue={showPopup ? inputValue : ''}
           tagInputProps={{
             ...tagInputProps,
           }}

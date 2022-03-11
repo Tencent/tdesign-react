@@ -61,7 +61,7 @@ exports[`collapsed.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -124,7 +124,7 @@ exports[`collapsed.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -287,7 +287,7 @@ exports[`filterable.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -384,7 +384,7 @@ exports[`multiple.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -623,7 +623,7 @@ exports[`valuedisplay.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -749,7 +749,7 @@ exports[`valuetype.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-tag-input t-tag-input--break-line t-input t-input--prefix t-input--suffix"
+          class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"

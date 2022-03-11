@@ -59,16 +59,9 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   });
 
   const NAME_CLASS = `${prefix}-tag-input`;
+  const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
   const BREAK_LINE_CLASS = `${prefix}-tag-input--break-line`;
-
-  const classes = [
-    NAME_CLASS,
-    {
-      [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
-    },
-    props.className,
-  ];
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
@@ -104,6 +97,15 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
         onClose: (index, item) => onClose({ index, item }),
       })
     : valueDisplay;
+
+  const classes = [
+    NAME_CLASS,
+    {
+      [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
+      [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
+    },
+    props.className,
+  ];
 
   return (
     <TInput
