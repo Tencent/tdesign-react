@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'tdesign-react/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const demoFiles = import.meta.globEager('../../../src/**/_example/*.jsx');
 
@@ -17,13 +17,12 @@ Object.keys(demoFiles).forEach((key) => {
   }
 });
 
-export default function Demo(props) {
-  const { location } = props;
+export default function Demo() {
+  const location = useLocation();
   const match = location.pathname.match(/\/react\/demos\/([\w-]+)\/?([\w-]+)?/);
   const [, componentName, demoName] = match;
   const demoList = demoObject[componentName];
   const demoFunc = demoObject[`${componentName}/${demoName}`];
-  console.log('%c 所有 demo 路径参考: \n', 'color: #0052d9;', demoObject);
 
   return demoFunc ? demoFunc() : (
     <ul style={{ margin: '48px 200px' }}>

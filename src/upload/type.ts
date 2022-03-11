@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2022-01-11 14:36:25
  * */
 
 import { TNode } from '../common';
@@ -160,6 +159,10 @@ export interface TdUploadProps {
    * 移除文件时触发
    */
   onRemove?: (context: UploadRemoveContext) => void;
+  /**
+   * 文件选择后，上传开始前，触发
+   */
+  onSelectChange?: (value: Array<UploadFile>) => void;
   /**
    * 上传成功后触发
    */

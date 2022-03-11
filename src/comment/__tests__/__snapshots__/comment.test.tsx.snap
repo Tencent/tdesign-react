@@ -653,7 +653,6 @@ exports[`reply-form.jsx 1`] = `
             </div>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="button"
             >
               <span

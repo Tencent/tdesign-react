@@ -42,7 +42,7 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   layout?: 'vertical' | 'inline';
   /**
-   * 是否阻止表单提交默认事件，即提交后会刷新页面
+   * 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新
    * @default true
    */
   preventSubmitDefault?: boolean;
@@ -103,10 +103,6 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   clearValidate?: (fields?: Array<keyof FormData>) => void;
   /**
-   * 【即将废弃，请使用 getFieldsValue】获取全部表单数据
-   */
-  getAllFieldsValue?: () => Record<keyof FormData, unknown>;
-  /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
   getFieldsValue?: (nameList: string[] | boolean) => Record<keyof FormData, unknown>;
@@ -126,6 +122,10 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    * 设置表单字段值
    */
   setFieldsValue?: (field: Array<keyof FormData>) => void;
+  /**
+   * 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型
+   */
+  setValidateMessage?: (message: FormValidateMessage<FormData>) => void;
   /**
    * 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
    */
@@ -150,7 +150,7 @@ export interface TdFormItemProps {
   /**
    * 表单初始数据，重置时所需初始数据
    */
-  initialData?: string | boolean;
+  initialData?: InitialData;
   /**
    * 字段标签名称
    * @default ''
@@ -364,6 +364,13 @@ export interface FieldData {
   status: string;
 }
 
+export type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] };
+
+export interface FormItemValidateMessage {
+  type: 'warning' | 'error';
+  message: string;
+}
+
 export interface FormValidateParams {
   fields?: Array<string>;
   trigger?: ValidateTriggerType;
@@ -372,6 +379,8 @@ export interface FormValidateParams {
 export type ValidateTriggerType = 'blur' | 'change' | 'all';
 
 export type Data = { [key: string]: any };
+
+export type InitialData = any;
 
 export interface IsDateOptions {
   format: string;

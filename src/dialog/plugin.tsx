@@ -14,7 +14,13 @@ const createDialog: DialogPlugin = (props: DialogOptions) => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
   const div = document.createElement('div');
-  ReactDOM.render(<DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />, div);
+  ReactDOM.render(
+    <DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />,
+    div,
+    () => {
+      (document.activeElement as HTMLElement).blur();
+    },
+  );
   const container = getAttach(options.attach);
   if (container) {
     container.appendChild(div);
@@ -49,7 +55,5 @@ const alert: DialogAlertMethod = (props: Omit<DialogOptions, 'confirmBtn'>) => {
 
 createDialog.alert = alert;
 createDialog.confirm = confirm;
-
-export const dialog = createDialog;
 
 export const DialogPlugin = createDialog;

@@ -5,14 +5,15 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
+import { StyledProps } from '../common';
 
-export interface TabsProps extends TdTabsProps {
+export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
-    const { children, placement, onRemove, value: tabValue, onChange } = props;
+    const { children, placement, onRemove, value: tabValue, onChange, className, style } = props;
     let { defaultValue } = props;
 
     // 样式工具引入
@@ -61,7 +62,7 @@ const Tabs = forwardRefWithStatics(
     );
 
     return (
-      <div ref={ref} className={classNames(tdTabsClassPrefix)}>
+      <div ref={ref} className={classNames(tdTabsClassPrefix, className)} style={style}>
         {placement !== 'bottom' ? renderTabNav() : null}
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(children, (child: any) => {
@@ -69,8 +70,7 @@ const Tabs = forwardRefWithStatics(
               if (child.props.value === value) {
                 return child;
               }
-              // 实现 renderOnHide
-              if (child.props.renderOnHide) {
+              if (child.props.destroyOnHide === false) {
                 return <TabPanel style={{ display: 'none' }}>{child.props.children}</TabPanel>;
               }
             }

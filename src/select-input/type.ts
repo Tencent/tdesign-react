@@ -24,7 +24,7 @@ export interface TdSelectInputProps {
    */
   autoWidth?: boolean;
   /**
-   * 无边框模式
+   * 【开发中】无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -62,6 +62,11 @@ export interface TdSelectInputProps {
    * 左侧文本
    */
   label?: TNode;
+  /**
+   * 是否处于加载状态
+   * @default false
+   */
+  loading?: boolean;
   /**
    * 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠
    * @default 0
@@ -191,7 +196,7 @@ export interface SelectInputValueChangeContext {
     | FormEvent<HTMLDivElement>
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
-    | KeyboardEvent<HTMLDivElement>;
+    | KeyboardEvent<HTMLInputElement>;
   trigger: 'input' | 'clear' | 'blur';
 }
 

@@ -10,7 +10,6 @@ exports[`align.jsx 1`] = `
     >
       <button
         class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -28,16 +27,19 @@ exports[`align.jsx 1`] = `
         </svg>
       </button>
       <div
-        class="t-input t-align-left"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="100"
-        />
+        <div
+          class="t-input t-align-left"
+        >
+          <input
+            class="t-input__inner"
+            value="100"
+          />
+        </div>
       </div>
       <button
         class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -60,7 +62,6 @@ exports[`align.jsx 1`] = `
     >
       <button
         class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -78,16 +79,19 @@ exports[`align.jsx 1`] = `
         </svg>
       </button>
       <div
-        class="t-input t-align-center"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="200"
-        />
+        <div
+          class="t-input t-align-center"
+        >
+          <input
+            class="t-input__inner"
+            value="200"
+          />
+        </div>
       </div>
       <button
         class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -110,7 +114,6 @@ exports[`align.jsx 1`] = `
     >
       <button
         class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -128,16 +131,19 @@ exports[`align.jsx 1`] = `
         </svg>
       </button>
       <div
-        class="t-input t-align-right"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="300"
-        />
+        <div
+          class="t-input t-align-right"
+        >
+          <input
+            class="t-input__inner"
+            value="300"
+          />
+        </div>
       </div>
       <button
         class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-        style="position: relative;"
         type="button"
       >
         <svg
@@ -159,36 +165,48 @@ exports[`align.jsx 1`] = `
       class="t-input-number t-size-m t-input-number--normal"
     >
       <div
-        class="t-input t-align-left"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="100"
-        />
+        <div
+          class="t-input t-align-left"
+        >
+          <input
+            class="t-input__inner"
+            value="100"
+          />
+        </div>
       </div>
     </div>
     <div
       class="t-input-number t-size-m t-input-number--normal"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="200"
-        />
+        <div
+          class="t-input t-align-center"
+        >
+          <input
+            class="t-input__inner"
+            value="200"
+          />
+        </div>
       </div>
     </div>
     <div
       class="t-input-number t-size-m t-input-number--normal"
     >
       <div
-        class="t-input t-align-right"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="300"
-        />
+        <div
+          class="t-input t-align-right"
+        >
+          <input
+            class="t-input__inner"
+            value="300"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -202,7 +220,6 @@ exports[`center.jsx 1`] = `
   >
     <button
       class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -220,16 +237,19 @@ exports[`center.jsx 1`] = `
       </svg>
     </button>
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="1"
+        />
+      </div>
     </div>
     <button
       class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -257,7 +277,6 @@ exports[`default.jsx 1`] = `
   >
     <button
       class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -275,16 +294,19 @@ exports[`default.jsx 1`] = `
       </svg>
     </button>
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="1"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="1"
+        />
+      </div>
     </div>
     <button
       class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -313,7 +335,6 @@ exports[`format.jsx 1`] = `
   >
     <button
       class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -331,16 +352,19 @@ exports[`format.jsx 1`] = `
       </svg>
     </button>
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="0%"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="0%"
+        />
+      </div>
     </div>
     <button
       class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -368,7 +392,6 @@ exports[`left.jsx 1`] = `
   >
     <button
       class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -386,16 +409,19 @@ exports[`left.jsx 1`] = `
       </svg>
     </button>
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="5"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="5"
+        />
+      </div>
     </div>
     <button
       class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -422,12 +448,16 @@ exports[`normal.jsx 1`] = `
     class="t-input-number t-size-m t-input-number--normal"
   >
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="10"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="10"
+        />
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -446,7 +476,6 @@ exports[`size.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -464,16 +493,19 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="3"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="3"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -496,7 +528,6 @@ exports[`size.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -514,16 +545,19 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="6"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="6"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -546,7 +580,6 @@ exports[`size.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -564,16 +597,19 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="9"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="9"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -600,7 +636,6 @@ exports[`size.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -618,16 +653,19 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="5"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="5"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -650,7 +688,6 @@ exports[`size.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -668,16 +705,19 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value="10"
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value="10"
+            />
+          </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -707,7 +747,6 @@ exports[`step.jsx 1`] = `
   >
     <button
       class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg
@@ -725,16 +764,19 @@ exports[`step.jsx 1`] = `
       </svg>
     </button>
     <div
-      class="t-input"
+      class="t-input__wrap"
     >
-      <input
-        class="t-input__inner"
-        value="3.2"
-      />
+      <div
+        class="t-input"
+      >
+        <input
+          class="t-input__inner"
+          value="3.2"
+        />
+      </div>
     </div>
     <button
       class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-      style="position: relative;"
       type="button"
     >
       <svg

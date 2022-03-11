@@ -108,14 +108,14 @@ describe('Select 组件测试', () => {
           </Select>
         );
       };
-      const { getByText } = render(<SingleSelect />);
+      const { getByDisplayValue, getByText } = render(<SingleSelect />);
 
       // 未点击input前，popup不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
       // 鼠标点击input，popup出现，且展示options
-      fireEvent.click(getByText('Apple'));
+      fireEvent.click(getByDisplayValue('Apple'));
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
       expect(popupElement2).toHaveStyle({
@@ -127,8 +127,8 @@ describe('Select 组件测试', () => {
 
       // 点击Banana选项，input展示该选项，且popup消失
       fireEvent.click(getByText('Banana'));
-      const selectElement = await waitFor(() => document.querySelector(selectSelector));
-      expect(selectElement).toHaveTextContent('Banana');
+      const selectElement = await waitFor(() => document.querySelector('.t-input__inner'));
+      expect(selectElement).toHaveValue('Banana');
       setTimeout(async () => {
         const popupElement3 = await waitFor(() => document.querySelector(popupSelector));
         expect(popupElement3).not.toBeNull();
@@ -206,14 +206,14 @@ describe('Select 组件测试', () => {
     };
 
     await act(async () => {
-      const { getByText } = render(<OptionGroupSelect />);
+      const { getByText, getByDisplayValue } = render(<OptionGroupSelect />);
       // 未点击input前，popup不出现
       const popupElement1 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement1).toBeNull();
 
       // 鼠标点击input，popup出现，且展示options
       const selectElement = await waitFor(() => document.querySelector(selectSelector));
-      fireEvent.click(selectElement);
+      fireEvent.click(getByDisplayValue('Apple'));
       const popupElement2 = await waitFor(() => document.querySelector(popupSelector));
       expect(popupElement2).not.toBeNull();
       expect(popupElement2).toHaveStyle({
@@ -226,7 +226,7 @@ describe('Select 组件测试', () => {
 
       // 点击Banana选项，input展示该选项，且popup消失
       fireEvent.click(getByText('Banana'));
-      expect(selectElement).toHaveTextContent('Banana');
+      expect(document.querySelector('.t-input__inner')).toHaveValue('Banana');
       setTimeout(async () => {
         const popupElement3 = await waitFor(() => document.querySelector(popupSelector));
         expect(popupElement3).not.toBeNull();

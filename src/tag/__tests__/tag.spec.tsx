@@ -16,7 +16,7 @@ describe('test tag component', () => {
   it('tag variant', () => {
     cy.get('.t-tag--light').should('exist');
     cy.get('.t-tag--dark').should('exist');
-    cy.get('.t-tag--plain').should('exist');
+    cy.get('.t-tag--outline').should('exist');
   });
   it('tag icon', () => {
     cy.get('.t-tag svg').should('exist');
@@ -28,7 +28,7 @@ describe('test tag component', () => {
     cy.get('.t-tag--checked').first().click().should('have.class', 't-tag--check');
   });
   it('tag maxWidth', () => {
-    cy.get('.t-tag.t-tag--ellipsis span').should('have.css', 'max-width', '150px');
+    cy.get('.t-tag.t-tag--ellipsis').should('have.css', 'max-width', '150px');
   });
   it('tag size', () => {
     cy.get('.t-tag--large').should('have.class', 't-size-l');
