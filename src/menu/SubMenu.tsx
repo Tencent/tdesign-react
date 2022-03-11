@@ -142,7 +142,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const popupMaxHeight = popRef.current?.getBoundingClientRect().height;
+  const popupMaxHeight = `${popRef.current?.getBoundingClientRect().height}px` || getSubMenuMaxHeight(children);
 
   return (
     <li
@@ -169,7 +169,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
           className={classNames(`${classPrefix}-menu__popup`, {
             [`${classPrefix}-is-opened`]: open,
           })}
-          style={{ '--popup-max-height': `${popupMaxHeight}px` } as React.CSSProperties}
+          style={{ '--popup-max-height': popupMaxHeight } as React.CSSProperties}
         >
           <ul ref={popRef} className={classNames(`${classPrefix}-menu__popup-wrapper`)}>
             {children}
