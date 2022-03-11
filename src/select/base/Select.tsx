@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
+import useDefault from '../../_util/useDefault';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
@@ -46,7 +47,6 @@ const Select = forwardRefWithStatics(
       popupVisible,
       onPopupVisibleChange,
       reserveKeyword,
-      value,
       className,
       style,
       disabled,
@@ -64,7 +64,6 @@ const Select = forwardRefWithStatics(
       onCreate,
       onRemove,
       onSearch,
-      onChange,
       empty,
       valueType = 'value',
       keys,
@@ -85,6 +84,7 @@ const Select = forwardRefWithStatics(
       tagProps,
     } = props;
 
+    const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
     const { classPrefix } = useConfig();
 
     const name = `${classPrefix}-select`; // t-select
