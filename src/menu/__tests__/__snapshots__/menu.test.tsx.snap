@@ -1941,7 +1941,7 @@ exports[`multiple.jsx 1`] = `
           </div>
           <div
             class="t-menu__popup"
-            style="--popup-max-height: undefinedpx;"
+            style="--popup-max-height: 250px;"
           >
             <ul
               class="t-menu__popup-wrapper"
@@ -1974,7 +1974,7 @@ exports[`multiple.jsx 1`] = `
                 </div>
                 <div
                   class="t-menu__popup"
-                  style="--popup-max-height: undefinedpx;"
+                  style="--popup-max-height: 150px;"
                 >
                   <ul
                     class="t-menu__popup-wrapper"
@@ -2059,7 +2059,7 @@ exports[`multiple.jsx 1`] = `
           </div>
           <div
             class="t-menu__popup"
-            style="--popup-max-height: undefinedpx;"
+            style="--popup-max-height: 100px;"
           >
             <ul
               class="t-menu__popup-wrapper"
@@ -2145,7 +2145,7 @@ exports[`multiple.jsx 1`] = `
           </div>
           <div
             class="t-menu__popup"
-            style="--popup-max-height: undefinedpx;"
+            style="--popup-max-height: 100px;"
           >
             <ul
               class="t-menu__popup-wrapper"
@@ -2211,7 +2211,7 @@ exports[`multiple.jsx 1`] = `
           </div>
           <div
             class="t-menu__popup"
-            style="--popup-max-height: undefinedpx;"
+            style="--popup-max-height: 100px;"
           >
             <ul
               class="t-menu__popup-wrapper"
