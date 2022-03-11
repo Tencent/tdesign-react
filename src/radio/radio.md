@@ -1,5 +1,12 @@
 :: BASE_DOC ::
 
+### 动态自适应
+
+当radio内容动态变化时，滑块自动调整
+
+{{ dynamic }}
+
+
 ## API
 ### Radio Props
 

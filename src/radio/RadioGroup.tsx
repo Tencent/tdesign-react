@@ -6,6 +6,8 @@ import useDefault from '../_util/useDefault';
 import useCommonClassName from '../_util/useCommonClassName';
 import { CheckContext, CheckContextValue } from '../common/Check';
 import Radio from './Radio';
+import useMutationObservable from '../_util/useMutationObserver';
+
 /**
  * RadioGroup 组件所接收的属性
  */
@@ -32,6 +34,8 @@ const RadioGroup = (props: RadioGroupProps) => {
   const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
   const [barStyle, setBarStyle] = useState({});
   const groupRef = useRef(null);
+
+  const checkedRadioCls = `.${classPrefix}-radio-button.${classPrefix}-is-checked`;
   const { SIZE: sizeMap } = useCommonClassName();
 
   const context: CheckContextValue = {
@@ -51,30 +55,28 @@ const RadioGroup = (props: RadioGroupProps) => {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
-
           setInternalValue(checkValue, { e });
         },
       };
     },
   };
 
-  function calcBarStyle() {
+  const calcBarStyle = () => {
     if (!variant.includes('filled')) return;
-
-    const checkedRadioCls = `.${classPrefix}-radio-button.${classPrefix}-is-checked`;
     const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
     if (!checkedRadio) return;
     const { offsetWidth, offsetLeft } = checkedRadio;
     setBarStyle({ width: `${offsetWidth}px`, left: `${offsetLeft}px` });
-  }
+  };
 
   useEffect(() => {
     calcBarStyle();
-  }, [internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [groupRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useMutationObservable(groupRef.current, calcBarStyle);
 
   const renderBlock = () => {
     if (!variant.includes('filled')) return null;
-
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
   };
 

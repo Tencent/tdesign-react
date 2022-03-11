@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### 动态自适应
+
+当trigger或popup显示内容动态变化时，自适应调整位置
+
+{{ dynamic }}
+
 ## API
 ### Popup Props
 
