@@ -13,8 +13,8 @@ export type PopConfirmProps = TdPopconfirmProps;
 const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('popconfirm');
-  const { cancelBtn = t(local.cancel), confirmBtn = t(local.confirm) } = props;
 
+  const { cancelBtn = t(local.cancel.content), confirmBtn = t(local.confirm.content) } = props;
   const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 
   return (
