@@ -31,7 +31,7 @@ const globalConfig = {
   top: 32,
 };
 
-interface MessagePlugin {
+export interface MessagePlugin {
   (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
   info: MessageInfoMethod;
   success: MessageSuccessMethod;
@@ -200,7 +200,5 @@ MessagePlugin.closeAll = (): MessageCloseAllMethod => {
   MessageList = [];
   return;
 };
-
-export const message = MessagePlugin;
 
 export default MessageComponent;

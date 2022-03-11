@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 export interface EnhancedTableContextValue {
-  useFlattenData?: Function;
-  useFlattenRowData?: Function;
+  getFlattenData?: Function;
+  getFlattenRowData?: Function;
   getFlattenPageData?: Function;
   checkStrictly?: undefined | boolean;
   childrenKey?: string;

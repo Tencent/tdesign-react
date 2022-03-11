@@ -9,37 +9,41 @@ exports[`disabled.jsx 1`] = `
       class="t-is-disabled t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-is-disabled t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          disabled=""
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-is-disabled t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            disabled=""
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -59,35 +63,39 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          readonly=""
-          value=" "
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            readonly=""
+            value=" "
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <div
         class="t-time-picker__input"
@@ -137,35 +145,39 @@ exports[`hide-clear-button.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          readonly=""
-          value=" "
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            readonly=""
+            value=" "
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <div
         class="t-time-picker__input"
@@ -214,36 +226,40 @@ exports[`hm.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -259,36 +275,40 @@ exports[`hms.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -304,35 +324,39 @@ exports[`keyboard.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          readonly=""
-          value=" "
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            readonly=""
+            value=" "
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <div
         class="t-time-picker__input"
@@ -378,36 +402,40 @@ exports[`range.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -423,36 +451,40 @@ exports[`show-steps.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -468,36 +500,40 @@ exports[`twelve-hour-meridian.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          placeholder="选择时间"
-          readonly=""
-          value=""
-        />
-        <span
-          class="t-input__suffix t-input__suffix-icon"
+        <div
+          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
         >
-          <svg
-            class="t-icon t-icon-time"
-            fill="none"
-            height="1em"
-            viewBox="0 0 16 16"
-            width="1em"
+          <input
+            class="t-input__inner"
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <path
-              d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-            <path
-              d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
-              fill="currentColor"
-              fill-opacity="0.9"
-            />
-          </svg>
-        </span>
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>

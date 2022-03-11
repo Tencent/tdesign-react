@@ -24,24 +24,23 @@ describe('Pagination test', () => {
     expect(document.querySelector('.t-is-current')).toHaveTextContent('19');
   });
 
-  test('pageSize', () => {
+  test('pageSize', async () => {
     const changeFn = jest.fn();
     const pageSizeChangeFn = jest.fn();
-    const { getByText, container } = render(
+    const { getByText, container, getByDisplayValue } = render(
       <Pagination total={100} defaultPageSize={5} onChange={changeFn} onPageSizeChange={pageSizeChangeFn} />,
     );
     const pager = container.querySelector('.t-pagination__pager');
     expect(pager.childNodes.length).toBe(7);
 
-    const select = container.querySelector('.t-select__single');
-    fireEvent.click(select);
+    fireEvent.click(getByDisplayValue('5 条/页'));
     fireEvent.click(getByText('10 条/页'));
     expect(pager.childNodes.length).toBe(10);
 
     fireEvent.click(getByText('10'));
     expect(document.querySelector('.t-is-current')).toHaveTextContent('10');
 
-    fireEvent.click(select);
+    fireEvent.click(getByDisplayValue('10 条/页'));
     fireEvent.click(getByText('20 条/页'));
     expect(container.querySelector('.t-pagination__pager').childNodes.length).toBe(5);
     expect(document.querySelector('.t-is-current')).toHaveTextContent('5');
@@ -81,9 +80,11 @@ describe('Pagination test', () => {
   });
   test('theme', () => {
     const changeFn = jest.fn();
-    const { getByText } = render(<Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />);
+    const { getByText, getByDisplayValue } = render(
+      <Pagination total={100} defaultPageSize={5} theme="simple" onChange={changeFn} />,
+    );
 
-    const select = getByText('1/20');
+    const select = getByDisplayValue('1/20');
     fireEvent.click(select);
     fireEvent.click(getByText('2/20'));
 

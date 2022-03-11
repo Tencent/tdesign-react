@@ -1,9 +1,10 @@
 import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
+import { getCharacterLength } from '../_util/helper';
 import { TdInputProps, InputValue } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
@@ -26,7 +27,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
-  const iconClassName = icon ? `${classPrefix}-input__suffix-icon` : '';
+  const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
 
   if (result) {
     result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
@@ -38,6 +39,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
     const {
+      type,
       autoWidth,
       placeholder,
       disabled,
@@ -51,6 +53,9 @@ const Input = forwardRefWithStatics(
       value,
       tips,
       align,
+      maxlength,
+      maxcharacter,
+      format,
       onClick,
       onChange,
       onClear,
@@ -68,6 +73,7 @@ const Input = forwardRefWithStatics(
       onCompositionend,
       showClearIconOnEmpty,
       autofocus,
+      autocomplete,
       readonly,
       label,
       suffix,
@@ -82,51 +88,47 @@ const Input = forwardRefWithStatics(
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
+    const [renderType, setRenderType] = useState(type);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-    const suffixIconNew = isShowClearIcon ? (
-      <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />
-    ) : (
-      suffixIcon
-    );
+    let suffixIconNew = suffixIcon;
+
+    if (isShowClearIcon)
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+    if (type === 'password') {
+      if (renderType === 'password') {
+        suffixIconNew = (
+          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+        );
+      } else if (renderType === 'text') {
+        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
+      }
+    }
+
     const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
-
-    const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
-    const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {
-      className: '',
-    });
-    const eventPropsNames = Object.keys(restProps).filter((key) => /^on[A-Z]/.test(key));
-    const eventProps = eventPropsNames.reduce((eventProps, key) => {
-      Object.assign(eventProps, {
-        [key]: (e: any) => props[key](e.currentTarget.value, { e }),
-      });
-      return eventProps;
-    }, {});
 
     useEffect(() => {
       if (!autoWidth) return;
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
 
-    // tips 会引起 dom 变动，抽离透传属性
-    const wrapperProps = { style, ref: wrapperRef };
-
     const renderInput = (
       <input
         ref={inputRef}
         placeholder={placeholder}
-        {...inputProps}
-        {...eventProps}
-        className={classNames(inputProps.className, `${classPrefix}-input__inner`)}
+        type={renderType}
+        className={`${classPrefix}-input__inner`}
         value={composingRef.current ? composingRefValue : value}
         readOnly={readonly}
         disabled={disabled}
+        autoComplete={autocomplete}
         autoFocus={autofocus}
+        maxLength={maxlength}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
@@ -141,8 +143,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        {...wrapperProps}
-        className={classNames(tips ? '' : className, `${classPrefix}-input`, {
+        className={classNames(className, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
@@ -153,7 +154,6 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
-          [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -173,11 +173,20 @@ const Input = forwardRefWithStatics(
       </div>
     );
 
+    function togglePasswordVisible() {
+      const toggleType = renderType === 'password' ? 'text' : 'password';
+      setRenderType(toggleType);
+    }
+
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
-      const { value } = e.currentTarget;
+      let { value } = e.currentTarget;
       if (composingRef.current) {
         setComposingValue(value);
       } else {
+        if (typeof maxcharacter === 'number' && maxcharacter >= 0) {
+          const stringInfo = getCharacterLength(value, maxcharacter);
+          value = typeof stringInfo === 'object' && stringInfo.characters;
+        }
         onChange(value, { e });
       }
     }
@@ -236,6 +245,7 @@ const Input = forwardRefWithStatics(
       const {
         currentTarget: { value },
       } = e;
+      format && onChange(format(value), { e });
       onBlur?.(value, { e });
       toggleIsFocused(false);
     }
@@ -268,20 +278,25 @@ const Input = forwardRefWithStatics(
       select: () => inputRef.current?.select(),
     }));
 
-    if (tips) {
-      return (
-        <div {...wrapperProps} className={classNames(className, `${classPrefix}-input__wrap`)}>
-          {renderInputNode}
+    return (
+      <div
+        ref={wrapperRef}
+        style={style}
+        className={classNames(`${classPrefix}-input__wrap`, {
+          [`${classPrefix}-input--auto-width`]: autoWidth,
+        })}
+        {...restProps}
+      >
+        {renderInputNode}
+        {tips && (
           <div
             className={classNames(`${classPrefix}-input__tips`, `${classPrefix}-input__tips--${status || 'normal'}`)}
           >
             {tips}
           </div>
-        </div>
-      );
-    }
-
-    return renderInputNode;
+        )}
+      </div>
+    );
   },
   { Group: InputGroup },
 );

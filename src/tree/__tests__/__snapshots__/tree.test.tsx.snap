@@ -317,12 +317,16 @@ exports[`controlled.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="1.1.1.1, 1.1.1.2"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="1.1.1.1, 1.1.1.2"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -334,12 +338,16 @@ exports[`controlled.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="1, 1.1, 1.1.1, 2"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="1, 1.1, 1.1.1, 2"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -351,12 +359,16 @@ exports[`controlled.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="2"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="2"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -689,12 +701,16 @@ exports[`filter.jsx 1`] = `
         filter:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value=""
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <div
@@ -975,12 +991,16 @@ exports[`operations.jsx 1`] = `
           filter:
         </span>
         <div
-          class="t-input"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            value=""
-          />
+          <div
+            class="t-input"
+          >
+            <input
+              class="t-input__inner"
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -999,7 +1019,7 @@ exports[`operations.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1010,7 +1030,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1021,7 +1041,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1032,7 +1052,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1043,7 +1063,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1054,7 +1074,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1065,7 +1085,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1076,7 +1096,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1087,7 +1107,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1098,7 +1118,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1109,7 +1129,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1120,7 +1140,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1159,7 +1179,6 @@ exports[`state.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1187,12 +1206,16 @@ exports[`sync.jsx 1`] = `
         checked:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="{1.1.1.1}, {1.1.1.2}"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="{1.1.1.1}, {1.1.1.2}"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -1204,12 +1227,16 @@ exports[`sync.jsx 1`] = `
         expanded:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="{1}, {1.1}, {1.1.1}, {2}"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="{1}, {1.1}, {1.1.1}, {2}"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -1221,12 +1248,16 @@ exports[`sync.jsx 1`] = `
         actived:
       </span>
       <div
-        class="t-input"
+        class="t-input__wrap"
       >
-        <input
-          class="t-input__inner"
-          value="{2}"
-        />
+        <div
+          class="t-input"
+        >
+          <input
+            class="t-input__inner"
+            value="{2}"
+          />
+        </div>
       </div>
     </div>
     <div

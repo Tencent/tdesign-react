@@ -111,16 +111,36 @@ exports[`base.jsx 1`] = `
           <div
             class="t-swiper__arrow__left"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-left"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
           <div
             class="t-swiper__arrow__right"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-right"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -237,16 +257,36 @@ exports[`card.jsx 1`] = `
           <div
             class="t-swiper__arrow__left"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-left"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
           <div
             class="t-swiper__arrow__right"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-right"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -367,7 +407,6 @@ exports[`current.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -499,16 +538,36 @@ exports[`fade.jsx 1`] = `
           <div
             class="t-swiper__arrow__left"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-left"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
           <div
             class="t-swiper__arrow__right"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-right"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -609,9 +668,19 @@ exports[`fraction.jsx 1`] = `
             <div
               class="t-swiper__arrow__left"
             >
-              <i
+              <svg
                 class="t-icon t-icon-chevron-left"
-              />
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </div>
             <div
               class="t-swiper__navigation__text-fraction"
@@ -621,9 +690,19 @@ exports[`fraction.jsx 1`] = `
             <div
               class="t-swiper__arrow__right"
             >
-              <i
+              <svg
                 class="t-icon t-icon-chevron-right"
-              />
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -744,16 +823,36 @@ exports[`placement.jsx 1`] = `
           <div
             class="t-swiper__arrow__left"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-left"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
           <div
             class="t-swiper__arrow__right"
           >
-            <i
+            <svg
               class="t-icon t-icon-chevron-right"
-            />
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
           </div>
         </div>
       </div>
