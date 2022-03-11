@@ -33,7 +33,6 @@ exports[`aside.jsx 1`] = `
           >
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -43,7 +42,6 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -53,7 +51,6 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -63,7 +60,6 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -73,7 +69,6 @@ exports[`aside.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -296,7 +291,6 @@ exports[`combine.jsx 1`] = `
             >
               <li
                 class="t-menu__item t-is-active t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -306,7 +300,6 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -316,7 +309,6 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -326,7 +318,6 @@ exports[`combine.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-is-disabled t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -409,7 +400,6 @@ exports[`combine.jsx 1`] = `
               >
                 <li
                   class="t-menu__item t-is-active"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-dashboard"
@@ -442,7 +432,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-server"
@@ -475,7 +464,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item t-menu__item--plain"
-                  style="position: relative;"
                 >
                   <span
                     class="t-menu__content"
@@ -505,7 +493,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-control-platform"
@@ -529,7 +516,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-precise-monitor"
@@ -552,7 +538,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-mail"
@@ -575,7 +560,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-user-circle"
@@ -604,7 +588,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-play-circle"
@@ -634,7 +617,6 @@ exports[`combine.jsx 1`] = `
                 </li>
                 <li
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <svg
                     class="t-icon t-icon-edit-1"
@@ -713,7 +695,6 @@ exports[`top.jsx 1`] = `
           >
             <li
               class="t-menu__item t-is-active t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -723,7 +704,6 @@ exports[`top.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -733,7 +713,6 @@ exports[`top.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"
@@ -743,7 +722,6 @@ exports[`top.jsx 1`] = `
             </li>
             <li
               class="t-menu__item t-is-disabled t-menu__item--plain"
-              style="position: relative;"
             >
               <span
                 class="t-menu__content"

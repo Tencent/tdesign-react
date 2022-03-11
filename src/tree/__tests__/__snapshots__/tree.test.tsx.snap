@@ -1019,7 +1019,7 @@ exports[`operations.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1030,7 +1030,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1041,7 +1041,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1052,7 +1052,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1063,7 +1063,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1074,7 +1074,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1085,7 +1085,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1096,7 +1096,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1107,7 +1107,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1118,7 +1118,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1129,7 +1129,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1140,7 +1140,7 @@ exports[`operations.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin: 0px 10px 10px 0px; position: relative;"
+        style="margin: 0px 10px 10px 0px;"
         type="button"
       >
         <span
@@ -1179,7 +1179,6 @@ exports[`state.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span

@@ -7,7 +7,6 @@ exports[`base.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -209,7 +208,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -229,7 +227,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -249,7 +246,6 @@ exports[`number.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base t-size-l"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -274,7 +270,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -294,7 +289,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -315,7 +309,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -336,7 +329,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -357,7 +349,6 @@ exports[`offset.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -383,7 +374,6 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -403,7 +393,6 @@ exports[`shape.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -433,7 +422,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -453,7 +441,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -473,7 +460,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -498,7 +484,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -518,7 +503,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -538,7 +522,6 @@ exports[`size.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
