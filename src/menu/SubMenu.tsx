@@ -121,6 +121,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { active, onChange, expandType } = useContext(MenuContext);
   const { classPrefix } = useConfig();
   const [open, setOpen] = useState(false);
+  const popRef = useRef<HTMLUListElement>();
 
   const handleClick = () => onChange(value);
 
@@ -141,9 +142,11 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
+  const popupMaxHeight = popRef.current?.getBoundingClientRect().height || getSubMenuMaxHeight(children);
+
   return (
     <li
-      className={classNames(`${classPrefix}-submenu`, {
+      className={classNames(className, `${classPrefix}-submenu`, {
         [`${classPrefix}-is-opened`]: open,
       })}
       onMouseEnter={() => handleMouseEvent('enter')}
@@ -151,7 +154,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
     >
       <div
         ref={subMenuRef}
-        className={classNames(className, `${classPrefix}-menu__item`, {
+        className={classNames(`${classPrefix}-menu__item`, {
           [`${classPrefix}-is-active`]: isActive,
           [`${classPrefix}-is-opened`]: open,
         })}
@@ -166,9 +169,11 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
           className={classNames(`${classPrefix}-menu__popup`, {
             [`${classPrefix}-is-opened`]: open,
           })}
-          style={{ '--popup-max-height': getSubMenuMaxHeight(children) } as React.CSSProperties}
+          style={{ '--popup-max-height': `${popupMaxHeight}px` } as React.CSSProperties}
         >
-          <ul className={classNames(`${classPrefix}-menu__popup-wrapper`)}>{children}</ul>
+          <ul ref={popRef} className={classNames(`${classPrefix}-menu__popup-wrapper`)}>
+            {children}
+          </ul>
         </div>
       )}
     </li>
