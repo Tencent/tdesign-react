@@ -4,12 +4,28 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
+import { InputProps } from '../input';
+import { InputValue } from '../input';
 import { PopupProps } from '../popup';
+import { SelectInputProps } from '../select-input';
+import { TagProps } from '../tag';
 import { TreeProps, TreeNodeModel } from '../tree';
+import { SelectInputValueChangeContext } from '../select-input';
+import { PopupVisibleChangeContext } from '../popup';
 import { TNode, TElement, TreeOptionData } from '../common';
-import { MouseEvent, FocusEvent } from 'react';
+import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptionData> {
+  /**
+   * 宽度随内容自适应
+   * @default false
+   */
+  autoWidth?: boolean;
+  /**
+   * 无边框模式
+   * @default false
+   */
+  borderless?: boolean;
   /**
    * 是否允许清空
    * @default false
@@ -44,6 +60,18 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   filterable?: boolean;
   /**
+   * 透传给 输入框 Input 组件的全部属性
+   */
+  inputProps?: InputProps;
+  /**
+   * 输入框的值
+   */
+  inputValue?: InputValue;
+  /**
+   * 输入框的值，非受控属性
+   */
+  defaultInputValue?: InputValue;
+  /**
    * 是否正在加载数据
    * @default false
    */
@@ -73,20 +101,37 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   placeholder?: string;
   /**
-   * 透传给 popup 组件的参数
+   * 透传给 popup 组件的全部属性
    */
   popupProps?: PopupProps;
+  /**
+   * 是否显示下拉框
+   */
+  popupVisible?: boolean;
   /**
    * 组件前置图标
    */
   prefixIcon?: TElement;
+  /**
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @default false
+   */
+  readonly?: boolean;
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
+   */
+  selectInputProps?: SelectInputProps;
   /**
    * 尺寸
    * @default medium
    */
   size?: 'small' | 'medium' | 'large';
   /**
-   * 透传 Tree 组件属性
+   * 透传 Tag 标签组件全部属性
+   */
+  tagProps?: TagProps;
+  /**
+   * 透传 Tree 组件的全部属性
    */
   treeProps?: TreeProps;
   /**
@@ -100,7 +145,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
   /**
    * 自定义选中项呈现方式
    */
-  valueDisplay?: TNode<{ value: TreeSelectValue; onClose: (index?: number) => void }>;
+  valueDisplay?: string | TNode<{ value: TreeSelectValue; onClose: (index: number, item?: any) => void }>;
   /**
    * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据
    * @default value
@@ -111,9 +156,16 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   onBlur?: (context: { value: TreeSelectValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
-   * 节点选中状态变化时触发，context.node 表示当前变化的选项
+   * 节点选中状态变化时触发，`context.node` 表示当前变化的选项，`context. trigger` 表示触发变化的来源
    */
-  onChange?: (value: TreeSelectValue, context: { node: TreeNodeModel<DataOption> }) => void;
+  onChange?: (
+    value: TreeSelectValue,
+    context: {
+      node: TreeNodeModel<DataOption>;
+      trigger: TreeSelectValueChangeTrigger;
+      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+    },
+  ) => void;
   /**
    * 点击清除按钮时触发
    */
@@ -122,6 +174,14 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    * 输入框获得焦点时触发
    */
   onFocus?: (context: { value: TreeSelectValue; e: FocusEvent<HTMLDivElement> }) => void;
+  /**
+   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
+   */
+  onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
+  /**
+   * 下拉框显示或隐藏时触发
+   */
+  onPopupVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
   /**
    * 多选模式下，选中数据被移除时触发
    */
@@ -133,6 +193,8 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
 }
 
 export type TreeSelectValue = string | number | object | Array<TreeSelectValue>;
+
+export type TreeSelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck';
 
 export interface RemoveOptions<T> {
   value: string | number | object;

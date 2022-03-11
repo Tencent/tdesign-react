@@ -85,7 +85,7 @@ export default function SelectInputSingle() {
         placeholder="Please Select"
         clearable
         onPopupVisibleChange={onPopupVisibleChange}
-        clear={onClear}
+        onClear={onClear}
         panel={
           <ul className="tdesign-demo__selet-input-ul-label-suffix">
             {OPTIONS.map(item => (
