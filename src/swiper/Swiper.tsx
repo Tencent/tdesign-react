@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
 import classnames from 'classnames';
-import { IconFont } from 'tdesign-icons-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
@@ -225,7 +225,7 @@ const Swiper = (props: SwiperProps) => {
         })}
       >
         <div className={`${classPrefix}-swiper__arrow__left`} onClick={() => arrowClick('left')}>
-          <IconFont name="chevron-left" />
+          <ChevronLeftIcon />
         </div>
         {type === 'fraction' ? (
           <div className="t-swiper__navigation__text-fraction">
@@ -235,7 +235,7 @@ const Swiper = (props: SwiperProps) => {
           ''
         )}
         <div className={`${classPrefix}-swiper__arrow__right`} onClick={() => arrowClick('right')}>
-          <IconFont name="chevron-right" />
+          <ChevronRightIcon />
         </div>
       </div>
     );
