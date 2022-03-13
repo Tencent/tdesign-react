@@ -26,6 +26,7 @@ export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
 const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
+    align,
     className,
     style,
     defaultValue,
@@ -152,6 +153,8 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
 
   const onInternalStep = (action: ChangeContext) => {
+    if (props.readonly) return;
+
     const { type, e } = action;
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
@@ -207,7 +210,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
   const handleKeyup: KeyboardEventHandler<HTMLDivElement> = (e) => onKeyup?.(decimalValue, { e });
   const handleKeypress: KeyboardEventHandler<HTMLDivElement> = (e) => onKeypress?.(decimalValue, { e });
-
   return (
     <div
       ref={ref}
@@ -215,6 +217,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
         [commonClassNames.STATUS.disabled]: disabled,
         [`${classPrefix}-is-controls-right`]: theme === 'column',
         [`${inputClassName}--${theme}`]: theme,
+        [`${inputClassName}--auto-width`]: props.autoWidth,
       })}
       style={style}
       onBlur={handleBlur}
@@ -235,6 +238,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
           value={internalInputValue}
           onChange={onInternalInput}
           status={isError ? 'error' : undefined}
+          align={align || (theme === 'row' ? 'center' : undefined)}
           {...restInputProps}
         />
       </StepHandler>
