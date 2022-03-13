@@ -119,7 +119,7 @@ const SorterButton: FC<SorterButtonProps> = (props) => {
       ])}
       onClick={handleSort}
     >
-      <Tooltip content={tooltips[nextSortType]} showArrow={false}>
+      <Tooltip style={{ marginRight: 20 }} content={tooltips[nextSortType]} showArrow={false}>
         {renderSortIcons()}
       </Tooltip>
     </div>

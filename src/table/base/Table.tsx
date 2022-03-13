@@ -1,4 +1,4 @@
-import React, { useMemo, useState, ReactNode, useRef } from 'react';
+import React, { useMemo, useState, ReactNode, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
@@ -21,6 +21,7 @@ import { TableColGroup } from './TableColGroup';
 import TableFooter from './TableFooter';
 import Loading from '../../loading';
 import { useEnhancedTableContext } from '../enhanced/TableContext';
+import { UseChangeResult } from '../primary/useChange';
 
 export interface ExpandInnerProps {
   handleExpandChange?: Function;
@@ -33,7 +34,9 @@ export interface BaseTableProps<RowData extends DataType = DataType>
     ExpandInnerProps,
     DragSortInnerProps {}
 
-export default function BaseTable<D extends DataType = DataType>(props: BaseTableProps<D> & ExpandInnerProps) {
+interface InnerBaseTableProps extends BaseTableProps, ExpandInnerProps, UseChangeResult {}
+
+export default function BaseTable<D extends DataType = DataType>(props: InnerBaseTableProps) {
   const { classPrefix } = useConfig();
 
   const {
@@ -55,6 +58,8 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     onScrollX,
     onScrollY,
     asyncLoading,
+    triggerOnChange,
+    setTableChangeData,
   } = props;
 
   const [columns, flattenColumns] = useColumns(props);
@@ -86,12 +91,18 @@ export default function BaseTable<D extends DataType = DataType>(props: BaseTabl
     onPageChange?.(pageInfo, newDataSource);
     // 处理pagination参数的事件回调
     pagination?.onChange?.(pageInfo);
+    triggerOnChange?.({ pagination: pageInfo }, { trigger: 'pagination', currentData: data });
 
     if (!isControlledPagination) {
       setInnerCurrentPagination(current);
       setInnerPageSize(pageSize);
     }
   };
+
+  useEffect(() => {
+    setTableChangeData?.('pagination', pagination);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ==================== 数据 ====================
   const pageData = useMemo(() => {

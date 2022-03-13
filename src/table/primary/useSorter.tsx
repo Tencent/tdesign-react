@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import get from 'lodash/get';
 import { SortInfo, PrimaryTableCol, SortType, DataType, SortOptions, TableSort, TdPrimaryTableProps } from '../type';
 import SorterButton, { SortTypeEnum } from './SorterButton';
-import { PrimaryTableProps } from './Table';
+import { InnerPrimaryTableProps } from './Table';
 import { useColumns } from '../hooks/useColumns';
 import useConfig from '../../_util/useConfig';
 
@@ -19,10 +19,10 @@ type Columns = TdPrimaryTableProps['columns'];
  * 1.修改column中的title
  * 2.排序data
  */
-function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
+function useSorter(props: InnerPrimaryTableProps): [Columns, DataType[]] {
   const [, flattenColumns] = useColumns(props);
   const { classPrefix } = useConfig();
-  const { columns, sort, defaultSort, multipleSort, onSortChange, data } = props;
+  const { columns, sort, defaultSort, multipleSort, onSortChange, data, triggerOnChange, setTableChangeData } = props;
   const isControlled = typeof sort !== 'undefined';
   const [innerSort, setInnerSort] = useState<TableSort>(defaultSort || []);
   const sorts = useMemo(() => getSorts(innerSort, flattenColumns as Columns), [innerSort, flattenColumns]);
@@ -36,6 +36,7 @@ function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
   }, [data, sorts, isControlled]);
 
   const onSortChangeRef = useRef(onSortChange);
+  // const onChangeRef = useRef(onChange);
   // 导出：添加排序图标后columns
   const transformedSorterColumns = useMemo(() => {
     function getSorterColumns(columns: Columns): Columns {
@@ -80,15 +81,15 @@ function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
         col: activeColumn,
       };
       const { colKey: activeColKey } = activeColumn;
+      let sortValue: SortInfo[] | SortInfo | undefined;
       if (multipleSort) {
-        let sortsNew: SortInfo[] = [];
         if (activeSort) {
           if (activeSortType === SortTypeEnum.all) {
-            sortsNew = sorts
+            sortValue = sorts
               .filter((sortItem) => sortItem !== activeSort)
               .map(({ sortBy, descending }) => ({ sortBy, descending }));
           } else {
-            sortsNew = sorts.map((sortItem) => ({
+            sortValue = sorts.map((sortItem) => ({
               sortBy: sortItem.sortBy,
               descending: sortItem === activeSort ? activeSortType === SortTypeEnum.desc : sortItem.descending,
             }));
@@ -99,41 +100,53 @@ function useSorter(props: PrimaryTableProps): [Columns, DataType[]] {
             descending: activeSortType === SortTypeEnum.desc,
           };
           if (sorts.length) {
-            sortsNew = [...sorts.map(({ sortBy, descending }) => ({ sortBy, descending })), sortInfo];
+            sortValue = [...sorts.map(({ sortBy, descending }) => ({ sortBy, descending })), sortInfo];
           } else {
-            sortsNew = [sortInfo];
+            sortValue = [sortInfo];
           }
         }
-        setInnerSort(sortsNew);
-        onSortChangeRef.current?.(sortsNew, sortOptions);
       } else {
-        let sortNew: SortInfo | undefined;
+        // eslint-disable-next-line no-lonely-if
         if (activeSort) {
           if (activeSortType !== SortTypeEnum.all) {
-            sortNew = {
+            sortValue = {
               sortBy: activeSort.sortBy,
               descending: activeSortType === SortTypeEnum.desc,
             };
           }
         } else {
-          sortNew = {
+          sortValue = {
             sortBy: activeColKey,
             descending: activeSortType === SortTypeEnum.desc,
           };
         }
-        setInnerSort(sortNew);
-        onSortChangeRef.current?.(sortNew, sortOptions);
       }
+      setInnerSort(sortValue);
+      onSortChangeRef.current?.(sortValue, sortOptions);
+      triggerOnChange?.(
+        {
+          sorter: sortValue,
+        },
+        {
+          trigger: 'sorter',
+          currentData: transformedSorterData,
+        },
+      );
     }
 
     return getSorterColumns(columns);
-  }, [classPrefix, columns, multipleSort, sorts, transformedSorterData]);
+  }, [classPrefix, columns, multipleSort, sorts, transformedSorterData, triggerOnChange]);
 
   useEffect(() => {
     if (isControlled) {
       setInnerSort(sort);
     }
   }, [sort, isControlled]);
+
+  useEffect(() => {
+    setTableChangeData?.('sorter', sort || defaultSort);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * 格式化sort
