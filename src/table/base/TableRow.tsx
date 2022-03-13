@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import { DragSortInnerProps } from '../../_util/useDragSorter';
 import { useTableContext } from './TableContext';
 import TableCell from './TableCell';
-import { DataType, TdBaseTableProps, RowspanColspan, RowspanAndColspanParams, TdPrimaryTableProps } from '../type';
+import { DataType, TdBaseTableProps, RowspanColspan, BaseTableCellParams, TdPrimaryTableProps } from '../type';
 import { RowSkipTdSpanColIndexsMap, RowEvents } from './TableBody';
 import { ExpandInnerProps } from './Table';
 
@@ -111,7 +111,7 @@ const TableRow = <D extends DataType>(props: RowProps<D>) => {
     colIndex,
     col,
     row,
-  }: MergeCellsProps & RowspanAndColspanParams<DataType>): {
+  }: MergeCellsProps & BaseTableCellParams<D>): {
     rowspan: number | undefined;
     colspan: number | undefined;
     isSkipRenderTd: boolean;
