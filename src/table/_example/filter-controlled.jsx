@@ -14,7 +14,7 @@ const columns = [
         { label: 'JQTest3', value: 'JQTest3' },
       ],
     },
-    width: 100,
+    width: 150,
   },
   {
     colKey: 'status',
@@ -36,8 +36,8 @@ const columns = [
   {
     colKey: 'survivalTime',
     title: '存活时间(s)',
-    width: 150,
-    sortType: 'all',
+    width: 180,
+    sorter: (a, b) => a.survivalTime - b.survivalTime,
     filter: {
       type: 'multiple',
       list: [
@@ -102,6 +102,10 @@ export default function TableSingleSort() {
     setFilterValue(_filterVal);
   }
 
+  function onChange(tableChangeData, context) {
+    console.log('onChange', tableChangeData, context);
+  }
+
   // 受控方式，打开模拟排序（可用，勿删）
   // useEffect(() => {
   //   request(filterValue);
@@ -150,6 +154,14 @@ export default function TableSingleSort() {
         // filterValue={filterValue}
         defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
+        onChange={onChange}
+        // 非受控写法
+        pagination={{
+          defaultCurrent: 1,
+          defaultPageSize: 5,
+          showJumper: true,
+          pageSizeOptions: [1, 3, 5, 10],
+        }}
       />
     </div>
   );
