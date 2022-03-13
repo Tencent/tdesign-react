@@ -99,10 +99,10 @@ function useExpand(props: PrimaryTableProps): [PrimaryTableCol[], Function, Func
         className={`${classPrefix}-table__expanded-cell`}
         style={innerExpandRowKeys?.includes?.(rowKeyValue) ? {} : { display: 'none' }}
       >
-        <td colSpan={transformedExpandColumns?.length}>{expandedRowRef.current?.({ row, index })}</td>
+        <td colSpan={transformedExpandColumns?.length}>{expandedRowRef.current?.({ row, index, columns })}</td>
       </tr>
     ),
-    [classPrefix, innerExpandRowKeys, transformedExpandColumns?.length],
+    [classPrefix, innerExpandRowKeys, transformedExpandColumns?.length, columns],
   );
 
   useEffect(() => {
