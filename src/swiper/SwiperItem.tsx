@@ -14,6 +14,43 @@ export interface SwiperItemProps extends SwiperProps {
 const CARD_SCALE = 210 / 332; // 缩放比例
 const itemWidth = 0.415; // 依据设计稿使用t-swiper__card控制每个swiper的宽度为41.5%
 
+const disposeIndex = (index: number, currentIndex: number, childrenLength: number) => {
+  if (currentIndex === 0 && index === childrenLength - 1) {
+    return -1;
+  }
+  if (currentIndex === childrenLength - 1 && index === 0) {
+    return childrenLength;
+  }
+  if (index < currentIndex - 1 && currentIndex - index >= childrenLength / 2) {
+    return childrenLength + 1;
+  }
+  if (index > currentIndex + 1 && index - currentIndex >= childrenLength / 2) {
+    return -2;
+  }
+
+  return index;
+};
+
+const calculateTranslate = (index: number, currentIndex: number, parentWidth: number, inStage: boolean) => {
+  if (inStage) {
+    return (parentWidth * ((index - currentIndex) * (1 - itemWidth * CARD_SCALE) - itemWidth + 1)) / 2;
+  }
+  if (index < currentIndex) {
+    return (-itemWidth * (1 + CARD_SCALE) * parentWidth) / 2;
+  }
+  return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
+};
+
+const getZindex = (isActivity, inStage) => {
+  if (isActivity) {
+    return 2;
+  }
+  if (inStage) {
+    return 1;
+  }
+  return 0;
+};
+
 const SwiperItem = (props: SwiperItemProps) => {
   const {
     children,
@@ -27,43 +64,6 @@ const SwiperItem = (props: SwiperItemProps) => {
     getWrapAttribute,
   } = props;
   const { classPrefix } = useConfig();
-
-  const disposeIndex = (index, currentIndex, childrenLength) => {
-    if (currentIndex === 0 && index === childrenLength - 1) {
-      return -1;
-    }
-    if (currentIndex === childrenLength - 1 && index === 0) {
-      return childrenLength;
-    }
-    if (index < currentIndex - 1 && currentIndex - index >= childrenLength / 2) {
-      return childrenLength + 1;
-    }
-    if (index > currentIndex + 1 && index - currentIndex >= childrenLength / 2) {
-      return -2;
-    }
-
-    return index;
-  };
-
-  const calculateTranslate = (index: number, currentIndex: number, parentWidth: number, inStage: boolean) => {
-    if (inStage) {
-      return (parentWidth * ((index - currentIndex) * (1 - itemWidth * CARD_SCALE) - itemWidth + 1)) / 2;
-    }
-    if (index < currentIndex) {
-      return (-itemWidth * (1 + CARD_SCALE) * parentWidth) / 2;
-    }
-    return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
-  };
-
-  const getZindex = (isActivity, inStage) => {
-    if (isActivity) {
-      return 2;
-    }
-    if (inStage) {
-      return 1;
-    }
-    return 0;
-  };
 
   const getSwiperItemStyle = () => {
     if (animation === 'fade') {

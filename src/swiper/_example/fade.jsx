@@ -5,8 +5,8 @@ const { SwiperItem } = Swiper;
 
 export default function BasicSwiper() {
   return (
-    <div className="tdesign-demo-block--swiper">
-      <Swiper animation={'fade'}>
+    <div className="tdesign-demo-block--swiper-new">
+      <Swiper animation={'fade'} height={280}>
         <SwiperItem>
           <div className="demo-item">1</div>
         </SwiperItem>

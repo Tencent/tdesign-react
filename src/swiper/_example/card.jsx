@@ -5,7 +5,7 @@ const { SwiperItem } = Swiper;
 
 export default function BasicSwiper() {
   return (
-    <div className="tdesign-demo-block--swiper">
+    <div className="tdesign-demo-block--swiper-new">
       <Swiper type={'card'} height={280}>
         <SwiperItem>
           <div className="demo-item">1</div>

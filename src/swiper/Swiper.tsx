@@ -12,7 +12,23 @@ export interface SwiperProps extends TdSwiperProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const defaultNavigation = {
+enum CreateArrow {
+  Default = 'default',
+  Fraction = 'fraction',
+}
+
+enum ArrowClickDirection {
+  Left = 'left',
+  Right = 'right',
+}
+
+enum MouseAction {
+  Enter = 'enter',
+  Leave = 'leave',
+  Click = 'click',
+}
+
+const defaultNavigation: SwiperNavigation = {
   placement: 'inside',
   showSlideBtn: 'always',
   size: 'medium',
@@ -183,26 +199,26 @@ const Swiper = (props: SwiperProps) => {
     }
   };
 
-  const navMouseAction = (action: 'enter' | 'leave' | 'click', index: number) => {
-    if (action === 'enter' && trigger === 'hover') {
+  const navMouseAction = (action: MouseAction, index: number) => {
+    if (action === MouseAction.Enter && trigger === 'hover') {
       swiperTo(index, { source: 'hover' });
     }
-    if (action === 'click' && trigger === 'click') {
+    if (action === MouseAction.Click && trigger === 'click') {
       swiperTo(index, { source: 'click' });
     }
   };
 
-  const arrowClick = (direction: 'left' | 'right') => {
+  const arrowClick = (direction: ArrowClickDirection) => {
     if (needAnimation) {
       return false;
     }
-    if (direction === 'right') {
+    if (direction === ArrowClickDirection.Right) {
       if (type === 'card') {
         return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
       }
       return swiperTo(currentIndex + 1, { source: 'click' });
     }
-    if (direction === 'left') {
+    if (direction === ArrowClickDirection.Left) {
       if (currentIndex - 1 < 0) {
         return swiperTo(childrenLength - 1, { source: 'click' });
       }
@@ -210,31 +226,31 @@ const Swiper = (props: SwiperProps) => {
     }
   };
 
-  const createArrow = (type: 'default' | 'fraction') => {
+  const createArrow = (type: CreateArrow) => {
     if (!arrowShow) {
       return '';
     }
-    if (navigationConfig.type === 'fraction' && type === 'default') {
+    if (navigationConfig.type === 'fraction' && type === CreateArrow.Default) {
       return '';
     }
     const fractionIndex = currentIndex + 1 > childrenLength ? 1 : currentIndex + 1;
     return (
       <div
         className={classnames(`${classPrefix}-swiper__arrow`, {
-          [`${classPrefix}-swiper__arrow-default`]: type === 'default',
+          [`${classPrefix}-swiper__arrow--default`]: type === 'default',
         })}
       >
-        <div className={`${classPrefix}-swiper__arrow__left`} onClick={() => arrowClick('left')}>
+        <div className={`${classPrefix}-swiper__arrow-left`} onClick={() => arrowClick(ArrowClickDirection.Left)}>
           <ChevronLeftIcon />
         </div>
-        {type === 'fraction' ? (
-          <div className="t-swiper__navigation__text-fraction">
+        {type === CreateArrow.Fraction ? (
+          <div className={`${classPrefix}-swiper__navigation-text-fraction`}>
             {fractionIndex}/{childrenLength}
           </div>
         ) : (
           ''
         )}
-        <div className={`${classPrefix}-swiper__arrow__right`} onClick={() => arrowClick('right')}>
+        <div className={`${classPrefix}-swiper__arrow-right`} onClick={() => arrowClick(ArrowClickDirection.Right)}>
           <ChevronRightIcon />
         </div>
       </div>
@@ -244,8 +260,8 @@ const Swiper = (props: SwiperProps) => {
   const createNavigation = () => {
     if (navigationConfig.type === 'fraction') {
       return (
-        <div className={classnames(`${classPrefix}-swiper__navigation`, `${classPrefix}-swiper__navigation-fraction`)}>
-          {createArrow('fraction')}
+        <div className={classnames(`${classPrefix}-swiper__navigation`, `${classPrefix}-swiper__navigation--fraction`)}>
+          {createArrow(CreateArrow.Fraction)}
         </div>
       );
     }
@@ -260,13 +276,15 @@ const Swiper = (props: SwiperProps) => {
         {childrenList.map((_: JSX.Element, i: number) => (
           <li
             key={i}
-            className={classnames(`${classPrefix}-swiper__navigation__item`, {
+            className={classnames(`${classPrefix}-swiper__navigation-item`, {
               [`${classPrefix}-is-active`]: i === currentIndex % childrenLength,
             })}
-            onClick={() => navMouseAction('click', i)}
-            onMouseEnter={() => navMouseAction('enter', i)}
-            onMouseLeave={() => navMouseAction('leave', i)}
-          />
+            onClick={() => navMouseAction(MouseAction.Click, i)}
+            onMouseEnter={() => navMouseAction(MouseAction.Enter, i)}
+            onMouseLeave={() => navMouseAction(MouseAction.Leave, i)}
+          >
+            <span></span>
+          </li>
         ))}
       </ul>
     );
@@ -308,11 +326,11 @@ const Swiper = (props: SwiperProps) => {
     >
       <div
         className={classnames(`${classPrefix}-swiper__wrap`, {
-          [`${classPrefix}-swiper-inside`]: navigationConfig.placement === 'inside',
-          [`${classPrefix}-swiper-outside`]: navigationConfig.placement === 'outside',
-          [`${classPrefix}-swiper-vertical`]: direction === 'vertical',
-          [`${classPrefix}-swiper-large`]: navigationConfig.size === 'large',
-          [`${classPrefix}-swiper-small`]: navigationConfig.size === 'small',
+          [`${classPrefix}-swiper--inside`]: navigationConfig.placement === 'inside',
+          [`${classPrefix}-swiper--outside`]: navigationConfig.placement === 'outside',
+          [`${classPrefix}-swiper--vertical`]: direction === 'vertical',
+          [`${classPrefix}-swiper--large`]: navigationConfig.size === 'large',
+          [`${classPrefix}-swiper--small`]: navigationConfig.size === 'small',
         })}
       >
         <div
@@ -327,7 +345,7 @@ const Swiper = (props: SwiperProps) => {
           </div>
         </div>
         {createNavigation()}
-        {createArrow('default')}
+        {createArrow(CreateArrow.Default)}
       </div>
     </div>
   );
