@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 0.27.1 `2022-03-14`
+
+
+### Bug Fixes
+
+* Cascader: 修复 `multiple` 模式点击后关闭 `popup` 问题 ([#479](https://github.com/Tencent/tdesign-react/issues/479)) ([aab1903](https://github.com/Tencent/tdesign-react/commit/aab1903b35e72d52a4829e43089b236d9eab96d9)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Message: 函数调用支持 `onCloseBtnClose` API ([0bb5b11](https://github.com/Tencent/tdesign-react/commit/0bb5b114923a9d57105d26146d70dc210be28ddb)) [@kenzyyang](https://github.com/kenzyyang)
+
+
+### Features
+
+* FormItem: 兼容包裹 upload 组件时未传入 `initialData` 场景 ([#473](https://github.com/Tencent/tdesign-react/issues/473)) ([01c30bd](https://github.com/Tencent/tdesign-react/commit/01c30bd0266a3a1885f447d67a2a7c2d2b962db4)) [@HQ-Lin](https://github.com/HQ-Lin)
+* InputNumber: 支持 `autoWidth`、`tips`、`status`、 `align` API ([b6fe095](https://github.com/Tencent/tdesign-react/commit/b6fe095eed6aab2645f5caf2cd4f7528af2a37da)) [@uyarn](https://github.com/uyarn)
+* Table: 支持 `onChange` api ([9968d69](https://github.com/Tencent/tdesign-react/commit/9968d693fe3f202405a7902065234ec9d30343c2)) [@yunfeic](https://github.com/yunfeic)
+
+
 ## 0.27.0 `2022-03-11`
 
 ### BREAKING CHANGES
