@@ -6,12 +6,21 @@ import useSorter from './useSorter';
 import useFilter from './useFilter';
 import useSelect from './useSelect';
 import useExpand from './useExpand';
+import useChange, { UseChangeResult } from './useChange';
 
 export type PrimaryTableProps = TdPrimaryTableProps;
+export interface InnerPrimaryTableProps extends TdPrimaryTableProps, UseChangeResult {}
 
 export default function PrimaryTable(props: PrimaryTableProps) {
-  const [sorterColumns, sortData] = useSorter(props);
-  const [filterColumns, filterData] = useFilter({ ...props, columns: sorterColumns, data: sortData });
+  const { triggerOnChange, setTableChangeData } = useChange(props);
+  const [sorterColumns, sortData] = useSorter({ ...props, triggerOnChange, setTableChangeData });
+  const [filterColumns, filterData] = useFilter({
+    ...props,
+    columns: sorterColumns,
+    data: sortData,
+    triggerOnChange,
+    setTableChangeData,
+  });
   const [selectColumns] = useSelect({ ...props, columns: filterColumns, data: filterData });
   const [expandColumns, handleExpandChange, renderExpandRow, innerExpandRowKeys] = useExpand({
     ...props,
@@ -40,6 +49,8 @@ export default function PrimaryTable(props: PrimaryTableProps) {
       onDragOver={onDragOver}
       onDrop={onDrop}
       onDragEnd={onDragEnd}
+      triggerOnChange={triggerOnChange}
+      setTableChangeData={setTableChangeData}
     />
   );
 }
