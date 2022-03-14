@@ -40,7 +40,10 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   if (React.isValidElement(closeBtn)) {
     return React.cloneElement(closeBtn, {
       className: classNames(closeBtn.props.className, tdMessageClassGenerator('close')),
-      onClick: onCloseBtnClick,
+      onClick: (e) => {
+        closeBtn.props.onClick?.(e);
+        onCloseBtnClick?.({ e });
+      },
     });
   }
 
