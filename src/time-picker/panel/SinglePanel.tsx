@@ -11,7 +11,7 @@ import noop from '../../_util/noop';
 import { TdTimePickerProps } from '../type';
 import { EPickerCols } from '../interfaces';
 
-import { MERIDIEM_LIST, AM, PM, useTimePickerTextConfig } from '../consts';
+import { MERIDIEM_LIST, AM, PM, useTimePickerTextConfig } from '../const';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
 

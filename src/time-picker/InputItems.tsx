@@ -5,7 +5,7 @@ import padStart from 'lodash/padStart';
 
 import { TdTimePickerProps, TdTimeRangePickerProps } from './type';
 import useConfig from '../_util/useConfig';
-import { useTimePickerTextConfig } from './consts';
+import { useTimePickerTextConfig } from './const';
 import { KeyboardDirection, EPickerCols } from './interfaces';
 
 const preposFormat = /^(a|A)\s+?[h]{1,2}(:[m]{1,2}(:[s]{1,2})?)?$/;
