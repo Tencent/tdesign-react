@@ -24,8 +24,9 @@ range | Boolean | false | 是否呈现为日期范围选择器（临时 API，�
 size | String | medium | 尺寸。可选项：small/medium/large | N
 suffixIcon | TElement | - | 用于自定义组件后置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 timePickerProps | Boolean | - | 透传 TimePicker 组件属性。TS 类型：`TimePickerProps`，[TimePicker API Documents](./time-picker?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-value | String / Array / Date | - | 选中值。TS 类型：`DateValue` `type DateValue = string | Date | Array<DateValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
-defaultValue | String / Array / Date | - | 选中值。非受控属性。TS 类型：`DateValue` `type DateValue = string | Date | Array<DateValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
+value | String / Number / Array / Date | - | 选中值。TS 类型：`DateValue` `type DateValue = string | number | Date | Array<DateValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
+defaultValue | String / Number / Array / Date | - | 选中值。非受控属性。TS 类型：`DateValue` `type DateValue = string | number | Date | Array<DateValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/date-picker/type.ts) | N
+valueType | String | - | 用于格式化日期，默认为：'YYYY-MM-DD'，可选值：'date/time-stamp/YYY-MM-DD' 等，[更多可选值见 Dayjs 详细文档](https://day.js.org/docs/en/display/format)。<br /> 其中 `valueType=date` 表示 `value` 数据类型为 `Date`；`valueType='time-stamp'` 表示 `value` 数据类型为时间戳 | N
 onBlur | Function |  | TS 类型：`(context: { value: DateValue; e: FocusEvent }) => void`<br/>当输入框失去焦点时触发 | N
 onChange | Function |  | TS 类型：`(value: DateValue) => void`<br/>选中值发生变化时触发 | N
 onFocus | Function |  | TS 类型：`(context: { value: DateValue; e: FocusEvent }) => void`<br/>输入框获得焦点时触发 | N
