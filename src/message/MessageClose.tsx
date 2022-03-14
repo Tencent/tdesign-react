@@ -21,13 +21,16 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   if (typeof closeBtn === 'function') {
     return React.cloneElement(closeBtn(), {
       className: classNames(closeBtn().props.className, tdMessageClassGenerator('close')),
+      onClick: onCloseBtnClick,
     });
   }
 
   // 数字 字符串类型封装 span 标签
   if (typeof closeBtn === 'string' || typeof closeBtn === 'number') {
     return (
-      <span className={tdMessageClassGenerator('close')} onClick={(e) => onCloseBtnClick?.({ e })}>
+      <span
+        className={tdMessageClassGenerator('close')}
+        onClick={(e) => onCloseBtnClick?.({ e })}>
         {closeBtn}
       </span>
     );
@@ -37,9 +40,13 @@ export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessagePro
   if (React.isValidElement(closeBtn)) {
     return React.cloneElement(closeBtn, {
       className: classNames(closeBtn.props.className, tdMessageClassGenerator('close')),
+      onClick: onCloseBtnClick,
     });
   }
 
   // 否则使用默认的关闭按钮样式
-  return <CloseIcon className={tdMessageClassGenerator('close')} />;
+  return <CloseIcon
+    className={tdMessageClassGenerator('close')}
+    onClick={(e) => onCloseBtnClick?.({ e })}
+  />;
 }
