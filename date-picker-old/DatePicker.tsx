@@ -1,65 +1,70 @@
-import React, { forwardRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import isObject from 'lodash/isObject';
+import isDate from 'lodash/isDate';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 import classNames from 'classnames';
-// import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { TimeIcon as IconTime, CalendarIcon as IconCalendar } from 'tdesign-icons-react';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdDatePickerProps } from './type';
-import SelectInput from '../select-input';
-import { isEnabledDate } from './utils';
+import { TdDatePickerProps, DateValue, PickContext } from './type';
+import useCommonClassName from '../_util/useCommonClassName';
+import useClickOutside from '../_util/useClickOutside';
+
+import Popup from '../popup';
+import Input from '../input';
+import Button from '../button';
+import CalendarPresets from './base/CalendarPresets';
 import DatePanel from './panel/Date';
-import useInput from './hooks/useInput';
+import DateRangePanel from './panel/DateRange';
+import TimePickerPanel from '../time-picker/panel/TimePickerPanel';
+import TimePickerRangePanel from '../time-picker/panel/TimePickerRangePanel';
+
+dayjs.extend(isBetween);
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
-const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
-  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
-  const name = `${classPrefix}-date-picker`;
+const TIME_FORMAT = 'HH:mm:ss';
 
-<<<<<<< HEAD
 // TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
 const DatePicker = (props: DatePickerProps) => {
-  // 国际化文本初始化
-  const [local, t] = useLocaleReceiver('datePicker');
-  const selectTimeText = t(local.selectTime);
-  const selectDateText = t(local.selectDate);
-  const confirmText = t(local.confirm);
-  const rangeSeparatorText = t(local.rangeSeparator);
-
-=======
->>>>>>> e7dc10cd (feat: rebase develop)
   const {
     className,
     style,
-    timePickerProps,
-    mode = 'month',
+    allowInput,
+    clearable,
     disabled,
     disableDate,
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
-    format = 'YYYY-MM-DD',
-    valueType = 'YYYY-MM-DD',
-    presets,
     enableTimePicker,
-<<<<<<< HEAD
-    format = 'YYYY-MM-DD',
+    format,
     inputProps,
-    mode = 'month',
+    mode,
     popupProps,
     prefixIcon,
     presets,
     range,
-    size = 'medium',
+    size,
     suffixIcon,
     value,
     defaultValue,
     firstDayOfWeek,
-    placeholder = t(local.placeholder[mode]),
     onChange,
     onPick,
     // onBlur,
     // onFocus,
     // onInput,
   } = props;
+
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('datePicker');
+  const selectTimeText = t(local.selectTime);
+  const selectDateText = t(local.selectDate);
+  const confirmText = t(local.confirm);
+  const rangeSeparatorText = t(local.rangeSeparator);
+  const placeholder = t(local.placeholder[mode]);
 
   const { classPrefix } = useConfig();
   const CLASSNAMES = useCommonClassName();
@@ -410,56 +415,47 @@ const DatePicker = (props: DatePickerProps) => {
   const datePickerClassName = classNames(`${classPrefix}-date-picker`, className, CLASSNAMES.SIZE[size], {
     [`${classPrefix}-date-picker--month-picker`]: mode === 'year' || mode === 'month',
   });
-=======
-  } = props;
-
-  const {
-    value,
-    onChange,
-    inputValue,
-    setInputValue,
-    popupVisible,
-    setPopupVisible,
-    inputProps,
-    popupProps,
-    formatDate,
-  } = useInput(props);
-
-  const panelProps = {
-    value,
-    onChange,
-    inputValue,
-    setInputValue,
-    setPopupVisible,
-    formatDate,
-    timePickerProps,
-    mode,
-    format,
-    presets,
-    valueType,
-    enableTimePicker,
-    firstDayOfWeek: firstDayOfWeek ?? 1,
-    disableDate: (date: Date) => !isEnabledDate({ value: date, disableDate, mode, format }),
-    minDate: isObject(disableDate) && 'before' in disableDate ? new Date(disableDate.before) : null,
-    maxDate: isObject(disableDate) && 'after' in disableDate ? new Date(disableDate.after) : null,
-  };
->>>>>>> e7dc10cd (feat: rebase develop)
 
   return (
-    <div className={classNames(name, className)} style={style} ref={ref}>
-      <SelectInput
-        disabled={disabled}
-        value={inputValue}
-        popupProps={popupProps}
-        inputProps={inputProps}
-        popupVisible={popupVisible}
-        onPopupVisibleChange={setPopupVisible}
-        panel={<DatePanel {...panelProps} />}
-      />
+    <div className={datePickerClassName} ref={datePickerRef} style={style}>
+      <Popup
+        trigger="context-menu"
+        placement="bottom-left"
+        visible={popupShow}
+        content={renderContent()}
+        overlayClassName={`${classPrefix}-date-picker`}
+        className={`${classPrefix}-date-picker__popup-reference`}
+        expandAnimation={true}
+        destroyOnClose={true}
+        {...popupProps}
+      >
+        <div className={triggerClassName} onClick={showPopup}>
+          <Input
+            ref={inputRef}
+            size={size}
+            value={formattedValue}
+            disabled={disabled}
+            clearable={clearable}
+            placeholder={placeholder}
+            readonly={!allowInput}
+            onClear={handleClear}
+            prefixIcon={prefixIcon}
+            suffixIcon={suffixIcon || defaultSuffixIcon}
+            {...inputProps}
+          />
+        </div>
+      </Popup>
     </div>
   );
-});
+};
 
 DatePicker.displayName = 'DatePicker';
+
+DatePicker.defaultProps = {
+  format: 'YYYY-MM-DD',
+  mode: 'month',
+  placeholder: '请选择',
+  size: 'medium',
+};
 
 export default DatePicker;
