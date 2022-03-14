@@ -20,14 +20,19 @@ interface Props {
 }
 type Columns = TdPrimaryTableProps['columns'];
 
-const renderIcon = (classPrefix: string, icon: TElement) => {
+const renderIcon = (classPrefix: string, icon: TElement, isActive: Boolean) => {
   let result: React.ReactNode = null;
   if (icon) result = icon;
   if (typeof icon === 'function') result = icon();
   if (result) {
     result = <span className={`${classPrefix}-table__filter-icon`}>{result}</span>;
   } else {
-    result = <TIconFilter className={`${classPrefix}-table__filter-icon`} />;
+    result = (
+      <TIconFilter
+        className={`${classPrefix}-table__filter-icon`}
+        style={isActive ? { color: 'var(--td-brand-color)' } : {}}
+      />
+    );
   }
   return result;
 };
@@ -65,6 +70,7 @@ function useFilterButton(props: Props) {
           return column;
         }
         const lastTitle = getTitle(column, index);
+        const isActive = !!filterVal?.[colKey]?.length;
         const titleNew = () => (
           <div className={`${classPrefix}-table__cell--title`}>
             <div>{lastTitle}</div>
@@ -80,7 +86,7 @@ function useFilterButton(props: Props) {
                   </div>
                 }
               >
-                {renderIcon(classPrefix, filterIcon)}
+                {renderIcon(classPrefix, filterIcon, isActive)}
               </Popup>
             </div>
           </div>

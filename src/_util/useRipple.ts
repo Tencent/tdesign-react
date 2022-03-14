@@ -43,8 +43,11 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
 
   const rippleContainer = useMemo(() => {
     if (!canUseDocument) return null;
-    return document.createElement('div');
-  }, []);
+    const container = document.createElement('div');
+    container.className = `${classPrefix}-ripple`;
+
+    return container;
+  }, [classPrefix]);
 
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
@@ -83,6 +86,8 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       }
       // 新增一个ripple
       const ripple = document.createElement('div');
+
+      ripple.className = `${classPrefix}-ripple__inner`;
 
       setStyle(ripple, {
         marginTop: '0',
