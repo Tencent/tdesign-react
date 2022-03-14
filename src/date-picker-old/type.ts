@@ -44,11 +44,6 @@ export interface TdDatePickerProps {
    */
   format?: string;
   /**
-   * 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format)
-   * @default 'YYYY-MM-DD'
-   */
-  valueType?: string;
-  /**
    * 透传给输入框（Input）组件的参数
    */
   inputProps?: InputProps;
@@ -60,7 +55,7 @@ export interface TdDatePickerProps {
   /**
    * 占位符
    */
-  placeholder?: string;
+  placeholder?: string | Array<string>;
   /**
    * 透传给 popup 组件的参数
    */
@@ -106,7 +101,7 @@ export interface TdDatePickerProps {
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateValue, date: any) => void;
+  onChange?: (value: DateValue) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -229,7 +224,7 @@ export interface PresetDate {
   [name: string]: DateValue | (() => DateValue);
 }
 
-export type DateValue = string | Date;
+export type DateValue = string | Date | Array<DateValue>;
 
 export type DisableRangeDate =
   | Array<DateValue>

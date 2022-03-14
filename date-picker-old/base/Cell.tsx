@@ -16,7 +16,6 @@ export interface DatePickerCellProps {
   lastDayOfMonth: boolean;
   onClick: Function;
   onMouseEnter: Function;
-  onMouseLeave: Function;
 }
 
 const DatePickerCell = (props: DatePickerCellProps) => {
@@ -36,7 +35,6 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     lastDayOfMonth,
     onClick,
     onMouseEnter,
-    onMouseLeave,
   } = props;
 
   const cellClass = classNames(`${classPrefix}-date-picker__cell`, {
@@ -56,16 +54,14 @@ const DatePickerCell = (props: DatePickerCellProps) => {
   }
 
   function handleMouseEnter() {
-    !disabled && onMouseEnter?.(value);
-  }
-
-  function handleMouseLeave() {
-    !disabled && onMouseLeave?.(value);
+    onMouseEnter?.(value);
   }
 
   return (
-    <td className={cellClass} onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className={`${classPrefix}-date-picker__cell-inner`}>{text}</div>
+    <td className={cellClass}>
+      <div className={`${classPrefix}-date-picker__cell-wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+        <span className={`${classPrefix}-date-picker__cell-text`}>{text}</span>
+      </div>
     </td>
   );
 };

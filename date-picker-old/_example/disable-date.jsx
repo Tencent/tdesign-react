@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker } from 'tdesign-react';
-// import { DatePicker, DateRangePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   // 禁用昨天、前天
@@ -42,7 +41,7 @@ export default function YearDatePicker() {
         <DatePicker mode="date" disableDate={disableDate3} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
-        {/* <DateRangePicker mode="date" disableDate={disableDate4} onChange={handleChange} /> */}
+        <DatePicker mode="date" range disableDate={disableDate4} onChange={handleChange} />
       </div>
       <div className="tdesign-demo-item--datepicker">
         <DatePicker mode="date" disableDate={getDisableDate} onChange={handleChange} />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-// import { DateRangePicker } from 'tdesign-react';
+import { DatePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [presets] = useState({
@@ -17,7 +17,7 @@ export default function YearDatePicker() {
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      {/* <DateRangePicker value={selectedDates} mode="date" presets={presets} onChange={handleChange} /> */}
+      <DatePicker value={selectedDates} mode="date" presets={presets} range onChange={handleChange}></DatePicker>
       <br />
       <div>
         {dateText}: {selectedDates.join(' 至 ')}
