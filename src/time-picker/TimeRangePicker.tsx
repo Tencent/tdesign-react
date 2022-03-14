@@ -10,7 +10,7 @@ import Input from '../input';
 import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 import InputItems from './InputItems';
 
-import { useTimePickerTextConfig } from './consts';
+import { useTimePickerTextConfig } from './const';
 
 import { TdTimeRangePickerProps } from './type';
 import { StyledProps } from '../common';

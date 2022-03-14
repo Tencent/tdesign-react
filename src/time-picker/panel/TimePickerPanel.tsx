@@ -5,7 +5,7 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
+import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../const';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   // 是否展示footer
@@ -53,11 +53,12 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
             onClick={() => {
               handleConfirmClick(defaultValue);
             }}
+            size="small"
           >
             {TEXT_CONFIG.confirm}
           </Button>
           {!showNowTimeBtn ? (
-            <Button theme="primary" variant="text" onClick={() => onChange(dayjs().format(format))}>
+            <Button theme="primary" variant="text" size="small" onClick={() => onChange(dayjs().format(format))}>
               {TEXT_CONFIG.nowtime}
             </Button>
           ) : null}

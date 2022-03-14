@@ -8,13 +8,14 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
+
 import Popup from '../popup';
 import Input from '../input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 import InputItems from './InputItems';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from './consts';
+import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from './const';
 
 import { StyledProps } from '../common';
 import { TdTimePickerProps } from './type';
