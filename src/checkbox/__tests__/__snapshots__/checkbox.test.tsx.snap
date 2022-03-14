@@ -767,7 +767,7 @@ exports[`max.jsx 1`] = `
           class="t-input__wrap"
         >
           <div
-            class="t-input"
+            class="t-input t-align-center"
           >
             <input
               class="t-input__inner"

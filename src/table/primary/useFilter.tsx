@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DataType, FilterValue, PrimaryTableCol } from '../type';
-import { PrimaryTableProps } from '..';
+import { InnerPrimaryTableProps } from './Table';
 import useFilterButton from './useFilterButton';
 
 /**
@@ -8,8 +8,17 @@ import useFilterButton from './useFilterButton';
  * 1.返回加入筛选icon后的title
  * 2.返回筛选后的data
  */
-function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
-  const { columns, filterIcon, filterValue, defaultFilterValue, onFilterChange, data } = props;
+function useFilter(props: InnerPrimaryTableProps): [PrimaryTableCol[], DataType[]] {
+  const {
+    columns,
+    filterIcon,
+    filterValue,
+    defaultFilterValue,
+    onFilterChange,
+    data,
+    triggerOnChange,
+    setTableChangeData,
+  } = props;
   const isControlled = typeof filterValue !== 'undefined';
   const [filterVal, setFilterVal] = useState<FilterValue>(defaultFilterValue);
 
@@ -47,8 +56,17 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
       };
       setFilterVal(newFilterVal);
       onFilterChangeRef.current?.(newFilterVal, { col });
+      triggerOnChange?.(
+        {
+          filter: newFilterVal,
+        },
+        {
+          trigger: 'filter',
+          currentData: transformedFilterData,
+        },
+      );
     },
-    [filterVal],
+    [filterVal, triggerOnChange, transformedFilterData],
   );
 
   // 导出：添加筛选图标后的columns
@@ -62,6 +80,11 @@ function useFilter(props: PrimaryTableProps): [PrimaryTableCol[], DataType[]] {
   useEffect(() => {
     setFilterVal(isControlled ? filterValue : defaultFilterValue);
   }, [filterValue, defaultFilterValue, isControlled]);
+
+  useEffect(() => {
+    setTableChangeData?.('filter', filterValue || defaultFilterValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return [transformedFilterColumns, transformedFilterData];
 }
