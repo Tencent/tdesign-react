@@ -113,6 +113,7 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e?.nativeEvent?.stopImmediatePropagation?.();
     const ctx: ContextType = {
       e,
       node,
