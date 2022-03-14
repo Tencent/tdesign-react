@@ -1,6 +1,7 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
+import isObject from 'lodash/isObject';
 import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
@@ -17,15 +18,29 @@ enum VALIDATE_STATUS {
   SUCCESS = 'success',
   FAIL = 'fail',
 }
-export interface FormItemProps extends TdFormItemProps, StyledProps {
-  // 子节点
-  children?: React.ReactNode;
-}
+export interface FormItemProps extends TdFormItemProps, StyledProps {}
 
+// FormItem 子组件受控 key
 const ctrlKeyMap = new Map();
 ctrlKeyMap.set(Checkbox, 'checked');
 ctrlKeyMap.set(Tag.CheckTag, 'checked');
 ctrlKeyMap.set(Upload, 'files');
+
+// FormItem 默认数据类型
+const initialDataMap = new Map();
+initialDataMap.set(Upload, []);
+initialDataMap.set(Checkbox.Group, []);
+
+function getDefaultInitialData(children, initialData) {
+  let defaultInitialData = initialData;
+  React.Children.forEach(children, (child) => {
+    if (!child) return;
+    if (typeof child.type === 'object') {
+      defaultInitialData = initialDataMap.get(child.type) || initialData;
+    }
+  });
+  return defaultInitialData;
+}
 
 const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
@@ -65,7 +80,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const [verifyStatus, setVerifyStatus] = useState(VALIDATE_STATUS.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(initialData);
+  const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
 
   const currentFormItemRef = useRef();
   const innerFormItemsRef = useRef([]);
@@ -219,13 +234,15 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     filterRules.length && validate('blur');
   }
 
-  function getEmptyValue(): ValueType {
-    const type = Object.prototype.toString.call(initialData);
-    let emptyValue: ValueType = '';
-    if (type === '[object Array]') {
-      emptyValue = [];
+  function getResetValue(resetType: string): ValueType {
+    if (resetType === 'initial' && 'initialData' in props) {
+      return initialData;
     }
-    if (type === '[object Object]') {
+
+    let emptyValue: ValueType = '';
+    if (Array.isArray(formValue)) {
+      emptyValue = [];
+    } else if (isObject(formValue)) {
       emptyValue = {};
     }
     return emptyValue;
@@ -235,7 +252,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     if (!name) return;
 
     const resetType = type || resetTypeFromContext;
-    const resetValue = resetType === 'initial' ? initialData : getEmptyValue();
+    const resetValue = getResetValue(resetType);
     // 防止触发校验
     if (resetValue !== formValue) {
       shouldValidate.current = false;
