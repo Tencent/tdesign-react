@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'reac
 import { createPortal } from 'react-dom';
 import { AttachNode, AttachNodeReturnValue } from '../common';
 import { canUseDocument } from '../_util/dom';
+import useConfig from '../_util/useConfig';
 
 export interface PortalProps {
   /**
@@ -29,12 +30,14 @@ export function getAttach(attach: PortalProps['attach']) {
 
 const Portal = forwardRef((props: PortalProps, ref) => {
   const { attach, children } = props;
+  const { classPrefix } = useConfig();
 
   const container = useMemo(() => {
     if (!canUseDocument) return null;
     const el = document.createElement('div');
+    el.className = `${classPrefix}-portal-wrapper`;
     return el;
-  }, []);
+  }, [classPrefix]);
 
   useEffect(() => {
     let parentElement = document.body;
