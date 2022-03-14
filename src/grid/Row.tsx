@@ -25,15 +25,15 @@ const calcSize = (width: number) => {
   const xxlWidth = getCssVarsValue('--td-screen-xxl') || 1880;
 
   let size = 'xs';
-  if (width > xxlWidth) {
+  if (width >= xxlWidth) {
     size = 'xxl';
-  } else if (width > xlWidth) {
+  } else if (width >= xlWidth) {
     size = 'xl';
-  } else if (width > lgWidth) {
+  } else if (width >= lgWidth) {
     size = 'lg';
-  } else if (width > mdWidth) {
+  } else if (width >= mdWidth) {
     size = 'md';
-  } else if (width > smWidth) {
+  } else if (width >= smWidth) {
     size = 'sm';
   } else {
     size = 'xs';
