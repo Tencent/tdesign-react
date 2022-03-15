@@ -3,16 +3,12 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import useConfig from '../../_util/useConfig';
 import useDefault from '../../_util/useDefault';
-import { TdDatePickerProps } from '../type';
+import { TdDatePickerProps, DateValue } from '../type';
 
 const TIME_FORMAT = 'HH:mm:ss';
 
-export function isValidDate(...args: any) {
-  return dayjs(...args).isValid();
-}
-
 window.dayjs = dayjs;
-export default function useInput(props: TdDatePickerProps) {
+export default function useSingle(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const name = `${classPrefix}-date-picker`;
 
@@ -26,39 +22,59 @@ export default function useInput(props: TdDatePickerProps) {
     enableTimePicker,
     inputProps: inputPropsFromProps,
     popupProps: popupPropsFromProps,
+    timePickerProps,
     allowInput = true,
     clearable = true,
+    presets,
+    disableDate,
     format = 'YYYY-MM-DD',
     valueType = 'YYYY-MM-DD',
     placeholder = globalDatePickerConfig.placeholder[mode],
+    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
     onBlur,
     onFocus,
     onInput,
   } = props;
 
-  // 日期格式化
-  const formatDate = useCallback(
-    (date: string | Date) => {
-      let dateFormat = format || 'YYYY-MM-DD';
-      const arrTime = ['H', 'h', 'm', 's'];
-      const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
-      if (enableTimePicker && !hasTime) {
-        dateFormat = [dateFormat, TIME_FORMAT].join(' ');
-      }
-      return dayjs(date).format(dateFormat);
-    },
-    [format, enableTimePicker],
-  );
-
   const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
 
   if (value && !isValidDate(value)) console.error(`value: ${value} is invalid datetime;`);
 
-  // 未真正选中前可能不断变更输入框的内容
-  const [inputValue, setInputValue] = useState(value ? formatDate(value) : '');
   const [inputPlaceholder, setInputPlaceholder] = useState(placeholder);
   const [popupVisible, setPopupVisible] = useState(false);
+  const [timeValue, setTimeValue] = useState(dayjs(value).format(TIME_FORMAT));
   // const [isHoverCell, setIsHoverCell] = useState(false);
+
+  // 日期格式化
+  const formatDate = useCallback(
+    (date: DateValue, type = 'format') => {
+      if (!date) return '';
+      const formatMap = { format, valueType };
+      let dateFormat = formatMap[type] || 'YYYY-MM-DD';
+      let formatedDate = dayjs(date);
+      const [hour, minute, second, millisecond = 0] = timeValue.split(':');
+
+      const arrTime = ['H', 'h', 'm', 's'];
+      const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
+      if (enableTimePicker) {
+        if (!hasTime) dateFormat = [dateFormat, TIME_FORMAT].join(' ');
+        formatedDate = formatedDate
+          .hour(+hour)
+          .minute(+minute)
+          .second(+second)
+          .millisecond(+millisecond);
+      }
+
+      return formatedDate.format(dateFormat);
+    },
+    [timeValue, enableTimePicker, format, valueType],
+  );
+  // 未真正选中前可能不断变更输入框的内容
+  const [inputValue, setInputValue] = useState(value ? formatDate(value) : '');
+
+  function isValidDate(...args: any) {
+    return dayjs(...args).isValid();
+  }
 
   // input 设置
   const inputProps = useMemo(
@@ -81,8 +97,6 @@ export default function useInput(props: TdDatePickerProps) {
       },
       onBlur: (val: string, { e }) => {
         onBlur?.({ value, e });
-        if (!value) return setInputValue('');
-
         if (!isValidDate(val, format, true)) {
           setInputValue(formatDate(value));
         }
@@ -102,7 +116,7 @@ export default function useInput(props: TdDatePickerProps) {
 
         setPopupVisible(false);
         if (isValidDate(val, format, true)) {
-          onChange(dayjs(val).format(valueType), dayjs(val));
+          onChange(formatDate(val, 'valueType'), dayjs(val));
         } else if (isValidDate(value)) {
           setInputValue(formatDate(value));
         } else {
@@ -124,7 +138,6 @@ export default function useInput(props: TdDatePickerProps) {
       onChange,
       value,
       format,
-      valueType,
       inputPropsFromProps,
     ],
   );
@@ -142,6 +155,45 @@ export default function useInput(props: TdDatePickerProps) {
     [name, placeholder, popupPropsFromProps],
   );
 
+  const panelProps = useMemo(
+    () => ({
+      value,
+      onChange,
+      inputValue,
+      formatDate,
+      timePickerProps,
+      mode,
+      format,
+      presets,
+      valueType,
+      enableTimePicker,
+      firstDayOfWeek,
+      disableDate,
+      timeValue,
+      setInputValue,
+      setPopupVisible,
+      setTimeValue,
+    }),
+    [
+      setTimeValue,
+      timeValue,
+      disableDate,
+      firstDayOfWeek,
+      enableTimePicker,
+      inputValue,
+      value,
+      onChange,
+      setInputValue,
+      setPopupVisible,
+      formatDate,
+      timePickerProps,
+      mode,
+      format,
+      presets,
+      valueType,
+    ],
+  );
+
   return {
     value,
     onChange,
@@ -154,5 +206,6 @@ export default function useInput(props: TdDatePickerProps) {
     inputProps,
     popupProps,
     formatDate,
+    panelProps,
   };
 }

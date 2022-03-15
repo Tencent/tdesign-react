@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import dayjs from 'dayjs';
+import isObject from 'lodash/isObject';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DateHeader from '../base/Header';
@@ -14,7 +15,7 @@ import {
   subtractMonth,
   addMonth,
   getToday,
-} from '../../_common/js/date-picker/utils';
+ isEnabledDate } from '../../_common/js/date-picker/utils';
 import { TdDatePickerProps } from '../type';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
 
@@ -29,83 +30,85 @@ export interface DatePanelProps
     | 'disableDate'
     | 'value'
     | 'onChange'
-    | 'valueType'
     | 'timePickerProps'
   > {
-  minDate: Date;
-  maxDate: Date;
   formatDate: Function;
   inputValue: string;
+  timeValue: string;
   setInputValue: Function;
   setPopupVisible: Function;
+  setTimeValue: Function;
 }
 
 const TODAY = getToday();
-const TIME_FORMAT = 'HH:mm:ss';
 
 const DatePanel = (props: DatePanelProps) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('datePicker');
-  const monthAriaLabel = t(local.months);
+  const monthAriaLabel: string[] = t(local.months);
 
   const { classPrefix } = useConfig();
   const {
     value = TODAY,
     mode = 'date',
-    minDate,
-    maxDate,
     firstDayOfWeek,
-    disableDate,
+    disableDate: disableDateFromProps,
     onChange,
     format,
     presets,
-    valueType,
     enableTimePicker,
     setPopupVisible,
     inputValue,
     setInputValue,
     formatDate,
     timePickerProps,
+    timeValue,
+    setTimeValue,
   } = props;
 
   const [year, setYear] = useState(dayjs(value).year());
   const [month, setMonth] = useState(dayjs(value).month());
   const [panelType, setPanelType] = useState<any>(mode);
-  const [timeValue, setTimeValue] = useState(dayjs(value).format(TIME_FORMAT));
 
+  const disableDate = useCallback(
+    (date: Date) => !isEnabledDate({ value: date, disableDate: disableDateFromProps, mode, format }),
+    [disableDateFromProps, mode, format],
+  );
+  const minDate = useMemo(
+    () =>
+      isObject(disableDateFromProps) && 'before' in disableDateFromProps ? new Date(disableDateFromProps.before) : null,
+    [disableDateFromProps],
+  );
+  const maxDate = useMemo(
+    () =>
+      isObject(disableDateFromProps) && 'after' in disableDateFromProps ? new Date(disableDateFromProps.after) : null,
+    [disableDateFromProps],
+  );
+
+  // 头部快速切换
   function clickHeader(flag: number) {
-    let monthCount = 0;
-    let next = null;
-    switch (panelType) {
-      case 'date':
-        monthCount = 1;
-        break;
-      case 'month':
-        monthCount = 12;
-        break;
-      case 'year':
-        monthCount = 120;
-    }
+    const monthCountMap = { date: 1, month: 12, year: 120 };
+    const monthCount = monthCountMap[panelType] || 0;
 
     const current = new Date(year, month);
 
-    switch (flag) {
-      case 1:
-        next = addMonth(current, monthCount);
-        break;
-      case -1:
-        next = subtractMonth(current, monthCount);
-        break;
-      case 0:
-        next = new Date();
-        break;
+    let next = null;
+    if (flag === -1) {
+      next = subtractMonth(current, monthCount);
+    } else if (flag === 0) {
+      next = new Date();
+    } else if (flag === 1) {
+      next = addMonth(current, monthCount);
     }
 
     setYear(next.getFullYear());
     setMonth(next.getMonth());
   }
 
+  // 列表数据
   const tableData = useMemo(() => {
+    if (panelType === 'time') return [];
+
     let data: any[];
 
     const options = {
@@ -116,25 +119,21 @@ const DatePanel = (props: DatePanelProps) => {
       monthLocal: monthAriaLabel,
     };
 
-    switch (panelType) {
-      case 'date':
-        data = getWeeks({ year, month }, options);
-        break;
-      case 'month':
-        data = getMonths(year, options);
-        break;
-      case 'year':
-        data = getYears(year, options);
-        break;
-      default:
-        return;
+    if (panelType === 'date') {
+      data = getWeeks({ year, month }, options);
+    } else if (panelType === 'month') {
+      data = getMonths(year, options);
+    } else if (panelType === 'year') {
+      data = getYears(year, options);
     }
+
     const start = dayjs(value).toDate();
     return flagActive(data, { start, type: panelType });
-  }, [year, month, panelType, value, disableDate, minDate, maxDate, firstDayOfWeek, monthAriaLabel]);
+  }, [year, month, panelType, value, minDate, maxDate, disableDate, firstDayOfWeek, monthAriaLabel]);
 
+  // 日期点击
   function onCellClick(date: Date) {
-    onChange(dayjs(date).format(valueType), dayjs(date));
+    onChange(formatDate(date, 'valueType'), dayjs(date));
     setInputValue(formatDate(date));
     setYear(date.getFullYear());
     setMonth(date.getMonth());
@@ -142,12 +141,13 @@ const DatePanel = (props: DatePanelProps) => {
     !enableTimePicker && setPopupVisible(false);
   }
 
-  function onCellMouseEnter(val: Date) {
-    setInputValue(formatDate(val));
+  // 日期 hover
+  function onCellMouseEnter(date: Date) {
+    setInputValue(formatDate(date));
   }
 
+  // 日期 leave
   function onCellMouseLeave() {
-    if (!value) return setInputValue('');
     setInputValue(formatDate(value));
   }
 
@@ -157,9 +157,7 @@ const DatePanel = (props: DatePanelProps) => {
 
     const isValidDate = dayjs(inputValue, format, true).isValid();
     if (isValidDate) {
-      onChange(dayjs(inputValue).format(valueType), dayjs(inputValue));
-    } else if (!value) {
-      setInputValue('');
+      onChange(formatDate(inputValue, 'valueType'), dayjs(inputValue));
     } else {
       setInputValue(formatDate(value));
     }
@@ -173,9 +171,10 @@ const DatePanel = (props: DatePanelProps) => {
     }
     setPopupVisible(false);
     setInputValue(presetValue);
-    onChange(dayjs(presetValue).format(valueType), dayjs(presetValue));
+    onChange(formatDate(presetValue, 'valueType'), dayjs(presetValue));
   }
 
+  // timepicker 点击
   function handleTimePick(value: string) {
     const [hour, minute, second] = value.split(':');
     const currentDate = dayjs(inputValue).toDate();

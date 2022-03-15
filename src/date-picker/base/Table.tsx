@@ -5,7 +5,7 @@ import DatePickerCell from './Cell';
 
 export interface DatePickerTableProps {
   data: Array<any>;
-  panelType: string;
+  panelType: 'year' | 'month' | 'date' | 'time';
   firstDayOfWeek: number;
   onCellClick: Function;
   onCellMouseEnter: Function;

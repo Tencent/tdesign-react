@@ -9,6 +9,7 @@ import { PopupProps } from '../popup';
 import { TimePickerProps } from '../time-picker';
 import { TElement } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
+import { Dayjs } from 'dayjs';
 
 export interface TdDatePickerProps {
   /**
@@ -55,7 +56,7 @@ export interface TdDatePickerProps {
   /**
    * 占位符
    */
-  placeholder?: string | Array<string>;
+  placeholder?: string;
   /**
    * 透传给 popup 组件的参数
    */
@@ -106,7 +107,7 @@ export interface TdDatePickerProps {
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateValue) => void;
+  onChange?: (value: DateValue, dayjsValue: Dayjs) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -229,7 +230,7 @@ export interface PresetDate {
   [name: string]: DateValue | (() => DateValue);
 }
 
-export type DateValue = string | number | Date | Array<DateValue>;
+export type DateValue = string | number | Date;
 
 export type DisableRangeDate =
   | Array<DateValue>
