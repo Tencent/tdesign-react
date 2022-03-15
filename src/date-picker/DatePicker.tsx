@@ -1,21 +1,20 @@
 import React, { forwardRef } from 'react';
-import isObject from 'lodash/isObject';
 import classNames from 'classnames';
 // import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps } from './type';
 import SelectInput from '../select-input';
-import { isEnabledDate } from './utils';
 import DatePanel from './panel/Date';
-import useInput from './hooks/useInput';
+import useSingle from './hooks/useSingle';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
 const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
-  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { classPrefix } = useConfig();
   const name = `${classPrefix}-date-picker`;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 // TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
@@ -470,6 +469,11 @@ const DatePicker = (props: DatePickerProps) => {
 >>>>>>> e7dc10cd (feat: rebase develop)
 =======
 >>>>>>> 5f948837 (feat: 重构datepicker)
+=======
+  const { className, style, disabled } = props;
+
+  const { inputValue, popupVisible, setPopupVisible, inputProps, popupProps, panelProps } = useSingle(props);
+>>>>>>> 15b3535a (feat: 完善单选逻辑)
 
   return (
     <div className={classNames(name, className)} style={style} ref={ref}>

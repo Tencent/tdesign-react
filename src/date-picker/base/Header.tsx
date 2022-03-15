@@ -9,7 +9,7 @@ import { TdDatePickerProps } from '../type';
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode' | 'enableTimePicker'> {
   onBtnClick: Function;
   onTypeChange: Function;
-  panelType: 'year' | 'month' | 'date';
+  panelType: 'year' | 'month' | 'date' | 'time';
 }
 
 const useDatePickerLocalConfig = () => {
