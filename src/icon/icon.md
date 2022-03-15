@@ -20,6 +20,27 @@
 
 {{ IconFontExample }}
 
+### SVG 高级用法
+
+可以传入 url 加入新的 SVG 图标。
+
+引入新的图标 Url 之后，图标名称必须写全称，以作区分，如：`"name='home'"` 需要写成 `"name='t-icon-home'"`。
+
+组件会引入默认的 SVG 图标，如果希望禁止组件加载默认的 SVG 图标，将 `loadDefaultIcons` 置为 false 即可。
+
+{{ Enhanced }}
+
+
+### IconFont 高级用法
+
+可以传入 url 加入新的 iconfont 图标。
+
+引入新的图标 Url 之后，图标名称必须写全称，以作区分，如：`"name='home'"` 需要写成 `"name='t-icon-home'"`。
+
+组件会引入默认的 iconfont 图标，如果希望禁止组件加载默认的 iconfont 图标，将 `loadDefaultIcons` 置为 false 即可。
+
+{{ IconFontEnhanced }}
+
 ### 全部图标
 
 <td-icons-view />
