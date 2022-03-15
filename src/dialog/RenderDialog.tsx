@@ -57,7 +57,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   const dialogOpenClass = `${prefixCls}__open`;
   useDialogEsc(visible, wrap);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     bodyOverflow.current = document.body.style.overflow;
     bodyCssTextRef.current = document.body.style.cssText;
   }, []);
