@@ -5,6 +5,22 @@ toc: false
 spline: explain
 ---
 
+## 0.27.2 `2022-03-15`
+
+### Bug Fixes
+
+* Form: 修复 `FormItemProps` 缺少 `children` 类型 ([#482](https://github.com/Tencent/tdesign-react/issues/482)) ([f8bb713](https://github.com/Tencent/tdesign-react/commit/f8bb71320e614d3e829ff67aef805959f33bc3af)) [@PBK-B](https://github.com/PBK-B)
+* Dialog: 修复 `DialogPlugin` 关闭后滚动问题 ([fc36aa0](https://github.com/Tencent/tdesign-react/commit/fc36aa07e7c5ff9b799bc7d8062620d95026115f)), closes [#484](https://github.com/Tencent/tdesign-react/issues/484) [@psaren](https://github.com/psaren)
+
+
+### Features
+
+* Ripple: 添加 className 方便 css 选择 ([da6fd6d](https://github.com/Tencent/tdesign-react/commit/da6fd6da8c5b6a0aa8f397252ddd6b5bd14783f3)) [@uyarn](https://github.com/uyarn)
+* Portal: 添加 className 方便 css 选择 ([d2b13ac](https://github.com/Tencent/tdesign-react/commit/d2b13aca5629db98f5d3e2f840a1044cf85369ca)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+
+
 ## 0.27.1 `2022-03-14`
 
 
