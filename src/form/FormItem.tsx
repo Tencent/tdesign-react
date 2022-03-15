@@ -18,7 +18,9 @@ enum VALIDATE_STATUS {
   SUCCESS = 'success',
   FAIL = 'fail',
 }
-export interface FormItemProps extends TdFormItemProps, StyledProps {}
+export interface FormItemProps extends TdFormItemProps, StyledProps {
+    children?: React.ReactNode;
+}
 
 // FormItem 子组件受控 key
 const ctrlKeyMap = new Map();
