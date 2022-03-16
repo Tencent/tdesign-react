@@ -88,7 +88,7 @@ function Components() {
     };
 
     initHistoryVersions();
-  }, []);
+  }, [location, navigate]);
 
   return (
     <ConfigProvider /* globalConfig={{ locale, animation: { exclude: ['ripple'] }}} */>
