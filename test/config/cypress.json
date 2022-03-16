@@ -10,6 +10,7 @@
   "videosFolder": "test/scripts/cypress/videos",
   "supportFile": "test/scripts/cypress/support/index.js",
   "video": true,
+  "experimentalStudio": true,
   "viewportHeight": 800,
   "viewportWidth": 1600,
   "reporter": "junit",

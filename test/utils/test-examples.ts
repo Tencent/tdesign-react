@@ -25,14 +25,15 @@ export function testExamples(dirname: string, overrides: TestExampleOverrides = 
     }
 
     const Example = require(path.join(exampleDir, exampleFilename)).default;
+    if (Example) {
+      // prettier-ignore
+      const runner = overrides[exampleFilename]
+        || (() => {
+          const { asFragment } = render(React.createElement(Example));
+          expect(asFragment()).toMatchSnapshot();
+        });
 
-    // prettier-ignore
-    const runner = overrides[exampleFilename]
-      || (() => {
-        const { asFragment } = render(React.createElement(Example));
-        expect(asFragment()).toMatchSnapshot();
-      });
-
-    test(exampleFilename, runner);
+      test(exampleFilename, runner);
+    }
   }
 }
