@@ -1,5 +1,5 @@
 const baseConfig = require('./jest.base.conf.js');
-const path = require('path');
+
 process.env.TZ = 'Asia/Shanghai';
 
 module.exports = {
