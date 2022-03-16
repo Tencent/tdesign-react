@@ -6,7 +6,7 @@ const { SwiperItem } = Swiper;
 export default function BasicSwiper() {
   return (
     <div className="tdesign-demo-block--swiper-new">
-      <Swiper direction={'vertical'} navigation={{ showSlideBtn: 'never' }} height={280} autoplay={false}>
+      <Swiper navigation={{ placement: 'outside' }}>
         <SwiperItem>
           <div className="demo-item">1</div>
         </SwiperItem>

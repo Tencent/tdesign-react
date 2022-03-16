@@ -308,6 +308,12 @@ export default {
           component: () => import('tdesign-react/progress/progress.md'),
         },
         {
+          title: 'Swiper 轮播框',
+          name: 'swiper',
+          path: '/react/components/swiper',
+          component: () => import('tdesign-react/swiper/swiper.md'),
+        },
+        {
           title: 'Skeleton 骨架屏',
           name: 'skeleton',
           path: '/react/components/skeleton',
