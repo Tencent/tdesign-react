@@ -31,6 +31,13 @@ const TIME_FORMAT = 'HH:mm:ss';
 
 // TODO 下版本重构下 datepicker 逻辑，与 RangePicker 一起实现
 const DatePicker = (props: DatePickerProps) => {
+  // 国际化文本初始化
+  const [local, t] = useLocaleReceiver('datePicker');
+  const selectTimeText = t(local.selectTime);
+  const selectDateText = t(local.selectDate);
+  const confirmText = t(local.confirm);
+  const rangeSeparatorText = t(local.rangeSeparator);
+
   const {
     className,
     style,
@@ -39,32 +46,25 @@ const DatePicker = (props: DatePickerProps) => {
     disabled,
     disableDate,
     enableTimePicker,
-    format,
+    format = 'YYYY-MM-DD',
     inputProps,
-    mode,
+    mode = 'month',
     popupProps,
     prefixIcon,
     presets,
     range,
-    size,
+    size = 'medium',
     suffixIcon,
     value,
     defaultValue,
     firstDayOfWeek,
+    placeholder = t(local.placeholder[mode]),
     onChange,
     onPick,
     // onBlur,
     // onFocus,
     // onInput,
   } = props;
-
-  // 国际化文本初始化
-  const [local, t] = useLocaleReceiver('datePicker');
-  const selectTimeText = t(local.selectTime);
-  const selectDateText = t(local.selectDate);
-  const confirmText = t(local.confirm);
-  const rangeSeparatorText = t(local.rangeSeparator);
-  const placeholder = t(local.placeholder[mode]);
 
   const { classPrefix } = useConfig();
   const CLASSNAMES = useCommonClassName();
@@ -450,12 +450,5 @@ const DatePicker = (props: DatePickerProps) => {
 };
 
 DatePicker.displayName = 'DatePicker';
-
-DatePicker.defaultProps = {
-  format: 'YYYY-MM-DD',
-  mode: 'month',
-  placeholder: '请选择',
-  size: 'medium',
-};
 
 export default DatePicker;
