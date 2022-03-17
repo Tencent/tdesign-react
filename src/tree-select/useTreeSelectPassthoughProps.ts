@@ -10,6 +10,9 @@ const SelectInputPassthroughPropsKey: Array<keyof SelectInputProps> = [
   'popupProps',
   'clearable',
   'loading',
+  'autoWidth',
+  'borderless',
+  'readonly',
 ];
 
 export const useTreeSelectPassThroughProps = (props: TreeSelectProps) => pick(props, SelectInputPassthroughPropsKey);

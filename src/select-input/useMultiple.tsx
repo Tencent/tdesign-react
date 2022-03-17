@@ -48,7 +48,7 @@ export default function useMultiple(props: TdSelectInputProps) {
     <TagInput
       ref={tagInputRef}
       {...p.commonInputProps}
-      readonly={!props.allowInput}
+      readonly={!props.allowInput || props.readonly}
       autoWidth={props.borderless || props.autoWidth}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
@@ -67,8 +67,6 @@ export default function useMultiple(props: TdSelectInputProps) {
       onClear={p.onInnerClear}
       onBlur={(val, context) => {
         props.onBlur?.(props.value, { ...context, tagInputValue: val });
-        // 筛选器统一特性：失去焦点时，清空输入内容
-        setTInputValue('', { ...context, trigger: 'blur' });
       }}
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });

@@ -153,7 +153,7 @@ export interface TdSelectInputProps {
    */
   onFocus?: (value: SelectInputValue, context: SelectInputFocusContext) => void;
   /**
-   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、失去焦点等
+   * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发等
    */
   onInputChange?: (value: InputValue, context?: SelectInputValueChangeContext) => void;
   /**
@@ -198,7 +198,7 @@ export interface SelectInputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | FocusEvent<HTMLInputElement>
     | KeyboardEvent<HTMLInputElement>;
-  trigger: 'input' | 'clear' | 'blur';
+  trigger: 'input' | 'clear';
 }
 
 export type SelectInputChangeContext = TagInputChangeContext;
