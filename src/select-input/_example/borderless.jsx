@@ -77,7 +77,7 @@ export default function SelectInputSingle() {
         borderless
         clearable
         onPopupVisibleChange={onPopupVisibleChange}
-        clear={onClear}
+        onClear={onClear}
         panel={
           <ul className="tdesign-demo__selet-input-ul-borderless">
             {OPTIONS.map(item => (

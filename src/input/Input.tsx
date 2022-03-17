@@ -234,6 +234,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+      if (readonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -242,6 +243,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+      if (readonly) return;
       const {
         currentTarget: { value },
       } = e;

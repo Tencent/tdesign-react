@@ -3,13 +3,13 @@ import React from 'react';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
 
-interface TreeSelectArrowProps {
+interface SelectArrowProps {
   isActive: boolean;
   isHighlight: boolean;
   disabled: boolean;
 }
 
-export const TreeSelectArrow = ({ isActive, isHighlight, disabled }: TreeSelectArrowProps) => {
+export const SelectArrow = ({ isActive, isHighlight, disabled }: SelectArrowProps) => {
   const { classPrefix } = useConfig();
   return (
     <FakeArrow
