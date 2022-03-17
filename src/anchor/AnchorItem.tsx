@@ -2,13 +2,14 @@ import React, { FunctionComponent, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { TdAnchorItemProps } from './type';
 import useConfig from '../_util/useConfig';
+import { StyledProps } from '../common';
 import { AnchorContext } from './AnchorContext';
 
-export type AnchorItemProps = TdAnchorItemProps;
+export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {}
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
-  const { href, title, target, children = [], ...rest } = props;
+  const { href, title, target, children = [], className = '', ...rest } = props;
 
   const { classPrefix } = useConfig();
 
@@ -25,8 +26,12 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-anchor__item`, { [`${classPrefix}-is-active`]: activeItem === href })}
       {...rest}
+      className={classNames(
+        `${classPrefix}-anchor__item`,
+        { [`${classPrefix}-is-active`]: activeItem === href },
+        className,
+      )}
     >
       <a
         href={href}

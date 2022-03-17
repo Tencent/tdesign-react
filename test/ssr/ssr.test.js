@@ -1,3 +1,4 @@
+/* eslint-disable */
 import glob from 'glob';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -15,8 +16,10 @@ function ssrSnapshotTest() {
       it(`renders ${file} correctly`, async () => {
         const demo = require(`../.${file}`);
         const RealDemoComp = demo.default ? demo.default : demo;
-        const ElementImageHtml = renderToString(<RealDemoComp />);
-        expect(ElementImageHtml).toMatchSnapshot();
+        if (typeof RealDemoComp === 'function') {
+          const ElementImageHtml = renderToString(<RealDemoComp />);
+          expect(ElementImageHtml).toMatchSnapshot();
+        }
       }, 2000);
     });
   });

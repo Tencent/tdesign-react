@@ -210,7 +210,8 @@ npm run init
 npm run test
 # 运行全部单元测试用例
 npm run test:unit
-# 运行指定组件单元测试用例，xxx表示组件目录名称
+# 运行指定组件单元测试用例，xxx表示组件目录名称, 多个组件用空格分开
+# eg: npm run test:unit button affix
 npm run test:unit xxx
 
 # 运行全部e2e测试用例
