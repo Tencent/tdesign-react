@@ -11,7 +11,7 @@ exports[`base.jsx 1`] = `
     <div>
       <div>
         <div
-          class="t-anchor t-size-m"
+          class="t-anchor t-size-m abc"
         >
           <div
             class="t-anchor__line"
