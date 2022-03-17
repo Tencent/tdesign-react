@@ -148,11 +148,15 @@ const Anchor = (props: AnchorProps) => {
     };
   }, [container, handleScroll]);
 
-  const anchorClass = classNames(`${classPrefix}-anchor`, {
-    [`${classPrefix}-size-s`]: size === 'small',
-    [`${classPrefix}-size-m`]: size === 'medium',
-    [`${classPrefix}-size-l`]: size === 'large',
-  });
+  const anchorClass = classNames(
+    `${classPrefix}-anchor`,
+    {
+      [`${classPrefix}-size-s`]: size === 'small',
+      [`${classPrefix}-size-m`]: size === 'medium',
+      [`${classPrefix}-size-l`]: size === 'large',
+    },
+    props.className,
+  );
 
   const CursorCmp = () => {
     if (isFunction(cursor)) return cursor();
@@ -169,7 +173,7 @@ const Anchor = (props: AnchorProps) => {
         unregisterItem,
       }}
     >
-      <div className={anchorClass} ref={anchorEl} {...rest}>
+      <div {...rest} className={anchorClass} ref={anchorEl}>
         <div className={`${classPrefix}-anchor__line`}>
           <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
             {CursorCmp()}

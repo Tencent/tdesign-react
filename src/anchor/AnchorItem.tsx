@@ -25,8 +25,8 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-anchor__item`, { [`${classPrefix}-is-active`]: activeItem === href })}
       {...rest}
+      className={classNames(`${classPrefix}-anchor__item`, { [`${classPrefix}-is-active`]: activeItem === href })}
     >
       <a
         href={href}
