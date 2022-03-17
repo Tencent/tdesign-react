@@ -77,4 +77,9 @@ export interface TdAnchorItemProps {
    * @default ''
    */
   title?: TNode;
+  /**
+   * 锚点类名
+   * @default ''
+   */
+  className?: string;
 }

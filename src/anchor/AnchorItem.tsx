@@ -8,7 +8,7 @@ export type AnchorItemProps = TdAnchorItemProps;
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
-  const { href, title, target, children = [], ...rest } = props;
+  const { href, title, target, className, children = [], ...rest } = props;
 
   const { classPrefix } = useConfig();
 
@@ -25,7 +25,11 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-anchor__item`, { [`${classPrefix}-is-active`]: activeItem === href })}
+      className={classNames(
+        `${classPrefix}-anchor__item`,
+        { [`${classPrefix}-is-active`]: activeItem === href },
+        className,
+      )}
       {...rest}
     >
       <a

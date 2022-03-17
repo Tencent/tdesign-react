@@ -18,6 +18,7 @@ onClick | Function |  | TS 类型：`(link: { href: string; title: string; e: Mo
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+className | String | - | 类名 | N
 href | String | - | 必需。锚点链接, 如果是 hash 模式需要加上当前 path | Y
 target | String | _self | 锚点文本。可选项：_self/_blank/_parent/_top | N
 title | TNode | '' | 锚点文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
