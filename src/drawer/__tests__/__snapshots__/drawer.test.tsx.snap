@@ -154,8 +154,8 @@ exports[`attach-parent.jsx 1`] = `
       </div>
       <div>
         <div
-          class="t-drawer t-drawer--right t-drawer--attach"
-          tabindex="0"
+          class="t-drawer t-drawer--lock t-drawer--right t-drawer--attach"
+          tabindex="-1"
         >
           <div
             class="t-drawer__mask"
@@ -244,8 +244,8 @@ exports[`base.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
@@ -333,8 +333,8 @@ exports[`custom.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
@@ -410,8 +410,8 @@ exports[`destroy.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
@@ -494,8 +494,8 @@ exports[`no-mask.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer--right t-drawer--without-mask"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right t-drawer--without-mask"
+        tabindex="-1"
       >
         <div
           class="t-drawer__content-wrapper t-drawer__content-wrapper--right"
@@ -580,8 +580,8 @@ exports[`operation.jsx 1`] = `
     </button>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
@@ -816,8 +816,8 @@ exports[`placement.jsx 1`] = `
     </div>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
@@ -1084,8 +1084,8 @@ exports[`size.jsx 1`] = `
     </div>
     <div>
       <div
-        class="t-drawer t-drawer--right"
-        tabindex="0"
+        class="t-drawer t-drawer--lock t-drawer--right"
+        tabindex="-1"
       >
         <div
           class="t-drawer__mask"
