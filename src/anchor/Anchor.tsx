@@ -39,6 +39,7 @@ const Anchor = (props: AnchorProps) => {
     cursor,
     onClick = noop,
     onChange = noop,
+    className = '',
     ...rest
   } = props;
 
@@ -155,7 +156,7 @@ const Anchor = (props: AnchorProps) => {
       [`${classPrefix}-size-m`]: size === 'medium',
       [`${classPrefix}-size-l`]: size === 'large',
     },
-    props.className,
+    className,
   );
 
   const CursorCmp = () => {
