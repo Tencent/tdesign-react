@@ -78,9 +78,8 @@ const TableBody = forwardRef((props: TableBodyProps, ref: React.Ref<HTMLTableSec
   const rows = useMemo(
     () =>
       flattenVisibleData.map((row, index) => {
-        const rowKeyValue = get(row, rowKey) || index;
+        const rowKeyValue = get(row, rowKey) ?? index;
         const rowEvents = getRowEventsRef.current(row, index);
-
         return (
           <React.Fragment key={rowKeyValue}>
             <TableRow

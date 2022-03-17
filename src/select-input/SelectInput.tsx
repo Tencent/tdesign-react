@@ -14,7 +14,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputRef = useRef();
   const selectInputWrapRef = useRef();
   const { classPrefix: prefix } = useConfig();
-  const { multiple, value, popupVisible, popupProps, borderless } = props;
+  const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
   const { tOverlayStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayStyle(props);
   const { commonInputProps, inputRef, onInnerClear, renderSelectSingle } = useSingle(props);
   const { tagInputRef, renderSelectMultiple } = useMultiple(props);
@@ -51,6 +51,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
       onVisibleChange={onInnerPopupVisibleChange}
       {...visibleProps}
       {...popupProps}
+      disabled={disabled}
       overlayStyle={tOverlayStyle}
     >
       {multiple

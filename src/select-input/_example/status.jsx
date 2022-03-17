@@ -85,6 +85,17 @@ const SelectInputStatus = () => {
         ></SelectInput>
       </div>
       <br />
+
+      <div>
+        <span>加载状态：</span>
+        <SelectInput
+          loading={true}
+          tips="处于加载状态的文本提示"
+          placeholder="Please Select"
+          panel={<div className="tdesign-demo__select-empty-status">加载中...</div>}
+        ></SelectInput>
+      </div>
+      <br />
     </div>
   )
 }

@@ -47,7 +47,7 @@
     "lint:tsc": "tsc --emitDeclarationOnly",
     "test": "npm run test:unit && npm run test:node",
     "test:update": "npm run test:unit-update && npm run test:node-update",
-    "test:unit": "bash -c 'jest --coverage --config test/config/jest.unit.conf.js ${1}' -- ",
+    "test:unit": "jest --coverage --config test/config/jest.unit.conf.js",
     "test:unit-update": "jest --config test/config/jest.unit.conf.js --updateSnapshot --coverage",
     "test:node": "jest --config test/config/jest.ssr.conf.js",
     "test:node-update": "jest --config test/config/jest.ssr.conf.js --updateSnapshot --coverage",

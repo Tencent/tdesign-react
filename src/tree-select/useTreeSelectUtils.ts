@@ -7,7 +7,7 @@ import type { NodeOptions, TreeSelectProps } from './TreeSelect';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,
-  $tree: MutableRefObject<ElementRef<typeof Tree>>,
+  treeRef: MutableRefObject<ElementRef<typeof Tree>>,
 ) => {
   const defaultStore = useMemo(() => {
     const store = new TreeStore({ ...treeProps });
@@ -16,8 +16,8 @@ export const useTreeSelectUtils = (
   }, [data, treeProps]);
 
   const getNodeItem = usePersistFn((value: string | number) => {
-    if ($tree.current) {
-      return $tree.current.getItem(value);
+    if (treeRef.current) {
+      return treeRef.current.getItem(value);
     }
     return defaultStore.getNode(value)?.getModel();
   });
