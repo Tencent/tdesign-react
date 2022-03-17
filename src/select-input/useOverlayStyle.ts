@@ -8,7 +8,7 @@ import { TdPopupProps, PopupVisibleChangeContext } from '../popup';
 const MAX_POPUP_WIDTH = 1000;
 
 export default function useOverlayStyle(props: TdSelectInputProps) {
-  const { popupProps, borderless } = props;
+  const { popupProps, borderless, autoWidth } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
   const macthWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
@@ -30,6 +30,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
   };
 
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
+    if (props.readonly) return;
     // 如果点击触发元素（输入框），则永久显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' ? true : visible;
     setInnerPopupVisible(newVisible);
@@ -41,7 +42,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
     const overlayStyle = popupProps?.overlayStyle || {};
     if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
       result = overlayStyle;
-    } else if (!borderless) {
+    } else if (!borderless && !autoWidth) {
       result = macthWidthFunc;
     }
     return result;
