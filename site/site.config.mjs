@@ -174,6 +174,12 @@ export default {
           component: () => import('tdesign-react/date-picker/date-picker.md'),
         },
         {
+          title: 'ColorPicker 颜色选择器',
+          name: 'color-picker',
+          path: '/react/components/color-picker',
+          component: () => import('tdesign-react/color-picker/color-picker.md'),
+        },
+        {
           title: 'Form 表单',
           name: 'form',
           path: '/react/components/form',
