@@ -104,7 +104,7 @@ const Select = forwardRefWithStatics(
     useEffect(() => {
       if (keys) {
         // 如果有定制keys 先做转换
-        const transformedOptions = options.map((option) => ({
+        const transformedOptions = options?.map((option) => ({
           ...option,
           value: get(option, keys?.value || 'value'),
           label: get(option, keys?.label || 'label'),
