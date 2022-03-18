@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 0.28.0 `2022-03-18`
+
+### BREAKING CHANGES
+
+* Swiper: 交互、设计、API 全部重构，如有使用老的 Swiper 组件需重新接入
+
+### Bug Fixes
+
+* Datepicker: 修复 `placeholder` 无效问题 ([#492](https://github.com/Tencent/tdesign-react/issues/492)) ([650e4ab](https://github.com/Tencent/tdesign-react/commit/650e4ab981846fd4f51695dcce3ac85d26b5c0f6)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Anchor: 修复 AnchorItem `className` 无效问题 ([fa10e22](https://github.com/Tencent/tdesign-react/commit/fa10e227ef0f9bd9cc90950bafe42d0b195d3253)) [@carolin913](https://github.com/carolin913)
+* Slider: 修复 disabled 无效问题 ([bb6b9f3](https://github.com/Tencent/tdesign-react/commit/bb6b9f3aed536cf448768eda8ff11f90a44021a3)) [@andyjxli](https://github.com/andyjxli)
+* Table: 修复 key 有 0 的数据时的排序问题 ([415fb74](https://github.com/Tencent/tdesign-react/commit/415fb7441d7ed90436fb2274f96cf5debbb6e17f)) [@carolin913](https://github.com/carolin913)
+* Form: 修复 `submit` 报错 ([#510](https://github.com/Tencent/tdesign-react/issues/510)) ([0b97c07](https://github.com/Tencent/tdesign-react/commit/0b97c0791013c6156adbd47794b7333799d8015e)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+### Features
+
+* Swiper: 重构 `swiper` 组件 ([3d55eeb](https://github.com/Tencent/tdesign-react/commit/3d55eebad57f577c888e6c1bf88f43c020e5d4a3)) [@duenyang](https://github.com/duenyang)
+* Cascader: 修复 children boolean 类型问题 ([#508](https://github.com/Tencent/tdesign-react/issues/508)) ([dca3289](https://github.com/Tencent/tdesign-react/commit/dca3289ddc1122238b058be8a49cbe6cd6c045b3)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Grid: 支持获取 css vars 做响应式判断 ([#481](https://github.com/Tencent/tdesign-react/issues/481)) ([faed791](https://github.com/Tencent/tdesign-react/commit/faed79123cbdb7e2d633a912a7037c06e5b19408)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Icon: 支持自定义 Url ([b10171a](https://github.com/Tencent/tdesign-react/commit/b10171a12dfa1ef66138b418afc1dbf759e43f25)) [@uyarn](https://github.com/uyarn)
+* Slider: `label` 支持 function 自定义渲染 ([e660d18](https://github.com/Tencent/tdesign-react/commit/e660d18cad006c26a926993f24724336bd8c45bc)) [@andyjxli](https://github.com/andyjxli)
+* TreeSelect: 完善新增 api ([969e96b](https://github.com/Tencent/tdesign-react/commit/969e96bb248fa5cc34eb4dceb694f72139d9b500)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+* Form: 支持 `showErrorMessage` api & `help` 支持 Tnode 类型 ([#490](https://github.com/Tencent/tdesign-react/issues/490)) ([c78dad2](https://github.com/Tencent/tdesign-react/commit/c78dad2fc7130edd2b81a1aa063794435a0a7507)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+
 ## 0.27.2 `2022-03-15`
 
 ### Bug Fixes
