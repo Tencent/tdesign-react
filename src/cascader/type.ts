@@ -97,11 +97,11 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    */
   popupProps?: PopupProps;
   /**
-   * 是否显示下拉框
+   * 【开发中】是否显示下拉框
    */
   popupVisible?: boolean;
   /**
-   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * 【开发中】只读状态，值为真会隐藏输入框，且无法打开下拉框
    * @default false
    */
   readonly?: boolean;

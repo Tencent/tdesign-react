@@ -25,8 +25,8 @@ multiple | Boolean | false | 是否允许多选 | N
 options | Array | [] | 可选项数据源。TS 类型：`Array<CascaderOption>` | N
 placeholder | String | undefined | 占位符 | N
 popupProps | Object | - | 参考 popup 组件 API。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
-popupVisible | Boolean | undefined | 是否显示下拉框 | N
-readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
+popupVisible | Boolean | undefined | 【开发中】是否显示下拉框 | N
+readonly | Boolean | false | 【开发中】只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/cascader/type.ts) | N
 showAllLevels | Boolean | true | 选中值使用完整路径，输入框在单选时也显示完整路径 | N
 size | String | medium | 组件尺寸。可选项：large/medium/small。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
