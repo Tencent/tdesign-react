@@ -1,5 +1,6 @@
 import React, { forwardRef, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+import { isFunction, isString } from 'lodash';
 import { TdSliderProps } from './type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
@@ -171,16 +172,18 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const createHandleButton = (nodeIndex: SliderHandleNode, style: React.CSSProperties) => {
       const currentValue = renderValue[nodeIndex];
       // 模板替换
-      let tipLabel = typeof label === 'string' ? label.replace(/\$\{value\}/g, currentValue.toString()) : label;
-      if (tipLabel === true || !tipLabel) tipLabel = currentValue;
+      let tipLabel: React.ReactNode = currentValue;
+      if (isFunction(label))
+        tipLabel = label({ value: currentValue, position: nodeIndex === LEFT_NODE ? 'start' : 'end' });
+      if (isString(label)) tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
 
       return (
         <SliderHandleButton
           toolTipProps={{
-            disabled: label === false,
             content: tipLabel,
             ...tooltipProps,
           }}
+          hideTips={label === false}
           classPrefix={classPrefix}
           style={style}
           onChange={(e) => onSliderChange(e, nodeIndex)}
