@@ -80,7 +80,7 @@ export function expendClickEffect(
     }
 
     // 非受控状态下更新状态
-    setValue(value, 'checked', node.getModel());
+    setValue(value, 'check', node.getModel());
   }
 }
 
@@ -126,5 +126,5 @@ export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderConte
     setFilterActive(false);
   }
 
-  setValue(checked, 'checked', node.getModel());
+  setValue(checked, 'check', node.getModel());
 }
