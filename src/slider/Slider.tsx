@@ -1,6 +1,7 @@
 import React, { forwardRef, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction, isString } from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isString from 'lodash/isString';
 import { TdSliderProps } from './type';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
