@@ -41,10 +41,10 @@ export default function useInstance(props: TdFormProps, formRef, formItemsRef) {
   }
 
   // 对外方法 手动提交表单
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  function submit(e?: React.FormEvent<HTMLFormElement>) {
     if (preventSubmitDefault) {
-      e.preventDefault?.();
-      e.stopPropagation?.();
+      e?.preventDefault?.();
+      e?.stopPropagation?.();
     }
     validate().then((r) => {
       const firstError = getFirstError(r);
