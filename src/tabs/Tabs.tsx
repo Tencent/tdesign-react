@@ -50,20 +50,22 @@ const Tabs = forwardRefWithStatics(
       }
     };
 
-    const renderTabNav = () => (
-      <TabNav
-        {...props}
-        activeValue={value}
-        onRemove={onRemove}
-        itemList={itemList}
-        tabClick={handleClickTab}
-        onChange={handleChange}
-      />
+    const renderHeader = () => (
+      <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
+        <TabNav
+          {...props}
+          activeValue={value}
+          onRemove={onRemove}
+          itemList={itemList}
+          tabClick={handleClickTab}
+          onChange={handleChange}
+        />
+      </div>
     );
 
     return (
       <div ref={ref} className={classNames(tdTabsClassPrefix, className)} style={style}>
-        {placement !== 'bottom' ? renderTabNav() : null}
+        {placement !== 'bottom' ? renderHeader() : null}
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(children, (child: any) => {
             if (child && child.type === TabPanel) {
@@ -77,7 +79,7 @@ const Tabs = forwardRefWithStatics(
             return null;
           })}
         </div>
-        {placement === 'bottom' ? renderTabNav() : null}
+        {placement === 'bottom' ? renderHeader() : null}
       </div>
     );
   },
