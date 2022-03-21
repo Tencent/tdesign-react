@@ -77,6 +77,7 @@ const Input = forwardRefWithStatics(
       readonly,
       label,
       suffix,
+      plainTextPassword,
       ...restProps
     } = useDefaultValue<InputValue, InputProps>(props, '');
 
@@ -98,7 +99,7 @@ const Input = forwardRefWithStatics(
 
     if (isShowClearIcon)
       suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
-    if (type === 'password') {
+    if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (
           <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
@@ -116,6 +117,12 @@ const Input = forwardRefWithStatics(
       if (!autoWidth) return;
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
+
+    useEffect(() => {
+      if (type !== 'password') return;
+
+      setRenderType(plainTextPassword ? 'text' : 'password');
+    }, [type, plainTextPassword]);
 
     const renderInput = (
       <input
@@ -135,6 +142,8 @@ const Input = forwardRefWithStatics(
         onKeyPress={handleKeyPress}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
+        onMouseEnter={(e) => onMouseenter?.({ e })}
+        onMouseLeave={(e) => onMouseleave?.({ e })}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onPaste={handlePaste}
@@ -155,8 +164,8 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-input--suffix`]: suffixIconContent || suffixContent,
           [`${classPrefix}-input--focused`]: isFocused,
         })}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => toggleIsHover(true)}
+        onMouseLeave={() => toggleIsHover(false)}
         onWheel={handleWheel}
         onClick={(e) => onClick?.({ e })}
       >
@@ -256,16 +265,6 @@ const Input = forwardRefWithStatics(
       const clipData = e.clipboardData;
       const pasteValue = clipData?.getData('text/plain');
       onPaste?.({ e, pasteValue });
-    }
-
-    function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(true);
-      onMouseenter?.({ e });
-    }
-
-    function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      toggleIsHover(false);
-      onMouseleave?.({ e });
     }
 
     function handleWheel(e: React.WheelEvent<HTMLDivElement>) {

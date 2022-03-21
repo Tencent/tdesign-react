@@ -11,6 +11,7 @@ export default function InputExample() {
         placeholder="请输入"
         value={value}
         type="password"
+        plainTextPassword
         onChange={(value) => {
           onChange(value);
         }}
