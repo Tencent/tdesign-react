@@ -133,7 +133,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                 case 'string': {
                   const vs = v as string;
                   return (
-                    <Checkbox key={vs} label={vs} value={vs}>
+                    <Checkbox key={index} label={vs} value={vs}>
                       {v}
                     </Checkbox>
                   );
@@ -141,7 +141,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                 case 'number': {
                   const vs = v as number;
                   return (
-                    <Checkbox key={vs} label={vs} value={vs}>
+                    <Checkbox key={index} label={vs} value={vs}>
                       {v}
                     </Checkbox>
                   );
@@ -152,7 +152,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                   return vs.checkAll ? (
                     <Checkbox {...v} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox {...v} key={vs.value} disabled={vs.disabled || disabled} />
+                    <Checkbox {...v} key={index} disabled={vs.disabled || disabled} />
                   );
                 }
                 default:

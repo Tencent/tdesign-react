@@ -73,7 +73,7 @@ export default function useTagList(props: TagInputProps) {
           const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
           return (
             <Tag
-              key={item}
+              key={index}
               size={size}
               disabled={disabled}
               onClose={(context) => onClose({ e: context.e, item, index })}

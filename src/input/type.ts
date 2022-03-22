@@ -141,7 +141,7 @@ export interface TdInputProps {
   /**
    * 回车键按下时触发
    */
-  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 获得焦点时触发
    */
@@ -149,15 +149,15 @@ export interface TdInputProps {
   /**
    * 键盘按下时触发
    */
-  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 按下字符键时触发（keydown -> keypress -> keyup）
    */
-  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 释放键盘时触发
    */
-  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 进入输入框时触发
    */

@@ -94,6 +94,9 @@ export default function useSingle(props: TdSelectInputProps) {
           props.onFocus?.(value, { ...context, inputValue: val });
           !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
         }}
+        onEnter={(val, context) => {
+          props.onEnter?.(value, { ...context, inputValue: val });
+        }}
         {...props.inputProps}
         className={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
