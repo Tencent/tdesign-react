@@ -7,9 +7,10 @@ import noop from '../_util/noop';
 import { useTabClass } from './useTabClass';
 import TabNavItem from './TabNavItem';
 import TabBar from './TabBar';
+import tabBase from '../_common/js/tabs/base';
 
-import TabsBase from '../_common/js/tabs/base';
-
+const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight, calculateCanToLeft, calculateCanToRight } =
+  tabBase;
 export interface TabNavProps extends TdTabsProps {
   itemList: TdTabPanelProps[];
   tabClick: (s: TabValue) => void;
@@ -64,15 +65,6 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const [activeTab, setActiveTab] = useState<HTMLElement>(null);
 
-  const {
-    moveActiveTabIntoView,
-    calcScrollLeft,
-    scrollToLeft,
-    scrollToRight,
-    calculateCanToLeft,
-    calculateCanToRight,
-  } = new TabsBase();
-
   useEffect(() => {
     const left = moveActiveTabIntoView(
       {
@@ -87,7 +79,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
       scrollLeft,
     );
     setScrollLeft(left);
-  }, [activeTab, scrollLeft, moveActiveTabIntoView]);
+  }, [activeTab, scrollLeft]);
 
   // 调用检查函数，并设置左右滑动按钮的展示状态
   const setScrollBtnVisibleHandler = useCallback(() => {
@@ -114,7 +106,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
 
     setToLeftBtnVisible(canToleft);
     setToRightBtnVisible(canToRight);
-  }, [scrollLeft, placement, calculateCanToLeft, calculateCanToRight]);
+  }, [scrollLeft, placement]);
 
   // 滚动条处理逻辑
   const handleScroll = (position: 'left' | 'right') => {
@@ -149,14 +141,14 @@ const TabNav: React.FC<TabNavProps> = (props) => {
           {
             navsContainer: navsContainerRef.current,
             navsWrap: navsWrapRef.current,
-            rightOperationsZone: rightOperationsRef.current,
+            rightOperations: rightOperationsRef.current,
           },
           scrollLeft,
         );
         setScrollLeft(left);
         setScrollBtnVisibleHandler();
       }
-    }, 500);
+    }, 300);
 
     window.addEventListener('resize', onResize);
 
@@ -171,13 +163,13 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         {
           navsContainer: navsContainerRef.current,
           navsWrap: navsWrapRef.current,
-          rightOperationsZone: rightOperationsRef.current,
+          rightOperations: rightOperationsRef.current,
         },
         scrollLeft,
       );
       setScrollLeft(left);
     }
-  }, [itemList.length, scrollLeft, placement, calcScrollLeft]);
+  }, [itemList.length, scrollLeft, placement]);
 
   // TabBar 组件逻辑层抽象，卡片类型时无需展示，故将逻辑整合到此处
   const TabBarCom = isCard ? null : (
