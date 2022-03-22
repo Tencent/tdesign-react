@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
+import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import useDefault from '../../_util/useDefault';
 import { TdDatePickerProps, DateValue } from '../type';
@@ -43,7 +44,7 @@ export default function useSingle(props: TdDatePickerProps) {
   const [inputPlaceholder, setInputPlaceholder] = useState(placeholder);
   const [popupVisible, setPopupVisible] = useState(false);
   const [timeValue, setTimeValue] = useState(dayjs(value).format(TIME_FORMAT));
-  // const [isHoverCell, setIsHoverCell] = useState(false);
+  const [isHoverCell, setIsHoverCell] = useState(false);
 
   // 日期格式化
   const formatDate = useCallback(
@@ -85,14 +86,13 @@ export default function useSingle(props: TdDatePickerProps) {
       readonly: !allowInput,
       placeholder: inputPlaceholder,
       suffixIcon: suffixIcon || <CalendarIcon />,
-      // className: classNames({
-      //   [`${name}__input-placeholder`]: isHoverCell,
-      // }),
+      className: classNames({
+        [`${name}__input--placeholder`]: isHoverCell,
+      }),
       onClear: ({ e }) => {
         e.stopPropagation();
         setPopupVisible(false);
-        onChange('', dayjs());
-        setInputValue('');
+        onChange('', dayjs(''));
         setInputPlaceholder(placeholder);
       },
       onBlur: (val: string, { e }) => {
@@ -125,6 +125,7 @@ export default function useSingle(props: TdDatePickerProps) {
       },
     }),
     [
+      name,
       allowInput,
       suffixIcon,
       clearable,
@@ -139,6 +140,7 @@ export default function useSingle(props: TdDatePickerProps) {
       value,
       format,
       inputPropsFromProps,
+      isHoverCell,
     ],
   );
 
@@ -152,60 +154,41 @@ export default function useSingle(props: TdDatePickerProps) {
         if (!visible) setInputPlaceholder(placeholder);
       },
     }),
-    [name, placeholder, popupPropsFromProps],
+    [name, placeholder, popupPropsFromProps, setInputPlaceholder, setPopupVisible],
   );
 
-  const panelProps = useMemo(
-    () => ({
-      value,
-      onChange,
-      inputValue,
-      formatDate,
-      timePickerProps,
-      mode,
-      format,
-      presets,
-      valueType,
-      enableTimePicker,
-      firstDayOfWeek,
-      disableDate,
-      timeValue,
-      setInputValue,
-      setPopupVisible,
-      setTimeValue,
-    }),
-    [
-      setTimeValue,
-      timeValue,
-      disableDate,
-      firstDayOfWeek,
-      enableTimePicker,
-      inputValue,
-      value,
-      onChange,
-      setInputValue,
-      setPopupVisible,
-      formatDate,
-      timePickerProps,
-      mode,
-      format,
-      presets,
-      valueType,
-    ],
-  );
-
-  return {
+  const panelProps = {
+    mode,
+    presets,
+    disableDate,
+    firstDayOfWeek,
+    timePickerProps,
+    enableTimePicker,
+    format,
+    formatDate,
     value,
     onChange,
     inputValue,
     setInputValue,
-    inputPlaceholder,
-    setInputPlaceholder,
-    popupVisible,
+    timeValue,
+    setTimeValue,
     setPopupVisible,
+    setIsHoverCell,
+  };
+
+  // 输入框响应 value 变化
+  useEffect(() => {
+    if (!value) return setInputValue('');
+    if (!isValidDate(value, format, true)) return;
+
+    setInputValue(formatDate(value));
+  }, [value, format, formatDate, setInputValue]);
+
+  return {
+    inputValue,
+    popupVisible,
     inputProps,
     popupProps,
-    formatDate,
     panelProps,
   };
 }

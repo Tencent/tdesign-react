@@ -1,21 +1,23 @@
-import React from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, RoundIcon } from 'tdesign-icons-react';
+import React, { useMemo } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import Button from '../../button';
 import useConfig from '../../_util/useConfig';
-import Radio from '../../radio';
+import Select from '../../select';
 import { TdDatePickerProps } from '../type';
+import Jumper from '../../common/Jumper';
 
-export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode' | 'enableTimePicker'> {
-  onBtnClick: Function;
-  onTypeChange: Function;
-  panelType: 'year' | 'month' | 'date' | 'time';
+export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
+  year: string | number;
+  month: string | number;
+  onMonthChange: Function;
+  onYearChange: Function;
+  onClickJumper: Function;
 }
 
 const useDatePickerLocalConfig = () => {
   const [local, t] = useLocaleReceiver('datePicker');
 
   return {
+    months: t(local.months),
     rangeSeparator: t(local.rangeSeparator),
     yearAriaLabel: t(local.yearAriaLabel),
     monthAriaLabel: t(local.monthAriaLabel),
@@ -29,87 +31,58 @@ const useDatePickerLocalConfig = () => {
   };
 };
 
-const useControllerGroup = (mode, enableTimePicker) => {
-  let controllerGroup = [];
-  if (mode === 'year') {
-    controllerGroup = [{ label: 'Year', value: 'year' }];
-  } else if (mode === 'month') {
-    controllerGroup = [
-      { label: 'Year', value: 'year' },
-      { label: 'Month', value: 'month' },
-    ];
-  } else {
-    controllerGroup = [
-      { label: 'Year', value: 'year' },
-      { label: 'Month', value: 'month' },
-      { label: 'Date', value: 'date' },
-    ];
-  }
-
-  if (enableTimePicker) {
-    controllerGroup.push({ label: 'Time', value: 'time' });
-  }
-
-  return controllerGroup;
-};
-
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, panelType, onBtnClick, onTypeChange, enableTimePicker } = props;
+  const { mode, year, month, onMonthChange, onYearChange, onClickJumper } = props;
 
-  const { now, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
+  const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
+
+  const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
+
+  const yearOptions = useMemo(() => {
+    const options = [{ label: year, value: year }];
+
+    for (let i = 1; i <= 10; i++) {
+      options.push({ label: `${Number(year) + i}`, value: Number(year) + i });
+      options.unshift({ label: `${Number(year) - i}`, value: Number(year) - i });
+    }
+    return options;
+  }, [year]);
 
   let preLabel: string;
   let nextLabel: string;
-  if (panelType === 'year') {
+  if (mode === 'year') {
     preLabel = preDecade;
     nextLabel = nextDecade;
-  } else if (panelType === 'month') {
+  } else if (mode === 'month') {
     preLabel = preYear;
     nextLabel = nextYear;
-  } else if (panelType === 'date') {
+  } else if (mode === 'date') {
     preLabel = preMonth;
     nextLabel = nextMonth;
   }
 
-  const controllerGroup = useControllerGroup(mode, enableTimePicker);
+  const headerClassName = `${classPrefix}-date-picker__header`;
 
   return (
-    <div className={`${classPrefix}-date-picker__header`}>
-      <div className={`${classPrefix}-date-picker__header-controller`}>
-        <Radio.Group size="small" variant="default-filled" value={panelType} onChange={(val) => onTypeChange(val)}>
-          {controllerGroup.map((item) => (
-            <Radio.Button key={item.value} value={item.value}>
-              {item.label}
-            </Radio.Button>
-          ))}
-        </Radio.Group>
+    <div className={headerClassName}>
+      <div className={`${headerClassName}-controller`}>
+        <Select
+          className={`${headerClassName}-controller--month`}
+          value={month}
+          options={monthOptions}
+          onChange={(val) => onMonthChange(val)}
+        />
+        <Select
+          className={`${headerClassName}-controller--year`}
+          value={year}
+          options={yearOptions}
+          onChange={(val) => onYearChange(val)}
+        />
       </div>
 
-      <span className={`${classPrefix}-date-picker__header-jumper`}>
-        <Button
-          title={preLabel}
-          variant="text"
-          onClick={() => onBtnClick(-1)}
-          icon={<ChevronLeftIcon />}
-          className={`${classPrefix}-date-picker__header-jumper__btn`}
-        ></Button>
-        <Button
-          title={now}
-          variant="text"
-          onClick={() => onBtnClick(0)}
-          icon={<RoundIcon />}
-          className={`${classPrefix}-date-picker__header-jumper__btn`}
-        ></Button>
-        <Button
-          title={nextLabel}
-          variant="text"
-          onClick={() => onBtnClick(1)}
-          icon={<ChevronRightIcon />}
-          className={`${classPrefix}-date-picker__header-jumper__btn`}
-        ></Button>
-      </span>
+      <Jumper prevTitle={preLabel} currentTitle={now} nextTitle={nextLabel} onClickJumper={onClickJumper} />
     </div>
   );
 };

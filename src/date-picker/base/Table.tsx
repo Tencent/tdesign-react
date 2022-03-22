@@ -2,11 +2,10 @@ import React from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
+import { TdDatePickerProps } from '../type';
 
-export interface DatePickerTableProps {
+export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'> {
   data: Array<any>;
-  panelType: 'year' | 'month' | 'date' | 'time';
-  firstDayOfWeek: number;
   onCellClick: Function;
   onCellMouseEnter: Function;
   onCellMouseLeave: React.MouseEventHandler<HTMLDivElement>;
@@ -15,7 +14,7 @@ export interface DatePickerTableProps {
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { panelType = 'date', data, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
+  const { mode, data, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
 
   const [local, t] = useLocaleReceiver('datePicker');
   const weekdays = t(local.weekdays);
@@ -28,12 +27,12 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     wi = (wi + len + 1) % len;
   }
 
-  const panelClass = `${classPrefix}-date-picker__panel--${panelType}`;
+  const tableClass = `${classPrefix}-date-picker__table`;
 
   return (
-    <div className={panelClass} onMouseLeave={onCellMouseLeave}>
+    <div className={tableClass} onMouseLeave={onCellMouseLeave}>
       <table>
-        {panelType === 'date' && (
+        {mode === 'date' && (
           <thead>
             <tr>
               {weekArr.map((value: string, i: number) => (

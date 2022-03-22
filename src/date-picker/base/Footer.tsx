@@ -1,12 +1,14 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../_util/useConfig';
 import { TdDatePickerProps } from '../type';
 
-interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker'> {
+interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presets'> {
+  onPresetClick: Function;
   onConfirmClick: Function;
-  children: React.ReactNode;
+  presetsPlacement?: 'string';
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {
@@ -15,11 +17,25 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
 
   const { classPrefix } = useConfig();
 
-  const { enableTimePicker, onConfirmClick, children } = props;
+  const { enableTimePicker, onConfirmClick, presetsPlacement = 'bottom', presets, onPresetClick } = props;
+
+  const footerClass = classNames(
+    `${classPrefix}-date-picker__footer`,
+    `${classPrefix}-date-picker__footer--${presetsPlacement}`,
+  );
 
   return (
-    <div className={`${classPrefix}-date-picker__footer`}>
-      {children}
+    <div className={footerClass}>
+      {
+        <div className={`${classPrefix}-date-picker__presets`}>
+          {presets &&
+            Object.keys(presets).map((key: string) => (
+              <Button key={key} size="small" variant="text" onClick={() => onPresetClick(presets[key])}>
+                {key}
+              </Button>
+            ))}
+        </div>
+      }
       {enableTimePicker && (
         <Button size="small" theme="primary" onClick={() => onConfirmClick()}>
           {confirmText}

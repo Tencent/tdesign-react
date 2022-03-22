@@ -6,7 +6,6 @@ import useConfig from '../../_util/useConfig';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import DateFooter from '../base/Footer';
-import DatePresets from '../base/Presets';
 import {
   getWeeks,
   getYears,
@@ -14,33 +13,20 @@ import {
   flagActive,
   subtractMonth,
   addMonth,
-  getToday,
- isEnabledDate } from '../../_common/js/date-picker/utils';
+  isEnabledDate,
+} from '../../_common/js/date-picker/utils-new';
 import { TdDatePickerProps } from '../type';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
 
-export interface DatePanelProps
-  extends Pick<
-    TdDatePickerProps,
-    | 'mode'
-    | 'enableTimePicker'
-    | 'format'
-    | 'presets'
-    | 'firstDayOfWeek'
-    | 'disableDate'
-    | 'value'
-    | 'onChange'
-    | 'timePickerProps'
-  > {
+export interface DatePanelProps extends TdDatePickerProps {
   formatDate: Function;
   inputValue: string;
   timeValue: string;
   setInputValue: Function;
   setPopupVisible: Function;
   setTimeValue: Function;
+  setIsHoverCell: Function;
 }
-
-const TODAY = getToday();
 
 const DatePanel = (props: DatePanelProps) => {
   // 国际化文本初始化
@@ -49,8 +35,8 @@ const DatePanel = (props: DatePanelProps) => {
 
   const { classPrefix } = useConfig();
   const {
-    value = TODAY,
-    mode = 'date',
+    value,
+    mode,
     firstDayOfWeek,
     disableDate: disableDateFromProps,
     onChange,
@@ -64,11 +50,11 @@ const DatePanel = (props: DatePanelProps) => {
     timePickerProps,
     timeValue,
     setTimeValue,
+    setIsHoverCell,
   } = props;
 
   const [year, setYear] = useState(dayjs(value).year());
   const [month, setMonth] = useState(dayjs(value).month());
-  const [panelType, setPanelType] = useState<any>(mode);
 
   const disableDate = useCallback(
     (date: Date) => !isEnabledDate({ value: date, disableDate: disableDateFromProps, mode, format }),
@@ -86,9 +72,9 @@ const DatePanel = (props: DatePanelProps) => {
   );
 
   // 头部快速切换
-  function clickHeader(flag: number) {
+  function onClickJumper(flag: number) {
     const monthCountMap = { date: 1, month: 12, year: 120 };
-    const monthCount = monthCountMap[panelType] || 0;
+    const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);
 
@@ -107,8 +93,6 @@ const DatePanel = (props: DatePanelProps) => {
 
   // 列表数据
   const tableData = useMemo(() => {
-    if (panelType === 'time') return [];
-
     let data: any[];
 
     const options = {
@@ -119,22 +103,21 @@ const DatePanel = (props: DatePanelProps) => {
       monthLocal: monthAriaLabel,
     };
 
-    if (panelType === 'date') {
+    if (mode === 'date') {
       data = getWeeks({ year, month }, options);
-    } else if (panelType === 'month') {
+    } else if (mode === 'month') {
       data = getMonths(year, options);
-    } else if (panelType === 'year') {
+    } else if (mode === 'year') {
       data = getYears(year, options);
     }
 
     const start = dayjs(value).toDate();
-    return flagActive(data, { start, type: panelType });
-  }, [year, month, panelType, value, minDate, maxDate, disableDate, firstDayOfWeek, monthAriaLabel]);
+    return flagActive(data, { start, type: mode });
+  }, [year, month, mode, value, minDate, maxDate, disableDate, firstDayOfWeek, monthAriaLabel]);
 
   // 日期点击
   function onCellClick(date: Date) {
     onChange(formatDate(date, 'valueType'), dayjs(date));
-    setInputValue(formatDate(date));
     setYear(date.getFullYear());
     setMonth(date.getMonth());
 
@@ -143,11 +126,13 @@ const DatePanel = (props: DatePanelProps) => {
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
+    setIsHoverCell(true);
     setInputValue(formatDate(date));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
+    setIsHoverCell(false);
     setInputValue(formatDate(value));
   }
 
@@ -170,7 +155,6 @@ const DatePanel = (props: DatePanelProps) => {
       presetValue = preset();
     }
     setPopupVisible(false);
-    setInputValue(presetValue);
     onChange(formatDate(presetValue, 'valueType'), dayjs(presetValue));
   }
 
@@ -185,34 +169,45 @@ const DatePanel = (props: DatePanelProps) => {
     setInputValue(dayjs(currentDate).format(format));
   }
 
-  const showTimePicker = enableTimePicker && panelType === 'time';
   const showPanelFooter = enableTimePicker || presets;
 
   return (
     <div className={`${classPrefix}-date-picker__panel`}>
-      <DateHeader
-        mode={mode}
-        enableTimePicker={enableTimePicker}
-        panelType={panelType}
-        onBtnClick={clickHeader}
-        onTypeChange={setPanelType}
-      />
-      {showTimePicker ? (
-        <TimePickerPanel value={timeValue} onChange={handleTimePick} {...timePickerProps} />
-      ) : (
-        <DateTable
-          data={tableData}
-          panelType={panelType}
-          firstDayOfWeek={firstDayOfWeek}
-          onCellClick={onCellClick}
-          onCellMouseEnter={onCellMouseEnter}
-          onCellMouseLeave={onCellMouseLeave}
-        />
-      )}
+      <div className={`${classPrefix}-date-picker__panel--top`}>
+        <div className={`${classPrefix}-date-picker__panel--date`}>
+          <DateHeader
+            mode={mode}
+            year={year}
+            month={month}
+            onMonthChange={setMonth}
+            onYearChange={setYear}
+            onClickJumper={onClickJumper}
+          />
+
+          <DateTable
+            mode={mode}
+            data={tableData}
+            firstDayOfWeek={firstDayOfWeek}
+            onCellClick={onCellClick}
+            onCellMouseEnter={onCellMouseEnter}
+            onCellMouseLeave={onCellMouseLeave}
+          />
+        </div>
+
+        {enableTimePicker && (
+          <div className={`${classPrefix}-date-picker__panel--time`}>
+            <TimePickerPanel value={timeValue} onChange={handleTimePick} {...timePickerProps} />
+          </div>
+        )}
+      </div>
+
       {showPanelFooter && (
-        <DateFooter enableTimePicker={enableTimePicker} onConfirmClick={onConfirmClick}>
-          <DatePresets presets={presets} onPresetClick={onPresetClick} />
-        </DateFooter>
+        <DateFooter
+          enableTimePicker={enableTimePicker}
+          onConfirmClick={onConfirmClick}
+          presets={presets}
+          onPresetClick={onPresetClick}
+        />
       )}
     </div>
   );

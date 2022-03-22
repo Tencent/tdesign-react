@@ -70,15 +70,15 @@ export interface TdDatePickerProps {
    */
   presets?: PresetDate;
   /**
+   * left/top/right/bottom
+   * @default bottom
+   */
+  presetsPlacement?: string;
+  /**
    * 是否呈现为日期范围选择器（临时 API，后期将调整为是 DateRangePicker 组件）
    * @default false
    */
   range?: boolean;
-  /**
-   * 尺寸
-   * @default medium
-   */
-  size?: 'small' | 'medium' | 'large';
   /**
    * 用于自定义组件后置图标
    */
