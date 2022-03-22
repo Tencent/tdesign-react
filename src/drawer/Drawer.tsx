@@ -240,7 +240,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
         ref={containerRef}
         className={drawerClass}
         style={{ zIndex, ...style }}
-        tabIndex={0} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
+        tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
         onKeyDown={onKeyDownEsc}
         onTransitionEnd={onTransitionEnd}
       >
