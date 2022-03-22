@@ -106,7 +106,7 @@ exports[`dynamic.jsx 1`] = `
       <span
         class="t-button__text"
       >
-        一直显示
+        点击改变内容
       </span>
     </button>
   </div>
