@@ -230,7 +230,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   function getResetValue(resetType: string): ValueType {
     if (resetType === 'initial' && 'initialData' in props) {
-      return initialData;
+      return getDefaultInitialData(children, initialData);
     }
 
     let emptyValue: ValueType = '';
