@@ -68,8 +68,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const toRightBtnRef = useRef(null);
 
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [activeTab] = useState<HTMLElement>(null);
-  // const [activeTab, setActiveTab] = useState<HTMLElement>(null)
+  const [activeTab, setActiveTab] = useState<HTMLElement>(null);
 
   const { moveActiveTabIntoView, calcScrollLeft, scrollToLeft, scrollToRight } = new TabsBase({
     // navsContainer: navsContainerRef.current,
@@ -97,7 +96,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   });
 
   useEffect(() => {
-    moveActiveTabIntoView(
+    const left = moveActiveTabIntoView(
       {
         activeTab,
         navsContainer: navsContainerRef.current,
@@ -109,7 +108,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
       },
       scrollLeft,
     );
-  }, [activeIndex, activeTab, scrollLeft, moveActiveTabIntoView]);
+    setScrollLeft(left);
+  }, [activeTab, scrollLeft, moveActiveTabIntoView]);
 
   /**
    * @date 2021-07-26 15:57:46
@@ -160,8 +160,25 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     //   });
     //   setScrollBtnVisibleHandler(scrollLeft);
     // }
-    const val = position === 'left' ? scrollToLeft() : scrollToRight();
-    console.log(val);
+    const val =
+      position === 'left'
+        ? scrollToLeft(
+            {
+              navsContainer: navsContainerRef.current,
+              leftOperations: leftOperationsRef.current,
+              toLeftBtn: toLeftBtnRef.current,
+            },
+            scrollLeft,
+          )
+        : scrollToRight(
+            {
+              navsWrap: navsWrapRef.current,
+              navsContainer: navsContainerRef.current,
+              rightOperations: rightOperationsRef.current,
+              toRightBtn: toRightBtnRef.current,
+            },
+            scrollLeft,
+          );
 
     setScrollLeft(val);
   };
@@ -344,7 +361,11 @@ const TabNav: React.FC<TabNavProps> = (props) => {
                 disabled={disabled || v.disabled}
                 onClick={() => handleTabItemClick(v)}
                 onTabRemove={handleTabItemRemove}
-                innerRef={(ref) => console.log(ref)}
+                innerRef={(ref) => {
+                  if (activeValue === v.value) {
+                    setActiveTab(ref);
+                  }
+                }}
               />
             ))}
             {placement === 'bottom' ? TabBarCom : null}
