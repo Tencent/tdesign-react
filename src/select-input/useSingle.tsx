@@ -98,7 +98,7 @@ export default function useSingle(props: TdSelectInputProps) {
           props.onEnter?.(value, { ...context, inputValue: val });
         }}
         {...props.inputProps}
-        innerClass={classNames(props.inputProps?.className, {
+        inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
         })}
       />
