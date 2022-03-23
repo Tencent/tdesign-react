@@ -99,7 +99,7 @@ export default function useSingle(props: TdSelectInputProps) {
         }}
         {...props.inputProps}
         className={classNames(props.inputProps?.className, {
-          [`${classPrefix}-input--focused`]: popupVisible,
+          [`${classPrefix}-select-input--focused`]: popupVisible,
         })}
       />
     );
