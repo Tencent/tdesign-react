@@ -9,13 +9,13 @@ export interface JumperProps {
   prevTitle?: string;
   currentTitle?: string;
   nextTitle?: string;
-  onClickJumper: Function;
+  onJumperClick: Function;
 }
 
 export default function Jumper(props: JumperProps) {
   const { classPrefix } = useConfig();
 
-  const { prevTitle, currentTitle, nextTitle, onClickJumper, size = 'small' } = props;
+  const { prevTitle, currentTitle, nextTitle, onJumperClick, size = 'small' } = props;
 
   return (
     <div className={`${classPrefix}-jumper`}>
@@ -24,7 +24,7 @@ export default function Jumper(props: JumperProps) {
         variant="text"
         size={size}
         shape="square"
-        onClick={() => onClickJumper(-1)}
+        onClick={() => onJumperClick(-1)}
         icon={<ChevronLeftIcon />}
         className={`${classPrefix}-jumper__btn`}
       />
@@ -34,7 +34,7 @@ export default function Jumper(props: JumperProps) {
         variant="text"
         size={size}
         shape="square"
-        onClick={() => onClickJumper(0)}
+        onClick={() => onJumperClick(0)}
         icon={<RoundIcon />}
         className={`${classPrefix}-jumper__btn`}
       />
@@ -44,7 +44,7 @@ export default function Jumper(props: JumperProps) {
         variant="text"
         size={size}
         shape="square"
-        onClick={() => onClickJumper(1)}
+        onClick={() => onJumperClick(1)}
         icon={<ChevronRightIcon />}
         className={`${classPrefix}-jumper__btn`}
       />

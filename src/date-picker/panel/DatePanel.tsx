@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import dayjs from 'dayjs';
 import isObject from 'lodash/isObject';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
@@ -6,26 +6,24 @@ import useConfig from '../../_util/useConfig';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import DateFooter from '../base/Footer';
-import {
-  getWeeks,
-  getYears,
-  getMonths,
-  flagActive,
-  subtractMonth,
-  addMonth,
-  isEnabledDate,
-} from '../../_common/js/date-picker/utils-new';
+import { getWeeks, getYears, getMonths, flagActive, isEnabledDate } from '../../_common/js/date-picker/utils-new';
 import { TdDatePickerProps } from '../type';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
+import type { TdTimePickerProps } from '../../time-picker';
 
 export interface DatePanelProps extends TdDatePickerProps {
-  formatDate: Function;
-  inputValue: string;
-  timeValue: string;
-  setInputValue: Function;
-  setPopupVisible: Function;
-  setTimeValue: Function;
-  setIsHoverCell: Function;
+  year?: number;
+  month?: number;
+  timeValue?: string;
+  onCellClick?: Function;
+  onCellMouseEnter?: Function;
+  onCellMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  onJumperClick?: Function;
+  onConfirmClick?: Function;
+  onPresetClick?: Function;
+  onYearChange?: Function;
+  onMonthChange?: Function;
+  onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
 const DatePanel = (props: DatePanelProps) => {
@@ -33,28 +31,30 @@ const DatePanel = (props: DatePanelProps) => {
   const [local, t] = useLocaleReceiver('datePicker');
   const monthAriaLabel: string[] = t(local.months);
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const {
     value,
-    mode,
-    firstDayOfWeek,
+    mode = 'month',
+    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
     disableDate: disableDateFromProps,
-    onChange,
     format,
     presets,
     enableTimePicker,
-    setPopupVisible,
-    inputValue,
-    setInputValue,
-    formatDate,
     timePickerProps,
-    timeValue,
-    setTimeValue,
-    setIsHoverCell,
-  } = props;
 
-  const [year, setYear] = useState(dayjs(value).year());
-  const [month, setMonth] = useState(dayjs(value).month());
+    year,
+    month,
+    timeValue,
+    onCellClick,
+    onCellMouseEnter,
+    onCellMouseLeave,
+    onJumperClick,
+    onConfirmClick,
+    onPresetClick,
+    onYearChange,
+    onMonthChange,
+    onTimePickerChange,
+  } = props;
 
   const disableDate = useCallback(
     (date: Date) => !isEnabledDate({ value: date, disableDate: disableDateFromProps, mode, format }),
@@ -71,29 +71,9 @@ const DatePanel = (props: DatePanelProps) => {
     [disableDateFromProps],
   );
 
-  // 头部快速切换
-  function onClickJumper(flag: number) {
-    const monthCountMap = { date: 1, month: 12, year: 120 };
-    const monthCount = monthCountMap[mode] || 0;
-
-    const current = new Date(year, month);
-
-    let next = null;
-    if (flag === -1) {
-      next = subtractMonth(current, monthCount);
-    } else if (flag === 0) {
-      next = new Date();
-    } else if (flag === 1) {
-      next = addMonth(current, monthCount);
-    }
-
-    setYear(next.getFullYear());
-    setMonth(next.getMonth());
-  }
-
   // 列表数据
   const tableData = useMemo(() => {
-    let data: any[];
+    let data = [];
 
     const options = {
       minDate,
@@ -112,76 +92,23 @@ const DatePanel = (props: DatePanelProps) => {
     }
 
     const start = dayjs(value).toDate();
+
     return flagActive(data, { start, type: mode });
   }, [year, month, mode, value, minDate, maxDate, disableDate, firstDayOfWeek, monthAriaLabel]);
-
-  // 日期点击
-  function onCellClick(date: Date) {
-    onChange(formatDate(date, 'valueType'), dayjs(date));
-    setYear(date.getFullYear());
-    setMonth(date.getMonth());
-
-    !enableTimePicker && setPopupVisible(false);
-  }
-
-  // 日期 hover
-  function onCellMouseEnter(date: Date) {
-    setIsHoverCell(true);
-    setInputValue(formatDate(date));
-  }
-
-  // 日期 leave
-  function onCellMouseLeave() {
-    setIsHoverCell(false);
-    setInputValue(formatDate(value));
-  }
-
-  // 确定
-  function onConfirmClick() {
-    setPopupVisible(false);
-
-    const isValidDate = dayjs(inputValue, format, true).isValid();
-    if (isValidDate) {
-      onChange(formatDate(inputValue, 'valueType'), dayjs(inputValue));
-    } else {
-      setInputValue(formatDate(value));
-    }
-  }
-
-  // 预设
-  function onPresetClick(preset: any) {
-    let presetValue = preset;
-    if (typeof preset === 'function') {
-      presetValue = preset();
-    }
-    setPopupVisible(false);
-    onChange(formatDate(presetValue, 'valueType'), dayjs(presetValue));
-  }
-
-  // timepicker 点击
-  function handleTimePick(value: string) {
-    const [hour, minute, second] = value.split(':');
-    const currentDate = dayjs(inputValue).toDate();
-    currentDate.setHours(Number(hour));
-    currentDate.setMinutes(Number(minute));
-    currentDate.setSeconds(Number(second));
-    setTimeValue(value);
-    setInputValue(dayjs(currentDate).format(format));
-  }
 
   const showPanelFooter = enableTimePicker || presets;
 
   return (
     <div className={`${classPrefix}-date-picker__panel`}>
       <div className={`${classPrefix}-date-picker__panel--top`}>
-        <div className={`${classPrefix}-date-picker__panel--date`}>
+        <div className={`${classPrefix}-date-picker__panel--${mode}`}>
           <DateHeader
             mode={mode}
             year={year}
             month={month}
-            onMonthChange={setMonth}
-            onYearChange={setYear}
-            onClickJumper={onClickJumper}
+            onMonthChange={onMonthChange}
+            onYearChange={onYearChange}
+            onJumperClick={onJumperClick}
           />
 
           <DateTable
@@ -196,7 +123,7 @@ const DatePanel = (props: DatePanelProps) => {
 
         {enableTimePicker && (
           <div className={`${classPrefix}-date-picker__panel--time`}>
-            <TimePickerPanel value={timeValue} onChange={handleTimePick} {...timePickerProps} />
+            <TimePickerPanel value={timeValue} onChange={onTimePickerChange} {...timePickerProps} />
           </div>
         )}
       </div>

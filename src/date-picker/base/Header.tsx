@@ -10,7 +10,7 @@ export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   month: string | number;
   onMonthChange: Function;
   onYearChange: Function;
-  onClickJumper: Function;
+  onJumperClick: Function;
 }
 
 const useDatePickerLocalConfig = () => {
@@ -34,14 +34,14 @@ const useDatePickerLocalConfig = () => {
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, year, month, onMonthChange, onYearChange, onClickJumper } = props;
+  const { mode, year, month, onMonthChange, onYearChange, onJumperClick } = props;
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
   const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
 
   const yearOptions = useMemo(() => {
-    const options = [{ label: year, value: year }];
+    const options = [{ label: `${year}`, value: year }];
 
     for (let i = 1; i <= 10; i++) {
       options.push({ label: `${Number(year) + i}`, value: Number(year) + i });
@@ -50,39 +50,51 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     return options;
   }, [year]);
 
-  let preLabel: string;
-  let nextLabel: string;
-  if (mode === 'year') {
-    preLabel = preDecade;
-    nextLabel = nextDecade;
-  } else if (mode === 'month') {
-    preLabel = preYear;
-    nextLabel = nextYear;
-  } else if (mode === 'date') {
-    preLabel = preMonth;
-    nextLabel = nextMonth;
-  }
+  // hover title
+  const labelMap = {
+    year: {
+      prevTitle: preDecade,
+      currentTitle: now,
+      nextTitle: nextDecade,
+    },
+    month: {
+      prevTitle: preYear,
+      currentTitle: now,
+      nextTitle: nextYear,
+    },
+    date: {
+      prevTitle: preMonth,
+      currentTitle: now,
+      nextTitle: nextMonth,
+    },
+  };
 
   const headerClassName = `${classPrefix}-date-picker__header`;
+  const showMonthPicker = mode === 'date';
+  const showYearPicker = mode === 'date' || mode === 'month';
 
   return (
     <div className={headerClassName}>
       <div className={`${headerClassName}-controller`}>
-        <Select
-          className={`${headerClassName}-controller--month`}
-          value={month}
-          options={monthOptions}
-          onChange={(val) => onMonthChange(val)}
-        />
-        <Select
-          className={`${headerClassName}-controller--year`}
-          value={year}
-          options={yearOptions}
-          onChange={(val) => onYearChange(val)}
-        />
+        {showMonthPicker && (
+          <Select
+            className={`${headerClassName}-controller--month`}
+            value={month}
+            options={monthOptions}
+            onChange={(val) => onMonthChange(val)}
+          />
+        )}
+        {showYearPicker && (
+          <Select
+            className={`${headerClassName}-controller--year`}
+            value={year}
+            options={yearOptions}
+            onChange={(val) => onYearChange(val)}
+          />
+        )}
       </div>
 
-      <Jumper prevTitle={preLabel} currentTitle={now} nextTitle={nextLabel} onClickJumper={onClickJumper} />
+      <Jumper {...labelMap[mode]} onJumperClick={onJumperClick} />
     </div>
   );
 };
