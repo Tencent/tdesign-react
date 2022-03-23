@@ -5,6 +5,7 @@ export default function SingleCustom() {
   const MAX_UPLOAD_SIZE = 1;
   const [tips, setTips] = useState(`上传文件大小在 ${MAX_UPLOAD_SIZE}M 以内`);
   const [files, setFiles] = useState([]);
+  const [name, setName] = useState('name');
 
   const handleChange = useCallback((files) => {
     setFiles(files);
@@ -15,18 +16,26 @@ export default function SingleCustom() {
   const handleSuccess = useCallback(() => {
     setTips('');
   }, []);
-  const beforeUpload = useCallback((file) => {
-    if (file.size > MAX_UPLOAD_SIZE * 1024 * 1024) {
-      message.warning(`上传的图片不能大于${MAX_UPLOAD_SIZE}M`);
-      return false;
-    }
-    return true;
-  }, []);
+  const beforeUpload = useCallback(
+    (file) =>
+      new Promise((resolve, reject) => {
+        setName('name2');
+        if (file.size > MAX_UPLOAD_SIZE * 1024 * 1024) {
+          message.warning(`上传的图片不能大于${MAX_UPLOAD_SIZE}M`);
+          reject(new Error(false));
+        }
+        resolve(true);
+      }),
+    [],
+  );
 
   return (
     <div className="tdesign-demo-upload">
       <div>
         <Upload
+          headers={{
+            name,
+          }}
           action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
           tips={tips}
           files={files}
@@ -35,9 +44,10 @@ export default function SingleCustom() {
           onSuccess={handleSuccess}
           theme="custom"
           beforeUpload={beforeUpload}
+          method="put"
           multiple
         >
-          <Button theme="primary">自定义上传</Button>
+          <Button theme="primary">自定义上传1</Button>
         </Upload>
         {files?.length > 0 && (
           <div className="list-custom" style={{ fontSize: '13px' }}>
