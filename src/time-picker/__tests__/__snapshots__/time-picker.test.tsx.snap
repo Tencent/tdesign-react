@@ -6,7 +6,7 @@ exports[`disabled.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-is-disabled t-time-picker"
+      class="t-time-picker"
     >
       <div
         class="t-time-picker__group t-input__wrap"

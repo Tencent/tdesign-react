@@ -1218,7 +1218,7 @@ exports[`status.jsx 1`] = `
           class="t-popup__reference t-select-input"
         >
           <div
-            class="t-is-disabled t-input__wrap"
+            class="t-input__wrap"
           >
             <div
               class="t-input t-is-readonly t-is-disabled t-input--prefix"
