@@ -263,11 +263,7 @@ const Select = forwardRefWithStatics(
     const renderSuffixIcon = () => {
       if (loading) {
         return (
-          <Loading
-            className={classNames(className, `${name}__right-icon`, `${name}__active-icon`)}
-            loading={true}
-            size="small"
-          />
+          <Loading className={classNames(`${name}__right-icon`, `${name}__active-icon`)} loading={true} size="small" />
         );
       }
 
@@ -324,7 +320,7 @@ const Select = forwardRefWithStatics(
     );
 
     return (
-      <div className={`${name}__wrap`} style={{ ...style }}>
+      <div className={classNames(`${name}__wrap`, className)} style={style}>
         <SelectInput
           autoWidth={!style?.width && autoWidth}
           className={name}
