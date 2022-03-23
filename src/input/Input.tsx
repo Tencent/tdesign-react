@@ -46,6 +46,7 @@ const Input = forwardRefWithStatics(
       status,
       size,
       className,
+      innerClass,
       style,
       prefixIcon,
       suffixIcon,
@@ -147,7 +148,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(`${classPrefix}-input`, {
+        className={classNames(innerClass, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
