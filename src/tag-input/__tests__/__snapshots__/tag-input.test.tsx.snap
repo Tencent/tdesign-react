@@ -1,0 +1,1709 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auto-width.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap t-input--auto-width"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          style="width: 0px;"
+          value=""
+        />
+        <span
+          class="t-input__input-pre"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Angular
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <div
+            class="t-tag-input__prefix"
+          >
+            Controlled: 
+          </div>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <div
+            class="t-tag-input__prefix"
+          >
+            UnControlled: 
+          </div>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`collapsed.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            +4
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <div
+            class="t-popup__reference"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              More(2)
+            </span>
+          </div>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom-tag.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            <span>
+              <img
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+                style="max-width: 18px; max-height: 18px; border-radius: 50%; vertical-align: text-top;"
+              />
+              StudentA
+            </span>
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            <span>
+              <img
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+                style="max-width: 18px; max-height: 18px; border-radius: 50%; vertical-align: text-top;"
+              />
+              StudentB
+            </span>
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            +1
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <br />
+    <br />
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            style="margin-right: 4px;"
+          >
+            <div>
+              <img
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+                style="max-width: 18px; max-height: 18px; border-radius: 50%; vertical-align: text-top;"
+              />
+              StudentA
+            </div>
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            style="margin-right: 4px;"
+          >
+            <div>
+              <img
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+                style="max-width: 18px; max-height: 18px; border-radius: 50%; vertical-align: text-top;"
+              />
+              StudentB
+            </div>
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            style="margin-right: 4px;"
+          >
+            <div>
+              <img
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+                style="max-width: 18px; max-height: 18px; border-radius: 50%; vertical-align: text-top;"
+              />
+              StudentC
+            </div>
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`draggable.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            Angular
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-tag-input--break-line t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <div
+            class="t-tag-input__prefix"
+          >
+            Controlled: 
+          </div>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            Angular
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            draggable="true"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`excess.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <div
+            class="t-tag-input__prefix"
+          >
+            Scroll: 
+          </div>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-tag-input--break-line t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <div
+            class="t-tag-input__prefix"
+          >
+            BreakLine: 
+          </div>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`max.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 100%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="最多只能输入 3 个标签"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-size-s t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--small t-tag--square t-size-s"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-size-l t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--large t-tag--square t-size-l"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`status.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 100%;"
+  >
+    <div
+      class="t-tdesign-demo__tag-input"
+    >
+      <label>
+        禁用状态：
+      </label>
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-disabled t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+            >
+              Vue
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+            >
+              React
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
+            >
+              Miniprogram
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            disabled=""
+            placeholder=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-tdesign-demo__tag-input"
+    >
+      <label>
+        只读状态：
+      </label>
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              React
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Miniprogram
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+        </div>
+        <div
+          class="t-input__tips t-input__tips--normal"
+        >
+          这是普通文本提示
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-tdesign-demo__tag-input"
+    >
+      <label>
+        成功状态：
+      </label>
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-success t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              React
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+        </div>
+        <div
+          class="t-input__tips t-input__tips--success"
+        >
+          校验通过文本提示
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-tdesign-demo__tag-input"
+    >
+      <label>
+        告警状态：
+      </label>
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-warning t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              React
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+        </div>
+        <div
+          class="t-input__tips t-input__tips--warning"
+        >
+          校验不通过文本提示
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-tdesign-demo__tag-input"
+    >
+      <label>
+        错误状态：
+      </label>
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-error t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              React
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+        </div>
+        <div
+          class="t-input__tips t-input__tips--error"
+        >
+          校验存在严重问题文本提示
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+    style="width: 80%;"
+  >
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--primary t-tag--dark t-tag--medium t-tag--square"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--success t-tag--dark t-tag--medium t-tag--square"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--warning t-tag--dark t-tag--medium t-tag--square"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="t-tag-input t-input__wrap"
+    >
+      <div
+        class="t-input t-input--prefix"
+      >
+        <div
+          class="t-input__prefix"
+        >
+          <span
+            class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
+          >
+            Vue
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
+          >
+            React
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--danger t-tag--dark t-tag--medium t-tag--square"
+          >
+            Miniprogram
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

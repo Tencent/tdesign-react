@@ -143,7 +143,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(className, `${classPrefix}-input`, {
+        className={classNames(`${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
@@ -284,7 +284,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(`${classPrefix}-input__wrap`, {
+        className={classNames(className, `${classPrefix}-input__wrap`, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         {...restProps}

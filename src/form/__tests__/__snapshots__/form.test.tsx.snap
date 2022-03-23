@@ -1243,10 +1243,10 @@ exports[`disabled.jsx 1`] = `
                 class="t-popup__reference t-select t-select-input t-select-input--empty"
               >
                 <div
-                  class="t-input__wrap"
+                  class="t-is-disabled t-input__wrap"
                 >
                   <div
-                    class="t-is-disabled t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"

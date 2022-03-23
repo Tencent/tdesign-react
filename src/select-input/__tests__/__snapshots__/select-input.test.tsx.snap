@@ -1,0 +1,1574 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`autocomplete.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-popup__reference t-select-input t-select-input--empty"
+      style="width: 300px;"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请输入任意关键词"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-search"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`autowidth.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup__reference t-select-input"
+  >
+    <div
+      class="t-input__wrap t-input--auto-width"
+    >
+      <div
+        class="t-input t-input--prefix t-input--suffix"
+      >
+        <div
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="Please Select"
+          style="width: 0px;"
+          value="tdesign-vue"
+        />
+        <span
+          class="t-input__input-pre"
+        >
+          tdesign-vue
+        </span>
+        <span
+          class="t-input__suffix t-input__suffix-icon"
+        >
+          <svg
+            class="t-icon t-icon-chevron-down"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`autowidth-multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo__select-input-borderless-multiple"
+    style="width: 100%;"
+  >
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap t-input--auto-width"
+      >
+        <div
+          class="t-input t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              +2
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            style="width: 0px;"
+            value=""
+          />
+          <span
+            class="t-input__input-pre"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`borderless.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-popup__reference t-select-input t-select-input--borderless"
+    >
+      <div
+        class="t-input__wrap t-input--auto-width"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="Please Select"
+            readonly=""
+            style="width: 0px;"
+            value="tdesign-vue"
+          />
+          <span
+            class="t-input__input-pre"
+          >
+            tdesign-vue
+          </span>
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`borderless-multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    style="width: 100%;"
+  >
+    <div
+      class="t-popup__reference t-select-input t-select-input--borderless t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap t-input--auto-width"
+      >
+        <div
+          class="t-input t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              +2
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            style="width: 0px;"
+            value=""
+          />
+          <span
+            class="t-input__input-pre"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`collapsed-items.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo__select-input-multiple"
+    style="width: 100%;"
+  >
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-vue
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              +5
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <br />
+     
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-vue
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-react
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              More(+4)
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`custom-tag.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-select-input-custom-tag"
+  >
+    <div
+      class="t-popup__reference t-select-input"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span>
+              <img
+                class="tdesign-demo-select-input__img"
+                src="/favicon.ico"
+              />
+              tdesign-vue
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              <span>
+                <img
+                  class="tdesign-demo-select-input__img"
+                  src="https://tdesign.gtimg.com/site/avatar.jpg"
+                />
+                tdesign-vue
+              </span>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              <span>
+                <img
+                  class="tdesign-demo-select-input__img"
+                  src="https://tdesign.gtimg.com/site/avatar.jpg"
+                />
+                tdesign-react
+              </span>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              style="margin-right: 4px;"
+            >
+              <img
+                class="tdesign-demo-select-input__img"
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+              />
+              <span>
+                tdesign-vue
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              style="margin-right: 4px;"
+            >
+              <img
+                class="tdesign-demo-select-input__img"
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+              />
+              <span>
+                tdesign-react
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              style="margin-right: 4px;"
+            >
+              <img
+                class="tdesign-demo-select-input__img"
+                src="https://tdesign.gtimg.com/site/avatar.jpg"
+              />
+              <span>
+                tdesign-mobile-vue
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            readonly=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`excess-tags-display-type.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo__select-input-multiple"
+  >
+    <p>
+      第一种呈现方式：超出时滚动显示
+    </p>
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-input__wrap"
+      >
+        <div
+          class="t-input t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-react
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-angular
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-mobile-vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-mobile-react
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <p>
+      第二种呈现方式：超出时换行显示
+    </p>
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input--break-line t-input__wrap"
+      >
+        <div
+          class="t-input t-input--prefix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-react
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-angular
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-mobile-vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              tdesign-mobile-react
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`label-suffix.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-popup__reference t-select-input"
+      style="width: 300px;"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span>
+              前置内容：
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder="Please Select"
+            readonly=""
+            value="tdesign-vue"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <br />
+     
+    <br />
+    <div
+      class="t-popup__reference t-select-input"
+      style="width: 300px;"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="Please Select"
+            readonly=""
+            value="tdesign-vue"
+          />
+          <div
+            class="t-input__suffix"
+          >
+            <span>
+              单位：元
+            </span>
+          </div>
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo__select-input-multiple"
+    style="width: 100%;"
+  >
+    <div>
+      <label
+        class="t-checkbox t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value=""
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          是否允许输入
+        </span>
+      </label>
+      <label
+        class="t-checkbox t-is-checked"
+      >
+        <input
+          checked=""
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value=""
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          允许创建新选项（Enter 创建）
+        </span>
+      </label>
+    </div>
+    <br />
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group__outline"
+      >
+        <label
+          class="t-radio"
+        >
+          <input
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+            value="scroll"
+          />
+          <span
+            class="t-radio__input"
+          />
+          <span
+            class="t-radio__label"
+          >
+            选中项过多横向滚动
+          </span>
+        </label>
+        <label
+          class="t-radio t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio__former"
+            readonly=""
+            type="radio"
+            value="break-line"
+          />
+          <span
+            class="t-radio__input"
+          />
+          <span
+            class="t-radio__label"
+          >
+            选中项过多换行显示
+          </span>
+        </label>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div
+      class="t-popup__reference t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+      >
+        <div
+          class="t-input t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Vue
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              React
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              Miniprogram
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`single.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="t-popup__reference t-select-input"
+      style="width: 300px;"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="Please Select"
+            value="tdesign-vue"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-chevron-down"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`status.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-select-input-status"
+  >
+    <div>
+      <span>
+        禁用状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input"
+        >
+          <div
+            class="t-is-disabled t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-is-disabled t-input--prefix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                disabled=""
+                placeholder="Please Select"
+                readonly=""
+                value="TDesign"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--normal"
+        >
+          这是禁用状态的文本
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        只读状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input"
+        >
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-input--prefix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="Please Select"
+                readonly=""
+                value="TDesign"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--normal"
+        >
+          这是只读状态的文本提示
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div>
+      <span>
+        成功状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input"
+        >
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-is-success t-input--prefix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="Please Select"
+                readonly=""
+                value="TDesign"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--success"
+        >
+          校验通过文本提示
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        警告状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input"
+        >
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-is-warning t-input--prefix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="Please Select"
+                readonly=""
+                value="TDesign"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--warning"
+        >
+          校验不通过文本提示
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        错误状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input"
+        >
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-is-error t-input--prefix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="Please Select"
+                readonly=""
+                value="TDesign"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--error"
+        >
+          校验存在严重问题文本提示
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        加载状态：
+      </span>
+      <div
+        class="t-select-input__wrap"
+      >
+        <div
+          class="t-popup__reference t-select-input t-select-input--empty"
+        >
+          <div
+            class="t-input__wrap"
+          >
+            <div
+              class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            >
+              <div
+                class="t-input__prefix"
+              />
+              <input
+                class="t-input__inner"
+                placeholder="Please Select"
+                readonly=""
+                value=""
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-s"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 14 14"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="1"
+                      y="1"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-input__tips t-input__tips--normal"
+        >
+          处于加载状态的文本提示
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`width.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo__select-input-width"
+  >
+    <div>
+      <span>
+        下拉框默认宽度：
+      </span>
+      <div
+        class="t-popup__reference t-demo-normal t-select-input"
+      >
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-is-readonly t-input--prefix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="Please Select"
+              readonly=""
+              value="TDesign"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        下拉框最大宽度：
+      </span>
+      <div
+        class="t-popup__reference t-demo-normal t-select-input"
+      >
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-is-readonly t-input--prefix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="Please Select"
+              readonly=""
+              value="TDesign"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        与内容宽度一致：
+      </span>
+      <div
+        class="t-popup__reference t-demo-normal t-select-input"
+      >
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-is-readonly t-input--prefix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="Please Select"
+              readonly=""
+              value="TDesign"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div>
+      <span>
+        下拉框固定宽度：
+      </span>
+      <div
+        class="t-popup__reference t-demo-normal t-select-input"
+      >
+        <div
+          class="t-input__wrap"
+        >
+          <div
+            class="t-input t-is-readonly t-input--prefix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="Please Select"
+              readonly=""
+              value="TDesign"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</DocumentFragment>
+`;
