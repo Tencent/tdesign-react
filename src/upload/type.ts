@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
+import { TNode, TElement } from '../common';
 import { MouseEvent, DragEvent } from 'react';
 
 export interface TdUploadProps {
@@ -46,6 +46,10 @@ export interface TdUploadProps {
    */
   draggable?: boolean;
   /**
+   * 【开发中】用于完全自定义文件列表内容
+   */
+  fileListDisplay?: TElement;
+  /**
    * 已上传文件列表
    */
   files?: Array<UploadFile>;
@@ -66,6 +70,11 @@ export interface TdUploadProps {
    */
   headers?: { [key: string]: string };
   /**
+   * 文件是否作为一个独立文件包，整体替换，整体删除。不允许追加文件，只允许替换文件
+   * @default false
+   */
+  isBatchUpload?: boolean;
+  /**
    * 用于控制文件上传数量，值为 0 则不限制
    * @default 0
    */
@@ -74,7 +83,7 @@ export interface TdUploadProps {
    * HTTP 请求类型
    * @default POST
    */
-  method?: 'POST' | 'GET' | 'PUT' | 'OPTION';
+  method?: 'POST' | 'GET' | 'PUT' | 'OPTION' | 'PATCH' | 'post' | 'get' | 'put' | 'option' | 'patch';
   /**
    * 是否支持多选文件
    * @default false
@@ -93,7 +102,7 @@ export interface TdUploadProps {
   /**
    * 自定义上传方法。返回值 status 表示上传成功或失败，error 表示上传失败的原因，response 表示请求上传成功后的返回数据，response.url 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`
    */
-  requestMethod?: (files: UploadFile) => Promise<RequestMethodResponse>;
+  requestMethod?: (files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>;
   /**
    * 是否显示上传进度
    * @default true
@@ -117,6 +126,11 @@ export interface TdUploadProps {
    * 触发上传的内容
    */
   trigger?: string | TNode<TriggerContext>;
+  /**
+   * 是否在同一个请求中上传全部文件，默认一个请求上传一个文件
+   * @default false
+   */
+  uploadAllFilesInOneRequest?: boolean;
   /**
    * 是否显示为模拟进度。上传进度有模拟进度和真实进度两种。一般大小的文件上传，真实的上传进度只有 0 和 100，不利于交互呈现，因此组件内置模拟上传进度。真实上传进度一般用于大文件上传
    * @default true
@@ -162,9 +176,9 @@ export interface TdUploadProps {
   /**
    * 文件选择后，上传开始前，触发
    */
-  onSelectChange?: (value: Array<UploadFile>) => void;
+  onSelectChange?: (files: Array<UploadFile>) => void;
   /**
-   * 上传成功后触发
+   * 上传成功后触发，`context.currentFiles` 表示当次请求上传的文件，`context.fileList` 表示上传成功后的文件，`context.response` 表示上传请求的返回数据。<br />⚠️ `context.file` 请勿使用
    */
   onSuccess?: (context: SuccessContext) => void;
 }
@@ -216,6 +230,7 @@ export type ResponseType = { error?: string; url?: string } & Record<string, any
 
 export interface FormatResponseContext {
   file: UploadFile;
+  currentFiles?: UploadFile[];
 }
 
 export interface RequestMethodResponse {

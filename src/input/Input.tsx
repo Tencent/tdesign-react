@@ -98,7 +98,7 @@ const Input = forwardRefWithStatics(
 
     if (isShowClearIcon)
       suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
-    if (type === 'password') {
+    if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (
           <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
@@ -116,6 +116,10 @@ const Input = forwardRefWithStatics(
       if (!autoWidth) return;
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
+
+    useEffect(() => {
+      setRenderType(type);
+    }, [type]);
 
     const renderInput = (
       <input
