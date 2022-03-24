@@ -139,13 +139,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     triggerNodeTemp,
   );
 
-  // 触发器只能有一个元素
-  const disabledClassName = classNames({ [`${classPrefix}-is-disabled`]: disabled });
-
   // 代理 trigger 的 ref
   const triggerNode = cloneElement(triggerNodeTemp, {
     ref: composeRefs((triggerNodeTemp as any).ref, setTriggerRef),
-    className: classNames(disabledClassName, triggerNodeTemp.props.className),
     ...triggerProps,
   });
 
