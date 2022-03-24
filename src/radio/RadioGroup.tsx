@@ -64,14 +64,15 @@ const RadioGroup = (props: RadioGroupProps) => {
   const calcBarStyle = () => {
     if (!variant.includes('filled')) return;
     const checkedRadio = groupRef.current.querySelector(checkedRadioCls);
-    if (!checkedRadio) return;
+    if (!checkedRadio) return setBarStyle({ width: 0 });
+
     const { offsetWidth, offsetLeft } = checkedRadio;
     setBarStyle({ width: `${offsetWidth}px`, left: `${offsetLeft}px` });
   };
 
   useEffect(() => {
     calcBarStyle();
-  }, [groupRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [groupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useMutationObservable(groupRef.current, calcBarStyle);
 
