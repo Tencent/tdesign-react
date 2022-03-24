@@ -82,6 +82,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             value={month}
             options={monthOptions}
             onChange={(val) => onMonthChange(val)}
+            popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
           />
         )}
         {showYearPicker && (
@@ -90,6 +91,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             value={year}
             options={yearOptions}
             onChange={(val) => onYearChange(val)}
+            popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
           />
         )}
       </div>

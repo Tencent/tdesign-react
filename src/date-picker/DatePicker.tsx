@@ -43,6 +43,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     setPopupVisible,
     setTimeValue,
     formatDate,
+    setYear,
+    setMonth,
   } = useSingle(props);
 
   // 日期 hover
@@ -128,6 +130,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   }
 
   function onYearChange(year: number) {
+    setYear(year);
     setInputValue(
       formatDate(
         dayjs(inputValue || new Date())
@@ -138,6 +141,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   }
 
   function onMonthChange(month: number) {
+    setMonth(month);
     setInputValue(
       formatDate(
         dayjs(inputValue || new Date())

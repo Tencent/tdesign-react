@@ -44,20 +44,28 @@ export default function useSingle(props: TdDatePickerProps) {
   const [year, setYear] = useState(dayjs(value).year() || new Date().getFullYear());
   const [isHoverCell, setIsHoverCell] = useState(false);
 
+  // 兼容未传入正确 format 场景
+  const getFinalFormat = useCallback(
+    (format) => {
+      let dateFormat = format;
+      const arrTime = ['H', 'h', 'm', 's'];
+      const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
+      if (enableTimePicker && !hasTime) dateFormat = [dateFormat, TIME_FORMAT].join(' ');
+      return dateFormat;
+    },
+    [enableTimePicker],
+  );
+
   // 日期格式化
   const formatDate = useCallback(
     (newDate: DateValue, type = 'format') => {
       if (!newDate) return '';
       const formatMap = { format, valueType };
-      let dateFormat = formatMap[type] || 'YYYY-MM-DD';
+      const dateFormat = getFinalFormat(formatMap[type]);
+
       let formatedDate = dayjs(newDate);
-
       const [hour, minute, second, millisecond = 0] = timeValue.split(':');
-
-      const arrTime = ['H', 'h', 'm', 's'];
-      const hasTime = arrTime.some((f) => String(dateFormat).includes(f));
       if (enableTimePicker) {
-        if (!hasTime) dateFormat = [dateFormat, TIME_FORMAT].join(' ');
         formatedDate = formatedDate
           .hour(+hour)
           .minute(+minute)
@@ -67,7 +75,7 @@ export default function useSingle(props: TdDatePickerProps) {
 
       return formatedDate.format(dateFormat);
     },
-    [timeValue, enableTimePicker, format, valueType],
+    [timeValue, enableTimePicker, format, valueType, getFinalFormat],
   );
 
   // 未真正选中前可能不断变更输入框的内容
@@ -108,8 +116,20 @@ export default function useSingle(props: TdDatePickerProps) {
         setInputPlaceholder(renderPlaceholder);
       },
       onChange: (val: string, { e }) => {
-        setInputValue(val);
         onInput?.({ input: val, value, e });
+
+        // 输入事件
+        setInputValue(val);
+
+        const finalFormat = getFinalFormat(format);
+        // 跳过不符合格式化的输入框内容
+        if (!isValidDate(val, finalFormat, true)) return;
+        const newMonth = dayjs(val).month();
+        const newYear = dayjs(val).year();
+        const newTime = dayjs(val).format(TIME_FORMAT);
+        !Number.isNaN(newYear) && setYear(newYear);
+        !Number.isNaN(newMonth) && setMonth(newMonth);
+        !Number.isNaN(newTime) && setTimeValue(newTime);
       },
       onEnter: (val: string) => {
         if (!isValidDate(val) && !isValidDate(value)) return;
@@ -141,6 +161,7 @@ export default function useSingle(props: TdDatePickerProps) {
       format,
       inputPropsFromProps,
       isHoverCell,
+      getFinalFormat,
     ],
   );
 
@@ -150,8 +171,7 @@ export default function useSingle(props: TdDatePickerProps) {
       ...popupPropsFromProps,
       expandAnimation: true,
       overlayClassName: `${name}__panel-container`,
-      onVisibleChange: (visible: boolean, context) => {
-        console.log('context', context);
+      onVisibleChange: (visible: boolean) => {
         setPopupVisible(visible);
         if (!visible) {
           setIsHoverCell(false);
@@ -170,28 +190,22 @@ export default function useSingle(props: TdDatePickerProps) {
     setInputValue(formatDate(value));
   }, [value, format, formatDate, setInputValue]);
 
-  // 年月 响应输入框变化
-  useEffect(() => {
-    if (isHoverCell) return;
-    if (!isValidDate(inputValue, format, true)) return;
-    setYear(dayjs(inputValue).year());
-    setMonth(dayjs(inputValue).month());
-  }, [inputValue, setYear, setMonth, isHoverCell, format]);
-
   return {
     year,
     month,
     value,
     timeValue,
-    onChange,
     inputValue,
     popupVisible,
     inputProps,
     popupProps,
+    onChange,
+    setYear,
+    setMonth,
+    setTimeValue,
     setIsHoverCell,
     setInputValue,
     setPopupVisible,
     formatDate,
-    setTimeValue,
   };
 }
