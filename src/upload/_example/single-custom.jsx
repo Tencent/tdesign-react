@@ -47,7 +47,7 @@ export default function SingleCustom() {
           method="put"
           multiple
         >
-          <Button theme="primary">自定义上传1</Button>
+          <Button theme="primary">自定义上传</Button>
         </Upload>
         {files?.length > 0 && (
           <div className="list-custom" style={{ fontSize: '13px' }}>

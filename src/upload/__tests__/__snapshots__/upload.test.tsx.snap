@@ -750,7 +750,7 @@ exports[`single-custom.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              自定义上传1
+              自定义上传
             </span>
           </button>
         </div>
