@@ -37,7 +37,6 @@ export default () => {
 
   const handleInputChange = (value) => {
     setFilterText(value);
-
     console.info('on input:', value);
   };
 

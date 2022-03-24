@@ -59,7 +59,6 @@ const Tree = forwardRef((props: TreeProps, ref: React.Ref<TreeInstanceFunctions>
     () => {
       const nodes = store.getNodes();
       const newVisibleNodes = nodes.filter((node) => node.visible);
-
       setVisibleNodes(newVisibleNodes);
     },
   );
