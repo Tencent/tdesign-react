@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { CheckboxProps } from '../checkbox';
@@ -28,6 +27,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * @default false
    */
   activeMultiple?: boolean;
+  /**
+   * 是否允许在过滤时节点折叠节点
+   * @default false
+   */
+  allowFoldNodeOnFilter?: boolean;
   /**
    * 隐藏节点复选框
    * @default false
