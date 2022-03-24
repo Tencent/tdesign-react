@@ -5,10 +5,9 @@ import Button from '../../button';
 import useConfig from '../../_util/useConfig';
 import { TdDatePickerProps } from '../type';
 
-interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presets'> {
+interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presets' | 'presetsPlacement'> {
   onPresetClick: Function;
   onConfirmClick: Function;
-  presetsPlacement?: 'string';
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {
@@ -30,14 +29,14 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
         <div className={`${classPrefix}-date-picker__presets`}>
           {presets &&
             Object.keys(presets).map((key: string) => (
-              <Button key={key} size="small" variant="text" onClick={() => onPresetClick(presets[key])}>
+              <Button key={key} size="small" variant="text" onClick={(e) => onPresetClick(presets[key], { e })}>
                 {key}
               </Button>
             ))}
         </div>
       }
       {enableTimePicker && (
-        <Button size="small" theme="primary" onClick={() => onConfirmClick()}>
+        <Button size="small" theme="primary" onClick={(e) => onConfirmClick({ e })}>
           {confirmText}
         </Button>
       )}

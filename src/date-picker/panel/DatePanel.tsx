@@ -7,7 +7,7 @@ import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import DateFooter from '../base/Footer';
 import { getWeeks, getYears, getMonths, flagActive, isEnabledDate } from '../../_common/js/date-picker/utils-new';
-import { TdDatePickerProps } from '../type';
+import { TdDatePickerProps, DateValue } from '../type';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
 import type { TdTimePickerProps } from '../../time-picker';
 
@@ -15,14 +15,17 @@ export interface DatePanelProps extends TdDatePickerProps {
   year?: number;
   month?: number;
   timeValue?: string;
-  onCellClick?: Function;
-  onCellMouseEnter?: Function;
-  onCellMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-  onJumperClick?: Function;
-  onConfirmClick?: Function;
-  onPresetClick?: Function;
-  onYearChange?: Function;
-  onMonthChange?: Function;
+  onCellClick?: (date: Date) => void;
+  onCellMouseEnter?: (date: Date) => void;
+  onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  onJumperClick?: (flag: number) => void;
+  onConfirmClick?: (context: { e: React.MouseEvent<HTMLButtonElement> }) => void;
+  onPresetClick?: (
+    preset: DateValue | (() => DateValue),
+    context: { e: React.MouseEventHandler<HTMLButtonElement> },
+  ) => void;
+  onYearChange?: (year: number) => void;
+  onMonthChange?: (month: number) => void;
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
@@ -35,12 +38,13 @@ const DatePanel = (props: DatePanelProps) => {
   const {
     value,
     mode = 'month',
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
-    disableDate: disableDateFromProps,
     format,
     presets,
     enableTimePicker,
     timePickerProps,
+    presetsPlacement = 'bottom',
+    disableDate: disableDateFromProps,
+    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
 
     year,
     month,
@@ -97,45 +101,54 @@ const DatePanel = (props: DatePanelProps) => {
   }, [year, month, mode, value, minDate, maxDate, disableDate, firstDayOfWeek, monthAriaLabel]);
 
   const showPanelFooter = enableTimePicker || presets;
+  const extraContent = showPanelFooter && (
+    <DateFooter
+      enableTimePicker={enableTimePicker}
+      onConfirmClick={onConfirmClick}
+      presets={presets}
+      onPresetClick={onPresetClick}
+    />
+  );
+
+  const panelContent = (
+    <div className={`${classPrefix}-date-picker__panel--top`}>
+      {presetsPlacement === 'left' && extraContent}
+
+      <div className={`${classPrefix}-date-picker__panel--${mode}`}>
+        <DateHeader
+          mode={mode}
+          year={year}
+          month={month}
+          onMonthChange={onMonthChange}
+          onYearChange={onYearChange}
+          onJumperClick={onJumperClick}
+        />
+
+        <DateTable
+          mode={mode}
+          data={tableData}
+          firstDayOfWeek={firstDayOfWeek}
+          onCellClick={onCellClick}
+          onCellMouseEnter={onCellMouseEnter}
+          onCellMouseLeave={onCellMouseLeave}
+        />
+      </div>
+
+      {enableTimePicker && (
+        <div className={`${classPrefix}-date-picker__panel--time`}>
+          <TimePickerPanel value={timeValue} onChange={onTimePickerChange} {...timePickerProps} />
+        </div>
+      )}
+
+      {presetsPlacement === 'right' && extraContent}
+    </div>
+  );
 
   return (
     <div className={`${classPrefix}-date-picker__panel`}>
-      <div className={`${classPrefix}-date-picker__panel--top`}>
-        <div className={`${classPrefix}-date-picker__panel--${mode}`}>
-          <DateHeader
-            mode={mode}
-            year={year}
-            month={month}
-            onMonthChange={onMonthChange}
-            onYearChange={onYearChange}
-            onJumperClick={onJumperClick}
-          />
-
-          <DateTable
-            mode={mode}
-            data={tableData}
-            firstDayOfWeek={firstDayOfWeek}
-            onCellClick={onCellClick}
-            onCellMouseEnter={onCellMouseEnter}
-            onCellMouseLeave={onCellMouseLeave}
-          />
-        </div>
-
-        {enableTimePicker && (
-          <div className={`${classPrefix}-date-picker__panel--time`}>
-            <TimePickerPanel value={timeValue} onChange={onTimePickerChange} {...timePickerProps} />
-          </div>
-        )}
-      </div>
-
-      {showPanelFooter && (
-        <DateFooter
-          enableTimePicker={enableTimePicker}
-          onConfirmClick={onConfirmClick}
-          presets={presets}
-          onPresetClick={onPresetClick}
-        />
-      )}
+      {presetsPlacement === 'top' && extraContent}
+      {panelContent}
+      {presetsPlacement === 'bottom' && extraContent}
     </div>
   );
 };

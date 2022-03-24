@@ -228,6 +228,12 @@ export default {
           component: () => import('tdesign-react/tag-input/tag-input.md'),
         },
         {
+          title: 'RangeInput 区间输入框',
+          name: 'range-input',
+          path: '/react/components/range-input',
+          component: () => import('tdesign-react/range-input/range-input.md'),
+        },
+        {
           title: 'Textarea 多行文本框',
           name: 'textarea',
           path: '/react/components/textarea',

@@ -3,12 +3,10 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
 import { TdDatePickerProps } from '../type';
+import { DatePanelProps } from '../panel/DatePanel';
 
-export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'> {
+export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'>, DatePanelProps {
   data: Array<any>;
-  onCellClick: Function;
-  onCellMouseEnter: Function;
-  onCellMouseLeave: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const DatePickerTable = (props: DatePickerTableProps) => {
@@ -30,7 +28,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
   const tableClass = `${classPrefix}-date-picker__table`;
 
   return (
-    <div className={tableClass} onMouseLeave={onCellMouseLeave}>
+    <div className={tableClass} onMouseLeave={(e) => onCellMouseLeave({ e })}>
       <table>
         {mode === 'date' && (
           <thead>
