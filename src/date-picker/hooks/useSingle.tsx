@@ -8,7 +8,7 @@ import { TdDatePickerProps, DateValue } from '../type';
 
 const TIME_FORMAT = 'HH:mm:ss';
 
-window.dayjs = dayjs;
+// window.dayjs = dayjs;
 export default function useSingle(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const name = `${classPrefix}-date-picker`;
@@ -150,7 +150,8 @@ export default function useSingle(props: TdDatePickerProps) {
       ...popupPropsFromProps,
       expandAnimation: true,
       overlayClassName: `${name}__panel-container`,
-      onVisibleChange: (visible: boolean) => {
+      onVisibleChange: (visible: boolean, context) => {
+        console.log('context', context);
         setPopupVisible(visible);
         if (!visible) {
           setIsHoverCell(false);
