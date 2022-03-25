@@ -6,6 +6,7 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-collapsed {
   width: 100%;
+  display: block;
   padding: 12px
 }
 .tdesign-demo__pannel-options-collapsed .t-checkbox {
