@@ -7,28 +7,36 @@ spline: explain
 
 ## 0.29.0 `2022-03-25`
 
+### BREAKING CHANGES
+
+- Input: 外部传入样式挂载至 `t-input__wrap`, 如需挂载到 `t-input`，请使用 `inputClass` api ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
+
 ### Bug Fixes
 
-- Select: Option 子组件配合自定义 keys 使用异常 ([#513](https://github.com/Tencent/tdesign-react/issues/513)) ([9f51f42](https://github.com/Tencent/tdesign-react/commit/9f51f423ed9dab86498b98a649a76b7d4b1deddc)) [@samhou1988](https://github.com/samhou1988)
+- Select:
+  - 修复 select `className` 透传问题 ([5fa9d1c](https://github.com/Tencent/tdesign-react/commit/5fa9d1c7bca7b0d6f6840fe2ee43840798820278)) [@HQ-Lin](https://github.com/HQ-Lin)
+  修复 select `overlayClassName` 丢失的问题 ([bfe85b0](https://github.com/Tencent/tdesign-react/commit/bfe85b0aa37f536b9719df7226611b8f5dcea8fb)) [insekkei](https://github.com/insekkei)
+  - Option 子组件配合自定义 keys 使用异常 ([#513](https://github.com/Tencent/tdesign-react/issues/513)) ([9f51f42](https://github.com/Tencent/tdesign-react/commit/9f51f423ed9dab86498b98a649a76b7d4b1deddc)) [@samhou1988](https://github.com/samhou1988)
+- Selectinput:
+  - `onclear` 受控非受控逻辑导致卡死 ([28dcde6](https://github.com/Tencent/tdesign-react/commit/28dcde6e8f6e82a666604864abde4537d327122c)) [@carolin913](https://github.com/carolin913)
+  - type 类型问题及 key 重复问题 ([0041f9e](https://github.com/Tencent/tdesign-react/commit/0041f9eef5ed72cbefe0f91404b86cad1e00fc68)) [@carolin913](https://github.com/carolin913)
+- Input:
+  - 修复 input type 为 `password` 场景下 `suffixIcon` 受控失效问题 ([#516](https://github.com/Tencent/tdesign-react/issues/516)) ([3031ac8](https://github.com/Tencent/tdesign-react/commit/3031ac8514a37df6712950a2160924ec8dea4947)) [@HQ-Lin](https://github.com/HQ-Lin)
+  - type 类型问题及 key 重复问题 ([0041f9e](https://github.com/Tencent/tdesign-react/commit/0041f9eef5ed72cbefe0f91404b86cad1e00fc68)) [@carolin913](https://github.com/carolin913)
 - Drawer: 根据 common Drawer 样式配置指定 tabIndex 消除 outline ([#501](https://github.com/Tencent/tdesign-react/issues/501)) ([4dc2d86](https://github.com/Tencent/tdesign-react/commit/4dc2d86a4a91a1beb3395a87ed7f8c790b4575c7)) [@PBK-B](https://github.com/PBK-B)
-- RadioGroup: 修复 radioGroup 手动清除 value 样式不响应问题 ([#536](https://github.com/Tencent/tdesign-react/issues/536)) ([c022130](https://github.com/Tencent/tdesign-react/commit/c0221303ecd243363a9143a1ffbd68691377a45d)) [@HQ-Lin](https://github.com/HQ-Lin)
-- Select: 修复 select className 透传问题 ([5fa9d1c](https://github.com/Tencent/tdesign-react/commit/5fa9d1c7bca7b0d6f6840fe2ee43840798820278)) [@HQ-Lin](https://github.com/HQ-Lin)
-- Input: 修复 input type 为 password 场景下 suffixIcon 受控失效问题 ([#516](https://github.com/Tencent/tdesign-react/issues/516)) ([3031ac8](https://github.com/Tencent/tdesign-react/commit/3031ac8514a37df6712950a2160924ec8dea4947)) [@HQ-Lin](https://github.com/HQ-Lin)
-- Dialog: closeOnOverlayClick work in dialog ([29b8589](https://github.com/Tencent/tdesign-react/commit/29b8589cd7f8ec2c94a2bc18131dd7e757a1e01c)) [@psaren](https://github.com/psaren)
-- Form: reset 失败如果 initialdata 是 undefined ([b3ab31a](https://github.com/Tencent/tdesign-react/commit/b3ab31a09bbd26fb241fa82b6e2c2bda80af8ab9)) [@carolin913](https://github.com/carolin913)
-- Input,Selectinput: type 类型问题及 key 重复问题 ([0041f9e](https://github.com/Tencent/tdesign-react/commit/0041f9eef5ed72cbefe0f91404b86cad1e00fc68)) [@carolin913](https://github.com/carolin913)
-- Popup: 偶现显示时定位不准，windowresize 无法自适应 ([83f9f89](https://github.com/Tencent/tdesign-react/commit/83f9f8929a68d1a540a68e906e47ac59203f2072)) [@carolin913](https://github.com/carolin913)
-- Select: 修复 select overlayClassName 丢失的问题 ([bfe85b0](https://github.com/Tencent/tdesign-react/commit/bfe85b0aa37f536b9719df7226611b8f5dcea8fb)) [insekkei](https://github.com/insekkei)
-- Selectinput: demo 多选下拉框显示异常 ([c4c3d98](https://github.com/Tencent/tdesign-react/commit/c4c3d98980ec16f78b200c7e8ca8431bf08910b9)) [@carolin913](https://github.com/carolin913)
-- Selectinput: onclear 受控非受控逻辑导致卡死 ([28dcde6](https://github.com/Tencent/tdesign-react/commit/28dcde6e8f6e82a666604864abde4537d327122c)) [@carolin913](https://github.com/carolin913)
-- Treeselect:\*\* 无法折叠问题修复 ([e02ec2d](https://github.com/Tencent/tdesign-react/commit/e02ec2d96cfb00ab5b8e2ee9e853656a3940e311)) [@carolin913](https://github.com/carolin913)
-- Upload: upload support modify method ([82a26da](https://github.com/Tencent/tdesign-react/commit/82a26dacb1de1a4700911307413563f8ec5e9b19)) [@samhou1988](https://github.com/samhou1988)
-- Input: 外部传入样式挂载至 t-input\_\_wrap, breaking-change ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
-- Date Picker: focused 态样式修复 ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
+- RadioGroup: 修复 `radioGroup` 手动清除 `value` 样式不响应问题 ([#536](https://github.com/Tencent/tdesign-react/issues/536)) ([c022130](https://github.com/Tencent/tdesign-react/commit/c0221303ecd243363a9143a1ffbd68691377a45d)) [@HQ-Lin](https://github.com/HQ-Lin)
+- Dialog: 修复 `closeOnOverlayClick` 失效问题 ([29b8589](https://github.com/Tencent/tdesign-react/commit/29b8589cd7f8ec2c94a2bc18131dd7e757a1e01c)) [@psaren](https://github.com/psaren)
+- Form: `reset` 失败如果 `initialdata` 是 `undefined` ([b3ab31a](https://github.com/Tencent/tdesign-react/commit/b3ab31a09bbd26fb241fa82b6e2c2bda80af8ab9)) [@carolin913](https://github.com/carolin913)
+- Popup: `偶现显示时定位不准，windowresize` 无法自适应 ([83f9f89](https://github.com/Tencent/tdesign-react/commit/83f9f8929a68d1a540a68e906e47ac59203f2072)) [@carolin913](https://github.com/carolin913)
+- Treeselect: 无法折叠问题修复 ([e02ec2d](https://github.com/Tencent/tdesign-react/commit/e02ec2d96cfb00ab5b8e2ee9e853656a3940e311)) [@carolin913](https://github.com/carolin913)
+- Date Picker: `focused` 态样式修复 ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
 
 ### Features
 
-- Input: 增加 inputClass API，用于透传 class 到 t-input 同级 ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
+- Input: 增加 `inputClass` API，用于透传 class 到 `t-input` 同级 ([#528](https://github.com/Tencent/tdesign-react/pull/528)) [@pengYYYYY](https://github.com/pengYYYYY)
+- Upload: 支持 `modify` method ([82a26da](https://github.com/Tencent/tdesign-react/commit/82a26dacb1de1a4700911307413563f8ec5e9b19)) [@samhou1988](https://github.com/samhou1988)
+- InputNumber: 默认尺寸下输入框宽度调整，修复默认内容展示不全的问题，[issue #623](https://github.com/Tencent/tdesign-vue/issues/623) [@xiaosansiji](https://github.com/xiaosansiji)
+
 
 ## 0.28.0 `2022-03-18`
 
