@@ -7,13 +7,13 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
+import { useTimePickerTextConfig } from '../const';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../_common/js/time-picker/const';
 
 import { TdTimeRangePickerProps, TimeRangeValue } from '../type';
 
 export interface TimeRangePickerPanelProps extends Omit<SinglePanelProps, 'value' | 'onChange'> {
-  // 是否展示footer
-  isFooterDisplay?: boolean;
+  isFooterDisplay?: boolean; // 是否展示footer
   handleConfirmClick?: (value: TimeRangeValue) => void;
   value: TdTimeRangePickerProps['value'];
   onChange: TdTimeRangePickerProps['onChange'];
@@ -30,11 +30,11 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
   } = props;
 
   const TEXT_CONFIG = useTimePickerTextConfig();
-
   const { classPrefix } = useConfig();
 
   const [startTime, endTime] = value || [];
-  const panelClassName = `${classPrefix}-time-picker__panel`;
+
+  const panelClassName = `${classPrefix}-time-picker__panel-section`;
 
   const handlePanelValueChange = (value: string, index: number) => {
     if (index === 0) {
@@ -53,8 +53,8 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
   }, [value, format]);
 
   return (
-    <div className={classNames(panelClassName, `${panelClassName}-section`)}>
-      <div className={`${panelClassName}-section-body`}>
+    <div className={classNames(panelClassName)}>
+      <div className={`${panelClassName}-body`}>
         <SinglePanel
           {...props}
           steps={steps}
@@ -71,10 +71,11 @@ const TimePickerPanel: FC<TimeRangePickerPanelProps> = (props) => {
         />
       </div>
       {isFooterDisplay ? (
-        <div className={`${panelClassName}-section-footer`}>
+        <div className={`${panelClassName}-footer`}>
           <Button
             theme="primary"
             variant="base"
+            size="small"
             onClick={() => {
               handleConfirmClick(defaultValue);
             }}

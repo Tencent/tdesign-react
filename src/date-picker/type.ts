@@ -2,12 +2,13 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { InputProps } from '../input';
 import { PopupProps } from '../popup';
 import { TimePickerProps } from '../time-picker';
+import { Dayjs } from 'dayjs';
+import { RangeInputProps } from '../range-input';
 import { TElement } from '../common';
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
 
@@ -18,7 +19,7 @@ export interface TdDatePickerProps {
    */
   allowInput?: boolean;
   /**
-   * 是否显示清楚按钮
+   * 是否显示清除按钮
    * @default false
    */
   clearable?: boolean;
@@ -41,8 +42,7 @@ export interface TdDatePickerProps {
    */
   firstDayOfWeek?: number;
   /**
-   * 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format)
-   * @default 'YYYY-MM-DD'
+   * 用于格式化日期，全局配置默认为：'YYYY-MM-DD'，[详细文档](https://day.js.org/docs/en/display/format)
    */
   format?: string;
   /**
@@ -57,7 +57,7 @@ export interface TdDatePickerProps {
   /**
    * 占位符
    */
-  placeholder?: string | Array<string>;
+  placeholder?: string;
   /**
    * 透传给 popup 组件的参数
    */
@@ -71,15 +71,15 @@ export interface TdDatePickerProps {
    */
   presets?: PresetDate;
   /**
+   * 预设面板展示区域（包含确定按钮）
+   * @default bottom
+   */
+  presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
    * 是否呈现为日期范围选择器（临时 API，后期将调整为是 DateRangePicker 组件）
    * @default false
    */
   range?: boolean;
-  /**
-   * 尺寸
-   * @default medium
-   */
-  size?: 'small' | 'medium' | 'large';
   /**
    * 用于自定义组件后置图标
    */
@@ -97,13 +97,18 @@ export interface TdDatePickerProps {
    */
   defaultValue?: DateValue;
   /**
+   * 用于格式化日期，默认为：'YYYY-MM-DD'，可选值：'date/time-stamp/YYY-MM-DD' 等，[更多可选值见 Dayjs 详细文档](https://day.js.org/docs/en/display/format)。<br /> 其中 `valueType=date` 表示 `value` 数据类型为 `Date`；`valueType='time-stamp'` 表示 `value` 数据类型为时间戳
+   * @default YYYY-MM-DD
+   */
+  valueType?: string;
+  /**
    * 当输入框失去焦点时触发
    */
   onBlur?: (context: { value: DateValue; e: FocusEvent<HTMLInputElement> }) => void;
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateValue) => void;
+  onChange?: (value: DateValue, dayjsValue: Dayjs) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -112,10 +117,6 @@ export interface TdDatePickerProps {
    * 输入框数据发生变化时触发，参数 input 表示输入内容，value 表示组件当前有效值
    */
   onInput?: (context: { input: string; value: DateValue; e: FormEvent<HTMLInputElement> }) => void;
-  /**
-   * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
-   */
-  onPick?: (value: DateValue, context: PickContext) => void;
 }
 
 export interface TdDateRangePickerProps {
@@ -139,6 +140,11 @@ export interface TdDateRangePickerProps {
    */
   disableDate?: DisableRangeDate;
   /**
+   * 是否显示时间选择
+   * @default false
+   */
+  enableTimePicker?: boolean;
+  /**
    * 第一天从星期几开始
    */
   firstDayOfWeek?: number;
@@ -157,6 +163,10 @@ export interface TdDateRangePickerProps {
    */
   placeholder?: string | Array<string>;
   /**
+   * 透传给 popup 组件的参数
+   */
+  popupProps?: PopupProps;
+  /**
    * 组件前置图标
    */
   prefixIcon?: TElement;
@@ -164,6 +174,15 @@ export interface TdDateRangePickerProps {
    * 预设快捷日期选择，示例：{ '特定日期范围': ['2021-01-01', '2022-01-01'], '本月': [dayjs().startOf('month'), dayjs().endOf('month')] }
    */
   presets?: PresetRange;
+  /**
+   * 预设面板展示区域（包含确定按钮）
+   * @default bottom
+   */
+  presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 透传给范围输入框 RangeInput 组件的参数
+   */
+  rangeInputProps?: RangeInputProps;
   /**
    * 日期分隔符
    * @default ''
@@ -179,6 +198,10 @@ export interface TdDateRangePickerProps {
    */
   suffixIcon?: TElement;
   /**
+   * 透传 TimePicker 组件属性
+   */
+  timePickerProps?: TimePickerProps;
+  /**
    * 选中值
    */
   value?: DateRangeValue;
@@ -187,13 +210,18 @@ export interface TdDateRangePickerProps {
    */
   defaultValue?: DateRangeValue;
   /**
+   * 用于格式化日期，默认为：'YYYY-MM-DD'，可选值：'date/time-stamp/YYY-MM-DD' 等，[更多可选值见 Dayjs 详细文档](https://day.js.org/docs/en/display/format)。<br /> 其中 `valueType=date` 表示 `value` 数据类型为 `Date`；`valueType='time-stamp'` 表示 `value` 数据类型为时间戳
+   * @default YYYY-MM-DD
+   */
+  valueType?: string;
+  /**
    * 当输入框失去焦点时触发
    */
   onBlur?: (context: { value: DateRangeValue; partial: DateRangePickerPartial; e: FocusEvent<HTMLDivElement> }) => void;
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateRangeValue) => void;
+  onChange?: (value: DateRangeValue, dayjsValue: Dayjs[]) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -230,7 +258,7 @@ export interface PresetDate {
   [name: string]: DateValue | (() => DateValue);
 }
 
-export type DateValue = string | Date | Array<DateValue>;
+export type DateValue = string | number | Date;
 
 export type DisableRangeDate =
   | Array<DateValue>

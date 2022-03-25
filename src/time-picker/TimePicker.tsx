@@ -1,23 +1,25 @@
-import React, { useState, Ref } from 'react';
+import React, { useState, Ref, useEffect } from 'react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-
 import { TimeIcon } from 'tdesign-icons-react';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import Popup from '../popup';
-import Input from '../input';
+
+import SelectInput from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
-import InputItems from './InputItems';
+import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from './consts';
+import { useTimePickerTextConfig } from './const';
 
 import { StyledProps } from '../common';
 import { TdTimePickerProps } from './type';
+import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../_common/js/time-picker/const';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
@@ -27,29 +29,27 @@ export interface TimePickerProps extends TdTimePickerProps, StyledProps {}
 const TimePicker = forwardRefWithStatics(
   (props: TimePickerProps, ref: Ref<HTMLDivElement>) => {
     const TEXT_CONFIG = useTimePickerTextConfig();
-
     const {
       allowInput,
       className,
       clearable,
       disabled,
+      style,
+      value = undefined,
       format = DEFAULT_FORMAT,
       hideDisabledTime = true,
-      placeholder = TEXT_CONFIG.placeholder,
-      style,
-      size = 'medium',
       steps = DEFAULT_STEPS,
-      value,
+      placeholder = TEXT_CONFIG.placeholder,
       disableTime,
-      onBlur = noop,
       onChange,
+      onBlur = noop,
       onClose = noop,
       onFocus = noop,
-      onInput = noop,
       onOpen = noop,
     } = useDefaultValue(props);
 
     const [isPanelShowed, setPanelShow] = useState(false);
+    const [currentValue, setCurrentValue] = useState('');
 
     const { classPrefix } = useConfig();
     const name = `${classPrefix}-time-picker`;
@@ -65,65 +65,62 @@ const TimePicker = forwardRefWithStatics(
     const handleClear = (context: { e: React.MouseEvent }) => {
       const { e } = context;
       e.stopPropagation();
+      setCurrentValue('');
       onChange(null);
     };
 
+    const handleInputChange = (value: string) => {
+      const isValidTime = validateInputValue(value, format);
+      if (isValidTime) {
+        setCurrentValue(formatInputValue(value, format));
+      }
+    };
+
+    useEffect(() => {
+      setCurrentValue(isPanelShowed ? value ?? '' : '');
+    }, [isPanelShowed, value]);
+
     return (
-      <Popup
-        content={
-          <TimePickerPanel
-            steps={steps}
-            format={format}
-            disableTime={disableTime}
-            hideDisabledTime={hideDisabledTime}
-            isFooterDisplay={true}
-            onChange={onChange}
-            handleConfirmClick={(value) => {
-              onChange(dayjs(value).format(format));
-              setPanelShow(false);
-            }}
-            value={value}
-          />
-        }
-        disabled={disabled}
-        visible={isPanelShowed}
-        onVisibleChange={handleShowPopup}
-        overlayClassName={classNames(`${name}__panel-container`)}
-        placement="bottom-left"
-        trigger="click"
-        expandAnimation={true}
-      >
-        {/* TODO active与date picker保持一致 */}
-        <div className={classNames(name, className, inputClasses)} ref={ref} style={style}>
-          <Input
-            readonly={true}
-            disabled={disabled}
-            size={size}
-            clearable={clearable}
-            value={value ? ' ' : undefined}
-            onClear={handleClear}
-            placeholder={!value ? placeholder : undefined}
-            suffixIcon={<TimeIcon />}
-          />
-          {value ? (
-            <InputItems
-              disabled={disabled}
+      <div className={classNames(name, className)} ref={ref} style={style}>
+        <SelectInput
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onClear={handleClear}
+          disabled={disabled}
+          clearable={clearable}
+          allowInput={allowInput}
+          className={inputClasses}
+          suffixIcon={<TimeIcon />}
+          popupVisible={isPanelShowed}
+          onInputChange={handleInputChange}
+          onPopupVisibleChange={handleShowPopup}
+          placeholder={!value ? placeholder : undefined}
+          value={isPanelShowed ? currentValue : value ?? undefined}
+          inputValue={isPanelShowed ? currentValue : value ?? undefined}
+          panel={
+            <TimePickerPanel
+              steps={steps}
               format={format}
-              allowInput={allowInput}
-              value={[value]}
-              onBlur={onBlur}
-              onFocus={onFocus}
-              onInput={onInput}
-              onChange={onChange}
+              value={currentValue}
+              isFooterDisplay={true}
+              disableTime={disableTime}
+              onChange={setCurrentValue}
+              hideDisabledTime={hideDisabledTime}
+              handleConfirmClick={() => {
+                onChange(currentValue);
+                setPanelShow(false);
+              }}
             />
-          ) : null}
-        </div>
-      </Popup>
+          }
+        />
+      </div>
     );
   },
   {
     displayName: 'TimePicker',
     TimeRangePicker,
+    TimePickerPanel,
+    TimeRangePickerPanel,
   },
 );
 

@@ -1,21 +1,23 @@
-import React from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, RoundIcon } from 'tdesign-icons-react';
+import React, { useMemo } from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import Button from '../../button';
 import useConfig from '../../_util/useConfig';
+import Select from '../../select';
+import { TdDatePickerProps } from '../type';
+import Jumper from '../../common/Jumper';
 
-export interface DatePickerHeaderProps {
-  year: number;
-  month: number;
-  onBtnClick: Function;
-  onTypeChange: Function;
-  type: 'year' | 'month' | 'date';
+export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
+  year?: string | number;
+  month?: string | number;
+  onMonthChange?: Function;
+  onYearChange?: Function;
+  onJumperClick?: Function;
 }
 
 const useDatePickerLocalConfig = () => {
   const [local, t] = useLocaleReceiver('datePicker');
 
   return {
+    months: t(local.months),
     rangeSeparator: t(local.rangeSeparator),
     yearAriaLabel: t(local.yearAriaLabel),
     monthAriaLabel: t(local.monthAriaLabel),
@@ -32,90 +34,69 @@ const useDatePickerLocalConfig = () => {
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { type, year, month, onBtnClick, onTypeChange } = props;
+  const { mode, year, month, onMonthChange, onYearChange, onJumperClick } = props;
 
-  const startYear = parseInt((year / 10).toString(), 10) * 10;
-  const {
-    now,
-    rangeSeparator,
-    yearAriaLabel,
-    monthAriaLabel,
-    preMonth,
-    preYear,
-    nextMonth,
-    nextYear,
-    preDecade,
-    nextDecade,
-  } = useDatePickerLocalConfig();
+  const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
-  let preLabel: string;
-  let nextLabel: string;
-  if (type === 'year') {
-    preLabel = preDecade;
-    nextLabel = nextDecade;
-  } else if (type === 'date') {
-    preLabel = preMonth;
-    nextLabel = nextMonth;
-  } else {
-    preLabel = preYear;
-    nextLabel = nextYear;
-  }
+  const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
+
+  const yearOptions = useMemo(() => {
+    const options = [{ label: `${year}`, value: year }];
+
+    for (let i = 1; i <= 10; i++) {
+      options.push({ label: `${Number(year) + i}`, value: Number(year) + i });
+      options.unshift({ label: `${Number(year) - i}`, value: Number(year) - i });
+    }
+    return options;
+  }, [year]);
+
+  // hover title
+  const labelMap = {
+    year: {
+      prevTitle: preDecade,
+      currentTitle: now,
+      nextTitle: nextDecade,
+    },
+    month: {
+      prevTitle: preYear,
+      currentTitle: now,
+      nextTitle: nextYear,
+    },
+    date: {
+      prevTitle: preMonth,
+      currentTitle: now,
+      nextTitle: nextMonth,
+    },
+  };
+
+  const headerClassName = `${classPrefix}-date-picker__header`;
+  const showMonthPicker = mode === 'date';
+  const showYearPicker = mode === 'date' || mode === 'month';
 
   return (
-    <div className={`${classPrefix}-date-picker__header`}>
-      <span className={`${classPrefix}-date-picker__header-title`}>
-        {type === 'year' && (
-          <div>
-            <span>{startYear}</span>
-            {rangeSeparator}
-            <span>{startYear + 9}</span>
-          </div>
+    <div className={headerClassName}>
+      <div className={`${headerClassName}-controller`}>
+        {showMonthPicker && (
+          <Select
+            className={`${headerClassName}-controller--month`}
+            value={month}
+            options={monthOptions}
+            onChange={(val) => onMonthChange(val)}
+            popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
+          />
         )}
-        {type !== 'year' && (
-          <Button
-            variant="text"
-            size="small"
-            onClick={() => onTypeChange('year')}
-            className={`${classPrefix}-date-picker__header-btn`}
-          >
-            {`${year} ${yearAriaLabel}`}
-          </Button>
+        {showYearPicker && (
+          <Select
+            className={`${headerClassName}-controller--year`}
+            value={year}
+            options={yearOptions}
+            onChange={(val) => onYearChange(val)}
+            popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
+          />
         )}
-        {type === 'date' && (
-          <Button
-            className={`${classPrefix}-date-picker__header-btn`}
-            variant="text"
-            size="small"
-            onClick={() => onTypeChange('month')}
-          >
-            {`${month === 12 ? 1 : month + 1} ${monthAriaLabel}`}
-          </Button>
-        )}
-      </span>
+      </div>
 
-      <span className={`${classPrefix}-date-picker__header-controller`}>
-        <Button
-          title={preLabel}
-          variant="text"
-          onClick={() => onBtnClick(-1)}
-          icon={<ChevronLeftIcon />}
-          className={`${classPrefix}-date-picker__header-controller__btn`}
-        ></Button>
-        <Button
-          title={now}
-          variant="text"
-          onClick={() => onBtnClick(0)}
-          icon={<RoundIcon />}
-          className={`${classPrefix}-date-picker__header-controller__btn ${classPrefix}-date-picker__header-controller__btn--now`}
-        ></Button>
-        <Button
-          title={nextLabel}
-          variant="text"
-          onClick={() => onBtnClick(1)}
-          icon={<ChevronRightIcon />}
-          className={`${classPrefix}-date-picker__header-controller__btn`}
-        ></Button>
-      </span>
+      <Jumper {...labelMap[mode]} onJumperClick={onJumperClick} />
     </div>
   );
 };

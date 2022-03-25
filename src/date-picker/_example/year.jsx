@@ -7,8 +7,11 @@ export default function YearDatePicker() {
   }
 
   return (
-    <div className="tdesign-demo-item--datepicker">
-      <DatePicker defaultValue="2025" mode="year" format="YYYY" clearable onChange={handleChange}></DatePicker>
+    <div className="tdesign-demo-block-column">
+      <DatePicker mode="year" onChange={handleChange} />
+      <DatePicker placeholder="可清除的年份选择器" mode="year" clearable onChange={handleChange} />
+      <DatePicker placeholder="可输入的年份选择器" mode="year" allowInput onChange={handleChange} />
+      <DatePicker placeholder="可清除、可输入的年份选择器" mode="year" clearable allowInput onChange={handleChange} />
     </div>
   );
 }

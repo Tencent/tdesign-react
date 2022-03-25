@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
+import { extractTimeObj } from '../../_common/js/date-picker/utils-new';
 
 export interface DatePickerCellProps {
+  timeValue?: string;
   text: [string, number];
   value: Date;
   active: boolean;
@@ -24,6 +26,7 @@ const DatePickerCell = (props: DatePickerCellProps) => {
   const {
     text,
     value,
+    timeValue,
     active,
     highlight,
     disabled,
@@ -50,18 +53,40 @@ const DatePickerCell = (props: DatePickerCellProps) => {
   });
 
   function handleClick(e: React.MouseEvent) {
-    !disabled && onClick(value, { e });
+    if (disabled) return;
+    if (timeValue) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(timeValue);
+      // am pm 12小时制转化 24小时制
+      let nextHours = hours;
+      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
+      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      value.setHours(nextHours);
+      value.setMinutes(minutes);
+      value.setSeconds(seconds);
+      value.setMilliseconds(milliseconds);
+    }
+    onClick?.(value, { e });
   }
 
   function handleMouseEnter() {
+    if (disabled) return;
+    if (timeValue) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(timeValue);
+      // am pm 12小时制转化 24小时制
+      let nextHours = hours;
+      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
+      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      value.setHours(nextHours);
+      value.setMinutes(minutes);
+      value.setSeconds(seconds);
+      value.setMilliseconds(milliseconds);
+    }
     onMouseEnter?.(value);
   }
 
   return (
-    <td className={cellClass}>
-      <div className={`${classPrefix}-date-picker__cell-wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
-        <span className={`${classPrefix}-date-picker__cell-text`}>{text}</span>
-      </div>
+    <td className={cellClass} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+      <div className={`${classPrefix}-date-picker__cell-inner`}>{text}</div>
     </td>
   );
 };

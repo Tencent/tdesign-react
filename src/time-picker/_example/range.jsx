@@ -4,5 +4,5 @@ import { TimePicker } from 'tdesign-react';
 const { TimeRangePicker } = TimePicker;
 
 export default function RangeTimePicker() {
-  return <TimeRangePicker clearable />;
+  return <TimeRangePicker clearable format="hh:mm:ss a" />;
 }

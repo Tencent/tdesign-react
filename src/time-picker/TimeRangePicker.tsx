@@ -5,12 +5,10 @@ import { TimeIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useDefaultValue from '../_util/useDefaultValue';
 import useConfig from '../_util/useConfig';
-import Popup from '../popup';
-import Input from '../input';
+import { RangeInputPopup } from '../range-input';
 import TimeRangePickerPanel from './panel/TimePickerRangePanel';
-import InputItems from './InputItems';
 
-import { useTimePickerTextConfig } from './consts';
+import { useTimePickerTextConfig } from './const';
 
 import { TdTimeRangePickerProps } from './type';
 import { StyledProps } from '../common';
@@ -23,26 +21,26 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
   const {
     allowInput,
     clearable,
-    disabled, // TODO array形式
+    disabled,
     format = 'HH:mm:ss',
     hideDisabledTime = true,
-    placeholder = TEXT_CONFIG.placeholder, // TODO array形式
+    placeholder = TEXT_CONFIG.placeholder,
     size = 'medium',
     steps = [1, 1, 1],
     value,
-    onBlur = noop,
     onChange,
+    onBlur = noop,
     onFocus = noop,
-    onInput = noop,
+    // onInput = noop,
     style,
     className,
   } = useDefaultValue(props);
 
   const { classPrefix } = useConfig();
+  const [isPanelShowed, setPanelShow] = useState(false);
 
   const name = `${classPrefix}-time-picker`;
 
-  const [isPanelShowed, setPanelShow] = useState(false);
   const inputClasses = classNames(`${name}__group`, {
     [`${classPrefix}-is-focused`]: isPanelShowed,
   });
@@ -58,55 +56,40 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
   };
 
   return (
-    <Popup
-      content={
-        <TimeRangePickerPanel
-          steps={steps}
-          format={format}
-          hideDisabledTime={hideDisabledTime}
-          isFooterDisplay={true}
-          value={value}
-          onChange={onChange}
-          handleConfirmClick={(value) => {
-            onChange(value);
-            setPanelShow(false);
-          }}
-        />
-      }
-      disabled={disabled as boolean}
-      placement="bottom-left"
-      visible={isPanelShowed}
-      onVisibleChange={handleShowPopup}
-      trigger="click"
-      expandAnimation={true}
-    >
-      <div className={classNames(name, className)} style={style}>
-        <Input
-          size={size}
-          readonly={true}
-          clearable={clearable}
-          className={inputClasses}
-          value={value ? ' ' : undefined}
-          onClear={handleClear}
-          disabled={disabled as boolean}
-          placeholder={!value ? (placeholder as string) : undefined}
-          suffixIcon={<TimeIcon />}
-        />
-        {value ? (
-          <InputItems
-            disabled={disabled}
+    <div className={classNames(name, className)} style={style}>
+      <RangeInputPopup
+        style={style}
+        disabled={disabled}
+        popupVisible={isPanelShowed}
+        onPopupVisibleChange={handleShowPopup}
+        rangeInputProps={{
+          clearable,
+          className: inputClasses,
+          value: value ?? undefined,
+          placeholder: !value ? placeholder : undefined,
+          suffixIcon: <TimeIcon />,
+          onClear: handleClear,
+          onBlur,
+          onFocus,
+          readonly: !allowInput,
+          size,
+        }}
+        panel={
+          <TimeRangePickerPanel
+            steps={steps}
             format={format}
-            placeholder={placeholder}
-            allowInput={allowInput}
+            hideDisabledTime={hideDisabledTime}
+            isFooterDisplay={true}
             value={value}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            onInput={onInput}
             onChange={onChange}
+            handleConfirmClick={(value) => {
+              onChange(value);
+              setPanelShow(false);
+            }}
           />
-        ) : null}
-      </div>
-    </Popup>
+        }
+      />
+    </div>
   );
 };
 

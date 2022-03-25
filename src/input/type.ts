@@ -124,7 +124,7 @@ export interface TdInputProps {
    */
   onChange?: (
     value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context?: { e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => void;
   /**
    * 清空按钮点击时触发

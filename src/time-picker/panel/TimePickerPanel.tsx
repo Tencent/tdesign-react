@@ -5,23 +5,24 @@ import SinglePanel, { SinglePanelProps } from './SinglePanel';
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
+import { useTimePickerTextConfig } from '../const';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../_common/js/time-picker/const';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
-  // 是否展示footer
-  isFooterDisplay?: boolean;
+  isFooterDisplay?: boolean; // 是否展示footer
   handleConfirmClick?: (defaultValue: dayjs.Dayjs) => void;
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   const {
-    isFooterDisplay,
-    onChange,
     format = DEFAULT_FORMAT,
     steps = DEFAULT_STEPS,
     handleConfirmClick,
+    isFooterDisplay,
+    onChange,
     value,
   } = props;
+
   const { classPrefix } = useConfig();
 
   const TEXT_CONFIG = useTimePickerTextConfig();
@@ -53,12 +54,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
             onClick={() => {
               handleConfirmClick(defaultValue);
             }}
+            size="small"
           >
             {TEXT_CONFIG.confirm}
           </Button>
           {!showNowTimeBtn ? (
-            <Button theme="primary" variant="text" onClick={() => onChange(dayjs().format(format))}>
-              {TEXT_CONFIG.nowtime}
+            <Button theme="primary" variant="text" size="small" onClick={() => onChange(dayjs().format(format))}>
+              {TEXT_CONFIG.nowTime}
             </Button>
           ) : null}
         </div>
