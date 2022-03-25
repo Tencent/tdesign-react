@@ -6,10 +6,11 @@ const classStyles = `
 <style>
 .tdesign-demo__panel-options-borderless-multiple {
   width: 100%;
+  display: block;
   padding: 4px 0;
 }
 .tdesign-demo__panel-options-borderless-multiple .t-checkbox {
-  display: flex;
+  display: block;
   border-radius: 3px;
   height: 40px;
   line-height: 22px;

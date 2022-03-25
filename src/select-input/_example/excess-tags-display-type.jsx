@@ -5,6 +5,7 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-excess {
   width: 100%;
+  display: block;
 }
 .tdesign-demo__pannel-options-excess .t-checkbox {
   display: block;

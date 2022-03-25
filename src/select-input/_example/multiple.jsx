@@ -5,6 +5,7 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 const classStyles = `
 <style>
 .tdesign-demo__pannel-options-multiple {
+  display: block;
   width: 100%;
 }
 .tdesign-demo__pannel-options-multiple .t-checkbox {
@@ -142,15 +143,15 @@ export default function SelectInputMultiple() {
         // label={<span>多选：</span>}
         panel={
           displayOptions.length
-          ? (
-            <Checkbox.Group
-              value={checkboxValue}
-              options={displayOptions}
-              className="tdesign-demo__pannel-options-multiple"
-              onChange={onCheckedChange}
-            />
-          )
-          : <div className="tdesign-demo__select-empty-multiple">暂无数据</div>
+            ? (
+              <Checkbox.Group
+                value={checkboxValue}
+                options={displayOptions}
+                className="tdesign-demo__pannel-options-multiple"
+                onChange={onCheckedChange}
+              />
+            )
+            : <div className="tdesign-demo__select-empty-multiple">暂无数据</div>
         }
         suffixIcon={<ChevronDownIcon />}
         clearable
