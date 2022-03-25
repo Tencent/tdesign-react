@@ -1,4 +1,5 @@
 import React, { Children, isValidElement, cloneElement } from 'react';
+import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
 import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
@@ -129,7 +130,9 @@ const PopupContent = (props: SelectPopupProps) => {
   const isEmpty = (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (options && options.length === 0);
 
   return (
-    <div className={`${classPrefix}-select__dropdown-inner ${classPrefix}-select__dropdown-inner--${size}`}>
+    <div
+      className={classNames(`${classPrefix}-select__dropdown-inner`, `${classPrefix}-select__dropdown-inner--${size}`)}
+    >
       {panelTopContent}
       {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
       {!isEmpty && loading && <div className={`${classPrefix}-select__loading-tips`}>{loadingText}</div>}
