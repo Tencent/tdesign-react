@@ -1324,7 +1324,6 @@ exports[`data-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -2585,7 +2584,6 @@ exports[`filter-controlled.jsx 1`] = `
                               style="margin-right: 20px;"
                             >
                               <div
-                                class=""
                                 style="line-height: 0;"
                               >
                                 <div
@@ -6635,7 +6633,6 @@ exports[`multi-header.jsx 1`] = `
                         style="margin-right: 20px;"
                       >
                         <div
-                          class=""
                           style="line-height: 0;"
                         >
                           <div
@@ -6849,7 +6846,6 @@ exports[`multiple-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -6919,7 +6915,6 @@ exports[`multiple-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -8668,7 +8663,6 @@ exports[`single-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -8738,7 +8732,6 @@ exports[`single-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
