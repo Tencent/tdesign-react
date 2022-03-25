@@ -72,9 +72,11 @@ export default function useMultiple(props: TdSelectInputProps) {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
       {...props.tagInputProps}
-      className={classNames(props.tagInputProps?.className, {
-        [`${classPrefix}-input--focused`]: p.popupVisible,
-      })}
+      inputProps={{
+        inputClass: classNames(props.tagInputProps?.className, {
+          [`${classPrefix}-input--focused`]: p.popupVisible,
+        }),
+      }}
     />
   );
 
