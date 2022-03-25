@@ -6,10 +6,11 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-multiple {
   width: 100%;
+  padding: 12px
 }
 .tdesign-demo__pannel-options-multiple .t-checkbox {
   display: block;
-  margin: 12px;
+  width: 100%
 }
 .tdesign-demo__select-empty-multiple {
   text-align: center;
@@ -115,8 +116,12 @@ export default function SelectInputMultiple() {
   return (
     <div className="tdesign-demo__select-input-multiple" style={{ width: '100%' }}>
       <div>
-        <Checkbox checked={allowInput} onChange={setAllowInput}>是否允许输入</Checkbox>
-        <Checkbox checked={creatable} onChange={setCreatable}>允许创建新选项（Enter 创建）</Checkbox>
+        <Checkbox checked={allowInput} onChange={setAllowInput}>
+          是否允许输入
+        </Checkbox>
+        <Checkbox checked={creatable} onChange={setCreatable}>
+          允许创建新选项（Enter 创建）
+        </Checkbox>
       </div>
       <br />
       <div>
@@ -129,7 +134,8 @@ export default function SelectInputMultiple() {
           ]}
         />
       </div>
-      <br /><br />
+      <br />
+      <br />
 
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
@@ -141,16 +147,16 @@ export default function SelectInputMultiple() {
         popupProps={{ overlayStyle: { maxHeight: '280px', overflow: 'auto' } }}
         // label={<span>多选：</span>}
         panel={
-          displayOptions.length
-          ? (
+          displayOptions.length ? (
             <Checkbox.Group
               value={checkboxValue}
               options={displayOptions}
               className="tdesign-demo__pannel-options-multiple"
               onChange={onCheckedChange}
             />
+          ) : (
+            <div className="tdesign-demo__select-empty-multiple">暂无数据</div>
           )
-          : <div className="tdesign-demo__select-empty-multiple">暂无数据</div>
         }
         suffixIcon={<ChevronDownIcon />}
         clearable
