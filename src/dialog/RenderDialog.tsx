@@ -153,7 +153,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
-    const header = <div className={`${prefixCls}__header`}>{props.header}</div>;
+    const { header } = props;
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
