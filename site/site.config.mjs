@@ -228,7 +228,7 @@ export default {
           component: () => import('tdesign-react/tag-input/tag-input.md'),
         },
         {
-          title: 'RangeInput 区间输入框',
+          title: 'RangeInput 范围输入框',
           name: 'range-input',
           path: '/react/components/range-input',
           component: () => import('tdesign-react/range-input/range-input.md'),
