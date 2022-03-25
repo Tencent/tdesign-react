@@ -131,7 +131,11 @@ const PopupContent = (props: SelectPopupProps) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-select__dropdown-inner`, `${classPrefix}-select__dropdown-inner--${size}`)}
+      className={classNames(`${classPrefix}-select__dropdown-inner`, {
+        [`${classPrefix}-select__dropdown-inner--size-s`]: size === 'small',
+        [`${classPrefix}-select__dropdown-inner--size-l`]: size === 'large',
+        [`${classPrefix}-select__dropdown-inner--size-m`]: size === 'medium',
+      })}
     >
       {panelTopContent}
       {isEmpty && <div className={`${classPrefix}-select__empty`}>{empty ? empty : <p>{emptyText}</p>}</div>}
