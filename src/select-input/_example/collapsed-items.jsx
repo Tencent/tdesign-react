@@ -6,10 +6,11 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-collapsed {
   width: 100%;
+  padding: 12px
 }
 .tdesign-demo__pannel-options-collapsed .t-checkbox {
   display: block;
-  margin: 12px;
+  width: 100%
 }
 </style>
 `;
@@ -100,20 +101,18 @@ export default function SelectInputCollapsedItems() {
         value={value}
         minCollapsedNum={1}
         panel={CheckboxPanel}
-        suffixIcon={<ChevronDownIcon key='suffixIcon' />}
+        suffixIcon={<ChevronDownIcon key="suffixIcon" />}
         clearable
         multiple
         onTagChange={onTagChange}
       ></SelectInput>
-
       <br /> <br />
-
       {/* 使用 collapsedItems 自定义折叠标签 */}
       <SelectInput
         value={value}
         minCollapsedNum={2}
         panel={CheckboxPanel}
-        suffixIcon={<ChevronDownIcon key='suffixIcon' />}
+        suffixIcon={<ChevronDownIcon key="suffixIcon" />}
         collapsedItems={({ collapsedTags }) => <Tag key={'More'}>More(+{collapsedTags.length})</Tag>}
         clearable
         multiple
