@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
@@ -12,6 +12,8 @@ const TIME_FORMAT = 'HH:mm:ss';
 export default function useSingle(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const name = `${classPrefix}-date-picker`;
+
+  const inputRef = useRef<HTMLInputElement>();
 
   const {
     mode = 'month',
@@ -89,6 +91,7 @@ export default function useSingle(props: TdDatePickerProps) {
   const inputProps = useMemo(
     () => ({
       ...inputPropsFromProps,
+      ref: inputRef,
       clearable,
       prefixIcon,
       readonly: !allowInput,
@@ -199,6 +202,7 @@ export default function useSingle(props: TdDatePickerProps) {
     popupVisible,
     inputProps,
     popupProps,
+    inputRef,
     onChange,
     setYear,
     setMonth,

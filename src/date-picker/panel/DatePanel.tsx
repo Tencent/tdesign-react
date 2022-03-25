@@ -15,6 +15,7 @@ export interface DatePanelProps extends TdDatePickerProps {
   year?: number;
   month?: number;
   timeValue?: string;
+  onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date) => void;
   onCellMouseEnter?: (date: Date) => void;
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
@@ -49,6 +50,7 @@ const DatePanel = (props: DatePanelProps) => {
     year,
     month,
     timeValue,
+    onClick,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
@@ -111,7 +113,7 @@ const DatePanel = (props: DatePanelProps) => {
   );
 
   const panelContent = (
-    <div className={`${classPrefix}-date-picker__panel--top`}>
+    <div className={`${classPrefix}-date-picker__panel--top`} onClick={(e) => onClick({ e })}>
       {presetsPlacement === 'left' && extraContent}
 
       <div className={`${classPrefix}-date-picker__panel--${mode}`}>
