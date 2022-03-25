@@ -83,6 +83,7 @@ const Select = forwardRefWithStatics(
 
     const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
     const { classPrefix } = useConfig();
+    const { overlayClassName, ...restPopupProps } = popupProps || {};
 
     const name = `${classPrefix}-select`; // t-select
 
@@ -349,8 +350,8 @@ const Select = forwardRefWithStatics(
           minCollapsedNum={minCollapsedNum}
           collapsedItems={renderCollapsedItems}
           popupProps={{
-            overlayClassName: [`${name}__dropdown`, ['narrow-scrollbar']],
-            ...popupProps,
+            overlayClassName: [`${name}__dropdown`, ['narrow-scrollbar'], overlayClassName],
+            ...restPopupProps,
           }}
           popupVisible={showPopup}
           onPopupVisibleChange={onPopupVisibleChange || handleShowPopup}
