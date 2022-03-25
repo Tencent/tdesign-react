@@ -6,6 +6,7 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-multiple-borderless {
   width: 100%;
+  display: block;
 }
 .tdesign-demo__pannel-options-multiple-borderless .t-checkbox {
   display: block;
