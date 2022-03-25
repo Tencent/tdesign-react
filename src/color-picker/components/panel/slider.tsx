@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '../../const';
 import Draggable, { Coordinate } from '../../utils/draggable';
@@ -33,39 +33,34 @@ const ColorSlider = (props: TdColorSliderProps) => {
     };
   };
 
-  const handleDrag = useCallback(
-    (coordinate: Coordinate, isEnded?: boolean) => {
-      if (disabled) {
-        return;
-      }
-      const { width } = panelRectRef.current;
-      const { x } = coordinate;
-      const value = Math.round((x / width) * Number(maxValue) * 100) / 100;
-      isMovedRef.current = true;
-      console.log('====hue', value, isEnded);
-      onChange(value, isEnded);
-    },
-    [disabled, maxValue, onChange],
-  );
+  const handleDrag = (coordinate: Coordinate, isEnded?: boolean) => {
+    if (disabled) {
+      return;
+    }
+    const { width } = panelRectRef.current;
+    const { x } = coordinate;
+    const value = Math.round((x / width) * Number(maxValue) * 100) / 100;
+    isMovedRef.current = true;
+    onChange(value, isEnded);
+  };
 
-  const handleDragEnd = useCallback(
-    (coordinate: Coordinate) => {
-      if (disabled || !isMovedRef.current) {
-        return;
-      }
-      handleDrag(coordinate, true);
-      isMovedRef.current = false;
-    },
-    [disabled, handleDrag],
-  );
+  const handleDragEnd = (coordinate: Coordinate) => {
+    if (disabled || !isMovedRef.current) {
+      return;
+    }
+
+    handleDrag(coordinate, true);
+    isMovedRef.current = false;
+  };
 
   useEffect(() => {
     panelRectRef.current.width = panelRef.current.offsetWidth || SLIDER_DEFAULT_WIDTH;
     dragInstance.current = new Draggable(panelRef.current, {
-      start() {
+      start(coordinate: Coordinate) {
         // pop模式下由于是隐藏显示，这个宽度让其每次点击的时候重新计算
         panelRectRef.current.width = panelRef.current.offsetWidth;
         isMovedRef.current = false;
+        handleDrag(coordinate, false);
       },
       drag: (coordinate: Coordinate) => {
         handleDrag(coordinate);
@@ -73,7 +68,8 @@ const ColorSlider = (props: TdColorSliderProps) => {
       end: handleDragEnd,
     });
     return () => dragInstance.current.destroy();
-  }, [handleDrag, handleDragEnd]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={classnames(`${baseClassName}__slider`, className)} ref={panelRef}>

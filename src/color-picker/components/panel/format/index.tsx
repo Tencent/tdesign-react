@@ -23,7 +23,7 @@ const FormatPanel = (props: TdColorFormatProps) => {
   };
 
   const formats: TdColorPickerProps['format'][] = [...FORMATS];
-  console.log('===selectInputProps', selectInputProps);
+
   return (
     <div className={`${baseClassName}__format`}>
       <div className={`${baseClassName}__format--item`}>
