@@ -6,6 +6,7 @@ import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassname from '../../hooks/useClassname';
 import PanelHeader from './header';
 import Color, { getColorObject } from '../../utils/color';
+import { GradientColorPoint } from '../../utils/gradient';
 import {
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
@@ -142,6 +143,44 @@ const Panel = (props: ColorPickerProps) => {
     });
   };
 
+  /**
+   * 透明度变化
+   * @param alpha
+   */
+  const handleAlphaChange = (alpha: number, addUsedColor?: boolean) => {
+    colorInstanceRef.current.alpha = alpha;
+    emitColorChange('palette-alpha-bar', addUsedColor);
+  };
+
+  /**
+   * 渐变改变
+   * @param param0
+   */
+  const handleGradientChange = ({
+    key,
+    payload,
+    addUsedColor,
+  }: {
+    key: 'degree' | 'selectedId' | 'colors';
+    payload: number | string | GradientColorPoint[];
+    addUsedColor?: boolean;
+  }) => {
+    let trigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
+    switch (key) {
+      case 'degree':
+        colorInstanceRef.current.gradientDegree = payload as number;
+        trigger = 'input';
+        break;
+      case 'selectedId':
+        colorInstanceRef.current.gradientSelectedId = payload as string;
+        break;
+      case 'colors':
+        colorInstanceRef.current.gradientColors = payload as GradientColorPoint[];
+        break;
+    }
+    emitColorChange(trigger, addUsedColor);
+  };
+
   // format选择格式变化
   const handleFormatModeChange = (format: TdColorPickerProps['format']) => (formatRef.current = format);
 
@@ -230,10 +269,10 @@ const Panel = (props: ColorPickerProps) => {
     >
       <PanelHeader {...props} baseClassName={baseClassName} mode={mode} onModeChange={handleModeChange} />
       <div className={`${baseClassName}__body`}>
-        {mode === 'linear-gradient' && <LinearGradient />}
+        {mode === 'linear-gradient' && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
         <SaturationPanel {...baseProps} onChange={handleSaturationChange} />
         <HUESlider {...baseProps} onChange={handleHUEChange} />
-        {enableAlpha && <AlphaSlider />}
+        {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
         <FormatPanel
           {...props}
           {...baseProps}
