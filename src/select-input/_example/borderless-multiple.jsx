@@ -90,7 +90,7 @@ export default function SelectInputMultiple() {
   }, []);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '60%' }}>
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={value}
