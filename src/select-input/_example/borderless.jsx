@@ -68,7 +68,7 @@ export default function SelectInputSingle() {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: '60%' }}>
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={selectValue}
@@ -82,7 +82,7 @@ export default function SelectInputSingle() {
           <ul className="tdesign-demo__selet-input-ul-borderless">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item.label }
+                <img src="/favicon.ico" /> {item.label}
               </li>
             ))}
           </ul>
