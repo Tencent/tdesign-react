@@ -147,6 +147,10 @@ export interface TdFormItemProps {
    */
   help?: TNode;
   /**
+   * 表单项补充信息（可操作获得的更多信息）
+   */
+  info?: TNode;
+  /**
    * 表单初始数据，重置时所需初始数据
    */
   initialData?: InitialData;

@@ -68,6 +68,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     label,
     name,
     help,
+    info,
     initialData,
     className,
     successBorder,
@@ -94,7 +95,8 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${name}`]: name,
     [`${classPrefix}-form__item-with-help`]: help,
-    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
+    [`${classPrefix}-form__item-with-info`]: info,
+    [`${classPrefix}-form__item-with-extra`]: renderHelpTips(),
   });
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
     [`${classPrefix}-form__label--required`]:
@@ -135,7 +137,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
   }
 
-  function renderTipsInfo() {
+  function renderHelpTips() {
     let helpNode = null;
     if (help) helpNode = <div className={`${classPrefix}-form__help`}>{renderTNode(help)}</div>;
 
@@ -148,6 +150,10 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     }
 
     return helpNode;
+  }
+
+  function renderInfoTips() {
+    return info ? <span className={`${classPrefix}-form__info`}>{info}</span> : null;
   }
 
   const renderSuffixIcon = () => {
@@ -342,6 +348,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
+          {labelAlign === 'top' ? renderInfoTips() : null}
         </div>
       )}
       <div className={contentClass()} style={contentStyle}>
@@ -387,8 +394,9 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
             return child;
           })}
           {renderSuffixIcon()}
+          {labelAlign !== 'top' ? renderInfoTips() : null}
         </div>
-        {renderTipsInfo()}
+        {renderHelpTips()}
       </div>
     </div>
   );
