@@ -2,7 +2,7 @@ import React from 'react';
 import isString from 'lodash/isString';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon } from 'tdesign-icons-react';
-import Button from '../button/Button';
+import Button from '../button';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import { PopConfirmProps } from './PopConfirm';
