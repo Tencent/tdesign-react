@@ -75,7 +75,7 @@ export default function useSingle(props: TdSelectInputProps) {
       <Input
         ref={inputRef}
         {...commonInputProps}
-        autoWidth={props.borderless || props.autoWidth}
+        autoWidth={props.autoWidth}
         placeholder={singleValueDisplay ? '' : props.placeholder}
         value={singleValueDisplay ? undefined : displayedValue}
         label={
