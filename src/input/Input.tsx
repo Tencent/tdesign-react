@@ -46,6 +46,7 @@ const Input = forwardRefWithStatics(
       status,
       size,
       className,
+      inputClass,
       style,
       prefixIcon,
       suffixIcon,
@@ -147,12 +148,13 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(className, `${classPrefix}-input`, {
+        className={classNames(inputClass, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
           [`${classPrefix}-is-${status}`]: status,
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
@@ -288,7 +290,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(`${classPrefix}-input__wrap`, {
+        className={classNames(className, `${classPrefix}-input__wrap`, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         {...restProps}

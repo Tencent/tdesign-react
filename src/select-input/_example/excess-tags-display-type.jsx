@@ -5,10 +5,12 @@ const classStyles = `
 <style>
 .tdesign-demo__pannel-options-excess {
   width: 100%;
+  display: block;
+  padding: 12px
 }
 .tdesign-demo__pannel-options-excess .t-checkbox {
   display: block;
-  margin: 12px;
+  width: 100%
 }
 </style>
 `;
@@ -94,15 +96,19 @@ export default function SelectInputExcessTagsDisplayType() {
         clearable
         multiple
         onTagChange={onTagChange}
-        panel={<Checkbox.Group
-          value={checkboxValue}
-          options={options}
-          className="tdesign-demo__pannel-options-excess"
-          onChange={onCheckedChange}
-        />}
+        panel={
+          <Checkbox.Group
+            value={checkboxValue}
+            options={options}
+            className="tdesign-demo__pannel-options-excess"
+            onChange={onCheckedChange}
+          />
+        }
       ></SelectInput>
 
-      <br /><br /><br />
+      <br />
+      <br />
+      <br />
 
       {/* <!-- excessTagsDisplayType: 'scroll'，超出时，换行显示 --> */}
       <p>第二种呈现方式：超出时换行显示</p>
@@ -115,12 +121,14 @@ export default function SelectInputExcessTagsDisplayType() {
         clearable
         multiple
         onTagChange={onTagChange}
-        panel={<Checkbox.Group
-          value={checkboxValue}
-          options={options}
-          className="tdesign-demo__pannel-options-excess"
-          onChange={onCheckedChange}
-        />}
+        panel={
+          <Checkbox.Group
+            value={checkboxValue}
+            options={options}
+            className="tdesign-demo__pannel-options-excess"
+            onChange={onCheckedChange}
+          />
+        }
       ></SelectInput>
     </div>
   );

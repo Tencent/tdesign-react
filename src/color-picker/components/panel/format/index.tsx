@@ -23,11 +23,13 @@ const FormatPanel = (props: TdColorFormatProps) => {
   };
 
   const formats: TdColorPickerProps['format'][] = [...FORMATS];
-  console.log('===selectInputProps', selectInputProps);
+
   return (
     <div className={`${baseClassName}__format`}>
       <div className={`${baseClassName}__format--item`}>
         <Select
+          size="medium"
+          className={`${baseClassName}__format-mode-select`}
           {...selectInputProps}
           popupProps={{
             overlayClassName: `${baseClassName}__select-options`,

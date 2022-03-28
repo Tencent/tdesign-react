@@ -1246,7 +1246,7 @@ exports[`disabled.jsx 1`] = `
                   class="t-input__wrap"
                 >
                   <div
-                    class="t-is-disabled t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"

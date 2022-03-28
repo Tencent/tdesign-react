@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import noop from './noop';
 
 export interface ChangeHandler<T, P extends any[]> {
@@ -14,19 +14,19 @@ export default function useDefault<T, P extends any[]>(
   const [internalValue, setInternalValue] = useState(defaultValue);
 
   // 响应手动赋值 undefined, 跳过初始化阶段
-  const isMounted = useRef(false);
-  useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      return;
-    }
+  // const isMounted = useRef(false);
+  // useEffect(() => {
+  //   if (!isMounted.current) {
+  //     isMounted.current = true;
+  //     return;
+  //   }
 
-    setInternalValue(value);
+  //   setInternalValue(value);
 
-    return () => {
-      isMounted.current = false;
-    };
-  }, [value]);
+  //   return () => {
+  //     isMounted.current = false;
+  //   };
+  // }, [value]);
 
   // 受控模式
   if (typeof value !== 'undefined') {
