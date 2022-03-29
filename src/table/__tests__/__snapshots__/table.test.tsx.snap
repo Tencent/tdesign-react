@@ -949,7 +949,7 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
-                  placeholder="请输入"
+                  placeholder=""
                   value=""
                 />
               </div>
@@ -3013,7 +3013,7 @@ exports[`filter-controlled.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
-                    placeholder="请输入"
+                    placeholder=""
                     value=""
                   />
                 </div>
@@ -7561,7 +7561,7 @@ exports[`pagination.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
-                  placeholder="请输入"
+                  placeholder=""
                   value=""
                 />
               </div>
@@ -7862,7 +7862,7 @@ exports[`pagination-ajax.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
-                  placeholder="请输入"
+                  placeholder=""
                   value=""
                 />
               </div>
