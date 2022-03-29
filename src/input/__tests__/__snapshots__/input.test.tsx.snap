@@ -218,6 +218,7 @@ exports[`align.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="居左对齐"
         />
       </div>
@@ -230,6 +231,7 @@ exports[`align.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="居中对齐"
         />
       </div>
@@ -242,6 +244,7 @@ exports[`align.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="居右对齐"
         />
       </div>
@@ -264,6 +267,7 @@ exports[`auto-width.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           style="width: 0px;"
           value="宽度自适应"
         />
@@ -349,6 +353,7 @@ exports[`disabled.jsx 1`] = `
         <input
           class="t-input__inner"
           disabled=""
+          placeholder="请输入"
           value="禁用状态"
         />
       </div>
@@ -396,6 +401,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="0731"
           />
         </div>
@@ -408,6 +414,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="12345677"
           />
         </div>
@@ -424,6 +431,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value=""
           />
         </div>
@@ -436,6 +444,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value=""
           />
         </div>
@@ -453,6 +462,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="0731"
           />
         </div>
@@ -471,6 +481,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="12345"
           />
         </div>
@@ -484,6 +495,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="678901"
           />
         </div>
@@ -497,6 +509,7 @@ exports[`group.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value=""
           />
         </div>
@@ -520,6 +533,7 @@ exports[`max-length-count.jsx 1`] = `
         <input
           class="t-input__inner"
           maxlength="5"
+          placeholder="请输入"
           value=""
         />
         <div
