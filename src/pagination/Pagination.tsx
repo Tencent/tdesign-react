@@ -322,6 +322,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
             disabled={disabled}
             onChange={onPageInputChange}
             onKeyup={onPageInputKeyUp}
+            placeholder=""
           />
           {t(locale.page)}
         </div>
