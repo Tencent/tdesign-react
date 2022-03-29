@@ -26,7 +26,7 @@ export default function BaseForm() {
         <FormItem name="password">
           <Input type="password" prefixIcon={<LockOnIcon />} clearable={true} placeholder="请输入密码" />
         </FormItem>
-        <FormItem statusIcon={false}>
+        <FormItem>
           <Button theme="primary" type="submit" block>
             登录
           </Button>
