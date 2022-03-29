@@ -138,18 +138,20 @@ const Loading: FC<LoadingProps> = (props) => {
   if (attach) {
     return (
       <Portal attach={attach}>
-        <div className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })} style={calcStyles}>
-          {commonContent()}
-        </div>
+        {loading ? (
+          <div className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })} style={calcStyles}>
+            {commonContent()}
+          </div>
+        ) : null}
       </Portal>
     );
   }
 
-  return (
+  return loading ? (
     <div className={classnames(name, baseClasses)} style={calcStyles}>
       {commonContent()}
     </div>
-  );
+  ) : null;
 };
 
 export default Loading;
