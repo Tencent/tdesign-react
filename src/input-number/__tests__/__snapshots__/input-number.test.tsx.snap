@@ -34,6 +34,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="100"
           />
         </div>
@@ -86,6 +87,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="200"
           />
         </div>
@@ -138,6 +140,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="300"
           />
         </div>
@@ -172,6 +175,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="100"
           />
         </div>
@@ -188,6 +192,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="200"
           />
         </div>
@@ -204,6 +209,7 @@ exports[`align.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="300"
           />
         </div>
@@ -244,6 +250,7 @@ exports[`auto-width.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           style="width: 0px;"
           value="1"
         />
@@ -307,6 +314,7 @@ exports[`center.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="1"
         />
       </div>
@@ -364,6 +372,7 @@ exports[`default.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="1"
         />
       </div>
@@ -422,6 +431,7 @@ exports[`format.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="0%"
         />
       </div>
@@ -479,6 +489,7 @@ exports[`left.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="5"
         />
       </div>
@@ -518,6 +529,7 @@ exports[`normal.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="10"
         />
       </div>
@@ -563,6 +575,7 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="3"
             />
           </div>
@@ -615,6 +628,7 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="6"
             />
           </div>
@@ -667,6 +681,7 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="9"
             />
           </div>
@@ -723,6 +738,7 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="5"
             />
           </div>
@@ -775,6 +791,7 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="10"
             />
           </div>
@@ -859,6 +876,7 @@ exports[`status.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     disabled=""
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -934,6 +952,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     readonly=""
                     value="3"
                   />
@@ -1010,6 +1029,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1085,6 +1105,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1160,6 +1181,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1235,6 +1257,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1310,6 +1333,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1390,6 +1414,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1470,6 +1495,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1550,6 +1576,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1630,6 +1657,7 @@ exports[`status.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder="请输入"
                     value="3"
                   />
                 </div>
@@ -1697,6 +1725,7 @@ exports[`step.jsx 1`] = `
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           value="3.2"
         />
       </div>

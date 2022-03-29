@@ -9,6 +9,7 @@ import { TdInputProps, InputValue } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -38,10 +39,12 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
+    // 国际化文本初始化
+    const [local, t] = useLocaleReceiver('input');
     const {
       type,
       autoWidth,
-      placeholder,
+      placeholder = t(local.placeholder),
       disabled,
       status,
       size,
