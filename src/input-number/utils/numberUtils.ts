@@ -40,5 +40,5 @@ export const strToNumber = (s: string): number => {
     filterVal = filterVal.substr(0, filterVal.length - 1);
   }
 
-  return filterVal.endsWith('.') ? NaN : Number(filterVal);
+  return Number(filterVal);
 };
