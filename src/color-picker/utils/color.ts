@@ -28,7 +28,7 @@ const hsv2hsla = (states: ColorStates): tinyColor.ColorFormats.HSLA => tinyColor
  * @param object
  * @returns
  */
-const gradientColors2string = (object: GradientColors): string => {
+export const gradientColors2string = (object: GradientColors): string => {
   const { points, degree } = object;
   const colorsStop = points
     .sort((pA, pB) => pA.left - pB.left)
@@ -88,8 +88,10 @@ export class Color {
     }
     this.originColor = input;
     this.isGradient = false;
+
     const gradientColors = parseGradientString(input);
     let colorInput = input;
+
     if (gradientColors) {
       this.isGradient = true;
       const object = gradientColors as GradientColors;

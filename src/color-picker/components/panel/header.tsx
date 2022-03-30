@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
 import { COLOR_MODES } from '../../const';
@@ -15,15 +15,9 @@ export interface ColorPanelHeaderProps extends TdColorPickerProps {
 
 const Header = (props: ColorPanelHeaderProps) => {
   const { baseClassName, mode = 'monochrome', colorModes, togglePopup, closeBtn, onModeChange } = props;
-  const [modeValue, setModeValue] = useState<TdColorModes>(mode);
 
   const handleClosePopup = () => {
     togglePopup?.(false);
-  };
-
-  const handleModeChange = (v: TdColorModes) => {
-    setModeValue(v);
-    onModeChange(v);
   };
 
   return (
@@ -32,7 +26,7 @@ const Header = (props: ColorPanelHeaderProps) => {
         {colorModes?.length === 1 ? (
           COLOR_MODES[colorModes[0]]
         ) : (
-          <Radio.Group variant="default-filled" size="small" value={modeValue} onChange={handleModeChange}>
+          <Radio.Group variant="default-filled" size="small" value={mode} onChange={onModeChange}>
             {Object.keys(COLOR_MODES).map((key) => (
               <Radio.Button key={key} value={key}>
                 {COLOR_MODES[key]}

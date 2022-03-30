@@ -7,7 +7,7 @@ import { FORMAT_INPUT_CONFIG } from './config';
 
 const FormatInputs = (props) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;
-  const formatValue = useRef({});
+  const formatValue = useRef<any>({});
   const lastModelValue = useRef({});
 
   // 获取不同格式的输入输出值
@@ -65,8 +65,6 @@ const FormatInputs = (props) => {
     }
     return configs;
   };
-
-  console.log('===formatValue.current', formatValue.current);
 
   const handleInputChange = (key: string, v: number | string) => {
     if (v === lastModelValue[key]) {

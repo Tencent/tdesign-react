@@ -3,8 +3,8 @@ import { cloneDeep } from 'lodash';
 
 import classNames from 'classnames';
 import useClassname from '../../hooks/useClassname';
-import { genGradientPoint } from '../../utils/color';
-import { GradientColorPoint } from '../../utils/gradient';
+import { genGradientPoint, gradientColors2string } from '../../utils/color';
+import parseGradientString, { GradientColorPoint, GradientColors } from '../../utils/gradient';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../const';
 import InputNumber from '../../../input-number';
@@ -103,7 +103,7 @@ const LinearGradient = (props) => {
   );
 
   // 移动开始
-  const handleStart = (id: string, e: MouseEvent) => {
+  const handleStart = (id: string, e: ReactMouseEvent) => {
     const rect = refSlider.current.getBoundingClientRect();
     setSliderRect({
       left: rect.left,
@@ -128,11 +128,17 @@ const LinearGradient = (props) => {
       if (!isDragging.current || disabled) {
         return;
       }
-      const left = e.clientX - sliderRect.left;
+
+      const rect = refSlider.current.getBoundingClientRect();
+      const left = e.clientX - rect.left;
+      setSliderRect({
+        left: rect.left,
+        width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
+      });
       isMoved.current = true;
       updateActiveThumbLeft(left);
     },
-    [disabled, sliderRect, updateActiveThumbLeft],
+    [disabled, updateActiveThumbLeft],
   );
 
   // 移动结束
@@ -203,6 +209,11 @@ const LinearGradient = (props) => {
 
   const { linearGradient } = props.color;
 
+  const linearGradientWithoutDegree = gradientColors2string({
+    ...(parseGradientString(linearGradient) as GradientColors),
+    degree: 90,
+  });
+
   return (
     <div className={`${baseClassName}__gradient`}>
       <div className={`${baseClassName}__gradient-slider`}>
@@ -216,7 +227,7 @@ const LinearGradient = (props) => {
             className="gradient-thumbs"
             onClick={handleThumbBarClick}
             style={{
-              background: linearGradient,
+              background: linearGradientWithoutDegree,
             }}
           >
             {colors.current.map((t) => {
@@ -251,7 +262,7 @@ const LinearGradient = (props) => {
           max={360}
           step={1}
           format={(value: number) => `${value}°`}
-          v-model={degree}
+          value={degree.current}
           onBlur={handleDegreeChange}
           onEnter={handleDegreeChange}
           disabled={props.disabled}
