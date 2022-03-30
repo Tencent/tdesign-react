@@ -70,6 +70,7 @@ exports[`hide-clear-button.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />
@@ -152,6 +153,7 @@ exports[`hide-clear-button.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />
@@ -331,6 +333,7 @@ exports[`keyboard.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />

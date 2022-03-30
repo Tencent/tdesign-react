@@ -125,7 +125,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
 
   let labelStyle = {};
   let contentStyle = {};
-  if (labelWidth && labelAlign !== 'top') {
+  if (label && labelWidth && labelAlign !== 'top') {
     if (typeof labelWidth === 'number') {
       labelStyle = { width: `${labelWidth}px` };
       contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
@@ -313,6 +313,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }, [formValue]);
 
   useEffect(() => {
+    if (!name) return;
     formItemsRef.current.push(currentFormItemRef);
 
     return () => {
@@ -323,7 +324,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [name]);
 
   // 暴露 ref 实例方法
   useImperativeHandle(currentFormItemRef, (): any => ({

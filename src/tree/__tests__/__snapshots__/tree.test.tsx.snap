@@ -324,6 +324,7 @@ exports[`controlled.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="1.1.1.1, 1.1.1.2"
           />
         </div>
@@ -345,6 +346,7 @@ exports[`controlled.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="1, 1.1, 1.1.1, 2"
           />
         </div>
@@ -366,6 +368,7 @@ exports[`controlled.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="2"
           />
         </div>
@@ -708,6 +711,7 @@ exports[`filter.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value=""
           />
         </div>
@@ -998,6 +1002,7 @@ exports[`operations.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value=""
             />
           </div>
@@ -1213,6 +1218,7 @@ exports[`sync.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="{1.1.1.1}, {1.1.1.2}"
           />
         </div>
@@ -1234,6 +1240,7 @@ exports[`sync.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="{1}, {1.1}, {1.1.1}, {2}"
           />
         </div>
@@ -1255,6 +1262,7 @@ exports[`sync.jsx 1`] = `
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             value="{2}"
           />
         </div>

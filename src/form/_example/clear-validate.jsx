@@ -120,7 +120,7 @@ export default function BaseForm() {
       <FormItem label="个人网站" name="content.url">
         <Input />
       </FormItem>
-      <FormItem style={{ paddingTop: 8 }}>
+      <FormItem style={{ marginLeft: 100 }}>
         <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
           提交
         </Button>
