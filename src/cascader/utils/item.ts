@@ -21,7 +21,7 @@ export function getNodeStatusClass(node: TreeNode, CLASSNAMES: any, cascaderCont
 
   const isLeaf = node.isLeaf();
 
-  const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
+  const isDisabled = node.disabled || (multiple && value && (value as TreeNodeValue[]).length >= max && max !== 0);
 
   const isSelected = node.checked || (multiple && !checkStrictly && node.expanded && !isLeaf);
 
