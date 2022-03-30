@@ -35,12 +35,10 @@ export const strToNumber = (s: string): number => {
   if (['', undefined].includes(s)) {
     return 0;
   }
-
   let filterVal = s.replace(/[^\d.eE。-]/g, '').replace('。', '.');
-
   if (multiE(filterVal) || multiDot(filterVal) || multiNegative(filterVal)) {
     filterVal = filterVal.substr(0, filterVal.length - 1);
   }
 
-  return Number(filterVal);
+  return filterVal.endsWith('.') ? NaN : Number(filterVal);
 };

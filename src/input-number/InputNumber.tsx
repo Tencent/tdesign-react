@@ -144,7 +144,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
-      if (!checkInput(inputStr)) return;
+      return;
     }
 
     setInputValue(filteredInputStr.toString());
