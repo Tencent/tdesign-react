@@ -140,11 +140,14 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       setInputValue(inputStr);
       return triggerValueUpdate({ type: 'input', value: undefined, e });
     }
-
+    if (inputStr.endsWith('.')) {
+      setInternalInputValue(inputStr);
+      return;
+    }
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
-      return;
+      if (!checkInput(inputStr)) return;
     }
 
     setInputValue(filteredInputStr.toString());
