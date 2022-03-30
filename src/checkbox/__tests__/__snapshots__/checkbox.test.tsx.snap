@@ -771,6 +771,7 @@ exports[`max.jsx 1`] = `
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
               value="1"
             />
           </div>
