@@ -47,7 +47,7 @@ export default function BaseForm() {
         <FormItem label="课程" name="course" initialData={['1']}>
           <Checkbox.Group options={courseOptions}></Checkbox.Group>
         </FormItem>
-        <FormItem style={{ paddingTop: 8 }}>
+        <FormItem style={{ marginLeft: 100 }}>
           <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
             提交
           </Button>
