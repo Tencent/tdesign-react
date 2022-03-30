@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useDefault from '../../../_util/useDefault';
@@ -37,7 +37,16 @@ const Panel = (props: ColorPickerProps) => {
     swatchColors,
   } = props;
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
-  const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
+  const colorInstanceRef = useRef<Color>(new Color(defaultValue || DEFAULT_COLOR));
+
+  useEffect(() => {
+    colorInstanceRef.current.update(defaultValue || DEFAULT_COLOR);
+  }, [defaultValue]);
+
+  useEffect(() => {
+    colorInstanceRef.current.update(innerValue || DEFAULT_COLOR);
+  }, [innerValue]);
+
   const [mode, setMode] = useState<TdColorModes>(
     colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome',
   );
@@ -58,12 +67,12 @@ const Panel = (props: ColorPickerProps) => {
 
   const handleModeChange = (value: TdColorModes) => {
     setMode(value);
-    const { rgba, update, gradientColors, linearGradient } = colorInstanceRef.current;
+    const { rgba, gradientColors, linearGradient } = colorInstanceRef.current;
     if (value === 'linear-gradient') {
-      update(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
+      colorInstanceRef.current = new Color(gradientColors.length > 0 ? linearGradient : DEFAULT_LINEAR_GRADIENT);
       return;
     }
-    update(rgba);
+    colorInstanceRef.current = new Color(rgba);
   };
 
   const formatValue = () => {
@@ -71,6 +80,7 @@ const Panel = (props: ColorPickerProps) => {
     if (mode === 'linear-gradient') {
       return colorInstanceRef.current.linearGradient;
     }
+
     return colorInstanceRef.current.getFormatsColorMap()[format] || colorInstanceRef.current.css;
   };
 
@@ -150,6 +160,9 @@ const Panel = (props: ColorPickerProps) => {
   const handleAlphaChange = (alpha: number, addUsedColor?: boolean) => {
     colorInstanceRef.current.alpha = alpha;
     emitColorChange('palette-alpha-bar', addUsedColor);
+    onPaletteBarChange?.({
+      color: getColorObject(colorInstanceRef.current),
+    });
   };
 
   /**
@@ -221,6 +234,7 @@ const Panel = (props: ColorPickerProps) => {
       if (isGradientValue) {
         if (props.colorModes.includes('linear-gradient')) {
           setMode('linear-gradient');
+
           color.update(value);
           color.updateCurrentGradientColor();
         } else {
