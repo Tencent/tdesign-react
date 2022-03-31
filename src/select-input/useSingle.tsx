@@ -75,7 +75,7 @@ export default function useSingle(props: TdSelectInputProps) {
       <Input
         ref={inputRef}
         {...commonInputProps}
-        autoWidth={props.borderless || props.autoWidth}
+        autoWidth={props.autoWidth}
         placeholder={singleValueDisplay ? '' : props.placeholder}
         value={singleValueDisplay ? undefined : displayedValue}
         label={
@@ -94,8 +94,11 @@ export default function useSingle(props: TdSelectInputProps) {
           props.onFocus?.(value, { ...context, inputValue: val });
           !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
         }}
+        onEnter={(val, context) => {
+          props.onEnter?.(value, { ...context, inputValue: val });
+        }}
         {...props.inputProps}
-        className={classNames(props.inputProps?.className, {
+        inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
         })}
       />

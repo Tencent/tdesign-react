@@ -644,6 +644,7 @@ exports[`operation.jsx 1`] = `
                       >
                         <input
                           class="t-input__inner"
+                          placeholder="请输入"
                           value=""
                         />
                       </div>
@@ -677,6 +678,7 @@ exports[`operation.jsx 1`] = `
                       >
                         <input
                           class="t-input__inner"
+                          placeholder="请输入"
                           value=""
                         />
                       </div>

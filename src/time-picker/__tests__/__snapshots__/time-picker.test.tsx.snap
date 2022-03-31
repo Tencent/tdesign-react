@@ -6,13 +6,13 @@ exports[`disabled.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-is-disabled t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-is-disabled t-input--suffix"
+          class="t-input t-is-readonly t-is-disabled t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -60,16 +60,17 @@ exports[`hide-clear-button.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />
@@ -142,16 +143,17 @@ exports[`hide-clear-button.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />
@@ -223,13 +225,13 @@ exports[`hm.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -272,13 +274,13 @@ exports[`hms.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -321,16 +323,17 @@ exports[`keyboard.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
+            placeholder="请输入"
             readonly=""
             value=" "
           />
@@ -402,10 +405,10 @@ exports[`range.jsx 1`] = `
       class="t-time-picker"
     >
       <div
-        class="t-input__wrap"
+        class="t-time-picker__group t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -448,13 +451,13 @@ exports[`show-steps.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"
@@ -497,13 +500,13 @@ exports[`twelve-hour-meridian.jsx 1`] = `
     class="t-popup__reference"
   >
     <div
-      class="t-time-picker"
+      class="t-time-picker t-time-picker__group"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-time-picker__group t-input t-is-readonly t-input--suffix"
+          class="t-input t-is-readonly t-input--suffix"
         >
           <input
             class="t-input__inner"

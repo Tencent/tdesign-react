@@ -9,6 +9,7 @@ import { TdInputProps, InputValue } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
 import useDefaultValue from '../_util/useDefaultValue';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -38,14 +39,17 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
+    // 国际化文本初始化
+    const [local, t] = useLocaleReceiver('input');
     const {
       type,
       autoWidth,
-      placeholder,
+      placeholder = t(local.placeholder),
       disabled,
       status,
       size,
       className,
+      inputClass,
       style,
       prefixIcon,
       suffixIcon,
@@ -98,7 +102,7 @@ const Input = forwardRefWithStatics(
 
     if (isShowClearIcon)
       suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
-    if (type === 'password') {
+    if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (
           <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
@@ -116,6 +120,10 @@ const Input = forwardRefWithStatics(
       if (!autoWidth) return;
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
+
+    useEffect(() => {
+      setRenderType(type);
+    }, [type]);
 
     const renderInput = (
       <input
@@ -143,7 +151,7 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(className, `${classPrefix}-input`, {
+        className={classNames(inputClass, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
@@ -284,7 +292,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(`${classPrefix}-input__wrap`, {
+        className={classNames(className, `${classPrefix}-input__wrap`, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         {...restProps}

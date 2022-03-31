@@ -93,6 +93,7 @@ exports[`align.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -126,6 +127,7 @@ exports[`align.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -169,6 +171,7 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -419,8 +422,74 @@ exports[`base.jsx 1`] = `
       class="t-form__item"
     >
       <div
+        class="t-form__label t-form__label--colon t-form__label--right"
+        style="width: 100px;"
+      >
+        <label
+          for="custom"
+        >
+          自定义内容
+        </label>
+      </div>
+      <div
         class="t-form__controls"
         style="margin-left: 100px;"
+      >
+        <div
+          class="t-form__controls-content"
+        >
+          <div
+            style="display: flex; gap: 8px;"
+          >
+            <div
+              class="t-form__item t-form-item__custom"
+            >
+              <div
+                class="t-form__controls"
+              >
+                <div
+                  class="t-form__controls-content"
+                >
+                  <div
+                    class="t-input__wrap"
+                  >
+                    <div
+                      class="t-input"
+                    >
+                      <input
+                        class="t-input__inner"
+                        placeholder="请输入"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="t-popup__reference"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-text"
+                type="button"
+              >
+                <span
+                  class="t-button__text"
+                >
+                  文字链
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-form__item"
+      style="margin-left: 100px;"
+    >
+      <div
+        class="t-form__controls"
       >
         <div
           class="t-form__controls-content"
@@ -484,6 +553,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -522,6 +592,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -560,6 +631,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 type="password"
                 value=""
               />
@@ -616,6 +688,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -872,6 +945,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -905,6 +979,7 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -914,11 +989,10 @@ exports[`clear-validate.jsx 1`] = `
     </div>
     <div
       class="t-form__item"
-      style="padding-top: 8px;"
+      style="margin-left: 100px;"
     >
       <div
         class="t-form__controls"
-        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls-content"
@@ -1005,6 +1079,7 @@ exports[`custom-validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -1038,6 +1113,7 @@ exports[`custom-validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -1071,6 +1147,7 @@ exports[`custom-validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -1080,10 +1157,10 @@ exports[`custom-validator.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -1211,6 +1288,7 @@ exports[`disabled.jsx 1`] = `
                 <input
                   class="t-input__inner"
                   disabled=""
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -1246,7 +1324,7 @@ exports[`disabled.jsx 1`] = `
                   class="t-input__wrap"
                 >
                   <div
-                    class="t-is-disabled t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -1819,11 +1897,10 @@ exports[`disabled.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
-        style="padding-top: 8px;"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -1956,6 +2033,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -1994,6 +2072,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2032,6 +2111,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   type="password"
                   value=""
                 />
@@ -2088,6 +2168,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2344,6 +2425,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2377,6 +2459,7 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2386,11 +2469,10 @@ exports[`error-message.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
-        style="padding-top: 8px;"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -2512,6 +2594,7 @@ exports[`layout.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2544,6 +2627,7 @@ exports[`layout.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -2916,11 +3000,10 @@ exports[`reset.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
-        style="padding-top: 8px;"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -3256,7 +3339,6 @@ exports[`size.jsx 1`] = `
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -3701,11 +3783,10 @@ exports[`validate-complicated-data.jsx 1`] = `
             </div>
             <div
               class="t-form__item"
-              style="padding-top: 8px;"
+              style="margin-left: 100px;"
             >
               <div
                 class="t-form__controls"
-                style="margin-left: 100px;"
               >
                 <div
                   class="t-form__controls-content"
@@ -3992,11 +4073,10 @@ exports[`validate-complicated-data.jsx 1`] = `
             </div>
             <div
               class="t-form__item"
-              style="padding-top: 8px;"
+              style="margin-left: 100px;"
             >
               <div
                 class="t-form__controls"
-                style="margin-left: 100px;"
               >
                 <div
                   class="t-form__controls-content"
@@ -4064,6 +4144,7 @@ exports[`validate-message.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -4102,6 +4183,7 @@ exports[`validate-message.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 value=""
               />
             </div>
@@ -4140,6 +4222,7 @@ exports[`validate-message.jsx 1`] = `
             >
               <input
                 class="t-input__inner"
+                placeholder="请输入"
                 type="password"
                 value=""
               />
@@ -4172,10 +4255,10 @@ exports[`validate-message.jsx 1`] = `
     </div>
     <div
       class="t-form__item"
+      style="margin-left: 100px;"
     >
       <div
         class="t-form__controls"
-        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls-content"
@@ -4251,6 +4334,7 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value="张三"
                 />
               </div>
@@ -4289,6 +4373,7 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4327,6 +4412,7 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4518,6 +4604,7 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4551,6 +4638,7 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4560,10 +4648,10 @@ exports[`validator.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"
@@ -4629,6 +4717,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4667,6 +4756,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4700,6 +4790,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4767,6 +4858,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4862,6 +4954,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4924,6 +5017,7 @@ exports[`validator-status.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder="请输入"
                   value=""
                 />
               </div>
@@ -4962,10 +5056,10 @@ exports[`validator-status.jsx 1`] = `
       </div>
       <div
         class="t-form__item"
+        style="margin-left: 100px;"
       >
         <div
           class="t-form__controls"
-          style="margin-left: 100px;"
         >
           <div
             class="t-form__controls-content"

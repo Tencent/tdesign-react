@@ -73,7 +73,7 @@ const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, ha
       {...checkProps}
       checked={node.checked}
       indeterminate={node.indeterminate}
-      disabled={node.isDisabled() || ((value as TreeNodeValue[]).length >= max && max !== 0)}
+      disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
       name={node.value}
       onChange={handleChange}
     >

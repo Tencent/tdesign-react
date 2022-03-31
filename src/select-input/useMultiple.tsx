@@ -49,7 +49,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       ref={tagInputRef}
       {...p.commonInputProps}
       readonly={!props.allowInput || props.readonly}
-      autoWidth={props.borderless || props.autoWidth}
+      autoWidth={props.autoWidth}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
       tag={props.tag}
@@ -72,9 +72,11 @@ export default function useMultiple(props: TdSelectInputProps) {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
       {...props.tagInputProps}
-      className={classNames(props.tagInputProps?.className, {
-        [`${classPrefix}-input--focused`]: p.popupVisible,
-      })}
+      inputProps={{
+        inputClass: classNames(props.tagInputProps?.className, {
+          [`${classPrefix}-input--focused`]: p.popupVisible,
+        }),
+      }}
     />
   );
 
