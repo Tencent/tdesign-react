@@ -291,7 +291,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       {/* 极简版 */}
       {theme === 'simple' && (
         <div className={`${name}__select`}>
-          <Select size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
+          <Select autoWidth={true} size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
             {Array(pageCount)
               .fill(0)
               .map((_, i) => i + 1)
