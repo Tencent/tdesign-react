@@ -1,8 +1,12 @@
+import React from 'react';
 import { ColorObject, ColorPickerChangeTrigger, TdColorPickerProps } from '.';
 import { StyledProps } from '../common';
 import type { Color } from './utils/color';
 
-export interface ColorPickerProps extends TdColorPickerProps, StyledProps {}
+export interface ColorPickerProps extends TdColorPickerProps, StyledProps {
+  togglePopup: Function;
+  ref: React.MutableRefObject<HTMLDivElement>;
+}
 
 // color modes
 export type TdColorModes = 'monochrome' | 'linear-gradient';

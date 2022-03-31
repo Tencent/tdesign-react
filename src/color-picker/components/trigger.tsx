@@ -4,10 +4,11 @@ import { Input } from '../../input';
 import ColorLib from '../utils/color';
 import { TdColorPickerProps } from '..';
 import useClassname from '../hooks/useClassname';
+import { TdColorContext } from '../interface';
 
 export interface ColorTriggerProps extends TdColorPickerProps {
   color?: string;
-  onTriggerChange?: (v?: string) => {};
+  onTriggerChange?: (v?: string, context?: TdColorContext) => {};
 }
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {

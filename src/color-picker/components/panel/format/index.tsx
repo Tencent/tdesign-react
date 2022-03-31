@@ -14,7 +14,7 @@ export interface TdColorFormatProps extends TdColorPickerProps {
 }
 
 const FormatPanel = (props: TdColorFormatProps) => {
-  const { baseClassName, selectInputProps, format, onModeChange } = props;
+  const { baseClassName, format, onModeChange } = props;
   const [formatMode, setFormatMode] = useState(format);
 
   const handleModeChange = (v: TdColorPickerProps['format']) => {
@@ -30,7 +30,6 @@ const FormatPanel = (props: TdColorFormatProps) => {
         <Select
           size="medium"
           className={`${baseClassName}__format-mode-select`}
-          {...selectInputProps}
           popupProps={{
             overlayClassName: `${baseClassName}__select-options`,
           }}

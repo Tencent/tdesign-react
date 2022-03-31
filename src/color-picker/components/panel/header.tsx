@@ -2,14 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
 import { COLOR_MODES } from '../../const';
-import Radio from '../../../radio';
+import Radio, { RadioValue } from '../../../radio';
 import { TdColorModes } from '../../interface';
 import { TdColorPickerProps } from '../../type';
 
 export interface ColorPanelHeaderProps extends TdColorPickerProps {
   mode?: TdColorModes;
   togglePopup?: Function;
-  onModeChange?: Function;
+  onModeChange?: (value: RadioValue, context: { e: React.ChangeEvent<HTMLInputElement> }) => void;
   baseClassName?: string;
 }
 
