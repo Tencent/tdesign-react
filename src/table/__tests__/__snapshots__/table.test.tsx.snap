@@ -840,7 +840,7 @@ exports[`base.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -2914,7 +2914,7 @@ exports[`filter-controlled.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -7420,7 +7420,7 @@ exports[`pagination.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -7721,7 +7721,7 @@ exports[`pagination-ajax.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -9213,7 +9213,7 @@ exports[`tree.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -9774,7 +9774,7 @@ exports[`tree-select.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"

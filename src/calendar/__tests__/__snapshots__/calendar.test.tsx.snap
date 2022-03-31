@@ -27,7 +27,7 @@ exports[`base.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -81,7 +81,7 @@ exports[`base.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -767,7 +767,7 @@ exports[`card.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -821,7 +821,7 @@ exports[`card.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -1403,7 +1403,7 @@ exports[`cell.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1457,7 +1457,7 @@ exports[`cell.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -2261,7 +2261,7 @@ exports[`cell-append.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -2315,7 +2315,7 @@ exports[`cell-append.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -3302,7 +3302,7 @@ exports[`controller-config.jsx 1`] = `
                       class="t-input__wrap t-input--auto-width"
                     >
                       <div
-                        class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -3356,7 +3356,7 @@ exports[`controller-config.jsx 1`] = `
                       class="t-input__wrap t-input--auto-width"
                     >
                       <div
-                        class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                        class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                       >
                         <div
                           class="t-input__prefix"
@@ -3984,7 +3984,7 @@ exports[`event-props-api.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -4038,7 +4038,7 @@ exports[`event-props-api.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -4682,7 +4682,7 @@ exports[`events.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -4736,7 +4736,7 @@ exports[`events.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -5362,7 +5362,7 @@ exports[`filter.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -5416,7 +5416,7 @@ exports[`filter.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -6075,7 +6075,7 @@ exports[`first-day-of-week.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -6129,7 +6129,7 @@ exports[`first-day-of-week.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -6672,7 +6672,7 @@ exports[`head.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -6726,7 +6726,7 @@ exports[`head.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -7384,7 +7384,7 @@ exports[`mode.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -7694,7 +7694,7 @@ exports[`range.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -7748,7 +7748,7 @@ exports[`range.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -8357,7 +8357,7 @@ exports[`slot-props-api.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -8411,7 +8411,7 @@ exports[`slot-props-api.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -9215,7 +9215,7 @@ exports[`value.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -9269,7 +9269,7 @@ exports[`value.jsx 1`] = `
                 class="t-input__wrap t-input--auto-width"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -9877,7 +9877,7 @@ exports[`week.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -9931,7 +9931,7 @@ exports[`week.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
