@@ -98,7 +98,7 @@ export default function BaseForm() {
         >
           <Input />
         </FormItem>
-        <FormItem>
+        <FormItem style={{ marginLeft: 100 }}>
           <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
             提交
           </Button>

@@ -8,7 +8,7 @@ export default function InputExample() {
         <Input defaultValue="0731" style={{ width: 100 }} />
         <Input defaultValue="12345677" />
       </Input.Group>
-      <Input.Group seperate>
+      <Input.Group separate>
         <Input />
         <Input />
       </Input.Group>

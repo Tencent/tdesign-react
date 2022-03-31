@@ -33,6 +33,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
     filter,
     // onDataChange,
     onLoad,
+    allowFoldNodeOnFilter = false,
   } = props;
 
   // 传入 TreeStore 中调用的，但是每次都需要使用最新的值，所以使用 usePersistFn
@@ -105,6 +106,7 @@ export function useStore(props: TdTreeProps, refresh: () => void): TreeStore {
         });
       },
       onUpdate: handleUpdate,
+      allowFoldNodeOnFilter,
       // onReflow: handleReflow,
     });
 

@@ -83,7 +83,7 @@ export default function BaseForm() {
         <FormItem label="确认密码" name="rePassword" initialData=''>
           <Input />
         </FormItem>
-        <FormItem statusIcon={false}>
+        <FormItem style={{ marginLeft: 100 }}>
           <Button theme="primary" type="submit">
             提交
           </Button>

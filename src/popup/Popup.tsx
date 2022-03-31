@@ -24,6 +24,7 @@ import Portal from '../common/Portal';
 import useTriggerProps from './hooks/useTriggerProps';
 import getTransitionParams from './utils/getTransitionParams';
 import useMutationObserver from '../_util/useMutationObserver';
+import useWindowSize from '../_util/useWindowSize';
 
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -60,6 +61,8 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const { keepExpand, keepFade } = useAnimation();
 
   const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
+
+  const { height: windowHeight, width: windowWidth } = useWindowSize();
 
   // refs
   const [triggerRef, setTriggerRef] = useState<HTMLElement>(null);
@@ -136,13 +139,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     triggerNodeTemp,
   );
 
-  // 触发器只能有一个元素
-  const disabledClassName = classNames({ [`${classPrefix}-is-disabled`]: disabled });
-
   // 代理 trigger 的 ref
   const triggerNode = cloneElement(triggerNodeTemp, {
     ref: composeRefs((triggerNodeTemp as any).ref, setTriggerRef),
-    className: classNames(disabledClassName, triggerNodeTemp.props.className),
     ...triggerProps,
   });
 
@@ -163,7 +162,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   });
   useEffect(() => {
     popperRef.current.update?.();
-  }, [content]);
+  }, [content, visible, windowHeight, windowWidth]);
 
   // 初次不渲染.
   const portal =

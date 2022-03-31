@@ -60,7 +60,7 @@ export default function BaseForm() {
       <FormItem label="密码" name="password" initialData=''>
         <Input type="password" />
       </FormItem>
-      <FormItem style={{ paddingTtop: 8 }}>
+      <FormItem style={{ marginLeft: 100 }}>
         <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
           提交
         </Button>

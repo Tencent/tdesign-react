@@ -46,6 +46,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     preventScrollThrough,
     closeBtn,
     closeOnEscKeydown = true,
+    closeOnOverlayClick = true,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
@@ -122,7 +123,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
+    if (e.target === e.currentTarget && closeOnOverlayClick) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
@@ -152,7 +153,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
-    const header = <div className={`${prefixCls}__header`}>{props.header}</div>;
+    const { header } = props;
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 

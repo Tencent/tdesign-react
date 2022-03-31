@@ -134,7 +134,7 @@ export default function BaseForm() {
                 </Checkbox.Group>
               </FormItem>
 
-              <FormItem style={{ paddingTop: 8 }} label-width={80}>
+              <FormItem  style={{ marginLeft: 100 }}>
                 <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
                   提交
                 </Button>

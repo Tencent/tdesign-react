@@ -55,7 +55,6 @@ const TimePicker = forwardRefWithStatics(
     const name = `${classPrefix}-time-picker`;
     const inputClasses = classNames(`${name}__group`, {
       [`${classPrefix}-is-focused`]: isPanelShowed,
-      [`${classPrefix}-input--focused`]: isPanelShowed,
     });
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -95,7 +94,7 @@ const TimePicker = forwardRefWithStatics(
         expandAnimation={true}
       >
         {/* TODO active与date picker保持一致 */}
-        <div className={classNames(name, className)} ref={ref} style={style}>
+        <div className={classNames(name, className, inputClasses)} ref={ref} style={style}>
           <Input
             readonly={true}
             disabled={disabled}
@@ -104,7 +103,6 @@ const TimePicker = forwardRefWithStatics(
             value={value ? ' ' : undefined}
             onClear={handleClear}
             placeholder={!value ? placeholder : undefined}
-            className={inputClasses}
             suffixIcon={<TimeIcon />}
           />
           {value ? (

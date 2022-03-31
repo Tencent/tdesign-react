@@ -949,6 +949,7 @@ exports[`base.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder=""
                   value=""
                 />
               </div>
@@ -1324,7 +1325,6 @@ exports[`data-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -2585,7 +2585,6 @@ exports[`filter-controlled.jsx 1`] = `
                               style="margin-right: 20px;"
                             >
                               <div
-                                class=""
                                 style="line-height: 0;"
                               >
                                 <div
@@ -3014,6 +3013,7 @@ exports[`filter-controlled.jsx 1`] = `
                 >
                   <input
                     class="t-input__inner"
+                    placeholder=""
                     value=""
                   />
                 </div>
@@ -6635,7 +6635,6 @@ exports[`multi-header.jsx 1`] = `
                         style="margin-right: 20px;"
                       >
                         <div
-                          class=""
                           style="line-height: 0;"
                         >
                           <div
@@ -6849,7 +6848,6 @@ exports[`multiple-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -6919,7 +6917,6 @@ exports[`multiple-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -7564,6 +7561,7 @@ exports[`pagination.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder=""
                   value=""
                 />
               </div>
@@ -7864,6 +7862,7 @@ exports[`pagination-ajax.jsx 1`] = `
               >
                 <input
                   class="t-input__inner"
+                  placeholder=""
                   value=""
                 />
               </div>
@@ -8668,7 +8667,6 @@ exports[`single-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
@@ -8738,7 +8736,6 @@ exports[`single-sort.jsx 1`] = `
                           style="margin-right: 20px;"
                         >
                           <div
-                            class=""
                             style="line-height: 0;"
                           >
                             <div
