@@ -78,9 +78,6 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
       setTextareaStyle(calcTextareaHeight(textareaRef.current));
     } else if (typeof autosize === 'object') {
       setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
-    } else {
-      // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
-      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
     }
   }, [autosize]);
 
@@ -92,12 +89,18 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
       val = typeof stringInfo === 'object' && stringInfo.characters;
     }
     setValue(val, { e });
-    adjustTextareaHeight();
   }
 
   useEffect(() => {
+    // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+    if (autosize === false) {
+      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
+    }
+  }, [adjustTextareaHeight, autosize]);
+
+  useEffect(() => {
     adjustTextareaHeight();
-  }, [adjustTextareaHeight]);
+  }, [adjustTextareaHeight, value]);
 
   useImperativeHandle(ref as TextareaRefInterface, () => ({
     currentElement: wrapperRef.current,

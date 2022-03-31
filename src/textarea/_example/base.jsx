@@ -11,6 +11,7 @@ export default function InputExample() {
       <Textarea
         placeholder="请输入内容"
         value={value}
+        rows={2}
         onChange={(value) => {
           console.log(value);
           onChange(value);
