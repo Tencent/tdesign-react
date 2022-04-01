@@ -15,15 +15,21 @@ const publicPathMap = {
   production: 'https://static.tdesign.tencent.com/react/',
 };
 
-export default ({ mode }) => defineConfig({
-  base: publicPathMap[mode],
-  resolve: {
-    alias: {
-      '@': resolvePath('../'),
-      '@docs': resolvePath('./docs'),
-      '@components': resolvePath('./src/components'),
-      '@common': resolvePath('../src/_common'),
-      'tdesign-react': resolvePath('../src'),
+export default ({ mode }) => {
+  return defineConfig({
+    base: publicPathMap[mode],
+    resolve: {
+      alias: {
+        '@': resolvePath('../'),
+        '@site': resolvePath('./'),
+        '@docs': resolvePath('./docs'),
+        '@components': resolvePath('./src/components'),
+        '@common': resolvePath('../src/_common'),
+        'tdesign-react': resolvePath('../src'),
+      },
+    },
+    build: {
+      outDir: '../_site',
     },
   },
   build: {

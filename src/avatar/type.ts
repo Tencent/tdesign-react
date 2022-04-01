@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { PopupProps } from '../popup';
@@ -10,7 +9,7 @@ import { TNode, TElement } from '../common';
 
 export interface TdAvatarProps {
   /**
-   * 头像替换文本
+   * 头像替换文本，仅当图片加载失败时有效
    * @default ''
    */
   alt?: string;
