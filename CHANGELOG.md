@@ -5,7 +5,20 @@ toc: false
 spline: explain
 ---
 
-## 0.30.0 `2022-03-25`
+## 0.30.1 `2022-04-01`
+
+### Bug Fixes
+
+* Pagination: 修复输入框宽度自适应问题 ([b6ba28b](https://github.com/Tencent/tdesign-react/commit/b6ba28b2c4415297318b5d839589faf92a055b40)) [@uyarn](https://github.com/uyarn)
+* Datepicker: 修复区间时间选择时，月份/年份选择面板样式异常的问题，([#489](https://github.com/Tencent/tdesign-react/issues/489)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+### Features
+
+* Tabs: 优化组件内部逻辑 ([#521](https://github.com/Tencent/tdesign-react/pull/521)) [@LeeJim](https://github.com/LeeJim)
+
+
+## 0.30.0 `2022-03-31`
 
 
 ### BREAKING CHANGES
