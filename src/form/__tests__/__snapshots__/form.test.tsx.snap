@@ -3499,7 +3499,8 @@ exports[`validate-complicated-data.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
@@ -3525,7 +3526,7 @@ exports[`validate-complicated-data.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-tabs__content t-is-undefined"
+        class="t-tabs__content t-is-top"
       >
         <div
           class="t-tab-panel"
