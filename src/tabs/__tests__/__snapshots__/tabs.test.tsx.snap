@@ -75,7 +75,8 @@ exports[`ban.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -171,7 +172,8 @@ exports[`base.jsx 1`] = `
             class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-wrap"
+              class="t-tabs__nav-wrap t-is-smooth"
+              style="transform: translate(0px, 0);"
             >
               <div
                 class="t-tabs__bar t-is-top"
@@ -317,7 +319,8 @@ exports[`combination.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -653,7 +656,8 @@ exports[`custom.jsx 1`] = `
             class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-wrap"
+              class="t-tabs__nav-wrap t-is-smooth"
+              style="transform: translate(0px, 0);"
             >
               <div
                 class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
@@ -661,7 +665,7 @@ exports[`custom.jsx 1`] = `
                 <span
                   class="t-tabs__nav-item-text-wrapper"
                 >
-                  选项卡1
+                  选项卡 1
                 </span>
                 <svg
                   class="t-icon t-icon-close remove-btn"
@@ -683,7 +687,183 @@ exports[`custom.jsx 1`] = `
                 <span
                   class="t-tabs__nav-item-text-wrapper"
                 >
-                  选项卡2
+                  选项卡 2
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 3
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 4
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 5
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 6
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 7
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 8
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 9
+                </span>
+                <svg
+                  class="t-icon t-icon-close remove-btn"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </div>
+              <div
+                class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-top"
+              >
+                <span
+                  class="t-tabs__nav-item-text-wrapper"
+                >
+                  选项卡 10
                 </span>
                 <svg
                   class="t-icon t-icon-close remove-btn"
@@ -714,7 +894,7 @@ exports[`custom.jsx 1`] = `
           class="tabs-content"
           style="margin: 20px;"
         >
-          选项卡1内容区
+          选项卡 1内容区
         </div>
       </div>
     </div>
@@ -797,7 +977,8 @@ exports[`icon.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -958,7 +1139,8 @@ exports[`operation.jsx 1`] = `
             class="t-tabs__nav-scroll"
           >
             <div
-              class="t-tabs__nav-wrap"
+              class="t-tabs__nav-wrap t-is-smooth"
+              style="transform: translate(0px, 0);"
             >
               <div
                 class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"
@@ -1104,7 +1286,8 @@ exports[`position.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1204,7 +1387,8 @@ exports[`size.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1281,7 +1465,8 @@ exports[`size.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1367,7 +1552,8 @@ exports[`theme.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1444,7 +1630,8 @@ exports[`theme.jsx 1`] = `
               class="t-tabs__nav-scroll"
             >
               <div
-                class="t-tabs__nav-wrap"
+                class="t-tabs__nav-wrap t-is-smooth"
+                style="transform: translate(0px, 0);"
               >
                 <div
                   class="t-tabs__nav-item t-tabs__nav--card t-size-m t-is-active t-is-top"

@@ -826,7 +826,8 @@ exports[`double.jsx 1`] = `
                 class="t-tabs__nav-scroll"
               >
                 <div
-                  class="t-tabs__nav-wrap"
+                  class="t-tabs__nav-wrap t-is-smooth"
+                  style="transform: translate(0px, 0);"
                 >
                   <div
                     class="t-tabs__bar t-is-top"
@@ -867,7 +868,7 @@ exports[`double.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-tabs__content t-is-undefined"
+          class="t-tabs__content t-is-top"
         >
           <div
             class="t-tab-panel"
@@ -966,7 +967,8 @@ exports[`double.jsx 1`] = `
                 class="t-tabs__nav-scroll"
               >
                 <div
-                  class="t-tabs__nav-wrap"
+                  class="t-tabs__nav-wrap t-is-smooth"
+                  style="transform: translate(0px, 0);"
                 >
                   <div
                     class="t-tabs__bar t-is-top"
@@ -1007,7 +1009,7 @@ exports[`double.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-tabs__content t-is-undefined"
+          class="t-tabs__content t-is-top"
         >
           <div
             class="t-tab-panel"
