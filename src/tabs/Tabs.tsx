@@ -88,4 +88,8 @@ const Tabs = forwardRefWithStatics(
 
 Tabs.displayName = 'Tabs';
 
+Tabs.defaultProps = {
+  placement: 'top',
+};
+
 export default Tabs;
