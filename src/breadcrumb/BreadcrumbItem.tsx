@@ -9,21 +9,10 @@ import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 
 export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
-  const {
-    children,
-    separator = <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />,
-    disabled,
-    maxItemWidth,
-    maxWidth,
-    href,
-    to,
-    target,
-    router,
-    replace,
-    ...restProps
-  } = props;
+  const { children, separator, disabled, maxItemWidth, maxWidth, href, to, target, router, replace, ...restProps } =
+    props;
 
-  const { maxItemWidthInContext, theme } = useContext(BreadcrumbContext);
+  const { maxItemWidthInContext, theme, separator: separatorInContext } = useContext(BreadcrumbContext);
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
@@ -63,7 +52,10 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
     );
   }
 
-  const separatorContent = typeof separator === 'function' ? separator() : separator;
+  const separatorInProps = typeof separator === 'function' ? separator() : separator;
+  const separatorContent = separatorInProps || separatorInContext || (
+    <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />
+  );
 
   return (
     <div className={classNames(breadcrumbItemClassNames, theme)} ref={ref} {...restProps}>
