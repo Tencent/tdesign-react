@@ -35,6 +35,7 @@ const Breadcrumb = forwardRefWithStatics(
         value={{
           maxItemWidthInContext: maxItemWidth,
           theme,
+          separator,
         }}
       >
         <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
