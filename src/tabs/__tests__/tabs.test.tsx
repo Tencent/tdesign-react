@@ -50,7 +50,7 @@ describe('Tabs 组件测试', () => {
 
   test('different position', async () => {
     const testId = 'tab position test id';
-    const positions: TdTabsProps['placement'][] = ['top', 'right'];
+    const positions: TdTabsProps['placement'][] = ['top', 'bottom', 'left', 'right'];
 
     const { getByTestId } = render(
       <div data-testid={testId}>
