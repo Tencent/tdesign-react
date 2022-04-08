@@ -5,6 +5,45 @@ toc: false
 spline: explain
 ---
 
+## 0.30.1 `2022-04-01`
+
+### Bug Fixes
+
+* Pagination: 修复输入框宽度自适应问题 ([b6ba28b](https://github.com/Tencent/tdesign-react/commit/b6ba28b2c4415297318b5d839589faf92a055b40)) [@uyarn](https://github.com/uyarn)
+* Datepicker: 修复区间时间选择时，月份/年份选择面板样式异常的问题，([#489](https://github.com/Tencent/tdesign-react/issues/489)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+### Features
+
+* Tabs: 优化组件内部逻辑 ([#521](https://github.com/Tencent/tdesign-react/pull/521)) [@LeeJim](https://github.com/LeeJim)
+
+
+## 0.30.0 `2022-03-31`
+
+
+### BREAKING CHANGES
+
+* SelectInput: 之前只设置 `borderless` 就能达到自动适应宽度效果，之后需要同时设置 `autowidth` [@carolin913](https://github.com/carolin913)
+* FormItem: `label` 为空时不再渲染宽度，如需与有 `label` 的 `FormItem` 对齐需要手动控制 `FormItem` 样式 ([#552](https://github.com/Tencent/tdesign-react/issues/552)) ([a3a0376](https://github.com/Tencent/tdesign-react/commit/a3a03769254dcdf48ef7568894d65ee9e39b9640)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+### Bug Fixes
+
+* Addon: 完善 type 类型 ([58b7ea5](https://github.com/Tencent/tdesign-react/commit/58b7ea5588645519e4b3dd7eb07c750c7d82edc2)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Cascader: 修复 `multiple` 模式时 `value` `undefined` 崩溃 ([7bb0a88](https://github.com/Tencent/tdesign-react/commit/7bb0a8854a7ac2520072f7d3ff37dfe81c3ff41a)) [@docoder](https://github.com/docoder)
+* InputNumber: 修复不能输入小数点问题 ([802b3e0](https://github.com/Tencent/tdesign-react/commit/802b3e09853c6461d7119bca2c8a116566de1731)) [@docoder](https://github.com/docoder)
+* Loading: 修复在 `normal` 状态下属性失效问题 ([9cec56f](https://github.com/Tencent/tdesign-react/commit/9cec56f685adec17d1bbca831dee14cec09089a4)) [@uyarn](https://github.com/uyarn)
+* Popconfirm: 修复按需加载样式丢失问题 ([3329fa3](https://github.com/Tencent/tdesign-react/commit/3329fa3223d9b72dcddd29129f4d46b73447a01a)) [@xiaosansiji](https://github.com/xiaosansiji)
+* Dialog: 移除多余 `header` `dom` 元素 ([f902841](https://github.com/Tencent/tdesign-react/commit/f90284169d30c19550c4fa1b53f31cf257db0fac)) [@xiaosansiji](https://github.com/xiaosansiji)
+* Select: 修复首次 `focus` 自动搜索问题 ([78bf1ca](https://github.com/Tencent/tdesign-react/commit/78bf1ca4d7066f4702a6a6a33e4d284aad458b8c)) [@uyarn](https://github.com/uyarn)
+* Textarea: 修复 `dialog` 中无法输入中文问题 ([77f11ac](https://github.com/Tencent/tdesign-react/commit/77f11acf8f1c1fc8158d006e45f16e9c7d8fb8dd)) [@carolin913](https://github.com/carolin913)
+
+### Features
+
+* FormItem: 支持自定义嵌套模式 & `label` 为空时不再处理占位对齐问题 ([#552](https://github.com/Tencent/tdesign-react/issues/552)) ([a3a0376](https://github.com/Tencent/tdesign-react/commit/a3a03769254dcdf48ef7568894d65ee9e39b9640)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Input: `placeholder` 使用全局定义文案 ([#553](https://github.com/Tencent/tdesign-react/issues/553)) ([91f71cc](https://github.com/Tencent/tdesign-react/commit/91f71cc0a7e1d714ec7b2a8a9b3d38836ec88f6d)) [@xiaosansiji](https://github.com/xiaosansiji)
+* SelectInput: `borderless` 和 `autowidth` 作为独立属性分开 ([b805462](https://github.com/Tencent/tdesign-react/commit/b805462b48d3dc3d9b2d2ffce72f59f43d8a18f0)) [@carolin913](https://github.com/carolin913)
+
+
 ## 0.29.0 `2022-03-25`
 
 ### BREAKING CHANGES

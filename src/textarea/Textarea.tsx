@@ -89,16 +89,18 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
       val = typeof stringInfo === 'object' && stringInfo.characters;
     }
     setValue(val, { e });
-    setTimeout(() => adjustTextareaHeight(), 0);
   }
 
   useEffect(() => {
-    adjustTextareaHeight();
     // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
     if (autosize === false) {
       setTextareaStyle({ height: 'auto', minHeight: 'auto' });
     }
   }, [adjustTextareaHeight, autosize]);
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [adjustTextareaHeight, value]);
 
   useImperativeHandle(ref as TextareaRefInterface, () => ({
     currentElement: wrapperRef.current,
