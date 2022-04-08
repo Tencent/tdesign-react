@@ -1,6 +1,7 @@
 import React from 'react';
 import useDragSorter from '../../_util/useDragSorter';
 import { TdPrimaryTableProps } from '../type';
+import { StyledProps } from '../../common';
 import BaseTable from '../base/Table';
 import useSorter from './useSorter';
 import useFilter from './useFilter';
@@ -8,7 +9,7 @@ import useSelect from './useSelect';
 import useExpand from './useExpand';
 import useChange, { UseChangeResult } from './useChange';
 
-export type PrimaryTableProps = TdPrimaryTableProps;
+export interface PrimaryTableProps extends TdPrimaryTableProps, StyledProps {}
 export interface InnerPrimaryTableProps extends TdPrimaryTableProps, UseChangeResult {}
 
 export default function PrimaryTable(props: PrimaryTableProps) {
