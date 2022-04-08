@@ -9,19 +9,19 @@ spline: explain
 
 ### Bug Fixes
 
-* Cascader: 修复定制数据字段别名 label 不展示问题 ([677f4e2](https://github.com/Tencent/tdesign-react/commit/677f4e2cd7c8a13d503fac485d0d2688ddfd429a))
-* Form: 兼容 `FormItem` 单独使用报错问题 ([#588](https://github.com/Tencent/tdesign-react/issues/588)) ([275dd99](https://github.com/Tencent/tdesign-react/commit/275dd999b38adc2f7b8ce1ae156ef8266b935b05))
+* Cascader: 修复定制数据字段别名 label 不展示问题 ([677f4e2](https://github.com/Tencent/tdesign-react/commit/677f4e2cd7c8a13d503fac485d0d2688ddfd429a)) [@jsonz1993](https://github.com/jsonz1993)
+* Form: 兼容 `FormItem` 单独使用报错问题 ([#588](https://github.com/Tencent/tdesign-react/issues/588)) ([275dd99](https://github.com/Tencent/tdesign-react/commit/275dd999b38adc2f7b8ce1ae156ef8266b935b05)) [@HQ-Lin](https://github.com/HQ-Lin)
 * Table:
-  * 修复 `table` 高度问题 ([#593](https://github.com/Tencent/tdesign-react/issues/593)) ([9de72b6](https://github.com/Tencent/tdesign-react/commit/9de72b6d129ac98f0ffb5962885aba78f291e236))
-  * 修复 `table` `className` ts 类型丢失 ([#589](https://github.com/Tencent/tdesign-react/issues/589)) ([6349dba](https://github.com/Tencent/tdesign-react/commit/6349dbac2354d5a74dedbd38383b58abf827fc48))
-* Upload: 修复多图片上传时 `defaultFiles` 造成上传进度错误 ([#586](https://github.com/Tencent/tdesign-react/issues/586)) ([f71499f](https://github.com/Tencent/tdesign-react/commit/f71499f77a59caf127f601eb747c2e8dd2b8c649)), closes [#584](https://github.com/Tencent/tdesign-react/issues/584)
-* Slider: 兼容不传 `value` 场景 ([1ab2a90](https://github.com/Tencent/tdesign-react/commit/1ab2a9054fee90f84ee2946bcd1b3b49799ad83d))
+  * 修复 `table` 高度问题 ([#593](https://github.com/Tencent/tdesign-react/issues/593)) ([9de72b6](https://github.com/Tencent/tdesign-react/commit/9de72b6d129ac98f0ffb5962885aba78f291e236)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * 修复 `table` `className` ts 类型丢失 ([#589](https://github.com/Tencent/tdesign-react/issues/589)) ([6349dba](https://github.com/Tencent/tdesign-react/commit/6349dbac2354d5a74dedbd38383b58abf827fc48)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Upload: 修复多图片上传时 `defaultFiles` 造成上传进度错误 ([#586](https://github.com/Tencent/tdesign-react/issues/586)) ([f71499f](https://github.com/Tencent/tdesign-react/commit/f71499f77a59caf127f601eb747c2e8dd2b8c649)), closes [#584](https://github.com/Tencent/tdesign-react/issues/584) [@yaogengzhu](https://github.com/yaogengzhu)
+* Slider: 兼容不传 `value` 场景 ([1ab2a90](https://github.com/Tencent/tdesign-react/commit/1ab2a9054fee90f84ee2946bcd1b3b49799ad83d)) [@andyjxli](https://github.com/andyjxli)
 
 
 ### Features
 
-* Breadcrumb: 增加自定义 `children` 时对 `separator` 的支持 ([1ffcadb](https://github.com/Tencent/tdesign-react/commit/1ffcadb921d3779c0b3031e97ec8fbc8dd38b758))
-* Popconfirm: 调整组件导出命名 ([#585](https://github.com/Tencent/tdesign-react/issues/585)) ([e24816d](https://github.com/Tencent/tdesign-react/commit/e24816d558c1fdda906b770bb379ca64a171bf50))
+* Breadcrumb: 增加自定义 `children` 时对 `separator` 的支持 ([1ffcadb](https://github.com/Tencent/tdesign-react/commit/1ffcadb921d3779c0b3031e97ec8fbc8dd38b758)) [@LittlehorseXie](https://github.com/LittlehorseXie)
+* Popconfirm: 调整组件导出命名 ([#585](https://github.com/Tencent/tdesign-react/issues/585)) ([e24816d](https://github.com/Tencent/tdesign-react/commit/e24816d558c1fdda906b770bb379ca64a171bf50)) [@HQ-Lin](https://github.com/HQ-Lin)
 
 
 ## 0.30.1 `2022-04-01`
