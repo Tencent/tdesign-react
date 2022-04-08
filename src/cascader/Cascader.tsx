@@ -93,15 +93,21 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   /**
    * build tree
    */
-  const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
+  const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
   useEffect(() => {
     if (!options.length) return;
     if (!treeStore) {
       const createStore = (onLoad: () => void) => {
+        const treePropsKeys = {
+          ...keys,
+          children: typeof keys.children === 'string' ? keys.children : 'children',
+        };
+
         const treeProps = {
           onLoad,
           options,
+          keys: treePropsKeys,
         };
         const store = new TreeStore(treeProps);
         store.append(options);
@@ -119,7 +125,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       treeStoreExpendEffect(treeStore, value, []);
       treeNodesEffect(inputVal, treeStore, setTreeNodes);
     }
-  }, [inputVal, options, value, treeStore]);
+  }, [inputVal, options, value, treeStore, keys]);
 
   useEffect(() => {
     if (!treeStore) return;
