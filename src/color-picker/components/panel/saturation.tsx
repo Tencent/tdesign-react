@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { SATURATION_PANEL_DEFAULT_HEIGHT, SATURATION_PANEL_DEFAULT_WIDTH } from '../../const';
-import Draggable, { Coordinate } from '../../utils/draggable';
+import Draggable, { Coordinate } from '../../../_common/js/color-picker/draggable';
 import { TdColorBaseProps } from '../../interface';
 
 const Saturation = (props: TdColorBaseProps) => {

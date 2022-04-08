@@ -1,7 +1,7 @@
 import React from 'react';
 import { ColorObject, ColorPickerChangeTrigger, TdColorPickerProps } from '.';
 import { StyledProps } from '../common';
-import type { Color } from './utils/color';
+import type { Color } from '../_common/js/color-picker/color';
 
 export interface ColorPickerProps extends TdColorPickerProps, StyledProps {
   togglePopup: Function;

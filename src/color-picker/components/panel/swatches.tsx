@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { DeleteIcon } from 'tdesign-icons-react';
-import Color from '../../utils/color';
+import Color from '../../../_common/js/color-picker/color';
 import { RecentColorsChangeTrigger } from '../../type';
 import { TdColorBaseProps } from '../../interface';
 import useCommonClassName from '../../../_util/useCommonClassName';

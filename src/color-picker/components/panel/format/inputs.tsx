@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { throttle } from 'lodash';
-import Color from '../../../utils/color';
+import Color from '../../../../_common/js/color-picker/color';
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';
 import { FORMAT_INPUT_CONFIG } from './config';

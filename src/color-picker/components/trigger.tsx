@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Input } from '../../input';
-import ColorLib from '../utils/color';
+import ColorLib from '../../_common/js/color-picker/color';
 import { TdColorPickerProps } from '..';
 import useClassname from '../hooks/useClassname';
 import { TdColorContext } from '../interface';

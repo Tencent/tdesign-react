@@ -3,8 +3,8 @@ import { cloneDeep } from 'lodash';
 
 import classNames from 'classnames';
 import useClassname from '../../hooks/useClassname';
-import { genGradientPoint, gradientColors2string } from '../../utils/color';
-import parseGradientString, { GradientColorPoint, GradientColors } from '../../utils/gradient';
+import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';
+import parseGradientString, { GradientColorPoint, GradientColors } from '../../../_common/js/color-picker/gradient';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../const';
 import InputNumber from '../../../input-number';

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '../../const';
-import Draggable, { Coordinate } from '../../utils/draggable';
+import Draggable, { Coordinate } from '../../../_common/js/color-picker/draggable';
 import { TdColorBaseProps } from '../../interface';
 
 export interface TdColorSliderProps extends TdColorBaseProps {
