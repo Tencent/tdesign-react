@@ -85,9 +85,9 @@ export interface TdColorPickerProps {
    */
   onPaletteBarChange?: (context: { color: ColorObject }) => void;
   /**
-   * 最近使用颜色发生变化时触发。第一个参数 `value` 表示变化后的色值，`context.trigger` 表示触发颜色变化的来源
+   * 最近使用颜色发生变化时触发
    */
-  onRecentColorsChange?: (value: Array<string>, context: { trigger: RecentColorsChangeTrigger }) => void;
+  onRecentColorsChange?: (value: Array<string>) => void;
 }
 
 export type ColorPickerChangeTrigger =
@@ -114,13 +114,3 @@ export interface ColorObject {
   isGradient: boolean;
   linearGradient?: string;
 }
-
-export type RecentColorsChangeTrigger =
-  | 'delete'
-  | 'clear'
-  | 'input'
-  | 'palette-saturation-brightness'
-  | 'palette-saturation'
-  | 'palette-brightness'
-  | 'palette-hue-bar'
-  | 'palette-alpha-bar';

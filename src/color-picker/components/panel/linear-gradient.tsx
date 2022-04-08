@@ -1,10 +1,9 @@
 import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash';
-
 import classNames from 'classnames';
 import useClassname from '../../hooks/useClassname';
 import { genGradientPoint, gradientColors2string } from '../../../_common/js/color-picker/color';
-import parseGradientString, { GradientColorPoint, GradientColors } from '../../../_common/js/color-picker/gradient';
+import { GradientColorPoint } from '../../../_common/js/color-picker/gradient';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import { GRADIENT_SLIDER_DEFAULT_WIDTH } from '../../const';
 import InputNumber from '../../../input-number';
@@ -207,10 +206,10 @@ const LinearGradient = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const { linearGradient } = props.color;
+  const { linearGradient, gradientColors } = props.color;
 
-  const linearGradientWithoutDegree = gradientColors2string({
-    ...(parseGradientString(linearGradient) as GradientColors),
+  const thumbBackground = gradientColors2string({
+    points: gradientColors,
     degree: 90,
   });
 
@@ -227,7 +226,7 @@ const LinearGradient = (props) => {
             className="gradient-thumbs"
             onClick={handleThumbBarClick}
             style={{
-              background: linearGradientWithoutDegree,
+              background: thumbBackground,
             }}
           >
             {colors.current.map((t) => {
@@ -267,6 +266,14 @@ const LinearGradient = (props) => {
           onEnter={handleDegreeChange}
           disabled={props.disabled}
         />
+        <div className={classNames([`${baseClassName}__gradient-preview`, `${baseClassName}--bg-alpha`])}>
+          <span
+            className="preview-inner"
+            style={{
+              background: linearGradient,
+            }}
+          ></span>
+        </div>
       </div>
     </div>
   );

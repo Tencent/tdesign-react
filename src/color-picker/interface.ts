@@ -28,5 +28,4 @@ export interface TdColorBaseProps {
 export type TdColorSaturationData = {
   saturation: number;
   value: number;
-  addUsedColor?: boolean;
 };

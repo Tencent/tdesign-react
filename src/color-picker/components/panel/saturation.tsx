@@ -8,7 +8,6 @@ const Saturation = (props: TdColorBaseProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLElement>(null);
   const dragInstance = useRef<Draggable>(null);
-  const isMovedRef = useRef<boolean>(false);
   const panelRectRef = useRef({
     width: SATURATION_PANEL_DEFAULT_WIDTH,
     height: SATURATION_PANEL_DEFAULT_HEIGHT,
@@ -48,17 +47,19 @@ const Saturation = (props: TdColorBaseProps) => {
         value: value / 100,
         addUsedColor: isEnded,
       });
-      isMovedRef.current = true;
     },
     [disabled, onChange],
   );
 
-  const handleDragEnd = useCallback(() => {
-    if (disabled || !isMovedRef.current) {
-      return;
-    }
-    isMovedRef.current = false;
-  }, [disabled]);
+  const handleDragEnd = useCallback(
+    (coordinate: Coordinate) => {
+      if (disabled) {
+        return;
+      }
+      handleDrag(coordinate, true);
+    },
+    [disabled, handleDrag],
+  );
 
   useEffect(() => {
     panelRectRef.current.width = panelRef.current.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
@@ -67,7 +68,6 @@ const Saturation = (props: TdColorBaseProps) => {
       start() {
         panelRectRef.current.width = panelRef.current.offsetWidth;
         panelRectRef.current.height = panelRef.current.offsetHeight;
-        isMovedRef.current = false;
       },
       drag: (coordinate: Coordinate) => {
         handleDrag(coordinate);

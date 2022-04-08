@@ -14,7 +14,7 @@ import {
   DEFAULT_SYSTEM_SWATCH_COLORS,
 } from '../../const';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
-import { ColorPickerChangeTrigger, TdColorPickerProps, RecentColorsChangeTrigger } from '../../type';
+import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
 import LinearGradient from './linear-gradient';
 import SaturationPanel from './saturation';
 import HUESlider from './hue';
@@ -85,19 +85,18 @@ const Panel = (props: ColorPickerProps) => {
   };
 
   // 最近使用颜色变更时触发
-  const handleRecentlyUsedColorsChange = (colors: string[], trigger?: RecentColorsChangeTrigger) => {
-    setRecentlyUsedColors(colors, {
-      trigger,
-    });
+  const handleRecentlyUsedColorsChange = (colors: string[]) => {
+    setRecentlyUsedColors(colors);
   };
 
   // 添加最近使用颜色
-  const addRecentlyUsedColor = (value: string, trigger?: RecentColorsChangeTrigger) => {
+  const addRecentlyUsedColor = () => {
     if (recentlyUsedColors === null || recentlyUsedColors === false) {
       return;
     }
     const colors = (recentlyUsedColors as string[]) || [];
-    const currentColor = value || colorInstanceRef.current.rgba;
+    const { isGradient, linearGradient, rgba } = colorInstanceRef.current;
+    const currentColor = isGradient ? linearGradient : rgba;
     const index = colors.indexOf(currentColor);
     if (index > -1) {
       colors.splice(index, 1);
@@ -106,25 +105,18 @@ const Panel = (props: ColorPickerProps) => {
     if (colors.length > TD_COLOR_USED_COLORS_MAX_SIZE) {
       colors.length = TD_COLOR_USED_COLORS_MAX_SIZE;
     }
-    handleRecentlyUsedColorsChange(colors, trigger || 'palette-saturation-brightness');
+    handleRecentlyUsedColorsChange(colors);
   };
 
-  const emitColorChange = (trigger?: ColorPickerChangeTrigger, addUsedColor?: boolean) => {
+  const emitColorChange = (trigger?: ColorPickerChangeTrigger) => {
     setInnerValue(formatValue(), {
       color: getColorObject(colorInstanceRef.current),
       trigger: trigger || 'palette-saturation-brightness',
     });
-    if (addUsedColor) {
-      if (colorInstanceRef.current.isGradient) {
-        addRecentlyUsedColor(colorInstanceRef.current.linearGradient, trigger);
-      } else {
-        addRecentlyUsedColor(props.enableAlpha ? colorInstanceRef.current.rgba : colorInstanceRef.current.rgb, trigger);
-      }
-    }
   };
 
   // 饱和度变化
-  const handleSaturationChange = ({ saturation, value, addUsedColor }: TdColorSaturationData) => {
+  const handleSaturationChange = ({ saturation, value }: TdColorSaturationData) => {
     const colorInstance = colorInstanceRef.current;
     const { saturation: sat, value: val } = colorInstance;
     let changeTrigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
@@ -141,13 +133,13 @@ const Panel = (props: ColorPickerProps) => {
     } else {
       return;
     }
-    emitColorChange(changeTrigger, addUsedColor);
+    emitColorChange(changeTrigger);
   };
 
   // hue色相变化
-  const handleHUEChange = (hue: number, addUsedColor?: boolean) => {
+  const handleHUEChange = (hue: number) => {
     colorInstanceRef.current.hue = hue;
-    emitColorChange('palette-hue-bar', addUsedColor);
+    emitColorChange('palette-hue-bar');
     onPaletteBarChange?.({
       color: getColorObject(colorInstanceRef.current),
     });
@@ -157,9 +149,9 @@ const Panel = (props: ColorPickerProps) => {
    * 透明度变化
    * @param alpha
    */
-  const handleAlphaChange = (alpha: number, addUsedColor?: boolean) => {
+  const handleAlphaChange = (alpha: number) => {
     colorInstanceRef.current.alpha = alpha;
-    emitColorChange('palette-alpha-bar', addUsedColor);
+    emitColorChange('palette-alpha-bar');
     onPaletteBarChange?.({
       color: getColorObject(colorInstanceRef.current),
     });
@@ -172,7 +164,6 @@ const Panel = (props: ColorPickerProps) => {
   const handleGradientChange = ({
     key,
     payload,
-    addUsedColor,
   }: {
     key: 'degree' | 'selectedId' | 'colors';
     payload: number | string | GradientColorPoint[];
@@ -191,7 +182,7 @@ const Panel = (props: ColorPickerProps) => {
         colorInstanceRef.current.gradientColors = payload as GradientColorPoint[];
         break;
     }
-    emitColorChange(trigger, addUsedColor);
+    emitColorChange(trigger);
   };
 
   // format选择格式变化
@@ -201,15 +192,13 @@ const Panel = (props: ColorPickerProps) => {
   const handleInputChange = (input: string, alpha?: number) => {
     colorInstanceRef.current.update(input);
     colorInstanceRef.current.alpha = alpha;
-    emitColorChange('input', true);
+    emitColorChange('input');
   };
 
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {
     // 最近使用颜色
-    const showUsedColors =
-      recentColors !== null && recentColors !== false && ((recentlyUsedColors as string[]) || [])?.length > 0;
-
+    const showUsedColors = recentColors !== null && recentColors !== false;
     // 系统颜色
     let systemColors = swatchColors;
     if (systemColors === undefined) {
@@ -222,19 +211,12 @@ const Panel = (props: ColorPickerProps) => {
     }
 
     // 色块点击
-    const handleSetColor = (type: 'system' | 'used', value: string) => {
+    const handleSetColor = (value: string) => {
       const isGradientValue = Color.isGradientColor(value);
       const color = colorInstanceRef.current;
-      if (type === 'system') {
-        if ((isGradientValue && mode === 'linear-gradient') || (!isGradientValue && mode === 'monochrome')) {
-          // 每种模式下只能添加与模式匹配的颜色到最近使用色
-          addRecentlyUsedColor(value);
-        }
-      }
       if (isGradientValue) {
         if (props.colorModes.includes('linear-gradient')) {
           setMode('linear-gradient');
-
           color.update(value);
           color.updateCurrentGradientColor();
         } else {
@@ -243,7 +225,6 @@ const Panel = (props: ColorPickerProps) => {
       } else if (mode === 'linear-gradient') {
         color.updateStates(value);
         color.updateCurrentGradientColor();
-        addRecentlyUsedColor(color.linearGradient);
       } else {
         color.update(value);
       }
@@ -257,9 +238,10 @@ const Panel = (props: ColorPickerProps) => {
             <SwatchesPanel
               {...baseProps}
               title={t(local.recentColorTitle)}
-              removable
+              editable
+              handleAddColor={addRecentlyUsedColor}
               colors={recentlyUsedColors as string[]}
-              onSetColor={(color: string) => handleSetColor('used', color)}
+              onSetColor={(color: string) => handleSetColor(color)}
               onChange={handleRecentlyUsedColorsChange}
             />
           )}
@@ -268,7 +250,7 @@ const Panel = (props: ColorPickerProps) => {
               {...baseProps}
               title={t(local.swatchColorTitle)}
               colors={systemColors}
-              onSetColor={(color: string) => handleSetColor('system', color)}
+              onSetColor={(color: string) => handleSetColor(color)}
             />
           )}
         </div>
