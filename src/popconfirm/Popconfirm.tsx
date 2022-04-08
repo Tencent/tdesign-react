@@ -6,11 +6,11 @@ import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
-import PopContent from './PopContent';
+import Popcontent from './Popcontent';
 
-export type PopConfirmProps = TdPopconfirmProps;
+export type PopconfirmProps = TdPopconfirmProps;
 
-const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
+const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('popconfirm');
 
@@ -26,7 +26,7 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
       onVisibleChange={(visible) => setVisible(visible)}
       overlayClassName={classNames(`${classPrefix}-popconfirm`)}
       content={
-        <PopContent
+        <Popcontent
           cancelBtn={cancelBtn}
           confirmBtn={confirmBtn}
           {...props}
@@ -38,13 +38,13 @@ const PopConfirm = forwardRef<HTMLDivElement, PopConfirmProps>((props, ref) => {
   );
 });
 
-PopConfirm.displayName = 'PopConfirm';
+Popconfirm.displayName = 'Popconfirm';
 
-PopConfirm.defaultProps = {
+Popconfirm.defaultProps = {
   destroyOnClose: true,
   showArrow: true,
   onCancel: noop,
   onConfirm: noop,
   theme: 'default',
 };
-export default PopConfirm;
+export default Popconfirm;

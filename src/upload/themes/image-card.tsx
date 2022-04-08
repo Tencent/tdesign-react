@@ -89,7 +89,7 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                 <div className={`${classPrefix}-upload__card-container ${classPrefix}-upload__card-box`}>
                   <Loading loading={true} size="medium" />
                   <p>
-                    {t(locale.progress.uploadingText)} {Math.min(files[0].percent, 99)}%
+                    {t(locale.progress.uploadingText)} {Math.min(files[index].percent, 99)}%
                   </p>
                 </div>
               </BooleanRender>
