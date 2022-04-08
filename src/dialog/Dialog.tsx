@@ -17,7 +17,7 @@ export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean;
 }
 
-const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (props, ref) => {
+const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
   const { classPrefix } = useConfig();
   const [state, setState] = useSetState<DialogProps>({
     width: 520,
@@ -163,6 +163,8 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
       footer={footer === undefined ? defaultFooter() : footer}
     />
   );
-};
+});
 
-export default forwardRef(Dialog);
+Dialog.displayName = 'Dialog';
+
+export default Dialog;

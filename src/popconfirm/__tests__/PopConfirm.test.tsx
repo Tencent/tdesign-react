@@ -1,24 +1,24 @@
 import React from 'react';
 import { testExamples, render, act, fireEvent, waitFor } from '@test/utils';
 import { CheckCircleIcon } from 'tdesign-icons-react';
-import PopConfirm from '../PopConfirm';
+import Popconfirm from '../Popconfirm';
 import PopContent from '../PopContent';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
 
-describe('PopConfirm 组件测试', () => {
+describe('Popconfirm 组件测试', () => {
   const testId = 'popup-test-id';
   const triggerElement = '触发元素';
   const text = '弹出层描述';
 
   // test('hover 触发测试', async () => {
-  //   const ref = React.createRef<PopConfirmRef>();
+  //   const ref = React.createRef<PopconfirmRef>();
 
   //   const { getByText, queryByTestId, asFragment, queryByText } = render(
-  //     <PopConfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning" ref={ref}>
+  //     <Popconfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning" ref={ref}>
   //       {triggerElement}
-  //     </PopConfirm>,
+  //     </Popconfirm>,
   //   );
 
   //   // 鼠标进入前，没有元素存在
@@ -51,7 +51,7 @@ describe('PopConfirm 组件测试', () => {
     const onCancelMock = jest.fn();
     const onConfirmMock = jest.fn();
     const { getByText, queryByTestId, queryByText } = render(
-      <PopConfirm
+      <Popconfirm
         placement="top"
         content={<div data-testid={testId}>{text}</div>}
         onCancel={onCancelMock}
@@ -61,7 +61,7 @@ describe('PopConfirm 组件测试', () => {
         cancelBtn="取消操作"
       >
         {triggerElement}
-      </PopConfirm>,
+      </Popconfirm>,
     );
 
     // 鼠标点击前，没有元素存在
@@ -137,9 +137,9 @@ describe('PopConfirm 组件测试', () => {
 
   test('ref test', () => {
     render(
-      <PopConfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning">
+      <Popconfirm placement="top" content={<div data-testid={testId}>{text}</div>} theme="warning">
         {triggerElement}
-      </PopConfirm>,
+      </Popconfirm>,
     );
   });
 });

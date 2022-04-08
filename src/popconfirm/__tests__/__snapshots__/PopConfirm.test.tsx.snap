@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -42,7 +42,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -84,7 +84,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 2`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -126,7 +126,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 3`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -168,7 +168,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 4`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -215,7 +215,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 5`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -248,7 +248,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 6`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -295,7 +295,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 7`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
@@ -342,7 +342,7 @@ exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 8`] = `
 </DocumentFragment>
 `;
 
-exports[`PopConfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
+exports[`Popconfirm 组件测试 PopContent - icon & theme snapshots 9`] = `
 <DocumentFragment>
   <div
     class="t-popconfirm__content"
