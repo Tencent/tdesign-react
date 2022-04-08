@@ -15,7 +15,17 @@ function GroupSide() {
       onChange={(value) => setValue(value)}
       collapsed={collapsed}
       operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
-      logo={<img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />}
+      logo={
+        collapsed ? (
+          <img
+            src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/logo%402x.png"
+            width="35"
+            alt="logo"
+          />
+        ) : (
+          <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
+        )
+      }
     >
       <MenuGroup title="Classification A">
         <MenuItem value="1" icon={<ChartIcon />}>
