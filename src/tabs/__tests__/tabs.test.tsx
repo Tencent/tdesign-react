@@ -2,6 +2,8 @@ import React from 'react';
 import { render, testExamples, waitFor, fireEvent } from '@test/utils';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
+import TabNav from '../TabNav';
+import { TdTabsProps } from '../type';
 
 testExamples(__dirname);
 
@@ -48,22 +50,32 @@ describe('Tabs 组件测试', () => {
 
   test('different position', async () => {
     const testId = 'tab position test id';
+    const positions: TdTabsProps['placement'][] = ['top', 'bottom', 'left', 'right'];
+
     const { getByTestId } = render(
       <div data-testid={testId}>
-        <Tabs placement={'top'} size={'medium'}>
-          <TabPanel value={'a'} label={'a'}>
-            <div>a</div>
-          </TabPanel>
-          <TabPanel value={'b'} label={'b'}>
-            <div>b</div>
-          </TabPanel>
-        </Tabs>
+        {positions.map((position, index: number) => (
+          <Tabs placement={position} size={'medium'} key={index}>
+            <TabPanel value={'a'} label={'a'}>
+              <div>a</div>
+            </TabPanel>
+            <TabPanel value={'b'} label={'b'}>
+              <div>b</div>
+            </TabPanel>
+          </Tabs>
+        ))}
       </div>,
     );
 
     const tabInstance = await waitFor(() => getByTestId(testId));
 
-    expect(() => tabInstance.querySelector('.t-is-top')).not.toBe(null);
+    positions.forEach((position) => {
+      expect(() => tabInstance.querySelector(`.t-is-${position}`)).not.toBe(null);
+
+      if (['left', 'right'].includes(position)) {
+        expect(() => tabInstance.querySelector(`.t-is-vertical`)).not.toBe(null);
+      }
+    });
   });
 
   test('remove tab', async () => {
@@ -171,5 +183,27 @@ describe('Tabs 组件测试', () => {
 
     const tabInstance = await waitFor(() => getByTestId(testId));
     expect(tabInstance.querySelector('.t-tabs__nav-item')).toBe(null);
+  });
+
+  test('test TabNav event', async () => {
+    const testId = 'no tab item test id';
+
+    const { getByTestId } = render(
+      <div data-testid={testId}>
+        <TabNav
+          defaultValue={0}
+          activeValue={0}
+          itemList={[
+            {
+              value: 0,
+            },
+          ]}
+          tabClick={undefined}
+        ></TabNav>
+      </div>,
+    );
+
+    const tabInstance = await waitFor(() => getByTestId(testId));
+    expect(tabInstance.querySelector('.t-tabs__nav-item-wrapper')).not.toBe(null);
   });
 });
