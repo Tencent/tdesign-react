@@ -313,7 +313,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }, [formValue]);
 
   useEffect(() => {
-    if (!name) return;
+    if (!name || !formItemsRef || !formItemsRef.current) return;
     formItemsRef.current.push(currentFormItemRef);
 
     return () => {
