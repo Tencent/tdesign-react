@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { TdPrimaryTableProps, TdEnhancedTableProps } from '../type';
+import { StyledProps } from '../../common';
 import PrimaryTable from '../primary/Table';
 import useTree from './useTree';
 import { EnhancedTableContextProvider } from './TableContext';
 
-export type EnhancedTableProps = TdEnhancedTableProps & TdPrimaryTableProps;
+export type EnhancedTableProps = TdEnhancedTableProps & TdPrimaryTableProps & StyledProps;
 
 export default function EnhancedTable(props: EnhancedTableProps) {
   const { treeColumns, getFlattenData, getFlattenRowData, getFlattenPageData } = useTree(props);
