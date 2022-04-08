@@ -1,17 +1,17 @@
 import React from 'react';
-import { Button, PopConfirm } from 'tdesign-react';
+import { Button, Popconfirm } from 'tdesign-react';
 
 export default function InheritExample() {
   return (
     <div className="tdesign-demo-block-row">
-      <PopConfirm
+      <Popconfirm
         theme={'default'}
         content={'直接使用 placement 进行设置'}
         placement={'bottom'}
       >
         <Button theme="default" variant="outline">浮层出现在下方</Button>
-      </PopConfirm>
-      <PopConfirm
+      </Popconfirm>
+      <Popconfirm
         theme={'default'}
         content="透传属性到 Popup 组件进行设置"
         popupProps={{
@@ -21,7 +21,7 @@ export default function InheritExample() {
         cancelBtn={<Button theme={'default'} size={'small'} variant={'outline'}>我再想想</Button>}
       >
         <Button theme="default" variant="outline">浮层出现在右侧</Button>
-      </PopConfirm>
+      </Popconfirm>
     </div>
   );
 }
