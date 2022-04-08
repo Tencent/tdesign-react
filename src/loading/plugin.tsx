@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Loading from './loading';
+import Loading from './Loading';
 import { LoadingMethod, TdLoadingProps } from './type';
 
 function createContainer(attach?: TdLoadingProps['attach']) {

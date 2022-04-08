@@ -1,6 +1,6 @@
 import { testExamples, render } from '@test/utils';
 import React from 'react';
-import Loading from '../loading';
+import Loading from '../Loading';
 
 testExamples(__dirname);
 
