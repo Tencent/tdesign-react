@@ -1,77 +1,113 @@
-import React from 'react';
-import { Table } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Table, Radio, Checkbox, Button } from 'tdesign-react';
 
-const exampleList = Array(5)
-  .fill(1)
-  .map((_, i) => ({
+const data = [];
+for (let i = 0; i < 5; i++) {
+  data.push({
     index: i,
-    platform: '公有，代表这个数据可以是被公开的',
-    property: 'data',
-    type: 'any[]',
-    default: '[]',
-    needed: 'Y',
+    platform: i % 2 === 0 ? '共有' : '私有',
+    type: ['String', 'Number', 'Array', 'Object'][i % 4],
+    default: ['-', '0', '[]', '{}'][i % 4],
+    detail: {
+      position: `读取 ${i} 个数据的嵌套信息值`,
+    },
+    needed: i % 4 === 0 ? '是' : '否',
     description: '数据源',
-  }));
+  });
+}
 
 export default function TableFixedColumn() {
-  return (
+  const [tableLayout, setTableLayout] = useState('fixed');
+  const [emptyData, setEmptyData] = useState(false);
+  const [leftFixedColumn, setLeftFixedColumn] = useState(2);
+  const [rightFixedColumn, setReftFixedColumn] = useState(1);
+
+  const table = (
     <Table
       bordered
-      data={exampleList}
+      data={emptyData ? [] : data}
+      tableLayout={tableLayout}
+      tableContentWidth={tableLayout === 'fixed' ? undefined : '1200px'}
       columns={[
         {
+          align: 'center',
+          width: 80,
+          colKey: 'index',
+          title: '序号',
           fixed: 'left',
-          align: 'left',
-          width: 150,
-          minWidth: 150,
-          className: 'row',
-          colKey: 'type',
-          title: '类型',
         },
         {
-          fixed: 'left',
-          align: 'left',
-          width: 150,
-          minWidth: 150,
-          className: 'test',
           colKey: 'platform',
           title: '平台',
+          width: 100,
+          fixed: leftFixedColumn >= 2 ? 'left' : undefined,
         },
         {
-          align: 'left',
-          width: 200,
-          minWidth: 200,
-          className: 'test2',
-          colKey: 'property',
-          title: '属性',
+          colKey: 'type',
+          title: '类型',
+          width: 150,
+          // fixed: 'left',
         },
         {
-          align: 'left',
-          width: 200,
-          minWidth: 200,
-          className: 'test4',
           colKey: 'default',
           title: '默认值',
+          width: 150,
         },
         {
-          align: 'left',
-          width: 200,
-          minWidth: 200,
-          className: 'test3',
-          colKey: 'needed',
-          title: '是否必传',
-        },
-        {
-          align: 'left',
-          fixed: 'right',
-          width: 200,
-          minWidth: 200,
-          className: 'row',
           colKey: 'description',
           title: '说明',
+          width: 100,
+        },
+        {
+          colKey: 'needed',
+          title: '是否必传',
+          width: 150,
+          // fixed: 'right',
+        },
+        {
+          colKey: 'operation',
+          title: '操作',
+          width: 120,
+          align: 'center',
+          cell: () => <Button variant='text'>删除</Button>,
+          fixed: rightFixedColumn >= 2 ? 'right' : undefined,
+        },
+        {
+          colKey: 'detail.position',
+          title: '详情信息',
+          width: 120,
+          fixed: 'right',
+          // 允许自定义浮层 Popup 全部属性
+          ellipsis: { placement: 'bottom-right' },
         },
       ]}
       rowKey="index"
     />
+  );
+
+  return (
+    <div className='tdesign-demo-block-column'>
+      <div>
+        <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={setLeftFixedColumn}>
+          <Radio.Button value={1}>左侧固定一列</Radio.Button>
+          <Radio.Button value={2}>左侧固定两列</Radio.Button>
+        </Radio.Group>
+      </div>
+      <div>
+        <Radio.Group value={rightFixedColumn} variant="default-filled" onChange={setReftFixedColumn}>
+          <Radio.Button value={1}>右侧固定一列</Radio.Button>
+          <Radio.Button value={2}>右侧固定两列</Radio.Button>
+        </Radio.Group>
+      </div>
+      <div>
+        <Radio.Group value={tableLayout} variant="default-filled" onChange={setTableLayout}>
+          <Radio.Button value='fixed'>table-layout: fixed</Radio.Button>
+          <Radio.Button value='auto'>table-layout: auto</Radio.Button>
+        </Radio.Group>
+        <Checkbox value={emptyData} onChange={setEmptyData}  style={{ marginLeft: '16px', verticalAlign: 'middle' }}>空数据</Checkbox>
+      </div>
+
+      {table}
+    </div>
   );
 }

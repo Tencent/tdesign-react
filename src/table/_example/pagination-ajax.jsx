@@ -1,79 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'tdesign-react';
 
-const dataSource = [];
-const total = 60;
-for (let i = 0; i < total; i++) {
-  dataSource.push({
-    index: i,
-    platform: '公有',
-    type: 'any[]',
-    default: '[]',
-    needed: 'Y',
-    description: '数据源',
-    detail: {
-      name: '嵌套信息读取',
-    },
-  });
-}
 const columns = [
   {
-    align: 'center',
-    width: 100,
-    minWidth: 100,
-    className: 'row',
-    ellipsis: true,
-    colKey: 'index',
-    title: 'index',
+    width: 200,
+    colKey: 'name',
+    title: '姓名',
+    render({ row: { name } }) {
+      return name ? `${name?.first} ${name?.last}` : 'UNKNOWN_USER';
+    },
   },
   {
-    align: 'left',
-    width: 100,
-    minWidth: 100,
-    className: 'test',
-    ellipsis: true,
-    colKey: 'platform',
-    title: '平台',
+    width: 200,
+    colKey: 'gender',
+    title: '性别',
   },
   {
-    align: 'left',
-    className: 'test4',
-    ellipsis: true,
-    colKey: 'default',
-    title: '默认值',
+    width: 200,
+    colKey: 'phone',
+    title: '联系方式',
+    render({ row: { phone } }) {
+      return phone;
+    },
   },
   {
-    align: 'left',
-    width: 100,
-    minWidth: 100,
-    className: 'test3',
+    width: 260,
+    colKey: 'email',
+    title: '邮箱',
     ellipsis: true,
-    colKey: 'needed',
-    title: '是否必传',
-  },
-  {
-    align: 'left',
-    width: 100,
-    minWidth: 100,
-    className: 'test3',
-    ellipsis: true,
-    colKey: 'detail.name',
-    title: '详情信息',
-  },
-  {
-    align: 'left',
-    width: 100,
-    minWidth: 100,
-    className: 'row',
-    ellipsis: true,
-    colKey: 'description',
-    title: '说明',
   },
 ];
 
 export default function TableBasic() {
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [total, setTotal] = useState(0);
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
@@ -87,15 +48,17 @@ export default function TableBasic() {
 
   // 模拟远程请求
   async function fetchData(pageInfo) {
-    setIsloading(true);
+    setIsLoading(true);
     try {
-      setTimeout(() => {
-        const { current, pageSize } = pageInfo;
-        const newDataSource = dataSource.slice((current - 1) * pageSize, current * pageSize);
-        console.log('分页数据', newDataSource);
-        setData(newDataSource);
-        setIsloading(false);
-      }, 300);
+      const { current, pageSize } = pageInfo;
+      // 请求可能存在跨域问题
+      const url = new URL('https://randomuser.me/api');
+      const params = { page: current, results: pageSize };
+      Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+      const response = await fetch(url).then((x) => x.json());
+      setData(response.results);
+      setTotal(120);
+      setIsLoading(false);
     } catch (err) {
       setData([]);
     }
@@ -109,26 +72,25 @@ export default function TableBasic() {
     <Table
       data={data}
       columns={columns}
-      rowKey="index"
-      tableLayout="auto"
-      verticalAlign="top"
+      rowKey="phone"
       loading={isLoading}
-      size="small"
-      bordered
-      hover
-      stripe
-      rowClassName={(rowKey) => `${rowKey}-class`}
       pagination={{
         current,
         pageSize,
+        // 支持非受控用法
+        // defaultCurrent: 1,
+        // defaultPageSize: 5,
         total,
         showJumper: true,
         showSizer: true,
         visibleWithOnePage: true,
-        onChange(pageInfo) {
+        onChange(pageInfo, context) {
           console.log(pageInfo, 'onChange pageInfo');
-          rehandleChange(pageInfo);
+          rehandleChange(pageInfo, context);
         },
+      }}
+      onPageChange={(pageInfo) => {
+        console.log(pageInfo, 'onPageChange pageInfo');
       }}
     />
   );
