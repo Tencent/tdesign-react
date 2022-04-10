@@ -1,95 +1,91 @@
-import React from 'react';
-import { Table } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Table, RadioGroup, RadioButton, Checkbox } from 'tdesign-react';
 
 const data = [];
-const total = 30;
-for (let i = 0; i < total; i++) {
+for (let i = 0; i < 20; i++) {
   data.push({
     index: i,
-    platform: '公有',
-    type: 'any[]',
-    default: '[]',
-    needed: 'Y',
-    description: '数据源',
-    property: 'any',
+    platform: i % 2 === 0 ? '共有' : '私有',
+    type: ['String', 'Number', 'Array', 'Object'][i % 4],
+    default: ['-', '0', '[]', '{}'][i % 4],
     detail: {
-      name: '嵌套信息读取',
+      position: `读取 ${i} 个数据的嵌套信息值`,
     },
+    needed: i % 4 === 0 ? '是' : '否',
+    description: '数据源',
   });
 }
 
 export default function TableFixHeader() {
-  return (
+  const [tableLayout, setTableLayout] = useState('fixed');
+  const [fixedTopAndBottomRows, setFixedTopAndBottomRows] = useState(false);
+  // 如果希望表格列宽自适应，设置 `table-layout: auto` 即可。如果列字段过多超出表格宽度，还需同时设置 table-content-width
+  // fixedRows: [2, 2] 表示冻结表格的头两行和尾两行
+  // footData 可以是多行，均支持固定在底部，用法同 data
+  const table = (
     <Table
       data={data}
-      maxHeight={200}
+      footData={[{}]}
+      tableLayout={tableLayout}
+      maxHeight={fixedTopAndBottomRows ? 500 : 300}
+      fixedRows={fixedTopAndBottomRows ? [2, 2] : undefined}
       bordered
       columns={[
         {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'row',
-          ellipsis: true,
-          colKey: 'index',
-          title: 'index',
-        },
-        {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'row',
-          ellipsis: true,
-          colKey: 'type',
-          title: '类型',
-        },
-        {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'test',
-          ellipsis: true,
+          width: 120,
           colKey: 'platform',
           title: '平台',
+          foot: '汇总',
         },
         {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'test2',
-          ellipsis: true,
-          colKey: 'property',
-          title: '属性',
+          width: 120,
+          colKey: 'type',
+          title: '类型',
+          foot: 'Number(5)',
         },
         {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'test4',
-          ellipsis: true,
           colKey: 'default',
           title: '默认值',
+          foot: '-',
         },
         {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'test3',
-          ellipsis: true,
           colKey: 'needed',
-          title: '是否必传',
+          title: '必传',
+          foot: '否(6)',
         },
         {
-          align: 'left',
-          width: '100',
-          minWidth: '100',
-          className: 'row',
+          colKey: 'detail.position',
+          title: '详情信息',
+          width: 200,
           ellipsis: true,
+          foot: '-',
+        },
+        {
           colKey: 'description',
           title: '说明',
+          foot: '数据(10)',
         },
       ]}
       rowKey="index"
     />
+  );
+
+  return (
+    <div className='tdesign-demo-block-column-large'>
+
+      <div>
+        <div>
+          <RadioGroup value={tableLayout} variant="default-filled" onChange={setTableLayout}>
+            <RadioButton value='fixed'>table-layout: fixed</RadioButton>
+            <RadioButton value='auto'>table-layout: auto</RadioButton>
+          </RadioGroup>
+        </div>
+        <br />
+        <Checkbox value={fixedTopAndBottomRows} onChange={setFixedTopAndBottomRows}>是否冻结首尾两行</Checkbox>
+      </div>
+
+      {table}
+
+    </div>
   );
 }

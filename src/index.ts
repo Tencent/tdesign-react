@@ -13,7 +13,7 @@ export * from './input-number';
 export * from './config-provider';
 export * from './steps';
 export * from './message';
-export * from './table';
+export * from './table_new';
 export * from './tag';
 export * from './tag-input';
 export * from './select';
