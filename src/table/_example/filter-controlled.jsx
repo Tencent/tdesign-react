@@ -5,41 +5,23 @@ const columns = [
   {
     colKey: 'instance',
     title: '集群名称',
-    filter: {
-      type: 'single',
-      list: [
-        { label: 'any one', value: '' },
-        { label: 'JQTest1', value: 'JQTest1' },
-        { label: 'JQTest2', value: 'JQTest2' },
-        { label: 'JQTest3', value: 'JQTest3' },
-      ],
-    },
-    width: 150,
-  },
-  {
-    colKey: 'status',
-    title: '状态',
-    width: 100,
-    cell({ row }) {
-      switch (row.status) {
-        case 0:
-          return <p className="status">健康</p>;
-        case 1:
-          return <p className="status warning">警告</p>;
-        case 2:
-          return <p className="status unhealth">异常</p>;
-        default:
-          return null;
-      }
-    },
+    // filter: {
+    //   type: 'single',
+    //   list: [
+    //     { label: 'any one', value: '' },
+    //     { label: 'JQTest1', value: 'JQTest1' },
+    //     { label: 'JQTest2', value: 'JQTest2' },
+    //     { label: 'JQTest3', value: 'JQTest3' },
+    //   ],
+    // },
   },
   {
     colKey: 'survivalTime',
-    title: '存活时间(s)',
-    width: 180,
+    title: '存活时间',
     sorter: (a, b) => a.survivalTime - b.survivalTime,
     filter: {
-      type: 'multiple',
+      type: 'single',
+      // showConfirmAndReset: true,
       list: [
         { label: '300', value: 300 },
         { label: '500', value: 500 },
@@ -50,17 +32,20 @@ const columns = [
   {
     colKey: 'owner',
     title: '管理员',
-    width: 100,
     filter: {
       type: 'input',
+      showConfirmAndReset: true,
+      props: {
+        placeholder: '请输入关键词搜索',
+      },
     },
   },
   {
     colKey: 'area',
     title: '区域',
-    width: 100,
     filter: {
       type: 'multiple',
+      showConfirmAndReset: true,
       list: [
         { label: '广州', value: '广州' },
         { label: '成都', value: '成都' },
@@ -73,7 +58,11 @@ const columns = [
     colKey: 'createTime',
     // 自定义过滤组件
     filter: {
-      component: <DatePicker clearable />,
+      // 直接传入组件，请确保自定义过滤组件包含 value 和 onChange 等两个参数，组件内部会自动处理
+      component: DatePicker,
+      props: {
+        clearable: true,
+      },
     },
   },
 ];
@@ -95,15 +84,17 @@ const initData = [
 ];
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
-  const [filterValue, setFilterValue] = useState({ survivalTime: [300, 500] });
+  //  survivalTime: [300, 500] 
+  const [filterValue, setFilterValue] = useState({});
 
-  function onFilterChange(_filterVal, col) {
-    console.log(_filterVal, col);
-    setFilterValue(_filterVal);
+  function onFilterChange(filterVal, col) {
+    console.log(filterVal, col);
+    setFilterValue(filterVal);
+    // TODO: 在此处理过滤数据效果，以达到更真实的过滤效果
   }
 
-  function onChange(tableChangeData, context) {
-    console.log('onChange', tableChangeData, context);
+  function onChange(info, context) {
+    console.log('onChange', info, context);
   }
 
   // 受控方式，打开模拟排序（可用，勿删）
@@ -151,8 +142,8 @@ export default function TableSingleSort() {
         data={data}
         columns={columns}
         // filterIcon={<IconFont name="add-circle" size="1em" />}
-        // filterValue={filterValue}
-        defaultFilterValue={filterValue}
+        filterValue={filterValue}
+        // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
         onChange={onChange}
         // 非受控写法
