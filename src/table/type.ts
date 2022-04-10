@@ -8,14 +8,16 @@ import { AffixProps } from '../affix';
 import { LoadingProps } from '../loading';
 import { PaginationProps, PageInfo } from '../pagination';
 import { PopupProps } from '../popup';
-import { CheckboxGroupProps } from '../checkbox';
-import { DialogProps } from '../dialog';
 import { CheckboxGroupValue } from '../checkbox';
+import { SortableEvent } from 'sortablejs';
 import { CheckboxProps } from '../checkbox';
 import { RadioProps } from '../radio';
 import { InputProps } from '../input';
+import { ButtonProps } from '../button';
+import { CheckboxGroupProps } from '../checkbox';
+import { DialogProps } from '../dialog';
 import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes } from '../common';
-import { MouseEvent, WheelEvent } from 'react';
+import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
@@ -23,6 +25,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * @default false
    */
   bordered?: boolean;
+  /**
+   * 表格底部内容，可以用于自定义列设置等
+   */
+  bottomContent?: TNode;
   /**
    * 列配置，泛型 T 指表格数据类型
    * @default []
@@ -57,12 +63,12 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   footData?: Array<T>;
   /**
-   * 【开发中】表头吸顶
+   * 表头吸顶
    * @default false
    */
   headerAffixedTop?: boolean;
   /**
-   * 【开发中】表头吸顶基于 Affix 组件开发，透传全部 Affix 组件属性
+   * 表头吸顶基于 Affix 组件开发，透传全部 Affix 组件属性
    */
   headerAffixProps?: AffixProps;
   /**
@@ -96,7 +102,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   pagination?: PaginationProps;
   /**
-   * HTML 标签 `tr` 的属性。`params.row` 表示行数据；`params.rowIndex` 表示行下标；`params.type=body` 表示属性作用于 `tbody` 中的元素；`params.type=body` 表示属性作用于 `tfoot` 中的元素。<br />示例一：{ draggable: true }，示例二：[{ draggable: true }, { title: '超出省略显示' }]
+   * HTML 标签 `tr` 的属性。类型为 Function 时，参数说明：`params.row` 表示行数据；`params.rowIndex` 表示行下标；`params.type=body` 表示属性作用于 `tbody` 中的元素；`params.type=foot` 表示属性作用于 `tfoot` 中的元素。<br />示例一：{ draggable: true }，<br />示例二：[{ draggable: true }, { title: '超出省略显示' }]。<br /> 示例三：() => [{ draggable: true }]
    */
   rowAttributes?: TableRowAttributes<T>;
   /**
@@ -113,7 +119,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   rowspanAndColspan?: TableRowspanAndColspanFunc<T>;
   /**
-   * 懒加载和虚拟滚动
+   * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
   scroll?: TableScroll;
   /**
@@ -137,7 +143,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   tableLayout?: 'auto' | 'fixed';
   /**
-   * 表格顶部内容，可以用于自定义列设置等
+   * 表格顶部内容，可以用于自定义列设置、顶部查询条件等
    */
   topContent?: TNode;
   /**
@@ -160,11 +166,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
    * 行双击时触发，泛型 T 指表格数据类型
    */
-  onRowDbClick?: (context: RowEventContext<T>) => void;
-  /**
-   * 鼠标悬浮到行时触发，泛型 T 指表格数据类型
-   */
-  onRowHover?: (context: RowEventContext<T>) => void;
+  onRowDblclick?: (context: RowEventContext<T>) => void;
   /**
    * 鼠标在表格行按下时触发，泛型 T 指表格数据类型
    */
@@ -177,6 +179,10 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * 鼠标在表格行离开时触发，泛型 T 指表格数据类型
    */
   onRowMouseleave?: (context: RowEventContext<T>) => void;
+  /**
+   * 鼠标悬浮到行时触发，泛型 T 指表格数据类型
+   */
+  onRowMouseover?: (context: RowEventContext<T>) => void;
   /**
    * 鼠标在表格行按下又弹起时触发，泛型 T 指表格数据类型
    */
@@ -239,10 +245,6 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   foot?: string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>;
   /**
-   * 列最小宽度
-   */
-  minWidth?: string | number;
-  /**
    * 自定义表头或单元格，泛型 T 指表格数据类型
    */
   render?: TNode<BaseTableRenderParams<T>>;
@@ -251,35 +253,46 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
    */
   title?: string | TNode | TNode<{ col: BaseTableCol; colIndex: number }>;
   /**
-   * 列宽
+   * 列宽，可以作为最小宽度使用。当列宽总和小于 `table` 元素时，浏览器根据宽度设置情况自动分配宽度；当列宽总和大于 `table` 元素，表现为定宽。可以同时调整 `table` 元素的宽度来达到自己想要的效果
    */
   width?: string | number;
 }
 
 export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
-  extends Omit<TdBaseTableProps<T>, 'columns'> {
+  extends Omit<TdBaseTableProps<T>, 'columns' | 'onCellClick'> {
   /**
    * 异步加载状态。值为 `loading` 显示默认文字 “正在加载中，请稍后”，值为 `loading-more` 显示“点击加载更多”，值为其他，表示完全自定义异步加载区域内容
    */
   asyncLoading?: 'loading' | 'load-more' | TNode;
   /**
-   * 【开发中】自定义显示列控制器，值为空不会显示。<br />`columnController.fields` 表示只允许用户对数组里面的列进行显示或隐藏的控制，默认为全部字段。<br />`columnController.displayType` 是指字段呈现方式：`fixed-width` 表示固定宽度，每行固定数量，横向和纵向均对齐，`auto-width` 表示宽度随列标题数量自由显示，横向铺满，纵向不要求对齐，默认为 `auto-width`。<br />支持透传 CheckboxGroup 和 Dialog 组件等全部属性
+   * 自定义显示列控制器，值为空不会显示。具体属性请看下方 `TableColumnController` 文档
    */
   columnController?: TableColumnController;
   /**
-   * 【开发中】自定义显示列控制器的内容呈现，可以填充任意内容
+   * 是否显示列配置弹框控制器，只要该属性值不为 `undefined`，弹框的显示/隐藏完全由该属性控制
    */
-  columnControllerContent?: TNode;
+  columnControllerVisible?: boolean;
+  /**
+   * 是否显示列配置弹框控制器，只要该属性值不为 `undefined`，弹框的显示/隐藏完全由该属性控制，非受控属性
+   */
+  defaultColumnControllerVisible?: boolean;
   /**
    * 列配置，泛型 T 指表格数据类型
    * @default []
    */
   columns?: Array<PrimaryTableCol<T>>;
   /**
-   * 是否开启拖拽排序
-   * @default false
+   * 列配置功能中，当前显示的列
    */
-  dragSort?: boolean;
+  displayColumns?: CheckboxGroupValue;
+  /**
+   * 列配置功能中，当前显示的列，非受控属性
+   */
+  defaultDisplayColumns?: CheckboxGroupValue;
+  /**
+   * 拖拽排序方式，值为 `row` 表示行拖拽排序，这种方式无法进行文本复制，慎用。值为`col` 表示通过专门的 拖拽列 进行拖拽排序。`drag-col` 已废弃，请勿使用
+   */
+  dragSort?: 'row' | 'col' | 'drag-col';
   /**
    * 展开行内容，泛型 T 指表格数据类型
    */
@@ -333,11 +346,6 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   defaultSelectedRowKeys?: Array<string | number>;
   /**
-   * 【讨论中-待定】是否显示为通过拖拽图标进行排序
-   * @default false
-   */
-  showDragCol?: boolean;
-  /**
    * 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序
    */
   sort?: TableSort;
@@ -350,7 +358,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   sortIcon?: TElement;
   /**
-   * 允许表格行拖拽时排序
+   * 允许表格行拖拽时排序。请更为使用 `dragSort="row"`
    * @default false
    * @deprecated
    */
@@ -364,19 +372,27 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   onCellClick?: (context: PrimaryTableCellEventContext<T>) => void;
   /**
-   * 分页、排序、过滤等内容变化时触发，泛型 T 指表格数据类型
+   * 分页、排序、过滤等内容变化时触发，泛型 T 指表格数据类型，`currentData` 表示变化后的数据
    */
-  onChange?: (data: TableChangeData, context: TableChangeContext<Array<T>>) => void;
+  onChange?: (data: TableChangeData, context: TableChangeContext<T>) => void;
   /**
-   * 【开发中】列配置发生变化时触发。`context.columns` 表示已选中的列；`context.currentColumn` 表示本次变化操作的列，值不存在表示全选操作；`context.type` 表示当前操作属于选中列或是取消列
+   * 确认操作之前列配置发生变化时触发。`context.columns` 表示已选中的列；`context.currentColumn` 表示本次变化操作的列，值不存在表示全选操作；`context.type` 表示当前操作属于选中列或是取消列
    */
   onColumnChange?: (context: PrimaryTableColumnChange<T>) => void;
   /**
-   * 表格数据发生变化时触发，比如：本地排序方法 sorter
+   * 列配置弹窗显示或隐藏变化时触发
    */
-  onDataChange?: (data: Array<T>) => void;
+  onColumnControllerVisibleChange?: (visible: boolean, context: { trigger: 'cancel' | 'confirm' }) => void;
   /**
-   * 拖拽排序时触发
+   * 本地数据排序导致 `data` 变化时触发，第一个参数指变化后的数据，第二个参数 `context.trigger` 表示触发本次变化的来源
+   */
+  onDataChange?: (data: Array<T>, context: TableDataChangeContext) => void;
+  /**
+   * 确认列配置时触发
+   */
+  onDisplayColumnsChange?: (value: CheckboxGroupValue) => void;
+  /**
+   * 拖拽排序时触发，`currentData` 表示拖拽排序结束后的新数据
    */
   onDragSort?: (context: DragSortContext<T>) => void;
   /**
@@ -398,7 +414,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
 }
 
 export interface PrimaryTableCol<T extends TableRowData = TableRowData>
-  extends Omit<BaseTableCol, 'cell' | 'title' | 'render'> {
+  extends Omit<BaseTableCol, 'cell' | 'title' | 'render' | 'children'> {
   /**
    * 【开发中】是否允许用户选择是否显示当前列，表格属性 `showColumnController` 为真时有效
    * @default true
@@ -409,11 +425,20 @@ export interface PrimaryTableCol<T extends TableRowData = TableRowData>
    */
   cell?: string | TNode<PrimaryTableCellParams<T>>;
   /**
-   * 透传参数，colKey 值为 row-select 时，配置有效。具体定义参考 Checkbox 组件 和 Radio 组件。泛型 T 指表格数据类型
+   * 透传参数，`colKey` 值为 `row-select` 时，配置有效。具体定义参考 Checkbox 组件 和 Radio 组件。泛型 T 指表格数据类型
    */
   checkProps?: CheckProps<T>;
   /**
-   * 是否禁用行选中，colKey 值为 row-select 时，配置有效
+   * 用于多级表头，泛型 T 指表格数据类型
+   */
+  children?: Array<PrimaryTableCol<T>>;
+  /**
+   * 渲染列所需字段，必须唯一。值为 `row-select` 表示当前列为行选中操作列。值为 `drag` 表示当前列为拖拽排序操作列
+   * @default ''
+   */
+  colKey?: string;
+  /**
+   * 是否禁用行选中，`colKey` 值为 `row-select` 时，配置有效
    */
   disabled?: (options: { row: T; rowIndex: number }) => boolean;
   /**
@@ -439,7 +464,7 @@ export interface PrimaryTableCol<T extends TableRowData = TableRowData>
    */
   title?: string | TNode<{ col: PrimaryTableCol; colIndex: number }>;
   /**
-   * 行选中有两种模式：单选和多选。`colKey` 值为 `row-select` 时，表示当前列选中项， `type=single/multiple` 有效
+   * `colKey` 值为 `row-select` 时表示行选中列，有两种模式：单选和多选。 `type=single` 表示单选，`type=multiple` 表示多选
    * @default single
    */
   type?: 'single' | 'multiple';
@@ -466,6 +491,10 @@ export interface EnhancedTableInstanceFunctions<T extends TableRowData = TableRo
    * 树形结构中，用于更新行数据。泛型 `T` 表示行数据类型
    */
   setData: (key: TableRowValue, newRowData: T) => void;
+  /**
+   * 展开或收起树形行
+   */
+  toggleExpandData: (p: { row: T; rowIndex: number }) => void;
 }
 
 export interface TableRowState<T extends TableRowData = TableRowData> {
@@ -507,9 +536,9 @@ export interface TableRowState<T extends TableRowData = TableRowData> {
 
 export interface TableColumnFilter {
   /**
-   * 用于自定义筛选器，只要保证自定义筛选器包含 value 属性 和 change 事件，即可像内置筛选器一样正常使用
+   * 用于自定义筛选器。只要保证自定义筛选器包含 value 属性 和 change 事件，即可像内置筛选器一样正常使用，示例：`component: DatePicker`
    */
-  component?: TElement;
+  component?: () => JSX.Element;
   /**
    * 用于配置当前筛选器可选值有哪些，仅当 `filter.type` 等于 `single` 或 `multiple` 时有效
    */
@@ -546,13 +575,52 @@ export interface TableScroll {
    */
   isFixedRowHeight?: boolean;
   /**
-   * 表格的行高，不会给`<tr>`元素添加样式高度，仅作为滚动时的行高参考。<br />`scroll.type` 为 `lazy` 时，`rowHeight` 用于给未渲染的行节点指定一个初始高度，该属性默认会设置为表格第一行的行高（滚动加载行数量 = 滚动距离 / rowHeight）。<br />`scroll.type` 为 `virtual` 时，`rowHeight` 用于估算每行的大致高度，从而决定应该渲染哪些行，请尽量将该属性设置为表格每行平均高度，从而使得表格滚动过程更加平滑
+   * 表格的行高，不会给`<tr>`元素添加样式高度，仅作为滚动时的行高参考。一般情况不需要设置该属性。如果设置，可尽量将该属性设置为表格每行平均高度，从而使得表格滚动过程更加平滑
    */
   rowHeight?: number;
+  /**
+   * 启动虚拟滚动的阈值。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动
+   * @default 100
+   */
+  threshold?: number;
   /**
    * 表格滚动加载类型，有两种：懒加载和虚拟滚动。<br />值为 `lazy` ，表示表格滚动时会进行懒加载，非可视区域内的表格内容将不会默认渲染，直到该内容可见时，才会进行渲染，并且已渲染的内容滚动到不可见时，不会被销毁；<br />值为`virtual`时，表示表格会进行虚拟滚动，无论滚动条滚动到哪个位置，同一时刻，表格仅渲染该可视区域内的表格内容，当表格需要展示的数据量较大时，建议开启该特性
    */
   type: 'lazy' | 'virtual';
+}
+
+export interface TableColumnController {
+  /**
+   * 自定义列配置按钮，包括 Button 组件的全部属性。比如：按钮颜色和文本
+   */
+  buttonProps?: ButtonProps;
+  /**
+   * 透传复选框组件全部特性
+   */
+  checkboxProps?: CheckboxGroupProps;
+  /**
+   * 透传弹框组件全部特性，如：防止滚动穿透
+   */
+  dialogProps?: DialogProps;
+  /**
+   * 指列配置弹框中，各列的字段平铺方式：`fixed-width` 表示固定宽度，每行固定数量，横向和纵向均对齐，`auto-width` 表示宽度随列标题数量自由显示，横向铺满，纵向不要求对齐
+   * @default auto-width
+   */
+  displayType?: 'fixed-width' | 'auto-width';
+  /**
+   * 用于设置允许用户对哪些列进行显示或隐藏的控制，默认为全部字段
+   */
+  fields?: string[];
+  /**
+   * 是否隐藏表格组件内置的“列配置”按钮
+   * @default false
+   */
+  hideTriggerButton?: boolean;
+  /**
+   * 列配置按钮基于表格的放置位置：左上角、右上角、左下角、右下角等
+   * @default top-right
+   */
+  placement?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
 export type TableRowAttributes<T> =
@@ -578,13 +646,13 @@ export interface BaseTableCellEventContext<T> {
   col: BaseTableCol;
   rowIndex: number;
   colIndex: number;
-  e: MouseEvent<HTMLDivElement>;
+  e: MouseEvent<HTMLTableCellElement>;
 }
 
 export interface RowEventContext<T> {
   row: T;
   index: number;
-  e: MouseEvent<HTMLDivElement>;
+  e: MouseEvent<HTMLTableRowElement>;
 }
 
 export interface TableRowData {
@@ -611,13 +679,6 @@ export type RenderType = 'cell' | 'title';
 
 export type DataType = TableRowData;
 
-export interface TableColumnController {
-  fields?: string[];
-  displayType: 'fixed-width' | 'auto-width';
-  checkboxProps?: CheckboxGroupProps;
-  dialogProps?: DialogProps;
-}
-
 export interface TableExpandedRowParams<T> {
   row: T;
   index: number;
@@ -629,9 +690,7 @@ export interface ExpandArrowRenderParams<T> {
   index: number;
 }
 
-export type FilterValue = { [key: string]: FilterItemValue };
-
-export type FilterItemValue = string | number | undefined | Array<string | number>;
+export type FilterValue = { [key: string]: any };
 
 export type TableSort = SortInfo | Array<SortInfo>;
 
@@ -656,7 +715,7 @@ export interface TableChangeData {
 
 export interface TableChangeContext<T> {
   trigger: TableChangeTrigger;
-  currentData?: T;
+  currentData?: T[];
 }
 
 export type TableChangeTrigger = 'filter' | 'sorter' | 'pagination';
@@ -665,6 +724,11 @@ export interface PrimaryTableColumnChange<T> {
   columns?: CheckboxGroupValue;
   currentColumn?: PrimaryTableCol<T>;
   type?: 'check' | 'uncheck';
+  e?: ChangeEvent<HTMLDivElement>;
+}
+
+export interface TableDataChangeContext {
+  trigger: 'sort';
 }
 
 export interface DragSortContext<T> {
@@ -672,6 +736,8 @@ export interface DragSortContext<T> {
   current: T;
   targetIndex: number;
   target: T;
+  currentData: T[];
+  e: SortableEvent;
 }
 
 export interface ExpandOptions<T> {
