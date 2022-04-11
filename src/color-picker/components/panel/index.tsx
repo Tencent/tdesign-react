@@ -86,7 +86,7 @@ const Panel = (props: ColorPickerProps) => {
 
   // 最近使用颜色变更时触发
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
-    setRecentlyUsedColors(colors);
+    setRecentlyUsedColors([...colors]);
   };
 
   // 添加最近使用颜色

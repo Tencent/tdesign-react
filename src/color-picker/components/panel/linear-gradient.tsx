@@ -266,14 +266,14 @@ const LinearGradient = (props) => {
           onEnter={handleDegreeChange}
           disabled={props.disabled}
         />
-        <div className={classNames([`${baseClassName}__gradient-preview`, `${baseClassName}--bg-alpha`])}>
-          <span
-            className="preview-inner"
-            style={{
-              background: linearGradient,
-            }}
-          ></span>
-        </div>
+      </div>
+      <div className={classNames([`${baseClassName}__gradient-preview`, `${baseClassName}--bg-alpha`])}>
+        <span
+          className="preview-inner"
+          style={{
+            background: linearGradient,
+          }}
+        ></span>
       </div>
     </div>
   );
