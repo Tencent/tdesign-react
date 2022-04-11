@@ -91,7 +91,7 @@ exports[`async-loading.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -348,7 +348,7 @@ exports[`base.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: auto; height: 100%;"
+          style="table-layout: auto;"
         >
           <colgroup>
             <col
@@ -976,7 +976,7 @@ exports[`custom-cell.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col
@@ -1159,7 +1159,7 @@ exports[`custom-header.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col />
@@ -1276,7 +1276,7 @@ exports[`data-sort.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -1575,7 +1575,7 @@ exports[`drag-sort.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -1784,7 +1784,7 @@ exports[`empty.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -1859,7 +1859,7 @@ exports[`empty.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -1942,7 +1942,7 @@ exports[`expandable.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -2493,7 +2493,7 @@ exports[`filter-controlled.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -3041,7 +3041,7 @@ exports[`fixed-column.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col
@@ -3332,7 +3332,7 @@ exports[`fixed-header.jsx 1`] = `
           class="t-table__header"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -3424,7 +3424,7 @@ exports[`fixed-header.jsx 1`] = `
           style="max-height: 200px;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -4797,7 +4797,7 @@ exports[`fixed-header-col.jsx 1`] = `
           class="t-table__header"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -4878,7 +4878,7 @@ exports[`fixed-header-col.jsx 1`] = `
           style="max-height: 200px; width: 100%;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -6071,7 +6071,7 @@ exports[`loading.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -6175,7 +6175,7 @@ exports[`loading.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -6277,7 +6277,7 @@ exports[`merge-cells.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col
@@ -6520,7 +6520,7 @@ exports[`multi-header.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col />
@@ -6799,7 +6799,7 @@ exports[`multiple-sort.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -7118,7 +7118,7 @@ exports[`pagination.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col />
@@ -7588,7 +7588,7 @@ exports[`pagination-ajax.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: auto; height: 100%;"
+          style="table-layout: auto;"
         >
           <colgroup>
             <col
@@ -7892,7 +7892,7 @@ exports[`select-multiple.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -8261,7 +8261,7 @@ exports[`select-single.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -8618,7 +8618,7 @@ exports[`single-sort.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
@@ -8937,7 +8937,7 @@ exports[`tree.jsx 1`] = `
         style="overflow: auto;"
       >
         <table
-          style="table-layout: fixed; height: 100%;"
+          style="table-layout: fixed;"
         >
           <colgroup>
             <col
@@ -9365,7 +9365,7 @@ exports[`tree-select.jsx 1`] = `
           style="overflow: auto;"
         >
           <table
-            style="table-layout: fixed; height: 100%;"
+            style="table-layout: fixed;"
           >
             <colgroup>
               <col
