@@ -4,8 +4,8 @@ import { StyledProps } from '../common';
 import type { Color } from '../_common/js/color-picker/color';
 
 export interface ColorPickerProps extends TdColorPickerProps, StyledProps {
-  togglePopup: Function;
-  ref: React.MutableRefObject<HTMLDivElement>;
+  togglePopup?: Function;
+  ref?: React.MutableRefObject<HTMLDivElement>;
 }
 
 // color modes
