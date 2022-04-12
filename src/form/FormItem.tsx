@@ -127,9 +127,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     if (Array.isArray(name)) {
       const [, itemKey] = name;
       return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
-    } 
-      return formRules?.[name] || formListRules || [];
-    
+    }
+    return formRules?.[name] || formListRules || [];
   }
 
   function renderTipsInfo() {
@@ -240,7 +239,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   function resetField(type: string) {
-    if (!name) return;
+    if (typeof name === 'undefined') return;
 
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
@@ -299,7 +298,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     }
 
     // value change event
-    if (name) {
+    if (typeof name !== 'undefined') {
       if (formListName) {
         const formListValue = [];
         if (Array.isArray(name)) {
@@ -321,7 +320,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }, [formValue]);
 
   useEffect(() => {
-    if (!name) return;
+    if (typeof name === 'undefined') return;
 
     // formList 下特殊处理
     if (formListName) {
