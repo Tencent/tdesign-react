@@ -44,7 +44,7 @@ export default ({ mode }) => {
       react(),
       tdocPlugin(),
       VitePWA(pwaConfig),
-      replace({ __DATE__: new Date().toISOString() }),
+      replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
       // istanbul({
       //   cwd: resolvePath('../'),
       //   include: ['src/**/*'],
