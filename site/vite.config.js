@@ -1,5 +1,5 @@
 import path from 'path';
-import istanbul from 'vite-plugin-istanbul';
+// import { istanbul } from 'vite-plugin-istanbul';
 import react from '@vitejs/plugin-react';
 import tdocPlugin from './plugin-tdoc';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -45,12 +45,12 @@ export default ({ mode }) => {
       tdocPlugin(),
       VitePWA(pwaConfig),
       replace({ __DATE__: new Date().toISOString() }),
-      istanbul({
-        cwd: resolvePath('../'),
-        include: ['src/**/*'],
-        exclude: ['src/_common/**/*'],
-        extension: ['.js', '.ts', '.jsx', '.tsx'],
-      }),
+      // istanbul({
+      //   cwd: resolvePath('../'),
+      //   include: ['src/**/*'],
+      //   exclude: ['src/_common/**/*'],
+      //   extension: ['.js', '.ts', '.jsx', '.tsx'],
+      // }),
     ],
   });
 };
