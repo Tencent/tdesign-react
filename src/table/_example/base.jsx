@@ -80,6 +80,7 @@ export default function TableBasic() {
       tableLayout="auto"
       verticalAlign="top"
       size="small"
+      height={400}
       bordered
       hover
       stripe
