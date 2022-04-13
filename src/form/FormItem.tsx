@@ -1,5 +1,4 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
-import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
@@ -11,15 +10,27 @@ import Tag from '../tag';
 import renderTNode from '../_util/renderTNode';
 import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
-import { useFormContext } from './FormContext';
+import { useFormContext, useFormListContext } from './FormContext';
+import useFormItemStyle from './hooks/useFormItemStyle';
 
-enum VALIDATE_STATUS {
+export enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
 }
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode;
+}
+
+export interface FormItemInstance {
+  name?: string | number | Array<string | number>;
+  value?: any;
+  setValue?: Function;
+  setField?: Function;
+  validate?: Function;
+  resetField?: Function;
+  setValidateMessage?: Function;
+  resetValidate?: Function;
 }
 
 // FormItem 子组件受控 key
@@ -44,7 +55,7 @@ function getDefaultInitialData(children: React.ReactNode, initialData: any) {
   return defaultInitialData;
 }
 
-const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
+const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const {
     colon,
@@ -58,9 +69,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
     errorMessage,
-    formItemsRef,
+    formMapRef,
     onFormItemValueChange,
   } = useFormContext();
+
+  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
 
   const {
     children,
@@ -72,7 +85,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     className,
     successBorder,
     statusIcon = statusIconFromContext,
-    rules: innerRules = rulesFromContext?.[name] || [],
+    rules: innerRules = getInnerRules(name, rulesFromContext, formListName, formListRules),
     labelWidth = labelWidthFromContext,
     labelAlign = labelAlignFromContext,
     requiredMark = requiredMarkFromContext,
@@ -86,65 +99,48 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const [needResetField, setNeedResetField] = useState(false);
   const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
 
-  const currentFormItemRef = useRef();
+  const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(null);
   const isMounted = useRef(false);
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
-    [`${classPrefix}-form-item__${name}`]: name,
-    [`${classPrefix}-form__item-with-help`]: help,
-    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
+  const { formItemClass, formItemLabelClass, contentClass, labelStyle, contentStyle } = useFormItemStyle({
+    className,
+    help,
+    name,
+    successBorder,
+    errorList,
+    layout,
+    verifyStatus,
+    colon,
+    label,
+    labelWidth,
+    labelAlign,
+    requiredMark,
+    showErrorMessage,
+    innerRules,
+    renderTipsInfo,
   });
-  const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]:
-      requiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
-    [`${classPrefix}-form__label--colon`]: colon && label,
-    [`${classPrefix}-form__label--top`]: labelAlign === 'top' || !labelWidth,
-    [`${classPrefix}-form__label--left`]: labelAlign === 'left' && labelWidth,
-    [`${classPrefix}-form__label--right`]: labelAlign === 'right' && labelWidth,
-  });
 
-  const contentClass = () => {
-    const controlCls = `${classPrefix}-form__controls`;
-    if (!showErrorMessage) return controlCls;
-
-    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
-    if (isSuccess) {
-      return classNames(controlCls, `${classPrefix}-is-success`, {
-        [`${classPrefix}-form--success-border`]: successBorder,
-      });
+  // 初始化 rules，最终以 formItem 上优先级最高
+  function getInnerRules(name, formRules, formListName, formListRules) {
+    if (Array.isArray(name)) {
+      const [, itemKey] = name;
+      return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
     }
-
-    const firstErrorType = errorList.length && (errorList[0].type || 'error');
-    return classNames(controlCls, {
-      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
-      [`${classPrefix}-is-error`]: firstErrorType === 'error',
-    });
-  };
-
-  let labelStyle = {};
-  let contentStyle = {};
-  if (label && labelWidth && labelAlign !== 'top') {
-    if (typeof labelWidth === 'number') {
-      labelStyle = { width: `${labelWidth}px` };
-      contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
-    } else {
-      labelStyle = { width: labelWidth };
-      contentStyle = { marginLeft: layout !== 'inline' ? labelWidth : '' };
-    }
+    return formRules?.[name] || formListRules || [];
   }
 
   function renderTipsInfo() {
-    let helpNode = null;
-    if (help) helpNode = <div className={`${classPrefix}-form__help`}>{renderTNode(help)}</div>;
+    let helpNode = name ? <div className={`${classPrefix}-input__extra`}></div> : '';
+    if (help) helpNode = <div className={`${classPrefix}-input__extra`}>{renderTNode(help)}</div>;
 
     const list = errorList;
     if (showErrorMessage && list && list[0] && list[0].message) {
-      return <p className={`${classPrefix}-input__extra`}>{list[0].message}</p>;
+      return <div className={`${classPrefix}-input__extra`}>{list[0].message}</div>;
     }
     if (successList.length) {
-      return <p className={`${classPrefix}-input__extra`}>{successList[0].message}</p>;
+      return <div className={`${classPrefix}-input__extra`}>{successList[0].message}</div>;
     }
 
     return helpNode;
@@ -216,7 +212,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         needResetField && resetHandler();
         setResetValidating(false);
 
-        resolve({ [name]: !filterErrorList.length ? true : r });
+        resolve({ [name as string]: !filterErrorList.length ? true : r });
       });
     });
   }
@@ -243,7 +239,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   function resetField(type: string) {
-    if (!name) return;
+    if (typeof name === 'undefined') return;
 
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
@@ -294,16 +290,27 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
-    // value change event
-    if (isMounted.current) {
-      name && onFormItemValueChange({ [name]: formValue });
-    }
-
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
     if (!shouldValidate.current || !isMounted.current) {
       isMounted.current = true;
       shouldValidate.current = true;
       return;
+    }
+
+    // value change event
+    if (typeof name !== 'undefined') {
+      if (formListName) {
+        const formListValue = [];
+        if (Array.isArray(name)) {
+          const [index, itemKey] = name;
+          formListValue[index] = { [itemKey]: formValue };
+        } else {
+          formListValue[name] = formValue;
+        }
+        onFormItemValueChange?.({ [formListName]: formListValue });
+      } else {
+        onFormItemValueChange?.({ [name as string]: formValue });
+      }
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
@@ -313,21 +320,28 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }, [formValue]);
 
   useEffect(() => {
-    if (!name || !formItemsRef || !formItemsRef.current) return;
-    formItemsRef.current.push(currentFormItemRef);
+    if (typeof name === 'undefined') return;
 
-    return () => {
-      const index = formItemsRef.current.indexOf(currentFormItemRef);
-      if (index !== -1) {
+    // formList 下特殊处理
+    if (formListName) {
+      formListMapRef.current.set(name, currentFormItemRef);
+      return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        formItemsRef.current?.splice(index, 1);
-      }
+        formListMapRef.current.delete(name);
+      };
+    }
+
+    if (!formMapRef) return;
+    formMapRef.current.set(name, currentFormItemRef);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      formMapRef.current.delete(name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
+  }, [name, formListName]);
 
   // 暴露 ref 实例方法
-  useImperativeHandle(currentFormItemRef, (): any => ({
+  const instance: FormItemInstance = {
     name,
     value: formValue,
     setValue: setFormValue,
@@ -336,10 +350,12 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     resetField,
     setValidateMessage,
     resetValidate: resetHandler,
-  }));
+  };
+  useImperativeHandle(ref, (): FormItemInstance => instance);
+  useImperativeHandle(currentFormItemRef, (): FormItemInstance => instance);
 
   return (
-    <div className={formItemClass} style={style} ref={ref}>
+    <div className={formItemClass} style={style}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
@@ -394,5 +410,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     </div>
   );
 });
+
+FormItem.displayName = 'FormItem';
 
 export default FormItem;

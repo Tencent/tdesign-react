@@ -69,11 +69,6 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   showErrorMessage?: boolean;
   /**
-   * 表单尺寸
-   * @default medium
-   */
-  size?: 'medium' | 'large';
-  /**
    * 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标
    */
   statusIcon?: boolean | TNode<TdFormItemProps>;
@@ -165,9 +160,8 @@ export interface TdFormItemProps {
   labelWidth?: string | number;
   /**
    * 表单字段名称
-   * @default ''
    */
-  name?: string;
+  name?: string | number | Array<string | number>;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
@@ -190,6 +184,26 @@ export interface TdFormItemProps {
    * @default false
    */
   successBorder?: boolean;
+}
+
+export interface TdFormListProps {
+  /**
+   * 渲染函数
+   */
+  children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
+  /**
+   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
+   * @default []
+   */
+  initialData?: Array<any>;
+  /**
+   * 表单字段名称
+   */
+  name?: string | number;
+  /**
+   * 表单字段校验规则
+   */
+  rules?: { [field in keyof FormData]: Array<FormRule> } | Array<FormRule>;
 }
 
 export interface FormRule {
@@ -384,6 +398,14 @@ export type ValidateTriggerType = 'blur' | 'change' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type FormListField = { key: number; name: number; isListField: boolean };
+
+export type FormListFieldOperation = {
+  add: (defaultValue?: any, insertIndex?: number) => void;
+  remove: (index: number | number[]) => void;
+  move: (from: number, to: number) => void;
+};
 
 export interface IsDateOptions {
   format: string;

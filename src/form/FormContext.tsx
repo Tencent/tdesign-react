@@ -1,12 +1,12 @@
 import React from 'react';
-import { TdFormProps } from './type';
+import { TdFormProps, TdFormListProps } from './type';
+import { FormItemInstance } from './FormItem';
 
 const FormContext = React.createContext<{
   labelWidth?: TdFormProps['labelWidth'];
   statusIcon?: TdFormProps['statusIcon'];
   labelAlign: TdFormProps['labelAlign'];
   layout: TdFormProps['layout'];
-  size: TdFormProps['size'];
   colon: TdFormProps['colon'];
   requiredMark: TdFormProps['requiredMark'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
@@ -15,13 +15,12 @@ const FormContext = React.createContext<{
   disabled: TdFormProps['disabled'];
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
-  formItemsRef: React.RefObject<Array<React.RefObject<HTMLElement>>>;
+  formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
-  labelWidth: 'calc(1 / 12 * 100%)',
+  labelWidth: '100px',
   labelAlign: 'right',
   layout: 'vertical',
-  size: 'medium',
   colon: false,
   requiredMark: true,
   scrollToFirstError: undefined,
@@ -32,9 +31,21 @@ const FormContext = React.createContext<{
   errorMessage: undefined,
   statusIcon: false,
   onFormItemValueChange: undefined,
-  formItemsRef: null,
+  formMapRef: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);
 
 export default FormContext;
+
+export const FormListContext = React.createContext<{
+  name: string | number;
+  rules: TdFormListProps['rules'];
+  formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
+}>({
+  name: undefined,
+  rules: undefined,
+  formListMapRef: undefined,
+});
+
+export const useFormListContext = () => React.useContext(FormListContext);
