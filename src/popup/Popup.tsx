@@ -82,15 +82,15 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     const referenceElmBottom = window.innerHeight - bottom;
     const referenceElmRight = window.innerWidth - right;
 
-    const { scrollHeight: contentScrollHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
+    const { offsetHeight: contentOffsetHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
 
     let newPlacement = state.options.placement;
     // 底部不够向上翻转
-    if (referenceElmBottom < contentScrollHeight && referenceElmTop >= contentScrollHeight) {
+    if (referenceElmBottom < contentOffsetHeight && referenceElmTop >= contentOffsetHeight) {
       newPlacement = state.options.placement.replace('bottom', 'top');
     }
     // 顶部不够向下翻转
-    if (referenceElmTop < contentScrollHeight && referenceElmBottom >= contentScrollHeight) {
+    if (referenceElmTop < contentOffsetHeight && referenceElmBottom >= contentOffsetHeight) {
       newPlacement = state.options.placement.replace('top', 'bottom');
     }
     // 左侧不够向右翻转
