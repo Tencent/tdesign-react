@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Table, Checkbox } from 'tdesign-react';
 
-const data = [];
+const initialData = [];
 for (let i = 0; i < 20; i++) {
-  data.push({
+  initialData.push({
     index: i,
     platform: i % 2 === 0 ? '共有' : '私有',
     type: ['String', 'Number', 'Array', 'Object'][i % 4],
@@ -28,11 +28,19 @@ for (let i = 0; i < 20; i++) {
 }
 
 export default function TableExample() {
+  const [data, setData] = useState([...initialData]);
   const [bordered, setBordered] = useState(true);
   const [fixedHeader, setFixedHeader] = useState(true);
   const [fixedLeftCol, setFixedLeftCol] = useState(false);
   const [fixedRightCol, setFixedRightCol] = useState(false);
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
+  const [sort, setSort] = useState({ sortBy: 'default', descending: true });
+
+  const onSortChange = (sortInfo, context) => {
+    setSort(sortInfo);
+    setData(context.currentDataSource);
+    console.log(context);
+  };
 
   const columns = [
     {
@@ -187,6 +195,9 @@ export default function TableExample() {
         maxHeight={fixedHeader ? 380 : undefined}
         headerAffixProps={{ offsetTop: 0 }}
         headerAffixedTop={headerAffixedTop}
+        columnController={{ displayType: 'auto-width' }}
+        sort={sort}
+        onSortChange={onSortChange}
       />
     </div>
   );

@@ -32,10 +32,12 @@ export function getColumnKeys(columns: PrimaryTableCol[], keys: string[] = []) {
   return keys;
 }
 
+let dialogInstance: DialogInstance = null;
+// 只有 React 需要这个变量
+let innerCheckedColumns: CheckboxGroupValue = [];
 export default function useColumnController(props: TdPrimaryTableProps) {
   const { classPrefix, table } = useConfig();
   const { columns, columnController, displayColumns, columnControllerVisible } = props;
-  const [dialogInstance, setDialogInstance] = useState<DialogInstance>(null);
 
   const enabledColKeys = (() => {
     const arr = (columnController?.fields || [...new Set(getColumnKeys(columns))] || []).filter((v) => v);
@@ -52,6 +54,7 @@ export default function useColumnController(props: TdPrimaryTableProps) {
   );
   // 弹框内的多选
   const defaultColumnCheckboxKeys = displayColumns || props.defaultDisplayColumns || keys;
+  // 内部选中的列配置，确认前
   const [columnCheckboxKeys, setColumnCheckboxKeys] = useState<CheckboxGroupValue>(defaultColumnCheckboxKeys);
 
   const checkboxOptions = getCheckboxOptions(columns);
@@ -59,7 +62,10 @@ export default function useColumnController(props: TdPrimaryTableProps) {
   const intersectionChecked = intersection(columnCheckboxKeys, [...enabledColKeys]);
 
   useEffect(() => {
-    setColumnCheckboxKeys(displayColumns);
+    setColumnCheckboxKeys([...(displayColumns || props.defaultDisplayColumns || keys)]);
+    // 更新弹框，很重要（只有 React 需要在这里更新，Vue2/Vue3 不需要
+    // dialogInstance?.update({ body: getDialogContent() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayColumns]);
 
   function getCheckboxOptions(columns: PrimaryTableCol[], arr: CheckboxOptionObj[] = []) {
@@ -68,7 +74,7 @@ export default function useColumnController(props: TdPrimaryTableProps) {
       const item = columns[i];
       if (item.colKey) {
         arr.push({
-          label: () => renderTitle(item, i),
+          label: renderTitle(item, i),
           value: item.colKey,
           disabled: !enabledColKeys.has(item.colKey),
         });
@@ -81,6 +87,7 @@ export default function useColumnController(props: TdPrimaryTableProps) {
   }
 
   const handleCheckChange = (val: CheckboxGroupValue, ctx: CheckboxGroupChangeContext) => {
+    innerCheckedColumns = val;
     setColumnCheckboxKeys(val);
     const params = {
       columns: val,
@@ -89,63 +96,71 @@ export default function useColumnController(props: TdPrimaryTableProps) {
       e: ctx.e,
     };
     props.onColumnChange?.(params);
+    // 更新弹框，很重要（只有 React 需要在这里更新，Vue2/Vue3 不需要
+    // dialogInstance?.update({ body: getDialogContent() });
   };
 
   const handleClickAllShowColumns = (checked: boolean, ctx: { e: ChangeEvent<HTMLDivElement> }) => {
     if (checked) {
       const newData = columns?.map((t) => t.colKey) || [];
       setColumnCheckboxKeys(newData);
+      innerCheckedColumns = newData;
       props.onColumnChange?.({ type: 'check', columns: newData, e: ctx.e });
     } else {
       const disabledColKeys = checkboxOptions.filter((t) => t.disabled).map((t) => t.value);
+      console.log('disabledColKeys', disabledColKeys);
       setColumnCheckboxKeys(disabledColKeys);
+      innerCheckedColumns = disabledColKeys;
       props.onColumnChange?.({ type: 'uncheck', columns: disabledColKeys, e: ctx.e });
     }
+    // 更新弹框，很重要（只有 React 需要在这里更新，Vue2/Vue3 不需要
+    // dialogInstance?.update({ body: getDialogContent() });
   };
 
-  const handleToggleColumnController = () => {
-    const dialogInstanceTmp = DialogPlugin.confirm({
-      header: global.value.columnConfigTitleText,
-      body: () => {
-        const widthMode = columnController?.displayType === 'fixed-width' ? 'fixed' : 'auto';
-        const checkedLength = intersectionChecked.length;
-        const isCheckedAll = checkedLength === enabledColKeys.size;
-        const isIndeterminate = checkedLength > 0 && checkedLength < enabledColKeys.size;
-        const defaultNode = (
-          <div
-            className={classNames([
-              `${classPrefix}-table__column-controller`,
-              `${classPrefix}-table__column-controller--${widthMode}`,
-            ])}
-          >
-            <div className={`${classPrefix}-table__column-controller-body`}>
-              {/* 请选择需要在表格中显示的数据列 */}
-              <p className={`${classPrefix}-table__column-controller-desc`}>
-                {global.value.columnConfigDescriptionText}
-              </p>
-              <div className={`${classPrefix}-table__column-controller-block`}>
-                <Checkbox indeterminate={isIndeterminate} checked={isCheckedAll} onChange={handleClickAllShowColumns}>
-                  {global.value.selectAllText}
-                </Checkbox>
-              </div>
-              <div className={`${classPrefix}-table__column-controller-block`}>
-                <CheckboxGroup
-                  options={checkboxOptions}
-                  {...(columnController?.checkboxProps || {})}
-                  value={columnCheckboxKeys}
-                  onChange={handleCheckChange}
-                />
-              </div>
-            </div>
+  function getDialogContent() {
+    const widthMode = columnController?.displayType === 'fixed-width' ? 'fixed' : 'auto';
+    const checkedLength = intersectionChecked.length;
+    const isCheckedAll = checkedLength === enabledColKeys.size;
+    const isIndeterminate = checkedLength > 0 && checkedLength < enabledColKeys.size;
+    return (
+      <div
+        className={classNames([
+          `${classPrefix}-table__column-controller`,
+          `${classPrefix}-table__column-controller--${widthMode}`,
+        ])}
+      >
+        <div className={`${classPrefix}-table__column-controller-body`}>
+          {/* 请选择需要在表格中显示的数据列 */}
+          <p className={`${classPrefix}-table__column-controller-desc`}>{table.columnConfigDescriptionText}</p>
+          <div className={`${classPrefix}-table__column-controller-block`}>
+            <Checkbox indeterminate={isIndeterminate} checked={isCheckedAll} onChange={handleClickAllShowColumns}>
+              {table.selectAllText}
+            </Checkbox>
           </div>
-        );
-        return defaultNode;
-      },
+          <div className={`${classPrefix}-table__column-controller-block`}>
+            <CheckboxGroup
+              options={checkboxOptions}
+              {...(columnController?.checkboxProps || {})}
+              value={columnCheckboxKeys}
+              onChange={handleCheckChange}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const handleToggleColumnController = () => {
+    dialogInstance = DialogPlugin.confirm({
+      header: table.columnConfigTitleText,
+      body: getDialogContent(),
       confirmBtn: table.confirmText,
       cancelBtn: table.cancelText,
       width: 612,
       onConfirm: () => {
-        setTDisplayColumns([...columnCheckboxKeys]);
+        console.log('innerCheckedColumns', innerCheckedColumns);
+        // 很奇怪，这里获取到的 `columnCheckboxKeys` 值是不正确的，因此使用 `innerCheckedColumns` 作为内部列选择临时变量
+        setTDisplayColumns([...innerCheckedColumns]);
         // 此处逻辑不要随意改动，涉及到 内置列配置按钮 和 不包含列配置按钮等场景
         if (columnControllerVisible === undefined) {
           dialogInstance.hide();
@@ -163,8 +178,6 @@ export default function useColumnController(props: TdPrimaryTableProps) {
       },
       ...(columnController?.dialogProps || {}),
     });
-
-    setDialogInstance(dialogInstanceTmp);
   };
 
   // columnControllerVisible 一般应用于不包含列配置按钮的场景，有外部直接控制弹框的显示或隐藏
@@ -195,10 +208,8 @@ export default function useColumnController(props: TdPrimaryTableProps) {
           theme="default"
           variant="outline"
           onClick={handleToggleColumnController}
-          content={global.value.columnConfigButtonText}
-          v-slots={{
-            icon: () => <SettingIcon />,
-          }}
+          content={table.columnConfigButtonText}
+          icon={<SettingIcon />}
           {...props.columnController?.buttonProps}
         ></TButton>
       </div>

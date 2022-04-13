@@ -192,8 +192,7 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
     tableContent
   );
 
-  // const topContent = renderTNode('topContent');
-  const { topContent } = props;
+  const { topContent, bottomContent } = props;
   return (
     <div
       ref={tableRef}
@@ -219,6 +218,8 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
           style={{ right: `${scrollbarWidth}px`, height: `${tableContentRef.current?.offsetHeight}px` }}
         ></div>
       )}
+
+      {!!bottomContent && <div className={tableBaseClass.bottomContent}>{bottomContent}</div>}
 
       {renderPagination()}
     </div>

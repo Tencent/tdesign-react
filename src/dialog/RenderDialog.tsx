@@ -154,7 +154,11 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const header = <div className={`${prefixCls}__header`}>{props.header}</div>;
 
-    const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
+    let bodyContent = props.body || props.children;
+    if (typeof props.body === 'function') {
+      bodyContent = props.body();
+    }
+    const body = <div className={`${prefixCls}__body`}>{bodyContent}</div>;
 
     const closer = closeBtn && (
       <span onClick={handleCloseBtnClick} className={`${prefixCls}__close`}>
