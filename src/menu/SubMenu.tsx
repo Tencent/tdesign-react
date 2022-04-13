@@ -26,6 +26,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { expanded = [], onExpand, active, expandType } = useContext(MenuContext);
 
   const isPopUp = expandType === 'popup';
+
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
@@ -142,7 +143,9 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const popupMaxHeight = popRef.current?.getBoundingClientRect().height || getSubMenuMaxHeight(children);
+  const submenuMaxHeight = getSubMenuMaxHeight(children);
+  const popupMaxHeight = popRef.current?.getBoundingClientRect().height || submenuMaxHeight;
+  const showPopup = isPopUp && submenuMaxHeight > 0;
 
   return (
     <li
@@ -162,9 +165,9 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         style={style}
       >
         <span>{title}</span>
-        {isPopUp && <FakeArrow style={fakeArrowStyle} isActive={open} />}
+        {showPopup && <FakeArrow style={fakeArrowStyle} isActive={open} />}
       </div>
-      {isPopUp && (
+      {showPopup && (
         <div
           className={classNames(`${classPrefix}-menu__popup`, {
             [`${classPrefix}-is-opened`]: open,
