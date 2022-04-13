@@ -1,4 +1,4 @@
-import React, { useRef, CSSProperties, useEffect } from 'react';
+import React, { useRef, CSSProperties, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
@@ -30,7 +30,7 @@ const getClickPosition = (e: MouseEvent) => {
 if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
   document.documentElement.addEventListener('click', getClickPosition, true);
 }
-const RenderDialog: React.FC<RenderDialogProps> = (props) => {
+const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     prefixCls,
     attach,
@@ -47,17 +47,19 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     closeBtn,
     closeOnEscKeydown = true,
     closeOnOverlayClick = true,
+    destroyOnClose = false,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
+  const domRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>();
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
   const dialogOpenClass = `${prefixCls}__open`;
   useDialogEsc(visible, wrap);
-
+  useImperativeHandle(ref, () => domRef.current);
   useLayoutEffect(() => {
     bodyOverflow.current = document.body.style.overflow;
     bodyCssTextRef.current = document.body.style.cssText;
@@ -118,6 +120,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       const { style } = dialog.current;
       style.left = '50%';
       style.top = '50%';
+    }
+    if (destroyOnClose) {
+      domRef.current?.parentNode?.removeChild(domRef.current);
     }
     onClosed && onClosed();
   };
@@ -232,7 +237,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         in={props.visible}
         appear
         mountOnEnter
-        unmountOnExit={props.destroyOnClose}
+        unmountOnExit={destroyOnClose}
         timeout={transitionTime}
         classNames={`${prefixCls}-zoom`}
         onEntered={props.onOpened}
@@ -293,8 +298,13 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (visible || wrap.current) {
       if (!attach) {
         dom = dialog;
+        domRef.current = dom;
       } else {
-        dom = <Portal attach={attach}>{dialog}</Portal>;
+        dom = (
+          <Portal attach={attach} ref={domRef}>
+            {dialog}
+          </Portal>
+        );
       }
     }
 
@@ -302,6 +312,6 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   return render();
-};
+});
 
 export default RenderDialog;
