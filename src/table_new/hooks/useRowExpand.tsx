@@ -16,7 +16,7 @@ import useDefaultValue from '../../_util/useDefault';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
-  const { expandedRowKeys } = props;
+  const { expandedRowKeys, expandIcon } = props;
   const [locale] = useLocaleReceiver('table');
   const { tableExpandClasses, positiveRotate90, tableFullRowClasses } = useClassName();
   // controlled and uncontrolled
@@ -43,9 +43,8 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
     });
   };
 
-  const renderExpandIcon = (p: PrimaryTableCellParams<TableRowData>) => {
+  const renderExpandIcon = (p: PrimaryTableCellParams<TableRowData>, expandIcon: TdPrimaryTableProps['expandIcon']) => {
     const { row, rowIndex } = p;
-    const { expandIcon } = props;
     const currentId = get(row, props.rowKey || 'id');
     const expanded = tExpandedRowKeys.includes(currentId);
     const defaultIcon: ReactNode = locale.expandIcon || <ChevronRightCircleIcon />;
@@ -73,7 +72,7 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
       width: 64,
       className: tableExpandClasses.iconCell,
       fixed: isFirstColumnFixed ? 'left' : undefined,
-      cell: renderExpandIcon,
+      cell: (p) => renderExpandIcon(p, expandIcon),
     };
     return expandCol;
   };
@@ -81,10 +80,14 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
   const renderExpandedRow = (
     p: TableExpandedRowParams<TableRowData> & { tableWidth: number; isWidthOverflow: boolean },
   ) => {
-    if (!tExpandedRowKeys.includes(get(p.row, props.rowKey || 'id'))) return null;
+    const rowId = get(p.row, props.rowKey || 'id');
+    if (!tExpandedRowKeys.includes(rowId)) return null;
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
     return (
-      <tr className={classNames([tableExpandClasses.row, { [tableFullRowClasses.base]: isFixedLeft }])}>
+      <tr
+        key={`expand_${rowId}`}
+        className={classNames([tableExpandClasses.row, { [tableFullRowClasses.base]: isFixedLeft }])}
+      >
         <td colSpan={p.columns.length}>
           <div
             className={classNames([tableExpandClasses.rowInner, { [tableFullRowClasses.innerFullRow]: isFixedLeft }])}

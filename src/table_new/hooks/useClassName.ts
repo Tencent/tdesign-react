@@ -9,6 +9,7 @@ export default function useClassName() {
       overflowVisible: `${classPrefix}-table--overflow-visible`,
       content: `${classPrefix}-table__content`,
       topContent: `${classPrefix}-table__top-content`,
+      bottomContent: `${classPrefix}-table__bottom-content`,
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,

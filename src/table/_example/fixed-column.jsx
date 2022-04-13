@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Radio, Checkbox, Button } from 'tdesign-react';
+import { Table, Radio, Checkbox } from 'tdesign-react';
 
 const data = [];
 for (let i = 0; i < 5; i++) {
@@ -69,7 +69,7 @@ export default function TableFixedColumn() {
           title: '操作',
           width: 120,
           align: 'center',
-          cell: () => <Button variant='text'>删除</Button>,
+          cell: () => <span>删除</span>,
           fixed: rightFixedColumn >= 2 ? 'right' : undefined,
         },
         {
