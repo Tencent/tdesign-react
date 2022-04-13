@@ -45,7 +45,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
     defaultValue,
     className,
     style,
-    activeIndex = 0,
+    activeIndex,
     disabled,
     format,
     inputProps,

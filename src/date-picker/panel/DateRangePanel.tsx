@@ -11,6 +11,7 @@ import useTableData from './useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 
 export interface DateRangePanelProps extends TdDateRangePickerProps, StyledProps {
+  hoverValue?: string[];
   activeIndex?: number;
   year?: number[];
   month?: number[];
@@ -35,6 +36,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
   const panelName = `${classPrefix}-date-range-picker__panel`;
   const {
     value,
+    hoverValue,
     mode,
     format,
     presets,
@@ -60,8 +62,11 @@ const DateRangePanel = (props: DateRangePanelProps) => {
   const [startMonth, endMonth] = month;
 
   const startTableData = useTableData({
+    isRange: true,
     start: value[0] ? dayjs(value[0]).toDate() : undefined,
     end: value[1] ? dayjs(value[1]).toDate() : undefined,
+    hoverStart: hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
+    hoverEnd: hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
     year: startYear,
     month: startMonth,
     mode,
@@ -69,8 +74,11 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     ...disableDateOptions,
   });
   const endTableData = useTableData({
+    isRange: true,
     start: value[0] ? dayjs(value[0]).toDate() : undefined,
     end: value[1] ? dayjs(value[1]).toDate() : undefined,
+    hoverStart: hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
+    hoverEnd: hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
     year: endYear,
     month: endMonth,
     mode,

@@ -2,8 +2,6 @@ import dayjs from 'dayjs';
 import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import { extractTimeFormat } from '../../_common/js/date-picker/utils-new';
 
-const TIME_FORMAT = 'HH:mm:ss';
-
 export interface formatProps {
   mode: TdDatePickerProps['mode'];
   format: TdDatePickerProps['format'];
@@ -12,9 +10,11 @@ export interface formatProps {
   value: TdDatePickerProps['value'] | TdDateRangePickerProps['value'];
 }
 
+export const TIME_FORMAT = 'HH:mm:ss';
+
 export default function useFormat(props: formatProps) {
   const { mode, enableTimePicker, format: formatFromProps, valueType: valueTypeFromProps, value } = props;
-  const { format, valueType } = getDefaultFormat({
+  const { format, valueType, timeFormat } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: formatFromProps,
@@ -26,9 +26,6 @@ export default function useFormat(props: formatProps) {
     if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
       console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
-
-  // 提取时间格式化
-  const timeFormat = extractTimeFormat(format) || TIME_FORMAT;
 
   // 日期格式化
   const formatDate = (newDate: DateValue | DateValue[], type = 'format') => {
@@ -132,17 +129,36 @@ function formatSingle({ newDate, format, targetFormat }) {
 }
 
 // 根据不同 mode 给出格式化默认值
-function getDefaultFormat({ mode = 'month', format, valueType, enableTimePicker }) {
+export function getDefaultFormat({
+  mode = 'date',
+  format,
+  valueType,
+  enableTimePicker,
+}: {
+  mode?: string;
+  format?: string;
+  valueType?: string;
+  enableTimePicker?: boolean;
+}) {
   if (mode === 'year') {
-    return { format: format || 'YYYY', valueType: valueType || 'YYYY' };
+    return {
+      format: format || 'YYYY',
+      valueType: valueType || 'YYYY',
+      timeFormat: extractTimeFormat(format || 'YYYY') || TIME_FORMAT,
+    };
   }
   if (mode === 'month') {
-    return { format: format || 'YYYY-MM', valueType: valueType || 'YYYY-MM' };
+    return {
+      format: format || 'YYYY-MM',
+      valueType: valueType || 'YYYY-MM',
+      timeFormat: extractTimeFormat(format || 'YYYY-MM') || TIME_FORMAT,
+    };
   }
   if (mode === 'date') {
     return {
       format: format || `YYYY-MM-DD${enableTimePicker ? ' HH:mm:ss' : ''}`,
       valueType: valueType || `YYYY-MM-DD${enableTimePicker ? ' HH:mm:ss' : ''}`,
+      timeFormat: extractTimeFormat(format || `YYYY-MM-DD${enableTimePicker ? ' HH:mm:ss' : ''}`) || TIME_FORMAT,
     };
   }
 }

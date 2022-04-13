@@ -12,7 +12,6 @@ import noop from '../_util/noop';
 import SelectInput from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
-import TimeRangePickerPanel from './panel/TimePickerRangePanel';
 
 import { useTimePickerTextConfig } from './const';
 
@@ -70,10 +69,17 @@ const TimePicker = forwardRefWithStatics(
     };
 
     const handleInputChange = (value: string) => {
-      const isValidTime = validateInputValue(value, format);
-      if (isValidTime) {
-        setCurrentValue(formatInputValue(value, format));
+      setCurrentValue(value);
+    };
+
+    const handleInputBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
+      if (allowInput) {
+        const isValidTime = validateInputValue(currentValue, format);
+        if (isValidTime) {
+          onChange(formatInputValue(currentValue, format));
+        }
       }
+      onBlur({ value, e });
     };
 
     useEffect(() => {
@@ -83,7 +89,6 @@ const TimePicker = forwardRefWithStatics(
     return (
       <div className={classNames(name, className)} ref={ref} style={style}>
         <SelectInput
-          onBlur={onBlur}
           onFocus={onFocus}
           onClear={handleClear}
           disabled={disabled}
@@ -93,6 +98,7 @@ const TimePicker = forwardRefWithStatics(
           suffixIcon={<TimeIcon />}
           popupVisible={isPanelShowed}
           onInputChange={handleInputChange}
+          onBlur={handleInputBlur}
           onPopupVisibleChange={handleShowPopup}
           placeholder={!value ? placeholder : undefined}
           value={isPanelShowed ? currentValue : value ?? undefined}
@@ -120,7 +126,6 @@ const TimePicker = forwardRefWithStatics(
     displayName: 'TimePicker',
     TimeRangePicker,
     TimePickerPanel,
-    TimeRangePickerPanel,
   },
 );
 

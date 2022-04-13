@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { MouseEvent, FocusEvent, FormEvent } from 'react';
@@ -39,7 +38,6 @@ export interface TdTimePickerProps {
   hideDisabledTime?: boolean;
   /**
    * 占位符
-   * @default ''
    */
   placeholder?: string;
   /**
@@ -63,14 +61,9 @@ export interface TdTimePickerProps {
    */
   defaultValue?: TimePickerValue;
   /**
-   * 当输入框失去焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头
+   * 当输入框失去焦点时触发，value 表示组件当前有效值
    */
-  onBlur?: (context: {
-    trigger: 'hour' | 'minute' | 'second';
-    input: string;
-    value: TimePickerValue;
-    e: FocusEvent<HTMLDivElement>;
-  }) => void;
+  onBlur?: (context: { value: TimePickerValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
    * 选中值发生变化时触发
    */
@@ -80,18 +73,13 @@ export interface TdTimePickerProps {
    */
   onClose?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
-   * 输入框获得焦点时触发，参数 input 表示输入框内容，value 表示组件当前有效值，trigger 表示触发源头
+   * 输入框获得焦点时触发，value 表示组件当前有效值
    */
-  onFocus?: (context: {
-    trigger: 'hour' | 'minute' | 'second';
-    input: string;
-    value: TimePickerValue;
-    e: FocusEvent<HTMLDivElement>;
-  }) => void;
+  onFocus?: (context: { value: TimePickerValue; e: FocusEvent<HTMLDivElement> }) => void;
   /**
-   * 当输入框内容发生变化时触发，参数 input 表示输入框内容，value 表示组件当前有效值
+   * 当输入框内容发生变化时触发，参数 value 表示组件当前有效值
    */
-  onInput?: (context: { input: string; value: TimePickerValue; e: FormEvent<HTMLDivElement> }) => void;
+  onInput?: (context: { value: TimePickerValue; e: FormEvent<HTMLDivElement> }) => void;
   /**
    * 面板打开时触发
    */

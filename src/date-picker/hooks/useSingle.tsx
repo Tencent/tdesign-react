@@ -42,8 +42,8 @@ export default function useSingle(props: TdDatePickerProps) {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [timeValue, setTimeValue] = useState(formatTime(value));
-  const [month, setMonth] = useState(dayjs(value).month() || new Date().getMonth());
-  const [year, setYear] = useState(dayjs(value).year() || new Date().getFullYear());
+  const [month, setMonth] = useState<number>(dayjs(value).month() || new Date().getMonth());
+  const [year, setYear] = useState<number>(dayjs(value).year() || new Date().getFullYear());
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(formatDate(value));
   const [cacheValue, setCacheValue] = useState(formatDate(value)); // 缓存选中值，panel 点击时更改

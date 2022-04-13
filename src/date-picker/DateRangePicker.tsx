@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-// import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDateRangePickerProps } from './type';
@@ -54,7 +53,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setCacheValue,
   } = useRange(props);
 
-  const { formatTime, formatDate, isValidDate, format } = useFormat({
+  const { formatTime, formatDate, isValidDate, format, timeFormat } = useFormat({
     mode,
     value,
     enableTimePicker,
@@ -70,7 +69,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (popupVisible) {
       setIsSelected(false);
       setCacheValue(formatDate(value || []));
-      setTimeValue(formatTime(value || []));
+      setTimeValue(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
     }
     // eslint-disable-next-line
   }, [value, popupVisible]);
@@ -100,6 +99,29 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     nextValue[activeIndex] = formatDate(date);
     setCacheValue(nextValue);
     setInputValue(nextValue);
+
+    // date 模式自动切换年月
+    if (mode === 'date') {
+      year[activeIndex] = dayjs(date).year();
+      month[activeIndex] = dayjs(date).month();
+      if (activeIndex === 1) {
+        if (month[0] >= month[1]) {
+          month[0] = dayjs(date).subtract(1, 'month').month();
+          // 面板联动边界处理
+          if (month[0] === 11) {
+            year[0] = dayjs(date).subtract(1, 'year').year();
+          }
+        }
+      } else if (month[0] >= month[1]) {
+        month[1] = dayjs(date).add(1, 'month').month();
+        // 面板联动边界处理
+        if (month[1] === 0) {
+          year[1] = dayjs(date).add(1, 'year').year();
+        }
+      }
+      setYear([...year]);
+      setMonth([...month]);
+    }
 
     if (enableTimePicker) return;
 
@@ -149,7 +171,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setMonth(nextMonth);
   }
 
-  // timepicker 点击
+  // time-picker 点击
   function onTimePickerChange(val: string) {
     const nextTimeValue = [...timeValue];
     nextTimeValue[activeIndex] = val;
@@ -233,26 +255,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setMonth(nextMonth);
   }
 
-  // 根据交互状态不同使用不同的 value 控制面板信息
-  function getPanelValue() {
-    let panelValue = cacheValue;
-    // 时间面板场景下首次选择使用 cacheValue
-    if (enableTimePicker) {
-      if (isFirstValueSelected) {
-        // 第二次选择在确定后使用 cacheValue
-        panelValue = isSelected ? cacheValue : inputValue;
-      } else {
-        panelValue = cacheValue;
-      }
-    } else {
-      // 无时间面板场景在 hover 状态下使用 inputValue
-      panelValue = isHoverCell ? inputValue : cacheValue;
-    }
-    return panelValue;
-  }
-
   const panelProps = {
-    value: getPanelValue(),
+    hoverValue: isHoverCell ? inputValue : [],
+    value: isSelected ? cacheValue : value,
     year,
     month,
     mode,

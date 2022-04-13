@@ -81,8 +81,8 @@ export default function useRange(props: TdDateRangePickerProps) {
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
   const [timeValue, setTimeValue] = useState(initYearMonthTime(value, mode, timeFormat).time);
-  const [month, setMonth] = useState(initYearMonthTime(value, mode).month);
-  const [year, setYear] = useState(initYearMonthTime(value, mode).year);
+  const [month, setMonth] = useState<Array<number>>(initYearMonthTime(value, mode).month);
+  const [year, setYear] = useState<Array<number>>(initYearMonthTime(value, mode).year);
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(formatDate(value));
   // 选择阶段预选状态
@@ -96,7 +96,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     prefixIcon,
     readonly: !allowInput,
     placeholder,
-    activeIndex,
+    activeIndex: popupVisible ? activeIndex : undefined,
     suffixIcon: suffixIcon || <CalendarIcon />,
     className: classNames({
       [`${name}__input--placeholder`]: isHoverCell,
@@ -182,7 +182,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     if (!value) {
       setInputValue([]);
       setCacheValue([]);
-      setTimeValue([]);
+      setTimeValue([dayjs().format(timeFormat), dayjs().format(timeFormat)]);
       return;
     }
     if (!isValidDate(value, 'valueType')) return;

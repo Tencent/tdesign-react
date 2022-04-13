@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import dayjs from 'dayjs';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
-import { extractTimeFormat } from '../../_common/js/date-picker/utils-new';
 import type { DatePanelProps } from './DatePanel';
 import type { DateRangePanelProps } from './DateRangePanel';
 import useConfig from '../../_util/useConfig';
-
-const TIME_FORMAT = 'HH:mm:ss';
+import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
@@ -37,8 +36,8 @@ export default function PanelContent(props: PanelContentProps) {
   const {
     year,
     month,
-    mode = 'month',
-    format = 'YYYY-MM-DD',
+    mode,
+    format,
     enableTimePicker,
     timePickerProps,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
@@ -55,8 +54,10 @@ export default function PanelContent(props: PanelContentProps) {
     onTimePickerChange,
   } = props;
 
-  // 提取时间格式化
-  const timeFormat = extractTimeFormat(format) || TIME_FORMAT;
+  const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
+
+  // eslint-disable-next-line
+  const defaultTimeValue = useMemo(() => dayjs().format(timeFormat), [timeValue]);
 
   return (
     <div className={`${panelName}--content`}>
@@ -83,6 +84,7 @@ export default function PanelContent(props: PanelContentProps) {
 
       {enableTimePicker && (
         <div className={`${panelName}--time`}>
+          <div className={`${panelName}--time-viewer`}>{timeValue || defaultTimeValue}</div>
           <TimePickerPanel format={timeFormat} value={timeValue} onChange={onTimePickerChange} {...timePickerProps} />
         </div>
       )}

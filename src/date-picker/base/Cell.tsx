@@ -12,6 +12,9 @@ export interface DatePickerCellProps {
   disabled: boolean;
   startOfRange: boolean;
   endOfRange: boolean;
+  hoverHighlight: boolean;
+  hoverStartOfRange: boolean;
+  hoverEndOfRange: boolean;
   additional: boolean;
   now: boolean;
   firstDayOfMonth: boolean;
@@ -32,6 +35,9 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     disabled,
     startOfRange,
     endOfRange,
+    hoverHighlight,
+    hoverStartOfRange,
+    hoverEndOfRange,
     additional,
     now,
     firstDayOfMonth,
@@ -45,8 +51,11 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     [`${classPrefix}-date-picker__cell--active`]: active,
     [`${classPrefix}-date-picker__cell--disabled`]: disabled,
     [`${classPrefix}-date-picker__cell--highlight`]: highlight,
+    [`${classPrefix}-date-picker__cell--hover-highlight`]: hoverHighlight,
     [`${classPrefix}-date-picker__cell--active-start`]: startOfRange,
     [`${classPrefix}-date-picker__cell--active-end`]: endOfRange,
+    [`${classPrefix}-date-picker__cell--hover-start`]: hoverStartOfRange,
+    [`${classPrefix}-date-picker__cell--hover-end`]: hoverEndOfRange,
     [`${classPrefix}-date-picker__cell--additional`]: additional,
     [`${classPrefix}-date-picker__cell--first-day-of-month`]: firstDayOfMonth,
     [`${classPrefix}-date-picker__cell--last-day-of-month`]: lastDayOfMonth,
