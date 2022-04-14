@@ -9,8 +9,20 @@ import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
 
 export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
-  const { children, separator, disabled, maxItemWidth, maxWidth, href, to, target, router, replace, ...restProps } =
-    props;
+  const {
+    children,
+    separator,
+    disabled,
+    maxItemWidth,
+    maxWidth,
+    href,
+    to,
+    target,
+    router,
+    replace,
+    className,
+    ...restProps
+  } = props;
 
   const { maxItemWidthInContext, theme, separator: separatorInContext } = useContext(BreadcrumbContext);
 
@@ -58,7 +70,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
   );
 
   return (
-    <div className={classNames(breadcrumbItemClassNames, theme)} ref={ref} {...restProps}>
+    <div className={classNames(breadcrumbItemClassNames, theme, className)} ref={ref} {...restProps}>
       {itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
