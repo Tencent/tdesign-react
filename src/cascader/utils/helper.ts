@@ -35,6 +35,14 @@ export const getTreeValue = (value: CascaderContextType['value']) => {
   return treeValue;
 };
 
+/**
+ * 判断node是否在页面上
+ * @param node Node
+ */
+export function isInPage(node: Node) {
+  return node === document.body ? false : document.body.contains(node);
+}
+
 export default {
   getFullPathLabel,
 };
