@@ -14,7 +14,7 @@ export interface GlobalConfigProvider {
    * 动画效果控制，`ripple`指波纹动画， `expand` 指展开动画，`fade` 指渐变动画
    * @default `{ include: ['ripple','expand','fade'], exclude: [] }`
    */
-  animation?: Record<'include' | 'exclude', Array<AnimationType>>;
+  animation?: Partial<Record<'include' | 'exclude', Array<AnimationType>>>;
   /**
    * 日历组件全局配置
    */

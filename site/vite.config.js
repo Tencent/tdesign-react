@@ -1,5 +1,5 @@
 import path from 'path';
-import istanbul from 'vite-plugin-istanbul';
+// import { istanbul } from 'vite-plugin-istanbul';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import replace from '@rollup/plugin-replace';
@@ -38,17 +38,17 @@ export default ({ mode }) => defineConfig({
     fs: {
       strict: false,
     },
-  },
-  plugins: [
-    react(),
-    tdocPlugin(),
-    VitePWA(pwaConfig),
-    replace({ __DATE__: new Date().toISOString() }),
-    istanbul({
-      cwd: resolvePath('../'),
-      include: ['src/**/*'],
-      exclude: ['src/_common/**/*'],
-      extension: ['.js', '.ts', '.jsx', '.tsx'],
-    }),
-  ],
-});
+    plugins: [
+      react(),
+      tdocPlugin(),
+      VitePWA(pwaConfig),
+      replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
+      // istanbul({
+      //   cwd: resolvePath('../'),
+      //   include: ['src/**/*'],
+      //   exclude: ['src/_common/**/*'],
+      //   extension: ['.js', '.ts', '.jsx', '.tsx'],
+      // }),
+    ],
+  });
+};

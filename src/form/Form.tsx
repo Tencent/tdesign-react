@@ -8,6 +8,7 @@ import useInstance from './hooks/useInstance';
 import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
+import FormList from './FormList';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -28,7 +29,6 @@ const Form = forwardRefWithStatics(
       statusIcon,
       labelAlign = 'right',
       layout = 'vertical',
-      size = 'medium',
       colon = false,
       requiredMark = globalFormConfig.requiredMark,
       scrollToFirstError,
@@ -48,7 +48,7 @@ const Form = forwardRefWithStatics(
     });
 
     const formRef: React.RefObject<HTMLFormElement> = useRef();
-    const formItemsRef = useRef([]);
+    const formMapRef = useRef(new Map()); // 收集所有 formItem 实例
 
     const {
       submit,
@@ -60,7 +60,7 @@ const Form = forwardRefWithStatics(
       validate,
       clearValidate,
       setValidateMessage,
-    } = useInstance(props, formRef, formItemsRef);
+    } = useInstance(props, formRef, formMapRef);
 
     useImperativeHandle(ref as FormRefInterface, () => ({
       currentElement: formRef.current,
@@ -80,8 +80,8 @@ const Form = forwardRefWithStatics(
         e.preventDefault?.();
         e.stopPropagation?.();
       }
-      formItemsRef.current.forEach(({ current: formItemRef }) => {
-        formItemRef && formItemRef?.resetField();
+      [...formMapRef.current.values()].forEach((formItemRef) => {
+        formItemRef?.current.resetField();
       });
       onReset?.({ e });
     }
@@ -105,7 +105,6 @@ const Form = forwardRefWithStatics(
           statusIcon,
           labelAlign,
           layout,
-          size,
           colon,
           requiredMark,
           errorMessage,
@@ -114,7 +113,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
-          formItemsRef,
+          formMapRef,
           onFormItemValueChange,
         }}
       >
@@ -131,7 +130,7 @@ const Form = forwardRefWithStatics(
       </FormContext.Provider>
     );
   },
-  { FormItem },
+  { FormItem, FormList },
 );
 
 Form.displayName = 'Form';
