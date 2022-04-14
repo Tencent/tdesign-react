@@ -12,14 +12,13 @@ export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
 
 const MenuGroup = ({ title, children, level = 1 }: MenuGroupProps) => {
   const { classPrefix } = useConfig();
-  const menuPaddingLeft = cacularPaddingLeft(level - 1);
+
+  const itemAndGroupPaddingBias = 28;
+  const menuPaddingLeft = cacularPaddingLeft(level - 1) - itemAndGroupPaddingBias;
 
   return (
     <div className={classNames(`${classPrefix}-menu-group`)}>
-      <div
-        className={classNames(`${classPrefix}-menu-group__title`)}
-        style={{ paddingLeft: `${menuPaddingLeft - 28}px` }}
-      >
+      <div className={classNames(`${classPrefix}-menu-group__title`)} style={{ paddingLeft: `${menuPaddingLeft}px` }}>
         {title}
       </div>
       {children}
