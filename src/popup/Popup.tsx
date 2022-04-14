@@ -115,7 +115,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef, overlayRef) };
     return { ...overlayStyle };
-  }, [overlayStyle, triggerRef, overlayRef]);
+    // visible 变化时重新计算
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [overlayStyle, triggerRef, overlayRef, visible]);
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = defaultStyles;
