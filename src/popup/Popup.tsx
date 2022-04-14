@@ -178,7 +178,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         onEnter={handleEnter}
         onExited={handleExited}
       >
-        <Portal attach={attach} ref={portalRef}>
+        <Portal triggerNode={triggerRef} attach={attach} ref={portalRef}>
           <CSSTransition
             appear
             timeout={0}
