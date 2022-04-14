@@ -1,4 +1,5 @@
 import { useContext } from 'react';
-import ConfigContext, { GlobalConfig } from '../config-provider/ConfigContext';
+import ConfigContext from '../config-provider/ConfigContext';
+import { GlobalConfigProvider } from '../config-provider/type';
 
-export default (): GlobalConfig => useContext(ConfigContext).globalConfig;
+export default (): GlobalConfigProvider => useContext(ConfigContext).globalConfig;
