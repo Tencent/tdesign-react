@@ -184,14 +184,27 @@ const SubMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { mode } = useContext(MenuContext);
   const { children, level = 1 } = props;
 
-  // 如果是第二层及以及的 subMenu 需要添加 notFirstLevelSubMenu 属性
-  const childElement = React.Children.map(children, (item: React.ReactElement) =>
-    checkIsSubMenu(item) || checkIsMenuGroup(item)
-      ? React.cloneElement(item, {
+  const changeItemLevel = (item: React.ReactElement) => {
+    if (checkIsSubMenu(item)) {
+      return React.cloneElement(item, {
+        level: level + 1,
+      });
+    }
+    if (checkIsMenuGroup(item)) {
+      const groupChidren = React.Children.map(item.props.children, (item: React.ReactElement) => changeItemLevel(item));
+      return React.cloneElement(
+        item,
+        {
           level: level + 1,
-        })
-      : item,
-  );
+        },
+        groupChidren,
+      );
+    }
+    return item;
+  };
+
+  // 如果是第二层及以及的 subMenu 需要添加 notFirstLevelSubMenu 属性
+  const childElement = React.Children.map(children, (item: React.ReactElement) => changeItemLevel(item));
 
   if (mode === 'accordion') return <SubAccordion {...props}>{childElement}</SubAccordion>;
   if (mode === 'title') return <SubTitleMenu {...props}>{childElement}</SubTitleMenu>;
