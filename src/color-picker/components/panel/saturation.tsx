@@ -36,11 +36,17 @@ const Saturation = (props: TdColorBaseProps) => {
     };
   };
 
+  const isDragging = useRef<Boolean>(false);
+
   const handleDrag = useCallback(
     (coordinate: Coordinate, isEnded?: boolean) => {
       if (disabled) {
         return;
       }
+      if (coordinate.x < 0 || coordinate.y < 0) {
+        return;
+      }
+
       const { saturation, value } = getSaturationAndValueByCoordinate(coordinate);
       onChange({
         saturation: saturation / 100,
@@ -56,10 +62,38 @@ const Saturation = (props: TdColorBaseProps) => {
       if (disabled) {
         return;
       }
+
+      isDragging.current = false;
       handleDrag(coordinate, true);
     },
     [disabled, handleDrag],
   );
+
+  // 移动中
+  const handleMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging.current || disabled) {
+        return;
+      }
+
+      const panelRect = panelRef.current.getBoundingClientRect();
+      handleDrag({ x: e.clientX - panelRect.x, y: e.clientY - panelRect.y }, false);
+    },
+    [disabled, handleDrag],
+  );
+
+  const handleEnd = useCallback(() => {
+    isDragging.current = false;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMove, false);
+    window.addEventListener('mouseup', handleEnd, false);
+    return () => {
+      window.removeEventListener('mousemove', handleMove, false);
+      window.removeEventListener('mouseup', handleEnd, false);
+    };
+  }, [handleMove, handleEnd]);
 
   useEffect(() => {
     panelRectRef.current.width = panelRef.current.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
@@ -70,6 +104,7 @@ const Saturation = (props: TdColorBaseProps) => {
         panelRectRef.current.height = panelRef.current.offsetHeight;
       },
       drag: (coordinate: Coordinate) => {
+        isDragging.current = true;
         handleDrag(coordinate);
       },
       end: handleDragEnd,
