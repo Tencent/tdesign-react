@@ -82,15 +82,15 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     const referenceElmBottom = window.innerHeight - bottom;
     const referenceElmRight = window.innerWidth - right;
 
-    const { scrollHeight: contentScrollHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
+    const { offsetHeight: contentOffsetHeight, offsetWidth: contentOffsetWidth } = contentRef.current;
 
     let newPlacement = state.options.placement;
     // 底部不够向上翻转
-    if (referenceElmBottom < contentScrollHeight && referenceElmTop >= contentScrollHeight) {
+    if (referenceElmBottom < contentOffsetHeight && referenceElmTop >= contentOffsetHeight) {
       newPlacement = state.options.placement.replace('bottom', 'top');
     }
     // 顶部不够向下翻转
-    if (referenceElmTop < contentScrollHeight && referenceElmBottom >= contentScrollHeight) {
+    if (referenceElmTop < contentOffsetHeight && referenceElmBottom >= contentOffsetHeight) {
       newPlacement = state.options.placement.replace('top', 'bottom');
     }
     // 左侧不够向右翻转
@@ -115,7 +115,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef, overlayRef) };
     return { ...overlayStyle };
-  }, [overlayStyle, triggerRef, overlayRef]);
+    // visible 变化时重新计算
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [overlayStyle, triggerRef, overlayRef, visible]);
 
   // 设置 style 决定展示与隐藏
   const overlayVisibleStyle: CSSProperties = defaultStyles;
@@ -176,7 +178,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
         onEnter={handleEnter}
         onExited={handleExited}
       >
-        <Portal attach={attach} ref={portalRef}>
+        <Portal triggerNode={triggerRef} attach={attach} ref={portalRef}>
           <CSSTransition
             appear
             timeout={0}

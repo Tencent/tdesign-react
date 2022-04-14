@@ -10,7 +10,7 @@ import { DataType, TdPrimaryTableProps } from '../type';
 import { StyledProps } from '../../common';
 import Pagination, { PageInfo } from '../../pagination';
 import { useColumns } from '../hooks/useColumns';
-import { getScrollDirection, ScrollDirection } from '../util';
+import { getScrollDirection, ScrollDirection, getStyleHeight, calHeight } from '../util';
 import TableEmptyBody from './TableEmptyBody';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
@@ -117,7 +117,7 @@ export default function BaseTable<D extends DataType = DataType>(props: InnerBas
 
   // ==================== 固定表头、固定列 ====================
   const [scrollBarWidth, setScrollBarWidth] = useState(0);
-  const fixedHeader = height > 0 || maxHeight > 0;
+  const fixedHeader = calHeight(height) > 0 || calHeight(maxHeight) > 0;
   const hasFixedColumns = columns.some(({ fixed }) => ['left', 'right'].includes(fixed));
   const scrollHeaderRef = useRef<HTMLDivElement>();
   const scrollBodyRef = useRef<HTMLDivElement>();
@@ -258,8 +258,8 @@ export default function BaseTable<D extends DataType = DataType>(props: InnerBas
         ref={scrollBodyRef}
         className={`${classPrefix}-table__body`}
         style={{
-          height: isNaN(Number(height)) ? height : `${Number(height)}px`,
-          maxHeight: isNaN(Number(maxHeight)) ? maxHeight : `${Number(maxHeight)}px`,
+          height: getStyleHeight(height),
+          maxHeight: getStyleHeight(maxHeight),
           width: hasFixedColumns ? '100%' : undefined,
         }}
         {...(hasFixedColumns ? { onScroll } : {})}
@@ -353,7 +353,9 @@ export default function BaseTable<D extends DataType = DataType>(props: InnerBas
               [`${classPrefix}-table__content--scrollable-to-right`]: scrollableToRight,
               [`${classPrefix}-table__content--scrollable-to-left`]: scrollableToLeft,
             })}
-            style={{ overflow: 'auto' }}
+            style={{
+              overflow: 'auto',
+            }}
             {...(hasFixedColumns ? { onScroll } : {})}
           >
             {!fixedHeader ? getTable() : getTableWithFixedHeader()}

@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
 import isString from 'lodash/isString';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -19,6 +19,7 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 
 const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
   const { classPrefix } = useConfig();
+  const dialogDom = useRef<HTMLDivElement>();
   const [state, setState] = useSetState<DialogProps>({
     width: 520,
     visible: false,
@@ -75,7 +76,9 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
     hide() {
       setState({ visible: false });
     },
-    destroy: noop,
+    destroy() {
+      setState({ visible: false, destroyOnClose: true });
+    },
     update(newOptions) {
       setState((prevState) => ({
         ...prevState,
@@ -161,6 +164,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       classPrefix={classPrefix}
       onClose={onClose}
       footer={footer === undefined ? defaultFooter() : footer}
+      ref={dialogDom}
     />
   );
 });

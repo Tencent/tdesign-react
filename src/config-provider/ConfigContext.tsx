@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import merge from 'lodash/merge';
 import defaultLocale from '../locale/zh_CN';
 import DEFAULT_GLOBAL_CONFIG from './zh_CN_config';
+import { GlobalConfigProvider } from './type';
 
 export enum EAnimationType {
   ripple = 'ripple',
@@ -25,12 +26,11 @@ export const defaultGlobalConfig = {
 export type Locale = typeof defaultLocale;
 
 export type GlobalConfig = typeof defaultGlobalConfig;
-
 export interface Config {
-  globalConfig?: GlobalConfig;
+  globalConfig?: GlobalConfigProvider;
 }
 
-export const defaultContext = {
+export const defaultContext: { globalConfig: GlobalConfig } = {
   globalConfig: defaultGlobalConfig,
 };
 
