@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { BreadcrumbItem } from './BreadcrumbItem';
@@ -7,7 +8,7 @@ import { BreadcrumbContext } from './BreadcrumbContext';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
-    const { children, options, separator, maxItemWidth, theme, ...restProps } = props;
+    const { children, options, separator, maxItemWidth, theme, className, ...restProps } = props;
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -38,7 +39,7 @@ const Breadcrumb = forwardRefWithStatics(
           separator,
         }}
       >
-        <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
+        <div ref={ref} className={classNames(`${classPrefix}-breadcrumb`, className)} {...restProps}>
           {content}
         </div>
       </BreadcrumbContext.Provider>
