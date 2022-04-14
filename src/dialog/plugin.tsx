@@ -14,6 +14,7 @@ const createDialog: DialogPlugin = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
   const div = document.createElement('div');
+
   ReactDOM.render(
     <DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />,
     div,
@@ -30,16 +31,19 @@ const createDialog: DialogPlugin = (props: DialogOptions): DialogInstance => {
 
   const dialogNode: DialogInstance = {
     show: () => {
+      container.appendChild(div);
       dialogRef.current?.show();
     },
     hide: () => {
+      div?.parentNode?.removeChild(div);
       dialogRef.current?.hide();
     },
     update: (updateOptions: DialogOptions) => {
       dialogRef.current?.update(updateOptions);
     },
     destroy: () => {
-      container.contains(div) && container.removeChild(div);
+      dialogRef.current?.destroy();
+      div?.parentNode?.removeChild(div);
     },
   };
   return dialogNode;
