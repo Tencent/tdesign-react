@@ -294,6 +294,63 @@ describe('Popup 组件测试', () => {
     expect(popupContainer).toHaveStyle(testStyle);
   });
 
+  test('测试浮层嵌套', async () => {
+    const wrappedTriggerElement = '嵌套触发元素';
+    const wrappedPopupTestId = 'wrapped-popup-test-id';
+    const wrappedPopupText = '嵌套弹出层内容';
+    const { getByText, queryByTestId } = render(
+      <Popup
+        placement="top"
+        trigger="click"
+        destroyOnClose
+        content={
+          <Popup
+            placement="top"
+            trigger="click"
+            destroyOnClose
+            content={<div data-testid={wrappedPopupTestId}>{wrappedPopupText}</div>}
+          >
+            <div data-testid={popupTestId}>{wrappedTriggerElement}</div>
+          </Popup>
+        }
+      >
+        {triggerElement}
+      </Popup>,
+    );
+
+    // 初始时，所有浮层都不存在
+    const popupElement1 = await waitFor(() => queryByTestId(popupTestId));
+    const wrappedPopupElement1 = await waitFor(() => queryByTestId(wrappedPopupTestId));
+    expect(popupElement1).toBeNull();
+    expect(wrappedPopupElement1).toBeNull();
+
+    // 触发浮层和嵌套浮层
+    act(() => {
+      fireEvent.click(getByText(triggerElement));
+      jest.runAllTimers();
+      fireEvent.click(getByText(wrappedTriggerElement));
+      jest.runAllTimers();
+    });
+
+    // 所有浮层都展示出来
+    const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
+    const wrappedPopupElement2 = await waitFor(() => queryByTestId(wrappedPopupTestId));
+    expect(popupElement2).not.toBeNull();
+    expect(wrappedPopupElement2).not.toBeNull();
+
+    // 嵌套元素的浮层触发 mouseDown，不应该关闭任何浮层
+    act(() => {
+      fireEvent.mouseDown(queryByTestId(wrappedPopupTestId));
+      jest.runAllTimers();
+    });
+
+    // 所有浮层都展示出来
+    const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
+    const wrappedPopupElement3 = await waitFor(() => queryByTestId(wrappedPopupTestId));
+    expect(popupElement3).not.toBeNull();
+    expect(wrappedPopupElement3).not.toBeNull();
+  });
+
   test('异常情况：浮层隐藏时点击其他地方，浮层不可以展示出来', async () => {
     const testClassName = 'test-class-name';
     render(
