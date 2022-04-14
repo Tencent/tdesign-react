@@ -3,20 +3,30 @@ import classNames from 'classnames';
 import { StyledProps, TNode } from '../common';
 import { TdMenuGroupProps } from './type';
 import useConfig from '../_util/useConfig';
+import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
   children?: TNode;
+  level: number;
 }
 
-const MenuGroup = ({ title, children }: MenuGroupProps) => {
+const MenuGroup = ({ title, children, level = 1 }: MenuGroupProps) => {
   const { classPrefix } = useConfig();
+  const menuPaddingLeft = cacularPaddingLeft(level - 1);
 
   return (
     <div className={classNames(`${classPrefix}-menu-group`)}>
-      <div className={classNames(`${classPrefix}-menu-group__title`)}>{title}</div>
+      <div
+        className={classNames(`${classPrefix}-menu-group__title`)}
+        style={{ paddingLeft: `${menuPaddingLeft - 28}px` }}
+      >
+        {title}
+      </div>
       {children}
     </div>
   );
 };
+
+MenuGroup.displayName = 'MenuGroup';
 
 export default MenuGroup;

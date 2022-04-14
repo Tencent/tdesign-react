@@ -8,7 +8,7 @@ import useRipple from '../_util/useRipple';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import FakeArrow from '../common/FakeArrow';
-import { checkIsSubMenu } from './_util/checkMenuType';
+import { checkIsSubMenu, checkIsMenuGroup } from './_util/checkMenuType';
 import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
@@ -186,7 +186,7 @@ const SubMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   // 如果是第二层及以及的 subMenu 需要添加 notFirstLevelSubMenu 属性
   const childElement = React.Children.map(children, (item: React.ReactElement) =>
-    checkIsSubMenu(item)
+    checkIsSubMenu(item) || checkIsMenuGroup(item)
       ? React.cloneElement(item, {
           level: level + 1,
         })
