@@ -24,7 +24,7 @@ export const defaultGlobalConfig = {
 
 export type Locale = typeof defaultLocale;
 
-export type GlobalConfig = typeof defaultGlobalConfig;
+export type GlobalConfig = Partial<typeof defaultGlobalConfig>;
 
 export interface Config {
   globalConfig?: GlobalConfig;
