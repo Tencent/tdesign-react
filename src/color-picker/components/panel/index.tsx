@@ -117,18 +117,16 @@ const Panel = (props: ColorPickerProps) => {
 
   // 饱和度变化
   const handleSaturationChange = ({ saturation, value }: TdColorSaturationData) => {
-    const colorInstance = colorInstanceRef.current;
-    const { saturation: sat, value: val } = colorInstance;
+    const { saturation: sat, value: val } = colorInstanceRef.current;
     let changeTrigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
+    colorInstanceRef.current.saturation = saturation;
+    colorInstanceRef.current.value = value;
+
     if (value !== val && saturation !== sat) {
-      colorInstance.saturation = saturation;
-      colorInstance.value = value;
       changeTrigger = 'palette-saturation-brightness';
     } else if (saturation !== sat) {
-      colorInstance.saturation = saturation;
       changeTrigger = 'palette-saturation';
     } else if (value !== val) {
-      colorInstance.value = value;
       changeTrigger = 'palette-brightness';
     } else {
       return;
