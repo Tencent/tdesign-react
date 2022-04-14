@@ -3,4 +3,5 @@ export enum MenuBlockType {
   MenuItem = 'MenuItem',
   SubMenu = 'SubMenu',
   MenuItemGroup = 'MenuItemGroup',
+  MenuGroup = 'MenuGroup',
 }
