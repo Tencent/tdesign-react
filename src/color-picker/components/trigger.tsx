@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { Input } from '../../input';
 import ColorLib from '../../_common/js/color-picker/color';
@@ -25,14 +25,21 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
   const [value, setValue] = useState(color);
 
   const handleChange = (input: string) => {
-    if (input === value) {
-      return;
-    }
     if (ColorLib.isValid(input)) {
       setValue(input);
+    } else {
+      setValue(color);
     }
-    onTriggerChange(value);
   };
+
+  useEffect(() => {
+    onTriggerChange(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  useEffect(() => {
+    setValue(color);
+  }, [color]);
 
   return (
     <div className={`${baseClassName}__trigger--default`}>
@@ -45,12 +52,13 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
             <span
               className={'color-inner'}
               style={{
-                background: color,
+                background: value,
               }}
             ></span>
           </div>
         }
         onBlur={handleChange}
+        onChange={(v: string) => setValue(v)}
       />
     </div>
   );

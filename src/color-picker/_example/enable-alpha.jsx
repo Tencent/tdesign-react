@@ -5,7 +5,6 @@ export default function EnableAlpha() {
   const [value, setValue] = useState('#0052d9');
 
   const handleChange = (value, context) => {
-    console.log('handleChange', value, context);
     setValue(value);
   };
 

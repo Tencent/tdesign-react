@@ -1,25 +1,25 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { SATURATION_PANEL_DEFAULT_HEIGHT, SATURATION_PANEL_DEFAULT_WIDTH } from '../../const';
-import Draggable, { Coordinate } from '../../../_common/js/color-picker/draggable';
 import { TdColorBaseProps } from '../../interface';
+import useDrag, { Coordinate } from '../../../_util/useDrag';
 
 const Saturation = (props: TdColorBaseProps) => {
   const { color, disabled, onChange, baseClassName } = props;
   const panelRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLElement>(null);
-  const dragInstance = useRef<Draggable>(null);
+
   const panelRectRef = useRef({
     width: SATURATION_PANEL_DEFAULT_WIDTH,
     height: SATURATION_PANEL_DEFAULT_HEIGHT,
   });
 
   const styles = () => {
-    const { saturation, value } = color;
+    const { saturation, value, rgb } = color;
     const { width, height } = panelRectRef.current;
     const top = Math.round((1 - value) * height);
     const left = Math.round(saturation * width);
     return {
-      color: color.rgb,
+      color: rgb,
       left: `${left}px`,
       top: `${top}px`,
     };
@@ -39,77 +39,46 @@ const Saturation = (props: TdColorBaseProps) => {
   const isDragging = useRef<Boolean>(false);
 
   const handleDrag = useCallback(
-    (coordinate: Coordinate, isEnded?: boolean) => {
+    ({ x, y }: Coordinate, isEnd?: boolean) => {
       if (disabled) {
         return;
       }
-      if (coordinate.x < 0 || coordinate.y < 0) {
-        return;
-      }
-
-      const { saturation, value } = getSaturationAndValueByCoordinate(coordinate);
+      isDragging.current = true;
+      const { saturation, value } = getSaturationAndValueByCoordinate({ x, y });
       onChange({
         saturation: saturation / 100,
         value: value / 100,
-        addUsedColor: isEnded,
+        addUsedColor: isEnd,
       });
     },
     [disabled, onChange],
   );
 
-  const handleDragEnd = useCallback(
-    (coordinate: Coordinate) => {
-      if (disabled) {
-        return;
-      }
-
-      isDragging.current = false;
-      handleDrag(coordinate, true);
-    },
-    [disabled, handleDrag],
-  );
-
-  // 移动中
-  const handleMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging.current || disabled) {
-        return;
-      }
-
-      const panelRect = panelRef.current.getBoundingClientRect();
-      handleDrag({ x: e.clientX - panelRect.x, y: e.clientY - panelRect.y }, false);
-    },
-    [disabled, handleDrag],
-  );
-
-  const handleEnd = useCallback(() => {
+  const handleDragEnd = useCallback((coordinate: Coordinate) => {
+    if (disabled) {
+      return;
+    }
     isDragging.current = false;
+    handleDrag(coordinate, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMove, false);
-    window.addEventListener('mouseup', handleEnd, false);
-    return () => {
-      window.removeEventListener('mousemove', handleMove, false);
-      window.removeEventListener('mouseup', handleEnd, false);
-    };
-  }, [handleMove, handleEnd]);
+  useDrag(panelRef, {
+    start: () => {
+      panelRectRef.current.width = panelRef.current.offsetWidth;
+      panelRectRef.current.height = panelRef.current.offsetHeight;
+    },
+    end: (coordinate: Coordinate) => {
+      handleDragEnd(coordinate);
+    },
+    drag: (coordinate: Coordinate) => {
+      handleDrag(coordinate);
+    },
+  });
 
   useEffect(() => {
     panelRectRef.current.width = panelRef.current.offsetWidth || SATURATION_PANEL_DEFAULT_WIDTH;
     panelRectRef.current.height = panelRef.current.offsetHeight || SATURATION_PANEL_DEFAULT_HEIGHT;
-    dragInstance.current = new Draggable(panelRef.current, {
-      start() {
-        panelRectRef.current.width = panelRef.current.offsetWidth;
-        panelRectRef.current.height = panelRef.current.offsetHeight;
-      },
-      drag: (coordinate: Coordinate) => {
-        isDragging.current = true;
-        handleDrag(coordinate);
-      },
-      end: handleDragEnd,
-    });
-    return () => dragInstance.current.destroy();
   }, [handleDrag, handleDragEnd]);
 
   return (

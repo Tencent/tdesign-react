@@ -10,6 +10,8 @@ const FormatInputs = (props) => {
   const formatValue = useRef<any>({});
   const lastModelValue = useRef({});
 
+  const object2color = (f: string) => Color.object2color(formatValue.current, f);
+
   // 获取不同格式的输入输出值
   const getFormatColorMap = (type: 'encode' | 'decode') => {
     if (type === 'encode') {
@@ -28,10 +30,10 @@ const FormatInputs = (props) => {
     }
     // decode
     return {
-      HSV: Color.object2color(formatValue, 'HSV'),
-      HSL: Color.object2color(formatValue, 'HSL'),
-      RGB: Color.object2color(formatValue, 'RGB'),
-      CMYK: Color.object2color(formatValue, 'CMYK'),
+      HSV: object2color('HSV'),
+      HSL: object2color('HSL'),
+      RGB: object2color('RGB'),
+      CMYK: object2color('CMYK'),
       CSS: formatValue.current.css,
       HEX: formatValue.current.hex,
     };
