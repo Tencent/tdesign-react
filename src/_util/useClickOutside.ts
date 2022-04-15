@@ -11,7 +11,7 @@ export default function useClickOutside<T extends HTMLElement>(
 
   useEffect(() => {
     const listener = (event) => {
-      if (!Array.isArray(refs) || refs.find((ref) => !ref.current)) {
+      if (!Array.isArray(refs)) {
         return;
       }
 
