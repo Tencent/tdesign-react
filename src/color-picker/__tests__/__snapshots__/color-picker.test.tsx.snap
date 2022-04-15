@@ -284,7 +284,7 @@ exports[`enable-alpha.jsx 1`] = `
                   class="t-input__wrap"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -1062,7 +1062,7 @@ exports[`panel.jsx 1`] = `
                 class="t-input__wrap"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1924,7 +1924,7 @@ exports[`status-readonly.jsx 1`] = `
                   class="t-input__wrap"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -2692,7 +2692,7 @@ exports[`swatch-color.jsx 1`] = `
                     class="t-input__wrap"
                   >
                     <div
-                      class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -3028,7 +3028,7 @@ exports[`swatch-color.jsx 1`] = `
                     class="t-input__wrap"
                   >
                     <div
-                      class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
