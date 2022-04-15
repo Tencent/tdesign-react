@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo } from 'react';
+import React, { useState, useRef } from 'react';
 import { Popup, PopupProps } from '../popup';
 import { ColorPickerProps, TdColorContext } from './interface';
 import useClassname from './hooks/useClassname';
@@ -32,24 +32,21 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     setVisible(false);
   });
 
-  const PopupContent = memo(() => {
-    if (disabled) {
-      return null;
-    }
-    return (
-      <ColorPanel
-        {...props}
-        disabled={disabled}
-        value={innerValue}
-        togglePopup={setVisible}
-        onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
-        ref={colorPanelRef}
-      />
-    );
-  });
-
   return (
-    <Popup {...popProps} content={<PopupContent />}>
+    <Popup
+      {...popProps}
+      content={
+        !disabled && (
+          <ColorPanel
+            disabled={disabled}
+            value={innerValue}
+            togglePopup={setVisible}
+            onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
+            ref={colorPanelRef}
+          />
+        )
+      }
+    >
       <div className={`${baseClassName}__trigger`} onClick={() => setVisible(!visible)} ref={triggerRef}>
         <ColorTrigger color={innerValue} disabled={disabled} inputProps={inputProps} onTriggerChange={setInnerValue} />
       </div>

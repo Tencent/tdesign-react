@@ -1,13 +1,33 @@
 import { MutableRefObject, useEffect } from 'react';
+import useConfig from './useConfig';
 
 export default function useClickOutside<T extends HTMLElement>(
   refs: MutableRefObject<T>[],
   handler: (event: MouseEvent | TouchEvent) => void,
+  includePopup?: boolean,
 ) {
+  const { classPrefix } = useConfig();
+  const POPUP_SELECTOR = `.${classPrefix}-popup`;
+
   useEffect(() => {
     const listener = (event) => {
+      if (!Array.isArray(refs) || refs.find((ref) => !ref.current)) {
+        return;
+      }
+
+      let elements = [];
+      if (includePopup) {
+        document.querySelectorAll(POPUP_SELECTOR).forEach((ele: Element) => {
+          elements.push(ele as HTMLElement);
+        });
+      }
+      elements = Array.from(new Set(elements));
+
       // Do nothing if clicking ref's element or descendent elements
-      if (!Array.isArray(refs) || refs.find((ref) => ref.current?.contains(event.target))) {
+      if (
+        refs.find((ref) => ref.current?.contains(event.target)) ||
+        elements.find((el) => el?.contains(event.target))
+      ) {
         return;
       }
       handler(event);
@@ -19,5 +39,6 @@ export default function useClickOutside<T extends HTMLElement>(
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
     };
-  }, [refs, handler]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refs, handler, includePopup]);
 }

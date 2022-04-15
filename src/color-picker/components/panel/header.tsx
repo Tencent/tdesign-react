@@ -14,7 +14,7 @@ export interface ColorPanelHeaderProps extends TdColorPickerProps {
 }
 
 const Header = (props: ColorPanelHeaderProps) => {
-  const { baseClassName, mode = 'monochrome', colorModes, togglePopup, closeBtn, onModeChange } = props;
+  const { baseClassName, mode = 'monochrome', colorModes, togglePopup, closeBtn = true, onModeChange } = props;
 
   const handleClosePopup = () => {
     togglePopup?.(false);
