@@ -391,12 +391,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 disabled: disabledFromContext,
                 ...child.props,
                 [ctrlKey]: formValue,
-                onChange: (value) => {
-                  onChangeFromProps.call(null, value);
+                onChange: (value: any, ...args: any[]) => {
+                  onChangeFromProps.call(null, value, ...args);
                   setFormValue(value);
                 },
-                onBlur: (value) => {
-                  onBlurFromProps.call(null, value);
+                onBlur: (value: any, ...args: any[]) => {
+                  onBlurFromProps.call(null, value, ...args);
                   handleItemBlur();
                 },
               });

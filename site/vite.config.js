@@ -49,6 +49,6 @@ export default ({ mode }) => defineConfig({
       //   exclude: ['src/_common/**/*'],
       //   extension: ['.js', '.ts', '.jsx', '.tsx'],
       // }),
-    ],
-  });
-};
+    ]
+  },
+});
