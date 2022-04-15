@@ -1,11 +1,8 @@
 import React from 'react';
-import useClassname from './hooks/useClassname';
 import ColorPanel from './components/panel';
+import { ColorPickerProps } from './interface';
 
-const ColorPickerPanel = (props) => {
-  const baseClassName = useClassname();
-  return <ColorPanel {...props} popupProps={null} closeBtn={false} class={`${baseClassName}-is-inline`} />;
-};
+const ColorPickerPanel = (props: ColorPickerProps) => <ColorPanel {...props} popupProps={null} closeBtn={false} />;
 
 ColorPickerPanel.displayName = 'ColorPickerPanel';
 
