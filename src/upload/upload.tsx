@@ -152,7 +152,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
 
   const singleDraggable = useMemo(
-    () => !multiple && draggable && ['file', 'file-input', 'image', 'custom'].includes(theme),
+    () => (!multiple || ['file', 'file-input', 'image', 'custom'].includes(theme)) && draggable,
     [draggable, multiple, theme],
   );
 
