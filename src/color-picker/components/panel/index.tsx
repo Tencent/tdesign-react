@@ -35,6 +35,8 @@ const Panel = (props: ColorPickerProps) => {
     format,
     onPaletteBarChange,
     swatchColors,
+    className,
+    style = {},
   } = props;
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
   const colorInstanceRef = useRef<Color>(new Color(defaultValue || DEFAULT_COLOR));
@@ -258,8 +260,9 @@ const Panel = (props: ColorPickerProps) => {
 
   return (
     <div
-      className={classNames(`${baseClassName}__panel`, disabled ? STATUS.disabled : false)}
+      className={classNames(`${baseClassName}__panel`, disabled ? STATUS.disabled : false, className)}
       onClick={(e) => e.stopPropagation()}
+      style={{ ...style }}
     >
       <PanelHeader {...props} baseClassName={baseClassName} mode={mode} onModeChange={handleModeChange} />
       <div className={`${baseClassName}__body`}>
