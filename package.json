@@ -179,7 +179,7 @@
     "start-server-and-test": "^1.14.0",
     "tdesign-icons-view": "^0.0.2",
     "tdesign-publish-cli": "^0.0.9",
-    "tdesign-site-components": "^0.8.7",
+    "tdesign-site-components": "^0.9.0",
     "ts-jest": "^27.1.2",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",
