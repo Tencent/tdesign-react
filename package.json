@@ -202,6 +202,7 @@
     "react-popper": "~2.2.5",
     "react-transition-group": "~4.4.1",
     "tdesign-icons-react": "~0.0.9",
+    "tinycolor2": "^1.4.2",
     "tslib": "~2.3.1",
     "use-resize-observer": "^8.0.0",
     "uuid": "~8.3.2",
