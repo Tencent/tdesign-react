@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, MutableRefObject } from 'react';
 import classNames from 'classnames';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useDefault from '../../../_util/useDefault';
@@ -22,7 +22,7 @@ import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import SwatchesPanel from './swatches';
 
-const Panel = (props: ColorPickerProps) => {
+const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDivElement>) => {
   const baseClassName = useClassname();
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
@@ -263,6 +263,7 @@ const Panel = (props: ColorPickerProps) => {
       className={classNames(`${baseClassName}__panel`, disabled ? STATUS.disabled : false, className)}
       onClick={(e) => e.stopPropagation()}
       style={{ ...style }}
+      ref={ref}
     >
       <PanelHeader {...props} baseClassName={baseClassName} mode={mode} onModeChange={handleModeChange} />
       <div className={`${baseClassName}__body`}>
@@ -281,6 +282,6 @@ const Panel = (props: ColorPickerProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default React.memo(Panel);

@@ -28,9 +28,13 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     },
   };
 
-  useClickOutside([triggerRef, colorPanelRef], () => {
-    setVisible(false);
-  });
+  useClickOutside(
+    [triggerRef, colorPanelRef],
+    () => {
+      setVisible(false);
+    },
+    true,
+  );
 
   return (
     <Popup
