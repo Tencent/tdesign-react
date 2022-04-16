@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 import isFunction from 'lodash/isFunction';
 import { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
-import SorterButton from '../sorter-button';
+import SorterButton from '../SorterButton';
 import useDefaultValue from '../../_util/useDefault';
 
 export type SortMap = Record<string, SortInfo & { index: number }>;

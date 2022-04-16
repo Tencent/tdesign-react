@@ -3,7 +3,7 @@ import useClassName from './useClassName';
 import TButton from '../../button';
 import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue } from '../type';
 import useDefaultValue from '../../_util/useDefault';
-import TableFilterController from '../filter-controller';
+import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 // 筛选条件不为空，才需要显示筛选结果行

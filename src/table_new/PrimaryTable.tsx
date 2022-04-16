@@ -36,13 +36,14 @@ export default function PrimaryTable(props: PrimaryTableProps) {
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isColDraggable, isRowDraggable } = useDragSort(props, primaryTableRef);
+  const { isRowHandlerDraggable, isRowDraggable } = useDragSort(props, primaryTableRef);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
 
   const primaryTableClasses = {
-    [tableDraggableClasses.colDraggable]: isColDraggable,
+    // [tableDraggableClasses.colDraggable]: isColDraggable,
+    [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
     [tableDraggableClasses.rowDraggable]: isRowDraggable,
     [tableBaseClass.overflowVisible]: isTableOverflowHidden === false,
   };
@@ -56,7 +57,7 @@ export default function PrimaryTable(props: PrimaryTableProps) {
   // 如果想给 TR 添加属性，请在这里补充，不要透传更多额外 Props 到 BaseTable
   const tRowAttributes = (() => {
     const tAttributes = [props.rowAttributes];
-    if (isColDraggable || isRowDraggable) {
+    if (isRowHandlerDraggable || isRowDraggable) {
       tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
     }
     return tAttributes.filter((v) => v);

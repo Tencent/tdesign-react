@@ -1,10 +1,10 @@
-import { computed, toRefs, Ref } from 'vue';
 import get from 'lodash/get';
+import { useMemo } from 'react';
 import { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
 import TableTreeStore, { KeysType, TableTreeDataMap } from './tree-store';
-import useDefaultValue from '../../hooks/useDefaultValue';
+import useDefaultValue from '../../_util/useDefault';
 
-export const childreMap = new Map();
+export const childrenMap = new Map();
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;
@@ -18,7 +18,7 @@ export function getChildrenData(
   rowKey: string,
   r?: GetChildrenDataReturnValue,
 ): GetChildrenDataReturnValue {
-  if (childreMap.get(data)) return childreMap.get(data);
+  if (childrenMap.get(data)) return childrenMap.get(data);
   const result = r || { allChildren: [], allChildrenKeys: [] };
   const children = get(data, childrenKey);
   if (!children || !children.length) return result;
@@ -86,19 +86,18 @@ export function getRowDataByKeys(p: GetRowDataParams) {
 
 type SelectChangeParams = Parameters<TdPrimaryTableProps['onSelectChange']>;
 
-export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: Ref<TableTreeDataMap>) {
-  const { selectedRowKeys } = toRefs(props);
+export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: TableTreeDataMap) {
+  const { selectedRowKeys, tree, rowKey } = props;
   // eslint-disable-next-line
   const [_, setTSelectedRowKeys] = useDefaultValue(
     selectedRowKeys,
     props.defaultSelectedRowKeys,
     props.onSelectChange,
-    'selectedRowKeys',
   );
-  const rowDataKeys = computed(() => ({
-    rowKey: props.rowKey || 'id',
-    childrenKey: props.tree?.childrenKey || 'children',
-  }));
+  const rowDataKeys = useMemo(() => ({
+    rowKey: rowKey || 'id',
+    childrenKey: tree?.childrenKey || 'children',
+  }), [rowKey, tree?.childrenKey]);
 
   function onInnerSelectChange(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
     if (extraData.currentRowKey === 'CHECK_ALL_BOX') {
@@ -112,12 +111,12 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     const newRowKeys: Array<string | number> = [];
     const newRowData: TableRowData[] = [];
     if (extraData.type === 'check') {
-      const arr = [...treeDataMap.value.values()];
+      const arr = [...treeDataMap.values()];
       for (let i = 0, len = arr.length; i < len; i++) {
         const item = arr[i];
         if (!item.disabled) {
           newRowData.push(item.row);
-          newRowKeys.push(get(item.row, rowDataKeys.value.rowKey));
+          newRowKeys.push(get(item.row, rowDataKeys.rowKey));
         }
       }
     }
@@ -133,20 +132,20 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     if (props?.tree.checkStrictly === false) {
       if (extraData?.type === 'check') {
         const result = getChildrenData(
-          treeDataMap.value,
+          treeDataMap,
           extraData.currentRowData,
-          rowDataKeys.value.childrenKey,
-          rowDataKeys.value.rowKey,
+          rowDataKeys.childrenKey,
+          rowDataKeys.rowKey,
         );
         const { allChildrenKeys } = result;
-        childreMap.set(extraData.currentRowData, result);
+        childrenMap.set(extraData.currentRowData, result);
         newRowKeys = [...new Set(newRowKeys.concat(allChildrenKeys))];
       } else if (extraData?.type === 'uncheck') {
         const children = getChildrenData(
-          treeDataMap.value,
+          treeDataMap,
           extraData.currentRowData,
-          rowDataKeys.value.childrenKey,
-          rowDataKeys.value.rowKey,
+          rowDataKeys.childrenKey,
+          rowDataKeys.rowKey,
         );
         const result = removeChildrenKeys({
           selectedRowKeys: rowKeys,
@@ -155,7 +154,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
         newRowKeys = result.keys;
       }
     }
-    const newRowData = getRowDataByKeys({ treeDataMap: treeDataMap.value, selectedRowKeys: newRowKeys });
+    const newRowData = getRowDataByKeys({ treeDataMap, selectedRowKeys: newRowKeys });
     const newExtraData = {
       ...extraData,
       selectedRowData: newRowData,

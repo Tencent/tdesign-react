@@ -1,52 +1,56 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
+import classNames from 'classnames';
 import TableTreeStore from './tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../tr';
+import { renderCell } from '../TR';
 
 export default function useTreeData(props: TdEnhancedTableProps) {
-  const { data, columns } = toRefs(props);
-  const store = ref(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
-  const treeNodeCol = ref<PrimaryTableCol>();
-  const dataSource = ref<TdEnhancedTableProps['data']>([]);
+  const { data, columns, tree, rowKey } = props;
+  const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
+  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
+  const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
 
-  const rowDataKeys = computed(() => ({
-    rowKey: props.rowKey || 'id',
-    childrenKey: props.tree?.childrenKey || 'children',
-  }));
+  const rowDataKeys = useMemo(() => ({
+    rowKey: rowKey || 'id',
+    childrenKey: tree?.childrenKey || 'children',
+  }), [rowKey, tree?.childrenKey]);
 
-  watch(
-    [data],
-    ([val]) => {
-      if (!val) return [];
+  // TODO：行选中会触发 tree 的变化。按理说，不应该
+  useEffect(
+    () => {
+      if (!data || !store) return;
       // 如果没有树形解构，则不需要相关逻辑
-      if (!props.tree || !Object.keys(props.tree).length) {
-        dataSource.value = val;
+      if (!tree || !Object.keys(tree).length) {
+        setDataSource(data);
         return;
       }
-      const newVal = cloneDeep(val);
-      dataSource.value = newVal;
-      store.value.initialTreeStore(newVal, props.columns, rowDataKeys.value);
+      const newVal = cloneDeep(data);
+      setDataSource(newVal);
+      store.initialTreeStore(newVal, columns, rowDataKeys);
     },
-    { immediate: true },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data]
   );
 
-  onUnmounted(() => {
-    if (!props.tree || !Object.keys(props.tree).length) return;
-    store.value.treeDataMap?.clear();
-    store.value = null;
-  });
+  useEffect(() => {
+    // 如果没有树形解构，则不需要相关逻辑
+    if (!tree || !Object.keys(tree).length) return;
+    store.initialTreeStore(data, columns, rowDataKeys);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns, rowDataKeys]);
 
-  watch(
-    [columns],
+  useEffect(
     () => {
-      treeNodeCol.value = getTreeNodeColumnCol();
+      const treeNodeColTmp = getTreeNodeColumnCol();
+      setTreeNodeCol(treeNodeColTmp);
     },
-    { immediate: true },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [columns]
   );
 
   function getTreeNodeStyle(level: number) {
@@ -63,7 +67,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @param p 行数据
    */
   function toggleExpandData(p: { row: TableRowData; rowIndex: number }) {
-    dataSource.value = store.value.toggleExpandData(p, dataSource.value, rowDataKeys.value);
+    const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
+    setDataSource([...newData]);
   }
 
   function getTreeNodeColumnCol() {
@@ -80,20 +85,21 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   function formatTreeColum(col: PrimaryTableCol): PrimaryTableCol {
-    if (!props.tree || !Object.keys(props.tree).length || col.colKey !== treeNodeCol.value.colKey) return col;
-    const newCol = { ...treeNodeCol.value };
-    newCol.cell = (h, p) => {
-      const cellInfo = renderCell({ ...p, col: { ...treeNodeCol.value } }, context.slots);
-      const currentState = store.value.treeDataMap.get(get(p.row, rowDataKeys.value.rowKey));
+    if (!col || !treeNodeCol || !store) return {};
+    if (!props.tree || !Object.keys(props.tree).length || col.colKey !== treeNodeCol.colKey) return col;
+    const newCol = { ...treeNodeCol };
+    newCol.cell = (p) => {
+      const cellInfo = renderCell({ ...p, col: { ...treeNodeCol } });
+      const currentState = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey));
       const colStyle = getTreeNodeStyle(currentState?.level);
       const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
-      const childrenNodes = get(p.row, rowDataKeys.value.childrenKey);
+      const childrenNodes = get(p.row, rowDataKeys.childrenKey);
       if (childrenNodes && childrenNodes instanceof Array) {
-        const IconNode = store.value.treeDataMap.get(get(p.row, rowDataKeys.value.rowKey))?.expanded
+        const IconNode = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded
           ? MinusRectangleIcon
           : AddRectangleIcon;
         return (
-          <div className={[tableTreeClasses.col, classes]} style={colStyle}>
+          <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!childrenNodes.length && (
               <IconNode className={tableTreeClasses.icon} onClick={() => toggleExpandData(p)} />
             )}
@@ -102,14 +108,14 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         );
       }
       return (
-        <div style={colStyle} className={classes}>
+        <div style={colStyle} className={classNames(classes)}>
           {cellInfo}
         </div>
       );
     };
     // 树形节点会显示操作符号 [+] 和 [-]，但省略显示的浮层中不需要操作符
     if (newCol.ellipsis === true) {
-      newCol.ellipsis = (h, p) => renderCell({ ...p, col: { ...treeNodeCol.value } }, context.slots);
+      newCol.ellipsis = (p) => renderCell({ ...p, col: { ...treeNodeCol } });
     }
     return newCol;
   }
@@ -120,10 +126,10 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @param newRowData 新行数据
    */
   function setData<T>(key: TableRowValue, newRowData: T) {
-    const rowIndex = store.value.updateData(key, newRowData, dataSource.value, rowDataKeys.value);
-    const newData = [...dataSource.value];
+    const rowIndex = store.updateData(key, newRowData, dataSource, rowDataKeys);
+    const newData = [...dataSource];
     newData[rowIndex] = newRowData;
-    dataSource.value = newData;
+    setDataSource([...newData]);
   }
 
   /**
@@ -132,7 +138,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @returns {TableRowState} 当前行数据
    */
   function getData(key: TableRowValue): TableRowState {
-    return store.value.getData(key);
+    return store.getData(key);
   }
 
   /**
@@ -141,7 +147,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function remove(key: TableRowValue) {
     // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
-    dataSource.value = store.value.remove(key, dataSource.value, rowDataKeys.value);
+    const newData = store.remove(key, dataSource, rowDataKeys);
+    setDataSource([...newData]);
   }
 
   /**
@@ -151,7 +158,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function appendTo<T>(key: TableRowValue, newData: T) {
     // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
-    dataSource.value = store.value.appendTo(key, newData, dataSource.value, rowDataKeys.value);
+    const dataTmp = store.appendTo(key, newData, dataSource, rowDataKeys);
+    setDataSource([...dataTmp]);
   }
 
   return {
