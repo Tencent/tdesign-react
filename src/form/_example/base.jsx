@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -47,7 +47,17 @@ export default function BaseForm() {
       <FormItem label="状态" name="status" for="status">
         <Switch />
       </FormItem>
-      <FormItem>
+      <FormItem label="自定义内容" for="custom">
+        <div style={{ display: 'flex', gap: 8 }}>
+          <FormItem name="custom">
+            <Input />
+          </FormItem>
+          <Tooltip content="文字链提示信息">
+            <Button variant="text">文字链</Button>
+          </Tooltip>
+        </div>
+      </FormItem>
+      <FormItem style={{ marginLeft: 100 }}>
         <Button type="submit" theme="primary">
           提交
         </Button>

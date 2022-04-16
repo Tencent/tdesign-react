@@ -15,6 +15,7 @@ export interface TabNavItemProps extends TdTabPanelProps {
   placement: string;
   size?: 'medium' | 'large';
   index: number;
+  innerRef(ref: HTMLElement): void;
   onTabRemove: TdTabsProps['onRemove'];
 }
 
@@ -32,6 +33,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
     disabled = false,
     index,
     onTabRemove = noop,
+    innerRef,
   } = props;
 
   const isCard = theme === 'card';
@@ -43,6 +45,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   return (
     <div
+      ref={innerRef}
       onClick={disabled ? noop : onClick}
       className={classNames(
         tdTabsClassGenerator('nav-item'),

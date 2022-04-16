@@ -218,7 +218,7 @@ export default function BaseTable<D extends DataType = DataType>(props: InnerBas
   function getTable(params?: { enableHeader?: boolean; enableBody?: boolean }): ReactNode {
     const { enableHeader = true, enableBody = true } = params || {};
     return (
-      <table ref={tableRef} style={{ tableLayout, height: '100%' }}>
+      <table ref={tableRef} style={{ tableLayout }}>
         <TableColGroup columns={columns} />
         {enableHeader ? <TableHeader<D> columns={columns} /> : null}
         {enableBody ? renderTableBodyAndTableFooter() : null}

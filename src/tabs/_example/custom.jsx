@@ -3,18 +3,18 @@ import { Tabs } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 
+const tabs = [];
+for (let i = 1, max = 10; i <= max; ++i) {
+  tabs.push({
+    value: i,
+    label: `选项卡 ${i}`,
+  })
+}
+
 export default function AddTabs() {
-  const [panels, setPanels] = useState([
-    {
-      value: 1,
-      label: '选项卡1',
-    },
-    {
-      value: 2,
-      label: '选项卡2',
-    },
-  ]);
+  const [panels, setPanels] = useState(tabs);
   const [value, setValue] = useState(1);
+  
   return (
     <Tabs
       placement={'top'}

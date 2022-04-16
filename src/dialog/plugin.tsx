@@ -10,7 +10,7 @@ export interface DialogPluginType extends DialogMethod {
   confirm?: DialogConfirmMethod;
 }
 
-const createDialog: DialogPluginType = (props: DialogOptions) => {
+const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
   const div = document.createElement('div');

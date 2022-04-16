@@ -20,7 +20,7 @@ describe('Tag 组件测试', () => {
   });
 
   test('content', async () => {
-    const { queryByText } = render(<Tag content="内容"></Tag>);
+    const { queryByText } = render(<Tag maxWidth={200} content="内容" />);
     expect(queryByText('内容')).toBeInTheDocument();
   });
 

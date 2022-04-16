@@ -206,6 +206,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         data={data}
         disabled={disabled}
         empty={empty}
+        allowFoldNodeOnFilter={true}
         {...(multiple
           ? {
               checkable: true,

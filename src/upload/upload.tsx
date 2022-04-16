@@ -28,6 +28,7 @@ import useSizeLimit from './hooks/useSizeLimit';
 
 const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref) => {
   const {
+    method = 'post',
     disabled,
     multiple,
     accept,
@@ -41,7 +42,6 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     tips,
     format,
     data,
-    headers,
     withCredentials,
     autoUpload = true,
     files: fileList = [],
@@ -62,6 +62,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     customDraggerRender,
     children,
   } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
+
+  const { headers } = props;
 
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
@@ -230,6 +232,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         return handleRequestMethod(file);
       }
       file.xhr = request({
+        method,
         action,
         data,
         file,
@@ -242,6 +245,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       });
     },
     [
+      method,
       action,
       data,
       handleProgress,
