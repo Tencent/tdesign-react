@@ -5,6 +5,7 @@ import useConfig from '../_util/useConfig';
 export interface AddonProps extends React.HTMLAttributes<HTMLDivElement> {
   prepend?: React.ReactNode;
   append?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const renderAddon = (type, classPrefix, Content) => {

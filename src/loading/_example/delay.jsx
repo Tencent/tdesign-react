@@ -22,7 +22,7 @@ export default function LoadingDelay() {
   return (
     <div className="tdesign-demo-block-column">
       <div>
-        {loading ? <Loading delay={500} size="small" loading={loading}></Loading> : null}
+        <Loading delay={500} size="small" loading={loading}></Loading>
         {data ? <div>{`loading 作为独立元素：${data}`}</div> : null}
       </div>
 

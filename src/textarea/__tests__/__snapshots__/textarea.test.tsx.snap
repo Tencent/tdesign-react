@@ -8,6 +8,7 @@ exports[`base.jsx 1`] = `
     <textarea
       class="t-textarea__inner"
       placeholder="请输入内容"
+      rows="2"
       style="height: auto; min-height: auto;"
     />
   </div>

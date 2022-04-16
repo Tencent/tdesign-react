@@ -30,7 +30,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       range,
       step = 1,
       tooltipProps,
-      value: propsValue,
+      value: propsValue = min,
       defaultValue,
       onChange,
       className,

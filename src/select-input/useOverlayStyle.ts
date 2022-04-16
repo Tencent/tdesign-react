@@ -8,7 +8,7 @@ import { TdPopupProps, PopupVisibleChangeContext } from '../popup';
 const MAX_POPUP_WIDTH = 1000;
 
 export default function useOverlayStyle(props: TdSelectInputProps) {
-  const { popupProps, borderless, autoWidth } = props;
+  const { popupProps, autoWidth } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
   const macthWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
@@ -42,12 +42,12 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
     const overlayStyle = popupProps?.overlayStyle || {};
     if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
       result = overlayStyle;
-    } else if (!borderless && !autoWidth) {
+    } else if (!autoWidth) {
       result = macthWidthFunc;
     }
     return result;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [borderless, popupProps?.overlayStyle]);
+  }, [autoWidth, popupProps?.overlayStyle]);
 
   return {
     tOverlayStyle,

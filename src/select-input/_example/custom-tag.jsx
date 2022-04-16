@@ -88,14 +88,14 @@ const SelectInputCustomTag = () => {
         valueDisplay={(
           <span>
             <img src="/favicon.ico" className="tdesign-demo-select-input__img" />
-            { selectValue1.label }
+            {selectValue1.label}
           </span>
         )}
         panel={(
           <ul className="tdesign-demo__selet-input-ul-custom">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item.label }
+                <img src="/favicon.ico" /> {item.label}
               </li>
             ))}
           </ul>
@@ -113,7 +113,7 @@ const SelectInputCustomTag = () => {
         tag={({ value }) => (
           <span key={value}>
             <img src="https://tdesign.gtimg.com/site/avatar.jpg" className="tdesign-demo-select-input__img" />
-            { value }
+            {value}
           </span>
         )}
         panel={<div className="tdesign-demo__select-empty-custom">暂无示意数据</div>}
@@ -135,7 +135,7 @@ const SelectInputCustomTag = () => {
             onClose={() => onClose(index)}
           >
             <img src="https://tdesign.gtimg.com/site/avatar.jpg" className="tdesign-demo-select-input__img" />
-            <span>{ item }</span>
+            <span>{item}</span>
           </Tag>
         ))}
         panel={<div className="tdesign-demo__select-empty-custom">暂无示意数据</div>}

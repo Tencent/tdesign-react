@@ -81,7 +81,7 @@ exports[`disabled.jsx 1`] = `
     class="t-popup__reference"
   >
     <button
-      class="t-is-disabled t-button t-button--theme-primary t-button--variant-base"
+      class="t-button t-button--theme-primary t-button--variant-base"
       type="button"
     >
       <span

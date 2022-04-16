@@ -29,6 +29,9 @@ npm run dev
 
 # 打开浏览器访问 http://localhost:15000
 
+# 单独调试某个组件的 demo 可访问 http://localhost:15000/react/[组件名]/[demo文件名]
+# 例如：http://localhost:15000/react/demos/button/base
+
 # 如果 common 代码未正常拉取可手动初始化:
 # git submodule init && git submodule update
 ```
