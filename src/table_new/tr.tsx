@@ -166,7 +166,7 @@ export default function TR(props: TrProps) {
       props.onCellClick?.(p);
     };
     const attrs = { ...col.attrs, rowSpan: cellSpans.rowspan, colSpan: cellSpans.colspan };
-
+    if (!col.colKey) return null;
     return (
       <td key={col.colKey} className={classnames(classes)} style={tdStyles.style} {...attrs} onClick={onClick}>
         {col.ellipsis ? renderEllipsisCell(params, { cellNode }) : cellNode}

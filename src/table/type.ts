@@ -72,7 +72,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   headerAffixProps?: AffixProps;
   /**
-   * 表格高度，超出后会出现滚动条。示例：100,  '30%',  '300px'。值为数字类型，会自动加上单位 px。如果不是绝对固定表格高度，建议使用 `maxHeight`
+   * 表格高度，超出后会出现滚动条。示例：100,  '30%',  '300'。值为数字类型，会自动加上单位 px。如果不是绝对固定表格高度，建议使用 `maxHeight`
    */
   height?: string | number;
   /**
@@ -94,7 +94,7 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    */
   loadingProps?: LoadingProps;
   /**
-   * 表格最大高度，超出后会出现滚动条。示例：100, '30%', '300px'。值为数字类型，会自动加上单位 px
+   * 表格最大高度，超出后会出现滚动条。示例：100, '30%', '300'。值为数字类型，会自动加上单位 px
    */
   maxHeight?: string | number;
   /**
@@ -258,8 +258,7 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
   width?: string | number;
 }
 
-export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
-  extends Omit<TdBaseTableProps<T>, 'columns' | 'onCellClick'> {
+export interface TdPrimaryTableProps<T extends TableRowData =  TableRowData> extends Omit<TdBaseTableProps<T>, 'columns' | 'onCellClick'> {
   /**
    * 异步加载状态。值为 `loading` 显示默认文字 “正在加载中，请稍后”，值为 `loading-more` 显示“点击加载更多”，值为其他，表示完全自定义异步加载区域内容
    */
@@ -290,9 +289,9 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   defaultDisplayColumns?: CheckboxGroupValue;
   /**
-   * 拖拽排序方式，值为 `row` 表示行拖拽排序，这种方式无法进行文本复制，慎用。值为`col` 表示通过专门的 拖拽列 进行拖拽排序。`drag-col` 已废弃，请勿使用
+   * 拖拽排序方式，值为 `row` 表示行拖拽排序，这种方式无法进行文本复制，慎用。值为`row-handler` 表示通过专门的 拖拽手柄 进行 行拖拽排序。值为 `col` 表示列顺序拖拽，列拖拽功能开发中。`drag-col` 已废弃，请勿使用。
    */
-  dragSort?: 'row' | 'col' | 'drag-col';
+  dragSort?: 'row' | 'row-handler' | 'col' | 'drag-col';
   /**
    * 展开行内容，泛型 T 指表格数据类型
    */
@@ -413,8 +412,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
   onSortChange?: (sort: TableSort, options: SortOptions<T>) => void;
 }
 
-export interface PrimaryTableCol<T extends TableRowData = TableRowData>
-  extends Omit<BaseTableCol, 'cell' | 'title' | 'render' | 'children'> {
+export interface PrimaryTableCol<T extends TableRowData = TableRowData> extends Omit<BaseTableCol, 'cell' | 'title' | 'render' | 'children'> {
   /**
    * 【开发中】是否允许用户选择是否显示当前列，表格属性 `showColumnController` 为真时有效
    * @default true
@@ -440,7 +438,7 @@ export interface PrimaryTableCol<T extends TableRowData = TableRowData>
   /**
    * 是否禁用行选中，`colKey` 值为 `row-select` 时，配置有效
    */
-  disabled?: (options: { row: T; rowIndex: number }) => boolean;
+  disabled?: (options: {row: T; rowIndex: number }) => boolean;
   /**
    * 过滤规则，支持多选(multiple)、单选(single)、输入框(input) 等三种形式。想要自定义过滤组件，可通过 `filter.component` 实现，自定义过滤组件需要包含参数 value 和事件 change
    */
@@ -475,6 +473,10 @@ export interface TdEnhancedTableProps<T extends TableRowData = TableRowData> ext
    * 树形结构相关配置。`tree.indent` 表示树结点缩进距离，单位：px，默认为 24px。`tree.treeNodeColumnIndex` 表示树结点在第几列渲染，默认为 0 ，第一列。`tree.childrenKey` 表示树形结构子节点字段，默认为 children。`tree.checkStrictly` 表示树形结构的行选中（多选），父子行选中是否独立，默认独立，值为 true
    */
   tree?: TableTreeConfig;
+  /**
+   * 树形结构，用户操作引起节点展开或收起时触发，代码操作不会触发
+   */
+  onTreeExpandChange?: (context: TableTreeExpandChangeContext<T>) => void;
 }
 
 /** 组件实例方法 */
@@ -494,7 +496,7 @@ export interface EnhancedTableInstanceFunctions<T extends TableRowData = TableRo
   /**
    * 展开或收起树形行
    */
-  toggleExpandData: (p: { row: T; rowIndex: number }) => void;
+  toggleExpandData: (p: { row: T,  rowIndex: number}) => void;
 }
 
 export interface TableRowState<T extends TableRowData = TableRowData> {
@@ -623,165 +625,73 @@ export interface TableColumnController {
   placement?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
-export type TableRowAttributes<T> =
-  | HTMLElementAttributes
-  | ((params: { row: T; rowIndex: number; type: 'body' | 'foot' }) => HTMLElementAttributes)
-  | Array<TableRowAttributes<T>>;
+export type TableRowAttributes<T> = HTMLElementAttributes | ((params: { row: T; rowIndex: number; type: 'body' | 'foot' }) => HTMLElementAttributes) | Array<TableRowAttributes<T>>;
 
-export interface RowClassNameParams<T> {
-  row: T;
-  rowIndex: number;
-  type?: 'body' | 'foot';
-}
+export interface RowClassNameParams<T> { row: T; rowIndex: number; type?: 'body' | 'foot' };
 
 export type TableRowspanAndColspanFunc<T> = (params: BaseTableCellParams<T>) => RowspanColspan;
 
-export interface RowspanColspan {
-  colspan?: number;
-  rowspan?: number;
-}
+export interface RowspanColspan { colspan?: number; rowspan?: number };
 
-export interface BaseTableCellEventContext<T> {
-  row: T;
-  col: BaseTableCol;
-  rowIndex: number;
-  colIndex: number;
-  e: MouseEvent<HTMLTableCellElement>;
-}
+export interface BaseTableCellEventContext<T> { row: T; col: BaseTableCol; rowIndex: number; colIndex: number; e: MouseEvent<HTMLTableCellElement> };
 
-export interface RowEventContext<T> {
-  row: T;
-  index: number;
-  e: MouseEvent<HTMLTableRowElement>;
-}
+export interface RowEventContext<T> { row: T; index: number; e: MouseEvent<HTMLTableRowElement> };
 
-export interface TableRowData {
-  [key: string]: any;
-  children?: TableRowData[];
-}
+export interface TableRowData { [key: string]: any; children?: TableRowData[]; };
 
-export interface BaseTableCellParams<T> {
-  row: T;
-  rowIndex: number;
-  col: BaseTableCol<T>;
-  colIndex: number;
-}
+export interface BaseTableCellParams<T> { row: T; rowIndex: number; col: BaseTableCol<T>; colIndex: number };
 
-export interface CellData<T> extends BaseTableCellParams<T> {
-  type: 'th' | 'td';
-}
+export interface CellData<T> extends BaseTableCellParams<T> { type: 'th' | 'td' };
 
-export interface BaseTableRenderParams<T> extends BaseTableCellParams<T> {
-  type: RenderType;
-}
+export interface BaseTableRenderParams<T> extends BaseTableCellParams<T> { type: RenderType };
 
 export type RenderType = 'cell' | 'title';
 
 export type DataType = TableRowData;
 
-export interface TableExpandedRowParams<T> {
-  row: T;
-  index: number;
-  columns: PrimaryTableCol<T>[] | BaseTableCol<T>[];
-}
+export interface TableExpandedRowParams<T> { row: T; index: number; columns: PrimaryTableCol<T>[] | BaseTableCol<T>[] };
 
-export interface ExpandArrowRenderParams<T> {
-  row: T;
-  index: number;
-}
+export interface ExpandArrowRenderParams<T> { row: T; index: number };
 
 export type FilterValue = { [key: string]: any };
 
 export type TableSort = SortInfo | Array<SortInfo>;
 
-export interface SortInfo {
-  sortBy: string;
-  descending: boolean;
-}
+export interface SortInfo { sortBy: string; descending: boolean };
 
-export interface PrimaryTableCellEventContext<T> {
-  row: T;
-  col: PrimaryTableCol;
-  rowIndex: number;
-  colIndex: number;
-  e: MouseEvent<HTMLDivElement>;
-}
+export interface PrimaryTableCellEventContext<T> { row: T; col: PrimaryTableCol; rowIndex: number; colIndex: number; e: MouseEvent<HTMLDivElement> };
 
-export interface TableChangeData {
-  sorter?: TableSort;
-  filter?: FilterValue;
-  pagination?: PaginationProps;
-}
+export interface TableChangeData { sorter?: TableSort; filter?: FilterValue; pagination?: PaginationProps };
 
-export interface TableChangeContext<T> {
-  trigger: TableChangeTrigger;
-  currentData?: T[];
-}
+export interface TableChangeContext<T> { trigger: TableChangeTrigger; currentData?: T[] };
 
 export type TableChangeTrigger = 'filter' | 'sorter' | 'pagination';
 
-export interface PrimaryTableColumnChange<T> {
-  columns?: CheckboxGroupValue;
-  currentColumn?: PrimaryTableCol<T>;
-  type?: 'check' | 'uncheck';
-  e?: ChangeEvent<HTMLDivElement>;
-}
+export interface PrimaryTableColumnChange<T> { columns?: CheckboxGroupValue; currentColumn?: PrimaryTableCol<T>; type?: 'check' | 'uncheck'; e?: ChangeEvent<HTMLDivElement> };
 
-export interface TableDataChangeContext {
-  trigger: 'sort';
-}
+export interface TableDataChangeContext { trigger: 'sort' };
 
-export interface DragSortContext<T> {
-  currentIndex: number;
-  current: T;
-  targetIndex: number;
-  target: T;
-  currentData: T[];
-  e: SortableEvent;
-}
+export interface DragSortContext<T> { currentIndex: number; current: T; targetIndex: number; target: T; currentData: T[]; e: SortableEvent };
 
-export interface ExpandOptions<T> {
-  expandedRowData: Array<T>;
-}
+export interface ExpandOptions<T> { expandedRowData: Array<T> };
 
-export interface SelectOptions<T> {
-  selectedRowData: Array<T>;
-  type: 'uncheck' | 'check';
-  currentRowKey?: string;
-  currentRowData?: T;
-}
+export interface SelectOptions<T> { selectedRowData: Array<T>; type: 'uncheck' | 'check'; currentRowKey?: string; currentRowData?: T };
 
-export interface SortOptions<T> {
-  currentDataSource?: Array<T>;
-  col: PrimaryTableCol;
-}
+export interface SortOptions<T> { currentDataSource?: Array<T>; col: PrimaryTableCol };
 
-export interface PrimaryTableCellParams<T> {
-  row: T;
-  rowIndex: number;
-  col: PrimaryTableCol<T>;
-  colIndex: number;
-}
+export interface PrimaryTableCellParams<T> { row: T; rowIndex: number; col: PrimaryTableCol<T>; colIndex: number };
 
-export type CheckProps<T> =
-  | CheckboxProps
-  | RadioProps
-  | ((options: { row: T; rowIndex: number }) => CheckboxProps | RadioProps);
+export type CheckProps<T> = CheckboxProps | RadioProps | ((options: { row: T; rowIndex: number }) => CheckboxProps | RadioProps);
 
-export interface PrimaryTableRenderParams<T> extends PrimaryTableCellParams<T> {
-  type: RenderType;
-}
+export interface PrimaryTableRenderParams<T> extends PrimaryTableCellParams<T> { type: RenderType };
 
 export type SorterFun<T> = (a: T, b: T) => number;
 
 export type SortType = 'desc' | 'asc' | 'all';
 
-export interface TableTreeConfig {
-  indent?: number;
-  treeNodeColumnIndex?: number;
-  childrenKey?: 'children';
-  checkStrictly?: boolean;
-}
+export interface TableTreeConfig { indent?: number; treeNodeColumnIndex?: number; childrenKey?: 'children'; checkStrictly?: boolean };
+
+export interface TableTreeExpandChangeContext<T> { row: T; rowIndex: number; rowState: TableRowState<T> };
 
 export type TableRowValue = string | number;
 

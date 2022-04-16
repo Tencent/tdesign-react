@@ -11,7 +11,7 @@ const EnhancedTable = forwardRef((props: EnhancedTableProps, ref) => {
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColum, ...treeInstanceFunctions } = useTreeData(props);
 
-  const [treeDataMap] = useState(store.value.treeDataMap);
+  const [treeDataMap] = useState(store?.treeDataMap);
 
   const { onInnerSelectChange } = useTreeSelect(props, treeDataMap);
 

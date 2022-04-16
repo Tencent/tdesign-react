@@ -97,8 +97,8 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
   const defaultColWidth = props.tableLayout === 'fixed' && isWidthOverflow ? '100px' : undefined;
   const colgroup = (
     <colgroup>
-      {(spansAndLeafNodes?.leafColumns || columns).map((col) => (
-        <col key={col.colKey} style={{ width: formatCSSUnit(col.width) || defaultColWidth }}></col>
+      {(spansAndLeafNodes?.leafColumns || columns).map((col, index) => (
+        <col key={col.colKey || index} style={{ width: formatCSSUnit(col.width) || defaultColWidth }}></col>
       ))}
     </colgroup>
   );

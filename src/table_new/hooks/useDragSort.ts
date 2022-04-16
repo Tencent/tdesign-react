@@ -14,8 +14,10 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   const dragCol = columns.find((item) => item.colKey === 'drag');
   // 行拖拽判断条件
   const isRowDraggable = sortOnRowDraggable || dragSort === 'row';
+  // 行拖拽判断条件-手柄列
+  const isRowHandlerDraggable = dragSort === 'row-handler' && !!dragCol;
   // 列拖拽判断条件
-  const isColDraggable = ['col'].includes(dragSort) && !!dragCol;
+  // const isColDraggable = dragSort === 'col';
 
   if (props.sortOnRowDraggable) {
     log.warn('Table', "`sortOnRowDraggable` is going to be deprecated, use dragSort='row' instead.");
@@ -35,7 +37,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
 
   // 注册拖拽事件
   const registerDragEvent = (element: TargetDom) => {
-    if (!isColDraggable && !isRowDraggable) {
+    if (!isRowHandlerDraggable && !isRowDraggable) {
       return;
     }
     const dragContainer = element?.querySelector('tbody');
@@ -93,6 +95,6 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
 
   return {
     isRowDraggable,
-    isColDraggable,
+    isRowHandlerDraggable,
   };
 }

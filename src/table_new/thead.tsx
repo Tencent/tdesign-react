@@ -74,6 +74,7 @@ export default function THead(props: TheadProps) {
         const width = withoutChildren && thWidthList?.[col.colKey] ? `${thWidthList?.[col.colKey]}px` : undefined;
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
+        if (!col.colKey) return null;
         return (
           <th
             key={col.colKey}
