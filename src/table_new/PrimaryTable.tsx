@@ -36,13 +36,13 @@ export default function PrimaryTable(props: PrimaryTableProps) {
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable } = useDragSort(props, primaryTableRef);
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable } = useDragSort(props, primaryTableRef);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
 
   const primaryTableClasses = {
-    // [tableDraggableClasses.colDraggable]: isColDraggable,
+    [tableDraggableClasses.colDraggable]: isColDraggable,
     [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
     [tableDraggableClasses.rowDraggable]: isRowDraggable,
     [tableBaseClass.overflowVisible]: isTableOverflowHidden === false,

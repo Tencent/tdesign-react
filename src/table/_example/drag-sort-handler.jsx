@@ -44,10 +44,10 @@ const initData = [
   { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500 },
 ];
 export default function TableDragSort() {
-  const [data, setData] = useState(initData);
+  const [data, setData] = useState([...initData]);
 
-  function onDragSort({ currentIndex, current, targetIndex, target, currentData, e }) {
-    console.log('交换行', currentIndex, current, targetIndex, target, currentData, e);
+  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e);
     // 数据受控实现
     setData(currentData);
   }

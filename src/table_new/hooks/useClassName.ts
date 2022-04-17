@@ -150,7 +150,9 @@ export default function useClassName() {
       rowHandlerDraggable: `${classPrefix}-table--row-handler-draggable`,
       colDraggable: `${classPrefix}-table--col-draggable`,
       handle: `${classPrefix}-table__handle-draggable`,
-      ghost: `${classPrefix}-table__col--draggable-ghost`,
+      ghost: `${classPrefix}-table__ele--draggable-ghost`,
+      chosen: `${classPrefix}-table__ele--draggable-chosen`,
+      dragging: `${classPrefix}-table__ele--draggable-dragging`,
     },
 
     virtualScrollClasses: {
