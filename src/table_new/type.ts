@@ -4,20 +4,20 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { AffixProps } from '../affix';
-import { LoadingProps } from '../loading';
-import { PaginationProps, PageInfo } from '../pagination';
-import { PopupProps } from '../popup';
-import { CheckboxGroupValue } from '../checkbox';
-import { SortableEvent } from 'sortablejs';
-import { CheckboxProps } from '../checkbox';
-import { RadioProps } from '../radio';
-import { InputProps } from '../input';
-import { ButtonProps } from '../button';
-import { CheckboxGroupProps } from '../checkbox';
-import { DialogProps } from '../dialog';
-import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes } from '../common';
-import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
+ import { AffixProps } from '../affix';
+ import { LoadingProps } from '../loading';
+ import { PaginationProps, PageInfo } from '../pagination';
+ import { PopupProps } from '../popup';
+ import { CheckboxGroupValue } from '../checkbox';
+ import { SortableEvent, SortableOptions } from 'sortablejs';
+ import { CheckboxProps } from '../checkbox';
+ import { RadioProps } from '../radio';
+ import { InputProps } from '../input';
+ import { ButtonProps } from '../button';
+ import { CheckboxGroupProps } from '../checkbox';
+ import { DialogProps } from '../dialog';
+ import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes } from '../common';
+ import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
@@ -293,6 +293,10 @@ export interface TdPrimaryTableProps<T extends TableRowData =  TableRowData> ext
   */
   dragSort?: 'row' | 'row-handler' | 'col' | 'drag-col';
   /**
+  * 拖拽排序扩展参数，具体参数见 [Sortable](https://github.com/SortableJS/Sortable)
+  */
+  dragSortOptions?: SortableOptions;
+  /**
   * 展开行内容，泛型 T 指表格数据类型
   */
   expandedRow?: TNode<TableExpandedRowParams<T>>;
@@ -391,7 +395,7 @@ export interface TdPrimaryTableProps<T extends TableRowData =  TableRowData> ext
   */
   onDisplayColumnsChange?: (value: CheckboxGroupValue) => void;
   /**
-  * 拖拽排序时触发，`currentData` 表示拖拽排序结束后的新数据
+  * 拖拽排序时触发，`currentData` 表示拖拽排序结束后的新数据，`sort=row` 表示行拖拽事件触发，`sort=col` 表示列拖拽事件触发
   */
   onDragSort?: (context: DragSortContext<T>) => void;
   /**
@@ -671,7 +675,7 @@ export interface PrimaryTableColumnChange<T> { columns?: CheckboxGroupValue; cur
 
 export interface TableDataChangeContext { trigger: 'sort' };
 
-export interface DragSortContext<T> { currentIndex: number; current: T; targetIndex: number; target: T; currentData: T[]; e: SortableEvent };
+export interface DragSortContext<T> { currentIndex: number; current: T; targetIndex: number; target: T; currentData: T[]; e: SortableEvent; sort: 'row' | 'col' };
 
 export interface ExpandOptions<T> { expandedRowData: Array<T> };
 

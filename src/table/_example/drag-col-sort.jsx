@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Table } from 'tdesign-react';
 
-const columns = [
+const initialColumns = [
   { colKey: 'instance', title: '集群名称', width: 150 },
   {
     colKey: 'status',
@@ -9,16 +9,7 @@ const columns = [
     width: 100,
     sortType: 'all',
     cell({ row }) {
-      switch (row.status) {
-        case 0:
-          return <p className="status">健康</p>;
-        case 1:
-          return <p className="status warning">警告</p>;
-        case 2:
-          return <p className="status unhealth">异常</p>;
-        default:
-          return null;
-      }
+      return ['健康', '警告', '异常'][row.status];
     },
   },
   {
@@ -35,18 +26,21 @@ const initData = [
   { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500 },
 ];
 export default function TableDragSort() {
-  const [data, setData] = useState(initData);
+  const [data] = useState(initData);
+  const [columns, setColumns] = useState(initialColumns);
 
-  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e }) {
-    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e);
+  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e, sort }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e, sort);
     // 数据受控实现
-    setData(currentData);
+    if (sort === 'col') {
+      setColumns(currentData);
+    }
   }
 
   return (
     <div className="demo-container">
       {/* 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法 */}
-      <Table rowKey="id" data={data} columns={columns} dragSort='row' onDragSort={onDragSort} />
+      <Table rowKey="id" data={data} columns={columns} dragSort='col' onDragSort={onDragSort} />
     </div>
   );
 }

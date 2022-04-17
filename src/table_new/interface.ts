@@ -23,4 +23,3 @@ export type SimpleTableProps = BaseTableProps;
 export interface PrimaryTableProps extends TdPrimaryTableProps, StyledProps {}
 export interface EnhancedTableProps extends TdEnhancedTableProps, StyledProps {}
 export type TableProps = PrimaryTableProps;
-export type TargetDom = HTMLElement | Element | null;
