@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles, getColumnFixedStyles, RowAndColFixedPosition } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';
-import TEllipsis from './Ellipsis-new';
+import TEllipsis from './Ellipsis';
 import { BaseTableCellParams, TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
 

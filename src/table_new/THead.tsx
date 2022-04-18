@@ -8,7 +8,7 @@ import useClassName from './hooks/useClassName';
 import useConfig from '../_util/useConfig';
 import { BaseTableCol, TableRowData } from './type';
 import { renderTitle } from './hooks/useTableHeader';
-import TEllipsis from './Ellipsis-new';
+import TEllipsis from './Ellipsis';
 
 export interface TheadProps {
   // 是否固定表头

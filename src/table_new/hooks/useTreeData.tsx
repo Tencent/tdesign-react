@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import TableTreeStore from './tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../TR-new';
+import { renderCell } from '../TR';
 
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey } = props;
