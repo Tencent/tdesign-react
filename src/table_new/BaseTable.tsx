@@ -5,14 +5,14 @@ import useTableHeader from './hooks/useTableHeader';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import Loading from '../loading';
-import TBody, { extendTableProps } from './TBody';
+import TBody, { extendTableProps } from './TBody-new';
 import { BaseTableProps } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
 import { Affix } from '../affix';
-import { ROW_LISTENERS } from './TR';
-import THead from './THead';
-import TFoot from './TFoot';
+import { ROW_LISTENERS } from './TR-new';
+import THead from './THead-new';
+import TFoot from './TFoot-new';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);

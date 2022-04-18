@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import TableTreeStore from './tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
-import { renderCell } from '../TR';
+import { renderCell } from '../TR-new';
 
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey } = props;
@@ -15,10 +15,13 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
 
-  const rowDataKeys = useMemo(() => ({
-    rowKey: rowKey || 'id',
-    childrenKey: tree?.childrenKey || 'children',
-  }), [rowKey, tree?.childrenKey]);
+  const rowDataKeys = useMemo(
+    () => ({
+      rowKey: rowKey || 'id',
+      childrenKey: tree?.childrenKey || 'children',
+    }),
+    [rowKey, tree?.childrenKey],
+  );
 
   // TODO：行选中会触发 tree 的变化。按理说，不应该
   useEffect(
@@ -34,14 +37,14 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       store.initialTreeStore(newVal, columns, rowDataKeys);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    [data],
   );
 
   useEffect(() => {
     // 如果没有树形解构，则不需要相关逻辑
     if (!tree || !Object.keys(tree).length) return;
     store.initialTreeStore(data, columns, rowDataKeys);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns, rowDataKeys]);
 
   useEffect(
@@ -50,7 +53,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       setTreeNodeCol(treeNodeColTmp);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [columns]
+    [columns],
   );
 
   function getTreeNodeStyle(level: number) {
@@ -109,7 +112,10 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!childrenNodes.length && (
-              <IconNode className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })} />
+              <IconNode
+                className={tableTreeClasses.icon}
+                onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}
+              />
             )}
             {cellInfo}
           </div>

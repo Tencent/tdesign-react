@@ -4,7 +4,7 @@ import camelCase from 'lodash/camelCase';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
-import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
+import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR-new';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { RowspanColspan, TableRowData, BaseTableCellParams } from './type';
 import { BaseTableProps } from './interface';
