@@ -38,10 +38,14 @@ const initData = [
   { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500 },
 ];
 export default function TableSingleSort() {
+  const [data, setData] = useState(initData);
+  const [sortInfo, setSortInfo] = useState({ sortBy: "survivalTime", descending: true });
   const [multipleSort, setMultipleSort] = useState(false);
 
   function onSortChange(sort, options) {
     console.log(sort, options);
+    setSortInfo(sort);
+    setData(options.currentDataSource);
   }
 
   return (
@@ -49,7 +53,14 @@ export default function TableSingleSort() {
       <Checkbox style={{ marginBottom: 16 }} value={multipleSort} onChange={setMultipleSort}>
         是否允许多字段排序
       </Checkbox>
-      <Table rowKey="id" data={initData} columns={columns} multipleSort={multipleSort} onSortChange={onSortChange} />
+      <Table
+        rowKey="id"
+        data={data}
+        columns={columns}
+        sortInfo={sortInfo}
+        multipleSort={multipleSort}
+        onSortChange={onSortChange}
+      />
     </div>
   );
 }
