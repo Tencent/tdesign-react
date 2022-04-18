@@ -47,11 +47,13 @@ function getTitle(column: PrimaryTableCol, colIndex: number) {
   return result;
 }
 
-// 处理tilte字段，添加筛选icon
+// 处理title字段，添加筛选icon
 function useFilterButton(props: Props) {
   const { onChange, filterIcon, innerFilterVal, columns } = props;
   const { classPrefix } = useConfig();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [locale, transformLocale] = useLocaleReceiver('table');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const transformLocaleRef = useRef(transformLocale);
   const [filterVal, setFilterVal] = useState<any>();
 
