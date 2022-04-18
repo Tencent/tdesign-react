@@ -66,9 +66,17 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * 组件实例方法，展开或收起某一行
    * @param p 行数据
    */
-  function toggleExpandData(p: { row: TableRowData; rowIndex: number }) {
+  function toggleExpandData(p: { row: TableRowData; rowIndex: number; trigger?: 'inner' }) {
     const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
     setDataSource([...newData]);
+    if (p.trigger === 'inner') {
+      const rowValue = get(p.row, rowDataKeys.rowKey);
+      props.onTreeExpandChange?.({
+        row: p.row,
+        rowIndex: p.rowIndex,
+        rowState: store?.treeDataMap?.get(rowValue),
+      });
+    }
   }
 
   function getTreeNodeColumnCol() {
@@ -101,7 +109,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!childrenNodes.length && (
-              <IconNode className={tableTreeClasses.icon} onClick={() => toggleExpandData(p)} />
+              <IconNode className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })} />
             )}
             {cellInfo}
           </div>

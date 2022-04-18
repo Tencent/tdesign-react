@@ -65,7 +65,7 @@ export default function TableCustomCol() {
       </div>
       <Table
         displayColumns={displayColumns}
-        onDisplayColumns={setDisplayColumns}
+        onDisplayColumnsChange={setDisplayColumns}
         columnControllerVisible={columnControllerVisible}
         onColumnControllerVisibleChange={setColumnControllerVisible}
         rowKey="index"

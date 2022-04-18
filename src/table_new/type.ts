@@ -4,20 +4,20 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
- import { AffixProps } from '../affix';
- import { LoadingProps } from '../loading';
- import { PaginationProps, PageInfo } from '../pagination';
- import { PopupProps } from '../popup';
- import { CheckboxGroupValue } from '../checkbox';
- import { SortableEvent, SortableOptions } from 'sortablejs';
- import { CheckboxProps } from '../checkbox';
- import { RadioProps } from '../radio';
- import { InputProps } from '../input';
- import { ButtonProps } from '../button';
- import { CheckboxGroupProps } from '../checkbox';
- import { DialogProps } from '../dialog';
- import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes } from '../common';
- import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
+import { AffixProps } from '../affix';
+import { LoadingProps } from '../loading';
+import { PaginationProps, PageInfo } from '../pagination';
+import { PopupProps } from '../popup';
+import { CheckboxGroupValue } from '../checkbox';
+import { SortableEvent, SortableOptions } from 'sortablejs';
+import { CheckboxProps } from '../checkbox';
+import { RadioProps } from '../radio';
+import { InputProps } from '../input';
+import { ButtonProps } from '../button';
+import { CheckboxGroupProps } from '../checkbox';
+import { DialogProps } from '../dialog';
+import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes } from '../common';
+import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**

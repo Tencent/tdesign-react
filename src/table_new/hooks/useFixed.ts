@@ -139,6 +139,7 @@ export default function useFixed(props: TdBaseTableProps) {
   const [tableWidth, setTableWidth] = useState(0);
   const [thWidthList, setThWidthList] = useState<{ [colKey: string]: number }>({});
   const [isFixedColumn, setIsFixedColumn] = useState(false);
+  const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
 
   // const displayNoneElementRefresh = inject(TDisplayNoneElementRefresh, ref(0));
 
@@ -159,6 +160,9 @@ export default function useFixed(props: TdBaseTableProps) {
       const col = columns[i];
       if (['left', 'right'].includes(col.fixed)) {
         setIsFixedColumn(true);
+      }
+      if (col.fixed === 'right') {
+        setIsFixedRightColumn(true);
       }
       const key = col.colKey || i;
       const columnInfo: FixedColumnInfo = { col, parent, index: i };
@@ -351,8 +355,8 @@ export default function useFixed(props: TdBaseTableProps) {
           colMapInfo.lastLeftFixedCol = true;
         }
         const lastColMapInfo = nodes[i - 1];
-        const isParentFirstRigthFixedCol = !parent || parent?.firstRightFixedCol;
-        if (isParentFirstRigthFixedCol && colMapInfo.col.fixed === 'right' && lastColMapInfo?.col.fixed !== 'right') {
+        const isParentFirstRightFixedCol = !parent || parent?.firstRightFixedCol;
+        if (isParentFirstRightFixedCol && colMapInfo.col.fixed === 'right' && lastColMapInfo?.col.fixed !== 'right') {
           colMapInfo.firstRightFixedCol = true;
         }
       }
@@ -402,7 +406,8 @@ export default function useFixed(props: TdBaseTableProps) {
     const rect = tableContentRef.current.getBoundingClientRect();
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-    setTableWidth(rect.width - reduceWidth - (props.bordered ? 2 : 0));
+    const fixedBordered = isFixedRightColumn ? 1 : 2;
+    setTableWidth(rect.width - reduceWidth - (props.bordered ? fixedBordered : 0));
   };
 
   const updateThWidthList = (trList: HTMLCollection) => {
