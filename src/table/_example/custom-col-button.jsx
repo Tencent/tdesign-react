@@ -62,6 +62,7 @@ export default function TableCustomColButton() {
 
   const tableNode = (
     <Table
+      // defaultDisplayColumns={displayColumns}
       displayColumns={displayColumns}
       onDisplayColumnsChange={setDisplayColumns}
       rowKey="index"
