@@ -1,3 +1,5 @@
 import zhCN from '../_common/js/global-config/locale/zh_CN';
+import { GlobalConfigProvider } from '../config-provider/type';
 
-export default zhCN;
+// 需要 GlobalConfigProvider 保证数据类型正确
+export default zhCN as GlobalConfigProvider;

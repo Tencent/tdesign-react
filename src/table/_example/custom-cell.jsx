@@ -6,24 +6,21 @@ const columns = [
   {
     colKey: 'type',
     title: '类型',
-    width: 80,
   },
   {
     colKey: 'platform',
     title: '平台',
-    cell: ({ col, row }) => (
+    cell: () => (
       <span>
         <AttachIcon></AttachIcon>
-        <a href="#">公有</a>
+        <a href="#" style={{ color: '#0052d9', textDecoration: 'none' }}>公有</a>
       </span>
     ),
-    width: 236,
   },
   {
     colKey: 'property',
     title: '属性名',
     cell: ({ col, row }) => <div>使用 cell 方法自定义单元格：{row[col.colKey]}</div>,
-    width: 290,
   },
   {
     colKey: 'description',
@@ -33,7 +30,6 @@ const columns = [
       if (type === 'title') return 'render';
       return `render 方法渲染单元格: ${rowIndex}-${colIndex}`;
     },
-    width: 235,
   },
 ];
 const data = [
