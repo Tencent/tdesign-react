@@ -1,11 +1,10 @@
 import React from 'react';
-import SubMenu from '../SubMenu';
-import { MenuBlockType } from './type';
+import { checkIsSubMenu, checkIsMenuGroup } from './checkMenuType';
 
 export const getSubMenuChildCount = (children: React.ReactNode) => {
   let count = 0;
   React.Children.forEach(children, (child: React.ReactElement) => {
-    if ((child.type as typeof SubMenu).displayName === MenuBlockType.SubMenu) {
+    if (checkIsSubMenu(child) || checkIsMenuGroup(child)) {
       count += getSubMenuChildCount(child.props.children) + 1;
     } else {
       count += 1;

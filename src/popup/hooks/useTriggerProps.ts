@@ -1,4 +1,4 @@
-import { HTMLAttributes, MutableRefObject } from 'react';
+import React, { HTMLAttributes, MutableRefObject, useRef } from 'react';
 import useClickOutside from '../../_util/useClickOutside';
 import { TdPopupProps, PopupVisibleChangeContext, PopupTriggerEvent } from '../type';
 import { ChangeHandler } from '../../_util/useDefault';
@@ -15,18 +15,19 @@ export default function useTriggerProps(
   visible: boolean,
   setVisible: ChangeHandler<boolean, [PopupVisibleChangeContext]>,
   disabled = false,
-  originTrigger: JSX.Element,
+  originTrigger: React.ReactElement<HTMLAttributes<HTMLElement>>,
 ): [TriggerProps, PopupProps] {
   const triggerProps: TriggerProps = {};
   const popupProps: PopupProps = {};
-
+  const hasPopupMouseDown = useRef(false);
+  const mouseDownTimer = useRef<number>();
   const toggle: HandleTrigger = (e, trigger) => setVisible(!visible, { e, trigger });
   const show: HandleTrigger = (e, trigger) => setVisible(true, { e, trigger });
   const hide: HandleTrigger = (e, trigger) => setVisible(false, { e, trigger });
 
   // click outside 用于处理点击其他地方隐藏
   useClickOutside([ref, triggerNode], (e: any) => {
-    if (visible && (triggers.includes('click') || triggers.includes('context-menu'))) {
+    if (visible && (triggers.includes('click') || triggers.includes('context-menu')) && !hasPopupMouseDown.current) {
       hide(e, 'trigger-element-blur');
     }
   });
@@ -35,7 +36,8 @@ export default function useTriggerProps(
 
   // eslint-disable-next-line no-restricted-syntax
   for (const trigger of triggers) {
-    const { onClick, onMouseEnter, onMouseLeave, onFocus, onBlur, onContextMenu, onKeyDown } = originTrigger.props;
+    const { onClick, onMouseEnter, onMouseLeave, onMouseDown, onFocus, onBlur, onContextMenu, onKeyDown } =
+      originTrigger.props;
     // 点击触发
     if (trigger === 'click') {
       triggerProps.onClick = (e) => {
@@ -80,6 +82,15 @@ export default function useTriggerProps(
         onContextMenu && onContextMenu(e);
       };
     }
+
+    popupProps.onMouseDown = (e) => {
+      clearTimeout(mouseDownTimer.current);
+      hasPopupMouseDown.current = true;
+      mouseDownTimer.current = window.setTimeout(() => {
+        hasPopupMouseDown.current = false;
+      });
+      onMouseDown?.(e);
+    };
 
     triggerProps.onKeyDown = (e) => {
       if (e.key === ESC_KEY) hide(e, 'keydown-esc');
