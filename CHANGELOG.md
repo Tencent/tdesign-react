@@ -5,7 +5,7 @@ toc: false
 spline: explain
 ---
 
-## 0.31.0 `2022-04-18`
+## 0.31.1 `2022-04-18`
 
 ### Bug Fixes
 
