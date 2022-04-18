@@ -153,7 +153,6 @@ function useFilterButton(props: Props) {
 
             {filter.type === 'input' ? (
               <Input
-                placeholder={transformLocaleRef.current?.(locale.filterInputPlaceholder)}
                 clearable
                 value={filterVal?.[colKey] || ''}
                 onChange={(value) => {
@@ -175,7 +174,7 @@ function useFilterButton(props: Props) {
     }
 
     return getFilterColumns(columns, filterVal);
-  }, [classPrefix, columns, filterIcon, filterVal, locale.filterInputPlaceholder, onChange]);
+  }, [classPrefix, columns, filterIcon, filterVal, onChange]);
 
   // 初始筛选条件变化，更新状态
   useEffect(() => {
