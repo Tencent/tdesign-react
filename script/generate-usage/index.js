@@ -9,21 +9,34 @@ const renderUsageStr = (compStrMap) =>
  */
 
 // @ts-nocheck
-import React from 'react';
-import BaseUsage, { useConfigChange } from '@site/src/components/BaseUsage';
-import jsxToString from 'jsx-to-string';
-${compStrMap.configStr}
+import React, { useState, useEffect, useMemo } from 'react';
+import BaseUsage, { useConfigChange, usePanelChange } from '@site/src/components/BaseUsage';
+import jsxToString from 'react-element-to-jsx-string';
 ${compStrMap.importStr}
 
 export default function Usage() {
+  ${compStrMap.configStr}
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
+  ${compStrMap.panelStr}
+  const { panel, onPanelChange } = usePanelChange(panelList);
+  
+  const [renderComp, setRenderComp] = useState();
   ${compStrMap.usageStr}
 
-  const jsxStr = jsxToString(renderComp);
+  const jsxStr = useMemo(() => {
+    if (!renderComp) return '';
+    return jsxToString(renderComp);
+  }, [renderComp]);
 
   return (
-    <BaseUsage code={jsxStr} configList={configList} onConfigChange={onConfigChange}>
+    <BaseUsage
+      code={jsxStr}
+      panelList={panelList}
+      configList={configList}
+      onPanelChange={onPanelChange}
+      onConfigChange={onConfigChange}
+    >
       {renderComp}
     </BaseUsage>
   );

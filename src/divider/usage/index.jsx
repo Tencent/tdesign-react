@@ -3,34 +3,53 @@
  */
 
 // @ts-nocheck
-import React from "react";
-import BaseUsage, { useConfigChange } from "@site/src/components/BaseUsage";
-import jsxToString from "jsx-to-string";
-import configList from "./props.json";
+import React, { useState, useEffect, useMemo } from "react";
+import BaseUsage, {
+  useConfigChange,
+  usePanelChange,
+} from "@site/src/components/BaseUsage";
+import jsxToString from "react-element-to-jsx-string";
+
+import configProps from "./props.json";
 
 import { Divider } from "tdesign-react";
 
 export default function Usage() {
+  const [configList, setConfigList] = useState(configProps);
+
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const renderComp = (
-    <div style={{ width: 200 }}>
-      <span>正直</span>
-      <Divider {...changedProps}>TDesign</Divider>
-      <span>进取</span>
-      <Divider {...changedProps}>TDesign</Divider>
-      <span>合作</span>
-      <Divider {...changedProps}>TDesign</Divider>
-      <span>创新</span>
-    </div>
-  );
+  const panelList = [{ label: "divider", value: "divider" }];
 
-  const jsxStr = jsxToString(renderComp);
+  const { panel, onPanelChange } = usePanelChange(panelList);
+
+  const [renderComp, setRenderComp] = useState();
+
+  useEffect(() => {
+    setRenderComp(
+      <div style={{ width: 200 }}>
+        <span>正直</span>
+        <Divider {...changedProps}>TDesign</Divider>
+        <span>进取</span>
+        <Divider {...changedProps}>TDesign</Divider>
+        <span>合作</span>
+        <Divider {...changedProps}>TDesign</Divider>
+        <span>创新</span>
+      </div>
+    );
+  }, [changedProps]);
+
+  const jsxStr = useMemo(() => {
+    if (!renderComp) return "";
+    return jsxToString(renderComp);
+  }, [renderComp]);
 
   return (
     <BaseUsage
       code={jsxStr}
+      panelList={panelList}
       configList={configList}
+      onPanelChange={onPanelChange}
       onConfigChange={onConfigChange}
     >
       {renderComp}

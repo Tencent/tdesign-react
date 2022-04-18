@@ -15,8 +15,8 @@ const publicPathMap = {
   production: 'https://static.tdesign.tencent.com/react/',
 };
 
-export default ({ mode }) => {
-  return defineConfig({
+export default ({ mode }) =>
+  defineConfig({
     base: publicPathMap[mode],
     resolve: {
       alias: {
@@ -31,30 +31,26 @@ export default ({ mode }) => {
     build: {
       outDir: '../_site',
     },
-  },
-  build: {
-    outDir: '../_site',
-  },
-  jsx: 'react',
-  server: {
-    host: '0.0.0.0',
-    port: 15000,
-    open: '/',
-    https: false,
-    fs: {
-      strict: false,
+    jsx: 'react',
+    server: {
+      host: '0.0.0.0',
+      port: 15000,
+      open: '/',
+      https: false,
+      fs: {
+        strict: false,
+      },
     },
-  },
-  plugins: [
-    react(),
-    tdocPlugin(),
-    VitePWA(pwaConfig),
-    replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
-    // istanbul({
-    //   cwd: resolvePath('../'),
-    //   include: ['src/**/*'],
-    //   exclude: ['src/_common/**/*'],
-    //   extension: ['.js', '.ts', '.jsx', '.tsx'],
-    // }),
-  ],
-});
+    plugins: [
+      react(),
+      tdocPlugin(),
+      VitePWA(pwaConfig),
+      replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
+      // istanbul({
+      //   cwd: resolvePath('../'),
+      //   include: ['src/**/*'],
+      //   exclude: ['src/_common/**/*'],
+      //   extension: ['.js', '.ts', '.jsx', '.tsx'],
+      // }),
+    ],
+  });

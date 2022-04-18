@@ -3,25 +3,44 @@
  */
 
 // @ts-nocheck
-import React from "react";
-import BaseUsage, { useConfigChange } from "@site/src/components/BaseUsage";
-import jsxToString from "jsx-to-string";
-import configList from "./props.json";
+import React, { useState, useEffect, useMemo } from "react";
+import BaseUsage, {
+  useConfigChange,
+  usePanelChange,
+} from "@site/src/components/BaseUsage";
+import jsxToString from "react-element-to-jsx-string";
+
+import configProps from "./props.json";
 
 import { Textarea } from "tdesign-react";
 
 export default function Usage() {
+  const [configList, setConfigList] = useState(configProps);
+
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const defaultProps = { placeholder: "请输入内容" };
-  const renderComp = <Textarea {...defaultProps} {...changedProps} />;
+  const panelList = [{ label: "textarea", value: "textarea" }];
 
-  const jsxStr = jsxToString(renderComp);
+  const { panel, onPanelChange } = usePanelChange(panelList);
+
+  const [renderComp, setRenderComp] = useState();
+
+  const defaultProps = { placeholder: "请输入内容" };
+  useEffect(() => {
+    setRenderComp(<Textarea {...defaultProps} {...changedProps} />);
+  }, [changedProps]);
+
+  const jsxStr = useMemo(() => {
+    if (!renderComp) return "";
+    return jsxToString(renderComp);
+  }, [renderComp]);
 
   return (
     <BaseUsage
       code={jsxStr}
+      panelList={panelList}
       configList={configList}
+      onPanelChange={onPanelChange}
       onConfigChange={onConfigChange}
     >
       {renderComp}

@@ -3,32 +3,51 @@
  */
 
 // @ts-nocheck
-import React from "react";
-import BaseUsage, { useConfigChange } from "@site/src/components/BaseUsage";
-import jsxToString from "jsx-to-string";
-import configList from "./props.json";
+import React, { useState, useEffect, useMemo } from "react";
+import BaseUsage, {
+  useConfigChange,
+  usePanelChange,
+} from "@site/src/components/BaseUsage";
+import jsxToString from "react-element-to-jsx-string";
+
+import configProps from "./props.json";
 
 import { Select } from "tdesign-react";
 
 export default function Usage() {
+  const [configList, setConfigList] = useState(configProps);
+
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const renderComp = (
-    <Select {...changedProps}>
-      <Select.Option key="apple" label="Apple" value="apple" />
-      <Select.Option key="orange" value="orange">
-        Orange
-      </Select.Option>
-      <Select.Option key="banana" label="Banana" value="banana" />
-    </Select>
-  );
+  const panelList = [{ label: "select", value: "select" }];
 
-  const jsxStr = jsxToString(renderComp);
+  const { panel, onPanelChange } = usePanelChange(panelList);
+
+  const [renderComp, setRenderComp] = useState();
+
+  useEffect(() => {
+    setRenderComp(
+      <Select {...changedProps}>
+        <Select.Option key="apple" label="Apple" value="apple" />
+        <Select.Option key="orange" value="orange">
+          Orange
+        </Select.Option>
+        <Select.Option key="banana" label="Banana" value="banana" />
+      </Select>
+    );
+  }, [changedProps]);
+
+  const jsxStr = useMemo(() => {
+    if (!renderComp) return "";
+    return jsxToString(renderComp);
+  }, [renderComp]);
 
   return (
     <BaseUsage
       code={jsxStr}
+      panelList={panelList}
       configList={configList}
+      onPanelChange={onPanelChange}
       onConfigChange={onConfigChange}
     >
       {renderComp}

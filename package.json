@@ -151,7 +151,7 @@
     "jest-html-reporter": "^3.4.2",
     "jest-transform-stub": "^2.0.0",
     "jest-watch-typeahead": "^1.0.0",
-    "jsx-to-string": "^1.4.0",
+    "react-element-to-jsx-string": "^14.3.4",
     "less": "^4.1.2",
     "lint-staged": "^12.1.6",
     "markdown-it-fence": "^0.1.3",

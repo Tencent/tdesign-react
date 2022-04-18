@@ -3,29 +3,48 @@
  */
 
 // @ts-nocheck
-import React from "react";
-import BaseUsage, { useConfigChange } from "@site/src/components/BaseUsage";
-import jsxToString from "jsx-to-string";
-import configList from "./props.json";
+import React, { useState, useEffect, useMemo } from "react";
+import BaseUsage, {
+  useConfigChange,
+  usePanelChange,
+} from "@site/src/components/BaseUsage";
+import jsxToString from "react-element-to-jsx-string";
 
-import { PopConfirm, Button } from "tdesign-react";
+import configProps from "./props.json";
+
+import { Popconfirm, Button } from "tdesign-react";
 
 export default function Usage() {
+  const [configList, setConfigList] = useState(configProps);
+
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const defaultProps = { content: "确认删除吗" };
-  const renderComp = (
-    <PopConfirm {...defaultProps} {...changedProps}>
-      <Button>删除</Button>
-    </PopConfirm>
-  );
+  const panelList = [{ label: "popconfirm", value: "popconfirm" }];
 
-  const jsxStr = jsxToString(renderComp);
+  const { panel, onPanelChange } = usePanelChange(panelList);
+
+  const [renderComp, setRenderComp] = useState();
+
+  const defaultProps = { content: "确认删除吗" };
+  useEffect(() => {
+    setRenderComp(
+      <Popconfirm {...defaultProps} {...changedProps}>
+        <Button>删除</Button>
+      </Popconfirm>
+    );
+  }, [changedProps]);
+
+  const jsxStr = useMemo(() => {
+    if (!renderComp) return "";
+    return jsxToString(renderComp);
+  }, [renderComp]);
 
   return (
     <BaseUsage
       code={jsxStr}
+      panelList={panelList}
       configList={configList}
+      onPanelChange={onPanelChange}
       onConfigChange={onConfigChange}
     >
       {renderComp}
