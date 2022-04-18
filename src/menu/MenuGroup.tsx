@@ -7,7 +7,7 @@ import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
 
 export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
   children?: TNode;
-  level: number;
+  level?: number;
 }
 
 const MenuGroup = ({ title, children, level = 1 }: MenuGroupProps) => {
