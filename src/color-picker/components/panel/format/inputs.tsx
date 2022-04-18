@@ -72,7 +72,9 @@ const FormatInputs = (props) => {
     if (v === lastModelValue[key]) {
       return;
     }
-    const value = getFormatColorMap('decode')[props.format];
+    formatValue.current[key] = v;
+    lastModelValue.current[key] = v;
+    const value = getFormatColorMap('decode')[format];
     onInputChange(value, formatValue.current.a / 100, key, v);
   };
 

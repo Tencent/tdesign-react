@@ -9,7 +9,7 @@ import useClickOutside from '../_util/useClickOutside';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassname();
-  const { popupProps, defaultValue, disabled = false, inputProps, value, onChange } = props;
+  const { popupProps, defaultValue, disabled = false, inputProps, value, onChange, colorModes } = props;
 
   const [visible, setVisible] = useState(false);
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
@@ -44,6 +44,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
           <ColorPanel
             disabled={disabled}
             value={innerValue}
+            colorModes={colorModes}
             togglePopup={setVisible}
             onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
             ref={colorPanelRef}

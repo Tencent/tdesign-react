@@ -37,6 +37,9 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     swatchColors,
     className,
     style = {},
+    togglePopup,
+    closeBtn,
+    colorModes = ['linear-gradient', 'monochrome'],
   } = props;
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
   const colorInstanceRef = useRef<Color>(new Color(defaultValue || DEFAULT_COLOR));
@@ -151,6 +154,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
    */
   const handleAlphaChange = (alpha: number) => {
     colorInstanceRef.current.alpha = alpha;
+    console.log('====alpha', alpha, getColorObject(colorInstanceRef.current));
     emitColorChange('palette-alpha-bar');
     onPaletteBarChange?.({
       color: getColorObject(colorInstanceRef.current),
@@ -215,7 +219,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
       const isGradientValue = Color.isGradientColor(value);
       const color = colorInstanceRef.current;
       if (isGradientValue) {
-        if (props.colorModes.includes('linear-gradient')) {
+        if (colorModes.includes('linear-gradient')) {
           setMode('linear-gradient');
           color.update(value);
           color.updateCurrentGradientColor();
@@ -265,9 +269,16 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
       style={{ ...style }}
       ref={ref}
     >
-      <PanelHeader {...props} baseClassName={baseClassName} mode={mode} onModeChange={handleModeChange} />
+      <PanelHeader
+        baseClassName={baseClassName}
+        mode={mode}
+        colorModes={colorModes}
+        closeBtn={closeBtn}
+        togglePopup={togglePopup}
+        onModeChange={handleModeChange}
+      />
       <div className={`${baseClassName}__body`}>
-        {mode === 'linear-gradient' && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
+        {colorModes.includes('linear-gradient') && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
         <SaturationPanel {...baseProps} onChange={handleSaturationChange} />
         <HUESlider {...baseProps} onChange={handleHUEChange} />
         {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}

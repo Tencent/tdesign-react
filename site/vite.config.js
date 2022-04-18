@@ -38,17 +38,17 @@ export default ({ mode }) => defineConfig({
     fs: {
       strict: false,
     },
-    plugins: [
-      react(),
-      tdocPlugin(),
-      VitePWA(pwaConfig),
-      replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
-      // istanbul({
-      //   cwd: resolvePath('../'),
-      //   include: ['src/**/*'],
-      //   exclude: ['src/_common/**/*'],
-      //   extension: ['.js', '.ts', '.jsx', '.tsx'],
-      // }),
-    ]
   },
+  plugins: [
+    react(),
+    tdocPlugin(),
+    VitePWA(pwaConfig),
+    replace({ preventAssignment: false, __DATE__: new Date().toISOString() }),
+    // istanbul({
+    //   cwd: resolvePath('../'),
+    //   include: ['src/**/*'],
+    //   exclude: ['src/_common/**/*'],
+    //   extension: ['.js', '.ts', '.jsx', '.tsx'],
+    // }),
+  ],
 });
