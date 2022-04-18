@@ -232,51 +232,6 @@ exports[`enable-alpha.jsx 1`] = `
         class="t-color-picker__body"
       >
         <div
-          class="t-color-picker__gradient"
-        >
-          <div
-            class="t-color-picker__gradient-slider"
-          >
-            <div
-              class="t-color-picker__slider t-color-picker--bg-alpha"
-              tabindex="0"
-            >
-              <ul
-                class="gradient-thumbs"
-              />
-            </div>
-          </div>
-          <div
-            class="t-color-picker__gradient-degree"
-            title="[object Object]deg"
-          >
-            <div
-              class="t-input-number t-size-m t-input-number--normal"
-            >
-              <div
-                class="t-input__wrap"
-              >
-                <div
-                  class="t-input"
-                >
-                  <input
-                    class="t-input__inner"
-                    placeholder="请输入"
-                    value="0°"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-color-picker__gradient-preview t-color-picker--bg-alpha"
-          >
-            <span
-              class="preview-inner"
-            />
-          </div>
-        </div>
-        <div
           class="t-color-picker__saturation"
           style="background: rgb(0, 0, 0);"
         >
@@ -1067,51 +1022,6 @@ exports[`panel.jsx 1`] = `
     <div
       class="t-color-picker__body"
     >
-      <div
-        class="t-color-picker__gradient"
-      >
-        <div
-          class="t-color-picker__gradient-slider"
-        >
-          <div
-            class="t-color-picker__slider t-color-picker--bg-alpha"
-            tabindex="0"
-          >
-            <ul
-              class="gradient-thumbs"
-            />
-          </div>
-        </div>
-        <div
-          class="t-color-picker__gradient-degree"
-          title="[object Object]deg"
-        >
-          <div
-            class="t-input-number t-size-m t-input-number--normal"
-          >
-            <div
-              class="t-input__wrap"
-            >
-              <div
-                class="t-input"
-              >
-                <input
-                  class="t-input__inner"
-                  placeholder="请输入"
-                  value="0°"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="t-color-picker__gradient-preview t-color-picker--bg-alpha"
-        >
-          <span
-            class="preview-inner"
-          />
-        </div>
-      </div>
       <div
         class="t-color-picker__saturation"
         style="background: rgb(0, 0, 0);"
@@ -1975,52 +1885,6 @@ exports[`status-readonly.jsx 1`] = `
         class="t-color-picker__body"
       >
         <div
-          class="t-color-picker__gradient"
-        >
-          <div
-            class="t-color-picker__gradient-slider"
-          >
-            <div
-              class="t-color-picker__slider t-color-picker--bg-alpha"
-              tabindex="0"
-            >
-              <ul
-                class="gradient-thumbs"
-              />
-            </div>
-          </div>
-          <div
-            class="t-color-picker__gradient-degree"
-            title="[object Object]deg"
-          >
-            <div
-              class="t-input-number t-size-m t-is-disabled t-input-number--normal"
-            >
-              <div
-                class="t-input__wrap"
-              >
-                <div
-                  class="t-input t-is-disabled"
-                >
-                  <input
-                    class="t-input__inner"
-                    disabled=""
-                    placeholder="请输入"
-                    value="0°"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-color-picker__gradient-preview t-color-picker--bg-alpha"
-          >
-            <span
-              class="preview-inner"
-            />
-          </div>
-        </div>
-        <div
           class="t-color-picker__saturation"
           style="background: rgb(0, 0, 0);"
         >
@@ -2789,51 +2653,6 @@ exports[`swatch-color.jsx 1`] = `
           class="t-color-picker__body"
         >
           <div
-            class="t-color-picker__gradient"
-          >
-            <div
-              class="t-color-picker__gradient-slider"
-            >
-              <div
-                class="t-color-picker__slider t-color-picker--bg-alpha"
-                tabindex="0"
-              >
-                <ul
-                  class="gradient-thumbs"
-                />
-              </div>
-            </div>
-            <div
-              class="t-color-picker__gradient-degree"
-              title="[object Object]deg"
-            >
-              <div
-                class="t-input-number t-size-m t-input-number--normal"
-              >
-                <div
-                  class="t-input__wrap"
-                >
-                  <div
-                    class="t-input"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入"
-                      value="0°"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="t-color-picker__gradient-preview t-color-picker--bg-alpha"
-            >
-              <span
-                class="preview-inner"
-              />
-            </div>
-          </div>
-          <div
             class="t-color-picker__saturation"
             style="background: rgb(0, 0, 0);"
           >
@@ -3169,51 +2988,6 @@ exports[`swatch-color.jsx 1`] = `
         <div
           class="t-color-picker__body"
         >
-          <div
-            class="t-color-picker__gradient"
-          >
-            <div
-              class="t-color-picker__gradient-slider"
-            >
-              <div
-                class="t-color-picker__slider t-color-picker--bg-alpha"
-                tabindex="0"
-              >
-                <ul
-                  class="gradient-thumbs"
-                />
-              </div>
-            </div>
-            <div
-              class="t-color-picker__gradient-degree"
-              title="[object Object]deg"
-            >
-              <div
-                class="t-input-number t-size-m t-input-number--normal"
-              >
-                <div
-                  class="t-input__wrap"
-                >
-                  <div
-                    class="t-input"
-                  >
-                    <input
-                      class="t-input__inner"
-                      placeholder="请输入"
-                      value="0°"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="t-color-picker__gradient-preview t-color-picker--bg-alpha"
-            >
-              <span
-                class="preview-inner"
-              />
-            </div>
-          </div>
           <div
             class="t-color-picker__saturation"
             style="background: rgb(0, 0, 0);"
