@@ -213,7 +213,7 @@ exports[`checkable.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-form__item t-form-item__valueMode"
+          class="t-form__item t-form-item__valueMode t-form__item-with-extra"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -290,6 +290,9 @@ exports[`checkable.jsx 1`] = `
                 </label>
               </div>
             </div>
+            <div
+              class="t-input__extra"
+            />
           </div>
         </div>
       </form>

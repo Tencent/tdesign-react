@@ -18,3 +18,12 @@ export const getScrollDirection = (scrollLeft: number, scrollTop: number): Scrol
   preScrollLeft = scrollLeft;
   return direction;
 };
+
+function percentPxToNumber(a: string) {
+  if (typeof a === 'undefined') return 0;
+  if (/%/.test(a)) return Number(a.replace('%', '')) * 0.01;
+  return Number(a.replace('px', ''));
+}
+export const getStyleHeight = (height: number | string) => (isNaN(Number(height)) ? height : `${Number(height)}px`);
+export const calHeight = (height: number | string) =>
+  isNaN(Number(height)) ? percentPxToNumber(height as string) : Number(height);

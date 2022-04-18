@@ -8,6 +8,9 @@
    <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/l/tdesign-react.svg?sanitize=true" alt="License" />
   </a>
+  <a href="https://app.codecov.io/gh/Tencent/tdesign-react">
+    <img src="https://img.shields.io/codecov/c/github/Tencent/tdesign-react/develop.svg?style=flat-square" alt="codecov">
+  </a>
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/v/tdesign-react.svg?sanitize=true" alt="Version">
   </a>
