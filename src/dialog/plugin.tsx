@@ -5,12 +5,12 @@ import DialogComponent, { DialogProps } from './Dialog';
 import { getAttach } from '../_util/dom';
 import { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, DialogInstance } from './type';
 
-export interface DialogPlugin extends DialogMethod {
+export interface DialogPluginType extends DialogMethod {
   alert?: DialogAlertMethod;
   confirm?: DialogConfirmMethod;
 }
 
-const createDialog: DialogPlugin = (props: DialogOptions): DialogInstance => {
+const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
   const div = document.createElement('div');

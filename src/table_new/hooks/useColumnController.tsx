@@ -97,7 +97,9 @@ export default function useColumnController(props: TdPrimaryTableProps) {
       columnCheckboxKeys.current = newData;
       props.onColumnChange?.({ type: 'check', columns: newData, e: ctx.e });
     } else {
-      const disabledColKeys = getCheckboxOptions(columns).filter((t) => t.disabled).map((t) => t.value);
+      const disabledColKeys = getCheckboxOptions(columns)
+        .filter((t) => t.disabled)
+        .map((t) => t.value);
       columnCheckboxKeys.current = disabledColKeys;
       props.onColumnChange?.({ type: 'uncheck', columns: disabledColKeys, e: ctx.e });
     }
@@ -122,10 +124,7 @@ export default function useColumnController(props: TdPrimaryTableProps) {
           {/* 请选择需要在表格中显示的数据列 */}
           <p className={`${classPrefix}-table__column-controller-desc`}>{table.columnConfigDescriptionText}</p>
           <div className={`${classPrefix}-table__column-controller-block`}>
-            <Checkbox
-              indeterminate={isIndeterminate}
-              checked={isCheckedAll}
-              onChange={handleClickAllShowColumns}>
+            <Checkbox indeterminate={isIndeterminate} checked={isCheckedAll} onChange={handleClickAllShowColumns}>
               {table.selectAllText}
             </Checkbox>
           </div>

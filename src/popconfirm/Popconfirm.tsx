@@ -14,7 +14,9 @@ const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('popconfirm');
 
-  const { cancelBtn = t(local.cancel.content), confirmBtn = t(local.confirm.content) } = props;
+  const cancelContent = typeof local.cancel === 'string' ? local.cancel : local.cancel.content;
+  const confirmContent = typeof local.confirm === 'string' ? local.confirm : local.confirm.content;
+  const { cancelBtn = t(cancelContent), confirmBtn = t(confirmContent) } = props;
   const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
 
   return (
