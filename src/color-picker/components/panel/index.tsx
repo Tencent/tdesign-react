@@ -55,6 +55,11 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const [mode, setMode] = useState<TdColorModes>(
     colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome',
   );
+
+  useEffect(() => {
+    setMode(colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome');
+  }, [colorInstanceRef.current.isGradient]);
+
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
 
   const { recentColors, defaultRecentColors, onRecentColorsChange } = props;
@@ -154,7 +159,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
    */
   const handleAlphaChange = (alpha: number) => {
     colorInstanceRef.current.alpha = alpha;
-    console.log('====alpha', alpha, getColorObject(colorInstanceRef.current));
     emitColorChange('palette-alpha-bar');
     onPaletteBarChange?.({
       color: getColorObject(colorInstanceRef.current),
@@ -278,7 +282,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
         onModeChange={handleModeChange}
       />
       <div className={`${baseClassName}__body`}>
-        {colorModes.includes('linear-gradient') && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
+        {mode === 'linear-gradient' && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
         <SaturationPanel {...baseProps} onChange={handleSaturationChange} />
         <HUESlider {...baseProps} onChange={handleHUEChange} />
         {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
