@@ -75,7 +75,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
     const { col: column, row = {}, rowIndex } = p;
     const checked = tSelectedRowKeys.includes(get(row, rowKey || 'id'));
     const disabled: boolean =
-    typeof column.disabled === 'function' ? column.disabled({ row, rowIndex }) : column.disabled;
+      typeof column.disabled === 'function' ? column.disabled({ row, rowIndex }) : column.disabled;
     const checkProps = isFunction(column.checkProps) ? column.checkProps({ row, rowIndex }) : column.checkProps;
     const selectBoxProps = {
       checked,

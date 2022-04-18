@@ -89,15 +89,14 @@ type SelectChangeParams = Parameters<TdPrimaryTableProps['onSelectChange']>;
 export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: TableTreeDataMap) {
   const { selectedRowKeys, tree, rowKey } = props;
   // eslint-disable-next-line
-  const [_, setTSelectedRowKeys] = useDefaultValue(
-    selectedRowKeys,
-    props.defaultSelectedRowKeys,
-    props.onSelectChange,
+  const [_, setTSelectedRowKeys] = useDefaultValue(selectedRowKeys, props.defaultSelectedRowKeys, props.onSelectChange);
+  const rowDataKeys = useMemo(
+    () => ({
+      rowKey: rowKey || 'id',
+      childrenKey: tree?.childrenKey || 'children',
+    }),
+    [rowKey, tree?.childrenKey],
   );
-  const rowDataKeys = useMemo(() => ({
-    rowKey: rowKey || 'id',
-    childrenKey: tree?.childrenKey || 'children',
-  }), [rowKey, tree?.childrenKey]);
 
   function onInnerSelectChange(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
     if (extraData.currentRowKey === 'CHECK_ALL_BOX') {

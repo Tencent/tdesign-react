@@ -13,8 +13,8 @@ import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
  * 2. 支持多级表头场景下的列拖拽排序，此时需要将叶子结点 tColumns 作为参数传入。tColumns 已在 useMultiHeader 中计算出来
  * 3. 优化列拖拽排序样式（优先级不高，可以慢慢来）
  * @param props
- * @param primaryTableRef 
- * @returns 
+ * @param primaryTableRef
+ * @returns
  */
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, columns, data, onDragSort } = props;
@@ -47,7 +47,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
   }, [data, props.rowKey]);
 
   useEffect(() => {
-    lastColList.current = columns.map(t => t.colKey);
+    lastColList.current = columns.map((t) => t.colKey);
     dragColumns.current = columns;
   }, [columns]);
 

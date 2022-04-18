@@ -19,8 +19,8 @@ export default function useLazyLoad(
   const [isInit, setIsInit] = useState(params.rowIndex === 0);
   const hasLazyLoadHolder = useMemo(() => params?.type === 'lazy' && !isInit, [isInit, params?.type]);
 
-  const requestAnimationFrame = (typeof window === 'undefined' ? false : window.requestAnimationFrame)
-    || ((cb) => setTimeout(cb, 16.6));
+  const requestAnimationFrame =
+    (typeof window === 'undefined' ? false : window.requestAnimationFrame) || ((cb) => setTimeout(cb, 16.6));
 
   const init = () => {
     if (!isInit) {
