@@ -15,7 +15,14 @@ const Collapse = (props: CollapseProps) => {
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse`;
   const borderlessClass = `${classPrefix}-border-less`;
-  const { defaultExpandAll, disabled, expandIconPlacement, expandOnRowClick, expandIcon, ...rest } = props;
+  const {
+    defaultExpandAll = false,
+    disabled = false,
+    expandIconPlacement = 'left',
+    expandOnRowClick = true,
+    expandIcon = true,
+    ...rest
+  } = props;
   const { children, className, style = {}, value, expandMutex, borderless, defaultValue, onChange } = rest;
   const [collapseValue, setCollapseValue] = useDefault(value, defaultValue, onChange);
 

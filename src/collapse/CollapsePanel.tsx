@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 // import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
@@ -33,10 +33,12 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     expandIcon: expandIconAll,
     getUniqId,
     updateCollapseValue,
+    collapseValue,
   } = useCollapseContext();
+
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse-panel`;
-  const collapseValueRef = useRef<CollapseValue>();
+  const collapseValueRef = useRef<CollapseValue>(collapseValue);
   const innerValue = value || getUniqId();
   const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
   const headRef = useRef();
@@ -46,10 +48,12 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     updateCollapseValue(innerValue);
   }
 
-  const isActive = () =>
-    Array.isArray(collapseValueRef.current)
-      ? collapseValueRef.current.includes(innerValue)
-      : collapseValueRef.current === innerValue;
+  useEffect(() => {
+    // collapseValueRef.current = [...collapseValueRef.current, ...collapseValue];
+  }, [collapseValue]);
+  console.log('==collapseValueRef', destroyOnCollapse, collapseValue, collapseValueRef.current);
+
+  const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
 
   const classes = classnames(
     componentName,
@@ -60,12 +64,13 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   );
 
   const renderIcon = (direction: string) => (
-    <FakeArrow isActive={isActive()} overlayClassName={`${componentName}__icon ${componentName}__icon--${direction}`} />
+    <FakeArrow isActive={isActive} overlayClassName={`${componentName}__icon ${componentName}__icon--${direction}`} />
   );
 
   const handleClick = (e) => {
     const canExpand =
       (expandOnRowClick && e.target === headRef.current) || (e.target as Element).getAttribute('name') === 'arrow';
+
     if (canExpand && !isDisabled) {
       updateCollapseValue(innerValue);
     }
@@ -102,8 +107,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
       </div>
     ) : null;
 
-  const renderBody = () => (destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal());
-
   return (
     <div className={classes} style={{ ...style }}>
       <div className={`${componentName}__wrapper`}>
@@ -115,7 +118,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
           >
             {renderBody()}
           </CSSTransition> */}
-        {renderBody()}
+        {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
       </div>
     </div>
   );
