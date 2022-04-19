@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import classnames from 'classnames';
 // import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
-import { TdCollapsePanelProps, CollapseValue } from './type';
+import { TdCollapsePanelProps } from './type';
 import { StyledProps } from '../common';
 // import getTransitionParams from './getTransitionParams';
 
@@ -38,7 +38,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse-panel`;
-  const collapseValueRef = useRef<CollapseValue>(collapseValue);
   const innerValue = value || getUniqId();
   const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
   const headRef = useRef();
@@ -47,11 +46,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   if (defaultExpandAll) {
     updateCollapseValue(innerValue);
   }
-
-  useEffect(() => {
-    // collapseValueRef.current = [...collapseValueRef.current, ...collapseValue];
-  }, [collapseValue]);
-  console.log('==collapseValueRef', destroyOnCollapse, collapseValue, collapseValueRef.current);
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
 
@@ -95,7 +89,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   };
 
   const renderBodyByNormal = () => (
-    <div style={{ display: `${isActive ? 'block' : 'none'}` }} className={`${componentName}__body`}>
+    <div style={{ height: `${isActive ? 'auto' : 0}` }} className={`${componentName}__body`}>
       <div className={`${componentName}__content`}>{children}</div>
     </div>
   );
