@@ -1223,6 +1223,56 @@ exports[`remote-search.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`scroll-top.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-select__wrap"
+    style="width: 200px;"
+  >
+    <div
+      class="t-popup__reference t-select t-select-input"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            value="第 50 项"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-select__right-icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
