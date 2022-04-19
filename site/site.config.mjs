@@ -284,6 +284,12 @@ export default {
           component: () => import('tdesign-react/calendar/calendar.md'),
         },
         {
+          title: 'Collpase 折叠面板',
+          name: 'collapse',
+          path: '/react/components/collapse',
+          component: () => import('tdesign-react/collapse/collapse.md'),
+        },
+        {
           title: 'Comment 评论',
           name: 'comment',
           path: '/react/components/comment',
