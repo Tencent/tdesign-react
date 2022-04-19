@@ -321,6 +321,27 @@ const Select = forwardRefWithStatics(
       [selectedLabel, collapsedItems, minCollapsedNum],
     );
 
+    // 将第一个选中的option置于列表可见范围的最后一位
+    const updateScrollTop = useMemo(
+      () => (content: HTMLDivElement) => {
+        const firstSelectedNode = document.querySelector(`.${classPrefix}-is-selected`) as HTMLDivElement;
+        if (firstSelectedNode && content) {
+          const { paddingBottom } = getComputedStyle(firstSelectedNode);
+          const { marginBottom } = getComputedStyle(content);
+          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+          // 小于0时不需要特殊处理，会被设为0
+          const updateValue =
+            firstSelectedNode.offsetTop -
+            content.offsetTop -
+            (content.clientHeight - firstSelectedNode.clientHeight) +
+            elementBottomHeight;
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        }
+      },
+      [classPrefix],
+    );
+
     return (
       <div className={classNames(`${name}__wrap`, className)} style={style}>
         <SelectInput
@@ -364,6 +385,7 @@ const Select = forwardRefWithStatics(
           onClear={(context) => {
             onClearValue(context);
           }}
+          updateScrollTop={updateScrollTop}
           {...selectInputProps}
         ></SelectInput>
       </div>
