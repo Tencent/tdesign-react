@@ -35,72 +35,86 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
 
-  const cardClass = classNames(className, 't-card', {
-    [`${classPrefix}-card--bordered`]: bordered,
+  const cardClass = classNames(className, `${classPrefix}-card`, {
     [commonClassNames.SIZE.small]: size === 'small',
-    [`${classPrefix}__shadow`]: shadow,
+    [`${classPrefix}-card--bordered`]: bordered,
+    [`${classPrefix}--shadow`]: shadow,
     [`${classPrefix}-card--shadow-hover`]: hoverShadow,
   });
 
-  const headerClass = classNames(className, '', {
+  const headerClass = classNames({
     [`${classPrefix}-card__header`]: header,
     [`${classPrefix}-card__title--bordered`]: headerBordered,
   });
 
-  const titleClass = classNames(className, '', {
+  const titleClass = classNames({
     [`${classPrefix}-card__title`]: title,
   });
 
-  const subtitleClass = classNames(className, '', {
+  const subtitleClass = classNames({
     [`${classPrefix}-card__subtitle`]: subtitle,
   });
 
-  const actionClass = classNames(className, '', {
+  const actionClass = classNames({
     [`${classPrefix}-card__actions`]: actions,
   });
 
-  const footerClass = classNames(className, '', {
+  const footerClass = classNames({
     [`${classPrefix}-card__footer`]: footer,
   });
 
-  const coverClass = classNames(className, '', {
+  const coverClass = classNames({
     [`${classPrefix}-card__cover`]: cover,
   });
 
-  const avatarClass = classNames(className, '', {
+  const avatarClass = classNames({
     [`${classPrefix}-card__avatar`]: avatar,
   });
 
-  const bodyClass = classNames(className, '', {
+  const bodyClass = classNames({
     [`${classPrefix}-card__body`]: children,
   });
 
-  const descriptionClass = classNames(className, '', {
+  const descriptionClass = classNames({
     [`${classPrefix}-card__description`]: description,
   });
 
   const isPoster2 = theme === 'poster2';
 
-  const renderDescription = description && <p className={descriptionClass}>{description}</p>;
+  const renderTitle = title ? <span className={titleClass}>{title}</span> : null;
 
-  const renderTitle = title && <span className={titleClass}>{title}</span>;
+  const renderSubtitle = subtitle ? <span className={subtitleClass}>{subtitle}</span> : null;
 
-  const renderSubtitle = subtitle && <span className={subtitleClass}>{subtitle}</span>;
+  const renderDescription = description ? <p className={descriptionClass}>{description}</p> : null;
 
   const renderAvatar = avatar && <div className={avatarClass}>{avatar}</div>;
 
   const renderActions = actions && <div className={actionClass}>{actions}</div>;
 
+  const renderHeader = !isPoster2 && (header || title || subtitle || description || avatar || actions) && (
+    <div className={headerClass}>
+      <div className={`${classPrefix}-card__header-wrapper`}>
+        {renderAvatar}
+        <div>
+          {renderTitle}
+          {renderSubtitle}
+          {renderDescription}
+        </div>
+      </div>
+      {renderActions}
+    </div>
+  );
+
+  const renderCover = cover ? (
+    <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
+  ) : null;
+
+  const renderChildren = children && <div className={bodyClass}>{children}</div>;
+
   const renderFooter = footer && (
     <div className={footerClass}>
       <div className={`${classPrefix}-card__footer-wrapper`}>{footer}</div>
       {isPoster2 && actions && renderActions}
-    </div>
-  );
-
-  const renderCover = cover && (
-    <div className={coverClass}>
-      <img src={cover}></img>
     </div>
   );
 
@@ -114,21 +128,9 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 
   return (
     <div ref={ref} className={cardClass} style={style}>
-      {!isPoster2 && (header || actions) && (
-        <div className={headerClass}>
-          <div className={`${classPrefix}-card__header-wrapper`}>
-            {renderAvatar}
-            <div>
-              {renderTitle}
-              {renderSubtitle}
-              {renderDescription}
-            </div>
-          </div>
-          {renderActions}
-        </div>
-      )}
+      {renderHeader}
       {renderCover}
-      {children && <div className={bodyClass}>{children}</div>}
+      {renderChildren}
       {renderFooter}
     </div>
   );
