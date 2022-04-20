@@ -52,6 +52,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
+  const portalRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>();
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
@@ -296,13 +297,21 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         dom = dialog;
       } else {
         dom = (
-          <CSSTransition in={visible} appear timeout={transitionTime} mountOnEnter unmountOnExit={destroyOnClose}>
-            <Portal attach={attach}>{dialog}</Portal>
+          <CSSTransition
+            in={visible}
+            appear
+            timeout={transitionTime}
+            mountOnEnter
+            unmountOnExit={destroyOnClose}
+            nodeRef={portalRef}
+          >
+            <Portal attach={attach} ref={portalRef}>
+              {dialog}
+            </Portal>
           </CSSTransition>
         );
       }
     }
-    console.log('dom :>> ', dom);
     return dom;
   };
 
