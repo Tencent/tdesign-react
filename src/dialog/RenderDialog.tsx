@@ -52,14 +52,13 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
-  const domRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>();
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
   const dialogOpenClass = `${prefixCls}__open`;
   useDialogEsc(visible, wrap);
-  useImperativeHandle(ref, () => domRef.current);
+  useImperativeHandle(ref, () => wrap.current);
   useLayoutEffect(() => {
     bodyOverflow.current = document.body.style.overflow;
     bodyCssTextRef.current = document.body.style.cssText;
@@ -120,9 +119,6 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
       const { style } = dialog.current;
       style.left = '50%';
       style.top = '50%';
-    }
-    if (destroyOnClose) {
-      domRef.current?.parentNode?.removeChild(domRef.current);
     }
     onClosed && onClosed();
   };
@@ -298,16 +294,15 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     if (visible || wrap.current) {
       if (!attach) {
         dom = dialog;
-        domRef.current = dom;
       } else {
         dom = (
-          <Portal attach={attach} ref={domRef}>
-            {dialog}
-          </Portal>
+          <CSSTransition in={visible} appear timeout={transitionTime} mountOnEnter unmountOnExit={destroyOnClose}>
+            <Portal attach={attach}>{dialog}</Portal>
+          </CSSTransition>
         );
       }
     }
-
+    console.log('dom :>> ', dom);
     return dom;
   };
 
