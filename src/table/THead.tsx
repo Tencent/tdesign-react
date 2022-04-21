@@ -1,4 +1,3 @@
-// import { defineComponent, computed, SetupContext, PropType } from 'vue';
 import React, { useRef } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';

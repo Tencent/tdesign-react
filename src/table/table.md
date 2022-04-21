@@ -1,5 +1,8 @@
 :: BASE_DOC ::
 
+### 在Dialog中使用
+
+{{ dialog-nest }}
 ## API
 ### BaseTable Props
 

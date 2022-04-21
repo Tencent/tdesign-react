@@ -5,7 +5,11 @@ import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
 import { EnhancedTableProps, PrimaryTableProps } from './interface';
 
-const EnhancedTable = forwardRef((props: EnhancedTableProps, ref) => {
+import { StyledProps } from '../common';
+
+export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
+
+const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
   const { tree, columns } = props;
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法

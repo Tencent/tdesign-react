@@ -1,7 +1,7 @@
-/** 超出省略显示 */
 import React, { useRef, useState, MouseEvent } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
+
 import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/dom';
 import TPopup, { PopupProps } from '../popup';
@@ -17,6 +17,7 @@ export interface EllipsisProps {
   zIndex?: number;
 }
 
+/** 超出省略显示 */
 export default function Ellipsis(props: EllipsisProps) {
   const { classPrefix } = useConfig();
   const root = useRef<HTMLDivElement>();

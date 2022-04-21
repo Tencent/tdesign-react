@@ -67,7 +67,7 @@ export default function TableBasic() {
            * 2.值类型为 () => ReactNode 则自定义浮层显示内容；
            * 3.值类型为 Object，则自动透传属性到 Popup 组件。
            */
-           ellipsis: true,
+          ellipsis: true,
 
           // 透传省略内容浮层 Popup 组件全部特性，示例代码有效，勿删！！！
           // ellipsis: { placement: 'bottom', destroyOnClose: false },
@@ -76,7 +76,7 @@ export default function TableBasic() {
           // ellipsis: ({ row, col, rowIndex, colIndex }) => (
           //   <div>自定义浮层内容：ID({row.index})；第 {rowIndex + 1} 行；第 {colIndex} 列；列标识：{col.colKey}</div>
           // ),
-        }
+        },
       ]}
       rowKey="index"
       verticalAlign="top"
@@ -114,28 +114,31 @@ export default function TableBasic() {
   );
 
   return (
-    <div className='tdesign-demo-block-column-large'>
+    <div className="tdesign-demo-block-column-large">
       <div>
         <div>
-          <RadioGroup
-            value={size}
-            variant="default-filled"
-            onChange={setSize}
-          >
-            <RadioButton value='small'>小尺寸</RadioButton>
-            <RadioButton value='medium'>中尺寸</RadioButton>
-            <RadioButton value='large'>大尺寸</RadioButton>
+          <RadioGroup value={size} variant="default-filled" onChange={setSize}>
+            <RadioButton value="small">小尺寸</RadioButton>
+            <RadioButton value="medium">中尺寸</RadioButton>
+            <RadioButton value="large">大尺寸</RadioButton>
           </RadioGroup>
         </div>
         <br />
-        <Checkbox value={stripe} onChange={setStripe}>显示斑马纹</Checkbox>
-        <Checkbox value={bordered} onChange={setBordered}>显示表格边框</Checkbox>
-        <Checkbox value={hover} onChange={setHover}>显示悬浮效果</Checkbox>
-        <Checkbox value={tableLayout} onChange={setTableLayout}>宽度自适应</Checkbox>
+        <Checkbox value={stripe} onChange={setStripe}>
+          显示斑马纹
+        </Checkbox>
+        <Checkbox value={bordered} onChange={setBordered}>
+          显示表格边框
+        </Checkbox>
+        <Checkbox value={hover} onChange={setHover}>
+          显示悬浮效果
+        </Checkbox>
+        <Checkbox value={tableLayout} onChange={setTableLayout}>
+          宽度自适应
+        </Checkbox>
       </div>
 
       {table}
-
     </div>
   );
 }

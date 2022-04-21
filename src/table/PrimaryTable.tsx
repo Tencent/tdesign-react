@@ -15,10 +15,13 @@ import { PageInfo } from '../pagination';
 import useClassName from './hooks/useClassName';
 import { BaseTableProps, PrimaryTableProps } from './interface';
 
+import { StyledProps } from '../common';
+
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
-export default function PrimaryTable(props: PrimaryTableProps) {
-  const { columns, columnController } = props;
+export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
+export default function PrimaryTable(props: TPrimaryTableProps) {
+  const { columns, columnController, style, className } = props;
   const primaryTableRef = useRef(null);
   const { tableDraggableClasses, tableBaseClass } = useClassName();
   // 自定义列配置功能
@@ -40,7 +43,6 @@ export default function PrimaryTable(props: PrimaryTableProps) {
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
-
   const primaryTableClasses = {
     [tableDraggableClasses.colDraggable]: isColDraggable,
     [tableDraggableClasses.rowHandlerDraggable]: isRowHandlerDraggable,
@@ -158,7 +160,14 @@ export default function PrimaryTable(props: PrimaryTableProps) {
     baseTableProps.onRowClick = onInnerExpandRowClick;
   }
 
-  return <BaseTable ref={primaryTableRef} {...baseTableProps} className={classNames(primaryTableClasses)} />;
+  return (
+    <BaseTable
+      ref={primaryTableRef}
+      {...baseTableProps}
+      className={classNames(primaryTableClasses, className)}
+      style={style}
+    />
+  );
 }
 
 PrimaryTable.displayName = 'PrimaryTable';

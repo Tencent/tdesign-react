@@ -1,18 +1,22 @@
 import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
-import useTableHeader from './hooks/useTableHeader';
-import useFixed from './hooks/useFixed';
-import usePagination from './hooks/usePagination';
+
 import Loading from '../loading';
 import TBody, { extendTableProps } from './TBody';
-import { BaseTableProps } from './interface';
-import useStyle, { formatCSSUnit } from './hooks/useStyle';
-import useClassName from './hooks/useClassName';
 import { Affix } from '../affix';
 import { ROW_LISTENERS } from './TR';
 import THead from './THead';
 import TFoot from './TFoot';
+
+import useTableHeader from './hooks/useTableHeader';
+import useFixed from './hooks/useFixed';
+import usePagination from './hooks/usePagination';
+import { BaseTableProps } from './interface';
+import useStyle, { formatCSSUnit } from './hooks/useStyle';
+import useClassName from './hooks/useClassName';
+
+import { StyledProps } from '../common';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -21,8 +25,10 @@ export interface TableListeners {
   [key: string]: Function;
 }
 
-const BaseTable = forwardRef((props: BaseTableProps, ref) => {
-  const { tableLayout, height, data, columns } = props;
+export interface TBaseTableProps extends BaseTableProps, StyledProps {}
+
+const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
+  const { tableLayout, height, data, columns, style } = props;
   const tableRef = useRef<HTMLDivElement>();
   const tableElmRef = useRef<HTMLTableElement>();
   const { tableLayoutClasses, tableBaseClass, tableColFixedClasses } = useClassName();
@@ -157,7 +163,6 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
   const tableContent = (
     <div ref={tableContentRef} className={tableBaseClass.content} style={tableContentStyles} onScroll={onInnerScroll}>
       {/* {this.isVirtual && <div className={this.virtualScrollClasses.cursor} style={virtualStyle} />} */}
-
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {colgroup}
         <THead
@@ -194,13 +199,8 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
 
   const { topContent, bottomContent } = props;
   return (
-    <div
-      ref={tableRef}
-      className={classNames(dynamicBaseTableClasses)}
-      style={{ ...(props.style || {}), position: 'relative' }}
-    >
+    <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={{ position: 'relative', ...style }}>
       {!!topContent && <div className={tableBaseClass.topContent}>{topContent}</div>}
-
       {!!props.headerAffixedTop &&
         (props.headerAffixedTop ? (
           <Affix offsetTop={0} {...props.headerAffixProps} onFixedChange={onFixedChange}>
@@ -209,18 +209,14 @@ const BaseTable = forwardRef((props: BaseTableProps, ref) => {
         ) : (
           isFixedHeader && affixedHeader
         ))}
-
       {loadingContent}
-
       {showRightDivider && (
         <div
           className={tableBaseClass.scrollbarDivider}
           style={{ right: `${scrollbarWidth}px`, height: `${tableContentRef.current?.offsetHeight}px` }}
         ></div>
       )}
-
       {!!bottomContent && <div className={tableBaseClass.bottomContent}>{bottomContent}</div>}
-
       {renderPagination()}
     </div>
   );
