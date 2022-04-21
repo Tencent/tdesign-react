@@ -2873,6 +2873,185 @@ exports[`data-sort.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`dialog-nest.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-column"
+  >
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
+      >
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="1"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            左侧固定一列
+          </span>
+        </label>
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="2"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            左侧固定两列
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="1"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            右侧固定一列
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="2"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            右侧固定两列
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="fixed"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            table-layout: fixed
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+        >
+          <input
+            class="t-radio-button__former"
+            readonly=""
+            type="radio"
+            value="auto"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            table-layout: auto
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 0px; left: 0px;"
+        />
+      </div>
+      <label
+        class="t-checkbox"
+        style="margin-left: 16px; vertical-align: middle;"
+      >
+        <input
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value="false"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          空数据
+        </span>
+      </label>
+    </div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        Open Modal
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`drag-col-sort.jsx 1`] = `
 <DocumentFragment>
   <div
