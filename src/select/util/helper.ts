@@ -162,12 +162,11 @@ export const getSelectValueArr = (
   if (Array.isArray(values)) {
     let currentValues = [...values];
     const isValueObj = valueType === 'object';
-
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
         if (isValueObj) {
           if (isPlainObject(activeValue)) {
-            return get(item, keys?.value || 'value') !== get(activeValue, 'data');
+            return get(item, keys?.value || 'value') !== get(activeValue, keys?.value || 'value');
           }
           return get(item, keys?.value || 'value') !== activeValue;
         }
