@@ -31,14 +31,11 @@ const Swatches = (props: TdColorSwathcesProps) => {
   // 移除颜色
   const selectedColorIndex = () => colors.findIndex((color) => isEqualCurrentColor(color));
   const handleRemoveColor = () => {
-    const colors = [...props.colors];
     const selectedIndex = selectedColorIndex();
     if (selectedIndex > -1) {
-      colors.splice(selectedIndex, 1);
-    } else {
-      colors.length = 0;
+      const newColors = colors.filter((item, index) => index !== selectedIndex);
+      onChange(newColors);
     }
-    onChange(colors);
   };
 
   const handleClick = (color: string) => onSetColor(color);
