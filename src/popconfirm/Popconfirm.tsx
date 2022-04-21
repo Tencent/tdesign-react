@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import Popup from '../popup';
+import Popup, { PopupRefProps } from '../popup';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
@@ -10,7 +10,7 @@ import Popcontent from './Popcontent';
 
 export type PopconfirmProps = TdPopconfirmProps;
 
-const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>((props, ref) => {
+const Popconfirm = forwardRef<PopupRefProps, PopconfirmProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const [local, t] = useLocaleReceiver('popconfirm');
 
