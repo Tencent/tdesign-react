@@ -214,6 +214,7 @@ export default function TR(props: TrProps) {
       onMouseEnter={(e) => props.onRowMouseenter?.({ ...rowParams, e })}
       onMouseLeave={(e) => props.onRowMouseleave?.({ ...rowParams, e })}
       onMouseUp={(e) => props.onRowMouseup?.({ ...rowParams, e })}
+      onMouseOver={(e) => props.onRowMouseover?.({ ...rowParams, e })}
     >
       {hasLazyLoadHolder
         ? [<td key={rowIndex} style={{ height: `${tRowHeight}px`, border: 'none' }} />]
