@@ -39,7 +39,7 @@ function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
 
-const Popup = forwardRef<PopupRefProps, PopupProps>((props, ref) => {
+const Popup = forwardRef((props: PopupProps, ref: React.Ref<PopupRefProps>) => {
   const {
     trigger = 'hover',
     content = null,
