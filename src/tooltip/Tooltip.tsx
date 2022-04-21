@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popup from '../popup';
+import Popup, { PopupVisibleChangeContext, PopupRefProps } from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from './type';
 
@@ -19,12 +19,13 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     overlayClassName,
     children,
     duration = 0,
+    placement = 'top',
     ...restProps
   } = props;
   const { classPrefix } = useConfig();
   const [isTipShowed, setTipshow] = useState(duration !== 0);
   const [timeup, setTimeup] = useState(false);
-  const popupRef = useRef<HTMLDivElement>();
+  const popupRef = useRef<PopupRefProps>();
   const timerRef = useRef<number | null>(null);
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
@@ -39,8 +40,26 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     setTipshow(v);
   };
 
-  const handleShowTip = (visible: boolean) => {
+  const calculatePos = (e) => {
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    return {
+      x,
+      y,
+    };
+  };
+
+  const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
     if (duration === 0 || (duration !== 0 && timeup)) {
+      if (
+        visible &&
+        placement === 'mouse' &&
+        (trigger === 'trigger-element-hover' || trigger === 'trigger-element-click')
+      ) {
+        const { x } = calculatePos(e);
+        popupRef.current.setModifiers([{ name: 'offset', options: { offset: [x, 0] } }]);
+      }
       setTipshow(visible);
     }
   };
@@ -68,10 +87,11 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     <Popup
       ref={popupRef}
       destroyOnClose={destroyOnClose}
-      showArrow={showArrow}
+      showArrow={placement === 'mouse' ? false : showArrow}
       overlayClassName={toolTipClass}
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
+      placement={placement === 'mouse' ? 'bottom-left' : placement}
       {...restProps}
     >
       {children}
