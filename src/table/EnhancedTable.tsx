@@ -10,7 +10,7 @@ import { StyledProps } from '../common';
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
 const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
-  const { tree, columns } = props;
+  const { tree, columns, style, className } = props;
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColum, ...treeInstanceFunctions } = useTreeData(props);
@@ -51,6 +51,8 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     // 树形结构不允许本地数据分页
     disableDataPage: Boolean(tree && Object.keys(tree).length),
     onSelectChange: onInnerSelectChange,
+    style,
+    className,
   };
   return <PrimaryTable {...primaryTableProps} />;
 });

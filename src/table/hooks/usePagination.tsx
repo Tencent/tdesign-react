@@ -18,7 +18,7 @@ export default function usePagination(props: TdBaseTableProps) {
     if (isPaginateData) {
       const start = (current - 1) * pageSize;
       const end = current * pageSize;
-      setDataSource(data.slice(start, end));
+      setDataSource([...data.slice(start, end)]);
     } else {
       setDataSource(data);
     }

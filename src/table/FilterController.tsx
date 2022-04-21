@@ -1,15 +1,19 @@
 import React, { useState, useRef, ReactNode } from 'react';
 import { FilterIcon } from 'tdesign-icons-react';
+
 import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
+
 import Popup from '../popup';
-import { CheckboxGroup } from '../checkbox';
-import { RadioGroup } from '../radio';
+import Checkbox from '../checkbox';
+import Radio from '../radio';
 import Input from '../input';
 import TButton from '../button';
 import { PrimaryTableCol, FilterValue, TableRowData } from './type';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
+const CheckboxGroup = Checkbox.Group;
+const RadioGroup = Radio.Group;
 export interface TableFilterControllerProps {
   filterIcon: ReactNode;
   tFilterValue: FilterValue;

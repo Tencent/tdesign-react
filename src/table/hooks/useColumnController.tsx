@@ -5,12 +5,7 @@ import React, { useEffect, ChangeEvent, useRef } from 'react';
 import { SettingIcon } from 'tdesign-icons-react';
 import intersection from 'lodash/intersection';
 import classNames from 'classnames';
-import Checkbox, {
-  CheckboxGroup,
-  CheckboxGroupValue,
-  CheckboxOptionObj,
-  CheckboxGroupChangeContext,
-} from '../../checkbox';
+import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import { DialogPlugin } from '../../dialog/plugin';
 import { renderTitle } from './useTableHeader';
 import { PrimaryTableCol, TdPrimaryTableProps } from '../type';
@@ -19,6 +14,8 @@ import useDefaultValue from '../../_util/useDefault';
 import { getCurrentRowByKey } from '../utils';
 import { DialogInstance } from '../../dialog';
 import TButton from '../../button';
+
+const CheckboxGroup = Checkbox.Group;
 
 export function getColumnKeys(columns: PrimaryTableCol[], keys: string[] = []) {
   for (let i = 0, len = columns.length; i < len; i++) {
