@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, RadioButton, RadioGroup } from 'tdesign-react';
+import { Table, Checkbox, Radio } from 'tdesign-react';
 
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 const data = [];
 const total = 28;
 for (let i = 0; i < total; i++) {
