@@ -236,6 +236,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         action,
         data,
         file,
+        files: [file],
         name,
         onError,
         headers,

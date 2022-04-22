@@ -5,7 +5,7 @@
  * */
 
 import { ButtonProps } from '../button';
-import { TNode, AttachNode } from '../common';
+import { TNode, Styles, AttachNode } from '../common';
 import { MouseEvent, KeyboardEvent } from 'react';
 
 export interface TdDialogProps {
@@ -84,6 +84,11 @@ export interface TdDialogProps {
    */
   preventScrollThrough?: boolean;
   /**
+   * 【开发中】仅在挂载元素中显示抽屉，默认在浏览器可视区域显示。父元素需要有定位属性，如：position: relative
+   * @default false
+   */
+  showInAttachedElement?: boolean;
+  /**
    * 是否显示遮罩层
    * @default true
    */
@@ -157,9 +162,8 @@ export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
   className?: string;
   /**
    * 弹框 style 属性，输入 [CSSStyleDeclaration.cssText](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText)
-   * @default ''
    */
-  style?: string;
+  style?: Styles;
 }
 
 export interface DialogInstance {

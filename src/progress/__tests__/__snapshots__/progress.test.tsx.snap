@@ -38,7 +38,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -79,7 +79,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -127,7 +127,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -194,7 +194,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -257,7 +257,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -320,7 +320,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -436,7 +436,7 @@ exports[`circle.jsx 1`] = `
               cy="38"
               fill="none"
               r="36"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="4"
             />
             <circle
@@ -480,7 +480,7 @@ exports[`circle.jsx 1`] = `
               cy="59"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -524,7 +524,7 @@ exports[`circle.jsx 1`] = `
               cy="83"
               fill="none"
               r="80"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="6"
             />
             <circle
@@ -568,7 +568,7 @@ exports[`circle.jsx 1`] = `
               cy="81"
               fill="none"
               r="56"
-              stroke="#f5f5f5"
+              stroke="var(--td-bg-color-component)"
               stroke-width="50"
             />
             <circle
@@ -607,7 +607,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -632,7 +631,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -669,7 +667,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -706,7 +703,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -743,7 +739,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -780,7 +775,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -805,7 +799,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -825,7 +818,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -877,7 +869,6 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -917,7 +908,7 @@ exports[`line.jsx 1`] = `
       >
         <div
           class="t-progress__bar"
-          style="height: 30px; background-color: rgb(245, 245, 245); border-radius: 30px;"
+          style="height: 30px; border-radius: 30px;"
         >
           <div
             class="t-progress__inner"
@@ -947,7 +938,6 @@ exports[`line.jsx 1`] = `
       <div>
         <div
           class="t-progress__bar t-progress--plump t-progress--over-ten"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -970,7 +960,6 @@ exports[`line.jsx 1`] = `
       <div>
         <div
           class="t-progress__bar t-progress--plump t-progress--under-ten"
-          style="background-color: rgb(245, 245, 245);"
         >
           <div
             class="t-progress__inner"
@@ -999,7 +988,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1022,7 +1010,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--under-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1043,7 +1030,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--status--success t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1066,7 +1052,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--status--success t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1089,7 +1074,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--status--warning t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1112,7 +1096,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--status--error t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1135,7 +1118,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--status--active t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1158,7 +1140,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1197,7 +1178,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"
@@ -1235,7 +1215,6 @@ exports[`plump.jsx 1`] = `
     <div>
       <div
         class="t-progress__bar t-progress--plump t-progress--over-ten"
-        style="background-color: rgb(245, 245, 245);"
       >
         <div
           class="t-progress__inner"

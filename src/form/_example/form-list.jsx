@@ -24,32 +24,27 @@ export default function BaseForm() {
       <FormList name="address">
         {(fields, { add, remove }) => (
           <>
-            {fields.map(({key, name, ...restField}) => {
-              return (
-                <FormItem key={key}>
-                  <FormItem {...restField} name={[name, 'province']} label="省份" rules={[{required: true, type: 'error'}]}>
-                    <Select options={provinceOptions}></Select>
-                  </FormItem>
-                  <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{required: true, type: 'error'}]}>
-                    <Input />
-                  </FormItem>
-
-                  <FormItem>
-                    <MinusCircleIcon
-                      size="20px"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => remove(name)}
-                    />
-                  </FormItem>
+            {fields.map(({ key, name, ...restField }) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Select options={provinceOptions}></Select>
                 </FormItem>
-              );
-            })}
+                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+                  <Input />
+                </FormItem>
+
+                <FormItem>
+                  <MinusCircleIcon size="20px" style={{ cursor: 'pointer' }} onClick={() => remove(name)} />
+                </FormItem>
+              </FormItem>
+            ))}
             <FormItem style={{ marginLeft: 100 }}>
-              <Button
-                theme="default"
-                variant="dashed"
-                onClick={() => add({ province: 'bj', area: '' })}
-              >
+              <Button theme="default" variant="dashed" onClick={() => add({ province: 'bj', area: 'tzmax' })}>
                 Add field
               </Button>
             </FormItem>

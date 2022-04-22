@@ -93,8 +93,8 @@ const DatePicker = (props: DatePickerProps) => {
   function initDatePicker() {
     const val: any = value || defaultValue;
     if (val && isValidDate(val)) {
-      const startVal = range ? new Date(val[0]) : new Date(val);
-      const endVal = range ? new Date(val[1]) : new Date(val);
+      const startVal = range ? new Date(val[0] || new Date()) : new Date(val || new Date());
+      const endVal = range ? new Date(val[1] || new Date()) : new Date(val || new Date());
 
       setStart(startVal);
       setEnd(endVal);

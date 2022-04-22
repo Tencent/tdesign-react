@@ -173,11 +173,13 @@ const Select = forwardRefWithStatics(
         event.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         onChange(values, context);
+        return;
       }
 
       if (trigger === 'clear') {
         event.stopPropagation();
         onChange([], context);
+        return;
       }
 
       if (trigger === 'tag-remove') {
