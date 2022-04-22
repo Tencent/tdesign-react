@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
@@ -41,6 +41,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const innerValue = value || getUniqId();
   const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
   const headRef = useRef();
+  const contentRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
 
   if (defaultExpandAll) {
@@ -48,6 +49,11 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   }
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const panelBodyNode = contentRef.current?.parentNode as HTMLElement;
+    panelBodyNode.style.height = isActive ? `${contentRef.current.clientHeight}px` : '0px';
+  }, [isActive]);
 
   const classes = classnames(
     componentName,
@@ -90,17 +96,22 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const renderBodyByNormal = () => (
     <div
-      style={{ height: `${isActive ? 'auto' : 0}` }}
+      // style={{ height: `${isActive ? contentRef.current.clientHeight : 0}` }}
+      // style={{ height: `${isActive ? 'auto' : 0}` }}
       className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
     >
-      <div className={`${componentName}__content`}>{children}</div>
+      <div className={`${componentName}__content`} ref={contentRef}>
+        {children}
+      </div>
     </div>
   );
 
   const renderBodyDestroyOnCollapse = () =>
     isActive ? (
-      <div className={`${componentName}__body`}>
-        <div className={`${componentName}__content`}>{children}</div>
+      <div className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}>
+        <div className={`${componentName}__content`} ref={contentRef}>
+          {children}
+        </div>
       </div>
     ) : null;
 
@@ -108,10 +119,10 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     <div className={classes} style={{ ...style }}>
       <div className={`${componentName}__wrapper`}>
         {renderHeader()}
-        <CSSTransition timeout={500} classNames={classnames(`${classPrefix}-slide-down-enter-active`)} key={1}>
+        {/* <CSSTransition timeout={500} classNames={classnames(`${classPrefix}-slide-down-enter-active`)} key={1}>
           {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
-        </CSSTransition>
-        {/* {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()} */}
+        </CSSTransition> */}
+        {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
       </div>
     </div>
   );
