@@ -18,6 +18,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
   const popProps: PopupProps = {
     placement: 'bottom-left',
+    expandAnimation: true,
     ...((popupProps as PopupProps) || {}),
     trigger: 'click',
     attach: 'body',
