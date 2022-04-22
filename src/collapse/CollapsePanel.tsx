@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import classnames from 'classnames';
-// import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
 import { TdCollapsePanelProps } from './type';
 import { StyledProps } from '../common';
-// import getTransitionParams from './getTransitionParams';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;
@@ -42,6 +41,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
   const headRef = useRef();
   const contentRef = useRef<HTMLDivElement>();
+  const bodyRef = useRef<HTMLDivElement>();
   const isDisabled = disabled || disableAll;
 
   if (defaultExpandAll) {
@@ -49,11 +49,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   }
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;
-  useEffect(() => {
-    if (!contentRef.current) return;
-    const panelBodyNode = contentRef.current?.parentNode as HTMLElement;
-    panelBodyNode.style.height = isActive ? `${contentRef.current.clientHeight}px` : '0px';
-  }, [isActive]);
 
   const classes = classnames(
     componentName,
@@ -94,35 +89,32 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     );
   };
 
-  const renderBodyByNormal = () => (
-    <div
-      // style={{ height: `${isActive ? contentRef.current.clientHeight : 0}` }}
-      // style={{ height: `${isActive ? 'auto' : 0}` }}
-      className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
-    >
-      <div className={`${componentName}__content`} ref={contentRef}>
-        {children}
-      </div>
-    </div>
-  );
-
-  const renderBodyDestroyOnCollapse = () =>
-    isActive ? (
-      <div className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}>
-        <div className={`${componentName}__content`} ref={contentRef}>
-          {children}
-        </div>
-      </div>
-    ) : null;
-
   return (
     <div className={classes} style={{ ...style }}>
       <div className={`${componentName}__wrapper`}>
         {renderHeader()}
-        {/* <CSSTransition timeout={500} classNames={classnames(`${classPrefix}-slide-down-enter-active`)} key={1}>
-          {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
-        </CSSTransition> */}
-        {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
+        <CSSTransition
+          in={isActive}
+          timeout={300}
+          nodeRef={bodyRef}
+          onEnter={() => {
+            bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
+          }}
+          onExit={() => {
+            bodyRef.current.style.height = `0px`;
+          }}
+          unmountOnExit={destroyOnCollapse}
+        >
+          <div
+            style={{ height: 0 }}
+            className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
+            ref={bodyRef}
+          >
+            <div className={`${componentName}__content`} ref={contentRef}>
+              {children}
+            </div>
+          </div>
+        </CSSTransition>
       </div>
     </div>
   );
