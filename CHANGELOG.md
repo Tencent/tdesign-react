@@ -18,7 +18,7 @@ spline: explain
 
 ### Features
 
-* Icon: 升级 icon 版本 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
+* Icon: 升级 Icon 包版本，支持React 18 + 的使用 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
 
 
 
