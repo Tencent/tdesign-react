@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { KeyboardEvent, MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import useClassname from '../../hooks/useClassname';
@@ -20,7 +20,7 @@ const LinearGradient = (props) => {
   const baseClassName = useClassname();
   const { STATUS: statusClassNames } = useCommonClassName();
   const refSlider = useRef<HTMLDivElement>(null);
-  const [sliderRect, setSliderRect] = useState<TSliderRect>({
+  const sliderRectRef = useRef<TSliderRect>({
     left: 0,
     width: GRADIENT_SLIDER_DEFAULT_WIDTH,
   });
@@ -35,6 +35,14 @@ const LinearGradient = (props) => {
     selectedId.current = color.gradientSelectedId;
     colors.current = cloneDeep(color.gradientColors);
   }, [color]);
+
+  const updateSliderRect = () => {
+    const rect = refSlider.current.getBoundingClientRect();
+    sliderRectRef.current = {
+      left: rect.left,
+      width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
+    };
+  };
 
   const handleChange = useCallback(
     (key: 'degree' | 'selectedId' | 'colors', payload: any, addUsedColor?: boolean) => {
@@ -89,26 +97,27 @@ const LinearGradient = (props) => {
         return;
       }
       const point = colors.current[index];
-      const formatLeft = Math.max(0, Math.min(sliderRect.width, left));
-      const percentLeft = (formatLeft / sliderRect.width) * 100;
-      colors.current.splice(index, 1, {
-        color: point.color,
-        left: percentLeft,
-        id: point.id,
-      });
-      handleColorsChange(colors.current);
+      const formatLeft = Math.max(0, Math.min(sliderRectRef.current.width, left));
+
+      const percentLeft = (formatLeft / sliderRectRef.current.width) * 100;
+
+      const newColors = colors.current.map((item, i) =>
+        index !== i
+          ? item
+          : {
+              color: point.color,
+              left: percentLeft,
+              id: point.id,
+            },
+      );
+
+      handleColorsChange(newColors);
     },
-    [handleColorsChange, sliderRect.width],
+    [handleColorsChange],
   );
 
   // 移动开始
   const handleStart = (id: string, e: ReactMouseEvent) => {
-    const rect = refSlider.current.getBoundingClientRect();
-    setSliderRect({
-      left: rect.left,
-      width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
-    });
-
     if (isDragging.current || props.disabled) {
       return;
     }
@@ -116,7 +125,7 @@ const LinearGradient = (props) => {
     isDragging.current = true;
     e.preventDefault();
     e.stopPropagation();
-    handleSelectedIdChange(id);
+    // handleSelectedIdChange(id);
     // 让slider获取焦点，以便键盘事件生效。
     refSlider.current.focus();
   };
@@ -129,11 +138,7 @@ const LinearGradient = (props) => {
       }
 
       const rect = refSlider.current.getBoundingClientRect();
-      const left = e.clientX - rect.left;
-      setSliderRect({
-        left: rect.left,
-        width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
-      });
+      const left = e.clientX - rect.x;
       isMoved.current = true;
       updateActiveThumbLeft(left);
     },
@@ -158,7 +163,7 @@ const LinearGradient = (props) => {
     if (props.disabled) {
       return;
     }
-    const points = colors.current;
+    const points = [...colors.current];
     let pos = points.findIndex((c) => c.id === selectedId.current);
     const { length } = points;
     // 必须保证有两个点
@@ -178,21 +183,21 @@ const LinearGradient = (props) => {
     if (props.disabled) {
       return;
     }
-    let left = e.clientX - sliderRect.left;
-    left = Math.max(0, Math.min(sliderRect.width, left));
-    const percentLeft = (left / sliderRect.width) * 100;
+    updateSliderRect();
+
+    let left = e.clientX - sliderRectRef.current.left;
+    left = Math.max(0, Math.min(sliderRectRef.current.width, left));
+    const percentLeft = (left / sliderRectRef.current.width) * 100;
+
     const newPoint = genGradientPoint(percentLeft, props.color.rgba);
-    colors.current.push(newPoint);
-    handleColorsChange(colors.current, true);
+    const newColors = [...colors.current];
+    newColors.push(newPoint);
+    handleColorsChange(newColors, true);
     handleSelectedIdChange(newPoint.id);
   };
 
   useEffect(() => {
-    const rect = refSlider.current.getBoundingClientRect();
-    setSliderRect({
-      left: rect.left,
-      width: rect.width || GRADIENT_SLIDER_DEFAULT_WIDTH,
-    });
+    updateSliderRect();
 
     window.addEventListener('mousemove', handleMove, false);
     window.addEventListener('mouseup', handleEnd, false);
@@ -212,6 +217,8 @@ const LinearGradient = (props) => {
     points: gradientColors,
     degree: 90,
   });
+
+  const handleClickThumb = (e: ReactMouseEvent) => e.stopPropagation();
 
   return (
     <div className={`${baseClassName}__gradient`}>
@@ -244,7 +251,7 @@ const LinearGradient = (props) => {
                     color: t.color,
                     left,
                   }}
-                  onClick={(e: ReactMouseEvent) => e.stopPropagation()}
+                  onClick={handleClickThumb}
                   onMouseDown={(e: ReactMouseEvent) => handleStart(t.id, e)}
                 >
                   <span className={classNames(['gradient-thumbs__item-inner', `${baseClassName}--bg-alpha`])}></span>

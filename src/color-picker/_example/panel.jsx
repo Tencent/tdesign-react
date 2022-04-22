@@ -3,7 +3,7 @@ import { ColorPickerPanel } from 'tdesign-react';
 
 export default function PanelExample() {
   const handleChange = (value, context) => {
-    console.log('handleChange', value, context);
+    // console.log('handleChange', value, context);
   };
 
   const handlePaletteChange = (context) => {
@@ -13,10 +13,13 @@ export default function PanelExample() {
   const handleRecentColorsChange = (value) => {
     console.log('最近使用颜色改变', value);
   };
-  return <ColorPickerPanel
-    onChange={handleChange}
-    onPaletteBarChange={handlePaletteChange}
-    onRecentColorsChange={handleRecentColorsChange}
-    defaultValue="#0052d9"
-    format="HEX" />;
+  return (
+    <ColorPickerPanel
+      onChange={handleChange}
+      onPaletteBarChange={handlePaletteChange}
+      onRecentColorsChange={handleRecentColorsChange}
+      defaultValue="#0052d9"
+      format="HEX"
+    />
+  );
 }
