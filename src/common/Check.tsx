@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useContext } from 'react';
+import React, { Ref, forwardRef, useContext, MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
@@ -10,6 +10,7 @@ export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
   children?: React.ReactNode;
+  onClick?: MouseEventHandler<HTMLLabelElement>;
 }
 
 /**
