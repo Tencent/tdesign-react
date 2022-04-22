@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popup, { PopupVisibleChangeContext, PopupRefProps } from '../popup';
+import Popup, { PopupVisibleChangeContext } from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from './type';
 
@@ -25,8 +25,9 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   const { classPrefix } = useConfig();
   const [isTipShowed, setTipshow] = useState(duration !== 0);
   const [timeup, setTimeup] = useState(false);
-  const popupRef = useRef<PopupRefProps>();
+  const popupRef = useRef<HTMLDivElement>();
   const timerRef = useRef<number | null>(null);
+  const [offset, setOffset] = useState([0, 0]);
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
@@ -34,6 +35,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     },
     overlayClassName,
   );
+  const isPlacedByMouse = placement === 'mouse';
 
   const setVisible = (v: boolean) => {
     if (duration !== 0) setTimeup(false);
@@ -58,7 +60,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
         (trigger === 'trigger-element-hover' || trigger === 'trigger-element-click')
       ) {
         const { x } = calculatePos(e);
-        popupRef.current.setModifiers([{ name: 'offset', options: { offset: [x, 0] } }]);
+        setOffset([x, 0]);
       }
       setTipshow(visible);
     }
@@ -87,11 +89,12 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     <Popup
       ref={popupRef}
       destroyOnClose={destroyOnClose}
-      showArrow={placement === 'mouse' ? false : showArrow}
+      showArrow={isPlacedByMouse ? false : showArrow}
       overlayClassName={toolTipClass}
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
-      placement={placement === 'mouse' ? 'bottom-left' : placement}
+      popperModifiers={isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : []}
+      placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >
       {children}

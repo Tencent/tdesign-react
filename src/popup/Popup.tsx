@@ -8,7 +8,6 @@ import React, {
   useCallback,
   useRef,
   useEffect,
-  useImperativeHandle,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
@@ -29,17 +28,15 @@ import useWindowSize from '../_util/useWindowSize';
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
-}
-
-export interface PopupRefProps {
-  setModifiers?: (v: Array<any>) => void;
+  // 初始化popper的可定制option
+  popperModifiers?: Array<{ name: string; options: Object }>;
 }
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
 
-const Popup = forwardRef((props: PopupProps, ref: React.Ref<PopupRefProps>) => {
+const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     trigger = 'hover',
     content = null,
@@ -59,6 +56,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<PopupRefProps>) => {
     onVisibleChange,
     onScroll,
     expandAnimation,
+    popperModifiers = [],
   } = props;
   const { classPrefix } = useConfig();
 
@@ -79,17 +77,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<PopupRefProps>) => {
 
   const popperRef = useRef(null);
   const portalRef = useRef(null);
-
-  const [modifiers, setPopupModifiers] = useState([]);
-
-  useImperativeHandle(
-    ref,
-    (): PopupRefProps => ({
-      setModifiers: (v: Array<any>) => {
-        setPopupModifiers([...modifiers, ...v]);
-      },
-    }),
-  );
 
   // 展开时候动态判断上下左右翻转
   const onPopperFirstUpdate = useCallback((state) => {
@@ -125,9 +112,9 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<PopupRefProps>) => {
     () => ({
       placement: getPopperPlacement(placement),
       onFirstUpdate: onPopperFirstUpdate,
-      modifiers,
+      modifiers: popperModifiers,
     }),
-    [modifiers, onPopperFirstUpdate, placement],
+    [onPopperFirstUpdate, placement, popperModifiers],
   );
 
   popperRef.current = usePopper(triggerRef, overlayRef, options);
