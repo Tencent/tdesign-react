@@ -280,6 +280,7 @@ export interface UploadRemoveContext {
 export interface SuccessContext {
   e?: ProgressEvent;
   file?: UploadFile;
+  files?: UploadFile[];
   fileList?: UploadFile[];
   response: any;
 }

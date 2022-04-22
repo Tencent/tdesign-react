@@ -23,7 +23,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     percentage = 0,
     label = true,
     color = '',
-    trackColor = '#f5f5f5',
+    trackColor,
     strokeWidth,
     size = 'medium',
     className,
@@ -145,7 +145,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
             cy={circleCenterInViewBox}
             r={radius}
             strokeWidth={circleStokeWidth}
-            stroke={trackColor}
+            stroke={trackColor || 'var(--td-bg-color-component)'}
             fill="none"
           ></circle>
           {percentage > 0 && (

@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 0.31.1 `2022-04-18`
+
+### Bug Fixes
+
+* Form: 修复 `formItem` 包裹组件 `onChange` 其他参数丢失问题 ([#637](https://github.com/Tencent/tdesign-react/issues/637)) ([f1b2256](https://github.com/Tencent/tdesign-react/commit/f1b225605803299405f558b06d681507326e1e44)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Datepicker: 修复 `range` 模式空数组报错问题 ([679d933](https://github.com/Tencent/tdesign-react/commit/679d933e9b30eb153efab86743488648b5ed5b1d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Menu: menuGroup 类型修复 ([d52942a](https://github.com/Tencent/tdesign-react/commit/d52942ac2ecfe7ac14aa9ac26ef30c773386fc39)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Upload:
+  * 修复 draggable custom theme 同时存在组件不渲染 ([f1f6fd1](https://github.com/Tencent/tdesign-react/commit/f1f6fd1001e807c526983543bf46b7fa195788a1)) [@samhou1988](https://github.com/samhou1988)
+  * 修复上传参数 `file` 丢失问题 ([bd9f545](https://github.com/Tencent/tdesign-react/commit/bd9f545a27c236cec843d95861239414773eed27)) [@wookaoer](https://github.com/wookaoer)
+
+### Features
+
+* Icon: 升级 icon 版本 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
+
+
+
 ## 0.31.0 `2022-04-14`
 
 ### BREAKING CHANGES

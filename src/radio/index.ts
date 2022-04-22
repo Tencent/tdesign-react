@@ -7,4 +7,5 @@ export type { RadioGroupProps } from './RadioGroup';
 export * from './type';
 
 export const Radio = _Radio;
+
 export default Radio;
