@@ -164,6 +164,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.2",
+    "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.55.0",
     "rollup-plugin-analyzer": "^4.0.0",
