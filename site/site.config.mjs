@@ -290,6 +290,12 @@ export default {
           component: () => import('tdesign-react/calendar/calendar.md'),
         },
         {
+          title: 'Card 卡片',
+          name: 'card',
+          path: '/react/components/card',
+          component: () => import('tdesign-react/card/card.md'),
+        },
+        {
           title: 'Comment 评论',
           name: 'comment',
           path: '/react/components/comment',

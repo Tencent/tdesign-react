@@ -48,13 +48,16 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     colorInstanceRef.current.update(defaultValue || DEFAULT_COLOR);
   }, [defaultValue]);
 
-  const [mode, setMode] = useState<TdColorModes>(
-    colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome',
-  );
+  const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
+  const [mode, setMode] = useState<TdColorModes>('monochrome');
 
   useEffect(() => {
-    setMode(colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome');
-  }, [colorInstanceRef.current.isGradient]);
+    if (colorModes.length === 1) {
+      setMode(colorModes[0]);
+    } else {
+      setMode(getmodeByColor);
+    }
+  }, [colorModes, getmodeByColor]);
 
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
 
