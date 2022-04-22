@@ -5,16 +5,16 @@ import { StyledProps } from '../common';
 import { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
 import Aside from './Aside';
 
-export interface LayoutProps extends TdLayoutProps, StyledProps {
+export interface LayoutProps extends TdLayoutProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
-export interface HeaderProps extends TdHeaderProps, StyledProps {
+export interface HeaderProps extends TdHeaderProps, StyledProps, React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
-export interface ContentProps extends StyledProps {
+export interface ContentProps extends StyledProps, React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
-export interface FooterProps extends TdFooterProps, StyledProps {
+export interface FooterProps extends TdFooterProps, StyledProps, React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 
