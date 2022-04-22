@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
+import { compileUsage } from '../../src/_common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
@@ -26,6 +27,7 @@ export default function mdToReact(options) {
     import Codesandbox from '@components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
+    ${mdSegment.usage.importStr}
 
     function useQuery() {
       return new URLSearchParams(useLocation().search);
@@ -172,11 +174,25 @@ function customRender({ source, file, md }) {
   const mdSegment = {
     ...pageData,
     componentName,
+    usage: { importStr: '' },
     docMd: '<td-doc-empty></td-doc-empty>',
     demoMd: '<td-doc-empty></td-doc-empty>',
     apiMd: '<td-doc-empty></td-doc-empty>',
     designMd: '<td-doc-empty></td-doc-empty>',
   };
+
+  // 渲染 live demo
+  if (pageData.usage && pageData.isComponent) {
+    const usageObj = compileUsage({
+      componentName,
+      usage: pageData.usage,
+      demoPath: path.resolve(__dirname, `../../src/${componentName}/usage/index.jsx`),
+    });
+    if (usageObj) {
+      mdSegment.usage = usageObj;
+      demoMd = `${usageObj.markdownStr} ${demoMd}`;
+    }
+  }
 
   if (pageData.isComponent) {
     mdSegment.demoMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;
