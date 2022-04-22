@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo } from 'react';
+import React, { useState, useEffect, Ref, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -322,8 +322,8 @@ const Select = forwardRefWithStatics(
     );
 
     // 将第一个选中的option置于列表可见范围的最后一位
-    const updateScrollTop = useMemo(
-      () => (content: HTMLDivElement) => {
+    const updateScrollTop = useCallback(
+      (content: HTMLDivElement) => {
         const firstSelectedNode = document.querySelector(`.${classPrefix}-is-selected`) as HTMLDivElement;
         if (firstSelectedNode && content) {
           const { paddingBottom } = getComputedStyle(firstSelectedNode);
