@@ -219,7 +219,7 @@ exports[`base.jsx 1`] = `
                   class="t-input__wrap"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--suffix"
                   >
                     <input
                       class="t-input__inner"
@@ -1447,7 +1447,7 @@ exports[`disabled.jsx 1`] = `
                 class="t-input__wrap"
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1573,7 +1573,7 @@ exports[`disabled.jsx 1`] = `
                     class="t-input__wrap"
                   >
                     <div
-                      class="t-input t-is-readonly t-is-disabled t-input--suffix"
+                      class="t-input t-is-readonly t-is-disabled t-size-m t-input--suffix"
                     >
                       <input
                         class="t-input__inner"

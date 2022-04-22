@@ -18,7 +18,7 @@ exports[`base.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -70,7 +70,7 @@ exports[`custom-icon.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
             >
               <span
                 class="t-input__prefix t-input__prefix-icon"
@@ -149,7 +149,7 @@ exports[`date-presets-alt.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -205,7 +205,7 @@ exports[`date-range.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -248,7 +248,7 @@ exports[`date-range.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -305,7 +305,7 @@ exports[`date-time.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -365,7 +365,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly t-input--suffix"
+                class="t-input t-is-readonly t-size-m t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -412,7 +412,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly t-input--suffix"
+                class="t-input t-is-readonly t-size-m t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -459,7 +459,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly t-input--suffix"
+                class="t-input t-is-readonly t-size-m t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -506,7 +506,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly t-input--suffix"
+                class="t-input t-is-readonly t-size-m t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -553,7 +553,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly t-input--suffix"
+                class="t-input t-is-readonly t-size-m t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -606,7 +606,7 @@ exports[`first-day-of-week.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -658,7 +658,7 @@ exports[`month.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -710,7 +710,7 @@ exports[`year.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-is-readonly t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-input--suffix"
             >
               <input
                 class="t-input__inner"

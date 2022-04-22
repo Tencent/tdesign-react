@@ -75,8 +75,9 @@ function Components() {
     tdHeaderRef.current.framework = 'react';
     tdDocSearch.current.docsearchInfo = { indexName: 'tdesign_doc_react' };
     tdDocAsideRef.current.routerList = routerList;
+
     tdDocAsideRef.current.onchange = ({ detail }) => {
-      if (location.pathname === detail) return;
+      if (window.location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
       requestAnimationFrame(() => {
         navigate(detail);
@@ -88,7 +89,11 @@ function Components() {
     };
 
     initHistoryVersions();
-  }, [location, navigate]);
+  }, []);
+  
+  useEffect(() => {
+    document.querySelector('td-stats')?.track?.();
+  }, [location]);
 
   return (
     <ConfigProvider /* globalConfig={{ locale, animation: { exclude: ['ripple'] }}} */>
