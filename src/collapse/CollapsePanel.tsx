@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import classnames from 'classnames';
-// import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { useCollapseContext } from './CollapseContext';
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
@@ -63,7 +63,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 
   const handleClick = (e) => {
     const canExpand =
-      (expandOnRowClick && e.target === headRef.current) || (e.target as Element).getAttribute('name') === 'arrow';
+      (expandOnRowClick && e.target === headRef.current) || ['svg', 'path'].includes((e.target as Element).tagName);
 
     if (canExpand && !isDisabled) {
       updateCollapseValue(innerValue);
@@ -89,7 +89,10 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   };
 
   const renderBodyByNormal = () => (
-    <div style={{ height: `${isActive ? 'auto' : 0}` }} className={`${componentName}__body`}>
+    <div
+      style={{ height: `${isActive ? 'auto' : 0}` }}
+      className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
+    >
       <div className={`${componentName}__content`}>{children}</div>
     </div>
   );
@@ -105,14 +108,10 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     <div className={classes} style={{ ...style }}>
       <div className={`${componentName}__wrapper`}>
         {renderHeader()}
-        {/* <CSSTransition
-            timeout={500}
-            classNames="fade"
-            key={1}
-          >
-            {renderBody()}
-          </CSSTransition> */}
-        {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
+        <CSSTransition timeout={500} classNames={classnames(`${classPrefix}-slide-down-enter-active`)} key={1}>
+          {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()}
+        </CSSTransition>
+        {/* {destroyOnCollapse ? renderBodyDestroyOnCollapse() : renderBodyByNormal()} */}
       </div>
     </div>
   );

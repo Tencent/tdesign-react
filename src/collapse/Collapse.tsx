@@ -14,7 +14,7 @@ export interface CollapseProps extends TdCollapseProps, StyledProps {
 const Collapse = (props: CollapseProps) => {
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse`;
-  const borderlessClass = `${classPrefix}-border-less`;
+  const borderlessClass = `${classPrefix}--border-less`;
   const {
     defaultExpandAll = false,
     disabled = false,
