@@ -808,14 +808,10 @@ exports[`base.jsx 1`] = `
                 class="t-popup__reference t-select t-select-input"
               >
                 <div
-<<<<<<< HEAD
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
-=======
                   class="t-input__wrap t-input--auto-width"
->>>>>>> upstream/develop
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -1445,7 +1441,7 @@ exports[`custom-col.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -2048,7 +2044,7 @@ exports[`custom-col-button.jsx 1`] = `
                     class="t-input__wrap t-input--auto-width"
                   >
                     <div
-                      class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -4885,7 +4881,7 @@ exports[`filter-controlled.jsx 1`] = `
                   class="t-input__wrap t-input--auto-width"
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -20389,14 +20385,10 @@ exports[`tree.jsx 1`] = `
                 class="t-popup__reference t-select t-select-input"
               >
                 <div
-<<<<<<< HEAD
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
-=======
                   class="t-input__wrap t-input--auto-width"
->>>>>>> upstream/develop
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -21136,17 +21128,12 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-<<<<<<< HEAD
-                  <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
-=======
                   <svg
                     class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
                     fill="none"
                     height="1em"
                     viewBox="0 0 16 16"
                     width="1em"
->>>>>>> upstream/develop
                   >
                     <path
                       d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
