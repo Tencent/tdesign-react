@@ -168,6 +168,12 @@ export default {
           component: () => import('tdesign-react/checkbox/checkbox.md'),
         },
         {
+          title: 'ColorPicker 颜色选择器',
+          name: 'color-picker',
+          path: '/react/components/color-picker',
+          component: () => import('tdesign-react/color-picker/color-picker.md'),
+        },
+        {
           title: 'Datepicker 日期选择器',
           name: 'date-picker',
           path: '/react/components/date-picker',

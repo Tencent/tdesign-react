@@ -83,7 +83,7 @@ export default function SelectInputSingle() {
           <ul className="tdesign-demo__selet-input-ul-single">
             {OPTIONS.map(item => (
               <li key={item.value} onClick={() => onOptionClick(item)}>
-                <img src="/favicon.ico" /> { item.label }
+                <img src="/favicon.ico" /> {item.label}
               </li>
             ))}
           </ul>

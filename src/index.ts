@@ -49,4 +49,5 @@ export * from './comment';
 export * from './transfer';
 export * from './avatar';
 export * from './skeleton';
+export * from './color-picker';
 export * from './card';
