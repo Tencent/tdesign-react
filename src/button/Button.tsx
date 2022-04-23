@@ -61,28 +61,30 @@ const Button = forwardRef(
       }
     }
 
+    const getButtonClassNames = () =>
+      classNames(
+        className,
+        [
+          `${classPrefix}-button`,
+          `${classPrefix}-button--theme-${renderTheme}`,
+          `${classPrefix}-button--variant-${variant}`,
+        ],
+        {
+          [`${classPrefix}-button--shape-${shape}`]: shape !== 'rectangle',
+          [`${classPrefix}-button--ghost`]: ghost,
+          [`${classPrefix}-is-loading`]: loading,
+          [`${classPrefix}-is-disabled`]: disabled || loading,
+          [`${classPrefix}-size-s`]: size === 'small',
+          [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-size-full-width`]: block,
+        },
+      );
     return (
       <button
         {...buttonProps}
         ref={ref || btnRef}
         type={type}
-        className={classNames(
-          className,
-          [
-            `${classPrefix}-button`,
-            `${classPrefix}-button--theme-${renderTheme}`,
-            `${classPrefix}-button--variant-${variant}`,
-          ],
-          {
-            [`${classPrefix}-button--shape-${shape}`]: shape !== 'rectangle',
-            [`${classPrefix}-button--ghost`]: ghost,
-            [`${classPrefix}-is-loading`]: loading,
-            [`${classPrefix}-is-disabled`]: disabled || loading,
-            [`${classPrefix}-size-s`]: size === 'small',
-            [`${classPrefix}-size-l`]: size === 'large',
-            [`${classPrefix}-size-full-width`]: block,
-          },
-        )}
+        className={getButtonClassNames()}
         onClick={!disabled && !loading ? onClick : undefined}
         disabled={disabled || loading}
       >
