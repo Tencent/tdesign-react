@@ -95,6 +95,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
         {renderHeader()}
         <CSSTransition
           in={isActive}
+          appear
           timeout={300}
           nodeRef={bodyRef}
           onEnter={() => {
