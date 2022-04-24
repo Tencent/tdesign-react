@@ -246,7 +246,7 @@ export default function useFixed(props: TdBaseTableProps) {
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th.getBoundingClientRect().width });
+          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect().width });
         }
       }
     }
@@ -274,7 +274,7 @@ export default function useFixed(props: TdBaseTableProps) {
         defaultBottom = thead?.getBoundingClientRect().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr.getBoundingClientRect().height });
+      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect().height });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       const tr = trList[i] as HTMLElement;
@@ -287,7 +287,7 @@ export default function useFixed(props: TdBaseTableProps) {
         defaultBottom = tfoot?.getBoundingClientRect().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr.getBoundingClientRect().height });
+      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect().height });
     }
   };
 
@@ -384,7 +384,7 @@ export default function useFixed(props: TdBaseTableProps) {
       if (!tRef) return;
       setIsFixedHeader(tRef.scrollHeight > tRef.clientHeight);
       setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
-      const pos = tRef.getBoundingClientRect();
+      const pos = tRef?.getBoundingClientRect();
       setVirtualScrollHeaderPos({
         top: pos.top,
         left: pos.left,
@@ -403,7 +403,7 @@ export default function useFixed(props: TdBaseTableProps) {
   };
 
   const updateTableWidth = () => {
-    const rect = tableContentRef.current.getBoundingClientRect();
+    const rect = tableContentRef.current?.getBoundingClientRect();
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
     const fixedBordered = isFixedRightColumn ? 1 : 2;
@@ -417,7 +417,7 @@ export default function useFixed(props: TdBaseTableProps) {
       for (let j = 0, thLen = thList.length; j < thLen; j++) {
         const th = thList[j] as HTMLElement;
         const colKey = th.dataset.colkey;
-        widthMap[colKey] = th.getBoundingClientRect().width;
+        widthMap[colKey] = th?.getBoundingClientRect().width;
       }
     }
     setThWidthList(widthMap);
@@ -439,7 +439,7 @@ export default function useFixed(props: TdBaseTableProps) {
   };
 
   const onDocumentScroll = () => {
-    const pos = tableContentRef.current.getBoundingClientRect();
+    const pos = tableContentRef.current?.getBoundingClientRect();
     // eslint-disable-next-line no-unsafe-optional-chaining
     const r = affixHeaderRef.current?.offsetHeight - pos.top < pos.height;
     setShowAffixHeader(r);
