@@ -80,4 +80,4 @@ options | - | - | TS 类型：`DialogOptions`
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-options | Object | - | TS 类型：`Omit<DialogOptions, 'confirmBtn'>`
+options | Object | - | TS 类型：`Omit<DialogOptions, 'cancelBtn'>`
