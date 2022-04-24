@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 0.32.1 `2022-04-24`
+
+### Bug Fixes
+
+* Table: 修复 jsdom 测试环境报错问题 ([#676](https://github.com/Tencent/tdesign-react/issues/676)) ([af7a35b](https://github.com/Tencent/tdesign-react/commit/af7a35b3ee917bdc36634d71712174e0074c61e2)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复 ts 问题 ([0e278a1](https://github.com/Tencent/tdesign-react/commit/0e278a179dae4b0b6b36b10ce026dab3a4dcb7eb)) [@pengYYYYY](https://github.com/pengYYYYY)
+
+
+### Features
+
+* Select: 列表选择体验优化 ([#659](https://github.com/Tencent/tdesign-react/issues/659)) ([3a792bd](https://github.com/Tencent/tdesign-react/commit/3a792bddc9d9226016f282a2af6fd7e8eb715e73)) [@smilebuz](https://github.com/smilebuz)
+
+
 ## 0.32.0 `2022-04-22`
 
 ### BREAKING CHANGES
