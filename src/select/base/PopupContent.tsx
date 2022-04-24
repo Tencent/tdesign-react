@@ -1,4 +1,4 @@
-import React, { Children, isValidElement, cloneElement } from 'react';
+import React, { Children, Ref, forwardRef, isValidElement, cloneElement } from 'react';
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
@@ -36,7 +36,7 @@ interface SelectPopupProps
   children?: React.ReactNode;
 }
 
-const PopupContent = (props: SelectPopupProps) => {
+const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElement>) => {
   const {
     onChange,
     value,
@@ -131,6 +131,7 @@ const PopupContent = (props: SelectPopupProps) => {
 
   return (
     <div
+      ref={ref}
       className={classNames(`${classPrefix}-select__dropdown-inner`, {
         [`${classPrefix}-select__dropdown-inner--size-s`]: size === 'small',
         [`${classPrefix}-select__dropdown-inner--size-l`]: size === 'large',
@@ -144,6 +145,6 @@ const PopupContent = (props: SelectPopupProps) => {
       {panelBottomContent}
     </div>
   );
-};
+});
 
 export default PopupContent;

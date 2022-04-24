@@ -29,6 +29,7 @@ import useWindowSize from '../_util/useWindowSize';
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
+  updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
@@ -54,6 +55,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     onVisibleChange,
     onScroll,
     expandAnimation,
+    updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
 
@@ -165,6 +167,12 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
   useEffect(() => {
     popperRef.current.update?.();
   }, [content, visible, windowHeight, windowWidth]);
+
+  useEffect(() => {
+    if (visible && overlayRef) {
+      updateScrollTop?.(contentRef?.current);
+    }
+  }, [visible, overlayRef, updateScrollTop]);
 
   // 初次不渲染.
   const portal =
