@@ -19,6 +19,11 @@ export interface TdUploadProps {
    */
   action?: string;
   /**
+   * 是否允许重复上传相同文件名的文件
+   * @default false
+   */
+  allowUploadDuplicateFile?: boolean;
+  /**
    * 是否选取文件后自动上传
    * @default true
    */
@@ -62,7 +67,7 @@ export interface TdUploadProps {
    */
   format?: (file: File) => UploadFile;
   /**
-   * 用于格式化文件上传后的响应数据。error 用于显示错误提示，如果 error 值为真，组件会判定为上传失败；url 用于上传文件/图片地址。
+   * 用于格式化文件上传后的响应数据。error 用于显示错误提示，如果 error 值为真，组件会判定为上传失败；url 用于上传文件/图片地址
    */
   formatResponse?: (response: any, context: FormatResponseContext) => ResponseType;
   /**
@@ -154,9 +159,13 @@ export interface TdUploadProps {
    */
   onDragenter?: (context: { e: DragEvent<Element> }) => void;
   /**
-   * 拖拽结束时触发
+   * 离开拖拽区域时触发
    */
   onDragleave?: (context: { e: DragEvent<Element> }) => void;
+  /**
+   * 拖拽结束时触发
+   */
+  onDrop?: (context: { e: DragEvent<Element> }) => void;
   /**
    * 上传失败后触发
    */
@@ -187,43 +196,43 @@ export interface UploadFile {
   /**
    * 上一次变更的时间
    */
-  lastModified?: number;
+  lastModified: number;
   /**
    * 文件名称
    * @default ''
    */
-  name?: string;
+  name: string;
   /**
    * 下载进度
    */
-  percent?: number;
+  percent: number;
   /**
    * 原始文件对象
    */
-  raw?: File;
+  raw: File;
   /**
    * 上传接口返回的数据
    */
-  response?: object;
+  response: object;
   /**
    * 文件大小
    */
-  size?: number;
+  size: number;
   /**
    * 文件上传状态：上传成功，上传失败，上传中，等待上传
    * @default ''
    */
-  status?: 'success' | 'fail' | 'progress' | 'waiting';
+  status: 'success' | 'fail' | 'progress' | 'waiting';
   /**
    * 文件类型
    * @default ''
    */
-  type?: string;
+  type: string;
   /**
    * 文件上传成功后的下载/访问地址
    * @default ''
    */
-  url?: string;
+  url: string;
 }
 
 export type ResponseType = { error?: string; url?: string } & Record<string, any>;
@@ -280,7 +289,6 @@ export interface UploadRemoveContext {
 export interface SuccessContext {
   e?: ProgressEvent;
   file?: UploadFile;
-  files?: UploadFile[];
   fileList?: UploadFile[];
   response: any;
 }
