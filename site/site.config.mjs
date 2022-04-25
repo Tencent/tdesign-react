@@ -296,7 +296,7 @@ export default {
           component: () => import('tdesign-react/card/card.md')
         },
         {
-          title: 'Collpase 折叠面板',
+          title: 'Collapase 折叠面板',
           name: 'collapse',
           path: '/react/components/collapse',
           component: () => import('tdesign-react/collapse/collapse.md'),
