@@ -386,8 +386,8 @@ export default function useFixed(props: TdBaseTableProps) {
       setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
       const pos = tRef?.getBoundingClientRect?.();
       setVirtualScrollHeaderPos({
-        top: pos.top,
-        left: pos.left,
+        top: pos?.top,
+        left: pos?.left,
       });
       clearTimeout(timer);
     }, 0);
@@ -407,7 +407,7 @@ export default function useFixed(props: TdBaseTableProps) {
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
     const fixedBordered = isFixedRightColumn ? 1 : 2;
-    setTableWidth(rect.width - reduceWidth - (props.bordered ? fixedBordered : 0));
+    setTableWidth(rect?.width - reduceWidth - (props.bordered ? fixedBordered : 0));
   };
 
   const updateThWidthList = (trList: HTMLCollection) => {
@@ -441,7 +441,7 @@ export default function useFixed(props: TdBaseTableProps) {
   const onDocumentScroll = () => {
     const pos = tableContentRef.current?.getBoundingClientRect?.();
     // eslint-disable-next-line no-unsafe-optional-chaining
-    const r = affixHeaderRef.current?.offsetHeight - pos.top < pos.height;
+    const r = affixHeaderRef.current?.offsetHeight - pos?.top < pos?.height;
     setShowAffixHeader(r);
   };
 
