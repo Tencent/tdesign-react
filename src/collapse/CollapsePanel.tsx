@@ -9,7 +9,6 @@ import { StyledProps } from '../common';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;
-  index?: number;
 }
 
 const CollapsePanel = (props: CollapsePanelProps) => {

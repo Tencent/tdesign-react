@@ -7,7 +7,6 @@ export default function CollapseExample() {
     <div className="tdesign-demo-block-row">
       <Collapse defaultValue='default'>
         <Panel header="这是一个折叠标题">
-          <div style={{ marginTop: 50 }}>11111</div>
           这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
         </Panel>
         <Panel header="设置默认展开项" value='default'>
