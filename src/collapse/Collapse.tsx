@@ -47,11 +47,6 @@ const Collapse = (props: CollapseProps) => {
     className,
   ];
 
-  const getUniqId = (() => {
-    let index = 0;
-    return () => (index += 1);
-  })();
-
   const childrenList = React.Children.toArray(children).filter(
     (child: JSX.Element) => child.type.displayName === CollapsePanel.displayName,
   );
@@ -61,6 +56,7 @@ const Collapse = (props: CollapseProps) => {
       const key = child.key || String(index);
       const childProps = {
         key,
+        index: index + 1,
         ...child.props,
       };
       return React.cloneElement(child, childProps);
@@ -75,7 +71,6 @@ const Collapse = (props: CollapseProps) => {
         expandOnRowClick,
         expandIcon,
         updateCollapseValue,
-        getUniqId,
         collapseValue,
       }}
     >

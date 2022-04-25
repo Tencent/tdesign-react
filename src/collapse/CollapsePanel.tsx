@@ -9,6 +9,7 @@ import { StyledProps } from '../common';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;
+  index?: number;
 }
 
 const CollapsePanel = (props: CollapsePanelProps) => {
@@ -22,6 +23,7 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     header,
     headerRightContent,
     children,
+    index,
   } = props;
   const {
     disabled: disableAll,
@@ -29,14 +31,13 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     expandIconPlacement,
     expandOnRowClick,
     expandIcon: expandIconAll,
-    getUniqId,
     updateCollapseValue,
     collapseValue,
   } = useCollapseContext();
 
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse-panel`;
-  const innerValue = value || getUniqId();
+  const innerValue = value || index;
   const showExpandIcon = expandIcon === undefined ? expandIconAll : expandIcon;
   const headRef = useRef();
   const contentRef = useRef<HTMLDivElement>();

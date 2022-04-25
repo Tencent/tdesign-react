@@ -8,7 +8,6 @@ const CollapseContext = React.createContext<{
   expandOnRowClick?: TdCollapseProps['expandOnRowClick'];
   expandIcon?: TdCollapseProps['expandIcon'];
   updateCollapseValue?: (v?: CollapsePanelValue) => void;
-  getUniqId?: Function;
   collapseValue?: CollapseValue;
 }>({
   defaultExpandAll: false,
