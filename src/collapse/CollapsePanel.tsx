@@ -96,12 +96,21 @@ const CollapsePanel = (props: CollapsePanelProps) => {
         <CSSTransition
           in={isActive}
           appear
-          timeout={300}
+          timeout={{
+            enter: 300,
+            exit: 0,
+          }}
           nodeRef={bodyRef}
           onEnter={() => {
             bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
           }}
+          onEntered={() => {
+            bodyRef.current.style.height = 'auto';
+          }}
           onExit={() => {
+            bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
+          }}
+          onExited={() => {
             bodyRef.current.style.height = `0px`;
           }}
           unmountOnExit={destroyOnCollapse}
