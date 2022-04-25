@@ -19,6 +19,7 @@ export interface DraggerProps {
   onChange?: (files: FileList) => void;
   onDragenter?: (e: DragEvent) => void;
   onDragleave?: (e: DragEvent) => void;
+  onDrop?: (e: DragEvent) => void;
 }
 
 const Dragger: FC<DraggerProps> = (props) => {
@@ -86,7 +87,7 @@ const Dragger: FC<DraggerProps> = (props) => {
   const handleDrop = (event: DragEvent) => {
     event.preventDefault();
     props.onChange?.(event.dataTransfer.files);
-    props.onDragleave?.(event);
+    props.onDrop?.(event);
     setDragActive(false);
   };
 
