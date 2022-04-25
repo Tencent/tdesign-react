@@ -32,26 +32,17 @@ const data = [
   },
   {
     platform: 'title',
-    property: 'rowkey',
+    property: 'rowKey',
     type: 'String',
     default: '-1',
     needed: 'N',
-    description: '指定rowkey',
+    description: '指定 rowKey',
   },
 ];
 
 export default function TableFixHeader() {
   return (
     <div>
-      <ul>
-        <li>标题默认使用 title 渲染，自定义标题则有以下2种方式</li>
-        <li>1) 使用 title 作为渲染函数，函数参数为：{'title({col, colIndex})'}</li>
-        <li>
-          2)【不推荐使用】使用 render 作为渲染函数，函数参数为：{'render({col, colIndex, row, rowIndex, type})'}
-          ，单元格的 type 值为 cell，标题的 type 值为 title
-        </li>
-      </ul>
-      <br />
       <Table bordered data={data} columns={columns} rowKey="type" />
     </div>
   );

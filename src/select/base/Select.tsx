@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Ref, useMemo } from 'react';
+import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
@@ -80,6 +80,8 @@ const Select = forwardRefWithStatics(
       tagInputProps,
       tagProps,
     } = props;
+
+    const selectPopupRef = useRef();
 
     const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
     const { classPrefix } = useConfig();
@@ -173,11 +175,13 @@ const Select = forwardRefWithStatics(
         event.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         onChange(values, context);
+        return;
       }
 
       if (trigger === 'clear') {
         event.stopPropagation();
         onChange([], context);
+        return;
       }
 
       if (trigger === 'tag-remove') {
@@ -294,7 +298,11 @@ const Select = forwardRefWithStatics(
         panelBottomContent,
         panelTopContent,
       };
-      return <PopupContent {...popupContentProps}>{children}</PopupContent>;
+      return (
+        <PopupContent {...popupContentProps} ref={selectPopupRef}>
+          {children}
+        </PopupContent>
+      );
     };
 
     const renderValueDisplay = () => {
@@ -319,6 +327,32 @@ const Select = forwardRefWithStatics(
               })
           : null,
       [selectedLabel, collapsedItems, minCollapsedNum],
+    );
+
+    // 将第一个选中的option置于列表可见范围的最后一位
+    const updateScrollTop = useCallback(
+      (content: HTMLDivElement) => {
+        if (!selectPopupRef?.current) {
+          return;
+        }
+        const firstSelectedNode: HTMLDivElement = (selectPopupRef?.current as HTMLUListElement).querySelector(
+          `.${classPrefix}-is-selected`,
+        );
+        if (firstSelectedNode && content) {
+          const { paddingBottom } = getComputedStyle(firstSelectedNode);
+          const { marginBottom } = getComputedStyle(content);
+          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+          // 小于0时不需要特殊处理，会被设为0
+          const updateValue =
+            firstSelectedNode.offsetTop -
+            content.offsetTop -
+            (content.clientHeight - firstSelectedNode.clientHeight) +
+            elementBottomHeight;
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        }
+      },
+      [classPrefix],
     );
 
     return (
@@ -364,6 +398,7 @@ const Select = forwardRefWithStatics(
           onClear={(context) => {
             onClearValue(context);
           }}
+          updateScrollTop={updateScrollTop}
           {...selectInputProps}
         ></SelectInput>
       </div>

@@ -30,6 +30,7 @@ export interface PopupProps extends TdPopupProps, StyledProps {
   expandAnimation?: boolean;
   // 初始化popper的可定制option
   popperModifiers?: Array<{ name: string; options: Object }>;
+  updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
@@ -57,6 +58,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
     onScroll,
     expandAnimation,
     popperModifiers = [],
+    updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
 
@@ -173,6 +175,12 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
   useEffect(() => {
     popperRef.current.update?.();
   }, [content, visible, windowHeight, windowWidth]);
+
+  useEffect(() => {
+    if (visible && overlayRef) {
+      updateScrollTop?.(contentRef?.current);
+    }
+  }, [visible, overlayRef, updateScrollTop]);
 
   // 初次不渲染.
   const portal =

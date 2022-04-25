@@ -5,6 +5,46 @@ toc: false
 spline: explain
 ---
 
+## 0.32.1 `2022-04-24`
+
+### Bug Fixes
+
+* Table: 修复 jsdom 测试环境报错问题 ([#676](https://github.com/Tencent/tdesign-react/issues/676)) ([af7a35b](https://github.com/Tencent/tdesign-react/commit/af7a35b3ee917bdc36634d71712174e0074c61e2)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复 ts 问题 ([0e278a1](https://github.com/Tencent/tdesign-react/commit/0e278a179dae4b0b6b36b10ce026dab3a4dcb7eb)) [@pengYYYYY](https://github.com/pengYYYYY)
+
+
+### Features
+
+* Select: 列表选择体验优化 ([#659](https://github.com/Tencent/tdesign-react/issues/659)) ([3a792bd](https://github.com/Tencent/tdesign-react/commit/3a792bddc9d9226016f282a2af6fd7e8eb715e73)) [@smilebuz](https://github.com/smilebuz)
+
+
+## 0.32.0 `2022-04-22`
+
+### BREAKING CHANGES
+
+* Table: 重构 `table` 组件, 样式结构有所变动 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+
+### Bug Fixes
+
+* Select:
+  * 修复多选+可搜索条件下输入问题 ([91c4025](https://github.com/Tencent/tdesign-react/commit/91c40258712ffac4abb00fdf8805028bc061200b)) [@samhou1988](https://github.com/samhou1988)
+  * 修复 `multiple` 模式删除问题 ([dedb2ee](https://github.com/Tencent/tdesign-react/commit/dedb2eebc8d6db4cb422635a526f1729f1f9ab87)), closes [#654](https://github.com/Tencent/tdesign-react/issues/654) [@joriewong](https://github.com/joriewong)
+* Progress: 修复 `trackColor` 默认值导致背景色显示错误问题 ([faff9ad](https://github.com/Tencent/tdesign-react/commit/faff9add954cb3cd2078de33dd8e592ef17bee9d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复 `destroyOnClose` 为 true 时 visible 失效问题 ([d8721cb](https://github.com/Tencent/tdesign-react/commit/d8721cb0c01d4c24bebfe076b9283a98c3c33f72)) [@psaren](https://github.com/psaren)
+* Layout: 修复 ts 类型警告 ([26e1ee3](https://github.com/Tencent/tdesign-react/commit/26e1ee33fc54dbd3a504e4889db7cafbacc97972)) [@HQ-Lin](https://github.com/HQ-Lin)
+* table: 修复 pagination 数据同步问题 ([77d692e](https://github.com/Tencent/tdesign-react/commit/77d692e0db136b9299e85ce3f1ce955a3ea14e39)) [@uyarn](https://github.com/uyarn)
+
+
+### Features
+
+* Card: 新增 `Card` 组件 ([9c66dc3](https://github.com/Tencent/tdesign-react/commit/9c66dc36c351d80e22926fe2d4ff56783cda334d)) [@weikee94](https://github.com/weikee94)
+* ColorPicker: 新增 `ColorPicker` 组件 ([920263a](https://github.com/Tencent/tdesign-react/commit/920263af9c5ec3671f214182f26b6fc7ce0528b8)) [insekkei](https://github.com/insekkei) [@carolin913](https://github.com/carolin913)
+* Table: 重构 `table` 组件, 支持表头吸顶、简易列拖拽排序、自定义列配置、懒加载、自定义展开图标及树形结构 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+  
+* Divider: 优化文本模式在竖型模式下样式问题 ([#662](https://github.com/Tencent/tdesign-react/issues/662)) ([213c67d](https://github.com/Tencent/tdesign-react/commit/213c67d9107960e02dff6baf8861770a8a822272)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+
 ## 0.31.1 `2022-04-18`
 
 ### Bug Fixes
@@ -18,7 +58,7 @@ spline: explain
 
 ### Features
 
-* Icon: 升级 icon 版本 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
+* Icon: 升级 Icon 包版本，支持React 18 + 的使用 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
 
 
 

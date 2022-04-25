@@ -1,14 +1,21 @@
-import _SimpleTable, { BaseTableProps } from './base/Table';
-import _PrimaryTable, { PrimaryTableProps } from './primary/Table';
-import _EnhancedTable from './enhanced/Table';
+import _BaseTable from './BaseTable';
+import _PrimaryTable from './PrimaryTable';
+import _EnhancedTable from './EnhancedTable';
 
 import './style/index.js';
 
-export type { BaseTableProps, PrimaryTableProps };
 export * from './type';
+export * from './interface';
 
-export const SimpleTable = _SimpleTable;
-export const Table = _PrimaryTable;
+/**
+ * @deprecated
+ * @description SimpleTable is going to be deprecated, use BaseTable instead.
+ */
+export const SimpleTable = _BaseTable;
+
+export const BaseTable = _BaseTable;
+export const PrimaryTable = _PrimaryTable;
+export const Table = PrimaryTable;
 export const EnhancedTable = _EnhancedTable;
 
 export default Table;
