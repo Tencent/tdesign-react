@@ -100,7 +100,7 @@ exports[`align.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -137,7 +137,7 @@ exports[`align.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -184,7 +184,7 @@ exports[`base.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -251,7 +251,7 @@ exports[`base.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -315,7 +315,7 @@ exports[`base.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -397,7 +397,7 @@ exports[`base.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -435,7 +435,7 @@ exports[`base.jsx 1`] = `
           </button>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -486,7 +486,7 @@ exports[`base.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -584,7 +584,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         >
           这是用户名字段帮助说明
         </div>
@@ -623,7 +623,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         >
           一句话介绍自己
         </div>
@@ -685,7 +685,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -722,7 +722,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -786,7 +786,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -886,7 +886,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -954,7 +954,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -991,7 +991,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -1028,7 +1028,7 @@ exports[`clear-validate.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -1131,7 +1131,7 @@ exports[`custom-validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1168,7 +1168,7 @@ exports[`custom-validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1205,7 +1205,7 @@ exports[`custom-validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1349,7 +1349,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1418,7 +1418,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1482,7 +1482,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1538,7 +1538,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1606,7 +1606,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1640,7 +1640,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1679,7 +1679,7 @@ exports[`disabled.jsx 1`] = `
             </button>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1745,7 +1745,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1830,7 +1830,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1872,7 +1872,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -1978,7 +1978,7 @@ exports[`disabled.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2127,7 +2127,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             这是用户名字段帮助说明
           </div>
@@ -2166,7 +2166,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             一句话介绍自己
           </div>
@@ -2228,7 +2228,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2265,7 +2265,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2329,7 +2329,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2429,7 +2429,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2497,7 +2497,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2534,7 +2534,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2571,7 +2571,7 @@ exports[`error-message.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2775,7 +2775,7 @@ exports[`layout.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2811,7 +2811,7 @@ exports[`layout.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2869,7 +2869,7 @@ exports[`login.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -2942,7 +2942,7 @@ exports[`login.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3069,7 +3069,7 @@ exports[`reset.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3106,7 +3106,7 @@ exports[`reset.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3189,7 +3189,7 @@ exports[`reset.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3320,7 +3320,7 @@ exports[`size.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3357,7 +3357,7 @@ exports[`size.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3393,7 +3393,7 @@ exports[`size.jsx 1`] = `
             </button>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3457,7 +3457,7 @@ exports[`size.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3539,7 +3539,7 @@ exports[`size.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -3666,7 +3666,7 @@ exports[`validate-complicated-data.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -3780,7 +3780,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -3845,7 +3845,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -4000,7 +4000,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -4080,7 +4080,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -4145,7 +4145,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -4299,7 +4299,7 @@ exports[`validate-complicated-data.jsx 1`] = `
                   </div>
                 </div>
                 <div
-                  class="t-input__extra"
+                  class="t-input__help"
                 />
               </div>
             </div>
@@ -4484,7 +4484,7 @@ exports[`validate-message.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-input__extra"
+          class="t-input__help"
         />
       </div>
     </div>
@@ -4576,7 +4576,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             这里请填写用户名
           </div>
@@ -4615,7 +4615,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             这里请填写密码
           </div>
@@ -4654,7 +4654,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -4718,7 +4718,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -4818,7 +4818,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -4855,7 +4855,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -4892,7 +4892,7 @@ exports[`validator.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -4974,7 +4974,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             校验不通过，请输入正确内容
           </div>
@@ -5013,7 +5013,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -5050,7 +5050,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -5087,7 +5087,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -5124,7 +5124,7 @@ exports[`validator-status.jsx 1`] = `
             </div>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -5189,7 +5189,7 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           />
         </div>
       </div>
@@ -5250,7 +5250,7 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             自定义新增icon
           </div>
@@ -5313,7 +5313,7 @@ exports[`validator-status.jsx 1`] = `
             </span>
           </div>
           <div
-            class="t-input__extra"
+            class="t-input__help"
           >
             自定义帮助icon
           </div>
