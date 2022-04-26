@@ -94,8 +94,6 @@ export default function TableBasic() {
         defaultPageSize: 5,
         total,
         showJumper: true,
-        showSizer: true,
-        visibleWithOnePage: true,
         onChange(pageInfo) {
           console.log(pageInfo, 'onChange pageInfo');
         },

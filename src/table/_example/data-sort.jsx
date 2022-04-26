@@ -57,7 +57,7 @@ export default function TableSingleSort() {
         rowKey="id"
         data={data}
         columns={columns}
-        sortInfo={sortInfo}
+        sort={sortInfo}
         multipleSort={multipleSort}
         onSortChange={onSortChange}
       />

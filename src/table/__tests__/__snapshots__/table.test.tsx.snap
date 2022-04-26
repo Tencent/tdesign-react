@@ -2715,7 +2715,7 @@ exports[`data-sort.jsx 1`] = `
                             class="t-popup__reference t-table-sort-desc"
                           >
                             <span
-                              class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
+                              class="t-table__sort-icon--active t-table__sort-icon t-table-sort-desc"
                             >
                               <svg
                                 class="t-icon t-icon-chevron-down"
