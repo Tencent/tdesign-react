@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useMemo, forwardRef } from 'react';
 import classNames from 'classnames';
-import {
-  ChevronLeftIcon,
-  EllipsisIcon,
-  ChevronLeftDoubleIcon,
-  ChevronRightIcon,
-  ChevronRightDoubleIcon,
-} from 'tdesign-icons-react';
+import { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
 import Select from '../select';
 import InputNumber from '../input-number';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+
+import useBoundaryJumper from './hooks/useBoundaryJumper';
+import usePrevNextJumper from './hooks/usePrevNextJumper';
 
 import { TdPaginationProps } from './type';
 import { StyledProps } from '../common';
@@ -24,11 +21,7 @@ export interface PaginationProps extends TdPaginationProps, StyledProps {}
 
 const { Option } = Select;
 
-enum KeyCode {
-  ENTER = 13,
-}
-
-const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
+const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     defaultCurrent = 1,
     current: currentFromProps,
@@ -37,6 +30,8 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     total = 0,
     defaultPageSize = 10,
     pageSize: pageSizeFromProps,
+    showPreviousAndNextBtn = true,
+    showFirstAndLastPageBtn = false,
     showJumper = false,
     disabled = false,
     foldedMaxPageBtn = 5,
@@ -46,27 +41,28 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     onChange = noop,
     onCurrentChange,
     onPageSizeChange,
-    style = {},
+    style,
+    className,
+    ...otherProps
   } = props;
 
   const [locale, t] = useLocaleReceiver('pagination');
 
   const [pageSize, setPageSize] = useDefault(pageSizeFromProps, defaultPageSize, onPageSizeChange);
   const [current, setCurrent] = useDefault(currentFromProps, defaultCurrent, onCurrentChange);
+  const [jumpValue, setJumpValue] = useState(current);
 
-  const [pageCount, setPageCount] = useState(1);
   const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
   const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
-  const simpleInputRef = useRef<HTMLInputElement>(null);
 
   const min = 1;
   const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-pagination`; // t-pagination
 
-  useEffect(() => {
+  const pageCount = useMemo<number>(() => {
     const calCount = Math.ceil(total / pageSize);
-    setPageCount(calCount > 0 ? calCount : 1);
+    return calCount > 0 ? calCount : 1;
   }, [pageSize, total]);
 
   // 计算pageList的逻辑，用memo避免每次重复计算的消耗
@@ -97,28 +93,24 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   }, [current, pageCount, foldedMaxPageBtn, maxPageBtn, pivot]);
 
   // 处理改变当前页的逻辑
-  const changeCurrent = (nextCurrent: number, nextPageSize?: number) => {
+  const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
+    if (disabled) return;
+
+    let nextCurrent = _nextCurrent;
+    let nextPageSize = _nextPageSize;
+
     if (!nextPageSize && !pageSizeValidator(nextPageSize)) {
-      // eslint-disable-next-line
       nextPageSize =
         pageSize ?? (typeof pageSizeOptions[0] === 'number' ? pageSizeOptions[0] : pageSizeOptions[0]?.value);
     }
 
-    if (disabled) return;
-    if (pageCount < nextCurrent) {
-      setCurrent(pageCount, { current: pageCount, previous: current, pageSize: nextPageSize });
-      return;
-    }
-    if (nextCurrent < min) {
-      setCurrent(min, { current: min, previous: current, pageSize: nextPageSize });
+    // 边界处理
+    if (nextCurrent < min) nextCurrent = min;
+    if (nextCurrent > pageCount) nextCurrent = pageCount;
 
-      return;
-    }
     setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize: nextPageSize });
+    setJumpValue(nextCurrent);
 
-    if (simpleInputRef.current) {
-      simpleInputRef.current.value = String(nextCurrent);
-    }
     onChange({
       current: nextCurrent,
       previous: current,
@@ -155,16 +147,6 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     });
   };
 
-  const onPageInputChange = (value: number) => {
-    setCurrent(value, { current: value, previous: current, pageSize });
-  };
-
-  const onPageInputKeyUp = (value: number, context: { e: React.KeyboardEvent<HTMLDivElement> }) => {
-    const { e } = context;
-    if (e.keyCode !== KeyCode.ENTER) return;
-    changeCurrent(value);
-  };
-
   // 渲染total相关逻辑
   const renderTotalContent = () => {
     if (typeof totalContent === 'boolean') {
@@ -177,6 +159,42 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       return totalContent(total, [start + min, end]);
     }
   };
+
+  const { firstPageJumper, lastPageJumper } = useBoundaryJumper({
+    disabled,
+    current,
+    pageCount,
+    showFirstAndLastPageBtn,
+    changeCurrent,
+  });
+
+  const { prevJumper, nextJumper } = usePrevNextJumper({
+    disabled,
+    current,
+    pageCount,
+    showPreviousAndNextBtn,
+    changeCurrent,
+  });
+
+  const Jumper = showJumper && (
+    <div className={`${name}__jump`}>
+      {t(locale.jumpTo)}
+      <InputNumber
+        className={`${classPrefix}-pagination__input`}
+        min={min}
+        size={size}
+        theme="normal"
+        max={pageCount}
+        disabled={disabled}
+        value={jumpValue}
+        onChange={(val) => setJumpValue(val)}
+        onBlur={(val) => changeCurrent(val)}
+        onEnter={(val) => changeCurrent(val)}
+        placeholder=""
+      />
+      {t(locale.page)}
+    </div>
+  );
 
   const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
@@ -251,42 +269,30 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   return (
     <div
-      className={classNames(name, {
+      className={classNames(name, className, {
         [`${classPrefix}-size-s`]: size === 'small',
+        [`${classPrefix}-is-disabled`]: disabled,
       })}
+      style={style}
+      ref={ref}
+      {...otherProps}
     >
       {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
       {pageSizeOptions instanceof Array && pageSizeOptions.length ? (
         <div className={`${name}__select`}>
-          <Select
-            autoWidth={true}
-            size={size}
-            value={pageSize}
-            disabled={disabled}
-            onChange={changePageSize}
-            style={{ ...style }}
-          >
-            {pageSizeOptions.map(
-              // eslint-disable-next-line no-confusing-arrow
-              (item) =>
-                // eslint-disable-next-line implicit-arrow-linebreak
-                typeof item === 'number' ? (
-                  <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
-                ) : (
-                  <Option key={item.value} label={item.label} value={item.value} />
-                ),
+          <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+            {pageSizeOptions.map((item) =>
+              typeof item === 'number' ? (
+                <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
+              ) : (
+                <Option key={item.value} label={item.label} value={item.value} />
+              ),
             )}
           </Select>
         </div>
       ) : null}
-      <div
-        className={classNames(`${name}__btn`, `${name}__btn-prev`, {
-          [`${classPrefix}-is-disabled`]: disabled || current === min,
-        })}
-        onClick={() => changeCurrent(current - 1)}
-      >
-        <ChevronLeftIcon />
-      </div>
+      {firstPageJumper}
+      {prevJumper}
       {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns}</ul>}
       {/* 极简版 */}
       {theme === 'simple' && (
@@ -303,32 +309,13 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
           </Select>
         </div>
       )}
-      <div
-        className={classNames(`${name}__btn`, `${name}__btn-next`, {
-          [`${classPrefix}-is-disabled`]: disabled || current === pageCount,
-        })}
-        onClick={() => changeCurrent(current + 1)}
-      >
-        <ChevronRightIcon />
-      </div>
-      {showJumper && (
-        <div className={`${name}__jump`}>
-          {t(locale.jumpTo)}
-          <InputNumber
-            className={`${classPrefix}-pagination__input`}
-            min={min}
-            theme="normal"
-            max={pageCount}
-            disabled={disabled}
-            onChange={onPageInputChange}
-            onKeyup={onPageInputKeyUp}
-            placeholder=""
-          />
-          {t(locale.page)}
-        </div>
-      )}
+      {nextJumper}
+      {lastPageJumper}
+      {Jumper}
     </div>
   );
-};
+});
+
+Pagination.displayName = 'Pagination';
 
 export default Pagination;

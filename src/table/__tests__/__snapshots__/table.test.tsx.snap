@@ -936,7 +936,7 @@ exports[`base.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     placeholder=""
-                    value=""
+                    value="2"
                   />
                 </div>
               </div>
@@ -4981,7 +4981,7 @@ exports[`filter-controlled.jsx 1`] = `
                   <input
                     class="t-input__inner"
                     placeholder=""
-                    value=""
+                    value="1"
                   />
                 </div>
               </div>
@@ -18357,7 +18357,7 @@ exports[`pagination.jsx 1`] = `
                 <input
                   class="t-input__inner"
                   placeholder=""
-                  value=""
+                  value="2"
                 />
               </div>
             </div>
@@ -18603,7 +18603,7 @@ exports[`pagination-ajax.jsx 1`] = `
                 <input
                   class="t-input__inner"
                   placeholder=""
-                  value=""
+                  value="1"
                 />
               </div>
             </div>
