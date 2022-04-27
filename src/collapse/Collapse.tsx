@@ -39,7 +39,7 @@ const Collapse = (props: CollapseProps) => {
     setCollapseValue(newValue);
   };
 
-  const classes = () => [
+  const classes = [
     componentName,
     {
       [borderlessClass]: !!borderless,
@@ -74,7 +74,7 @@ const Collapse = (props: CollapseProps) => {
         collapseValue,
       }}
     >
-      <div className={classnames(classes())} style={style}>
+      <div className={classnames(classes)} style={style}>
         {collapsePanelList()}
       </div>
     </CollapseContext.Provider>

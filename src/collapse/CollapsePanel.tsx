@@ -59,7 +59,10 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   );
 
   const renderIcon = (direction: string) => (
-    <FakeArrow isActive={isActive} overlayClassName={`${componentName}__icon ${componentName}__icon--${direction}`} />
+    <FakeArrow
+      isActive={isActive}
+      overlayClassName={classnames(`${componentName}__icon`, `${componentName}__icon--${direction}`)}
+    />
   );
 
   const handleClick = (e) => {
