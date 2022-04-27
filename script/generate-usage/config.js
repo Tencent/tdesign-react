@@ -702,14 +702,21 @@ module.exports = {
       const panelList = [{ label: 'progress', value: 'progress' }];
     `,
     usageStr: `
-      const defaultProps = { percentage: 50 };
+      const [percent, setPercent] = useState(0);
+      const defaultProps = { percentage: percent };
+
+      useEffect(() => {
+        const timer = setInterval(() => setPercent((percent) => (percent % 100) + 10), 1000);
+        return () => clearInterval(timer);
+      }, []);
+
       useEffect(() => {
         setRenderComp((
           <div style={{ width: 200 }}>
             <Progress {...defaultProps} {...changedProps} />
           </div>
         ));
-      }, [changedProps]);
+      }, [changedProps, percent]);
     `,
   },
   swiper: {
