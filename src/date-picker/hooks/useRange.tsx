@@ -11,7 +11,7 @@ import useFormat from './useFormat';
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
 // 初始化面板年份月份
-function initYearMonthTime(value: DateValue[], mode = 'month', timeFormat = 'HH:mm:ss') {
+function initYearMonthTime(value: DateValue[], mode = 'date', format: string, timeFormat = 'HH:mm:ss') {
   const defaultYearMonthTime = {
     year: [dayjs().year(), dayjs().year()],
     month: [dayjs().month(), dayjs().month()],
@@ -30,9 +30,9 @@ function initYearMonthTime(value: DateValue[], mode = 'month', timeFormat = 'HH:
   }
 
   return {
-    year: value.map((v) => dayjs(v).year() || dayjs().year()),
-    month: value.map((v) => dayjs(v).month() || dayjs().month()),
-    time: value.map((v) => dayjs(v).format(timeFormat)),
+    year: value.map((v) => dayjs(v, format).year()),
+    month: value.map((v) => dayjs(v, format).month()),
+    time: value.map((v) => dayjs(v, format).format(timeFormat)),
   };
 }
 
@@ -61,7 +61,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   } = props;
 
   const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
-  const { isValidDate, timeFormat, formatDate, formatTime } = useFormat({
+  const { format, isValidDate, timeFormat, formatDate, formatTime } = useFormat({
     mode,
     value,
     format: props.format,
@@ -80,9 +80,9 @@ export default function useRange(props: TdDateRangePickerProps) {
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
-  const [timeValue, setTimeValue] = useState(initYearMonthTime(value, mode, timeFormat).time);
-  const [month, setMonth] = useState<Array<number>>(initYearMonthTime(value, mode).month);
-  const [year, setYear] = useState<Array<number>>(initYearMonthTime(value, mode).year);
+  const [timeValue, setTimeValue] = useState(initYearMonthTime(value, mode, format, timeFormat).time);
+  const [month, setMonth] = useState<Array<number>>(initYearMonthTime(value, mode, format).month);
+  const [year, setYear] = useState<Array<number>>(initYearMonthTime(value, mode, format).year);
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(formatDate(value));
   // 选择阶段预选状态

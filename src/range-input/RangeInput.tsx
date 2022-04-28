@@ -89,7 +89,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   const [value, onChange] = useDefault(valueFromProps, defaultValue, onChangeFromProps);
   const [firstValue, secondValue] = value || [];
 
-  const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
+  const isShowClearIcon = ((clearable && value?.length && !disabled) || showClearIconOnEmpty) && isHover;
   let suffixIconNew = suffixIcon;
 
   if (isShowClearIcon) {

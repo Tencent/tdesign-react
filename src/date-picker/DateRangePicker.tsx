@@ -68,6 +68,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
+      setIsFirstValueSelected(false);
       setCacheValue(formatDate(value || []));
       setTimeValue(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
     }
@@ -102,29 +103,20 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // date 模式自动切换年月
     if (mode === 'date') {
-      year[activeIndex] = dayjs(date).year();
-      month[activeIndex] = dayjs(date).month();
-      if (activeIndex === 1) {
-        if (month[0] >= month[1]) {
-          month[0] = dayjs(date).subtract(1, 'month').month();
-          // 面板联动边界处理
-          if (month[0] === 11) {
-            year[0] = dayjs(date).subtract(1, 'year').year();
-          }
-        }
-      } else if (month[0] >= month[1]) {
-        month[1] = dayjs(date).add(1, 'month').month();
-        // 面板联动边界处理
-        if (month[1] === 0) {
-          year[1] = dayjs(date).add(1, 'year').year();
-        }
+      // 选择了不属于面板中展示月份的日期
+      const partialIndex = partial === 'start' ? 0 : 1;
+      const isAdditional = dayjs(date).month() !== month[partialIndex];
+      if (isAdditional) {
+        // 保证左侧时间小于右侧
+        if (activeIndex === 0) setMonth([dayjs(date).month(), Math.min(dayjs(date).month() + 1, 11)]);
+        if (activeIndex === 1) setMonth([Math.max(dayjs(date).month() - 1, 0), dayjs(date).month()]);
       }
-      setYear([...year]);
-      setMonth([...month]);
     }
 
+    // 有时间选择器走 confirm 逻辑
     if (enableTimePicker) return;
 
+    // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v));
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
@@ -135,14 +127,14 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       );
       setIsFirstValueSelected(false);
       setPopupVisible(false);
+    } else if (notValidIndex !== -1) {
+      setActiveIndex(notValidIndex);
     } else {
-      setIsFirstValueSelected(true);
-      if (notValidIndex !== -1) {
-        setActiveIndex(notValidIndex);
-      } else {
-        setActiveIndex(activeIndex ? 0 : 1);
-      }
+      setActiveIndex(activeIndex ? 0 : 1);
     }
+
+    // 记录选中一次
+    setIsFirstValueSelected(true);
   }
 
   // 头部快速切换
@@ -167,22 +159,37 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     const nextMonth = [...month];
     nextMonth[partialIndex] = next.getMonth();
 
+    // 保证左侧时间不大于右侧
+    if (partialIndex === 0) {
+      nextYear[1] = Math.max(nextYear[0], nextYear[1]);
+
+      if (nextYear[0] === nextYear[1]) {
+        nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
+      }
+    }
+
+    // 保证左侧时间不大于右侧
+    if (partialIndex === 1) {
+      nextYear[0] = Math.min(nextYear[0], nextYear[1]);
+
+      if (nextYear[0] === nextYear[1]) {
+        nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+      }
+    }
+
     setYear(nextYear);
     setMonth(nextMonth);
   }
 
   // time-picker 点击
   function onTimePickerChange(val: string) {
-    const nextTimeValue = [...timeValue];
-    nextTimeValue[activeIndex] = val;
-    setTimeValue(nextTimeValue);
-    setIsSelected(true);
-
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
 
     const nextInputValue = [...inputValue];
     const changedInputValue = inputValue[activeIndex];
-    const currentDate = !dayjs(changedInputValue, format).isValid() ? dayjs() : dayjs(changedInputValue, format);
+    const currentDate = !dayjs(changedInputValue, format).isValid()
+      ? dayjs().year(year[activeIndex]).month(month[activeIndex])
+      : dayjs(changedInputValue, format);
     // am pm 12小时制转化 24小时制
     let nextHours = hours;
     if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
@@ -190,7 +197,14 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     nextInputValue[activeIndex] = nextDate;
+
+    const nextTimeValue = [...timeValue];
+    nextTimeValue[activeIndex] = val;
+    setTimeValue(nextTimeValue);
+
+    setIsSelected(true);
     setInputValue(formatDate(nextInputValue));
+    setCacheValue(formatDate(nextInputValue));
   }
 
   // 确定
@@ -205,17 +219,17 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         formatDate(nextValue, 'valueType'),
         nextValue.map((v) => dayjs(v)),
       );
-      setIsFirstValueSelected(false);
+      setYear(nextValue.map((v) => dayjs(v, format).year()));
+      setMonth(nextValue.map((v) => dayjs(v, format).month()));
       setPopupVisible(false);
+    } else if (notValidIndex !== -1) {
+      setActiveIndex(notValidIndex);
     } else {
-      setIsSelected(false);
-      setIsFirstValueSelected(true);
-      if (notValidIndex !== -1) {
-        setActiveIndex(notValidIndex);
-      } else {
-        setActiveIndex(activeIndex ? 0 : 1);
-      }
+      setActiveIndex(activeIndex ? 0 : 1);
     }
+
+    // 记录选中一次
+    setIsFirstValueSelected(true);
   }
 
   // 预设
@@ -241,6 +255,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const nextYear = [...year];
     nextYear[partialIndex] = nextVal;
+    // 保证左侧时间不大于右侧
+    if (partialIndex === 0) nextYear[1] = Math.max(nextYear[0], nextYear[1]);
+    if (partialIndex === 1) nextYear[0] = Math.min(nextYear[0], nextYear[1]);
 
     setYear(nextYear);
   }
@@ -251,6 +268,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     const nextMonth = [...month];
     nextMonth[partialIndex] = nextVal;
+    // 保证左侧时间不大于右侧
+    if (year[0] === year[1]) {
+      if (partialIndex === 0) nextMonth[1] = Math.max(nextMonth[0], nextMonth[1]);
+      if (partialIndex === 1) nextMonth[0] = Math.min(nextMonth[0], nextMonth[1]);
+    }
 
     setMonth(nextMonth);
   }
@@ -258,6 +280,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   const panelProps = {
     hoverValue: isHoverCell ? inputValue : [],
     value: isSelected ? cacheValue : value,
+    isFirstValueSelected,
     year,
     month,
     mode,

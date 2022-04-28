@@ -1,6 +1,6 @@
 import React, { useState, Ref, useEffect } from 'react';
-import dayjs from 'dayjs';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon } from 'tdesign-icons-react';
 
@@ -13,7 +13,7 @@ import SelectInput from '../select-input';
 import TimeRangePicker from './TimeRangePicker';
 import TimePickerPanel from './panel/TimePickerPanel';
 
-import { useTimePickerTextConfig } from './const';
+import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 
 import { StyledProps } from '../common';
 import { TdTimePickerProps } from './type';
@@ -82,6 +82,12 @@ const TimePicker = forwardRefWithStatics(
       onBlur({ value, e });
     };
 
+    const handleClickConfirm = () => {
+      const isValidTime = validateInputValue(currentValue, format);
+      if (isValidTime) onChange(currentValue);
+      setPanelShow(false);
+    };
+
     useEffect(() => {
       setCurrentValue(isPanelShowed ? value ?? '' : '');
     }, [isPanelShowed, value]);
@@ -103,6 +109,8 @@ const TimePicker = forwardRefWithStatics(
           placeholder={!value ? placeholder : undefined}
           value={isPanelShowed ? currentValue : value ?? undefined}
           inputValue={isPanelShowed ? currentValue : value ?? undefined}
+          inputProps={props.inputProps}
+          popupProps={props.popupProps}
           panel={
             <TimePickerPanel
               steps={steps}
@@ -112,10 +120,7 @@ const TimePicker = forwardRefWithStatics(
               disableTime={disableTime}
               onChange={setCurrentValue}
               hideDisabledTime={hideDisabledTime}
-              handleConfirmClick={() => {
-                onChange(currentValue);
-                setPanelShow(false);
-              }}
+              handleConfirmClick={handleClickConfirm}
             />
           }
         />

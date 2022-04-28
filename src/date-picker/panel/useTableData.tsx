@@ -1,5 +1,4 @@
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../_util/useConfig';
 import { getWeeks, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils-new';
 import type { DatePanelProps } from './DatePanel';
 
@@ -18,7 +17,6 @@ export default function useTableData(props: TableDataProps) {
   const [local, t] = useLocaleReceiver('datePicker');
   const monthLocal: string[] = t(local.months);
 
-  const { datePicker: globalDatePickerConfig } = useConfig();
   const {
     start,
     end,
@@ -27,7 +25,7 @@ export default function useTableData(props: TableDataProps) {
     year,
     month,
     mode,
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
+    firstDayOfWeek,
     disableDate,
     minDate,
     maxDate,

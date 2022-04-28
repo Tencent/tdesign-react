@@ -4,5 +4,13 @@ import { TimePicker } from 'tdesign-react';
 const { TimeRangePicker } = TimePicker;
 
 export default function RangeTimePicker() {
-  return <TimeRangePicker clearable format="HH:mm:ss" defaultValue={['12:00:00', '12:00:01']} />;
+  return (
+    <TimeRangePicker
+      clearable
+      format="HH:mm:ss"
+      defaultValue={undefined}
+      allowInput
+      placeholder={['开始时间', '结束时间']}
+    />
+  );
 }

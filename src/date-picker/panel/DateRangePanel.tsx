@@ -13,6 +13,7 @@ import useDisableDate from '../hooks/useDisableDate';
 export interface DateRangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
   activeIndex?: number;
+  isFirstValueSelected?: boolean;
   year?: number[];
   month?: number[];
   timeValue?: string[];
@@ -44,6 +45,7 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     presetsPlacement,
     disableDate: disableDateFromProps,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
+    isFirstValueSelected,
 
     style,
     className,
@@ -56,7 +58,13 @@ const DateRangePanel = (props: DateRangePanelProps) => {
     onPresetClick,
   } = props;
 
-  const disableDateOptions = useDisableDate({ disableDate: disableDateFromProps, mode, format });
+  const disableDateOptions = useDisableDate({
+    disableDate: disableDateFromProps,
+    mode,
+    format,
+    start: isFirstValueSelected && activeIndex === 1 ? dayjs(value[0]).toDate() : undefined,
+    end: isFirstValueSelected && activeIndex === 0 ? dayjs(value[1]).toDate() : undefined,
+  });
 
   const [startYear, endYear] = year;
   const [startMonth, endMonth] = month;

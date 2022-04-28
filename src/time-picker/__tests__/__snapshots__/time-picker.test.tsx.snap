@@ -2,6 +2,10 @@
 
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
+  <h3>
+    禁用整个选择器
+  </h3>
+  <br />
   <div
     class="t-time-picker"
   >
@@ -20,6 +24,59 @@ exports[`disabled.jsx 1`] = `
           <input
             class="t-input__inner"
             disabled=""
+            placeholder="请选择时间"
+            readonly=""
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-icon t-icon-time"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M7.5 4v4.39L10 11l.7-.7-2.2-2.33V4h-1z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+              <path
+                d="M15 8A7 7 0 111 8a7 7 0 0114 0zm-1 0A6 6 0 102 8a6 6 0 0012 0z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <h3>
+    禁用指定时间
+  </h3>
+  <br />
+  <div
+    class="t-time-picker"
+  >
+    <div
+      class="t-popup__reference t-time-picker__group t-select-input t-select-input--empty"
+    >
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
             placeholder="请选择时间"
             readonly=""
             value=""
@@ -1096,13 +1153,12 @@ exports[`range.jsx 1`] = `
               class="t-range-input__inner-left t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly"
+                class="t-input"
               >
                 <input
                   class="t-input__inner"
-                  placeholder="请输入内容"
-                  readonly=""
-                  value="12:00:00"
+                  placeholder="开始时间"
+                  value=""
                 />
               </div>
             </div>
@@ -1115,13 +1171,12 @@ exports[`range.jsx 1`] = `
               class="t-range-input__inner-right t-input__wrap"
             >
               <div
-                class="t-input t-is-readonly"
+                class="t-input"
               >
                 <input
                   class="t-input__inner"
-                  placeholder="请输入内容"
-                  readonly=""
-                  value="12:00:01"
+                  placeholder="结束时间"
+                  value=""
                 />
               </div>
             </div>

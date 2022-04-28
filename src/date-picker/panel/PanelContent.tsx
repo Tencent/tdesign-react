@@ -30,7 +30,7 @@ export interface PanelContentProps {
 }
 
 export default function PanelContent(props: PanelContentProps) {
-  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { classPrefix } = useConfig();
   const panelName = `${classPrefix}-date-picker__panel`;
 
   const {
@@ -40,7 +40,7 @@ export default function PanelContent(props: PanelContentProps) {
     format,
     enableTimePicker,
     timePickerProps,
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
+    firstDayOfWeek,
 
     partial = 'start',
     timeValue,
