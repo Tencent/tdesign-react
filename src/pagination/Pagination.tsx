@@ -1,6 +1,5 @@
 import React, { useState, useMemo, forwardRef } from 'react';
 import classNames from 'classnames';
-import { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useDefault from '../_util/useDefault';
@@ -10,6 +9,8 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import useBoundaryJumper from './hooks/useBoundaryJumper';
 import usePrevNextJumper from './hooks/usePrevNextJumper';
+import usePageNumber from './hooks/usePageNumber';
+import useTotal from './hooks/useTotal';
 
 import { TdPaginationProps } from './type';
 import { StyledProps } from '../common';
@@ -30,6 +31,8 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     total = 0,
     defaultPageSize = 10,
     pageSize: pageSizeFromProps,
+    showPageSize = true,
+    showPageNumber = true,
     showPreviousAndNextBtn = true,
     showFirstAndLastPageBtn = false,
     showJumper = false,
@@ -52,11 +55,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
   const [current, setCurrent] = useDefault(currentFromProps, defaultCurrent, onCurrentChange);
   const [jumpValue, setJumpValue] = useState(current);
 
-  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
-  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
-
   const min = 1;
-  const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-pagination`; // t-pagination
 
@@ -64,33 +63,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     const calCount = Math.ceil(total / pageSize);
     return calCount > 0 ? calCount : 1;
   }, [pageSize, total]);
-
-  // 计算pageList的逻辑，用memo避免每次重复计算的消耗
-  const pageList = useMemo<Array<number>>(() => {
-    const isPrevMoreShow = 2 + pivot < current;
-    const isNextMoreShow = pageCount - 1 - pivot > current;
-    const array: Array<number> = [];
-    let start: number;
-    let end: number;
-
-    if (pageCount > maxPageBtn) {
-      if (isPrevMoreShow && isNextMoreShow) {
-        start = current - pivot;
-        end = current + pivot;
-      } else {
-        start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : 2;
-        end = isPrevMoreShow ? pageCount - 1 : foldedMaxPageBtn;
-      }
-    } else {
-      start = 1;
-      end = pageCount;
-    }
-
-    for (let i = start; i <= end; i++) {
-      array.push(i);
-    }
-    return array;
-  }, [current, pageCount, foldedMaxPageBtn, maxPageBtn, pivot]);
 
   // 处理改变当前页的逻辑
   const changeCurrent = (_nextCurrent: number, _nextPageSize?: number) => {
@@ -147,18 +119,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     });
   };
 
-  // 渲染total相关逻辑
-  const renderTotalContent = () => {
-    if (typeof totalContent === 'boolean') {
-      return totalContent ? t(locale.total, { total }) : null;
-    }
-    if (typeof totalContent === 'string') return totalContent;
-    if (typeof totalContent === 'function') {
-      const start = (current - min) * pageSize;
-      const end = Math.min(total, start + pageSize);
-      return totalContent(total, [start + min, end]);
-    }
-  };
+  const { totalContrl } = useTotal({ totalContent, pageSize, current, total });
 
   const { firstPageJumper, lastPageJumper } = useBoundaryJumper({
     disabled,
@@ -175,6 +136,46 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     showPreviousAndNextBtn,
     changeCurrent,
   });
+
+  const { pageNumberContrl } = usePageNumber({
+    showPageNumber,
+    maxPageBtn,
+    disabled,
+    current,
+    pageCount,
+    foldedMaxPageBtn,
+    changeCurrent,
+  });
+
+  const pageSizeContrl =
+    showPageSize && pageSizeOptions.length ? (
+      <div className={`${name}__select`}>
+        <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
+          {pageSizeOptions.map((item) =>
+            typeof item === 'number' ? (
+              <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
+            ) : (
+              <Option key={item.value} label={item.label} value={item.value} />
+            ),
+          )}
+        </Select>
+      </div>
+    ) : null;
+
+  const simplePageNumberContrl = theme === 'simple' && showPageNumber && (
+    <div className={`${name}__select`}>
+      <Select autoWidth={true} size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
+        {Array(pageCount)
+          .fill(0)
+          .map((_, i) => i + 1)
+          .map((item) => (
+            <Option key={item} label={`${item}/${pageCount}`} value={item}>
+              {item}/{pageCount}
+            </Option>
+          ))}
+      </Select>
+    </div>
+  );
 
   const Jumper = showJumper && (
     <div className={`${name}__jump`}>
@@ -196,77 +197,6 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     </div>
   );
 
-  const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
-
-  const renderPaginationBtns = (
-    <>
-      {isFolded && (
-        <>
-          <li
-            key={1}
-            className={classNames(`${name}__number`, {
-              [`${classPrefix}-is-disabled`]: disabled,
-              [`${classPrefix}-is-current`]: current === 1,
-            })}
-            onClick={() => changeCurrent(1)}
-          >
-            1
-          </li>
-          {2 + pivot < current && (
-            <li
-              className={classNames(`${name}__number`, `${name}__number--more`, {
-                [`${classPrefix}-is-disabled`]: disabled,
-              })}
-              onMouseEnter={() => toggleHoverPreMore(true)}
-              onMouseLeave={() => toggleHoverPreMore(false)}
-              onClick={() => changeCurrent(current - foldedMaxPageBtn)}
-            >
-              {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
-            </li>
-          )}
-        </>
-      )}
-      {pageList.map((item) => (
-        <li
-          key={item}
-          className={classNames(`${name}__number`, {
-            [`${classPrefix}-is-disabled`]: disabled,
-            [`${classPrefix}-is-current`]: current === item,
-          })}
-          onClick={() => changeCurrent(item)}
-        >
-          {item}
-        </li>
-      ))}
-      {isFolded && (
-        <>
-          {pageCount - 1 - pivot > current && (
-            <li
-              className={classNames(`${name}__number`, `${name}__number--more`, {
-                [`${classPrefix}-is-disabled`]: disabled,
-              })}
-              onMouseEnter={() => toggleHoverNextMore(true)}
-              onMouseLeave={() => toggleHoverNextMore(false)}
-              onClick={() => changeCurrent(current + foldedMaxPageBtn)}
-            >
-              {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}
-            </li>
-          )}
-          <li
-            key={pageCount}
-            className={classNames(`${name}__number`, {
-              [`${classPrefix}-is-disabled`]: disabled,
-              [`${classPrefix}-is-current`]: current === pageCount,
-            })}
-            onClick={() => changeCurrent(pageCount)}
-          >
-            {pageCount}
-          </li>
-        </>
-      )}
-    </>
-  );
-
   return (
     <div
       className={classNames(name, className, {
@@ -277,40 +207,23 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
       ref={ref}
       {...otherProps}
     >
-      {totalContent && <div className={`${name}__total`}>{renderTotalContent()}</div>}
-      {pageSizeOptions instanceof Array && pageSizeOptions.length ? (
-        <div className={`${name}__select`}>
-          <Select autoWidth={true} size={size} value={pageSize} disabled={disabled} onChange={changePageSize}>
-            {pageSizeOptions.map((item) =>
-              typeof item === 'number' ? (
-                <Option key={item} label={t(locale.itemsPerPage, { size: item })} value={item} />
-              ) : (
-                <Option key={item.value} label={item.label} value={item.value} />
-              ),
-            )}
-          </Select>
-        </div>
-      ) : null}
+      {/* 总数据 */}
+      {totalContrl}
+      {/* 分页器 */}
+      {pageSizeContrl}
+      {/* 首页跳转 */}
       {firstPageJumper}
+      {/* 上一页跳转 */}
       {prevJumper}
-      {theme === 'default' && <ul className={`${name}__pager`}>{renderPaginationBtns}</ul>}
+      {/* 常规版 */}
+      {theme === 'default' && pageNumberContrl}
       {/* 极简版 */}
-      {theme === 'simple' && (
-        <div className={`${name}__select`}>
-          <Select autoWidth={true} size={size} value={current} disabled={disabled} onChange={onSimpleCurrentChange}>
-            {Array(pageCount)
-              .fill(0)
-              .map((_, i) => i + 1)
-              .map((item) => (
-                <Option key={item} label={`${item}/${pageCount}`} value={item}>
-                  {item}/{pageCount}
-                </Option>
-              ))}
-          </Select>
-        </div>
-      )}
+      {theme === 'simple' && simplePageNumberContrl}
+      {/* 下一页跳转 */}
       {nextJumper}
+      {/* 尾页跳转 */}
       {lastPageJumper}
+      {/* 快速跳转 */}
       {Jumper}
     </div>
   );
