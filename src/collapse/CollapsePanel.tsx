@@ -58,13 +58,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     className,
   );
 
-  const renderIcon = (direction: string) => (
-    <FakeArrow
-      isActive={isActive}
-      overlayClassName={classnames(`${componentName}__icon`, `${componentName}__icon--${direction}`)}
-    />
-  );
-
   const handleClick = (e) => {
     const canExpand =
       (expandOnRowClick && e.target === headRef.current) || ['svg', 'path'].includes((e.target as Element).tagName);
@@ -73,6 +66,13 @@ const CollapsePanel = (props: CollapsePanelProps) => {
       updateCollapseValue(innerValue);
     }
   };
+
+  const renderIcon = (direction: string) => (
+    <FakeArrow
+      isActive={isActive}
+      overlayClassName={classnames(`${componentName}__icon`, `${componentName}__icon--${direction}`)}
+    />
+  );
 
   const renderHeader = () => {
     const cls = [
@@ -92,39 +92,50 @@ const CollapsePanel = (props: CollapsePanelProps) => {
     );
   };
 
+  const renderBody = () => {
+    const transitionHooks = {
+      onEnter: () => {
+        bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
+      },
+      onEntered: () => {
+        bodyRef.current.style.height = 'auto';
+        bodyRef.current.style['border-bottom'] = '1px solid var(--td-component-border)';
+      },
+      onExit: () => {
+        bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
+      },
+      onExiting: () => {
+        bodyRef.current.style.height = '0px';
+        bodyRef.current.style['border-bottom'] = '0px';
+      },
+    };
+    return (
+      <CSSTransition
+        in={isActive}
+        appear
+        timeout={300}
+        nodeRef={bodyRef}
+        unmountOnExit={destroyOnCollapse}
+        {...transitionHooks}
+      >
+        <div
+          style={{ height: 0, borderBottom: 0 }}
+          className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
+          ref={bodyRef}
+        >
+          <div className={`${componentName}__content`} ref={contentRef}>
+            {children}
+          </div>
+        </div>
+      </CSSTransition>
+    );
+  };
+
   return (
     <div className={classes} style={{ ...style }}>
       <div className={`${componentName}__wrapper`}>
         {renderHeader()}
-        <CSSTransition
-          in={isActive}
-          appear
-          timeout={300}
-          nodeRef={bodyRef}
-          onEnter={() => {
-            bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
-          }}
-          onEntered={() => {
-            bodyRef.current.style.height = 'auto';
-          }}
-          onExit={() => {
-            bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
-          }}
-          onExiting={() => {
-            bodyRef.current.style.height = `0px`;
-          }}
-          unmountOnExit={destroyOnCollapse}
-        >
-          <div
-            style={{ height: 0 }}
-            className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
-            ref={bodyRef}
-          >
-            <div className={`${componentName}__content`} ref={contentRef}>
-              {children}
-            </div>
-          </div>
-        </CSSTransition>
+        {renderBody()}
       </div>
     </div>
   );
