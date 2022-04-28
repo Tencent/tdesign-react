@@ -23,6 +23,8 @@ export interface StyledProps {
   className?: string;
   style?: CSSProperties;
 }
+
+export type ReactElementProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 /** 通用全局变量 */
 
 export type OptionData = {
