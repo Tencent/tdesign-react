@@ -7,7 +7,6 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-allowResizeColumnWidth | Boolean | false | 是否允许调整列宽 | N
 bordered | Boolean | false | 是否显示表格边框 | N
 bottomContent | TNode | - | 表格底部内容，可以用于自定义列设置等。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 columns | Array | [] | 列配置，泛型 T 指表格数据类型。TS 类型：`Array<BaseTableCol<T>>` | N
@@ -17,8 +16,6 @@ empty | TNode | '' | 空表格呈现样式，支持全局配置 `GlobalConfigPro
 firstFullRow | TNode | - | 首行内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 fixedRows | Array | - | 固定行（冻结行），示例：[M, N]，表示冻结表头 M 行和表尾 N 行。M 和 N 值为 0 时，表示不冻结行。TS 类型：`Array<number>` | N
 footData | Array | [] | 表尾数据源，泛型 T 指表格数据类型。TS 类型：`Array<T>` | N
-footerAffixedBottom | Boolean | false | 表尾吸底 | N
-footerAffixProps | Object | - | 表尾吸底基于 Affix 组件开发，透传全部 Affix 组件属性。TS 类型：`AffixProps` | N
 headerAffixedTop | Boolean | false | 表头吸顶 | N
 headerAffixProps | Object | - | 表头吸顶基于 Affix 组件开发，透传全部 Affix 组件属性。TS 类型：`AffixProps`，[Affix API Documents](./affix?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 height | String / Number | - | 表格高度，超出后会出现滚动条。示例：100,  '30%',  '300'。值为数字类型，会自动加上单位 px。如果不是绝对固定表格高度，建议使用 `maxHeight` | N

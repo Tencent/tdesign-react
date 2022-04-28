@@ -21,11 +21,6 @@ import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**
-   * 是否允许调整列宽
-   * @default false
-   */
-  allowResizeColumnWidth?: boolean;
-  /**
    * 是否显示表格边框
    * @default false
    */
@@ -67,15 +62,6 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * @default []
    */
   footData?: Array<T>;
-  /**
-   * 表尾吸底
-   * @default false
-   */
-  footerAffixedBottom?: boolean;
-  /**
-   * 表尾吸底基于 Affix 组件开发，透传全部 Affix 组件属性
-   */
-  footerAffixProps?: AffixProps;
   /**
    * 表头吸顶
    * @default false

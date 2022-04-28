@@ -22,7 +22,7 @@ spline: explain
 
 ### BREAKING CHANGES
 
-* Table: 重构 `table` 组件, 样式结构有所变动 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+* Table: 重构 `table` 组件, 样式结构有所变动，废弃`minWidth`，`排序功能`使用有所调整，详情请参考API和demo的写法 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
 
 ### Bug Fixes
 
