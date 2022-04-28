@@ -55,6 +55,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     onRemove,
     onDragenter,
     onDragleave,
+    onDrop,
     onPreview,
     onSelectChange,
     onCancelUpload,
@@ -285,6 +286,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     files.map((fileRaw) => {
       const file = typeof format === 'function' ? format(fileRaw) : fileRaw;
       const uploadFile: TdUploadFile = {
+        response: undefined,
+        url: '',
         raw: fileRaw,
         lastModified: fileRaw.lastModified,
         name: fileRaw.name,
@@ -372,6 +375,14 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       onDragleave?.({ e });
     },
     [disabled, onDragleave],
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      if (disabled) return;
+      onDrop?.({ e });
+    },
+    [disabled, onDrop],
   );
 
   // TODO
@@ -501,6 +512,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           onChange={handleDragChange}
           onDragenter={handleDragenter}
           onDragleave={handleDragleave}
+          onDrop={handleDrop}
           file={fileList && fileList[0]}
           display={theme}
           customDraggerRender={customDraggerRender}

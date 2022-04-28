@@ -13,7 +13,6 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
-
 import { StyledProps } from '../common';
 import useDefault from '../_util/useDefault';
 import useAnimation from '../_util/useAnimation';
@@ -29,13 +28,16 @@ import useWindowSize from '../_util/useWindowSize';
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
+  // 初始化popper的可定制option
+  popperModifiers?: Array<{ name: string; options: Object }>;
   updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
 function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
-const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
+
+const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     trigger = 'hover',
     content = null,
@@ -55,6 +57,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     onVisibleChange,
     onScroll,
     expandAnimation,
+    popperModifiers = [],
     updateScrollTop,
   } = props;
   const { classPrefix } = useConfig();
@@ -72,7 +75,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
 
   const contentRef = useRef<HTMLDivElement>(null);
   const referenceRef = useRef<HTMLDivElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef(null);
 
   const popperRef = useRef(null);
   const portalRef = useRef(null);
@@ -107,13 +110,18 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>((props, ref) => {
     popperRef.current.update();
   }, []);
 
-  popperRef.current = usePopper(triggerRef, overlayRef, {
-    placement: getPopperPlacement(placement),
-    onFirstUpdate: onPopperFirstUpdate,
-  });
+  const options = useMemo(
+    () => ({
+      placement: getPopperPlacement(placement),
+      onFirstUpdate: onPopperFirstUpdate,
+      modifiers: popperModifiers,
+    }),
+    [onPopperFirstUpdate, placement, popperModifiers],
+  );
+
+  popperRef.current = usePopper(triggerRef, overlayRef, options);
 
   const { styles, attributes } = popperRef.current;
-
   const defaultStyles = useMemo(() => {
     if (triggerRef && typeof overlayStyle === 'function') return { ...overlayStyle(triggerRef, overlayRef) };
     return { ...overlayStyle };

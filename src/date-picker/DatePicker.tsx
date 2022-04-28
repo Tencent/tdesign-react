@@ -228,7 +228,7 @@ const DatePicker = (props: DatePickerProps) => {
   function clickedApply(closePicker = true, nextDates?: Date[]): void {
     const dates = nextDates || selectedDates;
     submitInput(
-      dates.map((d: Date) => formatDate(d)),
+      dates.map((d: Date) => formatDate(d || new Date())),
       true,
     );
 

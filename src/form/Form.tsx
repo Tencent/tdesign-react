@@ -92,6 +92,7 @@ const Form = forwardRefWithStatics(
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
+      if ((e.target as Element).tagName.toLowerCase() === 'textarea') return;
       if (preventSubmitDefault && e.key === 'Enter') {
         e.preventDefault?.();
         e.stopPropagation?.();

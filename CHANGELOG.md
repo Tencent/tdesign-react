@@ -5,6 +5,31 @@ toc: false
 spline: explain
 ---
 
+## 0.32.2 `2022-04-28`
+
+### Bug Fixes
+
+* Table:
+  * 修复 `getBoundingClientRect` 在 `jsdom` 环境为 null 问题 ([22077bd](https://github.com/Tencent/tdesign-react/commit/22077bdf0dc406bd92a9c5d25362382bfdf23f6e)) [@uyarn](https://github.com/uyarn)
+  * 修复 `loading` 状态文案问题 ([e021c8b](https://github.com/Tencent/tdesign-react/commit/e021c8b3c75274eca9842ad8ef3c8839b60d4eab)) [@uyarn](https://github.com/uyarn)
+* Datepicker: 修复空数组确定事件报错问题 ([#697](https://github.com/Tencent/tdesign-react/issues/697)) ([871065d](https://github.com/Tencent/tdesign-react/commit/871065d35c75d87fd9002f16b438246da80fd10a)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复组件销毁后 body 样式不重置问题 & 移除多余 div 渲染 ([#690](https://github.com/Tencent/tdesign-react/issues/690)) ([d6d5131](https://github.com/Tencent/tdesign-react/commit/d6d513151f7548b3ea3b1f0b8c26fa96ecdbb1dc)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Textarea: 修复在 `Form` 组件下换行问题 ([507eaf3](https://github.com/Tencent/tdesign-react/commit/507eaf3b9533b19681e9bd10f666ded9e61b430d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Colorpicker: 修复 Popupprops 透传问题 ([#700](https://github.com/Tencent/tdesign-react/issues/700)) ([804c7b4](https://github.com/Tencent/tdesign-react/commit/804c7b4f64968d12d2ca665b23289e0cd1037fff)), closes [#698](https://github.com/Tencent/tdesign-react/issues/698) [@carolin913](https://github.com/carolin913)
+* Form: 修复 `help` 文案状态响应样式问题 ([#682](https://github.com/Tencent/tdesign-react/issues/682)) ([282602d](https://github.com/Tencent/tdesign-react/commit/282602d8ab3a1ff10a1146b5519d13b08fc7a2c6)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Upload: 修复 `onDrop` 事件不响应问题 ([3efa2c6](https://github.com/Tencent/tdesign-react/commit/3efa2c6c9758725aa4159b122bfad3b154959404)) [@wookaoer](https://github.com/wookaoer)
+
+
+### Features
+
+* Collapse: 新增 `Collapse` 组件 ([9c2ce29](https://github.com/Tencent/tdesign-react/commit/9c2ce29625a11979aff5de6adeda157b319d7ad3)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Pagination:
+  * 新增 `showPageSize`、`showPageNumber` API ([#696](https://github.com/Tencent/tdesign-react/issues/696)) ([c11e692](https://github.com/Tencent/tdesign-react/commit/c11e69218df8bcf20f5b5104f6967e04246dc182)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * 新增 `showFirstAndLastBtn` api ([#694](https://github.com/Tencent/tdesign-react/issues/694)) ([d085cf8](https://github.com/Tencent/tdesign-react/commit/d085cf862454173e0a191f842cc0a5b44c0477a5)) [@HQ-Lin](https://github.com/HQ-Lin)
+* InputNumber: 完善尺寸类型 ([#694](https://github.com/Tencent/tdesign-react/issues/694)) ([d085cf8](https://github.com/Tencent/tdesign-react/commit/d085cf862454173e0a191f842cc0a5b44c0477a5)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Tooltip: 支持 `plcement="mouse"` 基于鼠标位置 ([26afab8](https://github.com/Tencent/tdesign-react/commit/26afab81ce1bd3bcaaf51618123e7b21e1241279)), closes [#608](https://github.com/Tencent/tdesign-react/issues/608) [@carolin913](https://github.com/carolin913)
+
+
 ## 0.32.1 `2022-04-24`
 
 ### Bug Fixes
@@ -22,7 +47,7 @@ spline: explain
 
 ### BREAKING CHANGES
 
-* Table: 重构 `table` 组件, 样式结构有所变动 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+* Table: 重构 `table` 组件, 样式结构有所变动，废弃`minWidth`，`排序功能`使用有所调整，详情请参考API和demo的写法 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
 
 ### Bug Fixes
 
@@ -39,7 +64,8 @@ spline: explain
 
 * Card: 新增 `Card` 组件 ([9c66dc3](https://github.com/Tencent/tdesign-react/commit/9c66dc36c351d80e22926fe2d4ff56783cda334d)) [@weikee94](https://github.com/weikee94)
 * ColorPicker: 新增 `ColorPicker` 组件 ([920263a](https://github.com/Tencent/tdesign-react/commit/920263af9c5ec3671f214182f26b6fc7ce0528b8)) [insekkei](https://github.com/insekkei) [@carolin913](https://github.com/carolin913)
-* Table: 重构 `table` 组件, 修复众多问题 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+* Table: 重构 `table` 组件, 支持表头吸顶、简易列拖拽排序、自定义列配置、懒加载、自定义展开图标及树形结构 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+  
 * Divider: 优化文本模式在竖型模式下样式问题 ([#662](https://github.com/Tencent/tdesign-react/issues/662)) ([213c67d](https://github.com/Tencent/tdesign-react/commit/213c67d9107960e02dff6baf8861770a8a822272)) [@HQ-Lin](https://github.com/HQ-Lin)
 
 

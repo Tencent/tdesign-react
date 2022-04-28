@@ -1,69 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Progress } from 'tdesign-react';
 
 export default function LineProgress() {
-  const style = { margin: '16px' };
-  const boxstyle = { display: 'flex', textAlign: 'center', alignItems: 'center' };
+  // const boxstyle = { display: 'flex', textAlign: 'center', alignItems: 'center' };
+  const [percent, setPercent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setPercent((percent) => (percent % 100) + 10), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <>
-      <h3 style={style}>默认</h3>
-      <div style={boxstyle}>
-        <div style={style}>
-          <div style={style}>默认样式</div>
-          <Progress theme={'circle'} percentage={30}></Progress>
+    <div className="tdesign-demo-block-column-large" style={{ textAlign: 'center' }}>
+      <div className="tdesign-demo-block-row">
+        <div className="tdesign-demo-block-column">
+          <div>默认样式</div>
+          <Progress theme={'circle'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
-          <div style={style}>不显示数字</div>
-          <Progress theme={'circle'} label={false} percentage={30}></Progress>
+        <div className="tdesign-demo-block-column">
+          <div>不显示数字</div>
+          <Progress theme={'circle'} label={false} percentage={percent}></Progress>
         </div>
-        <div style={style}>
-          <div style={style}>自定义内容</div>
-          <Progress theme={'circle'} label={<div>75 day</div>} percentage={30}></Progress>
+        <div className="tdesign-demo-block-column">
+          <div>自定义内容</div>
+          <Progress theme={'circle'} label={<div>75 day</div>} percentage={percent}></Progress>
         </div>
       </div>
-      <div style={boxstyle}>
-        <div style={style}>
-          <div style={style}>进度完成</div>
+
+      <div className="tdesign-demo-block-row">
+        <div className="tdesign-demo-block-column">
+          <div>进度完成</div>
           <Progress theme={'circle'} status={'success'} percentage={100}></Progress>
         </div>
-        <div style={style}>
-          <div style={style}>进度发生错误</div>
-          <Progress theme={'circle'} status={'error'} percentage={30}></Progress>
+        <div className="tdesign-demo-block-column">
+          <div>进度发生错误</div>
+          <Progress theme={'circle'} status={'error'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
-          <div style={style}>进度被中断</div>
-          <Progress theme={'circle'} status={'warning'} percentage={30}></Progress>
+        <div className="tdesign-demo-block-column">
+          <div>进度被中断</div>
+          <Progress theme={'circle'} status={'warning'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
-          <div style={style}>自定义颜色</div>
+        <div className="tdesign-demo-block-column">
+          <div>自定义颜色</div>
           <Progress
             theme={'circle'}
             status={'error'}
             color={'#00f'}
             trackColor={'#0f0'}
-            percentage={30}
+            percentage={percent}
           ></Progress>
         </div>
       </div>
-      <h3 style={style}>不同尺寸</h3>
-      <div style={boxstyle}>
-        <div style={style}>
+
+      <div className="tdesign-demo-block-row">
+        <div className="tdesign-demo-block-column">
           <div>小尺寸</div>
-          <Progress theme={'circle'} size={'small'} percentage={30}></Progress>
+          <Progress theme={'circle'} size={'small'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
+        <div className="tdesign-demo-block-column">
           <div>默认尺寸</div>
-          <Progress theme={'circle'} percentage={30}></Progress>
+          <Progress theme={'circle'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
+        <div className="tdesign-demo-block-column">
           <div>大尺寸</div>
-          <Progress theme={'circle'} size={'large'} percentage={30}></Progress>
+          <Progress theme={'circle'} size={'large'} percentage={percent}></Progress>
         </div>
-        <div style={style}>
+        <div className="tdesign-demo-block-column">
           <div>自定义尺寸</div>
-          <Progress theme={'circle'} percentage={30} strokeWidth={50}></Progress>
+          <Progress theme={'circle'} percentage={percent} strokeWidth={50}></Progress>
         </div>
       </div>
-    </>
+    </div>
   );
 }

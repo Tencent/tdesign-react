@@ -93,6 +93,20 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         document.body.style.cssText = bodyCssTextRef.current;
       }
     }
+
+    // 组件销毁后重置 body 样式
+    return () => {
+      if (isModal) {
+        const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+        if (openDialogDom.length < 1) {
+          document.body.style.cssText = bodyCssTextRef.current;
+          document.body.style.overflow = bodyOverflow.current;
+        }
+      } else {
+        document.body.style.cssText = bodyCssTextRef.current;
+        document.body.style.overflow = bodyOverflow.current;
+      }
+    };
   }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
 
   useEffect(() => {

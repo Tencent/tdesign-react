@@ -291,7 +291,7 @@ exports[`checkable.jsx 1`] = `
               </div>
             </div>
             <div
-              class="t-input__extra"
+              class="t-input__help"
             />
           </div>
         </div>

@@ -132,8 +132,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   function renderTipsInfo() {
-    let helpNode = name ? <div className={`${classPrefix}-input__extra`}></div> : '';
-    if (help) helpNode = <div className={`${classPrefix}-input__extra`}>{renderTNode(help)}</div>;
+    let helpNode = name ? <div className={`${classPrefix}-input__help`}></div> : '';
+    if (help) helpNode = <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
 
     const list = errorList;
     if (showErrorMessage && list && list[0] && list[0].message) {
