@@ -23,7 +23,6 @@ export interface StyledProps {
   className?: string;
   style?: CSSProperties;
 }
-
 /** 通用全局变量 */
 
 export type OptionData = {
