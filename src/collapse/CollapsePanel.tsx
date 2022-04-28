@@ -93,20 +93,18 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   };
 
   const renderBody = () => {
-    const transitionHooks = {
+    const transitionCallbacks = {
       onEnter: () => {
         bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
       },
       onEntered: () => {
         bodyRef.current.style.height = 'auto';
-        bodyRef.current.style['border-bottom'] = '1px solid var(--td-component-border)';
       },
       onExit: () => {
         bodyRef.current.style.height = `${contentRef?.current.clientHeight}px`;
       },
       onExiting: () => {
         bodyRef.current.style.height = '0px';
-        bodyRef.current.style['border-bottom'] = '0px';
       },
     };
     return (
@@ -116,11 +114,13 @@ const CollapsePanel = (props: CollapsePanelProps) => {
         timeout={300}
         nodeRef={bodyRef}
         unmountOnExit={destroyOnCollapse}
-        {...transitionHooks}
+        {...transitionCallbacks}
       >
         <div
-          style={{ height: 0, borderBottom: 0 }}
-          className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`)}
+          style={{ height: 0 }}
+          className={classnames(`${componentName}__body`, `${classPrefix}-slide-down-enter-active`, {
+            [`${componentName}__body--collapsed`]: !isActive,
+          })}
           ref={bodyRef}
         >
           <div className={`${componentName}__content`} ref={contentRef}>
