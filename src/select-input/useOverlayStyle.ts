@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import { TdSelectInputProps } from './type';
-import { TdPopupProps, PopupVisibleChangeContext } from '../popup';
+import { PopupVisibleChangeContext } from '../popup';
 
 // 单位：px
 const MAX_POPUP_WIDTH = 1000;
@@ -11,7 +11,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
   const { popupProps, autoWidth } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
-  const macthWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
+  const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
     // 避免因滚动条出现文本省略，预留宽度 8
     const SCROLLBAR_WIDTH = popupElement.scrollHeight > popupElement.offsetHeight ? 8 : 0;
@@ -37,17 +37,13 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
     props.onPopupVisibleChange?.(newVisible, context);
   };
 
-  const tOverlayStyle = useMemo(() => {
-    let result: TdPopupProps['overlayStyle'] = {};
-    const overlayStyle = popupProps?.overlayStyle || {};
-    if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
-      result = overlayStyle;
-    } else if (!autoWidth) {
-      result = macthWidthFunc;
-    }
-    return result;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoWidth, popupProps?.overlayStyle]);
+  let tOverlayStyle = {};
+  const overlayStyle = popupProps?.overlayStyle || {};
+  if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
+    tOverlayStyle = overlayStyle;
+  } else if (!autoWidth) {
+    tOverlayStyle = matchWidthFunc;
+  }
 
   return {
     tOverlayStyle,
