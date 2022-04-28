@@ -10,6 +10,7 @@ import useClickOutside from '../_util/useClickOutside';
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassname();
   const { popupProps, defaultValue, disabled = false, inputProps, value, onChange, colorModes, ...rest } = props;
+  const { overlayClassName, overlayStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [visible, setVisible] = useState(false);
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
@@ -19,13 +20,13 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const popProps: PopupProps = {
     placement: 'bottom-left',
     expandAnimation: true,
-    ...((popupProps as PopupProps) || {}),
     trigger: 'click',
-    attach: 'body',
-    overlayClassName: [baseClassName],
     visible,
+    ...restPopupProps,
+    overlayClassName: [baseClassName, overlayClassName],
     overlayStyle: {
       padding: 0,
+      ...overlayStyle,
     },
   };
 
@@ -40,6 +41,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   return (
     <Popup
       {...popProps}
+      onVisibleChange={(v) => setVisible(v)}
       content={
         !disabled && (
           <ColorPanel
@@ -54,7 +56,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
         )
       }
     >
-      <div className={`${baseClassName}__trigger`} onClick={() => setVisible(!visible)} ref={triggerRef}>
+      <div className={`${baseClassName}__trigger`} ref={triggerRef}>
         <ColorTrigger color={innerValue} disabled={disabled} inputProps={inputProps} onTriggerChange={setInnerValue} />
       </div>
     </Popup>
