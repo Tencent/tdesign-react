@@ -293,7 +293,13 @@ export default {
           title: 'Card 卡片',
           name: 'card',
           path: '/react/components/card',
-          component: () => import('tdesign-react/card/card.md'),
+          component: () => import('tdesign-react/card/card.md')
+        },
+        {
+          title: 'Collapse 折叠面板',
+          name: 'collapse',
+          path: '/react/components/collapse',
+          component: () => import('tdesign-react/collapse/collapse.md'),
         },
         {
           title: 'Comment 评论',
