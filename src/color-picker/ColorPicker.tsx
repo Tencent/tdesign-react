@@ -22,10 +22,11 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     ...((popupProps as PopupProps) || {}),
     trigger: 'click',
     attach: 'body',
-    overlayClassName: [baseClassName],
+    overlayClassName: [baseClassName, popupProps?.overlayClassName],
     visible,
     overlayStyle: {
       padding: 0,
+      ...(popupProps?.overlayStyle || {}),
     },
   };
 
