@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, forwardRef, MutableRefObject } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, MutableRefObject, useCallback } from 'react';
 import classNames from 'classnames';
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useDefault from '../../../_util/useDefault';
@@ -43,13 +43,44 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   } = props;
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
   const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
+  const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
+  const [mode, setMode] = useState<TdColorModes>('monochrome');
+
+  const formatValue = useCallback(() => {
+    // 渐变模式下直接输出css样式
+    if (mode === 'linear-gradient') {
+      return colorInstanceRef.current.linearGradient;
+    }
+
+    return colorInstanceRef.current.getFormatsColorMap()[format] || colorInstanceRef.current.css;
+  }, [format, mode]);
 
   useEffect(() => {
     colorInstanceRef.current.update(defaultValue || DEFAULT_COLOR);
   }, [defaultValue]);
 
-  const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
-  const [mode, setMode] = useState<TdColorModes>('monochrome');
+  const emitColorChange = useCallback(
+    (trigger?: ColorPickerChangeTrigger) => {
+      setInnerValue(formatValue(), {
+        color: getColorObject(colorInstanceRef.current),
+        trigger: trigger || 'palette-saturation-brightness',
+      });
+    },
+    [formatValue, setInnerValue],
+  );
+
+  useEffect(() => {
+    if (value !== undefined && value !== formatValue()) {
+      const newColor = new Color(value);
+      const formattedColor = (mode === 'linear-gradient' ? newColor.linearGradient : newColor.hsva) || DEFAULT_COLOR;
+      colorInstanceRef.current.update(formattedColor);
+
+      setInnerValue(formatValue(), {
+        color: newColor,
+        trigger: 'input',
+      });
+    }
+  }, [value, formatValue, setInnerValue, mode]);
 
   useEffect(() => {
     if (colorModes.length === 1) {
@@ -84,15 +115,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     colorInstanceRef.current = new Color(rgba);
   };
 
-  const formatValue = () => {
-    // 渐变模式下直接输出css样式
-    if (mode === 'linear-gradient') {
-      return colorInstanceRef.current.linearGradient;
-    }
-
-    return colorInstanceRef.current.getFormatsColorMap()[format] || colorInstanceRef.current.css;
-  };
-
   // 最近使用颜色变更时触发
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
     setRecentlyUsedColors(colors);
@@ -117,29 +139,25 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     handleRecentlyUsedColorsChange(colors);
   };
 
-  const emitColorChange = (trigger?: ColorPickerChangeTrigger) => {
-    setInnerValue(formatValue(), {
-      color: getColorObject(colorInstanceRef.current),
-      trigger: trigger || 'palette-saturation-brightness',
-    });
-  };
-
   // 饱和度变化
   const handleSaturationChange = ({ saturation, value }: TdColorSaturationData) => {
     const { saturation: sat, value: val } = colorInstanceRef.current;
     let changeTrigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
-    colorInstanceRef.current.saturation = saturation;
-    colorInstanceRef.current.value = value;
 
     if (value !== val && saturation !== sat) {
       changeTrigger = 'palette-saturation-brightness';
+      colorInstanceRef.current.saturation = saturation;
+      colorInstanceRef.current.value = value;
     } else if (saturation !== sat) {
       changeTrigger = 'palette-saturation';
+      colorInstanceRef.current.saturation = saturation;
     } else if (value !== val) {
       changeTrigger = 'palette-brightness';
+      colorInstanceRef.current.value = value;
     } else {
       return;
     }
+
     emitColorChange(changeTrigger);
   };
 
