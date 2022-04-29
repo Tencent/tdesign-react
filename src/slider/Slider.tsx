@@ -121,9 +121,9 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       return (
         <InputNumber
           value={currentValue}
-          onChange={(value: number) => {
-            if (value) {
-              handleInputChange(Number(value), nodeIndex);
+          onChange={(v: number) => {
+            if (typeof v !== 'undefined') {
+              handleInputChange(Number(v), nodeIndex);
             }
           }}
           className={classNames(`${classPrefix}-slider-input`, {
