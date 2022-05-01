@@ -147,7 +147,7 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "gray-matter": "^4.0.3",
     "husky": "^7.0.4",
-    "jest": "^27.4.5",
+    "jest": "^28.0.3",
     "jest-html-reporter": "^3.4.2",
     "jest-transform-stub": "^2.0.0",
     "jest-watch-typeahead": "^1.0.0",
