@@ -189,12 +189,10 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const { loading, loadingProps } = props;
   const customLoadingText = loading;
-  const loadingContent = loading ? (
+  const loadingContent = (
     <Loading loading={!!(loading || customLoadingText)} text={customLoadingText} showOverlay {...loadingProps}>
       {tableContent}
     </Loading>
-  ) : (
-    tableContent
   );
 
   const { topContent, bottomContent } = props;
