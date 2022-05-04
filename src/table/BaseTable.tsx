@@ -189,12 +189,14 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
 
   const { loading, loadingProps } = props;
   const customLoadingText = loading;
-  const loadingContent = loading ? (
-    <Loading loading={!!(loading || customLoadingText)} text={customLoadingText} showOverlay {...loadingProps}>
-      {tableContent}
-    </Loading>
-  ) : (
-    tableContent
+  const loadingContent = loading !== undefined && (
+    <Loading
+      loading={!!loading}
+      text={customLoadingText}
+      attach={() => tableRef.current}
+      showOverlay
+      {...loadingProps}
+    ></Loading>
   );
 
   const { topContent, bottomContent } = props;
@@ -209,6 +211,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
         ) : (
           isFixedHeader && affixedHeader
         ))}
+      {tableContent}
       {loadingContent}
       {showRightDivider && (
         <div
