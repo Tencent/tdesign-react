@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { TableColumns, getThRowspanAndColspan, getThList } from './useMultiHeader';
 import useClassName from './useClassName';
-import TEllipsis from '../ellipsis';
+import TEllipsis from '../Ellipsis';
 
 // 渲染表头的通用方法
 export function renderTitle(col: TableColumns[0], index: number) {
