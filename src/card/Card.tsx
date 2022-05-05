@@ -43,7 +43,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   });
 
   const headerClass = classNames({
-    [`${classPrefix}-card__header`]: header,
+    [`${classPrefix}-card__header`]: header || title || subtitle || description || avatar || actions,
     [`${classPrefix}-card__title--bordered`]: headerBordered,
   });
 
