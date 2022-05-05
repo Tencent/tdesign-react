@@ -16,6 +16,7 @@ export default function useClassName() {
       bordered: `${classPrefix}-table--bordered`,
       striped: `${classPrefix}-table--striped`,
       hover: `${classPrefix}-table--hoverable`,
+      loading: `${classPrefix}-table--loading`,
       rowspanAndColspan: `${classPrefix}-table--rowspan-colspan`,
       empty: `${classPrefix}-table__empty`,
       emptyRow: `${classPrefix}-table__empty-row`,
