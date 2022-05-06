@@ -144,6 +144,10 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       setInternalInputValue(inputStr);
       return;
     }
+    if (/^(([1-9]+[0-9]*\.0+)|(0\.0+))$/.test(inputStr)) {
+      setInternalInputValue(inputStr);
+      return;
+    }
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
