@@ -15,7 +15,6 @@ spline: explain
 - `Card`:  修复未添加header属性，Card组件布局错误 [@yilaierwang](https://github.com/yilaierwang) ([#724](https://github.com/Tencent/tdesign-react/pull/724))
 - `Card`: 头部渲染逻辑不完善的问题 缺失了status的渲染 [@uyarn](https://github.com/uyarn) ([#731](https://github.com/Tencent/tdesign-react/pull/731))
 - `Table`: `renderExpandedRow`改为非必填 [@uyarn](https://github.com/uyarn) ([#732](https://github.com/Tencent/tdesign-react/pull/732))
-- `Card`:  修复未添加header属性，Card组件布局错误 [@yilaierwang](https://github.com/yilaierwang) ([#724](https://github.com/Tencent/tdesign-react/pull/724))
 - `InputNumber`:  修复小数输入问题 [@Fnll](https://github.com/Fnll) ([#729](https://github.com/Tencent/tdesign-react/pull/729)) [@docoder](https://github.com/docoder) ([#728](https://github.com/Tencent/tdesign-react/pull/728))
 
 ## 0.32.2 `2022-04-28`
