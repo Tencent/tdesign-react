@@ -10,14 +10,7 @@ export default function EnableAlpha() {
 
   return (
     <div className="tdesign-demo-block-row">
-      <ColorPickerPanel
-        enableAlpha
-        value={value}
-        format="RGBA"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+      <ColorPickerPanel enableAlpha value={value} format="RGBA" onChange={handleChange} />
     </div>
   );
 }
