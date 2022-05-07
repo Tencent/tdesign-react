@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.32.3 `2022-05-07` 
+### 🚀 Features
+- `Table`: 新增 API `ellipsisTitle` 用于单独控制表头的超出省略 [@chaishi](https://github.com/chaishi) ([#722](https://github.com/Tencent/tdesign-react/pull/722))
+- `Upload`: 修改uploadFiles类型参数除url外为非必填 [@uyarn](https://github.com/uyarn) ([#730](https://github.com/Tencent/tdesign-react/pull/730))
+### 🐞 Bug Fixes
+- `slider`: 修复`slider`在非受控模式下行为异常 [@southorange1228](https://github.com/southorange1228) ([#709](https://github.com/Tencent/tdesign-react/pull/709))
+- `Table`:  加载状态与拖拽配合使用时，拖拽功能失效，[issue#708](https://github.com/Tencent/tdesign-react/issues/708) [@chaishi](https://github.com/chaishi) ([#722](https://github.com/Tencent/tdesign-react/pull/722))
+- `Card`:  修复未添加header属性，Card组件布局错误 [@yilaierwang](https://github.com/yilaierwang) ([#724](https://github.com/Tencent/tdesign-react/pull/724))
+- `Card`: 头部渲染逻辑不完善的问题 缺失了status的渲染 [@uyarn](https://github.com/uyarn) ([#731](https://github.com/Tencent/tdesign-react/pull/731))
+- `Table`: `renderExpandedRow`改为非必填 [@uyarn](https://github.com/uyarn) ([#732](https://github.com/Tencent/tdesign-react/pull/732))
+- `Card`:  修复未添加header属性，Card组件布局错误 [@yilaierwang](https://github.com/yilaierwang) ([#724](https://github.com/Tencent/tdesign-react/pull/724))
+- `InputNumber`:  修复小数输入问题 [@Fnll](https://github.com/Fnll) ([#729](https://github.com/Tencent/tdesign-react/pull/729)) [@docoder](https://github.com/docoder) ([#728](https://github.com/Tencent/tdesign-react/pull/728))
+
 ## 0.32.2 `2022-04-28`
 
 ### Bug Fixes
