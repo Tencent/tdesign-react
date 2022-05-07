@@ -6,7 +6,6 @@ export default function FooterContentCard() {
     <div className="tdesign-demo-block">
       <Card
         bordered
-        header
         theme="poster2"
         cover="https://tdesign.gtimg.com/site/source/card-demo.png"
         style={{ width: '400px' }}
