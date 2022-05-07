@@ -51,7 +51,7 @@ export interface TdUploadProps {
    */
   draggable?: boolean;
   /**
-   * 【开发中】用于完全自定义文件列表内容
+   * 用于完全自定义文件列表内容
    */
   fileListDisplay?: TElement;
   /**
@@ -96,7 +96,7 @@ export interface TdUploadProps {
   multiple?: boolean;
   /**
    * 文件上传时的名称
-   * @default 'file'
+   * @default file
    */
   name?: string;
   /**
@@ -196,38 +196,38 @@ export interface UploadFile {
   /**
    * 上一次变更的时间
    */
-  lastModified: number;
+  lastModified?: number;
   /**
    * 文件名称
    * @default ''
    */
-  name: string;
+  name?: string;
   /**
    * 下载进度
    */
-  percent: number;
+  percent?: number;
   /**
    * 原始文件对象
    */
-  raw: File;
+  raw?: File;
   /**
    * 上传接口返回的数据
    */
-  response: object;
+  response?: object;
   /**
    * 文件大小
    */
-  size: number;
+  size?: number;
   /**
    * 文件上传状态：上传成功，上传失败，上传中，等待上传
    * @default ''
    */
-  status: 'success' | 'fail' | 'progress' | 'waiting';
+  status?: 'success' | 'fail' | 'progress' | 'waiting';
   /**
    * 文件类型
    * @default ''
    */
-  type: string;
+  type?: string;
   /**
    * 文件上传成功后的下载/访问地址
    * @default ''
