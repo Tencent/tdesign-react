@@ -74,6 +74,7 @@ export default function THead(props: TheadProps) {
         const styles = { ...(thStyles.style || {}), width };
         const innerTh = renderTitle(col, index);
         if (!col.colKey) return null;
+        const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle({ col, colIndex: index }) : undefined;
         return (
           <th
             key={col.colKey}
@@ -83,7 +84,18 @@ export default function THead(props: TheadProps) {
             {...{ rowSpan: rowspanAndColspan.rowspan, colSpan: rowspanAndColspan.colspan }}
           >
             <div className={tableBaseClass.thCellInner}>
-              {col.ellipsis ? <TEllipsis>{innerTh}</TEllipsis> : innerTh}
+              {col.ellipsis && col.ellipsisTitle !== false && col.ellipsisTitle !== null ? (
+                <TEllipsis
+                  placement="bottom"
+                  attach={theadRef.current ? () => theadRef.current.parentNode.parentNode as HTMLElement : undefined}
+                  popupContent={content}
+                  popupProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
+                >
+                  {innerTh}
+                </TEllipsis>
+              ) : (
+                innerTh
+              )}
             </div>
           </th>
         );

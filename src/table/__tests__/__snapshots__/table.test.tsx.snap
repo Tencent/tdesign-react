@@ -3262,6 +3262,26 @@ exports[`drag-sort-handler.jsx 1`] = `
   <div
     class="demo-container"
   >
+    <div>
+      <label
+        class="t-checkbox"
+      >
+        <input
+          class="t-checkbox__former"
+          readonly=""
+          type="checkbox"
+          value="false"
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          加载状态
+        </span>
+      </label>
+    </div>
     <div
       class="t-table t-table--row-handler-draggable"
       style="position: relative;"
@@ -3535,6 +3555,9 @@ exports[`drag-sort-handler.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-portal-wrapper"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -14774,75 +14797,75 @@ exports[`loading.jsx 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="t-table"
+      class="t-table t-table--loading"
       style="position: relative;"
     >
       <div
-        class="t-loading__parent"
+        class="t-table__content"
       >
-        <div
-          class="t-table__content"
+        <table
+          class="t-table--layout-fixed"
         >
-          <table
-            class="t-table--layout-fixed"
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead
+            class="t-table__header"
           >
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <thead
-              class="t-table__header"
-            >
-              <tr>
-                <th
-                  class="t-table__th-instance"
-                  data-colkey="instance"
+            <tr>
+              <th
+                class="t-table__th-instance"
+                data-colkey="instance"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    集群名称
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-status"
-                  data-colkey="status"
+                  集群名称
+                </div>
+              </th>
+              <th
+                class="t-table__th-status"
+                data-colkey="status"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    状态
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-owner"
-                  data-colkey="owner"
+                  状态
+                </div>
+              </th>
+              <th
+                class="t-table__th-owner"
+                data-colkey="owner"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    管理员
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-description"
-                  data-colkey="description"
+                  管理员
+                </div>
+              </th>
+              <th
+                class="t-table__th-description"
+                data-colkey="description"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    描述
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              class="t-table__body"
-            />
-          </table>
-        </div>
+                  描述
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          />
+        </table>
+      </div>
+      <div
+        class="t-portal-wrapper"
+      >
         <div
           class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
         >
@@ -14872,75 +14895,75 @@ exports[`loading.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-table"
+      class="t-table t-table--loading"
       style="position: relative;"
     >
       <div
-        class="t-loading__parent"
+        class="t-table__content"
       >
-        <div
-          class="t-table__content"
+        <table
+          class="t-table--layout-fixed"
         >
-          <table
-            class="t-table--layout-fixed"
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead
+            class="t-table__header"
           >
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <thead
-              class="t-table__header"
-            >
-              <tr>
-                <th
-                  class="t-table__th-instance"
-                  data-colkey="instance"
+            <tr>
+              <th
+                class="t-table__th-instance"
+                data-colkey="instance"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    集群名称
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-status"
-                  data-colkey="status"
+                  集群名称
+                </div>
+              </th>
+              <th
+                class="t-table__th-status"
+                data-colkey="status"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    状态
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-owner"
-                  data-colkey="owner"
+                  状态
+                </div>
+              </th>
+              <th
+                class="t-table__th-owner"
+                data-colkey="owner"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    管理员
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-description"
-                  data-colkey="description"
+                  管理员
+                </div>
+              </th>
+              <th
+                class="t-table__th-description"
+                data-colkey="description"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    描述
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              class="t-table__body"
-            />
-          </table>
-        </div>
+                  描述
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          />
+        </table>
+      </div>
+      <div
+        class="t-portal-wrapper"
+      >
         <div
           class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
         >
@@ -14972,75 +14995,75 @@ exports[`loading.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-table"
+      class="t-table t-table--loading"
       style="position: relative;"
     >
       <div
-        class="t-loading__parent"
+        class="t-table__content"
       >
-        <div
-          class="t-table__content"
+        <table
+          class="t-table--layout-fixed"
         >
-          <table
-            class="t-table--layout-fixed"
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead
+            class="t-table__header"
           >
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <thead
-              class="t-table__header"
-            >
-              <tr>
-                <th
-                  class="t-table__th-instance"
-                  data-colkey="instance"
+            <tr>
+              <th
+                class="t-table__th-instance"
+                data-colkey="instance"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    集群名称
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-status"
-                  data-colkey="status"
+                  集群名称
+                </div>
+              </th>
+              <th
+                class="t-table__th-status"
+                data-colkey="status"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    状态
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-owner"
-                  data-colkey="owner"
+                  状态
+                </div>
+              </th>
+              <th
+                class="t-table__th-owner"
+                data-colkey="owner"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    管理员
-                  </div>
-                </th>
-                <th
-                  class="t-table__th-description"
-                  data-colkey="description"
+                  管理员
+                </div>
+              </th>
+              <th
+                class="t-table__th-description"
+                data-colkey="description"
+              >
+                <div
+                  class="t-table__th-cell-inner"
                 >
-                  <div
-                    class="t-table__th-cell-inner"
-                  >
-                    描述
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              class="t-table__body"
-            />
-          </table>
-        </div>
+                  描述
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="t-table__body"
+          />
+        </table>
+      </div>
+      <div
+        class="t-portal-wrapper"
+      >
         <div
           class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
         >
@@ -15743,38 +15766,36 @@ exports[`multi-header.jsx 1`] = `
                   class="t-table__th-cell-inner"
                 >
                   <div
-                    class="t-table__ellipsis t-text-ellipsis"
+                    class="t-table__cell--filterable"
                   >
                     <div
-                      class="t-table__cell--filterable"
+                      class="t-table__cell--title"
                     >
                       <div
-                        class="t-table__cell--title"
+                        class="t-table__ellipsis t-text-ellipsis"
                       >
-                        <div>
-                          属性
-                        </div>
+                        属性
+                      </div>
+                      <div
+                        class="t-table__filter-icon-wrap"
+                      >
                         <div
-                          class="t-table__filter-icon-wrap"
+                          class="t-popup__reference t-table__filter-icon"
                         >
-                          <div
-                            class="t-popup__reference t-table__filter-icon"
-                          >
-                            <div>
-                              <svg
-                                class="t-icon t-icon-filter"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </div>
+                          <div>
+                            <svg
+                              class="t-icon t-icon-filter"
+                              fill="none"
+                              height="1em"
+                              viewBox="0 0 16 16"
+                              width="1em"
+                            >
+                              <path
+                                d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
+                                fill="currentColor"
+                                fill-opacity="0.9"
+                              />
+                            </svg>
                           </div>
                         </div>
                       </div>
@@ -18373,111 +18394,81 @@ exports[`pagination.jsx 1`] = `
 exports[`pagination-ajax.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-table"
+    class="t-table t-table--loading"
     style="position: relative;"
   >
     <div
-      class="t-loading__parent"
+      class="t-table__content"
     >
-      <div
-        class="t-table__content"
+      <table
+        class="t-table--layout-fixed"
       >
-        <table
-          class="t-table--layout-fixed"
-        >
-          <colgroup>
-            <col
-              style="width: 200px;"
-            />
-            <col
-              style="width: 200px;"
-            />
-            <col
-              style="width: 200px;"
-            />
-            <col
-              style="width: 260px;"
-            />
-          </colgroup>
-          <thead
-            class="t-table__header"
-          >
-            <tr>
-              <th
-                class="t-table__th-name"
-                data-colkey="name"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  UNKNOWN_USER
-                </div>
-              </th>
-              <th
-                class="t-table__th-gender"
-                data-colkey="gender"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  性别
-                </div>
-              </th>
-              <th
-                class="t-table__th-phone"
-                data-colkey="phone"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                />
-              </th>
-              <th
-                class="t-table__th-email"
-                data-colkey="email"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  <div
-                    class="t-table__ellipsis t-text-ellipsis"
-                  >
-                    邮箱
-                  </div>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            class="t-table__body"
+        <colgroup>
+          <col
+            style="width: 200px;"
           />
-        </table>
-      </div>
-      <div
-        class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
-      >
-        <svg
-          class="t-loading__gradient t-icon-loading"
-          height="1em"
-          version="1.1"
-          viewBox="0 0 14 14"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+          <col
+            style="width: 200px;"
+          />
+          <col
+            style="width: 200px;"
+          />
+          <col
+            style="width: 260px;"
+          />
+        </colgroup>
+        <thead
+          class="t-table__header"
         >
-          <foreignobject
-            height="12"
-            width="12"
-            x="1"
-            y="1"
-          >
-            <div
-              class="t-loading__gradient-conic"
-            />
-          </foreignobject>
-        </svg>
-        <div
-          class="t-loading__text"
+          <tr>
+            <th
+              class="t-table__th-name"
+              data-colkey="name"
+            >
+              <div
+                class="t-table__th-cell-inner"
+              >
+                UNKNOWN_USER
+              </div>
+            </th>
+            <th
+              class="t-table__th-gender"
+              data-colkey="gender"
+            >
+              <div
+                class="t-table__th-cell-inner"
+              >
+                性别
+              </div>
+            </th>
+            <th
+              class="t-table__th-phone"
+              data-colkey="phone"
+            >
+              <div
+                class="t-table__th-cell-inner"
+              />
+            </th>
+            <th
+              class="t-table__th-email"
+              data-colkey="email"
+            >
+              <div
+                class="t-table__th-cell-inner"
+              >
+                <div
+                  class="t-table__ellipsis t-text-ellipsis"
+                >
+                  邮箱
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="t-table__body"
         />
-      </div>
+      </table>
     </div>
     <div
       class="t-table__pagination"
@@ -18610,6 +18601,36 @@ exports[`pagination-ajax.jsx 1`] = `
           </div>
           页
         </div>
+      </div>
+    </div>
+    <div
+      class="t-portal-wrapper"
+    >
+      <div
+        class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
+      >
+        <svg
+          class="t-loading__gradient t-icon-loading"
+          height="1em"
+          version="1.1"
+          viewBox="0 0 14 14"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <foreignobject
+            height="12"
+            width="12"
+            x="1"
+            y="1"
+          >
+            <div
+              class="t-loading__gradient-conic"
+            />
+          </foreignobject>
+        </svg>
+        <div
+          class="t-loading__text"
+        />
       </div>
     </div>
   </div>

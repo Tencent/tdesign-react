@@ -1,9 +1,10 @@
 import React, { ReactNode, useMemo } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
-import { TdBaseTableProps } from '../type';
+import { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { TableColumns, getThRowspanAndColspan, getThList } from './useMultiHeader';
 import useClassName from './useClassName';
+import TEllipsis from '../Ellipsis';
 
 // 渲染表头的通用方法
 export function renderTitle(col: TableColumns[0], index: number) {
@@ -29,15 +30,33 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
   const thList = useMemo(() => getThList(columns), [columns]);
   const isMultipleHeader = useMemo(() => thList.length > 1, [thList]);
 
-  const renderTitleWidthIcon = ([title, sortIcon, filterIcon]: ReactNode[]) => {
+  const renderTitleWidthIcon = (
+    [title, sortIcon, filterIcon]: ReactNode[],
+    col: PrimaryTableCol<TableRowData>,
+    colIndex: number,
+    ellipsisTitle: BaseTableCol['ellipsisTitle'],
+    attach: HTMLElement,
+  ) => {
     const classes = {
       [tableSortClasses.sortable]: !!sortIcon,
       [tableFilterClasses.filterable]: !!filterIcon,
     };
+    const content = isFunction(ellipsisTitle) ? ellipsisTitle({ col, colIndex }) : undefined;
     return (
       <div className={classNames(classes)}>
         <div className={tableSortClasses.title}>
-          <div>{title}</div>
+          {col.ellipsis && ellipsisTitle !== false && ellipsisTitle !== null ? (
+            <TEllipsis
+              placement="bottom-right"
+              attach={attach ? () => attach : undefined}
+              popupContent={content}
+              popupProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+            >
+              {title}
+            </TEllipsis>
+          ) : (
+            <div>{title}</div>
+          )}
           {Boolean(sortIcon || filterIcon) && (
             <div className={tableFilterClasses.iconWrap}>
               {sortIcon}
