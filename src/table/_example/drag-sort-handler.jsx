@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table } from 'tdesign-react';
+import { Table, Checkbox } from 'tdesign-react';
 import { MoveIcon } from 'tdesign-icons-react';
 
 const columns = [
@@ -45,6 +45,7 @@ const initData = [
 ];
 export default function TableDragSort() {
   const [data, setData] = useState([...initData]);
+  const [loading, setLoading] = useState(false);
 
   function onDragSort({ currentIndex, targetIndex, current, target, currentData, e }) {
     console.log('交换行', currentIndex, targetIndex, current, target, currentData, e);
@@ -54,8 +55,13 @@ export default function TableDragSort() {
 
   return (
     <div className="demo-container">
+      <div>
+        <Checkbox value={loading} onChange={setLoading}>
+          加载状态
+        </Checkbox>
+      </div>
       {/* 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法 */}
-      <Table rowKey="id" data={data} columns={columns} dragSort='row-handler' onDragSort={onDragSort} />
+      <Table rowKey="id" data={data} columns={columns} dragSort='row-handler' loading={loading} onDragSort={onDragSort} />
     </div>
   );
 }

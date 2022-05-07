@@ -152,7 +152,9 @@ export default function TBody(props: TableBodyProps) {
       trProps.onCellClick = props.onCellClick;
     }
 
-    const trNode = <TR key={get(row, props.rowKey || 'id')} {...trProps} onRowMounted={props.handleRowMounted}></TR>;
+    const trNode = (
+      <TR key={get(row, props.rowKey || 'id') || rowIndex} {...trProps} onRowMounted={props.handleRowMounted}></TR>
+    );
     trNodeList.push(trNode);
 
     // 执行展开行渲染

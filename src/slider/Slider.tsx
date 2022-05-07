@@ -30,8 +30,8 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       range,
       step = 1,
       tooltipProps,
-      value: propsValue = min,
-      defaultValue,
+      value: propsValue,
+      defaultValue = min,
       onChange,
       className,
       style,
@@ -121,7 +121,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       return (
         <InputNumber
           value={currentValue}
-          onChange={(value: number) => handleInputChange(Number(value), nodeIndex)}
+          onChange={(v: number) => {
+            if (typeof v !== 'undefined') {
+              handleInputChange(Number(v), nodeIndex);
+            }
+          }}
           className={classNames(`${classPrefix}-slider-input`, {
             'is-vertical': isVertical,
           })}

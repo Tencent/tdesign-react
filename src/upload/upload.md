@@ -133,7 +133,7 @@ children | TNode | - | 触发上传的内容，同 trigger。TS 类型：`string
 data | Object | - | 上传文件时所需的额外数据。TS 类型：`Record<string, any> | ((file: File) => Record<string, any>)` | N
 disabled | Boolean | false | 是否禁用 | N
 draggable | Boolean | false | 是否启用拖拽上传 | N
-fileListDisplay | TElement | - | 【开发中】用于完全自定义文件列表内容。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+fileListDisplay | TElement | - | 用于完全自定义文件列表内容。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 files | Array | - | 已上传文件列表。TS 类型：`Array<UploadFile>` | N
 defaultFiles | Array | - | 已上传文件列表。非受控属性。TS 类型：`Array<UploadFile>` | N
 format | Function | - | 文件上传前转换文件数据。TS 类型：`(file: File) => UploadFile` | N
@@ -143,7 +143,7 @@ isBatchUpload | Boolean | false | 文件是否作为一个独立文件包，整�
 max | Number | 0 | 用于控制文件上传数量，值为 0 则不限制 | N
 method | String | POST | HTTP 请求类型。可选项：POST/GET/PUT/OPTION/PATCH/post/get/put/option/patch | N
 multiple | Boolean | false | 是否支持多选文件 | N
-name | String | 'file' | 文件上传时的名称 | N
+name | String | file | 文件上传时的名称 | N
 placeholder | String | - | 占位符 | N
 requestMethod | Function | - | 自定义上传方法。返回值 status 表示上传成功或失败，error 表示上传失败的原因，response 表示请求上传成功后的返回数据，response.url 表示上传成功后的图片地址。示例一：`{ status: 'fail', error: '上传失败', response }`。示例二：`{ status: 'success', response: { url: 'https://tdesign.gtimg.com/site/avatar.jpg' } }`。TS 类型：`(files: UploadFile | UploadFile[]) => Promise<RequestMethodResponse>` `interface RequestMethodResponse { status: 'success' | 'fail'; error?: string; response: { url?: string; [key: string]: any } }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/upload/type.ts) | N
 showUploadProgress | Boolean | true | 是否显示上传进度 | N
@@ -170,12 +170,12 @@ onSuccess | Function |  | TS 类型：`(context: SuccessContext) => void`<br/>�
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-lastModified | Number | - | 必需。上一次变更的时间 | Y
-name | String | - | 必需。文件名称 | Y
-percent | Number | - | 必需。下载进度 | Y
-raw | Object | - | 必需。原始文件对象。TS 类型：`File` | Y
-response | Object | - | 必需。上传接口返回的数据 | Y
-size | Number | - | 必需。文件大小 | Y
-status | String | - | 必需。文件上传状态：上传成功，上传失败，上传中，等待上传。TS 类型：` 'success' | 'fail' | 'progress' | 'waiting'` | Y
-type | String | - | 必需。文件类型 | Y
+lastModified | Number | - | 上一次变更的时间 | N
+name | String | - | 文件名称 | N
+percent | Number | - | 下载进度 | N
+raw | Object | - | 原始文件对象。TS 类型：`File` | N
+response | Object | - | 上传接口返回的数据 | N
+size | Number | - | 文件大小 | N
+status | String | - | 文件上传状态：上传成功，上传失败，上传中，等待上传。TS 类型：` 'success' | 'fail' | 'progress' | 'waiting'` | N
+type | String | - | 文件类型 | N
 url | String | - | 必需。文件上传成功后的下载/访问地址 | Y

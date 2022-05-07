@@ -77,11 +77,15 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       // 添加排序图标和过滤图标
       if (item.sorter || item.filter) {
         const titleContent = renderTitle(item, i);
+        const { ellipsisTitle } = item;
         item.title = (p) => {
           const sortIcon = item.sorter ? renderSortIcon(p) : null;
           const filterIcon = item.filter ? renderFilterIcon(p) : null;
-          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon]);
+          const attach = primaryTableRef.current?.tableContentRef;
+          console.log(primaryTableRef.current?.tableContentRef);
+          return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach);
         };
+        item.ellipsisTitle = false;
       }
       if (item.children?.length) {
         item.children = getColumns(item.children);
