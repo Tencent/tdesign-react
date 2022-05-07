@@ -2,23 +2,20 @@ import React from 'react';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import DatePickerCell from './Cell';
+import { TdDatePickerProps } from '../type';
+import { DatePanelProps } from '../panel/DatePanel';
 
-export interface DatePickerTableProps {
-  data: Array<any>;
-  type: string;
-  firstDayOfWeek: number;
-  onCellClick: Function;
-  onCellMouseEnter: Function;
+export interface DatePickerTableProps extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek'>, DatePanelProps {
+  data?: Array<any>;
+  timeValue?: string;
 }
 
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { type, data, onCellClick, onCellMouseEnter, firstDayOfWeek } = props;
+  const { mode, data, timeValue, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
 
   const [local, t] = useLocaleReceiver('datePicker');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const weekdays = t(local.weekdays);
 
   const weekArr = [];
@@ -29,12 +26,12 @@ const DatePickerTable = (props: DatePickerTableProps) => {
     wi = (wi + len + 1) % len;
   }
 
-  const panelClass = `${classPrefix}-date-picker--${type}`;
+  const tableClass = `${classPrefix}-date-picker__table`;
 
   return (
-    <div className={panelClass}>
+    <div className={tableClass} onMouseLeave={(e) => onCellMouseLeave?.({ e })}>
       <table>
-        {type === 'date' && (
+        {mode === 'date' && (
           <thead>
             <tr>
               {weekArr.map((value: string, i: number) => (
@@ -47,7 +44,13 @@ const DatePickerTable = (props: DatePickerTableProps) => {
           {data.map((row, i: number) => (
             <tr key={i}>
               {row.map((col: any, j: number) => (
-                <DatePickerCell {...col} key={j} onClick={onCellClick} onMouseEnter={onCellMouseEnter} />
+                <DatePickerCell
+                  {...col}
+                  key={j}
+                  timeValue={timeValue}
+                  onClick={onCellClick}
+                  onMouseEnter={onCellMouseEnter}
+                />
               ))}
             </tr>
           ))}
@@ -58,9 +61,5 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 };
 
 DatePickerTable.displayName = 'DatePickerTable';
-
-DatePickerTable.defaultProps = {
-  type: 'day',
-};
 
 export default DatePickerTable;

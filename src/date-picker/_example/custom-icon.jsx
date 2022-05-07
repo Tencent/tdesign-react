@@ -9,7 +9,7 @@ export default function YearDatePicker() {
 
   return (
     <div className="tdesign-demo-item--datepicker">
-      <DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} mode="date" onChange={handleChange} />
+      <DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} onChange={handleChange} />
     </div>
   );
 }

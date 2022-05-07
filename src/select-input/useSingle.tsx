@@ -60,7 +60,7 @@ export default function useSingle(props: TdSelectInputProps) {
 
   const onInnerInputChange = (
     value: InputValue,
-    context: { e: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => {
     if (props.allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });
