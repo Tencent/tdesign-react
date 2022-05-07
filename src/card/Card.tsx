@@ -30,10 +30,13 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     subtitle,
     title,
     theme,
+    status,
   } = props;
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
+  // 是否为海报风格2
+  const isPoster2 = theme === 'poster2';
 
   const cardClass = classNames(className, `${classPrefix}-card`, {
     [commonClassNames.SIZE.small]: size === 'small',
@@ -42,8 +45,11 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     [`${classPrefix}-card--shadow-hover`]: hoverShadow,
   });
 
+  const showHeader =
+    header || title || subtitle || description || avatar || (actions && !isPoster2) || (status && isPoster2);
+
   const headerClass = classNames({
-    [`${classPrefix}-card__header`]: header || title || subtitle || description || avatar || actions,
+    [`${classPrefix}-card__header`]: showHeader,
     [`${classPrefix}-card__title--bordered`]: headerBordered,
   });
 
@@ -79,8 +85,6 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     [`${classPrefix}-card__description`]: description,
   });
 
-  const isPoster2 = theme === 'poster2';
-
   const renderTitle = title ? <span className={titleClass}>{title}</span> : null;
 
   const renderSubtitle = subtitle ? <span className={subtitleClass}>{subtitle}</span> : null;
@@ -89,9 +93,11 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 
   const renderAvatar = avatar && <div className={avatarClass}>{avatar}</div>;
 
-  const renderActions = actions && <div className={actionClass}>{actions}</div>;
+  const renderActions = actions && !isPoster2 && <div className={actionClass}>{actions}</div>;
 
-  const renderHeader = !isPoster2 && (header || title || subtitle || description || avatar || actions) && (
+  const renderStatus = status && isPoster2 && <div className={actionClass}>{status}</div>;
+
+  const renderHeader = showHeader && (
     <div className={headerClass}>
       <div className={`${classPrefix}-card__header-wrapper`}>
         {renderAvatar}
@@ -102,6 +108,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
         </div>
       </div>
       {renderActions}
+      {renderStatus}
     </div>
   );
 
