@@ -1,7 +1,6 @@
 import React from 'react';
 import { Calendar } from 'tdesign-react';
 import dayjs from 'dayjs';
-import './style/index.less';
 
 export default function CalendarExample() {
   const displayNum = React.useCallback((date) => {
@@ -20,7 +19,7 @@ export default function CalendarExample() {
       label: '错误事件',
     },
     {
-      value: 'waring',
+      value: 'warning',
       label: '警告事件',
     },
     {

@@ -119,7 +119,7 @@ spline: explain
 * GlobalConfig: 修复 ts 类型问题 ([a2d22ae](https://github.com/Tencent/tdesign-react/commit/a2d22ae061c75ca730d6bcf5959c46e07123636e)) [@uyarn](https://github.com/uyarn)
 * Menu: 修复 `MenuGroup` 嵌套时样式问题 ([17b633a](https://github.com/Tencent/tdesign-react/commit/17b633ac47ab63a27c5001c3166c2feabfdb78e3)) [@ZhaoRB](https://github.com/ZhaoRB)
 * Select: 修复输入事件异常 ([267988d](https://github.com/Tencent/tdesign-react/commit/267988d3e873d5e05894362c0c9624ab3cff5434)) [@uyarn](https://github.com/uyarn)
-* Dialog: 修复 `destory` 函数未真正销毁组件问题 ([376193d](https://github.com/Tencent/tdesign-react/commit/376193d7b95d569ac1a31d0be66d8a3a89f55cb8)) [@psaren](https://github.com/psaren)
+* Dialog: 修复 `destroy` 函数未真正销毁组件问题 ([376193d](https://github.com/Tencent/tdesign-react/commit/376193d7b95d569ac1a31d0be66d8a3a89f55cb8)) [@psaren](https://github.com/psaren)
 
 
 ### Features
@@ -429,7 +429,7 @@ spline: explain
 - Config: 调整 `locale`、组件配置逻辑 & 支持 `globalConfig` API ([#297](https://github.com/Tencent/tdesign-react/issues/297)) ([542c254](https://github.com/Tencent/tdesign-react/commit/542c254b2529851ff42547966ff4609d49251b62)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Select: `ul` 标签添加 `class` 类名 ([bb47a94](https://github.com/Tencent/tdesign-react/commit/bb47a9487473e5a817c76a7df82009f66e1dc5f6)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Breadcrumb: 支持 `theme` api ([5627c40](https://github.com/Tencent/tdesign-react/commit/5627c40ec2485435cae60e544c0087ada53c351d)) [@samhou1988](https://github.com/samhou1988)
-- Drawer: 修复 `attch` 无效问题 ([a16c031](https://github.com/Tencent/tdesign-react/commit/a16c0314cc98dc8ea6eb1ba2b5c2435674785d60)) [@LittlehorseXie](https://github.com/LittlehorseXie)
+- Drawer: 修复 `attach` 无效问题 ([a16c031](https://github.com/Tencent/tdesign-react/commit/a16c0314cc98dc8ea6eb1ba2b5c2435674785d60)) [@LittlehorseXie](https://github.com/LittlehorseXie)
 - Input: 支持 `align` 属性 ([#290](https://github.com/Tencent/tdesign-react/issues/290)) ([08ce2b5](https://github.com/Tencent/tdesign-react/commit/08ce2b5ce2b35f3878fea22532d1530cc6cbe0b3)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Dropdown: 修复 `ref` 警告 ([d56b4ba](https://github.com/Tencent/tdesign-react/commit/d56b4ba100515f54bad09c748ac855d194b70bc7)) [@carolin913](https://github.com/carolin913)
 - Tag: 支持 `size` API ([780ac25](https://github.com/Tencent/tdesign-react/commit/780ac256824db9da3502b1440b837bca36ad61df)) [@carolin913](https://github.com/carolin913)
@@ -713,7 +713,7 @@ spline: explain
 ### Bug Fixes
 
 - Tree: cssTransition 警告 [@Ruoleery](https://github.com/Ruoleery)
-- Table: 页码变化未触发 onPageChage [@yunfeic](https://github.com/yunfeic)
+- Table: 页码变化未触发 onPageChange [@yunfeic](https://github.com/yunfeic)
 - Pagination: current 和 pageSize 受控与非受控问题 [@uyarn](https://github.com/uyarn)
 
 ### Features
@@ -1113,7 +1113,7 @@ spline: explain
 - 🌈 添加 Progress 组件
 - 🌈 添加 Tooltip 组件
 - 调整 popup 组件 api
-- 调整 swicth 组件 api
+- 调整 switch 组件 api
 - 调整 alert 组件 api
 - 调整 badge 组件 api
 - 调整 button 组件 api

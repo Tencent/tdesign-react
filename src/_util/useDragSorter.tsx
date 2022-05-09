@@ -33,7 +33,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   const { sortOnDraggable, onDragSort, onDragOverCheck } = props;
   const [draggingIndex, setDraggingIndex] = useState(-1);
   const [dragStartData, setDragStartData] = useState(null);
-  const [isDroped, setIsDroped] = useState(null);
+  const [isDropped, setIsDropped] = useState(null);
   const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
 
   const onDragSortRef = useRef(onDragSort);
@@ -100,13 +100,13 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   }
 
   function onDrop() {
-    setIsDroped(true);
+    setIsDropped(true);
   }
   function onDragEnd() {
-    if (!isDroped) {
+    if (!isDropped) {
       // 取消排序，待扩展api，输出dragStartData
     }
-    setIsDroped(false);
+    setIsDropped(false);
     setDraggingIndex(-1);
     setDragStartData(null);
   }

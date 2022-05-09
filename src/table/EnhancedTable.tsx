@@ -13,7 +13,7 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
   const { tree, columns, style, className } = props;
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
-  const { store, dataSource, formatTreeColum, ...treeInstanceFunctions } = useTreeData(props);
+  const { store, dataSource, formatTreeColumn, ...treeInstanceFunctions } = useTreeData(props);
 
   const [treeDataMap] = useState(store?.treeDataMap);
 
@@ -24,7 +24,7 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     const arr: PrimaryTableCol<TableRowData>[] = [];
     for (let i = 0, len = columns.length; i < len; i++) {
       let item = { ...columns[i] };
-      item = formatTreeColum(item);
+      item = formatTreeColumn(item);
       if (item.children?.length) {
         item.children = getColumns(item.children);
       }

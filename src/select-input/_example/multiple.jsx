@@ -4,12 +4,12 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__pannel-options-multiple {
+.tdesign-demo__panel-options-multiple {
   display: block;
   width: 100%;
   padding: 12px
 }
-.tdesign-demo__pannel-options-multiple .t-checkbox {
+.tdesign-demo__panel-options-multiple .t-checkbox {
   display: block;
   width: 100%
 }
@@ -152,7 +152,7 @@ export default function SelectInputMultiple() {
             <Checkbox.Group
               value={checkboxValue}
               options={displayOptions}
-              className="tdesign-demo__pannel-options-multiple"
+              className="tdesign-demo__panel-options-multiple"
               onChange={onCheckedChange}
             />
           ) : (

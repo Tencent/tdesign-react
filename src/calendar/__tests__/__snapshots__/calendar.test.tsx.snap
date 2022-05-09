@@ -1923,7 +1923,7 @@ exports[`cell.jsx 1`] = `
                     class="item"
                   >
                     <span
-                      class="waring"
+                      class="warning"
                     />
                     警告事件
                   </div>
@@ -8877,7 +8877,7 @@ exports[`slot-props-api.jsx 1`] = `
                     class="item"
                   >
                     <span
-                      class="waring"
+                      class="warning"
                     />
                     警告事件
                   </div>
