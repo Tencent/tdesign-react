@@ -4,14 +4,19 @@ import isFunction from 'lodash/isFunction';
 import { TdSelectInputProps } from './type';
 import { TdPopupProps, PopupVisibleChangeContext } from '../popup';
 
+export type overlayStyleProps = Pick<
+  TdSelectInputProps,
+  'popupProps' | 'autoWidth' | 'readonly' | 'onPopupVisibleChange'
+>;
+
 // 单位：px
 const MAX_POPUP_WIDTH = 1000;
 
-export default function useOverlayStyle(props: TdSelectInputProps) {
-  const { popupProps, autoWidth } = props;
+export default function useOverlayStyle(props: overlayStyleProps) {
+  const { popupProps, autoWidth, readonly, onPopupVisibleChange } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useState(false);
 
-  const macthWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
+  const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
     // 避免因滚动条出现文本省略，预留宽度 8
     const SCROLLBAR_WIDTH = popupElement.scrollHeight > popupElement.offsetHeight ? 8 : 0;
@@ -30,11 +35,11 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
   };
 
   const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
-    if (props.readonly) return;
+    if (readonly) return;
     // 如果点击触发元素（输入框），则永久显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' ? true : visible;
     setInnerPopupVisible(newVisible);
-    props.onPopupVisibleChange?.(newVisible, context);
+    onPopupVisibleChange?.(newVisible, context);
   };
 
   const tOverlayStyle = useMemo(() => {
@@ -43,7 +48,7 @@ export default function useOverlayStyle(props: TdSelectInputProps) {
     if (isFunction(overlayStyle) || (isObject(overlayStyle) && overlayStyle.width)) {
       result = overlayStyle;
     } else if (!autoWidth) {
-      result = macthWidthFunc;
+      result = matchWidthFunc;
     }
     return result;
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,12 +3,12 @@ import { SelectInput, Checkbox } from 'tdesign-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__pannel-options-excess {
+.tdesign-demo__panel-options-excess {
   width: 100%;
   display: block;
   padding: 12px
 }
-.tdesign-demo__pannel-options-excess .t-checkbox {
+.tdesign-demo__panel-options-excess .t-checkbox {
   display: block;
   width: 100%
 }
@@ -100,7 +100,7 @@ export default function SelectInputExcessTagsDisplayType() {
           <Checkbox.Group
             value={checkboxValue}
             options={options}
-            className="tdesign-demo__pannel-options-excess"
+            className="tdesign-demo__panel-options-excess"
             onChange={onCheckedChange}
           />
         }
@@ -125,7 +125,7 @@ export default function SelectInputExcessTagsDisplayType() {
           <Checkbox.Group
             value={checkboxValue}
             options={options}
-            className="tdesign-demo__pannel-options-excess"
+            className="tdesign-demo__panel-options-excess"
             onChange={onCheckedChange}
           />
         }

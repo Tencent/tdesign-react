@@ -64,7 +64,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
 
   const selectInputProps = useTreeSelectPassThroughProps(props);
   const [value, onChange] = useDefault(props.value, props.defaultValue ?? multiple ? [] : null, props.onChange);
-  const [popupVisible, setPopupVisble] = useDefault(props.popupVisible, false, props.onPopupVisibleChange);
+  const [popupVisible, setPopupVisible] = useDefault(props.popupVisible, false, props.onPopupVisibleChange);
   const [hover, hoverAction] = useSwitch();
   const [filterInput, setFilterInput] = useDefault(inputValue, defaultInputValue, onInputChange);
 
@@ -118,7 +118,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     const $value = value.length ? value[0] : null;
     onChange(formatValue($value, context.node.label), { ...context, trigger: $value === null ? 'uncheck' : 'check' });
     // 单选选择后收起弹框
-    setPopupVisble(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
@@ -138,7 +138,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     });
     onClear?.(ctx);
     // 清空后收起弹框
-    setPopupVisble(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
   const handleRemove = usePersistFn((index: number, e?: React.MouseEvent<any, any>) => {
@@ -273,8 +273,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       placeholder={inputPlaceholader}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
-      onPopupVisibleChange={useMergeFn(setPopupVisble)}
-      onFocus={useMergeFn(handleFocus, () => setPopupVisble(true, { trigger: 'trigger-element-click' }))}
+      onPopupVisibleChange={useMergeFn(setPopupVisible)}
+      onFocus={useMergeFn(handleFocus, () => setPopupVisible(true, { trigger: 'trigger-element-click' }))}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}
       onTagChange={handleTagChange}

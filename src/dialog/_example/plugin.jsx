@@ -68,7 +68,7 @@ export default function PluginModalExample() {
         theme: 'danger',
       },
       onConfirm: ({ e }) => {
-        console.log('confrim e: ', e);
+        console.log('confirm e: ', e);
         alertDia.hide();
       },
       onClose: ({ e, trigger }) => {
@@ -98,9 +98,9 @@ export default function PluginModalExample() {
   };
   return (
     <div className="tdesign-demo-block-column">
-      <p>插件调用方式一：DialogPlugin(options)</p>
-      <p>插件调用方式二：DialogPlugin.confirm(options)</p>
-      <p>插件调用方式三：DialogPlugin.alert(options)</p>
+      <p>函数调用方式一：DialogPlugin(options)</p>
+      <p>函数调用方式二：DialogPlugin.confirm(options)</p>
+      <p>函数调用方式三：DialogPlugin.alert(options)</p>
       <div className="tdesign-demo-block-row">
         <Button theme="primary" onClick={showDialog} style={buttonStyle}>
           dialog

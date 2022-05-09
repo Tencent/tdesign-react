@@ -44,7 +44,7 @@ function getToBeCreatedFiles(component, pascalCaseName) {
     },
     [`src/${component}/style`]: {
       // set up style dir
-      desc: 'style dir in every compoent for tree-shaking',
+      desc: 'style dir in every component for tree-shaking',
       files: [
         {
           file: `css.js`,

@@ -3,7 +3,7 @@ import { Anchor } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;
 
-export default function AnchorMutiple() {
+export default function AnchorMultiple() {
   return (
     <>
       <Anchor bounds={100} targetOffset={50}>

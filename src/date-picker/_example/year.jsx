@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'tdesign-react';
+import { DatePicker, DateRangePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   function handleChange(value) {
@@ -7,8 +7,9 @@ export default function YearDatePicker() {
   }
 
   return (
-    <div className="tdesign-demo-item--datepicker">
-      <DatePicker defaultValue="2025" mode="year" format="YYYY" clearable onChange={handleChange}></DatePicker>
+    <div className="tdesign-demo-block-column">
+      <DatePicker mode="year" clearable allowInput onChange={handleChange} />
+      <DateRangePicker mode="year" clearable allowInput onChange={handleChange} />
     </div>
   );
 }

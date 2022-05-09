@@ -6,6 +6,27 @@
 
 {{ form-list }}
 
+## FAQ
+
+### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
+
+Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onChange` 受控属性，所以 Form.FormItem 被设计成需要拦截嵌套组件的受控属性，如需定义初始值请使用 `initialData` 属性。
+
+由于 Form.FormItem 只会拦截第一层子节点的受控属性，所以如不希望 Form.FormItem 拦截受控属性希望自行管理 state 的话，可以在 Form.FormItem 下包裹一层 `div` 节点脱离 Form.FormItem 的代理，但同时也会失去 Form 组件的校验能力。
+
+### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
+
+可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+
+```javascript
+// 可以单独使用 FormItem 组件
+<Form.FormItem label="姓名">
+  <div>可以任意定制内容</div>
+  <Input />
+  <div>可以任意定制内容</div>
+</Form.FormItem>
+```
+
 ## API
 ### Form Props
 

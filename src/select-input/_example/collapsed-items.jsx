@@ -4,12 +4,12 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__pannel-options-collapsed {
+.tdesign-demo__panel-options-collapsed {
   width: 100%;
   display: block;
   padding: 12px
 }
-.tdesign-demo__pannel-options-collapsed .t-checkbox {
+.tdesign-demo__panel-options-collapsed .t-checkbox {
   display: block;
   width: 100%
 }
@@ -85,7 +85,7 @@ export default function SelectInputCollapsedItems() {
     <Checkbox.Group
       value={checkboxValue}
       options={options}
-      className="tdesign-demo__pannel-options-collapsed"
+      className="tdesign-demo__panel-options-collapsed"
       onChange={onCheckedChange}
     />
   );
@@ -124,10 +124,10 @@ export default function SelectInputCollapsedItems() {
 }
 
 // 下拉选项样式
-// .tdesign-demo__pannel-options-collapsed {
+// .tdesign-demo__panel-options-collapsed {
 //   width: 100%;
 // }
-// .tdesign-demo__pannel-options-collapsed .t-checkbox {
+// .tdesign-demo__panel-options-collapsed .t-checkbox {
 //   display: block;
 //   margin: 12px;
 // }

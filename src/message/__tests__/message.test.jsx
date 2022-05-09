@@ -55,7 +55,7 @@ describe('Message Component props test', () => {
       expect(container).toMatchSnapshot();
     });
 
-    it(':closeBtn is a tring, equal "关闭".', () => {
+    it(':closeBtn is a string, equal "关闭".', () => {
       const closeBtnTxt = '关闭';
       const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);
       expect(container.getElementsByClassName('t-message__close').length).toBe(1);
@@ -76,13 +76,13 @@ describe('Message Component props test', () => {
       expect(container).toMatchSnapshot();
     });
 
-    it(':icon is a funtion, () => TIconMore', () => {
+    it(':icon is a function, () => TIconMore', () => {
       const { container } = render(<Message icon={() => <HelpIcon></HelpIcon>}>{defaultMessage}</Message>);
       // t-icon
       expect(container.firstChild).not.toHaveClass('t-icon');
       expect(container).toMatchSnapshot();
     });
-    it(':default is a funtion, () => <b>这是重要信息</b>', () => {
+    it(':default is a function, () => <b>这是重要信息</b>', () => {
       const { container } = render(<Message>{<b>这是重要信息</b>}</Message>);
       expect(container).toMatchSnapshot();
     });

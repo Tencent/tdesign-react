@@ -183,18 +183,18 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     borderRadius: getHeight(),
   } as React.CSSProperties;
   if (theme === 'plump') {
-    const PLUMP_SEPERATE = 10;
+    const PLUMP_SEPARATE = 10;
     progressDom = (
       <div
         ref={ref}
         className={classNames(`${classPrefix}-progress__bar`, `${classPrefix}-progress--plump`, {
           [`${statusClassName}`]: status,
-          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPERATE,
-          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPERATE,
+          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPARATE,
+          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPARATE,
         })}
         style={trackStyle}
       >
-        {percentage > PLUMP_SEPERATE ? (
+        {percentage > PLUMP_SEPARATE ? (
           <div className={`${classPrefix}-progress__inner`} style={barStyle}>
             {label && (
               <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>{`${percentage}%`}</div>

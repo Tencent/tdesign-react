@@ -194,13 +194,15 @@ const SubMenu: FC<SubMenuWithCustomizeProps> = (props) => {
       });
     }
     if (checkIsMenuGroup(item)) {
-      const groupChidren = React.Children.map(item.props.children, (item: React.ReactElement) => changeItemLevel(item));
+      const groupChildren = React.Children.map(item.props.children, (item: React.ReactElement) =>
+        changeItemLevel(item),
+      );
       return React.cloneElement(
         item,
         {
           level: level + 1,
         },
-        groupChidren,
+        groupChildren,
       );
     }
     return item;
