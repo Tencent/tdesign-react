@@ -29,7 +29,7 @@ export interface DatePickerPanelProps extends TdDatePickerProps, StyledProps {
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
-const DatePanel = (props: DatePickerPanelProps) => {
+const DatePickerPanel = (props: DatePickerPanelProps) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-picker__panel`;
   const {
@@ -93,12 +93,12 @@ const DatePanel = (props: DatePickerPanelProps) => {
   );
 };
 
-DatePanel.displayName = 'DatePanel';
+DatePickerPanel.displayName = 'DatePickerPanel';
 
-DatePanel.defaultProps = {
+DatePickerPanel.defaultProps = {
   mode: 'date',
   enableTimePicker: false,
   presetsPlacement: 'bottom',
 };
 
-export default DatePanel;
+export default DatePickerPanel;

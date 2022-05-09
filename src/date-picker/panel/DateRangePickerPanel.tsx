@@ -32,7 +32,7 @@ export interface DateRangePickerPanelProps extends TdDateRangePickerProps, Style
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
-const DateRangePanel = (props: DateRangePickerPanelProps) => {
+const DateRangePickerPanel = (props: DateRangePickerPanelProps) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-range-picker__panel`;
   const {
@@ -176,12 +176,12 @@ const DateRangePanel = (props: DateRangePickerPanelProps) => {
   );
 };
 
-DateRangePanel.displayName = 'DateRangePanel';
+DateRangePickerPanel.displayName = 'DateRangePickerPanel';
 
-DateRangePanel.defaultProps = {
+DateRangePickerPanel.defaultProps = {
   mode: 'date',
   enableTimePicker: false,
   presetsPlacement: 'bottom',
 };
 
-export default DateRangePanel;
+export default DateRangePickerPanel;
