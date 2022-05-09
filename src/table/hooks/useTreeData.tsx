@@ -95,7 +95,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     return columns[treeNodeColumnIndex];
   }
 
-  function formatTreeColum(col: PrimaryTableCol): PrimaryTableCol {
+  function formatTreeColumn(col: PrimaryTableCol): PrimaryTableCol {
     if (!col || !treeNodeCol || !store) return {};
     if (!props.tree || !Object.keys(props.tree).length || col.colKey !== treeNodeCol.colKey) return col;
     const newCol = { ...treeNodeCol };
@@ -184,7 +184,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     getData,
     remove,
     appendTo,
-    formatTreeColum,
+    formatTreeColumn,
     toggleExpandData,
   };
 }
