@@ -12,22 +12,30 @@ import jsxToString from "react-element-to-jsx-string";
 
 import configProps from "./props.json";
 
-import { DatePicker } from "tdesign-react";
+import { DatePicker, DateRangePicker } from "tdesign-react";
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "datePicker", value: "datePicker" }];
+  const panelList = [
+    { label: "datePicker", value: "datePicker" },
+    { label: "dateRangePicker", value: "dateRangePicker" },
+  ];
+
+  const panelMap = {
+    datePicker: <DatePicker {...changedProps} />,
+    dateRangePicker: <DateRangePicker {...changedProps} />,
+  };
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
   useEffect(() => {
-    setRenderComp(<DatePicker {...changedProps} />);
-  }, [changedProps]);
+    setRenderComp(panelMap[panel]);
+  }, [changedProps, panel]);
 
   const jsxStr = useMemo(() => {
     if (!renderComp) return "";

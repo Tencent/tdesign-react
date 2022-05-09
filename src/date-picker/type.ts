@@ -51,7 +51,7 @@ export interface TdDatePickerProps {
   inputProps?: InputProps;
   /**
    * 选择器模式
-   * @default month
+   * @default date
    */
   mode?: 'year' | 'month' | 'date';
   /**
@@ -155,7 +155,7 @@ export interface TdDateRangePickerProps {
   format?: string;
   /**
    * 选择器模式
-   * @default month
+   * @default date
    */
   mode?: 'year' | 'month' | 'date';
   /**

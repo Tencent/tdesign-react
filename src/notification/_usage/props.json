@@ -2,7 +2,7 @@
   {
     "name": "closeBtn",
     "type": "Boolean",
-    "defaultValue": true,
+    "defaultValue": false,
     "options": []
   },
   {
@@ -31,14 +31,6 @@
       {
         "label": "error",
         "value": "error"
-      },
-      {
-        "label": "question",
-        "value": "question"
-      },
-      {
-        "label": "loading",
-        "value": "loading"
       }
     ]
   }
