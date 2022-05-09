@@ -1,19 +1,19 @@
 import _DatePicker from './DatePicker';
 import _DateRangePicker from './DateRangePicker';
-import _DatePanel from './panel/DatePanel';
-import _DateRangePanel from './panel/DateRangePanel';
+import _DatePickerPanel from './panel/DatePickerPanel';
+import _DateRangePickerPanel from './panel/DateRangePickerPanel';
 
 import './style/index.js';
 
 export type { DatePickerProps } from './DatePicker';
 export type { DateRangePickerProps } from './DateRangePicker';
-export type { DatePanelProps } from './panel/DatePanel';
-export type { DateRangePanelProps } from './panel/DateRangePanel';
+export type { DatePickerPanelProps } from './panel/DatePickerPanel';
+export type { DateRangePickerPanelProps } from './panel/DateRangePickerPanel';
 export * from './type';
 
 export const DatePicker = _DatePicker;
 export const DateRangePicker = _DateRangePicker;
-export const DatePanel = _DatePanel;
-export const DateRangePanel = _DateRangePanel;
+export const DatePickerPanel = _DatePickerPanel;
+export const DateRangePickerPanel = _DateRangePickerPanel;
 
 export default DatePicker;

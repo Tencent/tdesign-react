@@ -5,7 +5,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDateRangePickerProps } from './type';
 import { RangeInputPopup } from '../range-input';
-import DateRangePanel from './panel/DateRangePanel';
+import DateRangePanel from './panel/DateRangePickerPanel';
 import useRange from './hooks/useRange';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';

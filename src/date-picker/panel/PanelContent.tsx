@@ -3,30 +3,30 @@ import dayjs from 'dayjs';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
 import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
-import type { DatePanelProps } from './DatePanel';
-import type { DateRangePanelProps } from './DateRangePanel';
+import type { DatePickerPanelProps } from './DatePickerPanel';
+import type { DateRangePickerPanelProps } from './DateRangePickerPanel';
 import useConfig from '../../_util/useConfig';
 import { getDefaultFormat } from '../hooks/useFormat';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
-  year: DatePanelProps['year'];
-  month: DatePanelProps['month'];
-  mode: DatePanelProps['mode'];
-  format: DatePanelProps['format'];
-  enableTimePicker: DatePanelProps['enableTimePicker'];
-  timePickerProps: DatePanelProps['timePickerProps'];
-  firstDayOfWeek: DatePanelProps['firstDayOfWeek'];
-  timeValue: DatePanelProps['timeValue'];
+  year: DatePickerPanelProps['year'];
+  month: DatePickerPanelProps['month'];
+  mode: DatePickerPanelProps['mode'];
+  format: DatePickerPanelProps['format'];
+  enableTimePicker: DatePickerPanelProps['enableTimePicker'];
+  timePickerProps: DatePickerPanelProps['timePickerProps'];
+  firstDayOfWeek: DatePickerPanelProps['firstDayOfWeek'];
+  timeValue: DatePickerPanelProps['timeValue'];
 
   tableData: any[];
-  onMonthChange: DatePanelProps['onMonthChange'] | DateRangePanelProps['onMonthChange'];
-  onYearChange: DatePanelProps['onYearChange'] | DateRangePanelProps['onYearChange'];
-  onJumperClick: DatePanelProps['onJumperClick'] | DateRangePanelProps['onJumperClick'];
-  onCellClick: DatePanelProps['onCellClick'] | DateRangePanelProps['onCellClick'];
-  onCellMouseEnter: DatePanelProps['onCellMouseEnter'] | DateRangePanelProps['onCellMouseEnter'];
-  onCellMouseLeave: DatePanelProps['onCellMouseLeave'] | DateRangePanelProps['onCellMouseLeave'];
-  onTimePickerChange: DatePanelProps['onTimePickerChange'] | DateRangePanelProps['onTimePickerChange'];
+  onMonthChange: DatePickerPanelProps['onMonthChange'] | DateRangePickerPanelProps['onMonthChange'];
+  onYearChange: DatePickerPanelProps['onYearChange'] | DateRangePickerPanelProps['onYearChange'];
+  onJumperClick: DatePickerPanelProps['onJumperClick'] | DateRangePickerPanelProps['onJumperClick'];
+  onCellClick: DatePickerPanelProps['onCellClick'] | DateRangePickerPanelProps['onCellClick'];
+  onCellMouseEnter: DatePickerPanelProps['onCellMouseEnter'] | DateRangePickerPanelProps['onCellMouseEnter'];
+  onCellMouseLeave: DatePickerPanelProps['onCellMouseLeave'] | DateRangePickerPanelProps['onCellMouseLeave'];
+  onTimePickerChange: DatePickerPanelProps['onTimePickerChange'] | DateRangePickerPanelProps['onTimePickerChange'];
 }
 
 export default function PanelContent(props: PanelContentProps) {
