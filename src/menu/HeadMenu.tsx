@@ -28,7 +28,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
     return activeMenu.props.children;
   }, [children, value.expandType, value.active]);
 
-  const currentChildsValues = childList?.length > 0 ? childList.map((item) => item.props.value) : [];
+  const currentChildListValues = childList?.length > 0 ? childList.map((item) => item.props.value) : [];
 
   return (
     <MenuContext.Provider value={value}>
@@ -44,7 +44,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
         {childList?.length > 0 && (
           <ul className={`${classPrefix}-head-menu__submenu ${classPrefix}-submenu`}>
             <Tabs
-              value={currentChildsValues.includes(value.active) ? value.active : currentChildsValues[0]}
+              value={currentChildListValues.includes(value.active) ? value.active : currentChildListValues[0]}
               onChange={value.onChange}
             >
               {childList.map(({ props }) => (
