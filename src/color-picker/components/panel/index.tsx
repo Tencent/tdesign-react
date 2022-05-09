@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState, forwardRef, MutableRefObject, useCallback } from 'react';
 import classNames from 'classnames';
+import tinyColor from 'tinycolor2';
+
 import useCommonClassName from '../../../_util/useCommonClassName';
 import useDefault from '../../../_util/useDefault';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
@@ -21,6 +23,8 @@ import HUESlider from './hue';
 import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import SwatchesPanel from './swatches';
+
+const mathRound = Math.round;
 
 const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDivElement>) => {
   const baseClassName = useClassname();
@@ -44,7 +48,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
   const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
   const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
-  const [mode, setMode] = useState<TdColorModes>('monochrome');
+  const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : getmodeByColor);
 
   const formatValue = useCallback(() => {
     // 渐变模式下直接输出css样式
@@ -54,10 +58,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
     return colorInstanceRef.current.getFormatsColorMap()[format] || colorInstanceRef.current.css;
   }, [format, mode]);
-
-  useEffect(() => {
-    colorInstanceRef.current.update(defaultValue || DEFAULT_COLOR);
-  }, [defaultValue]);
 
   const emitColorChange = useCallback(
     (trigger?: ColorPickerChangeTrigger) => {
@@ -70,11 +70,23 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   );
 
   useEffect(() => {
-    if (value !== undefined && value !== formatValue()) {
-      const newColor = new Color(value);
-      const formattedColor = (mode === 'linear-gradient' ? newColor.linearGradient : newColor.hsva) || DEFAULT_COLOR;
-      colorInstanceRef.current.update(formattedColor);
+    if (typeof value === 'undefined' || mode === 'linear-gradient') {
+      return;
+    }
 
+    // common Color new 的时候使用 hsv ，一个 rgba 可以对应两个 hsv ，这里先直接用 tinycolor 比较下颜色是否修改了
+    const newUniqColor = tinyColor(value).toRgb();
+    const { r, g, b, a } = newUniqColor;
+    const newUniqRgbaColor = `rgba(${mathRound(r)}, ${mathRound(g)}, ${mathRound(b)}, ${a})`;
+
+    const newColor = new Color(value);
+    const formattedColor = newUniqRgbaColor || DEFAULT_COLOR;
+    const currentColor = colorInstanceRef.current.rgba;
+
+    const isInRightMode = mode === 'monochrome' && !newColor.isGradient;
+
+    if (formattedColor !== currentColor && isInRightMode) {
+      colorInstanceRef.current.update(formattedColor);
       setInnerValue(formatValue(), {
         color: newColor,
         trigger: 'input',
@@ -143,7 +155,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const handleSaturationChange = ({ saturation, value }: TdColorSaturationData) => {
     const { saturation: sat, value: val } = colorInstanceRef.current;
     let changeTrigger: ColorPickerChangeTrigger = 'palette-saturation-brightness';
-
     if (value !== val && saturation !== sat) {
       changeTrigger = 'palette-saturation-brightness';
       colorInstanceRef.current.saturation = saturation;
