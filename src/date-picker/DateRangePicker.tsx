@@ -304,7 +304,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   };
 
   return (
-    <div className={classNames(`${classPrefix}-date-picker`, className)} style={style} ref={ref}>
+    <div className={classNames(`${classPrefix}-date-range-picker`, className)} style={style} ref={ref}>
       <RangeInputPopup
         disabled={disabled}
         inputValue={inputValue}

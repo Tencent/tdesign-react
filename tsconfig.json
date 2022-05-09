@@ -28,7 +28,7 @@
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",
-    "**/**/usage/*",
+    "**/**/_usage/*",
     "node_modules",
     "src/_common",
     "dist",

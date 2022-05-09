@@ -1,5 +1,11 @@
 [
   {
+    "name": "allowResizeColumnWidth",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
     "name": "bordered",
     "type": "Boolean",
     "defaultValue": false,
@@ -7,6 +13,12 @@
   },
   {
     "name": "disableDataPage",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
+    "name": "footerAffixedBottom",
     "type": "Boolean",
     "defaultValue": false,
     "options": []

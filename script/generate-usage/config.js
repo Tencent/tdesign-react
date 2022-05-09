@@ -99,17 +99,22 @@ module.exports = {
   'date-picker': {
     importStr: `
       import configProps from './props.json';\n
-      import { DatePicker } from 'tdesign-react';\n`,
+      import { DatePicker, DateRangePicker } from 'tdesign-react';\n`,
     configStr: `
       const [configList, setConfigList] = useState(configProps);
     `,
     panelStr: `
-      const panelList = [{ label: 'datePicker', value: 'datePicker' }];
+      const panelList = [{ label: 'datePicker', value: 'datePicker' }, { label: 'dateRangePicker', value: 'dateRangePicker' }];
+
+      const panelMap = {
+        datePicker: <DatePicker {...changedProps} />,
+        dateRangePicker: <DateRangePicker {...changedProps} />
+      };
     `,
     usageStr: `
       useEffect(() => {
-        setRenderComp(<DatePicker {...changedProps} />);
-      }, [changedProps]);
+        setRenderComp(panelMap[panel]);
+      }, [changedProps, panel]);
     `,
   },
   dropdown: {
