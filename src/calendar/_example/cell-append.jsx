@@ -1,7 +1,6 @@
 import React from 'react';
 import { Calendar, Tag } from 'tdesign-react';
 import dayjs from 'dayjs';
-import './style/index.less';
 
 export default function CalendarExample() {
   const getShow = (data) =>
