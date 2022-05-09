@@ -177,7 +177,7 @@ export default function TR(props: TrProps) {
   // const { row, rowIndex, dataLength, rowAndColFixedPosition, scrollType, isInit } = props;
   // const hasHolder = scrollType === 'lazy' && !isInit;
   // const rowHeightRef: Ref = inject('rowHeightRef');
-  const columVNodeList = props.columns?.map((col, colIndex) => {
+  const columnVNodeList = props.columns?.map((col, colIndex) => {
     const cellSpans: RowspanColspan = {};
     const params = {
       row,
@@ -218,7 +218,7 @@ export default function TR(props: TrProps) {
     >
       {hasLazyLoadHolder
         ? [<td key={rowIndex} style={{ height: `${tRowHeight}px`, border: 'none' }} />]
-        : columVNodeList}
+        : columnVNodeList}
     </tr>
   );
 }
