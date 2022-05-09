@@ -5,6 +5,12 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.33.1 `2022-05-09`
+
+### 🐞 Bug Fixes
+`Jumper`: 修复 style 文件引用报错问题 [@HQ-Lin](https://github.com/HQ-Lin) ([0d5726d](https://github.com/Tencent/tdesign-react/commit/0d5726d30b17bda68a39f1ab90568e2dbb0708d8))
+
+
 ## 🌈 0.33.0 `2022-05-09` 
 
 ### ❗ Breaking Changes
