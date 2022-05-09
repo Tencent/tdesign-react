@@ -5,7 +5,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDateRangePickerProps } from './type';
 import { RangeInputPopup } from '../range-input';
-import DateRangePanel from './panel/DateRangePanel';
+import DateRangePickerPanel from './panel/DateRangePickerPanel';
 import useRange from './hooks/useRange';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
@@ -311,7 +311,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         popupProps={popupProps}
         rangeInputProps={rangeInputProps}
         popupVisible={popupVisible}
-        panel={<DateRangePanel {...panelProps} />}
+        panel={<DateRangePickerPanel {...panelProps} />}
       />
     </div>
   );
