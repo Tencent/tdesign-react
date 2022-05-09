@@ -23,6 +23,32 @@ spline: explain
 ### 🚀 Features
 - `Icon`: 更新图标 新增`file-icon`图标 调整`file-excel`、`file-pdf`、`file-powerpoint`、`file-unknown`、`file-word`和`star-filled`图标的绘制路径 @uyarn ([#741](https://github.com/Tencent/tdesign-react/pull/741))
 - `Jumper`: 新增 `Jumper` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+- `RangeInput`:  新增 `RangeInput` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+- `RangeInputPopup`:  新增 `RangeInputPopup` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+
+### 🐞 Bug Fixes
+- `ColorPicker`: 受控问题修复 @insekkei ([#712](https://github.com/Tencent/tdesign-react/pull/712))
+- `Upload`:   修复组件 value undifined 场景校验失败问题 @HQ-Lin ([#738](https://github.com/Tencent/tdesign-react/pull/738))
+
+
+## 🌈 0.33.0 `2022-05-09` 
+
+### ❗ Breaking Changes
+- 重构 DatePicker、TimePicker 组件，样式结构有所调整 @HQ-Lin @uyarn ([#559](https://github.com/Tencent/tdesign-react/pull/559)) 
+- `DatePicker`
+  - 移除 `range` api，分别导出 `Datepicker` 与 `DateRangePicker` 组件
+  - 支持 `DatePanel` 与 `DateRangePanel` 单独使用
+  - 支持年份、月份区间选择
+  - 支持 `allowInput` api
+- `TimePicker`
+   - 重新调整样式、允许输入交互重新设计
+   - 调整交互为点击`确认`按钮保留改动 直接关闭弹窗不保留改动 恢复初始值
+   - `disableTime`、`onFocus`、`onBlur`、`onInput` 等API存在breaking change
+   - 新增`TimePickerPanel`组件 用于单独使用面板的场景 
+
+### 🚀 Features
+- `Icon`: 更新图标 新增`file-icon`图标 调整`file-excel`、`file-pdf`、`file-powerpoint`、`file-unknown`、`file-word`和`star-filled`图标的绘制路径 @uyarn ([#741](https://github.com/Tencent/tdesign-react/pull/741))
+- `Jumper`: 新增 `Jumper` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
 - `RangeInput`:  新增 `RangeInput` 组件 @HQ-Lin @uyarn ([#559](https://github.com/Tencent/tdesign-react/pull/559))
 - `RangeInputPopup`:  新增 `RangeInputPopup` 组件 @HQ-Lin @uyarn ([#559](https://github.com/Tencent/tdesign-react/pull/559))
 
