@@ -5,7 +5,7 @@ import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } f
 export default function WarningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);
   const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const [visibleWaring, setVisibleWaring] = useState(false);
+  const [visibleWarning, setVisibleWarning] = useState(false);
   const [visibleError, setVisibleError] = useState(false);
 
   const onClickConfirm = () => {
@@ -14,8 +14,8 @@ export default function WarningExample() {
   const onSuccess = () => {
     setVisibleSuccess(true);
   };
-  const onWaring = () => {
-    setVisibleWaring(true);
+  const onWarning = () => {
+    setVisibleWarning(true);
   };
   const onError = () => {
     setVisibleError(true);
@@ -27,7 +27,7 @@ export default function WarningExample() {
     setVisibleSuccess(false);
   };
   const onCloseWraing = () => {
-    setVisibleWaring(false);
+    setVisibleWarning(false);
   };
   const onCloseError = () => {
     setVisibleError(false);
@@ -40,7 +40,7 @@ export default function WarningExample() {
       <Button theme="primary" onClick={onSuccess} style={{ marginRight: 16 }}>
         成功反馈
       </Button>
-      <Button theme="primary" onClick={onWaring} style={{ marginRight: 16 }}>
+      <Button theme="primary" onClick={onWarning} style={{ marginRight: 16 }}>
         警示反馈
       </Button>
       <Button theme="primary" onClick={onError} style={{ marginRight: 16 }}>
@@ -75,7 +75,7 @@ export default function WarningExample() {
             <span>我是主要信息，我是主要信息</span>
           </>
         }
-        visible={visibleWaring}
+        visible={visibleWarning}
         onClose={onCloseWraing}
       ></Dialog>
       <Dialog

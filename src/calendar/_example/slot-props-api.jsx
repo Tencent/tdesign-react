@@ -20,7 +20,7 @@ export default function CalendarExample() {
       label: '错误事件',
     },
     {
-      value: 'waring',
+      value: 'warning',
       label: '警告事件',
     },
     {
