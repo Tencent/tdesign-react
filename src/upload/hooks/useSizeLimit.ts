@@ -29,7 +29,8 @@ export default function useHandleLimit() {
   const [local, t] = useLocaleReceiver('upload');
   return handleSizeLimit;
 
-  function handleSizeLimit(fileSize: number, rawSizeLimit: SizeLimitObj | number) {
+  // eslint-disable-next-line
+  function handleSizeLimit(fileSize: number = 0, rawSizeLimit: SizeLimitObj | number) {
     const sizeLimit: SizeLimitObj =
       typeof rawSizeLimit === 'number' ? { size: rawSizeLimit, unit: 'KB' } : rawSizeLimit;
     sizeLimit.unit = sizeLimit.unit.toUpperCase() as SizeUnit;
