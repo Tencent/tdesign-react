@@ -174,7 +174,7 @@ export default {
           component: () => import('tdesign-react/color-picker/color-picker.md'),
         },
         {
-          title: 'Datepicker 日期选择器',
+          title: 'DatePicker 日期选择器',
           name: 'date-picker',
           path: '/react/components/date-picker',
           component: () => import('tdesign-react/date-picker/date-picker.md'),
@@ -202,6 +202,12 @@ export default {
           name: 'radio',
           path: '/react/components/radio',
           component: () => import('tdesign-react/radio/radio.md'),
+        },
+        {
+          title: 'RangeInput 范围输入框',
+          name: 'range-input',
+          path: '/react/components/range-input',
+          component: () => import('tdesign-react/range-input/range-input.md'),
         },
         {
           title: 'Select 选择器',
@@ -232,12 +238,6 @@ export default {
           name: 'tag-input',
           path: '/react/components/tag-input',
           component: () => import('tdesign-react/tag-input/tag-input.md'),
-        },
-        {
-          title: 'RangeInput 范围输入框',
-          name: 'range-input',
-          path: '/react/components/range-input',
-          component: () => import('tdesign-react/range-input/range-input.md'),
         },
         {
           title: 'Textarea 多行文本框',
