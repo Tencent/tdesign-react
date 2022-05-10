@@ -21,7 +21,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       disabled,
-      inputNumberProps = true,
+      inputNumberProps = false,
       label,
       layout = 'horizontal',
       marks,
