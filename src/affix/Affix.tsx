@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import isFunction from 'lodash/isFunction';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
@@ -11,8 +11,6 @@ export interface AffixProps extends TdAffixProps, StyledProps {
 
 interface StateRef {
   ticking: boolean;
-  oldWidth: number;
-  oldHeight: number;
   containerHeight: number;
   scrollContainer?: ScrollContainerElement;
 }
@@ -25,19 +23,18 @@ export interface AffixRef {
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   const { children, zIndex, container = () => window, offsetBottom, offsetTop, onFixedChange } = props;
 
-  const [affixed, setAffixed] = useState<boolean>(false);
   const { classPrefix } = useConfig();
 
   const affixRef = useRef<HTMLDivElement>(null);
   const affixWrapRef = useRef<HTMLDivElement>(null);
-  const stateRef = useRef<StateRef>({ ticking: false, oldWidth: 0, oldHeight: 0, containerHeight: 0 });
+  const placeholderEL = useRef(document.createElement('div'));
+
+  const stateRef = useRef<StateRef>({ ticking: false, containerHeight: 0 });
 
   const handleScroll = useCallback(() => {
-    const { ticking, scrollContainer, containerHeight, oldWidth } = stateRef.current;
+    const { ticking, scrollContainer, containerHeight } = stateRef.current;
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        const affixEl = affixRef.current;
-
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
         const top = affixWrapRef.current?.getBoundingClientRect()?.top ?? 0;
 
@@ -61,34 +58,48 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           fixedTop = false;
         }
 
-        if (affixEl) {
-          if (fixedTop !== false) {
-            affixEl.className = `${classPrefix}-affix`;
-            affixEl.style.top = `${fixedTop}px`;
-            affixEl.style.width = `${oldWidth}px`;
+        if (affixRef.current) {
+          const affixed = fixedTop !== false;
+          const placeholderStatus = affixWrapRef.current.contains(placeholderEL.current);
+
+          if (affixed) {
+            const { clientWidth, clientHeight } = affixWrapRef.current;
+
+            affixRef.current.className = `${classPrefix}-affix`;
+            affixRef.current.style.top = `${fixedTop}px`;
+            affixRef.current.style.width = `${clientWidth}px`;
+            affixRef.current.style.height = `${clientHeight}px`;
 
             if (zIndex) {
-              affixEl.style.zIndex = `${zIndex}`;
+              affixRef.current.style.zIndex = `${zIndex}`;
+            }
+
+            // 插入占位节点
+            if (!placeholderStatus) {
+              setTimeout(() => {
+                placeholderEL.current.style.width = `${clientWidth}px`;
+                placeholderEL.current.style.height = `${clientHeight}px`;
+                affixWrapRef.current.appendChild(placeholderEL.current);
+              });
             }
           } else {
-            affixEl.removeAttribute('class');
-            affixEl.removeAttribute('style');
+            affixRef.current.removeAttribute('class');
+            affixRef.current.removeAttribute('style');
+
+            // 删除占位节点
+            placeholderStatus && placeholderEL.current.remove();
           }
-        }
 
-        const affixed = fixedTop !== false;
-
-        setAffixed(affixed);
-
-        if (isFunction(onFixedChange)) {
-          onFixedChange(affixed, { top: +fixedTop });
+          if (isFunction(onFixedChange)) {
+            onFixedChange(affixed, { top: +fixedTop });
+          }
         }
 
         stateRef.current.ticking = false;
       });
     }
     stateRef.current.ticking = true;
-  }, [classPrefix, offsetBottom, offsetTop, zIndex, onFixedChange]);
+  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
 
   const calcInitValue = useCallback(() => {
     const scrollContainer = getScrollContainer(container);
@@ -101,12 +112,10 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
       containerHeight = scrollContainer.clientHeight;
     }
     // 被包裹的子节点宽高
-    const { clientWidth, clientHeight } = affixRef.current || {};
+    const { clientHeight } = affixRef.current || {};
     stateRef.current = {
       ...stateRef.current,
       scrollContainer,
-      oldWidth: clientWidth,
-      oldHeight: clientHeight,
       containerHeight: containerHeight - clientHeight,
     };
 
@@ -131,11 +140,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     }
   }, [calcInitValue, handleScroll]);
 
-  const { oldWidth, oldHeight } = stateRef.current;
-
   return (
-    <div ref={affixWrapRef}>
-      {affixed ? <div style={{ width: `${oldWidth}px`, height: `${oldHeight}px` }}></div> : ''}
+    <div ref={affixWrapRef} style={{ width: '100%' }}>
       <div ref={affixRef}>{children}</div>
     </div>
   );
