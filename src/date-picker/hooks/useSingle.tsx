@@ -103,6 +103,7 @@ export default function useSingle(props: TdDatePickerProps) {
   // popup 设置
   const popupProps = {
     ...popupPropsFromProps,
+    overlayStyle: { width: 'auto' },
     expandAnimation: true,
     overlayClassName: `${name}__panel-container`,
     onVisibleChange: (visible: boolean) => {
