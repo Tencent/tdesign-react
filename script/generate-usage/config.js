@@ -225,7 +225,7 @@ module.exports = {
       const panelList = [{ label: 'steps', value: 'steps' }];
     `,
     usageStr: `
-      const defaultProps = { current: 1 };
+      const defaultProps = { defaultCurrent: 1 };
       useEffect(() => {
         setRenderComp((
           <Steps {...defaultProps} {...changedProps}>
