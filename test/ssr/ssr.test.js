@@ -4,7 +4,12 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 function ssrSnapshotTest() {
-  const files = glob.sync('./src/**/_example/**.*sx');
+  let files = glob.sync('./src/**/_example/**.*sx', {
+    ignore: [
+      './src/watermark/_example/**.*sx',
+    ]
+  });
+  files = files.filter(file => file.indexOf('watermark') === -1)
   describe('ssr snapshot test', () => {
     beforeAll(() => {
       jest.useFakeTimers().setSystemTime(new Date('2021-12-31').getTime());
