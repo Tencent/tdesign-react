@@ -6,6 +6,7 @@ import { useTabClass } from './useTabClass';
 
 export interface TabPanelProps extends TdTabPanelProps {
   style?: Styles;
+  children?: React.ReactNode;
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
