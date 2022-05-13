@@ -95,6 +95,7 @@ const Select = forwardRefWithStatics(
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
     const [valueToOption, setValueToOption] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [showTagClearIcon, setShowTagClearIcon] = useState(false);
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
@@ -102,6 +103,20 @@ const Select = forwardRefWithStatics(
       }
       return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
     }, [selectedOptions, keys, multiple]);
+
+    // 处理是否需要显示 Tag 的关闭标签，出现的不现实的情况: 多选时有参数默认选中且禁用 (相关 issue https://github.com/Tencent/tdesign-react/issues/740)
+    const upShowTagClearIcon = useCallback(
+      (options: Array<any>) => {
+        let show = false;
+        options.forEach((item) => {
+          if (item && item.disabled) {
+            show = true;
+          }
+        });
+        setShowTagClearIcon(!(show && multiple));
+      },
+      [multiple],
+    );
 
     // 处理设置option的逻辑
     useEffect(() => {
@@ -114,12 +129,14 @@ const Select = forwardRefWithStatics(
         }));
         setCurrentOptions(transformedOptions);
         setTmpPropOptions(transformedOptions);
+        upShowTagClearIcon(transformedOptions);
       } else {
         setCurrentOptions(options);
         setTmpPropOptions(options);
+        upShowTagClearIcon(options);
       }
       setValueToOption(getValueToOption(children, options, keys) || {});
-    }, [options, keys, children]);
+    }, [options, keys, children, upShowTagClearIcon]);
 
     // 同步value对应的options
     // 没太看明白effect的必要，感觉是一个useMemo而已
@@ -377,7 +394,7 @@ const Select = forwardRefWithStatics(
           tagInputProps={{
             ...tagInputProps,
           }}
-          tagProps={tagProps}
+          tagProps={{ closable: showTagClearIcon, ...tagProps }}
           inputProps={{
             size,
             ...inputProps,
