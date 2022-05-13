@@ -7,7 +7,7 @@ const { StepItem } = Steps;
 export default function BasicStepsExample() {
   return (
     <>
-      <Steps current={1}>
+      <Steps defaultCurrent={1}>
         <StepItem icon={<LoginIcon />} title="登录" content="已完成状态" />
         <StepItem icon={<CartIcon />} title="购物" content="进行中状态" />
         <StepItem icon={<WalletIcon />} title="支付" content="未开始" />

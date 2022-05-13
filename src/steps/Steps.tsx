@@ -1,82 +1,128 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import { TdStepsProps } from './type';
+import useDefault from '../_util/useDefault';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import { TdStepsProps, TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
+import { stepsDefaultProps } from './defaultProps';
 
 export interface StepsProps extends TdStepsProps, StyledProps {
   children?: React.ReactNode;
 }
 
-/**
- * 步骤条组件
- * @param props
- */
-function Steps(props: StepsProps) {
-  const {
-    style,
-    current = 0,
-    layout = 'horizontal',
-    theme = 'default',
-    sequence = 'positive',
-    children,
-    onChange,
-    options = [],
-  } = props;
-  const { classPrefix } = useConfig();
+const Steps = forwardRefWithStatics(
+  (props: StepsProps, ref) => {
+    const {
+      style,
+      current: currentFromProps,
+      defaultCurrent,
+      readonly,
+      layout,
+      theme,
+      sequence,
+      separator,
+      children,
+      onChange: onChangeFromProps,
+      options,
+    } = props;
+    const { classPrefix } = useConfig();
 
-  const className = classnames({
-    [`${classPrefix}-steps`]: true,
-    [`${classPrefix}-steps--horizontal`]: layout === 'horizontal',
-    [`${classPrefix}-steps--vertical`]: layout === 'vertical',
-    [`${classPrefix}-steps--default-anchor`]: theme === 'default',
-    [`${classPrefix}-steps--positive`]: sequence === 'positive',
-    [`${classPrefix}-steps--reverse`]: sequence === 'reverse',
-    [`${classPrefix}-steps--dot-anchor`]: theme === 'dot',
-    [props.className]: !!props.className,
-  });
+    const [current, onChange] = useDefault(currentFromProps, defaultCurrent, onChangeFromProps);
 
-  const previousRef = useRef<number | string>(current);
+    // 整理 StepItem value 映射
+    const indexMap = useMemo(() => {
+      const map = {};
 
-  // 监听步骤变化
-  useEffect(() => {
-    const previous = previousRef.current;
-    if (previous !== current && onChange) {
-      onChange(current, previous);
-    }
-  }, [current, onChange]);
+      if (options) {
+        options.forEach((item, index) => {
+          if (item.value !== undefined) map[item.value] = index;
+        });
+      } else {
+        React.Children.forEach(children, (child, index) => {
+          if (!React.isValidElement(child)) return;
+          if (child.props.value !== undefined) map[child.props.value] = index;
+        });
+      }
+      return map;
+    }, [options, children]);
 
-  const shouldReserve = sequence === 'reverse' && layout === 'vertical';
+    const handleStatus = useCallback(
+      (item: TdStepItemProps, index: number) => {
+        if (current === 'FINISH') return 'finish';
+        if (item.status && item.status !== 'default') return item.status;
 
-  // 处理 children 的展示逻辑，生成展示列表供页面循环;
-  const childrenList = React.Children.toArray(children);
-  const childrenDisplayList = shouldReserve ? childrenList.reverse() : childrenList;
+        // value 不存在时，使用 index 进行区分每一个步骤
+        if (item.value === undefined) {
+          if (sequence === 'positive' && index < current) return 'finish';
+          if (sequence === 'reverse' && index > current) return 'finish';
+        }
 
-  // 处理 options
-  const optionsDisplayList = shouldReserve ? options.reverse() : options;
-
-  // children 优先
-  let stepItemList = null;
-  if (childrenList.length !== 0) {
-    stepItemList = childrenDisplayList.map((child: JSX.Element, index: number) =>
-      React.cloneElement(child, { value: index, ...child.props }),
+        // value 存在，找匹配位置
+        if (item.value !== undefined) {
+          const matchIndex = indexMap[current];
+          if (matchIndex === undefined) {
+            console.warn('TDesign Steps Warn: The current `value` is not exist.');
+            return 'default';
+          }
+          if (sequence === 'positive' && index < matchIndex) return 'finish';
+          if (sequence === 'reverse' && index > matchIndex) return 'finish';
+        }
+        const key = item.value ?? index;
+        if (key === current) return 'process';
+        return 'default';
+      },
+      [current, sequence, indexMap],
     );
-  } else {
-    stepItemList = optionsDisplayList.map((v, index) => <StepItem {...v} value={index} key={index} />);
-  }
 
-  return (
-    <StepsContext.Provider value={{ current, theme }}>
-      <div className={className} style={style}>
-        {stepItemList}
-      </div>
-    </StepsContext.Provider>
-  );
-}
+    const stepItemList = useMemo(() => {
+      if (options) {
+        const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
 
-Steps.StepItem = StepItem;
+        return options.map((item, index: number) => {
+          const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
+          return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, index)} />;
+        });
+      }
+
+      const childrenList = React.Children.toArray(children);
+      const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
+
+      return childrenList.map((child: JSX.Element, index: number) => {
+        const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
+        return React.cloneElement(child, {
+          ...child.props,
+          index: stepIndex,
+          status: handleStatus(child.props, index),
+        });
+      });
+    }, [options, children, sequence, handleStatus]);
+
+    return (
+      <StepsContext.Provider value={{ current, theme, readonly, onChange }}>
+        <div
+          ref={ref}
+          style={style}
+          className={classnames({
+            [`${classPrefix}-steps`]: true,
+            [`${classPrefix}-steps--${theme}-anchor`]: theme,
+            [`${classPrefix}-steps--${layout}`]: layout,
+            [`${classPrefix}-steps--${sequence}`]: sequence,
+            [`${classPrefix}-steps--${separator}-separator`]: separator,
+            [props.className]: !!props.className,
+          })}
+        >
+          {stepItemList}
+        </div>
+      </StepsContext.Provider>
+    );
+  },
+  { StepItem },
+);
+
 Steps.displayName = 'Steps';
+Steps.defaultProps = stepsDefaultProps;
 
 export default Steps;
