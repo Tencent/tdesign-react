@@ -9,14 +9,7 @@ export interface AffixProps extends TdAffixProps, StyledProps {
   children: React.ReactNode;
 }
 
-interface StateRef {
-  ticking: boolean;
-  containerHeight: number;
-  scrollContainer?: ScrollContainerElement;
-}
-
 export interface AffixRef {
-  calcInitValue: () => void;
   handleScroll: () => void;
 }
 
@@ -27,31 +20,39 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
   const affixRef = useRef<HTMLDivElement>(null);
   const affixWrapRef = useRef<HTMLDivElement>(null);
-  const placeholderEL = useRef(document.createElement('div'));
+  const placeholderEL = useRef<HTMLElement>(null);
+  const scrollContainer = useRef<ScrollContainerElement>(null);
 
-  const stateRef = useRef<StateRef>({ ticking: false, containerHeight: 0 });
+  const ticking = useRef(false);
 
+  // 这里是通过控制 wrap 的 border-top 到浏览器顶部距离和 offsetTop 比较
   const handleScroll = useCallback(() => {
-    const { ticking, scrollContainer, containerHeight } = stateRef.current;
-    if (!ticking) {
+    if (!ticking.current) {
       window.requestAnimationFrame(() => {
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
-        const top = affixWrapRef.current?.getBoundingClientRect()?.top ?? 0;
+        const {
+          top: wrapToTop = 0,
+          width: wrapWidth = 0,
+          height: wrapHeight = 0,
+        } = affixWrapRef.current?.getBoundingClientRect() ?? { top: 0 };
 
-        // containerTop = 容器到页面顶部的距离
-        let containerTop = 0;
-        if (scrollContainer instanceof HTMLElement) {
-          containerTop = scrollContainer.getBoundingClientRect().top;
+        // 容器到页面顶部的距离, windows 为0
+        let containerToTop = 0;
+        if (scrollContainer.current instanceof HTMLElement) {
+          containerToTop = scrollContainer.current.getBoundingClientRect().top;
         }
 
-        let fixedTop: number | false;
-        const calcTop = top - containerTop; // 节点顶部到 container 顶部的距离
-        const calcBottom = containerTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
+        const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
+        const containerHeight =
+          scrollContainer.current[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
+          wrapHeight;
+        const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
+        let fixedTop: number | false;
         if (offsetTop !== undefined && calcTop <= offsetTop) {
           // top 的触发
-          fixedTop = containerTop + offsetTop;
-        } else if (offsetBottom !== undefined && top >= calcBottom) {
+          fixedTop = containerToTop + offsetTop;
+        } else if (offsetBottom !== undefined && wrapToTop >= calcBottom) {
           // bottom 的触发
           fixedTop = calcBottom;
         } else {
@@ -63,12 +64,11 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           const placeholderStatus = affixWrapRef.current.contains(placeholderEL.current);
 
           if (affixed) {
-            const { clientWidth, clientHeight } = affixWrapRef.current;
-
+            // 定位
             affixRef.current.className = `${classPrefix}-affix`;
             affixRef.current.style.top = `${fixedTop}px`;
-            affixRef.current.style.width = `${clientWidth}px`;
-            affixRef.current.style.height = `${clientHeight}px`;
+            affixRef.current.style.width = `${wrapWidth}px`;
+            affixRef.current.style.height = `${wrapHeight}px`;
 
             if (zIndex) {
               affixRef.current.style.zIndex = `${zIndex}`;
@@ -76,11 +76,9 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
             // 插入占位节点
             if (!placeholderStatus) {
-              setTimeout(() => {
-                placeholderEL.current.style.width = `${clientWidth}px`;
-                placeholderEL.current.style.height = `${clientHeight}px`;
-                affixWrapRef.current.appendChild(placeholderEL.current);
-              });
+              placeholderEL.current.style.width = `${wrapWidth}px`;
+              placeholderEL.current.style.height = `${wrapHeight}px`;
+              affixWrapRef.current.appendChild(placeholderEL.current);
             }
           } else {
             affixRef.current.removeAttribute('class');
@@ -95,53 +93,37 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           }
         }
 
-        stateRef.current.ticking = false;
+        ticking.current = false;
       });
     }
-    stateRef.current.ticking = true;
+    ticking.current = true;
   }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
 
-  const calcInitValue = useCallback(() => {
-    const scrollContainer = getScrollContainer(container);
-    if (!scrollContainer) return;
-    // 获取当前可视的高度
-    let containerHeight = 0;
-    if (scrollContainer instanceof Window) {
-      containerHeight = scrollContainer.innerHeight;
-    } else {
-      containerHeight = scrollContainer.clientHeight;
-    }
-    // 被包裹的子节点宽高
-    const { clientHeight } = affixRef.current || {};
-    stateRef.current = {
-      ...stateRef.current,
-      scrollContainer,
-      containerHeight: containerHeight - clientHeight,
-    };
-
-    handleScroll();
-  }, [container, handleScroll]);
-
   useImperativeHandle(ref, () => ({
-    calcInitValue,
     handleScroll,
   }));
 
   useEffect(() => {
-    calcInitValue();
-    if (stateRef.current.scrollContainer) {
-      stateRef.current.scrollContainer.addEventListener('scroll', handleScroll);
+    // 创建占位节点
+    placeholderEL.current = document.createElement('div');
+  }, []);
+
+  useEffect(() => {
+    scrollContainer.current = getScrollContainer(container);
+    if (scrollContainer.current) {
+      handleScroll();
+      scrollContainer.current.addEventListener('scroll', handleScroll);
       window.addEventListener('resize', handleScroll);
 
       return () => {
-        stateRef.current.scrollContainer?.removeEventListener('scroll', handleScroll);
+        scrollContainer.current.removeEventListener('scroll', handleScroll);
         window.removeEventListener('resize', handleScroll);
       };
     }
-  }, [calcInitValue, handleScroll]);
+  }, [container, handleScroll]);
 
   return (
-    <div ref={affixWrapRef} style={{ width: '100%' }}>
+    <div ref={affixWrapRef}>
       <div ref={affixRef}>{children}</div>
     </div>
   );
