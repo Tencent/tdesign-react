@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### 复杂嵌套数据结构表单
+
+可给 `name` 传入数组整理成对象嵌套数据结构
+
+{{ nested-data }}
+
 ### 动态增减嵌套表单
 
 可使用 `Form.FormList` 组件创建动态表单
@@ -18,12 +24,23 @@ Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onC
 
 可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
 
-```javascript
+```js
 // 可以单独使用 FormItem 组件
 <Form.FormItem label="姓名">
   <div>可以任意定制内容</div>
   <Input />
   <div>可以任意定制内容</div>
+</Form.FormItem>
+```
+
+### getFieldsValue 返回的数据如何支持嵌套数据结构？
+
+将 `name` 设置成数组形式可以支持嵌套数据结构。
+
+```js
+// ['user', 'name'] => { user: { name: '' } }
+<Form.FormItem label="姓名" name={['user', 'name']}>
+  <Input />
 </Form.FormItem>
 ```
 
