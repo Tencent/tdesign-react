@@ -17,6 +17,40 @@ function getMapValue(
   return formMapRef.current.get(key);
 }
 
+// 通过对象数据类型获取 map 引用
+function travalMapFromObject(
+  obj: Record<any, any>,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+  callback: Function,
+) {
+  for (const [mapName, formItemRef] of formMapRef.current.entries()) {
+    // 支持嵌套数据结构
+    if (Array.isArray(mapName)) {
+      // 创建唯一临时变量 symbol
+      const symbol = Symbol('name');
+      let fieldValue = null;
+
+      for (let i = 0; i < mapName.length; i++) {
+        const item = mapName[i];
+        if (Reflect.has(fieldValue || obj, item)) {
+          fieldValue = Reflect.get(fieldValue || obj, item);
+        } else {
+          // 当反射无法获取到值则重置为 symbol
+          fieldValue = symbol;
+          break;
+        }
+      }
+
+      // 说明设置了值
+      if (fieldValue !== symbol) {
+        callback(formItemRef, fieldValue);
+      }
+    } else if (Reflect.has(obj, mapName)) {
+      callback(formItemRef, obj[mapName]);
+    }
+  }
+}
+
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
   const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
@@ -132,36 +166,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
-    for (const [mapName, formItemRef] of formMapRef.current.entries()) {
-      // 支持嵌套数据结构
-      if (Array.isArray(mapName)) {
-        // 创建唯一临时变量 symbol
-        const symbol = Symbol('name');
-        let fieldValue = null;
-
-        for (let i = 0; i < mapName.length; i++) {
-          const item = mapName[i];
-          if (Reflect.has(fieldValue || fields, item)) {
-            fieldValue = Reflect.get(fieldValue || fields, item);
-          } else {
-            // 当反射无法获取到值则重置为 symbol
-            fieldValue = symbol;
-            break;
-          }
-        }
-
-        // 说明设置了值
-        if (fieldValue !== symbol) {
-          formItemRef?.current?.setValue?.(fieldValue);
-        }
-      } else if (Reflect.has(fields, mapName)) {
-        formItemRef?.current?.setValue?.(fields[mapName]);
-      }
-    }
-
-    Object.keys(fields).forEach((key) => {
-      const formItemRef = formMapRef.current.get(key);
-      formItemRef?.current?.setValue?.(fields[key]);
+    travalMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
+      formItemRef?.current?.setValue?.(fieldValue);
     });
   }
 
@@ -205,7 +211,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
 
       fields.forEach((name) => {
-        const formItemRef = formMapRef.current.get(name);
+        const formItemRef = getMapValue(name, formMapRef);
         formItemRef.current?.resetValidate();
       });
     }
@@ -213,9 +219,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置 formItem 的错误信息
   function setValidateMessage(message: FormValidateMessage<FormData>) {
-    Object.keys(message).forEach((name) => {
-      const formItemRef = formMapRef.current.get(name);
-      formItemRef?.current?.setValidateMessage(message[name]);
+    travalMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
+      formItemRef?.current?.setValidateMessage?.(fieldValue);
     });
   }
 
