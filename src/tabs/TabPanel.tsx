@@ -11,10 +11,10 @@ export interface TabPanelProps extends TdTabPanelProps, StyledProps {
 const TabPanel: React.FC<TabPanelProps> = (props) => {
   const { tdTabPanelClassPrefix } = useTabClass();
 
-  const { style } = props;
+  const { className, style } = props;
 
   return (
-    <div className={classNames(tdTabPanelClassPrefix)} style={style}>
+    <div className={classNames(tdTabPanelClassPrefix, className)} style={style}>
       {props.children}
     </div>
   );
