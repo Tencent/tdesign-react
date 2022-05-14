@@ -308,9 +308,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
           formListValue[name] = formValue;
         }
         onFormItemValueChange?.({ [formListName]: formListValue });
-      } else {
-        onFormItemValueChange?.({ [name as string]: formValue });
-      }
+      } else if (Array.isArray(name)) {
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
+          onFormItemValueChange?.({ ...fieldValue });
+        } else {
+          onFormItemValueChange?.({ [name as string]: formValue });
+        }
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');

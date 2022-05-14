@@ -36,7 +36,7 @@ exports[`container.jsx 1`] = `
             <span
               class="t-button__text"
             >
-              FixedTop top: 0
+              affixed: false
             </span>
           </button>
         </div>

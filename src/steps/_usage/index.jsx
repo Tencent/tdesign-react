@@ -25,7 +25,7 @@ export default function Usage() {
 
   const [renderComp, setRenderComp] = useState();
 
-  const defaultProps = { current: 1 };
+  const defaultProps = { defaultCurrent: 1 };
   useEffect(() => {
     setRenderComp(
       <Steps {...defaultProps} {...changedProps}>
