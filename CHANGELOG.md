@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.33.2 `2022-05-14` 
+### 🚀 Features
+- `Steps`: 支持 separator api & 完善反转逻辑 @HQ-Lin ([#752](https://github.com/Tencent/tdesign-react/pull/752))
+- `Form`:  支持整理嵌套数据 @HQ-Lin ([#758](https://github.com/Tencent/tdesign-react/pull/758)) ([#762](https://github.com/Tencent/tdesign-react/pull/762))
+- `Affix`:  优化滚动逻辑 @ontheroad1992 ([#759](https://github.com/Tencent/tdesign-react/pull/759))
+- `Tabs`:  `TabPanel` 支持 `className` 透传 @HQ-Lin ([#763](https://github.com/Tencent/tdesign-react/pull/763))
+### 🐞 Bug Fixes
+- `Table`: 修复 多级表头 + 列配置 综合示例中，列数量超出一定限制时报错，[issue#713](https://github.com/Tencent/tdesign-vue-next/issues/713) @chaishi ([#757](https://github.com/Tencent/tdesign-react/pull/757))
+- `Tabs`: 修复 `TabPanel` ts 类型报错 @wleven ([#761](https://github.com/Tencent/tdesign-react/pull/761))
+- `DatePicker`: 修复宽度计算问题 @HQ-Lin ([#754](https://github.com/Tencent/tdesign-react/pull/754))
+- `Slider`: 修复 `inputNumberProps` 类型问题  @andyjxli ([#745](https://github.com/Tencent/tdesign-react/pull/745))
+
 ## 🌈 0.33.1 `2022-05-09`
 
 ### 🐞 Bug Fixes
