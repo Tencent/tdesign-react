@@ -105,20 +105,26 @@ const Select = forwardRefWithStatics(
     }, [selectedOptions, keys, multiple]);
 
     // 处理是否需要显示 Tag 的关闭标签，出现的不现实的情况: 多选时有参数默认选中且禁用 (相关 issue https://github.com/Tencent/tdesign-react/issues/740)
+    const defaultSelectedOptions = useMemo(() => (value instanceof Array ? value : []), [value]); // 这里只需要拿到默认的 value 所以不需要将 value 写到 hooks 监听
     const upShowTagClearIcon = useCallback(
       (options: Array<any>) => {
         if (!options) {
           return;
         }
         let show = false;
+
         options.forEach((item) => {
           if (item && item.disabled) {
-            show = true;
+            defaultSelectedOptions.forEach((value) => {
+              if (value === item.value) {
+                show = true;
+              }
+            });
           }
         });
         setShowTagClearIcon(!(show && multiple));
       },
-      [multiple],
+      [multiple, defaultSelectedOptions],
     );
 
     // 处理设置option的逻辑
