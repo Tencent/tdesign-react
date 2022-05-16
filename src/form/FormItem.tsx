@@ -7,7 +7,6 @@ import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type
 import Checkbox from '../checkbox';
 import Upload from '../upload';
 import Tag from '../tag';
-import renderTNode from '../_util/renderTNode';
 import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
@@ -104,23 +103,24 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const shouldValidate = useRef(null);
   const isMounted = useRef(false);
 
-  const { formItemClass, formItemLabelClass, contentClass, labelStyle, contentStyle } = useFormItemStyle({
-    className,
-    help,
-    name,
-    successBorder,
-    errorList,
-    layout,
-    verifyStatus,
-    colon,
-    label,
-    labelWidth,
-    labelAlign,
-    requiredMark,
-    showErrorMessage,
-    innerRules,
-    renderTipsInfo,
-  });
+  const { formItemClass, formItemLabelClass, contentClass, labelStyle, contentStyle, helpNode, extraNode } =
+    useFormItemStyle({
+      className,
+      help,
+      name,
+      successBorder,
+      errorList,
+      successList,
+      layout,
+      verifyStatus,
+      colon,
+      label,
+      labelWidth,
+      labelAlign,
+      requiredMark,
+      showErrorMessage,
+      innerRules,
+    });
 
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules) {
@@ -129,21 +129,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
     }
     return formRules?.[name] || formListRules || [];
-  }
-
-  function renderTipsInfo() {
-    let helpNode = name ? <div className={`${classPrefix}-input__help`}></div> : '';
-    if (help) helpNode = <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
-
-    const list = errorList;
-    if (showErrorMessage && list && list[0] && list[0].message) {
-      return <div className={`${classPrefix}-input__extra`}>{list[0].message}</div>;
-    }
-    if (successList.length) {
-      return <div className={`${classPrefix}-input__extra`}>{successList[0].message}</div>;
-    }
-
-    return helpNode;
   }
 
   const renderSuffixIcon = () => {
@@ -309,11 +294,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
         }
         onFormItemValueChange?.({ [formListName]: formListValue });
       } else if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
-          onFormItemValueChange?.({ ...fieldValue });
-        } else {
-          onFormItemValueChange?.({ [name as string]: formValue });
-        }
+        const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
+        onFormItemValueChange?.({ ...fieldValue });
+      } else {
+        onFormItemValueChange?.({ [name as string]: formValue });
+      }
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
@@ -408,7 +393,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
           })}
           {renderSuffixIcon()}
         </div>
-        {renderTipsInfo()}
+        {helpNode}
+        {extraNode}
       </div>
     </div>
   );

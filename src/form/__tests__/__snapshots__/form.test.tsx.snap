@@ -68,7 +68,7 @@ exports[`align.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__name t-form__item-with-extra"
+        class="t-form__item t-form-item__name"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -99,13 +99,10 @@ exports[`align.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-extra"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -136,9 +133,6 @@ exports[`align.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
     </form>
@@ -152,7 +146,7 @@ exports[`base.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__name t-form__item-with-extra"
+      class="t-form__item t-form-item__name"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -183,13 +177,10 @@ exports[`base.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__birthday t-form__item-with-extra"
+      class="t-form__item t-form-item__birthday"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -249,13 +240,10 @@ exports[`base.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__gender t-form__item-with-extra"
+      class="t-form__item t-form-item__gender"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -313,13 +301,10 @@ exports[`base.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__course t-form__item-with-extra"
+      class="t-form__item t-form-item__course"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -395,13 +380,10 @@ exports[`base.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__status t-form__item-with-extra"
+      class="t-form__item t-form-item__status"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -433,9 +415,6 @@ exports[`base.jsx 1`] = `
             />
           </button>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
@@ -462,7 +441,7 @@ exports[`base.jsx 1`] = `
             style="display: flex; gap: 8px;"
           >
             <div
-              class="t-form__item t-form-item__custom t-form__item-with-extra"
+              class="t-form__item t-form-item__custom"
             >
               <div
                 class="t-form__controls"
@@ -484,9 +463,6 @@ exports[`base.jsx 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
@@ -551,7 +527,7 @@ exports[`clear-validate.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
+      class="t-form__item t-form-item__account t-form__item-with-help"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -590,7 +566,7 @@ exports[`clear-validate.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__description t-form__item-with-help t-form__item-with-extra"
+      class="t-form__item t-form-item__description t-form__item-with-help"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -629,7 +605,7 @@ exports[`clear-validate.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__password t-form__item-with-extra"
+      class="t-form__item t-form-item__password"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -683,13 +659,10 @@ exports[`clear-validate.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__email t-form__item-with-extra"
+      class="t-form__item t-form-item__email"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -720,13 +693,10 @@ exports[`clear-validate.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__gender t-form__item-with-extra"
+      class="t-form__item t-form-item__gender"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -784,13 +754,10 @@ exports[`clear-validate.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__course t-form__item-with-extra"
+      class="t-form__item t-form-item__course"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -884,13 +851,10 @@ exports[`clear-validate.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__college t-form__item-with-extra"
+      class="t-form__item t-form-item__college"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -952,13 +916,10 @@ exports[`clear-validate.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__date t-form__item-with-extra"
+      class="t-form__item t-form-item__date"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -989,13 +950,10 @@ exports[`clear-validate.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__content.url t-form__item-with-extra"
+      class="t-form__item t-form-item__content.url"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -1026,9 +984,6 @@ exports[`clear-validate.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
@@ -1098,7 +1053,7 @@ exports[`custom-validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__account t-form__item-with-extra"
+        class="t-form__item t-form-item__account"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -1129,13 +1084,10 @@ exports[`custom-validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-extra"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -1166,13 +1118,10 @@ exports[`custom-validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__rePassword t-form__item-with-extra"
+        class="t-form__item t-form-item__rePassword"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -1203,9 +1152,6 @@ exports[`custom-validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -1315,7 +1261,7 @@ exports[`disabled.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__name t-form__item-with-extra"
+        class="t-form__item t-form-item__name"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1347,13 +1293,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__college t-form__item-with-extra"
+        class="t-form__item t-form-item__college"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1416,13 +1359,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__address1 t-form__item-with-extra"
+        class="t-form__item t-form-item__address1"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1480,13 +1420,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__address2 t-form__item-with-extra"
+        class="t-form__item t-form-item__address2"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1536,13 +1473,10 @@ exports[`disabled.jsx 1`] = `
               </span>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__date t-form__item-with-extra"
+        class="t-form__item t-form-item__date"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1603,13 +1537,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__personalProfile t-form__item-with-extra"
+        class="t-form__item t-form-item__personalProfile"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1637,13 +1568,10 @@ exports[`disabled.jsx 1`] = `
               />
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__message t-form__item-with-extra"
+        class="t-form__item t-form-item__message"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1676,13 +1604,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </button>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__gender t-form__item-with-extra"
+        class="t-form__item t-form-item__gender"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1742,13 +1667,10 @@ exports[`disabled.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__course t-form__item-with-extra"
+        class="t-form__item t-form-item__course"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1827,13 +1749,10 @@ exports[`disabled.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__gradePoint t-form__item-with-extra"
+        class="t-form__item t-form-item__gradePoint"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1869,13 +1788,10 @@ exports[`disabled.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__avatar t-form__item-with-extra"
+        class="t-form__item t-form-item__avatar"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -1975,9 +1891,6 @@ exports[`disabled.jsx 1`] = `
               </small>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -2093,7 +2006,7 @@ exports[`error-message.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__account t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2132,7 +2045,7 @@ exports[`error-message.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__description t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__description t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -2171,7 +2084,7 @@ exports[`error-message.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-extra"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2225,13 +2138,10 @@ exports[`error-message.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__email t-form__item-with-extra"
+        class="t-form__item t-form-item__email"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2262,13 +2172,10 @@ exports[`error-message.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__gender t-form__item-with-extra"
+        class="t-form__item t-form-item__gender"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2326,13 +2233,10 @@ exports[`error-message.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__course t-form__item-with-extra"
+        class="t-form__item t-form-item__course"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2426,13 +2330,10 @@ exports[`error-message.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__college t-form__item-with-extra"
+        class="t-form__item t-form-item__college"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -2494,13 +2395,10 @@ exports[`error-message.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__date t-form__item-with-extra"
+        class="t-form__item t-form-item__date"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -2531,13 +2429,10 @@ exports[`error-message.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__content.url t-form__item-with-extra"
+        class="t-form__item t-form-item__content.url"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -2568,9 +2463,6 @@ exports[`error-message.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -2742,7 +2634,7 @@ exports[`layout.jsx 1`] = `
       class="t-form t-form-inline"
     >
       <div
-        class="t-form__item t-form-item__name t-form__item-with-extra"
+        class="t-form__item t-form-item__name"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -2772,13 +2664,10 @@ exports[`layout.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-extra"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -2808,9 +2697,6 @@ exports[`layout.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
     </form>
@@ -2827,7 +2713,7 @@ exports[`login.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__account t-form__item-with-extra"
+        class="t-form__item t-form-item__account"
       >
         <div
           class="t-form__controls"
@@ -2866,13 +2752,10 @@ exports[`login.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-extra"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__controls"
@@ -2939,9 +2822,6 @@ exports[`login.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -2977,7 +2857,7 @@ exports[`nested-data.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__user-name t-form__item-with-extra"
+      class="t-form__item t-form-item__user-name"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--colon t-form__label--right"
@@ -3008,13 +2888,10 @@ exports[`nested-data.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__user-age t-form__item-with-extra"
+      class="t-form__item t-form-item__user-age"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -3045,13 +2922,10 @@ exports[`nested-data.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__user-gender t-form__item-with-extra"
+      class="t-form__item t-form-item__user-gender"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -3109,13 +2983,10 @@ exports[`nested-data.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__user-course t-form__item-with-extra"
+      class="t-form__item t-form-item__user-course"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -3191,13 +3062,10 @@ exports[`nested-data.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__birthday t-form__item-with-extra"
+      class="t-form__item t-form-item__birthday"
     >
       <div
         class="t-form__label t-form__label--colon t-form__label--right"
@@ -3257,9 +3125,6 @@ exports[`nested-data.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
@@ -3375,7 +3240,7 @@ exports[`reset.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__name t-form__item-with-extra"
+        class="t-form__item t-form-item__name"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -3406,13 +3271,10 @@ exports[`reset.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__tel t-form__item-with-extra"
+        class="t-form__item t-form-item__tel"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -3443,13 +3305,10 @@ exports[`reset.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__course t-form__item-with-extra"
+        class="t-form__item t-form-item__course"
       >
         <div
           class="t-form__label t-form__label--colon t-form__label--right"
@@ -3526,9 +3385,6 @@ exports[`reset.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -3626,7 +3482,7 @@ exports[`size.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__name t-form__item-with-extra"
+        class="t-form__item t-form-item__name"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -3657,13 +3513,10 @@ exports[`size.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__tel t-form__item-with-extra"
+        class="t-form__item t-form-item__tel"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -3694,13 +3547,10 @@ exports[`size.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__status t-form__item-with-extra"
+        class="t-form__item t-form-item__status"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -3730,13 +3580,10 @@ exports[`size.jsx 1`] = `
               />
             </button>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__gender t-form__item-with-extra"
+        class="t-form__item t-form-item__gender"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -3794,13 +3641,10 @@ exports[`size.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__course t-form__item-with-extra"
+        class="t-form__item t-form-item__course"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -3876,9 +3720,6 @@ exports[`size.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -3926,7 +3767,7 @@ exports[`validate-complicated-data.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__school t-form__item-with-extra"
+      class="t-form__item t-form-item__school"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -4003,9 +3844,6 @@ exports[`validate-complicated-data.jsx 1`] = `
             </label>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
@@ -4086,7 +3924,7 @@ exports[`validate-complicated-data.jsx 1`] = `
             style="padding: 24px 24px 24px 0px;"
           >
             <div
-              class="t-form__item t-form-item__students[0].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[0].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4117,13 +3955,10 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[0].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[0].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4182,13 +4017,10 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </label>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[0].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[0].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4337,9 +4169,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </label>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
@@ -4386,7 +4215,7 @@ exports[`validate-complicated-data.jsx 1`] = `
             style="padding: 24px 24px 24px 0px;"
           >
             <div
-              class="t-form__item t-form-item__students[1].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[1].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4417,13 +4246,10 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[1].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[1].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4482,13 +4308,10 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </label>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[1].name t-form__item-with-extra"
+              class="t-form__item t-form-item__students[1].name"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -4636,9 +4459,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     </label>
                   </div>
                 </div>
-                <div
-                  class="t-input__help"
-                />
               </div>
             </div>
             <div
@@ -4721,7 +4541,13 @@ exports[`validate-message.jsx 1`] = `
           </div>
         </div>
         <div
+          class="t-input__help"
+        >
+          这是用户名字段帮助说明
+        </div>
+        <div
           class="t-input__extra"
+          title="自定义用户名校验信息提示"
         >
           自定义用户名校验信息提示
         </div>
@@ -4760,14 +4586,20 @@ exports[`validate-message.jsx 1`] = `
           </div>
         </div>
         <div
+          class="t-input__help"
+        >
+          一句话介绍自己
+        </div>
+        <div
           class="t-input__extra"
+          title="自定义个人简介校验信息提示"
         >
           自定义个人简介校验信息提示
         </div>
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__password t-form__item-with-extra"
+      class="t-form__item t-form-item__password"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -4821,9 +4653,6 @@ exports[`validate-message.jsx 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="t-input__help"
-        />
       </div>
     </div>
     <div
@@ -4882,7 +4711,7 @@ exports[`validator.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__account t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -4921,7 +4750,7 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__password t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -4960,7 +4789,7 @@ exports[`validator.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__email t-form__item-with-extra"
+        class="t-form__item t-form-item__email"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -4991,13 +4820,10 @@ exports[`validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__gender t-form__item-with-extra"
+        class="t-form__item t-form-item__gender"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5055,13 +4881,10 @@ exports[`validator.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__course t-form__item-with-extra"
+        class="t-form__item t-form-item__course"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5155,13 +4978,10 @@ exports[`validator.jsx 1`] = `
               </label>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__date t-form__item-with-extra"
+        class="t-form__item t-form-item__date"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -5192,13 +5012,10 @@ exports[`validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__content.url t-form__item-with-extra"
+        class="t-form__item t-form-item__content.url"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5229,9 +5046,6 @@ exports[`validator.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
@@ -5280,7 +5094,7 @@ exports[`validator-status.jsx 1`] = `
       class="t-form"
     >
       <div
-        class="t-form__item t-form-item__fail t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__fail t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5319,7 +5133,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__warning t-form__item-with-extra"
+        class="t-form__item t-form-item__warning"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5350,13 +5164,10 @@ exports[`validator-status.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__success t-form__item-with-extra"
+        class="t-form__item t-form-item__success"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -5387,13 +5198,10 @@ exports[`validator-status.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__failB t-form__item-with-extra"
+        class="t-form__item t-form-item__failB"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5424,13 +5232,10 @@ exports[`validator-status.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__warningB t-form__item-with-extra"
+        class="t-form__item t-form-item__warningB"
       >
         <div
           class="t-form__label t-form__label--required t-form__label--right"
@@ -5461,13 +5266,10 @@ exports[`validator-status.jsx 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__loading t-form__item-with-extra"
+        class="t-form__item t-form-item__loading"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -5526,13 +5328,10 @@ exports[`validator-status.jsx 1`] = `
               </div>
             </span>
           </div>
-          <div
-            class="t-input__help"
-          />
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__add t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__add t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--right"
@@ -5595,7 +5394,7 @@ exports[`validator-status.jsx 1`] = `
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__help t-form__item-with-help t-form__item-with-extra"
+        class="t-form__item t-form-item__help t-form__item-with-help"
       >
         <div
           class="t-form__label t-form__label--right"
