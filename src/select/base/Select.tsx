@@ -107,6 +107,9 @@ const Select = forwardRefWithStatics(
     // 处理是否需要显示 Tag 的关闭标签，出现的不现实的情况: 多选时有参数默认选中且禁用 (相关 issue https://github.com/Tencent/tdesign-react/issues/740)
     const upShowTagClearIcon = useCallback(
       (options: Array<any>) => {
+        if (!options) {
+          return;
+        }
         let show = false;
         options.forEach((item) => {
           if (item && item.disabled) {
