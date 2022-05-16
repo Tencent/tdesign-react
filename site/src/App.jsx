@@ -56,10 +56,7 @@ function Components() {
       .then((res) => res.json())
       .then((res) => {
         const options = [];
-        const versions = filterVersions(
-          Object.keys(res.versions).filter((v) => !v.includes('alpha')),
-          1,
-        );
+        const versions = filterVersions(Object.keys(res.versions).filter((v) => !v.includes('-')));
 
         versions.forEach((v) => {
           const nums = v.split('.');
@@ -90,7 +87,7 @@ function Components() {
 
     initHistoryVersions();
   }, []);
-  
+
   useEffect(() => {
     document.querySelector('td-stats')?.track?.();
   }, [location]);
