@@ -3,25 +3,14 @@ import classNames from 'classnames';
 import { InfoCircleFilledIcon, CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import noop from '../_util/noop';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
+import { alertDefaultProps } from './defaultProps';
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
 const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
-  const {
-    message,
-    title,
-    operation,
-    theme = 'info',
-    icon,
-    close,
-    maxLine,
-    onClose = noop,
-    className,
-    ...alertProps
-  } = props;
+  const { message, title, operation, theme, icon, close, maxLine, onClose, className, ...alertProps } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -106,5 +95,6 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 });
 
 Alert.displayName = 'Alert';
+Alert.defaultProps = alertDefaultProps;
 
 export default Alert;

@@ -36,8 +36,8 @@ const DateRangePickerPanel = (props: DateRangePickerPanelProps) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-range-picker__panel`;
   const {
-    value,
-    hoverValue,
+    value = [],
+    hoverValue = [],
     mode,
     format,
     presets,
@@ -52,7 +52,7 @@ const DateRangePickerPanel = (props: DateRangePickerPanelProps) => {
     activeIndex,
     year,
     month,
-    timeValue,
+    timeValue = [],
     onClick,
     onConfirmClick,
     onPresetClick,

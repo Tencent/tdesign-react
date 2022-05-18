@@ -6,6 +6,7 @@ import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 import { StyledProps, Styles, TNode } from '../common';
 import useConfig from '../_util/useConfig';
 import { pxCompat } from '../_util/helper';
+import { skeletonDefaultProps } from './defaultProps';
 
 export type SkeletonProps = TdSkeletonProps & StyledProps & { children: TNode };
 
@@ -23,7 +24,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
 };
 
 const Skeleton = (props: SkeletonProps) => {
-  const { animation, loading = true, rowCol, theme, className, style } = props;
+  const { animation, loading, rowCol, theme, className, style } = props;
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
@@ -109,5 +110,6 @@ const Skeleton = (props: SkeletonProps) => {
 };
 
 Skeleton.displayName = 'Skeleton';
+Skeleton.defaultProps = skeletonDefaultProps;
 
 export default Skeleton;

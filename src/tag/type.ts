@@ -63,12 +63,10 @@ export interface TdTagProps {
 export interface TdCheckTagProps {
   /**
    * 标签选中的状态，默认风格（theme=default）才有选中态
-   * @default false
    */
   checked?: boolean;
   /**
    * 标签选中的状态，默认风格（theme=default）才有选中态，非受控属性
-   * @default false
    */
   defaultChecked?: boolean;
   /**

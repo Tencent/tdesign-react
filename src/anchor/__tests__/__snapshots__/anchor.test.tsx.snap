@@ -31,6 +31,7 @@ exports[`base.jsx 1`] = `
             <a
               class="t-anchor__item-link"
               href="#基础锚点"
+              target="_self"
               title="基础锚点"
             >
               基础锚点
@@ -42,6 +43,7 @@ exports[`base.jsx 1`] = `
             <a
               class="t-anchor__item-link"
               href="#多级锚点"
+              target="_self"
               title="多级锚点"
             >
               多级锚点
@@ -53,6 +55,7 @@ exports[`base.jsx 1`] = `
             <a
               class="t-anchor__item-link"
               href="#指定容器锚点"
+              target="_self"
               title="指定容器锚点"
             >
               指定容器锚点
@@ -64,6 +67,7 @@ exports[`base.jsx 1`] = `
             <a
               class="t-anchor__item-link"
               href="#特定交互锚点"
+              target="_self"
               title="特定交互锚点"
             >
               特定交互锚点
@@ -75,6 +79,7 @@ exports[`base.jsx 1`] = `
             <a
               class="t-anchor__item-link"
               href="#尺寸"
+              target="_self"
               title="尺寸"
             >
               尺寸
@@ -115,6 +120,7 @@ exports[`container.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#content-1"
+          target="_self"
           title="content-1"
         >
           content-1
@@ -126,6 +132,7 @@ exports[`container.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#content-2"
+          target="_self"
           title="content-2"
         >
           content-2
@@ -137,6 +144,7 @@ exports[`container.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#content-3"
+          target="_self"
           title="content-3"
         >
           content-3
@@ -148,6 +156,7 @@ exports[`container.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#content-4"
+          target="_self"
           title="content-4"
         >
           content-4
@@ -219,6 +228,7 @@ exports[`cursor.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#基础锚点"
+          target="_self"
           title="基础锚点"
         >
           基础锚点
@@ -230,6 +240,7 @@ exports[`cursor.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#多级锚点"
+          target="_self"
           title="多级锚点"
         >
           多级锚点
@@ -241,6 +252,7 @@ exports[`cursor.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#指定容器锚点"
+          target="_self"
           title="指定容器锚点"
         >
           指定容器锚点
@@ -252,6 +264,7 @@ exports[`cursor.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#特定交互锚点"
+          target="_self"
           title="特定交互锚点"
         >
           特定交互锚点
@@ -263,6 +276,7 @@ exports[`cursor.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#尺寸"
+          target="_self"
           title="尺寸"
         >
           尺寸
@@ -299,6 +313,7 @@ exports[`large.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#default"
+          target="_self"
           title="基础锚点"
         >
           基础锚点
@@ -310,6 +325,7 @@ exports[`large.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#multiple"
+          target="_self"
           title="多级锚点"
         >
           多级锚点
@@ -321,6 +337,7 @@ exports[`large.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#size"
+          target="_self"
           title="尺寸大小"
         >
           尺寸大小
@@ -331,6 +348,7 @@ exports[`large.jsx 1`] = `
           <a
             class="t-anchor__item-link"
             href="#size"
+            target="_self"
             title="size-medium"
           >
             size-medium
@@ -342,6 +360,7 @@ exports[`large.jsx 1`] = `
           <a
             class="t-anchor__item-link"
             href="#size-large"
+            target="_self"
             title="size-large"
           >
             size-large
@@ -354,6 +373,7 @@ exports[`large.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#attach"
+          target="_self"
           title="指定容器"
         >
           指定容器
@@ -387,6 +407,7 @@ exports[`multiple.jsx 1`] = `
       <a
         class="t-anchor__item-link"
         href="#基础锚点"
+        target="_self"
         title="基础锚点"
       >
         基础锚点
@@ -398,6 +419,7 @@ exports[`multiple.jsx 1`] = `
       <a
         class="t-anchor__item-link"
         href="#多级锚点"
+        target="_self"
         title="多级锚点"
       >
         多级锚点
@@ -409,6 +431,7 @@ exports[`multiple.jsx 1`] = `
       <a
         class="t-anchor__item-link"
         href="#指定容器锚点"
+        target="_self"
         title="指定容器锚点"
       >
         指定容器锚点
@@ -420,6 +443,7 @@ exports[`multiple.jsx 1`] = `
       <a
         class="t-anchor__item-link"
         href="#特定交互锚点"
+        target="_self"
         title="特定交互锚点"
       >
         特定交互锚点
@@ -431,6 +455,7 @@ exports[`multiple.jsx 1`] = `
       <a
         class="t-anchor__item-link"
         href="#尺寸"
+        target="_self"
         title="尺寸"
       >
         尺寸
@@ -441,6 +466,7 @@ exports[`multiple.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#size"
+          target="_self"
           title="size-medium"
         >
           size-medium
@@ -452,6 +478,7 @@ exports[`multiple.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#size-large"
+          target="_self"
           title="size-large"
         >
           size-large
@@ -488,6 +515,7 @@ exports[`small.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#default"
+          target="_self"
           title="基础锚点"
         >
           基础锚点
@@ -499,6 +527,7 @@ exports[`small.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#multiple"
+          target="_self"
           title="多级锚点"
         >
           多级锚点
@@ -510,6 +539,7 @@ exports[`small.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#size"
+          target="_self"
           title="尺寸大小"
         >
           尺寸大小
@@ -520,6 +550,7 @@ exports[`small.jsx 1`] = `
           <a
             class="t-anchor__item-link"
             href="#size"
+            target="_self"
             title="size-medium"
           >
             size-medium
@@ -531,6 +562,7 @@ exports[`small.jsx 1`] = `
           <a
             class="t-anchor__item-link"
             href="#size-large"
+            target="_self"
             title="size-large"
           >
             size-large
@@ -543,6 +575,7 @@ exports[`small.jsx 1`] = `
         <a
           class="t-anchor__item-link"
           href="#attach"
+          target="_self"
           title="指定容器"
         >
           指定容器

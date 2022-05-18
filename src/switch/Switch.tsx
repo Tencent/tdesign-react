@@ -5,83 +5,84 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import useCommonClassName from '../_util/useCommonClassName';
 import { TdSwitchProps } from './type';
+import { switchDefaultProps } from './defaultProps';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
 
 export interface SwitchProps extends TdSwitchProps, StyledProps {}
 
-const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps }, ref) => {
-    const { classPrefix } = useConfig();
-    const [activeValue = true, inactiveValue = false] = customValue || [];
+const Switch = forwardRef((props: SwitchProps, ref: React.Ref<HTMLButtonElement>) => {
+  const { classPrefix } = useConfig();
+  const { className, value, defaultValue, disabled, loading, size, label, customValue, onChange, ...restProps } = props;
+  const [activeValue = true, inactiveValue = false] = customValue || [];
 
-    const isControlled = typeof value !== 'undefined';
-    const initChecked = defaultValue === activeValue || value === activeValue;
-    const [innerChecked, setInnerChecked] = useState(initChecked);
+  const isControlled = typeof value !== 'undefined';
+  const initChecked = defaultValue === activeValue || value === activeValue;
+  const [innerChecked, setInnerChecked] = useState(initChecked);
 
-    function renderContent(checked) {
-      if (typeof label === 'function') return label({ value });
+  function renderContent(checked: boolean) {
+    if (typeof label === 'function') return label({ value });
 
-      if (typeof label === 'string') return label;
+    if (typeof label === 'string') return label;
 
-      if (Array.isArray(label)) {
-        const [activeContent = '', inactiveContent = ''] = label;
-        const content = checked ? activeContent : inactiveContent;
+    if (Array.isArray(label)) {
+      const [activeContent = '', inactiveContent = ''] = label;
+      const content = checked ? activeContent : inactiveContent;
 
-        if (typeof content === 'function') return content();
+      if (typeof content === 'function') return content();
 
-        return content;
-      }
-
-      return null;
+      return content;
     }
 
-    function onInternalClick() {
-      if (disabled) return;
+    return null;
+  }
 
-      !isControlled && setInnerChecked(!innerChecked);
+  function onInternalClick() {
+    if (disabled) return;
 
-      const changedValue = !innerChecked ? activeValue : inactiveValue;
-      onChange?.(changedValue);
+    !isControlled && setInnerChecked(!innerChecked);
+
+    const changedValue = !innerChecked ? activeValue : inactiveValue;
+    onChange?.(changedValue);
+  }
+
+  useEffect(() => {
+    if (Array.isArray(customValue) && !customValue.includes(value)) {
+      throw `value is not in customValue: ${JSON.stringify(customValue)}`;
     }
+    isControlled && setInnerChecked(value === activeValue);
+  }, [value, customValue, activeValue, isControlled]);
 
-    useEffect(() => {
-      if (Array.isArray(customValue) && !customValue.includes(value)) {
-        throw `value is not in customValue: ${JSON.stringify(customValue)}`;
-      }
-      isControlled && setInnerChecked(value === activeValue);
-    }, [value, customValue, activeValue, isControlled]);
+  const { SIZE, STATUS } = useCommonClassName();
+  const switchClassName = classNames(
+    `${classPrefix}-switch`,
+    className,
+    {
+      [STATUS.checked]: innerChecked,
+      [STATUS.disabled]: disabled,
+      [STATUS.loading]: loading,
+    },
+    SIZE[size],
+  );
 
-    const { SIZE, STATUS } = useCommonClassName();
-    const switchClassName = classNames(
-      `${classPrefix}-switch`,
-      className,
-      {
-        [STATUS.checked]: innerChecked,
-        [STATUS.disabled]: disabled,
-        [STATUS.loading]: loading,
-      },
-      SIZE[size],
-    );
-
-    return (
-      <button
-        {...restProps}
-        type="button"
-        role="switch"
-        disabled={disabled || loading}
-        className={switchClassName}
-        ref={ref}
-        onClick={onInternalClick}
-      >
-        <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading={true} size="small" />}</span>
-        <div className={`${classPrefix}-switch__content`}>{renderContent(innerChecked)}</div>
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      {...restProps}
+      type="button"
+      role="switch"
+      disabled={disabled || loading}
+      className={switchClassName}
+      ref={ref}
+      onClick={onInternalClick}
+    >
+      <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading={true} size="small" />}</span>
+      <div className={`${classPrefix}-switch__content`}>{renderContent(innerChecked)}</div>
+    </button>
+  );
+});
 
 Switch.displayName = 'Switch';
+Switch.defaultProps = switchDefaultProps;
 
 export default Switch;

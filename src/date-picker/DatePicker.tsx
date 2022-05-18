@@ -9,6 +9,7 @@ import DatePickerPanel from './panel/DatePickerPanel';
 import useSingle from './hooks/useSingle';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
+import { datePickerDefaultProps } from './defaultProps';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -220,13 +221,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
 });
 
 DatePicker.displayName = 'DatePicker';
-
-DatePicker.defaultProps = {
-  mode: 'date',
-  allowInput: false,
-  clearable: false,
-  enableTimePicker: false,
-  presetsPlacement: 'bottom',
-};
+DatePicker.defaultProps = datePickerDefaultProps;
 
 export default DatePicker;

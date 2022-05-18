@@ -6,6 +6,7 @@ import FakeArrow from '../common/FakeArrow';
 import useConfig from '../_util/useConfig';
 import { TdCollapsePanelProps } from './type';
 import { StyledProps } from '../common';
+import { collapsePanelDefaultProps } from './defaultProps';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;
@@ -16,10 +17,10 @@ const CollapsePanel = (props: CollapsePanelProps) => {
   const {
     value,
     disabled,
-    destroyOnCollapse = false,
+    destroyOnCollapse,
     expandIcon,
     className,
-    style = {},
+    style,
     header,
     headerRightContent,
     children,
@@ -142,5 +143,6 @@ const CollapsePanel = (props: CollapsePanelProps) => {
 };
 
 CollapsePanel.displayName = 'CollapsePanel';
+CollapsePanel.defaultProps = collapsePanelDefaultProps;
 
 export default CollapsePanel;

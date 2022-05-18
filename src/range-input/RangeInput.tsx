@@ -4,9 +4,10 @@ import isFunction from 'lodash/isFunction';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../input';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import type { StyledProps, TNode } from '../common';
 import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
+import { rangeInputDefaultProps } from './defaultProps';
 
 export interface RangeInputProps extends TdRangeInputProps, StyledProps {}
 
@@ -41,8 +42,6 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   const { classPrefix } = useConfig();
 
   const {
-    value: valueFromProps,
-    defaultValue,
     className,
     style,
     activeIndex,
@@ -52,7 +51,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
     label,
     placeholder,
     readonly,
-    separator = '-',
+    separator,
     status,
     size,
     tips,
@@ -86,7 +85,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
   const [firstPlaceholder = '请输入内容', secondPlaceholder = '请输入内容'] = calcArrayValue(placeholder);
   const [firstInputProps, secondInputProps] = calcArrayValue(inputProps);
 
-  const [value, onChange] = useDefault(valueFromProps, defaultValue, onChangeFromProps);
+  const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
   const [firstValue, secondValue] = value || [];
 
   const isShowClearIcon = ((clearable && value?.length && !disabled) || showClearIconOnEmpty) && isHover;
@@ -160,7 +159,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
       })}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      {...restProps}
+      {...(restProps as React.HTMLAttributes<HTMLDivElement>)}
     >
       <div className={`${name}__inner`}>
         {prefixIconContent}
@@ -215,5 +214,6 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref: React.RefObjec
 });
 
 RangeInput.displayName = 'RangeInput';
+RangeInput.defaultProps = rangeInputDefaultProps;
 
 export default RangeInput;

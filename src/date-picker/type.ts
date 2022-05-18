@@ -189,11 +189,6 @@ export interface TdDateRangePickerProps {
    */
   separator?: string;
   /**
-   * 尺寸
-   * @default medium
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
    * 组件后置图标
    */
   suffixIcon?: TElement;

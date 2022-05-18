@@ -11,6 +11,7 @@ import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
+import { formItemDefaultProps } from './defaultProps';
 
 export enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
@@ -401,5 +402,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 });
 
 FormItem.displayName = 'FormItem';
+FormItem.defaultProps = formItemDefaultProps;
 
 export default FormItem;

@@ -9,6 +9,7 @@ import { StyledProps } from '../common';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
+import { formDefaultProps } from './defaultProps';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -135,5 +136,6 @@ const Form = forwardRefWithStatics(
 );
 
 Form.displayName = 'Form';
+Form.defaultProps = formDefaultProps;
 
 export default Form;

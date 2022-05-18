@@ -132,9 +132,10 @@ exports[`base.jsx 1`] = `
               >
                 <div
                   class="t-tag-input t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-input--prefix"
+                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                   >
                     <div
                       class="t-input__prefix"
@@ -179,6 +180,7 @@ exports[`base.jsx 1`] = `
                     <input
                       class="t-input__inner"
                       placeholder=""
+                      type="text"
                       value=""
                     />
                   </div>
@@ -472,9 +474,10 @@ exports[`icon.jsx 1`] = `
               >
                 <div
                   class="t-tag-input t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-input--prefix"
+                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                   >
                     <div
                       class="t-input__prefix"
@@ -519,6 +522,7 @@ exports[`icon.jsx 1`] = `
                     <input
                       class="t-input__inner"
                       placeholder=""
+                      type="text"
                       value=""
                     />
                   </div>
@@ -539,7 +543,6 @@ exports[`icon.jsx 1`] = `
           <input
             checked=""
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="1"
           />
@@ -557,7 +560,6 @@ exports[`icon.jsx 1`] = `
         >
           <input
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="2"
           />
@@ -575,7 +577,6 @@ exports[`icon.jsx 1`] = `
         >
           <input
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="3"
           />
@@ -595,7 +596,6 @@ exports[`icon.jsx 1`] = `
         >
           <input
             class="t-checkbox__former"
-            readonly=""
             type="checkbox"
             value=""
           />
@@ -736,9 +736,10 @@ exports[`mutex.jsx 1`] = `
               >
                 <div
                   class="t-tag-input t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-input--prefix"
+                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                   >
                     <div
                       class="t-input__prefix"
@@ -783,6 +784,7 @@ exports[`mutex.jsx 1`] = `
                     <input
                       class="t-input__inner"
                       placeholder=""
+                      type="text"
                       value=""
                     />
                   </div>
@@ -919,9 +921,10 @@ exports[`other.jsx 1`] = `
               >
                 <div
                   class="t-tag-input t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-input--prefix"
+                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                   >
                     <div
                       class="t-input__prefix"
@@ -966,6 +969,7 @@ exports[`other.jsx 1`] = `
                     <input
                       class="t-input__inner"
                       placeholder=""
+                      type="text"
                       value=""
                     />
                   </div>
@@ -982,7 +986,6 @@ exports[`other.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -1000,7 +1003,6 @@ exports[`other.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -1169,7 +1171,6 @@ exports[`rightSlot.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value=""
                 />

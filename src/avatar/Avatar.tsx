@@ -9,6 +9,7 @@ import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
 import AvatarContext from './AvatarContext';
 import AvatarGroup from './AvararGroup';
+import { avatarDefaultProps } from './defaultProps';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;
@@ -18,11 +19,11 @@ const Avatar = forwardRefWithStatics(
   (props: AvatarProps, ref: Ref<HTMLElement>) => {
     const {
       alt,
-      hideOnLoadFailed = false,
+      hideOnLoadFailed,
       icon,
       image,
-      shape = 'circle',
-      size: avatarSize = 'default',
+      shape,
+      size: avatarSize,
       onError,
       children,
       style,
@@ -123,5 +124,6 @@ const Avatar = forwardRefWithStatics(
 );
 
 Avatar.displayName = 'Avatar';
+Avatar.defaultProps = avatarDefaultProps;
 
 export default Avatar;

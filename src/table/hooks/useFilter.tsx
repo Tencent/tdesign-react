@@ -2,7 +2,7 @@ import React, { useEffect, useState, MutableRefObject } from 'react';
 import useClassName from './useClassName';
 import TButton from '../../button';
 import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue } from '../type';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
@@ -23,12 +23,11 @@ function filterEmptyData(data: FilterValue) {
 
 export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const [locale, t] = useLocaleReceiver('table');
-  const { filterValue } = props;
   const { tableFilterClasses, isFocusClass } = useClassName();
   const [isTableOverflowHidden, setIsTableOverflowHidden] = useState<boolean>();
 
   // unControl and control
-  const [tFilterValue, setTFilterValue] = useDefaultValue(filterValue, props.defaultFilterValue, props.onFilterChange);
+  const [tFilterValue, setTFilterValue] = useControlled(props, 'filterValue', props.onFilterChange);
 
   // 过滤内部值
   const [innerFilterValue, setInnerFilterValue] = useState<FilterValue>(tFilterValue);

@@ -396,11 +396,12 @@ exports[`trigger.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="获得焦点时触发"
+            type="text"
             value=""
           />
         </div>

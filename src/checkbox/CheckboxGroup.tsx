@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
-import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from './type';
+import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
 import { StyledProps } from '../common';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import Checkbox from './Checkbox';
+import { checkboxGroupDefaultProps } from './defaultProps';
 
 export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
   children?: React.ReactNode;
@@ -31,9 +32,9 @@ const getCheckboxValue = (v: CheckboxOption): string | number => {
 /**
  * 多选选项组，里面可以嵌套 <Checkbox />
  */
-export function CheckboxGroup(props: CheckboxGroupProps) {
+const CheckboxGroup = (props: CheckboxGroupProps) => {
   const { classPrefix } = useConfig();
-  const { value, defaultValue, onChange, disabled, className, style, children, max, options = [] } = props;
+  const { onChange, disabled, className, style, children, max, options = [] } = props;
 
   // 去掉所有 checkAll 之后的 options
   const intervalOptions =
@@ -48,7 +49,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
     optionsWithoutCheckAllValues.push(vs);
   });
 
-  const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
+  const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
 
   const checkedSet = useMemo(() => {
@@ -112,7 +113,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
 
           setInternalValue(Array.from(checkedSet), {
             e,
-            current: checkProps.checkAll ? undefined : checkValue,
+            current: checkProps.checkAll ? undefined : (checkValue as TdCheckboxProps),
             type: checked ? 'check' : 'uncheck',
           });
         },
@@ -163,4 +164,9 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
       </CheckContext.Provider>
     </div>
   );
-}
+};
+
+CheckboxGroup.displayName = 'CheckboxGroup';
+CheckboxGroup.defaultProps = checkboxGroupDefaultProps;
+
+export default CheckboxGroup;

@@ -2,18 +2,19 @@ import React, { useState, useRef } from 'react';
 import { Popup, PopupProps } from '../popup';
 import { ColorPickerProps, TdColorContext } from './interface';
 import useClassname from './hooks/useClassname';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import ColorTrigger from './components/trigger';
 import ColorPanel from './components/panel/index';
 import useClickOutside from '../_util/useClickOutside';
+import { colorPickerDefaultProps } from './defaultProps';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassname();
-  const { popupProps, defaultValue, disabled = false, inputProps, value, onChange, colorModes, ...rest } = props;
+  const { popupProps, disabled, inputProps, onChange, colorModes, ...rest } = props;
   const { overlayClassName, overlayStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [visible, setVisible] = useState(false);
-  const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
+  const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
   const triggerRef = useRef<HTMLDivElement>();
   const colorPanelRef = useRef();
 
@@ -64,5 +65,6 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 };
 
 ColorPicker.displayName = 'ColorPicker';
+ColorPicker.defaultProps = colorPickerDefaultProps;
 
 export default React.memo(ColorPicker);

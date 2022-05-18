@@ -4,6 +4,7 @@ import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
 import { getScrollContainer } from '../_util/dom';
 import useConfig from '../_util/useConfig';
+import { affixDefaultProps } from './defaultProps';
 
 export interface AffixProps extends TdAffixProps, StyledProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export interface AffixRef {
 }
 
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
-  const { children, zIndex, container = () => window, offsetBottom, offsetTop, onFixedChange } = props;
+  const { children, zIndex, container, offsetBottom, offsetTop, onFixedChange } = props;
 
   const { classPrefix } = useConfig();
 
@@ -128,5 +129,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     </div>
   );
 });
+
+Affix.displayName = 'Affix';
+Affix.defaultProps = affixDefaultProps;
 
 export default Affix;

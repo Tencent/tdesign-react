@@ -6,6 +6,7 @@ import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
 import { StyledProps } from '../common';
+import { tabsDefaultProps } from './defaultProps';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
@@ -87,9 +88,6 @@ const Tabs = forwardRefWithStatics(
 );
 
 Tabs.displayName = 'Tabs';
-
-Tabs.defaultProps = {
-  placement: 'top',
-};
+Tabs.defaultProps = tabsDefaultProps;
 
 export default Tabs;

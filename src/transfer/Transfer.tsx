@@ -10,6 +10,7 @@ import TransferList from './TransferList';
 import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';
 import { TNode, StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { transferDefaultProps } from './defaultProps';
 
 export interface TransferProps extends TdTransferProps, StyledProps {
   content?: Array<TNode>;
@@ -27,16 +28,16 @@ interface CheckedInterface {
 
 const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const {
-    data = [],
-    search = false,
-    checked = [],
-    defaultChecked = [],
+    data,
+    search,
+    checked,
+    defaultChecked,
     onCheckedChange,
     value,
-    defaultValue = [],
+    defaultValue,
     onChange,
     empty,
-    disabled = false,
+    disabled,
     pagination,
     title,
     operation,
@@ -250,5 +251,6 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
 };
 
 Transfer.displayName = 'Transfer';
+Transfer.defaultProps = transferDefaultProps;
 
 export default Transfer;

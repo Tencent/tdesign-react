@@ -11,8 +11,8 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
 import { StyledProps } from '../common';
 import { blockName, controlSectionSize, minYear, createDateList, createMonthList } from './_util';
-import { calendarDefaultProps } from './defaultProps';
 import CalendarCellComp from './CalendarCellComp';
+import { calendarDefaultProps } from './defaultProps';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -62,18 +62,18 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
 
 const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
   const {
-    className = '',
-    style = {},
-    mode: modeFromProps = 'month',
-    value: valueFromProps = null,
-    firstDayOfWeek = 1,
-    format = 'YYYY-MM-DD',
-    range = null,
-    head = null,
-    cell = null,
-    cellAppend = null,
-    week = null,
-    theme = 'full',
+    className,
+    style,
+    mode: modeFromProps,
+    value: valueFromProps,
+    firstDayOfWeek,
+    format,
+    range,
+    head,
+    cell,
+    cellAppend,
+    week,
+    theme,
     controllerConfig,
     isShowWeekendDefault = true,
     preventCellContextmenu = false,
@@ -84,7 +84,7 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     onCellDoubleClick = noop,
     onCellRightClick = noop,
     onMonthChange = noop,
-    fillWithZero = false,
+    fillWithZero,
   } = props;
 
   // 组装配置信息

@@ -13,7 +13,6 @@ exports[`align.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="left"
         />
@@ -32,7 +31,6 @@ exports[`align.jsx 1`] = `
         <input
           checked=""
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="right"
         />
@@ -50,7 +48,6 @@ exports[`align.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="top"
         />
@@ -89,11 +86,12 @@ exports[`align.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -123,11 +121,12 @@ exports[`align.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -167,11 +166,12 @@ exports[`base.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -205,9 +205,10 @@ exports[`base.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value=""
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -216,6 +217,7 @@ exports[`base.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value=""
                   />
                   <span
@@ -268,7 +270,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="male"
               />
@@ -286,7 +287,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="female"
               />
@@ -329,7 +329,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="la"
               />
@@ -347,7 +346,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="ma"
               />
@@ -365,7 +363,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="nocong"
               />
@@ -403,7 +400,7 @@ exports[`base.jsx 1`] = `
           class="t-form__controls-content"
         >
           <button
-            class="t-switch"
+            class="t-switch t-size-m"
             role="switch"
             type="button"
           >
@@ -453,11 +450,12 @@ exports[`base.jsx 1`] = `
                     class="t-input__wrap"
                   >
                     <div
-                      class="t-input"
+                      class="t-input t-size-m t-align-left t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
+                        type="text"
                         value=""
                       />
                     </div>
@@ -530,7 +528,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__account t-form__item-with-help"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -548,11 +546,12 @@ exports[`clear-validate.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -585,13 +584,15 @@ exports[`clear-validate.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value=""
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -608,7 +609,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__password"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -626,7 +627,7 @@ exports[`clear-validate.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-input--suffix"
+              class="t-input t-size-m t-align-left t-is-default t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -665,7 +666,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__email"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -683,11 +684,12 @@ exports[`clear-validate.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -699,7 +701,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__gender"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -721,7 +723,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="male"
               />
@@ -739,7 +740,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="femal"
               />
@@ -760,7 +760,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__course"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -782,7 +782,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -800,7 +799,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -818,7 +816,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -836,7 +833,6 @@ exports[`clear-validate.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -879,9 +875,10 @@ exports[`clear-validate.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value=""
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -890,6 +887,7 @@ exports[`clear-validate.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    type="text"
                     value=""
                   />
                   <span
@@ -940,11 +938,12 @@ exports[`clear-validate.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -956,7 +955,7 @@ exports[`clear-validate.jsx 1`] = `
       class="t-form__item t-form-item__content.url"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -974,11 +973,12 @@ exports[`clear-validate.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -1056,7 +1056,7 @@ exports[`custom-validator.jsx 1`] = `
         class="t-form__item t-form-item__account"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1074,11 +1074,12 @@ exports[`custom-validator.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1090,7 +1091,7 @@ exports[`custom-validator.jsx 1`] = `
         class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1106,13 +1107,15 @@ exports[`custom-validator.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1124,7 +1127,7 @@ exports[`custom-validator.jsx 1`] = `
         class="t-form__item t-form-item__rePassword"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -1140,13 +1143,15 @@ exports[`custom-validator.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1219,9 +1224,8 @@ exports[`disabled.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
-            value="false"
+            value="0"
           />
           <span
             class="t-radio-button__input"
@@ -1238,9 +1242,8 @@ exports[`disabled.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
-            value="true"
+            value="1"
           />
           <span
             class="t-radio-button__input"
@@ -1280,14 +1283,15 @@ exports[`disabled.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input t-is-disabled"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
-                  disabled=""
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1321,18 +1325,19 @@ exports[`disabled.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
                     />
                     <input
                       class="t-input__inner"
-                      disabled=""
                       placeholder="请选择"
                       readonly=""
+                      type="text"
                       value=""
                     />
                     <span
@@ -1384,9 +1389,10 @@ exports[`disabled.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value="江苏"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1395,6 +1401,7 @@ exports[`disabled.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    type="text"
                     value="江苏"
                   />
                   <span
@@ -1447,7 +1454,7 @@ exports[`disabled.jsx 1`] = `
                 class="t-trigger"
               >
                 <div
-                  class="t-cascader t-is-disabled t-size-m"
+                  class="t-cascader t-size-m"
                 >
                   <span
                     class="t-cascader__content"
@@ -1455,7 +1462,7 @@ exports[`disabled.jsx 1`] = `
                     上海
                   </span>
                   <svg
-                    class="t-fake-arrow t-cascader__icon t-is-disabled"
+                    class="t-fake-arrow t-cascader__icon"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -1501,18 +1508,19 @@ exports[`disabled.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
                     />
                     <input
                       class="t-input__inner"
-                      disabled=""
                       placeholder="请选择日期"
                       readonly=""
+                      type="text"
                       value=""
                     />
                     <span
@@ -1561,8 +1569,7 @@ exports[`disabled.jsx 1`] = `
               class="t-textarea"
             >
               <textarea
-                class="t-textarea__inner t-is-disabled"
-                disabled=""
+                class="t-textarea__inner"
                 placeholder="简单描述自己的经历"
                 style="height: auto; min-height: auto;"
               />
@@ -1589,8 +1596,7 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <button
-              class="t-switch t-is-checked t-is-disabled"
-              disabled=""
+              class="t-switch t-is-checked t-size-m"
               role="switch"
               type="button"
             >
@@ -1633,7 +1639,6 @@ exports[`disabled.jsx 1`] = `
                 <input
                   class="t-radio__former"
                   disabled=""
-                  readonly=""
                   type="radio"
                   value="1"
                 />
@@ -1652,7 +1657,6 @@ exports[`disabled.jsx 1`] = `
                 <input
                   class="t-radio__former"
                   disabled=""
-                  readonly=""
                   type="radio"
                   value="2"
                 />
@@ -1691,12 +1695,10 @@ exports[`disabled.jsx 1`] = `
               class="t-checkbox-group"
             >
               <label
-                class="t-checkbox t-is-disabled"
+                class="t-checkbox"
               >
                 <input
                   class="t-checkbox__former"
-                  disabled=""
-                  readonly=""
                   type="checkbox"
                   value="1"
                 />
@@ -1710,12 +1712,10 @@ exports[`disabled.jsx 1`] = `
                 </span>
               </label>
               <label
-                class="t-checkbox t-is-disabled"
+                class="t-checkbox"
               >
                 <input
                   class="t-checkbox__former"
-                  disabled=""
-                  readonly=""
                   type="checkbox"
                   value="2"
                 />
@@ -1729,12 +1729,10 @@ exports[`disabled.jsx 1`] = `
                 </span>
               </label>
               <label
-                class="t-checkbox t-is-disabled"
+                class="t-checkbox"
               >
                 <input
                   class="t-checkbox__former"
-                  disabled=""
-                  readonly=""
                   type="checkbox"
                   value="3"
                 />
@@ -1770,18 +1768,19 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input-number t-size-m t-is-disabled t-input-number--normal"
+              class="t-input-number t-size-m t-input-number--normal"
             >
               <div
                 class="t-input__wrap"
+                value=""
               >
                 <div
-                  class="t-input t-is-disabled"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
-                    disabled=""
                     placeholder="数字"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -1813,7 +1812,6 @@ exports[`disabled.jsx 1`] = `
             >
               <input
                 accept="image/*"
-                disabled=""
                 hidden=""
                 type="file"
               />
@@ -1904,8 +1902,7 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <button
-              class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
-              disabled=""
+              class="t-button t-button--theme-primary t-button--variant-base"
               style="margin-right: 10px;"
               type="submit"
             >
@@ -1916,8 +1913,7 @@ exports[`disabled.jsx 1`] = `
               </span>
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
-              disabled=""
+              class="t-button t-button--theme-default t-button--variant-base"
               type="reset"
             >
               <span
@@ -1949,7 +1945,6 @@ exports[`error-message.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="default"
           />
@@ -1975,7 +1970,6 @@ exports[`error-message.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="config"
           />
@@ -2009,7 +2003,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__account t-form__item-with-help"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2025,13 +2019,15 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2064,13 +2060,15 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2087,7 +2085,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__password"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2103,9 +2101,10 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input t-input--suffix"
+                class="t-input t-size-m t-align-left t-is-default t-input--suffix"
               >
                 <input
                   class="t-input__inner"
@@ -2144,7 +2143,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__email"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2160,13 +2159,15 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2178,7 +2179,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__gender"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2200,7 +2201,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="male"
                 />
@@ -2218,7 +2218,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="femal"
                 />
@@ -2239,7 +2238,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__course"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2261,7 +2260,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="1"
                 />
@@ -2279,7 +2277,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="2"
                 />
@@ -2297,7 +2294,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="3"
                 />
@@ -2315,7 +2311,6 @@ exports[`error-message.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="4"
                 />
@@ -2358,9 +2353,10 @@ exports[`error-message.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
+                  value=""
                 >
                   <div
-                    class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -2369,6 +2365,7 @@ exports[`error-message.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
+                      type="text"
                       value=""
                     />
                     <span
@@ -2417,13 +2414,15 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2435,7 +2434,7 @@ exports[`error-message.jsx 1`] = `
         class="t-form__item t-form-item__content.url"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -2451,13 +2450,15 @@ exports[`error-message.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value=""
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2596,7 +2597,6 @@ exports[`layout.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="vertical"
           />
@@ -2615,7 +2615,6 @@ exports[`layout.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="inline"
           />
@@ -2654,11 +2653,12 @@ exports[`layout.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2687,11 +2687,12 @@ exports[`layout.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2725,7 +2726,7 @@ exports[`login.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-input--prefix"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <span
                   class="t-input__prefix t-input__prefix-icon"
@@ -2747,6 +2748,7 @@ exports[`login.jsx 1`] = `
                 <input
                   class="t-input__inner"
                   placeholder="请输入账户名"
+                  type="text"
                   value=""
                 />
               </div>
@@ -2767,7 +2769,7 @@ exports[`login.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input t-input--prefix t-input--suffix"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
               >
                 <span
                   class="t-input__prefix t-input__prefix-icon"
@@ -2878,11 +2880,12 @@ exports[`nested-data.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -2912,11 +2915,12 @@ exports[`nested-data.jsx 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -2950,7 +2954,6 @@ exports[`nested-data.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="male"
               />
@@ -2968,7 +2971,6 @@ exports[`nested-data.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="female"
               />
@@ -3011,7 +3013,6 @@ exports[`nested-data.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="la"
               />
@@ -3029,7 +3030,6 @@ exports[`nested-data.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="ma"
               />
@@ -3047,7 +3047,6 @@ exports[`nested-data.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="nocong"
               />
@@ -3090,9 +3089,10 @@ exports[`nested-data.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value=""
               >
                 <div
-                  class="t-input t-is-readonly t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -3101,6 +3101,7 @@ exports[`nested-data.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value=""
                   />
                   <span
@@ -3190,7 +3191,6 @@ exports[`reset.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="empty"
           />
@@ -3209,7 +3209,6 @@ exports[`reset.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="initial"
           />
@@ -3259,13 +3258,15 @@ exports[`reset.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value="TDesign"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入内容"
+                  type="text"
                   value="TDesign"
                 />
               </div>
@@ -3293,13 +3294,15 @@ exports[`reset.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value="12345678910"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入内容"
+                  type="text"
                   value="12345678910"
                 />
               </div>
@@ -3334,7 +3337,6 @@ exports[`reset.jsx 1`] = `
                 <input
                   checked=""
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="1"
                 />
@@ -3352,7 +3354,6 @@ exports[`reset.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="2"
                 />
@@ -3370,7 +3371,6 @@ exports[`reset.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="3"
                 />
@@ -3441,7 +3441,6 @@ exports[`size.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="medium"
           />
@@ -3459,7 +3458,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="large"
           />
@@ -3503,11 +3501,12 @@ exports[`size.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入内容"
+                  type="text"
                   value=""
                 />
               </div>
@@ -3537,11 +3536,12 @@ exports[`size.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入内容"
+                  type="text"
                   value=""
                 />
               </div>
@@ -3568,7 +3568,7 @@ exports[`size.jsx 1`] = `
             class="t-form__controls-content"
           >
             <button
-              class="t-switch"
+              class="t-switch t-size-m"
               role="switch"
               type="button"
             >
@@ -3608,7 +3608,6 @@ exports[`size.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="1"
                 />
@@ -3626,7 +3625,6 @@ exports[`size.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="2"
                 />
@@ -3669,7 +3667,6 @@ exports[`size.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="1"
                 />
@@ -3687,7 +3684,6 @@ exports[`size.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="2"
                 />
@@ -3705,7 +3701,6 @@ exports[`size.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="3"
                 />
@@ -3770,7 +3765,7 @@ exports[`validate-complicated-data.jsx 1`] = `
       class="t-form__item t-form-item__school"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -3793,7 +3788,6 @@ exports[`validate-complicated-data.jsx 1`] = `
               <input
                 checked=""
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="1"
               />
@@ -3811,7 +3805,6 @@ exports[`validate-complicated-data.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="2"
               />
@@ -3829,7 +3822,6 @@ exports[`validate-complicated-data.jsx 1`] = `
             >
               <input
                 class="t-radio__former"
-                readonly=""
                 type="radio"
                 value="3"
               />
@@ -3943,13 +3935,15 @@ exports[`validate-complicated-data.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="StudentA"
                   >
                     <div
-                      class="t-input"
+                      class="t-input t-size-m t-align-left t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入内容"
+                        type="text"
                         value="StudentA"
                       />
                     </div>
@@ -3984,7 +3978,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                       <input
                         checked=""
                         class="t-radio__former"
-                        readonly=""
                         type="radio"
                         value="wenke"
                       />
@@ -4002,7 +3995,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-radio__former"
-                        readonly=""
                         type="radio"
                         value="like"
                       />
@@ -4045,7 +4037,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value=""
                       />
@@ -4064,7 +4055,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                       <input
                         checked=""
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="1"
                       />
@@ -4082,7 +4072,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="2"
                       />
@@ -4100,7 +4089,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="3"
                       />
@@ -4118,7 +4106,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="4"
                       />
@@ -4136,7 +4123,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="5"
                       />
@@ -4154,7 +4140,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="6"
                       />
@@ -4234,13 +4219,15 @@ exports[`validate-complicated-data.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="StudentB"
                   >
                     <div
-                      class="t-input"
+                      class="t-input t-size-m t-align-left t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入内容"
+                        type="text"
                         value="StudentB"
                       />
                     </div>
@@ -4275,7 +4262,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                       <input
                         checked=""
                         class="t-radio__former"
-                        readonly=""
                         type="radio"
                         value="wenke"
                       />
@@ -4293,7 +4279,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-radio__former"
-                        readonly=""
                         type="radio"
                         value="like"
                       />
@@ -4336,7 +4321,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value=""
                       />
@@ -4354,7 +4338,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="1"
                       />
@@ -4372,7 +4355,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="2"
                       />
@@ -4390,7 +4372,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="3"
                       />
@@ -4408,7 +4389,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="4"
                       />
@@ -4426,7 +4406,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="5"
                       />
@@ -4444,7 +4423,6 @@ exports[`validate-complicated-data.jsx 1`] = `
                     >
                       <input
                         class="t-checkbox__former"
-                        readonly=""
                         type="checkbox"
                         value="6"
                       />
@@ -4512,7 +4490,7 @@ exports[`validate-message.jsx 1`] = `
       class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -4528,13 +4506,15 @@ exports[`validate-message.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value=""
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -4573,13 +4553,15 @@ exports[`validate-message.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value=""
           >
             <div
-              class="t-input"
+              class="t-input t-size-m t-align-left t-is-default"
             >
               <input
                 class="t-input__inner"
                 placeholder="请输入"
+                type="text"
                 value=""
               />
             </div>
@@ -4602,7 +4584,7 @@ exports[`validate-message.jsx 1`] = `
       class="t-form__item t-form-item__password"
     >
       <div
-        class="t-form__label t-form__label--required t-form__label--right"
+        class="t-form__label t-form__label--right"
         style="width: 100px;"
       >
         <label>
@@ -4618,9 +4600,10 @@ exports[`validate-message.jsx 1`] = `
         >
           <div
             class="t-input__wrap"
+            value=""
           >
             <div
-              class="t-input t-input--suffix"
+              class="t-input t-size-m t-align-left t-is-default t-input--suffix"
             >
               <input
                 class="t-input__inner"
@@ -4730,13 +4713,15 @@ exports[`validator.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value="张三"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value="张三"
                 />
               </div>
@@ -4771,11 +4756,12 @@ exports[`validator.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -4810,11 +4796,12 @@ exports[`validator.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -4848,7 +4835,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="male"
                 />
@@ -4866,7 +4852,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-radio__former"
-                  readonly=""
                   type="radio"
                   value="femal"
                 />
@@ -4909,7 +4894,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="1"
                 />
@@ -4927,7 +4911,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="2"
                 />
@@ -4945,7 +4928,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="3"
                 />
@@ -4963,7 +4945,6 @@ exports[`validator.jsx 1`] = `
               >
                 <input
                   class="t-checkbox__former"
-                  readonly=""
                   type="checkbox"
                   value="4"
                 />
@@ -5002,11 +4983,12 @@ exports[`validator.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5036,11 +5018,12 @@ exports[`validator.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5097,7 +5080,7 @@ exports[`validator-status.jsx 1`] = `
         class="t-form__item t-form-item__fail t-form__item-with-help"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -5115,11 +5098,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5154,11 +5138,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5188,11 +5173,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5204,7 +5190,7 @@ exports[`validator-status.jsx 1`] = `
         class="t-form__item t-form-item__failB"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -5222,11 +5208,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="隐藏状态icon"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5238,7 +5225,7 @@ exports[`validator-status.jsx 1`] = `
         class="t-form__item t-form-item__warningB"
       >
         <div
-          class="t-form__label t-form__label--required t-form__label--right"
+          class="t-form__label t-form__label--right"
           style="width: 100px;"
         >
           <label>
@@ -5256,11 +5243,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5290,11 +5278,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="正在校验中，请稍等"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5352,11 +5341,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>
@@ -5415,11 +5405,12 @@ exports[`validator-status.jsx 1`] = `
               class="t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="请输入"
+                  type="text"
                   value=""
                 />
               </div>

@@ -5,6 +5,7 @@ import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import { StyledProps } from '../common';
+import { swiperDefaultProps } from './defaultProps';
 
 import SwiperItem from './SwiperItem';
 
@@ -37,23 +38,22 @@ const defaultNavigation: SwiperNavigation = {
 
 const Swiper = (props: SwiperProps) => {
   const {
-    // theme
-    animation = 'slide', // 轮播切换动画效果类型
-    autoplay = true, // 是否自动播放
-    current = 0, // 当前轮播在哪一项（下标）
-    defaultCurrent = 0, // 当前轮播在哪一项（下标），非受控属性
-    direction = 'horizontal', // 轮播滑动方向，包括横向滑动和纵向滑动两个方向
-    duration = 300, // 滑动动画时长
-    interval = 5000, // 轮播间隔时间
-    trigger = 'hover',
+    animation, // 轮播切换动画效果类型
+    autoplay, // 是否自动播放
+    current, // 当前轮播在哪一项（下标）
+    defaultCurrent, // 当前轮播在哪一项（下标），非受控属性
+    direction, // 轮播滑动方向，包括横向滑动和纵向滑动两个方向
+    duration, // 滑动动画时长
+    interval, // 轮播间隔时间
+    trigger,
     height,
-    loop = true,
-    stopOnHover = true,
+    loop,
+    stopOnHover,
     onChange = noop, // 轮播切换时触发
     className,
     children,
     navigation,
-    type = 'default',
+    type,
   } = props;
   const { classPrefix } = useConfig();
 
@@ -352,6 +352,8 @@ const Swiper = (props: SwiperProps) => {
 };
 
 Swiper.SwiperItem = SwiperItem;
+
 Swiper.displayName = 'Swiper';
+Swiper.defaultProps = swiperDefaultProps;
 
 export default Swiper;

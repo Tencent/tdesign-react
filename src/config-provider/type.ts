@@ -19,7 +19,7 @@ export interface GlobalConfigProvider {
    */
   anchor?: AnchorConfig;
   /**
-   * 动画效果控制，`ripple`指波纹动画， `expand` 指展开动画，`fade` 指渐变动画。默认为 `{ include: ['ripple','expand','fade'], exclude: [] }`
+   * 动画效果控制，`ripple` 指波纹动画， `expand` 指展开动画，`fade` 指渐变动画。默认为 `{ include: ['ripple','expand','fade'], exclude: [] }`
    */
   animation?: Partial<Record<'include' | 'exclude', Array<AnimationType>>>;
   /**
@@ -477,13 +477,18 @@ export interface TableConfig {
    */
   empty?: TNode;
   /**
-   * 展开和收起图标（配置传入收起图标即可），如果没有配置，组件会内置默认图标
+   * 展开和收起图标（配置传入收起图标即可），如果没有配置，会使用组件内置的默认图标
    */
   expandIcon?: TElement;
   /**
-   * 过滤图标，如果没有配置，组件会内置默认图标
+   * 过滤图标，如果没有配置，会使用组件内置的默认图标
    */
   filterIcon?: TElement;
+  /**
+   * 隐藏排序文本提示
+   * @default false
+   */
+  hideSortTips?: boolean;
   /**
    * 语言配置，“点击加载更多” 描述文本
    * @default ''
@@ -525,9 +530,13 @@ export interface TableConfig {
    */
   sortDescendingOperationText?: string;
   /**
-   * 排序图标（配置传入降序图标即可），如果没有配置，组件会内置默认图标
+   * 排序图标（配置传入降序图标即可），如果没有配置，会使用组件内置的默认图标
    */
   sortIcon?: TElement;
+  /**
+   * 树形结构，展开和折叠图标。如果没有配置，会使用组件内置的默认图标
+   */
+  treeExpandAndFoldIcon?: TNode<{ type: 'expand' | 'fold' }>;
 }
 
 export interface SelectConfig {

@@ -4,9 +4,10 @@ exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-breadcrumb"
+    theme="light"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -38,7 +39,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -70,7 +71,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -565,6 +566,7 @@ exports[`options.jsx 1`] = `
       <a
         class="t-breadcrumb--text-overflow t-link"
         href="https://github.com/"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"
@@ -606,6 +608,7 @@ exports[`to.jsx 1`] = `
     >
       <a
         class="t-breadcrumb--text-overflow t-link"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"
@@ -638,6 +641,7 @@ exports[`to.jsx 1`] = `
     >
       <a
         class="t-breadcrumb--text-overflow t-link"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"

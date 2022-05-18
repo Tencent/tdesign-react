@@ -1,10 +1,10 @@
 import React, { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
-import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
 import Loading from '../loading';
 import { TdButtonProps } from './type';
+import { buttonDefaultProps } from './defaultProps';
 
 /**
  * 除表格中列出的属性外，支持透传原生 `<button>` 标签支持的属性。
@@ -17,20 +17,20 @@ export interface ButtonProps extends TdButtonProps, React.ButtonHTMLAttributes<H
 const Button = forwardRef(
   (
     {
-      type = 'button',
+      type,
       theme,
-      variant = 'base',
+      variant,
       icon,
       disabled,
       loading,
       size,
       block,
       ghost,
-      shape = 'rectangle',
+      shape,
       children,
       content,
       className,
-      onClick = noop,
+      onClick,
       ...buttonProps
     }: ButtonProps,
     ref: React.RefObject<HTMLButtonElement>,
@@ -100,5 +100,6 @@ const Button = forwardRef(
 );
 
 Button.displayName = 'Button';
+Button.defaultProps = buttonDefaultProps;
 
 export default Button;

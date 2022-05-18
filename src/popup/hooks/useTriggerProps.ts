@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, MutableRefObject, useRef } from 'react';
 import useClickOutside from '../../_util/useClickOutside';
 import { TdPopupProps, PopupVisibleChangeContext, PopupTriggerEvent } from '../type';
-import { ChangeHandler } from '../../_util/useDefault';
+import { ChangeHandler } from '../../hooks/useControlled';
 
 export type TriggerProps = HTMLAttributes<HTMLDivElement>;
 export type PopupProps = HTMLAttributes<HTMLDivElement>;

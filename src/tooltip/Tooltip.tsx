@@ -1,9 +1,9 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from './type';
+import { tooltipDefaultProps } from './defaultProps';
 
 export type TooltipProps = TdTooltipProps;
 
@@ -103,13 +103,6 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
 });
 
 Tooltip.displayName = 'Tooltip';
+Tooltip.defaultProps = tooltipDefaultProps;
 
-Tooltip.propTypes = {
-  theme: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'warning', 'light']),
-  showArrow: PropTypes.bool,
-};
-Tooltip.defaultProps = {
-  theme: 'default',
-  showArrow: true,
-};
 export default Tooltip;

@@ -1,4 +1,4 @@
-/** React 特有全局变量 */
+/** React 特有全局类型 */
 
 import { ReactElement, ReactNode, CSSProperties, FormEvent } from 'react';
 
@@ -10,7 +10,7 @@ export type TNode<T = undefined> = T extends undefined ? ReactNode : (props: T) 
 export type AttachNodeReturnValue = HTMLElement | Element | Document;
 export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue);
 
-// 与滚动相关的容器类型，因为 document 上没有 scroll 相关属性, 因此排除document
+// 与滚动相关的容器类型，因为 document 上没有 scroll 相关属性, 因此排除 document
 export type ScrollContainerElement = Window | HTMLElement;
 export type ScrollContainer = (() => ScrollContainerElement) | CSSSelector;
 
@@ -23,7 +23,7 @@ export interface StyledProps {
   className?: string;
   style?: CSSProperties;
 }
-/** 通用全局变量 */
+/** 通用全局类型 */
 
 export type OptionData = {
   label?: string;

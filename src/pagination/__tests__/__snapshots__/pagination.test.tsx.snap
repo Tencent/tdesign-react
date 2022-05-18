@@ -21,9 +21,10 @@ exports[`base.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -33,6 +34,7 @@ exports[`base.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="5 条/页"
               />
               <span
@@ -174,9 +176,10 @@ exports[`jump.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="20 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -186,6 +189,7 @@ exports[`jump.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="20 条/页"
               />
               <span
@@ -311,13 +315,15 @@ exports[`jump.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="1"
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-left t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder=""
+              type="text"
               value="1"
             />
           </div>
@@ -350,9 +356,10 @@ exports[`mini.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-s t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -362,6 +369,7 @@ exports[`mini.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="5 条/页"
               />
               <span
@@ -503,9 +511,10 @@ exports[`more.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -515,6 +524,7 @@ exports[`more.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="5 条/页"
               />
               <span
@@ -656,9 +666,10 @@ exports[`page-num.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="20 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -668,6 +679,7 @@ exports[`page-num.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="20 条/页"
               />
               <span
@@ -809,9 +821,10 @@ exports[`simple.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -821,6 +834,7 @@ exports[`simple.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="5 条/页"
               />
               <span
@@ -880,9 +894,10 @@ exports[`simple.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="1/20"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -892,6 +907,7 @@ exports[`simple.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="1/20"
               />
               <span
@@ -965,9 +981,10 @@ exports[`simple-mini.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-s t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -977,6 +994,7 @@ exports[`simple-mini.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="5 条/页"
               />
               <span
@@ -1036,9 +1054,10 @@ exports[`simple-mini.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="1/20"
           >
             <div
-              class="t-input t-is-readonly t-size-s t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -1048,6 +1067,7 @@ exports[`simple-mini.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="1/20"
               />
               <span
@@ -1121,9 +1141,10 @@ exports[`total.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="10 条/页"
           >
             <div
-              class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -1133,6 +1154,7 @@ exports[`total.jsx 1`] = `
                 placeholder="请选择"
                 readonly=""
                 style="width: 0px;"
+                type="text"
                 value="10 条/页"
               />
               <span

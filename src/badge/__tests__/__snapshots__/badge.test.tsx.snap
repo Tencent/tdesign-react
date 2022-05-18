@@ -58,9 +58,8 @@ exports[`color.jsx 1`] = `
   >
     <input
       class="t-checkbox__former"
-      readonly=""
       type="checkbox"
-      value="true"
+      value="1"
     />
     <span
       class="t-checkbox__input"
