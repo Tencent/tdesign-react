@@ -1,6 +1,11 @@
 import dayjs from 'dayjs';
 import { CalendarCell } from './type';
 
+// 抽取配置常量
+export const blockName = 'calendar'; // 类名前缀
+export const controlSectionSize = 'medium'; // 操作栏控件尺寸
+export const minYear = 1970; // 最早选择年份
+
 /**
  * 获取一个日期是周几（1~7）
  */
