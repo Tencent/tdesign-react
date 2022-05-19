@@ -37,7 +37,7 @@ current | Object | - | “今天(本月)”按钮控制器。TS 类型：`{ visi
 disabled | Boolean | false | 是否禁用右上角控制器 | N
 mode | Object | - | 日历展示维度控制器。TS 类型：`{ visible?: boolean; radioGroupProps?: RadioGroupProps }`，[Radio API Documents](./radio?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
 month | Object | - | 日历月份控制器。TS 类型：`{ visible?: boolean; selectProps?: SelectProps }` | N
-weekend | Object | - | 隐藏/显示周末控制器。TS 类型：`{ visible?: boolean; showWeekendButtonProps?: ButtonProps; hideWeekendButtonProps?: ButtonProps }`，[Button API Documents](./button?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
+weekend | Object | - | 隐藏/显示周末控制器。TS 类型：`{ visible?: boolean; showWeekendButtonProps?: CheckTagProps; hideWeekendButtonProps?: CheckTagProps }`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
 year | Object | - | 日历年份控制器。TS 类型：`{ visible?: boolean; selectProps?: SelectProps }`，[Select API Documents](./select?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/calendar/type.ts) | N
 
 ### CalendarCell
