@@ -108,7 +108,7 @@ export interface TdDatePickerProps {
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateValue, dayjsValue: Dayjs) => void;
+  onChange?: (value: DateValue, context: { dayjsValue?: Dayjs; trigger?: DatePickerTriggerSource }) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -117,6 +117,10 @@ export interface TdDatePickerProps {
    * 输入框数据发生变化时触发，参数 input 表示输入内容，value 表示组件当前有效值
    */
   onInput?: (context: { input: string; value: DateValue; e: FormEvent<HTMLInputElement> }) => void;
+  /**
+   * 面板选中值后触发
+   */
+  onPick?: (value: DateValue) => void;
 }
 
 export interface TdDateRangePickerProps {
@@ -216,7 +220,7 @@ export interface TdDateRangePickerProps {
   /**
    * 选中值发生变化时触发
    */
-  onChange?: (value: DateRangeValue, dayjsValue: Dayjs[]) => void;
+  onChange?: (value: DateRangeValue, context: { dayjsValue?: Dayjs[]; trigger?: DatePickerTriggerSource }) => void;
   /**
    * 输入框获得焦点时触发
    */
@@ -254,6 +258,8 @@ export interface PresetDate {
 }
 
 export type DateValue = string | number | Date;
+
+export type DatePickerTriggerSource = 'confirm' | 'pick' | 'enter' | 'preset' | 'clear';
 
 export type DisableRangeDate =
   | Array<DateValue>

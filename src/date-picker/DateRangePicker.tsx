@@ -122,10 +122,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
-      onChange(
-        formatDate(nextValue, 'valueType'),
-        nextValue.map((v) => dayjs(v)),
-      );
+      onChange(formatDate(nextValue, 'valueType'), {
+        dayjsValue: nextValue.map((v) => dayjs(v)),
+        trigger: 'pick',
+      });
       setIsFirstValueSelected(false);
       setPopupVisible(false);
     } else if (notValidIndex !== -1) {
@@ -216,10 +216,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
-      onChange(
-        formatDate(nextValue, 'valueType'),
-        nextValue.map((v) => dayjs(v)),
-      );
+      onChange(formatDate(nextValue, 'valueType'), {
+        dayjsValue: nextValue.map((v) => dayjs(v)),
+        trigger: 'confirm',
+      });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
       setMonth(nextValue.map((v) => dayjs(v, format).month()));
       setPopupVisible(false);
@@ -242,10 +242,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       console.error(`preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(
-        formatDate(presetValue, 'valueType'),
-        presetValue.map((p) => dayjs(p)),
-      );
+      onChange(formatDate(presetValue, 'valueType'), {
+        dayjsValue: presetValue.map((p) => dayjs(p)),
+        trigger: 'preset',
+      });
       setPopupVisible(false);
     }
   }

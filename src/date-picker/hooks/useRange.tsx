@@ -104,7 +104,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange([], []);
+      onChange([], { dayjsValue: [], trigger: 'clear' });
     },
     onBlur: (newVal: string[], { e, position }) => {
       onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -138,10 +138,10 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(newVal)) {
-        onChange(
-          formatDate(newVal, 'valueType') as DateValue[],
-          newVal.map((v) => dayjs(v)),
-        );
+        onChange(formatDate(newVal, 'valueType') as DateValue[], {
+          dayjsValue: newVal.map((v) => dayjs(v)),
+          trigger: 'enter',
+        });
       } else if (isValidDate(value)) {
         setInputValue(formatDate(value));
       } else {
