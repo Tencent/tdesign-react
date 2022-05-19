@@ -4,12 +4,13 @@ import { TdAnchorItemProps } from './type';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { AnchorContext } from './AnchorContext';
+import { anchorItemDefaultProps } from './defaultProps';
 
 export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {}
 
 const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
   const { onClick, activeItem, registerItem, unregisterItem } = useContext(AnchorContext);
-  const { href, title, target, children = [], className = '', ...rest } = props;
+  const { href, title, target, children, className, ...rest } = props;
 
   const { classPrefix } = useConfig();
 
@@ -46,5 +47,8 @@ const AnchorItem: FunctionComponent<AnchorItemProps> = (props) => {
     </div>
   );
 };
+
+AnchorItem.displayName = 'AnchorItem';
+AnchorItem.defaultProps = anchorItemDefaultProps;
 
 export default AnchorItem;

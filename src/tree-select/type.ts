@@ -22,7 +22,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   autoWidth?: boolean;
   /**
-   * 无边框模式
+   * 【开发中】无边框模式
    * @default false
    */
   borderless?: boolean;
@@ -118,7 +118,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   readonly?: boolean;
   /**
-   * 透传 SelectInput 筛选器输入框组件的全部属性
+   * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
    */
   selectInputProps?: SelectInputProps;
   /**
@@ -127,7 +127,7 @@ export interface TdTreeSelectProps<DataOption extends TreeOptionData = TreeOptio
    */
   size?: 'small' | 'medium' | 'large';
   /**
-   * 透传 Tag 标签组件全部属性
+   * 【开发中】透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
   /**

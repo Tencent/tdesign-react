@@ -24,9 +24,10 @@ exports[`color-mode.jsx 1`] = `
           >
             <div
               class="t-input__wrap t-input--auto-width"
+              value="#0052d9"
             >
               <div
-                class="t-input t-input--prefix"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
                   class="t-input__prefix"
@@ -44,6 +45,7 @@ exports[`color-mode.jsx 1`] = `
                   class="t-input__inner"
                   placeholder="请输入"
                   style="width: 0px;"
+                  type="text"
                   value="#0052d9"
                 />
                 <span
@@ -76,9 +78,10 @@ exports[`color-mode.jsx 1`] = `
           >
             <div
               class="t-input__wrap t-input--auto-width"
+              value="#0052d9"
             >
               <div
-                class="t-input t-input--prefix"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
                   class="t-input__prefix"
@@ -96,6 +99,7 @@ exports[`color-mode.jsx 1`] = `
                   class="t-input__inner"
                   placeholder="请输入"
                   style="width: 0px;"
+                  type="text"
                   value="#0052d9"
                 />
                 <span
@@ -131,9 +135,10 @@ exports[`color-mode.jsx 1`] = `
           >
             <div
               class="t-input__wrap t-input--auto-width"
+              value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
             >
               <div
-                class="t-input t-input--prefix"
+                class="t-input t-size-m t-align-left t-is-default t-input--prefix"
               >
                 <div
                   class="t-input__prefix"
@@ -150,6 +155,7 @@ exports[`color-mode.jsx 1`] = `
                   class="t-input__inner"
                   placeholder="请输入"
                   style="width: 0px;"
+                  type="text"
                   value="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)"
                 />
                 <span
@@ -190,7 +196,6 @@ exports[`enable-alpha.jsx 1`] = `
               <input
                 checked=""
                 class="t-radio-button__former"
-                readonly=""
                 type="radio"
                 value="monochrome"
               />
@@ -208,7 +213,6 @@ exports[`enable-alpha.jsx 1`] = `
             >
               <input
                 class="t-radio-button__former"
-                readonly=""
                 type="radio"
                 value="linear-gradient"
               />
@@ -282,9 +286,10 @@ exports[`enable-alpha.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
+                  value="RGB"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -293,6 +298,7 @@ exports[`enable-alpha.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
+                      type="text"
                       value="RGB"
                     />
                     <span
@@ -335,13 +341,15 @@ exports[`enable-alpha.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="0"
+                    value="0"
                   >
                     <div
-                      class="t-input t-align-center"
+                      class="t-input t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
+                        type="text"
                         value="0"
                       />
                     </div>
@@ -358,13 +366,15 @@ exports[`enable-alpha.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="82"
+                    value="82"
                   >
                     <div
-                      class="t-input t-align-center"
+                      class="t-input t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
+                        type="text"
                         value="82"
                       />
                     </div>
@@ -381,13 +391,15 @@ exports[`enable-alpha.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="217"
+                    value="217"
                   >
                     <div
-                      class="t-input t-align-center"
+                      class="t-input t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
+                        type="text"
                         value="217"
                       />
                     </div>
@@ -404,13 +416,15 @@ exports[`enable-alpha.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="100"
+                    value="100%"
                   >
                     <div
-                      class="t-input t-align-center"
+                      class="t-input t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         placeholder="请输入"
+                        type="text"
                         value="100%"
                       />
                     </div>
@@ -981,7 +995,6 @@ exports[`panel.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="monochrome"
             />
@@ -999,7 +1012,6 @@ exports[`panel.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="linear-gradient"
             />
@@ -1060,9 +1072,10 @@ exports[`panel.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value="RGB"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -1071,6 +1084,7 @@ exports[`panel.jsx 1`] = `
                     class="t-input__inner"
                     placeholder="请选择"
                     readonly=""
+                    type="text"
                     value="RGB"
                   />
                   <span
@@ -1113,13 +1127,15 @@ exports[`panel.jsx 1`] = `
                 <div
                   class="t-input__wrap"
                   title="0"
+                  value="0"
                 >
                   <div
-                    class="t-input t-align-center"
+                    class="t-input t-size-m t-align-center t-is-default"
                   >
                     <input
                       class="t-input__inner"
                       placeholder="请输入"
+                      type="text"
                       value="0"
                     />
                   </div>
@@ -1136,13 +1152,15 @@ exports[`panel.jsx 1`] = `
                 <div
                   class="t-input__wrap"
                   title="82"
+                  value="82"
                 >
                   <div
-                    class="t-input t-align-center"
+                    class="t-input t-size-m t-align-center t-is-default"
                   >
                     <input
                       class="t-input__inner"
                       placeholder="请输入"
+                      type="text"
                       value="82"
                     />
                   </div>
@@ -1159,13 +1177,15 @@ exports[`panel.jsx 1`] = `
                 <div
                   class="t-input__wrap"
                   title="217"
+                  value="217"
                 >
                   <div
-                    class="t-input t-align-center"
+                    class="t-input t-size-m t-align-center t-is-default"
                   >
                     <input
                       class="t-input__inner"
                       placeholder="请输入"
+                      type="text"
                       value="217"
                     />
                   </div>
@@ -1745,7 +1765,6 @@ exports[`recent-color.jsx 1`] = `
                 <input
                   checked=""
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="monochrome"
                 />
@@ -1763,7 +1782,6 @@ exports[`recent-color.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="linear-gradient"
                 />
@@ -1824,9 +1842,10 @@ exports[`recent-color.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="RGB"
                   >
                     <div
-                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -1835,6 +1854,7 @@ exports[`recent-color.jsx 1`] = `
                         class="t-input__inner"
                         placeholder="请选择"
                         readonly=""
+                        type="text"
                         value="RGB"
                       />
                       <span
@@ -1877,13 +1897,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="0"
+                      value="0"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="0"
                         />
                       </div>
@@ -1900,13 +1922,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="82"
+                      value="82"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="82"
                         />
                       </div>
@@ -1923,13 +1947,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="217"
+                      value="217"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="217"
                         />
                       </div>
@@ -2618,7 +2644,6 @@ exports[`recent-color.jsx 1`] = `
                 <input
                   checked=""
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="monochrome"
                 />
@@ -2636,7 +2661,6 @@ exports[`recent-color.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="linear-gradient"
                 />
@@ -2697,9 +2721,10 @@ exports[`recent-color.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="RGB"
                   >
                     <div
-                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -2708,6 +2733,7 @@ exports[`recent-color.jsx 1`] = `
                         class="t-input__inner"
                         placeholder="请选择"
                         readonly=""
+                        type="text"
                         value="RGB"
                       />
                       <span
@@ -2750,13 +2776,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="0"
+                      value="0"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="0"
                         />
                       </div>
@@ -2773,13 +2801,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="82"
+                      value="82"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="82"
                         />
                       </div>
@@ -2796,13 +2826,15 @@ exports[`recent-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="217"
+                      value="217"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="217"
                         />
                       </div>
@@ -3334,9 +3366,10 @@ exports[`status-disabled.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="#0052d9"
           >
             <div
-              class="t-input t-is-disabled t-input--prefix"
+              class="t-input t-is-disabled t-size-m t-align-left t-is-default t-input--prefix"
             >
               <div
                 class="t-input__prefix"
@@ -3355,6 +3388,7 @@ exports[`status-disabled.jsx 1`] = `
                 disabled=""
                 placeholder="请输入"
                 style="width: 0px;"
+                type="text"
                 value="#0052d9"
               />
               <span
@@ -3394,7 +3428,6 @@ exports[`status-readonly.jsx 1`] = `
               <input
                 checked=""
                 class="t-radio-button__former"
-                readonly=""
                 type="radio"
                 value="monochrome"
               />
@@ -3412,7 +3445,6 @@ exports[`status-readonly.jsx 1`] = `
             >
               <input
                 class="t-radio-button__former"
-                readonly=""
                 type="radio"
                 value="linear-gradient"
               />
@@ -3473,9 +3505,10 @@ exports[`status-readonly.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap"
+                  value="RGB"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -3484,6 +3517,7 @@ exports[`status-readonly.jsx 1`] = `
                       class="t-input__inner"
                       placeholder="请选择"
                       readonly=""
+                      type="text"
                       value="RGB"
                     />
                     <span
@@ -3526,14 +3560,16 @@ exports[`status-readonly.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="0"
+                    value="0"
                   >
                     <div
-                      class="t-input t-is-disabled t-align-center"
+                      class="t-input t-is-disabled t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         disabled=""
                         placeholder="请输入"
+                        type="text"
                         value="0"
                       />
                     </div>
@@ -3550,14 +3586,16 @@ exports[`status-readonly.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="82"
+                    value="82"
                   >
                     <div
-                      class="t-input t-is-disabled t-align-center"
+                      class="t-input t-is-disabled t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         disabled=""
                         placeholder="请输入"
+                        type="text"
                         value="82"
                       />
                     </div>
@@ -3574,14 +3612,16 @@ exports[`status-readonly.jsx 1`] = `
                   <div
                     class="t-input__wrap"
                     title="217"
+                    value="217"
                   >
                     <div
-                      class="t-input t-is-disabled t-align-center"
+                      class="t-input t-is-disabled t-size-m t-align-center t-is-default"
                     >
                       <input
                         class="t-input__inner"
                         disabled=""
                         placeholder="请输入"
+                        type="text"
                         value="217"
                       />
                     </div>
@@ -4162,7 +4202,6 @@ exports[`swatch-color.jsx 1`] = `
                 <input
                   checked=""
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="monochrome"
                 />
@@ -4180,7 +4219,6 @@ exports[`swatch-color.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="linear-gradient"
                 />
@@ -4241,9 +4279,10 @@ exports[`swatch-color.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="RGB"
                   >
                     <div
-                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -4252,6 +4291,7 @@ exports[`swatch-color.jsx 1`] = `
                         class="t-input__inner"
                         placeholder="请选择"
                         readonly=""
+                        type="text"
                         value="RGB"
                       />
                       <span
@@ -4294,13 +4334,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="0"
+                      value="0"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="0"
                         />
                       </div>
@@ -4317,13 +4359,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="82"
+                      value="82"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="82"
                         />
                       </div>
@@ -4340,13 +4384,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="217"
+                      value="217"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="217"
                         />
                       </div>
@@ -4498,7 +4544,6 @@ exports[`swatch-color.jsx 1`] = `
                 <input
                   checked=""
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="monochrome"
                 />
@@ -4516,7 +4561,6 @@ exports[`swatch-color.jsx 1`] = `
               >
                 <input
                   class="t-radio-button__former"
-                  readonly=""
                   type="radio"
                   value="linear-gradient"
                 />
@@ -4577,9 +4621,10 @@ exports[`swatch-color.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap"
+                    value="RGB"
                   >
                     <div
-                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -4588,6 +4633,7 @@ exports[`swatch-color.jsx 1`] = `
                         class="t-input__inner"
                         placeholder="请选择"
                         readonly=""
+                        type="text"
                         value="RGB"
                       />
                       <span
@@ -4630,13 +4676,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="0"
+                      value="0"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="0"
                         />
                       </div>
@@ -4653,13 +4701,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="82"
+                      value="82"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="82"
                         />
                       </div>
@@ -4676,13 +4726,15 @@ exports[`swatch-color.jsx 1`] = `
                     <div
                       class="t-input__wrap"
                       title="217"
+                      value="217"
                     >
                       <div
-                        class="t-input t-align-center"
+                        class="t-input t-size-m t-align-center t-is-default"
                       >
                         <input
                           class="t-input__inner"
                           placeholder="请输入"
+                          type="text"
                           value="217"
                         />
                       </div>
@@ -4755,9 +4807,10 @@ exports[`trigger.jsx 1`] = `
         >
           <div
             class="t-input__wrap t-input--auto-width"
+            value="#0052d9"
           >
             <div
-              class="t-input t-input--prefix"
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix"
             >
               <div
                 class="t-input__prefix"
@@ -4775,6 +4828,7 @@ exports[`trigger.jsx 1`] = `
                 class="t-input__inner"
                 placeholder="请输入"
                 style="width: 0px;"
+                type="text"
                 value="#0052d9"
               />
               <span

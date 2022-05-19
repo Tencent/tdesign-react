@@ -46,10 +46,12 @@ export interface TdTagInputProps {
   inputProps?: InputProps;
   /**
    * 输入框的值
+   * @default ''
    */
   inputValue?: InputValue;
   /**
    * 输入框的值，非受控属性
+   * @default ''
    */
   defaultInputValue?: InputValue;
   /**
@@ -81,8 +83,9 @@ export interface TdTagInputProps {
   size?: 'small' | 'medium' | 'large';
   /**
    * 输入框状态
+   * @default default
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'success' | 'warning' | 'error' | 'default';
   /**
    * 后置图标前的后置内容
    */
@@ -134,12 +137,7 @@ export interface TdTagInputProps {
   /**
    * 【开发中】拖拽排序时触发
    */
-  onDragSort?: (context: {
-    currentIndex: number;
-    current: string | number;
-    targetIndex: number;
-    target: string | number;
-  }) => void;
+  onDragSort?: (context: TagInputDragSortContext) => void;
   /**
    * 按键按下 Enter 时触发
    */
@@ -180,6 +178,14 @@ export interface TagInputChangeContext {
 }
 
 export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
+
+export interface TagInputDragSortContext {
+  newTags: TagInputValue;
+  currentIndex: number;
+  current: string | number;
+  targetIndex: number;
+  target: string | number;
+}
 
 export interface InputValueChangeContext {
   e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> | KeyboardEvent<HTMLDivElement>;

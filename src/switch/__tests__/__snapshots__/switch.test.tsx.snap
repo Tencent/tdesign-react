@@ -136,7 +136,7 @@ exports[`size.jsx 1`] = `
       />
     </button>
     <button
-      class="t-switch"
+      class="t-switch t-size-m"
       role="switch"
       type="button"
     >

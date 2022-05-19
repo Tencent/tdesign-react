@@ -9,6 +9,7 @@ import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';
 import useConfig from '../_util/useConfig';
+import { dialogDefaultProps } from './defaultProps';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   /**
@@ -170,5 +171,6 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
 });
 
 Dialog.displayName = 'Dialog';
+Dialog.defaultProps = dialogDefaultProps;
 
 export default Dialog;

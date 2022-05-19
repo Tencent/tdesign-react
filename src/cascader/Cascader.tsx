@@ -9,7 +9,7 @@ import InputContent from './components/InputContent';
 // utils
 import useConfig from '../_util/useConfig';
 import TreeStore from '../_common/js/tree/tree-store';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { getTreeValue } from './utils/helper';
 
 // common logic
@@ -18,6 +18,7 @@ import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
 // types
 import { CascaderProps, CascaderContextType, TreeNodeValue, TreeNodeModel } from './interface';
 import { CascaderChangeSource, CascaderValue } from './type';
+import { cascaderDefaultProps } from './defaultProps';
 
 const Cascader: React.FC<CascaderProps> = (props) => {
   /**
@@ -25,9 +26,9 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
-  const { className, style, defaultValue, onChange, collapsedItems } = props;
+  const { className, style, onChange, collapsedItems } = props;
 
-  const [value, setValue] = useDefault(props.value, defaultValue, onChange);
+  const [value, setValue] = useControlled(props, 'value', onChange);
 
   const [visible, setVisible] = useState(false);
   const [treeStore, setTreeStore] = useState(null);
@@ -42,17 +43,17 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const loadingLocalText = t(local.loadingText);
   const cascaderContext = useMemo(() => {
     const {
-      size = 'medium',
-      disabled = false,
-      checkStrictly = false,
-      lazy = true,
-      multiple = false,
-      filterable = false,
-      clearable = false,
-      checkProps = {},
-      max = 0,
-      showAllLevels = true,
-      minCollapsedNum = false,
+      size,
+      disabled,
+      checkStrictly,
+      lazy,
+      multiple,
+      filterable,
+      clearable,
+      checkProps,
+      max,
+      showAllLevels,
+      minCollapsedNum,
       loadingText = loadingLocalText,
     } = props;
     return {
@@ -203,5 +204,8 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     </Popup>
   );
 };
+
+Cascader.displayName = 'Cascader';
+Cascader.defaultProps = cascaderDefaultProps;
 
 export default Cascader;

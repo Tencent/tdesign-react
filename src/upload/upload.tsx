@@ -15,18 +15,12 @@ import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
 import { finishUpload, isSingleFile, urlCreator } from './util';
 import type { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
-import type {
-  ProgressContext,
-  RequestMethodResponse,
-  SuccessContext,
-  TdUploadProps,
-  UploadFile,
-  UploadRemoveContext,
-} from './type';
-import useDefaultValue from './hooks/useDefaultValue';
+import type { ProgressContext, RequestMethodResponse, SuccessContext, UploadFile, UploadRemoveContext } from './type';
+import useControlled from '../hooks/useControlled';
 import useSizeLimit from './hooks/useSizeLimit';
+import { uploadDefaultProps } from './defaultProps';
 
-const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref) => {
+const Upload = forwardRef((props: UploadProps, ref) => {
   const {
     method = 'post',
     disabled,
@@ -44,12 +38,10 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     data,
     withCredentials,
     autoUpload = true,
-    files: fileList = [],
     sizeLimit,
     formatResponse,
     beforeUpload,
     onProgress,
-    onChange,
     onSuccess,
     onFail,
     onRemove,
@@ -62,7 +54,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     requestMethod,
     customDraggerRender,
     children,
-  } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
+  } = props;
+
+  const [fileList, onChange] = useControlled(props, 'files', props.onChange);
 
   const { headers } = props;
 
@@ -455,7 +449,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
   useMemo(() => {
     const timestamp = Date.now();
-    (fileList || []).forEach((file, index) => {
+    (fileList || []).forEach((file: any, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         // eslint-disable-next-line no-param-reassign
         file.uid = `td__upload__${timestamp}_${index}__`;
@@ -566,6 +560,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       </BooleanRender>
     </div>
   );
-};
+});
 
-export default forwardRef<unknown, TdUploadProps>(Upload);
+Upload.displayName = 'Upload';
+Upload.defaultProps = uploadDefaultProps;
+
+export default Upload;

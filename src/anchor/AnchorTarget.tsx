@@ -8,11 +8,12 @@ import useConfig from '../_util/useConfig';
 import { TdAnchorTargetProps } from './type';
 import { StyledProps } from '../common';
 import { copyText } from './_util/clipboard';
+import { anchorTargetDefaultProps } from './defaultProps';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {}
 
 const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
-  const { id, tag = 'div', children, className, style } = props;
+  const { id, tag, children, className, style } = props;
 
   const { classPrefix } = useConfig();
 
@@ -37,5 +38,8 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
 
   return React.createElement(tag, { id, className: tagClassName, style }, React.createElement(Content));
 };
+
+AnchorTarget.displayName = 'AnchorTarget';
+AnchorTarget.defaultProps = anchorTargetDefaultProps;
 
 export default AnchorTarget;

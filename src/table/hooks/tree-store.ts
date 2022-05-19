@@ -53,11 +53,13 @@ class TableTreeStore<T extends TableRowData = TableRowData> {
       log.error('EnhancedTable', '`rowKey` could be wrong, can not get rowValue from `data` by `rowKey`.');
       return [];
     }
-    const r = this.treeDataMap.get(rowValue) || {
-      row: p.row,
-      rowIndex: p.rowIndex,
-      expanded: false,
-    };
+    const r =
+      this.treeDataMap.get(rowValue) ||
+      ({
+        row: p.row,
+        rowIndex: p.rowIndex,
+        expanded: false,
+      } as TableRowState<T>);
     r.rowIndex = p.rowIndex;
     r.expanded = !r.expanded;
     this.treeDataMap.set(rowValue, r);

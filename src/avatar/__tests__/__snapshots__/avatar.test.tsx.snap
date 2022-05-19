@@ -119,14 +119,14 @@ exports[`group.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -135,7 +135,7 @@ exports[`group.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle t-avatar-icon"
+          class="t-avatar t-avatar--circle t-avatar-icon"
         >
           <svg
             class="t-icon t-icon-user"
@@ -160,14 +160,14 @@ exports[`group.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -176,7 +176,7 @@ exports[`group.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-avatar t-size-l t-avatar--circle t-avatar-icon"
+          class="t-avatar t-avatar--circle t-avatar-icon"
         >
           <svg
             class="t-icon t-icon-user"
@@ -211,14 +211,14 @@ exports[`group-cascading.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -227,7 +227,7 @@ exports[`group-cascading.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle t-avatar-icon"
+          class="t-avatar t-avatar--circle t-avatar-icon"
         >
           <svg
             class="t-icon t-icon-user"
@@ -253,14 +253,14 @@ exports[`group-cascading.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-left"
       >
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -269,7 +269,7 @@ exports[`group-cascading.jsx 1`] = `
           </span>
         </div>
         <div
-          class="t-avatar t-size-m t-avatar--circle t-avatar-icon"
+          class="t-avatar t-avatar--circle t-avatar-icon"
         >
           <svg
             class="t-icon t-icon-user"
@@ -304,14 +304,14 @@ exports[`group-max.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -342,14 +342,14 @@ exports[`group-max.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"
@@ -391,14 +391,14 @@ exports[`group-max.jsx 1`] = `
         class="t-avatar-group t-avatar--offset-right"
       >
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <img
             src="https://tdesign.gtimg.com/site/avatar.jpg"
           />
         </div>
         <div
-          class="t-avatar t-size-l t-avatar--circle"
+          class="t-avatar t-avatar--circle"
         >
           <span
             style="transform: scale(1);"

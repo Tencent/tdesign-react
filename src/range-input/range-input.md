@@ -40,9 +40,9 @@ onMouseleave | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-blur | `(options?: {position?: RangeInputPosition})` | - | 使其中一个输入框失去焦点
-focus | `(options?: {position?: RangeInputPosition})` | - | 使其中一个输入框获得焦点
-select | `(options?: {position?: RangeInputPosition})` | - | 使其中一个输入框选中内容
+blur | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输入框失去焦点
+focus | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输入框获得焦点
+select | `(options?: {position?: RangeInputPosition})` | \- | 使其中一个输入框选中内容
 
 ### RangeInputPopup Props
 

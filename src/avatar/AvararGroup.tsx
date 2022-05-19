@@ -6,24 +6,16 @@ import useConfig from '../_util/useConfig';
 import { AvatarContextProvider } from './AvatarContext';
 import { TdAvatarGroupProps } from './type';
 import { StyledProps } from '../common';
+import { avatarGroupDefaultProps } from './defaultProps';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;
 }
-const Group: React.FC<AvatarGroupProps> = (props) => {
+const AvatarGroup = (props: AvatarGroupProps) => {
   const { classPrefix } = useConfig();
   const preClass = `${classPrefix}-avatar`;
-  const {
-    className,
-    cascading = 'right-up',
-    collapseAvatar,
-    max,
-    placement,
-    popupProps,
-    size = 'medium',
-    children,
-    ...avatarGroupProps
-  } = props;
+  const { className, cascading, collapseAvatar, max, placement, popupProps, size, children, ...avatarGroupProps } =
+    props;
 
   const childrenList = React.Children.toArray(children);
   let allChildrenList;
@@ -66,4 +58,8 @@ const Group: React.FC<AvatarGroupProps> = (props) => {
     </AvatarContextProvider>
   );
 };
-export default Group;
+
+AvatarGroup.displayName = 'AvatarGroup';
+AvatarGroup.defaultProps = avatarGroupDefaultProps;
+
+export default AvatarGroup;

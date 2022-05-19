@@ -11,6 +11,7 @@ import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
 import useConfig from '../_util/useConfig';
+import { drawerDefaultProps } from './defaultProps';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -256,20 +257,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   );
 });
 
-Drawer.defaultProps = {
-  attach: '',
-  closeBtn: true,
-  closeOnOverlayClick: true,
-  closeOnEscKeydown: true,
-  size: 'small',
-  placement: 'right',
-  mode: 'overlay',
-  destroyOnClose: false,
-  showOverlay: true,
-  header: undefined,
-  footer: true,
-};
-
 Drawer.displayName = 'Drawer';
+Drawer.defaultProps = drawerDefaultProps;
 
 export default Drawer;

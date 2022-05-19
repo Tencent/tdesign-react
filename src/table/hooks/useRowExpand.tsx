@@ -12,19 +12,15 @@ import {
   RowEventContext,
 } from '../type';
 import useClassName from './useClassName';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
-  const { expandedRowKeys, expandIcon } = props;
+  const { expandIcon } = props;
   const [locale] = useLocaleReceiver('table');
   const { tableExpandClasses, positiveRotate90, tableFullRowClasses } = useClassName();
   // controlled and uncontrolled
-  const [tExpandedRowKeys, setTExpandedRowKeys] = useDefaultValue(
-    expandedRowKeys,
-    props.defaultExpandedRowKeys,
-    props.onExpandChange,
-  );
+  const [tExpandedRowKeys, setTExpandedRowKeys] = useControlled(props, 'expandedRowKeys', props.onExpandChange);
 
   const showExpandedRow = Boolean(props.expandedRow);
 

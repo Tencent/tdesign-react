@@ -11,7 +11,6 @@ exports[`async-loading.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="load-more"
         />
@@ -30,7 +29,6 @@ exports[`async-loading.jsx 1`] = `
         <input
           checked=""
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="loading"
         />
@@ -48,7 +46,6 @@ exports[`async-loading.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value="loading-custom"
         />
@@ -66,7 +63,6 @@ exports[`async-loading.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
           value=""
         />
@@ -362,7 +358,6 @@ exports[`base.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="small"
             />
@@ -381,7 +376,6 @@ exports[`base.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="medium"
             />
@@ -399,7 +393,6 @@ exports[`base.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="large"
             />
@@ -424,9 +417,8 @@ exports[`base.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -442,9 +434,8 @@ exports[`base.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -460,9 +451,8 @@ exports[`base.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -478,9 +468,8 @@ exports[`base.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -809,9 +798,10 @@ exports[`base.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
+                  value="5 条/页"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -821,6 +811,7 @@ exports[`base.jsx 1`] = `
                       placeholder="请选择"
                       readonly=""
                       style="width: 0px;"
+                      type="text"
                       value="5 条/页"
                     />
                     <span
@@ -929,13 +920,15 @@ exports[`base.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value="2"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder=""
+                    type="text"
                     value="2"
                   />
                 </div>
@@ -1439,9 +1432,10 @@ exports[`custom-col.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
+                  value="5 条/页"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -1451,6 +1445,7 @@ exports[`custom-col.jsx 1`] = `
                       placeholder="请选择"
                       readonly=""
                       style="width: 0px;"
+                      type="text"
                       value="5 条/页"
                     />
                     <span
@@ -1588,7 +1583,6 @@ exports[`custom-col-button.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="top-left"
           />
@@ -1607,7 +1601,6 @@ exports[`custom-col-button.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="top-right"
           />
@@ -1625,7 +1618,6 @@ exports[`custom-col-button.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bottom-left"
           />
@@ -1643,7 +1635,6 @@ exports[`custom-col-button.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bottom-right"
           />
@@ -1669,7 +1660,6 @@ exports[`custom-col-button.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -1687,7 +1677,6 @@ exports[`custom-col-button.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -2042,9 +2031,10 @@ exports[`custom-col-button.jsx 1`] = `
                 >
                   <div
                     class="t-input__wrap t-input--auto-width"
+                    value="5 条/页"
                   >
                     <div
-                      class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                      class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                     >
                       <div
                         class="t-input__prefix"
@@ -2054,6 +2044,7 @@ exports[`custom-col-button.jsx 1`] = `
                         placeholder="请选择"
                         readonly=""
                         style="width: 0px;"
+                        type="text"
                         value="5 条/页"
                       />
                       <span
@@ -2568,9 +2559,8 @@ exports[`data-sort.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
-        value="false"
+        value="0"
       />
       <span
         class="t-checkbox__input"
@@ -3268,9 +3258,8 @@ exports[`drag-sort-handler.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -3744,7 +3733,6 @@ exports[`expandable.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="true"
           />
@@ -3762,7 +3750,6 @@ exports[`expandable.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="false"
           />
@@ -3780,7 +3767,6 @@ exports[`expandable.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="custom"
           />
@@ -3806,7 +3792,6 @@ exports[`expandable.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -3825,7 +3810,6 @@ exports[`expandable.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -3844,7 +3828,6 @@ exports[`expandable.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -4902,9 +4885,10 @@ exports[`filter-controlled.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
+                  value="5 条/页"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -4914,6 +4898,7 @@ exports[`filter-controlled.jsx 1`] = `
                       placeholder="请选择"
                       readonly=""
                       style="width: 0px;"
+                      type="text"
                       value="5 条/页"
                     />
                     <span
@@ -4997,13 +4982,15 @@ exports[`filter-controlled.jsx 1`] = `
             >
               <div
                 class="t-input__wrap"
+                value="1"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder=""
+                    type="text"
                     value="1"
                   />
                 </div>
@@ -5032,7 +5019,6 @@ exports[`fixed-column.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="1"
           />
@@ -5051,7 +5037,6 @@ exports[`fixed-column.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="2"
           />
@@ -5080,7 +5065,6 @@ exports[`fixed-column.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="1"
           />
@@ -5098,7 +5082,6 @@ exports[`fixed-column.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="2"
           />
@@ -5127,7 +5110,6 @@ exports[`fixed-column.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="fixed"
           />
@@ -5145,7 +5127,6 @@ exports[`fixed-column.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="auto"
           />
@@ -5169,9 +5150,8 @@ exports[`fixed-column.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -5586,7 +5566,6 @@ exports[`fixed-header.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="fixed"
             />
@@ -5604,7 +5583,6 @@ exports[`fixed-header.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="auto"
             />
@@ -5629,9 +5607,8 @@ exports[`fixed-header.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -6563,7 +6540,6 @@ exports[`fixed-header-col.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="fixed"
             />
@@ -6581,7 +6557,6 @@ exports[`fixed-header-col.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="auto"
             />
@@ -6606,9 +6581,8 @@ exports[`fixed-header-col.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
-          value="false"
+          value="0"
         />
         <span
           class="t-checkbox__input"
@@ -15463,7 +15437,6 @@ exports[`multi-header.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -15482,7 +15455,6 @@ exports[`multi-header.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -15500,7 +15472,6 @@ exports[`multi-header.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -15518,7 +15489,6 @@ exports[`multi-header.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -15536,7 +15506,6 @@ exports[`multi-header.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -15551,7 +15520,7 @@ exports[`multi-header.jsx 1`] = `
       </label>
     </div>
     <div
-      class="t-table t-table--bordered t-table--multiple-header"
+      class="t-table t-table--bordered"
       style="position: relative;"
     >
       <div
@@ -15597,1998 +15566,75 @@ exports[`multi-header.jsx 1`] = `
         <table
           class="t-table--layout-fixed"
         >
-          <colgroup>
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 110px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-            <col
-              style="width: 100px;"
-            />
-          </colgroup>
+          <colgroup />
           <thead
-            class="t-table__header t-table--bordered t-table__header--multiple"
+            class="t-table__header"
           >
-            <tr>
-              <th
-                class="t-table__th-index"
-                data-colkey="index"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  序号
-                </div>
-              </th>
-              <th
-                class="t-table__th-total_info"
-                colspan="4"
-                data-colkey="total_info"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  汇总属性
-                </div>
-              </th>
-              <th
-                class="t-table__th-field1"
-                data-colkey="field1"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段1
-                </div>
-              </th>
-              <th
-                class="t-table__th-field2"
-                data-colkey="field2"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段2
-                </div>
-              </th>
-              <th
-                class="t-table__th-field3"
-                data-colkey="field3"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段3
-                </div>
-              </th>
-              <th
-                class="t-table__th-field4"
-                data-colkey="field4"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段4
-                </div>
-              </th>
-              <th
-                class="t-table__th-instruction"
-                colspan="4"
-                data-colkey="instruction"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  属性及说明
-                </div>
-              </th>
-              <th
-                class="t-table__th-field5"
-                data-colkey="field5"
-                rowspan="3"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段5
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th
-                class="t-table__header-th--bordered t-table__th-platform"
-                data-colkey="platform"
-                rowspan="2"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  平台
-                </div>
-              </th>
-              <th
-                class="t-table__th-type_default"
-                colspan="3"
-                data-colkey="type_default"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  类型及默认值
-                </div>
-              </th>
-              <th
-                class="t-table__th-property"
-                data-colkey="property"
-                rowspan="2"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  <div
-                    class="t-table__cell--filterable"
-                  >
-                    <div
-                      class="t-table__cell--title"
-                    >
-                      <div
-                        class="t-table__ellipsis t-text-ellipsis"
-                      >
-                        属性
-                      </div>
-                      <div
-                        class="t-table__filter-icon-wrap"
-                      >
-                        <div
-                          class="t-popup__reference t-table__filter-icon"
-                        >
-                          <div>
-                            <svg
-                              class="t-icon t-icon-filter"
-                              fill="none"
-                              height="1em"
-                              viewBox="0 0 16 16"
-                              width="1em"
-                            >
-                              <path
-                                d="M2 3a1 1 0 011-1h10a1 1 0 011 1v1.79l-4.25 2.5V14h-3.5V7.29L2 4.79V3zm11 0H3v1.21l4.25 2.5V13h1.5V6.71L13 4.21V3z"
-                                fill="currentColor"
-                                fill-opacity="0.9"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </th>
-              <th
-                class="t-table__th-description"
-                colspan="3"
-                data-colkey="description"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  <div
-                    class="t-table__ellipsis t-text-ellipsis"
-                  >
-                    说明
-                  </div>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th
-                class="t-table__header-th--bordered t-table__th-type"
-                data-colkey="type"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  类型
-                </div>
-              </th>
-              <th
-                class="t-table__th-default"
-                data-colkey="default"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  <div
-                    class="t-table__cell--sortable"
-                  >
-                    <div
-                      class="t-table__cell--title"
-                    >
-                      <div>
-                        默认值
-                      </div>
-                      <div
-                        class="t-table__filter-icon-wrap"
-                      >
-                        <div
-                          class="t-table__cell--sort-trigger t-table__double-icons"
-                        >
-                          <div
-                            class="t-popup__reference t-table-sort-asc"
-                          >
-                            <span
-                              class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
-                            >
-                              <svg
-                                class="t-icon t-icon-chevron-down"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                          <div
-                            class="t-popup__reference t-table-sort-desc"
-                          >
-                            <span
-                              class="t-table__sort-icon--active t-table__sort-icon t-table-sort-desc"
-                            >
-                              <svg
-                                class="t-icon t-icon-chevron-down"
-                                fill="none"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                width="1em"
-                              >
-                                <path
-                                  d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
-                                  fill="currentColor"
-                                  fill-opacity="0.9"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </th>
-              <th
-                class="t-table__th-needed"
-                data-colkey="needed"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  是否必传
-                </div>
-              </th>
-              <th
-                class="t-table__th-field6"
-                data-colkey="field6"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段6
-                </div>
-              </th>
-              <th
-                class="t-table__th-field7"
-                data-colkey="field7"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  字段7
-                </div>
-              </th>
-              <th
-                class="t-table__th-text"
-                data-colkey="text"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  <div
-                    class="t-table__ellipsis t-text-ellipsis"
-                  >
-                    描述
-                  </div>
-                </div>
-              </th>
-            </tr>
+            <tr />
           </thead>
           <tbody
             class="t-table__body"
           >
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                0
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                String
-              </td>
-              <td
-                class=""
-              >
-                0
-              </td>
-              <td
-                class=""
-              >
-                是
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                1
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Number
-              </td>
-              <td
-                class=""
-              >
-                1
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                2
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                Array
-              </td>
-              <td
-                class=""
-              >
-                2
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                3
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Object
-              </td>
-              <td
-                class=""
-              >
-                3
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                4
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                String
-              </td>
-              <td
-                class=""
-              >
-                4
-              </td>
-              <td
-                class=""
-              >
-                是
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                5
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Number
-              </td>
-              <td
-                class=""
-              >
-                5
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                6
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                Array
-              </td>
-              <td
-                class=""
-              >
-                6
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                7
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Object
-              </td>
-              <td
-                class=""
-              >
-                7
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                8
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                String
-              </td>
-              <td
-                class=""
-              >
-                8
-              </td>
-              <td
-                class=""
-              >
-                是
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                9
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Number
-              </td>
-              <td
-                class=""
-              >
-                9
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                10
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                Array
-              </td>
-              <td
-                class=""
-              >
-                10
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                11
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Object
-              </td>
-              <td
-                class=""
-              >
-                11
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                12
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                String
-              </td>
-              <td
-                class=""
-              >
-                12
-              </td>
-              <td
-                class=""
-              >
-                是
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                13
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Number
-              </td>
-              <td
-                class=""
-              >
-                13
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                14
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                Array
-              </td>
-              <td
-                class=""
-              >
-                14
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                15
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Object
-              </td>
-              <td
-                class=""
-              >
-                15
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                16
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                String
-              </td>
-              <td
-                class=""
-              >
-                16
-              </td>
-              <td
-                class=""
-              >
-                是
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                17
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Number
-              </td>
-              <td
-                class=""
-              >
-                17
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  C
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                18
-              </td>
-              <td
-                class=""
-              >
-                共有
-              </td>
-              <td
-                class=""
-              >
-                Array
-              </td>
-              <td
-                class=""
-              >
-                18
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  A
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
             <tr
               class=""
-            >
-              <td
-                class=""
-              >
-                19
-              </td>
-              <td
-                class=""
-              >
-                私有
-              </td>
-              <td
-                class=""
-              >
-                Object
-              </td>
-              <td
-                class=""
-              >
-                19
-              </td>
-              <td
-                class=""
-              >
-                否
-              </td>
-              <td
-                class=""
-              >
-                字段1
-              </td>
-              <td
-                class=""
-              >
-                字段2
-              </td>
-              <td
-                class=""
-              >
-                字段3
-              </td>
-              <td
-                class=""
-              >
-                字段4
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  B
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段6
-              </td>
-              <td
-                class=""
-              >
-                字段7
-              </td>
-              <td
-                class="t-table-td--ellipsis"
-              >
-                <div
-                  class="t-table__ellipsis t-text-ellipsis"
-                >
-                  这是一段很长很长很长的文本
-                </div>
-              </td>
-              <td
-                class=""
-              >
-                字段5
-              </td>
-            </tr>
+            />
           </tbody>
         </table>
       </div>
@@ -18234,9 +16280,10 @@ exports[`pagination.jsx 1`] = `
             >
               <div
                 class="t-input__wrap t-input--auto-width"
+                value="5 条/页"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -18246,6 +16293,7 @@ exports[`pagination.jsx 1`] = `
                     placeholder="请选择"
                     readonly=""
                     style="width: 0px;"
+                    type="text"
                     value="5 条/页"
                   />
                   <span
@@ -18371,13 +16419,15 @@ exports[`pagination.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value="2"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder=""
+                  type="text"
                   value="2"
                 />
               </div>
@@ -18492,9 +16542,10 @@ exports[`pagination-ajax.jsx 1`] = `
             >
               <div
                 class="t-input__wrap t-input--auto-width"
+                value="5 条/页"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
@@ -18504,6 +16555,7 @@ exports[`pagination-ajax.jsx 1`] = `
                     placeholder="请选择"
                     readonly=""
                     style="width: 0px;"
+                    type="text"
                     value="5 条/页"
                   />
                   <span
@@ -18587,13 +16639,15 @@ exports[`pagination-ajax.jsx 1`] = `
           >
             <div
               class="t-input__wrap"
+              value="1"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder=""
+                  type="text"
                   value="1"
                 />
               </div>
@@ -18684,7 +16738,6 @@ exports[`select-multiple.jsx 1`] = `
                   >
                     <input
                       class="t-checkbox__former"
-                      readonly=""
                       type="checkbox"
                       value=""
                     />
@@ -18764,7 +16817,6 @@ exports[`select-multiple.jsx 1`] = `
                   <input
                     checked=""
                     class="t-checkbox__former"
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -18837,7 +16889,6 @@ exports[`select-multiple.jsx 1`] = `
                   <input
                     class="t-checkbox__former"
                     disabled=""
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -18909,7 +16960,6 @@ exports[`select-multiple.jsx 1`] = `
                 >
                   <input
                     class="t-checkbox__former"
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -18982,7 +17032,6 @@ exports[`select-multiple.jsx 1`] = `
                   <input
                     class="t-checkbox__former"
                     disabled=""
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -19160,9 +17209,8 @@ exports[`select-single.jsx 1`] = `
                 >
                   <input
                     class="t-radio__former"
-                    readonly=""
                     type="radio"
-                    value=""
+                    value="0"
                   />
                   <span
                     class="t-radio__input"
@@ -19223,9 +17271,8 @@ exports[`select-single.jsx 1`] = `
                   <input
                     class="t-radio__former"
                     disabled=""
-                    readonly=""
                     type="radio"
-                    value=""
+                    value="0"
                   />
                   <span
                     class="t-radio__input"
@@ -19285,9 +17332,8 @@ exports[`select-single.jsx 1`] = `
                 >
                   <input
                     class="t-radio__former"
-                    readonly=""
                     type="radio"
-                    value=""
+                    value="0"
                   />
                   <span
                     class="t-radio__input"
@@ -19348,9 +17394,8 @@ exports[`select-single.jsx 1`] = `
                   <input
                     class="t-radio__former"
                     disabled=""
-                    readonly=""
                     type="radio"
-                    value=""
+                    value="0"
                   />
                   <span
                     class="t-radio__input"
@@ -20407,9 +18452,10 @@ exports[`tree.jsx 1`] = `
               >
                 <div
                   class="t-input__wrap t-input--auto-width"
+                  value="10 条/页"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
@@ -20419,6 +18465,7 @@ exports[`tree.jsx 1`] = `
                       placeholder="请选择"
                       readonly=""
                       style="width: 0px;"
+                      type="text"
                       value="10 条/页"
                     />
                     <span
@@ -20559,9 +18606,8 @@ exports[`tree-select.jsx 1`] = `
         <input
           checked=""
           class="t-radio-button__former"
-          readonly=""
           type="radio"
-          value="true"
+          value="1"
         />
         <span
           class="t-radio-button__input"
@@ -20577,9 +18623,8 @@ exports[`tree-select.jsx 1`] = `
       >
         <input
           class="t-radio-button__former"
-          readonly=""
           type="radio"
-          value="false"
+          value="0"
         />
         <span
           class="t-radio-button__input"
@@ -20645,7 +18690,6 @@ exports[`tree-select.jsx 1`] = `
                   >
                     <input
                       class="t-checkbox__former"
-                      readonly=""
                       type="checkbox"
                       value=""
                     />
@@ -20740,7 +18784,6 @@ exports[`tree-select.jsx 1`] = `
                 >
                   <input
                     class="t-checkbox__former"
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -20838,7 +18881,6 @@ exports[`tree-select.jsx 1`] = `
                   <input
                     class="t-checkbox__former"
                     disabled=""
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -20935,7 +18977,6 @@ exports[`tree-select.jsx 1`] = `
                 >
                   <input
                     class="t-checkbox__former"
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -21033,7 +19074,6 @@ exports[`tree-select.jsx 1`] = `
                   <input
                     class="t-checkbox__former"
                     disabled=""
-                    readonly=""
                     type="checkbox"
                     value=""
                   />
@@ -21130,7 +19170,6 @@ exports[`tree-select.jsx 1`] = `
                 >
                   <input
                     class="t-checkbox__former"
-                    readonly=""
                     type="checkbox"
                     value=""
                   />

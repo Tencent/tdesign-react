@@ -3,7 +3,7 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps, DateValue } from '../type';
 import useFormat from './useFormat';
 
@@ -15,9 +15,6 @@ export default function useSingle(props: TdDatePickerProps) {
 
   const {
     mode,
-    value: valueFromProps,
-    defaultValue: defaultValueFromProps,
-    onChange: onChangeFromProps,
     prefixIcon,
     suffixIcon,
     inputProps: inputPropsFromProps,
@@ -30,7 +27,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onInput,
   } = props;
 
-  const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
   const { isValidDate, formatDate, formatTime } = useFormat({
     value,
     mode,

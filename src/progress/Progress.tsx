@@ -12,22 +12,14 @@ import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';
+import { progressDefaultProps } from './defaultProps';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**
  * 按钮组件
  */
 const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement>) => {
-  const {
-    theme = 'line',
-    percentage = 0,
-    label = true,
-    color = '',
-    trackColor,
-    strokeWidth,
-    size = 'medium',
-    className,
-  } = props;
+  const { theme, percentage, label, color = '', trackColor, strokeWidth, size, className } = props;
   let { status } = props;
   if (!status && percentage >= 100) {
     status = 'success';
@@ -227,5 +219,6 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
 });
 
 Progress.displayName = 'Progress';
+Progress.defaultProps = progressDefaultProps;
 
 export default Progress;

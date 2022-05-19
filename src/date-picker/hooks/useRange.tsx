@@ -3,7 +3,7 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import useFormat from './useFormat';
@@ -45,9 +45,6 @@ export default function useRange(props: TdDateRangePickerProps) {
 
   const {
     mode,
-    value: valueFromProps,
-    defaultValue: defaultValueFromProps = [],
-    onChange: onChangeFromProps,
     prefixIcon,
     suffixIcon,
     rangeInputProps: rangeInputPropsFromProps,
@@ -60,7 +57,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onInput,
   } = props;
 
-  const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
   const { format, isValidDate, timeFormat, formatDate, formatTime } = useFormat({
     mode,
     value,

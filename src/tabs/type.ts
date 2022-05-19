@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode } from '../common';
@@ -19,6 +18,11 @@ export interface TdTabsProps {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 是否开启拖拽调整顺序
+   * @default false
+   */
+  dragSort?: boolean;
   /**
    * 选项卡列表
    */
@@ -54,6 +58,10 @@ export interface TdTabsProps {
    * 激活的选项卡发生变化时触发
    */
   onChange?: (value: TabValue) => void;
+  /**
+   * 拖拽排序时触发
+   */
+  onDragSort?: (context: TabsDragSortContext) => void;
   /**
    * 删除选项卡时触发
    */
@@ -95,3 +103,10 @@ export interface TdTabPanelProps {
 }
 
 export type TabValue = string | number;
+
+export interface TabsDragSortContext {
+  currentIndex: number;
+  current: TabValue;
+  targetIndex: number;
+  target: TabValue;
+}

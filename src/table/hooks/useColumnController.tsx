@@ -10,7 +10,7 @@ import { DialogPlugin } from '../../dialog/plugin';
 import { renderTitle } from './useTableHeader';
 import { PrimaryTableCol, TdPrimaryTableProps } from '../type';
 import useConfig from '../../_util/useConfig';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { getCurrentRowByKey } from '../utils';
 import { DialogInstance } from '../../dialog';
 import TButton from '../../button';
@@ -41,11 +41,7 @@ export default function useColumnController(props: TdPrimaryTableProps) {
   const keys = [...getColumnKeys(columns)];
 
   // 确认后的列配置
-  const [tDisplayColumns, setTDisplayColumns] = useDefaultValue(
-    displayColumns,
-    props.defaultDisplayColumns || keys,
-    props.onDisplayColumnsChange,
-  );
+  const [tDisplayColumns, setTDisplayColumns] = useControlled(props, 'displayColumns', props.onDisplayColumnsChange);
   // 弹框内的多选
   const defaultColumnCheckboxKeys = displayColumns || props.defaultDisplayColumns || keys;
   // 内部选中的列配置，确认前

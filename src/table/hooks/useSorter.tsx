@@ -2,15 +2,14 @@ import React, { useState, MouseEvent } from 'react';
 import isFunction from 'lodash/isFunction';
 import { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
 import SorterButton from '../SorterButton';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 
 export type SortMap = Record<string, SortInfo & { index: number }>;
 
 export default function useSorter(props: TdPrimaryTableProps) {
-  const { sort, data } = props;
   const [originalData, setOriginalData] = useState<TableRowData[]>();
-  const [tSortInfo, setTSortInfo] = useDefaultValue(sort, props.defaultSort, props.onSortChange);
-  const [tData, setTData] = useDefaultValue(data, [], props.onDataChange);
+  const [tSortInfo, setTSortInfo] = useControlled(props, 'sort', props.onSortChange);
+  const [tData, setTData] = useControlled(props, 'data', props.onDataChange);
   // 本地数据排序：用于记录哪些字段是自定义排序函数
   const sorterFuncMap = getSorterFuncMap(props.columns);
 
