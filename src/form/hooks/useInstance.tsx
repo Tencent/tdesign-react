@@ -1,8 +1,55 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
+import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
 import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
 import useConfig from '../../_util/useConfig';
+
+function getMapValue(
+  name: string | number | Array<string | number>,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+) {
+  // 提取所有 map key
+  const mapKeys = [...formMapRef.current.keys()];
+  // 转译为字符串后比对 key 兼容数组格式
+  const key = mapKeys.find((key) => String(key) === String(name));
+  // 拿到 key 引用地址获取 value
+  return formMapRef.current.get(key);
+}
+
+// 通过对象数据类型获取 map 引用
+function travalMapFromObject(
+  obj: Record<any, any>,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+  callback: Function,
+) {
+  for (const [mapName, formItemRef] of formMapRef.current.entries()) {
+    // 支持嵌套数据结构
+    if (Array.isArray(mapName)) {
+      // 创建唯一临时变量 symbol
+      const symbol = Symbol('name');
+      let fieldValue = null;
+
+      for (let i = 0; i < mapName.length; i++) {
+        const item = mapName[i];
+        if (Reflect.has(fieldValue || obj, item)) {
+          fieldValue = Reflect.get(fieldValue || obj, item);
+        } else {
+          // 当反射无法获取到值则重置为 symbol
+          fieldValue = symbol;
+          break;
+        }
+      }
+
+      // 说明设置了值
+      if (fieldValue !== symbol) {
+        callback(formItemRef, fieldValue);
+      }
+    } else if (Reflect.has(obj, mapName)) {
+      callback(formItemRef, obj[mapName]);
+    }
+  }
+}
 
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
@@ -63,6 +110,14 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
             } else {
               r[key] = r[key].filter((fr: AllValidateResult) => fr.result === false);
             }
+
+            // 整理嵌套数据
+            if (r[key] && key.includes(',')) {
+              const keyList = key.split(',');
+              const fieldValue = keyList.reduceRight((prev, curr) => ({ [curr]: prev }), r[key]);
+              merge(r, fieldValue);
+              delete r[key];
+            }
           });
           resolve(isEmpty(r) ? true : r);
         })
@@ -71,10 +126,11 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，获取对应 formItem 的值
-  function getFieldValue(name: string) {
+  function getFieldValue(name: string | number | Array<string | number>) {
     if (!name) return null;
-    const formItemRef = formMapRef.current.get(name);
-    return formItemRef.current.value;
+
+    const formItemRef = getMapValue(name, formMapRef);
+    return formItemRef?.current?.value;
   }
 
   // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
@@ -83,13 +139,26 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
     if (nameList === true) {
       for (const [name, formItemRef] of formMapRef.current.entries()) {
-        fieldsValue[name] = formItemRef.current.value;
+        // 支持数组嵌套
+        if (Array.isArray(name)) {
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.value);
+          merge(fieldsValue, fieldValue);
+        } else {
+          fieldsValue[name] = formItemRef.current.value;
+        }
       }
     } else {
       if (!Array.isArray(nameList)) throw new Error('getFieldsValue 参数需要 Array 类型');
+
       nameList.forEach((name) => {
-        const formItemRef = formMapRef.current.get(name);
-        if (formItemRef) fieldsValue[name] = formItemRef.current.value;
+        const formItemRef = getMapValue(name, formMapRef);
+        // 支持数组嵌套
+        if (Array.isArray(name)) {
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.value);
+          merge(fieldsValue, fieldValue);
+        } else {
+          formItemRef && (fieldsValue[name] = formItemRef?.current?.value);
+        }
       });
     }
     return fieldsValue;
@@ -97,9 +166,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
-    Object.keys(fields).forEach((key) => {
-      const formItemRef = formMapRef.current.get(key);
-      formItemRef?.current?.setValue?.(fields[key]);
+    travalMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
+      formItemRef?.current?.setValue?.(fieldValue);
     });
   }
 
@@ -109,7 +177,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
     fields.forEach((field) => {
       const { name, value, status } = field;
-      const formItemRef = formMapRef.current.get(name);
+      const formItemRef = getMapValue(name, formMapRef);
+
       formItemRef?.current?.setField({ value, status });
     });
   }
@@ -125,7 +194,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       const { type = 'initial', fields = [] } = params;
 
       fields.forEach((name) => {
-        const formItemRef = formMapRef.current.get(name);
+        const formItemRef = getMapValue(name, formMapRef);
         formItemRef?.current?.resetField(type);
       });
     }
@@ -142,7 +211,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
 
       fields.forEach((name) => {
-        const formItemRef = formMapRef.current.get(name);
+        const formItemRef = getMapValue(name, formMapRef);
         formItemRef.current?.resetValidate();
       });
     }
@@ -150,9 +219,8 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置 formItem 的错误信息
   function setValidateMessage(message: FormValidateMessage<FormData>) {
-    Object.keys(message).forEach((name) => {
-      const formItemRef = formMapRef.current.get(name);
-      formItemRef?.current?.setValidateMessage(message[name]);
+    travalMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
+      formItemRef?.current?.setValidateMessage?.(fieldValue);
     });
   }
 

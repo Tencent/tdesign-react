@@ -21,13 +21,13 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       disabled,
-      inputNumberProps = true,
-      label,
+      inputNumberProps = false,
+      label = true,
       layout = 'horizontal',
       marks,
       max = 100,
       min = 0,
-      range,
+      range = false,
       step = 1,
       tooltipProps,
       value: propsValue,

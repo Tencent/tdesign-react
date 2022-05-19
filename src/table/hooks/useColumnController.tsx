@@ -17,13 +17,12 @@ import TButton from '../../button';
 
 const CheckboxGroup = Checkbox.Group;
 
-export function getColumnKeys(columns: PrimaryTableCol[], keys: string[] = []) {
+export function getColumnKeys(columns: PrimaryTableCol[], keys = new Set<string>()) {
   for (let i = 0, len = columns.length; i < len; i++) {
     const col = columns[i];
-    col.colKey && keys.push(col.colKey);
+    col.colKey && keys.add(col.colKey);
     if (col.children?.length) {
-      // eslint-disable-next-line no-param-reassign
-      keys = keys.concat(getColumnKeys(col.children, [...keys]));
+      getColumnKeys(col.children, keys);
     }
   }
   return keys;
@@ -35,11 +34,11 @@ export default function useColumnController(props: TdPrimaryTableProps) {
   const dialogInstance = useRef<DialogInstance>();
 
   const enabledColKeys = (() => {
-    const arr = (columnController?.fields || [...new Set(getColumnKeys(columns))] || []).filter((v) => v);
+    const arr = (columnController?.fields || [...getColumnKeys(columns)] || []).filter((v) => v);
     return new Set(arr);
   })();
 
-  const keys = [...new Set(getColumnKeys(columns))];
+  const keys = [...getColumnKeys(columns)];
 
   // 确认后的列配置
   const [tDisplayColumns, setTDisplayColumns] = useDefaultValue(

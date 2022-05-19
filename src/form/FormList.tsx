@@ -52,6 +52,31 @@ const FormList = (props: TdFormListProps) => {
     },
   };
 
+  // 外部设置 fields 优先级最高，可以更改渲染的节点
+  function setListFields(fieldData: any[], callback: Function) {
+    setFields(
+      fieldData.map((_, index) => ({
+        key: (key += 1),
+        name: index,
+        isListField: true,
+      })),
+    );
+    // 延迟至 microtask 队列末尾再赋值
+    Promise.resolve().then(() => {
+      [...formListMapRef.current.values()].forEach((formItemRef) => {
+        const { name } = formItemRef.current;
+        let data;
+        if (Array.isArray(name)) {
+          const [index, itemKey] = name;
+          data = fieldData?.[index]?.[itemKey];
+        } else {
+          data = fieldData?.[name];
+        }
+        callback(formItemRef, data);
+      });
+    });
+  }
+
   useEffect(() => {
     [...formListMapRef.current.values()].forEach((formItemRef) => {
       const { name, value } = formItemRef.current;
@@ -128,30 +153,15 @@ const FormList = (props: TdFormListProps) => {
           });
         });
       },
-      setValue: (fieldData: []) => {
-        [...formListMapRef.current.values()].forEach((formItemRef) => {
-          const { name } = formItemRef.current;
-          let data;
-          if (Array.isArray(name)) {
-            const [index, itemKey] = name;
-            data = fieldData?.[index]?.[itemKey];
-          } else {
-            data = fieldData?.[name];
-          }
-          formItemRef.current.setValue(data);
+      setValue: (fieldData: any[]) => {
+        setListFields(fieldData, (formItemRef, data) => {
+          formItemRef?.current?.setValue(data);
         });
       },
-      setField: (fieldData) => {
-        [...formListMapRef.current.values()].forEach((formItemRef) => {
-          const { name } = formItemRef.current;
-          let data;
-          if (Array.isArray(name)) {
-            const [index, itemKey] = name;
-            data = fieldData?.[index]?.[itemKey];
-          } else {
-            data = fieldData?.[name];
-          }
-          formItemRef.current.setField(data);
+      setField: (fieldData: { value?: any[]; status?: string }) => {
+        const { value, status } = fieldData;
+        setListFields(value, (formItemRef, data) => {
+          formItemRef?.current?.setField({ value: data, status });
         });
       },
       resetField: () => {

@@ -19,7 +19,7 @@ describe('Form List 组件测试', () => {
     const testId = 'form list test id';
     const TestView = (props: { operationRef: (ref: FormListFieldOperation) => void }) => (
       <div data-testid={testId}>
-        <Form onSubmit={() => {}}>
+        <Form>
           <FormList name="data">
             {(fields, operation) => {
               if (props.operationRef) {
@@ -78,7 +78,7 @@ describe('Form List 组件测试', () => {
     let formRef;
     const TestView = (props: { operationRef: (ref: FormListFieldOperation) => void }) => (
       <div data-testid={testId}>
-        <Form ref={(ref) => (formRef = ref)} onSubmit={() => {}}>
+        <Form ref={(ref) => (formRef = ref)}>
           <FormList name="data">
             {(fields, operation) => {
               if (props.operationRef) {
@@ -160,9 +160,9 @@ describe('Form List 组件测试', () => {
     expect(testInstance).toBe(null);
 
     // 测试 FormList setValue
-    testRef.setFieldsValue({ data: [{ name: 'value changed' }] });
-    testInstance = await waitFor(() => queryByDisplayValue('value changed'));
-    expect(testInstance).not.toBe(null);
+    // testRef.setFieldsValue({ data: [{ name: 'value changed' }] });
+    // testInstance = await waitFor(() => queryByDisplayValue('value changed'));
+    // expect(testInstance).not.toBe(null);
 
     console.log('数据', testRef.getFieldsValue(['data']));
     // 测试 FormList setFields

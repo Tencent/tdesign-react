@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode } from '../common';
@@ -27,12 +26,17 @@ export interface TdStepsProps {
    */
   options?: Array<TdStepItemProps>;
   /**
-   * 是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;
   /**
-   * 步骤条顺序，纵向步骤有效（direction = horizontal）
+   * 步骤条分割符
+   * @default line
+   */
+  separator?: 'line' | 'dashed' | 'arrow';
+  /**
+   * 步骤条顺序
    * @default positive
    */
   sequence?: 'positive' | 'reverse';
