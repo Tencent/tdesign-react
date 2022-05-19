@@ -178,7 +178,6 @@ exports[`base.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -558,7 +557,7 @@ exports[`base.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="t-calendar__table-body-cell-display"
@@ -1274,7 +1273,7 @@ exports[`card.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"
@@ -1554,7 +1553,6 @@ exports[`cell.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -2093,7 +2091,7 @@ exports[`cell.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="outerWarper"
@@ -2412,7 +2410,6 @@ exports[`cell-append.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -2888,7 +2885,7 @@ exports[`cell-append.jsx 1`] = `
               />
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="t-calendar__table-body-cell-display"
@@ -3453,7 +3450,6 @@ exports[`controller-config.jsx 1`] = `
             >
               <span
                 class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-                theme="default"
               >
                 隐藏周末
               </span>
@@ -3833,7 +3829,7 @@ exports[`controller-config.jsx 1`] = `
                     </div>
                   </td>
                   <td
-                    class="t-calendar__table-body-cell t-is-checked t-is-now"
+                    class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
                   >
                     <div
                       class="t-calendar__table-body-cell-display"
@@ -4135,7 +4131,6 @@ exports[`event-props-api.jsx 1`] = `
         >
           <span
             class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-            theme="default"
           >
             隐藏周末
           </span>
@@ -4515,7 +4510,7 @@ exports[`event-props-api.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"
@@ -4833,7 +4828,6 @@ exports[`events.jsx 1`] = `
         >
           <span
             class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-            theme="default"
           >
             隐藏周末
           </span>
@@ -5213,7 +5207,7 @@ exports[`events.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"
@@ -5513,7 +5507,6 @@ exports[`filter.jsx 1`] = `
         >
           <span
             class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-            theme="default"
           >
             隐藏周末
           </span>
@@ -5893,7 +5886,7 @@ exports[`filter.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"
@@ -6226,7 +6219,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <span
             class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-            theme="default"
           >
             隐藏周末
           </span>
@@ -6588,7 +6580,7 @@ exports[`first-day-of-week.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"
@@ -6823,7 +6815,6 @@ exports[`head.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -7203,7 +7194,7 @@ exports[`head.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="t-calendar__table-body-cell-display"
@@ -7507,156 +7498,120 @@ exports[`mode.jsx 1`] = `
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   一月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   二月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   三月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   四月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
             </tr>
             <tr
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   五月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   六月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   七月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
                 class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   八月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
             </tr>
             <tr
               class="t-calendar__table-body-row"
             >
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   九月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   十月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   十一月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
               <td
-                class="t-calendar__table-body-cell t-false t-false"
+                class="t-calendar__table-body-cell"
               >
                 <div
-                  class="t-calendar__table-body-cell-value"
+                  class="t-calendar__table-body-cell-display"
                 >
                   十二月
                 </div>
-                <div
-                  class="t-calendar__table-body-cell-content"
-                />
               </td>
             </tr>
           </tbody>
@@ -7845,7 +7800,6 @@ exports[`range.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -8225,7 +8179,7 @@ exports[`range.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="t-calendar__table-body-cell-display"
@@ -8508,7 +8462,6 @@ exports[`slot-props-api.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -9047,7 +9000,7 @@ exports[`slot-props-api.jsx 1`] = `
               </div>
             </td>
             <td
-              class="t-calendar__table-body-cell t-is-checked t-is-now"
+              class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
             >
               <div
                 class="outerWarper"
@@ -9366,7 +9319,6 @@ exports[`value.jsx 1`] = `
       >
         <span
           class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-          theme="default"
         >
           隐藏周末
         </span>
@@ -10028,7 +9980,6 @@ exports[`week.jsx 1`] = `
         >
           <span
             class="t-tag t-calendar__control-tag t-tag--default t-tag--check t-tag--medium"
-            theme="default"
           >
             隐藏周末
           </span>
@@ -10422,7 +10373,7 @@ exports[`week.jsx 1`] = `
                 </div>
               </td>
               <td
-                class="t-calendar__table-body-cell t-is-checked t-is-now"
+                class="t-calendar__table-body-cell t-is-checked t-calendar__table-body-cell--now"
               >
                 <div
                   class="t-calendar__table-body-cell-display"

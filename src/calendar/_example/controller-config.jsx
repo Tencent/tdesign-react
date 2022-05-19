@@ -163,33 +163,39 @@ export default function CalendarExample() {
           </p>
           <br />
           <Calendar
-            controllerConfig={{
-              visible,
-              disabled,
-              mode: { visible: modeVisible, radioGroupProps: { disabled: modeDisabled, variant: 'default-filled' } },
-              year: {
-                visible: yearVisible,
-                selectProps: {
-                  disabled: yearDisabled,
-                },
-              },
-              month: {
-                visible: monthVisible,
-                selectProps: {
-                  disabled: monthDisabled,
-                },
-              },
-              weekend: {
-                visible: weekendToggleVisible,
-                showWeekendButtonProps: { disabled: weekendShowButtonDisabled },
-                hideWeekendButtonProps: { disabled: weekendHideButtonDisabled },
-              },
-              current: {
-                visible: currentVisible,
-                currentDayButtonProps: { disabled: currentDayButtonDisabled },
-                currentMonthButtonProps: { disabled: currentMonthButtonDisabled },
-              },
-            }}
+            controllerConfig={
+              visible
+                ? {
+                    disabled,
+                    mode: {
+                      visible: modeVisible,
+                      radioGroupProps: { disabled: modeDisabled, variant: 'default-filled' },
+                    },
+                    year: {
+                      visible: yearVisible,
+                      selectProps: {
+                        disabled: yearDisabled,
+                      },
+                    },
+                    month: {
+                      visible: monthVisible,
+                      selectProps: {
+                        disabled: monthDisabled,
+                      },
+                    },
+                    weekend: {
+                      visible: weekendToggleVisible,
+                      showWeekendButtonProps: { disabled: weekendShowButtonDisabled },
+                      hideWeekendButtonProps: { disabled: weekendHideButtonDisabled },
+                    },
+                    current: {
+                      visible: currentVisible,
+                      currentDayButtonProps: { disabled: currentDayButtonDisabled },
+                      currentMonthButtonProps: { disabled: currentMonthButtonDisabled },
+                    },
+                  }
+                : false
+            }
           />
         </fieldset>
       </div>
