@@ -26,6 +26,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
     presets,
     timePickerProps,
+    onPick,
   } = props;
 
   const {
@@ -91,9 +92,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (enableTimePicker) {
       setCacheValue(formatDate(date));
     } else {
-      onChange(formatDate(date, 'valueType'), dayjs(date));
+      onChange(formatDate(date, 'valueType'), { dayjsValue: dayjs(date), trigger: 'pick' });
       setPopupVisible(false);
     }
+
+    onPick?.(date);
   }
 
   // 头部快速切换
@@ -139,13 +142,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     setInputValue(formatDate(nextDate));
+
+    onPick?.(nextDate);
   }
 
   // 确定
   function onConfirmClick() {
     const nextValue = formatDate(inputValue);
     if (nextValue) {
-      onChange(formatDate(inputValue, 'valueType'), dayjs(inputValue));
+      onChange(formatDate(inputValue, 'valueType'), { dayjsValue: dayjs(inputValue), trigger: 'confirm' });
     } else {
       setInputValue(formatDate(value));
     }
@@ -158,7 +163,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    onChange(formatDate(presetValue, 'valueType'), dayjs(presetValue));
+    onChange(formatDate(presetValue, 'valueType'), { dayjsValue: dayjs(presetValue), trigger: 'preset' });
     setPopupVisible(false);
   }
 

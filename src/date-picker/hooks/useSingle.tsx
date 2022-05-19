@@ -60,7 +60,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange('', dayjs(''));
+      onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
       onBlur?.({ value: val, e });
@@ -88,7 +88,7 @@ export default function useSingle(props: TdDatePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(val)) {
-        onChange(formatDate(val, 'valueType') as DateValue, dayjs(val));
+        onChange(formatDate(val, 'valueType') as DateValue, { dayjsValue: dayjs(val), trigger: 'enter' });
       } else if (isValidDate(value)) {
         setInputValue(formatDate(value));
       } else {
