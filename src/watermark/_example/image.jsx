@@ -5,7 +5,7 @@ export default function ImageWatermark() {
   return (
     <Watermark watermarkContent={{
       url: "https://tdesign.gtimg.com/site/logo-watermark.svg",
-    }} x={80} y={100} rotate={0}>
+    }} width={104} height={65.5} x={90} y={100} rotate={0}>
       <div style={{ height: 300 }}></div>
     </Watermark>
   )
