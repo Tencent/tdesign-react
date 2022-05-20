@@ -367,6 +367,12 @@ export default {
           path: '/react/components/tree',
           component: () => import('tdesign-react/tree/tree.md'),
         },
+        {
+          title: 'Watermark 水印',
+          name: 'watermark',
+          path: '/react/components/watermark',
+          component: () => import('tdesign-react/watermark/watermark.md'),
+        },
       ],
     },
     {
