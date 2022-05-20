@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { TimeIcon } from 'tdesign-icons-react';
 import noop from '../_util/noop';
-import useDefaultValue from '../_util/useDefaultValue';
+import useControlled from '../hooks/useControlled';
 import useConfig from '../_util/useConfig';
 import { RangeInputPopup, RangeInputPosition } from '../range-input';
 import TimePickerPanel from './panel/TimePickerPanel';
@@ -13,6 +13,7 @@ import { formatInputValue, validateInputValue } from '../_common/js/time-picker/
 
 import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import { StyledProps } from '../common';
+import { timeRangePickerDefaultProps } from './defaultProps';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
@@ -25,20 +26,20 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
     allowInput,
     clearable,
     disabled,
-    format = 'HH:mm:ss',
-    hideDisabledTime = true,
+    format,
+    hideDisabledTime,
     placeholder = TEXT_CONFIG.rangePlaceholder,
-    size = 'medium',
-    steps = [1, 1, 1],
-    value = defaultArrVal,
+    size,
+    steps,
     disableTime,
-    onChange,
     onBlur = noop,
     onFocus = noop,
     onInput = noop,
     style,
     className,
-  } = useDefaultValue(props);
+  } = props;
+
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
 
   const { classPrefix } = useConfig();
   const [isPanelShowed, setPanelShow] = useState(false);
@@ -121,7 +122,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
         onPopupVisibleChange={handleShowPopup}
         popupProps={{
           overlayStyle: {
-            width: '280px',
+            width: 'auto',
           },
           ...props.popupProps,
         }}
@@ -160,5 +161,6 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
 };
 
 TimeRangePicker.displayName = 'TimeRangePicker';
+TimeRangePicker.defaultProps = timeRangePickerDefaultProps;
 
 export default TimeRangePicker;

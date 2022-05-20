@@ -19,6 +19,7 @@ import useUpdateEffect from '../_util/useUpdateEffect';
 import StepHandler from './StepHandler';
 import * as numberUtils from './utils/numberUtils';
 import Input from '../input';
+import { inputNumberDefaultProps } from './defaultProps';
 
 export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
@@ -31,12 +32,12 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     style,
     defaultValue,
     value,
-    disabled = false,
-    size = 'medium',
-    theme = 'row',
-    step = 1,
-    max = Number.MAX_SAFE_INTEGER,
-    min = Number.MIN_SAFE_INTEGER,
+    disabled,
+    size,
+    theme,
+    step,
+    max,
+    min,
     decimalPlaces,
     format,
     onChange,
@@ -254,5 +255,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 });
 
 InputNumber.displayName = 'InputNumber';
+InputNumber.defaultProps = inputNumberDefaultProps;
 
 export default InputNumber;

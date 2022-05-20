@@ -7,8 +7,9 @@ import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
+import { breadcrumbItemDefaultProps } from './defaultProps';
 
-export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
+const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const {
     children,
     separator,
@@ -24,7 +25,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
     ...restProps
   } = props;
 
-  const { maxItemWidthInContext, theme, separator: separatorInContext } = useContext(BreadcrumbContext);
+  const { maxItemWidthInContext, separator: separatorInContext } = useContext(BreadcrumbContext);
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
@@ -70,7 +71,7 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
   );
 
   return (
-    <div className={classNames(breadcrumbItemClassNames, theme, className)} ref={ref} {...restProps}>
+    <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
       {itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
@@ -78,3 +79,6 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
 });
 
 BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.defaultProps = breadcrumbItemDefaultProps;
+
+export default BreadcrumbItem;

@@ -4,9 +4,10 @@ import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { getCharacterLength } from '../_util/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
+import { textareaDefaultProps } from './defaultProps';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}
 export interface TextareaRefInterface extends React.RefObject<unknown> {
@@ -22,18 +23,17 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     className,
     readonly,
     autofocus,
-    defaultValue,
     style,
     onKeydown = noop,
     onKeypress = noop,
     onKeyup = noop,
-    autosize = false,
+    autosize,
     status,
     tips,
     ...otherProps
   } = props;
 
-  const [value = '', setValue] = useDefault(props.value, defaultValue, props.onChange);
+  const [value = '', setValue] = useControlled(props, 'value', props.onChange);
   const [isFocused, setIsFocused] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState({});
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
@@ -146,5 +146,6 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
 });
 
 Textarea.displayName = 'Textarea';
+Textarea.defaultProps = textareaDefaultProps;
 
 export default Textarea;

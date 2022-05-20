@@ -14,9 +14,10 @@ exports[`base.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -25,6 +26,7 @@ exports[`base.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -65,9 +67,10 @@ exports[`collapsed.jsx 1`] = `
     >
       <div
         class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -94,6 +97,7 @@ exports[`collapsed.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -136,9 +140,10 @@ exports[`creatable.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -146,6 +151,7 @@ exports[`creatable.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请选择"
+              type="text"
               value="Apple"
             />
             <span
@@ -189,9 +195,10 @@ exports[`custom-options.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -200,6 +207,7 @@ exports[`custom-options.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -243,9 +251,10 @@ exports[`custom-selected.jsx 1`] = `
       >
         <div
           class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -259,6 +268,7 @@ exports[`custom-selected.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder=""
+              type="text"
               value=""
             />
             <span
@@ -302,9 +312,10 @@ exports[`disabled.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -314,6 +325,7 @@ exports[`disabled.jsx 1`] = `
               disabled=""
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -354,9 +366,10 @@ exports[`filterable.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="Apple"
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -364,6 +377,7 @@ exports[`filterable.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
+            type="text"
             value="Apple"
           />
           <span
@@ -403,9 +417,10 @@ exports[`group.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="Apple"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -414,6 +429,7 @@ exports[`group.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="Apple"
           />
           <span
@@ -453,9 +469,10 @@ exports[`keys.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="已选择的选项"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -464,6 +481,7 @@ exports[`keys.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="已选择的选项"
           />
           <span
@@ -498,9 +516,10 @@ exports[`keys.jsx 1`] = `
     >
       <div
         class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -527,6 +546,7 @@ exports[`keys.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -569,9 +589,10 @@ exports[`label-in-value.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -580,6 +601,7 @@ exports[`label-in-value.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -614,9 +636,10 @@ exports[`label-in-value.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -625,6 +648,7 @@ exports[`label-in-value.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -659,9 +683,10 @@ exports[`label-in-value.jsx 1`] = `
       >
         <div
           class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -688,6 +713,7 @@ exports[`label-in-value.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder=""
+              type="text"
               value=""
             />
             <span
@@ -728,9 +754,10 @@ exports[`max.jsx 1`] = `
     >
       <div
         class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -757,6 +784,7 @@ exports[`max.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -796,9 +824,10 @@ exports[`multiple.jsx 1`] = `
     >
       <div
         class="t-tag-input t-tag-input__with-suffix-icon t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -825,6 +854,7 @@ exports[`multiple.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -864,9 +894,10 @@ exports[`noborder.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="Apple"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -875,6 +906,7 @@ exports[`noborder.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="Apple"
           />
           <span
@@ -914,9 +946,10 @@ exports[`options.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="Apple"
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -924,6 +957,7 @@ exports[`options.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
+            type="text"
             value="Apple"
           />
           <span
@@ -966,9 +1000,10 @@ exports[`panel.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -977,6 +1012,7 @@ exports[`panel.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择云解决方案"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -1011,9 +1047,10 @@ exports[`panel.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1022,6 +1059,7 @@ exports[`panel.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择云产品"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -1065,9 +1103,10 @@ exports[`popup-props.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="Apple"
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1076,6 +1115,7 @@ exports[`popup-props.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value="Apple"
             />
             <span
@@ -1116,9 +1156,10 @@ exports[`prefix.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="Apple"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1146,6 +1187,7 @@ exports[`prefix.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="Apple"
           />
           <span
@@ -1185,9 +1227,10 @@ exports[`remote-search.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1195,6 +1238,7 @@ exports[`remote-search.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
+            type="text"
             value=""
           />
           <span
@@ -1234,9 +1278,10 @@ exports[`scroll-top.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="第 50 项"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1245,6 +1290,7 @@ exports[`scroll-top.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="第 50 项"
           />
           <span
@@ -1284,9 +1330,10 @@ exports[`size.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-is-readonly t-size-s t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1295,6 +1342,7 @@ exports[`size.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -1329,9 +1377,10 @@ exports[`size.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1340,6 +1389,7 @@ exports[`size.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -1374,9 +1424,10 @@ exports[`size.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-is-readonly t-size-l t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-l t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1385,6 +1436,7 @@ exports[`size.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -1427,9 +1479,10 @@ exports[`status.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1438,6 +1491,7 @@ exports[`status.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -1472,9 +1526,10 @@ exports[`status.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1484,6 +1539,7 @@ exports[`status.jsx 1`] = `
               disabled=""
               placeholder="请选择"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -1518,9 +1574,10 @@ exports[`status.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1529,6 +1586,7 @@ exports[`status.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择"
               readonly=""
+              type="text"
               value=""
             />
             <span

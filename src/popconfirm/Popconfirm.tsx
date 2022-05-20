@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Popup from '../popup';
-import noop from '../_util/noop';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
 import Popcontent from './Popcontent';
+import { popconfirmDefaultProps } from './defaultProps';
 
 export type PopconfirmProps = TdPopconfirmProps;
 
@@ -17,7 +17,7 @@ const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>((props, ref) => {
   const cancelContent = typeof local.cancel === 'string' ? local.cancel : local.cancel.content;
   const confirmContent = typeof local.confirm === 'string' ? local.confirm : local.confirm.content;
   const { cancelBtn = t(cancelContent), confirmBtn = t(confirmContent) } = props;
-  const [visible, setVisible] = useDefault(props.visible, props.defaultVisible, props.onVisibleChange);
+  const [visible, setVisible] = useControlled(props, 'visible', props.onVisibleChange);
 
   return (
     <Popup
@@ -41,12 +41,6 @@ const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>((props, ref) => {
 });
 
 Popconfirm.displayName = 'Popconfirm';
+Popconfirm.defaultProps = popconfirmDefaultProps;
 
-Popconfirm.defaultProps = {
-  destroyOnClose: true,
-  showArrow: true,
-  onCancel: noop,
-  onConfirm: noop,
-  theme: 'default',
-};
 export default Popconfirm;

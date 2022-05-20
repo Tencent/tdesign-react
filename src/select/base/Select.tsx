@@ -2,7 +2,7 @@ import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'r
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
@@ -19,6 +19,7 @@ import PopupContent from './PopupContent';
 
 import { TdSelectProps, TdOptionProps } from '../type';
 import { StyledProps } from '../../common';
+import { selectDefaultProps } from '../defaultProps';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -34,14 +35,14 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
-      readonly = false,
-      bordered = true,
+      readonly,
+      bordered,
       borderless,
-      autoWidth = false,
+      autoWidth,
       creatable,
       filter,
       loadingText = emptyText,
-      max = 0,
+      max,
       popupProps,
       popupVisible,
       onPopupVisibleChange,
@@ -64,7 +65,7 @@ const Select = forwardRefWithStatics(
       onRemove,
       onSearch,
       empty,
-      valueType = 'value',
+      valueType,
       keys,
       children,
       collapsedItems,
@@ -72,7 +73,7 @@ const Select = forwardRefWithStatics(
       valueDisplay,
       onEnter,
       onVisibleChange,
-      showArrow = true,
+      showArrow,
       inputProps,
       panelBottomContent,
       panelTopContent,
@@ -83,14 +84,14 @@ const Select = forwardRefWithStatics(
 
     const selectPopupRef = useRef();
 
-    const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
+    const [value, onChange] = useControlled(props, 'value', props.onChange);
     const { classPrefix } = useConfig();
     const { overlayClassName, ...restPopupProps } = popupProps || {};
 
     const name = `${classPrefix}-select`; // t-select
 
     const [showPopup, setShowPopup] = useState(popupVisible || false);
-    const [inputValue, onInputChange] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
+    const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
     const [valueToOption, setValueToOption] = useState({});
@@ -405,10 +406,12 @@ const Select = forwardRefWithStatics(
     );
   },
   {
-    displayName: 'Select',
     Option,
     OptionGroup,
   },
 );
+
+Select.displayName = 'Select';
+Select.defaultProps = selectDefaultProps;
 
 export default Select;

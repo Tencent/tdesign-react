@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, AttachNode } from '../common';
@@ -114,3 +113,10 @@ export type MessageQuestionMethod = (
 ) => Promise<MessageInstance>;
 
 export type MessageCloseAllMethod = () => void;
+
+export type MessageConfigMethod = (
+  placement?: MessagePlacementList,
+  attach?: AttachNode,
+  offset?: Array<string | number>,
+  zIndex?: number,
+) => void;

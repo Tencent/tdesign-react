@@ -9,8 +9,9 @@ import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
 import useTagList from './useTagList';
 import useHover from './useHover';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { StyledProps } from '../common';
+import { tagInputDefaultProps } from './defaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
@@ -18,7 +19,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { classPrefix: prefix } = useConfig();
 
   const {
-    excessTagsDisplayType = 'scroll',
+    excessTagsDisplayType,
     autoWidth,
     readonly,
     disabled,
@@ -38,7 +39,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     onBlur,
   } = props;
 
-  const [tInputValue, setTInputValue] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
+  const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const { isHover, addHover, cancelHover } = useHover(props);
   const { getDragProps } = useDragSorter({
@@ -151,5 +152,6 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 });
 
 TagInput.displayName = 'TagInput';
+TagInput.defaultProps = tagInputDefaultProps;
 
 export default TagInput;

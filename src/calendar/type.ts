@@ -2,12 +2,12 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { RadioGroupProps } from '../radio';
 import { ButtonProps } from '../button';
 import { SelectProps } from '../select';
+import { CheckTagProps } from '../tag';
 import { TNode } from '../common';
 import { MouseEvent } from 'react';
 
@@ -22,7 +22,6 @@ export interface TdCalendarProps {
   cellAppend?: string | TNode<CalendarCell>;
   /**
    * 右上角控制器配置。值为 false 则表示不显示控制器，值为 true 则显示控制器默认配置，值类型为 CalendarController 则显示为自定义控制器配置
-   * @default true
    */
   controllerConfig?: boolean | CalendarController;
   /**
@@ -53,6 +52,10 @@ export interface TdCalendarProps {
    */
   mode?: 'month' | 'year';
   /**
+   * 控制当前面板展示月份，优先级高于 `controllerConfig.month`
+   */
+  month?: string | number;
+  /**
    * 是否禁用单元格右键默认系统菜单
    * @default false
    */
@@ -74,6 +77,10 @@ export interface TdCalendarProps {
    * 用于自定义日历星期呈现方式。CalendarWeek.day 表示当前是星期几。示例一：['周一', '周二', '周三', '周四', '周五', '星期六', '星期天']。示例二：`({ day }) => '周' + day`
    */
   week?: Array<string> | TNode<CalendarWeek>;
+  /**
+   * 控制当前面板展示年份，优先级高于 `controllerConfig.year`
+   */
+  year?: string | number;
   /**
    * 日历单元格点击时触发
    */
@@ -117,7 +124,7 @@ export interface CalendarController {
   /**
    * 隐藏/显示周末控制器
    */
-  weekend?: { visible?: boolean; showWeekendButtonProps?: ButtonProps; hideWeekendButtonProps?: ButtonProps };
+  weekend?: { visible?: boolean; showWeekendButtonProps?: CheckTagProps; hideWeekendButtonProps?: CheckTagProps };
   /**
    * 日历年份控制器
    */

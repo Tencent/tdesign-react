@@ -1,5 +1,7 @@
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
+import renderTNode from '../../_util/renderTNode';
 import { VALIDATE_STATUS } from '../FormItem';
 
 export default function useFormItemStyle(props) {
@@ -11,6 +13,7 @@ export default function useFormItemStyle(props) {
     name,
     successBorder,
     errorList,
+    successList,
     layout,
     verifyStatus,
     colon,
@@ -20,16 +23,39 @@ export default function useFormItemStyle(props) {
     requiredMark,
     showErrorMessage,
     innerRules,
-    renderTipsInfo,
   } = props;
 
   // formList 下 name 为数组
   const renderName = Array.isArray(name) ? name.join('-') : name;
 
+  // help 文本
+  const helpNode = help && <div className={`${classPrefix}-input__help`}>{renderTNode(help)}</div>;
+
+  // 提示文本
+  const extraNode = useMemo(() => {
+    let extra = null;
+    const list = errorList;
+    if (showErrorMessage && list && list[0] && list[0].message) {
+      extra = (
+        <div className={`${classPrefix}-input__extra`} title={list[0].message}>
+          {list[0].message}
+        </div>
+      );
+    } else if (successList.length) {
+      extra = (
+        <div className={`${classPrefix}-input__extra`} title={successList[0].message}>
+          {successList[0].message}
+        </div>
+      );
+    }
+
+    return extra;
+  }, [showErrorMessage, errorList, successList, classPrefix]);
+
   const formItemClass = classNames(className, `${classPrefix}-form__item`, {
     [`${classPrefix}-form-item__${renderName}`]: renderName,
-    [`${classPrefix}-form__item-with-help`]: help,
-    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
+    [`${classPrefix}-form__item-with-help`]: helpNode,
+    [`${classPrefix}-form__item-with-extra`]: extraNode,
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
@@ -77,5 +103,7 @@ export default function useFormItemStyle(props) {
     contentClass,
     labelStyle,
     contentStyle,
+    helpNode,
+    extraNode,
   };
 }

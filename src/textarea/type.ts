@@ -24,6 +24,10 @@ export interface TdTextareaProps {
    */
   disabled?: boolean;
   /**
+   * 左侧文本
+   */
+  label?: TNode;
+  /**
    * 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度
    */
   maxcharacter?: number;
@@ -41,7 +45,7 @@ export interface TdTextareaProps {
    */
   placeholder?: string;
   /**
-   * 文本框是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;

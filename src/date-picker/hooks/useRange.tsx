@@ -3,7 +3,7 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import useFormat from './useFormat';
@@ -45,9 +45,6 @@ export default function useRange(props: TdDateRangePickerProps) {
 
   const {
     mode,
-    value: valueFromProps,
-    defaultValue: defaultValueFromProps = [],
-    onChange: onChangeFromProps,
     prefixIcon,
     suffixIcon,
     rangeInputProps: rangeInputPropsFromProps,
@@ -60,7 +57,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onInput,
   } = props;
 
-  const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
   const { format, isValidDate, timeFormat, formatDate, formatTime } = useFormat({
     mode,
     value,
@@ -107,7 +104,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange([], []);
+      onChange([], { dayjsValue: [], trigger: 'clear' });
     },
     onBlur: (newVal: string[], { e, position }) => {
       onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -141,10 +138,10 @@ export default function useRange(props: TdDateRangePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(newVal)) {
-        onChange(
-          formatDate(newVal, 'valueType') as DateValue[],
-          newVal.map((v) => dayjs(v)),
-        );
+        onChange(formatDate(newVal, 'valueType') as DateValue[], {
+          dayjsValue: newVal.map((v) => dayjs(v)),
+          trigger: 'enter',
+        });
       } else if (isValidDate(value)) {
         setInputValue(formatDate(value));
       } else {

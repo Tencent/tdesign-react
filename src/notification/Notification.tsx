@@ -6,6 +6,7 @@ import useConfig from '../_util/useConfig';
 
 import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
+import { notificationDefaultProps } from './defaultProps';
 
 const blockName = 'notification';
 
@@ -14,7 +15,7 @@ export interface NotificationProps extends TdNotificationProps {
   id?: string;
 }
 
-export const NotificationComponent = forwardRef<any, NotificationProps>((props, ref) => {
+export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   const {
     title = null,
     content = null,
@@ -136,4 +137,7 @@ export const NotificationComponent = forwardRef<any, NotificationProps>((props, 
   );
 });
 
-export default NotificationComponent;
+Notification.displayName = 'Notification';
+Notification.defaultProps = notificationDefaultProps;
+
+export default Notification;

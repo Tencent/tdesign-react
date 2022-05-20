@@ -5,13 +5,14 @@ import useConfig from '../_util/useConfig';
 import { TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepsContext from './StepsContext';
+import { stepItemDefaultProps } from './defaultProps';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
   index?: number;
   children?: React.ReactNode;
 }
 
-export default function StepItem(props: StepItemProps) {
+const StepItem = (props: StepItemProps) => {
   const { index, icon, title, content, value, children, style, status } = props;
 
   const { current, theme, onChange, readonly } = useContext(StepsContext);
@@ -21,9 +22,11 @@ export default function StepItem(props: StepItemProps) {
 
   // 步骤条每一步展示的图标
   function renderIcon() {
+    if (!icon) return null;
+
     const iconCls = `${classPrefix}-steps-item__icon--number`;
 
-    if (icon) return <span className={iconCls}>{icon}</span>;
+    if (icon && icon !== true) return <span className={iconCls}>{icon}</span>;
 
     if (theme !== 'default') return null;
 
@@ -78,6 +81,9 @@ export default function StepItem(props: StepItemProps) {
       </div>
     </div>
   );
-}
+};
 
 StepItem.displayName = 'StepItem';
+StepItem.defaultProps = stepItemDefaultProps;
+
+export default StepItem;

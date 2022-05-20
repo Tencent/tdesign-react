@@ -20,4 +20,4 @@ duration | Number | - | 用于设置提示默认显示多长时间之后消失�
 placement | String | top | 浮层出现位置。TS 类型：`'mouse' | PopupPlacement`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tooltip/type.ts) | N
 showArrow | Boolean | true | 是否显示浮层箭头 | N
 theme | String | default | 文字提示风格。可选项：default/primary/success/danger/warning/light | N
-`Omit<PopupProps, 'placement'>` | - | - | 继承 `Omit<PopupProps, 'placement'>` 中的全部 API | N
+`Omit<PopupProps, 'placement'>` | \- | - | 继承 `Omit<PopupProps, 'placement'>` 中的全部 API | N

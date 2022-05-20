@@ -5,7 +5,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon } from 'tdesign-icons-react';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useDefaultValue from '../_util/useDefaultValue';
+import useControlled from '../hooks/useControlled';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
 
@@ -19,6 +19,7 @@ import { StyledProps } from '../common';
 import { TdTimePickerProps } from './type';
 import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
 import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../_common/js/time-picker/const';
+import { timePickerDefaultProps } from './defaultProps';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
@@ -34,18 +35,18 @@ const TimePicker = forwardRefWithStatics(
       clearable,
       disabled,
       style,
-      value = undefined,
       format = DEFAULT_FORMAT,
       hideDisabledTime = true,
       steps = DEFAULT_STEPS,
       placeholder = TEXT_CONFIG.placeholder,
       disableTime,
-      onChange,
       onBlur = noop,
       onClose = noop,
       onFocus = noop,
       onOpen = noop,
-    } = useDefaultValue(props);
+    } = props;
+
+    const [value, onChange] = useControlled(props, 'value', props.onChange);
 
     const [isPanelShowed, setPanelShow] = useState(false);
     const [currentValue, setCurrentValue] = useState('');
@@ -110,7 +111,7 @@ const TimePicker = forwardRefWithStatics(
           value={isPanelShowed ? currentValue : value ?? undefined}
           inputValue={isPanelShowed ? currentValue : value ?? undefined}
           inputProps={props.inputProps}
-          popupProps={props.popupProps}
+          popupProps={{ overlayStyle: { width: 'auto' }, ...props.popupProps }}
           panel={
             <TimePickerPanel
               steps={steps}
@@ -128,10 +129,12 @@ const TimePicker = forwardRefWithStatics(
     );
   },
   {
-    displayName: 'TimePicker',
     TimeRangePicker,
     TimePickerPanel,
   },
 );
+
+TimePicker.displayName = 'TimePicker';
+TimePicker.defaultProps = timePickerDefaultProps;
 
 export default TimePicker;

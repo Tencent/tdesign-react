@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import { useMemo } from 'react';
 import { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
 import TableTreeStore, { KeysType, TableTreeDataMap } from './tree-store';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 
 export const childrenMap = new Map();
 
@@ -87,9 +87,9 @@ export function getRowDataByKeys(p: GetRowDataParams) {
 type SelectChangeParams = Parameters<TdPrimaryTableProps['onSelectChange']>;
 
 export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: TableTreeDataMap) {
-  const { selectedRowKeys, tree, rowKey } = props;
+  const { tree, rowKey } = props;
   // eslint-disable-next-line
-  const [_, setTSelectedRowKeys] = useDefaultValue(selectedRowKeys, props.defaultSelectedRowKeys, props.onSelectChange);
+  const [_, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
   const rowDataKeys = useMemo(
     () => ({
       rowKey: rowKey || 'id',

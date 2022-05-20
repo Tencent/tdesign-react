@@ -21,19 +21,26 @@ exports[`advance.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+            />
+          </div>
+          <div
+            class="t-skeleton__row"
+          >
+            <div
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 33%; height: 180px;"
             >
               image
             </div>
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 33%; height: 180px;"
             >
               image
             </div>
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 33%; height: 180px;"
             >
               image
@@ -43,15 +50,15 @@ exports[`advance.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-circle"
+              class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
               style="width: 50px; height: 50px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: calc(100% - 170px); height: 30px; margin: 20px 0px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 80px; height: 30px; margin-left: 20px;"
             >
               确定
@@ -61,21 +68,21 @@ exports[`advance.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
             />
           </div>
           <div
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
             />
           </div>
           <div
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="width: 70%; margin: 0px 0px 16px 0px;"
             />
           </div>
@@ -83,7 +90,7 @@ exports[`advance.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 100%; height: 300px;"
             >
               <div
@@ -127,7 +134,7 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-circle"
+                  class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
                   style="width: 56px; height: 56px;"
                 />
               </div>
@@ -139,21 +146,21 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                   style="width: 70%;"
                 />
               </div>
@@ -169,7 +176,7 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-circle"
+                  class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
                   style="width: 56px; height: 56px;"
                 />
               </div>
@@ -181,21 +188,21 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                   style="width: 70%;"
                 />
               </div>
@@ -211,7 +218,7 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-circle"
+                  class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
                   style="width: 56px; height: 56px;"
                 />
               </div>
@@ -223,21 +230,21 @@ exports[`advance.jsx 1`] = `
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                 />
               </div>
               <div
                 class="t-skeleton__row"
               >
                 <div
-                  class="t-skeleton__col t-skeleton--type-text"
+                  class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
                   style="width: 70%;"
                 />
               </div>
@@ -274,28 +281,6 @@ exports[`animation.jsx 1`] = `
               class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-gradient"
             />
           </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-gradient"
-            />
-          </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-gradient"
-            />
-          </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-gradient"
-              style="width: 70%;"
-            />
-          </div>
         </div>
       </div>
     </div>
@@ -318,28 +303,6 @@ exports[`animation.jsx 1`] = `
               class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-flashed"
             />
           </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-flashed"
-            />
-          </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-flashed"
-            />
-          </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-flashed"
-              style="width: 70%;"
-            />
-          </div>
         </div>
       </div>
     </div>
@@ -352,7 +315,7 @@ exports[`base.jsx 1`] = `
   <div>
     <div>
       <button
-        class="t-switch t-is-checked"
+        class="t-switch t-is-checked t-size-m"
         role="switch"
         style="margin-bottom: 20px;"
         type="button"
@@ -371,29 +334,7 @@ exports[`base.jsx 1`] = `
           class="t-skeleton__row"
         >
           <div
-            class="t-skeleton__col t-skeleton--type-text"
-          />
-        </div>
-        <div
-          class="t-skeleton__row"
-        >
-          <div
-            class="t-skeleton__col t-skeleton--type-text"
-          />
-        </div>
-        <div
-          class="t-skeleton__row"
-        >
-          <div
-            class="t-skeleton__col t-skeleton--type-text"
-          />
-        </div>
-        <div
-          class="t-skeleton__row"
-        >
-          <div
-            class="t-skeleton__col t-skeleton--type-text"
-            style="width: 70%;"
+            class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
           />
         </div>
       </div>
@@ -423,7 +364,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
             />
           </div>
         </div>
@@ -445,7 +386,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-circle"
+              class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
               style="width: 56px; height: 56px;"
             />
           </div>
@@ -468,21 +409,21 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
             />
           </div>
           <div
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
             />
           </div>
           <div
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="width: 70%;"
             />
           </div>
@@ -505,10 +446,10 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-circle"
+              class="t-skeleton__col t-skeleton--type-circle t-skeleton--animation-none"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 32px;"
             />
           </div>
@@ -531,7 +472,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
           </div>
@@ -539,7 +480,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 200px;"
             />
           </div>
@@ -562,7 +503,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 100%; height: 30px;"
             />
           </div>
@@ -570,7 +511,7 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-rect"
+              class="t-skeleton__col t-skeleton--type-rect t-skeleton--animation-none"
               style="width: 100%; height: 200px;"
             />
           </div>
@@ -578,27 +519,15 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-text"
-              style="height: 30px;"
-            />
-          </div>
-          <div
-            class="t-skeleton__row"
-          >
-            <div
-              class="t-skeleton__col t-skeleton--type-text"
-              style="height: 30px;"
-            />
-            <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
           </div>
@@ -606,11 +535,11 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
           </div>
@@ -618,11 +547,23 @@ exports[`theme.jsx 1`] = `
             class="t-skeleton__row"
           >
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
             <div
-              class="t-skeleton__col t-skeleton--type-text"
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+              style="height: 30px;"
+            />
+          </div>
+          <div
+            class="t-skeleton__row"
+          >
+            <div
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+              style="height: 30px;"
+            />
+            <div
+              class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
               style="height: 30px;"
             />
           </div>
