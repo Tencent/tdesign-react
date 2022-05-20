@@ -19,6 +19,11 @@ export interface TdUploadProps {
    */
   action?: string;
   /**
+   * 是否允许重复上传相同文件名的文件
+   * @default false
+   */
+  allowUploadDuplicateFile?: boolean;
+  /**
    * 是否选取文件后自动上传
    * @default true
    */
@@ -46,7 +51,7 @@ export interface TdUploadProps {
    */
   draggable?: boolean;
   /**
-   * 【开发中】用于完全自定义文件列表内容
+   * 用于完全自定义文件列表内容
    */
   fileListDisplay?: TElement;
   /**
@@ -62,7 +67,7 @@ export interface TdUploadProps {
    */
   format?: (file: File) => UploadFile;
   /**
-   * 用于格式化文件上传后的响应数据。error 用于显示错误提示，如果 error 值为真，组件会判定为上传失败；url 用于上传文件/图片地址。
+   * 用于格式化文件上传后的响应数据。error 用于显示错误提示，如果 error 值为真，组件会判定为上传失败；url 用于上传文件/图片地址
    */
   formatResponse?: (response: any, context: FormatResponseContext) => ResponseType;
   /**
@@ -91,7 +96,7 @@ export interface TdUploadProps {
   multiple?: boolean;
   /**
    * 文件上传时的名称
-   * @default 'file'
+   * @default file
    */
   name?: string;
   /**
@@ -154,9 +159,13 @@ export interface TdUploadProps {
    */
   onDragenter?: (context: { e: DragEvent<Element> }) => void;
   /**
-   * 拖拽结束时触发
+   * 离开拖拽区域时触发
    */
   onDragleave?: (context: { e: DragEvent<Element> }) => void;
+  /**
+   * 拖拽结束时触发
+   */
+  onDrop?: (context: { e: DragEvent<Element> }) => void;
   /**
    * 上传失败后触发
    */
@@ -223,7 +232,7 @@ export interface UploadFile {
    * 文件上传成功后的下载/访问地址
    * @default ''
    */
-  url?: string;
+  url: string;
 }
 
 export type ResponseType = { error?: string; url?: string } & Record<string, any>;

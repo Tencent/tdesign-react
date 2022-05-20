@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker } from 'tdesign-react';
+import { DateRangePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [presets] = useState({
     最近7天: [dayjs().subtract(6, 'day'), dayjs()],
     最近3天: [dayjs().subtract(2, 'day'), dayjs()],
-    今天: [dayjs()],
+    今天: [dayjs(), dayjs()],
   });
-  const [dateText] = useState('日期');
-  const [selectedDates, setSelectedDates] = useState(['2020-1-1', '2020-8-8']);
 
-  function handleChange(value) {
-    setSelectedDates(value);
-  }
+  const [range1, setRange1] = useState(['2022-01-01', '2022-08-08']);
+  const [range2, setRange2] = useState(['2022-01-01 11:11:11', '2022-08-08 12:12:12']);
 
   return (
-    <div className="tdesign-demo-item--datepicker">
-      <DatePicker value={selectedDates} mode="date" presets={presets} range onChange={handleChange}></DatePicker>
-      <br />
-      <div>
-        {dateText}: {selectedDates.join(' 至 ')}
-      </div>
+    <div className="tdesign-demo-block-column">
+      <DateRangePicker value={range1} presets={presets} onChange={(val) => setRange1(val)} />
+
+      <DateRangePicker value={range2} presets={presets} onChange={(val) => setRange2(val)} enableTimePicker />
     </div>
   );
 }

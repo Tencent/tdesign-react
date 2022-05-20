@@ -168,7 +168,13 @@ export default {
           component: () => import('tdesign-react/checkbox/checkbox.md'),
         },
         {
-          title: 'Datepicker 日期选择器',
+          title: 'ColorPicker 颜色选择器',
+          name: 'color-picker',
+          path: '/react/components/color-picker',
+          component: () => import('tdesign-react/color-picker/color-picker.md'),
+        },
+        {
+          title: 'DatePicker 日期选择器',
           name: 'date-picker',
           path: '/react/components/date-picker',
           component: () => import('tdesign-react/date-picker/date-picker.md'),
@@ -196,6 +202,12 @@ export default {
           name: 'radio',
           path: '/react/components/radio',
           component: () => import('tdesign-react/radio/radio.md'),
+        },
+        {
+          title: 'RangeInput 范围输入框',
+          name: 'range-input',
+          path: '/react/components/range-input',
+          component: () => import('tdesign-react/range-input/range-input.md'),
         },
         {
           title: 'Select 选择器',
@@ -284,6 +296,18 @@ export default {
           component: () => import('tdesign-react/calendar/calendar.md'),
         },
         {
+          title: 'Card 卡片',
+          name: 'card',
+          path: '/react/components/card',
+          component: () => import('tdesign-react/card/card.md')
+        },
+        {
+          title: 'Collapse 折叠面板',
+          name: 'collapse',
+          path: '/react/components/collapse',
+          component: () => import('tdesign-react/collapse/collapse.md'),
+        },
+        {
           title: 'Comment 评论',
           name: 'comment',
           path: '/react/components/comment',
@@ -342,6 +366,12 @@ export default {
           name: 'tree',
           path: '/react/components/tree',
           component: () => import('tdesign-react/tree/tree.md'),
+        },
+        {
+          title: 'Watermark 水印',
+          name: 'watermark',
+          path: '/react/components/watermark',
+          component: () => import('tdesign-react/watermark/watermark.md'),
         },
       ],
     },

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
 import type { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 
 import Tree, { TreeProps } from '../tree';
 import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
@@ -16,6 +16,7 @@ import { useTreeSelectUtils } from './useTreeSelectUtils';
 import { SelectArrow } from './SelectArrow';
 import { useTreeSelectPassThroughProps } from './useTreeSelectPassthoughProps';
 import { useTreeSelectLocale } from './useTreeSelectLocale';
+import { treeSelectDefaultProps } from './defaultProps';
 
 export interface TreeSelectProps extends TdTreeSelectProps, StyledProps {}
 
@@ -39,8 +40,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
 
   const {
     className,
-    inputValue,
-    defaultInputValue,
     onInputChange,
     readonly,
     disabled,
@@ -63,10 +62,10 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   } = props;
 
   const selectInputProps = useTreeSelectPassThroughProps(props);
-  const [value, onChange] = useDefault(props.value, props.defaultValue ?? multiple ? [] : null, props.onChange);
-  const [popupVisible, setPopupVisble] = useDefault(props.popupVisible, false, props.onPopupVisibleChange);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
+  const [popupVisible, setPopupVisible] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
   const [hover, hoverAction] = useSwitch();
-  const [filterInput, setFilterInput] = useDefault(inputValue, defaultInputValue, onInputChange);
+  const [filterInput, setFilterInput] = useControlled(props, 'inputValue', onInputChange);
 
   const treeRef = useRef<ElementRef<typeof Tree>>();
 
@@ -76,23 +75,20 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
 
   const filterable = rawFilterable || !!props.filter;
 
-  const normalizedValue = useMemo(
-    () =>
-      (multiple ? (value as TreeSelectValue[]) : [value]).reduce<NodeOptions[]>((result, value) => {
-        const normalized = normalizeValue(value);
-        normalized.value && result.push(normalized);
-        return result;
-      }, []),
-    [multiple, normalizeValue, value],
-  );
-
-  const filterText = String(filterInput);
+  const normalizedValue = useMemo(() => {
+    const calcValue: TreeSelectValue[] = Array.isArray(value) ? value : [value];
+    return calcValue.reduce<NodeOptions[]>((result, value) => {
+      const normalized = normalizeValue(value);
+      normalized.value && result.push(normalized);
+      return result;
+    }, []);
+  }, [normalizeValue, value]);
 
   const internalInputValue = useMemo(() => {
     if (multiple) return normalizedValue;
     // 可筛选、单选、弹框时内容为过滤值
-    return filterable && popupVisible ? filterText : normalizedValue[0];
-  }, [multiple, normalizedValue, filterable, popupVisible, filterText]);
+    return filterable && popupVisible ? filterInput : normalizedValue[0] || '';
+  }, [multiple, normalizedValue, filterable, popupVisible, filterInput]);
 
   const inputPlaceholader = useMemo(() => {
     // 可筛选、单选、弹框且有值时提示当前值
@@ -110,15 +106,15 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
   /* ---------------------------------handler---------------------------------------- */
 
   const handleFilter = useCallback<TreeProps['filter']>(
-    (node) => (filterable ? filter(filterText, node) : true),
-    [filter, filterText, filterable],
+    (node) => (filterable ? filter(filterInput as string, node) : true),
+    [filter, filterInput, filterable],
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
     const $value = value.length ? value[0] : null;
     onChange(formatValue($value, context.node.label), { ...context, trigger: $value === null ? 'uncheck' : 'check' });
     // 单选选择后收起弹框
-    setPopupVisble(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
@@ -138,7 +134,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
     });
     onClear?.(ctx);
     // 清空后收起弹框
-    setPopupVisble(false, { trigger: 'trigger-element-click' });
+    setPopupVisible(false, { trigger: 'trigger-element-click' });
   });
 
   const handleRemove = usePersistFn((index: number, e?: React.MouseEvent<any, any>) => {
@@ -265,7 +261,7 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
         className,
       )}
       value={internalInputValue}
-      inputValue={popupVisible ? filterText : ''}
+      inputValue={filterInput}
       panel={renderTree()}
       allowInput={multiple || filterable}
       inputProps={{ ...inputProps, size }}
@@ -273,8 +269,8 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
       placeholder={inputPlaceholader}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
-      onPopupVisibleChange={useMergeFn(setPopupVisble)}
-      onFocus={useMergeFn(handleFocus, () => setPopupVisble(true, { trigger: 'trigger-element-click' }))}
+      onPopupVisibleChange={useMergeFn(setPopupVisible)}
+      onFocus={useMergeFn(handleFocus, () => setPopupVisible(true, { trigger: 'trigger-element-click' }))}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}
       onTagChange={handleTagChange}
@@ -294,18 +290,6 @@ const TreeSelect = forwardRef((props: TreeSelectProps, ref: React.Ref<HTMLDivEle
 });
 
 TreeSelect.displayName = 'TreeSelect';
-
-TreeSelect.defaultProps = {
-  clearable: false,
-  data: [],
-  disabled: false,
-  filterable: false,
-  loading: false,
-  max: 0,
-  multiple: false,
-  size: 'medium',
-  valueType: 'value',
-  minCollapsedNum: 0,
-};
+TreeSelect.defaultProps = treeSelectDefaultProps;
 
 export default TreeSelect;

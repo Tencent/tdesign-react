@@ -50,6 +50,8 @@
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 loadDefaultIcons | Boolean | true | 是否加载组件库内置图标 | N
 name | String | - | 必需。图标名称 | Y
 size | String | undefined | 图标尺寸，支持 'small', 'medium', 'large'，'35px', '3em' 等 | N
@@ -61,6 +63,8 @@ onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>�
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 loadDefaultIcons | Boolean | true | 是否加载组件库内置图标 | N
 name | String | - | 必需。图标名称 | Y
 size | String | undefined | 图标尺寸，支持 'small', 'medium', 'large'，'35px', '3em' 等 | N

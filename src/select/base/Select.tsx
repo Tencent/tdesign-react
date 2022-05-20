@@ -1,8 +1,8 @@
-import React, { useState, useEffect, Ref, useMemo } from 'react';
+import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
@@ -19,6 +19,7 @@ import PopupContent from './PopupContent';
 
 import { TdSelectProps, TdOptionProps } from '../type';
 import { StyledProps } from '../../common';
+import { selectDefaultProps } from '../defaultProps';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -34,14 +35,14 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
-      readonly = false,
-      bordered = true,
+      readonly,
+      bordered,
       borderless,
-      autoWidth = false,
+      autoWidth,
       creatable,
       filter,
       loadingText = emptyText,
-      max = 0,
+      max,
       popupProps,
       popupVisible,
       onPopupVisibleChange,
@@ -64,7 +65,7 @@ const Select = forwardRefWithStatics(
       onRemove,
       onSearch,
       empty,
-      valueType = 'value',
+      valueType,
       keys,
       children,
       collapsedItems,
@@ -72,7 +73,7 @@ const Select = forwardRefWithStatics(
       valueDisplay,
       onEnter,
       onVisibleChange,
-      showArrow = true,
+      showArrow,
       inputProps,
       panelBottomContent,
       panelTopContent,
@@ -81,14 +82,16 @@ const Select = forwardRefWithStatics(
       tagProps,
     } = props;
 
-    const [value, onChange] = useDefault(props.value, props.defaultValue, props.onChange);
+    const selectPopupRef = useRef();
+
+    const [value, onChange] = useControlled(props, 'value', props.onChange);
     const { classPrefix } = useConfig();
     const { overlayClassName, ...restPopupProps } = popupProps || {};
 
     const name = `${classPrefix}-select`; // t-select
 
     const [showPopup, setShowPopup] = useState(popupVisible || false);
-    const [inputValue, onInputChange] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
+    const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
     const [valueToOption, setValueToOption] = useState({});
@@ -173,11 +176,13 @@ const Select = forwardRefWithStatics(
         event.stopPropagation();
         const values = getSelectValueArr(value, value[index], true, valueType, keys);
         onChange(values, context);
+        return;
       }
 
       if (trigger === 'clear') {
         event.stopPropagation();
         onChange([], context);
+        return;
       }
 
       if (trigger === 'tag-remove') {
@@ -294,7 +299,11 @@ const Select = forwardRefWithStatics(
         panelBottomContent,
         panelTopContent,
       };
-      return <PopupContent {...popupContentProps}>{children}</PopupContent>;
+      return (
+        <PopupContent {...popupContentProps} ref={selectPopupRef}>
+          {children}
+        </PopupContent>
+      );
     };
 
     const renderValueDisplay = () => {
@@ -319,6 +328,32 @@ const Select = forwardRefWithStatics(
               })
           : null,
       [selectedLabel, collapsedItems, minCollapsedNum],
+    );
+
+    // 将第一个选中的option置于列表可见范围的最后一位
+    const updateScrollTop = useCallback(
+      (content: HTMLDivElement) => {
+        if (!selectPopupRef?.current) {
+          return;
+        }
+        const firstSelectedNode: HTMLDivElement = (selectPopupRef?.current as HTMLUListElement).querySelector(
+          `.${classPrefix}-is-selected`,
+        );
+        if (firstSelectedNode && content) {
+          const { paddingBottom } = getComputedStyle(firstSelectedNode);
+          const { marginBottom } = getComputedStyle(content);
+          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+          // 小于0时不需要特殊处理，会被设为0
+          const updateValue =
+            firstSelectedNode.offsetTop -
+            content.offsetTop -
+            (content.clientHeight - firstSelectedNode.clientHeight) +
+            elementBottomHeight;
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        }
+      },
+      [classPrefix],
     );
 
     return (
@@ -364,16 +399,19 @@ const Select = forwardRefWithStatics(
           onClear={(context) => {
             onClearValue(context);
           }}
+          updateScrollTop={updateScrollTop}
           {...selectInputProps}
         ></SelectInput>
       </div>
     );
   },
   {
-    displayName: 'Select',
     Option,
     OptionGroup,
   },
 );
+
+Select.displayName = 'Select';
+Select.defaultProps = selectDefaultProps;
 
 export default Select;

@@ -5,6 +5,174 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.33.2 `2022-05-14` 
+### 🚀 Features
+- `Steps`: 支持 separator api & 完善反转逻辑 @HQ-Lin ([#752](https://github.com/Tencent/tdesign-react/pull/752))
+- `Form`:  支持整理嵌套数据 @HQ-Lin ([#758](https://github.com/Tencent/tdesign-react/pull/758)) ([#762](https://github.com/Tencent/tdesign-react/pull/762))
+- `Affix`:  优化滚动逻辑 @ontheroad1992 ([#759](https://github.com/Tencent/tdesign-react/pull/759))
+- `Tabs`:  `TabPanel` 支持 `className` 透传 @HQ-Lin ([#763](https://github.com/Tencent/tdesign-react/pull/763))
+### 🐞 Bug Fixes
+- `Table`: 修复 多级表头 + 列配置 综合示例中，列数量超出一定限制时报错，[issue#713](https://github.com/Tencent/tdesign-vue-next/issues/713) @chaishi ([#757](https://github.com/Tencent/tdesign-react/pull/757))
+- `Tabs`: 修复 `TabPanel` ts 类型报错 @wleven ([#761](https://github.com/Tencent/tdesign-react/pull/761))
+- `DatePicker`: 修复宽度计算问题 @HQ-Lin ([#754](https://github.com/Tencent/tdesign-react/pull/754))
+- `Slider`: 修复 `inputNumberProps` 类型问题  @andyjxli ([#745](https://github.com/Tencent/tdesign-react/pull/745))
+
+## 🌈 0.33.1 `2022-05-09`
+
+### 🐞 Bug Fixes
+`Jumper`: 修复 style 文件引用报错问题 [@HQ-Lin](https://github.com/HQ-Lin) ([0d5726d](https://github.com/Tencent/tdesign-react/commit/0d5726d30b17bda68a39f1ab90568e2dbb0708d8))
+
+
+## 🌈 0.33.0 `2022-05-09` 
+
+### ❗ Breaking Changes
+- 重构 DatePicker、TimePicker 组件，样式结构有所调整 @HQ-Lin @uyarn ([#559](https://github.com/Tencent/tdesign-react/pull/559)) 
+- `DatePicker`
+  - 移除 `range` api，分别导出 `Datepicker` 与 `DateRangePicker` 组件
+  - 支持 `DatePickerPanel` 与 `DateRangePickerPanel` 单独使用
+  - 支持年份、月份区间选择
+  - 支持 `allowInput` api
+- `TimePicker`
+   - 重新调整样式、允许输入交互重新设计
+   - 调整交互为点击`确认`按钮保留改动 直接关闭弹窗不保留改动 恢复初始值
+   - `disableTime`、`onFocus`、`onBlur`、`onInput` 等API存在breaking change
+   - 新增`TimePickerPanel`组件 用于单独使用面板的场景 
+
+### 🚀 Features
+- `Icon`: 更新图标 新增`file-icon`图标 调整`file-excel`、`file-pdf`、`file-powerpoint`、`file-unknown`、`file-word`和`star-filled`图标的绘制路径 @uyarn ([#741](https://github.com/Tencent/tdesign-react/pull/741))
+- `Jumper`: 新增 `Jumper` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+- `RangeInput`:  新增 `RangeInput` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+- `RangeInputPopup`:  新增 `RangeInputPopup` 组件 @HQ-Lin ([#559](https://github.com/Tencent/tdesign-react/pull/559))
+
+### 🐞 Bug Fixes
+- `ColorPicker`: 受控问题修复 @insekkei ([#712](https://github.com/Tencent/tdesign-react/pull/712))
+- `Upload`:   修复组件 value undifined 场景校验失败问题 @HQ-Lin ([#738](https://github.com/Tencent/tdesign-react/pull/738))
+
+
+## 🌈 0.32.3 `2022-05-07` 
+### 🚀 Features
+- `Table`: 新增 API `ellipsisTitle` 用于单独控制表头的超出省略 [@chaishi](https://github.com/chaishi) ([#722](https://github.com/Tencent/tdesign-react/pull/722))
+- `Upload`: 修改uploadFiles类型参数除url外为非必填 [@uyarn](https://github.com/uyarn) ([#730](https://github.com/Tencent/tdesign-react/pull/730))
+### 🐞 Bug Fixes
+- `slider`: 修复`slider`在非受控模式下行为异常 [@southorange1228](https://github.com/southorange1228) ([#709](https://github.com/Tencent/tdesign-react/pull/709))
+- `Table`:  加载状态与拖拽配合使用时，拖拽功能失效，[issue#708](https://github.com/Tencent/tdesign-react/issues/708) [@chaishi](https://github.com/chaishi) ([#722](https://github.com/Tencent/tdesign-react/pull/722))
+- `Card`:  修复未添加header属性，Card组件布局错误 [@yilaierwang](https://github.com/yilaierwang) ([#724](https://github.com/Tencent/tdesign-react/pull/724))
+- `Card`: 头部渲染逻辑不完善的问题 缺失了status的渲染 [@uyarn](https://github.com/uyarn) ([#731](https://github.com/Tencent/tdesign-react/pull/731))
+- `Table`: `renderExpandedRow`改为非必填 [@uyarn](https://github.com/uyarn) ([#732](https://github.com/Tencent/tdesign-react/pull/732))
+- `InputNumber`:  修复小数输入问题 [@Fnll](https://github.com/Fnll) ([#729](https://github.com/Tencent/tdesign-react/pull/729)) [@docoder](https://github.com/docoder) ([#728](https://github.com/Tencent/tdesign-react/pull/728))
+
+## 0.32.2 `2022-04-28`
+
+### Bug Fixes
+
+* Table:
+  * 修复 `getBoundingClientRect` 在 `jsdom` 环境为 null 问题 ([22077bd](https://github.com/Tencent/tdesign-react/commit/22077bdf0dc406bd92a9c5d25362382bfdf23f6e)) [@uyarn](https://github.com/uyarn)
+  * 修复 `loading` 状态文案问题 ([e021c8b](https://github.com/Tencent/tdesign-react/commit/e021c8b3c75274eca9842ad8ef3c8839b60d4eab)) [@uyarn](https://github.com/uyarn)
+* Datepicker: 修复空数组确定事件报错问题 ([#697](https://github.com/Tencent/tdesign-react/issues/697)) ([871065d](https://github.com/Tencent/tdesign-react/commit/871065d35c75d87fd9002f16b438246da80fd10a)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复组件销毁后 body 样式不重置问题 & 移除多余 div 渲染 ([#690](https://github.com/Tencent/tdesign-react/issues/690)) ([d6d5131](https://github.com/Tencent/tdesign-react/commit/d6d513151f7548b3ea3b1f0b8c26fa96ecdbb1dc)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Textarea: 修复在 `Form` 组件下换行问题 ([507eaf3](https://github.com/Tencent/tdesign-react/commit/507eaf3b9533b19681e9bd10f666ded9e61b430d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Colorpicker: 修复 Popupprops 透传问题 ([#700](https://github.com/Tencent/tdesign-react/issues/700)) ([804c7b4](https://github.com/Tencent/tdesign-react/commit/804c7b4f64968d12d2ca665b23289e0cd1037fff)), closes [#698](https://github.com/Tencent/tdesign-react/issues/698) [@carolin913](https://github.com/carolin913)
+* Form: 修复 `help` 文案状态响应样式问题 ([#682](https://github.com/Tencent/tdesign-react/issues/682)) ([282602d](https://github.com/Tencent/tdesign-react/commit/282602d8ab3a1ff10a1146b5519d13b08fc7a2c6)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Upload: 修复 `onDrop` 事件不响应问题 ([3efa2c6](https://github.com/Tencent/tdesign-react/commit/3efa2c6c9758725aa4159b122bfad3b154959404)) [@wookaoer](https://github.com/wookaoer)
+
+
+### Features
+
+* Collapse: 新增 `Collapse` 组件 ([9c2ce29](https://github.com/Tencent/tdesign-react/commit/9c2ce29625a11979aff5de6adeda157b319d7ad3)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Pagination:
+  * 新增 `showPageSize`、`showPageNumber` API ([#696](https://github.com/Tencent/tdesign-react/issues/696)) ([c11e692](https://github.com/Tencent/tdesign-react/commit/c11e69218df8bcf20f5b5104f6967e04246dc182)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * 新增 `showFirstAndLastBtn` api ([#694](https://github.com/Tencent/tdesign-react/issues/694)) ([d085cf8](https://github.com/Tencent/tdesign-react/commit/d085cf862454173e0a191f842cc0a5b44c0477a5)) [@HQ-Lin](https://github.com/HQ-Lin)
+* InputNumber: 完善尺寸类型 ([#694](https://github.com/Tencent/tdesign-react/issues/694)) ([d085cf8](https://github.com/Tencent/tdesign-react/commit/d085cf862454173e0a191f842cc0a5b44c0477a5)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Tooltip: 支持 `plcement="mouse"` 基于鼠标位置 ([26afab8](https://github.com/Tencent/tdesign-react/commit/26afab81ce1bd3bcaaf51618123e7b21e1241279)), closes [#608](https://github.com/Tencent/tdesign-react/issues/608) [@carolin913](https://github.com/carolin913)
+
+
+## 0.32.1 `2022-04-24`
+
+### Bug Fixes
+
+* Table: 修复 jsdom 测试环境报错问题 ([#676](https://github.com/Tencent/tdesign-react/issues/676)) ([af7a35b](https://github.com/Tencent/tdesign-react/commit/af7a35b3ee917bdc36634d71712174e0074c61e2)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复 ts 问题 ([0e278a1](https://github.com/Tencent/tdesign-react/commit/0e278a179dae4b0b6b36b10ce026dab3a4dcb7eb)) [@pengYYYYY](https://github.com/pengYYYYY)
+
+
+### Features
+
+* Select: 列表选择体验优化 ([#659](https://github.com/Tencent/tdesign-react/issues/659)) ([3a792bd](https://github.com/Tencent/tdesign-react/commit/3a792bddc9d9226016f282a2af6fd7e8eb715e73)) [@smilebuz](https://github.com/smilebuz)
+
+
+## 0.32.0 `2022-04-22`
+
+### BREAKING CHANGES
+
+* Table: 重构 `table` 组件, 样式结构有所变动，废弃`minWidth`，`排序功能`使用有所调整，详情请参考API和demo的写法 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+
+### Bug Fixes
+
+* Select:
+  * 修复多选+可搜索条件下输入问题 ([91c4025](https://github.com/Tencent/tdesign-react/commit/91c40258712ffac4abb00fdf8805028bc061200b)) [@samhou1988](https://github.com/samhou1988)
+  * 修复 `multiple` 模式删除问题 ([dedb2ee](https://github.com/Tencent/tdesign-react/commit/dedb2eebc8d6db4cb422635a526f1729f1f9ab87)), closes [#654](https://github.com/Tencent/tdesign-react/issues/654) [@joriewong](https://github.com/joriewong)
+* Progress: 修复 `trackColor` 默认值导致背景色显示错误问题 ([faff9ad](https://github.com/Tencent/tdesign-react/commit/faff9add954cb3cd2078de33dd8e592ef17bee9d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Dialog: 修复 `destroyOnClose` 为 true 时 visible 失效问题 ([d8721cb](https://github.com/Tencent/tdesign-react/commit/d8721cb0c01d4c24bebfe076b9283a98c3c33f72)) [@psaren](https://github.com/psaren)
+* Layout: 修复 ts 类型警告 ([26e1ee3](https://github.com/Tencent/tdesign-react/commit/26e1ee33fc54dbd3a504e4889db7cafbacc97972)) [@HQ-Lin](https://github.com/HQ-Lin)
+* table: 修复 pagination 数据同步问题 ([77d692e](https://github.com/Tencent/tdesign-react/commit/77d692e0db136b9299e85ce3f1ce955a3ea14e39)) [@uyarn](https://github.com/uyarn)
+
+
+### Features
+
+* Card: 新增 `Card` 组件 ([9c66dc3](https://github.com/Tencent/tdesign-react/commit/9c66dc36c351d80e22926fe2d4ff56783cda334d)) [@weikee94](https://github.com/weikee94)
+* ColorPicker: 新增 `ColorPicker` 组件 ([920263a](https://github.com/Tencent/tdesign-react/commit/920263af9c5ec3671f214182f26b6fc7ce0528b8)) [insekkei](https://github.com/insekkei) [@carolin913](https://github.com/carolin913)
+* Table: 重构 `table` 组件, 支持表头吸顶、简易列拖拽排序、自定义列配置、懒加载、自定义展开图标及树形结构 ([ea678be](https://github.com/Tencent/tdesign-react/commit/ea678be56e466a5a7f4cfaecdea4413d3753ba09)) [@chaishi](https://github.com/chaishi) [@uyarn](https://github.com/uyarn)
+  
+* Divider: 优化文本模式在竖型模式下样式问题 ([#662](https://github.com/Tencent/tdesign-react/issues/662)) ([213c67d](https://github.com/Tencent/tdesign-react/commit/213c67d9107960e02dff6baf8861770a8a822272)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
+
+## 0.31.1 `2022-04-18`
+
+### Bug Fixes
+
+* Form: 修复 `formItem` 包裹组件 `onChange` 其他参数丢失问题 ([#637](https://github.com/Tencent/tdesign-react/issues/637)) ([f1b2256](https://github.com/Tencent/tdesign-react/commit/f1b225605803299405f558b06d681507326e1e44)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Datepicker: 修复 `range` 模式空数组报错问题 ([679d933](https://github.com/Tencent/tdesign-react/commit/679d933e9b30eb153efab86743488648b5ed5b1d)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Menu: menuGroup 类型修复 ([d52942a](https://github.com/Tencent/tdesign-react/commit/d52942ac2ecfe7ac14aa9ac26ef30c773386fc39)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Upload:
+  * 修复 draggable custom theme 同时存在组件不渲染 ([f1f6fd1](https://github.com/Tencent/tdesign-react/commit/f1f6fd1001e807c526983543bf46b7fa195788a1)) [@samhou1988](https://github.com/samhou1988)
+  * 修复上传参数 `file` 丢失问题 ([bd9f545](https://github.com/Tencent/tdesign-react/commit/bd9f545a27c236cec843d95861239414773eed27)) [@wookaoer](https://github.com/wookaoer)
+
+### Features
+
+* Icon: 升级 Icon 包版本，支持React 18 + 的使用 ([5d0de7c](https://github.com/Tencent/tdesign-react/commit/5d0de7ce97f782cbe90fcb6181866421bfa3e8cd)) [@uyarn](https://github.com/uyarn)
+
+
+
+## 0.31.0 `2022-04-14`
+
+### BREAKING CHANGES
+* FormItem 样式调整，默认渲染 extra 文本节点占位，FormItem 上下 margin 有所调整 [@HQ-Lin](https://github.com/HQ-Lin)
+* Popconfirm: 移除 `PopConfirm` 组件导出，请更改为 `Popconfirm` ([#614](https://github.com/Tencent/tdesign-react/issues/614)) ([ca6e4b6](https://github.com/Tencent/tdesign-react/commit/ca6e4b6852469bba35d47ba0811054fc796c1a69)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+### Bug Fixes
+
+* Cascader:
+  * 修复 `filterable` 模式下展示异常 ([92c2776](https://github.com/Tencent/tdesign-react/commit/92c277608778f955108e5a9ff6e231473c2cd039)) [@jsonz1993](https://github.com/jsonz1993)
+  * 修复多选与筛选时文本过长的展示异常 ([6d3f0fc](https://github.com/Tencent/tdesign-react/commit/6d3f0fc82d80b927fff17ca09c24445f19c0881b)) [@jsonz1993](https://github.com/jsonz1993)
+* Popup:
+  * 修复初始化翻转逻辑判断错误 ([#615](https://github.com/Tencent/tdesign-react/issues/615)) ([b7bea93](https://github.com/Tencent/tdesign-react/commit/b7bea93d25e2908973335dc8099c2f85e04d04b0)) [@HQ-Lin](https://github.com/HQ-Lin)
+  * 修复嵌套浮层 `click` 时关闭异常 ([f40c1f8](https://github.com/Tencent/tdesign-react/commit/f40c1f8155eeaf54fd7168a47c3be24069baaaad)) [@nia3y](https://github.com/nia3y)
+  * 修复 `trigger` 元素变化后展示异常 ([e8687f2](https://github.com/Tencent/tdesign-react/commit/e8687f2ad9cf63a792ce39eb5fc0aaea62e495ea)) [@Hoofoo-WHU](https://github.com/Hoofoo-WHU)
+* Slider: 修复 `max` 数值过大浏览器崩溃问题 ([#624](https://github.com/Tencent/tdesign-react/issues/624)) ([052b08b](https://github.com/Tencent/tdesign-react/commit/052b08b03e547070903e737650d4e3b6efd14200)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Breadcrumb: 修复面包屑初始样式被覆盖问题 ([e156a11](https://github.com/Tencent/tdesign-react/commit/e156a113b274ed1e1ee7e277c03eb5e04913dfc9)) [@yatessss](https://github.com/yatessss)
+* GlobalConfig: 修复 ts 类型问题 ([a2d22ae](https://github.com/Tencent/tdesign-react/commit/a2d22ae061c75ca730d6bcf5959c46e07123636e)) [@uyarn](https://github.com/uyarn)
+* Menu: 修复 `MenuGroup` 嵌套时样式问题 ([17b633a](https://github.com/Tencent/tdesign-react/commit/17b633ac47ab63a27c5001c3166c2feabfdb78e3)) [@ZhaoRB](https://github.com/ZhaoRB)
+* Select: 修复输入事件异常 ([267988d](https://github.com/Tencent/tdesign-react/commit/267988d3e873d5e05894362c0c9624ab3cff5434)) [@uyarn](https://github.com/uyarn)
+* Dialog: 修复 `destroy` 函数未真正销毁组件问题 ([376193d](https://github.com/Tencent/tdesign-react/commit/376193d7b95d569ac1a31d0be66d8a3a89f55cb8)) [@psaren](https://github.com/psaren)
+
+
+### Features
+
+* Form: 新增动态表单能力，可使用 `FormList` 组件管理表单项 ([#602](https://github.com/Tencent/tdesign-react/issues/602)) ([3b82c6d](https://github.com/Tencent/tdesign-react/commit/3b82c6d8403b17ea19dde04f3d1e3234f8eee4ea)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Popconfirm: 移除 `PopConfirm` 组件导出，请更改为 `Popconfirm` ([#614](https://github.com/Tencent/tdesign-react/issues/614)) ([ca6e4b6](https://github.com/Tencent/tdesign-react/commit/ca6e4b6852469bba35d47ba0811054fc796c1a69)) [@HQ-Lin](https://github.com/HQ-Lin)
+* Popup: 支持 `attach` 函数传入 `triggerNode` ([#616](https://github.com/Tencent/tdesign-react/issues/616)) ([95edef3](https://github.com/Tencent/tdesign-react/commit/95edef347a5b28f6791ac14684d0ae54e9974174)) [@HQ-Lin](https://github.com/HQ-Lin)
+
+
 ## 0.30.2 `2022-04-08`
 
 ### Bug Fixes
@@ -305,7 +473,7 @@ spline: explain
 - Config: 调整 `locale`、组件配置逻辑 & 支持 `globalConfig` API ([#297](https://github.com/Tencent/tdesign-react/issues/297)) ([542c254](https://github.com/Tencent/tdesign-react/commit/542c254b2529851ff42547966ff4609d49251b62)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Select: `ul` 标签添加 `class` 类名 ([bb47a94](https://github.com/Tencent/tdesign-react/commit/bb47a9487473e5a817c76a7df82009f66e1dc5f6)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Breadcrumb: 支持 `theme` api ([5627c40](https://github.com/Tencent/tdesign-react/commit/5627c40ec2485435cae60e544c0087ada53c351d)) [@samhou1988](https://github.com/samhou1988)
-- Drawer: 修复 `attch` 无效问题 ([a16c031](https://github.com/Tencent/tdesign-react/commit/a16c0314cc98dc8ea6eb1ba2b5c2435674785d60)) [@LittlehorseXie](https://github.com/LittlehorseXie)
+- Drawer: 修复 `attach` 无效问题 ([a16c031](https://github.com/Tencent/tdesign-react/commit/a16c0314cc98dc8ea6eb1ba2b5c2435674785d60)) [@LittlehorseXie](https://github.com/LittlehorseXie)
 - Input: 支持 `align` 属性 ([#290](https://github.com/Tencent/tdesign-react/issues/290)) ([08ce2b5](https://github.com/Tencent/tdesign-react/commit/08ce2b5ce2b35f3878fea22532d1530cc6cbe0b3)) [@HQ-Lin](https://github.com/HQ-Lin)
 - Dropdown: 修复 `ref` 警告 ([d56b4ba](https://github.com/Tencent/tdesign-react/commit/d56b4ba100515f54bad09c748ac855d194b70bc7)) [@carolin913](https://github.com/carolin913)
 - Tag: 支持 `size` API ([780ac25](https://github.com/Tencent/tdesign-react/commit/780ac256824db9da3502b1440b837bca36ad61df)) [@carolin913](https://github.com/carolin913)
@@ -589,7 +757,7 @@ spline: explain
 ### Bug Fixes
 
 - Tree: cssTransition 警告 [@Ruoleery](https://github.com/Ruoleery)
-- Table: 页码变化未触发 onPageChage [@yunfeic](https://github.com/yunfeic)
+- Table: 页码变化未触发 onPageChange [@yunfeic](https://github.com/yunfeic)
 - Pagination: current 和 pageSize 受控与非受控问题 [@uyarn](https://github.com/uyarn)
 
 ### Features
@@ -989,7 +1157,7 @@ spline: explain
 - 🌈 添加 Progress 组件
 - 🌈 添加 Tooltip 组件
 - 调整 popup 组件 api
-- 调整 swicth 组件 api
+- 调整 switch 组件 api
 - 调整 alert 组件 api
 - 调整 badge 组件 api
 - 调整 button 组件 api

@@ -4,6 +4,7 @@ import isObject from 'lodash/isObject';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdColProps, TdRowProps } from './type';
+import { colDefaultProps } from './defaultProps';
 
 type FlexType = number | 'none' | 'auto' | string;
 
@@ -63,19 +64,7 @@ const parseFlex = (flex: FlexType) => {
  * Col组件
  */
 const Col = (props: ColProps | any) => {
-  const {
-    flex,
-    offset,
-    order,
-    pull,
-    push,
-    span,
-    tag = 'div',
-    className,
-    children,
-    style: propStyle,
-    ...otherColProps
-  } = props;
+  const { flex, offset, order, pull, push, span, tag, className, children, style: propStyle, ...otherColProps } = props;
   const { gutter: rowGutter, size: rowSize } = otherColProps;
 
   const { classPrefix } = useConfig();
@@ -130,5 +119,6 @@ const Col = (props: ColProps | any) => {
 };
 
 Col.displayName = 'Col';
+Col.defaultProps = colDefaultProps;
 
 export default Col;

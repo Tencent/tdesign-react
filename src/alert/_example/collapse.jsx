@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'tdesign-react';
 
-export default function AlertCollasped() {
+export default function AlertCollapsed() {
   const message = [
     '1.这是一条普通的消息提示描述，',
     '2.这是一条普通的消息提示描述，',

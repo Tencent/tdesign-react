@@ -5,11 +5,12 @@ import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { getCharacterLength } from '../_util/helper';
-import { TdInputProps, InputValue } from './type';
+import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
-import useDefaultValue from '../_util/useDefaultValue';
+import useControlled from '../hooks/useControlled';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { inputDefaultProps } from './defaultProps';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -54,14 +55,18 @@ const Input = forwardRefWithStatics(
       prefixIcon,
       suffixIcon,
       clearable,
-      value,
       tips,
       align,
       maxlength,
       maxcharacter,
+      showClearIconOnEmpty,
+      autofocus,
+      autocomplete,
+      readonly,
+      label,
+      suffix,
       format,
       onClick,
-      onChange,
       onClear,
       onEnter,
       onKeydown,
@@ -75,14 +80,11 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
-      showClearIconOnEmpty,
-      autofocus,
-      autocomplete,
-      readonly,
-      label,
-      suffix,
+      onChange: onChangeFromProps,
       ...restProps
-    } = useDefaultValue<InputValue, InputProps>(props, '');
+    } = props;
+
+    const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
 
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
@@ -131,7 +133,7 @@ const Input = forwardRefWithStatics(
         placeholder={placeholder}
         type={renderType}
         className={`${classPrefix}-input__inner`}
-        value={composingRef.current ? composingRefValue : value}
+        value={composingRef.current ? composingRefValue : value ?? ''}
         readOnly={readonly}
         disabled={disabled}
         autoComplete={autocomplete}
@@ -157,6 +159,7 @@ const Input = forwardRefWithStatics(
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
           [`${classPrefix}-is-${status}`]: status,
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
@@ -312,5 +315,6 @@ const Input = forwardRefWithStatics(
 );
 
 Input.displayName = 'Input';
+Input.defaultProps = inputDefaultProps;
 
 export default Input;

@@ -6,6 +6,7 @@ import useConfig from '../_util/useConfig';
 import useRipple from '../_util/useRipple';
 import { pxCompat } from '../_util/helper';
 import TDivider from '../divider';
+import { dropdownItemDefaultProps } from './defaultProps';
 
 type DropdownItemProps = Pick<DropdownOption, 'content' | 'value' | 'divider' | 'onClick'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> & {
@@ -78,5 +79,6 @@ const DropdownItem = forwardRef((props: DropdownItemProps, ref: React.RefObject<
 });
 
 DropdownItem.displayName = 'DropdownItem';
+DropdownItem.defaultProps = dropdownItemDefaultProps;
 
 export default DropdownItem;

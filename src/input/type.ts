@@ -88,8 +88,9 @@ export interface TdInputProps {
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 后置图标前的后置内容
    */
@@ -124,7 +125,7 @@ export interface TdInputProps {
    */
   onChange?: (
     value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context?: { e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => void;
   /**
    * 清空按钮点击时触发

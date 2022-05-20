@@ -1,9 +1,9 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popup from '../popup';
+import Popup, { PopupVisibleChangeContext } from '../popup';
 import useConfig from '../_util/useConfig';
 import { TdTooltipProps } from './type';
+import { tooltipDefaultProps } from './defaultProps';
 
 export type TooltipProps = TdTooltipProps;
 
@@ -19,6 +19,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     overlayClassName,
     children,
     duration = 0,
+    placement = 'top',
     ...restProps
   } = props;
   const { classPrefix } = useConfig();
@@ -26,6 +27,7 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
   const [timeup, setTimeup] = useState(false);
   const popupRef = useRef<HTMLDivElement>();
   const timerRef = useRef<number | null>(null);
+  const [offset, setOffset] = useState([0, 0]);
   const toolTipClass = classNames(
     `${classPrefix}-tooltip`,
     {
@@ -33,14 +35,33 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     },
     overlayClassName,
   );
+  const isPlacedByMouse = placement === 'mouse';
 
   const setVisible = (v: boolean) => {
     if (duration !== 0) setTimeup(false);
     setTipshow(v);
   };
 
-  const handleShowTip = (visible: boolean) => {
+  const calculatePos = (e) => {
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    return {
+      x,
+      y,
+    };
+  };
+
+  const handleShowTip = (visible: boolean, { e, trigger }: PopupVisibleChangeContext) => {
     if (duration === 0 || (duration !== 0 && timeup)) {
+      if (
+        visible &&
+        placement === 'mouse' &&
+        (trigger === 'trigger-element-hover' || trigger === 'trigger-element-click')
+      ) {
+        const { x } = calculatePos(e);
+        setOffset([x, 0]);
+      }
       setTipshow(visible);
     }
   };
@@ -68,10 +89,12 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
     <Popup
       ref={popupRef}
       destroyOnClose={destroyOnClose}
-      showArrow={showArrow}
+      showArrow={isPlacedByMouse ? false : showArrow}
       overlayClassName={toolTipClass}
       visible={isTipShowed}
       onVisibleChange={handleShowTip}
+      popperModifiers={isPlacedByMouse ? [{ name: 'offset', options: { offset } }] : []}
+      placement={isPlacedByMouse ? 'bottom-left' : placement}
       {...restProps}
     >
       {children}
@@ -80,13 +103,6 @@ const Tooltip = forwardRef((props: TdTooltipProps, ref) => {
 });
 
 Tooltip.displayName = 'Tooltip';
+Tooltip.defaultProps = tooltipDefaultProps;
 
-Tooltip.propTypes = {
-  theme: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'warning', 'light']),
-  showArrow: PropTypes.bool,
-};
-Tooltip.defaultProps = {
-  theme: 'default',
-  showArrow: true,
-};
 export default Tooltip;

@@ -6,7 +6,7 @@ process.env.TZ = 'Asia/Shanghai';
 
 module.exports = {
   rootDir: path.resolve(__dirname, '../../'),
-  setupFilesAfterEnv: ['./test/scripts/setup-framework.js'],
+  setupFilesAfterEnv: ['./test/scripts/setup-framework.js', 'jest-canvas-mock'],
   testEnvironment: 'jsdom',
   preset: 'ts-jest',
   transform: {

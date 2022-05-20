@@ -154,13 +154,13 @@ exports[`plugin.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <p>
-      插件调用方式一：DialogPlugin(options)
+      函数调用方式一：DialogPlugin(options)
     </p>
     <p>
-      插件调用方式二：DialogPlugin.confirm(options)
+      函数调用方式二：DialogPlugin.confirm(options)
     </p>
     <p>
-      插件调用方式三：DialogPlugin.alert(options)
+      函数调用方式三：DialogPlugin.alert(options)
     </p>
     <div
       class="tdesign-demo-block-row"

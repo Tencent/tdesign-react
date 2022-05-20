@@ -7,8 +7,11 @@ import useMultiple from './useMultiple';
 import useOverlayStyle from './useOverlayStyle';
 import { TdSelectInputProps } from './type';
 import { StyledProps } from '../common';
+import { selectInputDefaultProps } from './defaultProps';
 
-export interface SelectInputProps extends TdSelectInputProps, StyledProps {}
+export interface SelectInputProps extends TdSelectInputProps, StyledProps {
+  updateScrollTop?: (content: HTMLDivElement) => void;
+}
 
 const SelectInput = forwardRef((props: SelectInputProps, ref) => {
   const selectInputRef = useRef();
@@ -53,6 +56,7 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
       {...popupProps}
       disabled={disabled}
       overlayStyle={tOverlayStyle}
+      updateScrollTop={props.updateScrollTop}
     >
       {multiple
         ? renderSelectMultiple({
@@ -75,5 +79,6 @@ const SelectInput = forwardRef((props: SelectInputProps, ref) => {
 });
 
 SelectInput.displayName = 'SelectInput';
+SelectInput.defaultProps = selectInputDefaultProps;
 
 export default SelectInput;

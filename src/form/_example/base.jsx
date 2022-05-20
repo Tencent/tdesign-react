@@ -11,11 +11,6 @@ export default function BaseForm() {
     if (e.validateResult === true) {
       MessagePlugin.info('提交成功');
     }
-    console.log('getFieldsValue all: ', formRef.current.getFieldsValue?.(true));
-    console.log('getFieldsValue: ', formRef.current.getFieldsValue?.(['name']));
-    console.log('getFieldValue: ', formRef.current.getFieldValue?.('name'));
-    // console.log('setFieldsValue: ', formRef.current.setFieldsValue?.({gender: 'male'}));
-    // console.log('setFields: ', formRef.current.setFields?.([{name: 'course', value: ['la']}]));
   };
 
   const onReset = (e) => {

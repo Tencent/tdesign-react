@@ -7,7 +7,7 @@ import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 
 export interface RenderSelectSingleInputParams {
   tPlaceholder: string;
@@ -43,7 +43,7 @@ export default function useSingle(props: TdSelectInputProps) {
   const { value, keys, loading, disabled } = props;
   const { classPrefix } = useConfig();
   const inputRef = useRef();
-  const [inputValue, setInputValue] = useDefault(props.inputValue, props.defaultInputValue ?? '', props.onInputChange);
+  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
 
@@ -60,7 +60,7 @@ export default function useSingle(props: TdSelectInputProps) {
 
   const onInnerInputChange = (
     value: InputValue,
-    context: { e: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => {
     if (props.allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });

@@ -7,17 +7,13 @@ export default function YearDatePicker() {
     setValue(value);
   }
 
-  const [value, setValue] = useState('2022-02-02 11:11:11')
+  const [value, setValue] = useState('2022-02-02 12:11:11');
 
   return (
-    <div className="tdesign-demo-item--datepicker">
-      <DatePicker
-        mode="date"
-        format="YYYY-MM-DD HH:mm:ss"
-        enableTimePicker
-        value={value}
-        onChange={handleChange}
-      />
+    <div className="tdesign-demo-block-column">
+      <DatePicker enableTimePicker value={value} onChange={handleChange} allowInput clearable />
+
+      <DatePicker enableTimePicker value={value} onChange={handleChange} allowInput clearable format="YYYY-MM-DD a hh:mm:ss" />
     </div>
   );
 }

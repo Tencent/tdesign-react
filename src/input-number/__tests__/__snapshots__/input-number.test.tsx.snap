@@ -28,13 +28,15 @@ exports[`align.jsx 1`] = `
       </button>
       <div
         class="t-input__wrap"
+        value="100"
       >
         <div
-          class="t-input t-align-left"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="100"
           />
         </div>
@@ -81,13 +83,15 @@ exports[`align.jsx 1`] = `
       </button>
       <div
         class="t-input__wrap"
+        value="200"
       >
         <div
-          class="t-input t-align-center"
+          class="t-input t-size-m t-align-center t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="200"
           />
         </div>
@@ -134,13 +138,15 @@ exports[`align.jsx 1`] = `
       </button>
       <div
         class="t-input__wrap"
+        value="300"
       >
         <div
-          class="t-input t-align-right"
+          class="t-input t-size-m t-align-right t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="300"
           />
         </div>
@@ -169,13 +175,15 @@ exports[`align.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="100"
       >
         <div
-          class="t-input t-align-left"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="100"
           />
         </div>
@@ -186,13 +194,15 @@ exports[`align.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="200"
       >
         <div
-          class="t-input t-align-center"
+          class="t-input t-size-m t-align-center t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="200"
           />
         </div>
@@ -203,13 +213,15 @@ exports[`align.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="300"
       >
         <div
-          class="t-input t-align-right"
+          class="t-input t-size-m t-align-right t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="300"
           />
         </div>
@@ -244,14 +256,16 @@ exports[`auto-width.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap t-input--auto-width"
+      value="1"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
           style="width: 0px;"
+          type="text"
           value="1"
         />
         <span
@@ -308,13 +322,15 @@ exports[`center.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap"
+      value="1"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="1"
         />
       </div>
@@ -366,13 +382,15 @@ exports[`default.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap"
+      value="1"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="1"
         />
       </div>
@@ -425,13 +443,15 @@ exports[`format.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap"
+      value="0%"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="0%"
         />
       </div>
@@ -483,13 +503,15 @@ exports[`left.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap"
+      value="5"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="5"
         />
       </div>
@@ -523,13 +545,15 @@ exports[`normal.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value="10"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="10"
         />
       </div>
@@ -569,13 +593,15 @@ exports[`size.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="3"
         >
           <div
-            class="t-input t-align-center"
+            class="t-input t-size-m t-align-center t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value="3"
             />
           </div>
@@ -622,13 +648,15 @@ exports[`size.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="6"
         >
           <div
-            class="t-input t-align-center"
+            class="t-input t-size-m t-align-center t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value="6"
             />
           </div>
@@ -675,13 +703,15 @@ exports[`size.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="9"
         >
           <div
-            class="t-input t-align-center"
+            class="t-input t-size-m t-align-center t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value="9"
             />
           </div>
@@ -710,6 +740,61 @@ exports[`size.jsx 1`] = `
       class="tdesign-demo-block-row"
     >
       <div
+        class="t-input-number t-size-s t-is-controls-right t-input-number--column"
+      >
+        <button
+          class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-down"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <div
+          class="t-input__wrap"
+          value="5"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="5"
+            />
+          </div>
+        </div>
+        <button
+          class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-up"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M12.46 9.54l-.92.92L8 6.92l-3.54 3.54-.92-.92L8 5.08l4.46 4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
         class="t-input-number t-size-m t-is-controls-right t-input-number--column"
       >
         <button
@@ -732,13 +817,15 @@ exports[`size.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="5"
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-left t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value="5"
             />
           </div>
@@ -785,13 +872,15 @@ exports[`size.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="10"
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-left t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value="10"
             />
           </div>
@@ -814,6 +903,67 @@ exports[`size.jsx 1`] = `
             />
           </svg>
         </button>
+      </div>
+    </div>
+    <div
+      class="tdesign-demo-block-row"
+    >
+      <div
+        class="t-input-number t-size-s t-input-number--normal"
+      >
+        <div
+          class="t-input__wrap"
+          value="5"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="5"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-input-number t-size-m t-input-number--normal"
+      >
+        <div
+          class="t-input__wrap"
+          value="5"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="5"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-input-number t-size-l t-input-number--normal"
+      >
+        <div
+          class="t-input__wrap"
+          value="10"
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="请输入"
+              type="text"
+              value="10"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -869,14 +1019,16 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-is-disabled t-align-center"
+                  class="t-input t-is-disabled t-size-m t-align-center t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     disabled=""
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -946,14 +1098,16 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-is-readonly t-align-center"
+                  class="t-input t-is-readonly t-size-m t-align-center t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
                     readonly=""
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1023,13 +1177,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center"
+                  class="t-input t-size-m t-align-center t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1099,13 +1255,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-success"
+                  class="t-input t-size-m t-align-center t-is-success"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1175,13 +1333,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-warning"
+                  class="t-input t-size-m t-align-center t-is-warning"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1251,13 +1411,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-error"
+                  class="t-input t-size-m t-align-center t-is-error"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1327,18 +1489,20 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center"
+                  class="t-input t-size-m t-align-center t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
                 <div
-                  class="t-input__tips t-input__tips--normal"
+                  class="t-input__tips t-input__tips--default"
                 >
                   这是普通文本提示
                 </div>
@@ -1408,18 +1572,20 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
                 <div
-                  class="t-input__tips t-input__tips--normal"
+                  class="t-input__tips t-input__tips--default"
                 >
                   这是普通文本提示
                 </div>
@@ -1489,13 +1655,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-success"
+                  class="t-input t-size-m t-align-center t-is-success"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1570,13 +1738,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-warning"
+                  class="t-input t-size-m t-align-center t-is-warning"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1651,13 +1821,15 @@ exports[`status.jsx 1`] = `
               </button>
               <div
                 class="t-input__wrap"
+                value="3"
               >
                 <div
-                  class="t-input t-align-center t-is-error"
+                  class="t-input t-size-m t-align-center t-is-error"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请输入"
+                    type="text"
                     value="3"
                   />
                 </div>
@@ -1719,13 +1891,15 @@ exports[`step.jsx 1`] = `
     </button>
     <div
       class="t-input__wrap"
+      value="3.2"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入"
+          type="text"
           value="3.2"
         />
       </div>

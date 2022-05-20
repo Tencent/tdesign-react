@@ -7,23 +7,24 @@ import { StyledProps } from '../common';
 import { TdLoadingProps } from './type';
 import Portal from '../common/Portal';
 import Gradient from './gradient';
+import { loadingDefaultProps } from './defaultProps';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 
 const Loading: FC<LoadingProps> = (props) => {
   const {
     attach,
-    indicator = true,
+    indicator,
     text,
-    loading = true,
-    size = 'medium',
+    loading,
+    size,
     delay,
     fullscreen,
-    preventScrollThrough = true,
-    showOverlay = true,
+    preventScrollThrough,
+    showOverlay,
     content,
-    children = content,
-    inheritColor = false,
+    children,
+    inheritColor,
     zIndex,
     className,
     style,
@@ -118,10 +119,10 @@ const Loading: FC<LoadingProps> = (props) => {
     ) : null;
   }
 
-  if (children) {
+  if (content || children) {
     return (
       <div className={relativeClass}>
-        {children}
+        {content || children}
         {showLoading ? (
           <div
             className={classnames(name, baseClasses, fullClass, {
@@ -155,5 +156,6 @@ const Loading: FC<LoadingProps> = (props) => {
 };
 
 Loading.displayName = 'Loading';
+Loading.defaultProps = loadingDefaultProps;
 
 export default Loading;

@@ -19,6 +19,7 @@ import useUpdateEffect from '../_util/useUpdateEffect';
 import StepHandler from './StepHandler';
 import * as numberUtils from './utils/numberUtils';
 import Input from '../input';
+import { inputNumberDefaultProps } from './defaultProps';
 
 export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
@@ -31,12 +32,12 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     style,
     defaultValue,
     value,
-    disabled = false,
-    size = 'medium',
-    theme = 'row',
-    step = 1,
-    max = Number.MAX_SAFE_INTEGER,
-    min = Number.MIN_SAFE_INTEGER,
+    disabled,
+    size,
+    theme,
+    step,
+    max,
+    min,
     decimalPlaces,
     format,
     onChange,
@@ -79,7 +80,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
   let decimalValue: number = internalInputValue as number;
   if (typeof internalInputValue === 'string') {
-    decimalValue = numberUtils.strToNumber(internalInputValue) || 0;
+    decimalValue = Number(numberUtils.strToNumber(internalInputValue)) || 0;
   }
 
   const setInputValue = (inputStr: string) => {
@@ -144,6 +145,10 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       setInternalInputValue(inputStr);
       return;
     }
+    if (/^(([1-9]+[0-9]*\.0+)|(0\.0+))$/.test(inputStr)) {
+      setInternalInputValue(inputStr);
+      return;
+    }
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
@@ -152,7 +157,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
     setInputValue(filteredInputStr.toString());
     if (!checkInput(filteredInputStr)) return;
-    triggerValueUpdate({ type: 'input', value: filteredInputStr, e });
+    triggerValueUpdate({ type: 'input', value: Number(filteredInputStr), e });
   };
 
   const onInternalStep = (action: ChangeContext) => {
@@ -250,5 +255,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 });
 
 InputNumber.displayName = 'InputNumber';
+InputNumber.defaultProps = inputNumberDefaultProps;
 
 export default InputNumber;

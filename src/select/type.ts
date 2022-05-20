@@ -194,7 +194,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
     value: SelectValue,
     context: {
       trigger: SelectValueChangeTrigger;
-      e: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
@@ -280,7 +280,7 @@ export interface SelectKeysType {
 
 export type SelectValue<T extends SelectOption = SelectOption> = string | number | T | Array<SelectValue<T>>;
 
-export type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace';
+export type SelectValueChangeTrigger = 'clear' | 'tag-remove' | 'backspace' | 'check' | 'uncheck';
 
 export interface SelectRemoveContext<T> {
   value: string | number;

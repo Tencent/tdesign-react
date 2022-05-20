@@ -19,12 +19,6 @@ export interface TdBreadcrumbProps {
    * 自定义分隔符
    */
   separator?: TNode;
-
-  /**
-   * 组件风格
-   * @default light
-   */
-  theme?: 'light';
 }
 
 export interface TdBreadcrumbItemProps {
@@ -55,7 +49,7 @@ export interface TdBreadcrumbItemProps {
    */
   replace?: boolean;
   /**
-   * 路由对象。如果项目存在 Router，则默认使用 Router。
+   * 路由对象。如果项目存在 Router，则默认使用 Router
    */
   router?: any;
   /**

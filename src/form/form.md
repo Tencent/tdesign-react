@@ -1,10 +1,48 @@
 :: BASE_DOC ::
 
+### 复杂嵌套数据结构表单
+
+可给 `name` 传入数组整理成对象嵌套数据结构
+
+{{ nested-data }}
+
 ### 动态增减嵌套表单
 
 可使用 `Form.FormList` 组件创建动态表单
 
 {{ form-list }}
+
+## FAQ
+
+### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
+
+Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onChange` 受控属性，所以 Form.FormItem 被设计成需要拦截嵌套组件的受控属性，如需定义初始值请使用 `initialData` 属性。
+
+由于 Form.FormItem 只会拦截第一层子节点的受控属性，所以如不希望 Form.FormItem 拦截受控属性希望自行管理 state 的话，可以在 Form.FormItem 下包裹一层 `div` 节点脱离 Form.FormItem 的代理，但同时也会失去 Form 组件的校验能力。
+
+### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
+
+可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+
+```js
+// 可以单独使用 FormItem 组件
+<Form.FormItem label="姓名">
+  <div>可以任意定制内容</div>
+  <Input />
+  <div>可以任意定制内容</div>
+</Form.FormItem>
+```
+
+### getFieldsValue 返回的数据如何支持嵌套数据结构？
+
+将 `name` 设置成数组形式可以支持嵌套数据结构。
+
+```js
+// ['user', 'name'] => { user: { name: '' } }
+<Form.FormItem label="姓名" name={['user', 'name']}>
+  <Input />
+</Form.FormItem>
+```
 
 ## API
 ### Form Props
@@ -38,14 +76,14 @@ onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unkno
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-clearValidate | `(fields?: Array<keyof FormData>)` | - | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
+clearValidate | `(fields?: Array<keyof FormData>)` | \- | 清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
 getFieldsValue | `(nameList: string[] | boolean)` | `Record<keyof FormData, unknown>` | 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
 getFieldValue | `(field: keyof FormData)` | `unknown` | 获取单个字段值
-reset | `(params?: FormResetParams)` | - | 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams { type: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
-setFields | `(fields: FieldData[])` | - | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: string; value: unknown, status: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
-setFieldsValue | `(field: Data)` | - | 设置表单字段值
-setValidateMessage | `(message: FormValidateMessage<FormData>)` | - | 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
-submit | - | - | 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
+reset | `(params?: FormResetParams)` | \- | 重置表单，表单里面没有重置按钮`<button type="reset" />`时可以使用该方法，默认重置全部字段为空，此方法不会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormResetParams { type: 'initial' | 'empty'; fields?: Array<keyof FormData> }`<br/>
+setFields | `(fields: FieldData[])` | \- | 设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: string; value: unknown, status: string }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)
+setFieldsValue | `(field: Data)` | \- | 设置表单字段值
+setValidateMessage | `(message: FormValidateMessage<FormData>)` | \- | 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`type FormValidateMessage<FormData> = { [field in keyof FormData]: FormItemValidateMessage[] }`<br/><br/>`interface FormItemValidateMessage { type: 'warning' | 'error'; message: string }`<br/>
+submit | \- | \- | 提交表单，表单里面没有提交按钮`<button type="submit" />`时可以使用该方法，此方法不会触发 `submit` 事件
 validate | `(params?: FormValidateParams)` | `Promise<FormValidateResult<FormData>>` | 校验函数，泛型 `FormData` 表示表单数据 TS 类型。<br/>【关于参数】`params.fields` 表示校验字段，如果设置了 `fields`，本次校验将仅对这些字段进行校验。`params.trigger` 表示本次触发校验的范围，'blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts)。<br/>`interface FormValidateParams { fields?: Array<string>; trigger?: ValidateTriggerType }`<br/><br/>`type ValidateTriggerType = 'blur' | 'change' | 'all'`<br/>
 
 ### FormItem Props
@@ -66,17 +104,6 @@ rules | Array | [] | 表单字段校验规则。TS 类型：`Array<FormRule>` | 
 showErrorMessage | Boolean | undefined | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
 statusIcon | TNode | undefined | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 successBorder | Boolean | false | 是否显示校验成功的边框，默认不显示 | N
-
-### FormList Props
-
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number | number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/form/type.ts) | N
-initialData | Array | [] | 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准。TS 类型：`Array<any>` | N
-name | String / Number | - | 表单字段名称 | N
-rules | Object / Array | - | 表单字段校验规则。TS 类型：`{ [field in keyof FormData]: Array<FormRule> } | Array<FormRule>` | N
 
 ### FormRule
 

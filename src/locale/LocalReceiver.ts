@@ -44,7 +44,7 @@ export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defa
 
     return {
       ...(typeof locale === 'function' ? (locale as Function)() : locale),
-      ...((localeFromContext || {}) as typeof connectLocaleByName),
+      ...(localeFromContext || {}),
     };
   }, [componentName, defaultLocale, globalConfig]);
 

@@ -2,7 +2,6 @@ import orgPkg from '../../../../package.json';
 
 export const htmlContent = `
   <div id="app" style="padding: 24px;"></div>
-  <script type="module" src="/src/main.jsx"></script>
 `;
 
 export const mainJsContent = `
@@ -10,7 +9,7 @@ export const mainJsContent = `
   import ReactDOM from 'react-dom';
   import Demo from './demo';
   import './index.css';
-  import 'tdesign-react/es/style/index.css';
+  import 'tdesign-react/dist/tdesign.css';
 
   const rootElement = document.getElementById('app');
   ReactDOM.render(<Demo />, rootElement);
@@ -39,43 +38,9 @@ export const styleContent = `
   }
 `;
 
-export const stackblitzRc = `
-  {
-    "installDependencies": false,
-    "startCommand": "turbo && turbo dev"
-  }
-`;
-
-export const viteConfigContent = `
-  import react from '@vitejs/plugin-react';
-
-  export default {
-    jsx: 'react',
-    plugins: [react()],
-  };
-`;
-
-export const packageJSONContent = JSON.stringify(
-  {
-    name: 'tdesign-react-demo',
-    version: '0.0.0',
-    private: true,
-    scripts: {
-      dev: 'vite',
-      build: 'vite build',
-      serve: 'vite preview',
-    },
-    dependencies: {
-      'tdesign-react': orgPkg.version,
-      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
-      react: orgPkg.devDependencies.react,
-      'react-dom': orgPkg.devDependencies['react-dom'],
-    },
-    devDependencies: {
-      vite: orgPkg.devDependencies.vite,
-      '@vitejs/plugin-react': orgPkg.devDependencies['@vitejs/plugin-react'],
-    },
-  },
-  null,
-  2,
-);
+export const dependenciesContent = JSON.stringify({
+  'tdesign-react': orgPkg.version,
+  'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+  react: orgPkg.devDependencies.react,
+  'react-dom': orgPkg.devDependencies['react-dom'],
+});
