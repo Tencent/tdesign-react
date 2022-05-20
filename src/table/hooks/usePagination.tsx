@@ -31,12 +31,12 @@ export default function usePagination(props: TdBaseTableProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination?.current, pagination?.pageSize, data, disableDataPage]);
 
-  // 非受控情况，只执行一次 Props 数据更新（pagination.defaultCurrent 和 pagination.defaultPageSize）
+  // 非受控情况
   useEffect(() => {
     if (!pagination || !pagination.defaultCurrent) return;
     updateDataSourceAndPaginate(pagination.defaultCurrent, pagination.defaultPageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   const renderPagination = () => {
     if (!pagination) return null;
