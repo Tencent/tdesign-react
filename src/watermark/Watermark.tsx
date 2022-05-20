@@ -5,9 +5,9 @@ import generateBase64Url from '../_common/js/watermark/generateBase64Url';
 import randomMovingStyle from '../_common/js/watermark/randomMovingStyle';
 import injectStyle from '../_common/js/utils/injectStyle';
 import useConfig from '../_util/useConfig';
+import useMutationObserver from '../_util/useMutationObserver';
 import { TdWatermarkProps } from './type';
 import { watermarkDefaultProps as defaultProps } from './defaultProps';
-import { useMutationObserver } from '../hooks/useMutationObserver';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
 
@@ -78,12 +78,14 @@ const Watermark: React.FC<WatermarkProps> = ({
       }
     });
   });
+
   const parent = useRef<HTMLElement>();
   useEffect(() => {
     parent.current = watermarkRef.current.parentElement;
     const keyframesStyle = randomMovingStyle();
     injectStyle(keyframesStyle);
   }, []);
+
   useMutationObserver(document.body, (mutations) => {
     if (removable) return;
     mutations.forEach((mutation) => {
