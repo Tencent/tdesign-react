@@ -1,4 +1,4 @@
-import { InputNumberInternalValue } from "../InputNumber";
+import { InputNumberInternalValue } from '../InputNumber';
 
 export const isInvalidNumber = (number: number | string) => {
   if (typeof number === 'number') {
@@ -42,5 +42,5 @@ export const strToNumber = (s: string): InputNumberInternalValue => {
     filterVal = filterVal.substr(0, filterVal.length - 1);
   }
 
-  return filterVal
+  return filterVal;
 };
