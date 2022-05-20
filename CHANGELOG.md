@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.0 `2022-05-20` 
+
+### ❗ Breaking Changes
+- `DatePicker`: onChange 回调第二个参数调整为对象，支持更多类型返回值 @HQ-Lin ([#777](https://github.com/Tencent/tdesign-react/pull/777))
+- `Form`: 不再默认渲染 `help` 空节点 @HQ-Lin ([#772](https://github.com/Tencent/tdesign-react/pull/772))
+
+### 🚀 Features
+- `Form`: `FormList` 支持手动赋值 @HQ-Lin ([#769](https://github.com/Tencent/tdesign-react/pull/769))
+- `Form`:  支持 `help` 节点与错误提示同时展示，无 `help` 不再默认占位 @HQ-Lin ([#772](https://github.com/Tencent/tdesign-react/pull/772))
+- `DatePicker`: 支持 `onChange` 返回 `trigger` 参数定位事件触发源 & 单选模式支持 `onPick` 事件 @HQ-Lin ([#777](https://github.com/Tencent/tdesign-react/pull/777))
+- `Watermark`: 新增水印watermark组件 @docoder ([#753](https://github.com/Tencent/tdesign-react/pull/753))
+- `Calendar`:  新增 `month`、`year` API @skytt ([#775](https://github.com/Tencent/tdesign-react/pull/775))
+- `Tree`: `label` 支持多行文本  @ccccpj https://github.com/Tencent/tdesign-common/pull/460
+
+### 🐞 Bug Fixes
+- `Table`: 修复异步加载数据时，分页非受控展示错误行数的问题 @uyarn ([#778](https://github.com/Tencent/tdesign-react/pull/778))
+- `TimePicker`: 修复`TimePicker`展开宽度问题 @uyarn ([#780](https://github.com/Tencent/tdesign-react/pull/780))
+
+### 🚧 Others
+- 统一全局受控 hooks & 优化组件初始值设置 @HQ-Lin ([#773](https://github.com/Tencent/tdesign-react/pull/773))
+
+
 ## 🌈 0.33.2 `2022-05-14` 
 ### 🚀 Features
 - `Steps`: 支持 separator api & 完善反转逻辑 @HQ-Lin ([#752](https://github.com/Tencent/tdesign-react/pull/752))
