@@ -54,3 +54,4 @@ export * from './card';
 export * from './collapse';
 export * from './range-input';
 export * from './watermark';
+export * from './image-viewer';
