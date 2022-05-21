@@ -373,6 +373,12 @@ export default {
           path: '/react/components/watermark',
           component: () => import('tdesign-react/watermark/watermark.md'),
         },
+        {
+          title: 'ImageViewer 图片',
+          name: 'image-viewer',
+          path: '/react/components/image-viewer',
+          component: () => import('tdesign-react/image-viewer/image-viewer.md'),
+        },
       ],
     },
     {
