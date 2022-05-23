@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import useConfig from 'tdesign-react/_util/useConfig';
 import { IconFont } from 'tdesign-icons-react';
 
-export const LoadingError = ({ style, classPrefix }) => (
-  <div style={style} className={`${classPrefix}-image-viewer-error ${classPrefix}-image-viewer-img`}>
+const LoadingError = ({ style, classPrefix }) => (
+  <div style={style} className={`${classPrefix}-image-viewer-error ${classPrefix}-image-viewer-ui-image`}>
     {/* 脱离文档流 */}
     <div className={`${classPrefix}-image-viewer-error-content`}>
       <IconFont name="image" size="4em" />
@@ -17,11 +17,12 @@ export const LoadingError = ({ style, classPrefix }) => (
 interface DefaultUIImageProps {
   alt: string;
   src: string;
+  title: string;
   style: CSSProperties;
   className: string;
   onOpen: () => void;
 }
-export const DefaultUIImage = ({ alt, src, style, onOpen, className }: DefaultUIImageProps) => {
+export const DefaultUIImage = ({ alt, src, style, onOpen, className, title }: DefaultUIImageProps) => {
   const [error, setError] = useState(false);
   const { classPrefix } = useConfig();
   const onError = useCallback(() => {
@@ -35,13 +36,15 @@ export const DefaultUIImage = ({ alt, src, style, onOpen, className }: DefaultUI
   if (error) return <LoadingError classPrefix={classPrefix} style={style} />;
 
   return (
-    <img
-      alt={alt}
-      src={src}
-      style={style}
-      onClick={onOpen}
-      onError={onError}
-      className={classnames(`${classPrefix}-image-viewer-img`, className)}
-    />
+    <div style={style} className={`${classPrefix}-image-viewer-ui-image`}>
+      <img
+        alt={alt}
+        src={src}
+        onClick={onOpen}
+        onError={onError}
+        className={classnames(`${classPrefix}-image-viewer-ui-image-img`, className)}
+      />
+      {!!title && <div className={`${classPrefix}-image-viewer-ui-image-footer`}>{title}</div>}
+    </div>
   );
 };

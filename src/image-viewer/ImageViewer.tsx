@@ -8,6 +8,7 @@ import { ImageModal } from './ImageViewerModel';
 export interface TdImageViewerProps extends ComponentProps<any> {
   src?: string;
   alt?: string;
+  title?: string;
   type?: 'mini' | 'normal';
   miniWidth?: number;
   miniHeight?: number;
@@ -30,7 +31,7 @@ export interface TdImageViewerProps extends ComponentProps<any> {
 export type ImageViewerProps = TdImageViewerProps;
 
 const ImageViewer = (props: ImageViewerProps) => {
-  const { type, children, alt, src, style, className } = props;
+  const { type, children, alt, src, style, className, title } = props;
 
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useState(false);
@@ -54,7 +55,7 @@ const ImageViewer = (props: ImageViewerProps) => {
     if (!isFunction(children)) throw new Error('ImageViewer child needs to pass in a function');
     uiImage = children({ onOpen, onClose });
   } else {
-    uiImage = <DefaultUIImage alt={alt} src={src} style={style} className={className} onOpen={onOpen} />;
+    uiImage = <DefaultUIImage alt={alt} src={src} style={style} title={title} className={className} onOpen={onOpen} />;
   }
 
   return (
