@@ -1,10 +1,15 @@
-import React, { CSSProperties, useCallback, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import useConfig from 'tdesign-react/_util/useConfig';
+import { IconFont } from 'tdesign-icons-react';
 
 export const LoadingError = ({ style, classPrefix }) => (
   <div style={style} className={`${classPrefix}-image-viewer-error ${classPrefix}-image-viewer-img`}>
-    加载失败
+    {/* 脱离文档流 */}
+    <div className={`${classPrefix}-image-viewer-error-content`}>
+      <IconFont name="image" size="4em" />
+      <div>加载失败</div>
+    </div>
   </div>
 );
 
@@ -22,6 +27,10 @@ export const DefaultUIImage = ({ alt, src, style, onOpen, className }: DefaultUI
   const onError = useCallback(() => {
     setError(true);
   }, []);
+
+  useEffect(() => {
+    setError(false);
+  }, [src]);
 
   if (error) return <LoadingError classPrefix={classPrefix} style={style} />;
 
