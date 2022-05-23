@@ -63,7 +63,9 @@ const ImageModelIcon = ({ onClick, className, disabled, name, label, size = '3em
   const { classPrefix } = useConfig();
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-modal__icon`, className, { __disabled: disabled })}
+      className={classNames(`${classPrefix}-image-viewer-modal__icon`, className, {
+        [`${classPrefix}-is-disabled`]: disabled,
+      })}
       onClick={onClick}
     >
       <IconFont size={size} name={name} />
@@ -219,15 +221,26 @@ export const ImageModal = (props: ImageModalProps) => {
     <div className={`${classPrefix}-image-viewer-preview-image`} onWheel={onScroll} style={{ zIndex }}>
       <div className={`${classPrefix}-image-viewer-modal-mask`} onClick={() => closeOnMark && onClose && onClose()} />
       {list.length > 1 && (
-        <div className={`${classPrefix}-image-viewer-modal-index`}>{`${index + 1}/${list.length}`}</div>
+        <>
+          <div className={`${classPrefix}-image-viewer-modal-index`}>{`${index + 1}/${list.length}`}</div>
+          <ImageModelIcon
+            name="chevron-left-circle"
+            className={`${classPrefix}-image-viewer-modal-prev-bt`}
+            onClick={prev}
+            disabled={index <= 0}
+          />
+          <ImageModelIcon
+            name="chevron-right-circle"
+            className={`${classPrefix}-image-viewer-modal-next-bt`}
+            onClick={next}
+            disabled={index >= list.length - 1}
+          />
+        </>
       )}
-      <ImageModelIcon name="close" className="closeBtn" onClick={() => onClose && onClose()} />
-      <ImageModelIcon name="chevron-left-circle" className="prevBtn" onClick={prev} disabled={index <= 0} />
       <ImageModelIcon
-        name="chevron-right-circle"
-        className="nextBtn"
-        onClick={next}
-        disabled={index >= list.length - 1}
+        name="close"
+        className={`${classPrefix}-image-viewer-modal-close-bt`}
+        onClick={() => onClose && onClose()}
       />
       <div className={`${classPrefix}-image-viewer-modal-footer`}>
         <div className={`${classPrefix}-image-viewer-footer__option`}>
