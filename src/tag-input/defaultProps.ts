@@ -15,4 +15,5 @@ export const tagInputDefaultProps: TdTagInputProps = {
   readonly: false,
   size: 'medium',
   defaultInputValue: '',
+  defaultValue: [],
 };
