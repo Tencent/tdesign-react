@@ -56,10 +56,11 @@ interface ImageModelIconProps {
   label?: string;
   className?: string;
   disabled?: boolean;
+  isRange?: boolean;
   onClick?: () => void;
 }
 
-const ImageModelIcon = ({ onClick, className, disabled, name, label, size = '3em' }: ImageModelIconProps) => {
+const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, size = '3em' }: ImageModelIconProps) => {
   const { classPrefix } = useConfig();
   return (
     <div
@@ -68,7 +69,7 @@ const ImageModelIcon = ({ onClick, className, disabled, name, label, size = '3em
       })}
       onClick={onClick}
     >
-      <IconFont size={size} name={name} />
+      <IconFont size={size} name={name} className={isRange ? 'is-range' : null} />
       {label && <span className={`${classPrefix}-image-viewer-modal__icon-label`}>{label}</span>}
     </div>
   );
@@ -109,6 +110,7 @@ export const ImageModal = (props: ImageModalProps) => {
   const [rotateZ, setRotateZ] = useState(0);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState<positionType>([0, 0]);
+  const [isExpand, setIsExpand] = useState(false);
 
   const onReset = useCallback(() => {
     setScale(1);
@@ -243,7 +245,7 @@ export const ImageModal = (props: ImageModalProps) => {
         onClick={() => onClose && onClose()}
       />
       <div className={`${classPrefix}-image-viewer-modal-footer`}>
-        <div className={`${classPrefix}-image-viewer-footer__option`}>
+        <div className={`${classPrefix}-image-viewer-footer__content`}>
           <ImageModelIcon size="1.8em" name="history" onClick={() => onRotate(-ROTATE_COUNT)} />
           <ImageModelIcon size="2em" name="zoom-in" onClick={zoom} />
           <ImageModelIcon size="2em" name="zoom-out" onClick={zoomOut} />
@@ -263,15 +265,31 @@ export const ImageModal = (props: ImageModalProps) => {
               downloadFile(item);
             }}
           />
-          <ImageModelIcon
-            size="1.5em"
-            name="chevron-down-circle"
-            label="展开图片列表"
-            onClick={() => {
-              onReset();
-            }}
-          />
+          {list.length > 1 && (
+            <ImageModelIcon
+              size="1.5em"
+              name="chevron-down-circle"
+              isRange={isExpand}
+              label="展开图片列表"
+              onClick={() => {
+                setIsExpand(!isExpand);
+              }}
+            />
+          )}
         </div>
+        {isExpand && (
+          <div className={`${classPrefix}-image-viewer-footer__prev`}>
+            {list.map((src, index) => (
+              <img
+                key={src}
+                alt=""
+                src={src}
+                className={`${classPrefix}-image-viewer-footer__img`}
+                onClick={() => setIndex(index)}
+              />
+            ))}
+          </div>
+        )}
         {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
       </div>
       <ImageModelItem scale={scale} position={position} setPosition={setPosition} rotateZ={rotateZ} src={item} />
