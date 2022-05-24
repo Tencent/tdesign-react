@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.1 `2022-05-24` 
+
+### 🐞 Bug Fixes
+- `Datepicker`: 修复 popupProps 透传优先级问题 @HQ-Lin ([#785](https://github.com/Tencent/tdesign-react/pull/785))
+
+### 🚧 Others
+- fix: 修复构建产物报错 @HQ-Lin ([#789](https://github.com/Tencent/tdesign-react/pull/789))
+
+
 ## 🌈 0.34.0 `2022-05-20` 
 
 ### ❗ Breaking Changes
