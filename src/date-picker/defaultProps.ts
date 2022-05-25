@@ -13,6 +13,7 @@ export const datePickerDefaultProps: TdDatePickerProps = {
   mode: 'date',
   placeholder: undefined,
   presetsPlacement: 'bottom',
+  defaultValue: '',
 };
 
 export const dateRangePickerDefaultProps: TdDateRangePickerProps = {
