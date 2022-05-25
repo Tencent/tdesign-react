@@ -9,7 +9,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 - `Table`: 处理table过滤输入失焦问题 @uyarn ([#793](https://github.com/Tencent/tdesign-react/pull/793))
-- `Form`:  修复 `FormItem` 拦截组件受控属性默认值为数组时传入 undefiend 报错问题 @HQ-Lin ([#792]
+- `Form`:  修复 `FormItem` 拦截组件受控属性默认值为数组时传入 undefined 报错问题 @HQ-Lin ([#792]
 - `Form`:  修复 `FormItem` rules 失效问题 @HQ-Lin ([#794](https://github.com/Tencent/tdesign-react/pull/794))
 - `Pagination`:  修复  `totalContent` jsx 渲染失败问题 @HQ-Lin ([#796](https://github.com/Tencent/tdesign-react/pull/796))
 
