@@ -82,7 +82,6 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
           const sortIcon = item.sorter ? renderSortIcon(p) : null;
           const filterIcon = item.filter ? renderFilterIcon(p) : null;
           const attach = primaryTableRef.current?.tableContentRef;
-          console.log(primaryTableRef.current?.tableContentRef);
           return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach);
         };
         item.ellipsisTitle = false;

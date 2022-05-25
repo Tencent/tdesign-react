@@ -16,6 +16,5 @@ export const formDefaultProps: TdFormProps = {
 };
 
 export const formItemDefaultProps: TdFormItemProps = {
-  rules: [],
   successBorder: false,
 };
