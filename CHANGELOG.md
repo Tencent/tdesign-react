@@ -5,11 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.3 `2022-05-25` 
+
+### 🚧 Others
+- fix: 修复构建报错 @HQ-Lin ([#799](https://github.com/Tencent/tdesign-react/pull/799))
+
 ## 🌈 0.34.2 `2022-05-25` 
 
 ### 🐞 Bug Fixes
 - `Table`: 处理table过滤输入失焦问题 @uyarn ([#793](https://github.com/Tencent/tdesign-react/pull/793))
-- `Form`:  修复 `FormItem` 拦截组件受控属性默认值为数组时传入 undefiend 报错问题 @HQ-Lin ([#792]
+- `Form`:  修复 `FormItem` 拦截组件受控属性默认值为数组时传入 undefined 报错问题 @HQ-Lin ([#792]
 - `Form`:  修复 `FormItem` rules 失效问题 @HQ-Lin ([#794](https://github.com/Tencent/tdesign-react/pull/794))
 - `Pagination`:  修复  `totalContent` jsx 渲染失败问题 @HQ-Lin ([#796](https://github.com/Tencent/tdesign-react/pull/796))
 
