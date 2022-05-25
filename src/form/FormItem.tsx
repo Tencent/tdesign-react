@@ -10,7 +10,7 @@ import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { formItemDefaultProps } from './defaultProps';
 
-import { ctrlKeyMap, getDefaultInitialData } from './hooks/useInitialData';
+import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 
 export enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
