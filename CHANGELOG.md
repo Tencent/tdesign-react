@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.3 `2022-05-25` 
+
+### 🚧 Others
+- fix: 修复构建报错 @HQ-Lin ([#799](https://github.com/Tencent/tdesign-react/pull/799))
+
 ## 🌈 0.34.2 `2022-05-25` 
 
 ### 🐞 Bug Fixes
