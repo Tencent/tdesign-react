@@ -1,17 +1,17 @@
 import React from 'react';
 
 // 兼容特殊数据结构和受控 key
-import Tree from '../../tree/Tree';
-import Cascader from '../../cascader/Cascader';
-import Upload from '../../upload/upload';
-import CheckTag from '../../tag/CheckTag';
-import Checkbox from '../../checkbox/Checkbox';
-import TagInput from '../../tag-input/TagInput';
-import RangeInput from '../../range-input/RangeInput';
-import Transfer from '../../transfer/Transfer';
-import CheckboxGroup from '../../checkbox/CheckboxGroup';
-import DateRangePicker from '../../date-picker/DateRangePicker';
-import TimeRangePicker from '../../time-picker/TimeRangePicker';
+import Tree from '../tree/Tree';
+import Cascader from '../cascader/Cascader';
+import Upload from '../upload/upload';
+import CheckTag from '../tag/CheckTag';
+import Checkbox from '../checkbox/Checkbox';
+import TagInput from '../tag-input/TagInput';
+import RangeInput from '../range-input/RangeInput';
+import Transfer from '../transfer/Transfer';
+import CheckboxGroup from '../checkbox/CheckboxGroup';
+import DateRangePicker from '../date-picker/DateRangePicker';
+import TimeRangePicker from '../time-picker/TimeRangePicker';
 
 // FormItem 子组件受控 key
 export const ctrlKeyMap = new Map();
