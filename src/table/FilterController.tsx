@@ -39,7 +39,7 @@ export interface TableFilterControllerProps {
 }
 
 export default function TableFilterController(props: TableFilterControllerProps) {
-  const { tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column, primaryTableElement } = props;
+  const { tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column } = props;
 
   const triggerElementRef = useRef<HTMLDivElement>(null);
   const [locale, t] = useLocaleReceiver('table');
@@ -111,7 +111,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
   return (
     <Popup
-      attach={primaryTableElement ? () => primaryTableElement : undefined}
+      // attach={primaryTableElement ? () => primaryTableElement : undefined}
       visible={filterPopupVisible}
       destroyOnClose
       trigger="click"
