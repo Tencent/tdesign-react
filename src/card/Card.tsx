@@ -7,6 +7,7 @@ import { StyledProps } from '../common';
 
 import useConfig from '../_util/useConfig';
 import useCommonClassName from '../_util/useCommonClassName';
+import { cardDefaultProps } from './defaultProps';
 
 export interface CardProps extends TdCardProps, StyledProps {}
 
@@ -14,7 +15,7 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     actions,
     avatar,
-    bordered = false,
+    bordered,
     children,
     className,
     cover,
@@ -23,10 +24,10 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
     header,
     headerBordered,
     hoverShadow,
-    loading = false,
-    shadow = false,
-    size = 'medium',
-    style = {},
+    loading,
+    shadow,
+    size,
+    style,
     subtitle,
     title,
     theme,
@@ -144,5 +145,6 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 });
 
 Card.displayName = 'Card';
+Card.defaultProps = cardDefaultProps;
 
 export default Card;

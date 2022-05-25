@@ -7,6 +7,7 @@ import noop from '../_util/noop';
 import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
 import useDialogEsc from '../_util/useDialogEsc';
+import { dialogDefaultProps } from './defaultProps';
 
 enum KeyCode {
   ESC = 27,
@@ -46,9 +47,9 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     onOverlayClick = noop,
     preventScrollThrough,
     closeBtn,
-    closeOnEscKeydown = true,
-    closeOnOverlayClick = true,
-    destroyOnClose = false,
+    closeOnEscKeydown,
+    closeOnOverlayClick,
+    destroyOnClose,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
@@ -352,5 +353,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   return render();
 });
+
+RenderDialog.defaultProps = dialogDefaultProps;
 
 export default RenderDialog;

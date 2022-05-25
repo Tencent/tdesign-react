@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import tinyColor from 'tinycolor2';
 
 import useCommonClassName from '../../../_util/useCommonClassName';
-import useDefault from '../../../_util/useDefault';
+import useControlled from '../../../hooks/useControlled';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import useClassname from '../../hooks/useClassname';
 import PanelHeader from './header';
@@ -31,9 +31,8 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const { STATUS } = useCommonClassName();
   const [local, t] = useLocaleReceiver('colorPicker');
   const {
-    disabled,
     value,
-    defaultValue,
+    disabled,
     onChange,
     enableAlpha = false,
     format,
@@ -45,7 +44,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     closeBtn,
     colorModes = ['linear-gradient', 'monochrome'],
   } = props;
-  const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
+  const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
   const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
   const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
   const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : getmodeByColor);
@@ -104,10 +103,10 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
   const formatRef = useRef<TdColorPickerProps['format']>(colorInstanceRef.current.isGradient ? 'CSS' : 'RGB');
 
-  const { recentColors, defaultRecentColors, onRecentColorsChange } = props;
-  const [recentlyUsedColors, setRecentlyUsedColors] = useDefault(
-    recentColors,
-    defaultRecentColors,
+  const { onRecentColorsChange } = props;
+  const [recentlyUsedColors, setRecentlyUsedColors] = useControlled<TdColorPickerProps['recentColors'], any>(
+    props,
+    'recentColors',
     onRecentColorsChange,
   );
 
@@ -134,7 +133,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
   // 添加最近使用颜色
   const addRecentlyUsedColor = () => {
-    if (recentlyUsedColors === null || recentlyUsedColors === false) {
+    if (recentlyUsedColors === null || !recentlyUsedColors) {
       return;
     }
     const colors = [...((recentlyUsedColors as string[]) || [])];
@@ -234,7 +233,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   // 渲染预设颜色区域
   const SwatchesArea = React.memo(() => {
     // 最近使用颜色
-    const showUsedColors = recentColors !== null && recentColors !== false;
+    const showUsedColors = recentlyUsedColors !== null && recentlyUsedColors !== false;
     // 系统颜色
     let systemColors = swatchColors;
     if (systemColors === undefined) {

@@ -2,11 +2,10 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { AffixProps } from '../affix';
-import { TNode, TElement, ScrollContainer } from '../common';
+import { TNode, TElement, SizeEnum, ScrollContainer } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdAnchorProps {
@@ -32,7 +31,7 @@ export interface TdAnchorProps {
    * 组件尺寸，small(120px)，medium(200px)，large(320px)
    * @default medium
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: SizeEnum;
   /**
    * 锚点滚动偏移量
    * @default 0

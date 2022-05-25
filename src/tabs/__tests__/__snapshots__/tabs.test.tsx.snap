@@ -15,7 +15,6 @@ exports[`ban.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="normal"
           />
@@ -33,7 +32,6 @@ exports[`ban.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="card"
           />
@@ -259,7 +257,6 @@ exports[`combination.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="normal"
           />
@@ -277,7 +274,6 @@ exports[`combination.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="card"
           />
@@ -917,7 +913,6 @@ exports[`icon.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="normal"
           />
@@ -935,7 +930,6 @@ exports[`icon.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="card"
           />
@@ -1190,7 +1184,6 @@ exports[`position.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="top"
           />
@@ -1208,7 +1201,6 @@ exports[`position.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="right"
           />
@@ -1226,7 +1218,6 @@ exports[`position.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bottom"
           />
@@ -1244,7 +1235,6 @@ exports[`position.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="left"
           />

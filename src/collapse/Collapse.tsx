@@ -3,9 +3,10 @@ import classnames from 'classnames';
 import { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
 import { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import CollapsePanel from './CollapsePanel';
 import CollapseContext from './CollapseContext';
+import { collapseDefaultProps } from './defaultProps';
 
 export interface CollapseProps extends TdCollapseProps, StyledProps {
   children?: React.ReactNode;
@@ -15,16 +16,9 @@ const Collapse = (props: CollapseProps) => {
   const { classPrefix } = useConfig();
   const componentName = `${classPrefix}-collapse`;
   const borderlessClass = `${classPrefix}--border-less`;
-  const {
-    defaultExpandAll = false,
-    disabled = false,
-    expandIconPlacement = 'left',
-    expandOnRowClick = true,
-    expandIcon = true,
-    ...rest
-  } = props;
-  const { children, className, style = {}, value, expandMutex, borderless, defaultValue, onChange } = rest;
-  const [collapseValue, setCollapseValue] = useDefault(value, defaultValue, onChange);
+  const { defaultExpandAll, disabled, expandIconPlacement, expandOnRowClick, expandIcon, ...rest } = props;
+  const { children, className, style, expandMutex, borderless, onChange } = rest;
+  const [collapseValue, setCollapseValue] = useControlled(props, 'value', onChange);
 
   const updateCollapseValue = (value: CollapsePanelValue) => {
     let newValue: CollapseValue = [].concat(collapseValue || []);
@@ -83,5 +77,6 @@ const Collapse = (props: CollapseProps) => {
 
 Collapse.Panel = CollapsePanel;
 Collapse.displayName = 'Collapse';
+Collapse.defaultProps = collapseDefaultProps;
 
 export default Collapse;

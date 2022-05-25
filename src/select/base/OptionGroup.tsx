@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 
 import { TdOptionGroupProps, SelectValue } from '../type';
+import { optionGroupDefaultProps } from '../defaultProps';
 
 export interface SelectGOptionGroupProps extends TdOptionGroupProps {
   selectedValue?: SelectValue;
@@ -38,5 +39,7 @@ const OptionGroup = (props: SelectGOptionGroupProps) => {
     </li>
   );
 };
+
+OptionGroup.defaultProps = optionGroupDefaultProps;
 
 export default OptionGroup;

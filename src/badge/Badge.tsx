@@ -3,22 +3,23 @@ import classNames from 'classnames';
 import { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
 import { TdBadgeProps } from './type';
+import { badgeDefaultProps } from './defaultProps';
 
 export interface BadgeProps extends TdBadgeProps, StyledProps {}
 
 const Badge: React.FC<BadgeProps> = ({
   color,
-  dot = false,
-  maxCount = 99,
-  count = 0,
-  size = 'medium',
-  shape = 'circle',
-  showZero = false,
-  offset = [],
+  dot,
+  maxCount,
+  count,
+  size,
+  shape,
+  showZero,
+  offset,
   className,
-  content = null,
-  children = null,
-  style = {},
+  content,
+  children,
+  style,
   ...restProps
 }) => {
   const { classPrefix } = useConfig();
@@ -74,5 +75,6 @@ const Badge: React.FC<BadgeProps> = ({
 };
 
 Badge.displayName = 'Badge';
+Badge.defaultProps = badgeDefaultProps;
 
 export default Badge;

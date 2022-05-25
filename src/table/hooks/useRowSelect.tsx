@@ -4,7 +4,7 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import intersection from 'lodash/intersection';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
-import useDefaultValue from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -24,11 +24,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
   const { selectedRowKeys, columns, data, rowKey } = props;
   const { tableSelectedClasses } = useClassName();
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
-  const [tSelectedRowKeys, setTSelectedRowKeys] = useDefaultValue(
-    selectedRowKeys,
-    props.defaultSelectedRowKeys || [],
-    props.onSelectChange,
-  );
+  const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
   const selectColumn = props.columns.find(({ type }) => ['multiple', 'single'].includes(type));
   const canSelectedRows = props.data.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate

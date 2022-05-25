@@ -18,7 +18,6 @@ exports[`base.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="YYYY-MM-DD"
           />
@@ -36,7 +35,6 @@ exports[`base.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="time-stamp"
           />
@@ -63,9 +61,10 @@ exports[`base.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -74,6 +73,7 @@ exports[`base.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择日期"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -105,9 +105,10 @@ exports[`base.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -115,6 +116,7 @@ exports[`base.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="可清除、可输入的日期选择器"
+              type="text"
               value=""
             />
             <span
@@ -155,9 +157,10 @@ exports[`custom-icon.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <span
               class="t-input__prefix t-input__prefix-icon"
@@ -188,6 +191,7 @@ exports[`custom-icon.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择日期"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -236,20 +240,23 @@ exports[`date-presets-alt.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value="2022-01-01,2022-08-08"
           >
             <div
               class="t-range-input__inner"
             >
               <div
                 class="t-range-input__inner-left t-input__wrap"
+                value="2022-01-01"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value="2022-01-01"
                   />
                 </div>
@@ -261,14 +268,16 @@ exports[`date-presets-alt.jsx 1`] = `
               </div>
               <div
                 class="t-range-input__inner-right t-input__wrap"
+                value="2022-08-08"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value="2022-08-08"
                   />
                 </div>
@@ -306,20 +315,23 @@ exports[`date-presets-alt.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value="2022-01-01 11:11:11,2022-08-08 12:12:12"
           >
             <div
               class="t-range-input__inner"
             >
               <div
                 class="t-range-input__inner-left t-input__wrap"
+                value="2022-01-01 11:11:11"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value="2022-01-01 11:11:11"
                   />
                 </div>
@@ -331,14 +343,16 @@ exports[`date-presets-alt.jsx 1`] = `
               </div>
               <div
                 class="t-range-input__inner-right t-input__wrap"
+                value="2022-08-08 12:12:12"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
                     readonly=""
+                    type="text"
                     value="2022-08-08 12:12:12"
                   />
                 </div>
@@ -385,6 +399,7 @@ exports[`date-range.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value=""
           >
             <div
               class="t-range-input__inner"
@@ -393,11 +408,12 @@ exports[`date-range.jsx 1`] = `
                 class="t-range-input__inner-left t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -411,11 +427,12 @@ exports[`date-range.jsx 1`] = `
                 class="t-range-input__inner-right t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -453,6 +470,7 @@ exports[`date-range.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value=""
           >
             <div
               class="t-range-input__inner"
@@ -461,11 +479,12 @@ exports[`date-range.jsx 1`] = `
                 class="t-range-input__inner-left t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -479,11 +498,12 @@ exports[`date-range.jsx 1`] = `
                 class="t-range-input__inner-right t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择日期"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -527,9 +547,10 @@ exports[`date-time.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="2022-02-02 12:11:11"
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -537,6 +558,7 @@ exports[`date-time.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请选择日期"
+              type="text"
               value="2022-02-02 12:11:11"
             />
             <span
@@ -568,9 +590,10 @@ exports[`date-time.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value="2022-02-02 pm 12:11:11"
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -578,6 +601,7 @@ exports[`date-time.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请选择日期"
+              type="text"
               value="2022-02-02 pm 12:11:11"
             />
             <span
@@ -618,9 +642,10 @@ exports[`disable-date.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -629,6 +654,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__inner"
               placeholder="禁用昨天、前天"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -660,9 +686,10 @@ exports[`disable-date.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -671,6 +698,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__inner"
               placeholder="明后三天禁用"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -702,9 +730,10 @@ exports[`disable-date.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -713,6 +742,7 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__inner"
               placeholder="禁用所有周六"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -744,9 +774,10 @@ exports[`disable-date.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -755,6 +786,51 @@ exports[`disable-date.jsx 1`] = `
               class="t-input__inner"
               placeholder="禁用最近 3 天外的日期"
               readonly=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
+            >
+              <svg
+                class="t-icon t-icon-calendar"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-date-picker"
+    >
+      <div
+        class="t-popup__reference t-select-input t-select-input--empty"
+      >
+        <div
+          class="t-input__wrap"
+          value=""
+        >
+          <div
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="禁用日期精确到时间"
+              readonly=""
+              type="text"
               value=""
             />
             <span
@@ -789,6 +865,7 @@ exports[`disable-date.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value=""
           >
             <div
               class="t-range-input__inner"
@@ -797,12 +874,13 @@ exports[`disable-date.jsx 1`] = `
                 class="t-range-input__inner-left t-input__wrap"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="禁用最近 5 天外的日期"
                     readonly=""
+                    type="text"
                     value=""
                   />
                 </div>
@@ -816,12 +894,13 @@ exports[`disable-date.jsx 1`] = `
                 class="t-range-input__inner-right t-input__wrap"
               >
                 <div
-                  class="t-input t-is-readonly"
+                  class="t-input t-is-readonly t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="禁用最近 5 天外的日期"
                     readonly=""
+                    type="text"
                     value=""
                   />
                 </div>
@@ -867,7 +946,6 @@ exports[`first-day-of-week.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="1"
           />
@@ -885,7 +963,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="2"
           />
@@ -903,7 +980,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="3"
           />
@@ -921,7 +997,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="4"
           />
@@ -939,7 +1014,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="5"
           />
@@ -957,7 +1031,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="6"
           />
@@ -975,7 +1048,6 @@ exports[`first-day-of-week.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="7"
           />
@@ -1002,9 +1074,10 @@ exports[`first-day-of-week.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-is-readonly t-input--prefix t-input--suffix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1013,6 +1086,7 @@ exports[`first-day-of-week.jsx 1`] = `
               class="t-input__inner"
               placeholder="请选择日期"
               readonly=""
+              type="text"
               value=""
             />
             <span
@@ -1053,9 +1127,10 @@ exports[`month.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1063,6 +1138,7 @@ exports[`month.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请选择月份"
+              type="text"
               value=""
             />
             <span
@@ -1097,6 +1173,7 @@ exports[`month.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value=""
           >
             <div
               class="t-range-input__inner"
@@ -1105,11 +1182,12 @@ exports[`month.jsx 1`] = `
                 class="t-range-input__inner-left t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择月份"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -1123,11 +1201,12 @@ exports[`month.jsx 1`] = `
                 class="t-range-input__inner-right t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择月份"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -1171,9 +1250,10 @@ exports[`year.jsx 1`] = `
       >
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input t-input--prefix t-input--suffix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
             <div
               class="t-input__prefix"
@@ -1181,6 +1261,7 @@ exports[`year.jsx 1`] = `
             <input
               class="t-input__inner"
               placeholder="请选择年份"
+              type="text"
               value=""
             />
             <span
@@ -1215,6 +1296,7 @@ exports[`year.jsx 1`] = `
         >
           <div
             class="t-range-input"
+            value=""
           >
             <div
               class="t-range-input__inner"
@@ -1223,11 +1305,12 @@ exports[`year.jsx 1`] = `
                 class="t-range-input__inner-left t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择年份"
+                    type="text"
                     value=""
                   />
                 </div>
@@ -1241,11 +1324,12 @@ exports[`year.jsx 1`] = `
                 class="t-range-input__inner-right t-input__wrap"
               >
                 <div
-                  class="t-input"
+                  class="t-input t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
                     placeholder="请选择年份"
+                    type="text"
                     value=""
                   />
                 </div>

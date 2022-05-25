@@ -9,16 +9,7 @@ import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
 const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVisibleChangeContext) => any }) => {
-  const {
-    content,
-    cancelBtn,
-    confirmBtn,
-    icon,
-    theme = 'default',
-    onCancel = noop,
-    onConfirm = noop,
-    onClose = noop,
-  } = props;
+  const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
   const { classPrefix } = useConfig();
 

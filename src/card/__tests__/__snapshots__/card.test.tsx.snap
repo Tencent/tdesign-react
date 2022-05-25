@@ -65,7 +65,7 @@ exports[`bordered-none.jsx 1`] = `
     style="padding: 16px;"
   >
     <div
-      class="t-card t-card--shadow-hover"
+      class="t-card t-card--bordered t-card--shadow-hover"
       style="width: 400px;"
     >
       <div
@@ -506,14 +506,14 @@ exports[`footer-actions.jsx 1`] = `
             class="t-avatar-group t-avatar--offset-left"
           >
             <div
-              class="t-avatar t-size-m t-avatar--circle"
+              class="t-avatar t-avatar--circle"
             >
               <img
                 src="https://tdesign.gtimg.com/site/avatar-boy.jpg"
               />
             </div>
             <div
-              class="t-avatar t-size-m t-avatar--circle"
+              class="t-avatar t-avatar--circle"
             >
               <span
                 style="transform: scale(1);"

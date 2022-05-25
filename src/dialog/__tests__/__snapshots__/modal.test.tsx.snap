@@ -134,16 +134,40 @@ exports[`icon.jsx 1`] = `
 exports[`modal.jsx 1`] = `
 <DocumentFragment>
   <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
-    >
-      <span
-        class="t-button__text"
+    <div>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px;"
+        type="button"
       >
-        Open Modal
-      </span>
-    </button>
+        <span
+          class="t-button__text"
+        >
+          模态对话框
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px;"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          非模态框
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          普通对话框
+        </span>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -253,12 +277,23 @@ exports[`position.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
+        style="margin-right: 16px;"
         type="button"
       >
         <span
           class="t-button__text"
         >
           自定义
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-primary t-button--variant-base"
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          超出屏幕
         </span>
       </button>
     </div>

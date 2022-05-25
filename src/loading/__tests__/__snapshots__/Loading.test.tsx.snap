@@ -102,7 +102,7 @@ exports[`fullscreen.jsx 1`] = `
   <div>
     Loading state:
     <button
-      class="t-switch"
+      class="t-switch t-size-m"
       role="switch"
       type="button"
     >

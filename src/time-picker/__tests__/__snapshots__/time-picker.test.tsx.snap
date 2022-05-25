@@ -16,7 +16,7 @@ exports[`disabled.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-is-disabled t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -26,6 +26,7 @@ exports[`disabled.jsx 1`] = `
             disabled=""
             placeholder="请选择时间"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -70,7 +71,7 @@ exports[`disabled.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -79,6 +80,7 @@ exports[`disabled.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择时间"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -124,9 +126,10 @@ exports[`hide-clear-button.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="12:00:00"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -135,6 +138,7 @@ exports[`hide-clear-button.jsx 1`] = `
             class="t-input__inner"
             placeholder="请输入"
             readonly=""
+            type="text"
             value="12:00:00"
           />
           <span
@@ -177,9 +181,10 @@ exports[`hide-clear-button.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="12:00:00"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -188,6 +193,7 @@ exports[`hide-clear-button.jsx 1`] = `
             class="t-input__inner"
             placeholder="请输入"
             readonly=""
+            type="text"
             value="12:00:00"
           />
           <span
@@ -229,9 +235,10 @@ exports[`hm.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="12:00"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -240,6 +247,7 @@ exports[`hm.jsx 1`] = `
             class="t-input__inner"
             placeholder="请输入"
             readonly=""
+            type="text"
             value="12:00"
           />
           <span
@@ -281,9 +289,10 @@ exports[`hms.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="12:00:00"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -292,6 +301,7 @@ exports[`hms.jsx 1`] = `
             class="t-input__inner"
             placeholder="请输入"
             readonly=""
+            type="text"
             value="12:00:00"
           />
           <span
@@ -333,9 +343,10 @@ exports[`keyboard.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="12:08:00"
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -343,6 +354,7 @@ exports[`keyboard.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="12:08:00"
           />
           <span
@@ -1153,11 +1165,12 @@ exports[`range.jsx 1`] = `
               class="t-range-input__inner-left t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="开始时间"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1171,11 +1184,12 @@ exports[`range.jsx 1`] = `
               class="t-range-input__inner-right t-input__wrap"
             >
               <div
-                class="t-input"
+                class="t-input t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
                   placeholder="结束时间"
+                  type="text"
                   value=""
                 />
               </div>
@@ -1222,7 +1236,7 @@ exports[`show-steps.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1231,6 +1245,7 @@ exports[`show-steps.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择时间"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -1274,7 +1289,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1283,6 +1298,7 @@ exports[`twelve-hour-meridian.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择时间"
             readonly=""
+            type="text"
             value=""
           />
           <span

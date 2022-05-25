@@ -3,7 +3,7 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import useDefault from '../../_util/useDefault';
+import useControlled from '../../hooks/useControlled';
 import { TdDatePickerProps, DateValue } from '../type';
 import useFormat from './useFormat';
 
@@ -15,9 +15,6 @@ export default function useSingle(props: TdDatePickerProps) {
 
   const {
     mode,
-    value: valueFromProps,
-    defaultValue: defaultValueFromProps,
-    onChange: onChangeFromProps,
     prefixIcon,
     suffixIcon,
     inputProps: inputPropsFromProps,
@@ -30,7 +27,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onInput,
   } = props;
 
-  const [value, onChange] = useDefault(valueFromProps, defaultValueFromProps, onChangeFromProps);
+  const [value, onChange] = useControlled(props, 'value', props.onChange);
   const { isValidDate, formatDate, formatTime } = useFormat({
     value,
     mode,
@@ -63,7 +60,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onClear: ({ e }) => {
       e.stopPropagation();
       setPopupVisible(false);
-      onChange('', dayjs(''));
+      onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
       onBlur?.({ value: val, e });
@@ -91,7 +88,7 @@ export default function useSingle(props: TdDatePickerProps) {
 
       setPopupVisible(false);
       if (isValidDate(val)) {
-        onChange(formatDate(val, 'valueType') as DateValue, dayjs(val));
+        onChange(formatDate(val, 'valueType') as DateValue, { dayjsValue: dayjs(val), trigger: 'enter' });
       } else if (isValidDate(value)) {
         setInputValue(formatDate(value));
       } else {
@@ -102,10 +99,10 @@ export default function useSingle(props: TdDatePickerProps) {
 
   // popup 设置
   const popupProps = {
-    ...popupPropsFromProps,
-    overlayStyle: { width: 'auto' },
     expandAnimation: true,
-    overlayClassName: `${name}__panel-container`,
+    ...popupPropsFromProps,
+    overlayStyle: popupPropsFromProps?.overlayStyle ?? { width: 'auto' },
+    overlayClassName: classNames(popupPropsFromProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean) => {
       setPopupVisible(visible);
       if (!visible) {

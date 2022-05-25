@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { TdStepsProps, TdStepItemProps } from './type';
 import { StyledProps } from '../common';
@@ -15,22 +15,10 @@ export interface StepsProps extends TdStepsProps, StyledProps {
 
 const Steps = forwardRefWithStatics(
   (props: StepsProps, ref) => {
-    const {
-      style,
-      current: currentFromProps,
-      defaultCurrent,
-      readonly,
-      layout,
-      theme,
-      sequence,
-      separator,
-      children,
-      onChange: onChangeFromProps,
-      options,
-    } = props;
+    const { style, readonly, layout, theme, sequence, separator, children, options } = props;
     const { classPrefix } = useConfig();
 
-    const [current, onChange] = useDefault(currentFromProps, defaultCurrent, onChangeFromProps);
+    const [current, onChange] = useControlled(props, 'current', props.onChange);
 
     // 整理 StepItem value 映射
     const indexMap = useMemo(() => {

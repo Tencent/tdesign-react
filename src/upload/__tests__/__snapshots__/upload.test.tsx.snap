@@ -129,7 +129,7 @@ exports[`draggable.jsx 1`] = `
     <div>
       是否自动上传：
       <button
-        class="t-switch"
+        class="t-switch t-size-m"
         role="switch"
         type="button"
       >
@@ -151,7 +151,6 @@ exports[`draggable.jsx 1`] = `
         <input
           checked=""
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="file"
         />
@@ -169,7 +168,6 @@ exports[`draggable.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="image"
         />
@@ -636,7 +634,6 @@ exports[`request-method.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="requestSuccessMethod"
           />
@@ -654,7 +651,6 @@ exports[`request-method.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="requestFailMethod"
           />

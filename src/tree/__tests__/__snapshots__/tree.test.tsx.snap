@@ -30,7 +30,7 @@ exports[`activable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -63,7 +63,7 @@ exports[`activable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -96,7 +96,7 @@ exports[`activable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -165,7 +165,7 @@ exports[`checkable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -198,7 +198,7 @@ exports[`checkable.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -239,7 +239,6 @@ exports[`checkable.jsx 1`] = `
                   <input
                     checked=""
                     class="t-radio__former"
-                    readonly=""
                     type="radio"
                     value="onlyLeaf"
                   />
@@ -257,7 +256,6 @@ exports[`checkable.jsx 1`] = `
                 >
                   <input
                     class="t-radio__former"
-                    readonly=""
                     type="radio"
                     value="parentFirst"
                   />
@@ -275,7 +273,6 @@ exports[`checkable.jsx 1`] = `
                 >
                   <input
                     class="t-radio__former"
-                    readonly=""
                     type="radio"
                     value="all"
                   />
@@ -318,13 +315,15 @@ exports[`controlled.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="1.1.1.1, 1.1.1.2"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="1.1.1.1, 1.1.1.2"
           />
         </div>
@@ -340,13 +339,15 @@ exports[`controlled.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="1, 1.1, 1.1.1, 2"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="1, 1.1, 1.1.1, 2"
           />
         </div>
@@ -362,13 +363,15 @@ exports[`controlled.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="2"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="2"
           />
         </div>
@@ -413,7 +416,7 @@ exports[`disabled.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -497,7 +500,7 @@ exports[`expand-all.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -530,7 +533,7 @@ exports[`expand-all.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -563,7 +566,7 @@ exports[`expand-all.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -632,7 +635,7 @@ exports[`expand-mutex.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -665,7 +668,7 @@ exports[`expand-mutex.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -705,13 +708,15 @@ exports[`filter.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value=""
           />
         </div>
@@ -809,7 +814,7 @@ exports[`line.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -842,7 +847,7 @@ exports[`line.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -934,7 +939,7 @@ exports[`operations.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -967,7 +972,7 @@ exports[`operations.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked"
+                class="t-switch t-is-checked t-size-m"
                 role="switch"
                 type="button"
               >
@@ -996,13 +1001,15 @@ exports[`operations.jsx 1`] = `
         </span>
         <div
           class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-left t-is-default"
           >
             <input
               class="t-input__inner"
               placeholder="请输入"
+              type="text"
               value=""
             />
           </div>
@@ -1212,13 +1219,15 @@ exports[`sync.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="{1.1.1.1}, {1.1.1.2}"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="{1.1.1.1}, {1.1.1.2}"
           />
         </div>
@@ -1234,13 +1243,15 @@ exports[`sync.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="{1}, {1.1}, {1.1.1}, {2}"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="{1}, {1.1}, {1.1.1}, {2}"
           />
         </div>
@@ -1256,13 +1267,15 @@ exports[`sync.jsx 1`] = `
       </span>
       <div
         class="t-input__wrap"
+        value="{2}"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入"
+            type="text"
             value="{2}"
           />
         </div>

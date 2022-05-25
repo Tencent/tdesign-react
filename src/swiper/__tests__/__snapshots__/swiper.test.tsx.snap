@@ -16,7 +16,7 @@ exports[`base.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            style="transform: translate3d(-0%, 0px, 0px);"
           >
             <div
               class="t-swiper__container__item"
@@ -181,7 +181,7 @@ exports[`card.jsx 1`] = `
           >
             <div
               class="t-swiper__container__item t-swiper__card t-is-active"
-              style="transform: translateX(0.00px) scale(1); transition: transform 0.3s ease; z-index: 2;"
+              style="transform: translateX(NaNpx) scale(1); transition: transform 0.3s ease; z-index: 2;"
             >
               <div
                 class="demo-item"
@@ -191,7 +191,7 @@ exports[`card.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__card"
-              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
+              style="transform: translateX(NaNpx) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
             >
               <div
                 class="demo-item"
@@ -201,7 +201,7 @@ exports[`card.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__card"
-              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+              style="transform: translateX(NaNpx) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
             >
               <div
                 class="demo-item"
@@ -211,7 +211,7 @@ exports[`card.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__card"
-              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+              style="transform: translateX(NaNpx) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
             >
               <div
                 class="demo-item"
@@ -221,7 +221,7 @@ exports[`card.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__card"
-              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
+              style="transform: translateX(NaNpx) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 0;"
             >
               <div
                 class="demo-item"
@@ -231,7 +231,7 @@ exports[`card.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__card"
-              style="transform: translateX(0.00px) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
+              style="transform: translateX(NaNpx) scale(0.6325301204819277); transition: transform 0.3s ease; z-index: 1;"
             >
               <div
                 class="demo-item"
@@ -476,7 +476,7 @@ exports[`fade.jsx 1`] = `
           >
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 1; transition: opacity 0.3s;"
+              style="opacity: 1;"
             >
               <div
                 class="demo-item"
@@ -486,7 +486,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -496,7 +496,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -506,7 +506,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -516,7 +516,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -526,7 +526,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -536,7 +536,7 @@ exports[`fade.jsx 1`] = `
             </div>
             <div
               class="t-swiper__container__item t-swiper__fade"
-              style="opacity: 0; transition: opacity 0.3s;"
+              style="opacity: 0;"
             >
               <div
                 class="demo-item"
@@ -640,7 +640,7 @@ exports[`fraction.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            style="transform: translate3d(-0%, 0px, 0px);"
           >
             <div
               class="t-swiper__container__item"
@@ -776,7 +776,7 @@ exports[`placement.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            style="transform: translate3d(-0%, 0px, 0px);"
           >
             <div
               class="t-swiper__container__item"
@@ -941,7 +941,7 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            style="transform: translate3d(-0%, 0px, 0px);"
           >
             <div
               class="t-swiper__container__item"
@@ -1101,7 +1101,7 @@ exports[`size.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            style="transform: translate3d(-0%, 0px, 0px);"
           >
             <div
               class="t-swiper__container__item"
@@ -1262,7 +1262,7 @@ exports[`vertical.jsx 1`] = `
         >
           <div
             class="t-swiper__container"
-            style="height: 280px; transform: translate3d(0, -0%, 0px); transition: transform 0.3s ease;"
+            style="height: 280px; transform: translate3d(0, -0%, 0px);"
           >
             <div
               class="t-swiper__container__item"

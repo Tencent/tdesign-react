@@ -4,7 +4,7 @@ import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 import { InputValue } from '../input';
 import Tag from '../tag';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { DragSortInnerProps } from '../_util/useDragSorter';
 
 export type ChangeParams = [TagInputChangeContext];
@@ -17,7 +17,7 @@ export default function useTagList(props: TagInputProps) {
   const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
     props;
   // handle controlled property and uncontrolled property
-  const [tagValue, setTagValue] = useDefault(props.value, props.defaultValue || [], props.onChange);
+  const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
   // 点击标签关闭按钮，删除标签

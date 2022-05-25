@@ -2,6 +2,7 @@ import React, { Ref, forwardRef } from 'react';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check, { CheckProps } from '../common/Check';
 import RadioGroup from './RadioGroup';
+import { radioDefaultProps } from './defaultProps';
 
 export type RadioProps = Omit<CheckProps, 'type'>;
 
@@ -16,5 +17,6 @@ const Radio = forwardRefWithStatics(
 );
 
 Radio.displayName = 'Radio';
+Radio.defaultProps = radioDefaultProps;
 
 export default Radio;

@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import { StyledProps } from '../common';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import useAnimation from '../_util/useAnimation';
 import useConfig from '../_util/useConfig';
 import composeRefs from '../_util/composeRefs';
@@ -24,6 +24,7 @@ import useTriggerProps from './hooks/useTriggerProps';
 import getTransitionParams from './utils/getTransitionParams';
 import useMutationObserver from '../_util/useMutationObserver';
 import useWindowSize from '../_util/useWindowSize';
+import { popupDefaultProps } from './defaultProps';
 
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -39,12 +40,12 @@ function getPopperPlacement(placement: TdPopupProps['placement']) {
 
 const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => {
   const {
-    trigger = 'hover',
-    content = null,
-    placement = 'top',
-    attach = 'body',
-    showArrow = false,
-    destroyOnClose = false,
+    trigger,
+    content,
+    placement,
+    attach,
+    showArrow,
+    destroyOnClose,
     className,
     style,
     overlayClassName,
@@ -52,7 +53,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
     triggerElement,
     children = triggerElement,
     disabled,
-    defaultVisible = false,
     zIndex,
     onVisibleChange,
     onScroll,
@@ -65,7 +65,7 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
   // 全局配置
   const { keepExpand, keepFade } = useAnimation();
 
-  const [visible, setVisible] = useDefault(props.visible, defaultVisible, onVisibleChange);
+  const [visible, setVisible] = useControlled(props, 'visible', onVisibleChange);
 
   const { height: windowHeight, width: windowWidth } = useWindowSize();
 
@@ -242,5 +242,6 @@ const Popup = forwardRef((props: PopupProps, ref: React.Ref<HTMLDivElement>) => 
 });
 
 Popup.displayName = 'Popup';
+Popup.defaultProps = popupDefaultProps;
 
 export default Popup;
