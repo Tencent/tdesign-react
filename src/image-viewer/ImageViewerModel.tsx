@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, WheelEventHandler } from 'react';
 import useConfig from 'tdesign-react/_util/useConfig';
 import { isArray } from 'lodash';
-import { downloadFile, positionType, usePosition } from 'tdesign-react/image-viewer/usePosition';
 import { IconFont } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import { downloadFile, positionType, usePosition } from './usePosition';
 
 interface ImageModelItemProps {
   rotateZ: number;

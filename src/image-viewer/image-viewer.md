@@ -7,19 +7,22 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-block | Boolean | false | 是否为块级元素 | N
-children | TNode | - | 按钮内容，同 content。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-content | TNode | - | 按钮内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-disabled | Boolean | false | 是否禁用按钮 | N
-ghost | Boolean | false | 是否为幽灵按钮（镂空按钮） | N
-icon | TElement | - | 按钮内部图标，可完全自定义。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-loading | Boolean | false | 是否显示为加载状态 | N
-shape | String | rectangle | 按钮形状，有 4 种：长方形、正方形、圆角长方形、圆形。可选项：rectangle/square/round/circle | N
-size | String | medium | 组件尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-theme | String | - | 组件风格，依次为默认色、品牌色、危险色、警告色、成功色。可选项：default/primary/danger/warning/success | N
-type | String | button | 按钮类型。可选项：submit/reset/button | N
-variant | String | base | 按钮形式，基础、线框、虚线、文字。可选项：base/outline/dashed/text | N
+src | String | - | 基本展示图片 | Y
+alt | String | - | 加载失败时提示文本，同 img[alt]。TS 类型：`string `| N
+title | String | - | 按钮内容。TS 类型：`string`。| N
+titleIcons | Array | [] | 是否展示可操作图标TS 类型：`(browse|ellipsis)[]` | N
+type | String | normal | 大图弹窗模式。 TS 类型`'mini' | 'normal'`| N
+miniWidth | Number | 1000 | mini类型弹窗最小宽度。| N
+miniHeight | Number | 1000 | mini类型弹窗最小高度 | N
+movable | Boolean | false | mini类型弹窗是否支持拖动位置 | N
+previewSrcList | Array | [] | 预览图片列表。 TS 类型：`string[]`| N
+zIndex | Number | 2000 | 弹窗层级 | N
+startIndex | Number | 0 | 开启弹窗时默认展示图片下标 | N
+closeOnMark | Boolean | false | 点击遮罩是否关闭弹窗 | N
+mask | Boolean | true | 是否需要弹窗 | N
+maxScale | Number | 2 | 图片放大比例 | N
+scaleStep | Number | 0.5 | 鼠标滚动放大速度 | N
+onClose | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>关闭弹窗触发 | N
+onOpen | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>开启弹窗触发 | N
 onClick | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>点击时触发 | N
-
-
 :: BASE_PROPS ::
