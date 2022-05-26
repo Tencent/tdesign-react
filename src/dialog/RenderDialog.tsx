@@ -185,9 +185,10 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         {closeBtn}
       </span>
     );
+    const validWindow = typeof window === 'object';
 
-    const screenHeight = (window.innerHeight || document.documentElement.clientHeight);
-    const screenWidth = (window.innerWidth || document.documentElement.clientWidth);
+    const screenHeight = validWindow ? window.innerHeight || document.documentElement.clientHeight : undefined;
+    const screenWidth = validWindow ? window.innerWidth || document.documentElement.clientWidth : undefined;
 
     const style = { ...dest, ...props.style };
     let dialogOffset = { x: 0, y: 0 };
