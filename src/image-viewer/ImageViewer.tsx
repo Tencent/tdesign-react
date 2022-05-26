@@ -1,14 +1,15 @@
 import React, { CSSProperties, ComponentProps, useState } from 'react';
 import { createPortal } from 'react-dom';
-import useConfig from 'tdesign-react/_util/useConfig';
 import { isFunction } from 'lodash';
-import { DefaultUIImage } from 'tdesign-react/image-viewer/DefaultUIImage';
+import { DefaultUIImage, TitleIcons } from './DefaultUIImage';
 import { ImageModal } from './ImageViewerModel';
+import useConfig from '../_util/useConfig';
 
 export interface TdImageViewerProps extends ComponentProps<any> {
   src?: string;
   alt?: string;
   title?: string;
+  titleIcons?: TitleIcons;
   type?: 'mini' | 'normal';
   miniWidth?: number;
   miniHeight?: number;
@@ -31,7 +32,7 @@ export interface TdImageViewerProps extends ComponentProps<any> {
 export type ImageViewerProps = TdImageViewerProps;
 
 const ImageViewer = (props: ImageViewerProps) => {
-  const { type, children, alt, src, style, className, title } = props;
+  const { type, children, alt, src, style, className, title, titleIcons } = props;
 
   const { classPrefix } = useConfig();
   const [visible, setVisible] = useState(false);
@@ -55,7 +56,18 @@ const ImageViewer = (props: ImageViewerProps) => {
     if (!isFunction(children)) throw new Error('ImageViewer child needs to pass in a function');
     uiImage = children({ onOpen, onClose });
   } else {
-    uiImage = <DefaultUIImage alt={alt} src={src} style={style} title={title} className={className} onOpen={onOpen} />;
+    uiImage = (
+      <DefaultUIImage
+        list={props.previewSrcList}
+        titleIcons={titleIcons}
+        alt={alt}
+        src={src}
+        style={style}
+        title={title}
+        className={className}
+        onOpen={onOpen}
+      />
+    );
   }
 
   return (
@@ -98,6 +110,8 @@ ImageViewer.defaultProps = {
   mask: true,
   maxScale: 2,
   scaleStep: 0.5,
+  titleIcons: [],
+  type: 'normal',
 };
 
 export default ImageViewer;

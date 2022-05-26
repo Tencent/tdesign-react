@@ -2,6 +2,7 @@ import React, { CSSProperties, useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import useConfig from 'tdesign-react/_util/useConfig';
 import { IconFont } from 'tdesign-icons-react';
+import { Popup } from 'tdesign-react';
 
 const LoadingError = ({ style, classPrefix }) => (
   <div style={style} className={`${classPrefix}-image-viewer-error ${classPrefix}-image-viewer-ui-image`}>
@@ -13,6 +14,26 @@ const LoadingError = ({ style, classPrefix }) => (
   </div>
 );
 
+interface ImageViewerIconListProps {
+  list: { label: string }[];
+  onClick: (value: { label: string }, index: number) => void;
+}
+
+const ImageViewerIconList = ({ list, onClick }: ImageViewerIconListProps) => {
+  const { classPrefix } = useConfig();
+  return (
+    <ul className={`${classPrefix}-select__list`}>
+      {list.map((it, index) => (
+        <li key={index} className={`${classPrefix}-select-option`} onClick={() => onClick(it, index)}>
+          <span>{it.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export type TitleIcons = ('browse' | 'ellipsis')[];
+
 // 默认展示UI
 interface DefaultUIImageProps {
   alt: string;
@@ -20,9 +41,20 @@ interface DefaultUIImageProps {
   title: string;
   style: CSSProperties;
   className: string;
+  list: string[];
+  titleIcons: TitleIcons;
   onOpen: () => void;
 }
-export const DefaultUIImage = ({ alt, src, style, onOpen, className, title }: DefaultUIImageProps) => {
+export const DefaultUIImage = ({
+  list,
+  alt,
+  src,
+  style,
+  onOpen,
+  className,
+  title,
+  titleIcons,
+}: DefaultUIImageProps) => {
   const [error, setError] = useState(false);
   const { classPrefix } = useConfig();
   const onError = useCallback(() => {
@@ -44,7 +76,43 @@ export const DefaultUIImage = ({ alt, src, style, onOpen, className, title }: De
         onError={onError}
         className={classnames(`${classPrefix}-image-viewer-ui-image-img`, className)}
       />
-      {!!title && <div className={`${classPrefix}-image-viewer-ui-image-footer`}>{title}</div>}
+      {!!title && (
+        <div className={`${classPrefix}-image-viewer-ui-image-footer`}>
+          <span className={`${classPrefix}-image-viewer-ui-image-title`}>{title}</span>
+          <span className={`${classPrefix}-image-viewer-ui-image-icons`}>
+            {titleIcons.map((it) => {
+              switch (it) {
+                case 'browse':
+                  return <IconFont name="browse" onClick={onOpen} />;
+                // 操作查看器
+                case 'ellipsis': {
+                  const listCommon = (
+                    <ImageViewerIconList
+                      onClick={(value) => {
+                        console.log(value);
+                      }}
+                      list={list.map((i, index) => ({ label: `图片${index}` }))}
+                    />
+                  );
+                  return (
+                    <Popup
+                      trigger="click"
+                      content={listCommon}
+                      placement="right-bottom"
+                      overlayStyle={{ width: '140px' }}
+                      destroyOnClose
+                    >
+                      <IconFont name="ellipsis" />
+                    </Popup>
+                  );
+                }
+                default:
+                  return null;
+              }
+            })}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
