@@ -24,7 +24,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
 };
 
 const Skeleton = (props: SkeletonProps) => {
-  const { animation, loading, rowCol, theme, className, style, delay = 0 } = props;
+  const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
@@ -100,7 +100,7 @@ const Skeleton = (props: SkeletonProps) => {
   }, [delay, loading]);
 
   if (!ctrlLoading) {
-    return <div>{props.children}</div>;
+    return children;
   }
 
   const childrenContent = [];
