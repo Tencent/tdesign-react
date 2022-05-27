@@ -114,6 +114,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/classnames": "^2.3.1",
+    "@types/estree": "0.0.50",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.170",
