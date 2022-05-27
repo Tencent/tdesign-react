@@ -14,6 +14,7 @@ exports[`disabled.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -69,6 +70,7 @@ exports[`disabled.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1157,6 +1159,7 @@ exports[`range.jsx 1`] = `
       >
         <div
           class="t-range-input t-time-picker__group"
+          value=""
         >
           <div
             class="t-range-input__inner"
@@ -1234,6 +1237,7 @@ exports[`show-steps.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
