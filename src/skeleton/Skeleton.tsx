@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import isNumber from 'lodash/isNumber';
 import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
@@ -24,7 +24,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
 };
 
 const Skeleton = (props: SkeletonProps) => {
-  const { animation, loading, rowCol, theme, className, style } = props;
+  const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
@@ -86,8 +86,21 @@ const Skeleton = (props: SkeletonProps) => {
     ));
   };
 
-  if (!loading) {
-    return <div>{props.children}</div>;
+  const [ctrlLoading, setCtrlLoading] = useState(loading);
+
+  useEffect(() => {
+    if (delay > 0 && !loading) {
+      const timeout = setTimeout(() => {
+        setCtrlLoading(loading);
+      }, delay);
+      return () => clearTimeout(timeout);
+    }
+
+    setCtrlLoading(loading);
+  }, [delay, loading]);
+
+  if (!ctrlLoading) {
+    return children;
   }
 
   const childrenContent = [];
