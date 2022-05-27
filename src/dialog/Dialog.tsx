@@ -1,8 +1,10 @@
-import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, isValidElement } from 'react';
 import isString from 'lodash/isString';
+import isObject from 'lodash/isObject';
+import isFunction from 'lodash/isFunction';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Button from '../button';
+import Button, { ButtonProps } from '../button';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
@@ -17,6 +19,22 @@ export interface DialogProps extends TdDialogProps, StyledProps {
    */
   isPlugin?: boolean;
 }
+
+const renderDialogButton = (btn: TdDialogProps['cancelBtn'], defaultProps: ButtonProps) => {
+  let result = null;
+
+  if (isString(btn)) {
+    result = <Button {...defaultProps}>{btn}</Button>;
+  } else if (isValidElement(btn)) {
+    result = btn;
+  } else if (isObject(btn)) {
+    result = <Button {...defaultProps} {...(btn as {})} />;
+  } else if (isFunction(btn)) {
+    result = btn();
+  }
+
+  return result;
+};
 
 const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
   const { classPrefix } = useConfig();
@@ -115,29 +133,9 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
   };
 
   const defaultFooter = () => {
-    let renderCancelBtn = cancelBtn && (
-      <Button variant="outline">{isString(cancelBtn) ? cancelBtn : cancelText}</Button>
-    );
+    const renderCancelBtn = renderDialogButton(cancelBtn, { variant: 'outline' });
+    const renderConfirmBtn = renderDialogButton(confirmBtn, { theme: 'primary' });
 
-    let renderConfirmBtn = confirmBtn && (
-      <Button theme="primary">{isString(confirmBtn) ? confirmBtn : confirmText}</Button>
-    );
-
-    if (React.isValidElement(cancelBtn)) {
-      renderCancelBtn = cancelBtn;
-    }
-
-    if (React.isValidElement(confirmBtn)) {
-      renderConfirmBtn = confirmBtn;
-    }
-
-    if (typeof cancelBtn === 'function') {
-      renderCancelBtn = cancelBtn();
-    }
-
-    if (typeof confirmBtn === 'function') {
-      renderConfirmBtn = confirmBtn();
-    }
     return (
       <>
         {renderCancelBtn &&
