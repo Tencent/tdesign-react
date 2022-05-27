@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Select } from 'tdesign-react';
 
 const MultipleSelect = () => {
-  const [value, setValue] = useState(['banana']);
+  const [value, setValue] = useState(['apple', 'banana']);
   const onChange = (value) => {
     setValue(value);
   };
