@@ -12,7 +12,7 @@ const options = [{
 }];
 
 export default function Example() {
-  const [value, setValue] = useState('广东省');
+  const [value, setValue] = useState(null);
   
   function loadFunc(node) {
     return new Promise((resolve) => {

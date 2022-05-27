@@ -5,7 +5,6 @@ export default function EmptyTable() {
   const TableData = [];
   return (
     <div>
-      <div>使用默认空表格样式</div>
       <Table
         data={TableData}
         columns={[
@@ -16,7 +15,7 @@ export default function EmptyTable() {
             cell: ({ row }) => row.projectName,
           },
           {
-            colKey: 'memeber',
+            colKey: 'member',
             title: '管理员',
             width: '300px',
             cell: ({ row }) => row.manager.join(','),
@@ -30,12 +29,11 @@ export default function EmptyTable() {
         ]}
         rowKey="projectName"
       />
-      <div style={{ marginTop: 10 }}>自定义空表格</div>
       <Table
         data={TableData}
         empty={
           <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-            😄 it is empty.
+            😄 it is empty. 😁
           </span>
         }
         columns={[
@@ -46,7 +44,7 @@ export default function EmptyTable() {
             cell: ({ row }) => row.projectName,
           },
           {
-            colKey: 'memeber',
+            colKey: 'member',
             title: '管理员',
             width: '300px',
             cell: ({ row }) => row.manager.join(','),

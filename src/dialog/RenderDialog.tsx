@@ -1,9 +1,12 @@
-import React, { useLayoutEffect, useRef, CSSProperties, useEffect } from 'react';
+import React, { useRef, CSSProperties, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import Portal from '../common/Portal';
 import noop from '../_util/noop';
+import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
+import useDialogEsc from '../_util/useDialogEsc';
+import { dialogDefaultProps } from './defaultProps';
 
 enum KeyCode {
   ESC = 27,
@@ -28,7 +31,7 @@ const getClickPosition = (e: MouseEvent) => {
 if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
   document.documentElement.addEventListener('click', getClickPosition, true);
 }
-const RenderDialog: React.FC<RenderDialogProps> = (props) => {
+const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     prefixCls,
     attach,
@@ -43,14 +46,25 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     onOverlayClick = noop,
     preventScrollThrough,
     closeBtn,
+    closeOnEscKeydown,
+    closeOnOverlayClick,
+    destroyOnClose,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
-  const bodyOverflow = useRef<string>(document.body.style.overflow);
-  const bodyCssTextRef = useRef<string>(document.body.style.cssText);
+  const portalRef = useRef<HTMLDivElement>();
+  const bodyOverflow = useRef<string>();
+  const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
   const canDraggable = props.draggable && mode === 'modeless';
+  const dialogOpenClass = `${prefixCls}__open`;
+  useDialogEsc(visible, wrap);
+  useImperativeHandle(ref, () => wrap.current);
+  useLayoutEffect(() => {
+    bodyOverflow.current = document.body.style.overflow;
+    bodyCssTextRef.current = document.body.style.cssText;
+  }, []);
 
   useLayoutEffect(() => {
     if (visible) {
@@ -75,9 +89,26 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         wrap.current.focus();
       }
     } else if (isModal) {
-      document.body.style.cssText = bodyCssTextRef.current;
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (openDialogDom.length < 1) {
+        document.body.style.cssText = bodyCssTextRef.current;
+      }
     }
-  }, [preventScrollThrough, attach, visible, mode, isModal]);
+
+    // 组件销毁后重置 body 样式
+    return () => {
+      if (isModal) {
+        const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+        if (openDialogDom.length < 1) {
+          document.body.style.cssText = bodyCssTextRef.current;
+          document.body.style.overflow = bodyOverflow.current;
+        }
+      } else {
+        document.body.style.cssText = bodyCssTextRef.current;
+        document.body.style.overflow = bodyOverflow.current;
+      }
+    };
+  }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
 
   useEffect(() => {
     if (visible) {
@@ -95,7 +126,10 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     }
     if (isModal && preventScrollThrough) {
       // 还原body的滚动条
-      isModal && (document.body.style.overflow = bodyOverflow.current);
+      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      if (isModal && openDialogDom.length < 1) {
+        document.body.style.overflow = bodyOverflow.current;
+      }
     }
     if (!isModal) {
       const { style } = dialog.current;
@@ -106,7 +140,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
+    if (e.target === e.currentTarget && closeOnOverlayClick) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
@@ -122,7 +156,9 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
-      onClose({ e, trigger: 'esc' });
+      if (closeOnEscKeydown) {
+        onClose({ e, trigger: 'esc' });
+      }
     }
   };
 
@@ -134,7 +170,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
 
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
-    const header = <div className={`${prefixCls}__header`}>{props.header}</div>;
+    const { header } = props;
 
     const body = <div className={`${prefixCls}__body`}>{props.body || props.children}</div>;
 
@@ -213,7 +249,7 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
         in={props.visible}
         appear
         mountOnEnter
-        unmountOnExit={props.destroyOnClose}
+        unmountOnExit={destroyOnClose}
         timeout={transitionTime}
         classNames={`${prefixCls}-zoom`}
         onEntered={props.onOpened}
@@ -256,9 +292,14 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
     };
 
     const dialogBody = renderDialog(`${props.placement ? `${prefixCls}--${props.placement}` : ''}`);
-    const wrapClass = classnames(props.className, `${prefixCls}__ctx`, `${prefixCls}__ctx--fixed`);
+    const wrapClass = classnames(
+      props.className,
+      `${prefixCls}__ctx`,
+      `${prefixCls}__ctx--fixed`,
+      visible ? dialogOpenClass : '',
+    );
     const dialog = (
-      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown}>
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
@@ -270,14 +311,28 @@ const RenderDialog: React.FC<RenderDialogProps> = (props) => {
       if (!attach) {
         dom = dialog;
       } else {
-        dom = <Portal attach={attach}>{dialog}</Portal>;
+        dom = (
+          <CSSTransition
+            in={visible}
+            appear
+            timeout={transitionTime}
+            mountOnEnter
+            unmountOnExit={destroyOnClose}
+            nodeRef={portalRef}
+          >
+            <Portal attach={attach} ref={portalRef}>
+              {dialog}
+            </Portal>
+          </CSSTransition>
+        );
       }
     }
-
     return dom;
   };
 
   return render();
-};
+});
+
+RenderDialog.defaultProps = dialogDefaultProps;
 
 export default RenderDialog;

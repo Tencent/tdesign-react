@@ -32,30 +32,23 @@ export interface TdPopupProps {
    */
   disabled?: boolean;
   /**
+   * 【开发中】浮层是否隐藏空内容，默认不隐藏
+   * @default false
+   */
+  hideEmptyPopup?: boolean;
+  /**
    * 浮层类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
    */
   overlayClassName?: ClassName;
   /**
-   * 浮层样式
+   * 浮层样式，第一个参数 `triggerElement` 表示触发元素 DOM 节点，第二个参数 `popupElement` 表示浮层元素 DOM 节点
    */
-  overlayStyle?: Styles | ((trigger: HTMLElement) => Styles);
+  overlayStyle?: Styles | ((triggerElement: HTMLElement, popupElement: HTMLElement) => Styles);
   /**
    * 浮层出现位置
    * @default top
    */
-  placement?:
-    | 'top'
-    | 'left'
-    | 'right'
-    | 'bottom'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'left-top'
-    | 'left-bottom'
-    | 'right-top'
-    | 'right-bottom';
+  placement?: PopupPlacement;
   /**
    * 是否显示浮层箭头
    * @default false
@@ -89,10 +82,24 @@ export interface TdPopupProps {
    */
   onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
   /**
-   * 当浮层隐藏或显示时触发
+   * 当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=document` 表示右击触发
    */
   onVisibleChange?: (visible: boolean, context: PopupVisibleChangeContext) => void;
 }
+
+export type PopupPlacement =
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'bottom'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'left-top'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-bottom';
 
 export interface PopupVisibleChangeContext {
   e?: PopupTriggerEvent;

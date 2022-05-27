@@ -10,7 +10,7 @@ let demoCodesImports = {};
 
 export default {
   before({ source, file }) {
-    const resouceDir = path.dirname(file);
+    const resourceDir = path.dirname(file);
     const reg = file.match(/src\/(\w+-?\w+)\/(\w+-?\w+)\.md/);
     const name = reg && reg[1];
     demoImports = {};
@@ -29,7 +29,7 @@ export default {
 
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
-      const demoPath = path.resolve(resouceDir, `./_example/${demoFileName}.jsx`);
+      const demoPath = path.resolve(resourceDir, `./_example/${demoFileName}.jsx`);
       if (!fs.existsSync(demoPath)) {
         console.log('\x1B[36m%s\x1B[0m', `${name} 组件需要实现 _example/${demoFileName}.jsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';

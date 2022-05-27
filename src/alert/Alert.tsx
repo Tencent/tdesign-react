@@ -2,18 +2,21 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { InfoCircleFilledIcon, CloseIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import noop from '../_util/noop';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
+import { alertDefaultProps } from './defaultProps';
 
 export interface AlertProps extends TdAlertProps, StyledProps {}
 
 const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => {
-  const { message, title, operation, theme = 'info', icon, close, maxLine, onClose = noop, ...alertProps } = props;
+  const { message, title, operation, theme, icon, close, maxLine, onClose, className, ...alertProps } = props;
 
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
   const { classPrefix } = useConfig();
+  const [local, t] = useLocaleReceiver('alert');
+
   const iconMap = {
     success: CheckCircleFilledIcon,
     info: InfoCircleFilledIcon,
@@ -38,7 +41,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
         }),
       });
     }
-    return React.createElement(iconMap[theme]);
+    return React.createElement(iconMap[theme] || iconMap.info);
   };
 
   const renderMessage = () => {
@@ -57,7 +60,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
           })}
           {+maxLine > 0 ? (
             <div className={`${classPrefix}-alert__collapse`} onClick={handleCollapse}>
-              {!collapsed ? '展开更多' : '收起'}
+              {!collapsed ? t(local.expandText) : t(local.collapseText)}
             </div>
           ) : null}
         </div>
@@ -75,9 +78,7 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
   return closed ? null : (
     <div
       ref={ref}
-      className={classNames(`${classPrefix}-alert`, {
-        [`${classPrefix}-alert--${theme}`]: true,
-      })}
+      className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
       {...alertProps}
     >
       <div className={`${classPrefix}-alert__icon`}>{renderIconNode()}</div>
@@ -94,5 +95,6 @@ const Alert = forwardRef((props: AlertProps, ref: React.Ref<HTMLDivElement>) => 
 });
 
 Alert.displayName = 'Alert';
+Alert.defaultProps = alertDefaultProps;
 
 export default Alert;

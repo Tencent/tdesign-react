@@ -40,11 +40,10 @@ export default function Example() {
         valueType="object"
         onChange={(val) => {
           setValue(val);
-          console.log(val)
+          console.log(val);
         }}
       />
-
-      {/* <TreeSelect
+      <TreeSelect
         data={options}
         clearable
         multiple
@@ -53,9 +52,9 @@ export default function Example() {
         value={mulValue}
         onChange={(val) => {
           setMulValue(val);
-          console.log(val)
+          console.log(val);
         }}
-      /> */}
+      />
     </div>
   );
 }

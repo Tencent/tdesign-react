@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Addon, Input, Tree } from 'tdesign-react';
 
 const items = [
@@ -97,7 +97,7 @@ const DEFAULT_EXPANDED = ['1.1.1'];
 export default () => {
   const [filterText, setFilterText] = useState('');
 
-  const handleFilter = (node) => {
+  const filterByText = (node) => {
     const rs = node.data.label.indexOf(filterText) >= 0;
     return rs;
   };
@@ -105,9 +105,9 @@ export default () => {
   return (
     <div className="tdesign-tree-base">
       <Addon prepend="filter:">
-        <Input value={filterText} onInput={setFilterText} />
+        <Input value={filterText} onChange={setFilterText} />
       </Addon>
-      <Tree data={items} expandOnClickNode defaultExpanded={DEFAULT_EXPANDED} hover line filter={handleFilter} />
+      <Tree data={items} expandOnClickNode defaultExpanded={DEFAULT_EXPANDED} hover line filter={filterByText} />
     </div>
   );
 };

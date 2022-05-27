@@ -5,13 +5,13 @@ import isFunction from 'lodash/isFunction';
 import { StyledProps } from '../common';
 import { TdAnchorProps } from './type';
 import useConfig from '../_util/useConfig';
-import noop from '../_util/noop';
-import { getScrollContainer } from '../_util/dom';
+import { canUseDocument, getScrollContainer } from '../_util/dom';
 import Affix from '../affix';
 import { AnchorContext, Item } from './AnchorContext';
 import { getOffsetTop, getScroll, scrollTo, AnchorContainer } from './_util/dom';
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
+import { anchorDefaultProps } from './defaultProps';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {
   children?: React.ReactNode;
@@ -29,18 +29,8 @@ interface IntervalRef {
 const ANCHOR_SHARP_REGEXP = /#(\S+)$/;
 
 const Anchor = (props: AnchorProps) => {
-  const {
-    affixProps,
-    bounds = 5,
-    targetOffset = 0,
-    container = '',
-    size = 'medium',
-    children,
-    cursor,
-    onClick = noop,
-    onChange = noop,
-    ...rest
-  } = props;
+  const { affixProps, bounds, targetOffset, container, size, children, cursor, onClick, onChange, className, ...rest } =
+    props;
 
   const { classPrefix } = useConfig();
 
@@ -54,7 +44,7 @@ const Anchor = (props: AnchorProps) => {
   const anchorEl = useRef(null);
   const intervalRef = useRef<IntervalRef>({
     items: [],
-    scrollContainer: window,
+    scrollContainer: canUseDocument ? window : null,
     handleScrollLock: false,
   });
 
@@ -77,7 +67,7 @@ const Anchor = (props: AnchorProps) => {
   const handleScrollTo = (link: string) => {
     const anchor = getAnchorTarget(link);
     if (!anchor) return;
-    if (isFunction(onChange)) onChange(link, activeItem);
+    onChange?.(link, activeItem);
     setActiveItem(link);
     intervalRef.current.handleScrollLock = true;
     const { scrollContainer } = intervalRef.current;
@@ -92,7 +82,7 @@ const Anchor = (props: AnchorProps) => {
   };
 
   const handleClick = (item: Item, e: React.MouseEvent<HTMLDivElement>) => {
-    onClick({ e, ...item });
+    onClick?.({ e, ...item });
     handleScrollTo(item.href);
   };
 
@@ -132,7 +122,7 @@ const Anchor = (props: AnchorProps) => {
       active = latest.href;
     }
     if (active !== activeItem) {
-      if (isFunction(onChange)) onChange(active, activeItem);
+      onChange?.(active, activeItem);
       setActiveItem(active);
     }
   }, [activeItem, bounds, onChange, targetOffset]);
@@ -148,11 +138,15 @@ const Anchor = (props: AnchorProps) => {
     };
   }, [container, handleScroll]);
 
-  const anchorClass = classNames(`${classPrefix}-anchor`, {
-    [`${classPrefix}-size-s`]: size === 'small',
-    [`${classPrefix}-size-m`]: size === 'medium',
-    [`${classPrefix}-size-l`]: size === 'large',
-  });
+  const anchorClass = classNames(
+    `${classPrefix}-anchor`,
+    {
+      [`${classPrefix}-size-s`]: size === 'small',
+      [`${classPrefix}-size-m`]: size === 'medium',
+      [`${classPrefix}-size-l`]: size === 'large',
+    },
+    className,
+  );
 
   const CursorCmp = () => {
     if (isFunction(cursor)) return cursor();
@@ -169,7 +163,7 @@ const Anchor = (props: AnchorProps) => {
         unregisterItem,
       }}
     >
-      <div className={anchorClass} ref={anchorEl} {...rest}>
+      <div {...rest} className={anchorClass} ref={anchorEl}>
         <div className={`${classPrefix}-anchor__line`}>
           <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
             {CursorCmp()}
@@ -187,5 +181,6 @@ Anchor.AnchorItem = AnchorItem;
 Anchor.AnchorTarget = AnchorTarget;
 
 Anchor.displayName = 'Anchor';
+Anchor.defaultProps = anchorDefaultProps;
 
 export default Anchor;

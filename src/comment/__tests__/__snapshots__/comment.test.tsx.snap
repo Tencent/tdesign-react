@@ -648,12 +648,11 @@ exports[`reply-form.jsx 1`] = `
               <textarea
                 class="t-textarea__inner"
                 placeholder="请输入内容"
-                style="height: auto;"
+                style="height: auto; min-height: auto;"
               />
             </div>
             <button
               class="t-button t-button--theme-primary t-button--variant-base"
-              style="position: relative;"
               type="button"
             >
               <span

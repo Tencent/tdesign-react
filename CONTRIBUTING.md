@@ -19,7 +19,8 @@
 ## 开发
 
 ```bash
-git clone --recurse-submodules https://github.com/Tencent/tdesign-react.git
+# 需配置 github ssh key 才能正常拉取子仓库代码
+git clone --recurse-submodules https://github.com/Tencent/tdesign-react.git 
 
 # 开发预览
 cd tdesign-react
@@ -27,6 +28,12 @@ npm i
 npm run dev
 
 # 打开浏览器访问 http://localhost:15000
+
+# 单独调试某个组件的 demo 可访问 http://localhost:15000/react/[组件名]/[demo文件名]
+# 例如：http://localhost:15000/react/demos/button/base
+
+# 如果 common 代码未正常拉取可手动初始化:
+# git submodule init && git submodule update
 ```
 
 更多指引请参考：

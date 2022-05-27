@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Select } from 'tdesign-react';
 
-const SelectCreateable = () => {
+const SelectCreatable = () => {
   const [value, setValue] = useState('apple');
   const [options, changeOptions] = useState([
     {
@@ -39,4 +39,4 @@ const SelectCreateable = () => {
   );
 };
 
-export default SelectCreateable;
+export default SelectCreatable;

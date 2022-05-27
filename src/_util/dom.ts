@@ -3,12 +3,13 @@ import isString from 'lodash/isString';
 import { easeInOutCubic, EasingFunction } from './easing';
 import { ScrollContainer, ScrollContainerElement } from '../common';
 
-const isServer = typeof window === 'undefined';
+// 用于判断是否可使用dom
+export const canUseDocument = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
 export const on = ((): any => {
-  if (!isServer && document.addEventListener) {
+  if (canUseDocument && document.addEventListener) {
     return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
       if (element && event && handler) {
         element.addEventListener(event, handler, false);
@@ -23,7 +24,7 @@ export const on = ((): any => {
 })();
 
 export const off = ((): any => {
-  if (!isServer && document.removeEventListener) {
+  if (canUseDocument && document.removeEventListener) {
     return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
       if (element && event) {
         element.removeEventListener(event, handler, false);
@@ -198,4 +199,12 @@ export const getAttach = (node: any): HTMLElement => {
     return attachNode;
   }
   return document.body;
+};
+
+// 获取 css vars
+export const getCssVarsValue = (name: string, element?: HTMLElement) => {
+  if (!canUseDocument) return;
+
+  const el = element || document.documentElement;
+  return getComputedStyle(el).getPropertyValue(name);
 };

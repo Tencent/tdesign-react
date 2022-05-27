@@ -37,16 +37,16 @@ export default function ThemeTagExample() {
       </div>
 
       <div className="tdesign-demo-block-row">
-        <Tag theme="primary" variant="plain">
+        <Tag theme="primary" variant="outline">
           标签一
         </Tag>
-        <Tag theme="warning" variant="plain">
+        <Tag theme="warning" variant="outline">
           标签二
         </Tag>
-        <Tag theme="danger" variant="plain">
+        <Tag theme="danger" variant="outline">
           标签三
         </Tag>
-        <Tag theme="success" variant="plain">
+        <Tag theme="success" variant="outline">
           标签四
         </Tag>
       </div>

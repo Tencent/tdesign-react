@@ -1,10 +1,11 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import useConfig from '../_util/useConfig';
 import { TdCheckTagProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
+import { checkTagDefaultProps } from './defaultProps';
 
 /**
  * CheckTag 组件支持的属性
@@ -17,27 +18,24 @@ export interface CheckTagProps extends TdCheckTagProps, StyledProps {
 }
 
 const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElement>) => {
-  const {
-    checked,
-    content,
-    defaultChecked,
-    onChange,
-    onClick = noop,
-    disabled,
-    children,
-    className,
-    ...tagOtherProps
-  } = props;
-  const [value, onValueChange] = useDefault(checked, defaultChecked, onChange);
+  const { content, onClick = noop, disabled, children, className, size, onChange, ...tagOtherProps } = props;
+  const [value, onValueChange] = useControlled(props, 'checked', onChange);
 
   const { classPrefix } = useConfig();
   const tagClassPrefix = `${classPrefix}-tag`;
 
+  const sizeMap = {
+    large: `${classPrefix}-size-l`,
+    small: `${classPrefix}-size-s`,
+  };
+
   const checkTagClassNames = classNames(
     tagClassPrefix,
+    sizeMap[size],
     className,
     `${tagClassPrefix}--default`,
     `${tagClassPrefix}--check`,
+    `${tagClassPrefix}--${size}`,
     {
       [`${tagClassPrefix}--disabled`]: disabled,
       [`${tagClassPrefix}--checked`]: value,
@@ -63,5 +61,6 @@ const CheckTag = forwardRef((props: CheckTagProps, ref: React.Ref<HTMLSpanElemen
 });
 
 CheckTag.displayName = 'CheckTag';
+CheckTag.defaultProps = checkTagDefaultProps;
 
 export default CheckTag;

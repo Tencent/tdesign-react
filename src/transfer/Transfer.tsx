@@ -7,9 +7,10 @@ import { TdTransferProps, DataOption, TransferValue, TransferListType } from './
 import useConfig from '../_util/useConfig';
 import Button from '../button';
 import TransferList from './TransferList';
-import { getDefaultValue, getJSX } from './utils';
+import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';
 import { TNode, StyledProps } from '../common';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { transferDefaultProps } from './defaultProps';
 
 export interface TransferProps extends TdTransferProps, StyledProps {
   content?: Array<TNode>;
@@ -27,22 +28,23 @@ interface CheckedInterface {
 
 const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const {
-    data = [],
-    search = false,
+    data,
+    search,
     checked,
-    defaultChecked = [],
+    defaultChecked,
     onCheckedChange,
     value,
-    defaultValue = [],
+    defaultValue,
     onChange,
     empty,
-    disabled = false,
+    disabled,
     pagination,
     title,
     operation,
     footer,
     transferItem,
     content,
+    tree,
   } = props;
   const [state, setState] = useState<StateInterface>(() => ({
     source: data.filter((item) => !defaultValue.includes(item.value)),
@@ -58,8 +60,8 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   }));
   const [searchState, setSearchState] = useState<{ source: string; target: string }>({ source: '', target: '' });
 
-  const isTargetControled = 'value' in props;
-  const isCheckedControled = 'checked' in props;
+  const isTargetControlled = 'value' in props;
+  const isCheckedControlled = 'checked' in props;
 
   const { classPrefix } = useConfig();
   const transferClassName = `${classPrefix}-transfer`;
@@ -87,40 +89,49 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const [sourceTransferItem, targetTransferItem] = getDefaultValue(transferItem);
   const [sourceContent, targetContent] = getDefaultValue(content);
 
-  const transfromSource = () => {
+  const transformSource = () => {
     const { source, target } = state;
     const sourceCheckeds = source.filter((item) => checkeds.source.includes(item.value));
-    const newSoure = difference(source, sourceCheckeds);
-    const newTarget = [...target, ...sourceCheckeds];
+    let newSource = difference(source, sourceCheckeds);
+    let newTarget = [...target, ...sourceCheckeds];
+    let newTargetValue = newTarget.map((t) => t.value);
 
-    if (isTargetControled) {
-      onChange?.(
-        newTarget.map((t) => t.value),
-        {
-          type: 'source',
-          movedValue: sourceCheckeds.map((s) => s.value),
-        },
-      );
+    // 树结构处理source/target节点数据
+    if (tree) {
+      newSource = filterCheckedTreeNodes(source, checkeds.source);
+      newTarget = getTargetNodes(newSource, data);
+      newTargetValue = getLeafNodes(newTarget).map((t) => t.value);
+    }
+    if (isTargetControlled) {
+      onChange?.(newTargetValue, {
+        type: 'source',
+        movedValue: sourceCheckeds.map((s) => s.value),
+      });
     } else {
-      setState({ ...state, source: newSoure, target: [...newTarget] });
+      setState({ ...state, source: newSource, target: [...newTarget] });
       setCheckeds({ ...checkeds, source: [] });
     }
   };
-  const transfromTarget = () => {
+  const transformTarget = () => {
     const { source, target } = state;
     const targetCheckeds = target.filter((item) => checkeds.target.includes(item.value));
-    const newTarget = difference(target, targetCheckeds);
+    let newSource = [...source, ...targetCheckeds];
+    let newTarget = difference(target, targetCheckeds);
+    let newTargetValue = newTarget.map((t) => t.value);
 
-    if (isTargetControled) {
-      onChange?.(
-        newTarget.map((t) => t.value),
-        {
-          type: 'target',
-          movedValue: targetCheckeds.map((s) => s.value),
-        },
-      );
+    // 树结构处理source/target节点数据
+    if (tree) {
+      newTarget = filterCheckedTreeNodes(target, checkeds.target);
+      newSource = getTargetNodes(newTarget, data);
+      newTargetValue = getLeafNodes(newTarget).map((t) => t.value);
+    }
+    if (isTargetControlled) {
+      onChange?.(newTargetValue, {
+        type: 'target',
+        movedValue: targetCheckeds.map((s) => s.value),
+      });
     } else {
-      setState({ ...state, source: [...source, ...targetCheckeds], target: newTarget });
+      setState({ ...state, source: newSource, target: newTarget });
       setCheckeds({ ...checkeds, target: [] });
     }
   };
@@ -135,7 +146,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
           key={isSourceDisabled ? 'right-outline' : 'right-base'}
           variant={isSourceDisabled ? 'outline' : 'base'}
           disabled={isSourceDisabled}
-          onClick={transfromSource}
+          onClick={transformSource}
         >
           {leftOperation}
         </Button>
@@ -143,7 +154,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
           key={isSourceDisabled ? 'left-outline' : 'left-base'}
           variant={isTargetDisabled ? 'outline' : 'base'}
           disabled={isTargetDisabled}
-          onClick={transfromTarget}
+          onClick={transformTarget}
         >
           {rightOperation}
         </Button>
@@ -154,8 +165,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
   const handleCheckChange = (value: Array<TransferValue>, type: TransferListType) => {
     const { source: sourceChecked, target: targetChecked } = checkeds;
     const inverseMap = { source: 'target', target: 'source' };
-
-    isCheckedControled
+    isCheckedControlled
       ? onCheckedChange?.({
           type,
           checked: value.concat(checkeds[inverseMap[type]]),
@@ -167,18 +177,23 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
 
   // value 受控
   useEffect(() => {
-    if (isTargetControled && Array.isArray(value)) {
-      const newTarget = data.filter((item) => value.includes(item.value));
-      const newSource = difference(data, newTarget);
+    if (isTargetControlled && Array.isArray(value)) {
+      let newTarget = data.filter((item) => value.includes(item.value));
+      let newSource = difference(data, newTarget);
+      // 树结构处理source/target节点数据
+      if (tree) {
+        newSource = filterCheckedTreeNodes(data, value);
+        newTarget = getTargetNodes(newSource, data);
+      }
       setState({ source: [...newSource], target: [...newTarget] });
       setCheckeds({ source: [], target: [] });
     }
-  }, [value, data, isTargetControled]);
+  }, [value, data, isTargetControlled, tree]);
 
   // checked 受控
   useEffect(() => {
     const { source, target } = state;
-    if (isCheckedControled && Array.isArray(checked)) {
+    if (isCheckedControlled && Array.isArray(checked)) {
       const newSourceChecked = source
         .filter((item) => !item.disabled && checked.includes(item.value))
         .map((item) => item.value);
@@ -187,7 +202,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         .map((item) => item.value);
       setCheckeds({ source: newSourceChecked, target: newTargetChecked });
     }
-  }, [checked, state, isCheckedControled]);
+  }, [checked, state, isCheckedControlled]);
 
   return (
     <div
@@ -195,6 +210,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         [`${transferClassName}__search`]: search,
         [`${transferClassName}__pagination`]: pagination,
         [`${transferClassName}__footer`]: footer,
+        [`${transferClassName}--with-tree`]: tree,
       })}
     >
       <TransferList
@@ -211,6 +227,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         content={sourceContent}
         onCheckbox={(value) => handleCheckChange(value, 'source')}
         onSearch={(val: string) => setSearchState({ ...searchState, source: val })}
+        tree={tree}
       ></TransferList>
       {OperationsCmp()}
       <TransferList
@@ -227,11 +244,13 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
         content={targetContent}
         onCheckbox={(value) => handleCheckChange(value, 'target')}
         onSearch={(val: string) => setSearchState({ ...searchState, target: val })}
+        tree={tree}
       ></TransferList>
     </div>
   );
 };
 
 Transfer.displayName = 'Transfer';
+Transfer.defaultProps = transferDefaultProps;
 
 export default Transfer;

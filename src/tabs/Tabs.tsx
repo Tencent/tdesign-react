@@ -5,14 +5,16 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import TabNav from './TabNav';
 import { useTabClass } from './useTabClass';
 import TabPanel from './TabPanel';
+import { StyledProps } from '../common';
+import { tabsDefaultProps } from './defaultProps';
 
-export interface TabsProps extends TdTabsProps {
+export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
 }
 
 const Tabs = forwardRefWithStatics(
   (props: TabsProps, ref) => {
-    const { children, placement, onRemove, value: tabValue, onChange } = props;
+    const { children, placement, onRemove, value: tabValue, onChange, className, style } = props;
     let { defaultValue } = props;
 
     // 样式工具引入
@@ -49,35 +51,36 @@ const Tabs = forwardRefWithStatics(
       }
     };
 
-    const renderTabNav = () => (
-      <TabNav
-        {...props}
-        activeValue={value}
-        onRemove={onRemove}
-        itemList={itemList}
-        tabClick={handleClickTab}
-        onChange={handleChange}
-      />
+    const renderHeader = () => (
+      <div className={classNames(tdTabsClassGenerator('header'), tdClassGenerator(`is-${placement}`))}>
+        <TabNav
+          {...props}
+          activeValue={value}
+          onRemove={onRemove}
+          itemList={itemList}
+          tabClick={handleClickTab}
+          onChange={handleChange}
+        />
+      </div>
     );
 
     return (
-      <div ref={ref} className={classNames(tdTabsClassPrefix)}>
-        {placement !== 'bottom' ? renderTabNav() : null}
+      <div ref={ref} className={classNames(tdTabsClassPrefix, className)} style={style}>
+        {placement !== 'bottom' ? renderHeader() : null}
         <div className={classNames(tdTabsClassGenerator('content'), tdClassGenerator(`is-${placement}`))}>
           {React.Children.map(children, (child: any) => {
             if (child && child.type === TabPanel) {
               if (child.props.value === value) {
                 return child;
               }
-              // 实现 renderOnHide
-              if (child.props.renderOnHide) {
+              if (child.props.destroyOnHide === false) {
                 return <TabPanel style={{ display: 'none' }}>{child.props.children}</TabPanel>;
               }
             }
             return null;
           })}
         </div>
-        {placement === 'bottom' ? renderTabNav() : null}
+        {placement === 'bottom' ? renderHeader() : null}
       </div>
     );
   },
@@ -85,5 +88,6 @@ const Tabs = forwardRefWithStatics(
 );
 
 Tabs.displayName = 'Tabs';
+Tabs.defaultProps = tabsDefaultProps;
 
 export default Tabs;

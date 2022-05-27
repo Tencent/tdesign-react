@@ -20,7 +20,7 @@ describe('Tag 组件测试', () => {
   });
 
   test('content', async () => {
-    const { queryByText } = render(<Tag content="内容"></Tag>);
+    const { queryByText } = render(<Tag maxWidth={200} content="内容" />);
     expect(queryByText('内容')).toBeInTheDocument();
   });
 
@@ -38,8 +38,8 @@ describe('Tag 组件测试', () => {
   });
 
   test('maxWidth', async () => {
-    const { container } = render(<Tag maxWidth={150}>默认超八个字超长文本标签超长省略文本标签</Tag>);
-    expect(container.firstChild.firstChild).toHaveStyle('max-width: 150px');
+    const { container } = render(<Tag maxWidth={'150px'}>默认超八个字超长文本标签超长省略文本标签</Tag>);
+    expect(container.firstChild).toHaveStyle('max-width: 150px');
   });
 
   test('shape:square', async () => {

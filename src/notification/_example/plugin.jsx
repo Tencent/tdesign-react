@@ -2,37 +2,37 @@ import React from 'react';
 import { NotificationPlugin, Button } from 'tdesign-react';
 
 export default function NotificationExample() {
-  const openInfoNotification = React.useCallback(() => {
+  const openInfoNotification = () => {
     NotificationPlugin.info({
       title: '信息',
       content: '这是一条可以自动关闭的消息通知',
       duration: 3000,
     });
-  }, []);
+  };
 
-  const openSuccessNotification = React.useCallback(() => {
+  const openSuccessNotification = () => {
     NotificationPlugin.success({
       title: '信息',
       content: '这是一条可以自动关闭的消息通知',
       duration: 3000,
     });
-  }, []);
+  };
 
-  const openWarningNotification = React.useCallback(() => {
+  const openWarningNotification = () => {
     NotificationPlugin.warning({
       title: '信息',
       content: '这是一条可以自动关闭的消息通知',
       duration: 3000,
     });
-  }, []);
+  };
 
-  const openErrorNotification = React.useCallback(() => {
+  const openErrorNotification = () => {
     NotificationPlugin.error({
       title: '信息',
       content: '这是一条可以自动关闭的消息通知',
       duration: 3000,
     });
-  }, []);
+  };
 
   return (
     <div className="tdesign-demo-block-row">

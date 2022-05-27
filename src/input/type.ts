@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, ClipboardEvent } from 'react';
+import { TNode, TElement, SizeEnum, ClassName } from '../common';
+import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, WheelEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdInputProps {
   /**
@@ -14,15 +14,20 @@ export interface TdInputProps {
    */
   align?: 'left' | 'center' | 'right';
   /**
-   * 是否开启自动填充功能
-   * @default false
+   * 是否开启自动填充功能，HTML5 原生属性，[点击查看详情](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+   * @default ''
    */
-  autocomplete?: boolean;
+  autocomplete?: string;
   /**
    * 自动聚焦
    * @default false
    */
   autofocus?: boolean;
+  /**
+   * 宽度随内容自适应
+   * @default false
+   */
+  autoWidth?: boolean;
   /**
    * 是否可清空
    * @default false
@@ -34,9 +39,13 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 【讨论中】指定输入框展示值的格式
+   * 【开发中】指定输入框展示值的格式
    */
-  format?: (value: number | number) => number | string;
+  format?: InputFormatType;
+  /**
+   * t-input 同级类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
+   */
+  inputClass?: ClassName;
   /**
    * 左侧文本
    */
@@ -46,7 +55,7 @@ export interface TdInputProps {
    */
   maxcharacter?: number;
   /**
-   * 用户最多可以输入的文本长度。值小于等于 0 的时候，则不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
+   * 用户最多可以输入的文本长度，一个中文等于一个计数长度。值小于等于 0 的时候，则表示不限制输入长度。`maxcharacter` 和 `maxlength` 二选一使用
    */
   maxlength?: number;
   /**
@@ -63,10 +72,15 @@ export interface TdInputProps {
    */
   prefixIcon?: TElement;
   /**
-   * 输入框是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 输入框内容为空时，悬浮状态是否显示清空按钮，默认不显示
+   * @default false
+   */
+  showClearIconOnEmpty?: boolean;
   /**
    * 输入框尺寸
    * @default medium
@@ -74,8 +88,9 @@ export interface TdInputProps {
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 后置图标前的后置内容
    */
@@ -110,16 +125,28 @@ export interface TdInputProps {
    */
   onChange?: (
     value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context?: { e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => void;
   /**
    * 清空按钮点击时触发
    */
   onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
+   * 点击组件时触发
+   */
+  onClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 中文输入结束时触发
+   */
+  onCompositionend?: (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => void;
+  /**
+   * 中文输入开始时触发
+   */
+  onCompositionstart?: (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => void;
+  /**
    * 回车键按下时触发
    */
-  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 获得焦点时触发
    */
@@ -127,15 +154,15 @@ export interface TdInputProps {
   /**
    * 键盘按下时触发
    */
-  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 按下字符键时触发（keydown -> keypress -> keyup）
    */
-  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 释放键盘时触发
    */
-  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 进入输入框时触发
    */
@@ -147,7 +174,13 @@ export interface TdInputProps {
   /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent; pasteValue: string }) => void;
+  onPaste?: (context: { e: ClipboardEvent<HTMLInputElement>; pasteValue: string }) => void;
+  /**
+   * 输入框中滚动鼠标时触发
+   */
+  onWheel?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
 }
+
+export type InputFormatType = (value: InputValue) => number | string;
 
 export type InputValue = string | number;

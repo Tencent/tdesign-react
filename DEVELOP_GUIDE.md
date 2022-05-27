@@ -181,9 +181,9 @@ npm run init button
 
 ### Demo 调试
 
-当一个 md 文件插入了很多个 demo 之后，一些组件生命周期方法调试起来会变得困难，若想对某个 demo 单独调试，可以访问路由：/demos/组件名/demo 名，如想单独调试 button 组件 demos 文件夹下的 base demo，则可点击 demo 旁的箭头或直接访问：<http://127.0.0.1:15000/#/react/demos/button/base>
+当一个 md 文件插入了很多个 demo 之后，一些组件生命周期方法调试起来会变得困难，若想对某个 demo 单独调试，可以访问路由：/demos/组件名/demo 名，如想单独调试 button 组件 demos 文件夹下的 base demo，则可点击 demo 旁的箭头或直接访问：<http://127.0.0.1:15000/react/demos/button/base>
 
-所有 demo 路由列表页：<http://127.0.0.1:15000/#/react/demos>
+所有 demo 路由列表页：<http://127.0.0.1:15000/react/demos>
 
 ### 组件测试参考
 
@@ -210,7 +210,8 @@ npm run init
 npm run test
 # 运行全部单元测试用例
 npm run test:unit
-# 运行指定组件单元测试用例，xxx表示组件目录名称
+# 运行指定组件单元测试用例，xxx表示组件目录名称, 多个组件用空格分开
+# eg: npm run test:unit button affix
 npm run test:unit xxx
 
 # 运行全部e2e测试用例

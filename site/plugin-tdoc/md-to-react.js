@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
+import { compileUsage } from '../../src/_common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
@@ -19,24 +20,27 @@ export default function mdToReact(options) {
 
   const reactSource = `
     import React, { useEffect, useRef, useState } from 'react';\n
-    import { useLocation } from 'react-router-dom';
+    import { useLocation, useNavigate } from 'react-router-dom';
     import Prismjs from 'prismjs';
     import 'prismjs/components/prism-bash.js';
-    import Codesandbox from '@components/Codesandbox';
+    import Stackblitz from '@components/stackblitz/index.jsx';
+    import Codesandbox from '@components/codesandbox/index.jsx';
     ${demoDefsStr}
     ${demoCodesDefsStr}
+    ${mdSegment.usage.importStr}
 
     function useQuery() {
       return new URLSearchParams(useLocation().search);
     }
 
-    export default function TdDoc(props) {
+    export default function TdDoc() {
       const tdDocHeader = useRef();
       const tdDocTabs = useRef();
 
       const isComponent  = ${mdSegment.isComponent};
 
       const location = useLocation();
+      const navigate = useNavigate();
 
       const query = useQuery();
       const [tab, setTab] = useState(query.get('tab') || 'demo');
@@ -54,12 +58,6 @@ export default function mdToReact(options) {
         document.title = \`${mdSegment.title} | TDesign\`;
 
         Prismjs.highlightAll();
-
-        document.querySelector('td-doc-content').initAnchorHighlight();
-
-        return () => {
-          document.querySelector('td-doc-content').resetAnchorHighlight();
-        };
       }, []);
 
       useEffect(() => {
@@ -74,7 +72,7 @@ export default function mdToReact(options) {
           setTab(currentTab);
           const query = new URLSearchParams(location.search);
           if (query.get('tab') === currentTab) return;
-          props.history.push({ search: '?tab=' + currentTab });
+          navigate({ search: '?tab=' + currentTab });
         }
       }, [location])
 
@@ -103,8 +101,8 @@ export default function mdToReact(options) {
                   ${mdSegment.demoMd.replace(/class=/g, 'className=')}
                   <td-contributors platform="web" framework="react" component-name="${mdSegment.componentName}" ></td-contributors>
                 </div>
-                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: \`${mdSegment.apiMd}\` }}></div>
-                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: \`${mdSegment.designMd}\` }}></div>
+                <div style={isShow('api')} name="API" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.apiMd)} }}></div>
+                <div style={isShow('design')} name="DESIGN" dangerouslySetInnerHTML={{ __html: ${JSON.stringify(mdSegment.designMd)} }}></div>
               </>
             ) : <div name="DOC" className="${mdSegment.docClass}">${mdSegment.docMd.replace(/class=/g, 'className=')}</div>
           }
@@ -163,24 +161,38 @@ function customRender({ source, file, md }) {
   let [demoMd = '', apiMd = ''] = content.split(pageData.apiFlag);
 
   // fix table | render error
-  demoMd = demoMd.replace(/`([^`]+)`/g, (str, codeStr) => {
+  demoMd = demoMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
     codeStr = codeStr.replace(/"/g, '\'');
     return `<td-code text="${codeStr}"></td-code>`;
   });
 
-  apiMd = apiMd.replace(/`([^`]+)`/g, (str, codeStr) => {
+  apiMd = apiMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
     codeStr = codeStr.replace(/\|/g, '\\|');
-    return `<td-code text="${codeStr}"></td-code>`;
+    return `\`${codeStr}\``;
   });
 
   const mdSegment = {
     ...pageData,
     componentName,
+    usage: { importStr: '' },
     docMd: '<td-doc-empty></td-doc-empty>',
     demoMd: '<td-doc-empty></td-doc-empty>',
     apiMd: '<td-doc-empty></td-doc-empty>',
     designMd: '<td-doc-empty></td-doc-empty>',
   };
+
+  // 渲染 live demo
+  if (pageData.usage && pageData.isComponent) {
+    const usageObj = compileUsage({
+      componentName,
+      usage: pageData.usage,
+      demoPath: path.resolve(__dirname, `../../src/${componentName}/_usage/index.jsx`),
+    });
+    if (usageObj) {
+      mdSegment.usage = usageObj;
+      demoMd = `${usageObj.markdownStr} ${demoMd}`;
+    }
+  }
 
   if (pageData.isComponent) {
     mdSegment.demoMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${demoMd.replace(/<!--[\s\S]+?-->/g, '')}`).html;

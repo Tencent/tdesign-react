@@ -17,7 +17,6 @@ exports[`base.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -49,7 +48,6 @@ exports[`base.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -69,7 +67,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -89,7 +86,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -110,7 +106,6 @@ exports[`base.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -130,7 +125,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -150,7 +144,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -170,7 +163,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -191,7 +183,6 @@ exports[`base.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -211,7 +202,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -231,7 +221,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="10"
               />
@@ -251,7 +240,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="11"
               />
@@ -272,7 +260,6 @@ exports[`base.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="12"
               />
@@ -292,7 +279,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="13"
               />
@@ -312,7 +298,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="14"
               />
@@ -332,7 +317,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="15"
               />
@@ -353,7 +337,6 @@ exports[`base.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="16"
               />
@@ -373,7 +356,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="17"
               />
@@ -393,7 +375,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="18"
               />
@@ -413,7 +394,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="19"
               />
@@ -438,7 +418,6 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -462,7 +441,6 @@ exports[`base.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -496,7 +474,6 @@ exports[`base.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -527,7 +504,6 @@ exports[`base.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -567,7 +543,6 @@ exports[`checked.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -599,7 +574,6 @@ exports[`checked.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -620,7 +594,6 @@ exports[`checked.jsx 1`] = `
               <input
                 checked=""
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -641,7 +614,6 @@ exports[`checked.jsx 1`] = `
               <input
                 checked=""
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -662,7 +634,6 @@ exports[`checked.jsx 1`] = `
               <input
                 checked=""
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -683,7 +654,6 @@ exports[`checked.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -703,7 +673,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -723,7 +692,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -743,7 +711,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -764,7 +731,6 @@ exports[`checked.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -784,7 +750,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -804,7 +769,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="10"
               />
@@ -824,7 +788,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="11"
               />
@@ -845,7 +808,6 @@ exports[`checked.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="12"
               />
@@ -865,7 +827,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="13"
               />
@@ -885,7 +846,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="14"
               />
@@ -905,7 +865,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="15"
               />
@@ -926,7 +885,6 @@ exports[`checked.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="16"
               />
@@ -946,7 +904,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="17"
               />
@@ -966,7 +923,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="18"
               />
@@ -986,7 +942,6 @@ exports[`checked.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="19"
               />
@@ -1010,7 +965,6 @@ exports[`checked.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1034,7 +988,6 @@ exports[`checked.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1068,7 +1021,6 @@ exports[`checked.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -1122,7 +1074,6 @@ exports[`custom.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -1156,7 +1107,6 @@ exports[`custom.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -1176,7 +1126,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -1196,7 +1145,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -1216,7 +1164,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -1237,7 +1184,6 @@ exports[`custom.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -1257,7 +1203,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -1277,7 +1222,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -1297,7 +1241,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -1318,7 +1261,6 @@ exports[`custom.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -1338,7 +1280,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -1358,7 +1299,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="10"
               />
@@ -1378,7 +1318,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="11"
               />
@@ -1399,7 +1338,6 @@ exports[`custom.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="12"
               />
@@ -1419,7 +1357,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="13"
               />
@@ -1439,7 +1376,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="14"
               />
@@ -1459,7 +1395,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="15"
               />
@@ -1480,7 +1415,6 @@ exports[`custom.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="16"
               />
@@ -1500,7 +1434,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="17"
               />
@@ -1520,7 +1453,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="18"
               />
@@ -1540,7 +1472,6 @@ exports[`custom.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="19"
               />
@@ -1574,7 +1505,6 @@ exports[`custom.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1586,7 +1516,6 @@ exports[`custom.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -1608,7 +1537,6 @@ exports[`custom.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -1675,7 +1603,6 @@ exports[`custom-render.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -1706,7 +1633,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -1730,7 +1656,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -1754,7 +1679,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -1778,7 +1702,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -1802,7 +1725,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -1826,7 +1748,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -1850,7 +1771,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -1874,7 +1794,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -1898,7 +1817,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -1922,7 +1840,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -1946,7 +1863,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="10"
               />
@@ -1970,7 +1886,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="11"
               />
@@ -1994,7 +1909,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="12"
               />
@@ -2018,7 +1932,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="13"
               />
@@ -2042,7 +1955,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="14"
               />
@@ -2066,7 +1978,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="15"
               />
@@ -2090,7 +2001,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="16"
               />
@@ -2114,7 +2024,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="17"
               />
@@ -2138,7 +2047,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="18"
               />
@@ -2162,7 +2070,6 @@ exports[`custom-render.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="19"
               />
@@ -2191,7 +2098,6 @@ exports[`custom-render.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2215,7 +2121,6 @@ exports[`custom-render.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2249,7 +2154,6 @@ exports[`custom-render.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -2309,7 +2213,6 @@ exports[`empty.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value=""
               />
@@ -2348,7 +2251,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2372,7 +2274,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2406,7 +2307,6 @@ exports[`empty.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value=""
               />
@@ -2458,7 +2358,6 @@ exports[`empty.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value=""
               />
@@ -2497,7 +2396,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2521,7 +2419,6 @@ exports[`empty.jsx 1`] = `
         <button
           class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
           disabled=""
-          style="position: relative;"
           type="button"
         >
           <span
@@ -2555,7 +2452,6 @@ exports[`empty.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value=""
               />
@@ -2608,7 +2504,6 @@ exports[`pagination.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -2639,7 +2534,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -2659,7 +2553,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -2679,7 +2572,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -2699,7 +2591,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -2719,7 +2610,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -2739,7 +2629,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -2759,7 +2648,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -2779,7 +2667,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -2799,7 +2686,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -2819,7 +2705,6 @@ exports[`pagination.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -2867,35 +2752,51 @@ exports[`pagination.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select__popup-reference"
+                class="t-popup__reference t-select t-select-input"
               >
                 <div
-                  class="t-select t-size-s"
-                  style="user-select: none;"
+                  class="t-input__wrap t-input--auto-width"
+                  value="1/2"
                 >
-                  <span
-                    class="t-select__left-icon"
-                  />
-                  <span
-                    class="t-select__single"
+                  <div
+                    class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
-                    1/2
-                  </span>
-                  <svg
-                    class="t-fake-arrow t-select__right-icon"
-                    fill="none"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                      stroke="black"
-                      stroke-opacity="0.9"
-                      stroke-width="1.3"
+                    <div
+                      class="t-input__prefix"
                     />
-                  </svg>
+                    <input
+                      class="t-input__inner"
+                      placeholder="请选择"
+                      readonly=""
+                      style="width: 0px;"
+                      type="text"
+                      value="1/2"
+                    />
+                    <span
+                      class="t-input__input-pre"
+                    >
+                      1/2
+                    </span>
+                    <span
+                      class="t-input__suffix t-input__suffix-icon"
+                    >
+                      <svg
+                        class="t-fake-arrow t-select__right-icon"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                          stroke="black"
+                          stroke-opacity="0.9"
+                          stroke-width="1.3"
+                        />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2926,7 +2827,6 @@ exports[`pagination.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2950,7 +2850,6 @@ exports[`pagination.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -2984,7 +2883,6 @@ exports[`pagination.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -3046,35 +2944,51 @@ exports[`pagination.jsx 1`] = `
               class="t-select__wrap"
             >
               <div
-                class="t-popup__reference t-select__popup-reference"
+                class="t-popup__reference t-select t-select-input"
               >
                 <div
-                  class="t-select t-size-s"
-                  style="user-select: none;"
+                  class="t-input__wrap t-input--auto-width"
+                  value="1/1"
                 >
-                  <span
-                    class="t-select__left-icon"
-                  />
-                  <span
-                    class="t-select__single"
+                  <div
+                    class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
-                    1/1
-                  </span>
-                  <svg
-                    class="t-fake-arrow t-select__right-icon"
-                    fill="none"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                      stroke="black"
-                      stroke-opacity="0.9"
-                      stroke-width="1.3"
+                    <div
+                      class="t-input__prefix"
                     />
-                  </svg>
+                    <input
+                      class="t-input__inner"
+                      placeholder="请选择"
+                      readonly=""
+                      style="width: 0px;"
+                      type="text"
+                      value="1/1"
+                    />
+                    <span
+                      class="t-input__input-pre"
+                    >
+                      1/1
+                    </span>
+                    <span
+                      class="t-input__suffix t-input__suffix-icon"
+                    >
+                      <svg
+                        class="t-fake-arrow t-select__right-icon"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                          stroke="black"
+                          stroke-opacity="0.9"
+                          stroke-width="1.3"
+                        />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3120,7 +3034,6 @@ exports[`search.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -3144,30 +3057,35 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input--suffix"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              placeholder="请输入关键词搜索"
-              value=""
-            />
-            <span
-              class="t-input__suffix"
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--suffix"
             >
-              <svg
-                class="t-icon t-icon-search"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
+              <input
+                class="t-input__inner"
+                placeholder="请输入关键词搜索"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
               >
-                <path
-                  d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
+                <svg
+                  class="t-icon t-icon-search"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -3182,7 +3100,6 @@ exports[`search.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="0"
               />
@@ -3202,7 +3119,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="1"
               />
@@ -3222,7 +3138,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="2"
               />
@@ -3242,7 +3157,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="3"
               />
@@ -3263,7 +3177,6 @@ exports[`search.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="4"
               />
@@ -3283,7 +3196,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="5"
               />
@@ -3303,7 +3215,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="6"
               />
@@ -3323,7 +3234,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="7"
               />
@@ -3344,7 +3254,6 @@ exports[`search.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="8"
               />
@@ -3364,7 +3273,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="9"
               />
@@ -3384,7 +3292,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="10"
               />
@@ -3404,7 +3311,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="11"
               />
@@ -3425,7 +3331,6 @@ exports[`search.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="12"
               />
@@ -3445,7 +3350,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="13"
               />
@@ -3465,7 +3369,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="14"
               />
@@ -3485,7 +3388,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="15"
               />
@@ -3506,7 +3408,6 @@ exports[`search.jsx 1`] = `
               <input
                 class="t-checkbox__former"
                 disabled=""
-                readonly=""
                 type="checkbox"
                 value="16"
               />
@@ -3526,7 +3427,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="17"
               />
@@ -3546,7 +3446,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="18"
               />
@@ -3566,7 +3465,6 @@ exports[`search.jsx 1`] = `
             >
               <input
                 class="t-checkbox__former"
-                readonly=""
                 type="checkbox"
                 value="19"
               />
@@ -3591,7 +3489,6 @@ exports[`search.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3615,7 +3512,6 @@ exports[`search.jsx 1`] = `
       <button
         class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
         disabled=""
-        style="position: relative;"
         type="button"
       >
         <span
@@ -3649,7 +3545,6 @@ exports[`search.jsx 1`] = `
           >
             <input
               class="t-checkbox__former"
-              readonly=""
               type="checkbox"
               value=""
             />
@@ -3673,32 +3568,182 @@ exports[`search.jsx 1`] = `
           class="t-transfer__search-wrapper"
         >
           <div
-            class="t-input t-input--suffix"
+            class="t-input__wrap"
           >
-            <input
-              class="t-input__inner"
-              placeholder="请输入关键词搜索"
-              value=""
-            />
-            <span
-              class="t-input__suffix"
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--suffix"
             >
-              <svg
-                class="t-icon t-icon-search"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
+              <input
+                class="t-input__inner"
+                placeholder="请输入关键词搜索"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
               >
-                <path
-                  d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
+                <svg
+                  class="t-icon t-icon-search"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M9.51 10.22a4.76 4.76 0 11.7-.7l3.54 3.52-.7.71-3.54-3.53zm.77-3.7a3.76 3.76 0 10-7.53 0 3.76 3.76 0 007.53 0z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-transfer__list-content narrow-scrollbar"
+        >
+          <div
+            class="t-transfer__empty"
+          >
+            <span>
+              暂无数据
             </span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`tree.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-transfer t-transfer--with-tree"
+  >
+    <div
+      class="t-transfer__list t-transfer__list-source"
+    >
+      <div
+        class="t-transfer__list-header"
+      >
+        <div>
+          <label
+            class="t-checkbox"
+          >
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            />
+          </label>
+          <span>
+            0 / 5 项
+          </span>
+        </div>
+        <span />
+      </div>
+      <div
+        class="t-transfer__list-body"
+      >
+        <div
+          class="t-transfer__list-content narrow-scrollbar"
+        >
+          <div
+            class="t-tree t-tree--hoverable t-tree--checkable t-tree--transition"
+          >
+            暂无数据
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-transfer__operations"
+    >
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-chevron-right"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="t-button t-button--theme-default t-button--variant-outline t-is-disabled"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="t-button__text"
+        >
+          <svg
+            class="t-icon t-icon-chevron-left"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="t-transfer__list t-transfer__list-target"
+    >
+      <div
+        class="t-transfer__list-header"
+      >
+        <div>
+          <label
+            class="t-checkbox"
+          >
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            />
+          </label>
+          <span>
+            0 / 0 项
+          </span>
+        </div>
+        <span />
+      </div>
+      <div
+        class="t-transfer__list-body"
+      >
         <div
           class="t-transfer__list-content narrow-scrollbar"
         >

@@ -10,9 +10,8 @@ exports[`base.jsx 1`] = `
     >
       <input
         class="t-radio__former"
-        readonly=""
         type="radio"
-        value=""
+        value="0"
       />
       <span
         class="t-radio__input"
@@ -28,9 +27,8 @@ exports[`base.jsx 1`] = `
     >
       <input
         class="t-radio__former"
-        readonly=""
         type="radio"
-        value=""
+        value="0"
       />
       <span
         class="t-radio__input"
@@ -47,9 +45,8 @@ exports[`base.jsx 1`] = `
       <input
         checked=""
         class="t-radio__former"
-        readonly=""
         type="radio"
-        value=""
+        value="0"
       />
       <span
         class="t-radio__input"
@@ -66,9 +63,8 @@ exports[`base.jsx 1`] = `
       <input
         class="t-radio__former"
         disabled=""
-        readonly=""
         type="radio"
-        value=""
+        value="0"
       />
       <span
         class="t-radio__input"
@@ -86,9 +82,8 @@ exports[`base.jsx 1`] = `
         checked=""
         class="t-radio__former"
         disabled=""
-        readonly=""
         type="radio"
-        value=""
+        value="0"
       />
       <span
         class="t-radio__input"
@@ -99,6 +94,23 @@ exports[`base.jsx 1`] = `
         禁用已选中
       </span>
     </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`dynamic.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        打开弹窗
+      </span>
+    </button>
   </div>
 </DocumentFragment>
 `;
@@ -115,7 +127,6 @@ exports[`group.jsx 1`] = `
         <input
           checked=""
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="bj"
         />
@@ -133,7 +144,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="sh"
         />
@@ -151,7 +161,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="gz"
         />
@@ -169,7 +178,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="sz"
         />
@@ -193,7 +201,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="bj"
         />
@@ -211,7 +218,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="sh"
         />
@@ -230,7 +236,6 @@ exports[`group.jsx 1`] = `
         <input
           class="t-radio__former"
           disabled=""
-          readonly=""
           type="radio"
           value="gz"
         />
@@ -249,7 +254,6 @@ exports[`group.jsx 1`] = `
         <input
           checked=""
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="sz"
         />
@@ -273,7 +277,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="北京"
         />
@@ -291,7 +294,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="上海"
         />
@@ -309,7 +311,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="广州"
         />
@@ -328,7 +329,6 @@ exports[`group.jsx 1`] = `
         <input
           checked=""
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="深圳"
         />
@@ -363,7 +363,6 @@ exports[`size.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bj"
           />
@@ -381,7 +380,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sh"
           />
@@ -399,7 +397,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="gz"
           />
@@ -417,7 +414,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sz"
           />
@@ -439,7 +435,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bj1"
           />
@@ -458,7 +453,6 @@ exports[`size.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sh1"
           />
@@ -476,7 +470,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="gz1"
           />
@@ -494,7 +487,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sz1"
           />
@@ -516,7 +508,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="bj2"
           />
@@ -534,7 +525,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sh2"
           />
@@ -553,7 +543,6 @@ exports[`size.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="gz2"
           />
@@ -571,7 +560,6 @@ exports[`size.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="sz2"
           />
@@ -599,7 +587,6 @@ exports[`size.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="bj"
             />
@@ -617,7 +604,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sh"
             />
@@ -635,7 +621,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="gz"
             />
@@ -653,7 +638,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sz"
             />
@@ -681,7 +665,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="bj1"
             />
@@ -700,7 +683,6 @@ exports[`size.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sh1"
             />
@@ -718,7 +700,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="gz1"
             />
@@ -736,7 +717,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sz1"
             />
@@ -764,7 +744,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="bj2"
             />
@@ -782,7 +761,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sh2"
             />
@@ -801,7 +779,6 @@ exports[`size.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="gz2"
             />
@@ -819,7 +796,6 @@ exports[`size.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sz2"
             />
@@ -862,7 +838,6 @@ exports[`type.jsx 1`] = `
         >
           <input
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="bj"
           />
@@ -880,7 +855,6 @@ exports[`type.jsx 1`] = `
         >
           <input
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="sh"
           />
@@ -899,7 +873,6 @@ exports[`type.jsx 1`] = `
           <input
             checked=""
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="gz"
           />
@@ -917,7 +890,6 @@ exports[`type.jsx 1`] = `
         >
           <input
             class="t-radio__former"
-            readonly=""
             type="radio"
             value="sz"
           />
@@ -947,7 +919,6 @@ exports[`type.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="1"
           />
@@ -965,7 +936,6 @@ exports[`type.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="2"
           />
@@ -983,7 +953,6 @@ exports[`type.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="3"
           />
@@ -1003,7 +972,6 @@ exports[`type.jsx 1`] = `
             checked=""
             class="t-radio-button__former"
             disabled=""
-            readonly=""
             type="radio"
             value="1"
           />
@@ -1022,7 +990,6 @@ exports[`type.jsx 1`] = `
           <input
             class="t-radio-button__former"
             disabled=""
-            readonly=""
             type="radio"
             value="2"
           />
@@ -1052,7 +1019,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="bj"
             />
@@ -1071,7 +1037,6 @@ exports[`type.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="gz"
             />
@@ -1089,7 +1054,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sz"
             />
@@ -1107,7 +1071,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="fj"
             />
@@ -1125,7 +1088,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="cd"
             />
@@ -1153,7 +1115,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="bj"
             />
@@ -1172,7 +1133,6 @@ exports[`type.jsx 1`] = `
             <input
               checked=""
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="gz"
             />
@@ -1190,7 +1150,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="sz"
             />
@@ -1208,7 +1167,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="fj"
             />
@@ -1226,7 +1184,6 @@ exports[`type.jsx 1`] = `
           >
             <input
               class="t-radio-button__former"
-              readonly=""
               type="radio"
               value="cd"
             />
@@ -1255,7 +1212,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="fj"
             />
@@ -1274,7 +1230,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="cd"
             />
@@ -1293,7 +1248,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="sz"
             />
@@ -1313,7 +1267,6 @@ exports[`type.jsx 1`] = `
               checked=""
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="bj"
             />
@@ -1332,7 +1285,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="gz"
             />
@@ -1361,7 +1313,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="fj"
             />
@@ -1380,7 +1331,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="cd"
             />
@@ -1399,7 +1349,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="sz"
             />
@@ -1419,7 +1368,6 @@ exports[`type.jsx 1`] = `
               checked=""
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="bj"
             />
@@ -1438,7 +1386,6 @@ exports[`type.jsx 1`] = `
             <input
               class="t-radio-button__former"
               disabled=""
-              readonly=""
               type="radio"
               value="gz"
             />

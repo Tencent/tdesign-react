@@ -18,7 +18,6 @@ exports[`base.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-outline"
-            style="position: relative;"
             type="button"
           >
             <svg
@@ -64,7 +63,6 @@ exports[`custom-drag.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -108,7 +106,6 @@ exports[`custom-drag.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
@@ -132,7 +129,7 @@ exports[`draggable.jsx 1`] = `
     <div>
       是否自动上传：
       <button
-        class="t-switch"
+        class="t-switch t-size-m"
         role="switch"
         type="button"
       >
@@ -154,7 +151,6 @@ exports[`draggable.jsx 1`] = `
         <input
           checked=""
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="file"
         />
@@ -172,7 +168,6 @@ exports[`draggable.jsx 1`] = `
       >
         <input
           class="t-radio__former"
-          readonly=""
           type="radio"
           value="image"
         />
@@ -242,7 +237,6 @@ exports[`file-flow-list.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-default t-button--variant-outline"
-              style="position: relative;"
               type="button"
             >
               <svg
@@ -314,7 +308,6 @@ exports[`file-flow-list.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
@@ -326,7 +319,6 @@ exports[`file-flow-list.jsx 1`] = `
           <button
             class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
             disabled=""
-            style="position: relative;"
             type="button"
           >
             <span
@@ -554,7 +546,6 @@ exports[`img-flow-list.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-default t-button--variant-outline"
-              style="position: relative;"
               type="button"
             >
               <svg
@@ -602,7 +593,6 @@ exports[`img-flow-list.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
@@ -614,7 +604,6 @@ exports[`img-flow-list.jsx 1`] = `
           <button
             class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
             disabled=""
-            style="position: relative;"
             type="button"
           >
             <span
@@ -645,7 +634,6 @@ exports[`request-method.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="requestSuccessMethod"
           />
@@ -663,7 +651,6 @@ exports[`request-method.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="requestFailMethod"
           />
@@ -697,7 +684,6 @@ exports[`request-method.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-default t-button--variant-outline"
-            style="position: relative;"
             type="button"
           >
             <svg
@@ -755,7 +741,6 @@ exports[`single-custom.jsx 1`] = `
         >
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span

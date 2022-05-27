@@ -1,45 +1,27 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'tdesign-react';
+import { Table, Button, DatePicker } from 'tdesign-react';
 
 const columns = [
   {
     colKey: 'instance',
     title: '集群名称',
-    filter: {
-      type: 'single',
-      list: [
-        { label: 'any one', value: '' },
-        { label: 'JQTest1', value: 'JQTest1' },
-        { label: 'JQTest2', value: 'JQTest2' },
-        { label: 'JQTest3', value: 'JQTest3' },
-      ],
-    },
-    width: 100,
-  },
-  {
-    colKey: 'status',
-    title: '状态',
-    width: 100,
-    cell({ row }) {
-      switch (row.status) {
-        case 0:
-          return <p className="status">健康</p>;
-        case 1:
-          return <p className="status warning">警告</p>;
-        case 2:
-          return <p className="status unhealth">异常</p>;
-        default:
-          return null;
-      }
-    },
+    // filter: {
+    //   type: 'single',
+    //   list: [
+    //     { label: 'any one', value: '' },
+    //     { label: 'JQTest1', value: 'JQTest1' },
+    //     { label: 'JQTest2', value: 'JQTest2' },
+    //     { label: 'JQTest3', value: 'JQTest3' },
+    //   ],
+    // },
   },
   {
     colKey: 'survivalTime',
-    title: '存活时间(s)',
-    width: 150,
-    sortType: 'all',
+    title: '存活时间',
+    sorter: (a, b) => a.survivalTime - b.survivalTime,
     filter: {
-      type: 'multiple',
+      type: 'single',
+      // showConfirmAndReset: true,
       list: [
         { label: '300', value: 300 },
         { label: '500', value: 500 },
@@ -50,17 +32,20 @@ const columns = [
   {
     colKey: 'owner',
     title: '管理员',
-    width: 100,
     filter: {
       type: 'input',
+      showConfirmAndReset: true,
+      props: {
+        placeholder: '请输入关键词搜索',
+      },
     },
   },
   {
     colKey: 'area',
     title: '区域',
-    width: 100,
     filter: {
       type: 'multiple',
+      showConfirmAndReset: true,
       list: [
         { label: '广州', value: '广州' },
         { label: '成都', value: '成都' },
@@ -68,22 +53,48 @@ const columns = [
       ],
     },
   },
+  {
+    title: '自定义过滤',
+    colKey: 'createTime',
+    // 自定义过滤组件
+    filter: {
+      // 直接传入组件，请确保自定义过滤组件包含 value 和 onChange 等两个参数，组件内部会自动处理
+      component: DatePicker,
+      props: {
+        clearable: true,
+      },
+    },
+  },
 ];
 const initData = [
-  { id: 1, instance: 'JQTest1', status: 0, owner: 'jenny;peter', survivalTime: 300, area: '广州' },
-  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000, area: '上海' },
-  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500, area: '北京' },
-  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500, area: '成都' },
-  { id: 5, instance: 'JQTest5', status: 1, owner: 'jeff', survivalTime: 500, area: '深圳' },
-  { id: 6, instance: 'JQTest1', status: 1, owner: 'tony', survivalTime: 800, area: '南京' },
+  {
+    id: 1,
+    instance: 'JQTest1',
+    status: 0,
+    owner: 'jenny;peter',
+    survivalTime: 300,
+    area: '广州',
+    createTime: '2021-11-01',
+  },
+  { id: 2, instance: 'JQTest2', status: 1, owner: 'jenny', survivalTime: 1000, area: '上海', createTime: '2021-12-01' },
+  { id: 3, instance: 'JQTest3', status: 2, owner: 'jenny', survivalTime: 500, area: '北京', createTime: '2022-01-01' },
+  { id: 4, instance: 'JQTest4', status: 1, owner: 'peter', survivalTime: 1500, area: '成都', createTime: '2022-02-01' },
+  { id: 5, instance: 'JQTest5', status: 1, owner: 'jeff', survivalTime: 500, area: '深圳', createTime: '2022-03-01' },
+  { id: 6, instance: 'JQTest1', status: 1, owner: 'tony', survivalTime: 800, area: '南京', createTime: '2022-04-01' },
 ];
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
-  const [filterValue, setFilterValue] = useState({ survivalTime: [300, 500] });
+  //  survivalTime: [300, 500] 
+  const [filterValue, setFilterValue] = useState({});
 
-  function onFilterChange(_filterVal, col) {
-    console.log(_filterVal, col);
-    setFilterValue(_filterVal);
+  function onFilterChange(filterVal, col) {
+    console.log(filterVal, col);
+    setFilterValue(filterVal);
+    // TODO: 在此处理过滤数据效果，以达到更真实的过滤效果
+  }
+
+  function onChange(info, context) {
+    console.log('onChange', info, context);
   }
 
   // 受控方式，打开模拟排序（可用，勿删）
@@ -131,9 +142,17 @@ export default function TableSingleSort() {
         data={data}
         columns={columns}
         // filterIcon={<IconFont name="add-circle" size="1em" />}
-        // filterValue={filterValue}
-        defaultFilterValue={filterValue}
+        filterValue={filterValue}
+        // defaultFilterValue={filterValue}
         onFilterChange={onFilterChange}
+        onChange={onChange}
+        // 非受控写法
+        pagination={{
+          defaultCurrent: 1,
+          defaultPageSize: 5,
+          showJumper: true,
+          pageSizeOptions: [1, 3, 5, 10],
+        }}
       />
     </div>
   );

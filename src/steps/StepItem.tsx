@@ -1,93 +1,77 @@
 import React, { useContext } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { CloseIcon, CheckIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import { TdStepItemProps } from './type';
 import { StyledProps } from '../common';
 import StepsContext from './StepsContext';
+import { stepItemDefaultProps } from './defaultProps';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
-  /**
-   * Step的额外的内容以子元素的形式传入
-   */
+  index?: number;
   children?: React.ReactNode;
 }
 
-export default function StepItem(props: StepItemProps) {
-  const { icon, title, content, value, children, style } = props;
-  let { status } = props;
+const StepItem = (props: StepItemProps) => {
+  const { index, icon, title, content, value, children, style, status } = props;
 
-  const { current, theme } = useContext(StepsContext);
-  const { classPrefix } = useConfig();
+  const { current, theme, onChange, readonly } = useContext(StepsContext);
+  const { classPrefix, steps: globalStepsConfig } = useConfig();
 
-  // 本步骤组件主动设定了状态，那么以此为准
-  if (!status) {
-    if (value < current) {
-      // 1. 本步骤序号小于当前步骤并且没有设定任何步骤序号，设定状态为 finish
-      status = 'finish';
-    } else if (value === current) {
-      // 2. 本步骤序号等于当前步骤. 默认为process
-      status = 'process';
-    } else {
-      // 3. 本步骤序号大于当前步骤，默认为wait
-      status = 'default';
-    }
-  }
-
-  const className = classnames({
-    [`${classPrefix}-steps-item`]: true,
-    [`${classPrefix}-steps-item--wait`]: status === 'default',
-    [`${classPrefix}-steps-item--error`]: status === 'error',
-    [`${classPrefix}-steps-item--finish`]: status === 'finish',
-    [`${classPrefix}-steps-item--process`]: status === 'process',
-    [props.className]: !!props.className,
-  });
-
-  const valueNum = Number(value);
+  const canClick = status !== 'process' && !readonly;
 
   // 步骤条每一步展示的图标
-  let iconEle = null;
-  // 1. 主动
-  // 用户自定义 icon 时优先级最高
-  if (icon) {
-    iconEle = icon;
-  } else if (theme === 'default') {
-    // 否则 根据 theme 决定是否展示默认 icon，dot 情况下不展示 icon
-    switch (status) {
-      case 'error':
-        iconEle = (
-          <span className={`${classPrefix}-steps-item__icon--number`}>
-            <CloseIcon />
-          </span>
-        );
-        break;
-      case 'finish':
-        iconEle = (
-          <span className={`${classPrefix}-steps-item__icon--number`}>
-            <CheckIcon />
-          </span>
-        );
-        break;
-      case 'default':
-      case 'process':
-        iconEle = (
-          <span className={`${classPrefix}-steps-item__icon--number`}>
-            {Number.isNaN(valueNum) ? value : valueNum + 1}
-          </span>
-        );
-        break;
-    }
-  } else {
-    iconEle = null;
+  function renderIcon() {
+    if (!icon) return null;
+
+    const iconCls = `${classPrefix}-steps-item__icon--number`;
+
+    if (icon && icon !== true) return <span className={iconCls}>{icon}</span>;
+
+    if (theme !== 'default') return null;
+
+    if (status === 'error') return <span className={iconCls}>{globalStepsConfig.errorIcon || <CloseIcon />}</span>;
+
+    if (status === 'finish')
+      return (
+        <span className={iconCls}>
+          <CheckIcon />
+        </span>
+      );
+
+    return <span className={iconCls}>{Number(index) + 1}</span>;
+  }
+
+  function onStepClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (!canClick) return;
+    const currentValue = value ?? index;
+    onChange(currentValue, current, { e });
   }
 
   return (
-    <div className={className} style={style}>
-      <div className={`${classPrefix}-steps-item__inner`}>
+    <div
+      style={style}
+      className={classNames({
+        [`${classPrefix}-steps-item`]: true,
+        [`${classPrefix}-steps-item--wait`]: status === 'default',
+        [`${classPrefix}-steps-item--error`]: status === 'error',
+        [`${classPrefix}-steps-item--finish`]: status === 'finish',
+        [`${classPrefix}-steps-item--process`]: status === 'process',
+        [props.className]: !!props.className,
+      })}
+    >
+      <div
+        className={classNames(`${classPrefix}-steps-item__inner`, {
+          [`${classPrefix}-steps-item--clickable`]: canClick,
+        })}
+        onClick={onStepClick}
+      >
         <div
-          className={`${classPrefix}-steps-item__icon ${status === 'finish' ? `${classPrefix}-steps-item-finish` : ''}`}
+          className={classNames(`${classPrefix}-steps-item__icon`, {
+            [`${classPrefix}-steps-item-${status}`]: status,
+          })}
         >
-          {iconEle}
+          {renderIcon()}
         </div>
         <div className={`${classPrefix}-steps-item__content`}>
           <div className={`${classPrefix}-steps-item__title`}>{title}</div>
@@ -97,6 +81,9 @@ export default function StepItem(props: StepItemProps) {
       </div>
     </div>
   );
-}
+};
 
 StepItem.displayName = 'StepItem';
+StepItem.defaultProps = stepItemDefaultProps;
+
+export default StepItem;

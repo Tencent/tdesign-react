@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
 import classnames from 'classnames';
+import { ChevronLeftIcon, ChevronRightIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import noop from '../_util/noop';
-import { TdSwiperProps, SwiperChangeSource } from './type';
+import { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import { StyledProps } from '../common';
+import { swiperDefaultProps } from './defaultProps';
 
 import SwiperItem from './SwiperItem';
 
@@ -11,26 +13,67 @@ export interface SwiperProps extends TdSwiperProps, StyledProps {
   children?: React.ReactNode;
 }
 
+enum CreateArrow {
+  Default = 'default',
+  Fraction = 'fraction',
+}
+
+enum ArrowClickDirection {
+  Left = 'left',
+  Right = 'right',
+}
+
+enum MouseAction {
+  Enter = 'enter',
+  Leave = 'leave',
+  Click = 'click',
+}
+
+const defaultNavigation: SwiperNavigation = {
+  placement: 'inside',
+  showSlideBtn: 'always',
+  size: 'medium',
+  type: 'bars',
+};
+
 const Swiper = (props: SwiperProps) => {
   const {
-    // animation = 'slide', // 轮播切换动画效果类型（暂时没用）
-    autoplay = true, // 是否自动播放
+    animation, // 轮播切换动画效果类型
+    autoplay, // 是否自动播放
     current, // 当前轮播在哪一项（下标）
-    defaultCurrent = 0, // 当前轮播在哪一项（下标），非受控属性
-    direction = 'horizontal', // 轮播滑动方向，包括横向滑动和纵向滑动两个方向
-    duration = 300, // 滑动动画时长
-    interval = 5000, // 轮播间隔时间
+    defaultCurrent, // 当前轮播在哪一项（下标），非受控属性
+    direction, // 轮播滑动方向，包括横向滑动和纵向滑动两个方向
+    duration, // 滑动动画时长
+    interval, // 轮播间隔时间
+    trigger,
+    height,
+    loop,
+    stopOnHover,
     onChange = noop, // 轮播切换时触发
     className,
     children,
+    navigation,
+    type,
   } = props;
   const { classPrefix } = useConfig();
 
+  let navigationConfig = defaultNavigation;
+  let navigationNode = null;
+  if (isValidElement(navigation)) {
+    navigationNode = navigation;
+  } else {
+    navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
+  }
+
   const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
-  const [animation, setAnimation] = useState(true);
+  const [needAnimation, setNeedAnimation] = useState(false);
+  const [arrowShow, setArrowShow] = useState(navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef(null); // 计时器指针
+  const swiperAnimationTimer = useRef(null); // 计时器指针
   const isHovering = useRef(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const swiperWrap = useRef(null);
+
+  const getWrapAttribute = (attr) => swiperWrap.current?.parentNode?.[attr];
 
   // 进行子组件筛选，创建子节点列表
   const childrenList = useMemo(
@@ -44,12 +87,23 @@ const Swiper = (props: SwiperProps) => {
 
   // 创建渲染用的节点列表
   const swiperItemList = childrenList.map((child: JSX.Element, index: number) =>
-    React.cloneElement(child, { value: index, ...child.props }),
+    React.cloneElement(child, {
+      key: index,
+      index,
+      currentIndex,
+      needAnimation,
+      childrenLength,
+      getWrapAttribute,
+      ...props,
+      ...child.props,
+    }),
   );
   // 子节点不为空时，复制第一个子节点到列表最后
-  if (childrenLength > 0) {
+  if (childrenLength > 0 && type === 'default') {
     const firstEle = swiperItemList[0];
-    swiperItemList.push(React.cloneElement(firstEle, { ...firstEle.props, key: `${firstEle.key}-cloned` }));
+    swiperItemList.push(
+      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength }),
+    );
   }
   const swiperItemLength = swiperItemList.length;
 
@@ -59,7 +113,7 @@ const Swiper = (props: SwiperProps) => {
       // 事件通知
       onChange(index % childrenLength, context);
       // 设置内部 index
-      setAnimation(true);
+      setNeedAnimation(true);
       setCurrentIndex(index);
     },
     [childrenLength, onChange],
@@ -76,6 +130,7 @@ const Swiper = (props: SwiperProps) => {
       );
     }
   }, [autoplay, currentIndex, duration, interval, swiperTo]);
+
   const clearTimer = useCallback(() => {
     if (swiperTimer.current) {
       clearTimeout(swiperTimer.current);
@@ -83,86 +138,222 @@ const Swiper = (props: SwiperProps) => {
     }
   }, []);
 
+  const isEnd = useCallback(() => {
+    if (type === 'card') {
+      return !loop && currentIndex + 1 >= swiperItemLength;
+    }
+    return !loop && currentIndex + 2 >= swiperItemLength;
+  }, [loop, currentIndex, swiperItemLength, type]);
+
   // 监听 current 参数变化
   useEffect(() => {
     if (current !== undefined) {
-      swiperTo(current % childrenLength, { source: '' });
+      swiperTo(current % childrenLength, { source: 'autoplay' });
     }
   }, [current, childrenLength, swiperTo]);
 
-  // 在非鼠标 hover 状态时，添加切换下一个组件的定时器
+  // 监听每次轮播结束
   useEffect(() => {
-    // 设置自动播放的定时器
-    if (!isHovering.current) {
-      clearTimer();
-      setTimer();
+    if (currentIndex + 1 > swiperItemLength && type === 'card') {
+      return setCurrentIndex(0);
     }
-  }, [clearTimer, setTimer]);
-
-  // 动画完成后取消 css 属性
-  useEffect(() => {
-    setTimeout(() => {
-      setAnimation(false);
-      if (currentIndex + 1 >= swiperItemLength) {
+    if (swiperAnimationTimer.current) {
+      clearTimeout(swiperAnimationTimer.current);
+      swiperAnimationTimer.current = null;
+    }
+    swiperAnimationTimer.current = setTimeout(() => {
+      setNeedAnimation(false);
+      if (isEnd()) {
+        clearTimer();
+      }
+      if (currentIndex + 1 >= swiperItemLength && type !== 'card') {
         setCurrentIndex(0);
       }
     }, duration + 50); // 多 50ms 的间隔时间参考了 react-slick 的动画间隔取值
-  }, [currentIndex, swiperItemLength, duration, direction]);
+  }, [currentIndex, swiperItemLength, duration, type, clearTimer, isEnd]);
+
+  useEffect(() => {
+    if (!isHovering.current || !stopOnHover) {
+      clearTimer();
+      setTimer();
+    }
+  }, [setTimer, clearTimer, stopOnHover]);
 
   // 鼠标移入移出事件
   const onMouseEnter = () => {
     isHovering.current = true;
-    clearTimer();
+    if (stopOnHover) {
+      clearTimer();
+    }
+    if (navigationConfig.showSlideBtn === 'hover') {
+      setArrowShow(true);
+    }
   };
   const onMouseLeave = () => {
     isHovering.current = false;
-    setTimer();
+    if (!isEnd()) {
+      setTimer();
+    }
+    if (navigationConfig.showSlideBtn === 'hover') {
+      setArrowShow(false);
+    }
+  };
+
+  const navMouseAction = (action: MouseAction, index: number) => {
+    if (action === MouseAction.Enter && trigger === 'hover') {
+      swiperTo(index, { source: 'hover' });
+    }
+    if (action === MouseAction.Click && trigger === 'click') {
+      swiperTo(index, { source: 'click' });
+    }
+  };
+
+  const arrowClick = (direction: ArrowClickDirection) => {
+    if (needAnimation) {
+      return false;
+    }
+    if (direction === ArrowClickDirection.Right) {
+      if (type === 'card') {
+        return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
+      }
+      return swiperTo(currentIndex + 1, { source: 'click' });
+    }
+    if (direction === ArrowClickDirection.Left) {
+      if (currentIndex - 1 < 0) {
+        return swiperTo(childrenLength - 1, { source: 'click' });
+      }
+      return swiperTo(currentIndex - 1, { source: 'click' });
+    }
+  };
+
+  const createArrow = (type: CreateArrow) => {
+    if (!arrowShow) {
+      return '';
+    }
+    if (navigationConfig.type === 'fraction' && type === CreateArrow.Default) {
+      return '';
+    }
+    const fractionIndex = currentIndex + 1 > childrenLength ? 1 : currentIndex + 1;
+    return (
+      <div
+        className={classnames(`${classPrefix}-swiper__arrow`, {
+          [`${classPrefix}-swiper__arrow--default`]: type === 'default',
+        })}
+      >
+        <div className={`${classPrefix}-swiper__arrow-left`} onClick={() => arrowClick(ArrowClickDirection.Left)}>
+          <ChevronLeftIcon />
+        </div>
+        {type === CreateArrow.Fraction ? (
+          <div className={`${classPrefix}-swiper__navigation-text-fraction`}>
+            {fractionIndex}/{childrenLength}
+          </div>
+        ) : (
+          ''
+        )}
+        <div className={`${classPrefix}-swiper__arrow-right`} onClick={() => arrowClick(ArrowClickDirection.Right)}>
+          <ChevronRightIcon />
+        </div>
+      </div>
+    );
+  };
+
+  const createNavigation = () => {
+    if (navigationConfig.type === 'fraction') {
+      return (
+        <div className={classnames(`${classPrefix}-swiper__navigation`, `${classPrefix}-swiper__navigation--fraction`)}>
+          {createArrow(CreateArrow.Fraction)}
+        </div>
+      );
+    }
+    return navigationNode ? (
+      <>{navigationNode}</>
+    ) : (
+      <ul
+        className={classnames(`${classPrefix}-swiper__navigation`, {
+          [`${classPrefix}-swiper__navigation-bars`]: navigationConfig.type === 'bars',
+        })}
+      >
+        {childrenList.map((_: JSX.Element, i: number) => (
+          <li
+            key={i}
+            className={classnames(`${classPrefix}-swiper__navigation-item`, {
+              [`${classPrefix}-is-active`]: i === currentIndex % childrenLength,
+            })}
+            onClick={() => navMouseAction(MouseAction.Click, i)}
+            onMouseEnter={() => navMouseAction(MouseAction.Enter, i)}
+            onMouseLeave={() => navMouseAction(MouseAction.Leave, i)}
+          >
+            <span></span>
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   // 构造 css 对象
-  // 加入了 translateZ 属性是为了使移动的 div 单独列为一个 layer 以提高滑动性能，参考：https://segmentfault.com/a/1190000010364647
-  let wrapperStyle = {};
-  if (direction === 'vertical') {
-    wrapperStyle = {
-      height: `${swiperItemLength * 100}%`,
-      top: `-${currentIndex * 100}%`,
-      transition: animation ? `top ${duration / 1000}s` : '',
-    };
-  } else {
-    wrapperStyle = {
-      width: `${swiperItemLength * 100}%`,
-      left: `-${currentIndex * 100}%`,
-      transition: animation ? `left ${duration / 1000}s` : '',
-    };
-  }
+  const getWrapperStyle = () => {
+    const offsetHeight = height ? `${height}px` : `${getWrapAttribute('offsetHeight')}px`;
+    if (type === 'card' || animation === 'fade') {
+      return {
+        height: offsetHeight,
+      };
+    }
+    if (animation === 'slide') {
+      if (direction === 'vertical') {
+        return {
+          height: offsetHeight,
+          msTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
+          WebkitTransform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
+          transform: `translate3d(0, -${currentIndex * 100}%, 0px)`,
+          transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
+        };
+      }
+      return {
+        msTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
+        WebkitTransform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
+        transform: `translate3d(-${currentIndex * 100}%, 0px, 0px)`,
+        transition: needAnimation ? `transform ${duration / 1000}s ease` : '',
+      };
+    }
+  };
 
   return (
     <div
       className={classnames(`${classPrefix}-swiper`, className)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      ref={swiperWrap}
     >
-      {/* 渲染子节点 */}
-      <div className={`${classPrefix}-swiper__content`}>
-        <div ref={wrapperRef} className={`${classPrefix}-swiper__swiper-wrap--${direction}`} style={wrapperStyle}>
-          {swiperItemList}
+      <div
+        className={classnames(`${classPrefix}-swiper__wrap`, {
+          [`${classPrefix}-swiper--inside`]: navigationConfig.placement === 'inside',
+          [`${classPrefix}-swiper--outside`]: navigationConfig.placement === 'outside',
+          [`${classPrefix}-swiper--vertical`]: direction === 'vertical',
+          [`${classPrefix}-swiper--large`]: navigationConfig.size === 'large',
+          [`${classPrefix}-swiper--small`]: navigationConfig.size === 'small',
+        })}
+      >
+        <div
+          className={classnames(`${classPrefix}-swiper__content`, {
+            [`${classPrefix}-swiper-fade`]: animation === 'fade',
+            [`${classPrefix}-swiper-card`]: type === 'card',
+          })}
+          style={{ height: '' }}
+        >
+          <div className={`${classPrefix}-swiper__container`} style={getWrapperStyle()}>
+            {swiperItemList}
+          </div>
         </div>
+        {createNavigation()}
+        {createArrow(CreateArrow.Default)}
       </div>
-      {/* 渲染右侧切换小点 */}
-      <ul className={`${classPrefix}-swiper__trigger-wrap`}>
-        {childrenList.map((_: JSX.Element, i: number) => (
-          <li
-            key={i}
-            className={i === currentIndex % childrenLength ? `${classPrefix}-swiper__trigger--active` : ''}
-            onClick={() => swiperTo(i, { source: 'touch' })}
-          />
-        ))}
-      </ul>
     </div>
   );
 };
 
 Swiper.SwiperItem = SwiperItem;
+
 Swiper.displayName = 'Swiper';
+Swiper.defaultProps = swiperDefaultProps;
 
 export default Swiper;

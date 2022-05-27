@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import useConfig from '../_util/useConfig';
 import { CheckContext, CheckContextValue } from '../common/Check';
-import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from './type';
+import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
 import { StyledProps } from '../common';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import Checkbox from './Checkbox';
+import { checkboxGroupDefaultProps } from './defaultProps';
 
 export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
   children?: React.ReactNode;
@@ -15,8 +16,10 @@ export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
 // 将 checkBox 的 value 转换为 string|number
 const getCheckboxValue = (v: CheckboxOption): string | number => {
   switch (typeof v) {
-    case 'number' || 'string':
-      return v as string | number;
+    case 'number':
+      return v as number;
+    case 'string':
+      return v as string;
     case 'object': {
       const vs = v as CheckboxOptionObj;
       return vs.value;
@@ -29,15 +32,15 @@ const getCheckboxValue = (v: CheckboxOption): string | number => {
 /**
  * 多选选项组，里面可以嵌套 <Checkbox />
  */
-export function CheckboxGroup(props: CheckboxGroupProps) {
+const CheckboxGroup = (props: CheckboxGroupProps) => {
   const { classPrefix } = useConfig();
-  const { value, defaultValue, onChange, disabled, className, style, children, max, options = [] } = props;
+  const { onChange, disabled, className, style, children, max, options = [] } = props;
 
   // 去掉所有 checkAll 之后的 options
   const intervalOptions =
     Array.isArray(options) && options.length > 0
       ? options
-      : React.Children.map(children, (child) => (child as ReactElement).props);
+      : React.Children.map(children, (child) => (child as ReactElement).props) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
   const optionsWithoutCheckAllValues = [];
@@ -46,7 +49,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
     optionsWithoutCheckAllValues.push(vs);
   });
 
-  const [internalValue, setInternalValue] = useDefault(value, defaultValue, onChange);
+  const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
 
   const checkedSet = useMemo(() => {
@@ -108,7 +111,11 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
             checkedSet.delete(checkValue);
           }
 
-          setInternalValue(Array.from(checkedSet), { e });
+          setInternalValue(Array.from(checkedSet), {
+            e,
+            current: checkProps.checkAll ? undefined : (checkValue as TdCheckboxProps),
+            type: checked ? 'check' : 'uncheck',
+          });
         },
       };
     },
@@ -124,10 +131,18 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
           ? options.map((v, index) => {
               const type = typeof v;
               switch (type) {
-                case 'number' || 'string': {
-                  const vs = v as number | string;
+                case 'string': {
+                  const vs = v as string;
                   return (
-                    <Checkbox key={vs} label={vs} value={vs}>
+                    <Checkbox key={index} label={vs} value={vs}>
+                      {v}
+                    </Checkbox>
+                  );
+                }
+                case 'number': {
+                  const vs = v as number;
+                  return (
+                    <Checkbox key={index} label={vs} value={vs}>
                       {v}
                     </Checkbox>
                   );
@@ -138,7 +153,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
                   return vs.checkAll ? (
                     <Checkbox {...v} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox {...v} key={vs.value} disabled={vs.disabled || disabled} />
+                    <Checkbox {...v} key={index} disabled={vs.disabled || disabled} />
                   );
                 }
                 default:
@@ -149,4 +164,9 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
       </CheckContext.Provider>
     </div>
   );
-}
+};
+
+CheckboxGroup.displayName = 'CheckboxGroup';
+CheckboxGroup.defaultProps = checkboxGroupDefaultProps;
+
+export default CheckboxGroup;

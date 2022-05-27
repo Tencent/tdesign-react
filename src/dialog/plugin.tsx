@@ -5,35 +5,43 @@ import DialogComponent, { DialogProps } from './Dialog';
 import { getAttach } from '../_util/dom';
 import { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, DialogInstance } from './type';
 
-export interface DialogPlugin extends DialogMethod {
+export interface DialogPluginType extends DialogMethod {
   alert?: DialogAlertMethod;
   confirm?: DialogConfirmMethod;
 }
 
-const createDialog: DialogPlugin = (props: DialogOptions) => {
+const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
-  const div = document.createElement('div');
-  ReactDOM.render(<DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />, div);
+  const fragment = document.createDocumentFragment();
+
+  ReactDOM.render(
+    <DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />,
+    fragment,
+    () => {
+      (document.activeElement as HTMLElement).blur();
+    },
+  );
   const container = getAttach(options.attach);
   if (container) {
-    container.appendChild(div);
+    container.appendChild(fragment);
   } else {
     console.error('attach is not exist');
   }
 
   const dialogNode: DialogInstance = {
     show: () => {
+      container.appendChild(fragment);
       dialogRef.current?.show();
     },
     hide: () => {
-      dialogRef.current?.hide();
+      dialogRef.current?.destroy();
     },
     update: (updateOptions: DialogOptions) => {
       dialogRef.current?.update(updateOptions);
     },
     destroy: () => {
-      container.contains(div) && container.removeChild(div);
+      dialogRef.current?.destroy();
     },
   };
   return dialogNode;
@@ -49,7 +57,5 @@ const alert: DialogAlertMethod = (props: Omit<DialogOptions, 'confirmBtn'>) => {
 
 createDialog.alert = alert;
 createDialog.confirm = confirm;
-
-export const dialog = createDialog;
 
 export const DialogPlugin = createDialog;

@@ -19,6 +19,7 @@ import useUpdateEffect from '../_util/useUpdateEffect';
 import StepHandler from './StepHandler';
 import * as numberUtils from './utils/numberUtils';
 import Input from '../input';
+import { inputNumberDefaultProps } from './defaultProps';
 
 export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
@@ -26,16 +27,17 @@ export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
 const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
+    align,
     className,
     style,
     defaultValue,
     value,
-    disabled = false,
-    size = 'medium',
-    theme = 'row',
-    step = 1,
-    max = Number.MAX_SAFE_INTEGER,
-    min = Number.MIN_SAFE_INTEGER,
+    disabled,
+    size,
+    theme,
+    step,
+    max,
+    min,
     decimalPlaces,
     format,
     onChange,
@@ -45,7 +47,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
     onKeydown,
     onKeyup,
     onKeypress,
-
     ...restInputProps
   } = props;
 
@@ -79,7 +80,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
   let decimalValue: number = internalInputValue as number;
   if (typeof internalInputValue === 'string') {
-    decimalValue = numberUtils.strToNumber(internalInputValue) || 0;
+    decimalValue = Number(numberUtils.strToNumber(internalInputValue)) || 0;
   }
 
   const setInputValue = (inputStr: string) => {
@@ -92,8 +93,8 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
 
   const [isError, setError] = useState<boolean>(false);
-  const disabledDecrease = disabled || isError || decimalValue - step < min;
-  const disabledIncrease = disabled || isError || decimalValue + step > max;
+  const disabledDecrease = disabled || isError || (decimalValue - step < min && internalInputValue !== '');
+  const disabledIncrease = disabled || isError || (decimalValue + step > max && internalInputValue !== '');
 
   const isOutOfRange = (number: number): boolean => number > max || number < min;
   const checkInput = (inputStr: InputNumberInternalValue): boolean => {
@@ -140,7 +141,14 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       setInputValue(inputStr);
       return triggerValueUpdate({ type: 'input', value: undefined, e });
     }
-
+    if (inputStr.endsWith('.')) {
+      setInternalInputValue(inputStr);
+      return;
+    }
+    if (/^(([1-9]+[0-9]*\.0+)|(0\.0+))$/.test(inputStr)) {
+      setInternalInputValue(inputStr);
+      return;
+    }
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
@@ -149,27 +157,31 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
     setInputValue(filteredInputStr.toString());
     if (!checkInput(filteredInputStr)) return;
-    triggerValueUpdate({ type: 'input', value: filteredInputStr, e });
+    triggerValueUpdate({ type: 'input', value: Number(filteredInputStr), e });
   };
 
   const onInternalStep = (action: ChangeContext) => {
+    if (props.readonly) return;
+
     const { type, e } = action;
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
 
-    let updateValue;
+    let updateValue: number;
     switch (type) {
       case 'add': {
-        updateValue = Number((currentValue + step).toFixed(precision));
+        const addedVal = currentValue + step;
+        updateValue = Number(Math.max(addedVal, min).toFixed(precision));
         break;
       }
       case 'reduce': {
-        updateValue = Number((currentValue - step).toFixed(precision));
+        const reducedVal = currentValue - step;
+        updateValue = Number(Math.max(reducedVal, min).toFixed(precision));
         break;
       }
     }
 
-    setInputValue(updateValue);
+    setInputValue(String(updateValue));
     triggerValueUpdate({ value: updateValue, type, e });
     e.preventDefault();
   };
@@ -206,7 +218,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
   const handleKeyup: KeyboardEventHandler<HTMLDivElement> = (e) => onKeyup?.(decimalValue, { e });
   const handleKeypress: KeyboardEventHandler<HTMLDivElement> = (e) => onKeypress?.(decimalValue, { e });
-
   return (
     <div
       ref={ref}
@@ -214,6 +225,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
         [commonClassNames.STATUS.disabled]: disabled,
         [`${classPrefix}-is-controls-right`]: theme === 'column',
         [`${inputClassName}--${theme}`]: theme,
+        [`${inputClassName}--auto-width`]: props.autoWidth,
       })}
       style={style}
       onBlur={handleBlur}
@@ -222,26 +234,27 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       onKeyUp={handleKeyup}
       onKeyPress={handleKeypress}
     >
-      {theme !== 'normal' && (
-        <StepHandler
-          prefixClassName={inputClassName}
-          theme={theme}
-          disabledDecrease={disabledDecrease}
-          disabledIncrease={disabledIncrease}
-          onStep={onInternalStep}
+      <StepHandler
+        theme={theme}
+        prefixClassName={inputClassName}
+        disabledDecrease={disabledDecrease}
+        disabledIncrease={disabledIncrease}
+        onStep={onInternalStep}
+      >
+        <Input
+          disabled={disabled}
+          value={internalInputValue}
+          onChange={onInternalInput}
+          status={isError ? 'error' : undefined}
+          align={align || (theme === 'row' ? 'center' : undefined)}
+          {...restInputProps}
         />
-      )}
-      <Input
-        disabled={disabled}
-        value={internalInputValue}
-        onChange={onInternalInput}
-        status={isError ? 'error' : undefined}
-        {...restInputProps}
-      />
+      </StepHandler>
     </div>
   );
 });
 
 InputNumber.displayName = 'InputNumber';
+InputNumber.defaultProps = inputNumberDefaultProps;
 
 export default InputNumber;

@@ -1,9 +1,9 @@
-import _PopConfirm from './PopConfirm';
+import _Popconfirm from './Popconfirm';
 
 import './style/index.js';
 
-export type { PopConfirmProps } from './PopConfirm';
+export type { PopconfirmProps } from './Popconfirm';
 export * from './type';
 
-export const PopConfirm = _PopConfirm;
-export default PopConfirm;
+export const Popconfirm = _Popconfirm;
+export default Popconfirm;

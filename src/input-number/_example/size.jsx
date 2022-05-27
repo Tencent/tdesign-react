@@ -26,8 +26,15 @@ export default function InputNumberExample() {
       </div>
 
       <div className="tdesign-demo-block-row">
+        <InputNumber defaultValue={5} size="small" theme="column" onChange={console.log} />
         <InputNumber defaultValue={5} theme="column" onChange={console.log} />
         <InputNumber defaultValue={10} size="large" theme="column" onChange={console.log} />
+      </div>
+
+      <div className="tdesign-demo-block-row">
+        <InputNumber defaultValue={5} size="small" theme="normal" onChange={console.log} />
+        <InputNumber defaultValue={5} theme="normal" onChange={console.log} />
+        <InputNumber defaultValue={10} size="large" theme="normal" onChange={console.log} />
       </div>
     </div>
   );

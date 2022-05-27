@@ -7,7 +7,12 @@ const BaseSlider = () => {
 
   return (
     <>
-      <Slider style={{ marginBottom: 50 }} value={value} onChange={setValue}></Slider>
+      <Slider
+        label={({ value }) => `${value}%`}
+        style={{ marginBottom: 50 }}
+        value={value}
+        onChange={setValue}
+      ></Slider>
       <Slider value={rangeValue} onChange={setRangeValue} range></Slider>
     </>
   );

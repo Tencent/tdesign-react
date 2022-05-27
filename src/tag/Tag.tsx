@@ -7,6 +7,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdTagProps } from './type';
 import CheckTag from './CheckTag';
+import { tagDefaultProps } from './defaultProps';
 
 /**
  * Tag 组件支持的属性。
@@ -24,10 +25,10 @@ export interface TagProps extends TdTagProps, StyledProps {
 const Tag = forwardRefWithStatics(
   (props: TagProps, ref: React.Ref<HTMLSpanElement>) => {
     const {
-      theme = 'default',
-      size = 'medium',
-      shape = 'square',
-      variant = 'dark',
+      theme,
+      size,
+      shape,
+      variant,
       closable,
       maxWidth,
       icon,
@@ -84,16 +85,11 @@ const Tag = forwardRefWithStatics(
           if (disabled) return;
           onClick({ e });
         }}
+        style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
         {...otherTagProps}
       >
         {icon}
-        {maxWidth ? (
-          <span className={`${tagClassPrefix}--text`} style={{ ...(style || {}), ...{ maxWidth } }}>
-            {children || content}
-          </span>
-        ) : (
-          children || content
-        )}
+        {maxWidth ? <span className={`${tagClassPrefix}--text`}>{children || content}</span> : children || content}
         {closable && deleteIcon}
       </span>
     );
@@ -106,5 +102,6 @@ const Tag = forwardRefWithStatics(
 );
 
 Tag.displayName = 'Tag';
+Tag.defaultProps = tagDefaultProps;
 
 export default Tag;

@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { ButtonProps } from '../button';
@@ -30,6 +29,7 @@ export interface TdDrawerProps {
   children?: TNode;
   /**
    * 关闭按钮，可以自定义。值为 true 显示默认关闭按钮，值为 false 不显示关闭按钮。值类型为 string 则直接显示值，如：“关闭”。值类型为 TNode，则表示呈现自定义按钮示例
+   * @default true
    */
   closeBtn?: TNode;
   /**
@@ -53,12 +53,13 @@ export interface TdDrawerProps {
    */
   destroyOnClose?: boolean;
   /**
-   * 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 TNode 表示自定义底部内容
+   * 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 或 null 不显示任何内容，值类型为 TNode 表示自定义底部内容
    * @default true
    */
   footer?: TNode;
   /**
    * 头部内容。值为 true 显示空白头部，值为 false 不显示头部，值类型为 string 则直接显示值，值类型为 TNode 表示自定义头部内容
+   * @default true
    */
   header?: TNode;
   /**
@@ -101,11 +102,6 @@ export interface TdDrawerProps {
    * @default false
    */
   visible?: boolean;
-  /**
-   * 组件是否可见，非受控属性
-   * @default false
-   */
-  defaultVisible?: boolean;
   /**
    * 抽屉层级，样式默认为 1500
    */

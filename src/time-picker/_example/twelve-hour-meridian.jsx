@@ -8,7 +8,7 @@ export default function TwelveHourTimePicker() {
   };
   return (
     <>
-      <TimePicker format="hh:mm:ss a" value={value} onChange={handleValueChange} />
+      <TimePicker format="hh:mm:ss A" value={value} onChange={handleValueChange} />
     </>
   );
 }

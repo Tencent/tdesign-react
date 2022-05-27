@@ -10,6 +10,13 @@ export default function KeyboardTimePicker() {
     console.log(param, 'onInput');
   };
   return (
-    <TimePicker defaultValue="12:08:00" format="HH:mm:ss" onBlur={handleBlur} allowInput={true} onInput={handleInput} />
+    <TimePicker
+      defaultValue="12:08:00"
+      format="HH:mm:ss"
+      onBlur={handleBlur}
+      onInput={handleInput}
+      allowInput
+      clearable
+    />
   );
 }
