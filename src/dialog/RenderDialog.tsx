@@ -249,8 +249,8 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
       `${props.placement && !props.top ? `${prefixCls}--${props.placement}` : ''}`,
     );
     const dialogElement = (
-      <div className={`${prefixCls}__wrap`} onClick={onMaskClick} >
-        <div className={classNames} style={positionStyle} onClick={onMaskClick}>
+      <div className={`${prefixCls}__wrap`} onClick={onMaskClick}>
+        <div className={classNames} style={positionStyle}>
           <div
             ref={dialog}
             style={style}
