@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
+import isFunction from 'lodash/isFunction';
 import { EllipsisIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from 'tdesign-icons-react';
 import useConfig from '../../_util/useConfig';
 
@@ -70,18 +71,21 @@ export default function usePageNumber(props) {
           )}
         </>
       )}
-      {pageList.map((item) => (
-        <li
-          key={item}
-          className={classNames(`${name}__number`, {
-            [`${classPrefix}-is-disabled`]: disabled,
-            [`${classPrefix}-is-current`]: current === item,
-          })}
-          onClick={() => changeCurrent(item)}
-        >
-          {item}
-        </li>
-      ))}
+      {pageList.map((item) => {
+        const pageItem = (
+          <li
+            key={item}
+            className={classNames(`${name}__number`, {
+              [`${classPrefix}-is-disabled`]: disabled,
+              [`${classPrefix}-is-current`]: current === item,
+            })}
+            onClick={() => changeCurrent(item)}
+          >
+            {item}
+          </li>
+        );
+        return isFunction(props.pageDisplayFilter) ? props.pageDisplayFilter(item) && pageItem : pageItem;
+      })}
       {isFolded && (
         <>
           {pageCount - 1 - pivot > current && (

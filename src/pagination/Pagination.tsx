@@ -46,6 +46,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     onPageSizeChange,
     style,
     className,
+    pageDisplayFilter,
     ...otherProps
   } = props;
 
@@ -145,6 +146,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     pageCount,
     foldedMaxPageBtn,
     changeCurrent,
+    pageDisplayFilter,
   });
 
   const pageSizeContrl =
