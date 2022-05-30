@@ -155,10 +155,10 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const zoomOut = useCallback(() => {
     setScale((scale) => {
-      const nweScale = scale - scaleStep;
-      if (nweScale < 0.5) return 0.5;
-      if (nweScale > maxScale) return maxScale;
-      return nweScale;
+      const newScale = scale - scaleStep;
+      if (newScale < 0.5) return 0.5;
+      if (newScale > maxScale) return maxScale;
+      return newScale;
     });
   }, [maxScale, scaleStep]);
 
