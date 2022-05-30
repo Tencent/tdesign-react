@@ -2,7 +2,7 @@ import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'r
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import Tag from 'tdesign-react/tag';
+import Tag from '../../tag';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
