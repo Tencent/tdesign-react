@@ -2,8 +2,8 @@ import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'r
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
+import Tag from '../../tag';
 import useControlled from '../../hooks/useControlled';
-
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
@@ -17,7 +17,7 @@ import Option, { SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 
-import { TdSelectProps, TdOptionProps } from '../type';
+import { TdSelectProps, TdOptionProps, SelectOption } from '../type';
 import { StyledProps } from '../../common';
 import { selectDefaultProps } from '../defaultProps';
 
@@ -174,7 +174,20 @@ const Select = forwardRefWithStatics(
       // backspace
       if (trigger === 'backspace') {
         event.stopPropagation();
-        const values = getSelectValueArr(value, value[index], true, valueType, keys);
+
+        let closest = -1;
+        let len = index;
+        while (len >= 0) {
+          if (!selectedOptions[len]?.disabled) {
+            closest = len;
+            break;
+          }
+          len -= 1;
+        }
+        if (closest < 0) {
+          return;
+        }
+        const values = getSelectValueArr(value, value[closest], true, valueType, keys);
         onChange(values, context);
         return;
       }
@@ -307,7 +320,29 @@ const Select = forwardRefWithStatics(
     };
 
     const renderValueDisplay = () => {
-      if (!valueDisplay) return '';
+      if (!valueDisplay) {
+        if (!multiple) {
+          return '';
+        }
+        return ({ value: val }) =>
+          val.map((v, key) => {
+            const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
+            return (
+              <Tag
+                key={key}
+                onClose={({ e }) => {
+                  e.stopPropagation();
+                  const values = getSelectValueArr(value, value[key], true, valueType, keys);
+                  onChange(values, null);
+                  return;
+                }}
+                closable={!filterOption?.disabled}
+              >
+                {v}
+              </Tag>
+            );
+          });
+      }
       if (typeof valueDisplay === 'string') {
         return valueDisplay;
       }
