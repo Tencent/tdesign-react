@@ -185,6 +185,7 @@
     "tdesign-icons-view": "~0.1.0",
     "tdesign-publish-cli": "^0.0.9",
     "tdesign-site-components": "^0.9.9",
+    "tdesign-theme-generator": "^0.1.0",
     "ts-jest": "^27.1.2",
     "ts-morph": "^13.0.02",
     "ts-node": "^10.4.0",
