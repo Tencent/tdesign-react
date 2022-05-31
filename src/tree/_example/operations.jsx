@@ -14,7 +14,7 @@ let index = 2;
 
 export default () => {
   const [useActived, setUseActived] = useState(false);
-  const [expandParent, setExpandParent] = useState(true);
+  const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [activeId, setActiveId] = useState('');
   const [activeIds, setActiveIds] = useState([]);
@@ -289,7 +289,7 @@ export default () => {
         data={items}
         actived={activeIds}
         activeMultiple
-        expandOnClickNode={false}
+        allowFoldNodeOnFilter
         label={getLabel}
         expandParent={expandParent}
         filter={filterByText}
