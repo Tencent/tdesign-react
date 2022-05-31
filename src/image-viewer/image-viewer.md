@@ -7,22 +7,20 @@
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-src | String | - | 基本展示图片 | Y
-alt | String | - | 加载失败时提示文本，同 img[alt]。TS 类型：`string `| N
-title | String | - | 按钮内容。TS 类型：`string`。| N
-titleIcons | Array | [] | 是否展示可操作图标TS 类型：`(browse|ellipsis)[]` | N
-type | String | normal | 大图弹窗模式。 TS 类型`'mini' | 'normal'`| N
-miniWidth | Number | 1000 | mini类型弹窗最小宽度。| N
-miniHeight | Number | 1000 | mini类型弹窗最小高度 | N
-movable | Boolean | false | mini类型弹窗是否支持拖动位置 | N
-previewSrcList | Array | [] | 预览图片列表。 TS 类型：`string[]`| N
-zIndex | Number | 2000 | 弹窗层级 | N
-startIndex | Number | 0 | 开启弹窗时默认展示图片下标 | N
-closeOnMark | Boolean | false | 点击遮罩是否关闭弹窗 | N
-mask | Boolean | true | 是否需要弹窗 | N
-maxScale | Number | 2 | 图片放大比例 | N
-scaleStep | Number | 0.5 | 鼠标滚动放大速度 | N
-onClose | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>关闭弹窗触发 | N
-onOpen | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>开启弹窗触发 | N
-onClick | Function |  | TS 类型：`(e: MouseEvent) => void`<br/>点击时触发 | N
-:: BASE_PROPS ::
+closeBtn | TNode | true | 是否展示关闭按钮，值为 `true` 显示默认关闭按钮；值为 `false` 则不显示关闭按钮；也可以完全自定义关闭按钮。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+closeOnOverlay | Boolean | - | 是否在点击遮罩层时，触发预览关闭 | N
+draggable | Boolean | undefined | 是否允许拖拽调整位置。`mode=modal` 时，默认不允许拖拽；`mode=modeless` 时，默认允许拖拽 | N
+images | Array | [] | 图片数组。`mainImage` 表示主图，必传；`thumbnail` 表示缩略图，如果不存在，则使用主图显示；`download` 是否允许下载图片，默认允许下载。示例: `['img_url_1', 'img_url_2']`，`[{ thumbnail: 'small_image_url', mainImage: 'big_image_url', download: false }]`。TS 类型：`Array<string | ImageInfo>` `interface ImageInfo { mainImage: string; thumbnail?: string; download?: boolean }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/image-viewer/type.ts) | N
+imageScale | Object | - |  图片缩放相关配置。`imageScale.max` 缩放的最大比例；`imageScale.min` 缩放的最小比例；`imageScale.step` 缩放的步长速度。TS 类型：`ImageScale` `interface ImageScale { max: number; min: number; step: number }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/image-viewer/type.ts) | N
+index | Number | - | 当前预览图片所在的下标 | N
+defaultIndex | Number | - | 当前预览图片所在的下标。非受控属性 | N
+mode | String | modal | 模态预览（modal）和非模态预览（modeless)。可选项：modal/modeless | N
+navigationArrow | TNode | - | 切换预览图片的左图标，可自定义。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+showOverlay | Boolean | undefined | 是否显示遮罩层。`mode=modal` 时，默认显示；`mode=modeless` 时，默认不显示 | N
+trigger | TNode | - | 触发图片预览的元素，可能是一个预览按钮，可能是一张缩略图，完全自定义。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+viewerScale | Object | - | 限制预览器缩放的最小宽度和最小高度，仅 `mode=modeless` 时有效。TS 类型：`ImageViewerScale` `interface ImageViewerScale { minWidth: number; minHeight: number }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/image-viewer/type.ts) | N
+visible | Boolean | false | 隐藏/显示预览 | N
+defaultVisible | Boolean | false | 隐藏/显示预览。非受控属性 | N
+zIndex | Number | - | 层级，默认为 2000 | N
+onClose | Function |  | TS 类型：`(context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent | KeyboardEvent }) => void`<br/>关闭时触发，事件参数包含触发关闭的来源：关闭按钮、遮罩层、ESC 键 | N
+onIndexChange | Function |  | TS 类型：`(index: number, context: { trigger: 'prev' | 'next' }) => void`<br/>预览图片切换时触发，`context.prev` 切换到上一张图片，`context.next` 切换到下一张图片 | N
