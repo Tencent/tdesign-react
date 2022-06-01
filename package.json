@@ -197,7 +197,7 @@
     "workbox-precaching": "^6.3.0"
   },
   "dependencies": {
-    "@babel/runtime": "~7.17.2",
+    "@babel/runtime": "~7.18.3",
     "@popperjs/core": "~2.11.2",
     "@types/sortablejs": "^1.10.7",
     "@types/tinycolor2": "^1.4.3",
