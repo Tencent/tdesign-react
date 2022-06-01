@@ -1,4 +1,5 @@
 import React, { forwardRef, useContext } from 'react';
+import classNames from 'classnames';
 import { CheckCircleFilledIcon, CloseIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
 import { NotificationRemoveContext } from './NotificationList';
 import noop from '../_util/noop';
@@ -8,8 +9,6 @@ import { NotificationInstance, TdNotificationProps } from './type';
 import { Styles } from '../common';
 import { notificationDefaultProps } from './defaultProps';
 
-const blockName = 'notification';
-
 export interface NotificationProps extends TdNotificationProps {
   style?: Styles;
   id?: string;
@@ -17,38 +16,20 @@ export interface NotificationProps extends TdNotificationProps {
 
 export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   const {
-    title = null,
-    content = null,
-    theme = null,
-    icon = null,
+    title,
+    content,
+    theme,
+    icon,
     closeBtn,
-    footer = null,
-    duration = 3000,
+    footer,
+    duration,
     onCloseBtnClick = noop,
     onDurationEnd = noop,
     style,
-    id = '',
+    id,
   } = props;
 
   const { classPrefix } = useConfig();
-  const prefixCls = React.useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
 
   const remove = useContext(NotificationRemoveContext);
   React.useImperativeHandle(ref as React.Ref<NotificationInstance>, () => ({ close: () => remove(id) }));
@@ -78,14 +59,14 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
     if (theme && theme === 'success') {
       return (
         <IconWrapper>
-          <CheckCircleFilledIcon className={prefixCls('is-success')} />
+          <CheckCircleFilledIcon className={`${classPrefix}-is-success`} />
         </IconWrapper>
       );
     }
     if (theme && ['info', 'warning', 'error'].indexOf(theme) >= 0) {
       return (
         <IconWrapper>
-          <InfoCircleFilledIcon className={prefixCls(`is-${theme}`)} />
+          <InfoCircleFilledIcon className={`${classPrefix}-is-${theme}`} />
         </IconWrapper>
       );
     }
@@ -93,16 +74,21 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   };
 
   return (
-    <div className={prefixCls(blockName)} style={style}>
+    <div
+      className={classNames(`${classPrefix}-notification`, {
+        [`${classPrefix}-notification-theme-${theme}`]: theme,
+      })}
+      style={style}
+    >
       {renderIcon()}
-      <div className={prefixCls([blockName, 'main'])}>
-        <div className={prefixCls([blockName, 'title__wrap'])}>
-          <span className={prefixCls([blockName, 'title'])}>{title}</span>
+      <div className={`${classPrefix}-notification__main`}>
+        <div className={`${classPrefix}-notification__title__wrap`}>
+          <span className={`${classPrefix}-notification__title`}>{title}</span>
           {((): React.ReactNode => {
             if (typeof closeBtn === 'boolean' && closeBtn) {
               return (
                 <CloseIcon
-                  className={prefixCls('icon-close')}
+                  className={`${classPrefix}-icon-close`}
                   onClick={(e) => {
                     onCloseBtnClick({ e });
                   }}
@@ -125,13 +111,13 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
         </div>
         {((): React.ReactNode => {
           if (typeof content === 'string') {
-            return <div className={prefixCls([blockName, 'content'])}>{content}</div>;
+            return <div className={`${classPrefix}-notification__content`}>{content}</div>;
           }
           if (React.isValidElement(content)) return content;
           return null;
         })()}
-        {React.isValidElement(footer) && <div className={prefixCls([blockName, 'detail'])}>{footer}</div>}
-        {typeof footer === 'function' && <div className={prefixCls([blockName, 'detail'])}>{footer()}</div>}
+        {React.isValidElement(footer) && <div className={`${classPrefix}-notification__detail`}>{footer}</div>}
+        {typeof footer === 'function' && <div className={`${classPrefix}-notification__detail`}>{footer()}</div>}
       </div>
     </div>
   );
