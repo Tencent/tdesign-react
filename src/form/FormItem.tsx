@@ -4,14 +4,13 @@ import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
 import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
-import Checkbox from '../checkbox';
-import Upload from '../upload';
-import Tag from '../tag';
 import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
 import { useFormContext, useFormListContext } from './FormContext';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { formItemDefaultProps } from './defaultProps';
+
+import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
 
 export enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
@@ -31,28 +30,6 @@ export interface FormItemInstance {
   resetField?: Function;
   setValidateMessage?: Function;
   resetValidate?: Function;
-}
-
-// FormItem 子组件受控 key
-const ctrlKeyMap = new Map();
-ctrlKeyMap.set(Checkbox, 'checked');
-ctrlKeyMap.set(Tag.CheckTag, 'checked');
-ctrlKeyMap.set(Upload, 'files');
-
-// FormItem 默认数据类型
-const initialDataMap = new Map();
-initialDataMap.set(Upload, []);
-initialDataMap.set(Checkbox.Group, []);
-
-function getDefaultInitialData(children: React.ReactNode, initialData: any) {
-  let defaultInitialData = initialData;
-  React.Children.forEach(children, (child) => {
-    if (!child) return;
-    if (React.isValidElement(child) && typeof initialData === 'undefined') {
-      defaultInitialData = initialDataMap.get(child.type);
-    }
-  });
-  return defaultInitialData;
 }
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {

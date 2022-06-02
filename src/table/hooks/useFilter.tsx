@@ -90,7 +90,6 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
   }
 
   function onInnerFilterChange(val: any, column: PrimaryTableCol) {
-    console.log(val);
     const filterValue = {
       ...innerFilterValue,
       [column.colKey]: val,

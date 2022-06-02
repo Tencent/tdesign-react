@@ -10,6 +10,7 @@ import TimePickerPanel from './panel/TimePickerPanel';
 
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import { formatInputValue, validateInputValue } from '../_common/js/time-picker/utils';
+import { TIME_PICKER_EMPTY } from '../_common/js/time-picker/const';
 
 import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import { StyledProps } from '../common';
@@ -43,7 +44,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
 
   const { classPrefix } = useConfig();
   const [isPanelShowed, setPanelShow] = useState(false);
-  const [currentPanelIdx, setCurrentPanelIdx] = useState(0);
+  const [currentPanelIdx, setCurrentPanelIdx] = useState(undefined);
   const [currentValue, setCurrentValue] = useState(['', '']);
 
   const name = `${classPrefix}-time-picker`;
@@ -109,7 +110,8 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
   };
 
   useEffect(() => {
-    setCurrentValue(isPanelShowed ? value ?? defaultArrVal : defaultArrVal);
+    setCurrentValue(isPanelShowed ? value ?? TIME_PICKER_EMPTY : defaultArrVal);
+    if (!isPanelShowed) setCurrentPanelIdx(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPanelShowed]);
 
@@ -122,7 +124,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
         onPopupVisibleChange={handleShowPopup}
         popupProps={{
           overlayStyle: {
-            width: '280px',
+            width: 'auto',
           },
           ...props.popupProps,
         }}
@@ -140,6 +142,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (props) => {
           onFocus: handleFocus,
           onBlur: handleInputBlur,
           readonly: !allowInput,
+          activeIndex: currentPanelIdx,
           ...props.rangeInputProps,
         }}
         panel={

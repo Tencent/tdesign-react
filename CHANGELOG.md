@@ -5,6 +5,70 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.4 `2022-06-02` 
+### 🚀 Features
+- `Skeleton`: 延时关闭功能 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `Dialog`: 增强 dialog 组件 confirmBtn & cancelBtn @psaren ([#813](https://github.com/Tencent/tdesign-react/pull/813))
+- `Notifycation`: 新增样式命名区分 theme @HQ-Lin ([#834](https://github.com/Tencent/tdesign-react/pull/834))
+
+### 🐞 Bug Fixes
+- `Loading`: 修复loading plugin类型缺失style和class的问题 @uyarn ([#810](https://github.com/Tencent/tdesign-react/pull/810))
+- `skeleton`: 动画结束后，父级无意义的 div 导致样式无法继承、计算 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `TimePicker`: 修复`RangePicker`的聚焦样式丢失的问题 @uyarn ([#811](https://github.com/Tencent/tdesign-react/pull/811))
+- `Form`: 修复 `addon` 在form表单下数据劫持失败问题 @HQ-Lin ([#802](https://github.com/Tencent/tdesign-react/pull/802))
+- `Select`: 当 multiple 为 true 的时候，筛选(filter)功能无法关闭 @samhou1988 ([#814](https://github.com/Tencent/tdesign-react/pull/814))
+- `Menu`: 兼容 menu 子元素为 null 场景报错问题 @HQ-Lin ([#818](https://github.com/Tencent/tdesign-react/pull/818))
+- `Upload`: 修复错误信息不消失问题 @wookaoer ([#827](https://github.com/Tencent/tdesign-react/pull/827))
+- `TagInput`:  修复中文输入法enter时，既触发添加tag也input框有输入的字母的问题 @LittlehorseXie ([#835](https://github.com/Tencent/tdesign-react/pull/835))
+
+### 🚧 Others
+- 官网: 新增主题配置生成器 @uyarn ([#655](https://github.com/Tencent/tdesign-react/pull/655))
+
+## 🌈 0.34.3 `2022-05-25` 
+
+### 🚧 Others
+- fix: 修复构建报错 @HQ-Lin ([#799](https://github.com/Tencent/tdesign-react/pull/799))
+
+## 🌈 0.34.2 `2022-05-25` 
+
+### 🐞 Bug Fixes
+- `Table`: 处理table过滤输入失焦问题 @uyarn ([#793](https://github.com/Tencent/tdesign-react/pull/793))
+- `Form`:  修复 `FormItem` 拦截组件受控属性默认值为数组时传入 undefined 报错问题 @HQ-Lin ([#792]
+- `Form`:  修复 `FormItem` rules 失效问题 @HQ-Lin ([#794](https://github.com/Tencent/tdesign-react/pull/794))
+- `Pagination`:  修复  `totalContent` jsx 渲染失败问题 @HQ-Lin ([#796](https://github.com/Tencent/tdesign-react/pull/796))
+
+
+## 🌈 0.34.1 `2022-05-24` 
+
+### 🐞 Bug Fixes
+- `Datepicker`: 修复 popupProps 透传优先级问题 @HQ-Lin ([#785](https://github.com/Tencent/tdesign-react/pull/785))
+
+### 🚧 Others
+- fix: 修复构建产物报错 @HQ-Lin ([#789](https://github.com/Tencent/tdesign-react/pull/789))
+
+
+## 🌈 0.34.0 `2022-05-20` 
+
+### ❗ Breaking Changes
+- `DatePicker`: onChange 回调第二个参数调整为对象，支持更多类型返回值 @HQ-Lin ([#777](https://github.com/Tencent/tdesign-react/pull/777))
+- `Form`: 不再默认渲染 `help` 空节点 @HQ-Lin ([#772](https://github.com/Tencent/tdesign-react/pull/772))
+
+### 🚀 Features
+- `Form`: `FormList` 支持手动赋值 @HQ-Lin ([#769](https://github.com/Tencent/tdesign-react/pull/769))
+- `Form`:  支持 `help` 节点与错误提示同时展示，无 `help` 不再默认占位 @HQ-Lin ([#772](https://github.com/Tencent/tdesign-react/pull/772))
+- `DatePicker`: 支持 `onChange` 返回 `trigger` 参数定位事件触发源 & 单选模式支持 `onPick` 事件 @HQ-Lin ([#777](https://github.com/Tencent/tdesign-react/pull/777))
+- `Watermark`: 新增水印watermark组件 @docoder ([#753](https://github.com/Tencent/tdesign-react/pull/753))
+- `Calendar`:  新增 `month`、`year` API @skytt ([#775](https://github.com/Tencent/tdesign-react/pull/775))
+- `Tree`: `label` 支持多行文本  @ccccpj https://github.com/Tencent/tdesign-common/pull/460
+
+### 🐞 Bug Fixes
+- `Table`: 修复异步加载数据时，分页非受控展示错误行数的问题 @uyarn ([#778](https://github.com/Tencent/tdesign-react/pull/778))
+- `TimePicker`: 修复`TimePicker`展开宽度问题 @uyarn ([#780](https://github.com/Tencent/tdesign-react/pull/780))
+
+### 🚧 Others
+- 统一全局受控 hooks & 优化组件初始值设置 @HQ-Lin ([#773](https://github.com/Tencent/tdesign-react/pull/773))
+
+
 ## 🌈 0.33.2 `2022-05-14` 
 ### 🚀 Features
 - `Steps`: 支持 separator api & 完善反转逻辑 @HQ-Lin ([#752](https://github.com/Tencent/tdesign-react/pull/752))

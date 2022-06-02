@@ -343,6 +343,39 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`delay.jsx 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <button
+        class="t-switch t-is-checked t-size-m"
+        role="switch"
+        style="margin-bottom: 20px;"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div>
+      <div>
+        <div
+          class="t-skeleton__row"
+        >
+          <div
+            class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-flashed"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <div
