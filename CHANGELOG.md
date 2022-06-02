@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.34.4 `2022-06-02` 
+### 🚀 Features
+- `Skeleton`: 延时关闭功能 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `Dialog`: 增强 dialog 组件 confirmBtn & cancelBtn @psaren ([#813](https://github.com/Tencent/tdesign-react/pull/813))
+- `Notifycation`: 新增样式命名区分 theme @HQ-Lin ([#834](https://github.com/Tencent/tdesign-react/pull/834))
+
+### 🐞 Bug Fixes
+- `Loading`: 修复loading plugin类型缺失style和class的问题 @uyarn ([#810](https://github.com/Tencent/tdesign-react/pull/810))
+- `skeleton`: 动画结束后，父级无意义的 div 导致样式无法继承、计算 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `TimePicker`: 修复`RangePicker`的聚焦样式丢失的问题 @uyarn ([#811](https://github.com/Tencent/tdesign-react/pull/811))
+- `Form`: 修复 `addon` 在form表单下数据劫持失败问题 @HQ-Lin ([#802](https://github.com/Tencent/tdesign-react/pull/802))
+- `Select`: 当 multiple 为 true 的时候，筛选(filter)功能无法关闭 @samhou1988 ([#814](https://github.com/Tencent/tdesign-react/pull/814))
+- `Menu`: 兼容 menu 子元素为 null 场景报错问题 @HQ-Lin ([#818](https://github.com/Tencent/tdesign-react/pull/818))
+- `Upload`: 修复错误信息不消失问题 @wookaoer ([#827](https://github.com/Tencent/tdesign-react/pull/827))
+- `TagInput`:  修复中文输入法enter时，既触发添加tag也input框有输入的字母的问题 @LittlehorseXie ([#835](https://github.com/Tencent/tdesign-react/pull/835))
+
+### 🚧 Others
+- 官网: 新增主题配置生成器 @uyarn ([#655](https://github.com/Tencent/tdesign-react/pull/655))
+
 ## 🌈 0.34.3 `2022-05-25` 
 
 ### 🚧 Others
