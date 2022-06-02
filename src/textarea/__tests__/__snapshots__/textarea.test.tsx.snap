@@ -51,20 +51,70 @@ exports[`events.jsx 1`] = `
 
 exports[`maxlength.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner"
-      maxlength="20"
-      placeholder="请输入内容"
-      style="height: auto; min-height: auto;"
-    />
-    <span
-      class="t-textarea__limit"
+  <div>
+    <div
+      class="t-textarea"
     >
-      0/20
-    </span>
+      <textarea
+        class="t-textarea__inner"
+        maxlength="20"
+        placeholder="请输入内容，超出限制无法输入"
+        style="height: auto; min-height: auto;"
+      />
+      <span
+        class="t-textarea__limit"
+      >
+        0/20
+      </span>
+    </div>
+    <br />
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        maxlength="Infinity"
+        placeholder="请输入内容，超出限制可以输入"
+        style="height: auto; min-height: auto;"
+      />
+      <span
+        class="t-textarea__limit"
+      >
+        0/20
+      </span>
+    </div>
+    <br />
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容，一个中文汉字表示两个字符长度，超出限制无法输入"
+        style="height: auto; min-height: auto;"
+      />
+      <span
+        class="t-textarea__limit"
+      >
+        0/20
+      </span>
+    </div>
+    <br />
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        maxlength="Infinity"
+        placeholder="请输入内容，一个中文汉字表示两个字符长度，超出限制可以输入"
+        style="height: auto; min-height: auto;"
+      />
+      <span
+        class="t-textarea__limit"
+      >
+        0/20
+      </span>
+    </div>
+    <br />
   </div>
 </DocumentFragment>
 `;
