@@ -76,7 +76,7 @@ export const Notification = forwardRef<any, NotificationProps>((props, ref) => {
   return (
     <div
       className={classNames(`${classPrefix}-notification`, {
-        [`${classPrefix}-notification-theme-${theme}`]: theme,
+        [`${classPrefix}-is-${theme}`]: theme,
       })}
       style={style}
     >
