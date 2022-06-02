@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Loading from './Loading';
-import { LoadingMethod, TdLoadingProps } from './type';
+import Loading, { LoadingProps } from './Loading';
+import { LoadingInstance, TdLoadingProps } from './type';
 
 function createContainer(attach?: TdLoadingProps['attach']) {
   if (typeof attach === 'string') return document.querySelector(attach);
@@ -9,8 +9,10 @@ function createContainer(attach?: TdLoadingProps['attach']) {
   return document.body;
 }
 
+export type LoadingPluginMethod = (options: boolean | LoadingProps) => LoadingInstance;
+
 // loading plugin形式
-export const LoadingPlugin: LoadingMethod = (options) => {
+export const LoadingPlugin: LoadingPluginMethod = (options) => {
   if (options === false) return { hide: () => null };
 
   const props = typeof options === 'boolean' ? {} : options;

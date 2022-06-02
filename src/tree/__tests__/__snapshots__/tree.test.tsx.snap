@@ -972,7 +972,7 @@ exports[`operations.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked t-size-m"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >

@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="t-notification t-is-info"
   >
     <div
       class="t-notification__icon"
@@ -79,7 +79,7 @@ exports[`content.jsx 1`] = `
     class="tdesign-demo-block-columns"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -118,7 +118,7 @@ exports[`content.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -161,7 +161,7 @@ exports[`content.jsx 1`] = `
 exports[`footer.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="t-notification t-is-info"
   >
     <div
       class="t-notification__icon"
@@ -226,7 +226,7 @@ exports[`icon.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -265,7 +265,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-error"
     >
       <div
         class="t-notification__icon"
@@ -304,7 +304,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-warning"
     >
       <div
         class="t-notification__icon"
@@ -343,7 +343,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-success"
     >
       <div
         class="t-notification__icon"
@@ -391,7 +391,7 @@ exports[`operation.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -446,7 +446,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -501,7 +501,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -563,7 +563,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -633,7 +633,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"

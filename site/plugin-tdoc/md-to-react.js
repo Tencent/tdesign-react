@@ -186,7 +186,7 @@ function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
-      demoPath: path.resolve(__dirname, `../../src/${componentName}/_usage/index.jsx`),
+      demoPath: path.posix.resolve(__dirname, `../../src/${componentName}/_usage/index.jsx`),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
