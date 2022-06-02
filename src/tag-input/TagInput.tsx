@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
@@ -50,6 +50,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
     },
   });
+  const isCompositionRef = useRef(false);
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
@@ -70,9 +71,19 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
 
+  const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = true;
+    inputProps?.onCompositionstart?.(value, context);
+  };
+
+  const onInputCompositionend = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = false;
+    inputProps?.onCompositionend?.(value, context);
+  };
+
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    onInnerEnter(value, context);
+    !isCompositionRef.current && onInnerEnter(value, context);
     scrollToRight();
   };
 
@@ -147,6 +158,8 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onBlur={(inputValue, context) => {
         onBlur?.(tagValue, { e: context.e, inputValue });
       }}
+      onCompositionstart={onInputCompositionstart}
+      onCompositionend={onInputCompositionend}
     />
   );
 });
