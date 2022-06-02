@@ -9,7 +9,7 @@ spline: explain
 ### 🚀 Features
 - `Skeleton`: 延时关闭功能 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
 - `Dialog`: 增强 dialog 组件 confirmBtn & cancelBtn @psaren ([#813](https://github.com/Tencent/tdesign-react/pull/813))
-- `Notifycation`: 新增样式命名区分 theme @HQ-Lin ([#834](https://github.com/Tencent/tdesign-react/pull/834))
+- `Notification`: 新增样式命名区分 theme @HQ-Lin ([#834](https://github.com/Tencent/tdesign-react/pull/834))
 
 ### 🐞 Bug Fixes
 - `Loading`: 修复loading plugin类型缺失style和class的问题 @uyarn ([#810](https://github.com/Tencent/tdesign-react/pull/810))
