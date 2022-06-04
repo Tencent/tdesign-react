@@ -18,7 +18,7 @@ import { CheckboxGroupProps } from '../checkbox';
 import { DialogProps } from '../dialog';
 import { FormRule } from '../form';
 import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes, ComponentType } from '../common';
-import { ComponentType, MouseEvent, WheelEvent, ChangeEvent } from 'react';
+import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
   /**

@@ -517,6 +517,7 @@ class TableTreeStore<T extends TableRowData = TableRowData> {
         return;
       }
       const state = this.treeDataMap.get(rowValue);
+      if (!state) return;
       state.disabled = isRowSelectedDisabled(column, item, i);
       this.treeDataMap.set(rowValue, state);
       const children = get(item, keys.childrenKey);
