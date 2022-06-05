@@ -55,6 +55,11 @@ export default function TableTree() {
   const [data, setData] = useState(getData());
   const [expandAll, setExpandAll] = useState(false);
   const [customTreeExpandAndFoldIcon, setCustomTreeExpandAndFoldIcon] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 100,
+  });
   
   const setData1 = () => {
     // 需要更新数据地址空间
@@ -226,6 +231,11 @@ export default function TableTree() {
     type === 'expand' ? <ChevronDownIcon /> : <ChevronRightIcon />
   );
 
+  const onPageChange = (pageInfo) => {
+    setPagination({ ...pagination, ...pageInfo });
+    setData(getData(pageInfo.current));
+  };
+
   return (
     <div>
       <div>
@@ -255,6 +265,8 @@ export default function TableTree() {
         tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 /** , defaultExpandAll: true */ }}
         dragSort='row-handler'
         treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
+        pagination={pagination}
+        onPageChange={onPageChange}
       ></EnhancedTable>
 
       {/* <!-- 第二列展开树结点，缩进为 12px，示例代码有效，勿删 -->
