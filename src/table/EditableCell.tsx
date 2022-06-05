@@ -5,7 +5,7 @@ import { Edit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { TableRowData, PrimaryTableCol } from './type';
 import useClassName from './hooks/useClassName';
-import { renderCell } from './tr';
+import { renderCell } from './TR';
 import { validate } from '../form/formModel';
 import log from '../_common/js/log';
 
