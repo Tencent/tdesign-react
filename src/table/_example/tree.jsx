@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm } from 'tdesign-react';
-import { MoveIcon } from 'tdesign-icons-react';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox } from 'tdesign-react';
+import { /** MoveIcon, */ ChevronRightIcon, ChevronDownIcon } from 'tdesign-icons-react';
 
 function getData(currentPage = 1) {
   const data = [];
@@ -50,6 +50,7 @@ export default function TableTree() {
   const table = useRef(null);
   const [data, setData] = useState(getData());
   const [expandAll, setExpandAll] = useState(false);
+  const [customTreeExpandAndFoldIcon, setCustomTreeExpandAndFoldIcon] = useState(false);
   
   const setData1 = () => {
     // 需要更新数据地址空间
@@ -116,14 +117,15 @@ export default function TableTree() {
   };
   
   const columns = [
-    {
-      // 列拖拽排序必要参数
-      colKey: 'drag',
-      title: '排序',
-      cell: () => <MoveIcon />,
-      width: 80,
-      align: 'center',
-    },
+    // 实验中
+    // {
+    //   // 列拖拽排序必要参数
+    //   colKey: 'drag',
+    //   title: '排序',
+    //   cell: () => <MoveIcon />,
+    //   width: 80,
+    //   align: 'center',
+    // },
     {
       colKey: 'id',
       title: '编号',
@@ -173,26 +175,6 @@ export default function TableTree() {
     },
   ];
   
-  // const [pagination, setPagination] = useState({
-  //   current: 1,
-  //   pageSize: 10,
-  //   total: 100,
-  // });
-  
-  // // eslint-disable-next-line
-  // const defaultPagination = {
-  //   defaultCurrent: 1,
-  //   defaultPageSize: 10,
-  //   total: 100,
-  // };
-  
-  // const onPageChange = (pageInfo) => {
-  //   // pagination.current = pageInfo.current;
-  //   // pagination.pageSize = pageInfo.pageSize;
-  //   setPagination({ ...pagination, ...pageInfo });
-  //   setData(getData(pageInfo.current));
-  // };
-  
   const onRowToggle = () => {
     const rowIds = [
       '我是 1_1 号（第 1 页）',
@@ -236,6 +218,10 @@ export default function TableTree() {
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
+  const renderTreeExpandAndFoldIcon = ({ type }) => (
+    type === 'expand' ? <ChevronDownIcon /> : <ChevronRightIcon />
+  );
+
   return (
     <div>
       <div>
@@ -248,6 +234,12 @@ export default function TableTree() {
         <Button theme="default" style={{ marginLeft: '16px' }} onClick={getTreeNode}>获取全部树形结构</Button>
       </div>
       <br />
+      <div>
+        <Checkbox checked={customTreeExpandAndFoldIcon} onChange={setCustomTreeExpandAndFoldIcon} style={{ verticalAlign: 'middle' }}>
+          自定义折叠/展开图标
+        </Checkbox>
+      </div>
+      <br />
       {/* <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
       <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
       <!-- treeNodeColumnIndex 定义第几列作为树结点展开列，默认为第一列 --> */}
@@ -257,7 +249,8 @@ export default function TableTree() {
         data={data}
         columns={columns}
         tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 }}
-        dragSort='row-handler'
+        // dragSort='row-handler'
+        treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
       ></EnhancedTable>
 
       {/* <!-- 第二列展开树结点，缩进为 12px，示例代码有效，勿删 -->

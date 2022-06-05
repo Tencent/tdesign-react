@@ -1,5 +1,5 @@
 // 表格 行拖拽 + 列拖拽功能
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import Sortable, { SortableEvent, SortableOptions } from 'sortablejs';
 import get from 'lodash/get';
 import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
@@ -19,14 +19,14 @@ import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, columns, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass } = useClassName();
-  // 判断是否有拖拽列
-  const dragCol = columns.find((item) => item.colKey === 'drag');
+  // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
+  const dragCol = useMemo(() => columns.find((item) => item.colKey === 'drag'), [columns]);
   // 行拖拽判断条件
-  const isRowDraggable = sortOnRowDraggable || dragSort === 'row';
+  const isRowDraggable = useMemo(() => sortOnRowDraggable || dragSort === 'row', [dragSort, sortOnRowDraggable]);
   // 行拖拽判断条件-手柄列
-  const isRowHandlerDraggable = dragSort === 'row-handler' && !!dragCol;
+  const isRowHandlerDraggable = useMemo(() => dragSort === 'row-handler' && !!dragCol, [dragSort, dragCol]);
   // 列拖拽判断条件
-  const isColDraggable = dragSort === 'col';
+  const isColDraggable = useMemo(() => dragSort === 'col', [dragSort]);
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
@@ -135,7 +135,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     registerRowDragEvent(primaryTableRef.current?.tableElement);
     registerColDragEvent(primaryTableRef.current?.tableHtmlElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primaryTableRef]);
+  }, [primaryTableRef, columns, dragSort]);
 
   return {
     isRowDraggable,

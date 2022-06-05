@@ -7,13 +7,15 @@ import TableTreeStore, { SwapParams } from './tree-store';
 import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
 import useClassName from './useClassName';
 import { renderCell } from '../TR';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
 export default function useTreeData(props: TdEnhancedTableProps) {
-  const { data, columns, tree, rowKey } = props;
+  const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
   const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
   const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
+  const [locale, t] = useLocaleReceiver('table');
 
   const rowDataKeys = useMemo(
     () => ({
@@ -108,16 +110,17 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
       const childrenNodes = get(p.row, rowDataKeys.childrenKey);
       if (childrenNodes && childrenNodes instanceof Array) {
-        const IconNode = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded
-          ? MinusRectangleIcon
-          : AddRectangleIcon;
+        const expanded = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded;
+        const type = expanded ? 'expand' : 'fold';
+        const defaultIconNode =
+          t(locale.treeExpandAndFoldIcon, { type }) || (expanded ? <MinusRectangleIcon /> : <AddRectangleIcon />);
+        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type }) : defaultIconNode;
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
             {!!childrenNodes.length && (
-              <IconNode
-                className={tableTreeClasses.icon}
-                onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}
-              />
+              <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
+                {iconNode}
+              </span>
             )}
             {cellInfo}
           </div>
