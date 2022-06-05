@@ -248,7 +248,7 @@ export default function TableTree() {
         rowKey="key"
         data={data}
         columns={columns}
-        tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 }}
+        tree={{ childrenKey: 'list', treeNodeColumnIndex: 1 }}
         // dragSort='row-handler'
         treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
       ></EnhancedTable>
