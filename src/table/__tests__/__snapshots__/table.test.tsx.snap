@@ -17835,8 +17835,29 @@ exports[`tree.jsx 1`] = `
       </button>
     </div>
     <br />
+    <div>
+      <label
+        class="t-checkbox"
+        style="vertical-align: middle;"
+      >
+        <input
+          class="t-checkbox__former"
+          type="checkbox"
+          value=""
+        />
+        <span
+          class="t-checkbox__input"
+        />
+        <span
+          class="t-checkbox__label"
+        >
+          自定义折叠/展开图标
+        </span>
+      </label>
+    </div>
+    <br />
     <div
-      class="t-table t-table--row-handler-draggable"
+      class="t-table"
       style="position: relative;"
     >
       <div
@@ -17846,9 +17867,6 @@ exports[`tree.jsx 1`] = `
           class="t-table--layout-fixed"
         >
           <colgroup>
-            <col
-              style="width: 80px;"
-            />
             <col
               style="width: 100px;"
             />
@@ -17866,16 +17884,6 @@ exports[`tree.jsx 1`] = `
             class="t-table__header"
           >
             <tr>
-              <th
-                class="t-table__th-drag t-align-center"
-                data-colkey="drag"
-              >
-                <div
-                  class="t-table__th-cell-inner"
-                >
-                  排序
-                </div>
-              </th>
               <th
                 class="t-table__th-id"
                 data-colkey="id"
@@ -17931,25 +17939,7 @@ exports[`tree.jsx 1`] = `
           >
             <tr
               class=""
-              data-id="我是 0_1 号（第 1 页）"
             >
-              <td
-                class="t-align-center t-table__handle-draggable"
-              >
-                <svg
-                  class="t-icon t-icon-move"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M5 1a1 1 0 100 2 1 1 0 000-2zM11 1a1 1 0 100 2 1 1 0 000-2zM4 6a1 1 0 112 0 1 1 0 01-2 0zM11 5a1 1 0 100 2 1 1 0 000-2zM4 10a1 1 0 112 0 1 1 0 01-2 0zM5 13a1 1 0 100 2 1 1 0 000-2zM10 10a1 1 0 112 0 1 1 0 01-2 0zM11 13a1 1 0 100 2 1 1 0 000-2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </td>
               <td
                 class="t-table-td--ellipsis"
               >
@@ -18059,25 +18049,7 @@ exports[`tree.jsx 1`] = `
             </tr>
             <tr
               class=""
-              data-id="我是 1_1 号（第 1 页）"
             >
-              <td
-                class="t-align-center t-table__handle-draggable"
-              >
-                <svg
-                  class="t-icon t-icon-move"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M5 1a1 1 0 100 2 1 1 0 000-2zM11 1a1 1 0 100 2 1 1 0 000-2zM4 6a1 1 0 112 0 1 1 0 01-2 0zM11 5a1 1 0 100 2 1 1 0 000-2zM4 10a1 1 0 112 0 1 1 0 01-2 0zM5 13a1 1 0 100 2 1 1 0 000-2zM10 10a1 1 0 112 0 1 1 0 01-2 0zM11 13a1 1 0 100 2 1 1 0 000-2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </td>
               <td
                 class="t-table-td--ellipsis"
               >
@@ -18097,24 +18069,28 @@ exports[`tree.jsx 1`] = `
                     class="t-table__tree-col t-table__tree-col--inline"
                     style="padding-left: 1px;"
                   >
-                    <svg
-                      class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <span
+                      class="t-table__tree-op-icon"
                     >
-                      <path
-                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                      <path
-                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
+                      <svg
+                        class="t-icon t-icon-add-rectangle"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                     我是 1_1 号（第 1 页）
                   </div>
                 </div>
@@ -18205,25 +18181,7 @@ exports[`tree.jsx 1`] = `
             </tr>
             <tr
               class=""
-              data-id="我是 2_1 号（第 1 页）"
             >
-              <td
-                class="t-align-center t-table__handle-draggable"
-              >
-                <svg
-                  class="t-icon t-icon-move"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M5 1a1 1 0 100 2 1 1 0 000-2zM11 1a1 1 0 100 2 1 1 0 000-2zM4 6a1 1 0 112 0 1 1 0 01-2 0zM11 5a1 1 0 100 2 1 1 0 000-2zM4 10a1 1 0 112 0 1 1 0 01-2 0zM5 13a1 1 0 100 2 1 1 0 000-2zM10 10a1 1 0 112 0 1 1 0 01-2 0zM11 13a1 1 0 100 2 1 1 0 000-2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </td>
               <td
                 class="t-table-td--ellipsis"
               >
@@ -18243,24 +18201,28 @@ exports[`tree.jsx 1`] = `
                     class="t-table__tree-col t-table__tree-col--inline"
                     style="padding-left: 1px;"
                   >
-                    <svg
-                      class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <span
+                      class="t-table__tree-op-icon"
                     >
-                      <path
-                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                      <path
-                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
+                      <svg
+                        class="t-icon t-icon-add-rectangle"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                     我是 2_1 号（第 1 页）
                   </div>
                 </div>
@@ -18351,25 +18313,7 @@ exports[`tree.jsx 1`] = `
             </tr>
             <tr
               class=""
-              data-id="我是 3_1 号（第 1 页）"
             >
-              <td
-                class="t-align-center t-table__handle-draggable"
-              >
-                <svg
-                  class="t-icon t-icon-move"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M5 1a1 1 0 100 2 1 1 0 000-2zM11 1a1 1 0 100 2 1 1 0 000-2zM4 6a1 1 0 112 0 1 1 0 01-2 0zM11 5a1 1 0 100 2 1 1 0 000-2zM4 10a1 1 0 112 0 1 1 0 01-2 0zM5 13a1 1 0 100 2 1 1 0 000-2zM10 10a1 1 0 112 0 1 1 0 01-2 0zM11 13a1 1 0 100 2 1 1 0 000-2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </td>
               <td
                 class="t-table-td--ellipsis"
               >
@@ -18389,24 +18333,28 @@ exports[`tree.jsx 1`] = `
                     class="t-table__tree-col t-table__tree-col--inline"
                     style="padding-left: 1px;"
                   >
-                    <svg
-                      class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <span
+                      class="t-table__tree-op-icon"
                     >
-                      <path
-                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                      <path
-                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
+                      <svg
+                        class="t-icon t-icon-add-rectangle"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                     我是 3_1 号（第 1 页）
                   </div>
                 </div>
@@ -18497,25 +18445,7 @@ exports[`tree.jsx 1`] = `
             </tr>
             <tr
               class=""
-              data-id="我是 4_1 号（第 1 页）"
             >
-              <td
-                class="t-align-center t-table__handle-draggable"
-              >
-                <svg
-                  class="t-icon t-icon-move"
-                  fill="none"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                >
-                  <path
-                    d="M5 1a1 1 0 100 2 1 1 0 000-2zM11 1a1 1 0 100 2 1 1 0 000-2zM4 6a1 1 0 112 0 1 1 0 01-2 0zM11 5a1 1 0 100 2 1 1 0 000-2zM4 10a1 1 0 112 0 1 1 0 01-2 0zM5 13a1 1 0 100 2 1 1 0 000-2zM10 10a1 1 0 112 0 1 1 0 01-2 0zM11 13a1 1 0 100 2 1 1 0 000-2z"
-                    fill="currentColor"
-                    fill-opacity="0.9"
-                  />
-                </svg>
-              </td>
               <td
                 class="t-table-td--ellipsis"
               >
@@ -18535,24 +18465,28 @@ exports[`tree.jsx 1`] = `
                     class="t-table__tree-col t-table__tree-col--inline"
                     style="padding-left: 1px;"
                   >
-                    <svg
-                      class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                      fill="none"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      width="1em"
+                    <span
+                      class="t-table__tree-op-icon"
                     >
-                      <path
-                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                      <path
-                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                        fill="currentColor"
-                        fill-opacity="0.9"
-                      />
-                    </svg>
+                      <svg
+                        class="t-icon t-icon-add-rectangle"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
+                      >
+                        <path
+                          d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                        <path
+                          d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                     我是 4_1 号（第 1 页）
                   </div>
                 </div>
@@ -18859,24 +18793,28 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-                  <svg
-                    class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
+                  <span
+                    class="t-table__tree-op-icon"
                   >
-                    <path
-                      d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                    <path
-                      d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </span>
                   JQTest0
                 </div>
               </td>
@@ -18956,24 +18894,28 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-                  <svg
-                    class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
+                  <span
+                    class="t-table__tree-op-icon"
                   >
-                    <path
-                      d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                    <path
-                      d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </span>
                   JQTest1
                 </div>
               </td>
@@ -19052,24 +18994,28 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-                  <svg
-                    class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
+                  <span
+                    class="t-table__tree-op-icon"
                   >
-                    <path
-                      d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                    <path
-                      d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </span>
                   JQTest2
                 </div>
               </td>
@@ -19149,24 +19095,28 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-                  <svg
-                    class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
+                  <span
+                    class="t-table__tree-op-icon"
                   >
-                    <path
-                      d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                    <path
-                      d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </span>
                   JQTest3
                 </div>
               </td>
@@ -19245,24 +19195,28 @@ exports[`tree-select.jsx 1`] = `
                   class="t-table__tree-col"
                   style="padding-left: 1px;"
                 >
-                  <svg
-                    class="t-icon t-icon-add-rectangle t-table__tree-op-icon"
-                    fill="none"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    width="1em"
+                  <span
+                    class="t-table__tree-op-icon"
                   >
-                    <path
-                      d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                    <path
-                      d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
-                      fill="currentColor"
-                      fill-opacity="0.9"
-                    />
-                  </svg>
+                    <svg
+                      class="t-icon t-icon-add-rectangle"
+                      fill="none"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                    >
+                      <path
+                        d="M7.5 11V8.5H5v-1h2.5V5h1v2.5H11v1H8.5V11h-1z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                      <path
+                        d="M3 14a1 1 0 01-1-1V3a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H3zm0-1h10V3H3v10z"
+                        fill="currentColor"
+                        fill-opacity="0.9"
+                      />
+                    </svg>
+                  </span>
                   JQTest4
                 </div>
               </td>

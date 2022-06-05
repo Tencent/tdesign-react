@@ -240,15 +240,15 @@ export default function TableTree() {
         </Checkbox>
       </div>
       <br />
-      {/* <!-- 第一列展开树结点，缩进为 24px，子节点字段 childrenKey 默认为 children -->
-      <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! -->
-      <!-- treeNodeColumnIndex 定义第几列作为树结点展开列，默认为第一列 --> */}
+      {/* <!-- !!! 树形结构 EnhancedTable 才支持，普通 Table 不支持 !!! --> */}
+      {/* treeNodeColumnIndex 定义第几列作为树结点展开列，默认为第一列 --> */}
+      {/* defaultExpandAll 默认展开全部，也可通过实例方法 table.current.expandAll() 自由控制展开或收起 */}
       <EnhancedTable
         ref={table}
         rowKey="key"
         data={data}
         columns={columns}
-        tree={{ childrenKey: 'list', treeNodeColumnIndex: 1 }}
+        tree={{ childrenKey: 'list', treeNodeColumnIndex: 1 /** , defaultExpandAll: true */ }}
         // dragSort='row-handler'
         treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
       ></EnhancedTable>
@@ -259,11 +259,9 @@ export default function TableTree() {
       {/* <EnhancedTable
         ref={table}
         rowKey="key"
-        pagination={defaultPagination}
         data={data}
         columns={columns}
-        tree={{ indent: 12, childrenKey: 'list' }}
-        onPageChange={onPageChange}
+        tree={{ indent: 12, treeNodeColumnIndex: 1, childrenKey: 'list', defaultExpandAll: true }}
       ></EnhancedTable> */}
     </div>
   )
