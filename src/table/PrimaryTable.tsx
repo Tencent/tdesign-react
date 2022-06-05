@@ -72,7 +72,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       let item = { ...columns[i] };
       // 自定义列显示控制
       const isDisplayColumn = item.children?.length || tDisplayColumns?.includes(item.colKey);
-      if (!isDisplayColumn && props.columnController) continue;
+      if (!isDisplayColumn && props.columnController && tDisplayColumns) continue;
       item = formatToRowSelectColumn(item);
       // 添加排序图标和过滤图标
       if (item.sorter || item.filter) {
