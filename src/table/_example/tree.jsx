@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox } from 'tdesign-react';
-import { /** MoveIcon, */ ChevronRightIcon, ChevronDownIcon } from 'tdesign-icons-react';
+import {
+  MoveIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
+} from 'tdesign-icons-react';
 
 function getData(currentPage = 1) {
   const data = [];
@@ -118,14 +122,14 @@ export default function TableTree() {
   
   const columns = [
     // 实验中
-    // {
-    //   // 列拖拽排序必要参数
-    //   colKey: 'drag',
-    //   title: '排序',
-    //   cell: () => <MoveIcon />,
-    //   width: 80,
-    //   align: 'center',
-    // },
+    {
+      // 列拖拽排序必要参数
+      colKey: 'drag',
+      title: '排序',
+      cell: () => <MoveIcon />,
+      width: 80,
+      align: 'center',
+    },
     {
       colKey: 'id',
       title: '编号',
@@ -248,8 +252,8 @@ export default function TableTree() {
         rowKey="key"
         data={data}
         columns={columns}
-        tree={{ childrenKey: 'list', treeNodeColumnIndex: 1 /** , defaultExpandAll: true */ }}
-        // dragSort='row-handler'
+        tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 /** , defaultExpandAll: true */ }}
+        dragSort='row-handler'
         treeExpandAndFoldIcon={customTreeExpandAndFoldIcon ? renderTreeExpandAndFoldIcon : undefined}
       ></EnhancedTable>
 

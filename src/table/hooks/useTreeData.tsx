@@ -9,6 +9,10 @@ import useClassName from './useClassName';
 import { renderCell } from '../TR';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
+export interface UseSwapParams<T> extends SwapParams<T> {
+  data: T[];
+}
+
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
   const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
@@ -29,8 +33,12 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   useEffect(() => {
     if (!store || !checkedColumn) return;
+    // 第一次，不需要执行 updateDisabledState
+    const rowValue = get(dataSource[0], rowDataKeys.rowKey);
+    if (!store.treeDataMap.get(rowValue)) return;
     store.updateDisabledState(dataSource, checkedColumn, rowDataKeys);
-  }, [checkedColumn, dataSource, rowDataKeys, store]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkedColumn]);
 
   useEffect(
     () => {
@@ -213,10 +221,10 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   }
 
   /**
-   * 交换行数据
+   * 交换行数据，React 在回掉函数函数中无法获取最新的 state 信息，因此需要参数 params.data
    */
-  function swapData(params: SwapParams<TableRowData>) {
-    const r = store.swapData(dataSource, params, rowDataKeys);
+  function swapData(params: UseSwapParams<TableRowData>) {
+    const r = store.swapData(params.data, params, rowDataKeys);
     if (r.result) {
       setDataSource([...r.dataSource]);
     } else {

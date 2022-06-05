@@ -2,7 +2,7 @@
 import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import Sortable, { SortableEvent, SortableOptions } from 'sortablejs';
 import get from 'lodash/get';
-import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
+import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
 import useClassName from './useClassName';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
@@ -72,13 +72,17 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         const { oldIndex: currentIndex, newIndex: targetIndex } = evt;
         const params: DragSortContext<TableRowData> = {
           currentIndex,
-          current: data[currentIndex],
+          current: tData.current[currentIndex],
           targetIndex,
-          target: data[targetIndex],
-          currentData: swapDragArrayElement(tData.current, currentIndex, targetIndex),
+          target: tData.current[targetIndex],
+          data: tData.current,
+          newData: swapDragArrayElement([...tData.current], currentIndex, targetIndex),
           e: evt,
           sort: 'row',
         };
+        // currentData is going to be deprecated.
+        params.currentData = params.newData;
+        console.log([...tData.current], { ...params });
         onDragSort?.(params);
       },
     };
@@ -112,15 +116,18 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         dragInstanceTmp?.sort([...lastColList.current]);
         const { oldIndex: currentIndex, newIndex: targetIndex } = evt;
-        const params: DragSortContext<TableRowData> = {
+        const params: DragSortContext<PrimaryTableCol> = {
+          data: dragColumns.current,
           currentIndex,
           current: dragColumns[currentIndex],
           targetIndex,
           target: dragColumns[targetIndex],
-          currentData: swapDragArrayElement(dragColumns.current, currentIndex, targetIndex),
+          newData: swapDragArrayElement(dragColumns.current, currentIndex, targetIndex),
           e: evt,
           sort: 'col',
         };
+        // currentData is going to be deprecated.
+        params.currentData = params.newData;
         onDragSort?.(params);
       },
     };

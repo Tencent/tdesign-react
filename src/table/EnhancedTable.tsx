@@ -47,6 +47,7 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
   const onDragSortChange = (params: DragSortContext<TableRowData>) => {
     if (props.beforeDragSort && !props.beforeDragSort(params)) return;
     swapData({
+      data: params.data,
       current: params.current,
       target: params.target,
       currentIndex: params.currentIndex,
