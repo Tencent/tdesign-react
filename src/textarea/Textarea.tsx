@@ -30,7 +30,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     autosize,
     status,
     tips,
-    allowInputOverMax = false,
+    allowInputOverMax,
     ...otherProps
   } = props;
 

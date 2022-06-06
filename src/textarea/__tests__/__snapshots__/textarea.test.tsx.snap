@@ -3,34 +3,36 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-textarea"
+    class="tdesign-demo-block-row"
   >
-    <textarea
-      class="t-textarea__inner"
-      placeholder="请输入内容"
-      rows="2"
-      style="height: auto; min-height: auto;"
-    />
-  </div>
-  <br />
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner"
-      placeholder="请输入内容, 高度可自适应，autosize=true"
-      style="min-height: -4px; height: 0px;"
-    />
-  </div>
-  <br />
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner t-resize-none"
-      placeholder="请输入内容，高度可自适应，最少3行，最多10行，超过会出滚动条"
-      style="min-height: -12px; height: -40px;"
-    />
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容"
+        rows="2"
+        style="height: auto; min-height: auto;"
+      />
+    </div>
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner"
+        placeholder="请输入内容, 高度可自适应，autosize=true"
+        style="min-height: -4px; height: 0px;"
+      />
+    </div>
+    <div
+      class="t-textarea"
+    >
+      <textarea
+        class="t-textarea__inner t-resize-none"
+        placeholder="请输入内容，高度可自适应，最少3行，最多10行，超过会出滚动条"
+        style="min-height: -12px; height: -40px;"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -51,7 +53,9 @@ exports[`events.jsx 1`] = `
 
 exports[`maxlength.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="tdesign-demo-block-row"
+  >
     <div
       class="t-textarea"
     >
@@ -67,7 +71,6 @@ exports[`maxlength.jsx 1`] = `
         0/20
       </span>
     </div>
-    <br />
     <div
       class="t-textarea"
     >
@@ -83,7 +86,6 @@ exports[`maxlength.jsx 1`] = `
         0/20
       </span>
     </div>
-    <br />
     <div
       class="t-textarea"
     >
@@ -98,7 +100,6 @@ exports[`maxlength.jsx 1`] = `
         0/20
       </span>
     </div>
-    <br />
     <div
       class="t-textarea"
     >
@@ -114,7 +115,6 @@ exports[`maxlength.jsx 1`] = `
         0/20
       </span>
     </div>
-    <br />
   </div>
 </DocumentFragment>
 `;
@@ -122,68 +122,63 @@ exports[`maxlength.jsx 1`] = `
 exports[`status.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-textarea"
+    class="tdesign-demo-block-row"
   >
-    <textarea
-      class="t-textarea__inner"
-      placeholder="normal"
-      style="height: auto; min-height: auto;"
-    />
     <div
-      class="t-textarea__tips t-textarea__tips--normal"
+      class="t-textarea"
     >
-      正常提示
+      <textarea
+        class="t-textarea__inner"
+        placeholder="normal"
+        style="height: auto; min-height: auto;"
+      />
+      <div
+        class="t-textarea__tips t-textarea__tips--normal"
+      >
+        正常提示
+      </div>
     </div>
-  </div>
-  <div
-    style="height: 20px;"
-  />
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner t-is-success"
-      placeholder="success"
-      style="height: auto; min-height: auto;"
-    />
     <div
-      class="t-textarea__tips t-textarea__tips--success"
+      class="t-textarea"
     >
-      成功提示
+      <textarea
+        class="t-textarea__inner t-is-success"
+        placeholder="success"
+        style="height: auto; min-height: auto;"
+      />
+      <div
+        class="t-textarea__tips t-textarea__tips--success"
+      >
+        成功提示
+      </div>
     </div>
-  </div>
-  <div
-    style="height: 20px;"
-  />
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner t-is-warning"
-      placeholder="warning"
-      style="height: auto; min-height: auto;"
-    />
     <div
-      class="t-textarea__tips t-textarea__tips--warning"
+      class="t-textarea"
     >
-      警告提示
+      <textarea
+        class="t-textarea__inner t-is-warning"
+        placeholder="warning"
+        style="height: auto; min-height: auto;"
+      />
+      <div
+        class="t-textarea__tips t-textarea__tips--warning"
+      >
+        警告提示
+      </div>
     </div>
-  </div>
-  <div
-    style="height: 20px;"
-  />
-  <div
-    class="t-textarea"
-  >
-    <textarea
-      class="t-textarea__inner t-is-error"
-      placeholder="error"
-      style="height: auto; min-height: auto;"
-    />
     <div
-      class="t-textarea__tips t-textarea__tips--error"
+      class="t-textarea"
     >
-      错误提示
+      <textarea
+        class="t-textarea__inner t-is-error"
+        placeholder="error"
+        style="height: auto; min-height: auto;"
+      />
+      <div
+        class="t-textarea__tips t-textarea__tips--error"
+      >
+        错误提示
+      </div>
     </div>
   </div>
 </DocumentFragment>
