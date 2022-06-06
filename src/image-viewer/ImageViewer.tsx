@@ -1,43 +1,33 @@
-import React, { CSSProperties, ComponentProps, useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { isFunction } from 'lodash';
-import { DefaultUIImage, TitleIcons } from './DefaultUIImage';
+import { TdImageViewerProps } from './type';
 import { ImageModal } from './ImageViewerModel';
 import useConfig from '../_util/useConfig';
+import { StyledProps, TNode } from '../common';
+import { imageViewerDefaultProps } from './defaultProps';
+import { useImageScale, useList, useViewerScale } from './useHooks';
 
-export interface TdImageViewerProps extends ComponentProps<any> {
-  src?: string;
-  alt?: string;
-  title?: string;
-  titleIcons?: TitleIcons;
-  type?: 'mini' | 'normal';
-  miniWidth?: number;
-  miniHeight?: number;
-  movable?: boolean;
-  previewSrcList?: string[];
-  zIndex?: number;
-  style?: CSSProperties;
-  // 初始化时图片在队列中位置
-  startIndex?: number;
-  closeOnMark?: boolean;
-  mask?: boolean;
-  onClose?: () => void;
-  onOpen?: () => void;
-  onClick?: () => void;
-  className?: string;
-  maxScale?: number;
-  scaleStep?: number;
-}
-
-export type ImageViewerProps = TdImageViewerProps;
+export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
 const ImageViewer = (props: ImageViewerProps) => {
-  const { type, children, alt, src, style, className, title, titleIcons } = props;
+  const {
+    mode,
+    trigger,
+    defaultVisible,
+    images,
+    imageScale: imageScaleD,
+    viewerScale: viewerScaleD,
+    showOverlay,
+  } = props;
 
   const { classPrefix } = useConfig();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(defaultVisible);
+  const list = useList(images);
+  const imageScale = useImageScale(imageScaleD);
+  const viewerScale = useViewerScale(viewerScaleD);
 
-  const isMini = type === 'mini';
+  const isMini = mode === 'modeless';
 
   const onClose = () => {
     setVisible(false);
@@ -45,30 +35,11 @@ const ImageViewer = (props: ImageViewerProps) => {
   };
 
   const onOpen = () => {
-    if (!props.previewSrcList) return;
+    if (!images) return;
     setVisible(true);
-    if (!visible) isFunction(props.onOpen) && props.onOpen();
-    isFunction(props.onClick) && props.onClick();
   };
 
-  let uiImage: any = null;
-  if (children) {
-    if (!isFunction(children)) throw new Error('ImageViewer child needs to pass in a function');
-    uiImage = children({ onOpen, onClose });
-  } else {
-    uiImage = (
-      <DefaultUIImage
-        list={props.previewSrcList}
-        titleIcons={titleIcons}
-        alt={alt}
-        src={src}
-        style={style}
-        title={title}
-        className={className}
-        onOpen={onOpen}
-      />
-    );
-  }
+  const uiImage: TNode = isFunction(trigger) ? trigger({ onOpen, onClose }) : trigger;
 
   return (
     <>
@@ -77,19 +48,20 @@ const ImageViewer = (props: ImageViewerProps) => {
         createPortal(
           <>
             <ImageModal
-              list={props.previewSrcList}
+              images={list}
               isMini={isMini}
-              miniWidth={props.miniWidth}
-              miniHeight={props.miniHeight}
+              imageScale={imageScale}
+              viewerScale={viewerScale}
               zIndex={props.zIndex}
-              startIndex={props.startIndex}
+              defaultIndex={props.defaultIndex}
+              index={props.index}
+              draggable={props.draggable}
+              closeOnOverlay={props.closeOnOverlay}
+              closeBtn={props.closeBtn}
               onClose={onClose}
-              movable={props.movable}
-              closeOnMark={props.closeOnMark}
-              maxScale={props.maxScale}
-              scaleStep={props.scaleStep}
+              onOpen={onOpen}
             />
-            {props.mask && <div className={`${classPrefix}-image-viewer-mask`} />}
+            {showOverlay && <div className={`${classPrefix}-image-viewer-mask`} />}
           </>,
           document.body,
         )}
@@ -99,19 +71,6 @@ const ImageViewer = (props: ImageViewerProps) => {
 
 ImageViewer.displayName = 'ImageViewer';
 
-ImageViewer.defaultProps = {
-  miniWidth: 1000,
-  miniHeight: 600,
-  movable: false,
-  previewSrcList: [],
-  zIndex: 2000,
-  startIndex: 0,
-  closeOnMark: true,
-  mask: true,
-  maxScale: 2,
-  scaleStep: 0.5,
-  titleIcons: [],
-  type: 'normal',
-};
+ImageViewer.defaultProps = imageViewerDefaultProps;
 
 export default ImageViewer;

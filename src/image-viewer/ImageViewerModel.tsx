@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, WheelEventHandler } from 'react';
 import useConfig from 'tdesign-react/_util/useConfig';
-import { isArray } from 'lodash';
+import { isArray, isFunction } from 'lodash';
 import { IconFont } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { downloadFile, positionType, usePosition } from './usePosition';
+import { TNode } from '../common';
+import { downloadFile, positionType, usePosition } from './useHooks';
+import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 
 interface ImageModelItemProps {
   rotateZ: number;
@@ -11,6 +13,7 @@ interface ImageModelItemProps {
   position: positionType;
   setPosition: Dispatch<SetStateAction<positionType>>;
   src: string;
+  preSrc?: string;
 }
 
 // 单个弹窗实例
@@ -76,37 +79,40 @@ const ImageModelIcon = ({ onClick, className, disabled, isRange, name, label, si
 };
 
 interface ImageModalProps {
-  closeOnMark: boolean;
-  startIndex: number;
-  list: string[];
+  closeOnOverlay: boolean;
+  index: number;
+  defaultIndex?: number;
+  images: ImageInfo[];
   onClose: () => void;
-  maxScale: number;
-  scaleStep: number;
+  onOpen: () => void;
+  imageScale: ImageScale;
+  viewerScale: ImageViewerScale;
   zIndex: number;
   isMini: boolean;
-  miniWidth: number;
-  miniHeight: number;
-  movable: boolean;
+  draggable: boolean;
+  closeBtn: boolean | TNode;
 }
 
 // 弹窗基础组件
 export const ImageModal = (props: ImageModalProps) => {
   const {
-    closeOnMark,
-    startIndex,
+    closeOnOverlay,
+    defaultIndex = 0,
+    index: changeIndex,
     zIndex,
-    list = [],
-    onClose,
+    images,
     // isMini,
     // miniWidth,
     // miniHeight,
     // movable,
-    maxScale,
-    scaleStep,
+    imageScale,
+    closeBtn,
+    onOpen,
+    onClose,
   } = props;
   const { classPrefix } = useConfig();
 
-  const [index, setIndex] = useState(startIndex);
+  const [index, setIndex] = useState(defaultIndex);
   const [rotateZ, setRotateZ] = useState(0);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState<positionType>([0, 0]);
@@ -122,8 +128,8 @@ export const ImageModal = (props: ImageModalProps) => {
     const { deltaY } = e;
     setScale((scale) => {
       const newScale = scale - deltaY / 200;
-      if (newScale < 0.5) return 0.5;
-      if (newScale > maxScale) return maxScale;
+      if (newScale < imageScale.min) return imageScale.min;
+      if (newScale > imageScale.max) return imageScale.max;
       return newScale;
     });
   };
@@ -135,10 +141,10 @@ export const ImageModal = (props: ImageModalProps) => {
   const next = useCallback(() => {
     setIndex((index) => {
       const newIndex = index + 1;
-      if (newIndex >= list.length) return index;
+      if (newIndex >= images.length) return index;
       return newIndex;
     });
-  }, [list.length]);
+  }, [images.length]);
 
   const prev = useCallback(() => {
     setIndex((index) => (index - 1 > 0 ? index - 1 : 0));
@@ -146,21 +152,21 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const zoom = useCallback(() => {
     setScale((scale) => {
-      const newScale = scale + scaleStep;
-      if (newScale < 0.5) return 0.5;
-      if (newScale > maxScale) return maxScale;
+      const newScale = scale + imageScale.step;
+      if (newScale < imageScale.min) return imageScale.min;
+      if (newScale > imageScale.max) return imageScale.max;
       return newScale;
     });
-  }, [maxScale, scaleStep]);
+  }, [imageScale]);
 
   const zoomOut = useCallback(() => {
     setScale((scale) => {
-      const newScale = scale - scaleStep;
-      if (newScale < 0.5) return 0.5;
-      if (newScale > maxScale) return maxScale;
+      const newScale = scale - imageScale.step;
+      if (newScale < imageScale.min) return imageScale.min;
+      if (newScale > imageScale.max) return imageScale.max;
       return newScale;
     });
-  }, [maxScale, scaleStep]);
+  }, [imageScale]);
 
   const onKeyDown = useCallback(
     (event) => {
@@ -189,9 +195,15 @@ export const ImageModal = (props: ImageModalProps) => {
     onReset();
   }, [index, onReset]);
 
-  if (!isArray(list) || list.length < 1) return null;
+  useEffect(() => {
+    if (typeof changeIndex === 'number') setIndex(changeIndex);
+  }, [changeIndex]);
 
-  const item = list[index];
+  if (!isArray(images) || images.length < 1) return null;
+
+  const item: ImageInfo = images[index];
+
+  console.log('itemitemitem', item, images, index);
 
   // if (isMini) {
   //   return (
@@ -219,12 +231,27 @@ export const ImageModal = (props: ImageModalProps) => {
   //   )
   // }
 
+  // boolean控制显示，tnode直接展示
+  let closeNode: TNode = closeBtn;
+  if (closeBtn === true) {
+    closeNode = (
+      <ImageModelIcon
+        name="close"
+        className={`${classPrefix}-image-viewer-modal-close-bt`}
+        onClick={() => onClose && onClose()}
+      />
+    );
+  } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
+
   return (
     <div className={`${classPrefix}-image-viewer-preview-image`} onWheel={onScroll} style={{ zIndex }}>
-      <div className={`${classPrefix}-image-viewer-modal-mask`} onClick={() => closeOnMark && onClose && onClose()} />
-      {list.length > 1 && (
+      <div
+        className={`${classPrefix}-image-viewer-modal-mask`}
+        onClick={() => closeOnOverlay && onClose && onClose()}
+      />
+      {images.length > 1 && (
         <>
-          <div className={`${classPrefix}-image-viewer-modal-index`}>{`${index + 1}/${list.length}`}</div>
+          <div className={`${classPrefix}-image-viewer-modal-index`}>{`${index + 1}/${images.length}`}</div>
           <ImageModelIcon
             name="chevron-left-circle"
             className={`${classPrefix}-image-viewer-modal-prev-bt`}
@@ -235,15 +262,11 @@ export const ImageModal = (props: ImageModalProps) => {
             name="chevron-right-circle"
             className={`${classPrefix}-image-viewer-modal-next-bt`}
             onClick={next}
-            disabled={index >= list.length - 1}
+            disabled={index >= images.length - 1}
           />
         </>
       )}
-      <ImageModelIcon
-        name="close"
-        className={`${classPrefix}-image-viewer-modal-close-bt`}
-        onClick={() => onClose && onClose()}
-      />
+      {closeNode}
       <div className={`${classPrefix}-image-viewer-modal-footer`}>
         <div className={`${classPrefix}-image-viewer-footer__content`}>
           <ImageModelIcon size="1.8em" name="history" onClick={() => onRotate(-ROTATE_COUNT)} />
@@ -257,15 +280,17 @@ export const ImageModal = (props: ImageModalProps) => {
               onReset();
             }}
           />
-          <ImageModelIcon
-            size="1.5em"
-            name="download"
-            label="保存图片"
-            onClick={() => {
-              downloadFile(item);
-            }}
-          />
-          {list.length > 1 && (
+          {item.download && (
+            <ImageModelIcon
+              size="1.5em"
+              name="download"
+              label="保存图片"
+              onClick={() => {
+                downloadFile(item.mainImage);
+              }}
+            />
+          )}
+          {images.length > 1 && (
             <ImageModelIcon
               size="1.5em"
               name="chevron-down-circle"
@@ -279,11 +304,11 @@ export const ImageModal = (props: ImageModalProps) => {
         </div>
         {isExpand && (
           <div className={`${classPrefix}-image-viewer-footer__prev`}>
-            {list.map((src, index) => (
+            {images.map((item, index) => (
               <img
-                key={src}
+                key={item.thumbnail}
                 alt=""
-                src={src}
+                src={item.thumbnail}
                 className={`${classPrefix}-image-viewer-footer__img`}
                 onClick={() => setIndex(index)}
               />
@@ -292,7 +317,14 @@ export const ImageModal = (props: ImageModalProps) => {
         )}
         {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
       </div>
-      <ImageModelItem scale={scale} position={position} setPosition={setPosition} rotateZ={rotateZ} src={item} />
+      <ImageModelItem
+        scale={scale}
+        position={position}
+        setPosition={setPosition}
+        rotateZ={rotateZ}
+        preSrc={item.thumbnail}
+        src={item.mainImage}
+      />
     </div>
   );
 };

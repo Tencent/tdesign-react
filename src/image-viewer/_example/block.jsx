@@ -12,7 +12,6 @@ export default function BasicImageViewer() {
       />
     </div>
   )
-
   return (
     <div style={{width: '100px', height: '100px'}}>
       <ImageViewer trigger={trigger} images={['https://tdesign.gtimg.com/starter/starter.png']}/>

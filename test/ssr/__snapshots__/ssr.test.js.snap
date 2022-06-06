@@ -362,6 +362,20 @@ exports[`ssr snapshot test renders ./src/icon/_example/IconFontEnhanced.jsx corr
 
 exports[`ssr snapshot test renders ./src/icon/_example/IconFontExample.jsx correctly 1`] = `"<div style=\\"display:flex;flex-wrap:wrap\\" data-reactroot=\\"\\"><div style=\\"width:140px;height:140px;font-size:12px;display:flex;align-items:center;justify-content:center;flex-direction:column\\"><i style=\\"font-size:2em\\" class=\\"t-icon t-icon-loading\\"></i><div style=\\"margin-top:12px\\">loading</div></div><div style=\\"width:140px;height:140px;font-size:12px;display:flex;align-items:center;justify-content:center;flex-direction:column\\"><i style=\\"font-size:2em\\" class=\\"t-icon t-icon-close\\"></i><div style=\\"margin-top:12px\\">close</div></div><div style=\\"width:140px;height:140px;font-size:12px;display:flex;align-items:center;justify-content:center;flex-direction:column\\"><i style=\\"font-size:2em\\" class=\\"t-icon t-icon-check-circle-filled\\"></i><div style=\\"margin-top:12px\\">check-circle-filled</div></div></div>"`;
 
+exports[`ssr snapshot test renders ./src/image-viewer/_example/album.jsx correctly 1`] = `"<div style=\\"width:150px;height:100px\\" data-reactroot=\\"\\"></div>"`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/albumIcons.jsx correctly 1`] = `"<div style=\\"width:150px;height:100px\\" data-reactroot=\\"\\"></div>"`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/base.jsx correctly 1`] = `"<div style=\\"width:100px;height:100px\\" data-reactroot=\\"\\"><div class=\\"t-image-viewer-ui-image\\"><img alt=\\"test\\" src=\\"https://tdesign.gtimg.com/starter/starter.png\\" class=\\"t-image-viewer-ui-image-img\\"/></div></div>"`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/block.jsx correctly 1`] = `"<div style=\\"width:100px;height:100px\\" data-reactroot=\\"\\"><div class=\\"t-image-viewer-ui-image\\"><img alt=\\"test\\" src=\\"https://tdesign.gtimg.com/starter/starter.png\\" class=\\"t-image-viewer-ui-image-img\\"/></div></div>"`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/button.jsx correctly 1`] = `""`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/error.jsx correctly 1`] = `""`;
+
+exports[`ssr snapshot test renders ./src/image-viewer/_example/multiple.jsx correctly 1`] = `""`;
+
 exports[`ssr snapshot test renders ./src/input/_example/addon.jsx correctly 1`] = `"<div class=\\"tdesign-demo-item--input__input-box\\" data-reactroot=\\"\\"><div class=\\"t-addon t-addon--prepend\\"><span class=\\"t-addon__prepend\\">http://</span><div class=\\"t-input__wrap\\" value=\\"\\"><div class=\\"t-input t-size-m t-align-left t-is-default\\"><input type=\\"text\\" placeholder=\\"请输入域名\\" class=\\"t-input__inner\\" value=\\"\\"/></div></div></div><div class=\\"t-addon t-addon--prepend t-addon--append\\"><span class=\\"t-addon__prepend\\">http://</span><div class=\\"t-input__wrap\\" value=\\"\\"><div class=\\"t-input t-size-m t-align-left t-is-default\\"><input type=\\"text\\" placeholder=\\"请输入域名\\" class=\\"t-input__inner\\" value=\\"\\"/></div></div><span class=\\"t-addon__append\\">.com</span></div></div>"`;
 
 exports[`ssr snapshot test renders ./src/input/_example/align.jsx correctly 1`] = `"<div class=\\"tdesign-demo-item--input__input-box\\" data-reactroot=\\"\\"><div class=\\"t-input__wrap\\"><div class=\\"t-input t-size-m t-align-left t-is-default\\"><input type=\\"text\\" placeholder=\\"请输入\\" class=\\"t-input__inner\\" value=\\"居左对齐\\"/></div></div><div class=\\"t-input__wrap\\"><div class=\\"t-input t-size-m t-align-center t-is-default\\"><input type=\\"text\\" placeholder=\\"请输入\\" class=\\"t-input__inner\\" value=\\"居中对齐\\"/></div></div><div class=\\"t-input__wrap\\"><div class=\\"t-input t-size-m t-align-right t-is-default\\"><input type=\\"text\\" placeholder=\\"请输入\\" class=\\"t-input__inner\\" value=\\"居右对齐\\"/></div></div></div>"`;

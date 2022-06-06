@@ -1,5 +1,6 @@
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { isFunction } from 'lodash';
+import { ImageInfo, ImageScale, ImageViewerScale } from 'tdesign-react/image-viewer/type';
 
 export type positionType = [number, number];
 
@@ -101,4 +102,49 @@ export const downloadFile = (path: string) => {
       URL.revokeObjectURL(url);
     }
   };
+};
+
+const checkImages = (images) =>
+  images.map((image) => {
+    const result: ImageInfo = { mainImage: '' };
+    if (typeof image === 'string') result.mainImage = image;
+    else {
+      result.mainImage = image.mainImage;
+      result.thumbnail = image.thumbnail;
+      result.download = image.download;
+    }
+    return result;
+  });
+
+// 业务组件
+export const useList = (images) => {
+  const [list, setList] = useState(() => checkImages(images));
+
+  useEffect(() => {
+    setList(checkImages(images));
+  }, [images]);
+
+  return list;
+};
+
+export const useViewerScale = (viewerScale) => {
+  const result: ImageViewerScale = {
+    minWidth: 1000,
+    minHeight: 1000,
+  };
+  if (viewerScale?.minWidth !== undefined) result.minWidth = viewerScale.minWidth;
+  if (viewerScale?.minHeight !== undefined) result.minHeight = viewerScale.minHeight;
+  return result;
+};
+
+export const useImageScale = (imageScale) => {
+  const result: ImageScale = {
+    max: 2,
+    min: 0.5,
+    step: 0.5,
+  };
+  if (imageScale?.min !== undefined) result.min = imageScale.min;
+  if (imageScale?.max !== undefined) result.max = imageScale.max;
+  if (imageScale?.step !== undefined) result.step = imageScale.step;
+  return result;
 };
