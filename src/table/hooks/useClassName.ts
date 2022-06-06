@@ -13,6 +13,8 @@ export default function useClassName() {
       tdLastRow: `${classPrefix}-table__td-last-row`,
       tdFirstCol: `${classPrefix}-table__td-first-col`,
       thCellInner: `${classPrefix}-table__th-cell-inner`,
+      cellEditable: `${classPrefix}-table__cell--editable`,
+      cellEditWrap: `${classPrefix}-table__cell-wrap`,
       bordered: `${classPrefix}-table--bordered`,
       striped: `${classPrefix}-table--striped`,
       hover: `${classPrefix}-table--hoverable`,

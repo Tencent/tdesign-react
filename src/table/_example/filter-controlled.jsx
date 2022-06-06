@@ -35,6 +35,8 @@ const columns = [
     filter: {
       type: 'input',
       showConfirmAndReset: true,
+      // 自定义触发搜索确认的事件
+      confirmEvents: ['onEnter'],
       props: {
         placeholder: '请输入关键词搜索',
       },
@@ -84,7 +86,7 @@ const initData = [
 ];
 export default function TableSingleSort() {
   const [data, setData] = useState([...initData]);
-  //  survivalTime: [300, 500] 
+  //  survivalTime: [300, 500]
   const [filterValue, setFilterValue] = useState({});
 
   function onFilterChange(filterVal, col) {
