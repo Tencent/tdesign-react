@@ -22,7 +22,6 @@ const TabBar: React.FC<TabBarProps> = (props) => {
 
     let offset = 0;
 
-    console.log('===containerRef', containerRef.current);
     if (containerRef.current) {
       const itemsRef = containerRef.current.querySelectorAll('.t-tabs__nav-item');
 
@@ -41,11 +40,6 @@ const TabBar: React.FC<TabBarProps> = (props) => {
           return;
         }
         const itemPropValue = getComputedStyle(computedItem)[itemProp];
-        console.log(
-          '===itemPropValue',
-          JSON.stringify(getComputedStyle(computedItem).width),
-          JSON.stringify(computedItem.offsetWidth),
-        );
         setBarStyle({
           transform: `${transformPosition}(${offset}px)`,
           [barBorderProp]: itemPropValue,
