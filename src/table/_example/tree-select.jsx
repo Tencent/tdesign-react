@@ -99,7 +99,7 @@ export default function TableSingleSort() {
         columns={columns}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: 'childrenList', }}
+        tree={{ checkStrictly, childrenKey: 'childrenList' }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}

@@ -14,6 +14,8 @@ import 'tdesign-site-components/lib/styles/prism-theme-dark.less';
 
 import 'tdesign-icons-view';
 
+import 'tdesign-theme-generator';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

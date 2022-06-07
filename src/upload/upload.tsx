@@ -303,9 +303,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
     }
     if (sizeLimit) {
       const [overrideSize, errorMsg] = handleSizeLimit(file.size, sizeLimit);
-      if (errorMsg) {
-        setErrorMsg(errorMsg);
-      }
+      setErrorMsg(errorMsg);
       return Promise.resolve(overrideSize);
     }
     return Promise.resolve(true);

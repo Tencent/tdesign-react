@@ -30,7 +30,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
-    if (disabled || active === value) return;
+    if (disabled) return;
 
     onClick && onClick({ e });
     onChange(value);
