@@ -14,13 +14,15 @@ const TabBar: React.FC<TabBarProps> = (props) => {
   const [barStyle, setBarStyle] = useState<CSSProperties>({});
   const tabsClassPrefix = `${classPrefix}-tabs`;
 
-  const computeStyle = ({ tabPosition, activeId }) => {
+  const computeStyle = () => {
     const isHorizontal = ['bottom', 'top'].includes(tabPosition);
     const transformPosition = isHorizontal ? 'translateX' : 'translateY';
     const itemProp = isHorizontal ? 'width' : 'height';
     const barBorderProp = isHorizontal ? 'width' : 'height';
 
     let offset = 0;
+
+    console.log('===containerRef', containerRef.current);
     if (containerRef.current) {
       const itemsRef = containerRef.current.querySelectorAll('.t-tabs__nav-item');
 
@@ -39,6 +41,11 @@ const TabBar: React.FC<TabBarProps> = (props) => {
           return;
         }
         const itemPropValue = getComputedStyle(computedItem)[itemProp];
+        console.log(
+          '===itemPropValue',
+          JSON.stringify(getComputedStyle(computedItem).width),
+          JSON.stringify(computedItem.offsetWidth),
+        );
         setBarStyle({
           transform: `${transformPosition}(${offset}px)`,
           [barBorderProp]: itemPropValue,
@@ -48,12 +55,11 @@ const TabBar: React.FC<TabBarProps> = (props) => {
   };
 
   useEffect(() => {
-    computeStyle({
-      tabPosition,
-      activeId,
-    });
+    if (containerRef.current) {
+      setTimeout(() => computeStyle());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabPosition, activeId]);
+  }, [tabPosition, activeId, containerRef.current]);
 
   return (
     <div

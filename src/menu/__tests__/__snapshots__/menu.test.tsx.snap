@@ -831,7 +831,6 @@ exports[`double.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
@@ -972,7 +971,6 @@ exports[`double.jsx 1`] = `
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
