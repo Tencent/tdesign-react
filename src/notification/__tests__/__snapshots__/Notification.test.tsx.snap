@@ -76,7 +76,7 @@ exports[`close-all.jsx 1`] = `
 exports[`content.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-columns"
+    class="tdesign-demo-block-column"
   >
     <div
       class="t-notification t-is-info"

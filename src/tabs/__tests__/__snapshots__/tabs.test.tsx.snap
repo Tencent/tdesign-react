@@ -78,7 +78,6 @@ exports[`ban.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -175,7 +174,6 @@ exports[`base.jsx 1`] = `
             >
               <div
                 class="t-tabs__bar t-is-top"
-                style="transform: translateX(0px);"
               />
               <div
                 class="t-tabs__bar t-is-top"
@@ -320,7 +318,6 @@ exports[`combination.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -976,7 +973,6 @@ exports[`icon.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1281,7 +1277,6 @@ exports[`position.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1382,7 +1377,6 @@ exports[`size.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1460,7 +1454,6 @@ exports[`size.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
@@ -1547,7 +1540,6 @@ exports[`theme.jsx 1`] = `
               >
                 <div
                   class="t-tabs__bar t-is-top"
-                  style="transform: translateX(0px);"
                 />
                 <div
                   class="t-tabs__bar t-is-top"
