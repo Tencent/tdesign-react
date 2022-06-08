@@ -1,50 +1,33 @@
-import React, { forwardRef, useEffect, useState } from 'react';
-import classNames from 'classnames';
+import React, { forwardRef, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
-import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
-import { TdDateRangePickerProps } from './type';
-import { RangeInputPopup } from '../range-input';
+import { TdDateRangePickerPanelProps } from './type';
 import RangePanel from './panel/RangePanel';
-import useRange from './hooks/useRange';
+import useRangeValue from './hooks/useRangeValue';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
-import { dateRangePickerDefaultProps } from './defaultProps';
 
-export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}
+export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
-const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props, ref) => {
-  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
-
+const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProps>((props, ref) => {
   const {
     className,
     style,
-    disabled,
     mode,
     enableTimePicker,
     disableDate,
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
+    firstDayOfWeek,
     presets,
     timePickerProps,
-    onPick,
+    onPanelClick,
   } = props;
 
   const {
-    inputValue,
-    popupVisible,
-    rangeInputProps,
-    popupProps,
     value,
     year,
     month,
     time,
-    activeIndex,
-    isHoverCell,
-    setActiveIndex,
     onChange,
-    setIsHoverCell,
-    setInputValue,
-    setPopupVisible,
     setTime,
     setYear,
     setMonth,
@@ -52,9 +35,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
-  } = useRange(props);
+  } = useRangeValue(props);
 
-  const { formatTime, formatDate, isValidDate, format, timeFormat } = useFormat({
+  const { formatDate, format } = useFormat({
     mode,
     value,
     enableTimePicker,
@@ -64,43 +47,31 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
   // 记录面板是否选中过
   const [isSelected, setIsSelected] = useState(false);
-
-  useEffect(() => {
-    // 面板展开重置数据
-    if (popupVisible) {
-      setIsSelected(false);
-      setIsFirstValueSelected(false);
-      setCacheValue(formatDate(value || []));
-      setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
-    }
-    // eslint-disable-next-line
-  }, [value, popupVisible]);
+  const [isHoverCell, setIsHoverCell] = useState(false);
+  const [hoverValue, setHoverValue] = useState([]);
+  const activeIndex = useMemo(() => (isFirstValueSelected ? 1 : 0), [isFirstValueSelected]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
     setIsHoverCell(true);
-    const nextValue = [...inputValue];
+    const nextValue = [...hoverValue];
     nextValue[activeIndex] = formatDate(date);
-    setInputValue(nextValue);
+    setHoverValue(nextValue);
   }
 
   // 日期 leave
   function onCellMouseLeave() {
     setIsHoverCell(false);
-    setInputValue(cacheValue);
+    setHoverValue(cacheValue);
   }
 
   // 日期点击
-  function onCellClick(date: Date, { e, partial }) {
-    onPick?.(date, { e, partial });
-
-    setIsHoverCell(false);
+  function onCellClick(date: Date, { partial }) {
     setIsSelected(true);
 
-    const nextValue = [...inputValue];
+    const nextValue = [...cacheValue];
     nextValue[activeIndex] = formatDate(date);
     setCacheValue(nextValue);
-    setInputValue(nextValue);
 
     // date 模式自动切换年月
     if (mode === 'date') {
@@ -117,22 +88,15 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     // 有时间选择器走 confirm 逻辑
     if (enableTimePicker) return;
 
-    // 确保两端都是有效值
-    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v));
-
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { formatType: 'valueType' }), {
+    if (nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
+      onChange(formatDate(nextValue, { formatType: 'valueType', sortType: 'swap' }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'pick',
       });
       setIsFirstValueSelected(false);
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
-      setIsFirstValueSelected(true);
     } else {
-      setActiveIndex(activeIndex ? 0 : 1);
+      // 记录选中一次
       setIsFirstValueSelected(true);
     }
   }
@@ -185,8 +149,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   function onTimePickerChange(val: string) {
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
 
-    const nextInputValue = [...inputValue];
-    const changedInputValue = inputValue[activeIndex];
+    const nextInputValue = [...cacheValue];
+    const changedInputValue = cacheValue[activeIndex];
     const currentDate = !dayjs(changedInputValue, format).isValid()
       ? dayjs().year(year[activeIndex]).month(month[activeIndex])
       : dayjs(changedInputValue, format);
@@ -203,33 +167,25 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setTime(nextTime);
 
     setIsSelected(true);
-    setInputValue(formatDate(nextInputValue));
     setCacheValue(formatDate(nextInputValue));
   }
 
   // 确定
   function onConfirmClick() {
-    const nextValue = [...inputValue];
-
-    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v));
+    const nextValue = [...cacheValue];
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, { formatType: 'valueType' }), {
+    if (nextValue.length === 2 && isFirstValueSelected) {
+      onChange(formatDate(nextValue, { formatType: 'valueType', sortType: 'swap' }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'confirm',
       });
       setYear(nextValue.map((v) => dayjs(v, format).year()));
       setMonth(nextValue.map((v) => dayjs(v, format).month()));
-      setPopupVisible(false);
-    } else if (notValidIndex !== -1) {
-      setActiveIndex(notValidIndex);
+      setIsFirstValueSelected(false);
     } else {
-      setActiveIndex(activeIndex ? 0 : 1);
+      setIsFirstValueSelected(true);
     }
-
-    // 记录选中一次
-    setIsFirstValueSelected(true);
   }
 
   // 预设
@@ -241,11 +197,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       console.error(`preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, { formatType: 'valueType' }), {
+      onChange(formatDate(presetValue, { formatType: 'valueType', sortType: 'swap' }), {
         dayjsValue: presetValue.map((p) => dayjs(p)),
         trigger: 'preset',
       });
-      setPopupVisible(false);
     }
   }
 
@@ -278,9 +233,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   }
 
   const panelProps = {
-    hoverValue: isHoverCell ? inputValue : [],
+    hoverValue: isHoverCell ? hoverValue : [],
     value: isSelected ? cacheValue : value,
-    isFirstValueSelected,
     year,
     month,
     mode,
@@ -292,32 +246,25 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     timePickerProps,
     enableTimePicker,
     activeIndex,
-    onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
+    onCellClick,
     onJumperClick,
     onConfirmClick,
     onPresetClick,
     onYearChange,
     onMonthChange,
     onTimePickerChange,
+    onPanelClick,
   };
 
-  return (
-    <div className={classNames(`${classPrefix}-date-range-picker`, className)} style={style} ref={ref}>
-      <RangeInputPopup
-        disabled={disabled}
-        inputValue={inputValue}
-        popupProps={popupProps}
-        rangeInputProps={rangeInputProps}
-        popupVisible={popupVisible}
-        panel={<RangePanel {...panelProps} />}
-      />
-    </div>
-  );
+  return <RangePanel ref={ref} className={className} style={style} {...panelProps} />;
 });
 
-DateRangePicker.displayName = 'DateRangePicker';
-DateRangePicker.defaultProps = dateRangePickerDefaultProps;
+DateRangePickerPanel.displayName = 'DateRangePickerPanel';
+DateRangePickerPanel.defaultProps = {
+  mode: 'date',
+  defaultValue: [],
+};
 
-export default DateRangePicker;
+export default DateRangePickerPanel;

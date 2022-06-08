@@ -3,34 +3,22 @@ import { CalendarIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
-import useControlled from '../../hooks/useControlled';
-import { TdDatePickerProps, DateValue } from '../type';
+import { TdDatePickerProps } from '../type';
 import useFormat from './useFormat';
+import useSingleValue from './useSingleValue';
 
-export default function useSingle(props: TdDatePickerProps) {
+export default function useSingleInput(props: TdDatePickerProps) {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const name = `${classPrefix}-date-picker`;
 
   const inputRef = useRef<HTMLInputElement>();
 
-  const {
-    mode,
-    prefixIcon,
-    suffixIcon,
-    inputProps: inputPropsFromProps,
-    popupProps: popupPropsFromProps,
-    allowInput,
-    clearable,
-    placeholder = globalDatePickerConfig.placeholder[mode],
-    onBlur,
-    onFocus,
-    onInput,
-  } = props;
+  const { value, onChange, time, setTime, month, setMonth, year, setYear, cacheValue, setCacheValue } =
+    useSingleValue(props);
 
-  const [value, onChange] = useControlled(props, 'value', props.onChange);
   const { isValidDate, formatDate, formatTime } = useFormat({
     value,
-    mode,
+    mode: props.mode,
     format: props.format,
     valueType: props.valueType,
     enableTimePicker: props.enableTimePicker,
@@ -38,22 +26,18 @@ export default function useSingle(props: TdDatePickerProps) {
 
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
-  const [timeValue, setTimeValue] = useState(formatTime(value));
-  const [month, setMonth] = useState<number>(dayjs(value).month() || new Date().getMonth());
-  const [year, setYear] = useState<number>(dayjs(value).year() || new Date().getFullYear());
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(formatDate(value));
-  const [cacheValue, setCacheValue] = useState(formatDate(value)); // 缓存选中值，panel 点击时更改
 
   // input 设置
   const inputProps = {
-    ...inputPropsFromProps,
+    ...props.inputProps,
     ref: inputRef,
-    clearable,
-    prefixIcon,
-    readonly: !allowInput,
-    placeholder,
-    suffixIcon: suffixIcon || <CalendarIcon />,
+    clearable: props.clearable,
+    prefixIcon: props.prefixIcon,
+    readonly: !props.allowInput,
+    placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
+    suffixIcon: props.suffixIcon ?? <CalendarIcon />,
     className: classNames({
       [`${name}__input--placeholder`]: isHoverCell,
     }),
@@ -63,13 +47,13 @@ export default function useSingle(props: TdDatePickerProps) {
       onChange('', { dayjsValue: dayjs(''), trigger: 'clear' });
     },
     onBlur: (val: string, { e }) => {
-      onBlur?.({ value: val, e });
+      props.onBlur?.({ value: val, e });
     },
     onFocus: (_: string, { e }) => {
-      onFocus?.({ value, e });
+      props.onFocus?.({ value, e });
     },
     onChange: (val: string, { e }) => {
-      onInput?.({ input: val, value, e });
+      props.onInput?.({ input: val, value, e });
 
       // 输入事件
       setInputValue(val);
@@ -81,14 +65,14 @@ export default function useSingle(props: TdDatePickerProps) {
       const newTime = formatTime(val);
       !Number.isNaN(newYear) && setYear(newYear);
       !Number.isNaN(newMonth) && setMonth(newMonth);
-      !Number.isNaN(newTime) && setTimeValue(newTime);
+      !Number.isNaN(newTime) && setTime(newTime);
     },
     onEnter: (val: string) => {
       if (!isValidDate(val) && !isValidDate(value)) return;
 
       setPopupVisible(false);
       if (isValidDate(val)) {
-        onChange(formatDate(val, 'valueType') as DateValue, { dayjsValue: dayjs(val), trigger: 'enter' });
+        onChange(formatDate(val, { formatType: 'valueType' }), { dayjsValue: dayjs(val), trigger: 'enter' });
       } else if (isValidDate(value)) {
         setInputValue(formatDate(value));
       } else {
@@ -100,9 +84,9 @@ export default function useSingle(props: TdDatePickerProps) {
   // popup 设置
   const popupProps = {
     expandAnimation: true,
-    ...popupPropsFromProps,
-    overlayStyle: popupPropsFromProps?.overlayStyle ?? { width: 'auto' },
-    overlayClassName: classNames(popupPropsFromProps?.overlayClassName, `${name}__panel-container`),
+    ...props.popupProps,
+    overlayStyle: props.popupProps?.overlayStyle ?? { width: 'auto' },
+    overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
     onVisibleChange: (visible: boolean) => {
       setPopupVisible(visible);
       if (!visible) {
@@ -116,15 +100,11 @@ export default function useSingle(props: TdDatePickerProps) {
   useEffect(() => {
     if (!value) {
       setInputValue('');
-      setCacheValue('');
-      setTimeValue(formatTime(new Date()));
       return;
     }
     if (!isValidDate(value, 'valueType')) return;
 
     setInputValue(formatDate(value));
-    setCacheValue(formatDate(value));
-    setTimeValue(formatTime(value));
     // eslint-disable-next-line
   }, [value]);
 
@@ -132,7 +112,7 @@ export default function useSingle(props: TdDatePickerProps) {
     year,
     month,
     value,
-    timeValue,
+    time,
     inputValue,
     popupVisible,
     inputProps,
@@ -142,7 +122,7 @@ export default function useSingle(props: TdDatePickerProps) {
     onChange,
     setYear,
     setMonth,
-    setTimeValue,
+    setTime,
     setIsHoverCell,
     setInputValue,
     setPopupVisible,

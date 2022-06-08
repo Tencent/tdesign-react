@@ -38,7 +38,12 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
         <div className={`${classPrefix}-date-picker__presets`}>
           {presets &&
             Object.keys(presets).map((key: string) => (
-              <Button key={key} size="small" variant="text" onClick={(e) => onPresetClick(presets[key], { e })}>
+              <Button
+                key={key}
+                size="small"
+                variant="text"
+                onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
+              >
                 {key}
               </Button>
             ))}
