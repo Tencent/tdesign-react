@@ -52,7 +52,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
   const replyElement = reply ? <div className={classNames(`${classPrefix}-comment__reply`)}>{reply}</div> : null;
 
   return (
-    <div ref={ref} style={style} className={classNames(className, [`${classPrefix}-comment`])}>
+    <div ref={ref} style={style} className={classNames(`${classPrefix}-comment`, className)}>
       <div className={`${classPrefix}-comment__inner`}>
         {avatarElement}
         {contentElement}

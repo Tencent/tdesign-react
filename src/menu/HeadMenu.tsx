@@ -33,7 +33,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
   return (
     <MenuContext.Provider value={value}>
       <div
-        className={classNames(className, `${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`)}
+        className={classNames(`${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`, className)}
         style={{ ...style }}
       >
         <div className={`${classPrefix}-head-menu__inner`}>

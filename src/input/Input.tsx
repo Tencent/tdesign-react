@@ -295,7 +295,7 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(className, `${classPrefix}-input__wrap`, {
+        className={classNames(`${classPrefix}-input__wrap`, className, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
         {...restProps}
