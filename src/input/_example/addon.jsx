@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Input, Addon } from 'tdesign-react';
+import { Input, InputAdornment } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');
   return (
     <div className="tdesign-demo-item--input__input-box">
-      <Addon prepend="http://">
+      <InputAdornment prepend="http://">
         <Input
           placeholder="请输入域名"
           value={value}
@@ -13,8 +13,8 @@ export default function InputExample() {
             onChange(value);
           }}
         />
-      </Addon>
-      <Addon prepend="http://" append=".com">
+      </InputAdornment>
+      <InputAdornment prepend="http://" append=".com">
         <Input
           placeholder="请输入域名"
           value={value}
@@ -22,7 +22,7 @@ export default function InputExample() {
             onChange(value);
           }}
         />
-      </Addon>
+      </InputAdornment>
     </div>
   );
 }

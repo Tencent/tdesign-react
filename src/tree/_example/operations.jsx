@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Addon, Button, Input, Tree, Form, Switch } from 'tdesign-react';
+import { InputAdornment, Button, Input, Tree, Form, Switch } from 'tdesign-react';
 
 const items = [
   {
@@ -275,9 +275,9 @@ export default () => {
         </Form>
       </div>
       <div className="operations">
-        <Addon prepend="filter:">
+        <InputAdornment prepend="filter:">
           <Input value={filterText} onChange={handleInputChange} />
-        </Addon>
+        </InputAdornment>
       </div>
       <Tree
         ref={treeRef}
