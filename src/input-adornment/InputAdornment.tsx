@@ -41,7 +41,7 @@ const InputAdornment = forwardRef((props: InputAdornmentProps, ref: React.Ref<HT
     <div
       ref={ref}
       style={style}
-      className={classNames(className, `${classPrefix}-input-adornment`, {
+      className={classNames(`${classPrefix}-input-adornment`, className, {
         [`${classPrefix}-input-adornment--prepend`]: !!prepend,
         [`${classPrefix}-input-adornment--append`]: !!append,
       })}
