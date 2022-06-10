@@ -351,7 +351,7 @@ exports[`text.jsx 1`] = `
       class="t-input-adornment t-input-adornment--append"
     >
       <div
-        class="t-tag-input t-input__wrap"
+        class="t-input__wrap t-tag-input"
         value=""
       >
         <div
