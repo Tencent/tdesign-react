@@ -44,7 +44,7 @@ const Form = forwardRefWithStatics(
       onValuesChange = noop,
     } = props;
 
-    const formClass = classNames(className, `${classPrefix}-form`, {
+    const formClass = classNames(`${classPrefix}-form`, className, {
       [`${classPrefix}-form-inline`]: layout === 'inline',
     });
 

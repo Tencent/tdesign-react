@@ -1,8 +1,8 @@
 // 表格 行拖拽 + 列拖拽功能
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import Sortable, { SortableEvent, SortableOptions } from 'sortablejs';
 import get from 'lodash/get';
-import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
+import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
 import useClassName from './useClassName';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
@@ -19,14 +19,14 @@ import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, columns, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass } = useClassName();
-  // 判断是否有拖拽列
-  const dragCol = columns.find((item) => item.colKey === 'drag');
+  // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
+  const dragCol = useMemo(() => columns.find((item) => item.colKey === 'drag'), [columns]);
   // 行拖拽判断条件
-  const isRowDraggable = sortOnRowDraggable || dragSort === 'row';
+  const isRowDraggable = useMemo(() => sortOnRowDraggable || dragSort === 'row', [dragSort, sortOnRowDraggable]);
   // 行拖拽判断条件-手柄列
-  const isRowHandlerDraggable = dragSort === 'row-handler' && !!dragCol;
+  const isRowHandlerDraggable = useMemo(() => dragSort === 'row-handler' && !!dragCol, [dragSort, dragCol]);
   // 列拖拽判断条件
-  const isColDraggable = dragSort === 'col';
+  const isColDraggable = useMemo(() => dragSort === 'col', [dragSort]);
   // 为实现受控，存储上一次的变化结果。React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
   const lastRowList = useRef([]);
   // React 在回调函数中无法获取最新的 state/props 值，因此使用 useRef
@@ -72,13 +72,17 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         const { oldIndex: currentIndex, newIndex: targetIndex } = evt;
         const params: DragSortContext<TableRowData> = {
           currentIndex,
-          current: data[currentIndex],
+          current: tData.current[currentIndex],
           targetIndex,
-          target: data[targetIndex],
-          currentData: swapDragArrayElement(tData.current, currentIndex, targetIndex),
+          target: tData.current[targetIndex],
+          data: tData.current,
+          newData: swapDragArrayElement([...tData.current], currentIndex, targetIndex),
           e: evt,
           sort: 'row',
         };
+        // currentData is going to be deprecated.
+        params.currentData = params.newData;
+        console.log([...tData.current], { ...params });
         onDragSort?.(params);
       },
     };
@@ -112,15 +116,18 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         dragInstanceTmp?.sort([...lastColList.current]);
         const { oldIndex: currentIndex, newIndex: targetIndex } = evt;
-        const params: DragSortContext<TableRowData> = {
+        const params: DragSortContext<PrimaryTableCol> = {
+          data: dragColumns.current,
           currentIndex,
           current: dragColumns[currentIndex],
           targetIndex,
           target: dragColumns[targetIndex],
-          currentData: swapDragArrayElement(dragColumns.current, currentIndex, targetIndex),
+          newData: swapDragArrayElement(dragColumns.current, currentIndex, targetIndex),
           e: evt,
           sort: 'col',
         };
+        // currentData is going to be deprecated.
+        params.currentData = params.newData;
         onDragSort?.(params);
       },
     };
@@ -135,7 +142,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
     registerRowDragEvent(primaryTableRef.current?.tableElement);
     registerColDragEvent(primaryTableRef.current?.tableHtmlElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primaryTableRef]);
+  }, [primaryTableRef, columns, dragSort]);
 
   return {
     isRowDraggable,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Addon, Input, Tree } from 'tdesign-react';
+import { InputAdornment, Input, Tree } from 'tdesign-react';
 
 const items = [
   {
@@ -104,9 +104,9 @@ export default () => {
 
   return (
     <div className="tdesign-tree-base">
-      <Addon prepend="filter:">
+      <InputAdornment prepend="filter:">
         <Input value={filterText} onChange={setFilterText} />
-      </Addon>
+      </InputAdornment>
       <Tree data={items} allowFoldNodeOnFilter expandOnClickNode defaultExpanded={DEFAULT_EXPANDED} hover line filter={filterByText} />
     </div>
   );

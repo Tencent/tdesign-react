@@ -52,7 +52,7 @@ export default function useFormItemStyle(props) {
     return extra;
   }, [showErrorMessage, errorList, successList, classPrefix]);
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
+  const formItemClass = classNames(`${classPrefix}-form__item`, className, {
     [`${classPrefix}-form-item__${renderName}`]: renderName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,

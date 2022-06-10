@@ -28,14 +28,14 @@ export default function useFormat(props: formatProps) {
   }
 
   // 日期格式化
-  const formatDate = (newDate: DateValue | DateValue[], type = 'format') => {
+  const formatDate = (newDate: DateValue | DateValue[], { formatType = 'format', sortType = 'min' } = {}) => {
     const formatMap = { format, valueType };
-    const targetFormat = formatMap[type];
+    const targetFormat = formatMap[formatType];
 
     let result;
 
     if (Array.isArray(newDate)) {
-      result = formatRange({ newDate, format, targetFormat });
+      result = formatRange({ newDate, format, targetFormat, sortType });
       // 格式化失败提示
       if (result.some((r) => r === 'Invalid Date')) {
         console.error(
@@ -76,7 +76,7 @@ export default function useFormat(props: formatProps) {
     if (Array.isArray(value)) {
       result = value.map((v) => dayjs(v).format(timeFormat));
     } else {
-      result = dayjs(value as DateValue).format(timeFormat);
+      result = dayjs((value || new Date()) as DateValue).format(timeFormat);
     }
 
     return result;
@@ -94,10 +94,10 @@ export default function useFormat(props: formatProps) {
 }
 
 // 格式化 range
-function formatRange({ newDate, format, targetFormat }) {
+function formatRange({ newDate, format, targetFormat, sortType = 'min' }) {
   if (!newDate || !Array.isArray(newDate)) return [];
 
-  const dayjsDateList = newDate.map((d) => d && (dayjs(d).isValid() ? dayjs(d) : dayjs(d, format)));
+  let dayjsDateList = newDate.map((d) => d && (dayjs(d).isValid() ? dayjs(d) : dayjs(d, format)));
 
   // 保证后面的时间大于前面的时间
   if (
@@ -105,7 +105,12 @@ function formatRange({ newDate, format, targetFormat }) {
     dayjsDateList[1] &&
     dayjsDateList[0].toDate().getTime() > dayjsDateList[1].toDate().getTime()
   ) {
-    dayjsDateList.fill(dayjsDateList[1]);
+    // 数据兼容规则
+    if (sortType === 'min') {
+      dayjsDateList = [dayjsDateList[1], dayjsDateList[1]];
+    } else if (sortType === 'swap') {
+      dayjsDateList = [dayjsDateList[1], dayjsDateList[0]];
+    }
   }
 
   // valueType = 'time-stamp' 返回时间戳

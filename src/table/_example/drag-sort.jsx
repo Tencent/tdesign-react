@@ -37,10 +37,11 @@ const initData = [
 export default function TableDragSort() {
   const [data, setData] = useState(initData);
 
-  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e }) {
-    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e);
+  // currentData is going to be deprecated.
+  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e);
     // 数据受控实现
-    setData(currentData);
+    setData(newData);
   }
 
   return (

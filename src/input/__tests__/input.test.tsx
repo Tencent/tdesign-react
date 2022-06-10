@@ -3,7 +3,7 @@ import { testExamples, render, fireEvent } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import { LockOnIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import Input from '../Input';
-import Addon from '../../addon';
+import InputAdornment from '../../input-adornment';
 
 // 测试组件代码 Example 快照
 testExamples(__dirname);
@@ -20,11 +20,11 @@ describe('Input 组件测试', () => {
     expect(changeFn).toBeCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputValue);
   });
-  test('addon', async () => {
+  test('InputAdornment', async () => {
     const { asFragment } = render(
-      <Addon prepend="http://">
+      <InputAdornment prepend="http://">
         <Input placeholder={InputPlaceholder} />
-      </Addon>,
+      </InputAdornment>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

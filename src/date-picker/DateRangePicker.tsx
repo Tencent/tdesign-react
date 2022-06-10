@@ -5,7 +5,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDateRangePickerProps } from './type';
 import { RangeInputPopup } from '../range-input';
-import DateRangePickerPanel from './panel/DateRangePickerPanel';
+import RangePanel from './panel/RangePanel';
 import useRange from './hooks/useRange';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
@@ -37,7 +37,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     value,
     year,
     month,
-    timeValue,
+    time,
     activeIndex,
     isHoverCell,
     setActiveIndex,
@@ -45,7 +45,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     setIsHoverCell,
     setInputValue,
     setPopupVisible,
-    setTimeValue,
+    setTime,
     setYear,
     setMonth,
     isFirstValueSelected,
@@ -71,7 +71,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       setIsSelected(false);
       setIsFirstValueSelected(false);
       setCacheValue(formatDate(value || []));
-      setTimeValue(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
+      setTime(formatTime(value || [dayjs().format(timeFormat), dayjs().format(timeFormat)]));
     }
     // eslint-disable-next-line
   }, [value, popupVisible]);
@@ -122,7 +122,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (notValidIndex === -1 && nextValue.length === 2 && !enableTimePicker && isFirstValueSelected) {
-      onChange(formatDate(nextValue, 'valueType'), {
+      onChange(formatDate(nextValue, { formatType: 'valueType' }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'pick',
       });
@@ -130,12 +130,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
       setPopupVisible(false);
     } else if (notValidIndex !== -1) {
       setActiveIndex(notValidIndex);
+      setIsFirstValueSelected(true);
     } else {
       setActiveIndex(activeIndex ? 0 : 1);
+      setIsFirstValueSelected(true);
     }
-
-    // 记录选中一次
-    setIsFirstValueSelected(true);
   }
 
   // 头部快速切换
@@ -199,9 +198,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     nextInputValue[activeIndex] = nextDate;
 
-    const nextTimeValue = [...timeValue];
-    nextTimeValue[activeIndex] = val;
-    setTimeValue(nextTimeValue);
+    const nextTime = [...time];
+    nextTime[activeIndex] = val;
+    setTime(nextTime);
 
     setIsSelected(true);
     setInputValue(formatDate(nextInputValue));
@@ -216,7 +215,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (notValidIndex === -1 && nextValue.length === 2 && isFirstValueSelected) {
-      onChange(formatDate(nextValue, 'valueType'), {
+      onChange(formatDate(nextValue, { formatType: 'valueType' }), {
         dayjsValue: nextValue.map((v) => dayjs(v)),
         trigger: 'confirm',
       });
@@ -242,7 +241,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     if (!Array.isArray(presetValue)) {
       console.error(`preset: ${preset} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, 'valueType'), {
+      onChange(formatDate(presetValue, { formatType: 'valueType' }), {
         dayjsValue: presetValue.map((p) => dayjs(p)),
         trigger: 'preset',
       });
@@ -287,7 +286,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     mode,
     format,
     presets,
-    timeValue,
+    time,
     disableDate,
     firstDayOfWeek,
     timePickerProps,
@@ -312,7 +311,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
         popupProps={popupProps}
         rangeInputProps={rangeInputProps}
         popupVisible={popupVisible}
-        panel={<DateRangePickerPanel {...panelProps} />}
+        panel={<RangePanel {...panelProps} />}
       />
     </div>
   );

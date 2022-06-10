@@ -311,7 +311,7 @@ exports[`jump.jsx 1`] = `
     >
       跳至
       <div
-        class="t-pagination__input t-input-number t-size-m t-input-number--normal"
+        class="t-input-number t-size-m t-pagination__input t-input-number--normal"
       >
         <div
           class="t-input__wrap"

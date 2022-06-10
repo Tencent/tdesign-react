@@ -30,6 +30,12 @@ export default ({ mode }) =>
     },
     build: {
       outDir: '../_site',
+      rollupOptions: {
+        input: {
+          index: 'index.html',
+          playground: 'playground.html',
+        },
+      },
     },
     jsx: 'react',
     server: {

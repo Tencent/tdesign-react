@@ -4,7 +4,7 @@ export * from './loading';
 export * from './popup';
 export * from './button';
 export * from './input';
-export * from './addon';
+export * from './input-adornment';
 export * from './alert';
 export * from './badge';
 export * from './radio';

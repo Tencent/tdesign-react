@@ -5,6 +5,7 @@
 import { TdTextareaProps } from './type';
 
 export const textareaDefaultProps: TdTextareaProps = {
+  allowInputOverMax: false,
   autofocus: false,
   autosize: false,
   disabled: false,

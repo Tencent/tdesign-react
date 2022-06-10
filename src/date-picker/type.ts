@@ -43,6 +43,7 @@ export interface TdDatePickerProps {
   firstDayOfWeek?: number;
   /**
    * 用于格式化日期，全局配置默认为：'YYYY-MM-DD'，[详细文档](https://day.js.org/docs/en/display/format)
+   * @default ''
    */
   format?: string;
   /**
@@ -76,11 +77,6 @@ export interface TdDatePickerProps {
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
   /**
-   * 是否呈现为日期范围选择器（临时 API，后期将调整为是 DateRangePicker 组件）
-   * @default false
-   */
-  range?: boolean;
-  /**
    * 用于自定义组件后置图标
    */
   suffixIcon?: TElement;
@@ -90,15 +86,17 @@ export interface TdDatePickerProps {
   timePickerProps?: TimePickerProps;
   /**
    * 选中值
+   * @default ''
    */
   value?: DateValue;
   /**
    * 选中值，非受控属性
+   * @default ''
    */
   defaultValue?: DateValue;
   /**
    * 用于格式化日期，默认为：'YYYY-MM-DD'，可选值：'date/time-stamp/YYY-MM-DD' 等，[更多可选值见 Dayjs 详细文档](https://day.js.org/docs/en/display/format)。<br /> 其中 `valueType=date` 表示 `value` 数据类型为 `Date`；`valueType='time-stamp'` 表示 `value` 数据类型为时间戳
-   * @default YYYY-MM-DD
+   * @default ''
    */
   valueType?: string;
   /**
@@ -138,7 +136,7 @@ export interface TdDateRangePickerProps {
    * 是否禁用组件，值为数组表示可分别控制开始日期和结束日期是否禁用
    * @default false
    */
-  disabled?: boolean | Array<boolean>;
+  disabled?: boolean;
   /**
    * 禁用日期，示例：['A', 'B'] 表示日期 A 和日期 B 会被禁用。{ from: 'A', to: 'B' } 表示在 A 到 B 之间的日期会被禁用。{ before: 'A', after: 'B' } 表示在 A 之前和在 B 之后的日期都会被禁用。其中 A = '2021-01-01'，B = '2021-02-01'。值类型为 Function 则表示返回值为 true 的日期会被禁用
    */
@@ -154,7 +152,7 @@ export interface TdDateRangePickerProps {
   firstDayOfWeek?: number;
   /**
    * 用于格式化日期，[详细文档](https://day.js.org/docs/en/display/format)
-   * @default 'YYYY-MM-DD'
+   * @default ''
    */
   format?: string;
   /**
@@ -202,15 +200,17 @@ export interface TdDateRangePickerProps {
   timePickerProps?: TimePickerProps;
   /**
    * 选中值
+   * @default []
    */
   value?: DateRangeValue;
   /**
    * 选中值，非受控属性
+   * @default []
    */
   defaultValue?: DateRangeValue;
   /**
    * 用于格式化日期，默认为：'YYYY-MM-DD'，可选值：'date/time-stamp/YYY-MM-DD' 等，[更多可选值见 Dayjs 详细文档](https://day.js.org/docs/en/display/format)。<br /> 其中 `valueType=date` 表示 `value` 数据类型为 `Date`；`valueType='time-stamp'` 表示 `value` 数据类型为时间戳
-   * @default YYYY-MM-DD
+   * @default ''
    */
   valueType?: string;
   /**
@@ -242,6 +242,146 @@ export interface TdDateRangePickerProps {
    * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
    */
   onPick?: (value: DateValue, context: PickContext) => void;
+}
+
+export interface TdDatePickerPanelProps
+  extends Pick<
+    TdDatePickerProps,
+    | 'value'
+    | 'defaultValue'
+    | 'valueType'
+    | 'disabled'
+    | 'disableDate'
+    | 'enableTimePicker'
+    | 'firstDayOfWeek'
+    | 'format'
+    | 'mode'
+    | 'presets'
+    | 'presetsPlacement'
+    | 'timePickerProps'
+  > {
+  /**
+   * 点击日期单元格时触发
+   */
+  onCellClick?: (context: { date: Date; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 选中值发生变化时触发。参数 `context.trigger` 表示触发当前事件的来源，不同的模式触发来源也会不同
+   */
+  onChange?: (
+    value: DateValue,
+    context: { dayjsValue?: Dayjs; e?: MouseEvent<HTMLDivElement>; trigger?: DatePickerTriggerSource },
+  ) => void;
+  /**
+   * 如果存在“确认”按钮，则点击“确认”按钮时触发
+   */
+  onConfirm?: (context: { date: Date; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
+   * 点击面板时触发
+   */
+  onPanelClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 如果存在“确认”按钮，则点击“确认”按钮时触发
+   */
+  onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 时间切换发生变化时触发
+   */
+  onTimeChange?: (context: {
+    time: string;
+    date: Date;
+    trigger: DatePickerTimeChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
+}
+
+export interface TdDateRangePickerPanelProps
+  extends Pick<
+    TdDateRangePickerProps,
+    | 'value'
+    | 'defaultValue'
+    | 'valueType'
+    | 'disabled'
+    | 'disableDate'
+    | 'enableTimePicker'
+    | 'firstDayOfWeek'
+    | 'format'
+    | 'mode'
+    | 'presets'
+    | 'presetsPlacement'
+    | 'timePickerProps'
+  > {
+  /**
+   * 点击日期单元格时触发
+   */
+  onCellClick?: (context: { date: Date[]; partial: DateRangePickerPartial; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 选中值发生变化时触发。参数 `context.trigger` 表示触发当前事件的来源，不同的模式触发来源也会不同
+   */
+  onChange?: (
+    value: DateRangeValue,
+    context: {
+      dayjsValue?: Dayjs[];
+      partial: DateRangePickerPartial;
+      e?: MouseEvent<HTMLDivElement>;
+      trigger?: DatePickerTriggerSource;
+    },
+  ) => void;
+  /**
+   * 如果存在“确认”按钮，则点击“确认”按钮时触发
+   */
+  onConfirm?: (context: { date: Date[]; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
+   * 点击面板时触发
+   */
+  onPanelClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 时间切换发生变化时触发
+   */
+  onTimeChange?: (context: {
+    time: string;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    trigger: DatePickerTimeChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
 }
 
 export type DisableDate = Array<DateValue> | DisableDateObj | ((date: DateValue) => boolean);
@@ -280,3 +420,9 @@ export interface PickContext {
   e: MouseEvent<HTMLDivElement>;
   partial: DateRangePickerPartial;
 }
+
+export type DatePickerMonthChangeTrigger = 'month-select' | 'month-arrow-next' | 'month-arrow-previous';
+
+export type DatePickerTimeChangeTrigger = 'time-hour' | 'time-minute' | 'time-second';
+
+export type DatePickerYearChangeTrigger = 'year-select' | 'year-arrow-next' | 'year-arrow-previous';

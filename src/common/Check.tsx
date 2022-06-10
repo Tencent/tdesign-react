@@ -59,7 +59,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
 
-  const labelClassName = classNames(className, `${classPrefix}-${type}`, {
+  const labelClassName = classNames(`${classPrefix}-${type}`, className, {
     [`${classPrefix}-is-checked`]: internalChecked,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-indeterminate`]: indeterminate,

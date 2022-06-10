@@ -190,7 +190,7 @@ const Slider = forwardRef((props: SliderProps, ref: React.Ref<HTMLDivElement>) =
     >
       <div
         ref={sliderRef}
-        className={classNames(className, `${classPrefix}-slider`, {
+        className={classNames(`${classPrefix}-slider`, className, {
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-slider--vertical`]: isVertical,
           [`${classPrefix}-slider--with-input`]: inputNumberProps,
