@@ -5,7 +5,7 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdDatePickerProps } from './type';
 import SelectInput from '../select-input';
-import DatePickerPanel from './panel/DatePickerPanel';
+import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
 import useFormat from './hooks/useFormat';
 import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
@@ -14,7 +14,7 @@ import { datePickerDefaultProps } from './defaultProps';
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
 const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
-  const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
+  const { classPrefix } = useConfig();
 
   const {
     className,
@@ -23,7 +23,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     mode,
     enableTimePicker,
     disableDate,
-    firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
+    firstDayOfWeek,
     presets,
     timePickerProps,
     onPick,
@@ -37,13 +37,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     value,
     year,
     month,
-    timeValue,
+    time,
     inputRef,
     onChange,
     setIsHoverCell,
     setInputValue,
     setPopupVisible,
-    setTimeValue,
+    setTime,
     setYear,
     setMonth,
     cacheValue,
@@ -64,7 +64,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     // 面板展开重置数据
     if (popupVisible) {
       setCacheValue(formatDate(value || new Date()));
-      setTimeValue(formatTime(value || new Date()));
+      setTime(formatTime(value || new Date()));
     }
     // eslint-disable-next-line
   }, [value, popupVisible, enableTimePicker]);
@@ -92,7 +92,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (enableTimePicker) {
       setCacheValue(formatDate(date));
     } else {
-      onChange(formatDate(date, 'valueType'), { dayjsValue: dayjs(date), trigger: 'pick' });
+      onChange(formatDate(date, { formatType: 'valueType' }), { dayjsValue: dayjs(date), trigger: 'pick' });
       setPopupVisible(false);
     }
 
@@ -117,21 +117,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
 
     const nextYear = next.getFullYear();
     const nextMonth = next.getMonth();
-    const nextInputValue = formatDate(
-      dayjs(inputValue || new Date())
-        .year(nextYear)
-        .month(nextMonth)
-        .toDate(),
-    );
 
     setYear(nextYear);
     setMonth(nextMonth);
-    setInputValue(nextInputValue);
   }
 
   // timepicker 点击
   function onTimePickerChange(val: string) {
-    setTimeValue(val);
+    setTime(val);
 
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
 
@@ -150,7 +143,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
   function onConfirmClick() {
     const nextValue = formatDate(inputValue);
     if (nextValue) {
-      onChange(formatDate(inputValue, 'valueType'), { dayjsValue: dayjs(inputValue), trigger: 'confirm' });
+      onChange(formatDate(inputValue, { formatType: 'valueType' }), {
+        dayjsValue: dayjs(inputValue),
+        trigger: 'confirm',
+      });
     } else {
       setInputValue(formatDate(value));
     }
@@ -163,28 +159,19 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    onChange(formatDate(presetValue, 'valueType'), { dayjsValue: dayjs(presetValue), trigger: 'preset' });
+    onChange(formatDate(presetValue, { formatType: 'valueType' }), {
+      dayjsValue: dayjs(presetValue),
+      trigger: 'preset',
+    });
     setPopupVisible(false);
   }
 
   function onYearChange(year: number) {
     setYear(year);
-
-    let nextDateObj = dayjs(inputValue || new Date(), format);
-    if (nextDateObj) nextDateObj = dayjs(inputValue || new Date());
-    const nextDate = nextDateObj.year(year).toDate();
-    setInputValue(formatDate(nextDate));
-    setCacheValue(formatDate(nextDate));
   }
 
   function onMonthChange(month: number) {
     setMonth(month);
-
-    let nextDateObj = dayjs(inputValue || new Date(), format);
-    if (nextDateObj) nextDateObj = dayjs(inputValue || new Date());
-    const nextDate = nextDateObj.month(month).toDate();
-    setInputValue(formatDate(nextDate));
-    setCacheValue(formatDate(nextDate));
   }
 
   const panelProps = {
@@ -194,7 +181,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     mode,
     format,
     presets,
-    timeValue,
+    time,
     disableDate,
     firstDayOfWeek,
     timePickerProps,
@@ -208,7 +195,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     onYearChange,
     onMonthChange,
     onTimePickerChange,
-    onClick: () => inputRef.current?.focus?.(),
+    onPanelClick: () => inputRef.current?.focus?.(),
   };
 
   return (
@@ -219,7 +206,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
         popupProps={popupProps}
         inputProps={inputProps}
         popupVisible={popupVisible}
-        panel={<DatePickerPanel {...panelProps} />}
+        panel={<SinglePanel {...panelProps} />}
       />
     </div>
   );
