@@ -37,6 +37,12 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   function onCellClick(date: Date, { e }) {
     props.onCellClick?.({ date, e });
 
+    // date 模式自动切换年月
+    if (mode === 'date') {
+      setYear(date.getFullYear());
+      setMonth(date.getMonth());
+    }
+
     if (enableTimePicker) {
       setCacheValue(formatDate(date));
     } else {
