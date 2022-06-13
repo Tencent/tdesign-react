@@ -195,7 +195,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     // 拖拽代码实现部分
     const onDialogMove = (e: MouseEvent) => {
       const { style, offsetWidth, offsetHeight } = dialog.current;
-      
+
       let diffX = e.clientX - dialogOffset.x;
       let diffY = e.clientY - dialogOffset.y;
       // 拖拽上左边界限制
@@ -240,7 +240,6 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
       } else {
         positionStyle.paddingTop = props.top;
       }
-      
     }
     // 此处获取定位方式 top 优先级较高 存在时 默认使用top定位
     const classNames = classnames(

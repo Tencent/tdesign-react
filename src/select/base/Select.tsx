@@ -325,7 +325,7 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.map((v, key) => {
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v, key) => {
             const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
             return (
               <Tag
