@@ -187,7 +187,7 @@ export interface TdDateRangePickerProps {
   rangeInputProps?: RangeInputProps;
   /**
    * 日期分隔符
-   * @default ''
+   * @default -
    */
   separator?: string;
   /**
@@ -363,6 +363,10 @@ export interface TdDateRangePickerPanelProps
    */
   onPanelClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
   /**
+   * 如果存在“确认”按钮，则点击“确认”按钮时触发
+   */
+  onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
    * 时间切换发生变化时触发
    */
   onTimeChange?: (context: {
@@ -421,8 +425,8 @@ export interface PickContext {
   partial: DateRangePickerPartial;
 }
 
-export type DatePickerMonthChangeTrigger = 'month-select' | 'month-arrow-next' | 'month-arrow-previous';
+export type DatePickerMonthChangeTrigger = 'month-select' | 'month-arrow-next' | 'month-arrow-previous' | 'today';
 
 export type DatePickerTimeChangeTrigger = 'time-hour' | 'time-minute' | 'time-second';
 
-export type DatePickerYearChangeTrigger = 'year-select' | 'year-arrow-next' | 'year-arrow-previous';
+export type DatePickerYearChangeTrigger = 'year-select' | 'year-arrow-next' | 'year-arrow-previous' | 'today';

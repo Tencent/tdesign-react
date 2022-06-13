@@ -1,7 +1,12 @@
 import React, { forwardRef, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { StyledProps } from '../common';
-import { TdDateRangePickerPanelProps } from './type';
+import {
+  TdDateRangePickerPanelProps,
+  DatePickerYearChangeTrigger,
+  DatePickerMonthChangeTrigger,
+  DatePickerTimeChangeTrigger,
+} from './type';
 import RangePanel from './panel/RangePanel';
 import useRangeValue from './hooks/useRangeValue';
 import useFormat from './hooks/useFormat';
@@ -105,6 +110,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   function onJumperClick(flag: number, { partial }) {
     const partialIndex = partial === 'start' ? 0 : 1;
 
+    const triggerMap = { '-1': 'arrow-previous', 1: 'arrow-next' };
     const monthCountMap = { date: 1, month: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
     const current = new Date(year[partialIndex], month[partialIndex]);
@@ -141,6 +147,24 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       }
     }
 
+    if (year.some((y) => !nextYear.includes(y))) {
+      props.onYearChange?.({
+        partial,
+        year: nextYear[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: flag ? (`year-${triggerMap[flag]}` as DatePickerYearChangeTrigger) : 'today',
+      });
+    }
+
+    if (month.some((m) => !nextMonth.includes(m))) {
+      props.onMonthChange?.({
+        partial,
+        month: nextMonth[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: flag ? (`month-${triggerMap[flag]}` as DatePickerMonthChangeTrigger) : 'today',
+      });
+    }
+
     setYear(nextYear);
     setMonth(nextMonth);
   }
@@ -168,10 +192,17 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     setIsSelected(true);
     setCacheValue(formatDate(nextInputValue));
+
+    props.onTimeChange?.({
+      time: val,
+      partial: activeIndex ? 'end' : 'start',
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'time-hour' as DatePickerTimeChangeTrigger,
+    });
   }
 
   // 确定
-  function onConfirmClick() {
+  function onConfirmClick({ e }) {
     const nextValue = [...cacheValue];
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
@@ -186,22 +217,24 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     } else {
       setIsFirstValueSelected(true);
     }
+
+    props.onConfirm?.({ date: value.map((v) => dayjs(v).toDate()), e });
   }
 
   // 预设
-  function onPresetClick(preset: any) {
-    let presetValue = preset;
-    if (typeof preset === 'function') {
-      presetValue = preset();
-    }
-    if (!Array.isArray(presetValue)) {
-      console.error(`preset: ${preset} 预设值必须是数组!`);
+  function onPresetClick(presetValue: any, { e, preset }) {
+    const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
+
+    if (!Array.isArray(presetVal)) {
+      console.error(`preset: ${presetValue} 预设值必须是数组!`);
     } else {
-      onChange(formatDate(presetValue, { formatType: 'valueType', sortType: 'swap' }), {
-        dayjsValue: presetValue.map((p) => dayjs(p)),
+      onChange(formatDate(presetVal, { formatType: 'valueType', sortType: 'swap' }), {
+        dayjsValue: presetVal.map((p) => dayjs(p)),
         trigger: 'preset',
       });
     }
+
+    props.onPresetClick?.({ e, preset });
   }
 
   function onYearChange(nextVal: number, { partial }) {
@@ -215,6 +248,13 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (partialIndex === 1) nextYear[0] = Math.min(nextYear[0], nextYear[1]);
 
     setYear(nextYear);
+
+    props.onYearChange({
+      partial,
+      year: nextYear[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'year-select',
+    });
   }
 
   function onMonthChange(nextVal: number, { partial }) {
@@ -230,6 +270,13 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     }
 
     setMonth(nextMonth);
+
+    props.onMonthChange({
+      partial,
+      month: nextMonth[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'month-select',
+    });
   }
 
   const panelProps = {

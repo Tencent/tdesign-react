@@ -78,4 +78,4 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-`Pick<DateRangePickerProps, 'value'| 'defaultValue' | 'valueType' | 'size' | 'disabled' | 'disableDate' | 'enableTimePicker' | 'firstDayOfWeek' | 'format' | 'mode' | 'presets' | 'presetsPlacement' | 'timePickerProps'>` | \- | - | 继承 `Pick<DateRangePickerProps, 'value'| 'defaultValue' | 'valueType' | 'size' | 'disabled' | 'disableDate' | 'enableTimePicker' | 'firstDayOfWeek' | 'format' | 'mode' | 'presets' | 'presetsPlacement' | 'timePickerProps'>` 中的全部 API | N
+`Pick<DateRangePickerProps, 'value'| 'defaultValue' | 'valueType' | 'disabled' | 'disableDate' | 'enableTimePicker' | 'firstDayOfWeek' | 'format' | 'mode' | 'presets' | 'presetsPlacement' | 'timePickerProps'>` | \- | - | 继承 `Pick<DateRangePickerProps, 'value'| 'defaultValue' | 'valueType' | 'disabled' | 'disableDate' | 'enableTimePicker' | 'firstDayOfWeek' | 'format' | 'mode' | 'presets' | 'presetsPlacement' | 'timePickerProps'>` 中的全部 API | N

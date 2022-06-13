@@ -21,5 +21,6 @@ export const dateRangePickerDefaultProps: TdDateRangePickerProps = {
   enableTimePicker: false,
   mode: 'date',
   presetsPlacement: 'bottom',
+  separator: '-',
   defaultValue: [],
 };
