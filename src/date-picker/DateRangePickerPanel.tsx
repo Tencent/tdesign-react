@@ -147,7 +147,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       }
     }
 
-    if (year !== nextYear) {
+    if (year.some((y) => !nextYear.includes(y))) {
       props.onYearChange?.({
         partial,
         year: nextYear[partialIndex],
@@ -156,7 +156,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       });
     }
 
-    if (month !== nextMonth) {
+    if (month.some((m) => !nextMonth.includes(m))) {
       props.onMonthChange?.({
         partial,
         month: nextMonth[partialIndex],
