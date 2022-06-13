@@ -40,7 +40,7 @@ const MenuItem: FC<MenuItemProps> = (props) => {
   return (
     <li
       ref={menuItemRef}
-      className={classNames(className, `${classPrefix}-menu__item`, {
+      className={classNames(`${classPrefix}-menu__item`, className, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-active`]: value === active,
         [`${classPrefix}-menu__item--plain`]: !icon,

@@ -1,8 +1,8 @@
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getWeeks, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils-new';
-import type { DatePickerPanelProps } from './DatePickerPanel';
+import type { SinglePanelProps } from '../panel/SinglePanel';
 
-export interface TableDataProps extends DatePickerPanelProps {
+export interface TableDataProps extends SinglePanelProps {
   isRange?: Boolean;
   start: Date | undefined;
   end?: Date | undefined;

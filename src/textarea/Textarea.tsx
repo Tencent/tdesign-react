@@ -68,7 +68,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     return eventProps;
   }, {});
 
-  const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
+  const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
     [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
@@ -124,7 +124,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
   }));
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(className, `${classPrefix}-textarea`)}>
+    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
       <textarea
         {...textareaProps}
         {...eventProps}

@@ -32,13 +32,25 @@ export interface SinglePanelProps
     context?: { partial: TimeRangePickerPartial },
   ) => Partial<{ hour: number[]; minute: number[]; second: number[] }>;
   position?: TimeRangePickerPartial;
+  triggerScroll?: boolean;
+  resetTriggerScroll?: () => void;
 }
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
 
 const SinglePanel: FC<SinglePanelProps> = (props) => {
-  const { steps, format, onChange = noop, value, hideDisabledTime = true, disableTime, position = 'start' } = props;
+  const {
+    steps,
+    format,
+    onChange = noop,
+    value,
+    hideDisabledTime = true,
+    disableTime,
+    position = 'start',
+    triggerScroll,
+    resetTriggerScroll,
+  } = props;
   const { classPrefix } = useConfig();
   const TEXT_CONFIG = useTimePickerTextConfig();
   const panelClassName = `${classPrefix}-time-picker__panel`;
@@ -230,24 +242,32 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   };
 
   // update each columns scroll distance
-  const updateTimeScrollPos = useCallback(() => {
-    const behavior = value ? 'smooth' : 'auto';
-    const isStepsSet = !!steps.filter((v) => v > 1).length;
+  const updateTimeScrollPos = useCallback(
+    (isAutoScroll = false) => {
+      const behavior = value && !isAutoScroll ? 'smooth' : 'auto';
+      const isStepsSet = !!steps.filter((v) => v > 1).length;
 
-    cols.forEach((col: EPickerCols, idx: number) => {
-      if (!isStepsSet || (isStepsSet && value)) {
-        // 如果没有设置大于1的steps或设置了大于1的step 正常处理滚动
-        scrollToTime(col, timeArr.includes(col) ? dayjsValue[col]?.() : dayjsValue.format('a'), idx, behavior);
-      } else {
-        // 否则初始化到每列第一个选项
-        scrollToTime(col, getColList(col)?.[0], idx, behavior);
-      }
-    });
-  }, [cols, scrollToTime, dayjsValue, value, steps, getColList]);
+      cols.forEach((col: EPickerCols, idx: number) => {
+        if (!isStepsSet || (isStepsSet && value)) {
+          // 如果没有设置大于1的steps或设置了大于1的step 正常处理滚动
+          scrollToTime(col, timeArr.includes(col) ? dayjsValue[col]?.() : dayjsValue.format('a'), idx, behavior);
+        } else {
+          // 否则初始化到每列第一个选项
+          scrollToTime(col, getColList(col)?.[0], idx, behavior);
+        }
+      });
+      resetTriggerScroll();
+    },
+    [cols, scrollToTime, dayjsValue, value, steps, getColList, resetTriggerScroll],
+  );
 
   useEffect(() => {
     updateTimeScrollPos();
-  });
+  }, [value, updateTimeScrollPos]);
+
+  useEffect(() => {
+    if (triggerScroll) updateTimeScrollPos(true);
+  }, [triggerScroll, updateTimeScrollPos]);
 
   const isCurrent = useCallback(
     (col: EPickerCols, colItem: string | number) => {

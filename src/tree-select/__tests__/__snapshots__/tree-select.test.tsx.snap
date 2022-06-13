@@ -60,7 +60,7 @@ exports[`collapsed.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
@@ -125,7 +125,7 @@ exports[`collapsed.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
@@ -290,7 +290,7 @@ exports[`filterable.jsx 1`] = `
       class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
@@ -391,7 +391,7 @@ exports[`multiple.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
@@ -637,7 +637,7 @@ exports[`valuedisplay.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
@@ -767,7 +767,7 @@ exports[`valuetype.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div

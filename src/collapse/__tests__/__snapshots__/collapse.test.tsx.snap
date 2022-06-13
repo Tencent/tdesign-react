@@ -134,7 +134,7 @@ exports[`base.jsx 1`] = `
                 style="width: 80%;"
               >
                 <div
-                  class="t-tag-input t-input__wrap"
+                  class="t-input__wrap t-tag-input"
                   value=""
                 >
                   <div
@@ -483,7 +483,7 @@ exports[`icon.jsx 1`] = `
                 style="width: 80%;"
               >
                 <div
-                  class="t-tag-input t-input__wrap"
+                  class="t-input__wrap t-tag-input"
                   value=""
                 >
                   <div
@@ -748,7 +748,7 @@ exports[`mutex.jsx 1`] = `
                 style="width: 80%;"
               >
                 <div
-                  class="t-tag-input t-input__wrap"
+                  class="t-input__wrap t-tag-input"
                   value=""
                 >
                   <div
@@ -936,7 +936,7 @@ exports[`other.jsx 1`] = `
                 style="width: 80%;"
               >
                 <div
-                  class="t-tag-input t-input__wrap"
+                  class="t-input__wrap t-tag-input"
                   value=""
                 >
                   <div

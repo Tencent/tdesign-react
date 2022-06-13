@@ -42,7 +42,7 @@ const Addon = forwardRef((props: AddonProps, ref: React.Ref<HTMLDivElement>) => 
     <div
       ref={ref}
       style={style}
-      className={classNames(className, `${classPrefix}-addon`, {
+      className={classNames(`${classPrefix}-addon`, className, {
         [`${classPrefix}-addon--prepend`]: !!prepend,
         [`${classPrefix}-addon--append`]: !!append,
       })}

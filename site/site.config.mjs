@@ -192,6 +192,12 @@ export default {
           component: () => import('tdesign-react/input/input.md'),
         },
         {
+          title: 'InputAdornment 输入装饰器',
+          name: 'input-adornment',
+          path: '/react/components/input-adornment',
+          component: () => import('tdesign-react/input-adornment/input-adornment.md'),
+        },
+        {
           title: 'InputNumber 数字输入框',
           name: 'input-number',
           path: '/react/components/input-number',

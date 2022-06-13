@@ -1165,7 +1165,7 @@ exports[`range.jsx 1`] = `
             class="t-range-input__inner"
           >
             <div
-              class="t-range-input__inner-left t-input__wrap"
+              class="t-input__wrap t-range-input__inner-left"
             >
               <div
                 class="t-input t-size-m t-align-left t-is-default"
@@ -1184,7 +1184,7 @@ exports[`range.jsx 1`] = `
               -
             </div>
             <div
-              class="t-range-input__inner-right t-input__wrap"
+              class="t-input__wrap t-range-input__inner-right"
             >
               <div
                 class="t-input t-size-m t-align-left t-is-default"

@@ -195,6 +195,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
       text={customLoadingText}
       attach={() => tableRef.current}
       showOverlay
+      size="small"
       {...loadingProps}
     ></Loading>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import useConfig from '../../_util/useConfig';
@@ -7,14 +7,15 @@ import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
 import { TdDatePickerProps, DateValue } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
-import useTableData from './useTableData';
+import { getDefaultFormat } from '../hooks/useFormat';
+import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 
-export interface DatePickerPanelProps extends TdDatePickerProps, StyledProps {
+export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   year?: number;
   month?: number;
-  timeValue?: string;
-  onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
+  time?: string;
+  onPanelClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellMouseEnter?: (date: Date) => void;
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
@@ -29,25 +30,29 @@ export interface DatePickerPanelProps extends TdDatePickerProps, StyledProps {
   onTimePickerChange?: TdTimePickerProps['onChange'];
 }
 
-const DatePickerPanel = (props: DatePickerPanelProps) => {
+const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-picker__panel`;
   const {
     value,
     mode,
-    format = 'YYYY-MM-DD',
     presetsPlacement,
-    disableDate: disableDateFromProps,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
 
     style,
     className,
     year,
     month,
-    onClick,
+    onPanelClick,
   } = props;
 
-  const disableDateOptions = useDisableDate({ disableDate: disableDateFromProps, mode, format });
+  const { format } = getDefaultFormat({
+    mode: props.mode,
+    format: props.format,
+    enableTimePicker: props.enableTimePicker,
+  });
+
+  const disableDateOptions = useDisableDate({ disableDate: props.disableDate, mode: props.mode, format });
 
   const tableData = useTableData({
     year,
@@ -66,9 +71,9 @@ const DatePickerPanel = (props: DatePickerPanelProps) => {
     firstDayOfWeek,
     tableData,
 
-    enableTimePicker: props.enableTimePicker,
+    time: props.time,
     timePickerProps: props.timePickerProps,
-    timeValue: props.timeValue,
+    enableTimePicker: props.enableTimePicker,
     onMonthChange: props.onMonthChange,
     onYearChange: props.onYearChange,
     onJumperClick: props.onJumperClick,
@@ -78,27 +83,37 @@ const DatePickerPanel = (props: DatePickerPanelProps) => {
     onTimePickerChange: props.onTimePickerChange,
   };
 
+  const extraProps = {
+    presets: props.presets,
+    enableTimePicker: props.enableTimePicker,
+    presetsPlacement: props.presetsPlacement,
+    onPresetClick: props.onPresetClick,
+    onConfirmClick: props.onConfirmClick,
+    selectedValue: props.value,
+  };
+
   return (
     <div
+      ref={ref}
       style={style}
       className={classNames(panelName, className, {
         [`${panelName}--direction-row`]: ['left', 'right'].includes(presetsPlacement),
       })}
-      onClick={(e) => onClick?.({ e })}
+      onClick={(e) => onPanelClick?.({ e })}
     >
-      {['top', 'left'].includes(presetsPlacement) ? <ExtraContent {...props} selectedValue={value} /> : null}
-      <PanelContent tableData={tableData} {...panelContentProps} />
-      {['bottom', 'right'].includes(presetsPlacement) ? <ExtraContent {...props} selectedValue={value} /> : null}
+      {['top', 'left'].includes(presetsPlacement) ? <ExtraContent {...extraProps} /> : null}
+      <PanelContent {...panelContentProps} />
+      {['bottom', 'right'].includes(presetsPlacement) ? <ExtraContent {...extraProps} /> : null}
     </div>
   );
-};
+});
 
-DatePickerPanel.displayName = 'DatePickerPanel';
+SinglePanel.displayName = 'SinglePanel';
 
-DatePickerPanel.defaultProps = {
+SinglePanel.defaultProps = {
   mode: 'date',
   enableTimePicker: false,
   presetsPlacement: 'bottom',
 };
 
-export default DatePickerPanel;
+export default SinglePanel;
