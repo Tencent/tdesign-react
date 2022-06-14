@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import isNumber from 'lodash/isNumber';
 import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
-
 import { StyledProps, Styles, TNode } from '../common';
 import useConfig from '../_util/useConfig';
 import { pxCompat } from '../_util/helper';
 import { skeletonDefaultProps } from './defaultProps';
 
-export type SkeletonProps = TdSkeletonProps & StyledProps & { children: TNode };
+export interface SkeletonProps extends TdSkeletonProps, StyledProps {
+  children: TNode;
+}
 
 const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   text: [1],
@@ -23,7 +24,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   ],
 };
 
-const Skeleton = (props: SkeletonProps) => {
+const Skeleton = forwardRef((props: SkeletonProps, ref: React.Ref<HTMLDivElement>) => {
   const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
 
   const { classPrefix } = useConfig();
@@ -100,7 +101,7 @@ const Skeleton = (props: SkeletonProps) => {
   }, [delay, loading]);
 
   if (!ctrlLoading) {
-    return children;
+    return children as JSX.Element;
   }
 
   const childrenContent = [];
@@ -116,11 +117,11 @@ const Skeleton = (props: SkeletonProps) => {
   }
 
   return (
-    <div className={className} style={style}>
+    <div className={className} style={style} ref={ref}>
       {childrenContent}
     </div>
   );
-};
+});
 
 Skeleton.displayName = 'Skeleton';
 Skeleton.defaultProps = skeletonDefaultProps;
