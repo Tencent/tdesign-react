@@ -100,7 +100,7 @@ const Skeleton = (props: SkeletonProps) => {
   }, [delay, loading]);
 
   if (!ctrlLoading) {
-    return children;
+    return <>{children}</>;
   }
 
   const childrenContent = [];
