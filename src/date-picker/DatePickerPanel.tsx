@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import dayjs from 'dayjs';
 import { StyledProps } from '../common';
-import { TdDatePickerPanelProps, DateValue } from './type';
+import { TdDatePickerPanelProps, DateValue, DatePickerYearChangeTrigger, DatePickerMonthChangeTrigger } from './type';
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
 import useFormat from './hooks/useFormat';
@@ -37,6 +37,12 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   function onCellClick(date: Date, { e }) {
     props.onCellClick?.({ date, e });
 
+    // date 模式自动切换年月
+    if (mode === 'date') {
+      setYear(date.getFullYear());
+      setMonth(date.getMonth());
+    }
+
     if (enableTimePicker) {
       setCacheValue(formatDate(date));
     } else {
@@ -46,6 +52,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 
   // 头部快速切换
   function onJumperClick(flag: number) {
+    const triggerMap = { '-1': 'arrow-previous', 1: 'arrow-next' };
     const monthCountMap = { date: 1, month: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
@@ -62,6 +69,22 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
 
     const nextYear = next.getFullYear();
     const nextMonth = next.getMonth();
+
+    if (year !== nextYear) {
+      props.onYearChange?.({
+        year: nextYear,
+        date: dayjs(value).toDate(),
+        trigger: flag ? (`year-${triggerMap[flag]}` as DatePickerYearChangeTrigger) : 'today',
+      });
+    }
+
+    if (month !== nextMonth) {
+      props.onMonthChange?.({
+        month: nextMonth,
+        date: dayjs(value).toDate(),
+        trigger: flag ? (`month-${triggerMap[flag]}` as DatePickerMonthChangeTrigger) : 'today',
+      });
+    }
 
     setYear(nextYear);
     setMonth(nextMonth);
@@ -88,11 +111,13 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   }
 
   // 确定
-  function onConfirmClick() {
+  function onConfirmClick({ e }) {
     onChange(formatDate(cacheValue, { formatType: 'valueType' }), {
       dayjsValue: dayjs(cacheValue),
       trigger: 'confirm',
     });
+
+    props.onConfirm?.({ date: dayjs(value).toDate(), e });
   }
 
   // 预设

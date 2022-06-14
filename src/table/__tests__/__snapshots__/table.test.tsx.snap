@@ -15477,7 +15477,7 @@ exports[`loading.jsx 1`] = `
         class="t-portal-wrapper"
       >
         <div
-          class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
+          class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -15575,7 +15575,7 @@ exports[`loading.jsx 1`] = `
         class="t-portal-wrapper"
       >
         <div
-          class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
+          class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
         >
           <svg
             class="t-loading__gradient t-icon-loading"
@@ -15675,7 +15675,7 @@ exports[`loading.jsx 1`] = `
         class="t-portal-wrapper"
       >
         <div
-          class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
+          class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
         >
           <div
             class="t-loading__text"
@@ -19220,7 +19220,7 @@ exports[`pagination-ajax.jsx 1`] = `
       class="t-portal-wrapper"
     >
       <div
-        class="t-loading t-loading--center t-size-m t-loading--full t-loading__overlay"
+        class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
       >
         <svg
           class="t-loading__gradient t-icon-loading"

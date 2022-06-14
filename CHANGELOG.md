@@ -23,7 +23,6 @@ spline: explain
 - `table`: 新增可编辑单元格功能 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
 - `textarea`: 新增`allowInputOvermax` 支持超出字数限制可以输入 @carolin913 ([#838](https://github.com/Tencent/tdesign-react/pull/838))
 - `DatePicker`: 优化 `DatePicker` 组件逻辑 @HQ-Lin ([#858](https://github.com/Tencent/tdesign-react/pull/858))
-- `Dialog`: 优化 `transform` 定位问题导致子节点的 fixed 属性定位失效 @huoyuhao ([#776](https://github.com/Tencent/tdesign-react/pull/776))
 - `CollapsePanel`: 箭头样式优化 @samhou1988 ([#851](https://github.com/Tencent/tdesign-react/pull/851))
 - `InputAdornment`: 新增 `InputAdornment` 组件 @HQ-Lin ([#849](https://github.com/Tencent/tdesign-react/pull/849))
 

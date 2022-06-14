@@ -57,6 +57,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   const rangeInputProps = {
     ...props.rangeInputProps,
     ref: inputRef,
+    separator: props.separator,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
     readonly: !props.allowInput,
