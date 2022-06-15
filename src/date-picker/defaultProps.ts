@@ -7,7 +7,6 @@ import { TdDatePickerProps, TdDateRangePickerProps } from './type';
 export const datePickerDefaultProps: TdDatePickerProps = {
   allowInput: false,
   clearable: false,
-  disabled: false,
   enableTimePicker: false,
   mode: 'date',
   presetsPlacement: 'bottom',
@@ -17,7 +16,6 @@ export const datePickerDefaultProps: TdDatePickerProps = {
 export const dateRangePickerDefaultProps: TdDateRangePickerProps = {
   allowInput: false,
   clearable: false,
-  disabled: false,
   enableTimePicker: false,
   mode: 'date',
   presetsPlacement: 'bottom',
