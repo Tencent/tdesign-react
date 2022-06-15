@@ -1286,10 +1286,11 @@ exports[`disabled.jsx 1`] = `
               value=""
             >
               <div
-                class="t-input t-size-m t-align-left t-is-default"
+                class="t-input t-is-disabled t-size-m t-align-left t-is-default"
               >
                 <input
                   class="t-input__inner"
+                  disabled=""
                   placeholder="请输入"
                   type="text"
                   value=""
@@ -1328,13 +1329,14 @@ exports[`disabled.jsx 1`] = `
                   value=""
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
                     />
                     <input
                       class="t-input__inner"
+                      disabled=""
                       placeholder="请选择"
                       readonly=""
                       type="text"
@@ -1392,13 +1394,14 @@ exports[`disabled.jsx 1`] = `
                 value="江苏"
               >
                 <div
-                  class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                  class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                 >
                   <div
                     class="t-input__prefix"
                   />
                   <input
                     class="t-input__inner"
+                    disabled=""
                     placeholder="请选择"
                     readonly=""
                     type="text"
@@ -1408,7 +1411,7 @@ exports[`disabled.jsx 1`] = `
                     class="t-input__suffix t-input__suffix-icon"
                   >
                     <svg
-                      class="t-fake-arrow"
+                      class="t-fake-arrow t-fake-arrow--disable"
                       fill="none"
                       height="16"
                       viewBox="0 0 16 16"
@@ -1454,7 +1457,7 @@ exports[`disabled.jsx 1`] = `
                 class="t-trigger"
               >
                 <div
-                  class="t-cascader t-size-m"
+                  class="t-cascader t-is-disabled t-size-m"
                 >
                   <span
                     class="t-cascader__content"
@@ -1462,7 +1465,7 @@ exports[`disabled.jsx 1`] = `
                     上海
                   </span>
                   <svg
-                    class="t-fake-arrow t-cascader__icon"
+                    class="t-fake-arrow t-cascader__icon t-is-disabled"
                     fill="none"
                     height="16"
                     viewBox="0 0 16 16"
@@ -1511,13 +1514,14 @@ exports[`disabled.jsx 1`] = `
                   value=""
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
                     />
                     <input
                       class="t-input__inner"
+                      disabled=""
                       placeholder="请选择日期"
                       readonly=""
                       type="text"
@@ -1569,7 +1573,8 @@ exports[`disabled.jsx 1`] = `
               class="t-textarea"
             >
               <textarea
-                class="t-textarea__inner"
+                class="t-textarea__inner t-is-disabled"
+                disabled=""
                 placeholder="简单描述自己的经历"
                 style="height: auto; min-height: auto;"
               />
@@ -1596,7 +1601,8 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <button
-              class="t-switch t-is-checked t-size-m"
+              class="t-switch t-is-checked t-is-disabled t-size-m"
+              disabled=""
               role="switch"
               type="button"
             >
@@ -1695,10 +1701,11 @@ exports[`disabled.jsx 1`] = `
               class="t-checkbox-group"
             >
               <label
-                class="t-checkbox"
+                class="t-checkbox t-is-disabled"
               >
                 <input
                   class="t-checkbox__former"
+                  disabled=""
                   type="checkbox"
                   value="1"
                 />
@@ -1712,10 +1719,11 @@ exports[`disabled.jsx 1`] = `
                 </span>
               </label>
               <label
-                class="t-checkbox"
+                class="t-checkbox t-is-disabled"
               >
                 <input
                   class="t-checkbox__former"
+                  disabled=""
                   type="checkbox"
                   value="2"
                 />
@@ -1729,10 +1737,11 @@ exports[`disabled.jsx 1`] = `
                 </span>
               </label>
               <label
-                class="t-checkbox"
+                class="t-checkbox t-is-disabled"
               >
                 <input
                   class="t-checkbox__former"
+                  disabled=""
                   type="checkbox"
                   value="3"
                 />
@@ -1768,17 +1777,18 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <div
-              class="t-input-number t-size-m t-input-number--normal"
+              class="t-input-number t-size-m t-is-disabled t-input-number--normal"
             >
               <div
                 class="t-input__wrap"
                 value=""
               >
                 <div
-                  class="t-input t-size-m t-align-left t-is-default"
+                  class="t-input t-is-disabled t-size-m t-align-left t-is-default"
                 >
                   <input
                     class="t-input__inner"
+                    disabled=""
                     placeholder="数字"
                     type="text"
                     value=""
@@ -1812,6 +1822,7 @@ exports[`disabled.jsx 1`] = `
             >
               <input
                 accept="image/*"
+                disabled=""
                 hidden=""
                 type="file"
               />
@@ -1902,7 +1913,8 @@ exports[`disabled.jsx 1`] = `
             class="t-form__controls-content"
           >
             <button
-              class="t-button t-button--theme-primary t-button--variant-base"
+              class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
+              disabled=""
               style="margin-right: 10px;"
               type="submit"
             >
@@ -1913,7 +1925,8 @@ exports[`disabled.jsx 1`] = `
               </span>
             </button>
             <button
-              class="t-button t-button--theme-default t-button--variant-base"
+              class="t-button t-button--theme-default t-button--variant-base t-is-disabled"
+              disabled=""
               type="reset"
             >
               <span
