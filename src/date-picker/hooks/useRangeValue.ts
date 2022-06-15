@@ -26,9 +26,9 @@ function initYearMonthTime(value: DateValue[], mode = 'date', format: string, ti
   }
 
   return {
-    year: value.map((v) => dayjs(v, format).year()),
-    month: value.map((v) => dayjs(v, format).month()),
-    time: value.map((v) => dayjs(v, format).format(timeFormat)),
+    year: value.map((v) => dayjs(v, format).year() || dayjs(v).year()),
+    month: value.map((v) => dayjs(v, format).month() || dayjs(v).month()),
+    time: value.map((v) => dayjs(v, format).format(timeFormat) || dayjs(v).format(timeFormat)),
   };
 }
 
@@ -46,7 +46,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   if (!Array.isArray(value)) {
     console.error(`typeof value: ${value} must be Array!`);
   } else if (!isValidDate(value, 'valueType')) {
-    console.error(`value: ${value} is invalid datetime!`);
+    console.error(`value: ${value} is invalid datetime! Check whether the value is consistent with format: ${format}`);
   }
 
   const [isFirstValueSelected, setIsFirstValueSelected] = useState(false); // 记录面板点击次数，两次后才自动关闭
