@@ -14,7 +14,7 @@ const Badge: React.FC<BadgeProps> = forwardRef<HTMLSpanElement, BadgeProps>(
   ) => {
     const { classPrefix } = useConfig();
 
-    const childNode = children || content;
+    const childNode = content || children;
 
     const badgeClassName = classNames(
       !childNode && `${classPrefix}-badge--static`,
