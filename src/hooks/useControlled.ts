@@ -9,8 +9,8 @@ export interface ChangeHandler<T, P extends any[]> {
 export default function useControlled<T, P extends any[]>(
   props: object = {},
   valueKey: string,
-  onChange: ChangeHandler<T, P>,
-): [T, ChangeHandler<T, P>] {
+  onChange: ChangeHandler<T | ((T) => T), P>, // 兼容setState函数模式
+): [T, ChangeHandler<T | ((T) => T), P>] {
   // 外部设置 props，说明希望受控
   const controlled = Reflect.has(props, valueKey);
   // 受控属性

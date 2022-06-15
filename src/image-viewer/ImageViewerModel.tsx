@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, WheelEventHandler } from 'react';
 import useConfig from 'tdesign-react/_util/useConfig';
-import { isArray, isFunction } from 'lodash';
+import isArray from 'lodash/isArray';
+import isFunction from 'lodash/isFunction';
 import { IconFont } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { TNode } from '../common';
 import { downloadFile, positionType, usePosition } from './useHooks';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
+import useControlled from '../hooks/useControlled';
+import noop from '../_util/noop';
 
 interface ImageModelItemProps {
   rotateZ: number;
@@ -97,8 +100,6 @@ interface ImageModalProps {
 export const ImageModal = (props: ImageModalProps) => {
   const {
     closeOnOverlay,
-    defaultIndex = 0,
-    index: changeIndex,
     zIndex,
     images,
     // isMini,
@@ -109,10 +110,11 @@ export const ImageModal = (props: ImageModalProps) => {
     closeBtn,
     onOpen,
     onClose,
+    ...resProps
   } = props;
   const { classPrefix } = useConfig();
-
-  const [index, setIndex] = useState(defaultIndex);
+  if (resProps.index === undefined) delete resProps.index;
+  const [index, setIndex] = useControlled<number, any>(resProps, 'index', noop);
   const [rotateZ, setRotateZ] = useState(0);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState<positionType>([0, 0]);
@@ -144,11 +146,11 @@ export const ImageModal = (props: ImageModalProps) => {
       if (newIndex >= images.length) return index;
       return newIndex;
     });
-  }, [images.length]);
+  }, [setIndex, images.length]);
 
   const prev = useCallback(() => {
     setIndex((index) => (index - 1 > 0 ? index - 1 : 0));
-  }, []);
+  }, [setIndex]);
 
   const zoom = useCallback(() => {
     setScale((scale) => {
@@ -195,15 +197,9 @@ export const ImageModal = (props: ImageModalProps) => {
     onReset();
   }, [index, onReset]);
 
-  useEffect(() => {
-    if (typeof changeIndex === 'number') setIndex(changeIndex);
-  }, [changeIndex]);
-
   if (!isArray(images) || images.length < 1) return null;
 
   const item: ImageInfo = images[index];
-
-  console.log('itemitemitem', item, images, index);
 
   // if (isMini) {
   //   return (
@@ -306,9 +302,9 @@ export const ImageModal = (props: ImageModalProps) => {
           <div className={`${classPrefix}-image-viewer-footer__prev`}>
             {images.map((item, index) => (
               <img
-                key={item.thumbnail}
+                key={item.thumbnail || item.mainImage}
                 alt=""
-                src={item.thumbnail}
+                src={item.thumbnail || item.mainImage}
                 className={`${classPrefix}-image-viewer-footer__img`}
                 onClick={() => setIndex(index)}
               />

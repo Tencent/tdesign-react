@@ -1,6 +1,6 @@
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import { isFunction } from 'lodash';
-import { ImageInfo, ImageScale, ImageViewerScale } from 'tdesign-react/image-viewer/type';
+import isFunction from 'lodash/isFunction';
+import { ImageInfo, ImageScale, ImageViewerScale } from './type';
 
 export type positionType = [number, number];
 

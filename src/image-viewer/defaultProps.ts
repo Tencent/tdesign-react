@@ -10,5 +10,6 @@ export const imageViewerDefaultProps: TdImageViewerProps = {
   images: [],
   mode: 'modal',
   showOverlay: undefined,
-  visible: false,
+  defaultVisible: false,
+  defaultIndex: 0,
 };

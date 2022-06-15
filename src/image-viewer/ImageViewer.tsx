@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
-import { isFunction } from 'lodash';
+import isFunction from 'lodash/isFunction';
 import { TdImageViewerProps } from './type';
 import { ImageModal } from './ImageViewerModel';
 import useConfig from '../_util/useConfig';
 import { StyledProps, TNode } from '../common';
 import { imageViewerDefaultProps } from './defaultProps';
 import { useImageScale, useList, useViewerScale } from './useHooks';
+import useControlled from '../hooks/useControlled';
+import noop from '../_util/noop';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
 const ImageViewer = (props: ImageViewerProps) => {
-  const {
-    mode,
-    trigger,
-    defaultVisible,
-    images,
-    imageScale: imageScaleD,
-    viewerScale: viewerScaleD,
-    showOverlay,
-  } = props;
+  const { mode, trigger, images, imageScale: imageScaleD, viewerScale: viewerScaleD, showOverlay } = props;
 
   const { classPrefix } = useConfig();
-  const [visible, setVisible] = useState(defaultVisible);
+  const [visible, setVisible] = useControlled(props, 'visible', noop);
   const list = useList(images);
   const imageScale = useImageScale(imageScaleD);
   const viewerScale = useViewerScale(viewerScaleD);
