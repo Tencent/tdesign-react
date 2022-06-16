@@ -40,13 +40,6 @@ export default function useRange(props: TdDateRangePickerProps) {
     enableTimePicker: props.enableTimePicker,
   });
 
-  // warning invalid value
-  if (!Array.isArray(value)) {
-    console.error(`typeof value: ${value} must be Array!`);
-  } else if (!isValidDate(value, 'valueType')) {
-    console.error(`value: ${value} is invalid datetime!`);
-  }
-
   const [popupVisible, setPopupVisible] = useState(false);
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
