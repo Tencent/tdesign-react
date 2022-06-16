@@ -389,6 +389,14 @@ export type Data = { [key: string]: any };
 
 export type InitialData = any;
 
+export type FormListField = { key: number; name: number; isListField: boolean };
+
+export type FormListFieldOperation = {
+  add: (defaultValue?: any, insertIndex?: number) => void;
+  remove: (index: number | number[]) => void;
+  move: (from: number, to: number) => void;
+};
+
 export interface IsDateOptions {
   format: string;
   strictMode: boolean;
