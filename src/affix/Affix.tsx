@@ -7,7 +7,7 @@ import useConfig from '../_util/useConfig';
 import { affixDefaultProps } from './defaultProps';
 
 export interface AffixProps extends TdAffixProps, StyledProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export interface AffixRef {
