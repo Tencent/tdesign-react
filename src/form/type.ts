@@ -166,14 +166,13 @@ export interface TdFormItemProps {
   /**
    * 表单字段名称
    */
-  name?: string | number;
+  name?: string | number | Array<string | number>;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
   requiredMark?: boolean;
   /**
    * 表单字段校验规则
-   * @default []
    */
   rules?: Array<FormRule>;
   /**
