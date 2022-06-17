@@ -9,6 +9,7 @@ export default function AttachModalExample() {
     visibleBody: false,
     visibleIdAttach: false,
     visibleFunctionAttach: false,
+    visibleShowInAttachedElement: false,
   });
 
   const handleOpen = (visibleName) => {
@@ -27,10 +28,10 @@ export default function AttachModalExample() {
 
   const getAttach = () => elRef.current;
 
-  const { visibleBody, visibleIdAttach, visibleFunctionAttach } = state;
+  const { visibleBody, visibleIdAttach, visibleFunctionAttach, visibleShowInAttachedElement } = state;
 
   return (
-    <div ref={elRef}>
+    <div ref={elRef} style={{ position: 'relative', height: '400px' }}>
       <Button theme="primary" onClick={() => handleOpen('visibleBody')} style={buttonStyle}>
         挂载在body
       </Button>
@@ -39,6 +40,9 @@ export default function AttachModalExample() {
       </Button>
       <Button theme="primary" onClick={() => handleOpen('visibleFunctionAttach')} style={buttonStyle}>
         挂载函数返回节点
+      </Button>
+      <Button theme="primary" onClick={() => handleOpen('visibleShowInAttachedElement')} style={buttonStyle}>
+        展示在挂载元素区域
       </Button>
       <Dialog
         mattach="body"
@@ -89,6 +93,22 @@ export default function AttachModalExample() {
           <div>我是内容</div>
           <div>我是内容</div>
           <div>我是内容</div>
+        </div>
+      </Dialog>
+
+      <Dialog
+        header="展示在挂载元素区域"
+        attach={getAttach}
+        showInAttachedElement={true}
+        visible={visibleShowInAttachedElement}
+        onClose={() => handleClose('visibleShowInAttachedElement')}
+        onOpened={() => {
+          console.log('dialog is open');
+        }}
+      >
+        <div>
+          <div>父元素（挂载元素）需要有定位属性，如：position: relative</div>
+          <div>showInAttachedElement API 仅针对模态对话框有效</div>
         </div>
       </Dialog>
     </div>

@@ -1,4 +1,3 @@
-import isNumber from 'lodash/isNumber';
 import React, { useRef, CSSProperties, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
@@ -13,6 +12,9 @@ enum KeyCode {
   ESC = 27,
 }
 
+function GetCSSValue(v: string | number) {
+  return Number.isNaN(Number(v)) ? v : `${Number(v)}px`;
+}
 export interface RenderDialogProps extends DialogProps {
   prefixCls?: string;
   classPrefix: string;
@@ -50,6 +52,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     closeOnEscKeydown,
     closeOnOverlayClick,
     destroyOnClose,
+    showInAttachedElement,
   } = props;
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
@@ -58,8 +61,9 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const bodyOverflow = useRef<string>();
   const bodyCssTextRef = useRef<string>();
   const isModal = mode === 'modal';
+  const isNormal = mode === 'normal';
   const canDraggable = props.draggable && mode === 'modeless';
-  const dialogOpenClass = `${prefixCls}__open`;
+  const dialogOpenClass = `${prefixCls}__${mode}`;
   useDialogEsc(visible, wrap);
   useImperativeHandle(ref, () => wrap.current);
   useLayoutEffect(() => {
@@ -69,7 +73,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   useLayoutEffect(() => {
     if (visible) {
-      if (isModal && bodyOverflow.current !== 'hidden' && preventScrollThrough) {
+      if (isModal && bodyOverflow.current !== 'hidden' && preventScrollThrough && !showInAttachedElement) {
         const scrollWidth = window.innerWidth - document.body.offsetWidth;
         // 减少回流
         if (bodyCssTextRef.current === '') {
@@ -90,7 +94,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         wrap.current.focus();
       }
     } else if (isModal) {
-      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
       if (openDialogDom.length < 1) {
         document.body.style.cssText = bodyCssTextRef.current;
       }
@@ -99,7 +103,8 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     // 组件销毁后重置 body 样式
     return () => {
       if (isModal) {
-        const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+        // 此处只能查询mode模式的dialog个数 因为modeless 会点击透传 normal 是正常文档流
+        const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
         if (openDialogDom.length < 1) {
           document.body.style.cssText = bodyCssTextRef.current;
           document.body.style.overflow = bodyOverflow.current;
@@ -109,7 +114,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         document.body.style.overflow = bodyOverflow.current;
       }
     };
-  }, [preventScrollThrough, attach, visible, mode, isModal, dialogOpenClass]);
+  }, [preventScrollThrough, attach, visible, mode, isModal, showInAttachedElement, prefixCls]);
 
   useEffect(() => {
     // 动画渲染初始位置
@@ -128,7 +133,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     }
     if (isModal && preventScrollThrough) {
       // 还原body的滚动条
-      const openDialogDom = document.querySelectorAll(`.${dialogOpenClass}`);
+      const openDialogDom = document.querySelectorAll(`${prefixCls}__mode`);
       if (isModal && openDialogDom.length < 1) {
         document.body.style.overflow = bodyOverflow.current;
       }
@@ -144,9 +149,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // 如果不是modal模式 默认没有mask 也就没有相关点击事件
-    if (mode !== 'modal') return;
-    if (e.target === e.currentTarget && closeOnOverlayClick) {
+    if (closeOnOverlayClick) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
@@ -171,9 +174,12 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   const renderDialog = () => {
     const dest: any = {};
     if (props.width !== undefined) {
-      dest.width = props.width;
+      dest.width = GetCSSValue(props.width);
     }
-
+    // normal 场景下，需要设置zindex 为auto 避免出现多个dialog，normal出现在最上层
+    if (props.mode === 'normal') {
+      dest.zIndex = 'auto';
+    }
     const footer = props.footer ? <div className={`${prefixCls}__footer`}>{props.footer}</div> : null;
 
     const { header } = props;
@@ -232,24 +238,21 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
         document.addEventListener('mouseup', onDialogMoveEnd);
       }
     };
+    // 顶部定位实现
     const positionStyle: any = {};
-    if (props.top !== undefined) {
-      // 判断是否时数字
-      if (isNumber(props.top) && props.top < 0) {
-        positionStyle.paddingTop = `${props.top}px`;
-      } else {
-        positionStyle.paddingTop = props.top;
-      }
+    if (props.top) {
+      const topValue = GetCSSValue(props.top);
+      positionStyle.paddingTop = topValue;
     }
     // 此处获取定位方式 top 优先级较高 存在时 默认使用top定位
-    const classNames = classnames(
+    const positionClass = classnames(
       `${prefixCls}__position`,
       { [`${prefixCls}--top`]: !!props.top },
       `${props.placement && !props.top ? `${prefixCls}--${props.placement}` : ''}`,
     );
     const dialogElement = (
-      <div className={`${prefixCls}__wrap`} onClick={onMaskClick}>
-        <div className={classNames} style={positionStyle}>
+      <div className={isNormal ? '' : `${prefixCls}__wrap`}>
+        <div className={isNormal ? '' : positionClass} style={positionStyle}>
           <div
             ref={dialog}
             style={style}
@@ -295,7 +298,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
           unmountOnExit
           nodeRef={maskRef}
         >
-          <div ref={maskRef} className={`${prefixCls}__mask`} />
+          <div ref={maskRef} className={`${prefixCls}__mask`} onClick={onMaskClick} />
         </CSSTransition>
       );
     }
@@ -316,9 +319,12 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     const wrapClass = classnames(
       props.className,
       `${prefixCls}__ctx`,
-      `${prefixCls}__ctx--fixed`,
+      isModal ? `${prefixCls}__ctx--fixed` : '',
       visible ? dialogOpenClass : '',
+      isModal && showInAttachedElement ? `${prefixCls}__ctx--absolute` : '',
+      props.mode === 'modeless' ? `${prefixCls}__ctx--modeless` : '',
     );
+    // 如果不是modal模式 默认没有mask 也就没有相关点击mask事件
     const dialog = (
       <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
         {mode === 'modal' && renderMask()}
@@ -327,9 +333,9 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     );
 
     let dom = null;
-
     if (visible || wrap.current) {
-      if (!attach) {
+      // normal模式attach无效
+      if (attach === '' || isNormal) {
         dom = dialog;
       } else {
         dom = (
