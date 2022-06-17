@@ -1,15 +1,14 @@
 import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
-
 import Loading from '../loading';
 import TBody, { extendTableProps } from './TBody';
 import { Affix } from '../affix';
 import { ROW_LISTENERS } from './TR';
 import THead from './THead';
 import TFoot from './TFoot';
-
 import useTableHeader from './hooks/useTableHeader';
+import useColumnResize from './hooks/useColumnResize';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import { BaseTableProps } from './interface';
@@ -49,12 +48,16 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     showColumnShadow,
     showAffixHeader,
     rowAndColFixedPosition,
-    // refreshTable,
+    refreshTable,
     onTableContentScroll,
     updateHeaderScroll,
   } = useFixed(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
   const { dataSource, isPaginateData, renderPagination } = usePagination(props);
+
+  // 列宽拖拽逻辑
+  const columnResizeParams = useColumnResize(tableElmRef, refreshTable);
+  const { resizeLineRef, resizeLineStyle } = columnResizeParams;
 
   const dynamicBaseTableClasses = classNames(
     tableClasses.concat({
@@ -125,6 +128,8 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           spansAndLeafNodes={spansAndLeafNodes}
           thList={thList}
           thWidthList={thWidthList}
+          resizable={props.resizable}
+          columnResizeParams={columnResizeParams}
         />
       </table>
     </div>
@@ -162,6 +167,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   };
   const tableContent = (
     <div ref={tableContentRef} className={tableBaseClass.content} style={tableContentStyles} onScroll={onInnerScroll}>
+      <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>
       {/* {this.isVirtual && <div className={this.virtualScrollClasses.cursor} style={virtualStyle} />} */}
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {colgroup}
@@ -172,6 +178,8 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
           bordered={props.bordered}
           spansAndLeafNodes={spansAndLeafNodes}
           thList={thList}
+          resizable={props.resizable}
+          columnResizeParams={columnResizeParams}
         />
         <TBody {...tableBodyProps} />
         <TFoot
