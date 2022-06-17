@@ -190,6 +190,26 @@ export interface TdFormItemProps {
   successBorder?: boolean;
 }
 
+export interface TdFormListProps {
+  /**
+   * 渲染函数
+   */
+  children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
+  /**
+   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
+   * @default []
+   */
+  initialData?: Array<any>;
+  /**
+   * 表单字段名称
+   */
+  name?: string | number;
+  /**
+   * 表单字段校验规则
+   */
+  rules?: { [field in keyof FormData]: Array<FormRule> } | Array<FormRule>;
+}
+
 export interface FormRule {
   /**
    * 内置校验方法，校验值类型是否为布尔类型，示例：`{ boolean: true, message: '数据类型必须是布尔类型' }`
