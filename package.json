@@ -91,6 +91,14 @@
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tencent/tdesign-react.git"
+  },
+  "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
+  "bugs": {
+    "url": "https://github.com/Tencent/tdesign-react/issues"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/plugin-transform-runtime": "^7.16.5",
