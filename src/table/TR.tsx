@@ -8,7 +8,7 @@ import useClassName from './hooks/useClassName';
 import TEllipsis from './Ellipsis';
 import { BaseTableCellParams, TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
-import { SkipSpansValue } from './hooks/useRowspanAndColspan';
+import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 
 export interface RenderTdExtra {
   rowAndColFixedPosition: RowAndColFixedPosition;
@@ -184,7 +184,8 @@ export default function TR(props: TrProps) {
       rowIndex,
       colIndex,
     };
-    const spanState = props.skipSpansMap.get([rowIndex, colIndex].join()) || {};
+    const cellKey = getCellKey(row, props.rowKey, col.colKey, colIndex);
+    const spanState = props.skipSpansMap.get(cellKey) || {};
     spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
     spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
     if (spanState.skipped) return null;
