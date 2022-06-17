@@ -184,7 +184,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，重置对应 formItem 的数据
-  function reset(params: FormResetParams) {
+  function reset(params: FormResetParams<FormData>) {
     // reset all
     if (typeof params === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
