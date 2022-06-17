@@ -319,7 +319,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     const wrapClass = classnames(
       props.className,
       `${prefixCls}__ctx`,
-      isModal ? `${prefixCls}__ctx--fixed` : '',
+      !isNormal ? `${prefixCls}__ctx--fixed` : '',
       visible ? dialogOpenClass : '',
       isModal && showInAttachedElement ? `${prefixCls}__ctx--absolute` : '',
       props.mode === 'modeless' ? `${prefixCls}__ctx--modeless` : '',
