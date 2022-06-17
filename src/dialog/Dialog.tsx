@@ -59,9 +59,9 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
 
   const {
     visible,
-    attach = 'body',
+    attach,
     closeBtn,
-    footer,
+    footer = true,
     onCancel = noop,
     onConfirm = noop,
     cancelBtn = cancelText,
@@ -162,7 +162,7 @@ const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) =
       closeBtn={renderCloseIcon()}
       classPrefix={classPrefix}
       onClose={onClose}
-      footer={footer === undefined ? defaultFooter() : footer}
+      footer={footer === true ? defaultFooter() : footer}
       ref={dialogDom}
     />
   );
