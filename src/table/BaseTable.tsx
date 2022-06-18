@@ -56,7 +56,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const { dataSource, isPaginateData, renderPagination } = usePagination(props);
 
   // 列宽拖拽逻辑
-  const columnResizeParams = useColumnResize(tableElmRef, refreshTable);
+  const columnResizeParams = useColumnResize(tableContentRef, refreshTable);
   const { resizeLineRef, resizeLineStyle } = columnResizeParams;
 
   const dynamicBaseTableClasses = classNames(
@@ -167,7 +167,6 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   };
   const tableContent = (
     <div ref={tableContentRef} className={tableBaseClass.content} style={tableContentStyles} onScroll={onInnerScroll}>
-      <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>
       {/* {this.isVirtual && <div className={this.virtualScrollClasses.cursor} style={virtualStyle} />} */}
       <table ref={tableElmRef} className={classNames(tableElmClasses)} style={tableElementStyles}>
         {colgroup}
@@ -230,6 +229,8 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
       )}
       {!!bottomContent && <div className={tableBaseClass.bottomContent}>{bottomContent}</div>}
       {renderPagination()}
+
+      <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>
     </div>
   );
 });

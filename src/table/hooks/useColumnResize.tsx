@@ -4,7 +4,7 @@ import { BaseTableCol, TableRowData } from '../type';
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
 
-export default function useColumnResize(tableElmRef: MutableRefObject<HTMLTableElement>, refreshTable: () => void) {
+export default function useColumnResize(tableContentRef: MutableRefObject<HTMLDivElement>, refreshTable: () => void) {
   const resizeLineRef = useRef<HTMLDivElement>();
 
   const resizeLineParams = {
@@ -17,6 +17,7 @@ export default function useColumnResize(tableElmRef: MutableRefObject<HTMLTableE
     display: 'none',
     left: '10px',
     height: '10px',
+    bottom: '0',
   });
 
   let resizeLineLeft = '';
@@ -54,7 +55,7 @@ export default function useColumnResize(tableElmRef: MutableRefObject<HTMLTableE
 
     const target = (e.target as HTMLElement).closest('th');
     const targetBoundRect = target.getBoundingClientRect();
-    const tableBoundRect = tableElmRef.current?.getBoundingClientRect();
+    const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
     const resizeLinePos = targetBoundRect.right - tableBoundRect.left;
     const colLeft = targetBoundRect.left - tableBoundRect.left;
     const minColLen = col.resize?.minWidth || DEFAULT_MIN_WIDTH;
@@ -66,12 +67,16 @@ export default function useColumnResize(tableElmRef: MutableRefObject<HTMLTableE
     resizeLineParams.isDragging = true;
     resizeLineParams.draggingStart = e.pageX || 0;
 
+    const parent = tableContentRef.current.parentElement.getBoundingClientRect();
+    const resizeLineBottom = `${parent.bottom - tableBoundRect.bottom}px`;
+
     // 初始化 resizeLine 标记线
     if (resizeLineRef?.current) {
       setResizeLineStyle({
         display: 'block',
         left: `${resizeLinePos}px`,
-        height: `${tableElmRef.current?.clientHeight}px`,
+        height: `${tableBoundRect.bottom - targetBoundRect.top}px`,
+        bottom: resizeLineBottom,
       });
     }
 
@@ -83,7 +88,8 @@ export default function useColumnResize(tableElmRef: MutableRefObject<HTMLTableE
         setResizeLineStyle({
           display: 'block',
           left: lineLeft,
-          height: `${tableElmRef.current?.clientHeight}px`,
+          height: `${tableBoundRect.bottom - targetBoundRect.top}px`,
+          bottom: resizeLineBottom,
         });
         resizeLineLeft = lineLeft;
       }

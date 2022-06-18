@@ -338,6 +338,10 @@ exports[`async-loading.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -938,6 +942,10 @@ exports[`base.jsx 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -1105,6 +1113,10 @@ exports[`custom-cell.jsx 1`] = `
         </tbody>
       </table>
     </div>
+    <div
+      class="t-table__resize-line"
+      style="display: none; left: 10px; height: 10px; bottom: 0px;"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -1564,6 +1576,10 @@ exports[`custom-col.jsx 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -2163,6 +2179,10 @@ exports[`custom-col-button.jsx 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="t-table__resize-line"
+          style="display: none; left: 10px; height: 10px; bottom: 0px;"
+        />
       </div>
     </div>
   </div>
@@ -2436,6 +2456,10 @@ exports[`custom-footer.jsx 1`] = `
           </tfoot>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -2543,6 +2567,10 @@ exports[`custom-header.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -2858,6 +2886,10 @@ exports[`data-sort.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -3040,6 +3072,10 @@ exports[`drag-col-sort.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -3242,6 +3278,10 @@ exports[`drag-sort.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -3544,6 +3584,10 @@ exports[`drag-sort-handler.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
       <div
         class="t-portal-wrapper"
       />
@@ -4183,6 +4227,10 @@ exports[`editable-cell.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -4267,6 +4315,10 @@ exports[`empty.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
     <div
       class="t-table"
@@ -4348,6 +4400,10 @@ exports[`empty.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -5069,6 +5125,10 @@ exports[`expandable.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -5636,6 +5696,10 @@ exports[`filter-controlled.jsx 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -6181,6 +6245,10 @@ exports[`fixed-column.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -7155,6 +7223,10 @@ exports[`fixed-header.jsx 1`] = `
           </tfoot>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -8285,6 +8357,10 @@ exports[`fixed-header-col.jsx 1`] = `
           </tfoot>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -15397,6 +15473,10 @@ exports[`lazy.jsx 1`] = `
             </tbody>
           </table>
         </div>
+        <div
+          class="t-table__resize-line"
+          style="display: none; left: 10px; height: 10px; bottom: 0px;"
+        />
       </div>
     </div>
   </div>
@@ -15473,6 +15553,10 @@ exports[`loading.jsx 1`] = `
           />
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
       <div
         class="t-portal-wrapper"
       >
@@ -15571,6 +15655,10 @@ exports[`loading.jsx 1`] = `
           />
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
       <div
         class="t-portal-wrapper"
       >
@@ -15671,6 +15759,10 @@ exports[`loading.jsx 1`] = `
           />
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
       <div
         class="t-portal-wrapper"
       >
@@ -16056,6 +16148,10 @@ exports[`merge-cells.jsx 1`] = `
         </tbody>
       </table>
     </div>
+    <div
+      class="t-table__resize-line"
+      style="display: none; left: 10px; height: 10px; bottom: 0px;"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -18197,6 +18293,10 @@ exports[`multi-header.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -18520,6 +18620,10 @@ exports[`multiple-sort.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -18996,6 +19100,10 @@ exports[`pagination.jsx 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="t-table__resize-line"
+      style="display: none; left: 10px; height: 10px; bottom: 0px;"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -19216,6 +19324,10 @@ exports[`pagination-ajax.jsx 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="t-table__resize-line"
+      style="display: none; left: 10px; height: 10px; bottom: 0px;"
+    />
     <div
       class="t-portal-wrapper"
     >
@@ -19654,6 +19766,10 @@ exports[`select-multiple.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -20006,6 +20122,10 @@ exports[`select-single.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -20350,6 +20470,10 @@ exports[`single-sort.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -21418,6 +21542,10 @@ exports[`tree.jsx 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -22083,6 +22211,10 @@ exports[`tree-select.jsx 1`] = `
           </tbody>
         </table>
       </div>
+      <div
+        class="t-table__resize-line"
+        style="display: none; left: 10px; height: 10px; bottom: 0px;"
+      />
     </div>
   </div>
 </DocumentFragment>
