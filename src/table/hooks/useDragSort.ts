@@ -74,7 +74,11 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       onEnd: (evt: SortableEvent) => {
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
         dragInstanceTmp?.sort([...lastRowList.current]);
-        const { oldIndex: currentIndex, newIndex: targetIndex } = evt;
+        let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
+        if (props.firstFullRow) {
+          currentIndex -= 1;
+          targetIndex -= 1;
+        }
         const params: DragSortContext<TableRowData> = {
           currentIndex,
           current: tData.current[currentIndex],
