@@ -113,15 +113,21 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data, dataSource, isPaginateData]);
 
+  let lastLeafColumns = props.columns || [];
   useEffect(() => {
-    props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
+    if (JSON.stringify(lastLeafColumns) !== JSON.stringify(spansAndLeafNodes.leafColumns)) {
+      props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      lastLeafColumns = spansAndLeafNodes.leafColumns;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spansAndLeafNodes]);
+  }, [spansAndLeafNodes.leafColumns]);
 
   useImperativeHandle(ref, () => ({
     tableElement: tableRef.current,
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
+    affixHeaderElement: affixHeaderRef.current,
   }));
 
   const onFixedChange = () => {
