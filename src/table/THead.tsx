@@ -1,7 +1,8 @@
 import React, { useRef, MutableRefObject, CSSProperties } from 'react';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
-import { RowAndColFixedPosition, getColumnFixedStyles } from './hooks/useFixed';
+import { getColumnFixedStyles } from './hooks/useFixed';
+import { RowAndColFixedPosition } from './interface';
 import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import useClassName from './hooks/useClassName';
 import useConfig from '../_util/useConfig';

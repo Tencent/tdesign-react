@@ -5,8 +5,7 @@ import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { BaseTableProps } from './interface';
-import { RowAndColFixedPosition } from './hooks/useFixed';
+import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 
