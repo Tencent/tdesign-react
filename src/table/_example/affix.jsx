@@ -170,7 +170,7 @@ const TableAffixDemo = () => {
         columns={columns}
         footData={footData}
         rowClassName={rowClassName}
-        pagination={{ defaultCurrent: 1, defaultPageSize: 38, total: TOTAL }}
+        pagination={{ defaultCurrent: 1, defaultPageSize: 5, total: TOTAL }}
         headerAffixedTop={{ offsetTop: 87, zIndex: 1000 }}
         footerAffixedBottom={footerAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 60 : 0, zIndex: 1000 } : false}
         horizontalScrollAffixedBottom={horizontalScrollAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 61 : 0, zIndex: 1000 } : false}

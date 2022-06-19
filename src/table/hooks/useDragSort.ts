@@ -20,7 +20,7 @@ import { BaseTableColumns } from '../interface';
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
   const { tableDraggableClasses, tableBaseClass } = useClassName();
-  const [columns, setDragSortColumns] = useState<BaseTableColumns>([]);
+  const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
   // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
   const dragCol = useMemo(() => columns.find((item) => item.colKey === 'drag'), [columns]);
   // 行拖拽判断条件

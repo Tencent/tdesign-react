@@ -113,12 +113,12 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data, dataSource, isPaginateData]);
 
-  let lastLeafColumns = props.columns || [];
+  const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
   useEffect(() => {
     if (JSON.stringify(lastLeafColumns) !== JSON.stringify(spansAndLeafNodes.leafColumns)) {
       props.onLeafColumnsChange?.(spansAndLeafNodes.leafColumns);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      lastLeafColumns = spansAndLeafNodes.leafColumns;
+      setLastLeafColumns(spansAndLeafNodes.leafColumns);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);

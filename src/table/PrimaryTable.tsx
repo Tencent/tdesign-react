@@ -66,6 +66,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     if (isRowHandlerDraggable || isRowDraggable) {
       tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
     }
+    console.log(tAttributes);
     return tAttributes.filter((v) => v);
   })();
 
