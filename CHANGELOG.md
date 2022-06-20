@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.35.1 `2022-06-20` 
+
+### 🚀 Features
+- `table`: 支持拖拽调整宽度，设置 `resizable=true` 即可 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 表头吸顶、表尾吸底、滚动条吸底、分页器吸底 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `DatePicker`: 完善 panel 事件逻辑 @HQ-Lin ([#873](https://github.com/Tencent/tdesign-react/pull/873))
+- `DatePicker`: 优化面板交互 @HQ-Lin ([#887](https://github.com/Tencent/tdesign-react/pull/887))
+
+### 🐞 Bug Fixes
+- `table`: 修复table透传loading size为枚举无效的问题 @uyarn ([#870](https://github.com/Tencent/tdesign-react/pull/870))
+- `Select`: option子组件没有透传style实现的问题 @uyarn ([#889](https://github.com/Tencent/tdesign-react/pull/889))
+- `Anchor`: 修复affix参数类型问题 @southorange1228 ([#896](https://github.com/Tencent/tdesign-react/pull/896))
+- `table`: 支持动态数据合并单元格 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 吸顶表头和自定义显示列场景，支持列拖拽调整顺序 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 修复 `firstFullRow` 存在时，拖拽排序的顺序不正确问题 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `timepicker`: 修复初始化滚动问题 @uyarn ([#876](https://github.com/Tencent/tdesign-react/pull/876))
+- `Select`: 修复 `minCollapsedNum` 无效问题 @samhou1988 ([#878](https://github.com/Tencent/tdesign-react/pull/878))
+- `Skeleton`: 修复 ts 类型问题  @Yilun-Sun ([#883](https://github.com/Tencent/tdesign-react/pull/883))
+-  `Tabs`: 修复左右切换渲染问题 @HQ-Lin ([#894](https://github.com/Tencent/tdesign-react/pull/894))
+- `Dialog`: 修复 mask 关闭问题 @huoyuhao ([#900](https://github.com/Tencent/tdesign-react/pull/900))
+
+
 ## 🌈 0.35.0 `2022-06-10` 
 
 ### ❗ Breaking Changes
