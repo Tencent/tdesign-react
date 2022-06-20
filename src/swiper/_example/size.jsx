@@ -6,7 +6,7 @@ const { SwiperItem } = Swiper;
 export default function BasicSwiper() {
   return (
     <>
-      <div className="tdesign-demo-block--swiper-new" style={{ width: '1000px' }}>
+      <div className="tdesign-demo-block--swiper" style={{ width: '1000px' }}>
         <h3>large</h3>
         <Swiper navigation={{ size: 'large' }}>
           <SwiperItem>
@@ -29,7 +29,7 @@ export default function BasicSwiper() {
           </SwiperItem>
         </Swiper>
       </div>
-      <div className="tdesign-demo-block--swiper-new" style={{ width: '500px', marginTop: '20px' }}>
+      <div className="tdesign-demo-block--swiper" style={{ width: '500px', marginTop: '20px' }}>
         <h3>small</h3>
         <Swiper navigation={{ size: 'small' }}>
           <SwiperItem>
