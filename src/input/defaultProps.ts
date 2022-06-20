@@ -9,7 +9,6 @@ export const inputDefaultProps: TdInputProps = {
   autofocus: false,
   autoWidth: false,
   clearable: false,
-  disabled: false,
   readonly: false,
   showClearIconOnEmpty: false,
   size: 'medium',

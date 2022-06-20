@@ -1,7 +1,7 @@
 {
   "name": "tdesign-react",
   "purename": "tdesign",
-  "version": "0.35.0",
+  "version": "0.35.1",
   "description": "TDesign Component for React",
   "title": "tdesign-react",
   "main": "lib/index.js",
@@ -90,6 +90,14 @@
   "peerDependencies": {
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tencent/tdesign-react.git"
+  },
+  "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
+  "bugs": {
+    "url": "https://github.com/Tencent/tdesign-react/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",

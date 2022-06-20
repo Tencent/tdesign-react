@@ -7,7 +7,6 @@ import { TdTagInputProps } from './type';
 export const tagInputDefaultProps: TdTagInputProps = {
   autoWidth: false,
   clearable: false,
-  disabled: false,
   dragSort: false,
   excessTagsDisplayType: 'scroll',
   minCollapsedNum: 0,

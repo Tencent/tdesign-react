@@ -31,7 +31,7 @@ export default function PositionExample() {
           theme="primary"
           onClick={() => {
             setVisible(true);
-            setTopData('100px');
+            setTopData('100');
           }}
           style={{ marginRight: 16 }}
         >
@@ -62,7 +62,6 @@ export default function PositionExample() {
           console.log('dialog is closed');
         }}
       >
-      <p style={{ position: 'fixed', right: 0, top: 0, color: 'red' }}>test</p>
         <p>This is a dialog</p>
         <p>This is a dialog</p>
         <p>This is a dialog</p>
@@ -82,7 +81,6 @@ export default function PositionExample() {
           console.log('dialog is closed');
         }}
       >
-      <p style={{ position: 'fixed', right: 0, top: 0, color: 'red' }}>test</p>
         <p>This is a dialog</p>
         <p>This is a dialog</p>
         <p>This is a dialog</p>

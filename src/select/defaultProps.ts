@@ -4,7 +4,7 @@
 
 import { TdOptionProps, TdOptionGroupProps, TdSelectProps } from './type';
 
-export const optionDefaultProps: TdOptionProps = { disabled: false };
+export const optionDefaultProps: TdOptionProps = {};
 
 export const optionGroupDefaultProps: TdOptionGroupProps = { divider: true };
 
@@ -14,7 +14,6 @@ export const selectDefaultProps: TdSelectProps = {
   borderless: false,
   clearable: false,
   creatable: false,
-  disabled: false,
   filterable: false,
   loading: false,
   max: 0,

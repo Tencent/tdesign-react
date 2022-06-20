@@ -6,7 +6,6 @@ import { TdPaginationProps } from './type';
 
 export const paginationDefaultProps: TdPaginationProps = {
   defaultCurrent: 1,
-  disabled: false,
   foldedMaxPageBtn: 5,
   maxPageBtn: 10,
   defaultPageSize: 10,
