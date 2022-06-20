@@ -1088,7 +1088,7 @@ exports[`async-loading.jsx 1`] = `
                       class="t-table__async-loading t-is-loading"
                     >
                       <div
-                        class="t-loading t-loading--center t-size-m"
+                        class="t-loading t-loading--center t-size-s"
                       >
                         <svg
                           class="t-loading__gradient t-icon-loading"
