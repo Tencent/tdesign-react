@@ -3,12 +3,13 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
-import { getRowFixedStyles, getColumnFixedStyles, RowAndColFixedPosition } from './hooks/useFixed';
+import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
+import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import TEllipsis from './Ellipsis';
 import { BaseTableCellParams, TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
-import { SkipSpansValue } from './hooks/useRowspanAndColspan';
+import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 
 export interface RenderTdExtra {
   rowAndColFixedPosition: RowAndColFixedPosition;
@@ -184,10 +185,14 @@ export default function TR(props: TrProps) {
       rowIndex,
       colIndex,
     };
-    const spanState = props.skipSpansMap.get([rowIndex, colIndex].join()) || {};
-    spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
-    spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
-    if (spanState.skipped) return null;
+    let spanState = null;
+    if (props.skipSpansMap.size) {
+      const cellKey = getCellKey(row, props.rowKey, col.colKey, colIndex);
+      spanState = props.skipSpansMap.get(cellKey) || {};
+      spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
+      spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
+      if (spanState.skipped) return null;
+    }
     return renderTd(params, {
       dataLength,
       rowAndColFixedPosition,

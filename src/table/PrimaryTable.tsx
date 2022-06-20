@@ -40,7 +40,10 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable } = useDragSort(props, primaryTableRef);
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(
+    props,
+    primaryTableRef,
+  );
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
@@ -63,6 +66,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     if (isRowHandlerDraggable || isRowDraggable) {
       tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
     }
+    console.log(tAttributes);
     return tAttributes.filter((v) => v);
   })();
 
@@ -175,6 +179,7 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
       {...baseTableProps}
       className={classNames(primaryTableClasses, className)}
       style={style}
+      onLeafColumnsChange={setDragSortColumns}
     />
   );
 }

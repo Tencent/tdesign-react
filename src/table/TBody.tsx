@@ -5,8 +5,7 @@ import pick from 'lodash/pick';
 import classNames from 'classnames';
 import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { BaseTableProps } from './interface';
-import { RowAndColFixedPosition } from './hooks/useFixed';
+import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 
@@ -58,10 +57,10 @@ export const extendTableProps = [
 
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns } = props;
+  const { data, columns, rowKey } = props;
   const [global, t] = useLocaleReceiver('table');
   const { tableFullRowClasses, tableBaseClass } = useClassName();
-  const { skipSpansMap } = useRowspanAndColspan(data, columns, props.rowspanAndColspan);
+  const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
 
