@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Menu } from 'tdesign-react';
 
+const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;
 
 const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
@@ -16,8 +17,6 @@ function BasicUsage(props) {
     </Menu>
   );
 }
-
-const { Header, Content, Footer, Aside } = Layout;
 
 export default function BasicDivider() {
   return (
