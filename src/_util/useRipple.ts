@@ -43,8 +43,11 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
 
   const rippleContainer = useMemo(() => {
     if (!canUseDocument) return null;
-    return document.createElement('div');
-  }, []);
+    const container = document.createElement('div');
+    container.className = `${classPrefix}-ripple`;
+
+    return container;
+  }, [classPrefix]);
 
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
@@ -83,6 +86,8 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
       }
       // 新增一个ripple
       const ripple = document.createElement('div');
+
+      ripple.className = `${classPrefix}-ripple__inner`;
 
       setStyle(ripple, {
         marginTop: '0',
@@ -141,28 +146,14 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
     [classPrefix, ref, fixedRippleColor, rippleContainer, keepRipple],
   );
 
-  // 重置一些属性 为动画做准备 reset the node which uses the ripple animation
-  const initRippleElement = useCallback(() => {
-    const el = ref?.current;
-
-    if (!el) return;
-
-    const initPosition = el.style?.position || getComputedStyle(el).position;
-    if (['', 'static'].includes(initPosition)) {
-      el.style.position = 'relative';
-    }
-  }, [ref]);
-
   useEffect(() => {
     const el = ref?.current;
     if (!el) return;
-
-    initRippleElement();
 
     el.addEventListener('pointerdown', handleAddRipple, false);
 
     return () => {
       el.removeEventListener('pointerdown', handleAddRipple, false);
     };
-  }, [initRippleElement, handleAddRipple, fixedRippleColor, ref]);
+  }, [handleAddRipple, fixedRippleColor, ref]);
 }

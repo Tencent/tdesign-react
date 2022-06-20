@@ -12,22 +12,14 @@ import useConfig from '../_util/useConfig';
 import getBackgroundColor from '../_util/linearGradient';
 import { StyledProps } from '../common';
 import { TdProgressProps } from './type';
+import { progressDefaultProps } from './defaultProps';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**
  * 按钮组件
  */
 const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement>) => {
-  const {
-    theme = 'line',
-    percentage = 0,
-    label = true,
-    color = '',
-    trackColor = '#f5f5f5',
-    strokeWidth,
-    size = 'medium',
-    className,
-  } = props;
+  const { theme, percentage, label, color = '', trackColor, strokeWidth, size, className } = props;
   let { status } = props;
   if (!status && percentage >= 100) {
     status = 'success';
@@ -145,7 +137,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
             cy={circleCenterInViewBox}
             r={radius}
             strokeWidth={circleStokeWidth}
-            stroke={trackColor}
+            stroke={trackColor || 'var(--td-bg-color-component)'}
             fill="none"
           ></circle>
           {percentage > 0 && (
@@ -183,18 +175,18 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
     borderRadius: getHeight(),
   } as React.CSSProperties;
   if (theme === 'plump') {
-    const PLUMP_SEPERATE = 10;
+    const PLUMP_SEPARATE = 10;
     progressDom = (
       <div
         ref={ref}
         className={classNames(`${classPrefix}-progress__bar`, `${classPrefix}-progress--plump`, {
           [`${statusClassName}`]: status,
-          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPERATE,
-          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPERATE,
+          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPARATE,
+          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPARATE,
         })}
         style={trackStyle}
       >
-        {percentage > PLUMP_SEPERATE ? (
+        {percentage > PLUMP_SEPARATE ? (
           <div className={`${classPrefix}-progress__inner`} style={barStyle}>
             {label && (
               <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>{`${percentage}%`}</div>
@@ -227,5 +219,6 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
 });
 
 Progress.displayName = 'Progress';
+Progress.defaultProps = progressDefaultProps;
 
 export default Progress;

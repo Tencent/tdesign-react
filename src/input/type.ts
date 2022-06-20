@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, TElement, SizeEnum } from '../common';
+import { TNode, TElement, SizeEnum, ClassName } from '../common';
 import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, WheelEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdInputProps {
@@ -39,9 +39,13 @@ export interface TdInputProps {
    */
   disabled?: boolean;
   /**
-   * 指定输入框展示值的格式
+   * 【开发中】指定输入框展示值的格式
    */
-  format?: (value: InputValue) => number | string;
+  format?: InputFormatType;
+  /**
+   * t-input 同级类名，示例：'name1 name2 name3' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
+   */
+  inputClass?: ClassName;
   /**
    * 左侧文本
    */
@@ -68,7 +72,7 @@ export interface TdInputProps {
    */
   prefixIcon?: TElement;
   /**
-   * 输入框是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;
@@ -84,8 +88,9 @@ export interface TdInputProps {
   size?: SizeEnum;
   /**
    * 输入框状态
+   * @default default
    */
-  status?: 'success' | 'warning' | 'error';
+  status?: 'default' | 'success' | 'warning' | 'error';
   /**
    * 后置图标前的后置内容
    */
@@ -120,7 +125,7 @@ export interface TdInputProps {
    */
   onChange?: (
     value: InputValue,
-    context?: { e?: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context?: { e?: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => void;
   /**
    * 清空按钮点击时触发
@@ -141,7 +146,7 @@ export interface TdInputProps {
   /**
    * 回车键按下时触发
    */
-  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onEnter?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 获得焦点时触发
    */
@@ -149,15 +154,15 @@ export interface TdInputProps {
   /**
    * 键盘按下时触发
    */
-  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeydown?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 按下字符键时触发（keydown -> keypress -> keyup）
    */
-  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeypress?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 释放键盘时触发
    */
-  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeyup?: (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => void;
   /**
    * 进入输入框时触发
    */
@@ -175,5 +180,7 @@ export interface TdInputProps {
    */
   onWheel?: (context: { e: WheelEvent<HTMLDivElement> }) => void;
 }
+
+export type InputFormatType = (value: InputValue) => number | string;
 
 export type InputValue = string | number;

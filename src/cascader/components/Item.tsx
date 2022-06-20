@@ -25,6 +25,13 @@ import { CheckboxProps } from '../../checkbox';
 const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: CascaderContextType) => {
   const { filterActive, inputVal } = cascaderContext;
   const labelText = filterActive ? getFullPathLabel(node) : node.label;
+  const isEllipsis = getLabelIsEllipsis(labelText, cascaderContext.size);
+  const EllipsisNode = isEllipsis ? (
+    <div className={`${name}-label--ellipsis`}>
+      <Tooltip content={labelText} placement="top-left" />
+    </div>
+  ) : null;
+
   if (filterActive) {
     const texts = labelText.split(inputVal);
     const doms = [];
@@ -37,9 +44,19 @@ const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: Cascade
         </span>,
       );
     }
-    return doms;
+    return (
+      <>
+        {doms}
+        {EllipsisNode}
+      </>
+    );
   }
-  return labelText;
+  return (
+    <>
+      {labelText}
+      {EllipsisNode}
+    </>
+  );
 };
 
 const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
@@ -47,19 +64,12 @@ const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType
   const name = `${prefix}-cascader__item`;
 
   const label = RenderLabelInner(name, node, cascaderContext);
-  const isEllipsis = getLabelIsEllipsis(node, cascaderContext.size);
 
-  if (isEllipsis) {
-    return (
-      <span className={`${name}-label`} role="label">
-        {label}
-        <div className={`${name}-label--ellipsis`}>
-          <Tooltip content={node.label} placement="top-left" />
-        </div>
-      </span>
-    );
-  }
-  return <span className={`${name}-label`}>{label}</span>;
+  return (
+    <span className={`${name}-label`} role="label">
+      {label}
+    </span>
+  );
 };
 
 const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, handleChange) => {
@@ -73,7 +83,7 @@ const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, ha
       {...checkProps}
       checked={node.checked}
       indeterminate={node.indeterminate}
-      disabled={node.isDisabled() || ((value as TreeNodeValue[]).length >= max && max !== 0)}
+      disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
       name={node.value}
       onChange={handleChange}
     >
@@ -113,6 +123,7 @@ const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIEl
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e?.nativeEvent?.stopImmediatePropagation?.();
     const ctx: ContextType = {
       e,
       node,

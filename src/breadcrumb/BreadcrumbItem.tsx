@@ -7,11 +7,12 @@ import useCommonClassName from '../_util/useCommonClassName';
 
 import { BreadcrumbItemProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
+import { breadcrumbItemDefaultProps } from './defaultProps';
 
-export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
+const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const {
     children,
-    separator = <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />,
+    separator,
     disabled,
     maxItemWidth,
     maxWidth,
@@ -20,10 +21,11 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
     target,
     router,
     replace,
+    className,
     ...restProps
   } = props;
 
-  const { maxItemWidthInContext, theme } = useContext(BreadcrumbContext);
+  const { maxItemWidthInContext, separator: separatorInContext } = useContext(BreadcrumbContext);
 
   const { classPrefix } = useConfig();
   const commonClassNames = useCommonClassName();
@@ -63,10 +65,13 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
     );
   }
 
-  const separatorContent = typeof separator === 'function' ? separator() : separator;
+  const separatorInProps = typeof separator === 'function' ? separator() : separator;
+  const separatorContent = separatorInProps || separatorInContext || (
+    <ChevronRightIcon style={{ color: 'rgba(0,0,0,.3)' }} />
+  );
 
   return (
-    <div className={classNames(breadcrumbItemClassNames, theme)} ref={ref} {...restProps}>
+    <div className={classNames(breadcrumbItemClassNames, className)} ref={ref} {...restProps}>
       {itemContent}
       <span className={separatorClassName}>{separatorContent}</span>
     </div>
@@ -74,3 +79,6 @@ export const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((p
 });
 
 BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.defaultProps = breadcrumbItemDefaultProps;
+
+export default BreadcrumbItem;

@@ -30,7 +30,7 @@ function DrawerDemo(props) {
         attach={props.attach}
         destroyOnClose={props.destroyOnClose || false}
         size={props.size || 'small'}
-        onCancel={props.onCancle}
+        onCancel={props.onCancel}
       >
         <p>This is a drawer</p>
       </Drawer>
@@ -97,12 +97,12 @@ describe('test Drawer', () => {
       margin: '0 0 0 -300px',
     });
   });
-  test('Drawer onCancle', () => {
-    const onCancleFn = jest.fn();
-    const { getByText } = render(<DrawerDemo onCancle={onCancleFn} />);
+  test('Drawer onCancel', () => {
+    const onCancelFn = jest.fn();
+    const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
     fireEvent.click(getByText('Open'));
-    expect(onCancleFn).not.toBeCalled();
+    expect(onCancelFn).not.toBeCalled();
     fireEvent.click(getByText('取消'));
-    expect(onCancleFn).toBeCalled();
+    expect(onCancelFn).toBeCalled();
   });
 });

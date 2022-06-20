@@ -56,10 +56,7 @@ function Components() {
       .then((res) => res.json())
       .then((res) => {
         const options = [];
-        const versions = filterVersions(
-          Object.keys(res.versions).filter((v) => !v.includes('alpha')),
-          1,
-        );
+        const versions = filterVersions(Object.keys(res.versions).filter((v) => !v.includes('-')));
 
         versions.forEach((v) => {
           const nums = v.split('.');
@@ -75,8 +72,9 @@ function Components() {
     tdHeaderRef.current.framework = 'react';
     tdDocSearch.current.docsearchInfo = { indexName: 'tdesign_doc_react' };
     tdDocAsideRef.current.routerList = routerList;
+
     tdDocAsideRef.current.onchange = ({ detail }) => {
-      if (location.pathname === detail) return;
+      if (window.location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
       requestAnimationFrame(() => {
         navigate(detail);
@@ -89,6 +87,10 @@ function Components() {
 
     initHistoryVersions();
   }, []);
+
+  useEffect(() => {
+    document.querySelector('td-stats')?.track?.();
+  }, [location]);
 
   return (
     <ConfigProvider /* globalConfig={{ locale, animation: { exclude: ['ripple'] }}} */>
@@ -109,6 +111,7 @@ function Components() {
           <td-doc-footer slot="doc-footer"></td-doc-footer>
         </td-doc-content>
       </td-doc-layout>
+      <tdesign-theme-generator />
     </ConfigProvider>
   );
 }

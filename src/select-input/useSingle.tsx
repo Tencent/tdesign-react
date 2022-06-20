@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, MouseEvent, FormEvent, useMemo } from 'react';
+import React, { useRef, MouseEvent, FormEvent, useMemo } from 'react';
 import isObject from 'lodash/isObject';
 import pick from 'lodash/pick';
 import classNames from 'classnames';
@@ -7,6 +7,7 @@ import Input, { InputValue } from '../input';
 import { TdSelectInputProps } from './type';
 import { Loading } from '../loading';
 import useConfig from '../_util/useConfig';
+import useControlled from '../hooks/useControlled';
 
 export interface RenderSelectSingleInputParams {
   tPlaceholder: string;
@@ -42,7 +43,7 @@ export default function useSingle(props: TdSelectInputProps) {
   const { value, keys, loading, disabled } = props;
   const { classPrefix } = useConfig();
   const inputRef = useRef();
-  const [inputValue, setInputValue] = useState<string | number>('');
+  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const showLoading = useMemo(() => !disabled && loading, [loading, disabled]);
 
@@ -54,33 +55,29 @@ export default function useSingle(props: TdSelectInputProps) {
   const onInnerClear = (context: { e: MouseEvent<SVGElement> }) => {
     context?.e?.stopPropagation();
     props.onClear?.(context);
-    setInputValue('');
+    setInputValue('', { trigger: 'clear' });
   };
 
   const onInnerInputChange = (
     value: InputValue,
-    context: { e: FormEvent<HTMLDivElement> | MouseEvent<HTMLElement | SVGElement> },
+    context: { e: FormEvent<HTMLInputElement> | MouseEvent<HTMLElement | SVGElement> },
   ) => {
     if (props.allowInput) {
-      setInputValue(value);
-      props.onInputChange?.(value, { ...context, trigger: 'input' });
+      setInputValue(value, { ...context, trigger: 'input' });
     }
   };
-
-  useEffect(() => {
-    setInputValue(getInputValue(value, keys));
-  }, [keys, value]);
 
   const renderSelectSingle = (popupVisible: boolean) => {
     // 单选，值的呈现方式
     const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
+    const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
     return (
       <Input
         ref={inputRef}
         {...commonInputProps}
-        autoWidth={props.borderless || props.autoWidth}
+        autoWidth={props.autoWidth}
         placeholder={singleValueDisplay ? '' : props.placeholder}
-        value={singleValueDisplay ? undefined : inputValue}
+        value={singleValueDisplay ? undefined : displayedValue}
         label={
           <>
             {props.label}
@@ -92,13 +89,16 @@ export default function useSingle(props: TdSelectInputProps) {
         onClear={onInnerClear}
         onBlur={(val, context) => {
           props.onBlur?.(value, { ...context, inputValue: val });
-          setInputValue(getInputValue(value, keys));
         }}
         onFocus={(val, context) => {
           props.onFocus?.(value, { ...context, inputValue: val });
+          !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
+        }}
+        onEnter={(val, context) => {
+          props.onEnter?.(value, { ...context, inputValue: val });
         }}
         {...props.inputProps}
-        className={classNames(props.inputProps?.className, {
+        inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
         })}
       />

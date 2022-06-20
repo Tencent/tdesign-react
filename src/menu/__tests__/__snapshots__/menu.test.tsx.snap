@@ -21,7 +21,6 @@ exports[`closable-side.jsx 1`] = `
       >
         <li
           class="t-menu__item"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-app"
@@ -93,8 +92,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -158,8 +156,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -170,8 +167,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -235,8 +231,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -247,8 +242,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -263,7 +257,6 @@ exports[`closable-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-rollback"
@@ -335,8 +328,7 @@ exports[`closable-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -347,8 +339,7 @@ exports[`closable-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -407,7 +398,6 @@ exports[`custom-header.jsx 1`] = `
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -419,7 +409,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -431,7 +420,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -443,7 +431,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -486,7 +473,6 @@ exports[`custom-header.jsx 1`] = `
       >
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -498,7 +484,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -510,7 +495,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -522,7 +506,6 @@ exports[`custom-header.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -570,7 +553,6 @@ exports[`custom-side.jsx 1`] = `
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -582,7 +564,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -594,7 +575,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -606,7 +586,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -618,7 +597,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -630,7 +608,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -642,7 +619,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -676,7 +652,6 @@ exports[`custom-side.jsx 1`] = `
       >
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -688,7 +663,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -700,7 +674,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -712,7 +685,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -724,7 +696,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -736,7 +707,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -748,7 +718,6 @@ exports[`custom-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -790,7 +759,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item t-is-active"
-            style="position: relative;"
           >
             <span>
               菜单1
@@ -802,7 +770,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单2
@@ -814,7 +781,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单3
@@ -826,7 +792,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单4
@@ -861,11 +826,11 @@ exports[`double.jsx 1`] = `
                 class="t-tabs__nav-scroll"
               >
                 <div
-                  class="t-tabs__nav-wrap"
+                  class="t-tabs__nav-wrap t-is-smooth"
+                  style="transform: translate(0px, 0);"
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
@@ -875,7 +840,6 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
-                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -889,7 +853,6 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
-                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -904,7 +867,7 @@ exports[`double.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-tabs__content t-is-undefined"
+          class="t-tabs__content t-is-top"
         >
           <div
             class="t-tab-panel"
@@ -936,7 +899,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item t-is-active"
-            style="position: relative;"
           >
             <span>
               菜单1
@@ -948,7 +910,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单2
@@ -960,7 +921,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单3
@@ -972,7 +932,6 @@ exports[`double.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               菜单4
@@ -1007,11 +966,11 @@ exports[`double.jsx 1`] = `
                 class="t-tabs__nav-scroll"
               >
                 <div
-                  class="t-tabs__nav-wrap"
+                  class="t-tabs__nav-wrap t-is-smooth"
+                  style="transform: translate(0px, 0);"
                 >
                   <div
                     class="t-tabs__bar t-is-top"
-                    style="transform: translateX(0px);"
                   />
                   <div
                     class="t-tabs__bar t-is-top"
@@ -1021,7 +980,6 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
-                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -1035,7 +993,6 @@ exports[`double.jsx 1`] = `
                   >
                     <div
                       class="t-tabs__nav-item-wrapper"
-                      style="position: relative;"
                     >
                       <span
                         class="t-tabs__nav-item-text-wrapper"
@@ -1050,7 +1007,7 @@ exports[`double.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-tabs__content t-is-undefined"
+          class="t-tabs__content t-is-top"
         >
           <div
             class="t-tab-panel"
@@ -1088,12 +1045,12 @@ exports[`group-side.jsx 1`] = `
         >
           <div
             class="t-menu-group__title"
+            style="padding-left: 16px;"
           >
             Classification A
           </div>
           <li
             class="t-menu__item t-is-active"
-            style="position: relative;"
           >
             <svg
               class="t-icon t-icon-chart"
@@ -1125,12 +1082,12 @@ exports[`group-side.jsx 1`] = `
         >
           <div
             class="t-menu-group__title"
+            style="padding-left: 16px;"
           >
             Classification B
           </div>
           <li
             class="t-menu__item t-menu__item--plain"
-            style="position: relative;"
           >
             <span
               class="t-menu__content"
@@ -1140,7 +1097,6 @@ exports[`group-side.jsx 1`] = `
           </li>
           <li
             class="t-menu__item t-menu__item--plain"
-            style="position: relative;"
           >
             <span
               class="t-menu__content"
@@ -1154,18 +1110,169 @@ exports[`group-side.jsx 1`] = `
         >
           <div
             class="t-menu-group__title"
+            style="padding-left: 16px;"
           >
             Classification C
           </div>
           <li
             class="t-menu__item t-menu__item--plain"
-            style="position: relative;"
           >
             <span
               class="t-menu__content"
             >
               精准监控
             </span>
+          </li>
+          <li
+            class="t-submenu"
+          >
+            <div
+              class="t-menu__item"
+            >
+              <svg
+                class="t-icon t-icon-file"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M3.5 1c-.48 0-1 .34-1 .92v12.16c0 .58.52.92 1 .92h9c.48 0 1-.34 1-.92V5.7a1 1 0 00-.3-.71L9.5 1.3a1 1 0 00-.7-.3H3.5zm5 1v4.01h4V14h-9V2h5zm1 .7l2.3 2.31H9.5v-2.3z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+               
+              <span
+                class="t-menu__content"
+              >
+                <span>
+                  资源列表
+                </span>
+              </span>
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </div>
+            <ul
+              class="t-menu__sub"
+              style="max-height: 0; --padding-left: 44px;"
+            >
+              <div
+                class="t-menu-group"
+              >
+                <div
+                  class="t-menu-group__title"
+                  style="padding-left: 32px;"
+                >
+                  inner Classification D
+                </div>
+                <li
+                  class="t-submenu"
+                >
+                  <div
+                    class="t-menu__item"
+                  >
+                     
+                    <span
+                      class="t-menu__content"
+                    >
+                      二级菜单-1
+                    </span>
+                    <svg
+                      class="t-fake-arrow"
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                  </div>
+                  <ul
+                    class="t-menu__sub"
+                    style="max-height: 0; --padding-left: 60px;"
+                  >
+                    <div
+                      class="t-menu-group"
+                    >
+                      <div
+                        class="t-menu-group__title"
+                        style="padding-left: 48px;"
+                      >
+                        inner Classification E
+                      </div>
+                      <li
+                        class="t-menu__item t-menu__item--plain"
+                      >
+                        <span
+                          class="t-menu__content"
+                        >
+                          三级菜单-1
+                        </span>
+                      </li>
+                    </div>
+                    <li
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        三级菜单-2
+                      </span>
+                    </li>
+                    <li
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
+                    >
+                      <span
+                        class="t-menu__content"
+                      >
+                        三级菜单-3
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </div>
+              <div
+                class="t-menu-group"
+              >
+                <div
+                  class="t-menu-group__title"
+                  style="padding-left: 32px;"
+                >
+                  inner Classification E
+                </div>
+                <li
+                  class="t-menu__item t-menu__item--plain"
+                >
+                  <span
+                    class="t-menu__content"
+                  >
+                    <span>
+                      二级菜单-2
+                    </span>
+                  </span>
+                </li>
+              </div>
+            </ul>
           </li>
         </div>
       </ul>
@@ -1205,7 +1312,6 @@ exports[`multi-side.jsx 1`] = `
       >
         <li
           class="t-menu__item"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-app"
@@ -1274,8 +1380,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 50px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1335,7 +1440,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 250px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
+              class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
             >
               <div
                 class="t-menu__item"
@@ -1367,8 +1472,7 @@ exports[`multi-side.jsx 1`] = `
                 style="max-height: 0; --padding-left: 60px;"
               >
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                  style="position: relative;"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1377,8 +1481,7 @@ exports[`multi-side.jsx 1`] = `
                   </span>
                 </li>
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                  style="position: relative;"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1387,8 +1490,7 @@ exports[`multi-side.jsx 1`] = `
                   </span>
                 </li>
                 <li
-                  class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                  style="position: relative;"
+                  class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                 >
                   <span
                     class="t-menu__content"
@@ -1399,8 +1501,7 @@ exports[`multi-side.jsx 1`] = `
               </ul>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1460,8 +1561,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1472,8 +1572,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1487,7 +1586,6 @@ exports[`multi-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-rollback"
@@ -1556,8 +1654,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1568,8 +1665,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1613,7 +1709,6 @@ exports[`multi-side.jsx 1`] = `
       >
         <li
           class="t-menu__item"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-app"
@@ -1682,8 +1777,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 50px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1743,8 +1837,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 100px; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1755,8 +1848,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1816,8 +1908,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1828,8 +1919,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1843,7 +1933,6 @@ exports[`multi-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-rollback"
@@ -1912,8 +2001,7 @@ exports[`multi-side.jsx 1`] = `
             style="max-height: 0; --padding-left: 44px;"
           >
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1924,8 +2012,7 @@ exports[`multi-side.jsx 1`] = `
               </span>
             </li>
             <li
-              class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-              style="position: relative;"
+              class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
             >
               <span
                 class="t-menu__content"
@@ -1986,7 +2073,6 @@ exports[`multiple.jsx 1`] = `
         >
           <div
             class="t-menu__item t-is-active"
-            style="position: relative;"
           >
             <span>
               电器
@@ -2019,7 +2105,6 @@ exports[`multiple.jsx 1`] = `
               >
                 <div
                   class="t-menu__item"
-                  style="position: relative;"
                 >
                   <span>
                     电视
@@ -2050,7 +2135,6 @@ exports[`multiple.jsx 1`] = `
                   >
                     <li
                       class="t-menu__item t-menu__item--plain"
-                      style="position: relative;"
                     >
                       <span
                         class="t-menu__content"
@@ -2060,7 +2144,6 @@ exports[`multiple.jsx 1`] = `
                     </li>
                     <li
                       class="t-menu__item t-menu__item--plain"
-                      style="position: relative;"
                     >
                       <span
                         class="t-menu__content"
@@ -2070,7 +2153,6 @@ exports[`multiple.jsx 1`] = `
                     </li>
                     <li
                       class="t-menu__item t-menu__item--plain"
-                      style="position: relative;"
                     >
                       <span
                         class="t-menu__content"
@@ -2083,7 +2165,6 @@ exports[`multiple.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2098,7 +2179,6 @@ exports[`multiple.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -2111,7 +2191,6 @@ exports[`multiple.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               水果蔬菜
@@ -2141,7 +2220,6 @@ exports[`multiple.jsx 1`] = `
             >
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2153,7 +2231,6 @@ exports[`multiple.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2166,7 +2243,6 @@ exports[`multiple.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -2201,7 +2277,6 @@ exports[`multiple.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               电器
@@ -2231,7 +2306,6 @@ exports[`multiple.jsx 1`] = `
             >
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2243,7 +2317,6 @@ exports[`multiple.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2258,7 +2331,6 @@ exports[`multiple.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -2271,7 +2343,6 @@ exports[`multiple.jsx 1`] = `
         >
           <div
             class="t-menu__item"
-            style="position: relative;"
           >
             <span>
               水果蔬菜
@@ -2301,7 +2372,6 @@ exports[`multiple.jsx 1`] = `
             >
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2313,7 +2383,6 @@ exports[`multiple.jsx 1`] = `
               </li>
               <li
                 class="t-menu__item t-menu__item--plain"
-                style="position: relative;"
               >
                 <span
                   class="t-menu__content"
@@ -2326,7 +2395,6 @@ exports[`multiple.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -2354,7 +2422,6 @@ exports[`popup-side.jsx 1`] = `
       >
         <li
           class="t-menu__item"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-app"
@@ -2426,8 +2493,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2491,7 +2557,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-submenu"
+                class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
               >
                 <div
                   class="t-menu__item"
@@ -2527,8 +2593,7 @@ exports[`popup-side.jsx 1`] = `
                     style="max-height: 0;"
                   >
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                      style="position: relative;"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2537,8 +2602,7 @@ exports[`popup-side.jsx 1`] = `
                       </span>
                     </li>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                      style="position: relative;"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2547,8 +2611,7 @@ exports[`popup-side.jsx 1`] = `
                       </span>
                     </li>
                     <li
-                      class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                      style="position: relative;"
+                      class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
                     >
                       <span
                         class="t-menu__content"
@@ -2560,8 +2623,7 @@ exports[`popup-side.jsx 1`] = `
                 </div>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2625,8 +2687,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2637,8 +2698,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2653,7 +2713,6 @@ exports[`popup-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-rollback"
@@ -2725,8 +2784,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2737,8 +2795,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2783,7 +2840,6 @@ exports[`popup-side.jsx 1`] = `
       >
         <li
           class="t-menu__item"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-app"
@@ -2855,8 +2911,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-is-disabled t-is-active t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2920,8 +2975,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2932,8 +2986,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -2997,8 +3050,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3009,8 +3061,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3025,7 +3076,6 @@ exports[`popup-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled"
-          style="position: relative;"
         >
           <svg
             class="t-icon t-icon-rollback"
@@ -3097,8 +3147,7 @@ exports[`popup-side.jsx 1`] = `
               style="max-height: 0;"
             >
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3109,8 +3158,7 @@ exports[`popup-side.jsx 1`] = `
                 </span>
               </li>
               <li
-                class="t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item t-menu__item--plain"
-                style="position: relative;"
+                class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
               >
                 <span
                   class="t-menu__content"
@@ -3169,7 +3217,6 @@ exports[`single.jsx 1`] = `
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3181,7 +3228,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3193,7 +3239,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3205,7 +3250,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3280,7 +3324,6 @@ exports[`single.jsx 1`] = `
       >
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3292,7 +3335,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3304,7 +3346,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3316,7 +3357,6 @@ exports[`single.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3397,7 +3437,6 @@ exports[`single-side.jsx 1`] = `
       >
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3409,7 +3448,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3421,7 +3459,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3433,7 +3470,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3445,7 +3481,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3457,7 +3492,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3469,7 +3503,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3503,7 +3536,6 @@ exports[`single-side.jsx 1`] = `
       >
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3515,7 +3547,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-active t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3527,7 +3558,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3539,7 +3569,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-is-disabled t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3551,7 +3580,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3563,7 +3591,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"
@@ -3575,7 +3602,6 @@ exports[`single-side.jsx 1`] = `
         </li>
         <li
           class="t-menu__item t-menu__item--plain"
-          style="position: relative;"
         >
           <span
             class="t-menu__content"

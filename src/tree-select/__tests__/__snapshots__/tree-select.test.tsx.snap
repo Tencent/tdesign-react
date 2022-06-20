@@ -10,9 +10,10 @@ exports[`base.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="广东省"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -21,6 +22,7 @@ exports[`base.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="广东省"
           />
           <span
@@ -58,10 +60,11 @@ exports[`collapsed.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -93,6 +96,7 @@ exports[`collapsed.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -121,10 +125,11 @@ exports[`collapsed.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -160,6 +165,7 @@ exports[`collapsed.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -204,7 +210,6 @@ exports[`filterable.jsx 1`] = `
           <input
             checked=""
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="default"
           />
@@ -222,7 +227,6 @@ exports[`filterable.jsx 1`] = `
         >
           <input
             class="t-radio-button__former"
-            readonly=""
             type="radio"
             value="function"
           />
@@ -246,9 +250,10 @@ exports[`filterable.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -256,6 +261,7 @@ exports[`filterable.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
+            type="text"
             value=""
           />
           <span
@@ -284,10 +290,11 @@ exports[`filterable.jsx 1`] = `
       class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -295,6 +302,7 @@ exports[`filterable.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
+            type="text"
             value=""
           />
           <span
@@ -333,9 +341,10 @@ exports[`lazy.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -344,6 +353,7 @@ exports[`lazy.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -381,10 +391,11 @@ exports[`multiple.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -429,6 +440,7 @@ exports[`multiple.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -467,9 +479,10 @@ exports[`prefix.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -492,6 +505,7 @@ exports[`prefix.jsx 1`] = `
             class="t-input__inner"
             placeholder="请输入"
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -530,9 +544,10 @@ exports[`props.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="深圳市"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -541,6 +556,7 @@ exports[`props.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="深圳市"
           />
           <span
@@ -581,7 +597,7 @@ exports[`valuedisplay.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -592,6 +608,7 @@ exports[`valuedisplay.jsx 1`] = `
             class="t-input__inner"
             placeholder=""
             readonly=""
+            type="text"
             value=""
           />
           <span
@@ -620,10 +637,11 @@ exports[`valuedisplay.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -668,6 +686,7 @@ exports[`valuedisplay.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span
@@ -707,9 +726,10 @@ exports[`valuetype.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
+        value="深圳市"
       >
         <div
-          class="t-input t-is-readonly t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -718,6 +738,7 @@ exports[`valuetype.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
             value="深圳市"
           />
           <span
@@ -746,10 +767,11 @@ exports[`valuetype.jsx 1`] = `
       class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     >
       <div
-        class="t-tag-input t-tag-input--break-line t-input__wrap"
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
       >
         <div
-          class="t-input t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -794,6 +816,7 @@ exports[`valuetype.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            type="text"
             value=""
           />
           <span

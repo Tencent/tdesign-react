@@ -1,0 +1,264 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import { AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
+import cloneDeep from 'lodash/cloneDeep';
+import get from 'lodash/get';
+import classNames from 'classnames';
+import TableTreeStore, { SwapParams } from './tree-store';
+import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, TableRowState } from '../type';
+import useClassName from './useClassName';
+import { renderCell } from '../TR';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
+export interface UseSwapParams<T> extends SwapParams<T> {
+  data: T[];
+}
+
+export default function useTreeData(props: TdEnhancedTableProps) {
+  const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
+  const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
+  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
+  const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
+  const { tableTreeClasses } = useClassName();
+  const [locale, t] = useLocaleReceiver('table');
+
+  const rowDataKeys = useMemo(
+    () => ({
+      rowKey: rowKey || 'id',
+      childrenKey: tree?.childrenKey || 'children',
+    }),
+    [rowKey, tree?.childrenKey],
+  );
+
+  const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
+
+  useEffect(() => {
+    if (!store || !checkedColumn) return;
+    // 第一次，不需要执行 updateDisabledState
+    const rowValue = get(dataSource[0], rowDataKeys.rowKey);
+    if (!store.treeDataMap.get(rowValue)) return;
+    store.updateDisabledState(dataSource, checkedColumn, rowDataKeys);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkedColumn]);
+
+  useEffect(
+    () => {
+      if (!data || !store) return;
+      // 如果没有树形解构，则不需要相关逻辑
+      if (!tree || !Object.keys(tree).length) {
+        setDataSource(data);
+        return;
+      }
+      let newVal = cloneDeep(data);
+      store.initialTreeStore(newVal, columns, rowDataKeys);
+      if (props.tree?.defaultExpandAll) {
+        newVal = [...store.expandAll(newVal, rowDataKeys)];
+      }
+      setDataSource(newVal);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data],
+  );
+
+  useEffect(
+    () => {
+      const treeNodeColTmp = getTreeNodeColumnCol();
+      setTreeNodeCol(treeNodeColTmp);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [columns],
+  );
+
+  function getTreeNodeStyle(level: number) {
+    if (level === undefined) return;
+    const indent = props.tree?.indent || 24;
+    // 默认 1px 是为了临界省略
+    return {
+      paddingLeft: `${level * indent || 1}px`,
+    };
+  }
+
+  /**
+   * 组件实例方法，展开或收起某一行
+   * @param p 行数据
+   */
+  function toggleExpandData(p: { row: TableRowData; rowIndex: number; trigger?: 'inner' }) {
+    const newData = store.toggleExpandData(p, dataSource, rowDataKeys);
+    setDataSource([...newData]);
+    if (p.trigger === 'inner') {
+      const rowValue = get(p.row, rowDataKeys.rowKey);
+      props.onTreeExpandChange?.({
+        row: p.row,
+        rowIndex: p.rowIndex,
+        rowState: store?.treeDataMap?.get(rowValue),
+      });
+    }
+  }
+
+  function getTreeNodeColumnCol() {
+    const { columns } = props;
+    let treeNodeColumnIndex = props.tree?.treeNodeColumnIndex || 0;
+    // type 存在，则表示表格内部渲染的特殊列，比如：展开行按钮、复选框、单选按钮等，不能作为树结点列。因此树结点展开列向后顺移
+    while (
+      columns[treeNodeColumnIndex]?.type ||
+      columns[treeNodeColumnIndex]?.colKey === '__EXPAND_ROW_ICON_COLUMN__'
+    ) {
+      treeNodeColumnIndex += 1;
+    }
+    return columns[treeNodeColumnIndex];
+  }
+
+  function formatTreeColumn(col: PrimaryTableCol): PrimaryTableCol {
+    if (!col || !treeNodeCol || !store) return {};
+    if (!props.tree || !Object.keys(props.tree).length || col.colKey !== treeNodeCol.colKey) return col;
+    const newCol = { ...treeNodeCol };
+    newCol.cell = (p) => {
+      const cellInfo = renderCell({ ...p, col: { ...treeNodeCol } });
+      const currentState = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey));
+      const colStyle = getTreeNodeStyle(currentState?.level);
+      const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
+      const childrenNodes = get(p.row, rowDataKeys.childrenKey);
+      if (childrenNodes && childrenNodes instanceof Array) {
+        const expanded = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded;
+        const type = expanded ? 'expand' : 'fold';
+        const defaultIconNode =
+          t(locale.treeExpandAndFoldIcon, { type }) || (expanded ? <MinusRectangleIcon /> : <AddRectangleIcon />);
+        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type }) : defaultIconNode;
+        return (
+          <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
+            {!!childrenNodes.length && (
+              <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
+                {iconNode}
+              </span>
+            )}
+            {cellInfo}
+          </div>
+        );
+      }
+      return (
+        <div style={colStyle} className={classNames(classes)}>
+          {cellInfo}
+        </div>
+      );
+    };
+    // 树形节点会显示操作符号 [+] 和 [-]，但省略显示的浮层中不需要操作符
+    if (newCol.ellipsis === true) {
+      newCol.ellipsis = (p) => renderCell({ ...p, col: { ...treeNodeCol } });
+    }
+    return newCol;
+  }
+
+  /**
+   * 组件实例方法，设置行数据，自动刷新界面
+   * @param key 当前行唯一标识值
+   * @param newRowData 新行数据
+   */
+  function setData<T>(key: TableRowValue, newRowData: T) {
+    const rowIndex = store.updateData(key, newRowData, dataSource, rowDataKeys);
+    const newData = [...dataSource];
+    newData[rowIndex] = newRowData;
+    setDataSource([...newData]);
+  }
+
+  /**
+   * 组件实例方法，获取当前行全部数据
+   * @param key 行唯一标识
+   * @returns {TableRowState} 当前行数据
+   */
+  function getData(key: TableRowValue): TableRowState {
+    return store.getData(key);
+  }
+
+  /**
+   * 组件实例方法，移除指定节点
+   * @param key 行唯一标识
+   */
+  function remove(key: TableRowValue) {
+    // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
+    const newData = store.remove(key, dataSource, rowDataKeys);
+    setDataSource([...newData]);
+  }
+
+  /**
+   * 为当前节点添加子节点，默认添加到最后一个节点
+   * @param key 当前节点唯一标识
+   * @param newData 待添加的新节点
+   */
+  function appendTo<T>(key: TableRowValue, newData: T) {
+    if (!key) {
+      setDataSource([...store.appendToRoot(newData, dataSource, rowDataKeys)]);
+      return;
+    }
+    // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
+    setDataSource([...store.appendTo(key, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 当前节点之后，插入节点
+   */
+  function insertAfter<T>(rowValue: TableRowValue, newData: T) {
+    setDataSource([...store.insertAfter(rowValue, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 当前节点之后，插入节点
+   */
+  function insertBefore<T>(rowValue: TableRowValue, newData: T) {
+    setDataSource([...store.insertBefore(rowValue, newData, dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 展开所有节点
+   */
+  function expandAll() {
+    setDataSource([...store.expandAll(dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 收起所有节点
+   */
+  function foldAll() {
+    setDataSource([...store.foldAll(dataSource, rowDataKeys)]);
+  }
+
+  /**
+   * 交换行数据，React 在回掉函数函数中无法获取最新的 state 信息，因此需要参数 params.data
+   */
+  function swapData(params: UseSwapParams<TableRowData>) {
+    const r = store.swapData(params.data, params, rowDataKeys);
+    if (r.result) {
+      setDataSource([...r.dataSource]);
+    } else {
+      const params = {
+        code: r.code,
+        reason: r.reason,
+      };
+      props.onAbnormalDragSort?.(params);
+    }
+  }
+
+  /**
+   * 获取全部数据的树形结构
+   * @param key 节点唯一标识
+   */
+  function getTreeNode() {
+    return store.getTreeNode(dataSource, rowDataKeys);
+  }
+
+  return {
+    store,
+    rowDataKeys,
+    dataSource,
+    swapData,
+    setData,
+    getData,
+    remove,
+    appendTo,
+    insertAfter,
+    insertBefore,
+    formatTreeColumn,
+    toggleExpandData,
+    expandAll,
+    foldAll,
+    getTreeNode,
+  };
+}

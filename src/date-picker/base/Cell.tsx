@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
+import { extractTimeObj } from '../../_common/js/date-picker/utils-new';
 
 export interface DatePickerCellProps {
+  time?: string;
   text: [string, number];
   value: Date;
   active: boolean;
@@ -10,6 +12,9 @@ export interface DatePickerCellProps {
   disabled: boolean;
   startOfRange: boolean;
   endOfRange: boolean;
+  hoverHighlight: boolean;
+  hoverStartOfRange: boolean;
+  hoverEndOfRange: boolean;
   additional: boolean;
   now: boolean;
   firstDayOfMonth: boolean;
@@ -24,11 +29,15 @@ const DatePickerCell = (props: DatePickerCellProps) => {
   const {
     text,
     value,
+    time,
     active,
     highlight,
     disabled,
     startOfRange,
     endOfRange,
+    hoverHighlight,
+    hoverStartOfRange,
+    hoverEndOfRange,
     additional,
     now,
     firstDayOfMonth,
@@ -42,26 +51,51 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     [`${classPrefix}-date-picker__cell--active`]: active,
     [`${classPrefix}-date-picker__cell--disabled`]: disabled,
     [`${classPrefix}-date-picker__cell--highlight`]: highlight,
+    [`${classPrefix}-date-picker__cell--hover-highlight`]: hoverHighlight,
     [`${classPrefix}-date-picker__cell--active-start`]: startOfRange,
     [`${classPrefix}-date-picker__cell--active-end`]: endOfRange,
+    [`${classPrefix}-date-picker__cell--hover-start`]: hoverStartOfRange,
+    [`${classPrefix}-date-picker__cell--hover-end`]: hoverEndOfRange,
     [`${classPrefix}-date-picker__cell--additional`]: additional,
     [`${classPrefix}-date-picker__cell--first-day-of-month`]: firstDayOfMonth,
     [`${classPrefix}-date-picker__cell--last-day-of-month`]: lastDayOfMonth,
   });
 
   function handleClick(e: React.MouseEvent) {
-    !disabled && onClick(value, { e });
+    if (disabled) return;
+    if (time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
+      // am pm 12小时制转化 24小时制
+      let nextHours = hours;
+      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
+      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      value.setHours(nextHours);
+      value.setMinutes(minutes);
+      value.setSeconds(seconds);
+      value.setMilliseconds(milliseconds);
+    }
+    onClick?.(value, { e });
   }
 
   function handleMouseEnter() {
+    if (disabled) return;
+    if (time) {
+      const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(time);
+      // am pm 12小时制转化 24小时制
+      let nextHours = hours;
+      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
+      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      value.setHours(nextHours);
+      value.setMinutes(minutes);
+      value.setSeconds(seconds);
+      value.setMilliseconds(milliseconds);
+    }
     onMouseEnter?.(value);
   }
 
   return (
-    <td className={cellClass}>
-      <div className={`${classPrefix}-date-picker__cell-wrapper`} onClick={handleClick} onMouseEnter={handleMouseEnter}>
-        <span className={`${classPrefix}-date-picker__cell-text`}>{text}</span>
-      </div>
+    <td className={cellClass} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+      <div className={`${classPrefix}-date-picker__cell-inner`}>{text}</div>
     </td>
   );
 };

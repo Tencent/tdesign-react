@@ -1,143 +1,116 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef } from 'react';
-import classNames from 'classnames';
-import isNil from 'lodash/isNil';
+import isObject from 'lodash/isObject';
 import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
-import type { TdFormItemProps, ValueType, FormRule, FormItemValidateMessage } from './type';
-import Checkbox from '../checkbox';
-import Upload from '../upload';
-import Tag from '../tag';
+import type { TdFormItemProps, ValueType, FormItemValidateMessage } from './type';
 import { StyledProps } from '../common';
 import { validate as validateModal, isValueEmpty } from './formModel';
-import { useFormContext } from './FormContext';
+import { useFormContext, useFormListContext } from './FormContext';
+import useFormItemStyle from './hooks/useFormItemStyle';
+import { formItemDefaultProps } from './defaultProps';
 
-enum VALIDATE_STATUS {
+import { ctrlKeyMap, getDefaultInitialData } from './useInitialData';
+
+export enum VALIDATE_STATUS {
   TO_BE_VALIDATED = 'not',
   SUCCESS = 'success',
   FAIL = 'fail',
 }
 export interface FormItemProps extends TdFormItemProps, StyledProps {
-  // 子节点
   children?: React.ReactNode;
 }
 
-const ctrlKeyMap = new Map();
-ctrlKeyMap.set(Checkbox, 'checked');
-ctrlKeyMap.set(Tag.CheckTag, 'checked');
-ctrlKeyMap.set(Upload, 'files');
+export interface FormItemInstance {
+  name?: string | number | Array<string | number>;
+  value?: any;
+  setValue?: Function;
+  setField?: Function;
+  validate?: Function;
+  resetField?: Function;
+  setValidateMessage?: Function;
+  resetValidate?: Function;
+}
 
-const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
+const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const { classPrefix } = useConfig();
   const {
-    children,
-    label,
-    name,
-    help,
-    statusIcon: statusIconFromProp,
-    rules: rulesFromProp,
-    labelWidth,
-    labelAlign,
-    initialData,
-    requiredMark,
-    successBorder,
-    className,
-    style: formItemStyle,
-  } = props;
-  const {
     colon,
-    requiredMark: requiredMarkFromContext,
     layout,
+    requiredMark: requiredMarkFromContext,
     labelAlign: labelAlignFromContext,
     labelWidth: labelWidthFromContext,
-    showErrorMessage,
+    showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
     errorMessage,
-    formItemsRef,
+    formMapRef,
     onFormItemValueChange,
   } = useFormContext();
+
+  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
+
+  const {
+    children,
+    style,
+    label,
+    name,
+    help,
+    initialData,
+    className,
+    successBorder,
+    statusIcon = statusIconFromContext,
+    rules: innerRules = getInnerRules(name, rulesFromContext, formListName, formListRules),
+    labelWidth = labelWidthFromContext,
+    labelAlign = labelAlignFromContext,
+    requiredMark = requiredMarkFromContext,
+    showErrorMessage = showErrorMessageFromContext,
+  } = props;
 
   const [errorList, setErrorList] = useState([]);
   const [successList, setSuccessList] = useState([]);
   const [verifyStatus, setVerifyStatus] = useState(VALIDATE_STATUS.TO_BE_VALIDATED);
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(initialData);
+  const [formValue, setFormValue] = useState(getDefaultInitialData(children, initialData));
 
-  const currentFormItemRef = useRef();
+  const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(null);
   const isMounted = useRef(false);
 
-  const innerRules: FormRule[] = (rulesFromContext && rulesFromContext[name]) || rulesFromProp || [];
-  const innerLabelWidth = isNil(labelWidth) ? labelWidthFromContext : labelWidth;
-  const innerLabelAlign = isNil(labelAlign) ? labelAlignFromContext : labelAlign;
-  const innerRequiredMark = isNil(requiredMark) ? requiredMarkFromContext : requiredMark;
-
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
-    [`${classPrefix}-form-item__${name}`]: name,
-    [`${classPrefix}-form__item-with-help`]: help,
-    [`${classPrefix}-form__item-with-extra`]: renderTipsInfo(),
-  });
-  const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
-    [`${classPrefix}-form__label--required`]:
-      innerRequiredMark && innerRules.filter((rule: any) => rule.required).length > 0,
-    [`${classPrefix}-form__label--colon`]: colon && label,
-    [`${classPrefix}-form__label--top`]: innerLabelAlign === 'top' || !innerLabelWidth,
-    [`${classPrefix}-form__label--left`]: innerLabelAlign === 'left' && innerLabelWidth,
-    [`${classPrefix}-form__label--right`]: innerLabelAlign === 'right' && innerLabelWidth,
-  });
-
-  const contentClass = () => {
-    const controlCls = `${classPrefix}-form__controls`;
-    if (!showErrorMessage) return controlCls;
-
-    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
-    if (isSuccess) {
-      return classNames(controlCls, `${classPrefix}-is-success`, {
-        [`${classPrefix}-form--success-border`]: successBorder,
-      });
-    }
-
-    const firstErrorType = errorList.length && (errorList[0].type || 'error');
-    return classNames(controlCls, {
-      [`${classPrefix}-is-warning`]: firstErrorType === 'warning',
-      [`${classPrefix}-is-error`]: firstErrorType === 'error',
+  const { formItemClass, formItemLabelClass, contentClass, labelStyle, contentStyle, helpNode, extraNode } =
+    useFormItemStyle({
+      className,
+      help,
+      name,
+      successBorder,
+      errorList,
+      successList,
+      layout,
+      verifyStatus,
+      colon,
+      label,
+      labelWidth,
+      labelAlign,
+      requiredMark,
+      showErrorMessage,
+      innerRules,
     });
-  };
 
-  let labelStyle = {};
-  let contentStyle = {};
-  if (innerLabelWidth && innerLabelAlign !== 'top') {
-    if (typeof innerLabelWidth === 'number') {
-      labelStyle = { width: `${innerLabelWidth}px` };
-      contentStyle = { marginLeft: layout !== 'inline' ? `${innerLabelWidth}px` : '' };
-    } else {
-      labelStyle = { width: innerLabelWidth };
-      contentStyle = { marginLeft: layout !== 'inline' ? innerLabelWidth : '' };
+  // 初始化 rules，最终以 formItem 上优先级最高
+  function getInnerRules(name, formRules, formListName, formListRules) {
+    if (Array.isArray(name)) {
+      const [, itemKey] = name;
+      return formRules?.[formListName]?.[itemKey] || formListRules?.[itemKey] || [];
     }
-  }
-
-  function renderTipsInfo() {
-    let helpNode = null;
-    if (help) helpNode = <div className={`${classPrefix}-form__help`}>{help}</div>;
-
-    const list = errorList;
-    if (showErrorMessage && list && list[0] && list[0].message) {
-      return <p className={`${classPrefix}-input__extra`}>{list[0].message}</p>;
-    }
-    if (successList.length) {
-      return <p className={`${classPrefix}-input__extra`}>{successList[0].message}</p>;
-    }
-
-    return helpNode;
+    return formRules?.[name] || formListRules || [];
   }
 
   const renderSuffixIcon = () => {
-    if (statusIconFromProp === false) return null;
+    if (statusIcon === false) return null;
 
     const resultIcon = (iconSlot: ReactNode) => <span className={`${classPrefix}-form__status`}>{iconSlot}</span>;
 
@@ -157,16 +130,11 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
       return null;
     };
 
-    if (React.isValidElement(statusIconFromProp)) {
-      return resultIcon(
-        React.cloneElement(statusIconFromProp, { style: { color: 'unset' }, ...statusIconFromProp.props }),
-      );
+    if (React.isValidElement(statusIcon)) {
+      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
     }
-    if (statusIconFromContext === true) {
+    if (statusIcon === true) {
       return getDefaultIcon();
-    }
-    if (React.isValidElement(statusIconFromContext)) {
-      return resultIcon(statusIconFromProp);
     }
 
     return null;
@@ -207,7 +175,7 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
         needResetField && resetHandler();
         setResetValidating(false);
 
-        resolve({ [name]: !filterErrorList.length ? true : r });
+        resolve({ [name as string]: !filterErrorList.length ? true : r });
       });
     });
   }
@@ -219,23 +187,25 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     filterRules.length && validate('blur');
   }
 
-  function getEmptyValue(): ValueType {
-    const type = Object.prototype.toString.call(initialData);
-    let emptyValue: ValueType = '';
-    if (type === '[object Array]') {
-      emptyValue = [];
+  function getResetValue(resetType: string): ValueType {
+    if (resetType === 'initial') {
+      return getDefaultInitialData(children, initialData);
     }
-    if (type === '[object Object]') {
+
+    let emptyValue: ValueType = '';
+    if (Array.isArray(formValue)) {
+      emptyValue = [];
+    } else if (isObject(formValue)) {
       emptyValue = {};
     }
     return emptyValue;
   }
 
   function resetField(type: string) {
-    if (!name) return;
+    if (typeof name === 'undefined') return;
 
     const resetType = type || resetTypeFromContext;
-    const resetValue = resetType === 'initial' ? initialData : getEmptyValue();
+    const resetValue = getResetValue(resetType);
     // 防止触发校验
     if (resetValue !== formValue) {
       shouldValidate.current = false;
@@ -283,16 +253,30 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
-    // value change event
-    if (isMounted.current) {
-      name && onFormItemValueChange({ [name]: formValue });
-    }
-
     // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
     if (!shouldValidate.current || !isMounted.current) {
       isMounted.current = true;
       shouldValidate.current = true;
       return;
+    }
+
+    // value change event
+    if (typeof name !== 'undefined') {
+      if (formListName) {
+        const formListValue = [];
+        if (Array.isArray(name)) {
+          const [index, itemKey] = name;
+          formListValue[index] = { [itemKey]: formValue };
+        } else {
+          formListValue[name] = formValue;
+        }
+        onFormItemValueChange?.({ [formListName]: formListValue });
+      } else if (Array.isArray(name)) {
+        const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formValue);
+        onFormItemValueChange?.({ ...fieldValue });
+      } else {
+        onFormItemValueChange?.({ [name as string]: formValue });
+      }
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
@@ -302,20 +286,28 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   }, [formValue]);
 
   useEffect(() => {
-    formItemsRef.current.push(currentFormItemRef);
+    if (typeof name === 'undefined') return;
 
-    return () => {
-      const index = formItemsRef.current.indexOf(currentFormItemRef);
-      if (index !== -1) {
+    // formList 下特殊处理
+    if (formListName) {
+      formListMapRef.current.set(name, currentFormItemRef);
+      return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        formItemsRef.current?.splice(index, 1);
-      }
+        formListMapRef.current.delete(name);
+      };
+    }
+
+    if (!formMapRef) return;
+    formMapRef.current.set(name, currentFormItemRef);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      formMapRef.current.delete(name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [name, formListName]);
 
   // 暴露 ref 实例方法
-  useImperativeHandle(currentFormItemRef, (): any => ({
+  const instance: FormItemInstance = {
     name,
     value: formValue,
     setValue: setFormValue,
@@ -324,10 +316,12 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
     resetField,
     setValidateMessage,
     resetValidate: resetHandler,
-  }));
+  };
+  useImperativeHandle(ref, (): FormItemInstance => instance);
+  useImperativeHandle(currentFormItemRef, (): FormItemInstance => instance);
 
   return (
-    <div className={formItemClass} style={formItemStyle} ref={ref}>
+    <div className={formItemClass} style={style}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
@@ -363,12 +357,12 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
                 disabled: disabledFromContext,
                 ...child.props,
                 [ctrlKey]: formValue,
-                onChange: (value) => {
-                  onChangeFromProps.call(null, value);
+                onChange: (value: any, ...args: any[]) => {
+                  onChangeFromProps.call(null, value, ...args);
                   setFormValue(value);
                 },
-                onBlur: (value) => {
-                  onBlurFromProps.call(null, value);
+                onBlur: (value: any, ...args: any[]) => {
+                  onBlurFromProps.call(null, value, ...args);
                   handleItemBlur();
                 },
               });
@@ -377,10 +371,14 @@ const FormItem = forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
           })}
           {renderSuffixIcon()}
         </div>
-        {renderTipsInfo()}
+        {helpNode}
+        {extraNode}
       </div>
     </div>
   );
 });
+
+FormItem.displayName = 'FormItem';
+FormItem.defaultProps = formItemDefaultProps;
 
 export default FormItem;

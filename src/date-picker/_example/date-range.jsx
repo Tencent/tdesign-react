@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'tdesign-react';
+import { DateRangePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
   // 选中日期时的事件
@@ -7,9 +7,9 @@ export default function YearDatePicker() {
     console.log('onPick:', value, context);
   }
   return (
-    <div className="tdesign-demo-item--datepicker tdesign-demo-block-column">
-      <DatePicker mode="date" range onPick={onPick}></DatePicker>
-      <DatePicker mode="date" enableTimePicker range></DatePicker>
+    <div className="tdesign-demo-block-column">
+      <DateRangePicker onPick={onPick} allowInput clearable />
+      <DateRangePicker enableTimePicker allowInput clearable onPick={onPick} />
     </div>
   );
 }

@@ -1,14 +1,17 @@
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, isValidElement } from 'react';
 import isString from 'lodash/isString';
+import isObject from 'lodash/isObject';
+import isFunction from 'lodash/isFunction';
 import { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Button from '../button';
+import Button, { ButtonProps } from '../button';
 import { TdDialogProps, DialogInstance } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
 import RenderDialog from './RenderDialog';
 import useSetState from '../_util/useSetState';
 import useConfig from '../_util/useConfig';
+import { dialogDefaultProps } from './defaultProps';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   /**
@@ -17,8 +20,25 @@ export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean;
 }
 
-const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (props, ref) => {
+const renderDialogButton = (btn: TdDialogProps['cancelBtn'], defaultProps: ButtonProps) => {
+  let result = null;
+
+  if (isString(btn)) {
+    result = <Button {...defaultProps}>{btn}</Button>;
+  } else if (isValidElement(btn)) {
+    result = btn;
+  } else if (isObject(btn)) {
+    result = <Button {...defaultProps} {...(btn as {})} />;
+  } else if (isFunction(btn)) {
+    result = btn();
+  }
+
+  return result;
+};
+
+const Dialog = forwardRef((props: DialogProps, ref: React.Ref<DialogInstance>) => {
   const { classPrefix } = useConfig();
+  const dialogDom = useRef<HTMLDivElement>();
   const [state, setState] = useSetState<DialogProps>({
     width: 520,
     visible: false,
@@ -39,9 +59,9 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
 
   const {
     visible,
-    attach = 'body',
+    attach,
     closeBtn,
-    footer,
+    footer = true,
     onCancel = noop,
     onConfirm = noop,
     cancelBtn = cancelText,
@@ -75,7 +95,9 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
     hide() {
       setState({ visible: false });
     },
-    destroy: noop,
+    destroy() {
+      setState({ visible: false, destroyOnClose: true });
+    },
     update(newOptions) {
       setState((prevState) => ({
         ...prevState,
@@ -111,29 +133,9 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
   };
 
   const defaultFooter = () => {
-    let renderCancelBtn = cancelBtn && (
-      <Button variant="outline">{isString(cancelBtn) ? cancelBtn : cancelText}</Button>
-    );
+    const renderCancelBtn = renderDialogButton(cancelBtn, { variant: 'outline' });
+    const renderConfirmBtn = renderDialogButton(confirmBtn, { theme: 'primary' });
 
-    let renderConfirmBtn = confirmBtn && (
-      <Button theme="primary">{isString(confirmBtn) ? confirmBtn : confirmText}</Button>
-    );
-
-    if (React.isValidElement(cancelBtn)) {
-      renderCancelBtn = cancelBtn;
-    }
-
-    if (React.isValidElement(confirmBtn)) {
-      renderConfirmBtn = confirmBtn;
-    }
-
-    if (typeof cancelBtn === 'function') {
-      renderCancelBtn = cancelBtn();
-    }
-
-    if (typeof confirmBtn === 'function') {
-      renderConfirmBtn = confirmBtn();
-    }
     return (
       <>
         {renderCancelBtn &&
@@ -160,9 +162,13 @@ const Dialog: React.ForwardRefRenderFunction<DialogInstance, DialogProps> = (pro
       closeBtn={renderCloseIcon()}
       classPrefix={classPrefix}
       onClose={onClose}
-      footer={footer === undefined ? defaultFooter() : footer}
+      footer={footer === true ? defaultFooter() : footer}
+      ref={dialogDom}
     />
   );
-};
+});
 
-export default forwardRef(Dialog);
+Dialog.displayName = 'Dialog';
+Dialog.defaultProps = dialogDefaultProps;
+
+export default Dialog;

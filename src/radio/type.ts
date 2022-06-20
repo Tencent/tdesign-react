@@ -15,10 +15,12 @@ export interface TdRadioProps {
   allowUncheck?: boolean;
   /**
    * 是否选中
+   * @default false
    */
   checked?: boolean;
   /**
    * 是否选中，非受控属性
+   * @default false
    */
   defaultChecked?: boolean;
   /**
@@ -40,6 +42,7 @@ export interface TdRadioProps {
   name?: string;
   /**
    * 单选按钮的值
+   * @default false
    */
   value?: RadioValue;
   /**
@@ -69,10 +72,12 @@ export interface TdRadioGroupProps {
   size?: SizeEnum;
   /**
    * 选中的值
+   * @default false
    */
   value?: RadioValue;
   /**
    * 选中的值，非受控属性
+   * @default false
    */
   defaultValue?: RadioValue;
   /**

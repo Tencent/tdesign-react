@@ -30,7 +30,7 @@ attach | String / Function | 'body' | 指定消息通知挂载的父节点。数
 offset | Array | - | 相对于 placement 的偏移量，示例：[-10, 20] 或 ['10em', '8rem']。TS 类型：`Array<string | number>` | N
 placement | String | top-right | 消息弹出位置。可选项：top-left/top-right/bottom-left/bottom-right。TS 类型：`NotificationPlacementList` `type NotificationPlacementList = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/notification/type.ts) | N
 zIndex | Number | 6000 | 消息通知层级 | N
-NotificationProps | - | - | 继承 `NotificationProps` 中的全部 API | N
+`NotificationProps` | \- | - | 继承 `NotificationProps` 中的全部 API | N
 
 ### notification 或 NotificationPlugin
 
@@ -38,8 +38,6 @@ NotificationProps | - | - | 继承 `NotificationProps` 中的全部 API | N
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 theme | String | info | 必需。消息类型。可选项：info/success/warning/error。TS 类型：`NotificationThemeList`
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationOptions`
 
@@ -49,8 +47,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationOp
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions` `type NotificationInfoOptions = Omit<NotificationOptions, 'theme'>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/notification/type.ts)
 
 插件返回值：`Promise<NotificationInstance>`
@@ -61,8 +57,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions`
 
 插件返回值：`Promise<NotificationInstance>`
@@ -73,8 +67,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions`
 
 插件返回值：`Promise<NotificationInstance>`
@@ -85,8 +77,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 options | Object | - | 必需。消息通知内容。TS 类型：`NotificationInfoOptions`
 
 插件返回值：`Promise<NotificationInstance>`
@@ -97,8 +87,6 @@ options | Object | - | 必需。消息通知内容。TS 类型：`NotificationIn
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 options | Object | - | 必需。该插件参数为 NotificationPlugin.info() 等插件执行后的返回值。示例：`const msg = NotificationPlugin.info({}); NotificationPlugin.close(msg)`。TS 类型：`Promise<NotificationInstance>`
 
 ### notification.closeAll 或 NotificationPlugin.closeAll
@@ -107,6 +95,4 @@ options | Object | - | 必需。该插件参数为 NotificationPlugin.info() 等
 
 参数名称 | 参数类型 | 参数默认值 | 参数说明
 -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
--- | - | - | -
+-- | \- | - | \-

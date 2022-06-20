@@ -1,9 +1,9 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import { Menu } from 'tdesign-react';
-import { ViewListIcon, ChartIcon } from 'tdesign-icons-react';
+import { ViewListIcon, ChartIcon, FileIcon } from 'tdesign-icons-react';
 
-const { MenuGroup, MenuItem } = Menu;
+const { MenuGroup, MenuItem, SubMenu } = Menu;
 
 function GroupSide() {
   const [value, setValue] = useState('1');
@@ -15,7 +15,17 @@ function GroupSide() {
       onChange={(value) => setValue(value)}
       collapsed={collapsed}
       operations={<ViewListIcon onClick={() => setCollapsed(!collapsed)} />}
-      logo={<img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />}
+      logo={
+        collapsed ? (
+          <img
+            src="https://oteam-tdesign-1258344706.cos.ap-guangzhou.myqcloud.com/site/logo%402x.png"
+            width="35"
+            alt="logo"
+          />
+        ) : (
+          <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" alt="logo" />
+        )
+      }
     >
       <MenuGroup title="Classification A">
         <MenuItem value="1" icon={<ChartIcon />}>
@@ -28,6 +38,22 @@ function GroupSide() {
       </MenuGroup>
       <MenuGroup title="Classification C">
         <MenuItem value="4">精准监控</MenuItem>
+        <SubMenu value="5" title={<span>资源列表</span>} icon={<FileIcon />}>
+          <MenuGroup title="inner Classification D">
+            <SubMenu value="2-1" title="二级菜单-1">
+              <MenuGroup title="inner Classification E">
+                <MenuItem value="3-1">三级菜单-1</MenuItem>
+              </MenuGroup>
+              <MenuItem value="3-2">三级菜单-2</MenuItem>
+              <MenuItem value="3-3">三级菜单-3</MenuItem>
+            </SubMenu>
+          </MenuGroup>
+          <MenuGroup title="inner Classification E">
+            <MenuItem value="2-2">
+              <span>二级菜单-2</span>
+            </MenuItem>
+          </MenuGroup>
+        </SubMenu>
       </MenuGroup>
     </Menu>
   );

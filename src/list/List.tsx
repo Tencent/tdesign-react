@@ -11,6 +11,7 @@ import { StyledProps } from '../common';
 import Loading from '../loading';
 import ListItem from './ListItem';
 import ListItemMeta from './ListItemMeta';
+import { listDefaultProps } from './defaultProps';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**
@@ -28,15 +29,15 @@ const List = forwardRefWithStatics(
       header,
       footer,
       asyncLoading,
-      size = 'medium',
-      split = false,
-      stripe = false,
-      layout = 'horizontal',
+      size,
+      split,
+      stripe,
+      layout,
       children,
       className,
       onLoadMore = noop,
       onScroll = noop,
-      style = {},
+      style,
     } = props;
 
     const { classPrefix } = useConfig();
@@ -80,7 +81,7 @@ const List = forwardRefWithStatics(
         ref={ref}
         style={style}
         onScroll={handleScroll}
-        className={classNames(className, 't-list', {
+        className={classNames(`${classPrefix}-list`, className, {
           [`${classPrefix}-list--split`]: split,
           [`${classPrefix}-list--stripe`]: stripe,
           [`${classPrefix}-list--vertical-action`]: layout === 'vertical',
@@ -99,5 +100,6 @@ const List = forwardRefWithStatics(
 );
 
 List.displayName = 'List';
+List.defaultProps = listDefaultProps;
 
 export default List;

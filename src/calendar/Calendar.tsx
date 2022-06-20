@@ -1,16 +1,18 @@
 import React, { useMemo, useState, useCallback, useEffect, forwardRef } from 'react';
 import dayjs from 'dayjs';
-import useLayoutEffect from '../_util/useLayoutEffect';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Button from '../button';
 import Select from '../select';
 import Radio from '../radio';
-import noop from '../_util/noop';
-import useConfig from '../_util/useConfig';
-import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue } from './type';
-import { StyledProps } from '../common';
-import { createDateList, createMonthList } from './_util';
 import CheckTag from '../tag/CheckTag';
+import noop from '../_util/noop';
+import usePrefixClass from './hooks/usePrefixClass';
+import useLayoutEffect from '../_util/useLayoutEffect';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
+import { StyledProps } from '../common';
+import { blockName, controlSectionSize, minYear, createDateList, createMonthList } from './_util';
+import CalendarCellComp from './CalendarCellComp';
+import { calendarDefaultProps } from './defaultProps';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -21,7 +23,12 @@ export interface CalendarMethods {
   toCurrent: (value: CalendarValue) => void;
 }
 
-const getDefaultControllerConfigData = (visible = true): Record<string, any> => ({
+// 组件内部将 controllerConfigData 参数类型转换为 CalendarController 处理，将 bool 时候的值作为 visible 并入其中
+interface InternalCalendarController extends Required<CalendarController> {
+  visible: boolean;
+}
+
+const getDefaultControllerConfigData = (visible = true): InternalCalendarController => ({
   visible, // 是否显示（全部控件）
   disabled: false, // 是否禁用（全部控件）
   // 模式切换单选组件设置
@@ -53,41 +60,48 @@ const getDefaultControllerConfigData = (visible = true): Record<string, any> => 
   },
 });
 
-// 抽取配置常量
-const blockName = 'calendar'; // 类名前缀
-const controlSectionSize = 'medium'; // 操作栏控件尺寸
-const minYear = 1970; // 最早选择年份
-
 const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableRefObject<CalendarMethods>) => {
   const {
-    className = '',
-    style = {},
-    mode: modeFromProps = 'month',
-    value: valueFromProps = null,
-    firstDayOfWeek = 1,
-    format = 'YYYY-MM-DD',
-    range = null,
-    head = null,
-    cell = null,
-    cellAppend = null,
-    week = null,
-    theme = 'full',
+    className,
+    style,
+    mode: modeFromProps,
+    value: valueFromProps,
+    firstDayOfWeek,
+    format,
+    range,
+    head,
+    cell,
+    cellAppend,
+    week,
+    theme,
     controllerConfig,
     isShowWeekendDefault = true,
     preventCellContextmenu = false,
+    month: monthProps,
+    year: yearProps,
     onControllerChange = noop,
     onCellClick = noop,
     onCellDoubleClick = noop,
     onCellRightClick = noop,
     onMonthChange = noop,
-    fillWithZero = false,
+    fillWithZero,
   } = props;
 
   // 组装配置信息
-  const controllerConfigData =
+  const controllerConfigData: InternalCalendarController =
     typeof controllerConfig === 'boolean'
       ? getDefaultControllerConfigData(controllerConfig)
       : { ...getDefaultControllerConfigData(), ...controllerConfig };
+
+  // 处理 monthProps 与 yearProps 比 controllerConfig 优先的情况
+  if (typeof controllerConfig !== 'boolean') {
+    if (monthProps) {
+      controllerConfigData.month.visible = true;
+    }
+    if (yearProps) {
+      controllerConfigData.year.visible = true;
+    }
+  }
 
   // 读配置信息
   const {
@@ -105,26 +119,13 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   const { visible: visibleForWeekendToggle = true, showWeekendButtonProps = {}, hideWeekendButtonProps = {} } = weekend;
   const { visible: visibleForCurrent = true, currentDayButtonProps = {}, currentMonthButtonProps = {} } = current;
 
-  const { classPrefix, calendar: calendarConfig } = useConfig();
   const [mode, setMode] = useState<string>('month');
   const [value, setValue] = useState<dayjs.Dayjs>(dayjs(valueFromProps || dayjs().format('YYYY-MM-DD')));
-  const [year, setYearState] = useState<number>(value.year());
-  const [month, setMonthState] = useState<number>(parseInt(value.format('M'), 10));
+  const [year, setYear] = useState<number>(yearProps ? Number(yearProps) : value.year());
+  const [month, setMonth] = useState<number>(monthProps ? Number(monthProps) : parseInt(value.format('M'), 10));
   const [isShowWeekend, setIsShowWeekend] = useState<boolean>(isShowWeekendDefault);
 
   const [local, t] = useLocaleReceiver('calendar');
-
-  // 月份年份变更
-  const setMonth = useCallback(
-    (newMonth) => {
-      setMonthState(newMonth);
-      onMonthChange({ month: String(newMonth), year: String(year) });
-    },
-    [onMonthChange, year],
-  );
-  const setYear = (newYear) => {
-    setYearState(newYear);
-  };
 
   // 表头数组
   const weekLabelList = t(local.week).split(',');
@@ -222,7 +223,6 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
         disabled: checkMonthSelectorDisabled(year, i),
       });
     }
-
     return [yearList, monthList];
   }, [rangeFromTo, year, month]);
 
@@ -235,25 +235,6 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
   // mode为 'year' 时，构造月历列表
   const monthList = useMemo<CalendarCell[][]>(() => createMonthList(year, value, format), [year, value, format]);
 
-  const prefixCls = useCallback(
-    (...args: (string | [string, string?, string?])[]) => {
-      let className = '';
-      args.forEach((item, index) => {
-        if (item && index > 0) className = className.concat(' ');
-        if (item instanceof Array) {
-          const [block, element, modifier] = item;
-          className = className.concat(classPrefix, '-', block);
-          if (element) className = className.concat('__', element);
-          if (modifier) className = className.concat('--', modifier);
-        } else if (typeof item === 'string') {
-          className = className.concat(classPrefix, '-', item);
-        }
-      });
-      return className;
-    },
-    [classPrefix],
-  );
-
   // 将基础的 CalendarCell 与 ControllerOptions 进行合并
   const createCalendarCell = useCallback(
     (cellData: CalendarCell): CalendarCell => ({
@@ -263,19 +244,22 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     [controllerOptions],
   );
 
-  const toCurrent = useCallback(
-    (valueIn = null) => {
-      const now: dayjs.Dayjs = dayjs(valueIn).isValid() ? dayjs(valueIn) : dayjs(dayjs().format('YYYY-MM-DD'));
-      setValue(now);
-      setYear(now.year());
-      setMonth(parseInt(now.format('M'), 10));
-    },
-    [setMonth],
-  );
+  const toCurrent = useCallback((valueIn: CalendarValue = null) => {
+    const now: dayjs.Dayjs = dayjs(valueIn).isValid() ? dayjs(valueIn) : dayjs(dayjs().format('YYYY-MM-DD'));
+    setValue(now);
+    setYear(now.year());
+    setMonth(parseInt(now.format('M'), 10));
+  }, []);
 
   React.useImperativeHandle(ref, () => ({ toCurrent }), [toCurrent]);
 
-  // 事件回调统一处理
+  // 月份 select change 事件回调
+  const handleMonthChange = (newMonth: number) => {
+    setMonth(newMonth);
+    onMonthChange({ month: String(newMonth), year: String(year) });
+  };
+
+  // 事件回调处理函数
   const execCellEvent = useCallback(
     (event, calendarCell, handleFunc) => {
       if (handleFunc && typeof handleFunc === 'function') {
@@ -288,57 +272,60 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     [createCalendarCell],
   );
 
-  const clickCell = useCallback(
-    (event, calendarCell: CalendarCell) => {
-      setValue(dayjs(calendarCell.formattedDate));
+  // 单元格单击
+  const clickCell = (event, calendarCell: CalendarCell) => {
+    setValue(dayjs(calendarCell.formattedDate));
+    execCellEvent(event, calendarCell, onCellClick);
+  };
 
-      execCellEvent(event, calendarCell, onCellClick);
-    },
-    [onCellClick, execCellEvent],
-  );
+  // 单元格双击
+  const doubleClickCell = (event, calendarCell: CalendarCell) => {
+    execCellEvent(event, calendarCell, onCellDoubleClick);
+  };
 
-  const doubleClickCell = useCallback(
-    (event, calendarCell: CalendarCell) => {
-      execCellEvent(event, calendarCell, onCellDoubleClick);
-    },
-    [onCellDoubleClick, execCellEvent],
-  );
+  // 单元格右击
+  const rightClickCell = (event, calendarCell: CalendarCell) => {
+    if (preventCellContextmenu) event.preventDefault();
+    execCellEvent(event, calendarCell, onCellRightClick);
+  };
 
-  const rightClickCell = useCallback(
-    (event, calendarCell: CalendarCell) => {
-      if (preventCellContextmenu) event.preventDefault();
-      execCellEvent(event, calendarCell, onCellRightClick);
-    },
-    [onCellRightClick, execCellEvent, preventCellContextmenu],
-  );
-
+  // 监听 current 参数
   useEffect(() => {
     toCurrent(valueFromProps);
   }, [valueFromProps, toCurrent]);
 
+  // 监听 month 参数
+  useEffect(() => {
+    if (monthProps) {
+      setMonth(Number(monthProps));
+    }
+  }, [monthProps]);
+
+  // 监听 year 参数
+  useEffect(() => {
+    if (yearProps) {
+      setYear(Number(yearProps));
+    }
+  }, [yearProps]);
+
+  // 监听 mode 参数
   useEffect(() => {
     setMode(modeFromProps);
   }, [modeFromProps]);
 
+  // 监听 isShowWeekend 参数
   useEffect(() => {
     setIsShowWeekend(isShowWeekendDefault);
   }, [isShowWeekendDefault]);
 
+  // 右上角控件组选中值有变化的时候触发
   useLayoutEffect(() => {
     onControllerChange(controllerOptions);
   }, [controllerOptions, onControllerChange]);
 
-  /**
-   * 将 month 映射为文字输出
-   * @param month 月份下标值（起始值为0）
-   */
-  const monthLabelList = t(local.cellMonth).split(',');
-  const getMonthCN = (month: number): string => monthLabelList[month];
-
-  const fix0 = (num: number) => {
-    const fillZero = num < 10 && (fillWithZero ?? calendarConfig.fillWithZero ?? true);
-    return fillZero ? `0${num}` : num;
-  };
+  const prefixCls = usePrefixClass();
+  const currentDate = dayjs().format('YYYY-MM-DD');
+  const currentMonth = dayjs().format('YYYY-MM');
 
   return (
     <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
@@ -356,9 +343,10 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForYear && (
                 <Select
+                  autoWidth={true}
                   size={controlSectionSize}
-                  disabled={disabled}
                   value={year}
+                  disabled={disabled}
                   options={yearSelectList.map((item) => ({
                     label: t(local.yearSelection, { year: item.value }),
                     value: item.value,
@@ -373,15 +361,16 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section-cell'])}>
               {visibleForMonth && mode === 'month' && (
                 <Select
+                  autoWidth={true}
                   size={controlSectionSize}
-                  disabled={disabled}
                   value={month}
                   options={monthSelectList.map((item) => ({
                     label: t(local.monthSelection, { month: item.value }),
                     value: item.value,
                     disabled: item.disabled,
                   }))}
-                  onChange={(selectMonth) => setMonth(selectMonth as number)}
+                  disabled={disabled}
+                  onChange={handleMonthChange}
                   {...selectPropsForMonth}
                 />
               )}
@@ -408,9 +397,9 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
             <div className={prefixCls([blockName, 'control-section'])}>
               <CheckTag
                 className="t-calendar__control-tag"
-                theme={isShowWeekend ? 'default' : 'primary'}
-                size={controlSectionSize}
+                checked={!isShowWeekend}
                 disabled={disabled}
+                size={controlSectionSize}
                 onClick={() => {
                   setIsShowWeekend(!isShowWeekend);
                 }}
@@ -426,7 +415,9 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
               <Button
                 size={controlSectionSize}
                 disabled={disabled}
-                onClick={toCurrent}
+                onClick={() => {
+                  toCurrent();
+                }}
                 {...(mode === 'year' ? currentMonthButtonProps : currentDayButtonProps)}
               >
                 {mode === 'year' ? t(local.thisMonth) : t(local.today)}
@@ -456,42 +447,27 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
               {dateList.map((dateRow, dateRowIndex) => (
                 <tr key={String(dateRowIndex)} className={prefixCls([blockName, 'table-body-row'])}>
                   {dateRow.map((dateCell, dateCellIndex) => {
+                    // 若不显示周末，隐藏 day 为 6 或 7 的元素
                     if (!isShowWeekend && [6, 7].indexOf(dateCell.day) >= 0) return null;
-                    const isNow = dateCell.formattedDate === dayjs().format('YYYY-MM-DD');
+                    // 其余日期正常显示
+                    const isNow = dateCell.formattedDate === currentDate;
                     return (
-                      <td
-                        key={String(dateCellIndex)}
-                        className={prefixCls(
-                          [blockName, 'table-body-cell'],
-                          dateCell.belongTo !== 0 && 'is-disabled',
-                          dateCell.isCurrent && 'is-checked',
-                          isNow && 'is-now',
-                        )}
-                        onClick={(event) => clickCell(event, dateCell)}
-                        onDoubleClick={(event) => doubleClickCell(event, dateCell)}
-                        onContextMenu={(event) => rightClickCell(event, dateCell)}
-                      >
-                        {(() => {
-                          if (cell && typeof cell === 'function') return cell(createCalendarCell(dateCell));
-                          if (cell && typeof cell !== 'function') return cell;
-                          return (
-                            <div className={prefixCls([blockName, 'table-body-cell-display'])}>
-                              {fix0(dateCell.date.getDate())}
-                            </div>
-                          );
-                        })()}
-                        {(() => {
-                          let celAppend;
-                          if (cellAppend && typeof cellAppend === 'function')
-                            celAppend = cellAppend(createCalendarCell(dateCell));
-                          if (cellAppend && typeof cellAppend !== 'function') celAppend = cellAppend;
-                          return (
-                            cellAppend && (
-                              <div className={prefixCls([blockName, 'table-body-cell-content'])}>{celAppend}</div>
-                            )
-                          );
-                        })()}
-                      </td>
+                      <CalendarCellComp
+                        key={dateCellIndex}
+                        mode={mode}
+                        theme={theme}
+                        cell={cell}
+                        cellData={dateCell}
+                        cellAppend={cellAppend}
+                        fillWithZero={fillWithZero}
+                        isCurrent={dateCell.isCurrent}
+                        isNow={isNow}
+                        isDisabled={dateCell.belongTo !== 0}
+                        createCalendarCell={createCalendarCell}
+                        onCellClick={(event) => clickCell(event, dateCell)}
+                        onCellDoubleClick={(event) => doubleClickCell(event, dateCell)}
+                        onCellRightClick={(event) => rightClickCell(event, dateCell)}
+                      />
                     );
                   })}
                 </tr>
@@ -504,37 +480,23 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
               {monthList.map((monthRow, monthRowIndex) => (
                 <tr key={String(monthRowIndex)} className={prefixCls([blockName, 'table-body-row'])}>
                   {monthRow.map((monthCell, monthCellIndex) => {
-                    const isNow = new Date().getMonth() === monthCell.date.getMonth();
+                    const isNow = monthCell.formattedDate.startsWith(currentMonth);
                     return (
-                      <td
-                        key={String(monthCellIndex)}
-                        className={prefixCls(
-                          [blockName, 'table-body-cell'],
-                          [monthCell.isCurrent && 'is-checked'],
-                          [isNow && 'calendar__table-body-cell--now'],
-                        )}
-                        onClick={(event) => clickCell(event, monthCell)}
-                        onDoubleClick={(event) => doubleClickCell(event, monthCell)}
-                        onContextMenu={(event) => rightClickCell(event, monthCell)}
-                      >
-                        {(() => {
-                          if (cell && typeof cell === 'function') return cell(monthCell);
-                          if (cell && typeof cell !== 'function') return cell;
-                          const monthCellIndex = monthCell.date.getMonth();
-                          const monthText =
-                            theme === 'full'
-                              ? getMonthCN(monthCellIndex)
-                              : t(local.monthSelection, { month: (monthCellIndex + 1).toString() });
-                          return <div className={prefixCls([blockName, 'table-body-cell-value'])}>{monthText}</div>;
-                        })()}
-                        {(() => {
-                          if (cellAppend && typeof cellAppend === 'function') {
-                            return cellAppend(monthCell);
-                          }
-                          if (cellAppend && typeof cellAppend !== 'function') return cellAppend;
-                          return <div className={prefixCls([blockName, 'table-body-cell-content'])} />;
-                        })()}
-                      </td>
+                      <CalendarCellComp
+                        key={monthCellIndex}
+                        mode={mode}
+                        theme={theme}
+                        cell={cell}
+                        cellData={monthCell}
+                        cellAppend={cellAppend}
+                        fillWithZero={fillWithZero}
+                        isCurrent={monthCell.isCurrent}
+                        isNow={isNow}
+                        createCalendarCell={createCalendarCell}
+                        onCellClick={(event) => clickCell(event, monthCell)}
+                        onCellDoubleClick={(event) => doubleClickCell(event, monthCell)}
+                        onCellRightClick={(event) => rightClickCell(event, monthCell)}
+                      />
                     );
                   })}
                 </tr>
@@ -546,5 +508,8 @@ const Calendar: React.FC<CalendarProps> = forwardRef((props, ref: React.MutableR
     </div>
   );
 });
+
+Calendar.displayName = 'Calendar';
+Calendar.defaultProps = calendarDefaultProps;
 
 export default Calendar;

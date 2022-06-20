@@ -19,6 +19,7 @@ import useUpdateEffect from '../_util/useUpdateEffect';
 import StepHandler from './StepHandler';
 import * as numberUtils from './utils/numberUtils';
 import Input from '../input';
+import { inputNumberDefaultProps } from './defaultProps';
 
 export type InputNumberInternalValue = number | string;
 export type ChangeContext = TdChangeContext & { value?: number };
@@ -26,16 +27,17 @@ export interface InputNumberProps extends TdInputNumberProps, StyledProps {}
 
 const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInputElement>) => {
   const {
+    align,
     className,
     style,
     defaultValue,
     value,
-    disabled = false,
-    size = 'medium',
-    theme = 'row',
-    step = 1,
-    max = Number.MAX_SAFE_INTEGER,
-    min = Number.MIN_SAFE_INTEGER,
+    disabled,
+    size,
+    theme,
+    step,
+    max,
+    min,
     decimalPlaces,
     format,
     onChange,
@@ -78,7 +80,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
   let decimalValue: number = internalInputValue as number;
   if (typeof internalInputValue === 'string') {
-    decimalValue = numberUtils.strToNumber(internalInputValue) || 0;
+    decimalValue = Number(numberUtils.strToNumber(internalInputValue)) || 0;
   }
 
   const setInputValue = (inputStr: string) => {
@@ -139,7 +141,14 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
       setInputValue(inputStr);
       return triggerValueUpdate({ type: 'input', value: undefined, e });
     }
-
+    if (inputStr.endsWith('.')) {
+      setInternalInputValue(inputStr);
+      return;
+    }
+    if (/^(([1-9]+[0-9]*\.0+)|(0\.0+))$/.test(inputStr)) {
+      setInternalInputValue(inputStr);
+      return;
+    }
     const filteredInputStr = numberUtils.strToNumber(inputStr);
     if (Number.isNaN(filteredInputStr)) {
       setInternalInputValue(inputStr);
@@ -148,10 +157,12 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 
     setInputValue(filteredInputStr.toString());
     if (!checkInput(filteredInputStr)) return;
-    triggerValueUpdate({ type: 'input', value: filteredInputStr, e });
+    triggerValueUpdate({ type: 'input', value: Number(filteredInputStr), e });
   };
 
   const onInternalStep = (action: ChangeContext) => {
+    if (props.readonly) return;
+
     const { type, e } = action;
     const currentValue = decimalValue || 0;
     const precision = getPrecision(currentValue);
@@ -207,14 +218,14 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   };
   const handleKeyup: KeyboardEventHandler<HTMLDivElement> = (e) => onKeyup?.(decimalValue, { e });
   const handleKeypress: KeyboardEventHandler<HTMLDivElement> = (e) => onKeypress?.(decimalValue, { e });
-
   return (
     <div
       ref={ref}
-      className={classNames(className, inputClassName, commonClassNames.SIZE[size], {
+      className={classNames(inputClassName, commonClassNames.SIZE[size], className, {
         [commonClassNames.STATUS.disabled]: disabled,
         [`${classPrefix}-is-controls-right`]: theme === 'column',
         [`${inputClassName}--${theme}`]: theme,
+        [`${inputClassName}--auto-width`]: props.autoWidth,
       })}
       style={style}
       onBlur={handleBlur}
@@ -235,6 +246,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
           value={internalInputValue}
           onChange={onInternalInput}
           status={isError ? 'error' : undefined}
+          align={align || (theme === 'row' ? 'center' : undefined)}
           {...restInputProps}
         />
       </StepHandler>
@@ -243,5 +255,6 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
 });
 
 InputNumber.displayName = 'InputNumber';
+InputNumber.defaultProps = inputNumberDefaultProps;
 
 export default InputNumber;

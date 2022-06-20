@@ -7,6 +7,7 @@ import useConfig from '../_util/useConfig';
 import Popup, { PopupVisibleChangeContext } from '../popup';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
+import { dropdownDefaultProps } from './defaultProps';
 
 export interface DropdownProps extends TdDropdownProps {
   className?: ClassName;
@@ -14,15 +15,7 @@ export interface DropdownProps extends TdDropdownProps {
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const {
-    popupProps = {},
-    disabled,
-    placement = 'bottom-left',
-    trigger = 'hover',
-    className = '',
-    children,
-    hideAfterItemClick = true,
-  } = props;
+  const { popupProps = {}, disabled, placement, trigger, className, children, hideAfterItemClick } = props;
   let content = null;
   const arrayChildren = React.Children.toArray(children);
 
@@ -76,8 +69,10 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-Dropdown.displayName = 'Dropdown';
 Dropdown.DropdownMenu = DropdownMenu;
 Dropdown.DropdownItem = DropdownItem;
+
+Dropdown.displayName = 'Dropdown';
+Dropdown.defaultProps = dropdownDefaultProps;
 
 export default Dropdown;

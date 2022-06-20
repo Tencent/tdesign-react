@@ -4,10 +4,15 @@ import { Anchor } from 'tdesign-react';
 const { AnchorItem } = Anchor;
 
 export default function AnchorAttach() {
+  const handleClick = ({ e, href, title }) => {
+    e.preventDefault();
+    console.log('handleClick', href, title);
+  };
+
   return (
     <>
       <div style={{ display: 'flex' }} id="attach" className="anchor-demo-attach">
-        <Anchor container="#anchor-container">
+        <Anchor container="#anchor-container" onClick={handleClick}>
           <AnchorItem href="#content-1" title="content-1" />
           <AnchorItem href="#content-2" title="content-2" />
           <AnchorItem href="#content-3" title="content-3" />

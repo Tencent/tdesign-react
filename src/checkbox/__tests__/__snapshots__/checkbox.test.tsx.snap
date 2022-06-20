@@ -8,7 +8,6 @@ exports[`Checkbox name 1`] = `
     <input
       class="t-checkbox__former"
       name="checkbox-name"
-      readonly=""
       type="checkbox"
       value=""
     />
@@ -33,7 +32,6 @@ exports[`CheckboxGroup disabled 1`] = `
       <input
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value="北京"
       />
@@ -52,7 +50,6 @@ exports[`CheckboxGroup disabled 1`] = `
       <input
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value="广州"
       />
@@ -79,7 +76,6 @@ exports[`CheckboxGroup max 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="gz"
       />
@@ -98,7 +94,6 @@ exports[`CheckboxGroup max 1`] = `
       <input
         checked=""
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="sz"
       />
@@ -116,7 +111,6 @@ exports[`CheckboxGroup max 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="bj"
       />
@@ -143,7 +137,6 @@ exports[`CheckboxGroup name 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="gz"
       />
@@ -162,7 +155,6 @@ exports[`CheckboxGroup name 1`] = `
       <input
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value="sz"
       />
@@ -189,7 +181,6 @@ exports[`CheckboxGroup option 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="上海"
       />
@@ -208,7 +199,6 @@ exports[`CheckboxGroup option 1`] = `
       <input
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value="广州"
       />
@@ -228,7 +218,6 @@ exports[`CheckboxGroup option 1`] = `
         checked=""
         class="t-checkbox__former"
         name="北京"
-        readonly=""
         type="checkbox"
         value="北京"
       />
@@ -246,7 +235,6 @@ exports[`CheckboxGroup option 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="1"
       />
@@ -264,7 +252,6 @@ exports[`CheckboxGroup option 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="重庆"
       />
@@ -282,7 +269,6 @@ exports[`CheckboxGroup option 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -309,7 +295,6 @@ exports[`CheckboxGroup option is number 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="1"
       />
@@ -327,7 +312,6 @@ exports[`CheckboxGroup option is number 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="2"
       />
@@ -354,7 +338,6 @@ exports[`CheckboxGroup option is string 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="北京"
       />
@@ -372,7 +355,6 @@ exports[`CheckboxGroup option is string 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value="广州"
       />
@@ -399,7 +381,6 @@ exports[`base.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -417,7 +398,6 @@ exports[`base.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -436,7 +416,6 @@ exports[`base.jsx 1`] = `
       <input
         checked=""
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -455,7 +434,6 @@ exports[`base.jsx 1`] = `
       <input
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -475,7 +453,6 @@ exports[`base.jsx 1`] = `
         checked=""
         class="t-checkbox__former"
         disabled=""
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -502,7 +479,6 @@ exports[`controlled.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -521,7 +497,6 @@ exports[`controlled.jsx 1`] = `
       <input
         checked=""
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -552,7 +527,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -575,7 +549,6 @@ exports[`group.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value="北京"
         />
@@ -593,7 +566,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value="上海"
         />
@@ -611,7 +583,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value="广州"
         />
@@ -629,7 +600,6 @@ exports[`group.jsx 1`] = `
       >
         <input
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value=""
         />
@@ -657,7 +627,6 @@ exports[`link.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -675,7 +644,6 @@ exports[`link.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -693,7 +661,6 @@ exports[`link.jsx 1`] = `
     >
       <input
         class="t-checkbox__former"
-        readonly=""
         type="checkbox"
         value=""
       />
@@ -712,7 +679,6 @@ exports[`link.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -723,7 +689,7 @@ exports[`link.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-left: 16px; position: relative;"
+      style="margin-left: 16px;"
       type="button"
     >
       <span
@@ -748,7 +714,6 @@ exports[`max.jsx 1`] = `
       >
         <button
           class="t-input-number__decrease t-is-disabled t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -767,19 +732,21 @@ exports[`max.jsx 1`] = `
         </button>
         <div
           class="t-input__wrap"
+          value="1"
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-center t-is-default"
           >
             <input
               class="t-input__inner"
+              placeholder="请输入"
+              type="text"
               value="1"
             />
           </div>
         </div>
         <button
           class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square"
-          style="position: relative;"
           type="button"
         >
           <svg
@@ -810,7 +777,6 @@ exports[`max.jsx 1`] = `
         <input
           checked=""
           class="t-checkbox__former"
-          readonly=""
           type="checkbox"
           value="北京"
         />
@@ -829,7 +795,6 @@ exports[`max.jsx 1`] = `
         <input
           class="t-checkbox__former"
           disabled=""
-          readonly=""
           type="checkbox"
           value="上海"
         />
@@ -848,7 +813,6 @@ exports[`max.jsx 1`] = `
         <input
           class="t-checkbox__former"
           disabled=""
-          readonly=""
           type="checkbox"
           value="广州"
         />
@@ -867,7 +831,6 @@ exports[`max.jsx 1`] = `
         <input
           class="t-checkbox__former"
           disabled=""
-          readonly=""
           type="checkbox"
           value="深圳"
         />

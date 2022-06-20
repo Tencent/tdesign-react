@@ -3,11 +3,12 @@ import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdCommentProps } from './type';
+import { commentDefaultProps } from './defaultProps';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 
 const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>) => {
-  const { actions, author, avatar, content, datetime, reply, quote, className, style = {} } = props;
+  const { actions, author, avatar, content, datetime, reply, quote, className, style } = props;
 
   const { classPrefix } = useConfig();
 
@@ -51,7 +52,7 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
   const replyElement = reply ? <div className={classNames(`${classPrefix}-comment__reply`)}>{reply}</div> : null;
 
   return (
-    <div ref={ref} style={style} className={classNames(className, [`${classPrefix}-comment`])}>
+    <div ref={ref} style={style} className={classNames(`${classPrefix}-comment`, className)}>
       <div className={`${classPrefix}-comment__inner`}>
         {avatarElement}
         {contentElement}
@@ -62,5 +63,6 @@ const Comment = forwardRef((props: CommentProps, ref: React.Ref<HTMLDivElement>)
 });
 
 Comment.displayName = 'Comment';
+Comment.defaultProps = commentDefaultProps;
 
 export default Comment;

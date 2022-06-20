@@ -1,32 +1,25 @@
-import React, { useState, useRef, useEffect, Ref, useMemo, useCallback } from 'react';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { useState, useEffect, Ref, useMemo, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
-import isString from 'lodash/isString';
-
-import isNumber from 'lodash/isNumber';
+import Tag from '../../tag';
+import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import useConfig from '../../_util/useConfig';
-import composeRefs from '../../_util/composeRefs';
-import useDefaultValue from '../../_util/useDefaultValue';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getMultipleTags, getSelectValueArr, getValueToOption } from '../util/helper';
+import { getSelectValueArr, getValueToOption } from '../util/helper';
 import noop from '../../_util/noop';
 
 import FakeArrow from '../../common/FakeArrow';
 import Loading from '../../loading';
-import Input from '../../input';
-import Popup from '../../popup';
-import Tag from '../../tag';
+import SelectInput from '../../select-input';
 import Option, { SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 
-import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
+import { TdSelectProps, TdOptionProps, SelectOption } from '../type';
 import { StyledProps } from '../../common';
-
-const MAX_OVERLAY_WIDTH = 500;
+import { selectDefaultProps } from '../defaultProps';
 
 export interface SelectProps extends TdSelectProps, StyledProps {
   // 子节点
@@ -35,10 +28,6 @@ export interface SelectProps extends TdSelectProps, StyledProps {
 
 type OptionsType = TdOptionProps[];
 
-enum KeyCode {
-  BACKSPACE = 8,
-}
-
 const Select = forwardRefWithStatics(
   (props: SelectProps, ref: Ref<HTMLDivElement>) => {
     // 国际化文本初始化
@@ -46,14 +35,18 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
-      bordered = true,
+      readonly,
+      bordered,
+      borderless,
+      autoWidth,
       creatable,
       filter,
       loadingText = emptyText,
-      max = 0,
+      max,
       popupProps,
+      popupVisible,
+      onPopupVisibleChange,
       reserveKeyword,
-      value,
       className,
       style,
       disabled,
@@ -71,9 +64,8 @@ const Select = forwardRefWithStatics(
       onCreate,
       onRemove,
       onSearch,
-      onChange,
       empty,
-      valueType = 'value',
+      valueType,
       keys,
       children,
       collapsedItems,
@@ -81,64 +73,42 @@ const Select = forwardRefWithStatics(
       valueDisplay,
       onEnter,
       onVisibleChange,
-      showArrow = true,
+      showArrow,
       inputProps,
       panelBottomContent,
       panelTopContent,
-    } = useDefaultValue(props);
+      selectInputProps,
+      tagInputProps,
+      tagProps,
+    } = props;
 
+    const selectPopupRef = useRef();
+
+    const [value, onChange] = useControlled(props, 'value', props.onChange);
     const { classPrefix } = useConfig();
+    const { overlayClassName, ...restPopupProps } = popupProps || {};
 
     const name = `${classPrefix}-select`; // t-select
 
-    const [showPopup, setShowPopup] = useState(false);
-    const [isHover, toggleHover] = useState(false);
-    const [inputVal, setInputVal] = useState<string>(undefined);
+    const [showPopup, setShowPopup] = useState(popupVisible || false);
+    const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
     const [currentOptions, setCurrentOptions] = useState([]);
     const [tmpPropOptions, setTmpPropOptions] = useState([]);
     const [valueToOption, setValueToOption] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const [width, setWidth] = useState(0);
-
-    const selectRef = useRef(null);
-    const overlayRef = useRef(null);
-
-    const selectedLabel = useMemo(
-      () => get(selectedOptions[0] || {}, keys?.label || 'label') || '',
-      [selectedOptions, keys],
-    );
-
-    // 计算Select的宽高
-    useEffect(() => {
-      if (showPopup && selectRef?.current) {
-        const domRect = selectRef.current.getBoundingClientRect();
-        const overlayRect = overlayRef?.current?.getBoundingClientRect?.();
-
-        // 获取overlay的内容的宽度进行比较 如果比select本身宽，则优先使用overlay内容宽度，减少text被省略展示的情况
-        const width =
-          domRect.width > MAX_OVERLAY_WIDTH
-            ? domRect.width
-            : Math.min(MAX_OVERLAY_WIDTH, Math.max(domRect.width, overlayRect?.width));
-
-        setWidth(width);
+    const selectedLabel = useMemo(() => {
+      if (multiple) {
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
       }
-    }, [showPopup]);
-
-    const handleShowPopup = (visible: boolean) => {
-      if (disabled) return;
-      setShowPopup(visible);
-      onVisibleChange?.(visible);
-      if (!visible && !multiple && filterable) {
-        setInputVal(selectedLabel);
-      }
-    };
+      return get(selectedOptions[0] || {}, keys?.label || 'label') || '';
+    }, [selectedOptions, keys, multiple]);
 
     // 处理设置option的逻辑
     useEffect(() => {
       if (keys) {
         // 如果有定制keys 先做转换
-        const transformedOptions = options.map((option) => ({
+        const transformedOptions = options?.map((option) => ({
           ...option,
           value: get(option, keys?.value || 'value'),
           label: get(option, keys?.label || 'label'),
@@ -191,39 +161,76 @@ const Select = forwardRefWithStatics(
       });
     }, [value, keys, valueType, valueToOption]);
 
-    // 移除 Tag
-    const removeTag = (
-      event?: React.MouseEvent,
-      selectValue?: SelectValue,
-      tagData?: {
-        label?: string;
-        value?: string | number;
-      },
-    ) => {
-      event.stopPropagation();
-      const values = getSelectValueArr(value, selectValue, true, valueType, keys);
-      onChange(values);
-      if (isFunction(onRemove)) {
-        onRemove({ value: tagData.value, data: tagData, e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
+    const handleShowPopup = (visible: boolean) => {
+      if (disabled) return;
+      setShowPopup(visible);
+      onVisibleChange?.(visible);
+      visible && onInputChange('');
+    };
+
+    // 可以根据触发来源，自由定制标签变化时的筛选器行为
+    const onTagChange = (currentTags, context) => {
+      const { trigger, index, item, e: event } = context;
+      // backspace
+      if (trigger === 'backspace') {
+        event.stopPropagation();
+
+        let closest = -1;
+        let len = index;
+        while (len >= 0) {
+          if (!selectedOptions[len]?.disabled) {
+            closest = len;
+            break;
+          }
+          len -= 1;
+        }
+        if (closest < 0) {
+          return;
+        }
+        const values = getSelectValueArr(value, value[closest], true, valueType, keys);
+        onChange(values, context);
+        return;
+      }
+
+      if (trigger === 'clear') {
+        event.stopPropagation();
+        onChange([], context);
+        return;
+      }
+
+      if (trigger === 'tag-remove') {
+        event.stopPropagation();
+        const values = getSelectValueArr(value, value[index], true, valueType, keys);
+        onChange(values, context);
+        if (isFunction(onRemove)) {
+          onRemove({
+            value: value[index],
+            data: {
+              label: item,
+              value: value[index],
+            },
+            e: event as React.MouseEvent<HTMLDivElement, MouseEvent>,
+          });
+        }
       }
     };
 
     // 选中 Popup 某项
-    const handleChange: SelectOptionProps['onSelect'] = (value, { label }) => {
-      if (filterable) {
-        setInputVal(!multiple || (reserveKeyword && multiple) ? label : '');
+    const handleChange: SelectOptionProps['onSelect'] = (value) => {
+      if (multiple) {
+        !reserveKeyword && onInputChange('', { trigger: 'clear' });
       }
       if (creatable && isFunction(onCreate)) {
         if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
           onCreate(value);
         }
       }
-      onChange(value);
+      onChange?.(value, null);
     };
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
-      let filteredOptions: OptionsType;
+      let filteredOptions: OptionsType = [];
       if (!value) {
         setCurrentOptions(tmpPropOptions);
         return;
@@ -231,11 +238,12 @@ const Select = forwardRefWithStatics(
 
       if (filter && isFunction(filter)) {
         // 如果有自定义的filter方法 使用自定义的filter方法
-        filteredOptions = Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filter(value, option));
-      } else {
+        if (Array.isArray(tmpPropOptions)) {
+          filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
+        }
+      } else if (Array.isArray(tmpPropOptions)) {
         const filterRegExp = new RegExp(value, 'i');
-        filteredOptions =
-          Array.isArray(tmpPropOptions) && tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        filteredOptions = tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
       }
 
       if (creatable) {
@@ -246,219 +254,199 @@ const Select = forwardRefWithStatics(
 
     // 处理输入框逻辑
     const handleInputChange = (value: string) => {
-      setInputVal(value);
+      onInputChange(value);
+      if (selectedLabel === value) return;
 
       if (isFunction(onSearch)) {
         onSearch(value);
         return;
       }
-
-      handleFilter(value);
     };
 
-    const defaultLabel = (
-      <span
-        className={classNames(
-          className,
-          {
-            [`${name}__placeholder`]: (!value && !isNumber(value)) || (Array.isArray(value) && value.length < 1),
-          },
-          {
-            [`${name}__single`]: selectedLabel,
-          },
-        )}
-      >
-        {selectedLabel || placeholder || t(local.placeholder)}
-      </span>
-    );
-
-    const renderMultipleTags = () => {
-      if (multiple && Array.isArray(value) && value.length > 0) {
-        let tags: OptionsType;
-        if (valueType === 'value') {
-          tags = getMultipleTags(selectedOptions, keys);
-        } else {
-          tags = getMultipleTags(value, keys);
-        }
-
-        if (tags.length > 0) {
-          const tagProps = {
-            size,
-            maxWidth: '100%',
-          };
-          return (
-            <>
-              {tags.slice(0, minCollapsedNum).map((item) => (
-                <Tag
-                  closable={!disabled}
-                  key={item.value}
-                  onClose={({ e }) => removeTag(e, item.value, item)}
-                  disabled={disabled}
-                  {...tagProps}
-                >
-                  {item.label}
-                </Tag>
-              ))}
-              {collapsedItems}
-              {minCollapsedNum && tags.length - minCollapsedNum > 0 && !collapsedItems ? (
-                <Tag {...tagProps}> {`+${tags.length - minCollapsedNum}`}</Tag>
-              ) : null}
-            </>
-          );
-        }
-        return !filterable ? defaultLabel : null;
-      }
-      return !filterable ? defaultLabel : null;
-    };
-
-    const handleInputKeyDown = useCallback(
-      (inputValue, { e }) => {
-        if (!inputValue && multiple && Array.isArray(value) && e.which === KeyCode.BACKSPACE) {
-          const lastValue = value[value.length - 1];
-          const values = getSelectValueArr(value, lastValue, true, valueType, keys);
-          onChange(values);
-        }
-      },
-      [value, onChange, multiple, valueType, keys],
-    );
-
-    const renderInput = () => (
-      <Input
-        value={isString(inputVal) || multiple ? inputVal : selectedLabel}
-        placeholder={multiple && get(value, 'length') > 0 ? null : selectedLabel || placeholder || t(local.placeholder)}
-        className={`${name}__input`}
-        onChange={handleInputChange}
-        onKeydown={handleInputKeyDown}
-        size={size}
-        onFocus={(_, context) => onFocus?.({ value, e: context?.e })}
-        onBlur={(_, context) => onBlur?.({ value, e: context?.e })}
-        onEnter={(_, context) => onEnter?.({ inputValue: inputVal, value, e: context?.e })}
-        {...inputProps}
-      />
-    );
-
-    const onInputClick = (e: React.MouseEvent) => {
-      e.preventDefault();
-      if (!disabled) {
-        setShowPopup(!showPopup);
-        setInputVal(undefined);
-      }
-    };
-
-    const onClearValue = (event: React.MouseEvent) => {
-      event.stopPropagation();
+    const onClearValue = (context) => {
+      context.e.stopPropagation();
       if (Array.isArray(value)) {
-        onChange([]);
+        onChange([], context);
       } else {
-        onChange(null);
+        onChange(null, context);
       }
-      setInputVal(undefined);
-      onClear({ e: event as React.MouseEvent<HTMLDivElement, MouseEvent> });
+      onInputChange(undefined);
+      onClear(context);
     };
+
+    useEffect(() => {
+      handleFilter(String(inputValue));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inputValue]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {
       if (loading) {
         return (
-          <Loading
-            className={classNames(className, `${name}__right-icon`, `${name}__active-icon`)}
-            loading={true}
-            size="small"
-          />
+          <Loading className={classNames(`${name}__right-icon`, `${name}__active-icon`)} loading={true} size="small" />
         );
       }
 
-      if (clearable && value !== undefined && value !== null && isHover) {
-        return (
-          <CloseCircleFilledIcon
-            onClick={clearable ? onClearValue : undefined}
-            className={classNames(className, `${name}__right-icon`, `${name}__right-icon-clear`)}
-          />
-        );
-      }
       return (
         showArrow && <FakeArrow overlayClassName={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />
       );
     };
 
-    const popupContentProps = {
-      onChange: handleChange,
-      value,
-      className,
-      size,
-      multiple,
-      showPopup,
-      setShowPopup,
-      options: currentOptions,
-      empty,
-      max,
-      loadingText,
-      loading,
-      valueType,
-      keys,
-      panelBottomContent,
-      panelTopContent,
+    // 渲染主体内容
+    const renderContent = () => {
+      const popupContentProps = {
+        onChange: handleChange,
+        value,
+        className,
+        size,
+        multiple,
+        showPopup,
+        setShowPopup,
+        options: currentOptions,
+        empty,
+        max,
+        loadingText,
+        loading,
+        valueType,
+        keys,
+        panelBottomContent,
+        panelTopContent,
+      };
+      return (
+        <PopupContent {...popupContentProps} ref={selectPopupRef}>
+          {children}
+        </PopupContent>
+      );
     };
 
-    const renderContent = () => <PopupContent {...popupContentProps}>{children}</PopupContent>;
-
-    const renderMultipleInput = () => {
-      if (valueDisplay) {
-        return valueDisplay({ value: value as OptionsType, onClose: removeTag }) || defaultLabel;
+    const renderValueDisplay = () => {
+      if (!valueDisplay) {
+        if (!multiple) {
+          return '';
+        }
+        return ({ value: val }) =>
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v, key) => {
+            const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
+            return (
+              <Tag
+                key={key}
+                onClose={({ e }) => {
+                  e.stopPropagation();
+                  const values = getSelectValueArr(value, value[key], true, valueType, keys);
+                  onChange(values, null);
+                  return;
+                }}
+                closable={!filterOption?.disabled}
+              >
+                {v}
+              </Tag>
+            );
+          });
       }
-      return renderMultipleTags();
+      if (typeof valueDisplay === 'string') {
+        return valueDisplay;
+      }
+      if (multiple) {
+        return ({ onClose }) => valueDisplay({ value: selectedLabel, onClose });
+      }
+      return selectedLabel.length ? (valueDisplay({ value: selectedLabel[0], onClose: noop }) as string) : '';
     };
+
+    const renderCollapsedItems = useMemo(
+      () =>
+        collapsedItems
+          ? () =>
+              collapsedItems({
+                value: selectedLabel,
+                collapsedSelectedItems: selectedLabel.slice(minCollapsedNum, selectedLabel.length),
+                count: selectedLabel.length - minCollapsedNum,
+              })
+          : null,
+      [selectedLabel, collapsedItems, minCollapsedNum],
+    );
+
+    // 将第一个选中的option置于列表可见范围的最后一位
+    const updateScrollTop = useCallback(
+      (content: HTMLDivElement) => {
+        if (!selectPopupRef?.current) {
+          return;
+        }
+        const firstSelectedNode: HTMLDivElement = (selectPopupRef?.current as HTMLUListElement).querySelector(
+          `.${classPrefix}-is-selected`,
+        );
+        if (firstSelectedNode && content) {
+          const { paddingBottom } = getComputedStyle(firstSelectedNode);
+          const { marginBottom } = getComputedStyle(content);
+          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+          // 小于0时不需要特殊处理，会被设为0
+          const updateValue =
+            firstSelectedNode.offsetTop -
+            content.offsetTop -
+            (content.clientHeight - firstSelectedNode.clientHeight) +
+            elementBottomHeight;
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        }
+      },
+      [classPrefix],
+    );
+
     return (
-      <div
-        className={`${name}__wrap`}
-        style={{ ...style }}
-        onMouseEnter={() => toggleHover(true)}
-        onMouseLeave={() => toggleHover(false)}
-      >
-        <Popup
-          trigger="click"
-          ref={overlayRef}
-          content={renderContent()}
-          placement="bottom-left"
-          visible={showPopup}
-          overlayStyle={{
-            width: width ? `${width}px` : 'none',
+      <div className={classNames(`${name}__wrap`, className)} style={style}>
+        <SelectInput
+          autoWidth={!style?.width && autoWidth}
+          className={name}
+          ref={ref}
+          readonly={readonly}
+          allowInput={filterable}
+          multiple={multiple}
+          value={selectedLabel}
+          valueDisplay={renderValueDisplay()}
+          clearable={clearable}
+          disabled={disabled}
+          borderless={borderless || !bordered}
+          label={prefixIcon}
+          suffixIcon={renderSuffixIcon()}
+          panel={renderContent()}
+          placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
+          inputValue={showPopup ? inputValue : ''}
+          tagInputProps={{
+            ...tagInputProps,
           }}
-          onVisibleChange={handleShowPopup}
-          overlayClassName={classNames(className, `${name}__dropdown`, `${classPrefix}-popup`, 'narrow-scrollbar')}
-          className={`${name}__popup-reference`}
-          expandAnimation={true}
-          destroyOnClose={true}
-          {...popupProps}
-        >
-          <div
-            className={classNames(className, name, {
-              [`${classPrefix}-is-disabled`]: disabled,
-              [`${classPrefix}-is-active`]: showPopup,
-              [`${classPrefix}-size-s`]: size === 'small',
-              [`${classPrefix}-size-l`]: size === 'large',
-              [`${classPrefix}-no-border`]: !bordered,
-              [`${classPrefix}-has-prefix`]: !!prefixIcon,
-            })}
-            ref={composeRefs(selectRef, ref)}
-            style={{ userSelect: 'none' }}
-            onClick={onInputClick}
-          >
-            {<span className={`${name}__left-icon`}>{prefixIcon}</span>}
-            {multiple ? renderMultipleInput() : null}
-            {filterable && renderInput()}
-            {!multiple && !filterable && defaultLabel}
-            {renderSuffixIcon()}
-          </div>
-        </Popup>
+          tagProps={tagProps}
+          inputProps={{
+            size,
+            ...inputProps,
+          }}
+          minCollapsedNum={minCollapsedNum}
+          collapsedItems={renderCollapsedItems}
+          popupProps={{
+            overlayClassName: [`${name}__dropdown`, ['narrow-scrollbar'], overlayClassName],
+            ...restPopupProps,
+          }}
+          popupVisible={showPopup}
+          onPopupVisibleChange={onPopupVisibleChange || handleShowPopup}
+          onTagChange={onTagChange}
+          onInputChange={handleInputChange}
+          onFocus={onFocus}
+          onEnter={onEnter}
+          onBlur={onBlur}
+          onClear={(context) => {
+            onClearValue(context);
+          }}
+          updateScrollTop={updateScrollTop}
+          {...selectInputProps}
+        ></SelectInput>
       </div>
     );
   },
   {
-    displayName: 'Select',
     Option,
     OptionGroup,
   },
 );
+
+Select.displayName = 'Select';
+Select.defaultProps = selectDefaultProps;
 
 export default Select;

@@ -3,15 +3,13 @@ import { Affix, Button } from 'tdesign-react';
 
 export default function ContainerExample() {
   const [container, setContainer] = useState(null);
-  const [fixedTop, setFixedTop] = useState(0);
+  const [affixed, setAffixed] = useState(false);
   const affixRef = useRef(null);
 
   const handleFixedChange = (affixed, { top }) => {
-    setFixedTop(top);
+    console.log('top', top);
+    setAffixed(affixed);
   };
-
-  // 重置位置
-  const resetPosition = () => affixRef.current.calcInitValue();
 
   useEffect(() => {
     if (affixRef.current) {
@@ -52,7 +50,7 @@ export default function ContainerExample() {
           onFixedChange={handleFixedChange}
           ref={affixRef}
         >
-          <Button onClick={resetPosition}>FixedTop top: {`${fixedTop}`}</Button>
+          <Button>affixed: {`${affixed}`}</Button>
         </Affix>
       </div>
     </div>

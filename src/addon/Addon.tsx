@@ -5,6 +5,7 @@ import useConfig from '../_util/useConfig';
 export interface AddonProps extends React.HTMLAttributes<HTMLDivElement> {
   prepend?: React.ReactNode;
   append?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const renderAddon = (type, classPrefix, Content) => {
@@ -25,18 +26,29 @@ const renderAddon = (type, classPrefix, Content) => {
 
 const Addon = forwardRef((props: AddonProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
-  const { prepend, append, children, className, ...wrapperProps } = props;
+  const { prepend, append, children, className, style, ...wrapperProps } = props;
+
+  function renderChildren() {
+    return React.Children.map(children, (child) => {
+      if (!child) return null;
+      if (React.isValidElement(child)) {
+        return React.cloneElement(child, { ...wrapperProps });
+      }
+      return child;
+    });
+  }
+
   return (
     <div
       ref={ref}
-      className={classNames(className, `${classPrefix}-addon`, {
+      style={style}
+      className={classNames(`${classPrefix}-addon`, className, {
         [`${classPrefix}-addon--prepend`]: !!prepend,
         [`${classPrefix}-addon--append`]: !!append,
       })}
-      {...wrapperProps}
     >
       {renderAddon('prepend', classPrefix, prepend)}
-      {children}
+      {renderChildren()}
       {renderAddon('append', classPrefix, append)}
     </div>
   );

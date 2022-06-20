@@ -4,9 +4,10 @@ exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-breadcrumb"
+    theme="light"
   >
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -38,7 +39,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -70,7 +71,7 @@ exports[`base.jsx 1`] = `
       </span>
     </div>
     <div
-      class="t-breadcrumb__item light"
+      class="t-breadcrumb__item"
     >
       <span
         class="t-breadcrumb--text-overflow"
@@ -126,20 +127,7 @@ exports[`custom.jsx 1`] = `
       <span
         class="t-breadcrumb__separator"
       >
-        <svg
-          class="t-icon t-icon-chevron-right"
-          fill="none"
-          height="1em"
-          style="color: rgba(0, 0, 0, 0.3);"
-          viewBox="0 0 16 16"
-          width="1em"
-        >
-          <path
-            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
+        &gt;&gt;
       </span>
     </div>
     <div
@@ -158,20 +146,7 @@ exports[`custom.jsx 1`] = `
       <span
         class="t-breadcrumb__separator"
       >
-        <svg
-          class="t-icon t-icon-chevron-right"
-          fill="none"
-          height="1em"
-          style="color: rgba(0, 0, 0, 0.3);"
-          viewBox="0 0 16 16"
-          width="1em"
-        >
-          <path
-            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
+        &gt;&gt;
       </span>
     </div>
     <div
@@ -190,20 +165,68 @@ exports[`custom.jsx 1`] = `
       <span
         class="t-breadcrumb__separator"
       >
-        <svg
-          class="t-icon t-icon-chevron-right"
-          fill="none"
-          height="1em"
-          style="color: rgba(0, 0, 0, 0.3);"
-          viewBox="0 0 16 16"
-          width="1em"
+        &gt;&gt;
+      </span>
+    </div>
+  </div>
+  <div
+    class="t-breadcrumb"
+  >
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-overflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 150;"
         >
-          <path
-            d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
-            fill="currentColor"
-            fill-opacity="0.9"
-          />
-        </svg>
+          页面1
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        /////
+      </span>
+    </div>
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-overflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 150;"
+        >
+          页面2
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        /////
+      </span>
+    </div>
+    <div
+      class="t-breadcrumb__item"
+    >
+      <span
+        class="t-breadcrumb--text-overflow"
+      >
+        <span
+          class="t-breadcrumb__inner"
+          style="max-width: 160;"
+        >
+          页面3
+        </span>
+      </span>
+      <span
+        class="t-breadcrumb__separator"
+      >
+        /////
       </span>
     </div>
   </div>
@@ -543,6 +566,7 @@ exports[`options.jsx 1`] = `
       <a
         class="t-breadcrumb--text-overflow t-link"
         href="https://github.com/"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"
@@ -584,6 +608,7 @@ exports[`to.jsx 1`] = `
     >
       <a
         class="t-breadcrumb--text-overflow t-link"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"
@@ -616,6 +641,7 @@ exports[`to.jsx 1`] = `
     >
       <a
         class="t-breadcrumb--text-overflow t-link"
+        target="_self"
       >
         <span
           class="t-breadcrumb__inner"

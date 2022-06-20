@@ -7,7 +7,20 @@ const RemoteSearchSelect = () => {
   const [value, setValue] = useState();
 
   const [loading, setLoading] = useState(false);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([
+    {
+      value: `test1`,
+      label: `Test1`,
+    },
+    {
+      value: `test2`,
+      label: `Test2`,
+    },
+    {
+      value: `test3`,
+      label: `Test3`,
+    },
+  ]);
 
   const onChange = (value) => {
     setValue(value);

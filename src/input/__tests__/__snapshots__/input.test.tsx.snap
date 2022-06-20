@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input 组件测试 addon 1`] = `
+exports[`Input 组件测试 InputAdornment 1`] = `
 <DocumentFragment>
   <div
-    class="t-addon t-addon--prepend"
+    class="t-input-adornment t-input-adornment--prepend"
   >
     <span
-      class="t-addon__prepend"
+      class="t-input-adornment__prepend"
     >
       http://
     </span>
@@ -14,11 +14,12 @@ exports[`Input 组件测试 addon 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容"
+          type="text"
           value=""
         />
       </div>
@@ -33,11 +34,12 @@ exports[`Input 组件测试 clearable 1`] = `
     class="t-input__wrap"
   >
     <div
-      class="t-input"
+      class="t-input t-size-m t-align-left t-is-default"
     >
       <input
         class="t-input__inner"
         placeholder="请输入内容"
+        type="text"
         value="24/05/2020"
       />
     </div>
@@ -51,12 +53,13 @@ exports[`Input 组件测试 maxLength 1`] = `
     class="t-input__wrap"
   >
     <div
-      class="t-input"
+      class="t-input t-size-m t-align-left t-is-default"
     >
       <input
         class="t-input__inner"
         maxlength="3"
         placeholder="请输入内容"
+        type="text"
         value=""
       />
     </div>
@@ -70,10 +73,10 @@ exports[`Input 组件测试 prefixIcon is function 1`] = `
     class="t-input__wrap"
   >
     <div
-      class="t-input t-input--prefix"
+      class="t-input t-size-m t-align-left t-is-default t-input--prefix"
     >
       <span
-        class="t-input__prefix t-input__suffix-icon"
+        class="t-input__prefix t-input__prefix-icon"
       >
         <span>
           prefixIcon
@@ -82,6 +85,7 @@ exports[`Input 组件测试 prefixIcon is function 1`] = `
       <input
         class="t-input__inner"
         placeholder="请输入内容"
+        type="text"
         value=""
       />
     </div>
@@ -95,10 +99,10 @@ exports[`Input 组件测试 prefixIcon suffixIcon 1`] = `
     class="t-input__wrap"
   >
     <div
-      class="t-input t-input--prefix t-input--suffix"
+      class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
     >
       <span
-        class="t-input__prefix t-input__suffix-icon"
+        class="t-input__prefix t-input__prefix-icon"
       >
         <svg
           class="t-icon t-icon-lock-on"
@@ -153,50 +157,54 @@ exports[`addon.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         http://
       </span>
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入域名"
+            type="text"
             value=""
           />
         </div>
       </div>
     </div>
     <div
-      class="t-addon t-addon--prepend t-addon--append"
+      class="t-input-adornment t-input-adornment--prepend t-input-adornment--append"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         http://
       </span>
       <div
         class="t-input__wrap"
+        value=""
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入域名"
+            type="text"
             value=""
           />
         </div>
       </div>
       <span
-        class="t-addon__append"
+        class="t-input-adornment__append"
       >
         .com
       </span>
@@ -214,10 +222,12 @@ exports[`align.jsx 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input t-align-left"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
+          type="text"
           value="居左对齐"
         />
       </div>
@@ -226,10 +236,12 @@ exports[`align.jsx 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input t-align-center"
+        class="t-input t-size-m t-align-center t-is-default"
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
+          type="text"
           value="居中对齐"
         />
       </div>
@@ -238,10 +250,12 @@ exports[`align.jsx 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input t-align-right"
+        class="t-input t-size-m t-align-right t-is-default"
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
+          type="text"
           value="居右对齐"
         />
       </div>
@@ -260,11 +274,13 @@ exports[`auto-width.jsx 1`] = `
       class="t-input__wrap t-input--auto-width"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
+          placeholder="请输入"
           style="width: 0px;"
+          type="text"
           value="宽度自适应"
         />
         <span
@@ -287,24 +303,27 @@ exports[`base.jsx 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容（无默认值）"
+          type="text"
           value=""
         />
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value="Welcome to TDesign"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容（有默认值）"
+          type="text"
           value="Welcome to TDesign"
         />
       </div>
@@ -320,13 +339,15 @@ exports[`clearable.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value="Hello TDesign"
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容"
+          type="text"
           value="Hello TDesign"
         />
       </div>
@@ -344,11 +365,13 @@ exports[`disabled.jsx 1`] = `
       class="t-input__wrap"
     >
       <div
-        class="t-input t-is-disabled"
+        class="t-input t-is-disabled t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           disabled=""
+          placeholder="请输入"
+          type="text"
           value="禁用状态"
         />
       </div>
@@ -364,13 +387,15 @@ exports[`format.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left"
       >
         <input
           class="t-input__inner"
           placeholder="请输入数字"
+          type="text"
           value=""
         />
       </div>
@@ -385,17 +410,51 @@ exports[`group.jsx 1`] = `
     class="tdesign-demo-item--input__input-box"
   >
     <div
-      class="t-input-group"
+      class="t-input-group t-input-group--separate"
+    >
+      <div
+        class="t-input__wrap"
+        style="width: 100px;"
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入"
+            type="text"
+            value="0731"
+          />
+        </div>
+      </div>
+      <div
+        class="t-input__wrap"
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入"
+            type="text"
+            value="12345677"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-input-group t-input-group--separate"
     >
       <div
         class="t-input__wrap"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
-            placeholder="姓"
+            placeholder="请输入"
+            type="text"
             value=""
           />
         </div>
@@ -404,41 +463,81 @@ exports[`group.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
-            placeholder="名"
+            placeholder="请输入"
+            type="text"
             value=""
           />
         </div>
       </div>
     </div>
     <div
-      class="t-input-group t-input-group--seperate"
+      class="t-input-group t-input-group--separate"
     >
       <div
         class="t-input__wrap"
+        style="width: 100px;"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
-            placeholder="姓"
-            value=""
+            placeholder="请输入"
+            type="text"
+            value="0731"
+          />
+        </div>
+      </div>
+      <span
+        style="line-height: 32px;"
+      >
+         - 
+      </span>
+      <div
+        class="t-input__wrap"
+        style="width: 100px;"
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入"
+            type="text"
+            value="12345"
           />
         </div>
       </div>
       <div
         class="t-input__wrap"
+        style="width: 100px;"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
-            placeholder="名"
+            placeholder="请输入"
+            type="text"
+            value="678901"
+          />
+        </div>
+      </div>
+      <div
+        class="t-input__wrap"
+        style="width: 100px;"
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default"
+        >
+          <input
+            class="t-input__inner"
+            placeholder="请输入"
+            type="text"
             value=""
           />
         </div>
@@ -455,13 +554,16 @@ exports[`max-length-count.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-input--suffix"
+        class="t-input t-size-m t-align-left t-is-default t-input--suffix"
       >
         <input
           class="t-input__inner"
           maxlength="5"
+          placeholder="请输入"
+          type="text"
           value=""
         />
         <div
@@ -482,12 +584,13 @@ exports[`password.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <span
-          class="t-input__prefix t-input__suffix-icon"
+          class="t-input__prefix t-input__prefix-icon"
         >
           <svg
             class="t-icon t-icon-lock-on"
@@ -510,7 +613,7 @@ exports[`password.jsx 1`] = `
         </span>
         <input
           class="t-input__inner"
-          placeholder="请输入内容"
+          placeholder="请输入"
           type="password"
           value=""
         />
@@ -518,14 +621,19 @@ exports[`password.jsx 1`] = `
           class="t-input__suffix t-input__suffix-icon"
         >
           <svg
-            class="t-icon t-icon-error-circle-filled"
+            class="t-icon t-icon-browse-off t-input__suffix-clear"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
             width="1em"
           >
             <path
-              d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+              d="M10.77 11.98l1.38 1.37.7-.7-9.7-9.7-.7.7 1.2 1.21a7.9 7.9 0 00-2.53 2.91L1 8l.12.23a7.72 7.72 0 009.65 3.75zM10 11.2A6.67 6.67 0 012.11 8c.56-1 1.34-1.83 2.26-2.43l1.08 1.09a2.88 2.88 0 003.9 3.9l.64.64zM6.21 7.42l2.37 2.37a1.88 1.88 0 01-2.37-2.37zM14.88 8.23L15 8l-.12-.23a7.73 7.73 0 00-9.35-3.86l.8.8A6.7 6.7 0 0113.9 8a6.87 6.87 0 01-2.02 2.26l.7.7a7.9 7.9 0 002.3-2.73z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+            <path
+              d="M10.88 8c0 .37-.07.73-.2 1.06l-.82-.82.02-.24a1.88 1.88 0 00-2.12-1.86l-.82-.82A2.87 2.87 0 0110.88 8z"
               fill="currentColor"
               fill-opacity="0.9"
             />
@@ -535,12 +643,13 @@ exports[`password.jsx 1`] = `
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <span
-          class="t-input__prefix t-input__suffix-icon"
+          class="t-input__prefix t-input__prefix-icon"
         >
           <svg
             class="t-icon t-icon-lock-on"
@@ -563,7 +672,7 @@ exports[`password.jsx 1`] = `
         </span>
         <input
           class="t-input__inner"
-          placeholder="请输入内容"
+          placeholder="请输入"
           type="password"
           value=""
         />
@@ -571,14 +680,19 @@ exports[`password.jsx 1`] = `
           class="t-input__suffix t-input__suffix-icon"
         >
           <svg
-            class="t-icon t-icon-error-circle-filled"
+            class="t-icon t-icon-browse-off t-input__suffix-clear"
             fill="none"
             height="1em"
             viewBox="0 0 16 16"
             width="1em"
           >
             <path
-              d="M15 8A7 7 0 101 8a7 7 0 0014 0zM8.5 4v5.5h-1V4h1zm-1.1 7h1.2v1.2H7.4V11z"
+              d="M10.77 11.98l1.38 1.37.7-.7-9.7-9.7-.7.7 1.2 1.21a7.9 7.9 0 00-2.53 2.91L1 8l.12.23a7.72 7.72 0 009.65 3.75zM10 11.2A6.67 6.67 0 012.11 8c.56-1 1.34-1.83 2.26-2.43l1.08 1.09a2.88 2.88 0 003.9 3.9l.64.64zM6.21 7.42l2.37 2.37a1.88 1.88 0 01-2.37-2.37zM14.88 8.23L15 8l-.12-.23a7.73 7.73 0 00-9.35-3.86l.8.8A6.7 6.7 0 0113.9 8a6.87 6.87 0 01-2.02 2.26l.7.7a7.9 7.9 0 002.3-2.73z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+            <path
+              d="M10.88 8c0 .37-.07.73-.2 1.06l-.82-.82.02-.24a1.88 1.88 0 00-2.12-1.86l-.82-.82A2.87 2.87 0 0110.88 8z"
               fill="currentColor"
               fill-opacity="0.9"
             />
@@ -597,26 +711,30 @@ exports[`size.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-size-l"
+        class="t-input t-size-l t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容"
+          type="text"
           value=""
         />
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="请输入内容"
+          type="text"
           value=""
         />
       </div>
@@ -632,28 +750,32 @@ exports[`status.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-disabled"
+        class="t-input t-is-disabled t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           disabled=""
           placeholder="禁用状态"
+          type="text"
           value=""
         />
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-readonly"
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="只读状态"
           readonly=""
+          type="text"
           value=""
         />
       </div>
@@ -662,39 +784,45 @@ exports[`status.jsx 1`] = `
     <br />
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-success"
+        class="t-input t-size-m t-align-left t-is-success"
       >
         <input
           class="t-input__inner"
           placeholder="成功状态"
+          type="text"
           value=""
         />
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-warning"
+        class="t-input t-size-m t-align-left t-is-warning"
       >
         <input
           class="t-input__inner"
           placeholder="警告状态"
+          type="text"
           value=""
         />
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-error"
+        class="t-input t-size-m t-align-left t-is-error"
       >
         <input
           class="t-input__inner"
           placeholder="错误状态"
+          type="text"
           value=""
         />
       </div>
@@ -703,31 +831,35 @@ exports[`status.jsx 1`] = `
     <br />
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input"
+        class="t-input t-size-m t-align-left t-is-default"
       >
         <input
           class="t-input__inner"
           placeholder="普通状态"
+          type="text"
           value=""
         />
       </div>
       <div
-        class="t-input__tips t-input__tips--normal"
+        class="t-input__tips t-input__tips--default"
       >
         这是普通文本提示
       </div>
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-success"
+        class="t-input t-size-m t-align-left t-is-success"
       >
         <input
           class="t-input__inner"
           placeholder="成功状态"
+          type="text"
           value=""
         />
       </div>
@@ -739,13 +871,15 @@ exports[`status.jsx 1`] = `
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-warning"
+        class="t-input t-size-m t-align-left t-is-warning"
       >
         <input
           class="t-input__inner"
           placeholder="警告状态"
+          type="text"
           value=""
         />
       </div>
@@ -757,13 +891,15 @@ exports[`status.jsx 1`] = `
     </div>
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-is-error"
+        class="t-input t-size-m t-align-left t-is-error"
       >
         <input
           class="t-input__inner"
           placeholder="错误状态"
+          type="text"
           value=""
         />
       </div>
@@ -784,12 +920,13 @@ exports[`textarea.jsx 1`] = `
   >
     <div
       class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <span
-          class="t-input__prefix t-input__suffix-icon"
+          class="t-input__prefix t-input__prefix-icon"
         >
           <svg
             class="t-icon t-icon-search"
@@ -808,6 +945,7 @@ exports[`textarea.jsx 1`] = `
         <input
           class="t-input__inner"
           placeholder="请输入内容"
+          type="text"
           value=""
         />
         <span

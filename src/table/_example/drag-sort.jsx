@@ -37,19 +37,17 @@ const initData = [
 export default function TableDragSort() {
   const [data, setData] = useState(initData);
 
-  // 必须手动实现交换数据，否则data不会发生变异
-  function onDragSort({ currentIndex, targetIndex }) {
-    console.log('交换行', currentIndex, targetIndex);
-    const temp = data[currentIndex];
-    data[currentIndex] = data[targetIndex];
-    data[targetIndex] = temp;
-    setData([...data]);
+  // currentData is going to be deprecated.
+  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e);
+    // 数据受控实现
+    setData(newData);
   }
 
   return (
     <div className="demo-container">
       {/* 拖拽排序涉及到 data 的变更，相对比较慎重，因此仅支持受控用法 */}
-      <Table rowKey="id" data={data} columns={columns} sortOnRowDraggable onDragSort={onDragSort} />
+      <Table rowKey="id" data={data} columns={columns} dragSort="row" onDragSort={onDragSort} />
     </div>
   );
 }

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import isNumber from 'lodash/isNumber';
 import classNames from 'classnames';
 import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
-import { StyledProps, Styles, TNode } from '../common';
+import { StyledProps, Styles } from '../common';
 import useConfig from '../_util/useConfig';
 import { pxCompat } from '../_util/helper';
+import { skeletonDefaultProps } from './defaultProps';
 
-export type SkeletonProps = TdSkeletonProps & StyledProps & { children: TNode };
+export type SkeletonProps = TdSkeletonProps & StyledProps & { children: React.ReactNode };
 
 const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
   text: [1],
@@ -23,7 +24,7 @@ const ThemeMap: Record<TdSkeletonProps['theme'], SkeletonRowCol> = {
 };
 
 const Skeleton = (props: SkeletonProps) => {
-  const { animation, loading = true, rowCol, theme, className, style } = props;
+  const { animation, loading, rowCol, theme, className, style, delay = 0, children } = props;
 
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
@@ -85,8 +86,21 @@ const Skeleton = (props: SkeletonProps) => {
     ));
   };
 
-  if (!loading) {
-    return <div>{props.children}</div>;
+  const [ctrlLoading, setCtrlLoading] = useState(loading);
+
+  useEffect(() => {
+    if (delay > 0 && !loading) {
+      const timeout = setTimeout(() => {
+        setCtrlLoading(loading);
+      }, delay);
+      return () => clearTimeout(timeout);
+    }
+
+    setCtrlLoading(loading);
+  }, [delay, loading]);
+
+  if (!ctrlLoading) {
+    return <>{children}</>;
   }
 
   const childrenContent = [];
@@ -109,5 +123,6 @@ const Skeleton = (props: SkeletonProps) => {
 };
 
 Skeleton.displayName = 'Skeleton';
+Skeleton.defaultProps = skeletonDefaultProps;
 
 export default Skeleton;

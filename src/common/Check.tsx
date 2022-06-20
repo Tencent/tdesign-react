@@ -1,15 +1,18 @@
-import React, { Ref, forwardRef, useContext } from 'react';
+import React, { Ref, forwardRef, useContext, MouseEventHandler } from 'react';
 import classNames from 'classnames';
+import isBoolean from 'lodash/isBoolean';
 import { omit } from '../_util/helper';
 import { StyledProps } from '../common';
 import useConfig from '../_util/useConfig';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { TdCheckboxProps } from '../checkbox/type';
 
-export interface CheckProps extends TdCheckboxProps, StyledProps {
+export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
+  value?: string | number | boolean;
   children?: React.ReactNode;
+  onClick?: MouseEventHandler<HTMLLabelElement>;
 }
 
 /**
@@ -32,8 +35,6 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   const {
     allowUncheck = false,
     type,
-    checked,
-    defaultChecked = false,
     disabled,
     name,
     value,
@@ -43,21 +44,22 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
     label,
     className,
     style,
+    readonly,
     ...htmlProps
   } = props;
 
   const { classPrefix } = useConfig();
 
-  const TdonChange: (
+  const TOnChange: (
     checked: boolean,
     context: {
       e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>;
     },
   ) => void = onChange;
 
-  const [internalChecked, setInternalChecked] = useDefault(checked, defaultChecked, TdonChange);
+  const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
 
-  const labelClassName = classNames(className, `${classPrefix}-${type}`, {
+  const labelClassName = classNames(`${classPrefix}-${type}`, className, {
     [`${classPrefix}-is-checked`]: internalChecked,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-indeterminate`]: indeterminate,
@@ -65,13 +67,13 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
 
   const input = (
     <input
-      readOnly
+      readOnly={readonly}
       type={type === 'radio-button' ? 'radio' : type}
       className={`${classPrefix}-${type}__former`}
       checked={internalChecked}
       disabled={disabled}
       name={name}
-      value={value}
+      value={isBoolean(value) ? Number(value) : value}
       onClick={(e) => {
         e.stopPropagation();
         if ((type === 'radio-button' || type === 'radio') && allowUncheck) {

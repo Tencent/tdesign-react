@@ -14,13 +14,13 @@ disabled | Boolean | false | 是否禁用标签输入框 | N
 dragSort | Boolean | false | 拖拽调整标签顺序 | N
 excessTagsDisplayType | String | scroll | 标签超出时的呈现方式，有两种：横向滚动显示 和 换行显示。可选项：scroll/break-line | N
 inputProps | Object | - | 透传 Input 输入框组件全部属性。TS 类型：`InputProps`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
-inputValue | String / Number | - | 输入框的值。TS 类型：`InputValue` | N
-defaultInputValue | String / Number | - | 输入框的值。非受控属性。TS 类型：`InputValue` | N
+inputValue | String / Number | '' | 输入框的值。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
+defaultInputValue | String / Number | '' | 输入框的值。非受控属性。TS 类型：`InputValue`，[Input API Documents](./input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts) | N
 label | TNode | - | 左侧文本。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 max | Number | - | 最大允许输入的标签数量 | N
 minCollapsedNum | Number | 0 | 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 placeholder | String | undefined | 占位符 | N
-readonly | Boolean | false | 是否只读，值为真会隐藏标签移除按钮和输入框 | N
+readonly | Boolean | false | 只读状态，值为真会隐藏标签移除按钮和输入框 | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
 status | String | - | 输入框状态。可选项：success/warning/error | N
 suffix | TNode | - | 后置图标前的后置内容。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
@@ -35,7 +35,7 @@ onBlur | Function |  | TS 类型：`(value: TagInputValue, context: { inputValue
 onChange | Function |  | TS 类型：`(value: TagInputValue, context: TagInputChangeContext) => void`<br/>值变化时触发，参数 `context.trigger` 表示数据变化的触发来源；`context.index` 指当前变化项的下标；`context.item` 指当前变化项；`context.e` 表示事件参数。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts)。<br/>`interface TagInputChangeContext { trigger: TagInputTriggerSource; index?: number; item?: string | number; e?: MouseEvent | KeyboardEvent }`<br/><br/>`type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear'`<br/> | N
 onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>清空按钮点击时触发 | N
 onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击组件时触发 | N
-onDragSort | Function |  | TS 类型：`(context: { currentIndex: number; current: string | number; targetIndex: number; target: string | number }) => void`<br/>【开发中】拖拽排序时触发 | N
+onDragSort | Function |  | TS 类型：`(context: TagInputDragSortContext) => void`<br/>【开发中】拖拽排序时触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts)。<br/>`interface TagInputDragSortContext { newTags: TagInputValue; currentIndex: number; current: string | number; targetIndex: number; target: string | number }`<br/> | N
 onEnter | Function |  | TS 类型：`(value: TagInputValue, context: { e: KeyboardEvent; inputValue: InputValue }) => void`<br/>按键按下 Enter 时触发 | N
 onFocus | Function |  | TS 类型：`(value: TagInputValue, context: { inputValue: InputValue; e: FocusEvent }) => void`<br/>聚焦时触发 | N
 onInputChange | Function |  | TS 类型：`(value: InputValue, context?: InputValueChangeContext) => void`<br/>输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、回车键触发等。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/tag-input/type.ts)。<br/>`interface InputValueChangeContext { e?: InputEvent | MouseEvent | KeyboardEvent; trigger: 'input' | 'clear' | 'enter'  }`<br/> | N

@@ -5,7 +5,8 @@ import useConfig from '../_util/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
 import Col from './Col';
-import { canUseDocument } from '../_util/dom';
+import { canUseDocument, getCssVarsValue } from '../_util/dom';
+import { rowDefaultProps } from './defaultProps';
 
 /**
  * Row 组件支持的属性。
@@ -18,20 +19,27 @@ export interface RowProps extends TdRowProps, StyledProps {
 }
 
 const calcSize = (width: number) => {
+  const smWidth = getCssVarsValue('--td-screen-sm') || 768;
+  const mdWidth = getCssVarsValue('--td-screen-md') || 992;
+  const lgWidth = getCssVarsValue('--td-screen-lg') || 1200;
+  const xlWidth = getCssVarsValue('--td-screen-xl') || 1400;
+  const xxlWidth = getCssVarsValue('--td-screen-xxl') || 1880;
+
   let size = 'xs';
-  if (width < 768) {
-    size = 'xs';
-  } else if (width >= 768 && width < 992) {
-    size = 'sm';
-  } else if (width >= 992 && width < 1200) {
-    size = 'md';
-  } else if (width >= 1200 && width < 1400) {
-    size = 'lg';
-  } else if (width >= 1400 && width < 1880) {
-    size = 'xl';
-  } else {
+  if (width >= xxlWidth) {
     size = 'xxl';
+  } else if (width >= xlWidth) {
+    size = 'xl';
+  } else if (width >= lgWidth) {
+    size = 'lg';
+  } else if (width >= mdWidth) {
+    size = 'md';
+  } else if (width >= smWidth) {
+    size = 'sm';
+  } else {
+    size = 'xs';
   }
+
   return size;
 };
 
@@ -83,16 +91,7 @@ const calcRowStyle = (gutter: TdRowProps['gutter'], currentSize: string): object
  * Row组件
  */
 const Row = (props: RowProps) => {
-  const {
-    align = 'top',
-    gutter = 0,
-    justify = 'start',
-    tag = 'div',
-    style: propStyle,
-    className,
-    children,
-    ...otherRowProps
-  } = props;
+  const { align, gutter, justify, tag, style: propStyle, className, children, ...otherRowProps } = props;
 
   const [size, setSize] = useState(canUseDocument ? calcSize(window.innerWidth) : 'md');
 
@@ -137,5 +136,6 @@ const Row = (props: RowProps) => {
 };
 
 Row.displayName = 'Row';
+Row.defaultProps = rowDefaultProps;
 
 export default Row;

@@ -74,7 +74,6 @@ exports[`delay.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -85,7 +84,6 @@ exports[`delay.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -104,7 +102,7 @@ exports[`fullscreen.jsx 1`] = `
   <div>
     Loading state:
     <button
-      class="t-switch"
+      class="t-switch t-size-m"
       role="switch"
       type="button"
     >
@@ -168,7 +166,7 @@ exports[`service.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 20px; position: relative;"
+        style="margin-right: 20px;"
         type="button"
       >
         <span
@@ -179,7 +177,6 @@ exports[`service.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -368,7 +365,7 @@ exports[`wrap.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="margin-right: 10px; position: relative;"
+        style="margin-right: 10px;"
         type="button"
       >
         <span
@@ -379,7 +376,6 @@ exports[`wrap.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="position: relative;"
         type="button"
       >
         <span

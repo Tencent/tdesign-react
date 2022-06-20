@@ -9,6 +9,11 @@ import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
   /**
+   * 超出maxlength或maxcharacter之后是否还允许输入
+   * @default false
+   */
+  allowInputOverMax?: boolean;
+  /**
    * 自动聚焦，拉起键盘
    * @default false
    */
@@ -23,6 +28,10 @@ export interface TdTextareaProps {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 左侧文本
+   */
+  label?: TNode;
   /**
    * 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度
    */
@@ -41,7 +50,7 @@ export interface TdTextareaProps {
    */
   placeholder?: string;
   /**
-   * 文本框是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;

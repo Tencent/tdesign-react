@@ -17,35 +17,51 @@ exports[`base.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              5 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="5 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                5 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -156,35 +172,51 @@ exports[`jump.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="20 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              20 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="20 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                20 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -279,17 +311,20 @@ exports[`jump.jsx 1`] = `
     >
       跳至
       <div
-        class="t-pagination__input t-input-number t-size-m t-input-number--normal"
+        class="t-input-number t-size-m t-pagination__input t-input-number--normal"
       >
         <div
           class="t-input__wrap"
+          value="1"
         >
           <div
-            class="t-input"
+            class="t-input t-size-m t-align-left t-is-default"
           >
             <input
               class="t-input__inner"
-              value=""
+              placeholder=""
+              type="text"
+              value="1"
             />
           </div>
         </div>
@@ -317,35 +352,51 @@ exports[`mini.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select t-size-s"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              5 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="5 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                5 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -456,35 +507,51 @@ exports[`more.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              5 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="5 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                5 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -595,35 +662,51 @@ exports[`page-num.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="20 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              20 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="20 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                20 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -734,35 +817,51 @@ exports[`simple.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              5 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="5 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                5 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -791,35 +890,51 @@ exports[`simple.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="1/20"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              1/20
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="1/20"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                1/20
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -862,35 +977,51 @@ exports[`simple-mini.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select t-size-s"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="5 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              5 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="5 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                5 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -919,35 +1050,51 @@ exports[`simple-mini.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select t-size-s"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="1/20"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-s t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              1/20
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="1/20"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                1/20
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -990,35 +1137,51 @@ exports[`total.jsx 1`] = `
         class="t-select__wrap"
       >
         <div
-          class="t-popup__reference t-select__popup-reference"
+          class="t-popup__reference t-select t-select-input"
         >
           <div
-            class="t-select"
-            style="user-select: none;"
+            class="t-input__wrap t-input--auto-width"
+            value="10 条/页"
           >
-            <span
-              class="t-select__left-icon"
-            />
-            <span
-              class="t-select__single"
+            <div
+              class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              10 条/页
-            </span>
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
+              <input
+                class="t-input__inner"
+                placeholder="请选择"
+                readonly=""
+                style="width: 0px;"
+                type="text"
+                value="10 条/页"
+              />
+              <span
+                class="t-input__input-pre"
+              >
+                10 条/页
+              </span>
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>

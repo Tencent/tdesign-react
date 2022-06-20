@@ -2,7 +2,6 @@
 
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * updated at 2021-12-27 17:08:43
  * */
 
 import { TNode, TElement } from '../common';
@@ -15,11 +14,11 @@ export interface TdMenuProps {
    */
   collapsed?: boolean;
   /**
-   * 展开的子菜单集合
+   * 子菜单展开的导航集合
    */
   expanded?: Array<MenuValue>;
   /**
-   * 展开的子菜单集合，非受控属性
+   * 子菜单展开的导航集合，非受控属性
    */
   defaultExpanded?: Array<MenuValue>;
   /**
@@ -62,10 +61,6 @@ export interface TdMenuProps {
    * 激活菜单项发生变化时触发
    */
   onChange?: (value: MenuValue) => void;
-  /**
-   * 侧边栏导航展开/收起发生变化时触发
-   */
-  onCollapsed?: (options: { collapsed: boolean; e?: MouseEvent<HTMLDivElement> }) => void;
   /**
    * 展开的菜单项发生变化时触发
    */

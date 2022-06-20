@@ -4,10 +4,11 @@ import { ChevronDownIcon } from 'tdesign-icons-react';
 
 const classStyles = `
 <style>
-.tdesign-demo__pannel-options-multiple-borderless {
+.tdesign-demo__panel-options-multiple-borderless {
   width: 100%;
+  display: block;
 }
-.tdesign-demo__pannel-options-multiple-borderless .t-checkbox {
+.tdesign-demo__panel-options-multiple-borderless .t-checkbox {
   display: block;
   margin: 12px;
 }
@@ -89,7 +90,7 @@ export default function SelectInputMultiple() {
   }, []);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '60%' }}>
       {/* <!-- :popup-props="{ trigger: 'hover' }" --> */}
       <SelectInput
         value={value}
@@ -99,7 +100,7 @@ export default function SelectInputMultiple() {
         panel={<Checkbox.Group
           value={checkboxValue}
           options={options}
-          className="tdesign-demo__pannel-options-multiple-borderless"
+          className="tdesign-demo__panel-options-multiple-borderless"
           onChange={onCheckedChange}
         />}
         suffixIcon={<ChevronDownIcon />}

@@ -1,6 +1,88 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Calendar, Switch } from 'tdesign-react';
-import './style/index.less';
+
+const classStyles = `
+  <style>
+    .controllerConfig-demo fieldset {
+      border: solid 1px #eee;
+      padding: 10px 20px 10px 0;
+      margin-bottom: 10px;
+    }
+    .controllerConfig-demo fieldset legend {
+      margin-left: 20px;
+      padding: 0 10px;
+    }
+    .controllerConfig-demo fieldset p {
+      margin-bottom: 5px;
+    }
+    .controllerConfig-demo fieldset p label {
+      margin-left: 20px;
+    }
+    .outerWarper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      .shadow {
+        position: absolute;
+        width: 100%;
+        height: 12px;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
+      .number {
+        font-weight: bold;
+        position: absolute;
+        top: 3px;
+        right: 5px;
+        font-size: 14px;
+      }
+      .item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.6);
+        span {
+          display: block;
+          left: 1px;
+          width: 5px;
+          height: 5px;
+          border-radius: 10px;
+          margin-right: 4px;
+        }
+      }
+      .error {
+        background: #e34d59;
+      }
+      .warning {
+        background: #ed7b2f;
+      }
+      .success {
+        background: #00a870;
+      }
+
+      .slotWarper {
+        position: absolute;
+        bottom: 2px;
+        left: 5px;
+      }
+    }
+    .cellAppend {
+      margin: 10px;
+      background-color: #ebf2ff;
+      color: #888;
+      border-radius: 3px;
+      padding: 2px 4px;
+    }
+    .cellAppend.belongCurrent {
+      color: #0052d9;
+    }
+    .cellAppend.actived {
+      background-color: #0052d9;
+      color: #ebf2ff;
+    }
+  </style>
+`;
 
 export default function CalendarExample() {
   const [visible, setVisible] = React.useState(true);
@@ -17,6 +99,11 @@ export default function CalendarExample() {
   const [currentVisible, setCurrentVisible] = React.useState(true);
   const [currentDayButtonDisabled, setCurrentDayButtonDisabled] = React.useState(false);
   const [currentMonthButtonDisabled, setCurrentMonthButtonDisabled] = React.useState(false);
+
+  useEffect(() => {
+    // 添加示例代码所需样式
+    document.head.insertAdjacentHTML('beforeend', classStyles);
+  }, []);
 
   return (
     <div className="controllerConfig-demo">
@@ -76,33 +163,39 @@ export default function CalendarExample() {
           </p>
           <br />
           <Calendar
-            controllerConfig={{
-              visible,
-              disabled,
-              mode: { visible: modeVisible, radioGroupProps: { disabled: modeDisabled, variant: 'default-filled' } },
-              year: {
-                visible: yearVisible,
-                selectProps: {
-                  disabled: yearDisabled,
-                },
-              },
-              month: {
-                visible: monthVisible,
-                selectProps: {
-                  disabled: monthDisabled,
-                },
-              },
-              weekend: {
-                visible: weekendToggleVisible,
-                showWeekendButtonProps: { disabled: weekendShowButtonDisabled },
-                hideWeekendButtonProps: { disabled: weekendHideButtonDisabled },
-              },
-              current: {
-                visible: currentVisible,
-                currentDayButtonProps: { disabled: currentDayButtonDisabled },
-                currentMonthButtonProps: { disabled: currentMonthButtonDisabled },
-              },
-            }}
+            controllerConfig={
+              visible
+                ? {
+                    disabled,
+                    mode: {
+                      visible: modeVisible,
+                      radioGroupProps: { disabled: modeDisabled, variant: 'default-filled' },
+                    },
+                    year: {
+                      visible: yearVisible,
+                      selectProps: {
+                        disabled: yearDisabled,
+                      },
+                    },
+                    month: {
+                      visible: monthVisible,
+                      selectProps: {
+                        disabled: monthDisabled,
+                      },
+                    },
+                    weekend: {
+                      visible: weekendToggleVisible,
+                      showWeekendButtonProps: { disabled: weekendShowButtonDisabled },
+                      hideWeekendButtonProps: { disabled: weekendHideButtonDisabled },
+                    },
+                    current: {
+                      visible: currentVisible,
+                      currentDayButtonProps: { disabled: currentDayButtonDisabled },
+                      currentMonthButtonProps: { disabled: currentMonthButtonDisabled },
+                    },
+                  }
+                : false
+            }
           />
         </fieldset>
       </div>

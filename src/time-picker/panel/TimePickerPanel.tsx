@@ -1,27 +1,30 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import SinglePanel, { SinglePanelProps } from './SinglePanel';
 
 import useConfig from '../../_util/useConfig';
 import Button from '../../button';
 
-import { DEFAULT_STEPS, DEFAULT_FORMAT, useTimePickerTextConfig } from '../consts';
+import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '../../_common/js/time-picker/const';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
-  // 是否展示footer
-  isFooterDisplay?: boolean;
+  isShowPanel?: boolean;
+  isFooterDisplay?: boolean; // 是否展示footer
   handleConfirmClick?: (defaultValue: dayjs.Dayjs) => void;
 }
 
 const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   const {
-    isFooterDisplay,
-    onChange,
     format = DEFAULT_FORMAT,
     steps = DEFAULT_STEPS,
     handleConfirmClick,
+    isFooterDisplay,
+    onChange,
     value,
+    isShowPanel,
   } = props;
+  const [triggerScroll, toggleTriggerScroll] = useState(false); // 触发滚动
   const { classPrefix } = useConfig();
 
   const TEXT_CONFIG = useTimePickerTextConfig();
@@ -40,10 +43,21 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     return dayjs();
   }, [value, format, steps]);
 
+  useEffect(() => {
+    toggleTriggerScroll(true);
+  }, [isShowPanel]);
+
   return (
     <div className={panelClassName}>
       <div className={`${panelClassName}-section-body`}>
-        <SinglePanel {...props} format={format} steps={steps} value={value} />
+        <SinglePanel
+          {...props}
+          format={format}
+          steps={steps}
+          value={value}
+          triggerScroll={triggerScroll}
+          resetTriggerScroll={() => toggleTriggerScroll(false)}
+        />
       </div>
       {isFooterDisplay ? (
         <div className={`${panelClassName}-section-footer`}>
@@ -53,12 +67,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
             onClick={() => {
               handleConfirmClick(defaultValue);
             }}
+            size="small"
           >
             {TEXT_CONFIG.confirm}
           </Button>
           {!showNowTimeBtn ? (
-            <Button theme="primary" variant="text" onClick={() => onChange(dayjs().format(format))}>
-              {TEXT_CONFIG.nowtime}
+            <Button theme="primary" variant="text" size="small" onClick={() => onChange(dayjs().format(format))}>
+              {TEXT_CONFIG.nowTime}
             </Button>
           ) : null}
         </div>

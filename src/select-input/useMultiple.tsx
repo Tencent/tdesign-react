@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys } from './type';
 import TagInput, { TagInputValue } from '../tag-input';
 import { SelectInputCommonProperties } from './interface';
-import useDefaultValue from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import useConfig from '../_util/useConfig';
 
 export interface RenderSelectMultipleParams {
@@ -23,7 +23,7 @@ export default function useMultiple(props: TdSelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
   const tagInputRef = useRef();
-  const [tInputValue, setTInputValue] = useDefaultValue(props.inputValue, props.defaultInputValue, props.onInputChange);
+  const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 
   const getTags = () => {
@@ -48,8 +48,8 @@ export default function useMultiple(props: TdSelectInputProps) {
     <TagInput
       ref={tagInputRef}
       {...p.commonInputProps}
-      readonly={!props.allowInput}
-      autoWidth={props.borderless || props.autoWidth}
+      readonly={!props.allowInput || props.readonly}
+      autoWidth={props.autoWidth}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
       tag={props.tag}
@@ -67,16 +67,16 @@ export default function useMultiple(props: TdSelectInputProps) {
       onClear={p.onInnerClear}
       onBlur={(val, context) => {
         props.onBlur?.(props.value, { ...context, tagInputValue: val });
-        // 筛选器统一特性：失去焦点时，清空输入内容
-        setTInputValue('', { ...context, trigger: 'blur' });
       }}
       onFocus={(val, context) => {
         props.onFocus?.(props.value, { ...context, tagInputValue: val });
       }}
       {...props.tagInputProps}
-      className={classNames(props.tagInputProps?.className, {
-        [`${classPrefix}-input--focused`]: p.popupVisible,
-      })}
+      inputProps={{
+        inputClass: classNames(props.tagInputProps?.className, {
+          [`${classPrefix}-input--focused`]: p.popupVisible,
+        }),
+      }}
     />
   );
 

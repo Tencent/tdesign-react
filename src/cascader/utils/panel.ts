@@ -47,7 +47,7 @@ export function expendClickEffect(
     max,
   } = cascaderContext;
 
-  const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
+  const isDisabled = node.disabled || (multiple && value && (value as TreeNodeValue[]).length >= max && max !== 0);
 
   if (isDisabled) return;
   // 点击展开节点，设置展开状态
@@ -80,7 +80,7 @@ export function expendClickEffect(
     }
 
     // 非受控状态下更新状态
-    setValue(value, 'checked', node.getModel());
+    setValue(value, 'check', node.getModel());
   }
 }
 
@@ -126,5 +126,5 @@ export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderConte
     setFilterActive(false);
   }
 
-  setValue(checked, 'checked', node.getModel());
+  setValue(checked, 'check', node.getModel());
 }

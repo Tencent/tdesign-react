@@ -2,17 +2,17 @@ import { CascaderContextType, TreeNode, TreeNodeValue } from '../interface';
 
 /**
  * 是否显示省略计算方法
- * @param node
+ * @param label
  * @param size
  * @returns
  */
-export function getLabelIsEllipsis(node: TreeNode, size: CascaderContextType['size']) {
+export function getLabelIsEllipsis(label: string, size: CascaderContextType['size']) {
   const sizeMap = {
     small: 11,
     medium: 9,
     large: 8,
   };
-  return sizeMap[size] < node.label.length;
+  return sizeMap[size] < label.length;
 }
 
 export function getNodeStatusClass(node: TreeNode, CLASSNAMES: any, cascaderContext: CascaderContextType) {
@@ -21,7 +21,7 @@ export function getNodeStatusClass(node: TreeNode, CLASSNAMES: any, cascaderCont
 
   const isLeaf = node.isLeaf();
 
-  const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
+  const isDisabled = node.disabled || (multiple && value && (value as TreeNodeValue[]).length >= max && max !== 0);
 
   const isSelected = node.checked || (multiple && !checkStrictly && node.expanded && !isLeaf);
 
@@ -44,10 +44,10 @@ export function getCascaderItemClass(
   return [
     `${prefix}-cascader__item`,
     ...getNodeStatusClass(node, CLASSNAMES, cascaderContext),
+    CLASSNAMES.SIZE[size],
     {
-      [`${prefix}-cascader__item--with-icon`]: node.children,
+      [`${prefix}-cascader__item--with-icon`]: !!node.children,
       [`${prefix}-cascader__item--leaf`]: node.isLeaf(),
-      [CLASSNAMES.SIZE[size]]: size,
     },
   ];
 }

@@ -1,13 +1,15 @@
 import React from 'react';
+import classNames from 'classnames';
 import useConfig from '../_util/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { BreadcrumbItem } from './BreadcrumbItem';
+import BreadcrumbItem from './BreadcrumbItem';
 import { BreadcrumbProps } from './BreadcrumbProps';
 import { BreadcrumbContext } from './BreadcrumbContext';
+import { breadcrumbDefaultProps } from './defaultProps';
 
 const Breadcrumb = forwardRefWithStatics(
   (props: BreadcrumbProps, ref) => {
-    const { children, options, separator, maxItemWidth, theme, ...restProps } = props;
+    const { children, options, separator, maxItemWidth, className, ...restProps } = props;
     const { classPrefix } = useConfig();
 
     let content = children;
@@ -34,10 +36,10 @@ const Breadcrumb = forwardRefWithStatics(
       <BreadcrumbContext.Provider
         value={{
           maxItemWidthInContext: maxItemWidth,
-          theme,
+          separator,
         }}
       >
-        <div ref={ref} className={`${classPrefix}-breadcrumb`} {...restProps}>
+        <div ref={ref} className={classNames(`${classPrefix}-breadcrumb`, className)} {...restProps}>
           {content}
         </div>
       </BreadcrumbContext.Provider>
@@ -47,5 +49,6 @@ const Breadcrumb = forwardRefWithStatics(
 );
 
 Breadcrumb.displayName = 'Breadcrumb';
+Breadcrumb.defaultProps = breadcrumbDefaultProps;
 
 export default Breadcrumb;

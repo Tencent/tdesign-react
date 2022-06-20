@@ -1,14 +1,16 @@
 import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
-import { CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CloseCircleFilledIcon, BrowseOffIcon, BrowseIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../_util/useConfig';
 import { getCharacterLength } from '../_util/helper';
-import { TdInputProps, InputValue } from './type';
+import { TdInputProps } from './type';
 import { StyledProps, TNode } from '../common';
 import InputGroup from './InputGroup';
-import useDefaultValue from '../_util/useDefaultValue';
+import useControlled from '../hooks/useControlled';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { inputDefaultProps } from './defaultProps';
 
 export interface InputProps extends TdInputProps, StyledProps {}
 
@@ -27,7 +29,7 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
   if (typeof icon === 'function') result = icon();
 
-  const iconClassName = icon ? `${classPrefix}-input__suffix-icon` : '';
+  const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : '';
 
   if (result) {
     result = <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span>;
@@ -38,25 +40,33 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode)
 
 const Input = forwardRefWithStatics(
   (props: InputProps, ref) => {
+    // 国际化文本初始化
+    const [local, t] = useLocaleReceiver('input');
     const {
+      type,
       autoWidth,
-      placeholder,
+      placeholder = t(local.placeholder),
       disabled,
       status,
       size,
       className,
+      inputClass,
       style,
       prefixIcon,
       suffixIcon,
       clearable,
-      value,
       tips,
       align,
       maxlength,
       maxcharacter,
+      showClearIconOnEmpty,
+      autofocus,
+      autocomplete,
+      readonly,
+      label,
+      suffix,
       format,
       onClick,
-      onChange,
       onClear,
       onEnter,
       onKeydown,
@@ -70,14 +80,11 @@ const Input = forwardRefWithStatics(
       onWheel,
       onCompositionstart,
       onCompositionend,
-      showClearIconOnEmpty,
-      autofocus,
-      autocomplete,
-      readonly,
-      label,
-      suffix,
+      onChange: onChangeFromProps,
       ...restProps
-    } = useDefaultValue<InputValue, InputProps>(props, '');
+    } = props;
+
+    const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
 
     const { classPrefix } = useConfig();
     const composingRef = useRef(false);
@@ -87,45 +94,46 @@ const Input = forwardRefWithStatics(
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
+    const [renderType, setRenderType] = useState(type);
 
     const [composingRefValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
-    const suffixIconNew = isShowClearIcon ? (
-      <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />
-    ) : (
-      suffixIcon
-    );
+    let suffixIconNew = suffixIcon;
+
+    if (isShowClearIcon)
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+    if (type === 'password' && typeof suffixIcon === 'undefined') {
+      if (renderType === 'password') {
+        suffixIconNew = (
+          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+        );
+      } else if (renderType === 'text') {
+        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
+      }
+    }
+
     const suffixIconContent = renderIcon(classPrefix, 'suffix', suffixIconNew);
     const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix;
-
-    const inputPropsNames = Object.keys(restProps).filter((key) => !/^on[A-Z]/.test(key));
-    const inputProps = inputPropsNames.reduce((inputProps, key) => Object.assign(inputProps, { [key]: props[key] }), {
-      className: '',
-    });
-    const eventPropsNames = Object.keys(restProps).filter((key) => /^on[A-Z]/.test(key));
-    const eventProps = eventPropsNames.reduce((eventProps, key) => {
-      Object.assign(eventProps, {
-        [key]: (e: any) => props[key](e.currentTarget.value, { e }),
-      });
-      return eventProps;
-    }, {});
 
     useEffect(() => {
       if (!autoWidth) return;
       inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
     }, [autoWidth, value, placeholder]);
 
+    useEffect(() => {
+      setRenderType(type);
+    }, [type]);
+
     const renderInput = (
       <input
         ref={inputRef}
         placeholder={placeholder}
-        {...inputProps}
-        {...eventProps}
-        className={classNames(inputProps.className, `${classPrefix}-input__inner`)}
-        value={composingRef.current ? composingRefValue : value}
+        type={renderType}
+        className={`${classPrefix}-input__inner`}
+        value={composingRef.current ? composingRefValue : value ?? ''}
         readOnly={readonly}
         disabled={disabled}
         autoComplete={autocomplete}
@@ -145,12 +153,13 @@ const Input = forwardRefWithStatics(
 
     const renderInputNode = (
       <div
-        className={classNames(`${classPrefix}-input`, {
+        className={classNames(inputClass, `${classPrefix}-input`, {
           [`${classPrefix}-is-readonly`]: readonly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
           [`${classPrefix}-size-l`]: size === 'large',
+          [`${classPrefix}-size-m`]: size === 'medium',
           [`${classPrefix}-align-${align}`]: align,
           [`${classPrefix}-is-${status}`]: status,
           [`${classPrefix}-input--prefix`]: prefixIcon || labelContent,
@@ -174,6 +183,11 @@ const Input = forwardRefWithStatics(
         {suffixIconContent}
       </div>
     );
+
+    function togglePasswordVisible() {
+      const toggleType = renderType === 'password' ? 'text' : 'password';
+      setRenderType(toggleType);
+    }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.CompositionEvent<HTMLInputElement>) {
       let { value } = e.currentTarget;
@@ -231,6 +245,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+      if (readonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -239,6 +254,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+      if (readonly) return;
       const {
         currentTarget: { value },
       } = e;
@@ -279,9 +295,10 @@ const Input = forwardRefWithStatics(
       <div
         ref={wrapperRef}
         style={style}
-        className={classNames(className, `${classPrefix}-input__wrap`, {
+        className={classNames(`${classPrefix}-input__wrap`, className, {
           [`${classPrefix}-input--auto-width`]: autoWidth,
         })}
+        {...restProps}
       >
         {renderInputNode}
         {tips && (
@@ -298,5 +315,6 @@ const Input = forwardRefWithStatics(
 );
 
 Input.displayName = 'Input';
+Input.defaultProps = inputDefaultProps;
 
 export default Input;

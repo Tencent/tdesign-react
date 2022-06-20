@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, forwardRef, MouseEvent } from 'react';
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
@@ -9,8 +9,9 @@ import { TdTagInputProps } from './type';
 import useTagScroll from './useTagScroll';
 import useTagList from './useTagList';
 import useHover from './useHover';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { StyledProps } from '../common';
+import { tagInputDefaultProps } from './defaultProps';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
@@ -18,7 +19,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   const { classPrefix: prefix } = useConfig();
 
   const {
-    excessTagsDisplayType = 'scroll',
+    excessTagsDisplayType,
     autoWidth,
     readonly,
     disabled,
@@ -38,7 +39,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
     onBlur,
   } = props;
 
-  const [tInputValue, setTInputValue] = useDefault(props.inputValue, props.defaultInputValue, props.onInputChange);
+  const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const { isHover, addHover, cancelHover } = useHover(props);
   const { getDragProps } = useDragSorter({
@@ -49,6 +50,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
     },
   });
+  const isCompositionRef = useRef(false);
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
 
@@ -59,16 +61,9 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   });
 
   const NAME_CLASS = `${prefix}-tag-input`;
+  const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
   const BREAK_LINE_CLASS = `${prefix}-tag-input--break-line`;
-
-  const classes = [
-    NAME_CLASS,
-    {
-      [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
-    },
-    props.className,
-  ];
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
@@ -76,9 +71,19 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
 
   useImperativeHandle(ref, () => ({ ...(tagInputRef.current || {}) }));
 
+  const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = true;
+    inputProps?.onCompositionstart?.(value, context);
+  };
+
+  const onInputCompositionend = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
+    isCompositionRef.current = false;
+    inputProps?.onCompositionend?.(value, context);
+  };
+
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLDivElement> }) => {
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    onInnerEnter(value, context);
+    !isCompositionRef.current && onInnerEnter(value, context);
     scrollToRight();
   };
 
@@ -104,6 +109,15 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
         onClose: (index, item) => onClose({ index, item }),
       })
     : valueDisplay;
+
+  const classes = [
+    NAME_CLASS,
+    {
+      [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
+      [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
+    },
+    props.className,
+  ];
 
   return (
     <TInput
@@ -144,10 +158,13 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       onBlur={(inputValue, context) => {
         onBlur?.(tagValue, { e: context.e, inputValue });
       }}
+      onCompositionstart={onInputCompositionstart}
+      onCompositionend={onInputCompositionend}
     />
   );
 });
 
 TagInput.displayName = 'TagInput';
+TagInput.defaultProps = tagInputDefaultProps;
 
 export default TagInput;

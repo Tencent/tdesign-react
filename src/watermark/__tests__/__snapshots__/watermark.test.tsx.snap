@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 200px; pointer-events: none; background-repeat: repeat; background-image: url(data:image/png;base64,00); animation: none;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`graylevel.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 258px; pointer-events: none; background-repeat: repeat; background-image: url(data:image/png;base64,00); animation: none;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`image.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 194px; pointer-events: none; background-repeat: repeat; background-image: url(data:image/png;base64,00); animation: none;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`movingImage.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 158px; pointer-events: none; background-repeat: no-repeat; background-image: url(data:image/png;base64,00); animation: watermark infinite 200s;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`movingText.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 120px; pointer-events: none; background-repeat: no-repeat; background-image: url(data:image/png;base64,00); animation: watermark infinite 200s;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiline.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-watermark"
+    style="position: relative; overflow: hidden;"
+  >
+    <div
+      style="height: 300px;"
+    />
+    <div
+      style="z-index: 10; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%; background-size: 258px; pointer-events: none; background-repeat: repeat; background-image: url(data:image/png;base64,00); animation: none;"
+    />
+  </div>
+</DocumentFragment>
+`;

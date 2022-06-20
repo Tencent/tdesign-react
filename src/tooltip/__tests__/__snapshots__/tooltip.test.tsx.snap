@@ -227,7 +227,6 @@ exports[`duration.jsx 1`] = `
     </div>
     <button
       class="t-button t-button--theme-default t-button--variant-outline"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -236,6 +235,25 @@ exports[`duration.jsx 1`] = `
         点击再次查看
       </span>
     </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`mouse.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-tooltip-demo"
+  >
+    <div
+      class="t-popup__reference"
+    >
+      <a
+        href="#"
+        id="testa"
+      >
+        文案比较长...
+      </a>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -378,11 +396,12 @@ exports[`trigger.jsx 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="获得焦点时触发"
+            type="text"
             value=""
           />
         </div>

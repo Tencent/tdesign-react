@@ -50,9 +50,9 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [indeterminate, allChecked] = useMemo(() => {
-    const aciveLen = checked.length;
+    const activeLen = checked.length;
     const notLen = notDisabledData.length;
-    return [aciveLen && aciveLen < notLen, aciveLen && aciveLen === notLen];
+    return [activeLen && activeLen < notLen, activeLen && activeLen === notLen];
   }, [checked, notDisabledData]);
 
   const { classPrefix } = useConfig();

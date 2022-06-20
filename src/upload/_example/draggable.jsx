@@ -25,6 +25,9 @@ export default function UploadExample() {
           data={{ extraData: 123, fileName: 'certificate' }}
           draggable
           action="//service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+          onDrop={() => {
+            console.log('onDrop')
+          }}
         />
       </div>
     </>

@@ -24,7 +24,7 @@ export interface TdCheckboxProps {
    */
   defaultChecked?: boolean;
   /**
-   * 复选框内容，同 label
+   * 多选框内容，同 label
    */
   children?: TNode;
   /**
@@ -46,12 +46,12 @@ export interface TdCheckboxProps {
    */
   name?: string;
   /**
-   * 组件是否只读
+   * 只读状态
    * @default false
    */
   readonly?: boolean;
   /**
-   * 复选框的值
+   * 多选框的值
    */
   value?: string | number;
   /**
@@ -91,7 +91,7 @@ export interface TdCheckboxGroupProps {
    */
   defaultValue?: CheckboxGroupValue;
   /**
-   * 值变化时触发，`context.current` 表示当前变化的数据项，如果是全选则为空；`context.type` 表示引起选中数据变化的是选中或是取消选中
+   * 值变化时触发，`context.current` 表示当前变化的数据值，如果是全选则为空；`context.type` 表示引起选中数据变化的是选中或是取消选中；`context.option` 表示当前变化的数据项
    */
   onChange?: (value: CheckboxGroupValue, context: CheckboxGroupChangeContext) => void;
 }

@@ -18,7 +18,7 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
   const { classPrefix } = useConfig();
   const { value } = useMenuContext({ ...props, children, mode: 'title' });
 
-  const childs: ReactElement[] | null = useMemo(() => {
+  const childList: ReactElement[] | null = useMemo(() => {
     if (value.expandType === 'popup') return null;
     const activeMenu: ReactElement = checkSubMenuActive(children, value.active);
     if (!activeMenu) return null;
@@ -28,12 +28,12 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
     return activeMenu.props.children;
   }, [children, value.expandType, value.active]);
 
-  const currentChildsValues = childs?.length > 0 ? childs.map((item) => item.props.value) : [];
+  const currentChildListValues = childList?.length > 0 ? childList.map((item) => item.props.value) : [];
 
   return (
     <MenuContext.Provider value={value}>
       <div
-        className={classNames(className, `${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`)}
+        className={classNames(`${classPrefix}-head-menu`, `${classPrefix}-menu--${theme}`, className)}
         style={{ ...style }}
       >
         <div className={`${classPrefix}-head-menu__inner`}>
@@ -41,13 +41,13 @@ const HeadMenu: FC<HeadMenuProps> = (props) => {
           <ul className={`${classPrefix}-menu`}>{children}</ul>
           {operations && <div className={`${classPrefix}-menu__operations`}>{operations}</div>}
         </div>
-        {childs?.length > 0 && (
+        {childList?.length > 0 && (
           <ul className={`${classPrefix}-head-menu__submenu ${classPrefix}-submenu`}>
             <Tabs
-              value={currentChildsValues.includes(value.active) ? value.active : currentChildsValues[0]}
+              value={currentChildListValues.includes(value.active) ? value.active : currentChildListValues[0]}
               onChange={value.onChange}
             >
-              {childs.map(({ props }) => (
+              {childList.map(({ props }) => (
                 <TabPanel value={props.value} key={props.value} label={props.children}></TabPanel>
               ))}
             </Tabs>

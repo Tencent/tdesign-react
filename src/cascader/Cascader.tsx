@@ -9,7 +9,7 @@ import InputContent from './components/InputContent';
 // utils
 import useConfig from '../_util/useConfig';
 import TreeStore from '../_common/js/tree/tree-store';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { getTreeValue } from './utils/helper';
 
 // common logic
@@ -18,6 +18,7 @@ import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
 // types
 import { CascaderProps, CascaderContextType, TreeNodeValue, TreeNodeModel } from './interface';
 import { CascaderChangeSource, CascaderValue } from './type';
+import { cascaderDefaultProps } from './defaultProps';
 
 const Cascader: React.FC<CascaderProps> = (props) => {
   /**
@@ -25,9 +26,9 @@ const Cascader: React.FC<CascaderProps> = (props) => {
    */
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-cascader`;
-  const { className, style, defaultValue, onChange, collapsedItems } = props;
+  const { className, style, onChange, collapsedItems } = props;
 
-  const [value, setValue] = useDefault(props.value, defaultValue, onChange);
+  const [value, setValue] = useControlled(props, 'value', onChange);
 
   const [visible, setVisible] = useState(false);
   const [treeStore, setTreeStore] = useState(null);
@@ -42,17 +43,17 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   const loadingLocalText = t(local.loadingText);
   const cascaderContext = useMemo(() => {
     const {
-      size = 'medium',
-      disabled = false,
-      checkStrictly = false,
-      lazy = true,
-      multiple = false,
-      filterable = false,
-      clearable = false,
-      checkProps = {},
-      max = 0,
-      showAllLevels = true,
-      minCollapsedNum = false,
+      size,
+      disabled,
+      checkStrictly,
+      lazy,
+      multiple,
+      filterable,
+      clearable,
+      checkProps,
+      max,
+      showAllLevels,
+      minCollapsedNum,
       loadingText = loadingLocalText,
     } = props;
     return {
@@ -93,59 +94,56 @@ const Cascader: React.FC<CascaderProps> = (props) => {
   /**
    * build tree
    */
-  const { disabled, options = [], keys, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
-
-  const createStore = (onLoad: () => void) => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-      onLoad,
-    };
-    const store = new TreeStore(treeProps);
-
-    store.append(options);
-    return store;
-  };
-
-  if (!treeStore) {
-    const store = createStore(() => {
-      setTimeout(() => {
-        store.refreshNodes();
-        treeNodesEffect(inputVal, store, setTreeNodes);
-      }, 0);
-    });
-    setTreeStore(store);
-  }
+  const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
   useEffect(() => {
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-    };
-    treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, valueMode, treeStore]);
+    if (!options.length) return;
+    if (!treeStore) {
+      const createStore = (onLoad: () => void) => {
+        const treePropsKeys = {
+          ...keys,
+          children: typeof keys.children === 'string' ? keys.children : 'children',
+        };
+
+        const treeProps = {
+          onLoad,
+          options,
+          keys: treePropsKeys,
+        };
+        const store = new TreeStore(treeProps);
+        store.append(options);
+        return store;
+      };
+      const store = createStore(() => {
+        store.refreshNodes();
+        treeNodesEffect(inputVal, store, setTreeNodes);
+      });
+      setTreeStore(store);
+    } else {
+      if (treeStore.config.options === options) return;
+      treeStore.reload(options);
+      treeStore.refreshNodes();
+      treeStoreExpendEffect(treeStore, value, []);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes);
+    }
+  }, [inputVal, options, value, treeStore, keys]);
 
   useEffect(() => {
     if (!treeStore) return;
-    treeStore.reload(options);
-    treeStore.refreshNodes();
-    treeStoreExpendEffect(treeStore, value, []);
-    treeNodesEffect(inputVal, treeStore, setTreeNodes);
-  }, [inputVal, options, value, treeStore]);
+    const treeProps = {
+      keys: keys || {},
+      checkable: true,
+      checkStrictly,
+      expandMutex: true,
+      expandParent: true,
+      disabled,
+      load,
+      lazy,
+      valueMode,
+      options,
+    };
+    treeStore.setConfig(treeProps);
+  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
 
   // treeStore and expend effect
   useEffect(() => {
@@ -206,5 +204,8 @@ const Cascader: React.FC<CascaderProps> = (props) => {
     </Popup>
   );
 };
+
+Cascader.displayName = 'Cascader';
+Cascader.defaultProps = cascaderDefaultProps;
 
 export default Cascader;

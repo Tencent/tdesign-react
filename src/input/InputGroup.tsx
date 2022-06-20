@@ -7,17 +7,17 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
    * 是否拆分
    * @default false
    */
-  seperate?: boolean;
+  separate?: boolean;
 }
 
 const InputGroup = forwardRef((props: InputGroupProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
-  const { seperate, children, className, ...wrapperProps } = props;
+  const { separate, children, className, ...wrapperProps } = props;
   return (
     <div
       ref={ref}
-      className={classNames(className, `${classPrefix}-input-group`, {
-        [`${classPrefix}-input-group--seperate`]: seperate,
+      className={classNames(`${classPrefix}-input-group`, className, {
+        [`${classPrefix}-input-group--separate`]: separate,
       })}
       {...wrapperProps}
     >

@@ -11,10 +11,10 @@ export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defa
   const { globalConfig } = React.useContext(ConfigContext);
 
   function transformLocale(pattern: TransformPattern, placement?: Placement): string | Array<string> {
-    const REGX = /\{\s*([\w-]+)\s*\}/g;
+    const REGEXP = /\{\s*([\w-]+)\s*\}/g;
     if (typeof pattern === 'string') {
-      if (!placement || !REGX.test(pattern)) return pattern;
-      const translated = pattern.replace(REGX, (_, key) => {
+      if (!placement || !REGEXP.test(pattern)) return pattern;
+      const translated = pattern.replace(REGEXP, (_, key) => {
         if (placement) return String(placement[key]);
         return '';
       });
@@ -22,7 +22,7 @@ export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defa
     }
     if (Array.isArray(pattern)) {
       return pattern.map((p, index) => {
-        const translated = p.replace(REGX, (_: string, key: string) => {
+        const translated = p.replace(REGEXP, (_: string, key: string) => {
           if (placement) return String(placement[index][key]);
           return '';
         });
@@ -44,7 +44,7 @@ export function useLocaleReceiver<T extends keyof Locale>(componentName: T, defa
 
     return {
       ...(typeof locale === 'function' ? (locale as Function)() : locale),
-      ...((localeFromContext || {}) as typeof connectLocaleByName),
+      ...(localeFromContext || {}),
     };
   }, [componentName, defaultLocale, globalConfig]);
 

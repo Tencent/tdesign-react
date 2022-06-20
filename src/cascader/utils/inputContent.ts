@@ -1,6 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
 import { TreeNode, CascaderContextType, TreeNodeValue, CascaderProps } from '../interface';
+import { isInPage } from './helper';
 
 /**
  * icon Class
@@ -147,13 +148,10 @@ export function outerClickListenerEffect(
   event: MouseEvent | TouchEvent,
 ) {
   const { visible, setVisible } = cascaderContext;
-  if (!ref || ref.contains(event.target as Node)) {
-    return;
-  }
-
-  if (visible) {
-    setVisible(false);
-  }
+  const target = event.target as Node;
+  // 可能点击的dom在判断的时候已经被移除了
+  if (!visible || !ref || ref.contains(target) || !isInPage(target)) return;
+  setVisible(false);
 }
 
 /**
@@ -186,7 +184,7 @@ export function handleRemoveTagEffect(
 
   if (disabled) return;
   const checked = node.setChecked(!node.isChecked());
-  setValue(checked, 'unchecked', node.getModel());
+  setValue(checked, 'uncheck', node.getModel());
   if (isFunction(onRemove)) {
     onRemove({ value: checked, node: node as any });
   }

@@ -4,7 +4,7 @@ import { Textarea } from 'tdesign-react';
 export default function InputExample() {
   const [value, onChange] = useState('');
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Textarea
         placeholder="normal"
         value={value}
@@ -14,7 +14,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-      <div style={{ height: '20px' }}></div>
       <Textarea
         status="success"
         placeholder="success"
@@ -25,7 +24,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-      <div style={{ height: '20px' }}></div>
       <Textarea
         status="warning"
         placeholder="warning"
@@ -36,7 +34,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-      <div style={{ height: '20px' }}></div>
       <Textarea
         status="error"
         placeholder="error"
@@ -47,6 +44,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-    </>
+    </div>
   );
 }

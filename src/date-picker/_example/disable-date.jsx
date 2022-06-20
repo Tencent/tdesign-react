@@ -1,51 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker } from 'tdesign-react';
+import { DatePicker, DateRangePicker } from 'tdesign-react';
 
 export default function YearDatePicker() {
-  // 禁用昨天、前天
-  const [disableDate] = useState([dayjs().subtract(1, 'day').format(), dayjs().subtract(2, 'day').format()]);
-  // 只可选择最近6天内的日期
-  const [disableDate2] = useState({
-    before: dayjs().subtract(2, 'day').format(),
-    after: dayjs().add(3, 'day').format(),
-  });
-  // 明后三天禁用
-  const [disableDate3] = useState({
-    from: dayjs().add(1, 'day').format(),
-    to: dayjs().add(3, 'day').format(),
-  });
-  const [disableDate4] = useState({
-    before: dayjs().subtract(2, 'day').format(),
-    after: dayjs().add(10, 'day').format(),
-  });
+  const [pickDate, setPickDate] = useState();
 
-  function getDisableDate(date) {
-    // 禁用所有周六
-    return dayjs(date).day() === 6;
-  }
-
-  function handleChange(value) {
-    console.log(value);
-  }
+  const timePickerProps = useMemo(() => {
+    return {
+      disableTime: () => {
+        if (pickDate === dayjs().format('YYYY-MM-DD')) {
+          return {
+            hour: [0, 1, 2, 3, 4, 5, 6],
+          };
+        }
+        return {};
+      },
+    };
+  }, [pickDate]);
 
   return (
     <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-item--datepicker">
-        <DatePicker mode="date" disableDate={disableDate} onChange={handleChange} />
-      </div>
-      <div className="tdesign-demo-item--datepicker">
-        <DatePicker mode="date" disableDate={disableDate2} onChange={handleChange} />
-      </div>
-      <div className="tdesign-demo-item--datepicker">
-        <DatePicker mode="date" disableDate={disableDate3} onChange={handleChange} />
-      </div>
-      <div className="tdesign-demo-item--datepicker">
-        <DatePicker mode="date" range disableDate={disableDate4} onChange={handleChange} />
-      </div>
-      <div className="tdesign-demo-item--datepicker">
-        <DatePicker mode="date" disableDate={getDisableDate} onChange={handleChange} />
-      </div>
+      <DatePicker
+        placeholder="禁用昨天、前天"
+        disableDate={[dayjs().subtract(1, 'day').format(), dayjs().subtract(2, 'day').format()]}
+      />
+      <DatePicker
+        placeholder="明后三天禁用"
+        disableDate={{
+          from: dayjs().add(1, 'day').format(),
+          to: dayjs().add(3, 'day').format(),
+        }}
+      />
+      <DatePicker placeholder="禁用所有周六" disableDate={(date) => dayjs(date).day() === 6} />
+      <DatePicker
+        placeholder="禁用最近 3 天外的日期"
+        disableDate={{
+          before: dayjs().subtract(3, 'day').format(),
+          after: dayjs().add(3, 'day').format(),
+        }}
+      />
+      <DatePicker
+        placeholder="禁用日期精确到时间"
+        enableTimePicker
+        disableDate={{ before: dayjs().subtract(1, 'day').format() }}
+        timePickerProps={timePickerProps}
+        onPick={(date) => setPickDate(dayjs(date).format('YYYY-MM-DD'))}
+      />
+      <DateRangePicker
+        placeholder="禁用最近 5 天外的日期"
+        disableDate={{
+          before: dayjs().subtract(5, 'day').format(),
+          after: dayjs().add(5, 'day').format(),
+        }}
+      />
     </div>
   );
 }

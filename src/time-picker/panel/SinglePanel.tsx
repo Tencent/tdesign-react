@@ -1,27 +1,56 @@
 import React, { FC, useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import debounce from 'lodash/debounce';
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 
 import useConfig from '../../_util/useConfig';
 import noop from '../../_util/noop';
+import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
+import {
+  AM,
+  PM,
+  EPickerCols,
+  TIME_FORMAT,
+  MERIDIEM_LIST,
+  TWELVE_HOUR_FORMAT,
+} from '../../_common/js/time-picker/const';
+import { closestLookup } from '../../_common/js/time-picker/utils';
 
-import { TdTimePickerProps } from '../type';
-import { EPickerCols } from '../interfaces';
-
-import { MERIDIEM_LIST, AM, PM, useTimePickerTextConfig } from '../consts';
+import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
 
-export type SinglePanelProps = Pick<
-  TdTimePickerProps,
-  'steps' | 'format' | 'disableTime' | 'value' | 'hideDisabledTime' | 'onChange'
->;
+export interface SinglePanelProps
+  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onChange'> {
+  disableTime?: (
+    h: number,
+    m: number,
+    s: number,
+    context?: { partial: TimeRangePickerPartial },
+  ) => Partial<{ hour: number[]; minute: number[]; second: number[] }>;
+  position?: TimeRangePickerPartial;
+  triggerScroll?: boolean;
+  resetTriggerScroll?: () => void;
+}
+
+// https://github.com/iamkun/dayjs/issues/1552
+dayjs.extend(customParseFormat);
 
 const SinglePanel: FC<SinglePanelProps> = (props) => {
-  const { steps, format, onChange = noop, value, hideDisabledTime = true, disableTime } = props;
+  const {
+    steps,
+    format,
+    onChange = noop,
+    value,
+    hideDisabledTime = true,
+    disableTime,
+    position = 'start',
+    triggerScroll,
+    resetTriggerScroll,
+  } = props;
   const { classPrefix } = useConfig();
   const TEXT_CONFIG = useTimePickerTextConfig();
   const panelClassName = `${classPrefix}-time-picker__panel`;
@@ -33,12 +62,10 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const dayjsValue = useMemo(() => {
     const isStepsSet = !!steps.filter((v) => v > 1).length;
 
-    if (value) {
-      return dayjs(value, format);
-    }
-    if (isStepsSet) {
-      return dayjs().hour(0).minute(0).second(0);
-    }
+    if (value) return dayjs(value, format);
+
+    if (isStepsSet) return dayjs().hour(0).minute(0).second(0);
+
     return dayjs();
   }, [value, format, steps]);
 
@@ -47,7 +74,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   }, [cols]);
 
   useEffect(() => {
-    const match = format.match(/(a\s+|A\s+)?(h+|H+)?:?(m+)?:?(s+)?(\s+a|\s+A)?/);
+    const match = format.match(TIME_FORMAT);
     const [, startCol, hourCol, minuteCol, secondCol, endCol] = match;
     const { meridiem, hour, minute, second } = EPickerCols;
 
@@ -69,20 +96,18 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     return timeItemTotalHeight;
   }, []);
 
-  const closestLookup = (availableArr: Array<any>, calcVal: number, step: number) => {
-    if (step <= 1) return calcVal;
-    return availableArr.sort((a, b) => Math.abs(calcVal + 1 - a) - Math.abs(calcVal + 1 - b))[0];
-  };
-
-  const timeItemCanUsed = (col: EPickerCols, el: string | number) => {
-    const colIdx = timeArr.indexOf(col);
-    if (colIdx !== -1) {
-      const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
-      params[colIdx] = el as number;
-      return !(disableTime && disableTime?.(...params));
-    }
-    return true;
-  };
+  const timeItemCanUsed = useCallback(
+    (col: EPickerCols, el: string | number) => {
+      const colIdx = timeArr.indexOf(col);
+      if (colIdx !== -1) {
+        const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
+        params[colIdx] = Number(el);
+        return !(disableTime && disableTime?.(...params, { partial: position }))?.[col]?.includes(Number(el));
+      }
+      return true;
+    },
+    [position, disableTime, dayjsValue],
+  );
 
   // 获取需要渲染的column
   const getColList = useCallback(
@@ -90,15 +115,12 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       let count = 0;
 
       if (timeArr.includes(col)) {
-        // hour/minute/second column scroller render
+        // hour、minute and second columns
         const colIdx = timeArr.indexOf(col);
         const colStep = steps[colIdx];
 
-        if (col === EPickerCols.hour) {
-          count = /[h]{1}/.test(format) ? 11 : 23;
-        } else {
-          count = 59;
-        }
+        if (col === EPickerCols.hour) count = TWELVE_HOUR_FORMAT.test(format) ? 11 : 23;
+        else count = 59;
 
         const colList = range(0, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
 
@@ -106,22 +128,21 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
           ? colList.filter((t) => {
               const params: [number, number, number] = [dayjsValue.hour(), dayjsValue.minute(), dayjsValue.second()];
               params[colIdx] = Number(t);
-              return !disableTime?.(...params);
+              return !disableTime?.(...params, { partial: position })?.[col]?.includes(Number(t));
             })
           : colList;
       }
-      // meridiem column scroller render
+      // meridiem column
       return MERIDIEM_LIST;
     },
-    [steps, format, hideDisabledTime, dayjsValue, disableTime],
+    [steps, format, hideDisabledTime, dayjsValue, disableTime, position],
   );
 
   const getScrollDistance = useCallback(
     (col: EPickerCols, time: number | string) => {
-      if (col === EPickerCols.hour && /[h]{1}/.test(format)) {
+      if (col === EPickerCols.hour && /[h]{1}/.test(format))
         // eslint-disable-next-line no-param-reassign
-        (time as number) %= 12; // 一定是数字 直接cast
-      }
+        (time as number) %= 12; // 一定是数字，直接cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const timeItemTotalHeight = getItemHeight();
@@ -133,14 +154,15 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
   const handleScroll = (col: EPickerCols, idx: number) => {
     let val: number | string;
+    let formattedVal: string;
     const scrollTop = colsRef.current[idx]?.scrollTop;
 
     let colStep = Math.abs(Math.round(scrollTop / getItemHeight() + 0.5));
-    const meridiem = MERIDIEM_LIST[Math.min(colStep - 1, 1)].toLowerCase(); // 处理PM/AM与am/pm
+    const meridiem = MERIDIEM_LIST[Math.min(colStep - 1, 1)].toLowerCase(); // 处理PM、AM与am、pm
 
     if (Number.isNaN(colStep)) colStep = 1;
     if (timeArr.includes(col)) {
-      // hour/minute/second col scroll
+      // hour、minute and second columns
       let max = 59;
       if (col === EPickerCols.hour) {
         max = /[h]{1}/.test(format) ? 11 : 23;
@@ -152,33 +174,34 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         Number(getColList(col)[Math.min(colStep - 1, max + 1, availableArr.length - 1)]),
         Number(steps[colIdx]),
       );
-
-      if (col === EPickerCols.hour && cols.includes(EPickerCols.meridiem) && dayjsValue.hour() > 12) {
+      if (Number.isNaN(val)) val = availableArr[availableArr.length - 1];
+      if (col === EPickerCols.hour && cols.includes(EPickerCols.meridiem) && dayjsValue.hour() >= 12) {
         // 如果是十二小时制需要再判断
         val = Number(val) + 12;
       }
-    } else {
-      // meridiem col scroll
-
-      val = meridiem;
     }
+    // meridiem columns
+    else val = meridiem;
+
     const distance = getScrollDistance(col, val);
 
+    if (!dayjs(dayjsValue).isValid()) return;
     if (distance !== scrollTop) {
       if (timeArr.includes(col)) {
-        if (timeItemCanUsed(col, val)) onChange(dayjsValue[col]?.(val).format(format));
+        if (timeItemCanUsed(col, val)) formattedVal = dayjsValue[col]?.(val).format(format);
       } else {
         const currentHour = dayjsValue.hour();
         if (meridiem === AM && currentHour >= 12) {
-          onChange(dayjsValue.hour(currentHour - 12).format(format));
+          formattedVal = dayjsValue.hour(currentHour - 12).format(format);
         } else if (meridiem === PM && currentHour < 12) {
-          onChange(dayjsValue.hour(currentHour + 12).format(format));
+          formattedVal = dayjsValue.hour(currentHour + 12).format(format);
         }
       }
-      const scroller = colsRef.current[cols.indexOf(col)];
-      if (!distance || !scroller || scroller.scrollTop === distance) return;
+      onChange(formattedVal);
+      const scrollCtrl = colsRef.current[cols.indexOf(col)];
+      if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance) return;
 
-      scroller.scrollTo({
+      scrollCtrl.scrollTo({
         top: distance,
         behavior: 'smooth',
       });
@@ -188,18 +211,20 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   const scrollToTime = useCallback(
     (col: EPickerCols, time: number | string, idx: number, behavior: 'auto' | 'smooth' = 'auto') => {
       const distance = getScrollDistance(col, time);
-      const scroller = colsRef.current[idx];
-      if (!distance || !scroller || scroller.scrollTop === distance) return;
+      const scrollCtrl = colsRef.current[idx];
+      if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance || !timeItemCanUsed(col, time)) return;
 
-      scroller.scrollTo({
+      scrollCtrl.scrollTo({
         top: distance,
         behavior,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getScrollDistance],
   );
 
   const handleTimeItemClick = (col: EPickerCols, el: string | number) => {
+    if (!timeItemCanUsed(col, el)) return;
     if (timeArr.includes(col)) {
       if (col === EPickerCols.hour && dayjsValue.format('a') === PM && cols.includes(EPickerCols.meridiem)) {
         // eslint-disable-next-line no-param-reassign
@@ -217,24 +242,32 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   };
 
   // update each columns scroll distance
-  const updateTimeScrollPos = useCallback(() => {
-    const behavior = value ? 'smooth' : 'auto';
-    const isStepsSet = !!steps.filter((v) => v > 1).length;
+  const updateTimeScrollPos = useCallback(
+    (isAutoScroll = false) => {
+      const behavior = value && !isAutoScroll ? 'smooth' : 'auto';
+      const isStepsSet = !!steps.filter((v) => v > 1).length;
 
-    cols.forEach((col: EPickerCols, idx: number) => {
-      if (!isStepsSet || (isStepsSet && value)) {
-        // 如果没有设置大于1的steps或设置了大于1的step 正常处理滚动
-        scrollToTime(col, timeArr.includes(col) ? dayjsValue[col]?.() : dayjsValue.format('a'), idx, behavior);
-      } else {
-        // 否则初始化到每列第一个选项
-        scrollToTime(col, getColList(col)?.[0], idx, behavior);
-      }
-    });
-  }, [cols, scrollToTime, dayjsValue, value, steps, getColList]);
+      cols.forEach((col: EPickerCols, idx: number) => {
+        if (!isStepsSet || (isStepsSet && value)) {
+          // 如果没有设置大于1的steps或设置了大于1的step 正常处理滚动
+          scrollToTime(col, timeArr.includes(col) ? dayjsValue[col]?.() : dayjsValue.format('a'), idx, behavior);
+        } else {
+          // 否则初始化到每列第一个选项
+          scrollToTime(col, getColList(col)?.[0], idx, behavior);
+        }
+      });
+      resetTriggerScroll();
+    },
+    [cols, scrollToTime, dayjsValue, value, steps, getColList, resetTriggerScroll],
+  );
 
   useEffect(() => {
     updateTimeScrollPos();
-  });
+  }, [value, updateTimeScrollPos]);
+
+  useEffect(() => {
+    if (triggerScroll) updateTimeScrollPos(true);
+  }, [triggerScroll, updateTimeScrollPos]);
 
   const isCurrent = useCallback(
     (col: EPickerCols, colItem: string | number) => {
@@ -252,7 +285,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [format, dayjsValue],
   );
 
-  function renderScrollers() {
+  function renderScrollCtrl() {
     return cols.map((col, idx) => (
       <ul
         key={`${col}_${idx}`}
@@ -269,7 +302,8 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
             })}
             onClick={() => handleTimeItemClick(col, el)}
           >
-            {timeArr.includes(col) ? el : TEXT_CONFIG[el]}
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {timeArr.includes(col) ? (TWELVE_HOUR_FORMAT.test(format) && el === '00' ? '12' : el) : TEXT_CONFIG[el]}
           </li>
         ))}
       </ul>
@@ -284,7 +318,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
           <div key={`${col}_${idx}`} />
         ))}
       </div>
-      {renderScrollers()}
+      {renderScrollCtrl()}
     </div>
   );
 };

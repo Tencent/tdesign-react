@@ -7,16 +7,16 @@ export default function InputExample() {
   const [value3, onChange3] = useState('');
 
   return (
-    <>
+    <div className="tdesign-demo-block-row">
       <Textarea
         placeholder="请输入内容"
         value={value}
+        rows={2}
         onChange={(value) => {
           console.log(value);
           onChange(value);
         }}
       />
-      <br />
       <Textarea
         placeholder="请输入内容, 高度可自适应，autosize=true"
         value={value2}
@@ -26,7 +26,6 @@ export default function InputExample() {
           onChange2(value);
         }}
       />
-      <br />
       <Textarea
         placeholder="请输入内容，高度可自适应，最少3行，最多10行，超过会出滚动条"
         value={value3}
@@ -36,6 +35,6 @@ export default function InputExample() {
           onChange3(value);
         }}
       />
-    </>
+    </div>
   );
 }

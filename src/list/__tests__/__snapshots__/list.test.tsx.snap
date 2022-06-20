@@ -2071,7 +2071,6 @@ exports[`asyncLoading.jsx 1`] = `
     >
       <input
         class="t-radio-button__former"
-        readonly=""
         type="radio"
         value="load-more"
       />
@@ -2089,7 +2088,6 @@ exports[`asyncLoading.jsx 1`] = `
     >
       <input
         class="t-radio-button__former"
-        readonly=""
         type="radio"
         value="loading"
       />
@@ -2107,7 +2105,6 @@ exports[`asyncLoading.jsx 1`] = `
     >
       <input
         class="t-radio-button__former"
-        readonly=""
         type="radio"
         value="loading-custom"
       />
@@ -2125,7 +2122,6 @@ exports[`asyncLoading.jsx 1`] = `
     >
       <input
         class="t-radio-button__former"
-        readonly=""
         type="radio"
         value=""
       />

@@ -6,7 +6,6 @@ exports[`base.jsx 1`] = `
     <div>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -32,13 +31,12 @@ exports[`container.jsx 1`] = `
         <div>
           <button
             class="t-button t-button--theme-primary t-button--variant-base"
-            style="position: relative;"
             type="button"
           >
             <span
               class="t-button__text"
             >
-              FixedTop top: 0
+              affixed: false
             </span>
           </button>
         </div>

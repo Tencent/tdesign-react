@@ -10,7 +10,7 @@ import {
 } from './type';
 import { Styles } from '../common';
 import noop from '../_util/noop';
-import { NotificationComponent } from './Notification';
+import NotificationComponent from './Notification';
 
 interface NotificationListInstance extends TdNotificationProps {
   push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;

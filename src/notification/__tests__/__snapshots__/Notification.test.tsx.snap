@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="t-notification t-is-info"
   >
     <div
       class="t-notification__icon"
@@ -51,7 +51,6 @@ exports[`close-all.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -62,7 +61,6 @@ exports[`close-all.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -78,11 +76,28 @@ exports[`close-all.jsx 1`] = `
 exports[`content.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-columns"
+    class="tdesign-demo-block-column"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-notification__main"
       >
@@ -103,8 +118,25 @@ exports[`content.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
+      <div
+        class="t-notification__icon"
+      >
+        <svg
+          class="t-icon t-icon-info-circle-filled t-is-info"
+          fill="none"
+          height="1em"
+          viewBox="0 0 16 16"
+          width="1em"
+        >
+          <path
+            d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
+      </div>
       <div
         class="t-notification__main"
       >
@@ -129,8 +161,25 @@ exports[`content.jsx 1`] = `
 exports[`footer.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-notification"
+    class="t-notification t-is-info"
   >
+    <div
+      class="t-notification__icon"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled t-is-info"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </div>
     <div
       class="t-notification__main"
     >
@@ -177,7 +226,7 @@ exports[`icon.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -216,7 +265,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-error"
     >
       <div
         class="t-notification__icon"
@@ -255,7 +304,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-warning"
     >
       <div
         class="t-notification__icon"
@@ -294,7 +343,7 @@ exports[`icon.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-success"
     >
       <div
         class="t-notification__icon"
@@ -342,7 +391,7 @@ exports[`operation.jsx 1`] = `
     class="tdesign-demo-block-column"
   >
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -384,7 +433,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -398,7 +446,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -440,7 +488,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -454,7 +501,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -503,7 +550,6 @@ exports[`operation.jsx 1`] = `
           >
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -517,7 +563,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -564,7 +610,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -575,7 +620,6 @@ exports[`operation.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -589,7 +633,7 @@ exports[`operation.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-notification"
+      class="t-notification t-is-info"
     >
       <div
         class="t-notification__icon"
@@ -631,7 +675,6 @@ exports[`operation.jsx 1`] = `
           <div>
             <button
               class="t-button t-button--theme-default t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -642,7 +685,6 @@ exports[`operation.jsx 1`] = `
             </button>
             <button
               class="t-button t-button--theme-primary t-button--variant-text"
-              style="position: relative;"
               type="button"
             >
               <span
@@ -670,13 +712,15 @@ exports[`placement.jsx 1`] = `
       <div
         class="t-input__wrap"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+        value=""
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入横向偏移量"
+            type="text"
             value=""
           />
         </div>
@@ -684,13 +728,15 @@ exports[`placement.jsx 1`] = `
       <div
         class="t-input__wrap"
         style="width: 130px; display: inline-block; margin: 0px 20px 36px 0px;"
+        value=""
       >
         <div
-          class="t-input"
+          class="t-input t-size-m t-align-left t-is-default"
         >
           <input
             class="t-input__inner"
             placeholder="请输入纵向偏移量"
+            type="text"
             value=""
           />
         </div>
@@ -701,7 +747,6 @@ exports[`placement.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -712,7 +757,6 @@ exports[`placement.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -727,7 +771,6 @@ exports[`placement.jsx 1`] = `
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -738,7 +781,6 @@ exports[`placement.jsx 1`] = `
       </button>
       <button
         class="t-button t-button--theme-primary t-button--variant-base"
-        style="position: relative;"
         type="button"
       >
         <span
@@ -759,7 +801,6 @@ exports[`plugin.jsx 1`] = `
   >
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -770,7 +811,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -781,7 +821,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -792,7 +831,6 @@ exports[`plugin.jsx 1`] = `
     </button>
     <button
       class="t-button t-button--theme-primary t-button--variant-base"
-      style="position: relative;"
       type="button"
     >
       <span
@@ -809,7 +847,6 @@ exports[`toggle.jsx 1`] = `
 <DocumentFragment>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
-    style="position: relative;"
     type="button"
   >
     <span

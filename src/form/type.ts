@@ -64,15 +64,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   scrollToFirstError?: 'smooth' | 'auto';
   /**
-   * 校验不通过时，是否显示错误提示信息
+   * 校验不通过时，是否显示错误提示信息，统一控制全部表单项。如果希望控制单个表单项，请给 FormItem 设置该属性
    * @default true
    */
   showErrorMessage?: boolean;
-  /**
-   * 表单尺寸
-   * @default medium
-   */
-  size?: 'medium' | 'large';
   /**
    * 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标
    */
@@ -121,7 +116,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 设置表单字段值
    */
-  setFieldsValue?: (field: Array<keyof FormData>) => void;
+  setFieldsValue?: (field: Data) => void;
   /**
    * 设置自定义校验结果，如远程校验信息直接呈现。注意需要在组件挂载结束后使用该方法。`FormData` 指表单数据泛型
    */
@@ -131,9 +126,9 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   submit?: () => void;
   /**
-   * 校验函数，泛型 `FormData` 表示表单数据 TS 类型。【关于参数】params.fields 表示校验字段，如果设置了 fields ，本次校验将仅对这些字段进行校验。params.trigger 表示本次触发校验的范围，'blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表
+   * 校验函数，泛型 `FormData` 表示表单数据 TS 类型。<br/>【关于参数】`params.fields` 表示校验字段，如果设置了 `fields`，本次校验将仅对这些字段进行校验。`params.trigger` 表示本次触发校验的范围，'blur' 表示只触发校验规则设定为 trigger='blur' 的字段，'change' 表示只触发校验规则设定为 trigger='change' 的字段，默认触发全范围校验。<br />【关于返回值】返回值为 true 表示校验通过；如果校验不通过，返回值为校验结果列表
    */
-  validate?: (params?: FormValidateParams) => FormValidateResult<FormData>;
+  validate?: (params?: FormValidateParams) => Promise<FormValidateResult<FormData>>;
 }
 
 export interface TdFormItemProps {
@@ -144,9 +139,8 @@ export interface TdFormItemProps {
   for?: string;
   /**
    * 表单项说明内容
-   * @default ''
    */
-  help?: string;
+  help?: TNode;
   /**
    * 表单初始数据，重置时所需初始数据
    */
@@ -166,9 +160,8 @@ export interface TdFormItemProps {
   labelWidth?: string | number;
   /**
    * 表单字段名称
-   * @default ''
    */
-  name?: string;
+  name?: string | number | Array<string | number>;
   /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
@@ -179,6 +172,10 @@ export interface TdFormItemProps {
    */
   rules?: Array<FormRule>;
   /**
+   * 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage`
+   */
+  showErrorMessage?: boolean;
+  /**
    * 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon
    */
   statusIcon?: TNode;
@@ -187,6 +184,26 @@ export interface TdFormItemProps {
    * @default false
    */
   successBorder?: boolean;
+}
+
+export interface TdFormListProps {
+  /**
+   * 渲染函数
+   */
+  children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
+  /**
+   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
+   * @default []
+   */
+  initialData?: Array<any>;
+  /**
+   * 表单字段名称
+   */
+  name?: string | number;
+  /**
+   * 表单字段校验规则
+   */
+  rules?: { [field in keyof FormData]: Array<FormRule> } | Array<FormRule>;
 }
 
 export interface FormRule {
@@ -381,6 +398,14 @@ export type ValidateTriggerType = 'blur' | 'change' | 'all';
 export type Data = { [key: string]: any };
 
 export type InitialData = any;
+
+export type FormListField = { key: number; name: number; isListField: boolean };
+
+export type FormListFieldOperation = {
+  add: (defaultValue?: any, insertIndex?: number) => void;
+  remove: (index: number | number[]) => void;
+  move: (from: number, to: number) => void;
+};
 
 export interface IsDateOptions {
   format: string;

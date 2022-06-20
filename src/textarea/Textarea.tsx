@@ -4,9 +4,10 @@ import useConfig from '../_util/useConfig';
 import { TdTextareaProps } from './type';
 import { StyledProps } from '../common';
 import noop from '../_util/noop';
-import useDefault from '../_util/useDefault';
+import useControlled from '../hooks/useControlled';
 import { getCharacterLength } from '../_util/helper';
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
+import { textareaDefaultProps } from './defaultProps';
 
 export interface TextareaProps extends TdTextareaProps, StyledProps {}
 export interface TextareaRefInterface extends React.RefObject<unknown> {
@@ -22,29 +23,30 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     className,
     readonly,
     autofocus,
-    defaultValue,
     style,
     onKeydown = noop,
     onKeypress = noop,
     onKeyup = noop,
-    autosize = false,
+    autosize,
     status,
     tips,
+    allowInputOverMax,
     ...otherProps
   } = props;
 
-  const [value = '', setValue] = useDefault(props.value, defaultValue, props.onChange);
+  const [value = '', setValue] = useControlled(props, 'value', props.onChange);
   const [isFocused, setIsFocused] = useState(false);
+  const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState({});
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef: React.RefObject<HTMLTextAreaElement> = useRef();
   const wrapperRef: React.RefObject<HTMLDivElement> = useRef();
   const currentLength = useMemo(() => (value ? String(value).length : 0), [value]);
   const characterLength = useMemo(() => {
-    const characterInfo = getCharacterLength(String(value), maxcharacter);
+    const characterInfo = getCharacterLength(String(value), allowInputOverMax ? Infinity : maxcharacter);
     if (typeof characterInfo === 'object') return characterInfo.length;
     return characterInfo;
-  }, [value, maxcharacter]);
+  }, [value, allowInputOverMax, maxcharacter]);
 
   const { classPrefix } = useConfig();
 
@@ -66,7 +68,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
     return eventProps;
   }, {});
 
-  const textareaClassNames = classNames(className, `${classPrefix}-textarea__inner`, {
+  const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
     [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
@@ -78,26 +80,43 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
       setTextareaStyle(calcTextareaHeight(textareaRef.current));
     } else if (typeof autosize === 'object') {
       setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
-    } else {
-      // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
-      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
     }
   }, [autosize]);
 
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
-    if (maxcharacter && maxcharacter >= 0) {
+    if (!allowInputOverMax && maxcharacter && maxcharacter >= 0) {
       const stringInfo = getCharacterLength(val, maxcharacter);
       val = typeof stringInfo === 'object' && stringInfo.characters;
     }
     setValue(val, { e });
-    adjustTextareaHeight();
   }
+
+  const renderLimitText = (current: number, max: number) => (
+    <span className={`${classPrefix}-textarea__limit`}>
+      {isOvermax ? <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span> : `${current}`}
+      {`/${max}`}
+    </span>
+  );
+
+  useEffect(() => {
+    // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
+    if (autosize === false) {
+      setTextareaStyle({ height: 'auto', minHeight: 'auto' });
+    }
+  }, [adjustTextareaHeight, autosize]);
 
   useEffect(() => {
     adjustTextareaHeight();
-  }, [adjustTextareaHeight]);
+  }, [adjustTextareaHeight, value]);
+
+  useEffect(() => {
+    if (allowInputOverMax) {
+      setIsOvermax(!!(maxlength && currentLength > maxlength) || !!(maxcharacter && characterLength > maxcharacter));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [characterLength]);
 
   useImperativeHandle(ref as TextareaRefInterface, () => ({
     currentElement: wrapperRef.current,
@@ -105,7 +124,7 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
   }));
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(className, `${classPrefix}-textarea`)}>
+    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
       <textarea
         {...textareaProps}
         {...eventProps}
@@ -115,19 +134,15 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
         readOnly={readonly}
         autoFocus={autofocus}
         disabled={disabled}
-        maxLength={maxlength}
+        maxLength={allowInputOverMax ? Infinity : maxlength}
         onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
         onKeyUp={(e) => onKeyup(e.currentTarget.value, { e })}
         ref={textareaRef}
       />
-      {hasMaxcharacter ? (
-        <span className={`${classPrefix}-textarea__limit`}>{`${characterLength}/${maxcharacter}`}</span>
-      ) : null}
-      {!hasMaxcharacter && maxlength ? (
-        <span className={`${classPrefix}-textarea__limit`}>{`${currentLength}/${maxlength}`}</span>
-      ) : null}
+      {hasMaxcharacter && renderLimitText(characterLength, maxcharacter)}
+      {!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength)}
       {tips ? (
         <div
           className={classNames(`${classPrefix}-textarea__tips`, {
@@ -143,5 +158,6 @@ const Textarea = forwardRef((props: TextareaProps, ref: TextareaRefInterface) =>
 });
 
 Textarea.displayName = 'Textarea';
+Textarea.defaultProps = textareaDefaultProps;
 
 export default Textarea;

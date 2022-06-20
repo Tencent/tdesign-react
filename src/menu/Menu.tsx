@@ -7,6 +7,7 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { MenuContext } from './MenuContext';
 import { DEFAULT_MENU_WIDTH } from './_util/constant';
 import useMenuContext from './hooks/useMenuContext';
+import { menuDefaultProps } from './defaultProps';
 
 import HeadMenu from './HeadMenu';
 import SubMenu from './SubMenu';
@@ -32,7 +33,7 @@ const Menu = forwardRefWithStatics(
       <MenuContext.Provider value={value}>
         <div
           ref={ref}
-          className={classNames(className, `${classPrefix}-default-menu`, {
+          className={classNames(`${classPrefix}-default-menu`, className, {
             [`${classPrefix}-is-collapsed`]: collapsed,
             [`${classPrefix}-menu--dark`]: theme === 'dark',
           })}
@@ -53,5 +54,6 @@ const Menu = forwardRefWithStatics(
 );
 
 Menu.displayName = 'Menu';
+Menu.defaultProps = menuDefaultProps;
 
 export default Menu;

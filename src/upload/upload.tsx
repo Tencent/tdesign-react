@@ -15,19 +15,14 @@ import FlowList from './themes/flow-list/index';
 import BooleanRender from './boolean-render';
 import { finishUpload, isSingleFile, urlCreator } from './util';
 import type { FlowRemoveContext, TdUploadFile, UploadProps } from './types';
-import type {
-  ProgressContext,
-  RequestMethodResponse,
-  SuccessContext,
-  TdUploadProps,
-  UploadFile,
-  UploadRemoveContext,
-} from './type';
-import useDefaultValue from './hooks/useDefaultValue';
+import type { ProgressContext, RequestMethodResponse, SuccessContext, UploadFile, UploadRemoveContext } from './type';
+import useControlled from '../hooks/useControlled';
 import useSizeLimit from './hooks/useSizeLimit';
+import { uploadDefaultProps } from './defaultProps';
 
-const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref) => {
+const Upload = forwardRef((props: UploadProps, ref) => {
   const {
+    method = 'post',
     disabled,
     multiple,
     accept,
@@ -41,27 +36,29 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     tips,
     format,
     data,
-    headers,
     withCredentials,
     autoUpload = true,
-    files: fileList = [],
     sizeLimit,
     formatResponse,
     beforeUpload,
     onProgress,
-    onChange,
     onSuccess,
     onFail,
     onRemove,
     onDragenter,
     onDragleave,
+    onDrop,
     onPreview,
     onSelectChange,
     onCancelUpload,
     requestMethod,
     customDraggerRender,
     children,
-  } = useDefaultValue<Array<TdUploadFile>, UploadProps>(props, []);
+  } = props;
+
+  const [fileList, onChange] = useControlled(props, 'files', props.onChange);
+
+  const { headers } = props;
 
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
@@ -150,7 +147,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
   );
 
   const singleDraggable = useMemo(
-    () => !multiple && draggable && ['file', 'file-input', 'image', 'custom'].includes(theme),
+    () => (!multiple || ['file', 'file-input', 'image', 'custom'].includes(theme)) && draggable,
     [draggable, multiple, theme],
   );
 
@@ -230,9 +227,11 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
         return handleRequestMethod(file);
       }
       file.xhr = request({
+        method,
         action,
         data,
         file,
+        files: [file],
         name,
         onError,
         headers,
@@ -242,6 +241,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       });
     },
     [
+      method,
       action,
       data,
       handleProgress,
@@ -280,6 +280,8 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     files.map((fileRaw) => {
       const file = typeof format === 'function' ? format(fileRaw) : fileRaw;
       const uploadFile: TdUploadFile = {
+        response: undefined,
+        url: '',
         raw: fileRaw,
         lastModified: fileRaw.lastModified,
         name: fileRaw.name,
@@ -301,9 +303,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
     }
     if (sizeLimit) {
       const [overrideSize, errorMsg] = handleSizeLimit(file.size, sizeLimit);
-      if (errorMsg) {
-        setErrorMsg(errorMsg);
-      }
+      setErrorMsg(errorMsg);
       return Promise.resolve(overrideSize);
     }
     return Promise.resolve(true);
@@ -367,6 +367,14 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       onDragleave?.({ e });
     },
     [disabled, onDragleave],
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      if (disabled) return;
+      onDrop?.({ e });
+    },
+    [disabled, onDrop],
   );
 
   // TODO
@@ -439,7 +447,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
 
   useMemo(() => {
     const timestamp = Date.now();
-    (fileList || []).forEach((file, index) => {
+    (fileList || []).forEach((file: any, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         // eslint-disable-next-line no-param-reassign
         file.uid = `td__upload__${timestamp}_${index}__`;
@@ -496,6 +504,7 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
           onChange={handleDragChange}
           onDragenter={handleDragenter}
           onDragleave={handleDragleave}
+          onDrop={handleDrop}
           file={fileList && fileList[0]}
           display={theme}
           customDraggerRender={customDraggerRender}
@@ -549,6 +558,9 @@ const Upload: React.ForwardRefRenderFunction<unknown, UploadProps> = (props, ref
       </BooleanRender>
     </div>
   );
-};
+});
 
-export default forwardRef<unknown, TdUploadProps>(Upload);
+Upload.displayName = 'Upload';
+Upload.defaultProps = uploadDefaultProps;
+
+export default Upload;

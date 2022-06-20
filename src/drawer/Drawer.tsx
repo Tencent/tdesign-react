@@ -11,6 +11,7 @@ import { StyledProps } from '../common';
 import DrawerWrapper from './DrawerWrapper';
 import Button from '../button';
 import useConfig from '../_util/useConfig';
+import { drawerDefaultProps } from './defaultProps';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -195,7 +196,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     const defaultCancelBtn = (
       <Button theme="default" onClick={onCancelClick} className={`${prefixCls}__cancel`}>
-        {cancelText}
+        {cancelBtn && typeof cancelBtn === 'string' ? cancelBtn : cancelText}
       </Button>
     );
 
@@ -240,7 +241,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
         ref={containerRef}
         className={drawerClass}
         style={{ zIndex, ...style }}
-        tabIndex={0} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
+        tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
         onKeyDown={onKeyDownEsc}
         onTransitionEnd={onTransitionEnd}
       >
@@ -256,20 +257,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
   );
 });
 
-Drawer.defaultProps = {
-  attach: '',
-  closeBtn: true,
-  closeOnOverlayClick: true,
-  closeOnEscKeydown: true,
-  size: 'small',
-  placement: 'right',
-  mode: 'overlay',
-  destroyOnClose: false,
-  showOverlay: true,
-  header: undefined,
-  footer: true,
-};
-
 Drawer.displayName = 'Drawer';
+Drawer.defaultProps = drawerDefaultProps;
 
 export default Drawer;
