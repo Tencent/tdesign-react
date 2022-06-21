@@ -62,12 +62,6 @@ export default {
           component: () => import('tdesign-react/button/button.md'),
         },
         {
-          title: 'Divider 分割线',
-          name: 'divider',
-          path: '/react/components/divider',
-          component: () => import('tdesign-react/divider/divider.md'),
-        },
-        {
           title: 'Icon 图标',
           name: 'icon',
           path: '/react/components/icon',
@@ -91,6 +85,18 @@ export default {
           name: 'layout',
           path: '/react/components/layout',
           component: () => import('tdesign-react/layout/layout.md'),
+        },
+        {
+          title: 'Divider 分割线',
+          name: 'divider',
+          path: '/react/components/divider',
+          component: () => import('tdesign-react/divider/divider.md'),
+        },
+        {
+          title: 'Space 间距',
+          name: 'space',
+          path: '/react/components/space',
+          component: () => import('tdesign-react/space/space.md'),
         },
       ],
     },
