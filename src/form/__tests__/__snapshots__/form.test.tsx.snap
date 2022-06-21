@@ -4500,7 +4500,7 @@ exports[`validate-message.jsx 1`] = `
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__account t-form__item-with-help t-form__item-with-extra"
+      class="t-form__item t-form-item__account t-form__item-with-help"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -4511,7 +4511,7 @@ exports[`validate-message.jsx 1`] = `
         </label>
       </div>
       <div
-        class="t-form__controls t-is-error"
+        class="t-form__controls"
         style="margin-left: 100px;"
       >
         <div
@@ -4538,16 +4538,10 @@ exports[`validate-message.jsx 1`] = `
         >
           这是用户名字段帮助说明
         </div>
-        <div
-          class="t-input__extra"
-          title="自定义用户名校验信息提示"
-        >
-          自定义用户名校验信息提示
-        </div>
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__description t-form__item-with-help t-form__item-with-extra"
+      class="t-form__item t-form-item__description t-form__item-with-help"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -4558,7 +4552,7 @@ exports[`validate-message.jsx 1`] = `
         </label>
       </div>
       <div
-        class="t-form__controls t-is-warning"
+        class="t-form__controls"
         style="margin-left: 100px;"
       >
         <div
@@ -4584,12 +4578,6 @@ exports[`validate-message.jsx 1`] = `
           class="t-input__help"
         >
           一句话介绍自己
-        </div>
-        <div
-          class="t-input__extra"
-          title="自定义个人简介校验信息提示"
-        >
-          自定义个人简介校验信息提示
         </div>
       </div>
     </div>
@@ -4681,6 +4669,17 @@ exports[`validate-message.jsx 1`] = `
               class="t-button__text"
             >
               重置
+            </span>
+          </button>
+          <button
+            class="t-button t-button--theme-default t-button--variant-base"
+            style="margin-right: 10px;"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              仅校验不展示验证信息
             </span>
           </button>
           <button
