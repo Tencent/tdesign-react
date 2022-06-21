@@ -32,4 +32,4 @@ export interface TdSpaceProps {
   size?: Size | Size[];
 }
 
-export type Size = number | SizeEnum;
+export type Size = number | string | SizeEnum;
