@@ -242,8 +242,8 @@ const Select = forwardRefWithStatics(
           filteredOptions = tmpPropOptions.filter((option) => filter(value, option));
         }
       } else if (Array.isArray(tmpPropOptions)) {
-        const filterRegExp = new RegExp(value, 'i');
-        filteredOptions = tmpPropOptions.filter((option) => filterRegExp.test(option?.label)); // 不区分大小写
+        const upperValue = value.toUpperCase();
+        filteredOptions = tmpPropOptions.filter((option) => (option?.label || '').toUpperCase().includes(upperValue)); // 不区分大小写
       }
 
       if (creatable) {
