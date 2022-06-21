@@ -1033,4 +1033,29 @@ module.exports = {
       }, [changedProps, panel]);
     `,
   },
+  Space: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Space, Button } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'space', value: 'space' }];
+    `,
+    usageStr: `
+      const defaultProps = { content: '这是一个弹出框' };
+      useEffect(() => {
+        setRenderComp((
+          <Space {...defaultProps} {...changedProps}>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+            <Button>按钮</Button>
+          </Space>
+        ));
+      }, [changedProps]);
+    `,
+  },
 };

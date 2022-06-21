@@ -73,6 +73,12 @@ export default {
           path: '/react/components/icon',
           component: () => import('tdesign-react/icon/icon.md'),
         },
+        {
+          title: 'Space 间距',
+          name: 'space',
+          path: '/react/components/space',
+          component: () => import('tdesign-react/space/space.md'),
+        },
       ],
     },
     {
