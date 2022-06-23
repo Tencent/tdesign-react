@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, InputNumber } from 'tdesign-react';
+import { Checkbox, InputNumber, Space } from 'tdesign-react';
 
 const options = [
   {
@@ -24,7 +24,7 @@ export default function CheckboxExample() {
   const [city, setCity] = useState(['北京']);
   const [max, setMax] = useState(1);
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div>
         最多可选:{' '}
         <InputNumber
@@ -45,6 +45,6 @@ export default function CheckboxExample() {
           </Checkbox>
         ))}
       </Checkbox.Group>
-    </div>
+    </Space>
   );
 }
