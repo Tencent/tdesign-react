@@ -29,7 +29,7 @@ export interface TdSpaceProps {
    * 间距大小
    * @default medium
    */
-  size?: Size | Size[];
+  size?: SpaceSize | SpaceSize[];
 }
 
-export type Size = number | string | SizeEnum;
+export type SpaceSize = number | string | SizeEnum;
