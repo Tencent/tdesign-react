@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Checkbox, Button } from 'tdesign-react';
+import { Checkbox, Button, Space } from 'tdesign-react';
 
 export default function CheckboxControlledExample() {
   const [checked, setChecked] = useState(false);
   return (
-    <>
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Checkbox checked={checked}>腾讯云A</Checkbox>
         <Checkbox checked={checked}>腾讯云B</Checkbox>
         <Checkbox checked={checked}>腾讯云C</Checkbox>
-      </div>
+      </Space>
 
-      <div style={{ margin: '16px 0' }}>
+      <Space>
         <Button onClick={() => setChecked(false)}>重置</Button>
-        <Button style={{ marginLeft: 16 }} onClick={() => setChecked(true)}>全选</Button>
-      </div>
-    </>
+        <Button style={{ marginLeft: 16 }} onClick={() => setChecked(true)}>
+          全选
+        </Button>
+      </Space>
+    </Space>
   );
 }
