@@ -3,7 +3,7 @@ import { Avatar, Space } from 'tdesign-react';
 
 export default function SizeAvatar() {
   return (
-    <Space direction="horizontal" breakLine size="large">
+    <Space direction="vertical" size="large">
       <Space align="center">
         <Avatar size="small" style={{ marginRight: '40px' }}>
           W

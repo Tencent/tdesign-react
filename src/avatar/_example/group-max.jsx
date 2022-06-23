@@ -6,7 +6,7 @@ const { Group: AvatarGroup } = Avatar;
 
 export default function GroupMaxAvatar() {
   return (
-    <Space direction="horizontal">
+    <Space direction="vertical">
       <AvatarGroup size="large" max={2}>
         <Avatar image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>
         <Avatar>Avatar</Avatar>

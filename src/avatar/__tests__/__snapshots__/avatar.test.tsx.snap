@@ -139,7 +139,7 @@ exports[`base.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
+    class="t-space t-space-vertical"
     style="gap: 16px;"
   >
     <div
@@ -231,7 +231,7 @@ exports[`group.jsx 1`] = `
 exports[`group-cascading.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
+    class="t-space t-space-vertical"
     style="gap: 16px;"
   >
     <div
@@ -323,7 +323,7 @@ exports[`group-cascading.jsx 1`] = `
 exports[`group-max.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
+    class="t-space t-space-vertical"
     style="gap: 16px;"
   >
     <div
@@ -494,8 +494,8 @@ exports[`shape.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
-    style="gap: 24px; flex-wrap: wrap;"
+    class="t-space t-space-vertical"
+    style="gap: 24px;"
   >
     <div
       class="t-space-item"

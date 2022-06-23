@@ -6,7 +6,7 @@ const { Group: AvatarGroup } = Avatar;
 
 export default function GroupCascadingAvatar() {
   return (
-    <Space direction="horizontal">
+    <Space direction="vertical">
       <AvatarGroup>
         <Avatar image="https://tdesign.gtimg.com/site/avatar.jpg"></Avatar>
         <Avatar>W</Avatar>
