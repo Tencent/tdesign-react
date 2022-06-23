@@ -8,7 +8,7 @@ import SelectInput from '../select-input';
 import SinglePanel from './panel/SinglePanel';
 import useSingle from './hooks/useSingle';
 import useFormat from './hooks/useFormat';
-import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
+import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 import { datePickerDefaultProps } from './defaultProps';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}

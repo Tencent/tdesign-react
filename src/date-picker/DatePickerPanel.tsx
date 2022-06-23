@@ -5,7 +5,7 @@ import { TdDatePickerPanelProps, DateValue, DatePickerYearChangeTrigger, DatePic
 import SinglePanel from './panel/SinglePanel';
 import useSingleValue from './hooks/useSingleValue';
 import useFormat from './hooks/useFormat';
-import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils-new';
+import { subtractMonth, addMonth, extractTimeObj } from '../_common/js/date-picker/utils';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 

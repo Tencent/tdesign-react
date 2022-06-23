@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePickerPanel, DateRangePickerPanel } from 'tdesign-react';
+import { DatePickerPanel, DateRangePickerPanel, Space } from 'tdesign-react';
 
 export default function PanelExample() {
   function handleChange(value) {
@@ -7,7 +7,7 @@ export default function PanelExample() {
   }
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div style={{ border: '1px solid var(--td-border-level-2-color)', width: 'fit-content', borderRadius: 3 }}>
         <DatePickerPanel onChange={handleChange} />
       </div>
@@ -21,6 +21,6 @@ export default function PanelExample() {
       <div style={{ border: '1px solid var(--td-border-level-2-color)', width: 'fit-content', borderRadius: 3 }}>
         <DateRangePickerPanel enableTimePicker onChange={handleChange} />
       </div>
-    </div>
+    </Space>
   );
 }
