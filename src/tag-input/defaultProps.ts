@@ -8,7 +8,7 @@ export const tagInputDefaultProps: TdTagInputProps = {
   autoWidth: false,
   clearable: false,
   dragSort: false,
-  excessTagsDisplayType: 'scroll',
+  excessTagsDisplayType: 'break-line',
   minCollapsedNum: 0,
   placeholder: undefined,
   readonly: false,
