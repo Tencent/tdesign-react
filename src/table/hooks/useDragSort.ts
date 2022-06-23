@@ -1,9 +1,10 @@
 // 表格 行拖拽 + 列拖拽功能
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
-import Sortable, { SortableEvent, SortableOptions } from 'sortablejs';
+import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import get from 'lodash/get';
 import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
 import useClassName from './useClassName';
+import { hasClass } from '../../_util/dom';
 import log from '../../_common/js/log';
 import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
@@ -19,7 +20,7 @@ import { BaseTableColumns } from '../interface';
  */
 export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
-  const { tableDraggableClasses, tableBaseClass } = useClassName();
+  const { tableDraggableClasses, tableBaseClass, tableFullRowClasses } = useClassName();
   const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
   // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
   const dragCol = useMemo(() => columns.find((item) => item.colKey === 'drag'), [columns]);
@@ -71,10 +72,13 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
       ghostClass: tableDraggableClasses.ghost,
       chosenClass: tableDraggableClasses.chosen,
       dragClass: tableDraggableClasses.dragging,
+      filter: `.${tableFullRowClasses.base}`, // 过滤首行尾行固定
+      onMove: (evt: MoveEvent) => !hasClass(evt.related, tableFullRowClasses.base),
       onEnd: (evt: SortableEvent) => {
         // 处理受控：拖拽列表恢复原始排序，等待外部数据 data 变化，更新最终顺序
-        dragInstanceTmp?.sort([...lastRowList.current]);
         let { oldIndex: currentIndex, newIndex: targetIndex } = evt;
+
+        dragInstanceTmp?.sort([...lastRowList.current]);
         if (props.firstFullRow) {
           currentIndex -= 1;
           targetIndex -= 1;
@@ -91,7 +95,7 @@ export default function useDragSort(props: TdPrimaryTableProps, primaryTableRef:
         };
         // currentData is going to be deprecated.
         params.currentData = params.newData;
-        console.log([...tData.current], { ...params });
+
         onDragSort?.(params);
       },
     };
