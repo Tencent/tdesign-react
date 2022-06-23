@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from 'tdesign-react';
+import { Button, Space } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Button disabled>填充按钮</Button>
       <Button loading>加载中</Button>
-    </div>
+    </Space>
   );
 }
