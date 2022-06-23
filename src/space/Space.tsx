@@ -33,10 +33,10 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
 
     return {
       gap: renderGap,
-      ...(breakLine ? { 'flex-wrap': 'wrap' } : {}),
+      ...(breakLine ? { flexWrap: 'wrap' } : {}),
       ...style,
     };
-  }, [style, size, breakLine]);
+  }, [style, size, breakLine]) as React.CSSProperties;
 
   function renderChildren() {
     const childCount = React.Children.count(children);
