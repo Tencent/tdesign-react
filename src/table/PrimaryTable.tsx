@@ -66,10 +66,8 @@ export default function PrimaryTable(props: TPrimaryTableProps) {
     if (isRowHandlerDraggable || isRowDraggable) {
       tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
     }
-    console.log(tAttributes);
     return tAttributes.filter((v) => v);
   })();
-
   // 1. 影响列数量的因素有：自定义列配置、展开/收起行、多级表头；2. 影响表头内容的因素有：排序图标、筛选图标
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
     const arr: PrimaryTableCol<TableRowData>[] = [];
