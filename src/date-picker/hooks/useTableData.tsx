@@ -1,5 +1,5 @@
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getWeeks, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils-new';
+import { getWeeks, getYears, getMonths, flagActive } from '../../_common/js/date-picker/utils';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {
