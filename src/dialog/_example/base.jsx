@@ -10,13 +10,13 @@ export default function BasicUsage() {
     setVisible(false);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         Open Modal
       </Button>
       <Dialog header="Basic Modal" visible={visible} onClose={handleClose}>
         <p>This is a dialog</p>
       </Dialog>
-    </div>
+    </>
   );
 }
