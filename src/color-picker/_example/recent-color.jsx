@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColorPickerPanel } from 'tdesign-react';
+import { ColorPickerPanel, Space } from 'tdesign-react';
 
 export default function RecentColor() {
   const color = '#0052d9';
@@ -15,7 +15,7 @@ export default function RecentColor() {
   ]);
 
   return (
-    <div className="tdesign-demo-block-row" style={{ alignItems: 'flex-start' }}>
+    <Space>
       <div>
         <h6 style={{ marginBottom: 10 }}>预设最近使用色</h6>
         <ColorPickerPanel defaultValue={color} recentColors={recentColors} onRecentColorsChange={setRecentColors} />
@@ -24,6 +24,6 @@ export default function RecentColor() {
         <h6 style={{ marginBottom: 10 }}>完全不显示最近使用色</h6>
         <ColorPickerPanel defaultValue={color} recentColors={null} />
       </div>
-    </div>
+    </Space>
   );
 }
