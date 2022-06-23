@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from 'tdesign-react';
+import { Button, Space } from 'tdesign-react';
 
 export default function ButtonExample() {
   return (
-    <div className="tdesign-demo-block-column">
-      <div className="tdesign-demo-block-row">
+    <Space direction="vertical">
+      <Space>
         <Button variant="outline" ghost>
           幽灵按钮
         </Button>
@@ -14,8 +14,8 @@ export default function ButtonExample() {
         <Button variant="text" ghost>
           幽灵按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button variant="outline" theme="primary" ghost>
           幽灵按钮
         </Button>
@@ -25,8 +25,8 @@ export default function ButtonExample() {
         <Button variant="text" theme="primary" ghost>
           幽灵按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button variant="outline" theme="success" ghost>
           幽灵按钮
         </Button>
@@ -36,8 +36,8 @@ export default function ButtonExample() {
         <Button variant="text" theme="success" ghost>
           幽灵按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button variant="outline" theme="warning" ghost>
           幽灵按钮
         </Button>
@@ -47,8 +47,8 @@ export default function ButtonExample() {
         <Button variant="text" theme="warning" ghost>
           幽灵按钮
         </Button>
-      </div>
-      <div className="tdesign-demo-block-row">
+      </Space>
+      <Space>
         <Button variant="outline" theme="danger" ghost>
           幽灵按钮
         </Button>
@@ -58,7 +58,7 @@ export default function ButtonExample() {
         <Button variant="text" theme="danger" ghost>
           幽灵按钮
         </Button>
-      </div>
-    </div>
+      </Space>
+    </Space>
   );
 }
