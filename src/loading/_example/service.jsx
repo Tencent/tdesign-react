@@ -15,7 +15,7 @@ export default function Service() {
   };
 
   return (
-    <div>
+    <>
       <div
         id="loading-service"
         style={{ width: '100%', height: '60px', textAlign: 'center', lineHeight: '60px', position: 'relative' }}
@@ -29,6 +29,6 @@ export default function Service() {
         </Button>
         <Button onClick={handleAttach}>服务加载方式（局部）</Button>
       </div>
-    </div>
+    </>
   );
 }
