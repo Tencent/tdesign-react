@@ -153,12 +153,12 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           popupProps={{ attach: (triggerNode: HTMLDivElement) => triggerNode.parentElement }}
           panelTopContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
-              更多...
+              ...
             </div>
           }
           panelBottomContent={
             <div className={`${classPrefix}-select-option`} onClick={handlePanelBottomClick}>
-              更多...
+              ...
             </div>
           }
         />

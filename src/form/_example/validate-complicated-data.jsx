@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Select, Tabs } from 'tdesign-react';
+import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Tabs } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -134,7 +134,7 @@ export default function BaseForm() {
                 </Checkbox.Group>
               </FormItem>
 
-              <FormItem  style={{ marginLeft: 100 }}>
+              <FormItem style={{ marginLeft: 100 }}>
                 <Button theme="primary" type="submit" style={{ marginRight: 10 }}>
                   提交
                 </Button>

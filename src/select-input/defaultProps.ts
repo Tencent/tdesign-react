@@ -9,7 +9,6 @@ export const selectInputDefaultProps: TdSelectInputProps = {
   autoWidth: false,
   borderless: false,
   clearable: false,
-  disabled: false,
   loading: false,
   minCollapsedNum: 0,
   multiple: false,

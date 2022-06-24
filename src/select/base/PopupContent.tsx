@@ -2,7 +2,7 @@ import React, { Children, Ref, forwardRef, isValidElement, cloneElement } from '
 import classNames from 'classnames';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getSelectValueArr } from '../util/helper';
-import { TdSelectProps, SelectValue, TdOptionProps } from '../type';
+import { TdSelectProps, SelectValue, TdOptionProps, SelectValueChangeTrigger } from '../type';
 import useConfig from '../../_util/useConfig';
 import Option, { SelectOptionProps } from './Option';
 
@@ -24,7 +24,15 @@ interface SelectPopupProps
     | 'panelTopContent'
     | 'panelBottomContent'
   > {
-  onChange?: (value: SelectValue, context?: { label?: string | number; restData?: Record<string, any> }) => void;
+  onChange?: (
+    value: SelectValue,
+    context?: {
+      label?: string | number;
+      restData?: Record<string, any>;
+      e: React.MouseEvent;
+      trigger: SelectValueChangeTrigger;
+    },
+  ) => void;
   /**
    * 是否展示popup
    */
@@ -63,7 +71,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   const { classPrefix } = useConfig();
   if (!children && !props.options) return null;
 
-  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, restData }) => {
+  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
     const isValObj = valueType === 'object';
     let objVal = {};
     if (isValObj) {
@@ -82,12 +90,12 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
     if (multiple) {
       // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label });
+      onChange(values, { label, e: event, trigger: 'check' });
     } else {
       // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
 
-      onChange(selectVal, { label });
+      onChange(selectVal, { label, e: event, trigger: 'check' });
       setShowPopup(!showPopup);
     }
   };

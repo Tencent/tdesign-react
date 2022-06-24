@@ -3,11 +3,13 @@ import isFunction from 'lodash/isFunction';
 import get from 'lodash/get';
 import classnames from 'classnames';
 import { formatRowAttributes, formatRowClassNames } from './utils';
-import { getRowFixedStyles, getColumnFixedStyles, RowAndColFixedPosition } from './hooks/useFixed';
+import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
+import { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import TEllipsis from './Ellipsis';
 import { BaseTableCellParams, TableRowData, RowspanColspan, TdBaseTableProps, TableScroll } from './type';
 import useLazyLoad from './hooks/useLazyLoad';
+import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
 
 export interface RenderTdExtra {
   rowAndColFixedPosition: RowAndColFixedPosition;
@@ -49,8 +51,7 @@ export interface TrProps extends TrCommonProps {
   rowIndex?: number;
   dataLength?: number;
   rowAndColFixedPosition?: RowAndColFixedPosition;
-  // 属性透传，引用传值，可内部改变
-  skipSpansMap?: Map<any, boolean>;
+  skipSpansMap?: Map<string, SkipSpansValue>;
   scrollType?: string;
   isVirtual?: boolean;
   rowHeight?: number;
@@ -60,7 +61,6 @@ export interface TrProps extends TrCommonProps {
   tableElm?: HTMLDivElement;
   tableContentElm?: HTMLDivElement;
   onRowMounted?: () => void;
-  onTrRowspanOrColspan?: (params: BaseTableCellParams<TableRowData>, cellSpans: RowspanColspan) => void;
 }
 
 export const ROW_LISTENERS = ['click', 'dblclick', 'mouseover', 'mousedown', 'mouseenter', 'mouseleave', 'mouseup'];
@@ -185,14 +185,14 @@ export default function TR(props: TrProps) {
       rowIndex,
       colIndex,
     };
-    if (isFunction(props.rowspanAndColspan)) {
-      const o = props.rowspanAndColspan(params);
-      o?.rowspan > 1 && (cellSpans.rowspan = o.rowspan);
-      o?.colspan > 1 && (cellSpans.colspan = o.colspan);
-      props.onTrRowspanOrColspan?.(params, cellSpans);
+    let spanState = null;
+    if (props.skipSpansMap.size) {
+      const cellKey = getCellKey(row, props.rowKey, col.colKey, colIndex);
+      spanState = props.skipSpansMap.get(cellKey) || {};
+      spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
+      spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
+      if (spanState.skipped) return null;
     }
-    const skipped = props.skipSpansMap?.get([rowIndex, colIndex].join());
-    if (skipped) return null;
     return renderTd(params, {
       dataLength,
       rowAndColFixedPosition,

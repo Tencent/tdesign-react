@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popconfirm } from 'tdesign-react';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 
 export default function ContentExample() {
   const content = (
@@ -9,13 +9,13 @@ export default function ContentExample() {
     </>
   );
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popconfirm theme={'default'} content={content}>
         <Button theme="primary">自定义浮层内容</Button>
       </Popconfirm>
       <Popconfirm theme={'warning'} content={content}>
         <Button theme="warning">自定义浮层内容</Button>
       </Popconfirm>
-    </div>
+    </Space>
   );
 }

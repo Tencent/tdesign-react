@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import useConfig from '../../_util/useConfig';
 import renderTNode from '../../_util/renderTNode';
-import { VALIDATE_STATUS } from '../FormItem';
+import { ValidateStatus } from '../const';
 
 export default function useFormItemStyle(props) {
   const { classPrefix } = useConfig();
@@ -52,7 +52,7 @@ export default function useFormItemStyle(props) {
     return extra;
   }, [showErrorMessage, errorList, successList, classPrefix]);
 
-  const formItemClass = classNames(className, `${classPrefix}-form__item`, {
+  const formItemClass = classNames(`${classPrefix}-form__item`, className, {
     [`${classPrefix}-form-item__${renderName}`]: renderName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
@@ -71,7 +71,7 @@ export default function useFormItemStyle(props) {
     const controlCls = `${classPrefix}-form__controls`;
     if (!showErrorMessage) return controlCls;
 
-    const isSuccess = verifyStatus === VALIDATE_STATUS.SUCCESS;
+    const isSuccess = verifyStatus === ValidateStatus.SUCCESS;
     if (isSuccess) {
       return classNames(controlCls, `${classPrefix}-is-success`, {
         [`${classPrefix}-form--success-border`]: successBorder,

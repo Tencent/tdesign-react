@@ -41,6 +41,8 @@ const Option = (props: SelectOptionProps) => {
     onSelect,
     children,
     restData,
+    style,
+    className,
   } = props;
 
   let selected: boolean;
@@ -72,7 +74,7 @@ const Option = (props: SelectOptionProps) => {
   }
 
   const handleSelect = (event: React.MouseEvent) => {
-    if (!disabled || (multiple && selected)) {
+    if (!disabled) {
       onSelect(value, { label: String(label), selected, event, restData });
     }
   };
@@ -82,7 +84,7 @@ const Option = (props: SelectOptionProps) => {
       return (
         <label
           className={classNames(`${classPrefix}-checkbox`, {
-            [`${classPrefix}-is-disabled`]: disabled && !selected,
+            [`${classPrefix}-is-disabled`]: disabled,
             [`${classPrefix}-is-checked`]: selected,
           })}
         >
@@ -103,7 +105,7 @@ const Option = (props: SelectOptionProps) => {
 
   return (
     <li
-      className={classNames(props.className, `${classPrefix}-${componentType}-option`, {
+      className={classNames(className, `${classPrefix}-${componentType}-option`, {
         [`${classPrefix}-is-disabled`]: disabled,
         [`${classPrefix}-is-selected`]: selected,
         [`${classPrefix}-size-s`]: size === 'small',
@@ -112,6 +114,7 @@ const Option = (props: SelectOptionProps) => {
       key={value}
       onClick={handleSelect}
       ref={optionRef}
+      style={style}
     >
       {renderItem(children)}
     </li>

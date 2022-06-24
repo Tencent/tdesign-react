@@ -34,11 +34,11 @@ export default function TableExample() {
   const [fixedLeftCol, setFixedLeftCol] = useState(false);
   const [fixedRightCol, setFixedRightCol] = useState(false);
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
-  const [sort, setSort] = useState({ sortBy: 'default', descending: true });
+  const [sort, setSort] = useState({ sortBy: 'default', descending: false });
 
   const onSortChange = (sortInfo, context) => {
     setSort(sortInfo);
-    setData(context.currentDataSource);
+    setData([...context.currentDataSource]);
     console.log(context);
   };
 

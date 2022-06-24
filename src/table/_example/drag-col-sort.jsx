@@ -29,11 +29,12 @@ export default function TableDragSort() {
   const [data] = useState(initData);
   const [columns, setColumns] = useState(initialColumns);
 
-  function onDragSort({ currentIndex, targetIndex, current, target, currentData, e, sort }) {
-    console.log('交换行', currentIndex, targetIndex, current, target, currentData, e, sort);
+  // currentData is going to be deprecated.
+  function onDragSort({ currentIndex, targetIndex, current, target, data, newData, e, sort }) {
+    console.log('交换行', currentIndex, targetIndex, current, target, data, newData, e, sort);
     // 数据受控实现
     if (sort === 'col') {
-      setColumns(currentData);
+      setColumns(newData);
     }
   }
 

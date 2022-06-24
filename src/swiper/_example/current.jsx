@@ -6,7 +6,7 @@ const { SwiperItem } = Swiper;
 export default function BasicSwiper() {
   const [current, setCurrent] = useState(0);
   return (
-    <div className="tdesign-demo-block--swiper-new">
+    <div className="tdesign-demo-block--swiper">
       <Swiper current={current} navigation={{ showSlideBtn: 'never' }}>
         <SwiperItem>
           <div className="demo-item">1</div>

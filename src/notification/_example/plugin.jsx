@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotificationPlugin, Button } from 'tdesign-react';
+import { NotificationPlugin, Button, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   const openInfoNotification = () => {
@@ -35,11 +35,11 @@ export default function NotificationExample() {
   };
 
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Button onClick={() => openInfoNotification()}>信息</Button>
       <Button onClick={() => openSuccessNotification()}>成功</Button>
       <Button onClick={() => openWarningNotification()}>警告</Button>
       <Button onClick={() => openErrorNotification()}>错误</Button>
-    </div>
+    </Space>
   );
 }

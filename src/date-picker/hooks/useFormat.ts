@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
-import { extractTimeFormat } from '../../_common/js/date-picker/utils-new';
+import { extractTimeFormat } from '../../_common/js/date-picker/utils';
 
 export interface formatProps {
   mode: TdDatePickerProps['mode'];
@@ -13,33 +13,32 @@ export interface formatProps {
 export const TIME_FORMAT = 'HH:mm:ss';
 
 export default function useFormat(props: formatProps) {
-  const { mode, enableTimePicker, format: formatFromProps, valueType: valueTypeFromProps, value } = props;
   const { format, valueType, timeFormat } = getDefaultFormat({
-    mode,
-    enableTimePicker,
-    format: formatFromProps,
-    valueType: valueTypeFromProps,
+    mode: props.mode,
+    enableTimePicker: props.enableTimePicker,
+    format: props.format,
+    valueType: props.valueType,
   });
 
-  if (enableTimePicker) {
+  if (props.enableTimePicker) {
     if (!extractTimeFormat(format)) console.error(`format: ${format} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
     if (!extractTimeFormat(valueType) && valueType !== 'time-stamp')
       console.error(`valueType: ${valueType} 不规范，包含时间选择必须要有时间格式化 HH:mm:ss`);
   }
 
   // 日期格式化
-  const formatDate = (newDate: DateValue | DateValue[], type = 'format') => {
+  const formatDate = (newDate: DateValue | DateValue[], { formatType = 'format', sortType = 'min' } = {}) => {
     const formatMap = { format, valueType };
-    const targetFormat = formatMap[type];
+    const targetFormat = formatMap[formatType];
 
     let result;
 
     if (Array.isArray(newDate)) {
-      result = formatRange({ newDate, format, targetFormat });
+      result = formatRange({ newDate, format, targetFormat, sortType });
       // 格式化失败提示
       if (result.some((r) => r === 'Invalid Date')) {
         console.error(
-          `请检查 format、valueType、value 格式是否有效.\nformat: '${format}' valueType: '${valueType}' value: '${value}'`,
+          `请检查 format、valueType、value 格式是否有效.\nformat: '${format}' valueType: '${props.valueType}' value: '${props.value}'`,
         );
         return [];
       }
@@ -48,7 +47,7 @@ export default function useFormat(props: formatProps) {
       // 格式化失败提示
       if (result === 'Invalid Date') {
         console.error(
-          `请检查 format、valueType、value 格式是否有效.\nformat: '${format}' valueType: '${valueType}' value: '${value}'`,
+          `请检查 format、valueType、value 格式是否有效.\nformat: '${format}' valueType: '${props.valueType}' value: '${props.value}'`,
         );
         return '';
       }
@@ -63,11 +62,11 @@ export default function useFormat(props: formatProps) {
 
     if (Array.isArray(value)) {
       if (realFormat === 'time-stamp') return value.every((v) => dayjs(v).isValid());
-      return value.every((v) => dayjs(v, realFormat, true).isValid());
+      return value.every((v) => dayjs(v, realFormat).isValid() || dayjs(v).isValid());
     }
 
     if (realFormat === 'time-stamp') return dayjs(value).isValid();
-    return dayjs(value, realFormat, true).isValid();
+    return dayjs(value, realFormat).isValid() || dayjs(value).isValid();
   }
 
   function formatTime(value: DateValue | DateValue[]) {
@@ -76,7 +75,7 @@ export default function useFormat(props: formatProps) {
     if (Array.isArray(value)) {
       result = value.map((v) => dayjs(v).format(timeFormat));
     } else {
-      result = dayjs(value as DateValue).format(timeFormat);
+      result = dayjs((value || new Date()) as DateValue).format(timeFormat);
     }
 
     return result;
@@ -94,10 +93,10 @@ export default function useFormat(props: formatProps) {
 }
 
 // 格式化 range
-function formatRange({ newDate, format, targetFormat }) {
+function formatRange({ newDate, format, targetFormat, sortType = 'min' }) {
   if (!newDate || !Array.isArray(newDate)) return [];
 
-  const dayjsDateList = newDate.map((d) => d && (dayjs(d).isValid() ? dayjs(d) : dayjs(d, format)));
+  let dayjsDateList = newDate.map((d) => d && (dayjs(d).isValid() ? dayjs(d) : dayjs(d, format)));
 
   // 保证后面的时间大于前面的时间
   if (
@@ -105,7 +104,12 @@ function formatRange({ newDate, format, targetFormat }) {
     dayjsDateList[1] &&
     dayjsDateList[0].toDate().getTime() > dayjsDateList[1].toDate().getTime()
   ) {
-    dayjsDateList.fill(dayjsDateList[1]);
+    // 数据兼容规则
+    if (sortType === 'min') {
+      dayjsDateList = [dayjsDateList[1], dayjsDateList[1]];
+    } else if (sortType === 'swap') {
+      dayjsDateList = [dayjsDateList[1], dayjsDateList[0]];
+    }
   }
 
   // valueType = 'time-stamp' 返回时间戳

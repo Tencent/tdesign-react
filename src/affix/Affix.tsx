@@ -15,7 +15,7 @@ export interface AffixRef {
 }
 
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
-  const { children, zIndex, container, offsetBottom, offsetTop, onFixedChange } = props;
+  const { children, zIndex, container, offsetBottom, offsetTop, className, style, onFixedChange } = props;
 
   const { classPrefix } = useConfig();
 
@@ -124,7 +124,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   }, [container, handleScroll]);
 
   return (
-    <div ref={affixWrapRef}>
+    <div ref={affixWrapRef} className={className} style={style}>
       <div ref={affixRef}>{children}</div>
     </div>
   );

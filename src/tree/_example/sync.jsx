@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Addon, Input, Tree } from 'tdesign-react';
+import { InputAdornment, Input, Tree } from 'tdesign-react';
 
 const items = [
   {
@@ -200,30 +200,30 @@ export default () => {
 
   return (
     <div className="tdesign-tree-base">
-      <Addon prepend="checked:">
+      <InputAdornment prepend="checked:">
         <Input
           value={allCheckedInput}
           onInput={handleAllCheckedInput}
           onBlur={handleAllCheckedSubmit}
           onEnter={handleAllCheckedSubmit}
         />
-      </Addon>
-      <Addon prepend="expanded:">
+      </InputAdornment>
+      <InputAdornment prepend="expanded:">
         <Input
           value={allExpandedInput}
           onInput={handleAllExpandedInput}
           onBlur={handleAllExpandedSubmit}
           onEnter={handleAllExpandedSubmit}
         />
-      </Addon>
-      <Addon prepend="actived:">
+      </InputAdornment>
+      <InputAdornment prepend="actived:">
         <Input
           value={allActivedInput}
           onInput={handleAllActivedInput}
           onBlur={handleAllActivedSubmit}
           onEnter={handleAllActivedSubmit}
         />
-      </Addon>
+      </InputAdornment>
       <Tree
         data={items}
         checkable

@@ -5,6 +5,77 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.35.1 `2022-06-20` 
+
+### 🚀 Features
+- `table`: 支持拖拽调整宽度，设置 `resizable=true` 即可 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 表头吸顶、表尾吸底、滚动条吸底、分页器吸底 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `DatePicker`: 完善 panel 事件逻辑 @HQ-Lin ([#873](https://github.com/Tencent/tdesign-react/pull/873))
+- `DatePicker`: 优化面板交互 @HQ-Lin ([#887](https://github.com/Tencent/tdesign-react/pull/887))
+
+### 🐞 Bug Fixes
+- `table`: 修复table透传loading size为枚举无效的问题 @uyarn ([#870](https://github.com/Tencent/tdesign-react/pull/870))
+- `Select`: option子组件没有透传style实现的问题 @uyarn ([#889](https://github.com/Tencent/tdesign-react/pull/889))
+- `Anchor`: 修复affix参数类型问题 @southorange1228 ([#896](https://github.com/Tencent/tdesign-react/pull/896))
+- `table`: 支持动态数据合并单元格 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 吸顶表头和自定义显示列场景，支持列拖拽调整顺序 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `table`: 修复 `firstFullRow` 存在时，拖拽排序的顺序不正确问题 @chaishi ([#902](https://github.com/Tencent/tdesign-react/pull/902))
+- `timepicker`: 修复初始化滚动问题 @uyarn ([#876](https://github.com/Tencent/tdesign-react/pull/876))
+- `Select`: 修复 `minCollapsedNum` 无效问题 @samhou1988 ([#878](https://github.com/Tencent/tdesign-react/pull/878))
+- `Skeleton`: 修复 ts 类型问题  @Yilun-Sun ([#883](https://github.com/Tencent/tdesign-react/pull/883))
+-  `Tabs`: 修复左右切换渲染问题 @HQ-Lin ([#894](https://github.com/Tencent/tdesign-react/pull/894))
+- `Dialog`: 修复 mask 关闭问题 @huoyuhao ([#900](https://github.com/Tencent/tdesign-react/pull/900))
+
+
+## 🌈 0.35.0 `2022-06-10` 
+
+### ❗ Breaking Changes
+- `DatePicker`:  重构 `DatePickerPanel`、`DateRangePickerPanel` 逻辑，API 重新规划 @HQ-Lin ([#858](https://github.com/Tencent/tdesign-react/pull/858))
+- `Dialog`: 移除 `transform` 动画方案，dom 结构有所调整 @huoyuhao ([#776](https://github.com/Tencent/tdesign-react/pull/776))
+- `InputAdornment`: 移除 `Addon` 组件，替换为 `InputAdornment`，用法保持一致只需更改组件名即可  @HQ-Lin ([#849](https://github.com/Tencent/tdesign-react/pull/849))
+
+### 🚀 Features
+- `table`: 树形结构，支持默认展开全部，以及自由控制展开全部或收起全部 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 树形结构，支持空数据插入新节点、当前数据之前插入新节点、当前数据之后插入新节点、获取树形结构等方法 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 树形结构，支持自定义树形结构展开收起图标 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 树形结构，支持拖拽调整同层级顺序 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 拖拽排序事件，新增参数 data 和 newData，分别表示变更前后的数据 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 过滤功能，Input 输入框支持 Enter 键触发确认搜索 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 排序功能，支持隐藏排序图标文本提示 `hideSortTips` @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `table`: 新增可编辑单元格功能 @chaishi ([#842](https://github.com/Tencent/tdesign-react/pull/842))
+- `textarea`: 新增`allowInputOvermax` 支持超出字数限制可以输入 @carolin913 ([#838](https://github.com/Tencent/tdesign-react/pull/838))
+- `DatePicker`: 优化 `DatePicker` 组件逻辑 @HQ-Lin ([#858](https://github.com/Tencent/tdesign-react/pull/858))
+- `CollapsePanel`: 箭头样式优化 @samhou1988 ([#851](https://github.com/Tencent/tdesign-react/pull/851))
+- `InputAdornment`: 新增 `InputAdornment` 组件 @HQ-Lin ([#849](https://github.com/Tencent/tdesign-react/pull/849))
+
+### 🐞 Bug Fixes
+- `tab`: tabnav无法自适应宽度 fix#846 @carolin913 ([#838](https://github.com/Tencent/tdesign-react/pull/838))
+- `table`: 合并单元格支持动态数据，[issue#973](https://github.com/Tencent/tdesign-vue/issues/973) @chaishi ([#866](https://github.com/Tencent/tdesign-react/pull/866))
+- `MenuItem`: 修复 `MenuItem` 在 active 状态点击失效问题 @leosxie ([#848](https://github.com/Tencent/tdesign-react/pull/848))
+- `InputNumber`: 修复减号按钮触发两次点击事件问题 @moecasts ([#857](https://github.com/Tencent/tdesign-react/pull/857))
+- `Drawer`: 修复 `cancelBtn` 传入字符串无效 @HQ-Lin ([#860](https://github.com/Tencent/tdesign-react/pull/860))
+- `Dialog`: 优化 `transform` 定位问题导致子节点的 fixed 属性定位失效 @huoyuhao ([#776](https://github.com/Tencent/tdesign-react/pull/776))
+
+
+## 🌈 0.34.4 `2022-06-02` 
+### 🚀 Features
+- `Skeleton`: 延时关闭功能 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `Dialog`: 增强 dialog 组件 confirmBtn & cancelBtn @psaren ([#813](https://github.com/Tencent/tdesign-react/pull/813))
+- `Notification`: 新增样式命名区分 theme @HQ-Lin ([#834](https://github.com/Tencent/tdesign-react/pull/834))
+
+### 🐞 Bug Fixes
+- `Loading`: 修复loading plugin类型缺失style和class的问题 @uyarn ([#810](https://github.com/Tencent/tdesign-react/pull/810))
+- `skeleton`: 动画结束后，父级无意义的 div 导致样式无法继承、计算 @ontheroad1992 ([#808](https://github.com/Tencent/tdesign-react/pull/808))
+- `TimePicker`: 修复`RangePicker`的聚焦样式丢失的问题 @uyarn ([#811](https://github.com/Tencent/tdesign-react/pull/811))
+- `Form`: 修复 `addon` 在form表单下数据劫持失败问题 @HQ-Lin ([#802](https://github.com/Tencent/tdesign-react/pull/802))
+- `Select`: 当 multiple 为 true 的时候，筛选(filter)功能无法关闭 @samhou1988 ([#814](https://github.com/Tencent/tdesign-react/pull/814))
+- `Menu`: 兼容 menu 子元素为 null 场景报错问题 @HQ-Lin ([#818](https://github.com/Tencent/tdesign-react/pull/818))
+- `Upload`: 修复错误信息不消失问题 @wookaoer ([#827](https://github.com/Tencent/tdesign-react/pull/827))
+- `TagInput`:  修复中文输入法enter时，既触发添加tag也input框有输入的字母的问题 @LittlehorseXie ([#835](https://github.com/Tencent/tdesign-react/pull/835))
+
+### 🚧 Others
+- 官网: 新增主题配置生成器 @uyarn ([#655](https://github.com/Tencent/tdesign-react/pull/655))
+
 ## 🌈 0.34.3 `2022-05-25` 
 
 ### 🚧 Others

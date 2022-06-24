@@ -306,10 +306,10 @@ exports[`controlled.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         checked:
       </span>
@@ -330,10 +330,10 @@ exports[`controlled.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         expanded:
       </span>
@@ -354,10 +354,10 @@ exports[`controlled.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         actived:
       </span>
@@ -699,10 +699,10 @@ exports[`filter.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         filter:
       </span>
@@ -972,7 +972,7 @@ exports[`operations.jsx 1`] = `
               class="t-form__controls-content"
             >
               <button
-                class="t-switch t-is-checked t-size-m"
+                class="t-switch t-size-m"
                 role="switch"
                 type="button"
               >
@@ -992,10 +992,10 @@ exports[`operations.jsx 1`] = `
       class="operations"
     >
       <div
-        class="t-addon t-addon--prepend"
+        class="t-input-adornment t-input-adornment--prepend"
       >
         <span
-          class="t-addon__prepend"
+          class="t-input-adornment__prepend"
         >
           filter:
         </span>
@@ -1210,10 +1210,10 @@ exports[`sync.jsx 1`] = `
     class="tdesign-tree-base"
   >
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         checked:
       </span>
@@ -1234,10 +1234,10 @@ exports[`sync.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         expanded:
       </span>
@@ -1258,10 +1258,10 @@ exports[`sync.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-addon t-addon--prepend"
+      class="t-input-adornment t-input-adornment--prepend"
     >
       <span
-        class="t-addon__prepend"
+        class="t-input-adornment__prepend"
       >
         actived:
       </span>

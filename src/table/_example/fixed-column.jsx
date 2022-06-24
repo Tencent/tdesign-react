@@ -25,9 +25,11 @@ export default function TableFixedColumn() {
   const table = (
     <Table
       bordered
+      rowKey="index"
       data={emptyData ? [] : data}
       tableLayout={tableLayout}
       tableContentWidth={tableLayout === 'fixed' ? undefined : '1200px'}
+      resizable={true}
       columns={[
         {
           align: 'center',
@@ -81,7 +83,6 @@ export default function TableFixedColumn() {
           ellipsis: { placement: 'bottom-right' },
         },
       ]}
-      rowKey="index"
     />
   );
 

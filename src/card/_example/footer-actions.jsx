@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Avatar, Row, Col, Button, Divider, Dropdown, MessagePlugin } from 'tdesign-react';
+import { Card, Avatar, Row, Col, Button, Divider, Dropdown, MessagePlugin, Space } from 'tdesign-react';
 import { UserIcon, ChatIcon, ShareIcon, ThumbUpIcon, HeartIcon, MoreIcon } from 'tdesign-icons-react';
 
 const { Group: AvatarGroup } = Avatar;
@@ -21,7 +21,7 @@ const clickHandler = (data) => {
 
 export default function FooterActionsCard() {
   return (
-    <div className="tdesign-demo-block">
+    <Space direction="vertical">
       <Card
         bordered
         theme="poster2"
@@ -49,7 +49,6 @@ export default function FooterActionsCard() {
           </Row>
         }
       ></Card>
-      <br />
       <Card
         bordered
         theme="poster2"
@@ -77,7 +76,6 @@ export default function FooterActionsCard() {
           </Row>
         }
       ></Card>
-      <br />
       <Card
         bordered
         theme="poster2"
@@ -102,6 +100,6 @@ export default function FooterActionsCard() {
           </AvatarGroup>
         }
       ></Card>
-    </div>
+    </Space>
   );
 }

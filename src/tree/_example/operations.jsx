@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Addon, Button, Input, Tree, Form, Switch } from 'tdesign-react';
+import { InputAdornment, Button, Input, Tree, Form, Switch } from 'tdesign-react';
 
 const items = [
   {
@@ -14,7 +14,7 @@ let index = 2;
 
 export default () => {
   const [useActived, setUseActived] = useState(false);
-  const [expandParent, setExpandParent] = useState(true);
+  const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [activeId, setActiveId] = useState('');
   const [activeIds, setActiveIds] = useState([]);
@@ -275,9 +275,9 @@ export default () => {
         </Form>
       </div>
       <div className="operations">
-        <Addon prepend="filter:">
+        <InputAdornment prepend="filter:">
           <Input value={filterText} onChange={handleInputChange} />
-        </Addon>
+        </InputAdornment>
       </div>
       <Tree
         ref={treeRef}
@@ -289,7 +289,7 @@ export default () => {
         data={items}
         actived={activeIds}
         activeMultiple
-        expandOnClickNode={false}
+        allowFoldNodeOnFilter
         label={getLabel}
         expandParent={expandParent}
         filter={filterByText}

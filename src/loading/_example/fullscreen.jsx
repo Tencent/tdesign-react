@@ -16,10 +16,10 @@ export default function LoadingFullscreen() {
       }, 2000);
   };
   return (
-    <div>
+    <>
       <Loading loading={loading} fullscreen preventScrollThrough={true} text="加载中"></Loading>
       Loading state:
       <Switch value={checked} onChange={onChange} />
-    </div>
+    </>
   );
 }

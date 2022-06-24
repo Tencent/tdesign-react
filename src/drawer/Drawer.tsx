@@ -196,7 +196,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
     const defaultCancelBtn = (
       <Button theme="default" onClick={onCancelClick} className={`${prefixCls}__cancel`}>
-        {cancelText}
+        {cancelBtn && typeof cancelBtn === 'string' ? cancelBtn : cancelText}
       </Button>
     );
 

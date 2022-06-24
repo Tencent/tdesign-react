@@ -12,7 +12,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement, SizeEnum } from '../common';
+import { TNode, TElement, SizeEnum, TScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
@@ -145,7 +145,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   reserveKeyword?: boolean;
   /**
-   * 【开发中】透传 SelectInput 筛选器输入框组件的全部属性
+   * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
+   */
+  scroll?: TScroll;
+  /**
+   * 透传 SelectInput 筛选器输入框组件的全部属性
    */
   selectInputProps?: SelectInputProps;
   /**
@@ -159,11 +163,11 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   size?: SizeEnum;
   /**
-   * 【开发中】透传 TagInput 标签输入框组件的全部属性
+   * 透传 TagInput 标签输入框组件的全部属性
    */
   tagInputProps?: TagInputProps;
   /**
-   * 【开发中】透传 Tag 标签组件全部属性
+   * 透传 Tag 标签组件全部属性
    */
   tagProps?: TagProps;
   /**
@@ -194,7 +198,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
     value: SelectValue,
     context: {
       trigger: SelectValueChangeTrigger;
-      e?: MouseEvent<SVGElement, MouseEvent> | KeyboardEvent<HTMLInputElement>;
+      e?: MouseEvent | KeyboardEvent<HTMLInputElement>;
     },
   ) => void;
   /**
@@ -251,7 +255,6 @@ export interface TdOptionProps {
   disabled?: boolean;
   /**
    * 选项名称
-   * @default ''
    */
   label?: string;
   /**

@@ -4,11 +4,10 @@
 
 import { TdCheckTagProps, TdTagProps } from './type';
 
-export const checkTagDefaultProps: TdCheckTagProps = { defaultChecked: undefined, disabled: false, size: 'medium' };
+export const checkTagDefaultProps: TdCheckTagProps = { defaultChecked: undefined, size: 'medium' };
 
 export const tagDefaultProps: TdTagProps = {
   closable: false,
-  disabled: false,
   icon: undefined,
   shape: 'square',
   size: 'medium',

@@ -221,7 +221,7 @@ const InputNumber = forwardRef((props: InputNumberProps, ref: React.Ref<HTMLInpu
   return (
     <div
       ref={ref}
-      className={classNames(className, inputClassName, commonClassNames.SIZE[size], {
+      className={classNames(inputClassName, commonClassNames.SIZE[size], className, {
         [commonClassNames.STATUS.disabled]: disabled,
         [`${classPrefix}-is-controls-right`]: theme === 'column',
         [`${inputClassName}--${theme}`]: theme,

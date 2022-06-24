@@ -10,13 +10,14 @@ export default function useControlled<T, P extends any[]>(
   props: object = {},
   valueKey: string,
   onChange: ChangeHandler<T | ((T) => T), P>, // 兼容setState函数模式
+  defaultOptions: object = {},
 ): [T, ChangeHandler<T | ((T) => T), P>] {
   // 外部设置 props，说明希望受控
   const controlled = Reflect.has(props, valueKey);
   // 受控属性
   const value = props[valueKey];
-  // 约定受控属性的非受控 key 为 defaultXxx
-  const defaultValue = props[`default${upperFirst(valueKey)}`];
+  // 约定受控属性的非受控 key 为 defaultXxx，某些条件下要在运行时确定 defaultXxx 则通过 defaultOptions 来覆盖
+  const defaultValue = defaultOptions[`default${upperFirst(valueKey)}`] || props[`default${upperFirst(valueKey)}`];
 
   // 无论是否受控，都要维护一个内部变量，默认值由 defaultValue 控制
   const [internalValue, setInternalValue] = useState(defaultValue);
