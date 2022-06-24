@@ -1,9 +1,9 @@
 import React from 'react';
-import { Notification, Button } from 'tdesign-react';
+import { Notification, Button, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <Notification
         theme="info"
         title="超出的文本省略号显示"
@@ -78,6 +78,6 @@ export default function NotificationExample() {
           </div>
         }
       ></Notification>
-    </div>
+    </Space>
   );
 }
