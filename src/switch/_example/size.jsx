@@ -1,12 +1,12 @@
 import React from 'react';
-import { Switch } from 'tdesign-react';
+import { Switch, Space } from 'tdesign-react';
 
 export default function SwitchBasic() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Switch size="large" defaultValue />
       <Switch />
       <Switch size="small" />
-    </div>
+    </Space>
   );
 }
