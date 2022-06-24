@@ -1,6 +1,8 @@
 import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import isFunction from 'lodash/isFunction';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
+import useControlled from '../hooks/useControlled';
+import noop from '../_util/noop';
 
 export type positionType = [number, number];
 
@@ -147,4 +149,77 @@ export const useImageScale = (imageScale) => {
   if (imageScale?.max !== undefined) result.max = imageScale.max;
   if (imageScale?.step !== undefined) result.step = imageScale.step;
   return result;
+};
+
+/** ImageViewerModel hooks * */
+// 选中下标控制
+export const useIndex = (resProps, images) => {
+  const [index, setIndex] = useControlled<number, any>(resProps, 'index', noop);
+
+  const next = useCallback(() => {
+    setIndex((index) => {
+      const newIndex = index + 1;
+      if (newIndex >= images.length) return index;
+      return newIndex;
+    });
+  }, [setIndex, images.length]);
+
+  const prev = useCallback(() => {
+    setIndex((index) => (index - 1 > 0 ? index - 1 : 0));
+  }, [setIndex]);
+
+  return {
+    index,
+    next,
+    prev,
+    setIndex,
+  };
+};
+
+// 旋转控制
+export const useRotate = () => {
+  const [rotateZ, setRotateZ] = useState(0);
+
+  const onRotate = useCallback((ROTATE_COUNT: number) => {
+    setRotateZ((rotateZ) => rotateZ + ROTATE_COUNT);
+  }, []);
+
+  const onResetRotate = useCallback(() => setRotateZ(0), []);
+
+  return {
+    rotateZ,
+    onResetRotate,
+    onRotate,
+  };
+};
+
+// 缩放控制
+export const useScale = (imageScale) => {
+  const [scale, setScale] = useState(1);
+  const zoom = useCallback(() => {
+    setScale((scale) => {
+      const newScale = scale + imageScale.step;
+      if (newScale < imageScale.min) return imageScale.min;
+      if (newScale > imageScale.max) return imageScale.max;
+      return newScale;
+    });
+  }, [imageScale]);
+
+  const zoomOut = useCallback(() => {
+    setScale((scale) => {
+      const newScale = scale - imageScale.step;
+      if (newScale < imageScale.min) return imageScale.min;
+      if (newScale > imageScale.max) return imageScale.max;
+      return newScale;
+    });
+  }, [imageScale]);
+
+  const onResetScale = useCallback(() => setScale(1), []);
+
+  return {
+    scale,
+    zoom,
+    zoomOut,
+    onResetScale,
+  };
 };

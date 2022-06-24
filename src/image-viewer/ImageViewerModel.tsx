@@ -1,53 +1,71 @@
-import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, WheelEventHandler } from 'react';
-import useConfig from 'tdesign-react/_util/useConfig';
+import React, { useState, useEffect, useCallback, WheelEventHandler } from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import { IconFont } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import useConfig from '../_util/useConfig';
 import { TNode } from '../common';
-import { downloadFile, positionType, usePosition } from './useHooks';
+import { downloadFile, useIndex, usePosition, useRotate, useScale } from './useHooks';
 import { ImageInfo, ImageScale, ImageViewerScale } from './type';
-import useControlled from '../hooks/useControlled';
-import noop from '../_util/noop';
+import { ImageModelMini } from './ImageViewerMini';
 
 interface ImageModelItemProps {
   rotateZ: number;
   scale: number;
-  position: positionType;
-  setPosition: Dispatch<SetStateAction<positionType>>;
   src: string;
   preSrc?: string;
 }
 
 // 单个弹窗实例
-const ImageModelItem = ({ rotateZ, scale, position, setPosition, src }: ImageModelItemProps) => {
-  const [_position, onMouseDown] = usePosition({ initPosition: [0, 0] });
+export const ImageModelItem = ({ rotateZ, scale, src, preSrc }: ImageModelItemProps) => {
+  const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
   const { classPrefix } = useConfig();
 
-  useEffect(() => {
-    setPosition(_position);
-  }, [_position, setPosition]);
+  const [loaded, setLoaded] = useState(false);
 
-  const imgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})` };
+  const imgStyle = {
+    transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
+    display: !preSrc || loaded ? 'block' : 'none',
+  };
+  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
+
   return (
     <div className={`${classPrefix}-image-viewer-modal__pic`}>
       <div
         className={`${classPrefix}-image-viewer-modal__box`}
         style={{ transform: `translate(${position[0]}px, ${position[1]}px)` }}
       >
-        <img
-          className={`${classPrefix}-image-viewer-modal__image`}
-          key={src}
-          onMouseDown={(event) => {
-            event.stopPropagation();
-            onMouseDown(event);
-          }}
-          src={src}
-          style={imgStyle}
-          data-testid="img-drag"
-          alt="image"
-          draggable="false"
-        />
+        {!!preSrc && (
+          <img
+            className={`${classPrefix}-image-viewer-modal__image`}
+            key={preSrc}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+              onMouseDown(event);
+            }}
+            src={preSrc}
+            style={preImgStyle}
+            data-testid="img-drag"
+            alt="image"
+            draggable="false"
+          />
+        )}
+        {
+          <img
+            className={`${classPrefix}-image-viewer-modal__image`}
+            key={src}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+              onMouseDown(event);
+            }}
+            src={src}
+            onLoad={() => setLoaded(true)}
+            style={imgStyle}
+            data-testid="img-drag"
+            alt="image"
+            draggable="false"
+          />
+        }
       </div>
     </div>
   );
@@ -102,73 +120,34 @@ export const ImageModal = (props: ImageModalProps) => {
     closeOnOverlay,
     zIndex,
     images,
-    // isMini,
-    // miniWidth,
-    // miniHeight,
-    // movable,
+    isMini,
     imageScale,
+    viewerScale,
     closeBtn,
     onOpen,
     onClose,
+    draggable,
     ...resProps
   } = props;
   const { classPrefix } = useConfig();
   if (resProps.index === undefined) delete resProps.index;
-  const [index, setIndex] = useControlled<number, any>(resProps, 'index', noop);
-  const [rotateZ, setRotateZ] = useState(0);
-  const [scale, setScale] = useState(1);
-  const [position, setPosition] = useState<positionType>([0, 0]);
+  const { index, next, prev, setIndex } = useIndex(resProps, images);
+  const { rotateZ, onResetRotate, onRotate } = useRotate();
+  const { scale, zoom, zoomOut, onResetScale } = useScale(imageScale);
   const [isExpand, setIsExpand] = useState(false);
 
   const onReset = useCallback(() => {
-    setScale(1);
-    setRotateZ(0);
-    setPosition([0, 0]);
-  }, []);
+    onResetScale();
+    onResetRotate();
+  }, [onResetScale, onResetRotate]);
 
-  const onScroll: WheelEventHandler<HTMLDivElement> = (e) => {
-    const { deltaY } = e;
-    setScale((scale) => {
-      const newScale = scale - deltaY / 200;
-      if (newScale < imageScale.min) return imageScale.min;
-      if (newScale > imageScale.max) return imageScale.max;
-      return newScale;
-    });
-  };
-
-  const onRotate = (ROTATE_COUNT: number) => {
-    setRotateZ((rotateZ) => rotateZ + ROTATE_COUNT);
-  };
-
-  const next = useCallback(() => {
-    setIndex((index) => {
-      const newIndex = index + 1;
-      if (newIndex >= images.length) return index;
-      return newIndex;
-    });
-  }, [setIndex, images.length]);
-
-  const prev = useCallback(() => {
-    setIndex((index) => (index - 1 > 0 ? index - 1 : 0));
-  }, [setIndex]);
-
-  const zoom = useCallback(() => {
-    setScale((scale) => {
-      const newScale = scale + imageScale.step;
-      if (newScale < imageScale.min) return imageScale.min;
-      if (newScale > imageScale.max) return imageScale.max;
-      return newScale;
-    });
-  }, [imageScale]);
-
-  const zoomOut = useCallback(() => {
-    setScale((scale) => {
-      const newScale = scale - imageScale.step;
-      if (newScale < imageScale.min) return imageScale.min;
-      if (newScale > imageScale.max) return imageScale.max;
-      return newScale;
-    });
-  }, [imageScale]);
+  const onScroll: WheelEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      const { deltaY } = e;
+      deltaY > 0 ? zoom() : zoomOut();
+    },
+    [zoom, zoomOut],
+  );
 
   const onKeyDown = useCallback(
     (event) => {
@@ -201,31 +180,28 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const item: ImageInfo = images[index];
 
-  // if (isMini) {
-  //   return (
-  //     <ImageModelMini
-  //       index={index}
-  //       movable={movable}
-  //       list={list}
-  //       onScroll={onScroll}
-  //       onClose={onClose}
-  //       scale={scale}
-  //       position={position}
-  //       setPosition={setPosition}
-  //       rotateZ={rotateZ}
-  //       src={item}
-  //       prev={prev}
-  //       next={next}
-  //       zoom={zoom}
-  //       zoomOut={zoomOut}
-  //       onReset={onReset}
-  //       onRotate={onRotate}
-  //       miniWidth={miniWidth}
-  //       miniHeight={miniHeight}
-  //       zIndex={zIndex}
-  //     />
-  //   )
-  // }
+  if (isMini) {
+    return (
+      <ImageModelMini
+        draggable={draggable}
+        index={index}
+        images={images}
+        imageScale={imageScale}
+        viewerScale={viewerScale}
+        onScroll={onScroll}
+        onClose={onClose}
+        rotateZ={rotateZ}
+        item={item}
+        prev={prev}
+        next={next}
+        zoom={zoom}
+        zoomOut={zoomOut}
+        onReset={onReset}
+        onRotate={onRotate}
+        zIndex={zIndex}
+      />
+    );
+  }
 
   // boolean控制显示，tnode直接展示
   let closeNode: TNode = closeBtn;
@@ -313,14 +289,7 @@ export const ImageModal = (props: ImageModalProps) => {
         )}
         {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
       </div>
-      <ImageModelItem
-        scale={scale}
-        position={position}
-        setPosition={setPosition}
-        rotateZ={rotateZ}
-        preSrc={item.thumbnail}
-        src={item.mainImage}
-      />
+      <ImageModelItem scale={scale} rotateZ={rotateZ} preSrc={item.thumbnail} src={item.mainImage} />
     </div>
   );
 };
