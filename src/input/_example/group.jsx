@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Input } from 'tdesign-react';
+import React from 'react';
+import { Input, Space } from 'tdesign-react';
 
 export default function InputExample() {
   return (
-    <div className="tdesign-demo-item--input__input-box">
+    <Space direction="vertical">
       <Input.Group separate>
         <Input defaultValue="0731" style={{ width: 100 }} />
         <Input defaultValue="12345677" />
@@ -19,6 +19,6 @@ export default function InputExample() {
         <Input style={{ width: 100 }} defaultValue="678901" />
         <Input style={{ width: 100 }} />
       </Input.Group>
-    </div>
+    </Space>
   );
 }
