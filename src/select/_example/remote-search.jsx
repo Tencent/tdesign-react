@@ -56,17 +56,15 @@ const RemoteSearchSelect = () => {
   };
 
   return (
-    <>
-      <Select
-        filterable
-        value={value}
-        onChange={onChange}
-        style={{ width: '40%' }}
-        loading={loading}
-        onSearch={handleRemoteSearch}
-        options={options}
-      />
-    </>
+    <Select
+      filterable
+      value={value}
+      onChange={onChange}
+      style={{ width: '40%' }}
+      loading={loading}
+      onSearch={handleRemoteSearch}
+      options={options}
+    />
   );
 };
 
