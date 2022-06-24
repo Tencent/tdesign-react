@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Popconfirm } from 'tdesign-react';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 
 export default function PlacementExample() {
   const $content = '请确认您要进行此操作';
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popconfirm content={$content} placement="left">
         <Button theme="primary">Left</Button>
       </Popconfirm>
@@ -16,6 +16,6 @@ export default function PlacementExample() {
       <Popconfirm content={$content} placement="bottom">
         <Button>Bottom</Button>
       </Popconfirm>
-    </div>
+    </Space>
   );
 }

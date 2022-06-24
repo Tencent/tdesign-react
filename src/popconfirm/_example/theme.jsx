@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Popconfirm } from 'tdesign-react';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 
 export default function ThemeExample() {
   const $content = '请确认您要进行此操作';
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popconfirm content={$content}>
         <Button variant="outline">默认</Button>
       </Popconfirm>
@@ -17,6 +17,6 @@ export default function ThemeExample() {
       <Popconfirm content={$content} theme="danger">
         <Button theme="danger">错误</Button>
       </Popconfirm>
-    </div>
+    </Space>
   );
 }
