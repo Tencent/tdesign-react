@@ -1,0 +1,823 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        fill="none"
+        height="1em"
+        style="color: rgb(255, 62, 0);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 2`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        fill="none"
+        height="1em"
+        style="color: rgb(255, 170, 0);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 3`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        fill="none"
+        height="1em"
+        style="color: rgb(0, 82, 217);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 4`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-info-circle-filled"
+        fill="none"
+        height="1em"
+        style="color: rgb(0, 82, 217);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 15A7 7 0 108 1a7 7 0 000 14zM7.4 4h1.2v1.2H7.4V4zm.1 2.5h1V12h-1V6.5z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 5`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-check-circle"
+        fill="none"
+        height="1em"
+        style="color: rgb(255, 62, 0);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M4.5 8.2L7 10.7l4.5-4.5-.7-.7L7 9.3 5.2 7.5l-.7.7z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+        <path
+          d="M4.11 2.18a7 7 0 117.78 11.64A7 7 0 014.1 2.18zm.56 10.8a6 6 0 106.66-9.97A6 6 0 004.67 13z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 6`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <span
+        style="color: rgb(255, 62, 0);"
+      >
+        CustomIcon
+      </span>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 7`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-check-circle"
+        fill="none"
+        height="1em"
+        style="color: rgb(0, 82, 217);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M4.5 8.2L7 10.7l4.5-4.5-.7-.7L7 9.3 5.2 7.5l-.7.7z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+        <path
+          d="M4.11 2.18a7 7 0 117.78 11.64A7 7 0 014.1 2.18zm.56 10.8a6 6 0 106.66-9.97A6 6 0 004.67 13z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 8`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <svg
+        class="t-icon t-icon-check-circle"
+        fill="none"
+        height="1em"
+        style="color: rgb(0, 82, 217);"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M4.5 8.2L7 10.7l4.5-4.5-.7-.7L7 9.3 5.2 7.5l-.7.7z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+        <path
+          d="M4.11 2.18a7 7 0 117.78 11.64A7 7 0 014.1 2.18zm.56 10.8a6 6 0 106.66-9.97A6 6 0 004.67 13z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popconfirm 组件测试 Popcontent - icon & theme snapshots 9`] = `
+<DocumentFragment>
+  <div
+    class="t-popconfirm__content"
+  >
+    <div
+      class="t-popconfirm__body"
+    >
+      <span>
+        CustomIcon
+      </span>
+      <div
+        class="t-popconfirm__inner"
+      >
+        弹出层描述
+      </div>
+    </div>
+    <div
+      class="t-popconfirm__buttons"
+    >
+      <span
+        class="t-popconfirm__cancel"
+      />
+      <span
+        class="t-popconfirm__confirm"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`base.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            删除订单
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            提交审核
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`button.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            按钮样式（属性-字符串）
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            按钮样式（TNode）
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`describe.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            自定义浮层内容
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-warning t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            自定义浮层内容
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`extends.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-popup__reference"
+  >
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
+      >
+        浮层在右边
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`icon.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-popup__reference"
+          >
+            <button
+              class="t-button t-button--theme-primary t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                默认
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-popup__reference"
+          >
+            <button
+              class="t-button t-button--theme-warning t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                警告
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-popup__reference"
+          >
+            <button
+              class="t-button t-button--theme-danger t-button--variant-base"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                危险
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-popup__reference"
+          >
+            <button
+              class="t-button t-button--theme-default t-button--variant-outline"
+              type="button"
+            >
+              <span
+                class="t-button__text"
+              >
+                自定义图标（属性）
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`inherit.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            浮层出现在下方
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            浮层出现在右侧
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`placement.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            Left
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            Top
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            Bottom
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`theme.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            默认
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            提示
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-danger t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            警告
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-danger t-button--variant-base"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            错误
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
