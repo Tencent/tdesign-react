@@ -1,9 +1,9 @@
 ﻿import React from 'react';
-import { Input, TagInput, InputAdornment } from 'tdesign-react';
+import { Input, TagInput, InputAdornment, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <InputAdornment prepend="http://">
         <Input />
       </InputAdornment>
@@ -15,6 +15,6 @@ export default function BaseExample() {
       <InputAdornment prepend="http://" append=".com">
         <Input />
       </InputAdornment>
-    </div>
+    </Space>
   );
 }
