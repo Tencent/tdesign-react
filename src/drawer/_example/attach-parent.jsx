@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button } from 'tdesign-react';
+import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
@@ -24,7 +24,7 @@ export default function () {
         borderRadius: '2px',
       }}
     >
-      <div className="tdesign-demo-block-column">
+      <Space direction="vertical">
         <p>渲染在当前元素中。</p>
         <div>
           <span>抽屉弹出方向：</span>
@@ -60,7 +60,7 @@ export default function () {
         >
           <p>This is a drawer</p>
         </Drawer>
-      </div>
+      </Space>
     </div>
   );
 }
