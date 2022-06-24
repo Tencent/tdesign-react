@@ -75,6 +75,12 @@ export default {
       type: 'component', // 组件文档
       children: [
         {
+          title: 'Divider 分割线',
+          name: 'divider',
+          path: '/react/components/divider',
+          component: () => import('tdesign-react/divider/divider.md'),
+        },
+        {
           title: 'Grid 栅格',
           name: 'grid',
           path: '/react/components/grid',
@@ -85,12 +91,6 @@ export default {
           name: 'layout',
           path: '/react/components/layout',
           component: () => import('tdesign-react/layout/layout.md'),
-        },
-        {
-          title: 'Divider 分割线',
-          name: 'divider',
-          path: '/react/components/divider',
-          component: () => import('tdesign-react/divider/divider.md'),
         },
         {
           title: 'Space 间距',
