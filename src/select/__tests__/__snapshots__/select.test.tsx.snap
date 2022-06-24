@@ -185,52 +185,48 @@ exports[`creatable.jsx 1`] = `
 exports[`custom-options.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="display: flex;"
+    class="t-select__wrap"
+    style="width: 80%;"
   >
     <div
-      class="t-select__wrap"
-      style="width: 40%;"
+      class="t-popup__reference t-select t-select-input"
     >
       <div
-        class="t-popup__reference t-select t-select-input"
+        class="t-input__wrap"
+        value="用户一"
       >
         <div
-          class="t-input__wrap"
-          value="Apple"
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
-            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            type="text"
+            value="用户一"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
           >
-            <div
-              class="t-input__prefix"
-            />
-            <input
-              class="t-input__inner"
-              placeholder="请选择"
-              readonly=""
-              type="text"
-              value="Apple"
-            />
-            <span
-              class="t-input__suffix t-input__suffix-icon"
+            <svg
+              class="t-fake-arrow t-select__right-icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="t-fake-arrow t-select__right-icon"
-                fill="none"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                  stroke="black"
-                  stroke-opacity="0.9"
-                  stroke-width="1.3"
-                />
-              </svg>
-            </span>
-          </div>
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -1201,6 +1197,7 @@ exports[`prefix.jsx 1`] = `
               class="t-icon t-icon-browse"
               fill="none"
               height="1em"
+              style="margin-right: 8px;"
               viewBox="0 0 16 16"
               width="1em"
             >

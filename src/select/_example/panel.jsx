@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Textarea, Button, Input } from 'tdesign-react';
+import { Select, Textarea, Button, Input, Divider } from 'tdesign-react';
 
 const OPTIONS = [
   { label: '架构云', value: '1' },
@@ -49,9 +49,17 @@ export default function PanelExample() {
         panelBottomContent={
           <div className="select-panel-footer">
             {editOrCreate === 'edit' ? (
-              <Button theme="primary" variant="text" onClick={() => toggleEditOrCreate('create')}>
-                新增选项
-              </Button>
+              <div
+                style={{
+                  borderTop: '1px solid var(--td-border-level-2-color)',
+                  marginTop: '8px',
+                  padding: '8px 0',
+                }}
+              >
+                <Button theme="primary" variant="text" onClick={() => toggleEditOrCreate('create')}>
+                  新增选项
+                </Button>
+              </div>
             ) : (
               <div>
                 <Input autoFocus value={inputVal} onChange={(v) => changeInputVal(v)}></Input>
