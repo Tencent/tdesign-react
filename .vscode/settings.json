@@ -28,6 +28,7 @@
     "activable",
     "borderless",
     "Cascader",
+    "Popconfirm",
     "tdesign"
   ]
 }
