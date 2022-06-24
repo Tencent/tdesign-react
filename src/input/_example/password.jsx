@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Input } from 'tdesign-react';
+import { Input, Space } from 'tdesign-react';
 import { LockOnIcon } from 'tdesign-icons-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');
   return (
-    <div className="tdesign-demo-item--input__input-box">
+    <Space direction="vertical">
       <Input
         prefixIcon={<LockOnIcon />}
         placeholder="请输入"
@@ -24,6 +24,6 @@ export default function InputExample() {
           onChange(value);
         }}
       />
-    </div>
+    </Space>
   );
 }
