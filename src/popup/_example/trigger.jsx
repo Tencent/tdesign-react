@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Popup, Input } from 'tdesign-react';
+import { Button, Popup, Input, Space } from 'tdesign-react';
 
 export default function Triggers() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popup trigger="hover" showArrow content="这是一个弹出框">
         <Button variant="outline">悬浮时触发（默认）</Button>
       </Popup>
@@ -18,6 +18,6 @@ export default function Triggers() {
       <Popup trigger="context-menu" showArrow content="这是一个弹出框">
         <Button variant="outline">右击时触发</Button>
       </Popup>
-    </div>
+    </Space>
   );
 }
