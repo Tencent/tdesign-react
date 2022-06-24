@@ -1,5 +1,6 @@
 import React, { forwardRef, ReactNode, useState, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
 import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 import lodashTemplate from 'lodash/template';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import useConfig from '../_util/useConfig';
@@ -167,7 +168,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
           if (!item.message && errorMessages[key]) {
             const compiled = lodashTemplate(errorMessages[key]);
             // eslint-disable-next-line
-            item.message = compiled({ name, validate: item[key] });
+            item.message = compiled({ name: isString(label) ? label : name, validate: item[key] });
           }
         });
         return item;
