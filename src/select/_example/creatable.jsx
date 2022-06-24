@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-
 import { Select } from 'tdesign-react';
 
-const SelectCreatable = () => {
+export default function SelectCreatable() {
   const [value, setValue] = useState('apple');
   const [options, changeOptions] = useState([
     {
@@ -25,18 +24,14 @@ const SelectCreatable = () => {
     changeOptions(options.concat([{ value, label: value }]));
   };
   return (
-    <div style={{ display: 'flex' }}>
-      <Select
-        value={value}
-        onChange={onChange}
-        style={{ width: '40%' }}
-        options={options}
-        filterable
-        creatable
-        onCreate={handleOnCreate}
-      />
-    </div>
+    <Select
+      value={value}
+      onChange={onChange}
+      style={{ width: '40%' }}
+      options={options}
+      filterable
+      creatable
+      onCreate={handleOnCreate}
+    />
   );
-};
-
-export default SelectCreatable;
+}
