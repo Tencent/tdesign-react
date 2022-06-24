@@ -14,6 +14,7 @@ import {
   Upload,
   Cascader,
   Textarea,
+  Space,
 } from 'tdesign-react';
 
 const { FormItem } = Form;
@@ -68,7 +69,7 @@ export default function BaseForm() {
   ];
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div style={{ marginLeft: 36 }}>
         <Radio.Group value={formDisabled} onChange={(value) => setFormDisabled(value)} variant="default-filled">
           <Radio.Button value={false}>启用</Radio.Button>
@@ -127,6 +128,6 @@ export default function BaseForm() {
           </Button>
         </FormItem>
       </Form>
-    </div>
+    </Space>
   );
 }

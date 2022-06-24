@@ -20,7 +20,7 @@ export default function BaseForm() {
 
   const resetValidate = () => {
     form.current.clearValidate();
-  }
+  };
 
   // 自定义异步校验器
   function rePassword(val) {
@@ -39,12 +39,12 @@ export default function BaseForm() {
       setTimeout(() => {
         resolve(!names.includes(name));
       }, 1000);
-  });
-}
+    });
+  }
 
   // 自定义校验器，不同的值输出不同的校验结果。支持异步校验（文案选自某密码重置站点，如有侵权，请联系我们删除）
   function passwordValidator(val) {
-    if (!val || val.length > 0 && val.length <= 2) {
+    if (!val || (val.length > 0 && val.length <= 2)) {
       return { result: false, message: '太简单了！再开动一下你的小脑筋吧！', type: 'error' };
     }
     if (val.length > 2 && val.length < 4) {
@@ -72,25 +72,27 @@ export default function BaseForm() {
   };
 
   return (
-    <div>
-      <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} labelWidth={100} rules={rules}>
-        <FormItem label="用户名" name="account">
-          <Input />
-        </FormItem>
-        <FormItem label="密码" name="password" initialData=''>
-          <Input />
-        </FormItem>
-        <FormItem label="确认密码" name="rePassword" initialData=''>
-          <Input />
-        </FormItem>
-        <FormItem style={{ marginLeft: 100 }}>
-          <Button theme="primary" type="submit">
-            提交
-          </Button>
-          <Button theme="default" type="reset" style={{ margin: '0 12px' }}>重置</Button>
-          <Button theme="default" onClick={resetValidate}>清除校验状态</Button>
-        </FormItem>
-      </Form>
-    </div>
+    <Form ref={form} statusIcon={true} onSubmit={onSubmit} onReset={onReset} labelWidth={100} rules={rules}>
+      <FormItem label="用户名" name="account">
+        <Input />
+      </FormItem>
+      <FormItem label="密码" name="password" initialData="">
+        <Input />
+      </FormItem>
+      <FormItem label="确认密码" name="rePassword" initialData="">
+        <Input />
+      </FormItem>
+      <FormItem style={{ marginLeft: 100 }}>
+        <Button theme="primary" type="submit">
+          提交
+        </Button>
+        <Button theme="default" type="reset" style={{ margin: '0 12px' }}>
+          重置
+        </Button>
+        <Button theme="default" onClick={resetValidate}>
+          清除校验状态
+        </Button>
+      </FormItem>
+    </Form>
   );
 }
