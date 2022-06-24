@@ -157,16 +157,15 @@ export const useIndex = (resProps, images) => {
   const [index, setIndex] = useControlled<number, any>(resProps, 'index', noop);
 
   const next = useCallback(() => {
-    setIndex((index) => {
-      const newIndex = index + 1;
-      if (newIndex >= images.length) return index;
-      return newIndex;
-    });
-  }, [setIndex, images.length]);
+    const newIndex = index + 1;
+    if (newIndex >= images.length) return index;
+    setIndex(newIndex);
+  }, [setIndex, index, images.length]);
 
   const prev = useCallback(() => {
-    setIndex((index) => (index - 1 > 0 ? index - 1 : 0));
-  }, [setIndex]);
+    const newIndex = index - 1 > 0 ? index - 1 : 0;
+    setIndex(newIndex);
+  }, [index, setIndex]);
 
   return {
     index,
