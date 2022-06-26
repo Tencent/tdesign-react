@@ -1,207 +1,115 @@
-import React, { useState, useEffect, useMemo } from 'react';
-
-// component
-import { useLocaleReceiver } from '../locale/LocalReceiver';
+import React, { useMemo } from 'react';
+import classNames from 'classnames';
+import pick from 'lodash/pick';
 import Panel from './components/Panel';
-import Popup from '../popup';
-import InputContent from './components/InputContent';
+import SelectInput from '../select-input';
+import FakeArrow from '../common/FakeArrow';
 
-// utils
 import useConfig from '../_util/useConfig';
-import TreeStore from '../_common/js/tree/tree-store';
-import useControlled from '../hooks/useControlled';
-import { getTreeValue } from './utils/helper';
+import useCommonClassName from '../_util/useCommonClassName';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
-// common logic
-import { treeNodesEffect, treeStoreExpendEffect } from './utils/cascader';
+import { CascaderValue, TdCascaderProps } from './interface';
+import { closeIconClickEffect, handleRemoveTagEffect } from './core/effect';
+import { getPanels, getSingleContent, getMultipleContent } from './core/helper';
+import { getFakeArrowIconClass } from './core/className';
+import { useCascaderContext } from './hooks';
 
-// types
-import { CascaderProps, CascaderContextType, TreeNodeValue, TreeNodeModel } from './interface';
-import { CascaderChangeSource, CascaderValue } from './type';
 import { cascaderDefaultProps } from './defaultProps';
+import { StyledProps } from '../common';
 
-const Cascader: React.FC<CascaderProps> = (props) => {
+const Cascader = (props: TdCascaderProps & StyledProps) => {
   /**
    * global user props, config, data
    */
   const { classPrefix } = useConfig();
-  const name = `${classPrefix}-cascader`;
-  const { className, style, onChange, collapsedItems } = props;
+  const { STATUS } = useCommonClassName();
+  const [global] = useLocaleReceiver('cascader');
+  const COMPONENT_NAME = `${classPrefix}-cascader`;
 
-  const [value, setValue] = useControlled(props, 'value', onChange);
+  // 拿到全局状态的上下文
+  const { cascaderContext, isFilterable } = useCascaderContext(props);
 
-  const [visible, setVisible] = useState(false);
-  const [treeStore, setTreeStore] = useState(null);
-  const [filterActive, setFilterActive] = useState(false);
-  const [inputVal, setInputVal] = useState('');
-  const [inputWidth, setInputWidth] = useState(0);
-  const [treeNodes, setTreeNodes] = useState([]);
-  const [expend, setExpend] = useState<TreeNodeValue[]>([]);
-  const [local, t] = useLocaleReceiver('cascader');
+  const displayValue = useMemo(
+    () => (props.multiple ? getMultipleContent(cascaderContext) : getSingleContent(cascaderContext)),
+    [props.multiple, cascaderContext],
+  );
 
-  // cascaderContext, center status
-  const loadingLocalText = t(local.loadingText);
-  const cascaderContext = useMemo(() => {
-    const {
-      size,
-      disabled,
-      checkStrictly,
-      lazy,
-      multiple,
-      filterable,
-      clearable,
-      checkProps,
-      max,
-      showAllLevels,
-      minCollapsedNum,
-      loadingText = loadingLocalText,
-    } = props;
-    return {
-      size,
-      disabled,
-      checkStrictly,
-      lazy,
-      multiple,
-      filterable,
-      value,
-      setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => {
-        setValue(val, {
-          source,
-          node,
-        });
-      },
-      visible,
-      setVisible,
-      treeStore,
-      checkProps,
-      clearable,
-      showAllLevels,
-      max,
-      treeNodes,
-      setTreeNodes,
-      filterActive,
-      setFilterActive,
-      inputVal,
-      setInputVal,
-      setExpend,
-      minCollapsedNum,
-      inputWidth,
-      setInputWidth,
-      loadingText,
-    } as CascaderContextType;
-  }, [loadingLocalText, props, value, visible, treeStore, treeNodes, filterActive, inputVal, inputWidth, setValue]);
+  const panels = useMemo(() => getPanels(cascaderContext.treeNodes), [cascaderContext]);
 
-  /**
-   * build tree
-   */
-  const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
+  const inputPlaceholder = useMemo(
+    () =>
+      (cascaderContext.visible && !props.multiple && getSingleContent(cascaderContext)) ||
+      (props.placeholder ?? global.placeholder),
+    [props.placeholder, cascaderContext, props.multiple, global.placeholder],
+  );
 
-  useEffect(() => {
-    if (!options.length) return;
-    if (!treeStore) {
-      const createStore = (onLoad: () => void) => {
-        const treePropsKeys = {
-          ...keys,
-          children: typeof keys.children === 'string' ? keys.children : 'children',
-        };
-
-        const treeProps = {
-          onLoad,
-          options,
-          keys: treePropsKeys,
-        };
-        const store = new TreeStore(treeProps);
-        store.append(options);
-        return store;
-      };
-      const store = createStore(() => {
-        store.refreshNodes();
-        treeNodesEffect(inputVal, store, setTreeNodes);
-      });
-      setTreeStore(store);
-    } else {
-      if (treeStore.config.options === options) return;
-      treeStore.reload(options);
-      treeStore.refreshNodes();
-      treeStoreExpendEffect(treeStore, value, []);
-      treeNodesEffect(inputVal, treeStore, setTreeNodes);
-    }
-  }, [inputVal, options, value, treeStore, keys]);
-
-  useEffect(() => {
-    if (!treeStore) return;
-    const treeProps = {
-      keys: keys || {},
-      checkable: true,
-      checkStrictly,
-      expandMutex: true,
-      expandParent: true,
-      disabled,
-      load,
-      lazy,
-      valueMode,
-      options,
-    };
-    treeStore.setConfig(treeProps);
-  }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
-
-  // treeStore and expend effect
-  useEffect(() => {
-    if (!treeStore) return;
-    treeStoreExpendEffect(treeStore, value, expend);
-  }, [treeStore, value, expend]);
-
-  // value change will effect treeNodes, in filter, inputVal will also change treeNodes
-  useEffect(() => {
-    if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes);
-  }, [inputVal, treeStore, value]);
-
-  // tree checked effect
-  useEffect(() => {
-    if (!treeStore) return;
-    treeStore.replaceChecked(getTreeValue(value));
-  }, [value, treeStore]);
-
-  useEffect(() => {
-    if (!filterActive) {
-      setInputVal('');
-    }
-  }, [filterActive]);
-
-  // panel props
-  const { empty = t(local.empty), trigger = 'click' } = props;
-
-  // inputContent props
-  const { placeholder = t(local.placeholder), onRemove, onBlur, onFocus } = props;
-
-  return (
-    <Popup
-      className={`${name}__popup`}
-      placement="bottom-left"
-      visible={visible}
-      overlayClassName={`${name}__dropdown`}
-      expandAnimation={true}
-      destroyOnClose={true}
-      {...props?.popupProps}
-      content={<Panel cascaderContext={cascaderContext} trigger={trigger} onChange={onChange} empty={empty} />}
-    >
-      <InputContent
-        collapsedItems={collapsedItems}
-        cascaderContext={cascaderContext}
-        style={style}
-        className={className}
-        listeners={{
-          onRemove,
-          onBlur,
-          onFocus,
-          onChange,
-        }}
-        placeholder={placeholder}
+  const renderSuffixIcon = () => {
+    const { visible, disabled } = cascaderContext;
+    return (
+      <FakeArrow
+        overlayClassName={getFakeArrowIconClass(classPrefix, STATUS, cascaderContext)}
+        isActive={visible}
+        disabled={disabled}
       />
-      {/* TODO popup need a node */}
-      <></>
-    </Popup>
+    );
+  };
+
+  const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
+  return (
+    <SelectInput
+      className={classNames(COMPONENT_NAME, props.className)}
+      style={props.style}
+      value={displayValue}
+      inputValue={visible ? inputVal : ''}
+      popupVisible={visible}
+      allowInput={isFilterable}
+      minCollapsedNum={props.minCollapsedNum}
+      collapsedItems={props.collapsedItems as any}
+      readonly={props.readonly}
+      clearable={props.clearable}
+      placeholder={inputPlaceholder}
+      multiple={props.multiple}
+      loading={props.loading}
+      suffixIcon={() => renderSuffixIcon()}
+      popupProps={{
+        ...props.popupProps,
+        overlayStyle: panels.length ? { width: 'auto' } : {},
+        overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
+      }}
+      inputProps={{ size: props.size }}
+      tagInputProps={{
+        size: props.size,
+      }}
+      {...props.selectInputProps}
+      onInputChange={(value) => {
+        if (!isFilterable) return;
+        setInputVal(`${value}`);
+      }}
+      onTagChange={(val: CascaderValue, ctx) => {
+        handleRemoveTagEffect(cascaderContext, ctx.index, props.onRemove);
+      }}
+      onPopupVisibleChange={(val: boolean, context) => {
+        if (props.disabled) return;
+        setVisible(val, context);
+      }}
+      onBlur={(val, context) => {
+        props.onBlur?.({
+          value: cascaderContext.value,
+          e: context.e,
+        });
+      }}
+      onFocus={(val, context) => {
+        props.onFocus?.({
+          value: cascaderContext.value,
+          e: context.e,
+        });
+      }}
+      onClear={() => {
+        closeIconClickEffect(cascaderContext);
+      }}
+      panel={<Panel cascaderContext={cascaderContext} {...pick(props, ['trigger', 'onChange', 'empty'])}></Panel>}
+    />
   );
 };
 
