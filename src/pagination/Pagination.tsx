@@ -34,6 +34,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     showPreviousAndNextBtn,
     showFirstAndLastPageBtn,
     showJumper,
+    pageEllipsisMode = 'mid',
     disabled,
     foldedMaxPageBtn,
     maxPageBtn,
@@ -145,6 +146,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     pageCount,
     foldedMaxPageBtn,
     changeCurrent,
+    pageEllipsisMode,
   });
 
   const pageSizeContrl =
