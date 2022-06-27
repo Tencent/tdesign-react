@@ -3,37 +3,50 @@
 exports[`adjust.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
       >
-        王
-      </span>
+        <span
+          style="transform: scale(1);"
+        >
+          王
+        </span>
+      </div>
     </div>
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
       >
-        王亿
-      </span>
+        <span
+          style="transform: scale(1);"
+        >
+          王亿
+        </span>
+      </div>
     </div>
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
       >
-        王亿亿
-      </span>
+        <span
+          style="transform: scale(1);"
+        >
+          王亿亿
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -42,50 +55,41 @@ exports[`adjust.jsx 1`] = `
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <img
-        src="https://tdesign.gtimg.com/site/avatar.jpg"
-      />
-    </div>
-    <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
-    >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
       >
-        W
-      </span>
-    </div>
-    <div
-      class="t-avatar t-avatar--circle t-avatar-icon"
-      style="margin-right: 40px;"
-    >
-      <svg
-        class="t-icon t-icon-user"
-        fill="none"
-        height="1em"
-        viewBox="0 0 16 16"
-        width="1em"
-      >
-        <path
-          d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
-          fill="currentColor"
-          fill-opacity="0.9"
+        <img
+          src="https://tdesign.gtimg.com/site/avatar.jpg"
         />
-      </svg>
+      </div>
     </div>
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          W
+        </span>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-avatar t-avatar--circle t-avatar-icon"
+        style="margin-right: 40px;"
       >
         <svg
           class="t-icon t-icon-user"
@@ -100,7 +104,33 @@ exports[`base.jsx 1`] = `
             fill-opacity="0.9"
           />
         </svg>
-      </span>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
+      >
+        <span
+          style="transform: scale(1);"
+        >
+          <svg
+            class="t-icon t-icon-user"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -109,11 +139,11 @@ exports[`base.jsx 1`] = `
 exports[`group.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -154,7 +184,7 @@ exports[`group.jsx 1`] = `
       </div>
     </div>
     <div
-      class="demo-avatar-block"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -201,11 +231,11 @@ exports[`group.jsx 1`] = `
 exports[`group-cascading.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -246,8 +276,7 @@ exports[`group-cascading.jsx 1`] = `
       </div>
     </div>
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-left"
@@ -294,11 +323,11 @@ exports[`group-cascading.jsx 1`] = `
 exports[`group-max.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -335,8 +364,7 @@ exports[`group-max.jsx 1`] = `
       </div>
     </div>
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -385,7 +413,7 @@ exports[`group-max.jsx 1`] = `
       </div>
     </div>
     <div
-      class="demo-avatar-block"
+      class="t-space-item"
     >
       <div
         class="t-avatar-group t-avatar--offset-right"
@@ -428,27 +456,36 @@ exports[`group-max.jsx 1`] = `
 exports[`shape.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
     <div
-      class="t-avatar t-avatar--circle"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--circle"
+        style="margin-right: 40px;"
       >
-        W
-      </span>
+        <span
+          style="transform: scale(1);"
+        >
+          W
+        </span>
+      </div>
     </div>
     <div
-      class="t-avatar t-avatar--round"
-      style="margin-right: 40px;"
+      class="t-space-item"
     >
-      <span
-        style="transform: scale(1);"
+      <div
+        class="t-avatar t-avatar--round"
+        style="margin-right: 40px;"
       >
-        W
-      </span>
+        <span
+          style="transform: scale(1);"
+        >
+          W
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -457,95 +494,137 @@ exports[`shape.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="demo-avatar"
+    class="t-space t-space-vertical"
+    style="gap: 24px;"
   >
     <div
-      class="demo-avatar-block"
-      style="margin-bottom: 40px;"
+      class="t-space-item"
     >
       <div
-        class="t-avatar t-size-s t-avatar--circle"
-        style="margin-right: 40px;"
+        class="t-space t-space-align-center t-space-horizontal"
+        style="gap: 16px;"
       >
-        <span
-          style="transform: scale(1);"
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-size-m t-avatar--circle"
-        style="margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-s t-avatar--circle"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-size-l t-avatar--circle"
-        style="margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-m t-avatar--circle"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-avatar--circle"
-        style="width: 100px; height: 100px; font-size: 50px; margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-l t-avatar--circle"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
+          <div
+            class="t-avatar t-avatar--circle"
+            style="width: 100px; height: 100px; font-size: 50px; margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
       </div>
     </div>
     <div
-      class="demo-avatar-block"
+      class="t-space-item"
     >
       <div
-        class="t-avatar t-size-s t-avatar--round"
-        style="margin-right: 40px;"
+        class="t-space t-space-align-center t-space-horizontal"
+        style="gap: 16px;"
       >
-        <span
-          style="transform: scale(1);"
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-size-m t-avatar--round"
-        style="margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-s t-avatar--round"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-size-l t-avatar--round"
-        style="margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-m t-avatar--round"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
-      </div>
-      <div
-        class="t-avatar t-avatar--round"
-        style="width: 100px; height: 100px; font-size: 50px; margin-right: 40px;"
-      >
-        <span
-          style="transform: scale(1);"
+          <div
+            class="t-avatar t-size-l t-avatar--round"
+            style="margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          W
-        </span>
+          <div
+            class="t-avatar t-avatar--round"
+            style="width: 100px; height: 100px; font-size: 50px; margin-right: 40px;"
+          >
+            <span
+              style="transform: scale(1);"
+            >
+              W
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

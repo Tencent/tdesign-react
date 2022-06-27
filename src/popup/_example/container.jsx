@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Popup } from 'tdesign-react';
+import { Button, Popup, Space } from 'tdesign-react';
 
-function Attach() {
+export default function Attach() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popup
         trigger="click"
         content="触发元素的父元素是组件跟元素，通过 CSSSelector 定义"
@@ -18,8 +18,6 @@ function Attach() {
       >
         <Button>点击查看我的父元素(Function)</Button>
       </Popup>
-    </div>
+    </Space>
   );
 }
-
-export default Attach;

@@ -3,7 +3,7 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"
@@ -164,7 +164,7 @@ exports[`base.jsx 1`] = `
 exports[`card.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"
@@ -322,124 +322,129 @@ exports[`card.jsx 1`] = `
 exports[`current.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="t-space tdesign-demo-block--swiper t-space-vertical"
+    style="gap: 16px; width: 100%;"
   >
     <div
-      class="t-swiper"
+      class="t-space-item"
     >
       <div
-        class="t-swiper__wrap t-swiper--inside"
+        class="t-swiper"
       >
         <div
-          class="t-swiper__content"
+          class="t-swiper__wrap t-swiper--inside"
         >
           <div
-            class="t-swiper__container"
-            style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
+            class="t-swiper__content"
           >
             <div
-              class="t-swiper__container__item"
+              class="t-swiper__container"
+              style="transform: translate3d(-0%, 0px, 0px); transition: transform 0.3s ease;"
             >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                1
+                <div
+                  class="demo-item"
+                >
+                  1
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                2
+                <div
+                  class="demo-item"
+                >
+                  2
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                3
+                <div
+                  class="demo-item"
+                >
+                  3
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                4
+                <div
+                  class="demo-item"
+                >
+                  4
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                5
+                <div
+                  class="demo-item"
+                >
+                  5
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                6
+                <div
+                  class="demo-item"
+                >
+                  6
+                </div>
               </div>
-            </div>
-            <div
-              class="t-swiper__container__item"
-            >
               <div
-                class="demo-item"
+                class="t-swiper__container__item"
               >
-                1
+                <div
+                  class="demo-item"
+                >
+                  1
+                </div>
               </div>
             </div>
           </div>
+          <ul
+            class="t-swiper__navigation t-swiper__navigation-bars"
+          >
+            <li
+              class="t-swiper__navigation-item t-is-active"
+            >
+              <span />
+            </li>
+            <li
+              class="t-swiper__navigation-item"
+            >
+              <span />
+            </li>
+            <li
+              class="t-swiper__navigation-item"
+            >
+              <span />
+            </li>
+            <li
+              class="t-swiper__navigation-item"
+            >
+              <span />
+            </li>
+            <li
+              class="t-swiper__navigation-item"
+            >
+              <span />
+            </li>
+            <li
+              class="t-swiper__navigation-item"
+            >
+              <span />
+            </li>
+          </ul>
         </div>
-        <ul
-          class="t-swiper__navigation t-swiper__navigation-bars"
-        >
-          <li
-            class="t-swiper__navigation-item t-is-active"
-          >
-            <span />
-          </li>
-          <li
-            class="t-swiper__navigation-item"
-          >
-            <span />
-          </li>
-          <li
-            class="t-swiper__navigation-item"
-          >
-            <span />
-          </li>
-          <li
-            class="t-swiper__navigation-item"
-          >
-            <span />
-          </li>
-          <li
-            class="t-swiper__navigation-item"
-          >
-            <span />
-          </li>
-          <li
-            class="t-swiper__navigation-item"
-          >
-            <span />
-          </li>
-        </ul>
       </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
       <button
         class="t-button t-button--theme-primary t-button--variant-base t-size-s"
@@ -459,7 +464,7 @@ exports[`current.jsx 1`] = `
 exports[`fade.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"
@@ -627,7 +632,7 @@ exports[`fade.jsx 1`] = `
 exports[`fraction.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"
@@ -763,7 +768,7 @@ exports[`fraction.jsx 1`] = `
 exports[`placement.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"
@@ -924,7 +929,7 @@ exports[`placement.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
     style="width: 1000px;"
   >
     <h3>
@@ -1084,7 +1089,7 @@ exports[`size.jsx 1`] = `
     </div>
   </div>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
     style="width: 500px; margin-top: 20px;"
   >
     <h3>
@@ -1249,7 +1254,7 @@ exports[`size.jsx 1`] = `
 exports[`vertical.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block--swiper-new"
+    class="tdesign-demo-block--swiper"
   >
     <div
       class="t-swiper"

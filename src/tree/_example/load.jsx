@@ -33,9 +33,5 @@ export default () => {
       }, 1000);
     });
 
-  return (
-    <div className="tdesign-tree-base">
-      <Tree data={items} hover lazy={false} expandAll load={load} />
-    </div>
-  );
+  return <Tree data={items} hover lazy={false} expandAll load={load} />;
 };

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Select } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
 
@@ -11,7 +10,12 @@ const SelectPrefix = () => {
     setValue(value);
   };
   return (
-    <Select value={value} onChange={onChange} style={{ width: '40%' }} prefixIcon={<BrowseIcon />}>
+    <Select
+      value={value}
+      onChange={onChange}
+      style={{ width: '40%' }}
+      prefixIcon={<BrowseIcon style={{ marginRight: '8px' }} />}
+    >
       <Option key="apple" label="Apple" value="apple" />
       <Option key="orange" label="Orange" value="orange" disabled />
       <Option key="banana" label="Banana" value="banana" />

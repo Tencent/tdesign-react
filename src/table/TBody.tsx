@@ -57,12 +57,13 @@ export const extendTableProps = [
 
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns, rowKey } = props;
+  const { data, columns, rowKey, firstFullRow, lastFullRow } = props;
   const [global, t] = useLocaleReceiver('table');
   const { tableFullRowClasses, tableBaseClass } = useClassName();
   const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
 
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
+  const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
 
   const renderEmpty = (columns: TableBodyProps['columns']) => (
     <tr className={classNames([tableBaseClass.emptyRow, { [tableFullRowClasses.base]: props.isWidthOverflow }])}>
@@ -80,9 +81,10 @@ export default function TBody(props: TableBodyProps) {
   const getFullRow = (columnLength: number, type: 'first-full-row' | 'last-full-row') => {
     const tType = camelCase(type);
     const fullRowNode = {
-      'first-full-row': props.firstFullRow,
-      'last-full-row': props.lastFullRow,
+      'first-full-row': firstFullRow,
+      'last-full-row': lastFullRow,
     }[type];
+
     if (!fullRowNode) return null;
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
@@ -157,7 +159,7 @@ export default function TBody(props: TableBodyProps) {
       {getFullRow(columnLength, 'last-full-row')}
     </>
   );
-  const isEmpty = !data?.length && !props.loading;
+  const isEmpty = !data?.length && !props.loading && !hasFullRowConfig;
 
   const translate = `translate(0, ${props.translateY}px)`;
   const posStyle = {

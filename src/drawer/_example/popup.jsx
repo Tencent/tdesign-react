@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Radio, Button } from 'tdesign-react';
+import { Drawer, Radio, Button, Space } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);
@@ -12,7 +12,7 @@ export default function () {
     setVisible(false);
   };
   return (
-    <div className="tdesign-demo-block-column">
+    <Space>
       <div>
         <span>抽屉弹出模式：</span>
         <Radio.Group value={mode} onChange={(value) => setMode(value)}>
@@ -30,6 +30,6 @@ export default function () {
       <Drawer placement="right" attach={'body'} header="抽屉标题" visible={visible} onClose={handleClose} mode={mode}>
         <p>抽屉的内容</p>
       </Drawer>
-    </div>
+    </Space>
   );
 }

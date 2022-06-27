@@ -10,8 +10,18 @@ export default function usePageNumber(props) {
   const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
   const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
 
-  const { showPageNumber, maxPageBtn, disabled, current, pageCount, foldedMaxPageBtn, changeCurrent } = props;
+  const {
+    showPageNumber,
+    maxPageBtn,
+    disabled,
+    current,
+    pageCount,
+    foldedMaxPageBtn,
+    changeCurrent,
+    pageEllipsisMode,
+  } = props;
 
+  const isMidEllipsis = pageEllipsisMode === 'mid';
   const pivot = Math.ceil((foldedMaxPageBtn - 1) / 2);
 
   const pageList = useMemo<Array<number>>(() => {
@@ -26,8 +36,11 @@ export default function usePageNumber(props) {
         start = current - pivot;
         end = current + pivot;
       } else {
-        start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : 2;
-        end = isPrevMoreShow ? pageCount - 1 : foldedMaxPageBtn;
+        const foldedStart = isMidEllipsis ? 2 : 1;
+        const foldedEnd = isMidEllipsis ? pageCount - 1 : pageCount;
+        start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : foldedStart;
+        end = isPrevMoreShow ? foldedEnd : foldedMaxPageBtn;
+        console.log(end);
       }
     } else {
       start = 1;
@@ -38,13 +51,13 @@ export default function usePageNumber(props) {
       array.push(i);
     }
     return array;
-  }, [current, pageCount, foldedMaxPageBtn, maxPageBtn, pivot]);
+  }, [current, pageCount, foldedMaxPageBtn, isMidEllipsis, maxPageBtn, pivot]);
 
   const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
   const pageNumberContrl = showPageNumber && (
     <ul className={`${name}__pager`}>
-      {isFolded && (
+      {isFolded && isMidEllipsis && (
         <>
           <li
             key={1}
@@ -82,7 +95,7 @@ export default function usePageNumber(props) {
           {item}
         </li>
       ))}
-      {isFolded && (
+      {isFolded && isMidEllipsis && (
         <>
           {pageCount - 1 - pivot > current && (
             <li

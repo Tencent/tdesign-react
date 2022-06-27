@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Tree, Form, Switch } from 'tdesign-react';
+import { Radio, Tree, Form, Switch, Space } from 'tdesign-react';
 
 const valueOptions = [
   {
@@ -121,26 +121,24 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
-      <div className="operations">
-        <Form>
-          <Form.FormItem label="可选" initialData={checkable}>
-            <Switch onChange={setCheckable} />
-          </Form.FormItem>
-          <Form.FormItem label="严格模式" initialData={checkStrictly}>
-            <Switch onChange={setCheckStrictly} />
-          </Form.FormItem>
-          <Form.FormItem label="选中值模式" name="valueMode" initialData={valueMode}>
-            <Radio.Group onChange={setValueMode}>
-              {valueOptions.map((v) => (
-                <Radio key={v.value} value={v.value}>
-                  {v.label}
-                </Radio>
-              ))}
-            </Radio.Group>
-          </Form.FormItem>
-        </Form>
-      </div>
+    <Space direction="vertical">
+      <Form>
+        <Form.FormItem label="可选" initialData={checkable}>
+          <Switch onChange={setCheckable} />
+        </Form.FormItem>
+        <Form.FormItem label="严格模式" initialData={checkStrictly}>
+          <Switch onChange={setCheckStrictly} />
+        </Form.FormItem>
+        <Form.FormItem label="选中值模式" name="valueMode" initialData={valueMode}>
+          <Radio.Group onChange={setValueMode}>
+            {valueOptions.map((v) => (
+              <Radio key={v.value} value={v.value}>
+                {v.label}
+              </Radio>
+            ))}
+          </Radio.Group>
+        </Form.FormItem>
+      </Form>
       <Tree
         expandAll
         hover
@@ -151,6 +149,6 @@ export default () => {
         onChange={handleChange}
         onClick={handleClick}
       />
-    </div>
+    </Space>
   );
 };

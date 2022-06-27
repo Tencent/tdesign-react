@@ -2,18 +2,16 @@
 
 exports[`async.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        Open Modal
-      </span>
-    </button>
-  </div>
+      Open Modal
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
@@ -72,203 +70,207 @@ exports[`attach.jsx 1`] = `
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        Open Modal
-      </span>
-    </button>
-  </div>
+      Open Modal
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`custom.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        只显示确认按钮
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+      只显示确认按钮
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        自定义按钮内容
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+      自定义按钮内容
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        自定义内容
-      </span>
-    </button>
-  </div>
+      自定义内容
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      type="button"
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        Open Modal
-      </span>
-    </button>
-  </div>
+      Open Modal
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`modal.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          模态对话框
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          非模态对话框
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          非模态对话框2
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          普通对话框
-        </span>
-      </button>
-    </div>
-    <div />
-  </div>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      模态对话框
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      非模态对话框
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      非模态对话框2
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      普通对话框
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`plugin.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <p>
-      函数调用方式一：DialogPlugin(options)
-    </p>
-    <p>
-      函数调用方式二：DialogPlugin.confirm(options)
-    </p>
-    <p>
-      函数调用方式三：DialogPlugin.alert(options)
-    </p>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+      <p>
+        函数调用方式一：DialogPlugin(options)
+      </p>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <p>
+        函数调用方式二：DialogPlugin.confirm(options)
+      </p>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <p>
+        函数调用方式三：DialogPlugin.alert(options)
+      </p>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="margin-right: 16px;"
+          type="button"
         >
-          dialog
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <span
+            class="t-button__text"
+          >
+            dialog
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="margin-right: 16px;"
+          type="button"
         >
-          handleDialogNode
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <span
+            class="t-button__text"
+          >
+            handleDialogNode
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="margin-right: 16px;"
+          type="button"
         >
-          confirm
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <span
+            class="t-button__text"
+          >
+            confirm
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="margin-right: 16px;"
+          type="button"
         >
-          alert
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <span
+            class="t-button__text"
+          >
+            alert
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="margin-right: 16px;"
+          type="button"
         >
-          DialogPlugin.confirm
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            DialogPlugin.confirm
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -276,103 +278,97 @@ exports[`plugin.jsx 1`] = `
 
 exports[`position.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          默认
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          顶部
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 16px;"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          自定义
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          超出屏幕
-        </span>
-      </button>
-    </div>
-  </div>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      默认
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      顶部
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      自定义
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      超出屏幕
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`warning.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        提示反馈
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+      提示反馈
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        成功反馈
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+      成功反馈
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        警示反馈
-      </span>
-    </button>
-    <button
-      class="t-button t-button--theme-primary t-button--variant-base"
-      style="margin-right: 16px;"
-      type="button"
+      警示反馈
+    </span>
+  </button>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    style="margin-right: 16px;"
+    type="button"
+  >
+    <span
+      class="t-button__text"
     >
-      <span
-        class="t-button__text"
-      >
-        错误反馈
-      </span>
-    </button>
-  </div>
+      错误反馈
+    </span>
+  </button>
 </DocumentFragment>
 `;

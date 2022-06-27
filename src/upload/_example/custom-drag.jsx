@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload } from 'tdesign-react';
+import { Button, message, Upload, Space } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
 
 export default function CustomDrag() {
@@ -57,13 +57,11 @@ export default function CustomDrag() {
     [files, progress],
   );
   return (
-    <div className="tdesign-demo-upload t-upload">
+    <Space direction="vertical">
       <Button variant="outline" onClick={upload}>
         <CloudUploadIcon />
         点击上传
       </Button>
-      <br />
-      <br />
       <Upload
         ref={uploadDom}
         files={files}
@@ -77,6 +75,6 @@ export default function CustomDrag() {
         onSuccess={handleSuccess}
         onProgress={onProgress}
       />
-    </div>
+    </Space>
   );
 }

@@ -4,7 +4,7 @@ import { Table } from 'tdesign-react';
 export default function EmptyTable() {
   const TableData = [];
   return (
-    <div>
+    <>
       <Table
         data={TableData}
         columns={[
@@ -58,6 +58,6 @@ export default function EmptyTable() {
         ]}
         rowKey="projectName"
       />
-    </div>
+    </>
   );
 }

@@ -14,7 +14,6 @@ export const selectDefaultProps: TdSelectProps = {
   borderless: false,
   clearable: false,
   creatable: false,
-  filterable: false,
   loading: false,
   max: 0,
   minCollapsedNum: 0,

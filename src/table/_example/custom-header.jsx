@@ -41,9 +41,5 @@ const data = [
 ];
 
 export default function TableFixHeader() {
-  return (
-    <div>
-      <Table bordered data={data} columns={columns} rowKey="type" />
-    </div>
-  );
+  return <Table bordered data={data} columns={columns} rowKey="type" />;
 }

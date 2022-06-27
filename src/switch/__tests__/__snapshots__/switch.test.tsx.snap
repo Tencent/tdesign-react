@@ -3,32 +3,41 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <button
-      class="t-switch t-size-l"
-      role="switch"
-      type="button"
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
-    <button
-      class="t-switch t-is-checked t-size-l"
-      role="switch"
-      type="button"
+      <button
+        class="t-switch t-size-l"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
+      <button
+        class="t-switch t-is-checked t-size-l"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -36,83 +45,110 @@ exports[`base.jsx 1`] = `
 exports[`describe.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <button
-        class="t-switch t-size-l"
-        role="switch"
-        type="button"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        <span
-          class="t-switch__handle"
-        />
         <div
-          class="t-switch__content"
+          class="t-space-item"
         >
-          关
+          <button
+            class="t-switch t-size-l"
+            role="switch"
+            type="button"
+          >
+            <span
+              class="t-switch__handle"
+            />
+            <div
+              class="t-switch__content"
+            >
+              关
+            </div>
+          </button>
         </div>
-      </button>
-      <button
-        class="t-switch t-is-checked t-size-l"
-        role="switch"
-        type="button"
-      >
-        <span
-          class="t-switch__handle"
-        />
         <div
-          class="t-switch__content"
+          class="t-space-item"
         >
-          开
+          <button
+            class="t-switch t-is-checked t-size-l"
+            role="switch"
+            type="button"
+          >
+            <span
+              class="t-switch__handle"
+            />
+            <div
+              class="t-switch__content"
+            >
+              开
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <button
-        class="t-switch t-size-l"
-        role="switch"
-        type="button"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        <span
-          class="t-switch__handle"
-        />
         <div
-          class="t-switch__content"
+          class="t-space-item"
         >
-          <svg
-            class="t-icon t-icon-close"
+          <button
+            class="t-switch t-size-l"
+            role="switch"
+            type="button"
           >
-            <use
-              xlink:href="#t-icon-close"
+            <span
+              class="t-switch__handle"
             />
-          </svg>
+            <div
+              class="t-switch__content"
+            >
+              <svg
+                class="t-icon t-icon-close"
+              >
+                <use
+                  xlink:href="#t-icon-close"
+                />
+              </svg>
+            </div>
+          </button>
         </div>
-      </button>
-      <button
-        class="t-switch t-is-checked t-size-l"
-        role="switch"
-        type="button"
-      >
-        <span
-          class="t-switch__handle"
-        />
         <div
-          class="t-switch__content"
+          class="t-space-item"
         >
-          <svg
-            class="t-icon t-icon-check"
+          <button
+            class="t-switch t-is-checked t-size-l"
+            role="switch"
+            type="button"
           >
-            <use
-              xlink:href="#t-icon-check"
+            <span
+              class="t-switch__handle"
             />
-          </svg>
+            <div
+              class="t-switch__content"
+            >
+              <svg
+                class="t-icon t-icon-check"
+              >
+                <use
+                  xlink:href="#t-icon-check"
+                />
+              </svg>
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -121,44 +157,57 @@ exports[`describe.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <button
-      class="t-switch t-is-checked t-size-l"
-      role="switch"
-      type="button"
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
-    <button
-      class="t-switch t-size-m"
-      role="switch"
-      type="button"
+      <button
+        class="t-switch t-is-checked t-size-l"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
-    <button
-      class="t-switch t-size-s"
-      role="switch"
-      type="button"
+      <button
+        class="t-switch t-size-m"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
+      <button
+        class="t-switch t-size-s"
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -166,70 +215,83 @@ exports[`size.jsx 1`] = `
 exports[`status.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
-    <button
-      class="t-switch t-is-checked t-size-l"
-      role="switch"
-      type="button"
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
-    <button
-      class="t-switch t-is-checked t-is-loading t-size-l"
-      disabled=""
-      role="switch"
-      type="button"
-    >
-      <span
-        class="t-switch__handle"
+      <button
+        class="t-switch t-is-checked t-size-l"
+        role="switch"
+        type="button"
       >
+        <span
+          class="t-switch__handle"
+        />
         <div
-          class="t-loading t-loading--center t-size-s"
-        >
-          <svg
-            class="t-loading__gradient t-icon-loading"
-            height="1em"
-            version="1.1"
-            viewBox="0 0 14 14"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <foreignobject
-              height="12"
-              width="12"
-              x="1"
-              y="1"
-            >
-              <div
-                class="t-loading__gradient-conic"
-              />
-            </foreignobject>
-          </svg>
-        </div>
-      </span>
-      <div
-        class="t-switch__content"
-      />
-    </button>
-    <button
-      class="t-switch t-is-disabled t-size-l"
-      disabled=""
-      role="switch"
-      type="button"
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
     >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
+      <button
+        class="t-switch t-is-checked t-is-loading t-size-l"
+        disabled=""
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        >
+          <div
+            class="t-loading t-loading--center t-size-s"
+          >
+            <svg
+              class="t-loading__gradient t-icon-loading"
+              height="1em"
+              version="1.1"
+              viewBox="0 0 14 14"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <foreignobject
+                height="12"
+                width="12"
+                x="1"
+                y="1"
+              >
+                <div
+                  class="t-loading__gradient-conic"
+                />
+              </foreignobject>
+            </svg>
+          </div>
+        </span>
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <button
+        class="t-switch t-is-disabled t-size-l"
+        disabled=""
+        role="switch"
+        type="button"
+      >
+        <span
+          class="t-switch__handle"
+        />
+        <div
+          class="t-switch__content"
+        />
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

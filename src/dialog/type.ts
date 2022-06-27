@@ -23,7 +23,7 @@ export interface TdDialogProps {
    * 取消按钮，可自定义。值为 null 则不显示取消按钮。值类型为字符串，则表示自定义按钮文本，值类型为 Object 则表示透传 Button 组件属性。使用 TNode 自定义按钮时，需自行控制取消事件
    * @default ''
    */
-  cancelBtn?: ButtonProps | TNode;
+  cancelBtn?: ButtonProps | TNode | null;
   /**
    * 对话框内容，同 body
    */
@@ -35,12 +35,10 @@ export interface TdDialogProps {
   closeBtn?: TNode;
   /**
    * 按下 ESC 时是否触发对话框关闭事件
-   * @default true
    */
   closeOnEscKeydown?: boolean;
   /**
    * 点击蒙层时是否触发关闭事件
-   * @default true
    */
   closeOnOverlayClick?: boolean;
   /**

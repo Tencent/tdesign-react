@@ -19,7 +19,7 @@ export default function BasicUsage() {
     }, 2000);
   };
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         Open Modal
       </Button>
@@ -32,6 +32,6 @@ export default function BasicUsage() {
       >
         <p>This is a dialog</p>
       </Dialog>
-    </div>
+    </>
   );
 }

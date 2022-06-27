@@ -23,5 +23,14 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "cSpell.words": [
+    "activable",
+    "actived",
+    "borderless",
+    "Cascader",
+    "Popconfirm",
+    "Swiper",
+    "tdesign"
+  ]
 }

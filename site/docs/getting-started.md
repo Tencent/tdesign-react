@@ -49,6 +49,24 @@ import { Button } from 'tdesign-react';
 import 'tdesign-react/es/style/index.css'; // 少量公共样式
 ```
 
+### reset 样式
+
+`0.36.0` 版本开始我们不再引入 `reset.less`，影响最大的是移除了原先全局盒子模型的设定：
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+```
+
+如果你的项目开发依赖于原先的 `reset` 样式，可以从 `dist` 目录中单独引入它：
+
+```js
+import 'tdesign-react/dist/reset.css';
+```
+
 ### 更改主题
 
 由于原始样式基于 less 编写，需要自行处理 less 文件的编译（例如安装 less、less-loader）

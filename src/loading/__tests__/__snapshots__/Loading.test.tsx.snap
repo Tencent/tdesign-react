@@ -3,31 +3,27 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="position: relative;"
+    class="t-loading t-loading--center t-size-m"
   >
-    <div
-      class="t-loading t-loading--center t-size-m"
+    <svg
+      class="t-loading__gradient t-icon-loading"
+      height="1em"
+      version="1.1"
+      viewBox="0 0 14 14"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <svg
-        class="t-loading__gradient t-icon-loading"
-        height="1em"
-        version="1.1"
-        viewBox="0 0 14 14"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
+      <foreignobject
+        height="12"
+        width="12"
+        x="1"
+        y="1"
       >
-        <foreignobject
-          height="12"
-          width="12"
-          x="1"
-          y="1"
-        >
-          <div
-            class="t-loading__gradient-conic"
-          />
-        </foreignobject>
-      </svg>
-    </div>
+        <div
+          class="t-loading__gradient-conic"
+        />
+      </foreignobject>
+    </svg>
   </div>
 </DocumentFragment>
 `;
@@ -35,63 +31,76 @@ exports[`base.jsx 1`] = `
 exports[`delay.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
-    <div>
-      <div
-        class="t-loading t-loading--center t-size-s"
-      >
-        <svg
-          class="t-loading__gradient t-icon-loading"
-          height="1em"
-          version="1.1"
-          viewBox="0 0 14 14"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="t-space-item"
+    >
+      <div>
+        <div
+          class="t-loading t-loading--center t-size-s"
         >
-          <foreignobject
-            height="12"
-            width="12"
-            x="1"
-            y="1"
+          <svg
+            class="t-loading__gradient t-icon-loading"
+            height="1em"
+            version="1.1"
+            viewBox="0 0 14 14"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              class="t-loading__gradient-conic"
-            />
-          </foreignobject>
-        </svg>
-      </div>
-    </div>
-    <div>
-      <div
-        class="t-loading__parent"
-      >
-        <div />
+            <foreignobject
+              height="12"
+              width="12"
+              x="1"
+              y="1"
+            >
+              <div
+                class="t-loading__gradient-conic"
+              />
+            </foreignobject>
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      class="tdesign-demo-block-row"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+      <div>
+        <div
+          class="t-loading__parent"
         >
-          快速重新加载数据（无loading）
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        type="button"
+          <div />
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="tdesign-demo-block-row"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+          type="button"
         >
-          慢速重新加载数据
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            快速重新加载数据（无loading）
+          </span>
+        </button>
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            慢速重新加载数据
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -99,56 +108,50 @@ exports[`delay.jsx 1`] = `
 
 exports[`fullscreen.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    Loading state:
-    <button
-      class="t-switch t-size-m"
-      role="switch"
-      type="button"
-    >
-      <span
-        class="t-switch__handle"
-      />
-      <div
-        class="t-switch__content"
-      />
-    </button>
-  </div>
+  Loading state:
+  <button
+    class="t-switch t-size-m"
+    role="switch"
+    type="button"
+  >
+    <span
+      class="t-switch__handle"
+    />
+    <div
+      class="t-switch__content"
+    />
+  </button>
 </DocumentFragment>
 `;
 
 exports[`icon-text.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="position: relative;"
+    class="t-loading t-loading--center t-size-s"
   >
-    <div
-      class="t-loading t-loading--center t-size-s"
+    <svg
+      class="t-loading__gradient t-icon-loading"
+      height="1em"
+      version="1.1"
+      viewBox="0 0 14 14"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <svg
-        class="t-loading__gradient t-icon-loading"
-        height="1em"
-        version="1.1"
-        viewBox="0 0 14 14"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
+      <foreignobject
+        height="12"
+        width="12"
+        x="1"
+        y="1"
       >
-        <foreignobject
-          height="12"
-          width="12"
-          x="1"
-          y="1"
-        >
-          <div
-            class="t-loading__gradient-conic"
-          />
-        </foreignobject>
-      </svg>
-      <div
-        class="t-loading__text"
-      >
-        拼命加载中...
-      </div>
+        <div
+          class="t-loading__gradient-conic"
+        />
+      </foreignobject>
+    </svg>
+    <div
+      class="t-loading__text"
+    >
+      拼命加载中...
     </div>
   </div>
 </DocumentFragment>
@@ -156,45 +159,46 @@ exports[`icon-text.jsx 1`] = `
 
 exports[`service.jsx 1`] = `
 <DocumentFragment>
+  <div
+    id="loading-service"
+    style="width: 100%; height: 60px; text-align: center; line-height: 60px; position: relative;"
+  >
+    我是service的容器
+  </div>
   <div>
-    <div
-      id="loading-service"
-      style="width: 100%; height: 60px; text-align: center; line-height: 60px; position: relative;"
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      style="margin-right: 20px;"
+      type="button"
     >
-      我是service的容器
-    </div>
-    <div>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        style="margin-right: 20px;"
-        type="button"
+      <span
+        class="t-button__text"
       >
-        <span
-          class="t-button__text"
-        >
-          服务加载方式（全屏）
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
+        服务加载方式（全屏）
+      </span>
+    </button>
+    <button
+      class="t-button t-button--theme-primary t-button--variant-base"
+      type="button"
+    >
+      <span
+        class="t-button__text"
       >
-        <span
-          class="t-button__text"
-        >
-          服务加载方式（局部）
-        </span>
-      </button>
-    </div>
+        服务加载方式（局部）
+      </span>
+    </button>
   </div>
 </DocumentFragment>
 `;
 
 exports[`size.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
     <div
-      style="position: relative; width: 200px; margin-bottom: 10px;"
+      class="t-space-item"
     >
       <div
         class="t-loading t-loading--center t-size-s"
@@ -226,7 +230,7 @@ exports[`size.jsx 1`] = `
       </div>
     </div>
     <div
-      style="position: relative; width: 200px; margin-bottom: 10px;"
+      class="t-space-item"
     >
       <div
         class="t-loading t-loading--center t-size-m"
@@ -258,7 +262,7 @@ exports[`size.jsx 1`] = `
       </div>
     </div>
     <div
-      style="position: relative; width: 200px; margin-bottom: 10px;"
+      class="t-space-item"
     >
       <div
         class="t-loading t-loading--center t-size-l"
@@ -296,16 +300,12 @@ exports[`size.jsx 1`] = `
 exports[`text.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="position: relative;"
+    class="t-loading t-loading--center t-size-m"
   >
     <div
-      class="t-loading t-loading--center t-size-m"
+      class="t-loading__text"
     >
-      <div
-        class="t-loading__text"
-      >
-        静态文字加载中...
-      </div>
+      静态文字加载中...
     </div>
   </div>
 </DocumentFragment>
@@ -313,77 +313,96 @@ exports[`text.jsx 1`] = `
 
 exports[`wrap.jsx 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
     <div
-      style="width: 170px;"
+      class="t-space-item"
     >
       <div
-        class="t-loading__parent"
+        style="width: 170px;"
       >
-        <div>
-          this is loading component
-        </div>
-        <div>
-          this is loading component
-        </div>
-        <div>
-          this is loading component
-        </div>
-        <div>
-          this is loading component
-        </div>
-        <div>
-          this is loading component
-        </div>
         <div
-          class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
+          class="t-loading__parent"
         >
-          <svg
-            class="t-loading__gradient t-icon-loading"
-            height="1em"
-            version="1.1"
-            viewBox="0 0 14 14"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+          <div>
+            this is loading component
+          </div>
+          <div>
+            this is loading component
+          </div>
+          <div>
+            this is loading component
+          </div>
+          <div>
+            this is loading component
+          </div>
+          <div>
+            this is loading component
+          </div>
+          <div
+            class="t-loading t-loading--center t-size-s t-loading--full t-loading__overlay"
           >
-            <foreignobject
-              height="12"
-              width="12"
-              x="1"
-              y="1"
+            <svg
+              class="t-loading__gradient t-icon-loading"
+              height="1em"
+              version="1.1"
+              viewBox="0 0 14 14"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <div
-                class="t-loading__gradient-conic"
-              />
-            </foreignobject>
-          </svg>
+              <foreignobject
+                height="12"
+                width="12"
+                x="1"
+                y="1"
+              >
+                <div
+                  class="t-loading__gradient-conic"
+                />
+              </foreignobject>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
     <div
-      style="margin-top: 20px;"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        style="margin-right: 10px;"
-        type="button"
+      <div
+        class="t-space t-space-horizontal"
+        style="gap: 16px;"
       >
-        <span
-          class="t-button__text"
+        <div
+          class="t-space-item"
         >
-          加载中
-        </span>
-      </button>
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-        type="button"
-      >
-        <span
-          class="t-button__text"
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              加载中
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-space-item"
         >
-          加载完成
-        </span>
-      </button>
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              加载完成
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

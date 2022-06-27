@@ -48,8 +48,4 @@ const items = [
   },
 ];
 
-export default () => (
-  <div className="tdesign-tree-base">
-    <Tree data={items} activable hover transition />
-  </div>
-);
+export default () => <Tree data={items} activable hover transition />;
