@@ -66,7 +66,6 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
-  console.log(local);
   const size = propsSize ?? local.size;
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
