@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload } from 'tdesign-react';
+import { Button, message, Upload, Space } from 'tdesign-react';
 
 export default function SingleCustom() {
   const MAX_UPLOAD_SIZE = 1;
@@ -30,37 +30,35 @@ export default function SingleCustom() {
   );
 
   return (
-    <div className="tdesign-demo-upload">
-      <div>
-        <Upload
-          headers={{
-            name,
-          }}
-          action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
-          tips={tips}
-          files={files}
-          onChange={handleChange}
-          onFail={handleFail}
-          onSuccess={handleSuccess}
-          theme="custom"
-          beforeUpload={beforeUpload}
-          method="put"
-          multiple
-        >
-          <Button theme="primary">自定义上传</Button>
-        </Upload>
-        {files?.length > 0 && (
-          <div className="list-custom" style={{ fontSize: '13px' }}>
-            <ul>
-              {files.map((file, index) => (
-                <li key={index} style={{ marginTop: '16px' }}>
-                  {file.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
+    <Space direction="vertical">
+      <Upload
+        headers={{
+          name,
+        }}
+        action="https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo"
+        tips={tips}
+        files={files}
+        onChange={handleChange}
+        onFail={handleFail}
+        onSuccess={handleSuccess}
+        theme="custom"
+        beforeUpload={beforeUpload}
+        method="put"
+        multiple
+      >
+        <Button theme="primary">自定义上传</Button>
+      </Upload>
+      {files?.length > 0 && (
+        <div style={{ fontSize: '13px' }}>
+          <ul>
+            {files.map((file, index) => (
+              <li key={index} style={{ marginTop: '16px' }}>
+                {file.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </Space>
   );
 }
