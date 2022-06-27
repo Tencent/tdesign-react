@@ -5,6 +5,36 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.36.0 `2022-06-27` 
+
+### ❗ Breaking Changes
+- `reset`: 默认移除全局 reset 样式引入，可从 `tdesign-react/dist/reset.css` 中单独引入 @xiaosansiji ([#899](https://github.com/Tencent/tdesign-react/pull/899))
+
+### 🚀 Features
+- `radioGroup`: 支持 className 和 style @LittlehorseXie ([#913](https://github.com/Tencent/tdesign-react/pull/913))
+- `Space`: 新增 Space 组件 @HQ-Lin ([#915](https://github.com/Tencent/tdesign-react/pull/915))
+- `taginput`: `excessTagsDisplayType` 默认值更为 `break-line` @LittlehorseXie ([#914](https://github.com/Tencent/tdesign-react/pull/914))
+- `Table`: `firstFullRow`不参与排序 @uyarn ([#923](https://github.com/Tencent/tdesign-react/pull/923))
+- `ConfigProvider`: 增加 `input` 组件 `autocomplete` 配置，增加 `dialog` 组件  `closeOnEscKeydown`, `closeOnOverlayClick` 配置,  增加 `select` 组件 `filterable`  配置，增加 `drawer` 组件  `closeOnEscKeydown`, `closeOnOverlayClick` 配置 ([issue #848](https://github.com/Tencent/tdesign-vue-next/issues/848)) @pengYYYYY ([#972](https://github.com/Tencent/tdesign-react/pull/972))
+- `Form`: 支持 `validateOnly` 函数 & `validate` 函数支持 `showErrorMessage` 参数 & 修复类型问题 @HQ-Lin ([#895](https://github.com/Tencent/tdesign-react/pull/895))
+- `Locale`: 新增日文韩文翻译 @HQ-Lin ([#943](https://github.com/Tencent/tdesign-react/pull/943))
+-  `Select`:  label 支持 TNode 类型 @samhou1988 ([#973](https://github.com/Tencent/tdesign-react/pull/973))
+
+### 🐞 Bug Fixes
+- `table`: 修复加载更多的加载组件尺寸异常问题 @uyarn ([#907](https://github.com/Tencent/tdesign-react/pull/907))
+- `Select`: 修复输入部分特殊符号过滤时组件崩溃的问题 @southorange1228 ([#916](https://github.com/Tencent/tdesign-react/pull/916))
+- `Table`: 修复仅有`firstFullRow`渲染为空的问题 @uyarn ([#923](https://github.com/Tencent/tdesign-react/pull/923))
+- `Table`: 修复SSR渲染异常的问题 @uyarn ([#923](https://github.com/Tencent/tdesign-react/pull/923))
+- `HeadMenu`: 修复 ts 类型问题 @HQ-Lin ([#934](https://github.com/Tencent/tdesign-react/pull/934))
+- `Select`: `onChange`事件回调参数缺失 @uyarn ([#951](https://github.com/Tencent/tdesign-react/pull/951))
+-  `RangeInput`: 修复 `disabled` 失效问题 @HQ-Lin ([#921](https://github.com/Tencent/tdesign-react/pull/921))
+-  `Form`: 修复 `number` 校验无效问题 @HQ-Lin ([#976](https://github.com/Tencent/tdesign-react/pull/976))
+
+### 🚧 Others
+
+- `Demo`: 组件示例代码统一使用 `Space` 组件实现 @southorange1228 @smilebuz([#920](https://github.com/Tencent/tdesign-react/issues/920))
+
+
 ## 🌈 0.35.1 `2022-06-20` 
 
 ### 🚀 Features
