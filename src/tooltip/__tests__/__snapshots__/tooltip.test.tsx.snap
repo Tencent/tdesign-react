@@ -210,50 +210,44 @@ exports[`base.jsx 1`] = `
 
 exports[`duration.jsx 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="t-popup__reference"
-    >
-      <button
-        class="t-button t-button--theme-default t-button--variant-text"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          定时消失
-        </span>
-      </button>
-    </div>
+  <div
+    class="t-popup__reference"
+  >
     <button
-      class="t-button t-button--theme-default t-button--variant-outline"
+      class="t-button t-button--theme-default t-button--variant-text"
       type="button"
     >
       <span
         class="t-button__text"
       >
-        点击再次查看
+        定时消失
       </span>
     </button>
   </div>
+  <button
+    class="t-button t-button--theme-default t-button--variant-outline"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      点击再次查看
+    </span>
+  </button>
 </DocumentFragment>
 `;
 
 exports[`mouse.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tooltip-demo"
+    class="t-popup__reference"
   >
-    <div
-      class="t-popup__reference"
+    <a
+      href="#"
+      id="testa"
     >
-      <a
-        href="#"
-        id="testa"
-      >
-        文案比较长...
-      </a>
-    </div>
+      文案比较长...
+    </a>
   </div>
 </DocumentFragment>
 `;
@@ -280,91 +274,116 @@ exports[`no-arrow.jsx 1`] = `
 exports[`theme.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tooltip-demo"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-base"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-base"
+          type="button"
         >
-          default
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            default
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-primary t-button--variant-base"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          type="button"
         >
-          primary
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            primary
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-success t-button--variant-base"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-success t-button--variant-base"
+          type="button"
         >
-          success
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            success
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-danger t-button--variant-base"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-danger t-button--variant-base"
+          type="button"
         >
-          danger
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            danger
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-warning t-button--variant-base"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-warning t-button--variant-base"
+          type="button"
         >
-          warning
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            warning
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
         >
-          light
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            light
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -373,67 +392,84 @@ exports[`theme.jsx 1`] = `
 exports[`trigger.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-tooltip-demo"
+    class="t-space t-space-horizontal"
+    style="gap: 16px;"
   >
     <div
-      class="t-popup__reference"
-    >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        type="button"
-      >
-        <span
-          class="t-button__text"
-        >
-          悬浮时触发（默认）
-        </span>
-      </button>
-    </div>
-    <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap"
+        class="t-popup__reference"
+      >
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            悬浮时触发（默认）
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default"
+          class="t-input__wrap"
         >
-          <input
-            class="t-input__inner"
-            placeholder="获得焦点时触发"
-            type="text"
-            value=""
-          />
+          <div
+            class="t-input t-size-m t-align-left t-is-default"
+          >
+            <input
+              class="t-input__inner"
+              placeholder="获得焦点时触发"
+              type="text"
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
         >
-          点击时触发
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            点击时触发
+          </span>
+        </button>
+      </div>
     </div>
     <div
-      class="t-popup__reference"
+      class="t-space-item"
     >
-      <button
-        class="t-button t-button--theme-default t-button--variant-outline"
-        type="button"
+      <div
+        class="t-popup__reference"
       >
-        <span
-          class="t-button__text"
+        <button
+          class="t-button t-button--theme-default t-button--variant-outline"
+          type="button"
         >
-          右击时触发
-        </span>
-      </button>
+          <span
+            class="t-button__text"
+          >
+            右击时触发
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
