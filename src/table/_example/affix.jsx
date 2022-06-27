@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Checkbox } from 'tdesign-react';
+import { Table, Checkbox, Space } from 'tdesign-react';
 
 const classStyles = `
 <style>
@@ -155,14 +155,30 @@ const TableAffixDemo = () => {
   };
 
   return (
-    <div className="tdesign-demo-block-column-large tdesign-demo__table-affix" style={{ width: '100%' }}>
+    <Space direction="vertical" size="large" className="tdesign-demo__table-affix" style={{ width: '100%' }}>
       <div>
-        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>表头吸顶</Checkbox>
-        <Checkbox checked={footerAffixedBottom} onChange={setFooterAffixedBottom} style={marginStyle}>表尾吸底</Checkbox>
-        <Checkbox checked={horizontalScrollAffixedBottom} onChange={setHorizontalScrollAffixedBottom} style={marginStyle}>滚动条吸底</Checkbox>
-        <Checkbox checked={paginationAffixedBottom} onChange={setPaginationAffixedBottom} style={marginStyle}>分页器吸底</Checkbox>
-        <Checkbox checked={fixedLeftColumn} onChange={setFixedLeftColumn} style={marginStyle}>固定左侧列</Checkbox>
-        <Checkbox checked={fixedRightColumn} onChange={setFixedRightColumn} style={marginStyle}>固定右侧列</Checkbox>
+        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
+          表头吸顶
+        </Checkbox>
+        <Checkbox checked={footerAffixedBottom} onChange={setFooterAffixedBottom} style={marginStyle}>
+          表尾吸底
+        </Checkbox>
+        <Checkbox
+          checked={horizontalScrollAffixedBottom}
+          onChange={setHorizontalScrollAffixedBottom}
+          style={marginStyle}
+        >
+          滚动条吸底
+        </Checkbox>
+        <Checkbox checked={paginationAffixedBottom} onChange={setPaginationAffixedBottom} style={marginStyle}>
+          分页器吸底
+        </Checkbox>
+        <Checkbox checked={fixedLeftColumn} onChange={setFixedLeftColumn} style={marginStyle}>
+          固定左侧列
+        </Checkbox>
+        <Checkbox checked={fixedRightColumn} onChange={setFixedRightColumn} style={marginStyle}>
+          固定右侧列
+        </Checkbox>
       </div>
       <Table
         rowKey="index"
@@ -172,8 +188,12 @@ const TableAffixDemo = () => {
         rowClassName={rowClassName}
         pagination={{ defaultCurrent: 1, defaultPageSize: 5, total: TOTAL }}
         headerAffixedTop={{ offsetTop: 87, zIndex: 1000 }}
-        footerAffixedBottom={footerAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 60 : 0, zIndex: 1000 } : false}
-        horizontalScrollAffixedBottom={horizontalScrollAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 61 : 0, zIndex: 1000 } : false}
+        footerAffixedBottom={
+          footerAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 60 : 0, zIndex: 1000 } : false
+        }
+        horizontalScrollAffixedBottom={
+          horizontalScrollAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 61 : 0, zIndex: 1000 } : false
+        }
         paginationAffixedBottom={paginationAffixedBottom}
         tableLayout="auto"
         dragSort="col"
@@ -181,9 +201,9 @@ const TableAffixDemo = () => {
         resizable
         onDragSort={onDragSortChange}
       ></Table>
-    </div>
+    </Space>
   );
-}
+};
 
 TableAffixDemo.displayName = 'TableAffixDemo';
 
