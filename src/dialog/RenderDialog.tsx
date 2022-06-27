@@ -167,7 +167,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
-      if (local.closeOnEscKeydown ?? closeOnEscKeydown) {
+      if (closeOnEscKeydown ?? local.closeOnEscKeydown) {
         onClose({ e, trigger: 'esc' });
       }
     }

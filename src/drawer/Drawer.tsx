@@ -66,7 +66,8 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
-  const size = local.size ?? propsSize;
+  console.log(local);
+  const size = propsSize ?? local.size;
   const confirmText = t(local.confirm);
   const cancelText = t(local.cancel);
 
@@ -143,7 +144,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
-    (local.closeOnOverlayClick ?? closeOnOverlayClick) && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
+    (closeOnOverlayClick ?? local.closeOnOverlayClick) && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY });
   }
   function onClickCloseBtn(e: React.MouseEvent<HTMLDivElement>) {
     onCloseBtnClick?.({ e });
@@ -153,7 +154,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
     if (e.key !== 'Escape') return;
 
     onEscKeydown?.({ e });
-    (local.closeOnEscKeydown ?? closeOnEscKeydown) && onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });
+    (closeOnEscKeydown ?? local.closeOnEscKeydown) && onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });
   }
   function onCancelClick(e: React.MouseEvent<HTMLButtonElement>) {
     onCancel?.({ e });
