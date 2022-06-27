@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { EnhancedTable, Radio } from 'tdesign-react';
+import { EnhancedTable, Radio, Space } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
 
 const initData = [];
@@ -61,7 +61,6 @@ const columns = [
   { colKey: 'description', title: '描述' },
 ];
 
-
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -74,7 +73,7 @@ export default function TableSingleSort() {
       data.value = cloneDeep(data.value);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [checkStrictly.value]
+    [checkStrictly.value],
   );
 
   function onSelectChange(value, selectOptions) {
@@ -87,7 +86,7 @@ export default function TableSingleSort() {
   };
 
   return (
-    <div className="demo-table-tree-select">
+    <Space direction="vertical">
       <Radio.Group value={checkStrictly} onChange={setCheckStrictly} variant="default-filled">
         <Radio.Button value={true}>父子行选中独立</Radio.Button>
         <Radio.Button value={false}>父子行选中关联</Radio.Button>
@@ -104,6 +103,6 @@ export default function TableSingleSort() {
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
       />
-    </div>
+    </Space>
   );
 }

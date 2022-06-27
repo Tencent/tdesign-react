@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, DatePicker } from 'tdesign-react';
+import { Table, Button, DatePicker, Space } from 'tdesign-react';
 
 const columns = [
   {
@@ -127,8 +127,8 @@ export default function TableSingleSort() {
   //   }, 100);
   // }
   return (
-    <div className="demo-container">
-      <div className="table-operations" style={{ marginBottom: '16px' }}>
+    <Space direction="vertical">
+      <div>
         <Button
           onClick={() => {
             setFilterValue({});
@@ -156,6 +156,6 @@ export default function TableSingleSort() {
           pageSizeOptions: [1, 3, 5, 10],
         }}
       />
-    </div>
+    </Space>
   );
 }
