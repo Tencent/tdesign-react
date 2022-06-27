@@ -151,7 +151,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (local.closeOnOverlayClick ?? closeOnOverlayClick) {
+    if (closeOnOverlayClick ?? local.closeOnOverlayClick) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
