@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TagInput } from 'tdesign-react';
+import { TagInput, Space } from 'tdesign-react';
 
 export default function TagInputBaseExample() {
   const [tags1, setTags1] = useState(['Vue', 'React', 'Angular']);
@@ -20,7 +20,7 @@ export default function TagInputBaseExample() {
   };
 
   return (
-    <div className="tdesign-demo-block-column" style={{ width: '80%' }}>
+    <Space direction="vertical" style={{ width: '80%' }}>
       <TagInput
         value={tags1}
         onChange={onChange}
@@ -31,6 +31,6 @@ export default function TagInputBaseExample() {
       />
       <TagInput value={tags2} label="Controlled: " placeholder="请输入" clearable />
       <TagInput defaultValue={tags3} label="UnControlled: " placeholder="请输入" clearable />
-    </div>
+    </Space>
   );
 }
