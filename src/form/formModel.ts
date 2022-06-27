@@ -14,6 +14,8 @@ import {
   CustomValidateResolveType,
 } from './type';
 
+const isNumber = (val: ValueType) => /^[+-]{0,1}(([0-9]+([0-9]*|\.[0-9]+))|(\.[0-9]+))$/.test(val);
+
 // `{} / [] / '' / undefined / null` 等内容被认为是空； 0 和 false 被认为是正常数据，部分数据的值就是 0 或者 false
 export function isValueEmpty(val: ValueType): boolean {
   const type: string = Object.prototype.toString.call(val);
@@ -32,10 +34,10 @@ const VALIDATE_MAP = {
   email: isEmail,
   required: (val: ValueType): boolean => !isValueEmpty(val),
   boolean: (val: ValueType): boolean => typeof val === 'boolean',
-  max: (val: ValueType, num: number): boolean => (/^\d+$/.test(val) ? val <= num : getCharacterLength(val) <= num),
-  min: (val: ValueType, num: number): boolean => (/^\d+$/.test(val) ? val >= num : getCharacterLength(val) >= num),
+  max: (val: ValueType, num: number): boolean => (isNumber(val) ? val <= num : getCharacterLength(val) <= num),
+  min: (val: ValueType, num: number): boolean => (isNumber(val) ? val >= num : getCharacterLength(val) >= num),
   len: (val: ValueType, num: number): boolean => getCharacterLength(val) === num,
-  number: (val: ValueType): boolean => /^\d+$/.test(val),
+  number: (val: ValueType): boolean => isNumber(val),
   enum: (val: ValueType, strs: Array<string>): boolean => strs.includes(val),
   idcard: (val: ValueType): boolean => /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/i.test(val),
   telnumber: (val: ValueType): boolean => /^1[3-9]\d{9}$/.test(val),
