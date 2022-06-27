@@ -6,5 +6,5 @@ export default function BaseWatermark() {
     <Watermark watermarkContent={{ text: '文字水印' }} y={120} x={80}>
       <div style={{ height: 300 }}></div>
     </Watermark>
-  )
+  );
 }
