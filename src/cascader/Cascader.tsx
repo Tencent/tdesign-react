@@ -18,7 +18,9 @@ import { useCascaderContext } from './hooks';
 import { cascaderDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
 
-const Cascader = (props: TdCascaderProps & StyledProps) => {
+export interface CascaderProps extends TdCascaderProps, StyledProps {}
+
+const Cascader = (props: CascaderProps) => {
   /**
    * global user props, config, data
    */
