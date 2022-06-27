@@ -40,6 +40,7 @@ const Option = (props: SelectOptionProps) => {
     value,
     onSelect,
     children,
+    content,
     restData,
     style,
     className,
@@ -100,7 +101,7 @@ const Option = (props: SelectOptionProps) => {
         </label>
       );
     }
-    return <span>{children || label}</span>;
+    return <span>{children || content || label}</span>;
   };
 
   return (

@@ -324,6 +324,9 @@ const Select = forwardRefWithStatics(
     const renderValueDisplay = () => {
       if (!valueDisplay) {
         if (!multiple) {
+          if (typeof selectedLabel !== 'string') {
+            return selectedLabel;
+          }
           return '';
         }
         return ({ value: val }) =>
