@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree } from 'tdesign-react';
+import { Form, Switch, Tree, Space } from 'tdesign-react';
 
 const items = [
   {
@@ -40,20 +40,18 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
-      <div className="operations">
-        <Form labelWidth={120}>
-          <Form.FormItem label="节点可高亮" initialData={activable}>
-            <Switch onChange={setActivable} />
-          </Form.FormItem>
-          <Form.FormItem label="节点可多选高亮" initialData={activeMultiple}>
-            <Switch onChange={setActiveMultiple} />
-          </Form.FormItem>
-          <Form.FormItem label="整个节点可点击" initialData={expandOnClickNode}>
-            <Switch onChange={setExpandOnClickNode} />
-          </Form.FormItem>
-        </Form>
-      </div>
+    <Space direction="vertical">
+      <Form labelWidth={120}>
+        <Form.FormItem label="节点可高亮" initialData={activable}>
+          <Switch onChange={setActivable} />
+        </Form.FormItem>
+        <Form.FormItem label="节点可多选高亮" initialData={activeMultiple}>
+          <Switch onChange={setActiveMultiple} />
+        </Form.FormItem>
+        <Form.FormItem label="整个节点可点击" initialData={expandOnClickNode}>
+          <Switch onChange={setExpandOnClickNode} />
+        </Form.FormItem>
+      </Form>
       <Tree
         data={items}
         expandAll
@@ -64,6 +62,6 @@ export default () => {
         onActive={handleActive}
         hover
       />
-    </div>
+    </Space>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree } from 'tdesign-react';
+import { Form, Switch, Tree, Space } from 'tdesign-react';
 
 const items = [
   {
@@ -46,15 +46,13 @@ export default () => {
   const [disabled, setDisabled] = useState(true);
 
   return (
-    <div className="tdesign-tree-base">
-      <div className="operations">
-        <Form labelWidth={120}>
-          <Form.FormItem label="是否禁用" initialData={disabled}>
-            <Switch onChange={setDisabled} />
-          </Form.FormItem>
-        </Form>
-      </div>
+    <Space direction="vertical">
+      <Form labelWidth={120}>
+        <Form.FormItem label="是否禁用" initialData={disabled}>
+          <Switch onChange={setDisabled} />
+        </Form.FormItem>
+      </Form>
       <Tree data={items} hover checkable expandAll disabled={disabled} />
-    </div>
+    </Space>
   );
 };

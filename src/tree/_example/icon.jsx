@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree } from 'tdesign-react';
+import { Tree, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 
 const items = [
@@ -67,11 +67,11 @@ export default () => {
   };
 
   return (
-    <div className="tdesign-tree-base">
+    <Space direction="vertical">
       <h3>render 1:</h3>
       <Tree data={items} hover expandAll load={load} icon={renderIcon} />
       <h3>render 2:</h3>
       <Tree data={items} hover lazy load={load} icon={renderIcon2} />
-    </div>
+    </Space>
   );
 };

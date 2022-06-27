@@ -29,9 +29,5 @@ const items = [
 export default () => {
   const renderLabel = (node) => <strong>{`value: ${node.value}, label: ${node.label}`}</strong>;
 
-  return (
-    <div className="tdesign-tree-base">
-      <Tree data={items} expandAll label={renderLabel} />
-    </div>
-  );
+  return <Tree data={items} expandAll label={renderLabel} />;
 };
