@@ -44,6 +44,12 @@ export default function BaseForm() {
     MessagePlugin.success('设置表单校验信息提示成功');
     formRef.current.setValidateMessage(validateMessage);
   };
+
+  const handleValidateOnly = () => {
+    formRef.current.validateOnly().then((result) => {
+      console.log('validateOnly: ', result)
+    });
+  };
   
   useEffect(() => {
     formRef.current.setValidateMessage(validateMessage);
@@ -66,6 +72,9 @@ export default function BaseForm() {
         </Button>
         <Button theme="default" variant="base" type="reset" style={{ marginRight: 10 }}>
           重置
+        </Button>
+        <Button theme="default" variant="base" style={{ marginRight: 10 }} onClick={handleValidateOnly}>
+          仅校验不展示验证信息
         </Button>
         <Button theme="default" variant="base" onClick={handleValidateMessage}>
           设置校验信息提示

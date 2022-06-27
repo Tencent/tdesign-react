@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Popup } from 'tdesign-react';
+import { Button, Popup, Space } from 'tdesign-react';
 
-function OverlayStyle() {
+export default function OverlayStyle() {
   return (
-    <div className="tdesign-demo-block-row">
+    <Space>
       <Popup
         trigger="click"
         overlayStyle={{ background: 'green', margin: '0px', zIndex: 5600, color: '#fff' }}
@@ -19,8 +19,6 @@ function OverlayStyle() {
       >
         <Button>根据 trigger 元素定制 overlayStyle</Button>
       </Popup>
-    </div>
+    </Space>
   );
 }
-
-export default OverlayStyle;

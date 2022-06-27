@@ -157,7 +157,7 @@ const BaseTable = forwardRef((props: TBaseTableProps, ref) => {
   const getTFootHeight = () => {
     if (!tableElmRef.current) return;
     const timer = setTimeout(() => {
-      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
+      const height = tableElmRef.current?.querySelector('tfoot')?.getBoundingClientRect().height;
       setTableFootHeight(height);
       clearTimeout(timer);
     });

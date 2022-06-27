@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup } from 'tdesign-react';
+import { Form, Input, Radio, Checkbox, Button, MessagePlugin, Popup, Space } from 'tdesign-react';
 
 const { FormItem } = Form;
 
@@ -27,7 +27,7 @@ export default function BaseForm() {
   ];
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical">
       <div>
         <Radio.Group value={resetType} onChange={(value) => setResetType(value)} variant="default-filled">
           <Radio.Button value="empty">重置为空</Radio.Button>
@@ -56,6 +56,6 @@ export default function BaseForm() {
           </Button>
         </FormItem>
       </Form>
-    </div>
+    </Space>
   );
 }

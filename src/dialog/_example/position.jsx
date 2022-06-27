@@ -19,34 +19,33 @@ export default function PositionExample() {
     setVisible1(false);
   };
   return (
-    <div>
-      <div>
-        <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
-          默认
-        </Button>
-        <Button theme="primary" onClick={() => handleClick('top')} style={{ marginRight: 16 }}>
-          顶部
-        </Button>
-        <Button
-          theme="primary"
-          onClick={() => {
-            setVisible(true);
-            setTopData('100');
-          }}
-          style={{ marginRight: 16 }}
-        >
-          自定义
-        </Button>
-        <Button
-          theme="primary"
-          onClick={() => {
-            setVisible1(true);
-            setTopData('100px');
-          }}
-        >
-          超出屏幕
-        </Button>
-      </div>
+    <>
+      <Button theme="primary" onClick={() => handleClick('center')} style={{ marginRight: 16 }}>
+        默认
+      </Button>
+      <Button theme="primary" onClick={() => handleClick('top')} style={{ marginRight: 16 }}>
+        顶部
+      </Button>
+      <Button
+        theme="primary"
+        onClick={() => {
+          setVisible(true);
+          setTopData('100');
+        }}
+        style={{ marginRight: 16 }}
+      >
+        自定义
+      </Button>
+      <Button
+        theme="primary"
+        onClick={() => {
+          setVisible1(true);
+          setTopData('100px');
+        }}
+      >
+        超出屏幕
+      </Button>
+
       <Dialog
         header="位置演示"
         visible={visible}
@@ -129,6 +128,6 @@ export default function PositionExample() {
         <p>This is a dialog</p>
         <p>This is a dialog</p>
       </Dialog>
-    </div>
+    </>
   );
 }

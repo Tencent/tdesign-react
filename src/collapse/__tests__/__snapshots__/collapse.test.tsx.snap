@@ -3,349 +3,344 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-collapse"
   >
     <div
-      class="t-collapse"
+      class="t-collapse-panel"
     >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          这是一个折叠标题
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__content"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            这是一个折叠标题
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-fake-arrow--active t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(180deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          设置默认展开项
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active appear appear-active"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__content"
           >
-            <svg
-              class="t-fake-arrow t-fake-arrow--active t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(180deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            设置默认展开项
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active appear appear-active"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          自定义折叠面板内容
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
-          >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            自定义折叠面板内容
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
+            class="t-collapse-panel__content"
           >
             <div
-              class="t-collapse-panel__content"
+              style="width: 80%;"
             >
               <div
-                class="tdesign-demo-block-column"
-                style="width: 80%;"
+                class="t-input__wrap t-tag-input t-tag-input--break-line"
+                value=""
               >
                 <div
-                  class="t-input__wrap t-tag-input"
-                  value=""
+                  class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                 >
                   <div
-                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                    class="t-input__prefix"
                   >
-                    <div
-                      class="t-input__prefix"
+                    <span
+                      class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                      Vue
+                      <svg
+                        class="t-icon t-icon-close t-tag__icon-close"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
                       >
-                        Vue
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                        <path
+                          d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                    >
+                      React
+                      <svg
+                        class="t-icon t-icon-close t-tag__icon-close"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
                       >
-                        React
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                    </div>
-                    <input
-                      class="t-input__inner"
-                      placeholder=""
-                      type="text"
-                      value=""
-                    />
+                        <path
+                          d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                   </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
         >
-          <div
-            class="t-collapse-panel__header t-is-clickable"
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            当前折叠面板折叠时，销毁面板内容
-            <div
-              class="t-collapse-panel__header--blank"
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
-          </div>
+          </svg>
+          当前折叠面板折叠时，销毁面板内容
+          <div
+            class="t-collapse-panel__header--blank"
+          />
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          嵌套使用折叠面板
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
-          >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            嵌套使用折叠面板
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
+            class="t-collapse-panel__content"
           >
             <div
-              class="t-collapse-panel__content"
+              class="t-collapse"
             >
               <div
-                class="t-collapse"
+                class="t-collapse-panel"
               >
                 <div
-                  class="t-collapse-panel"
+                  class="t-collapse-panel__wrapper"
                 >
                   <div
-                    class="t-collapse-panel__wrapper"
+                    class="t-collapse-panel__header t-is-clickable"
+                  >
+                    <svg
+                      class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                      fill="none"
+                      height="16"
+                      style="transform: rotate(-90deg);"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                    这是一个折叠标题
+                    <div
+                      class="t-collapse-panel__header--blank"
+                    />
+                  </div>
+                  <div
+                    class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+                    style="height: 0px;"
                   >
                     <div
-                      class="t-collapse-panel__header t-is-clickable"
+                      class="t-collapse-panel__content"
                     >
-                      <svg
-                        class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-                        fill="none"
-                        height="16"
-                        style="transform: rotate(-90deg);"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                          stroke="black"
-                          stroke-opacity="0.9"
-                          stroke-width="1.3"
-                        />
-                      </svg>
-                      这是一个折叠标题
-                      <div
-                        class="t-collapse-panel__header--blank"
-                      />
-                    </div>
-                    <div
-                      class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-                      style="height: 0px;"
-                    >
-                      <div
-                        class="t-collapse-panel__content"
-                      >
-                        这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-                      </div>
+                      这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="t-collapse-panel"
+              >
                 <div
-                  class="t-collapse-panel"
+                  class="t-collapse-panel__wrapper"
                 >
                   <div
-                    class="t-collapse-panel__wrapper"
+                    class="t-collapse-panel__header t-is-clickable"
+                  >
+                    <svg
+                      class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                      fill="none"
+                      height="16"
+                      style="transform: rotate(-90deg);"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                        stroke="black"
+                        stroke-opacity="0.9"
+                        stroke-width="1.3"
+                      />
+                    </svg>
+                    这是一个折叠标题
+                    <div
+                      class="t-collapse-panel__header--blank"
+                    />
+                  </div>
+                  <div
+                    class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+                    style="height: 0px;"
                   >
                     <div
-                      class="t-collapse-panel__header t-is-clickable"
+                      class="t-collapse-panel__content"
                     >
-                      <svg
-                        class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-                        fill="none"
-                        height="16"
-                        style="transform: rotate(-90deg);"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                          stroke="black"
-                          stroke-opacity="0.9"
-                          stroke-width="1.3"
-                        />
-                      </svg>
-                      这是一个折叠标题
-                      <div
-                        class="t-collapse-panel__header--blank"
-                      />
-                    </div>
-                    <div
-                      class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-                      style="height: 0px;"
-                    >
-                      <div
-                        class="t-collapse-panel__content"
-                      >
-                        这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-                      </div>
+                      这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
                     </div>
                   </div>
                 </div>
@@ -362,179 +357,184 @@ exports[`base.jsx 1`] = `
 exports[`icon.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="t-collapse"
+      class="t-space-item"
     >
       <div
-        class="t-collapse-panel"
+        class="t-collapse"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-collapse-panel__header t-is-clickable"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              这是一个折叠标题
+              <div
+                class="t-collapse-panel__header--blank"
               />
-            </svg>
-            这是一个折叠标题
+            </div>
             <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
+              class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+              style="height: 0px;"
             >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+              <div
+                class="t-collapse-panel__content"
+              >
+                这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            折叠后自动销毁
             <div
-              class="t-collapse-panel__header--blank"
-            />
+              class="t-collapse-panel__header t-is-clickable"
+            >
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              折叠后自动销毁
+              <div
+                class="t-collapse-panel__header--blank"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-collapse-panel__header t-is-clickable"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              自定义折叠面板内容
+              <div
+                class="t-collapse-panel__header--blank"
               />
-            </svg>
-            自定义折叠面板内容
+            </div>
             <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
+              class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+              style="height: 0px;"
             >
               <div
-                class="tdesign-demo-block-column"
-                style="width: 80%;"
+                class="t-collapse-panel__content"
               >
                 <div
-                  class="t-input__wrap t-tag-input"
-                  value=""
+                  class="tdesign-demo-block-column"
+                  style="width: 80%;"
                 >
                   <div
-                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                    class="t-input__wrap t-tag-input t-tag-input--break-line"
+                    value=""
                   >
                     <div
-                      class="t-input__prefix"
+                      class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                     >
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                      <div
+                        class="t-input__prefix"
                       >
-                        Vue
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
+                        <span
+                          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-                      >
-                        React
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
+                          Vue
+                          <svg
+                            class="t-icon t-icon-close t-tag__icon-close"
+                            fill="none"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
+                          React
+                          <svg
+                            class="t-icon t-icon-close t-tag__icon-close"
+                            fill="none"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <input
+                        class="t-input__inner"
+                        placeholder=""
+                        type="text"
+                        value=""
+                      />
                     </div>
-                    <input
-                      class="t-input__inner"
-                      placeholder=""
-                      type="text"
-                      value=""
-                    />
                   </div>
                 </div>
               </div>
@@ -543,81 +543,96 @@ exports[`icon.jsx 1`] = `
         </div>
       </div>
     </div>
-    <div>
+    <div
+      class="t-space-item"
+    >
       <div
-        class="t-radio-group t-size-m t-radio-group__outline"
+        class="t-space t-space-vertical"
+        style="gap: 16px;"
       >
-        <label
-          class="t-radio t-is-checked"
+        <div
+          class="t-space-item"
         >
-          <input
-            checked=""
-            class="t-radio__former"
-            type="radio"
-            value="1"
-          />
-          <span
-            class="t-radio__input"
-          />
-          <span
-            class="t-radio__label"
+          <div
+            class="t-radio-group t-size-m t-radio-group__outline"
           >
-            左边
-          </span>
-        </label>
-        <label
-          class="t-radio"
+            <label
+              class="t-radio t-is-checked"
+            >
+              <input
+                checked=""
+                class="t-radio__former"
+                type="radio"
+                value="1"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                左边
+              </span>
+            </label>
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="2"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                右边
+              </span>
+            </label>
+            <label
+              class="t-radio"
+            >
+              <input
+                class="t-radio__former"
+                type="radio"
+                value="3"
+              />
+              <span
+                class="t-radio__input"
+              />
+              <span
+                class="t-radio__label"
+              >
+                不展示
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
         >
-          <input
-            class="t-radio__former"
-            type="radio"
-            value="2"
-          />
-          <span
-            class="t-radio__input"
-          />
-          <span
-            class="t-radio__label"
-          >
-            右边
-          </span>
-        </label>
-        <label
-          class="t-radio"
-        >
-          <input
-            class="t-radio__former"
-            type="radio"
-            value="3"
-          />
-          <span
-            class="t-radio__input"
-          />
-          <span
-            class="t-radio__label"
-          >
-            不展示
-          </span>
-        </label>
-      </div>
-      <div>
-        <label
-          class="t-checkbox"
-        >
-          <input
-            class="t-checkbox__former"
-            type="checkbox"
-            value=""
-          />
-          <span
-            class="t-checkbox__input"
-          />
-          <span
-            class="t-checkbox__label"
-          >
-            仅图标响应点击
-          </span>
-        </label>
+          <div>
+            <label
+              class="t-checkbox"
+            >
+              <input
+                class="t-checkbox__former"
+                type="checkbox"
+                value=""
+              />
+              <span
+                class="t-checkbox__input"
+              />
+              <span
+                class="t-checkbox__label"
+              >
+                仅图标响应点击
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -627,180 +642,176 @@ exports[`icon.jsx 1`] = `
 exports[`mutex.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-collapse"
   >
     <div
-      class="t-collapse"
+      class="t-collapse-panel"
     >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          这是一个折叠标题
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__content"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            这是一个折叠标题
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
         >
-          <div
-            class="t-collapse-panel__header t-is-clickable"
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            折叠后自动销毁
-            <div
-              class="t-collapse-panel__header--blank"
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
-          </div>
+          </svg>
+          折叠后自动销毁
+          <div
+            class="t-collapse-panel__header--blank"
+          />
         </div>
       </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          自定义折叠面板内容
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
-          >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            自定义折叠面板内容
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
+            class="t-collapse-panel__content"
           >
             <div
-              class="t-collapse-panel__content"
+              class="tdesign-demo-block-column"
+              style="width: 80%;"
             >
               <div
-                class="tdesign-demo-block-column"
-                style="width: 80%;"
+                class="t-input__wrap t-tag-input t-tag-input--break-line"
+                value=""
               >
                 <div
-                  class="t-input__wrap t-tag-input"
-                  value=""
+                  class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                 >
                   <div
-                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                    class="t-input__prefix"
                   >
-                    <div
-                      class="t-input__prefix"
+                    <span
+                      class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                     >
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                      Vue
+                      <svg
+                        class="t-icon t-icon-close t-tag__icon-close"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
                       >
-                        Vue
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                        <path
+                          d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                    >
+                      React
+                      <svg
+                        class="t-icon t-icon-close t-tag__icon-close"
+                        fill="none"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        width="1em"
                       >
-                        React
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
-                        >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                    </div>
-                    <input
-                      class="t-input__inner"
-                      placeholder=""
-                      type="text"
-                      value=""
-                    />
+                        <path
+                          d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                          fill="currentColor"
+                          fill-opacity="0.9"
+                        />
+                      </svg>
+                    </span>
                   </div>
+                  <input
+                    class="t-input__inner"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
                 </div>
               </div>
             </div>
@@ -815,179 +826,184 @@ exports[`mutex.jsx 1`] = `
 exports[`other.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
   >
     <div
-      class="t-collapse"
+      class="t-space-item"
     >
       <div
-        class="t-collapse-panel"
+        class="t-collapse"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-collapse-panel__header t-is-clickable"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              这是一个折叠标题
+              <div
+                class="t-collapse-panel__header--blank"
               />
-            </svg>
-            这是一个折叠标题
+            </div>
             <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
+              class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+              style="height: 0px;"
             >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+              <div
+                class="t-collapse-panel__content"
+              >
+                这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            折叠后自动销毁
             <div
-              class="t-collapse-panel__header--blank"
-            />
+              class="t-collapse-panel__header t-is-clickable"
+            >
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              折叠后自动销毁
+              <div
+                class="t-collapse-panel__header--blank"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__wrapper"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-collapse-panel__header t-is-clickable"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <svg
+                class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+                fill="none"
+                height="16"
+                style="transform: rotate(-90deg);"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+              自定义折叠面板内容
+              <div
+                class="t-collapse-panel__header--blank"
               />
-            </svg>
-            自定义折叠面板内容
+            </div>
             <div
-              class="t-collapse-panel__header--blank"
-            />
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
+              class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+              style="height: 0px;"
             >
               <div
-                class="tdesign-demo-block-column"
-                style="width: 80%;"
+                class="t-collapse-panel__content"
               >
                 <div
-                  class="t-input__wrap t-tag-input"
-                  value=""
+                  class="tdesign-demo-block-column"
+                  style="width: 80%;"
                 >
                   <div
-                    class="t-input t-size-m t-align-left t-is-default t-input--prefix"
+                    class="t-input__wrap t-tag-input t-tag-input--break-line"
+                    value=""
                   >
                     <div
-                      class="t-input__prefix"
+                      class="t-input t-size-m t-align-left t-is-default t-input--prefix"
                     >
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                      <div
+                        class="t-input__prefix"
                       >
-                        Vue
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
+                        <span
+                          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-                      >
-                        React
-                        <svg
-                          class="t-icon t-icon-close t-tag__icon-close"
-                          fill="none"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          width="1em"
+                          Vue
+                          <svg
+                            class="t-icon t-icon-close t-tag__icon-close"
+                            fill="none"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
                         >
-                          <path
-                            d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                            fill="currentColor"
-                            fill-opacity="0.9"
-                          />
-                        </svg>
-                      </span>
+                          React
+                          <svg
+                            class="t-icon t-icon-close t-tag__icon-close"
+                            fill="none"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            width="1em"
+                          >
+                            <path
+                              d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                              fill="currentColor"
+                              fill-opacity="0.9"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <input
+                        class="t-input__inner"
+                        placeholder=""
+                        type="text"
+                        value=""
+                      />
                     </div>
-                    <input
-                      class="t-input__inner"
-                      placeholder=""
-                      type="text"
-                      value=""
-                    />
                   </div>
                 </div>
               </div>
@@ -996,45 +1012,64 @@ exports[`other.jsx 1`] = `
         </div>
       </div>
     </div>
-    <div>
-      <label
-        class="t-checkbox"
-      >
-        <input
-          class="t-checkbox__former"
-          type="checkbox"
-          value=""
-        />
-        <span
-          class="t-checkbox__input"
-        />
-        <span
-          class="t-checkbox__label"
-        >
-          禁止全部
-        </span>
-      </label>
-      <label
-        class="t-checkbox"
-      >
-        <input
-          class="t-checkbox__former"
-          type="checkbox"
-          value=""
-        />
-        <span
-          class="t-checkbox__input"
-        />
-        <span
-          class="t-checkbox__label"
-        >
-          无边框模式
-        </span>
-      </label>
+    <div
+      class="t-space-item"
+    >
       <div
-        style="margin-top: 10px;"
+        class="t-space t-space-vertical"
+        style="gap: 16px;"
       >
-        当前展开的Collapse Panel: 
+        <div
+          class="t-space-item"
+        >
+          <label
+            class="t-checkbox"
+          >
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              禁止全部
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <label
+            class="t-checkbox"
+          >
+            <input
+              class="t-checkbox__former"
+              type="checkbox"
+              value=""
+            />
+            <span
+              class="t-checkbox__input"
+            />
+            <span
+              class="t-checkbox__label"
+            >
+              无边框模式
+            </span>
+          </label>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            style="margin-top: 10px;"
+          >
+            当前展开的Collapse Panel: 
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1044,40 +1079,161 @@ exports[`other.jsx 1`] = `
 exports[`rightSlot.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-row"
+    class="t-collapse"
   >
     <div
-      class="t-collapse"
+      class="t-collapse-panel"
     >
       <div
-        class="t-collapse-panel"
+        class="t-collapse-panel__wrapper"
       >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          这是一个折叠标题
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              操作
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__content"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            这是一个折叠标题
-            <div
-              class="t-collapse-panel__header--blank"
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
+      <div
+        class="t-collapse-panel__wrapper"
+      >
+        <div
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
             />
+          </svg>
+          这是一个折叠标题
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+          <button
+            class="t-button t-button--theme-primary t-button--variant-base t-size-s"
+            type="button"
+          >
+            <span
+              class="t-button__text"
+            >
+              操作
+            </span>
+          </button>
+        </div>
+        <div
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
+        >
+          <div
+            class="t-collapse-panel__content"
+          >
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-collapse-panel"
+    >
+      <div
+        class="t-collapse-panel__wrapper"
+      >
+        <div
+          class="t-collapse-panel__header t-is-clickable"
+        >
+          <svg
+            class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
+            fill="none"
+            height="16"
+            style="transform: rotate(-90deg);"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+          这是一个折叠标题
+          <div
+            class="t-collapse-panel__header--blank"
+          />
+          <div
+            style="display: flex; align-items: center;"
+          >
+            <label
+              class="t-checkbox"
+            >
+              <input
+                class="t-checkbox__former"
+                type="checkbox"
+                value=""
+              />
+              <span
+                class="t-checkbox__input"
+              />
+              <span
+                class="t-checkbox__label"
+              >
+                是否禁止
+              </span>
+            </label>
             <button
               class="t-button t-button--theme-primary t-button--variant-base t-size-s"
               type="button"
@@ -1089,140 +1245,15 @@ exports[`rightSlot.jsx 1`] = `
               </span>
             </button>
           </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
-          </div>
         </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
         <div
-          class="t-collapse-panel__wrapper"
+          class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
+          style="height: 0px;"
         >
           <div
-            class="t-collapse-panel__header t-is-clickable"
+            class="t-collapse-panel__content"
           >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            这是一个折叠标题
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-            <button
-              class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-              type="button"
-            >
-              <span
-                class="t-button__text"
-              >
-                操作
-              </span>
-            </button>
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-collapse-panel"
-      >
-        <div
-          class="t-collapse-panel__wrapper"
-        >
-          <div
-            class="t-collapse-panel__header t-is-clickable"
-          >
-            <svg
-              class="t-fake-arrow t-collapse-panel__icon t-collapse-panel__icon--left"
-              fill="none"
-              height="16"
-              style="transform: rotate(-90deg);"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-            这是一个折叠标题
-            <div
-              class="t-collapse-panel__header--blank"
-            />
-            <div
-              style="display: flex; align-items: center;"
-            >
-              <label
-                class="t-checkbox"
-              >
-                <input
-                  class="t-checkbox__former"
-                  type="checkbox"
-                  value=""
-                />
-                <span
-                  class="t-checkbox__input"
-                />
-                <span
-                  class="t-checkbox__label"
-                >
-                  是否禁止
-                </span>
-              </label>
-              <button
-                class="t-button t-button--theme-primary t-button--variant-base t-size-s"
-                type="button"
-              >
-                <span
-                  class="t-button__text"
-                >
-                  操作
-                </span>
-              </button>
-            </div>
-          </div>
-          <div
-            class="t-collapse-panel__body t-slide-down-enter-active t-collapse-panel__body--collapsed"
-            style="height: 0px;"
-          >
-            <div
-              class="t-collapse-panel__content"
-            >
-              这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
-            </div>
+            这部分是每个折叠面板折叠或展开的内容，可根据不同业务或用户的使用诉求，进行自定义填充。可以是纯文本、图文、子列表等内容形式。
           </div>
         </div>
       </div>

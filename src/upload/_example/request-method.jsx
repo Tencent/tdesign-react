@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Radio, Upload } from 'tdesign-react';
+import { Radio, Upload, Space } from 'tdesign-react';
 
 const RequestMethod = () => {
   const [files, setFiles] = useState([]);
@@ -46,13 +46,11 @@ const RequestMethod = () => {
   }, []);
 
   return (
-    <div className="tdesign-demo-block-column-large">
-      <div>
-        <Radio.Group variant="default-filled" value={uploadMethod} onChange={onChangeUploadMethod}>
-          <Radio.Button value="requestSuccessMethod">上传成功示例</Radio.Button>
-          <Radio.Button value="requestFailMethod">上传失败示例</Radio.Button>
-        </Radio.Group>
-      </div>
+    <Space direction="vertical" size="large">
+      <Radio.Group variant="default-filled" value={uploadMethod} onChange={onChangeUploadMethod}>
+        <Radio.Button value="requestSuccessMethod">上传成功示例</Radio.Button>
+        <Radio.Button value="requestFailMethod">上传失败示例</Radio.Button>
+      </Radio.Group>
 
       <Upload
         files={files}
@@ -60,7 +58,7 @@ const RequestMethod = () => {
         requestMethod={uploadMethod === 'requestSuccessMethod' ? requestSuccessMethod : requestFailMethod}
         tips="自定义上传方法需要返回成功或失败信息"
       />
-    </div>
+    </Space>
   );
 };
 

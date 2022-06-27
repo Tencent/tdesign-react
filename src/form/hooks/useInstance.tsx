@@ -1,7 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import isFunction from 'lodash/isFunction';
 import merge from 'lodash/merge';
-import flatten from 'lodash/flatten';
 import type { TdFormProps, FormValidateResult, FormResetParams, FormValidateMessage, AllValidateResult } from '../type';
 import useConfig from '../../_util/useConfig';
 
@@ -51,6 +50,33 @@ function travalMapFromObject(
   }
 }
 
+// 检测是否需要校验 默认全量校验
+function needValidate(name: string, fields: string[]) {
+  if (!fields || !Array.isArray(fields)) return true;
+  return fields.indexOf(name) !== -1;
+}
+
+// 整理校验结果
+function formatValidateResult(validateResultList) {
+  const result = validateResultList.reduce((r, err) => Object.assign(r || {}, err), {});
+  Object.keys(result).forEach((key) => {
+    if (result[key] === true) {
+      delete result[key];
+    } else {
+      result[key] = result[key].filter((fr: AllValidateResult) => fr.result === false);
+    }
+
+    // 整理嵌套数据
+    if (result[key] && key.includes(',')) {
+      const keyList = key.split(',');
+      const fieldValue = keyList.reduceRight((prev, curr) => ({ [curr]: prev }), result[key]);
+      merge(result, fieldValue);
+      delete result[key];
+    }
+  });
+  return isEmpty(result) ? true : result;
+}
+
 export default function useInstance(props: TdFormProps, formRef, formMapRef: React.MutableRefObject<Map<any, any>>) {
   const { classPrefix } = useConfig();
   const FORM_ITEM_CLASS_PREFIX = `${classPrefix}-form-item__`;
@@ -87,42 +113,29 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，该方法会触发全部表单组件错误信息显示
-  function validate(param?: Record<string, any>): Promise<FormValidateResult<FormData>> {
-    function needValidate(name: string, fields: string[]) {
-      if (!fields || !Array.isArray(fields)) return true;
-      return fields.indexOf(name) !== -1;
-    }
+  async function validate(param?: Record<string, any>): Promise<FormValidateResult<FormData>> {
+    const { fields, trigger = 'all', showErrorMessage } = param || {};
+    const list = [...formMapRef.current.values()]
+      .filter(
+        (formItemRef) => isFunction(formItemRef.current?.validate) && needValidate(formItemRef.current?.name, fields),
+      )
+      .map((formItemRef) => formItemRef.current.validate(trigger, showErrorMessage));
 
+    const validateList = await Promise.all(list);
+    return formatValidateResult(validateList);
+  }
+
+  // 对外方法，该方法只会校验不会触发信息提示
+  async function validateOnly(param?: Record<string, any>): Promise<FormValidateResult<FormData>> {
     const { fields, trigger = 'all' } = param || {};
     const list = [...formMapRef.current.values()]
       .filter(
         (formItemRef) => isFunction(formItemRef.current?.validate) && needValidate(formItemRef.current?.name, fields),
       )
-      .map((formItemRef) => formItemRef.current?.validate(trigger));
+      .map((formItemRef) => formItemRef.current.validateOnly(trigger));
 
-    return new Promise((resolve) => {
-      Promise.all(flatten(list))
-        .then((arr: any) => {
-          const r = arr.reduce((r, err) => Object.assign(r || {}, err), {});
-          Object.keys(r).forEach((key) => {
-            if (r[key] === true) {
-              delete r[key];
-            } else {
-              r[key] = r[key].filter((fr: AllValidateResult) => fr.result === false);
-            }
-
-            // 整理嵌套数据
-            if (r[key] && key.includes(',')) {
-              const keyList = key.split(',');
-              const fieldValue = keyList.reduceRight((prev, curr) => ({ [curr]: prev }), r[key]);
-              merge(r, fieldValue);
-              delete r[key];
-            }
-          });
-          resolve(isEmpty(r) ? true : r);
-        })
-        .catch(console.error);
-    });
+    const validateList = await Promise.all(list);
+    return formatValidateResult(validateList);
   }
 
   // 对外方法，获取对应 formItem 的值
@@ -184,7 +197,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
   }
 
   // 对外方法，重置对应 formItem 的数据
-  function reset(params: FormResetParams) {
+  function reset(params: FormResetParams<FormData>) {
     // reset all
     if (typeof params === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
@@ -228,6 +241,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     submit,
     reset,
     validate,
+    validateOnly,
     clearValidate,
     setFields,
     setFieldsValue,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'tdesign-react';
+import { DatePicker, Space } from 'tdesign-react';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 
 export default function YearDatePicker() {
@@ -8,8 +8,8 @@ export default function YearDatePicker() {
   }
 
   return (
-    <div className="tdesign-demo-item--datepicker">
+    <Space>
       <DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} onChange={handleChange} />
-    </div>
+    </Space>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'tdesign-react';
+import { Table, Button, Space } from 'tdesign-react';
 
 export default function TableLazy() {
   const columns = [
@@ -108,18 +108,18 @@ export default function TableLazy() {
   };
 
   return (
-    <div className="demo-container">
-      <div className="item">
-        <Button theme="default" style={{ marginTop: '10px' }} onClick={reset}> 列表恢复初始状态 </Button><br /><br />
-        <Table
-          row-key="id"
-          columns={columns}
-          data={data}
-          height={300}
-          scroll={{ type: 'lazy', bufferSize: 10 }}
-          bordered
-        />
-      </div>
-    </div>
+    <Space direction="vertical">
+      <Button theme="default" style={{ marginTop: '10px' }} onClick={reset}>
+        列表恢复初始状态
+      </Button>
+      <Table
+        row-key="id"
+        columns={columns}
+        data={data}
+        height={300}
+        scroll={{ type: 'lazy', bufferSize: 10 }}
+        bordered
+      />
+    </Space>
   );
 }

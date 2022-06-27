@@ -59,6 +59,7 @@ const Form = forwardRefWithStatics(
       setFieldsValue,
       setFields,
       validate,
+      validateOnly,
       clearValidate,
       setValidateMessage,
     } = useInstance(props, formRef, formMapRef);
@@ -72,6 +73,7 @@ const Form = forwardRefWithStatics(
       setFieldsValue,
       setFields,
       validate,
+      validateOnly,
       clearValidate,
       setValidateMessage,
     }));

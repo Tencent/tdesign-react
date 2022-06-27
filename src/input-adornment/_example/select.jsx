@@ -1,12 +1,12 @@
 ﻿import React from 'react';
-import { Select, Input, InputAdornment } from 'tdesign-react';
+import { Select, Input, InputAdornment, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   const protocolSelect = (
     <Select
       bordered={false}
       autoWidth
-      options={["http://", "https://"].map(value => ({ label: value, value }))}
+      options={['http://', 'https://'].map((value) => ({ label: value, value }))}
       defaultValue="http://"
     />
   );
@@ -15,13 +15,13 @@ export default function BaseExample() {
     <Select
       bordered={false}
       autoWidth
-      options={[".com", ".cn", ".net", ".org"].map(value => ({ label: value, value }))}
+      options={['.com', '.cn', '.net', '.org'].map((value) => ({ label: value, value }))}
       defaultValue=".cn"
     />
   );
 
   return (
-    <div className="tdesign-demo-block-column">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <InputAdornment prepend={protocolSelect}>
         <Input />
       </InputAdornment>
@@ -32,10 +32,10 @@ export default function BaseExample() {
 
       <InputAdornment prepend={protocolSelect} append={tldSelect}>
         <Select
-          options={["tencent", "qq", "cloud.tencent"].map(value => ({ label: value, value }))}
+          options={['tencent', 'qq', 'cloud.tencent'].map((value) => ({ label: value, value }))}
           defaultValue="tencent"
         />
       </InputAdornment>
-    </div>
+    </Space>
   );
 }

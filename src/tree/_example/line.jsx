@@ -1,4 +1,4 @@
-import { Tree, Form, Switch } from 'tdesign-react';
+import { Tree, Form, Switch, Space } from 'tdesign-react';
 import { Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
@@ -121,20 +121,18 @@ export default () => {
     );
   };
   return (
-    <div className="tdesign-tree-line">
-      <div className="operations">
-        <Form>
-          <Form.FormItem label="显示连线" initialData={showLine}>
-            <Switch onChange={setShowLine} />
-          </Form.FormItem>
-          <Form.FormItem label="显示图标" initialData={showIcon}>
-            <Switch onChange={setShowIcon} />
-          </Form.FormItem>
-        </Form>
-      </div>
+    <Space direction="vertical">
+      <Form>
+        <Form.FormItem label="显示连线" initialData={showLine}>
+          <Switch onChange={setShowLine} />
+        </Form.FormItem>
+        <Form.FormItem label="显示图标" initialData={showIcon}>
+          <Switch onChange={setShowIcon} />
+        </Form.FormItem>
+      </Form>
       <Tree data={items} line={showLine} icon={showIcon} expandAll />
       <h3>render</h3>
       <Tree data={items} line={renderLine} icon={showIcon} expandAll />
-    </div>
+    </Space>
   );
 };

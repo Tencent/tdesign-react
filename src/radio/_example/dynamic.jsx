@@ -13,13 +13,13 @@ export default function BasicUsage() {
   useEffect(() => {
     if (visible) {
       setTimeout(() => {
-        settext('动态增加了内容')
+        settext('动态增加了内容');
       }, 3000);
     }
   }, [visible]);
 
   return (
-    <div>
+    <>
       <Button theme="primary" onClick={handleClick}>
         打开弹窗
       </Button>
@@ -33,6 +33,6 @@ export default function BasicUsage() {
           <Radio.Button value="cd">选项五</Radio.Button>
         </Radio.Group>
       </Dialog>
-    </div>
+    </>
   );
 }

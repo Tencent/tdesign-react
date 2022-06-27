@@ -3,48 +3,45 @@
 exports[`base.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-popup__reference t-tree-select t-select-input"
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input"
+      class="t-input__wrap"
+      value="广东省"
     >
       <div
-        class="t-input__wrap"
-        value="广东省"
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="请选择"
+          readonly=""
+          type="text"
+          value="广东省"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value="广东省"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-fake-arrow"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -54,139 +51,148 @@ exports[`base.jsx 1`] = `
 exports[`collapsed.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="width: 300px; display: flex; flex-direction: column; row-gap: 20px;"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+          value=""
         >
           <div
-            class="t-input__prefix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              广州市
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              +1
-            </span>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
-    >
-      <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
-      >
-        <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              广州市
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
             <div
-              class="t-popup__reference"
+              class="t-input__prefix"
             >
               <span
                 class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
               >
-                更多...
+                广州市
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                +1
               </span>
             </div>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <input
+              class="t-input__inner"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+      >
+        <div
+          class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+          value=""
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          >
+            <div
+              class="t-input__prefix"
+            >
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                广州市
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+              <div
+                class="t-popup__reference"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  更多...
+                </span>
+              </div>
+            </div>
+            <input
+              class="t-input__inner"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
+            >
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -197,10 +203,12 @@ exports[`collapsed.jsx 1`] = `
 exports[`filterable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
-    style="width: 300px;"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 300px;"
   >
-    <div>
+    <div
+      class="t-space-item"
+    >
       <div
         class="t-radio-group t-size-m t-radio-group--filled"
       >
@@ -246,84 +254,88 @@ exports[`filterable.jsx 1`] = `
       </div>
     </div>
     <div
-      class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap"
-        value=""
+        class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap"
+          value=""
         >
           <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
-    >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+          value=""
         >
           <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -334,48 +346,45 @@ exports[`filterable.jsx 1`] = `
 exports[`lazy.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+      class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input__wrap"
-        value=""
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="请选择"
+          readonly=""
+          type="text"
+          value=""
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-fake-arrow"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -385,84 +394,81 @@ exports[`lazy.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+      class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+      value=""
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
         >
-          <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              广州市
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              深圳市
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
-            value=""
-          />
           <span
-            class="t-input__suffix t-input__suffix-icon"
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
           >
+            广州市
             <svg
-              class="t-fake-arrow"
+              class="t-icon t-icon-close t-tag__icon-close"
               fill="none"
-              height="16"
+              height="1em"
               viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
             >
               <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
+              />
+            </svg>
+          </span>
+          <span
+            class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+          >
+            深圳市
+            <svg
+              class="t-icon t-icon-close t-tag__icon-close"
+              fill="none"
+              height="1em"
+              viewBox="0 0 16 16"
+              width="1em"
+            >
+              <path
+                d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                fill="currentColor"
+                fill-opacity="0.9"
               />
             </svg>
           </span>
         </div>
+        <input
+          class="t-input__inner"
+          placeholder=""
+          type="text"
+          value=""
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
+        >
+          <svg
+            class="t-fake-arrow"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -472,62 +478,59 @@ exports[`multiple.jsx 1`] = `
 exports[`prefix.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input t-select-input--empty"
+      class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input__wrap"
-        value=""
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
         >
-          <div
-            class="t-input__prefix"
+          <svg
+            class="t-icon t-icon-user"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-user"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder="请输入"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+            <path
+              d="M11.5 5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-1 0a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0zM13.96 10.85c.34.16.54.5.54.87V14a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-2.28c0-.37.2-.7.54-.87a13.79 13.79 0 0111.92 0zM8 10.5c-1.97 0-3.83.45-5.5 1.24v1.76h11v-1.76A12.78 12.78 0 008 10.5z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
         </div>
+        <input
+          class="t-input__inner"
+          placeholder="请输入"
+          readonly=""
+          type="text"
+          value=""
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
+        >
+          <svg
+            class="t-fake-arrow"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -537,48 +540,45 @@ exports[`prefix.jsx 1`] = `
 exports[`props.jsx 1`] = `
 <DocumentFragment>
   <div
+    class="t-popup__reference t-tree-select t-select-input"
     style="width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input"
+      class="t-input__wrap"
+      value="深圳市"
     >
       <div
-        class="t-input__wrap"
-        value="深圳市"
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="请选择"
+          readonly=""
+          type="text"
+          value="深圳市"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value="深圳市"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-fake-arrow"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -588,126 +588,135 @@ exports[`props.jsx 1`] = `
 exports[`valuedisplay.jsx 1`] = `
 <DocumentFragment>
   <div
-    style="width: 300px; display: flex; flex-direction: column; row-gap: 20px;"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap"
+        class="t-popup__reference t-tree-select t-select-input"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap"
         >
           <div
-            class="t-input__prefix"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            广州市(guangzhou)
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input__prefix"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+              广州市(guangzhou)
+            </div>
+            <input
+              class="t-input__inner"
+              placeholder=""
+              readonly=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
+            >
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+          value=""
         >
           <div
-            class="t-input__prefix"
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            <div
+              class="t-input__prefix"
             >
-              广州市(guangzhou)
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                广州市(guangzhou)
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                深圳市(shenzhen)
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+            </div>
+            <input
+              class="t-input__inner"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
+            >
               <svg
-                class="t-icon t-icon-close t-tag__icon-close"
+                class="t-fake-arrow"
                 fill="none"
-                height="1em"
+                height="16"
                 viewBox="0 0 16 16"
-                width="1em"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              深圳市(shenzhen)
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
         </div>
       </div>
     </div>
@@ -718,126 +727,134 @@ exports[`valuedisplay.jsx 1`] = `
 exports[`valuetype.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
-    style="width: 300px;"
+    class="t-space t-space-vertical"
+    style="gap: 16px; width: 300px;"
   >
     <div
-      class="t-popup__reference t-tree-select t-select-input"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap"
-        value="深圳市"
+        class="t-popup__reference t-tree-select t-select-input"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__wrap"
+          value="深圳市"
         >
           <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value="深圳市"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+            class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
-    >
-      <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
-      >
-        <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          >
+            <div
+              class="t-input__prefix"
+            />
+            <input
+              class="t-input__inner"
+              placeholder="请选择"
+              readonly=""
+              type="text"
+              value="深圳市"
+            />
             <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              class="t-input__suffix t-input__suffix-icon"
             >
-              广州市
               <svg
-                class="t-icon t-icon-close t-tag__icon-close"
+                class="t-fake-arrow"
                 fill="none"
-                height="1em"
+                height="16"
                 viewBox="0 0 16 16"
-                width="1em"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              深圳市
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
                 />
               </svg>
             </span>
           </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-popup__reference t-tree-select t-tree-select--without-input t-select-input t-select-input--multiple"
+      >
+        <div
+          class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+          value=""
+        >
+          <div
+            class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
           >
-            <svg
-              class="t-fake-arrow"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input__prefix"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                广州市
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+              <span
+                class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              >
+                深圳市
+                <svg
+                  class="t-icon t-icon-close t-tag__icon-close"
+                  fill="none"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                >
+                  <path
+                    d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                    fill="currentColor"
+                    fill-opacity="0.9"
+                  />
+                </svg>
+              </span>
+            </div>
+            <input
+              class="t-input__inner"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="t-input__suffix t-input__suffix-icon"
+            >
+              <svg
+                class="t-fake-arrow"
+                fill="none"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                  stroke="black"
+                  stroke-opacity="0.9"
+                  stroke-width="1.3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </div>
