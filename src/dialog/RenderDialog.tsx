@@ -7,6 +7,7 @@ import useLayoutEffect from '../_util/useLayoutEffect';
 import { DialogProps } from './Dialog';
 import useDialogEsc from '../_util/useDialogEsc';
 import { dialogDefaultProps } from './defaultProps';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 enum KeyCode {
   ESC = 27,
@@ -35,6 +36,7 @@ if (typeof window !== 'undefined' && window.document && window.document.document
   document.documentElement.addEventListener('click', getClickPosition, true);
 }
 const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDivElement>) => {
+  const [local] = useLocaleReceiver('dialog');
   const {
     prefixCls,
     attach,
@@ -149,7 +151,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlayClick) {
+    if (closeOnOverlayClick ?? local.closeOnOverlayClick) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
@@ -165,7 +167,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     if (+e.code === KeyCode.ESC || e.keyCode === KeyCode.ESC) {
       e.stopPropagation();
       onEscKeydown({ e });
-      if (closeOnEscKeydown) {
+      if (closeOnEscKeydown ?? local.closeOnEscKeydown) {
         onClose({ e, trigger: 'esc' });
       }
     }

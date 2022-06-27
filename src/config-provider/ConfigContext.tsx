@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import merge from 'lodash/merge';
 import defaultLocale from '../locale/zh_CN';
-import DEFAULT_GLOBAL_CONFIG from './zh_CN_config';
+import defaultConfig from '../_common/js/global-config/default-config';
 import { GlobalConfigProvider } from './type';
 
 export enum EAnimationType {
@@ -20,7 +20,7 @@ export const defaultAnimation = {
 export const defaultGlobalConfig = {
   animation: defaultAnimation,
   classPrefix: defaultClassPrefix,
-  ...merge(defaultLocale, DEFAULT_GLOBAL_CONFIG),
+  ...merge(defaultLocale, defaultConfig),
 };
 
 export type Locale = typeof defaultLocale;
