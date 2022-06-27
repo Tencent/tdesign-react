@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Tooltip } from 'tdesign-react';
+import { Button, Tooltip, Space } from 'tdesign-react';
 
 export default function Cumstomize() {
   return (
-    <div className="tdesign-tooltip-demo">
+    <Space>
       <Tooltip content="文字提示仅展示文本内容">
         <Button theme="default">default</Button>
       </Tooltip>
@@ -22,6 +22,6 @@ export default function Cumstomize() {
       <Tooltip content="文字提示仅展示文本内容" theme="light">
         <Button variant="outline">light</Button>
       </Tooltip>
-    </div>
+    </Space>
   );
 }
