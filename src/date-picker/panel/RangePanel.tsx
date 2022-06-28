@@ -22,7 +22,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement>; partial: 'start' | 'end' }) => void;
   onCellMouseEnter?: (date: Date, context: { partial: 'start' | 'end' }) => void;
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
-  onJumperClick?: (context: { e: MouseEvent; trigger: string; partial: 'start' | 'end' }) => void;
+  onJumperClick?: (context: { e?: MouseEvent; trigger: string; partial: 'start' | 'end' }) => void;
   onConfirmClick?: (context: { e: React.MouseEvent<HTMLButtonElement> }) => void;
   onPresetClick?: (
     preset: DateValue | (() => DateValue),
