@@ -130,6 +130,12 @@ export default {
           component: () => import('tdesign-react/dropdown/dropdown.md'),
         },
         {
+          title: 'Jumper 跳转',
+          name: 'jumper',
+          path: '/react/components/jumper',
+          component: () => import('tdesign-react/jumper/jumper.md'),
+        },
+        {
           title: 'Menu 导航',
           name: 'menu',
           path: '/react/components/menu',

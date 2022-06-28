@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`layout.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-jumper"
+  >
+    <button
+      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-chevron-up"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M12.46 9.54l-.92.92L8 6.92l-3.54 3.54-.92-.92L8 5.08l4.46 4.46z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+    <button
+      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-round"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM8 13A5 5 0 108 3a5 5 0 000 10z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+    <button
+      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-chevron-down"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M3.54 6.46l.92-.92L8 9.08l3.54-3.54.92.92L8 10.92 3.54 6.46z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; text-align: center;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-jumper"
+      >
+        <button
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-left"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-round"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM8 13A5 5 0 108 3a5 5 0 000 10z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-right"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-jumper"
+      >
+        <button
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-left"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-round"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM8 13A5 5 0 108 3a5 5 0 000 10z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-right"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-jumper"
+      >
+        <button
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-left"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-round"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M8 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM8 13A5 5 0 108 3a5 5 0 000 10z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+        <button
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          type="button"
+        >
+          <svg
+            class="t-icon t-icon-chevron-right"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
+          >
+            <path
+              d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`tips.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-jumper"
+  >
+    <button
+      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      title="前尘忆梦"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M9.54 3.54l.92.92L6.92 8l3.54 3.54-.92.92L5.08 8l4.46-4.46z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+    <button
+      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      title="回到现在"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-round"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M8 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zM8 13A5 5 0 108 3a5 5 0 000 10z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+    <button
+      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      title="展望未来"
+      type="button"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        fill="none"
+        height="1em"
+        viewBox="0 0 16 16"
+        width="1em"
+      >
+        <path
+          d="M6.46 12.46l-.92-.92L9.08 8 5.54 4.46l.92-.92L10.92 8l-4.46 4.46z"
+          fill="currentColor"
+          fill-opacity="0.9"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
