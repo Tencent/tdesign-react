@@ -12,29 +12,21 @@ import jsxToString from "react-element-to-jsx-string";
 
 import configProps from "./props.json";
 
-import { Space, Button } from "tdesign-react";
+import { Jumper } from "tdesign-react";
 
 export default function Usage() {
   const [configList, setConfigList] = useState(configProps);
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: "space", value: "space" }];
+  const panelList = [{ label: "jumper", value: "jumper" }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
 
   useEffect(() => {
-    setRenderComp(
-      <Space {...changedProps}>
-        <Button>按钮</Button>
-        <Button>按钮</Button>
-        <Button>按钮</Button>
-        <Button>按钮</Button>
-        <Button>按钮</Button>
-      </Space>
-    );
+    setRenderComp(<Jumper {...changedProps}></Jumper>);
   }, [changedProps]);
 
   const jsxStr = useMemo(() => {

@@ -19,7 +19,7 @@ export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellMouseEnter?: (date: Date) => void;
   onCellMouseLeave?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
-  onJumperClick?: (flag: number) => void;
+  onJumperClick?: (context: { e: MouseEvent; trigger: string }) => void;
   onConfirmClick?: (context: { e: React.MouseEvent<HTMLButtonElement> }) => void;
   onPresetClick?: (
     preset: DateValue | (() => DateValue),
