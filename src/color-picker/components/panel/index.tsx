@@ -48,6 +48,14 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
   const colorInstanceRef = useRef<Color>(new Color(innerValue || DEFAULT_COLOR));
   const getmodeByColor = colorInstanceRef.current.isGradient ? 'linear-gradient' : 'monochrome';
   const [mode, setMode] = useState<TdColorModes>(colorModes?.length === 1 ? colorModes[0] : getmodeByColor);
+  const [updateId, setUpdateId] = useState(0);
+  const update = useCallback(
+    (value) => {
+      colorInstanceRef.current.update(value);
+      setUpdateId(updateId + 1);
+    },
+    [updateId],
+  );
 
   const formatValue = useCallback(() => {
     // 渐变模式下直接输出css样式
@@ -85,13 +93,10 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     const isInRightMode = mode === 'monochrome' && !newColor.isGradient;
 
     if (formattedColor !== currentColor && isInRightMode) {
-      colorInstanceRef.current.update(formattedColor);
-      setInnerValue(formatValue(), {
-        color: newColor,
-        trigger: 'input',
-      });
+      update(value);
+      setMode(newColor.isGradient ? 'linear-gradient' : 'monochrome');
     }
-  }, [value, formatValue, setInnerValue, mode]);
+  }, [value, formatValue, setInnerValue, mode, update]);
 
   useEffect(() => {
     if (colorModes.length === 1) {
@@ -225,7 +230,7 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
 
   // format输入变化
   const handleInputChange = (input: string, alpha?: number) => {
-    colorInstanceRef.current.update(input);
+    update(input);
     colorInstanceRef.current.alpha = alpha;
     emitColorChange('input');
   };
