@@ -4,4 +4,9 @@
 
 import { TdJumperProps } from './type';
 
-export const jumperDefaultProps: TdJumperProps = { layout: 'horizontal', showCurrent: true, size: 'medium' };
+export const jumperDefaultProps: TdJumperProps = {
+  layout: 'horizontal',
+  showCurrent: true,
+  size: 'medium',
+  variant: 'text',
+};

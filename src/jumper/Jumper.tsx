@@ -13,7 +13,7 @@ export interface JumperProps extends TdJumperProps, StyledProps {}
 const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) => {
   const { classPrefix } = useConfig();
 
-  const { tips, showCurrent, disabled, layout, size, onChange, className, style } = props;
+  const { variant, tips, showCurrent, disabled, layout, size, onChange, className, style } = props;
 
   const titleConfig = useMemo(() => {
     if (isObject(tips)) return tips;
@@ -28,39 +28,45 @@ const Jumper = forwardRef((props: JumperProps, ref: React.Ref<HTMLDivElement>) =
   }, [disabled]);
 
   return (
-    <div className={classNames(`${classPrefix}-jumper`, className)} ref={ref} style={style}>
+    <div
+      className={classNames(`${classPrefix}-jumper`, className, {
+        [`${classPrefix}-jumper--outline`]: variant === 'outline',
+      })}
+      ref={ref}
+      style={style}
+    >
       <Button
         title={titleConfig.prev}
-        variant="text"
+        variant={variant}
         size={size}
         shape="square"
         onClick={(e) => onChange({ e, trigger: 'prev' })}
         icon={layout === 'horizontal' ? <ChevronLeftIcon /> : <ChevronUpIcon />}
-        className={`${classPrefix}-jumper__btn`}
+        className={`${classPrefix}-jumper__prev`}
         disabled={disabledConfig.prev}
       />
 
       {showCurrent && (
         <Button
           title={titleConfig.current}
-          variant="text"
+          variant={variant}
           size={size}
           shape="square"
           onClick={(e) => onChange({ e, trigger: 'current' })}
           icon={<RoundIcon />}
-          className={`${classPrefix}-jumper__btn`}
+          className={`${classPrefix}-jumper__current`}
           disabled={disabledConfig.current}
         />
       )}
 
       <Button
         title={titleConfig.next}
-        variant="text"
+        variant={variant}
         size={size}
         shape="square"
         onClick={(e) => onChange({ e, trigger: 'next' })}
         icon={layout === 'horizontal' ? <ChevronRightIcon /> : <ChevronDownIcon />}
-        className={`${classPrefix}-jumper__btn`}
+        className={`${classPrefix}-jumper__next`}
         disabled={disabledConfig.next}
       />
     </div>

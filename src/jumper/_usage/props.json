@@ -44,5 +44,20 @@
         "value": "large"
       }
     ]
+  },
+  {
+    "name": "variant",
+    "type": "enum",
+    "defaultValue": "text",
+    "options": [
+      {
+        "label": "text",
+        "value": "text"
+      },
+      {
+        "label": "outline",
+        "value": "outline"
+      }
+    ]
   }
 ]

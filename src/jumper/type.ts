@@ -32,6 +32,11 @@ export interface TdJumperProps {
    */
   tips?: boolean | JumperTipsConfig;
   /**
+   * 按钮形式
+   * @default text
+   */
+  variant?: 'text' | 'outline';
+  /**
    * 按钮点击事件回调
    */
   onChange?: (context: { e: MouseEvent<HTMLButtonElement>; trigger: JumperTrigger }) => void;

@@ -6,7 +6,7 @@ exports[`layout.jsx 1`] = `
     class="t-jumper"
   >
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       type="button"
     >
       <svg
@@ -24,7 +24,7 @@ exports[`layout.jsx 1`] = `
       </svg>
     </button>
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       type="button"
     >
       <svg
@@ -42,7 +42,7 @@ exports[`layout.jsx 1`] = `
       </svg>
     </button>
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       type="button"
     >
       <svg
@@ -76,7 +76,7 @@ exports[`size.jsx 1`] = `
         class="t-jumper"
       >
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
           type="button"
         >
           <svg
@@ -94,7 +94,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
           type="button"
         >
           <svg
@@ -112,7 +112,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-s"
           type="button"
         >
           <svg
@@ -138,7 +138,7 @@ exports[`size.jsx 1`] = `
         class="t-jumper"
       >
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
           type="button"
         >
           <svg
@@ -156,7 +156,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
           type="button"
         >
           <svg
@@ -174,7 +174,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
           type="button"
         >
           <svg
@@ -200,7 +200,7 @@ exports[`size.jsx 1`] = `
         class="t-jumper"
       >
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
           type="button"
         >
           <svg
@@ -218,7 +218,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
           type="button"
         >
           <svg
@@ -236,7 +236,7 @@ exports[`size.jsx 1`] = `
           </svg>
         </button>
         <button
-          class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
+          class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square t-size-l"
           type="button"
         >
           <svg
@@ -265,7 +265,7 @@ exports[`tips.jsx 1`] = `
     class="t-jumper"
   >
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__prev t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       title="前尘忆梦"
       type="button"
     >
@@ -284,7 +284,7 @@ exports[`tips.jsx 1`] = `
       </svg>
     </button>
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__current t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       title="回到现在"
       type="button"
     >
@@ -303,7 +303,7 @@ exports[`tips.jsx 1`] = `
       </svg>
     </button>
     <button
-      class="t-jumper__btn t-button t-button--theme-default t-button--variant-text t-button--shape-square"
+      class="t-jumper__next t-button t-button--theme-default t-button--variant-text t-button--shape-square"
       title="展望未来"
       type="button"
     >
