@@ -1,6 +1,6 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import toArray from 'rc-util/lib/Children/toArray';
+import { isFragment } from 'react-is';
 import useConfig from '../_util/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
@@ -9,6 +9,26 @@ import { spaceDefaultProps } from './defaultProps';
 export interface SpaceProps extends TdSpaceProps, StyledProps {
   children?: React.ReactElement;
 }
+
+const toArray = (children: React.ReactNode): React.ReactElement[] => {
+  let ret: React.ReactElement[] = [];
+
+  React.Children.forEach(children, (child: any) => {
+    if (child === undefined || child === null) {
+      return;
+    }
+
+    if (Array.isArray(child)) {
+      ret = ret.concat(toArray(child));
+    } else if (isFragment(child) && child.props) {
+      ret = ret.concat(toArray(child.props.children));
+    } else {
+      ret.push(child);
+    }
+  });
+
+  return ret;
+};
 
 const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => {
   const { className, style, align, direction, size, breakLine, separator } = props;
