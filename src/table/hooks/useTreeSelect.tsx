@@ -109,11 +109,11 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   function handleSelectAll(extraData: SelectChangeParams[1]) {
     const newRowKeys: Array<string | number> = [];
     const newRowData: TableRowData[] = [];
-    if (extraData.type === 'check') {
+    if (extraData?.type === 'check') {
       const arr = [...treeDataMap.values()];
       for (let i = 0, len = arr.length; i < len; i++) {
         const item = arr[i];
-        if (!item.disabled) {
+        if (!item?.disabled) {
           newRowData.push(item.row);
           newRowKeys.push(get(item.row, rowDataKeys.rowKey));
         }
@@ -128,7 +128,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
 
   function handleSelect(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
     let newRowKeys = [...rowKeys];
-    if (props?.tree.checkStrictly === false) {
+    if (props?.tree?.checkStrictly === false) {
       if (extraData?.type === 'check') {
         const result = getChildrenData(
           treeDataMap,
