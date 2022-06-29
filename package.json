@@ -207,6 +207,7 @@
   "dependencies": {
     "@babel/runtime": "~7.17.2",
     "@popperjs/core": "~2.11.2",
+    "@types/react-is": "^17.0.3",
     "@types/sortablejs": "^1.10.7",
     "@types/tinycolor2": "^1.4.3",
     "classnames": "~2.3.1",
@@ -215,7 +216,6 @@
     "hoist-non-react-statics": "~3.3.2",
     "lodash": "~4.17.15",
     "raf": "~3.4.1",
-    "rc-util": "^5.22.5",
     "react-popper": "~2.2.5",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
