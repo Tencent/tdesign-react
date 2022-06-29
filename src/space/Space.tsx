@@ -1,5 +1,6 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import toArray from 'rc-util/lib/Children/toArray';
 import useConfig from '../_util/useConfig';
 import { TdSpaceProps } from './type';
 import { StyledProps } from '../common';
@@ -10,7 +11,7 @@ export interface SpaceProps extends TdSpaceProps, StyledProps {
 }
 
 const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => {
-  const { className, style, align, direction, size, breakLine, separator, children } = props;
+  const { className, style, align, direction, size, breakLine, separator } = props;
   const { classPrefix } = useConfig();
 
   const renderStyle = useMemo(() => {
@@ -39,6 +40,7 @@ const Space = forwardRef((props: SpaceProps, ref: React.Ref<HTMLDivElement>) => 
   }, [style, size, breakLine]) as React.CSSProperties;
 
   function renderChildren() {
+    const children = toArray(props.children);
     const childCount = React.Children.count(children);
     return React.Children.map(children, (child, index) => {
       // filter last child
