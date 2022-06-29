@@ -55,7 +55,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 禁用复选框，可支持禁用不同的行
    * @default false
    */
-  disableCheck?: boolean | ((node: TreeNodeModel) => boolean);
+  disableCheck?: boolean | ((node: TreeNodeModel<T>) => boolean);
   /**
    * 是否禁用树操作
    */
