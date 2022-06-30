@@ -781,9 +781,6 @@ exports[`single-custom.jsx 1`] = `
         </small>
       </div>
     </div>
-    <div
-      class="t-space-item"
-    />
   </div>
 </DocumentFragment>
 `;

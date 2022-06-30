@@ -297,6 +297,10 @@ exports[`filterable.jsx 1`] = `
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
       <div
         class="t-popup__reference t-tree-select t-select-input t-select-input--multiple t-select-input--empty"
       >
