@@ -107,7 +107,6 @@ export default function useRowSelect(props: TdEnhancedTableProps) {
         checked = true;
       }
     }
-    // const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
     const selectBoxProps = {
       checked,
       disabled,
