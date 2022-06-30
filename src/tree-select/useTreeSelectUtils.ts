@@ -10,7 +10,10 @@ export const useTreeSelectUtils = (
   treeRef: MutableRefObject<ElementRef<typeof Tree>>,
 ) => {
   const defaultStore = useMemo(() => {
-    const store = new TreeStore({ ...treeProps });
+    const store = new TreeStore({
+      lazy: true,
+      ...treeProps,
+    });
     store.append(data);
     return store;
   }, [data, treeProps]);
