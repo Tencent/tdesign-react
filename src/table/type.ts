@@ -17,7 +17,7 @@ import { ButtonProps } from '../button';
 import { CheckboxGroupProps } from '../checkbox';
 import { DialogProps } from '../dialog';
 import { FormRule } from '../form';
-import { TNode, TElement, OptionData, ClassName, HTMLElementAttributes, ComponentType } from '../common';
+import { TNode, TElement, OptionData, SizeEnum, ClassName, HTMLElementAttributes, ComponentType } from '../common';
 import { MouseEvent, WheelEvent, ChangeEvent } from 'react';
 
 export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
@@ -146,6 +146,11 @@ export interface TdBaseTableProps<T extends TableRowData = TableRowData> {
    * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
   scroll?: TableScroll;
+  /**
+   * 表格尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
   /**
    * 是否显示斑马纹
    * @default false
