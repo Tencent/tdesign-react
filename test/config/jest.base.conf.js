@@ -38,6 +38,7 @@ module.exports = {
     // 测试工具便捷引入
     '^@test/(.*)': '<rootDir>/test/$1',
     // 组件 alias
+    '^tdesign-react/es': '<rootDir>/src',
     '^tdesign-react(.*)': '<rootDir>/src$1',
     // common
     "^@common/(.*)": "<rootDir>/src/_common/$1",

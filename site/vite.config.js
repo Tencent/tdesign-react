@@ -25,6 +25,7 @@ export default ({ mode }) =>
         '@docs': resolvePath('./docs'),
         '@components': resolvePath('./src/components'),
         '@common': resolvePath('../src/_common'),
+        'tdesign-react/es': resolvePath('../src'),
         'tdesign-react': resolvePath('../src'),
       },
     },
