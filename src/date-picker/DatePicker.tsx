@@ -26,6 +26,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
     onPick,
   } = props;
 
@@ -186,6 +187,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

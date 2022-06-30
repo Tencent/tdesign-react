@@ -24,6 +24,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
     onPanelClick,
   } = props;
 
@@ -292,6 +293,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
     activeIndex,
     onCellMouseEnter,
     onCellMouseLeave,
