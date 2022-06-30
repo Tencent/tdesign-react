@@ -1,6 +1,6 @@
 // 行选中相关功能：单选 + 多选
 
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
 import intersection from 'lodash/intersection';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -11,7 +11,7 @@ import {
   RowClassNameParams,
   TableRowData,
   TdBaseTableProps,
-  TdPrimaryTableProps,
+  TdEnhancedTableProps,
 } from '../type';
 import { filterDataByIds, isRowSelectedDisabled } from '../utils';
 import useClassName from './useClassName';
@@ -19,18 +19,35 @@ import Checkbox from '../../checkbox';
 import Radio from '../../radio';
 import { ClassName } from '../../common';
 import log from '../../_common/js/log';
+import { useDeepCompareMemo } from '../../hooks/useDeepCompareMemo';
 
-export default function useRowSelect(props: TdPrimaryTableProps) {
-  const { selectedRowKeys, columns, data, rowKey } = props;
+export default function useRowSelect(props: TdEnhancedTableProps) {
+  const { selectedRowKeys, columns, data, rowKey, tree } = props;
   const { tableSelectedClasses } = useClassName();
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
   const selectColumn = props.columns.find(({ type }) => ['multiple', 'single'].includes(type));
-  const canSelectedRows = props.data.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex));
+
+  const rowDataKeys = useMemo(
+    () => ({
+      rowKey: rowKey || 'id',
+      childrenKey: tree?.childrenKey || 'children',
+    }),
+    [rowKey, tree?.childrenKey],
+  );
+
+  // 是否为树状表格
+  const isTree = tree && Object.keys(tree).length;
+
+  const canSelectedRows = useDeepCompareMemo(
+    () => data.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex)),
+    [data, isTree],
+  );
+
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
   const intersectionKeys = intersection(
     tSelectedRowKeys,
-    canSelectedRows.map((t) => get(t, rowKey || 'id')),
+    canSelectedRows.map((t) => get(t, rowDataKeys.rowKey)),
   );
 
   useEffect(
@@ -41,7 +58,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       const disabledRowClass = selectColumn?.disabled ? disabledRowFunc : undefined;
       const selected = new Set(tSelectedRowKeys);
       const selectedRowClassFunc = ({ row }: RowClassNameParams<TableRowData>) => {
-        const rowId = get(row, rowKey || 'id');
+        const rowId = get(row, rowDataKeys.rowKey);
         return selected.has(rowId) ? tableSelectedClasses.selected : '';
       };
       const selectedRowClass = selected.size ? selectedRowClassFunc : undefined;
@@ -57,6 +74,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
 
   function getSelectedHeader() {
     const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+
     return () => (
       <Checkbox
         checked={intersectionKeys.length === canSelectedRows.length}
@@ -69,10 +87,27 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
 
   function renderSelectCell(p: PrimaryTableCellParams<TableRowData>) {
     const { col: column, row = {}, rowIndex } = p;
-    const checked = tSelectedRowKeys.includes(get(row, rowKey || 'id'));
+    let checked = tSelectedRowKeys.includes(get(row, rowDataKeys.rowKey));
     const disabled: boolean =
       typeof column.disabled === 'function' ? column.disabled({ row, rowIndex }) : column.disabled;
     const checkProps = isFunction(column.checkProps) ? column.checkProps({ row, rowIndex }) : column.checkProps;
+    // 树状选择状态处理
+    let childIsIndeterminate;
+    if (isTree) {
+      const childCanSelectedRows = (get(row, rowDataKeys.childrenKey) || []).filter(
+        (r, rIndex) => !isDisabled(r, rIndex),
+      );
+      const childIntersectionKeys = intersection(
+        tSelectedRowKeys,
+        childCanSelectedRows.map((t) => get(t, rowDataKeys.rowKey)),
+      );
+      childIsIndeterminate =
+        childIntersectionKeys.length > 0 && childIntersectionKeys.length < childCanSelectedRows.length;
+      if (childIntersectionKeys.length === childCanSelectedRows.length && childIntersectionKeys.length > 0) {
+        checked = true;
+      }
+    }
+    // const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
     const selectBoxProps = {
       checked,
       disabled,
@@ -86,14 +121,14 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       e?.stopPropagation();
     };
     if (column.type === 'single') return <Radio {...selectBoxProps} onClick={onCheckClick} />;
-    if (column.type === 'multiple') return <Checkbox {...selectBoxProps} onClick={onCheckClick} />;
+    if (column.type === 'multiple')
+      return <Checkbox {...selectBoxProps} indeterminate={childIsIndeterminate} onClick={onCheckClick} />;
     return null;
   }
 
   function handleSelectChange(row: TableRowData = {}) {
     let selectedRowKeys = [...tSelectedRowKeys];
-    const reRowKey = rowKey || 'id';
-    const id = get(row, reRowKey);
+    const id = get(row, rowDataKeys.rowKey);
     const selectedRowIndex = selectedRowKeys.indexOf(id);
     const isExisted = selectedRowIndex !== -1;
     if (selectColumn.type === 'multiple') {
@@ -105,7 +140,7 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       return;
     }
     setTSelectedRowKeys(selectedRowKeys, {
-      selectedRowData: filterDataByIds(props.data, selectedRowKeys, reRowKey),
+      selectedRowData: filterDataByIds(props.data, selectedRowKeys, rowDataKeys.rowKey),
       currentRowKey: id,
       currentRowData: row,
       type: isExisted ? 'uncheck' : 'check',
@@ -113,12 +148,11 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
   }
 
   function handleSelectAll(checked: boolean) {
-    const reRowKey = rowKey || 'id';
-    const canSelectedRowKeys = canSelectedRows.map((record) => get(record, reRowKey));
+    const canSelectedRowKeys = canSelectedRows.map((record) => get(record, rowDataKeys.rowKey));
     const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
     const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
     setTSelectedRowKeys(allIds, {
-      selectedRowData: filterDataByIds(props.data, allIds, reRowKey),
+      selectedRowData: filterDataByIds(props.data, allIds, rowDataKeys.rowKey),
       type: checked ? 'check' : 'uncheck',
       currentRowKey: 'CHECK_ALL_BOX',
     });

@@ -7,7 +7,7 @@ import useControlled from '../../hooks/useControlled';
 export const childrenMap = new Map();
 
 export interface GetChildrenDataReturnValue {
-  allChildren: Array<any>;
+  allChildren: Array<TableRowData>;
   allChildrenKeys: Array<string | number>;
 }
 
