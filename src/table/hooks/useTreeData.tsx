@@ -8,14 +8,17 @@ import { TdEnhancedTableProps, PrimaryTableCol, TableRowData, TableRowValue, Tab
 import useClassName from './useClassName';
 import { renderCell } from '../TR';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { useDeepCompareEffect } from '../../hooks/useDeepCompareEffect';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];
 }
 
+// don't initialize it in hooks will cause store to be initialized multiple times.
+export const store = new TableTreeStore() as InstanceType<typeof TableTreeStore>;
+
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey, treeExpandAndFoldIcon } = props;
-  const [store] = useState(new TableTreeStore() as InstanceType<typeof TableTreeStore>);
   const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>();
   const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
@@ -40,24 +43,21 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedColumn]);
 
-  useEffect(
-    () => {
-      if (!data || !store) return;
-      // 如果没有树形解构，则不需要相关逻辑
-      if (!tree || !Object.keys(tree).length) {
-        setDataSource(data);
-        return;
-      }
-      let newVal = cloneDeep(data);
-      store.initialTreeStore(newVal, columns, rowDataKeys);
-      if (props.tree?.defaultExpandAll) {
-        newVal = [...store.expandAll(newVal, rowDataKeys)];
-      }
-      setDataSource(newVal);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data],
-  );
+  // use deep compare to avoid some useless change
+  useDeepCompareEffect(() => {
+    if (!data || !store) return;
+    // 如果没有树形解构，则不需要相关逻辑
+    if (!tree || !Object.keys(tree).length) {
+      setDataSource(data);
+      return;
+    }
+    let newVal = cloneDeep(data);
+    store.initialTreeStore(newVal, columns, rowDataKeys);
+    if (props.tree?.defaultExpandAll) {
+      newVal = [...store.expandAll(newVal, rowDataKeys)];
+    }
+    setDataSource(newVal);
+  }, [data]);
 
   useEffect(
     () => {
