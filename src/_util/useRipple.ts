@@ -28,11 +28,11 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
 };
 
 /**
- * 斜八角动画hooks 支持三种方式使用
+ * 斜八角动画 hooks 支持三种方式使用
  * 1. fixedRippleColor 固定色值 useRipple(ref,fixedRippleColor);
  * 2. dynamicColor 动态色值 data.ripple="rippleColor" useRipple(ref)
- * 3. CSS variables（recommended） 配合节点对应CSS设置 --ripple-color useRipple(ref)
- * @param ref 需要使用斜八角动画的DOM
+ * 3. CSS variables（recommended） 配合节点对应 CSS 设置 --ripple-color useRipple(ref)
+ * @param ref 需要使用斜八角动画的 DOM
  * @param fixedRippleColor 斜八角的动画颜色
  */
 export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?: string): void {
@@ -84,7 +84,7 @@ export default function useRipple(ref: RefObject<HTMLElement>, fixedRippleColor?
         });
         el.appendChild(rippleContainer);
       }
-      // 新增一个ripple
+      // 新增一个 ripple
       const ripple = document.createElement('div');
 
       ripple.className = `${classPrefix}-ripple__inner`;

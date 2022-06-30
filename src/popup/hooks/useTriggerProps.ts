@@ -53,7 +53,7 @@ export default function useTriggerProps(
         onMouseEnter && onMouseEnter(e);
       };
       popupProps.onMouseEnter = (e) => {
-        // 如果当前弹出框本身没有展示 hover时不应该展示
+        // 如果当前弹出框本身没有展示 hover 时不应该展示
         visible && show(e, 'trigger-element-hover');
       }; // 兼容鼠标移入弹出框
       triggerProps.onMouseLeave = (e) => {

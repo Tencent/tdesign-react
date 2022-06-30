@@ -40,7 +40,7 @@ export const treeStoreExpendEffect = (
   const treeValue = getTreeValue(value);
 
   if (!treeStore) return;
-  // init expanded, 无expend状态时设置
+  // init expanded, 无 expend 状态时设置
   if (Array.isArray(treeValue) && expend.length === 0) {
     const expandedMap = new Map();
     const [val] = treeValue;
