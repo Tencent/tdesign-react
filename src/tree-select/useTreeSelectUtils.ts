@@ -4,6 +4,7 @@ import Tree, { TreeNodeValue } from '../tree';
 import TreeStore from '../_common/js/tree/tree-store';
 import { usePersistFn } from '../_util/usePersistFn';
 import type { NodeOptions, TreeSelectProps } from './TreeSelect';
+import { treeSelectDefaultProps } from './defaultProps';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,
@@ -11,7 +12,7 @@ export const useTreeSelectUtils = (
 ) => {
   const defaultStore = useMemo(() => {
     const store = new TreeStore({
-      lazy: true,
+      ...treeSelectDefaultProps.treeProps,
       ...treeProps,
     });
     store.append(data);
