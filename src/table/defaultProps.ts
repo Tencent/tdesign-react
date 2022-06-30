@@ -24,11 +24,16 @@ export const baseTableDefaultProps: TdBaseTableProps = {
 
 export const primaryTableDefaultProps: Pick<
   TdPrimaryTableProps,
-  'columnControllerVisible' | 'columns' | 'expandedRowKeys' | 'expandIcon' | 'multipleSort' | 'sortOnRowDraggable'
+  | 'columnControllerVisible'
+  | 'columns'
+  | 'defaultExpandedRowKeys'
+  | 'expandIcon'
+  | 'multipleSort'
+  | 'sortOnRowDraggable'
 > = {
   columnControllerVisible: undefined,
   columns: [],
-  expandedRowKeys: [],
+  defaultExpandedRowKeys: [],
   expandIcon: true,
   multipleSort: false,
   sortOnRowDraggable: false,
