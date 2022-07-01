@@ -151,7 +151,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
   };
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlayClick ?? local.closeOnOverlayClick) {
+    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
       onOverlayClick({ e });
       onClose({ e, trigger: 'overlay' });
     }
@@ -260,6 +260,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
             style={style}
             className={classnames(`${prefixCls}`, `${prefixCls}--default`)}
             onMouseDown={onDialogMoveStart}
+            onClick={(e) => e.stopPropagation()}
           >
             {closer}
             {header}
@@ -300,7 +301,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
           unmountOnExit
           nodeRef={maskRef}
         >
-          <div ref={maskRef} className={`${prefixCls}__mask`} onClick={onMaskClick} />
+          <div ref={maskRef} className={`${prefixCls}__mask`} />
         </CSSTransition>
       );
     }
@@ -328,7 +329,14 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     );
     // 如果不是 modal 模式 默认没有 mask 也就没有相关点击 mask 事件
     const dialog = (
-      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
+      <div
+        ref={wrap}
+        className={wrapClass}
+        style={wrapStyle}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        onClick={onMaskClick}
+      >
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
