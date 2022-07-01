@@ -101,7 +101,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
-  getFieldsValue?: (nameList: string[] | boolean) => getFieldsValue<FormData>;
+  getFieldsValue?: getFieldsValue<FormData>;
   /**
    * 获取单个字段值
    */
