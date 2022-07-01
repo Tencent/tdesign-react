@@ -14,13 +14,8 @@ export default function BasicUsage() {
       <Button theme="primary" onClick={handleClick}>
         Open Modal
       </Button>
-      <Dialog
-        header="Basic Modal"
-        visible={visible}
-        onClose={handleClose}
-        preventScrollThrough
-      >
-        <p style={{ height: '2200px' }}>This is a dialog</p>
+      <Dialog header="Basic Modal" visible={visible} onClose={handleClose}>
+        <p>This is a dialog</p>
       </Dialog>
     </>
   );
