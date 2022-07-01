@@ -111,7 +111,7 @@ const PopupContent = forwardRef((props: SelectPopupProps, ref: Ref<HTMLDivElemen
   // 渲染 options
   const renderOptions = () => {
     if (options) {
-      // 通过options API配置的
+      // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
           {(options as OptionsType).map(({ value: optionValue, label, disabled, ...restData }, index) => (

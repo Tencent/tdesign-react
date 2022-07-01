@@ -97,10 +97,10 @@ const Select = forwardRefWithStatics(
     const [valueToOption, setValueToOption] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
 
-    // 处理设置option的逻辑
+    // 处理设置 option 的逻辑
     useEffect(() => {
       if (keys) {
-        // 如果有定制keys 先做转换
+        // 如果有定制 keys 先做转换
         const transformedOptions = options?.map((option) => ({
           ...option,
           value: get(option, keys?.value || 'value'),
@@ -115,7 +115,7 @@ const Select = forwardRefWithStatics(
       setValueToOption(getValueToOption(children, options, keys) || {});
     }, [options, keys, children]);
 
-    // 同步value对应的options
+    // 同步 value 对应的 options
     useEffect(() => {
       setSelectedOptions((oldSelectedOptions) => {
         const valueKey = keys?.value || 'value';
@@ -370,7 +370,7 @@ const Select = forwardRefWithStatics(
       [selectedLabel, collapsedItems, minCollapsedNum],
     );
 
-    // 将第一个选中的option置于列表可见范围的最后一位
+    // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = useCallback(
       (content: HTMLDivElement) => {
         if (!selectPopupRef?.current) {

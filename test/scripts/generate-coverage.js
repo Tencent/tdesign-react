@@ -25,7 +25,7 @@ const calculate = (start, end) => {
   }
 }
 
-// 格式化处理value，四舍五入保留两位小数
+// 格式化处理 value，四舍五入保留两位小数
 const formatValue = (value) => {
   const [start, end] = value.split('/');
   return calculate(start, end);
@@ -35,7 +35,7 @@ const generateReportJson = async (filepath, type) => {
   try {
     const html = await fs.readFileSync(filepath, 'utf8');
     const dom = parser.parseFromString(html);
-    // 提取表格中各个子组件覆盖率td
+    // 提取表格中各个子组件覆盖率 td
     const tds = dom.getElementsByTagName('td');
 
     // 提取总体行覆盖率
@@ -78,7 +78,7 @@ const formatCoverageResult = (result) => result.map((coverageOld) => {
     const newCovs = covs;
     newCovs[keyPath] = formatValue(value);
 
-    // EXAMPLE_FILE直接保留返回
+    // EXAMPLE_FILE 直接保留返回
     if (keyPath.endsWith(EXAMPLE_FILE) || keyPath === ALL_KEY) {
       return newCovs;
     }
@@ -124,7 +124,7 @@ const coverageExec = exec('npm run test:coverage', async () => {
     }`;
 
   fs.writeFileSync(coveragePath, finalRes);
-  console.log('👍覆盖率报告解析完毕，请于site/test-coverage.js查看');
+  console.log('👍覆盖率报告解析完毕，请于 site/test-coverage.js 查看');
 });
 
 let data = 0;

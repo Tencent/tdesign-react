@@ -34,7 +34,7 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
   // 模式切换单选组件设置
   mode: {
     visible: true, // 是否显示
-    radioGroupProps: {}, // 用于透传props给该radioGroup组件
+    radioGroupProps: {}, // 用于透传 props 给该 radioGroup 组件
   },
   // 年份选择框组件相关设置
   year: {
@@ -49,13 +49,13 @@ const getDefaultControllerConfigData = (visible = true): InternalCalendarControl
   // 隐藏\显示周末按钮组件相关设置
   weekend: {
     visible: true, // 是否显示
-    showWeekendButtonProps: {}, // 用于透传props给显示周末按钮组件
-    hideWeekendButtonProps: {}, // 用于透传props给隐藏周末按钮组件
+    showWeekendButtonProps: {}, // 用于透传 props 给显示周末按钮组件
+    hideWeekendButtonProps: {}, // 用于透传 props 给隐藏周末按钮组件
   },
   // “今天\本月”按钮组件相关设置
   current: {
     visible: true, // 是否显示
-    currentDayButtonProps: {}, // 用于透传props给“今天”钮组件（“month”模式下有效）
+    currentDayButtonProps: {}, // 用于透传 props 给“今天”钮组件（“month”模式下有效）
     currentMonthButtonProps: {}, // 用于透传props给“本月”按钮组件（“year”模式下有效）
   },
 });

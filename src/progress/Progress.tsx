@@ -36,7 +36,7 @@ const Progress = forwardRef((props: ProgressProps, ref: React.Ref<HTMLDivElement
       return '';
     }
     let info: React.ReactNode;
-    // 为布尔值，默认百分百展示，否则之间展示label内容
+    // 为布尔值，默认百分百展示，否则之间展示 label 内容
     if (typeof label === 'boolean') {
       info = <div className={`${classPrefix}-progress__info`}>{`${percentage}%`}</div>;
       if (['success', 'error', 'warning'].includes(status)) {

@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo } from 'react';
 
 // 从 Vue 搬代码，原作者 @louiszhai
-// 虚拟滚动Hooks的完整实现，只所以封装成hooks，主要是为了方便跟其他组件搭配使用，比如说表格或者下拉框
+// 虚拟滚动 Hooks 的完整实现，只所以封装成 hooks，主要是为了方便跟其他组件搭配使用，比如说表格或者下拉框
 const useVirtualScroll = ({
   data,
   container,
@@ -44,7 +44,7 @@ const useVirtualScroll = ({
       }
     });
     if (!fixedHeight) {
-      state.cachedScrollY[data.value.length - 1] = undefined; // 初始化cachedScrollY数组的长度
+      state.cachedScrollY[data.value.length - 1] = undefined; // 初始化 cachedScrollY 数组的长度
     }
   };
   reset();
@@ -93,7 +93,7 @@ const useVirtualScroll = ({
     state.visibleData = data.value.slice(start, last);
   };
 
-  // 计算每行对应的scrollTop值
+  // 计算每行对应的 scrollTop 值
   const calculateScrollY = () => {
     const anchorDom = trs.get(index); // 获取锚点元素
     if (!anchorDom) {
@@ -151,7 +151,7 @@ const useVirtualScroll = ({
       // revising = false;
     }
     const timer = setTimeout(() => {
-      // setTimeout是为了保证快速拖动到底部时，以下逻辑能够正常执行
+      // setTimeout 是为了保证快速拖动到底部时，以下逻辑能够正常执行
       const { scrollTop, scrollHeight: sch, clientHeight } = container;
       if (scrollTop + clientHeight === sch) {
         // 滚动到底部时，修正底部有空余的问题

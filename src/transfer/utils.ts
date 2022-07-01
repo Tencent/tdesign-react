@@ -40,7 +40,7 @@ export const getLeafNodes = (nodes: DataOption[]): DataOption[] => {
   return resData;
 };
 
-// tree过滤checkeds数组中的key
+// tree 过滤 checkeds 数组中的 key
 export const filterCheckedTreeNodes = (nodes: DataOption[], checkeds: TransferValue[]): DataOption[] =>
   nodes
     .filter((item) => !checkeds.includes(item.value))
