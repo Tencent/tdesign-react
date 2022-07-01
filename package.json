@@ -128,7 +128,7 @@
     "@types/lodash": "^4.14.170",
     "@types/node": "^17.0.21",
     "@types/raf": "^3.4.0",
-    "@types/react": "^17.0.19",
+    "@types/react": "^18.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-transition-group": "^4.4.2",
     "@types/rimraf": "^3.0.2",
