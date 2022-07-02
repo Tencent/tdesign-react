@@ -25,11 +25,14 @@ const EditableCell = (props: EditableCellProps) => {
   const [editValue, setEditValue] = useState();
   const [errorList, setErrorList] = useState([]);
 
-  const currentRow = useMemo(() => {
+  const getCurrentRow = (row: TableRowData, colKey: string, value: any) => {
     const newRow = { ...row };
-    set(newRow, col.colKey, editValue);
+    set(newRow, colKey, value);
     return newRow;
-  }, [col.colKey, editValue, row]);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
 
   const cellNode = useMemo(() => {
     const node = renderCell({
@@ -88,7 +91,7 @@ const EditableCell = (props: EditableCellProps) => {
     validateEdit().then((result) => {
       if (result !== true) return;
       // 相同的值无需触发变化
-      if (!isSame(editValue, get(row, col.colKey))) {
+      if (!isSame(args[0].value, get(row, col.colKey))) {
         outsideAbortEvent?.(...args);
       }
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清楚不及时引起的其他问题
@@ -112,6 +115,7 @@ const EditableCell = (props: EditableCellProps) => {
         updateAndSaveAbort(
           outsideAbortEvent,
           {
+            value: editValue,
             trigger: itemEvent,
             newRowData: currentRow,
             rowIndex: props.rowIndex,
@@ -128,11 +132,13 @@ const EditableCell = (props: EditableCellProps) => {
     setEditValue(val);
     if (isAbortEditOnChange) {
       const outsideAbortEvent = col.edit?.onEdited;
+      // editValue 和 currentRow 更新完成后再执行这个函数
       updateAndSaveAbort(
         outsideAbortEvent,
         {
+          value: val,
           trigger: 'onChange',
-          newRowData: currentRow,
+          newRowData: getCurrentRow(currentRow, col.colKey, val),
           rowIndex: props.rowIndex,
         },
         ...args,
@@ -147,6 +153,7 @@ const EditableCell = (props: EditableCellProps) => {
     if (e.path?.includes(tableEditableCellRef?.current)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
+      value: editValue,
       trigger: 'document',
       newRowData: currentRow,
       rowIndex: props.rowIndex,
