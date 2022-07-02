@@ -153,7 +153,7 @@ const EditableCell = (props: EditableCellProps) => {
     if (!col.edit || !col.edit.component) return;
     if (!isEdit || !tableEditableCellRef?.current) return;
     // @ts-ignore
-    if (e.path?.includes(tableEditableCellRef?.current)) return;
+    if (e.path?.includes(tableEditableCellRef?.current?.currentElement)) return;
     const outsideAbortEvent = col.edit.onEdited;
     updateAndSaveAbort(outsideAbortEvent, {
       value: editValue,
