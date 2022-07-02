@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import isFunction from 'lodash/isFunction';
 import { Edit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { TableRowData, PrimaryTableCol } from './type';
@@ -18,7 +19,7 @@ export interface EditableCellProps {
 }
 
 const EditableCell = (props: EditableCellProps) => {
-  const { row, col } = props;
+  const { row, col, rowIndex, colIndex } = props;
   const { tableBaseClass } = useClassName();
   const tableEditableCellRef = useRef(null);
   const [isEdit, setIsEdit] = useState(false);
@@ -47,7 +48,9 @@ const EditableCell = (props: EditableCellProps) => {
   const componentProps = useMemo(() => {
     const { edit } = col;
     if (!edit) return {};
-    const editProps = { ...edit.props };
+    const editProps = isFunction(edit.props)
+      ? edit.props({ col, row, rowIndex, colIndex, editedRow: currentRow })
+      : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
     delete editProps.value;
@@ -55,7 +58,7 @@ const EditableCell = (props: EditableCellProps) => {
       delete editProps[item];
     });
     return editProps;
-  }, [col]);
+  }, [col, colIndex, currentRow, row, rowIndex]);
 
   const isAbortEditOnChange = useMemo(() => {
     const { edit } = col;
