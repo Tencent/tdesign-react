@@ -104,7 +104,9 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   // 半选状态的节点：子节点选中至少一个，且没有全部选中
   const [tIndeterminateSelectedRowKeys, setTIndeterminateSelectedRowKeys] = useState([]);
   // eslint-disable-next-line
-  const [selectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
+  const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
+    defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
+  });
 
   const rowDataKeys = useMemo(
     () => ({
@@ -118,18 +120,18 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     if (!tree || !treeDataMap.size || tree.checkStrictly) return;
     updateIndeterminateState();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRowKeys, data, tree, treeDataMap]);
+  }, [tSelectedRowKeys, data, tree, treeDataMap]);
 
   function updateIndeterminateState() {
-    if (!tree || !selectedRowKeys || tree.checkStrictly) return;
-    if (!selectedRowKeys.length) {
+    if (!tree || tree.checkStrictly) return;
+    if (!tSelectedRowKeys.length) {
       setTIndeterminateSelectedRowKeys([]);
       return;
     }
     const keys: Array<string | number> = [];
     const parentMap: { [key: string | number]: any[] } = {};
-    for (let i = 0, len = selectedRowKeys.length; i < len; i++) {
-      const rowValue = selectedRowKeys[i];
+    for (let i = 0, len = tSelectedRowKeys.length; i < len; i++) {
+      const rowValue = tSelectedRowKeys[i];
       const state = treeDataMap.get(rowValue);
       const children = get(state.row, rowDataKeys.childrenKey);
       // 根据选中的叶子结点计算父节点半选状态
@@ -143,7 +145,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
           const checkedLength = parentMap[parentTmp.id].length;
           const { allChildrenKeys } = getChildrenData(treeDataMap, parentTmp.row, rowDataKeys);
           const parentTmpIndex = keys.indexOf(parentTmp.id);
-          const selectedIndex = selectedRowKeys.indexOf(parentTmp.id);
+          const selectedIndex = tSelectedRowKeys.indexOf(parentTmp.id);
           if (checkedLength > 0 && checkedLength < allChildrenKeys.length && selectedIndex === -1) {
             parentTmpIndex === -1 && keys.push(parentTmp.id);
           } else {
@@ -161,6 +163,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     currentRowKey: string | number,
     type: 'check' | 'uncheck',
   ) {
+    if (!tree || tree.checkStrictly) return;
     const keys = [...selectedKeys];
     const state = treeDataMap.get(currentRowKey);
     let parentTmp = state.parent;
@@ -179,7 +182,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   }
 
   function onInnerSelectChange(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
-    if (!tree) {
+    if (!tree || tree.checkStrictly) {
       setTSelectedRowKeys(rowKeys, extraData);
       return;
     }
