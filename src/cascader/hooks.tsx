@@ -58,6 +58,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       valueType,
       treeStore,
       setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => {
+        console.log(val, scopeVal);
         if (isEqual(val, scopeVal)) return;
         setInnerValue(val, { source, node });
       },
@@ -84,32 +85,29 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   useEffect(() => {
     if (!options.length) return;
     if (!treeStore) {
-      const createStore = (onLoad: () => void) => {
-        const treeProps = {
-          keys: {
-            ...keys,
-            children: typeof keys.children === 'string' ? keys.children : 'children',
-          },
-          onLoad,
-          options,
-        };
-        const store = new TreeStore(treeProps);
-        store.append(options);
-        return store;
-      };
-      const store = createStore(() => {
-        store.refreshNodes();
-        treeNodesEffect(inputVal, store, setTreeNodes, props.filter);
+      const store = new TreeStore({
+        keys: {
+          ...keys,
+          children: typeof keys.children === 'string' ? keys.children : 'children',
+        },
+        onLoad: () => {
+          setTimeout(() => {
+            store.refreshNodes();
+            treeNodesEffect(inputVal, store, setTreeNodes, props.filter);
+          });
+        },
       });
+      store.append(options);
       setTreeStore(store);
     } else {
-      if (treeStore.config.options === options) return;
+      if (isEqual(treeStore.config.options, options)) return;
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
       treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter);
     }
-  }, [inputVal, options, scopeVal, treeStore, keys, props.filter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options]);
 
   useEffect(() => {
     if (!treeStore) return;
@@ -131,6 +129,22 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     treeStore.setConfig(treeProps);
   }, [checkStrictly, disabled, keys, lazy, load, options, valueMode, treeStore]);
 
+  // value 校验逻辑
+  useEffect(() => {
+    const { setValue, multiple, valueType = 'single' } = cascaderContext;
+
+    if (isValueInvalid(innerValue, cascaderContext)) {
+      setValue(multiple ? [] : '', 'invalid-value');
+    }
+
+    if (!isEmptyValues(innerValue)) {
+      setScopeVal(getCascaderValue(innerValue, valueType, multiple));
+    } else {
+      setScopeVal(multiple ? [] : '');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [innerValue]);
+
   useEffect(() => {
     if (!treeStore) return;
     treeStoreExpendEffect(treeStore, scopeVal, expend);
@@ -142,26 +156,9 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   }, [inputVal, treeStore, props.filter]);
 
   useEffect(() => {
-    // 初始化判断 value 逻辑
-    const { setValue, multiple, valueType = 'single' } = cascaderContext;
-
-    if (isValueInvalid(innerValue, cascaderContext)) {
-      setValue(multiple ? [] : '', 'invalid-value');
-      console.warn('TDesign Cascader Warn:', 'cascader props value invalid, v-model automatic calibration');
-    }
-
-    if (!isEmptyValues(innerValue)) {
-      setScopeVal(getCascaderValue(innerValue, valueType, multiple));
-    }
-
-    if (!treeStore) return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerValue]);
-
-  useEffect(() => {
     if (!treeStore) return;
     treeStore.replaceChecked(getTreeValue(scopeVal));
-  }, [scopeVal, treeStore]);
+  }, [scopeVal, treeStore, cascaderContext.multiple]);
 
   useEffect(() => {
     if (!innerPopupVisible && isFilterable) {
@@ -173,7 +170,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
     treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputVal]);
+  }, [inputVal, scopeVal]);
 
   return {
     cascaderContext,

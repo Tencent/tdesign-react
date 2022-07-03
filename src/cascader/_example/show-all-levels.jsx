@@ -38,24 +38,9 @@ export default function Example() {
     },
   ];
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   const onChange1 = (value) => {
     setValue1(value);
   };
 
-  return (
-    <div className="tdesign-demo-block-column">
-      <Cascader
-        style={itemStyle}
-        options={options}
-        value={value1}
-        showAllLevels={false}
-        onChange={onChange1}
-        placeholder="请选择"
-      />
-    </div>
-  );
+  return <Cascader options={options} value={value1} showAllLevels={false} onChange={onChange1} />;
 }

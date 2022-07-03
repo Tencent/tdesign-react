@@ -2,16 +2,13 @@
 
 exports[`base.jsx 1`] = `
 <DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
+  <div>
     <div
-      class="t-popup__reference t-cascader t-select-input"
-      style="margin-top: 16px;"
+      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
-        value="选项一 / 子选项一"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -24,7 +21,7 @@ exports[`base.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="选项一 / 子选项一"
+            value=""
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -55,11 +52,10 @@ exports[`base.jsx 1`] = `
 exports[`check-strictly.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
@@ -102,14 +98,13 @@ exports[`check-strictly.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -118,17 +113,42 @@ exports[`check-strictly.jsx 1`] = `
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
               1/1.1/1.1.2/1.1.2.1
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </span>
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
               2
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </span>
           </div>
           <input
             class="t-input__inner"
             placeholder=""
-            readonly=""
             type="text"
             value=""
           />
@@ -161,18 +181,17 @@ exports[`check-strictly.jsx 1`] = `
 exports[`collapsed.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -181,6 +200,19 @@ exports[`collapsed.jsx 1`] = `
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
               选项一/子选项一
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </span>
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
@@ -191,7 +223,6 @@ exports[`collapsed.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
-            readonly=""
             type="text"
             value=""
           />
@@ -219,14 +250,13 @@ exports[`collapsed.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -235,74 +265,29 @@ exports[`collapsed.jsx 1`] = `
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
               选项一/子选项一
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </span>
             <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              style="color: rgb(0, 168, 112);"
             >
-              选项一/子选项二
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              +1
+              +2
             </span>
           </div>
           <input
             class="t-input__inner"
             placeholder=""
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
-    >
-      <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
-      >
-        <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              选项一/子选项一
-            </span>
-            <div>
-              自定义内容
-            </div>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
             type="text"
             value=""
           />
@@ -335,24 +320,24 @@ exports[`collapsed.jsx 1`] = `
 exports[`disabled.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
         value="选项一 / 子选项一"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
           />
           <input
             class="t-input__inner"
+            disabled=""
             placeholder="请选择"
             readonly=""
             type="text"
@@ -382,28 +367,27 @@ exports[`disabled.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
           >
             <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square t-tag--disabled"
             >
               选项一/子选项一
             </span>
           </div>
           <input
             class="t-input__inner"
+            disabled=""
             placeholder=""
-            readonly=""
             type="text"
             value=""
           />
@@ -436,11 +420,10 @@ exports[`disabled.jsx 1`] = `
 exports[`ellipsis.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
@@ -487,11 +470,10 @@ exports[`ellipsis.jsx 1`] = `
 exports[`filterable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
@@ -533,7 +515,227 @@ exports[`filterable.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
+    >
+      <div
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              当选项一数据展示文本过长时/子选项一
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
+            type="text"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`keys.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+    >
+      <div
+        class="t-input__wrap"
+        value=""
+      >
+        <div
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            type="text"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`load.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
+    >
+      <div
+        class="t-input__wrap"
+        value=""
+      >
+        <div
+          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            readonly=""
+            type="text"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`max.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
+    >
+      <div
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            type="text"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`multiple.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
@@ -596,266 +798,47 @@ exports[`filterable.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`keys.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
-    >
-      <div
-        class="t-input__wrap"
-        value=""
-      >
-        <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`load.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
-    >
-      <div
-        class="t-input__wrap"
-        value=""
-      >
-        <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`max.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
-      style="margin-top: 16px;"
-    >
-      <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
-      >
-        <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`multiple.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="tdesign-demo-block-column"
-  >
-    <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
-      style="margin-top: 16px;"
-    >
-      <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
-      >
-        <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
-        >
-          <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              选项一/子选项一
-            </span>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
-          >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`show-all-levels.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="t-popup__reference t-cascader t-select-input t-select-input--empty"
   >
     <div
-      class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
+      class="t-input__wrap"
+      value=""
     >
       <div
-        class="t-input__wrap"
-        value=""
+        class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          class="t-input__inner"
+          placeholder="请选择"
+          readonly=""
+          type="text"
+          value=""
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            readonly=""
-            type="text"
-            value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-fake-arrow t-cascader__icon"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="t-fake-arrow t-cascader__icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+              stroke="black"
+              stroke-opacity="0.9"
+              stroke-width="1.3"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -865,7 +848,7 @@ exports[`show-all-levels.jsx 1`] = `
 exports[`size.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--empty"
@@ -1003,11 +986,10 @@ exports[`size.jsx 1`] = `
 exports[`trigger.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
@@ -1050,7 +1032,6 @@ exports[`trigger.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap"
@@ -1098,18 +1079,17 @@ exports[`trigger.jsx 1`] = `
 exports[`value-mode.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="tdesign-demo-block-column"
+    class="tdesign-demo-block-row"
   >
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1117,7 +1097,6 @@ exports[`value-mode.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
-            readonly=""
             type="text"
             value=""
           />
@@ -1145,14 +1124,13 @@ exports[`value-mode.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
       >
         <div
-          class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
         >
           <div
             class="t-input__prefix"
@@ -1160,7 +1138,6 @@ exports[`value-mode.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder="请选择"
-            readonly=""
             type="text"
             value=""
           />
@@ -1188,11 +1165,60 @@ exports[`value-mode.jsx 1`] = `
     </div>
     <div
       class="t-popup__reference t-cascader t-select-input t-select-input--multiple t-select-input--empty"
-      style="margin-top: 16px;"
     >
       <div
         class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
         value=""
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          />
+          <input
+            class="t-input__inner"
+            placeholder="请选择"
+            type="text"
+            value=""
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`value-type.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="tdesign-demo-block-row"
+  >
+    <div
+      class="t-popup__reference t-cascader t-select-input"
+    >
+      <div
+        class="t-input__wrap"
+        value="选项一 / 子选项一"
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1204,6 +1230,84 @@ exports[`value-mode.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             readonly=""
+            type="text"
+            value="选项一 / 子选项一"
+          />
+          <span
+            class="t-input__suffix t-input__suffix-icon"
+          >
+            <svg
+              class="t-fake-arrow t-cascader__icon"
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                stroke="black"
+                stroke-opacity="0.9"
+                stroke-width="1.3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-popup__reference t-cascader t-select-input t-select-input--multiple"
+    >
+      <div
+        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+        value=""
+      >
+        <div
+          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+        >
+          <div
+            class="t-input__prefix"
+          >
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              选项一/子选项一
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              选项一/子选项二
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+              >
+                <path
+                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                  fill="currentColor"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </span>
+          </div>
+          <input
+            class="t-input__inner"
+            placeholder=""
             type="text"
             value=""
           />

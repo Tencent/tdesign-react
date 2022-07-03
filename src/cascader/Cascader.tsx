@@ -73,6 +73,7 @@ const Cascader = (props: CascaderProps) => {
       placeholder={inputPlaceholder}
       multiple={props.multiple}
       loading={props.loading}
+      disabled={props.disabled}
       suffixIcon={() => renderSuffixIcon()}
       popupProps={{
         ...props.popupProps,
@@ -85,7 +86,7 @@ const Cascader = (props: CascaderProps) => {
       }}
       {...props.selectInputProps}
       onInputChange={(value) => {
-        if (!isFilterable) return;
+        if (!visible) return;
         setInputVal(`${value}`);
       }}
       onTagChange={(val: CascaderValue, ctx) => {

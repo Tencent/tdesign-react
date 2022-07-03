@@ -90,7 +90,7 @@ const Item = forwardRef(
     };
 
     const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
-      const { checkProps, value, max } = cascaderContext;
+      const { checkProps, value, max, inputVal } = cascaderContext;
       const label = RenderLabelInner(node, cascaderContext);
       return (
         <Checkbox
@@ -98,6 +98,7 @@ const Item = forwardRef(
           indeterminate={node.indeterminate}
           disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
           name={node.value}
+          title={inputVal ? getFullPathLabel(node) : node.label}
           onChange={() => {
             onChange(node);
           }}

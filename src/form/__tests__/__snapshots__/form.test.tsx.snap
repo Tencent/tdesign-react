@@ -1473,13 +1473,14 @@ exports[`disabled.jsx 1`] = `
                   value="上海"
                 >
                   <div
-                    class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+                    class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
                     <div
                       class="t-input__prefix"
                     />
                     <input
                       class="t-input__inner"
+                      disabled=""
                       placeholder="请选择"
                       readonly=""
                       type="text"
@@ -1489,7 +1490,7 @@ exports[`disabled.jsx 1`] = `
                       class="t-input__suffix t-input__suffix-icon"
                     >
                       <svg
-                        class="t-fake-arrow t-cascader__icon"
+                        class="t-fake-arrow t-cascader__icon t-is-disabled"
                         fill="none"
                         height="16"
                         viewBox="0 0 16 16"
