@@ -373,16 +373,20 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   hideSortTips?: boolean;
   /**
+   * 半选状态行。选中行请更为使用 `selectedRowKeys` 控制
+   */
+  indeterminateSelectedRowKeys?: Array<string | number>;
+  /**
    * 是否支持多列排序
    * @default false
    */
   multipleSort?: boolean;
   /**
-   * 选中的行，控制属性
+   * 选中的行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制
    */
   selectedRowKeys?: Array<string | number>;
   /**
-   * 选中的行，控制属性，非受控属性
+   * 选中的行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制，非受控属性
    */
   defaultSelectedRowKeys?: Array<string | number>;
   /**

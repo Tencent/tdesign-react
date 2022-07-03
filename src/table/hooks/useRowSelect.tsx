@@ -21,7 +21,7 @@ import { ClassName } from '../../common';
 import log from '../../_common/js/log';
 
 export default function useRowSelect(props: TdPrimaryTableProps) {
-  const { selectedRowKeys, columns, data, rowKey } = props;
+  const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
   const { tableSelectedClasses } = useClassName();
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange);
@@ -86,7 +86,12 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
       e?.stopPropagation();
     };
     if (column.type === 'single') return <Radio {...selectBoxProps} onClick={onCheckClick} />;
-    if (column.type === 'multiple') return <Checkbox {...selectBoxProps} onClick={onCheckClick} />;
+    if (column.type === 'multiple') {
+      const isIndeterminate = indeterminateSelectedRowKeys?.length
+        ? indeterminateSelectedRowKeys.includes(get(row, rowKey))
+        : false;
+      return <Checkbox indeterminate={isIndeterminate} {...selectBoxProps} onClick={onCheckClick} />;
+    }
     return null;
   }
 

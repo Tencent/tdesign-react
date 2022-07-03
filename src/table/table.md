@@ -98,9 +98,10 @@ filterRow | TNode | - | 自定义过滤状态行及清空筛选等。TS 类型�
 filterValue | Object | - | 过滤数据的值。TS 类型：`FilterValue` `type FilterValue = { [key: string]: any }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 defaultFilterValue | Object | - | 过滤数据的值。非受控属性。TS 类型：`FilterValue` `type FilterValue = { [key: string]: any }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 hideSortTips | Boolean | - | 隐藏排序文本提示，支持全局配置 `GlobalConfigProvider`，默认全局配置值为 `false` | N
+indeterminateSelectedRowKeys | Array | - | 半选状态行。选中行请更为使用 `selectedRowKeys` 控制。TS 类型：`Array<string | number>` | N
 multipleSort | Boolean | false | 是否支持多列排序 | N
-selectedRowKeys | Array | - | 选中的行，控制属性。TS 类型：`Array<string | number>` | N
-defaultSelectedRowKeys | Array | - | 选中的行，控制属性。非受控属性。TS 类型：`Array<string | number>` | N
+selectedRowKeys | Array | - | 选中的行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制。TS 类型：`Array<string | number>` | N
+defaultSelectedRowKeys | Array | - | 选中的行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制。非受控属性。TS 类型：`Array<string | number>` | N
 sort | Object / Array | - | 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序。TS 类型：`TableSort` `type TableSort = SortInfo | Array<SortInfo>` `interface SortInfo { sortBy: string; descending: boolean }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 defaultSort | Object / Array | - | 排序控制。sortBy 排序字段；descending 是否进行降序排列。值为数组时，表示正进行多字段排序。非受控属性。TS 类型：`TableSort` `type TableSort = SortInfo | Array<SortInfo>` `interface SortInfo { sortBy: string; descending: boolean }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/table/type.ts) | N
 sortIcon | TElement | - | 自定义排序图标，支持全局配置 `GlobalConfigProvider`。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
