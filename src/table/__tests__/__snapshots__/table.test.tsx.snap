@@ -22869,11 +22869,10 @@ exports[`tree-select.jsx 1`] = `
                   class=""
                 >
                   <label
-                    class="t-checkbox t-is-disabled"
+                    class="t-checkbox"
                   >
                     <input
                       class="t-checkbox__former"
-                      disabled=""
                       type="checkbox"
                       value=""
                     />
@@ -23070,11 +23069,10 @@ exports[`tree-select.jsx 1`] = `
                   class=""
                 >
                   <label
-                    class="t-checkbox t-is-disabled"
+                    class="t-checkbox"
                   >
                     <input
                       class="t-checkbox__former"
-                      disabled=""
                       type="checkbox"
                       value=""
                     />

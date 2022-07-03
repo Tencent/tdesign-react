@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { EnhancedTable, Radio, Space } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
+import get from 'lodash/get';
+
+const CHILDREN_KEY = 'childrenList';
 
 const initData = [];
 for (let i = 0; i < 5; i++) {
@@ -42,7 +45,7 @@ const columns = [
 
     // 禁用行选中方式二：使用 checkProps 禁用行（示例代码有效，勿删）
     // 这种方式禁用行选中，行文本不会变灰
-    // checkProps: ({ row }) => ({ disabled: row.status !== 0 }),
+    checkProps: ({ row }) => ({ disabled: !get(row, CHILDREN_KEY) && row.status === 0 }),
     // 自由调整宽度，如果发现元素看不见，请加大宽度
     width: 20,
   },
@@ -107,7 +110,7 @@ export default function TableSingleSort() {
         // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: 'childrenList' }}
+        tree={{ checkStrictly, childrenKey: CHILDREN_KEY }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}
