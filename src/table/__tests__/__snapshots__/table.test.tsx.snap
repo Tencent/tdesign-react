@@ -6600,7 +6600,7 @@ exports[`fixed-column.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-vertical"
-    style="gap: 16px;"
+    style="gap: 16px; width: 100%;"
   >
     <div
       class="t-space-item"
@@ -8154,7 +8154,7 @@ exports[`fixed-header-col.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-space t-space-vertical"
-    style="gap: 24px;"
+    style="gap: 24px; width: 100%;"
   >
     <div
       class="t-space-item"
