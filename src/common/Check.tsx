@@ -10,7 +10,7 @@ import { TdCheckboxProps } from '../checkbox/type';
 export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
-  title: string;
+  title?: string;
   value?: string | number | boolean;
   children?: React.ReactNode;
   onClick?: MouseEventHandler<HTMLLabelElement>;
