@@ -34,6 +34,7 @@ export default function useRowspanAndColspan(
     for (let i = rowIndex; i < maxRowIndex; i++) {
       for (let j = colIndex; j < maxColIndex; j++) {
         if (i !== rowIndex || j !== colIndex) {
+          if (!data[i]) continue;
           const cellKey = getCellKey(data[i], rowKey, columns[j].colKey, j);
           const state = skipSpansMap.get(cellKey) || {};
           state.skipped = true;
@@ -50,6 +51,7 @@ export default function useRowspanAndColspan(
     rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
   ) => {
     if (!data || !rowspanAndColspan) return;
+    skipSpansMap.clear();
     for (let i = 0, len = data.length; i < len; i++) {
       const row = data[i];
       for (let j = 0, colLen = columns.length; j < colLen; j++) {
@@ -63,9 +65,9 @@ export default function useRowspanAndColspan(
         const cellKey = getCellKey(row, rowKey, col.colKey, j);
         const state = skipSpansMap.get(cellKey) || {};
         const o = rowspanAndColspan(params) || {};
-        if (o.rowspan > 1 || o.colspan > 1 || state.rowspan || state.colspan) {
-          o.rowspan > 1 && (state.rowspan = o.rowspan);
-          o.colspan > 1 && (state.colspan = o.colspan);
+        if (o.rowspan || o.colspan || state.rowspan || state.colspan) {
+          o.rowspan && (state.rowspan = o.rowspan);
+          o.colspan && (state.colspan = o.colspan);
           skipSpansMap.set(cellKey, state);
         }
         onTrRowspanOrColspan?.(params, state);

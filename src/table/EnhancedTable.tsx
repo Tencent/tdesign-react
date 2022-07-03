@@ -17,7 +17,7 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
 
   const treeDataMap = store?.treeDataMap;
 
-  const { onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+  const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
 
   // 影响列和单元格内容的因素有：树形节点需要添加操作符 [+] [-]
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
@@ -42,7 +42,7 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     return isTreeData ? columns : getColumns(columns);
   })();
 
-  useImperativeHandle(ref, () => ({ ...treeInstanceFunctions }));
+  useImperativeHandle(ref, () => ({ treeDataMap, ...treeInstanceFunctions }));
 
   const onDragSortChange = (params: DragSortContext<TableRowData>) => {
     if (props.beforeDragSort && !props.beforeDragSort(params)) return;
@@ -60,6 +60,8 @@ const EnhancedTable = forwardRef((props: TEnhancedTableProps, ref) => {
     ...props,
     data: dataSource,
     columns: tColumns,
+    // 半选状态节点
+    indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
     disableDataPage: Boolean(tree && Object.keys(tree).length),
     onSelectChange: onInnerSelectChange,

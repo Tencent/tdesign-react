@@ -31,6 +31,11 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
 
+  const uniqueKeys = useMemo(
+    () => store?.getAllUniqueKeys(data, rowDataKeys)?.join() || '',
+    [data, rowDataKeys, store],
+  );
+
   useEffect(() => {
     if (!store || !checkedColumn) return;
     // 第一次，不需要执行 updateDisabledState
@@ -56,7 +61,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       setDataSource(newVal);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data],
+    [uniqueKeys],
   );
 
   useEffect(
@@ -70,11 +75,9 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   function getTreeNodeStyle(level: number) {
     if (level === undefined) return;
-    const indent = props.tree?.indent || 24;
+    const indent = props.tree?.indent === undefined ? 24 : props.tree?.indent;
     // 默认 1px 是为了临界省略
-    return {
-      paddingLeft: `${level * indent || 1}px`,
-    };
+    return indent ? { paddingLeft: `${level * indent || 1}px` } : {};
   }
 
   /**
