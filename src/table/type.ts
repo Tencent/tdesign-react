@@ -335,12 +335,10 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
   expandedRow?: TNode<TableExpandedRowParams<T>>;
   /**
    * 展开行
-   * @default []
    */
   expandedRowKeys?: Array<string | number>;
   /**
    * 展开行，非受控属性
-   * @default []
    */
   defaultExpandedRowKeys?: Array<string | number>;
   /**

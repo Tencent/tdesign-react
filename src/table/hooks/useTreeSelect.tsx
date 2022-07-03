@@ -179,6 +179,10 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   }
 
   function onInnerSelectChange(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
+    if (!tree) {
+      setTSelectedRowKeys(rowKeys, extraData);
+      return;
+    }
     if (extraData.currentRowKey === 'CHECK_ALL_BOX') {
       handleSelectAll(extraData);
     } else {
@@ -207,7 +211,6 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   }
 
   function handleSelect(rowKeys: SelectChangeParams[0], extraData: SelectChangeParams[1]) {
-    if (!tree) return;
     let newRowKeys = [...rowKeys];
     if (tree.checkStrictly === false) {
       if (extraData.type === 'check') {
