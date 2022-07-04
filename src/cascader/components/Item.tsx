@@ -2,163 +2,138 @@ import React, { useRef, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronRightIcon } from 'tdesign-icons-react';
 
-// hook
+import TLoading from '../../loading';
+import Checkbox from '../../checkbox/Checkbox';
+
 import useConfig from '../../_util/useConfig';
 import useCommonClassName from '../../_util/useCommonClassName';
 import useRipple from '../../_util/useRipple';
 
-// common logic
-import { getCascaderItemClass, getCascaderItemIconClass, getLabelIsEllipsis } from '../utils/item';
-import { getFullPathLabel } from '../utils/helper';
+import { getFullPathLabel } from '../core/helper';
+import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';
+import { CascaderContextType, TreeNodeValue, TreeNode } from '../interface';
 
-// component
-import TLoading from '../../loading';
-import Tooltip from '../../tooltip/Tooltip';
-import Checkbox from '../../checkbox/Checkbox';
+const Item = forwardRef(
+  (
+    props: {
+      node: TreeNode;
+      cascaderContext: CascaderContextType;
+      onClick: (ctx: TreeNode) => void;
+      onChange: (ctx: TreeNode | { e: boolean; node: TreeNode }) => void;
+      onMouseEnter: (ctx: TreeNode) => void;
+    },
+    ref: React.RefObject<HTMLLIElement>,
+  ) => {
+    const {
+      node,
+      cascaderContext: { multiple },
+      onClick,
+      onChange,
+      onMouseEnter,
+      cascaderContext,
+    } = props;
+    const { classPrefix: prefix } = useConfig();
+    const COMPONENT_NAME = `${prefix}-cascader__item`;
+    const itemRef = useRef();
+    useRipple(ref || itemRef);
 
-// type
-import { ContextType, CascaderItemProps, CascaderContextType } from '../interface';
-import TreeNode from '../../_common/js/tree/tree-node';
-import { TreeNodeValue } from '../../_common/js/tree/types';
-import { CheckboxProps } from '../../checkbox';
+    /**
+     * class
+     */
+    const { STATUS, SIZE } = useCommonClassName();
 
-const RenderLabelInner = (name: string, node: TreeNode, cascaderContext: CascaderContextType) => {
-  const { filterActive, inputVal } = cascaderContext;
-  const labelText = filterActive ? getFullPathLabel(node) : node.label;
-  const isEllipsis = getLabelIsEllipsis(labelText, cascaderContext.size);
-  const EllipsisNode = isEllipsis ? (
-    <div className={`${name}-label--ellipsis`}>
-      <Tooltip content={labelText} placement="top-left" />
-    </div>
-  ) : null;
-
-  if (filterActive) {
-    const texts = labelText.split(inputVal);
-    const doms = [];
-    for (let index = 0; index < texts.length; index++) {
-      doms.push(<span key={index}>{texts[index]}</span>);
-      if (index === texts.length - 1) break;
-      doms.push(
-        <span key={`${index}filter`} className={`${name}-label--filter`}>
-          {inputVal}
-        </span>,
-      );
-    }
-    return (
-      <>
-        {doms}
-        {EllipsisNode}
-      </>
+    const itemClass = useMemo(
+      () => classNames(getCascaderItemClass(prefix, node, SIZE, STATUS, cascaderContext)),
+      [prefix, node, SIZE, STATUS, cascaderContext],
     );
-  }
-  return (
-    <>
-      {labelText}
-      {EllipsisNode}
-    </>
-  );
-};
 
-const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
-  const { classPrefix: prefix } = useConfig();
-  const name = `${prefix}-cascader__item`;
+    const iconClass = useMemo(
+      () => classNames(getCascaderItemIconClass(prefix, node, STATUS, cascaderContext)),
+      [prefix, node, STATUS, cascaderContext],
+    );
 
-  const label = RenderLabelInner(name, node, cascaderContext);
+    const RenderLabelInner = (node: TreeNode, cascaderContext: CascaderContextType) => {
+      const { inputVal } = cascaderContext;
+      const labelText = inputVal ? getFullPathLabel(node) : node.label;
 
-  return (
-    <span className={`${name}-label`} role="label">
-      {label}
-    </span>
-  );
-};
-
-const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType, handleChange) => {
-  const { classPrefix: prefix } = useConfig();
-  const name = `${prefix}-cascader__item`;
-
-  const { checkProps, value, max } = cascaderContext;
-  const label = RenderLabelInner(name, node, cascaderContext);
-  return (
-    <Checkbox
-      {...checkProps}
-      checked={node.checked}
-      indeterminate={node.indeterminate}
-      disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
-      name={node.value}
-      onChange={handleChange}
-    >
-      {label}
-    </Checkbox>
-  );
-};
-
-const Item = forwardRef((props: CascaderItemProps, ref: React.RefObject<HTMLLIElement>) => {
-  const {
-    node,
-    cascaderContext: { multiple, loadingText },
-    onClick,
-    onChange,
-    onMouseEnter,
-    cascaderContext,
-  } = props;
-  const { classPrefix: prefix } = useConfig();
-
-  const itemRef = useRef();
-  useRipple(ref || itemRef);
-
-  /**
-   * class
-   */
-  const CLASSNAMES = useCommonClassName();
-
-  const itemClass = useMemo(
-    () => classNames(getCascaderItemClass(prefix, node, CLASSNAMES, cascaderContext)),
-    [prefix, node, CLASSNAMES, cascaderContext],
-  );
-
-  const iconClass = useMemo(
-    () => classNames(getCascaderItemIconClass(prefix, node, CLASSNAMES, cascaderContext)),
-    [prefix, node, CLASSNAMES, cascaderContext],
-  );
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e?.nativeEvent?.stopImmediatePropagation?.();
-    const ctx: ContextType = {
-      e,
-      node,
+      if (inputVal) {
+        const texts = labelText.split(inputVal as string);
+        const doms = [];
+        for (let index = 0; index < texts.length; index++) {
+          doms.push(<span key={index}>{texts[index]}</span>);
+          if (index === texts.length - 1) break;
+          doms.push(
+            <span key={`${index}filter`} className={`${COMPONENT_NAME}-label--filter`}>
+              {inputVal}
+            </span>,
+          );
+        }
+        return doms;
+      }
+      return labelText;
     };
-    onClick(ctx);
-  };
 
-  const handleChange: CheckboxProps['onChange'] = (e) => {
-    const ctx = {
-      e,
-      node,
+    const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
+      const label = RenderLabelInner(node, cascaderContext);
+
+      const labelCont = (
+        <span
+          title={cascaderContext.inputVal ? getFullPathLabel(node) : node.label}
+          className={classNames(`${COMPONENT_NAME}-label`, `${COMPONENT_NAME}-label--ellipsis`)}
+          role="label"
+        >
+          {label}
+        </span>
+      );
+
+      return labelCont;
     };
-    onChange(ctx);
-  };
 
-  const handleMouseenter = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const ctx: ContextType = {
-      e,
-      node,
+    const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
+      const { checkProps, value, max, inputVal } = cascaderContext;
+      const label = RenderLabelInner(node, cascaderContext);
+      return (
+        <Checkbox
+          checked={node.checked}
+          indeterminate={node.indeterminate}
+          disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
+          name={node.value}
+          title={inputVal ? getFullPathLabel(node) : node.label}
+          onChange={() => {
+            onChange(node);
+          }}
+          {...checkProps}
+        >
+          {label}
+        </Checkbox>
+      );
     };
-    onMouseEnter(ctx);
-  };
 
-  return (
-    <li ref={ref || itemRef} className={itemClass} onClick={handleClick} onMouseEnter={handleMouseenter}>
-      {multiple ? RenderCheckBox(node, cascaderContext, handleChange) : RenderLabelContent(node, cascaderContext)}
-      {node.children &&
-        (node.loading ? (
-          <TLoading className={iconClass} loading={true} text={loadingText} size="small" />
-        ) : (
-          <ChevronRightIcon className={iconClass} />
-        ))}
-    </li>
-  );
-});
+    return (
+      <li
+        ref={ref || itemRef}
+        className={itemClass}
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation();
+          e?.nativeEvent?.stopImmediatePropagation?.();
+
+          onClick(node);
+        }}
+        onMouseEnter={(e: React.MouseEvent) => {
+          e.stopPropagation();
+          onMouseEnter(node);
+        }}
+      >
+        {multiple ? RenderCheckBox(node, cascaderContext) : RenderLabelContent(node, cascaderContext)}
+        {node.children &&
+          (node.loading ? (
+            <TLoading className={iconClass} loading={true} size="small" />
+          ) : (
+            <ChevronRightIcon className={iconClass} />
+          ))}
+      </li>
+    );
+  },
+);
 
 export default Item;
