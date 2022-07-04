@@ -1890,31 +1890,6 @@ exports[`disabled.jsx 1`] = `
                             />
                           </svg>
                         </span>
-                        <span
-                          class="t-upload__card-mask-item-divider"
-                        />
-                        <span
-                          class="t-upload__card-mask-item"
-                        >
-                          <svg
-                            class="t-icon t-icon-delete"
-                            fill="none"
-                            height="1em"
-                            viewBox="0 0 16 16"
-                            width="1em"
-                          >
-                            <path
-                              d="M6 12V6h1v6H6zM9 6v6h1V6H9z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                            <path
-                              d="M10.5 3H14v1h-1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V4H2V3h3.5V1.8c0-.44.36-.8.8-.8h3.4c.44 0 .8.36.8.8V3zm-4 0h3V2h-3v1zM4 4v10h8V4H4z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                          </svg>
-                        </span>
                       </div>
                     </div>
                   </li>
