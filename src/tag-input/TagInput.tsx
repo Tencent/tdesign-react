@@ -88,7 +88,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
-    (tagInputRef.current as any).inputElement.focus();
+    (tagInputRef.current as any).inputElement?.focus?.();
     onClick?.(context);
   };
 
@@ -140,6 +140,8 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       placeholder={tagInputPlaceholder}
       suffix={suffix}
       suffixIcon={suffixIconNode}
+      showInput={!readonly || !tagValue || !tagValue?.length}
+      keepWrapperWidth={true}
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
