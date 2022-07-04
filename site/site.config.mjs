@@ -37,6 +37,12 @@ export default {
       type: 'doc', // 组件文档
       children: [
         {
+          title: '全局特性配置',
+          name: 'config',
+          path: '/react/config',
+          component: () => import('tdesign-react/config-provider/config-provider.md'),
+        },
+        {
           title: '自定义主题',
           name: 'custom-theme',
           path: '/react/custom-theme',
@@ -128,6 +134,12 @@ export default {
           name: 'dropdown',
           path: '/react/components/dropdown',
           component: () => import('tdesign-react/dropdown/dropdown.md'),
+        },
+        {
+          title: 'Jumper 跳转',
+          name: 'jumper',
+          path: '/react/components/jumper',
+          component: () => import('tdesign-react/jumper/jumper.md'),
         },
         {
           title: 'Menu 导航',

@@ -12,7 +12,10 @@ import useControlled from '../hooks/useControlled';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
 
-export interface InputProps extends TdInputProps, StyledProps {}
+export interface InputProps extends TdInputProps, StyledProps {
+  showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
+  keepWrapperWidth?: boolean; // 控制透传autoWidth之后是否容器宽度也自适应 多选等组件需要用到自适应但也需要保留宽度
+}
 
 export interface InputRefInterface extends React.RefObject<unknown> {
   currentElement: HTMLDivElement;
@@ -65,6 +68,8 @@ const Input = forwardRefWithStatics(
       readonly,
       label,
       suffix,
+      showInput = true,
+      keepWrapperWidth,
       format,
       onClick,
       onClear,
@@ -120,8 +125,8 @@ const Input = forwardRefWithStatics(
 
     useEffect(() => {
       if (!autoWidth) return;
-      inputRef.current.style.width = `${inputPreRef.current.offsetWidth}px`;
-    }, [autoWidth, value, placeholder]);
+      if (inputRef.current) inputRef.current.style.width = `${inputPreRef.current?.offsetWidth}px`;
+    }, [autoWidth, value, placeholder, inputRef]);
 
     useEffect(() => {
       setRenderType(type);
@@ -173,7 +178,7 @@ const Input = forwardRefWithStatics(
       >
         {prefixIconContent}
         {labelContent ? <div className={`${classPrefix}-input__prefix`}>{labelContent}</div> : null}
-        {renderInput}
+        {showInput && renderInput}
         {autoWidth && (
           <span ref={inputPreRef} className={`${classPrefix}-input__input-pre`}>
             {value || props.placeholder}
@@ -296,7 +301,7 @@ const Input = forwardRefWithStatics(
         ref={wrapperRef}
         style={style}
         className={classNames(`${classPrefix}-input__wrap`, className, {
-          [`${classPrefix}-input--auto-width`]: autoWidth,
+          [`${classPrefix}-input--auto-width`]: autoWidth && !keepWrapperWidth,
         })}
         {...restProps}
       >

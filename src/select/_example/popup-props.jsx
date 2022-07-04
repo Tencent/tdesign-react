@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Select } from 'tdesign-react';
 
-const { Option } = Select;
-
 const SelectPopupProps = () => {
-  const [value, setValue] = useState('apple');
+  const [value, setValue] = useState('1');
   const onChange = (value) => {
     setValue(value);
   };
@@ -14,11 +12,17 @@ const SelectPopupProps = () => {
       onChange={onChange}
       style={{ width: '40%' }}
       popupProps={{ overlayStyle: { width: '600px' } }}
-    >
-      <Option key="apple" label="Apple" value="apple" />
-      <Option key="orange" label="Orange" value="orange" disabled />
-      <Option key="banana" label="Banana" value="banana" />
-    </Select>
+      options={[
+        {
+          label: '已选择的选项',
+          value: '1',
+        },
+        {
+          label: '短的选项二',
+          value: '2',
+        },
+      ]}
+    ></Select>
   );
 };
 

@@ -29,7 +29,7 @@ import { popupDefaultProps } from './defaultProps';
 export interface PopupProps extends TdPopupProps, StyledProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
-  // 初始化popper的可定制option
+  // 初始化 popper 的可定制 option
   popperModifiers?: Array<{ name: string; options: Object }>;
   updateScrollTop?: (content: HTMLDivElement) => void;
 }

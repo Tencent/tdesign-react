@@ -494,6 +494,7 @@ const Upload = forwardRef((props: UploadProps, ref) => {
       </BooleanRender>
       <BooleanRender boolExpression={!draggable && theme === 'image'}>
         <ImageCard
+          disabled={disabled}
           multiple={multiple}
           max={max}
           onRemove={handleMultipleRemove}

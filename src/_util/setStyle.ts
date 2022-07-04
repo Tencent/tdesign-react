@@ -1,7 +1,7 @@
 import { Styles } from '../common';
 
 /**
- * 用于为el节点增加styles
+ * 用于为 el 节点增加 styles
  * @param el HTMLElement
  * @param style Styles
  */

@@ -48,8 +48,8 @@ export default function useMultiple(props: TdSelectInputProps) {
     <TagInput
       ref={tagInputRef}
       {...p.commonInputProps}
-      readonly={!props.allowInput || props.readonly}
       autoWidth={props.autoWidth}
+      readonly={props.readonly}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
       tag={props.tag}
@@ -73,6 +73,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       }}
       {...props.tagInputProps}
       inputProps={{
+        readonly: !props.allowInput || props.readonly,
         inputClass: classNames(props.tagInputProps?.className, {
           [`${classPrefix}-input--focused`]: p.popupVisible,
         }),

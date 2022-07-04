@@ -126,7 +126,7 @@ const LinearGradient = (props) => {
     e.preventDefault();
     e.stopPropagation();
     // handleSelectedIdChange(id);
-    // 让slider获取焦点，以便键盘事件生效。
+    // 让 slider 获取焦点，以便键盘事件生效。
     refSlider.current.focus();
   };
 

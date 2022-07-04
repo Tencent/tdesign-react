@@ -87,7 +87,7 @@ export default function TableFixedColumn() {
   );
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={setLeftFixedColumn}>
         <Radio.Button value={1}>左侧固定一列</Radio.Button>
         <Radio.Button value={2}>左侧固定两列</Radio.Button>

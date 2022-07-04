@@ -39,14 +39,10 @@ export default function Example() {
     },
   ]);
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value1} disabled />
-      <Cascader style={itemStyle} options={options} value={value2} disabled multiple />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} value={value1} disabled />
+      <Cascader options={options} value={value2} disabled multiple />
     </div>
   );
 }

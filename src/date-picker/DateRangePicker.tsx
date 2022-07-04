@@ -26,6 +26,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     firstDayOfWeek = globalDatePickerConfig.firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
     onPick,
   } = props;
 
@@ -147,7 +148,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
   }
 
   // 头部快速切换
-  function onJumperClick(flag: number, { partial }) {
+  function onJumperClick({ trigger, partial }) {
     const partialIndex = partial === 'start' ? 0 : 1;
 
     const monthCountMap = { date: 1, month: 12, year: 120 };
@@ -155,11 +156,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     const current = new Date(year[partialIndex], month[partialIndex]);
 
     let next = null;
-    if (flag === -1) {
+    if (trigger === 'prev') {
       next = subtractMonth(current, monthCount);
-    } else if (flag === 0) {
+    } else if (trigger === 'current') {
       next = new Date();
-    } else if (flag === 1) {
+    } else if (trigger === 'next') {
       next = addMonth(current, monthCount);
     }
 
@@ -300,6 +301,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((props,
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
     activeIndex,
     onCellClick,
     onCellMouseEnter,

@@ -38,23 +38,15 @@ export default function Example() {
     },
   ];
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   const onChange1 = (value) => {
     setValue1(value);
   };
 
+  const keys = { label: 'name', value: 'code', children: 'items' };
+
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader
-        style={itemStyle}
-        keys={{ label: 'name', value: 'code', children: 'items' }}
-        options={options}
-        value={value1}
-        onChange={onChange1}
-      />
+    <div className="tdesign-demo-block-row">
+      <Cascader keys={keys} options={options} value={value1} onChange={onChange1} />
     </div>
   );
 }

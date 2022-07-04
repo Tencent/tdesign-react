@@ -68,7 +68,7 @@ export default function PanelContent(props: PanelContentProps) {
           month={month}
           onMonthChange={(val: number) => onMonthChange?.(val, { partial })}
           onYearChange={(val: number) => onYearChange?.(val, { partial })}
-          onJumperClick={(val: number) => onJumperClick?.(val, { partial })}
+          onJumperClick={({ trigger }) => onJumperClick?.({ trigger, partial })}
         />
 
         <DateTable

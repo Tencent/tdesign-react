@@ -142,7 +142,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     (col: EPickerCols, time: number | string) => {
       if (col === EPickerCols.hour && /[h]{1}/.test(format))
         // eslint-disable-next-line no-param-reassign
-        (time as number) %= 12; // 一定是数字，直接cast
+        (time as number) %= 12; // 一定是数字，直接 cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const timeItemTotalHeight = getItemHeight();

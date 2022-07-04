@@ -55,7 +55,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 禁用复选框，可支持禁用不同的行
    * @default false
    */
-  disableCheck?: boolean | ((node: TreeNodeModel) => boolean);
+  disableCheck?: boolean | ((node: TreeNodeModel<T>) => boolean);
   /**
    * 是否禁用树操作
    */
@@ -112,7 +112,7 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    * 节点图标，可自定义
    * @default true
    */
-  icon?: boolean | TNode<TreeNodeModel>;
+  icon?: boolean | TNode<TreeNodeModel<T>>;
   /**
    * 用来定义 value / label / children 在 `options` 中对应的字段别名
    */
@@ -324,7 +324,7 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
   /**
    * 默认获取当前节点的全部子节点，deep 值为 true 则表示获取全部子孙节点
    */
-  getChildren: (deep: boolean) => Array<TreeNodeModel> | boolean;
+  getChildren: (deep: boolean) => Array<TreeNodeModel<T>> | boolean;
   /**
    * 获取节点在父节点的子节点列表中的位置，如果没有父节点，则获取节点在根节点列表的位置
    */
@@ -336,23 +336,23 @@ export interface TreeNodeModel<T extends TreeOptionData = TreeOptionData> extend
   /**
    * 获取单个父节点
    */
-  getParent: () => TreeNodeModel;
+  getParent: () => TreeNodeModel<T>;
   /**
    * 获取所有父节点
    */
-  getParents: () => Array<TreeNodeModel>;
+  getParents: () => Array<TreeNodeModel<T>>;
   /**
    * 获取节点全路径
    */
-  getPath: () => Array<TreeNodeModel>;
+  getPath: () => Array<TreeNodeModel<T>>;
   /**
    * 获取根节点
    */
-  getRoot: () => TreeNodeModel;
+  getRoot: () => TreeNodeModel<T>;
   /**
    * 获取兄弟节点，包含自己在内
    */
-  getSiblings: () => Array<TreeNodeModel>;
+  getSiblings: () => Array<TreeNodeModel<T>>;
   /**
    * 在当前节点前插入新节点，泛型 `T` 表示树节点 TS 类型
    */

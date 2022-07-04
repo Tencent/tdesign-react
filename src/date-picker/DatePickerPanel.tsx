@@ -22,6 +22,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     firstDayOfWeek,
     presets,
     timePickerProps,
+    presetsPlacement,
     onPanelClick,
   } = props;
 
@@ -51,19 +52,19 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
   }
 
   // 头部快速切换
-  function onJumperClick(flag: number) {
-    const triggerMap = { '-1': 'arrow-previous', 1: 'arrow-next' };
+  function onJumperClick({ trigger }) {
+    const triggerMap = { prev: 'arrow-previous', next: 'arrow-next' };
     const monthCountMap = { date: 1, month: 12, year: 120 };
     const monthCount = monthCountMap[mode] || 0;
 
     const current = new Date(year, month);
 
     let next = null;
-    if (flag === -1) {
+    if (trigger === 'prev') {
       next = subtractMonth(current, monthCount);
-    } else if (flag === 0) {
+    } else if (trigger === 'current') {
       next = new Date();
-    } else if (flag === 1) {
+    } else if (trigger === 'next') {
       next = addMonth(current, monthCount);
     }
 
@@ -74,7 +75,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
       props.onYearChange?.({
         year: nextYear,
         date: dayjs(value).toDate(),
-        trigger: flag ? (`year-${triggerMap[flag]}` as DatePickerYearChangeTrigger) : 'today',
+        trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
       });
     }
 
@@ -82,7 +83,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
       props.onMonthChange?.({
         month: nextMonth,
         date: dayjs(value).toDate(),
-        trigger: flag ? (`month-${triggerMap[flag]}` as DatePickerMonthChangeTrigger) : 'today',
+        trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
       });
     }
 
@@ -160,6 +161,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((props,
     firstDayOfWeek,
     timePickerProps,
     enableTimePicker,
+    presetsPlacement,
     onCellClick,
     onJumperClick,
     onConfirmClick,

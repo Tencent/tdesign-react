@@ -1044,16 +1044,33 @@ module.exports = {
       const panelList = [{ label: 'space', value: 'space' }];
     `,
     usageStr: `
-      const defaultProps = { content: '这是一个弹出框' };
       useEffect(() => {
         setRenderComp((
-          <Space {...defaultProps} {...changedProps}>
+          <Space {...changedProps}>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
             <Button>按钮</Button>
           </Space>
+        ));
+      }, [changedProps]);
+    `,
+  },
+  Jumper: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Jumper } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'jumper', value: 'jumper' }];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setRenderComp((
+          <Jumper {...changedProps}></Jumper>
         ));
       }, [changedProps]);
     `,
