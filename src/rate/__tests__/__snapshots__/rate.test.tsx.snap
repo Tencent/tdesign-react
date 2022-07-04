@@ -1,193 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`16px.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-rate"
-  >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="width: 16px; height: 16px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`24px.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-rate"
-  >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="24"
-        viewBox="0 0 16 16"
-        width="24"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="24"
-        viewBox="0 0 16 16"
-        width="24"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="24"
-        viewBox="0 0 16 16"
-        width="24"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="24"
-        viewBox="0 0 16 16"
-        width="24"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="width: 24px; height: 24px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="24"
-        viewBox="0 0 16 16"
-        width="24"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`Rate 组件测试 count 1`] = `
 <div>
   <div
@@ -555,209 +367,6 @@ exports[`base.jsx 1`] = `
 </DocumentFragment>
 `;
 
-exports[`full.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-rate"
-  >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`half.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-rate"
-  >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="width: 20px; height: 20px; color: rgb(237, 123, 47);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <defs>
-          <lineargradient
-            id="half_grad"
-          >
-            <stop
-              offset="50%"
-              stop-color="currentColor"
-            />
-            <stop
-              offset="50%"
-              stop-color="white"
-              stop-opacity="1"
-            />
-          </lineargradient>
-        </defs>
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="url(#half_grad)"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`mulit.jsx 1`] = `
 <DocumentFragment>
   <div
@@ -886,219 +495,713 @@ exports[`mulit.jsx 1`] = `
 </DocumentFragment>
 `;
 
+exports[`size.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; text-align: center;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 16px; height: 16px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 16px; height: 16px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 24px; height: 24px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`status.jsx 1`] = `
+<DocumentFragment>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px; text-align: center;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 20px; height: 20px; color: rgb(231, 231, 231);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-rate"
+      >
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+        <div
+          class="t-rate__wrapper"
+          style="width: 20px; height: 20px; color: rgb(237, 123, 47);"
+        >
+          <svg
+            fill="none"
+            height="20"
+            viewBox="0 0 16 16"
+            width="20"
+          >
+            <defs>
+              <lineargradient
+                id="half_grad"
+              >
+                <stop
+                  offset="50%"
+                  stop-color="currentColor"
+                />
+                <stop
+                  offset="50%"
+                  stop-color="white"
+                  stop-opacity="1"
+                />
+              </lineargradient>
+            </defs>
+            <path
+              d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+              fill="url(#half_grad)"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`texts.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-rate"
   >
     <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+      class="t-popup__reference t-rate__wrapper"
     >
       <div
-        class="t-rate__wrapper--popup"
+        class="t-rate__wrapper"
+        style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
       >
-        满意
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 16 16"
+          width="20"
+        >
+          <path
+            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
       </div>
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
     <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+      class="t-popup__reference t-rate__wrapper"
     >
       <div
-        class="t-rate__wrapper--popup"
+        class="t-rate__wrapper"
+        style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
       >
-        满意
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 16 16"
+          width="20"
+        >
+          <path
+            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
       </div>
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
     <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+      class="t-popup__reference t-rate__wrapper"
     >
       <div
-        class="t-rate__wrapper--popup"
+        class="t-rate__wrapper"
+        style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
       >
-        满意
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 16 16"
+          width="20"
+        >
+          <path
+            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
       </div>
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
     <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
+      class="t-popup__reference t-rate__wrapper"
     >
       <div
-        class="t-rate__wrapper--popup"
+        class="t-rate__wrapper"
+        style="margin-right: 6px; width: 20px; height: 20px; color: rgb(237, 123, 47);"
       >
-        满意
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 16 16"
+          width="20"
+        >
+          <path
+            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
       </div>
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
     <div
-      class="t-rate__wrapper"
-      style="width: 20px; height: 20px; color: rgb(231, 231, 231);"
+      class="t-popup__reference t-rate__wrapper"
     >
       <div
-        class="t-rate__wrapper--popup"
+        class="t-rate__wrapper"
+        style="width: 20px; height: 20px; color: rgb(231, 231, 231);"
       >
-        满意
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 16 16"
+          width="20"
+        >
+          <path
+            d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
+            fill="currentColor"
+            fill-opacity="0.9"
+          />
+        </svg>
       </div>
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
     <div
       class="t-rate__text"
     >
       满意
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`unrate.jsx 1`] = `
-<DocumentFragment>
-  <div
-    class="t-rate"
-  >
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="margin-right: 6px; width: 20px; height: 20px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
-    </div>
-    <div
-      class="t-rate__wrapper"
-      style="width: 20px; height: 20px; color: rgb(231, 231, 231);"
-    >
-      <svg
-        fill="none"
-        height="20"
-        viewBox="0 0 16 16"
-        width="20"
-      >
-        <path
-          d="M7.73 1.55a.3.3 0 01.54 0l1.94 3.92 4.32.62a.3.3 0 01.17.52l-3.13 3.05.74 4.3a.3.3 0 01-.44.32L8 12.25l-3.87 2.03a.3.3 0 01-.43-.31l.73-4.31L1.3 6.6a.3.3 0 01.17-.52l4.33-.62 1.93-3.92z"
-          fill="currentColor"
-          fill-opacity="0.9"
-        />
-      </svg>
     </div>
   </div>
 </DocumentFragment>
