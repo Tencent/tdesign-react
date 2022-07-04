@@ -15,6 +15,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
   activeIndex?: number;
   isFirstValueSelected?: boolean;
+  panelPreselection?: boolean;
   year?: number[];
   month?: number[];
   time?: string[];
@@ -53,6 +54,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     year,
     month,
     time = [],
+    panelPreselection,
     onClick,
     onConfirmClick,
     onPresetClick,
@@ -75,12 +77,15 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
   const [startYear, endYear] = year;
   const [startMonth, endMonth] = month;
 
+  // 是否隐藏预选状态,只有 value 有值的时候需要隐藏
+  const hidePreselection = !panelPreselection && value.length === 2;
+
   const startTableData = useTableData({
     isRange: true,
     start: value[0] ? dayjs(value[0]).toDate() : undefined,
     end: value[1] ? dayjs(value[1]).toDate() : undefined,
-    hoverStart: hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
-    hoverEnd: hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
     year: startYear,
     month: startMonth,
     mode,
@@ -91,8 +96,8 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     isRange: true,
     start: value[0] ? dayjs(value[0]).toDate() : undefined,
     end: value[1] ? dayjs(value[1]).toDate() : undefined,
-    hoverStart: hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
-    hoverEnd: hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
     year: endYear,
     month: endMonth,
     mode,
@@ -186,6 +191,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
 RangePanel.displayName = 'RangePanel';
 RangePanel.defaultProps = {
   mode: 'date',
+  panelPreselection: true,
   enableTimePicker: false,
   presetsPlacement: 'bottom',
 };

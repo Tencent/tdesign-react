@@ -25,6 +25,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     presets,
     timePickerProps,
     presetsPlacement,
+    panelPreselection,
     onPanelClick,
   } = props;
 
@@ -295,6 +296,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     enableTimePicker,
     presetsPlacement,
     activeIndex,
+    panelPreselection,
     onCellMouseEnter,
     onCellMouseLeave,
     onCellClick,
@@ -314,6 +316,7 @@ DateRangePickerPanel.displayName = 'DateRangePickerPanel';
 DateRangePickerPanel.defaultProps = {
   mode: 'date',
   defaultValue: [],
+  panelPreselection: true,
 };
 
 export default DateRangePickerPanel;
