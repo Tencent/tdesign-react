@@ -3,6 +3,7 @@ import { Tooltip } from 'tdesign-react';
 import { TdRateProps } from './type';
 import useConfig from '../_util/useConfig';
 import useControlled from '../hooks/useControlled';
+import { rateDefaultProps } from './defaultProps';
 
 const getFilledStarSvg = (size) => (
   <svg fill="none" viewBox={`0 0 16 16`} width={`${size}`} height={`${size}`}>
@@ -142,5 +143,6 @@ const Rate = (props: RateProps) => {
 };
 
 Rate.displayName = 'Rate';
+Rate.defaultProps = rateDefaultProps;
 
 export default Rate;
