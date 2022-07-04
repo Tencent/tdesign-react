@@ -7,11 +7,11 @@ exports[`base.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-popup__reference t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -24,7 +24,7 @@ exports[`base.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="Apple"
+            value=""
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -55,66 +55,162 @@ exports[`base.jsx 1`] = `
 exports[`collapsed.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select__wrap"
-    style="width: 40%;"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap; width: 100%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-select__wrap"
+        style="width: 40%;"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-popup__reference t-select t-select-input t-select-input--multiple"
         >
           <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              Banana
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
+            class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
             value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
           >
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  选项一
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  +1
+                </span>
+              </div>
+              <input
+                class="t-input__inner"
+                placeholder=""
+                style="width: 0px;"
+                type="text"
+                value=""
               />
-            </svg>
-          </span>
+              <span
+                class="t-input__input-pre"
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-select__wrap"
+        style="width: 40%;"
+      >
+        <div
+          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+        >
+          <div
+            class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+            value=""
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+            >
+              <div
+                class="t-input__prefix"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  选项一
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  style="color: rgb(237, 123, 47);"
+                >
+                  +1
+                </span>
+              </div>
+              <input
+                class="t-input__inner"
+                placeholder=""
+                style="width: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__input-pre"
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -129,11 +225,11 @@ exports[`creatable.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-popup__reference t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value=""
       >
         <div
           class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -145,7 +241,7 @@ exports[`creatable.jsx 1`] = `
             class="t-input__inner"
             placeholder="请选择"
             type="text"
-            value="Apple"
+            value=""
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -232,7 +328,7 @@ exports[`custom-selected.jsx 1`] = `
 <DocumentFragment>
   <div
     class="t-select__wrap"
-    style="width: 40%;"
+    style="width: 400px;"
   >
     <div
       class="t-popup__reference t-select t-select-input t-select-input--multiple"
@@ -250,14 +346,28 @@ exports[`custom-selected.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              Apple选项
+              选项一选项
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              选项二选项
+            </span>
+            <span
+              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+            >
+              选项三选项
             </span>
           </div>
           <input
             class="t-input__inner"
             placeholder=""
+            style="width: 0px;"
             type="text"
             value=""
+          />
+          <span
+            class="t-input__input-pre"
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -341,47 +451,129 @@ exports[`disabled.jsx 1`] = `
 exports[`filterable.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select__wrap"
-    style="width: 40%;"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap; width: 100%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap"
-        value="Apple"
+        class="t-select__wrap"
+        style="width: 400px; display: inline-block;"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-popup__reference t-select t-select-input t-select-input--empty"
         >
           <div
-            class="t-input__prefix"
-          />
-          <input
-            class="t-input__inner"
-            placeholder="请选择"
-            type="text"
-            value="Apple"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+            class="t-input__wrap"
+            value=""
           >
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
               />
-            </svg>
-          </span>
+              <input
+                class="t-input__inner"
+                placeholder="-请选择-"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-select__wrap"
+        style="width: 400px; display: inline-block;"
+      >
+        <div
+          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+        >
+          <div
+            class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+            value=""
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+            >
+              <div
+                class="t-input__prefix"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  选项一
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <input
+                class="t-input__inner"
+                placeholder=""
+                style="width: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__input-pre"
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -396,11 +588,11 @@ exports[`group.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-popup__reference t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -413,7 +605,7 @@ exports[`group.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="Apple"
+            value=""
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -529,8 +721,12 @@ exports[`keys.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            style="width: 0px;"
             type="text"
             value=""
+          />
+          <span
+            class="t-input__input-pre"
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -705,8 +901,12 @@ exports[`label-in-value.jsx 1`] = `
               <input
                 class="t-input__inner"
                 placeholder=""
+                style="width: 0px;"
                 type="text"
                 value=""
+              />
+              <span
+                class="t-input__input-pre"
               />
               <span
                 class="t-input__suffix t-input__suffix-icon"
@@ -758,7 +958,7 @@ exports[`max.jsx 1`] = `
             <span
               class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
             >
-              Apple
+              选项一
               <svg
                 class="t-icon t-icon-close t-tag__icon-close"
                 fill="none"
@@ -777,8 +977,12 @@ exports[`max.jsx 1`] = `
           <input
             class="t-input__inner"
             placeholder=""
+            style="width: 0px;"
             type="text"
             value=""
+          />
+          <span
+            class="t-input__input-pre"
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -809,94 +1013,263 @@ exports[`max.jsx 1`] = `
 exports[`multiple.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-select__wrap select-multiple-demo"
-    style="width: 40%;"
+    class="t-space t-space-horizontal"
+    style="gap: 16px; flex-wrap: wrap; width: 100%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input t-select-input--multiple"
+      class="t-space-item"
     >
       <div
-        class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
-        value=""
+        class="t-select__wrap"
       >
         <div
-          class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+          class="t-popup__reference t-select t-select-input t-select-input--multiple"
         >
           <div
-            class="t-input__prefix"
-          >
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              Apple
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              Banana
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              Orange
-              <svg
-                class="t-icon t-icon-close t-tag__icon-close"
-                fill="none"
-                height="1em"
-                viewBox="0 0 16 16"
-                width="1em"
-              >
-                <path
-                  d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
-                  fill="currentColor"
-                  fill-opacity="0.9"
-                />
-              </svg>
-            </span>
-            <span
-              class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
-            >
-              Lemon
-            </span>
-          </div>
-          <input
-            class="t-input__inner"
-            placeholder=""
-            type="text"
+            class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
             value=""
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
           >
-            <svg
-              class="t-fake-arrow t-select__right-icon"
-              fill="none"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
             >
-              <path
-                d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                stroke="black"
-                stroke-opacity="0.9"
-                stroke-width="1.3"
+              <div
+                class="t-input__prefix"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  区块链
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  人工智能
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <input
+                class="t-input__inner"
+                placeholder=""
+                style="width: 0px;"
+                type="text"
+                value=""
               />
-            </svg>
-          </span>
+              <span
+                class="t-input__input-pre"
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <br />
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-select__wrap"
+      >
+        <div
+          class="t-popup__reference t-select t-select-input t-select-input--multiple"
+        >
+          <div
+            class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon"
+            value=""
+          >
+            <div
+              class="t-input t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
+            >
+              <div
+                class="t-input__prefix"
+              >
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  云服务器
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  云数据库
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  域名注册
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  网站备案
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  对象存储
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="t-tag t-tag--default t-tag--dark t-tag--medium t-tag--square"
+                >
+                  低代码平台
+                  <svg
+                    class="t-icon t-icon-close t-tag__icon-close"
+                    fill="none"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                  >
+                    <path
+                      d="M8 8.92L11.08 12l.92-.92L8.92 8 12 4.92 11.08 4 8 7.08 4.92 4 4 4.92 7.08 8 4 11.08l.92.92L8 8.92z"
+                      fill="currentColor"
+                      fill-opacity="0.9"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <input
+                class="t-input__inner"
+                placeholder=""
+                style="width: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="t-input__input-pre"
+              />
+              <span
+                class="t-input__suffix t-input__suffix-icon"
+              >
+                <svg
+                  class="t-fake-arrow t-select__right-icon"
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                    stroke="black"
+                    stroke-opacity="0.9"
+                    stroke-width="1.3"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -915,7 +1288,7 @@ exports[`noborder.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value="已选择的选项"
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -928,7 +1301,7 @@ exports[`noborder.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="Apple"
+            value="已选择的选项"
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -1130,7 +1503,7 @@ exports[`popup-props.jsx 1`] = `
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value="已选择的选项"
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1143,7 +1516,7 @@ exports[`popup-props.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="Apple"
+            value="已选择的选项"
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
@@ -1178,11 +1551,11 @@ exports[`prefix.jsx 1`] = `
     style="width: 40%;"
   >
     <div
-      class="t-popup__reference t-select t-select-input"
+      class="t-popup__reference t-select t-select-input t-select-input--empty"
     >
       <div
         class="t-input__wrap"
-        value="Apple"
+        value=""
       >
         <div
           class="t-input t-is-readonly t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
@@ -1215,7 +1588,7 @@ exports[`prefix.jsx 1`] = `
             placeholder="请选择"
             readonly=""
             type="text"
-            value="Apple"
+            value=""
           />
           <span
             class="t-input__suffix t-input__suffix-icon"
