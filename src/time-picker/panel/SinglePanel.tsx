@@ -262,7 +262,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
   );
 
   useEffect(() => {
-    updateTimeScrollPos();
+    if (value) updateTimeScrollPos();
   }, [value, updateTimeScrollPos]);
 
   useEffect(() => {
