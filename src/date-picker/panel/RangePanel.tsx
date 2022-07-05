@@ -15,6 +15,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   hoverValue?: string[];
   activeIndex?: number;
   isFirstValueSelected?: boolean;
+  popupVisible?: boolean;
   panelPreselection?: boolean;
   year?: number[];
   month?: number[];
@@ -66,6 +67,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     enableTimePicker: props.enableTimePicker,
   });
 
+  // 兼容数据格式不标准场景 YYYY-MM-D
+  const formatDate = (newDate, format) =>
+    dayjs(newDate).isValid() ? dayjs(newDate).toDate() : dayjs(newDate, format).toDate();
+
   const disableDateOptions = useDisableDate({
     disableDate: disableDateFromProps,
     mode,
@@ -82,10 +87,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
 
   const startTableData = useTableData({
     isRange: true,
-    start: value[0] ? dayjs(value[0]).toDate() : undefined,
-    end: value[1] ? dayjs(value[1]).toDate() : undefined,
-    hoverStart: !hidePreselection && hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
-    hoverEnd: !hidePreselection && hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
+    start: value[0] ? formatDate(value[0], format) : undefined,
+    end: value[1] ? formatDate(value[1], format) : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? formatDate(hoverValue[0], format) : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? formatDate(hoverValue[1], format) : undefined,
     year: startYear,
     month: startMonth,
     mode,
@@ -94,10 +99,10 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
   });
   const endTableData = useTableData({
     isRange: true,
-    start: value[0] ? dayjs(value[0]).toDate() : undefined,
-    end: value[1] ? dayjs(value[1]).toDate() : undefined,
-    hoverStart: !hidePreselection && hoverValue[0] ? dayjs(hoverValue[0]).toDate() : undefined,
-    hoverEnd: !hidePreselection && hoverValue[1] ? dayjs(hoverValue[1]).toDate() : undefined,
+    start: value[0] ? formatDate(value[0], format) : undefined,
+    end: value[1] ? formatDate(value[1], format) : undefined,
+    hoverStart: !hidePreselection && hoverValue[0] ? formatDate(hoverValue[0], format) : undefined,
+    hoverEnd: !hidePreselection && hoverValue[1] ? formatDate(hoverValue[1], format) : undefined,
     year: endYear,
     month: endMonth,
     mode,
@@ -110,6 +115,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((props, ref) => {
     format,
     firstDayOfWeek,
 
+    popupVisible: props.popupVisible,
     enableTimePicker: props.enableTimePicker,
     timePickerProps: props.timePickerProps,
     onMonthChange: props.onMonthChange,

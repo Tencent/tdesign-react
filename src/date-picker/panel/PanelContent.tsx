@@ -18,6 +18,7 @@ export interface PanelContentProps {
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
   time: SinglePanelProps['time'];
 
+  popupVisible?: boolean;
   tableData: any[];
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
   onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
@@ -88,6 +89,7 @@ export default function PanelContent(props: PanelContentProps) {
             format={timeFormat}
             value={time || defaultTime}
             onChange={onTimePickerChange}
+            isShowPanel={props.popupVisible}
             {...timePickerProps}
           />
         </div>
