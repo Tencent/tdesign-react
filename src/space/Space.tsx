@@ -7,7 +7,7 @@ import { StyledProps } from '../common';
 import { spaceDefaultProps } from './defaultProps';
 
 export interface SpaceProps extends TdSpaceProps, StyledProps {
-  children?: React.ReactElement | React.ReactElement[];
+  children?: React.ReactNode;
 }
 
 const toArray = (children: React.ReactNode): React.ReactElement[] => {
