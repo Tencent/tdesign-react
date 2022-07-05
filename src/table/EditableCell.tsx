@@ -97,7 +97,7 @@ const EditableCell = (props: EditableCellProps) => {
       if (!isSame(args[0].value, get(row, col.colKey))) {
         outsideAbortEvent?.(...args);
       }
-      // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清楚不及时引起的其他问题
+      // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
         clearTimeout(timer);
@@ -165,7 +165,7 @@ const EditableCell = (props: EditableCellProps) => {
 
   useEffect(() => {
     let val = get(row, col.colKey);
-    if (typeof val === 'object') {
+    if (typeof val === 'object' && val !== null) {
       val = val instanceof Array ? [...val] : { ...val };
     }
     setEditValue(val);
@@ -218,7 +218,6 @@ const EditableCell = (props: EditableCellProps) => {
         tips={errorMessage}
         {...componentProps}
         {...listeners}
-        // @ts-ignore
         value={editValue}
         onChange={onEditChange}
       />
