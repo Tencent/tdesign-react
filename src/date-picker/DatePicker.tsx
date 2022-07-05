@@ -188,6 +188,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props, ref) => {
     timePickerProps,
     enableTimePicker,
     presetsPlacement,
+    popupVisible,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,

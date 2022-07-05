@@ -59,7 +59,6 @@ export default function useRange(props: TdDateRangePickerProps) {
   useEffect(() => {
     if (!value) {
       setCacheValue([]);
-      setTime([dayjs().format(timeFormat), dayjs().format(timeFormat)]);
       return;
     }
     if (!isValidDate(value, 'valueType')) return;
