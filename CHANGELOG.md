@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.36.3 `2022-07-05` 
+
+### 🚀 Features
+- `TimePicker`: 优化可输入改动时的体验 @HQ-Lin ([#1040](https://github.com/Tencent/tdesign-react/pull/1040))
+- `DatePicker`: 新增 `panelPreselection` api @HQ-Lin ([#1040](https://github.com/Tencent/tdesign-react/pull/1040))
+
+### 🐞 Bug Fixes
+- `Select`: 修复多选模式filter失效的问题 @uyarn ([#1039](https://github.com/Tencent/tdesign-react/pull/1039))
+- `Space`: 更改Space组件children属性为React.ReactNode @vikeychen ([#1042](https://github.com/Tencent/tdesign-react/pull/1042))
+- `DatePicker`: 修复左右切换面板时间跳动问题 @HQ-Lin ([#1040](https://github.com/Tencent/tdesign-react/pull/1040))
+- `DatePicker`: 修复输入框更改时间异常问题 @HQ-Lin ([#1040](https://github.com/Tencent/tdesign-react/pull/1040))
+
+
 ## 🌈 0.36.2 `2022-07-04` 
 ### 🚀 Features
 - `Form`: 添加内置校验方法 whitespace @pengYYYYY ([#1011](https://github.com/Tencent/tdesign-react/pull/1011))
