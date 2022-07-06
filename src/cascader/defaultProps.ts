@@ -7,6 +7,7 @@ import { TdCascaderProps } from './type';
 export const cascaderDefaultProps: TdCascaderProps = {
   checkStrictly: false,
   clearable: false,
+  disabled: false,
   filterable: false,
   lazy: true,
   loading: false,
@@ -15,6 +16,7 @@ export const cascaderDefaultProps: TdCascaderProps = {
   multiple: false,
   options: [],
   placeholder: undefined,
+  defaultPopupVisible: undefined,
   readonly: false,
   showAllLevels: true,
   size: 'medium',
