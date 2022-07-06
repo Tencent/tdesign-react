@@ -8,6 +8,8 @@ export const rateDefaultProps: TdRateProps = {
   defaultValue: 0,
   allowHalf: false,
   color: '#ED7B2F',
+  disabled: false,
+  size: '20',
   count: 5,
   gap: 6,
   showText: false,
