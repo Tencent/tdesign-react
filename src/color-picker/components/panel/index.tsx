@@ -302,6 +302,8 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     );
   });
 
+  const isGradient = mode === 'linear-gradient';
+
   return (
     <div
       className={classNames(`${baseClassName}__panel`, disabled ? STATUS.disabled : false, className)}
@@ -318,10 +320,23 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
         onModeChange={handleModeChange}
       />
       <div className={`${baseClassName}__body`}>
-        {mode === 'linear-gradient' && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
+        {isGradient && <LinearGradient {...baseProps} onChange={handleGradientChange} />}
         <SaturationPanel {...baseProps} onChange={handleSaturationChange} />
-        <HUESlider {...baseProps} onChange={handleHUEChange} />
-        {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
+        <div className={`${baseClassName}__sliders-wrapper`}>
+          <div className={`${baseClassName}__sliders`}>
+            <HUESlider {...baseProps} onChange={handleHUEChange} />
+            {enableAlpha && <AlphaSlider {...baseProps} onChange={handleAlphaChange} />}
+          </div>
+          <div className={classNames([`${baseClassName}__sliders-preview`, `${baseClassName}--bg-alpha`])}>
+            <span
+              className={`${baseClassName}__sliders-preview-inner`}
+              style={{
+                background: isGradient ? colorInstanceRef.current.linearGradient : colorInstanceRef.current.rgba,
+              }}
+            />
+          </div>
+        </div>
+
         <FormatPanel
           {...props}
           {...baseProps}
