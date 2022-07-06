@@ -1,6 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
-import { CloseIcon } from 'tdesign-icons-react';
 import { COLOR_MODES } from '../../const';
 import Radio, { RadioValue } from '../../../radio';
 import { TdColorModes } from '../../interface';
@@ -14,11 +12,13 @@ export interface ColorPanelHeaderProps extends TdColorPickerProps {
 }
 
 const Header = (props: ColorPanelHeaderProps) => {
-  const { baseClassName, mode = 'monochrome', colorModes, togglePopup, closeBtn = true, onModeChange } = props;
+  const { baseClassName, mode = 'monochrome', colorModes, onModeChange } = props;
 
-  const handleClosePopup = () => {
-    togglePopup?.(false);
-  };
+  const isSingleMode = colorModes?.length === 1;
+
+  if (isSingleMode) {
+    return null;
+  }
 
   return (
     <div className={`${baseClassName}__head`}>
@@ -35,15 +35,6 @@ const Header = (props: ColorPanelHeaderProps) => {
           </Radio.Group>
         )}
       </div>
-      {closeBtn ? (
-        <span
-          role="button"
-          className={classNames(`${baseClassName}__icon`, `${baseClassName}__close`)}
-          onClick={handleClosePopup}
-        >
-          <CloseIcon />
-        </span>
-      ) : null}
     </div>
   );
 };
