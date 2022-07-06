@@ -52,9 +52,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     onFocus: (_: string, { e }) => {
       props.onFocus?.({ value, e });
     },
-    onChange: (val: string, { e }) => {
-      props.onInput?.({ input: val, value, e });
-
+    onChange: (val: string) => {
       // 输入事件
       setInputValue(val);
 

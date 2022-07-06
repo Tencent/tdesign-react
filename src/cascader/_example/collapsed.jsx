@@ -42,22 +42,26 @@ export default function Example() {
     setValue(value);
   };
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
-      <Cascader style={itemStyle} options={options} value={value} onChange={onChange} multiple minCollapsedNum={2} />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} value={value} onChange={onChange} multiple minCollapsedNum={1} />
       <Cascader
-        style={itemStyle}
         options={options}
         value={value}
         onChange={onChange}
         multiple
         minCollapsedNum={1}
-        collapsedItems={<div>自定义内容</div>}
+        collapsedItems={({ count }) =>
+          count > 0 && (
+            <span
+              style={{
+                color: '#00a870',
+              }}
+            >
+              +{count - 1}
+            </span>
+          )
+        }
       />
     </div>
   );

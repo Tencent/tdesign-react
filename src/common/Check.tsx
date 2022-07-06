@@ -10,6 +10,7 @@ import { TdCheckboxProps } from '../checkbox/type';
 export interface CheckProps extends Omit<TdCheckboxProps, 'value'>, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
+  title?: string;
   value?: string | number | boolean;
   children?: React.ReactNode;
   onClick?: MouseEventHandler<HTMLLabelElement>;
@@ -85,7 +86,7 @@ const Check = forwardRef((_props: CheckProps, ref: Ref<HTMLLabelElement>) => {
   );
 
   return (
-    <label ref={ref} className={labelClassName} style={style} {...omit(htmlProps, ['checkAll'])}>
+    <label ref={ref} className={labelClassName} title={props.title} style={style} {...omit(htmlProps, ['checkAll'])}>
       {input}
       <span className={`${classPrefix}-${type}__input`} />
       <span key="label" className={`${classPrefix}-${type}__label`}>

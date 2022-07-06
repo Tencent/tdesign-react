@@ -118,7 +118,7 @@ const Anchor = forwardRefWithStatics(
       const { items } = intervalRef.current;
       const filters: { top: number; href: string }[] = [];
       let active = '';
-      // 找出所有当前top小于预设值
+      // 找出所有当前 top 小于预设值
       items.forEach((href) => {
         const anchor = getAnchorTarget(href);
         if (!anchor) return;

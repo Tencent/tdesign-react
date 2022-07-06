@@ -16,10 +16,11 @@ export interface ImageCardProps {
   onTrigger: () => void;
   onRemove?: (options: UploadRemoveContext) => void;
   showUploadProgress: boolean;
+  disabled: boolean;
 }
 
 const ImageCard: FC<ImageCardProps> = (props) => {
-  const { files, multiple = false, max = 0, onRemove, showUploadProgress } = props;
+  const { files, multiple = false, max = 0, onRemove, showUploadProgress, disabled } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('upload');
   const [showImg, setShowImg] = useState(false);
@@ -67,20 +68,19 @@ const ImageCard: FC<ImageCardProps> = (props) => {
                     <img className={`${classPrefix}-upload__card-image`} src={file.url} />
                     <div className={`${classPrefix}-upload__card-mask`}>
                       <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
-                        <BrowseIcon
-                          onClick={() => {
-                            preview(file);
-                          }}
-                        />
+                        <BrowseIcon onClick={() => preview(file)} />
                       </span>
-                      <span className={`${classPrefix}-upload__card-mask-item-divider`} />
-                      <span className={`${classPrefix}-upload__card-mask-item`} onClick={(e) => e.stopPropagation()}>
-                        <DeleteIcon
-                          onClick={(e) => {
-                            onRemove?.({ e, file, index });
-                          }}
-                        />
-                      </span>
+                      {!disabled && (
+                        <>
+                          <span className={`${classPrefix}-upload__card-mask-item-divider`} />
+                          <span
+                            className={`${classPrefix}-upload__card-mask-item`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <DeleteIcon onClick={(e) => onRemove?.({ e, file, index })} />
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}

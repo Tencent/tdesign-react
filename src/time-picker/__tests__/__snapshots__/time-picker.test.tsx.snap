@@ -134,7 +134,7 @@ exports[`disabled.jsx 1`] = `
 exports[`hide-clear-button.jsx 1`] = `
 <DocumentFragment>
   <div
-    class="t-space t-space-horizontal"
+    class="t-space t-space-vertical"
     style="gap: 16px;"
   >
     <div

@@ -142,7 +142,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     (col: EPickerCols, time: number | string) => {
       if (col === EPickerCols.hour && /[h]{1}/.test(format))
         // eslint-disable-next-line no-param-reassign
-        (time as number) %= 12; // 一定是数字，直接cast
+        (time as number) %= 12; // 一定是数字，直接 cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const timeItemTotalHeight = getItemHeight();
@@ -223,24 +223,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [getScrollDistance],
   );
 
-  const handleTimeItemClick = (col: EPickerCols, el: string | number) => {
-    if (!timeItemCanUsed(col, el)) return;
-    if (timeArr.includes(col)) {
-      if (col === EPickerCols.hour && dayjsValue.format('a') === PM && cols.includes(EPickerCols.meridiem)) {
-        // eslint-disable-next-line no-param-reassign
-        el = Number(el) + 12;
-      }
-      value ? onChange(dayjsValue[col]?.(el).format(format)) : onChange(dayjsValue[col]?.(el).format(format));
-    } else {
-      const currentHour = dayjsValue.hour();
-      if (el === AM && currentHour >= 12) {
-        onChange(dayjsValue.hour(currentHour - 12).format(format));
-      } else if (el === PM && currentHour < 12) {
-        onChange(dayjsValue.hour(currentHour + 12).format(format));
-      }
-    }
-  };
-
   // update each columns scroll distance
   const updateTimeScrollPos = useCallback(
     (isAutoScroll = false) => {
@@ -261,8 +243,30 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     [cols, scrollToTime, dayjsValue, value, steps, getColList, resetTriggerScroll],
   );
 
+  const handleTimeItemClick = (col: EPickerCols, el: string | number, idx: number) => {
+    if (!timeItemCanUsed(col, el)) return;
+    if (timeArr.includes(col)) {
+      if (col === EPickerCols.hour && dayjsValue.format('a') === PM && cols.includes(EPickerCols.meridiem)) {
+        // eslint-disable-next-line no-param-reassign
+        el = Number(el) + 12;
+      }
+      scrollToTime(col, el, idx, 'smooth');
+
+      setTimeout(() => {
+        onChange(dayjsValue[col]?.(el).format(format));
+      }, 100);
+    } else {
+      const currentHour = dayjsValue.hour();
+      if (el === AM && currentHour >= 12) {
+        onChange(dayjsValue.hour(currentHour - 12).format(format));
+      } else if (el === PM && currentHour < 12) {
+        onChange(dayjsValue.hour(currentHour + 12).format(format));
+      }
+    }
+  };
+
   useEffect(() => {
-    updateTimeScrollPos();
+    updateTimeScrollPos(true);
   }, [value, updateTimeScrollPos]);
 
   useEffect(() => {
@@ -300,7 +304,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
               [`${classPrefix}-is-disabled`]: !timeItemCanUsed(col, el),
               [`${classPrefix}-is-current`]: isCurrent(col, el),
             })}
-            onClick={() => handleTimeItemClick(col, el)}
+            onClick={() => handleTimeItemClick(col, el, idx)}
           >
             {/* eslint-disable-next-line no-nested-ternary */}
             {timeArr.includes(col) ? (TWELVE_HOUR_FORMAT.test(format) && el === '00' ? '12' : el) : TEXT_CONFIG[el]}

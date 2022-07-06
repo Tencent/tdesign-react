@@ -42,14 +42,9 @@ export default function Example() {
     setValue(value);
   };
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   return (
-    <div className="tdesign-demo-block-column">
-      {/* 受控 */}
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} multiple clearable />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} onChange={onChange} value={value} multiple clearable />
     </div>
   );
 }

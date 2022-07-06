@@ -6,7 +6,7 @@ export default function Example() {
   const [value2, setValue2] = useState(['1.1']);
   const options = [
     {
-      label: '选项一',
+      label: '当选项一数据展示文本过长时',
       value: '1',
       children: [
         {
@@ -18,7 +18,7 @@ export default function Example() {
           value: '1.2',
         },
         {
-          label: '子选项三',
+          label: '当选项数据展示文本过长时',
           value: '1.3',
         },
       ],
@@ -32,16 +32,12 @@ export default function Example() {
           value: '2.1',
         },
         {
-          label: '子选项二',
+          label: '当选项数据展示文本过长时',
           value: '2.2',
         },
       ],
     },
   ];
-
-  const itemStyle = {
-    marginTop: '16px',
-  };
 
   const onChange1 = (value) => {
     setValue1(value);
@@ -52,9 +48,9 @@ export default function Example() {
   };
 
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} value={value1} onChange={onChange1} filterable />
-      <Cascader style={itemStyle} options={options} value={value2} multiple onChange={onChange2} filterable />
+    <div className="tdesign-demo-block-row">
+      <Cascader options={options} value={value1} onChange={onChange1} filterable />
+      <Cascader options={options} value={value2} multiple onChange={onChange2} filterable />
     </div>
   );
 }
