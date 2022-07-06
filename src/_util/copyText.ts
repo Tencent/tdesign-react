@@ -1,4 +1,4 @@
-export function copyText(text: string) {
+export default function copyText(text: string) {
   if ('clipboard' in navigator) {
     navigator.clipboard.writeText(text);
     return;
