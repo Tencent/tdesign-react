@@ -9,8 +9,9 @@ import { expendClickEffect, valueChangeEffect } from '../core/effect';
 
 import { TreeNode, CascaderContextType } from '../interface';
 import { TdCascaderProps } from '../type';
+import { StyledProps } from '../../common';
 
-export interface CascaderPanelProps extends Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
+export interface CascaderPanelProps extends StyledProps, Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange'> {
   cascaderContext: CascaderContextType;
 }
 
@@ -67,7 +68,14 @@ const Panel = (props: CascaderPanelProps) => {
   };
 
   return (
-    <div className={classNames(`${COMPONENT_NAME}__panel`, { [`${COMPONENT_NAME}--normal`]: panels.length })}>
+    <div
+      className={classNames(
+        `${COMPONENT_NAME}__panel`,
+        { [`${COMPONENT_NAME}--normal`]: panels.length },
+        props.className,
+      )}
+      style={props.style}
+    >
       {panels?.length ? (
         renderPanels()
       ) : (
