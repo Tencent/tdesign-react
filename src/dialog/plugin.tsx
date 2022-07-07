@@ -13,10 +13,11 @@ export interface DialogPluginType extends DialogMethod {
 const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance => {
   const dialogRef = React.createRef<DialogInstance>();
   const options = { ...props };
+  const { visible = true, destroyOnClose = true } = options;
   const fragment = document.createDocumentFragment();
 
   ReactDOM.render(
-    <DialogComponent {...(options as DialogProps)} visible={true} ref={dialogRef} isPlugin />,
+    <DialogComponent {...(options as DialogProps)} visible={visible} ref={dialogRef} isPlugin />,
     fragment,
     () => {
       (document.activeElement as HTMLElement).blur();
@@ -35,7 +36,7 @@ const createDialog: DialogPluginType = (props: DialogOptions): DialogInstance =>
       dialogRef.current?.show();
     },
     hide: () => {
-      dialogRef.current?.destroy();
+      destroyOnClose ? dialogRef.current?.destroy() : dialogRef.current?.hide();
     },
     update: (updateOptions: DialogOptions) => {
       dialogRef.current?.update(updateOptions);
