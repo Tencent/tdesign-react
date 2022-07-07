@@ -1,7 +1,7 @@
 import React from 'react';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
-import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
+import { TimePickerPanel } from '../../time-picker';
 import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../_util/useConfig';
