@@ -192,10 +192,27 @@ export const useRotate = () => {
   };
 };
 
+// 镜像控制
+export const useMirror = () => {
+  const [mirror, setMirror] = useState(1);
+
+  const onMirror = useCallback(() => {
+    setMirror((mirror) => (mirror > 0 ? -1 : 1));
+  }, []);
+
+  const onResetMirror = useCallback(() => setMirror(1), []);
+
+  return {
+    mirror,
+    onResetMirror,
+    onMirror,
+  };
+};
+
 // 缩放控制
 export const useScale = (imageScale) => {
   const [scale, setScale] = useState(1);
-  const zoom = useCallback(() => {
+  const onZoom = useCallback(() => {
     setScale((scale) => {
       const newScale = scale + imageScale.step;
       if (newScale < imageScale.min) return imageScale.min;
@@ -204,7 +221,7 @@ export const useScale = (imageScale) => {
     });
   }, [imageScale]);
 
-  const zoomOut = useCallback(() => {
+  const onZoomOut = useCallback(() => {
     setScale((scale) => {
       const newScale = scale - imageScale.step;
       if (newScale < imageScale.min) return imageScale.min;
@@ -217,8 +234,8 @@ export const useScale = (imageScale) => {
 
   return {
     scale,
-    zoom,
-    zoomOut,
+    onZoom,
+    onZoomOut,
     onResetScale,
   };
 };
