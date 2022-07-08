@@ -25,14 +25,7 @@ export default function () {
           打开抽屉
         </Button>
       </div>
-      <Drawer
-        placement={placement}
-        key={placement}
-        title="Drawer"
-        visible={visible}
-        onClose={handleClose}
-        sizeDraggable={true}
-      >
+      <Drawer placement={placement} key={placement} visible={visible} onClose={handleClose} sizeDraggable={true}>
         <p>抽屉的内容</p>
       </Drawer>
     </Space>
