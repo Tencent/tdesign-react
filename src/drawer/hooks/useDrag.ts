@@ -2,9 +2,7 @@ import { useMemo, useState } from 'react';
 import { TdDrawerProps } from '../type';
 import { Styles } from '../../common';
 
-const useDrag = (props: Pick<TdDrawerProps, 'placement' | 'sizeDraggable'>) => {
-  const { placement, sizeDraggable } = props;
-  // 以下为拖拽改变抽屉大小相关 可以抽成hooks
+const useDrag = (placement: TdDrawerProps['placement'], sizeDraggable: TdDrawerProps['sizeDraggable']) => {
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
 
   const handleMousemove = (e: MouseEvent) => {

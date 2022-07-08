@@ -70,7 +70,7 @@ const Drawer = forwardRef((props: DrawerProps, ref: React.Ref<HTMLDivElement>) =
 
   const transform = visible ? 'translate(0px)' : '';
   const closeIcon = React.isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag({ placement, sizeDraggable });
+  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable);
   const [isDestroyOnClose, setIsDestroyOnClose] = useState(false);
 
   useImperativeHandle(ref, () => containerRef.current);
