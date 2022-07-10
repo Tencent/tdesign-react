@@ -59,9 +59,13 @@ export default function useRowSelect(props: TdPrimaryTableProps) {
 
   function getSelectedHeader() {
     const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+    const isChecked =
+      intersectionKeys.length !== 0 &&
+      canSelectedRows.length !== 0 &&
+      intersectionKeys.length === canSelectedRows.length;
     return () => (
       <Checkbox
-        checked={intersectionKeys.length === canSelectedRows.length}
+        checked={isChecked}
         indeterminate={isIndeterminate}
         disabled={!canSelectedRows.length}
         onChange={handleSelectAll}
