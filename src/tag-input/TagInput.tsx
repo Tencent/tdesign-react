@@ -122,7 +122,6 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
   return (
     <TInput
       ref={tagInputRef}
-      {...inputProps}
       value={tInputValue}
       onChange={(val, context) => {
         setTInputValue(val, { ...context, trigger: 'input' });
@@ -162,6 +161,7 @@ const TagInput = forwardRef((props: TagInputProps, ref) => {
       }}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}
+      {...inputProps}
     />
   );
 });

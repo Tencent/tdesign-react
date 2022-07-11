@@ -49,7 +49,7 @@ export default function useMultiple(props: TdSelectInputProps) {
       ref={tagInputRef}
       {...p.commonInputProps}
       autoWidth={props.autoWidth}
-      readonly={!props.allowInput || props.readonly}
+      readonly={props.readonly}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems}
       tag={props.tag}

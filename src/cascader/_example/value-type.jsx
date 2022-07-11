@@ -51,7 +51,9 @@ export default function Example() {
 
   return (
     <div className="tdesign-demo-block-row">
+      {JSON.stringify(value1)}
       <Cascader options={options} value={value1} onChange={onChange1} valueType="full" />
+      {JSON.stringify(value2)}
       <Cascader options={options} value={value2} onChange={onChange2} valueType="full" multiple />
     </div>
   );

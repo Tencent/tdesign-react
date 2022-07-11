@@ -80,10 +80,13 @@ const Cascader = (props: CascaderProps) => {
         overlayStyle: panels.length ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
-      inputProps={{ size: props.size }}
+      inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
       tagInputProps={{
+        autoWidth: true,
         size: props.size,
+        ...(props.tagInputProps as TdCascaderProps['tagInputProps']),
       }}
+      tagProps={{ ...(props.tagProps as TdCascaderProps['tagProps']) }}
       {...props.selectInputProps}
       onInputChange={(value) => {
         if (!visible) return;
