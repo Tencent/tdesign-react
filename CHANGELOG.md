@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 0.36.4 `2022-07-11` 
+### 🚀 Features
+- `Table`: 树形结构，支持懒加载 @chaishi ([#1046](https://github.com/Tencent/tdesign-react/pull/1046))
+- `CascaderPanel`: 增加 `cascader-panel` 组件 @pengYYYYY ([#1045](https://github.com/Tencent/tdesign-react/pull/1045))
+- `Cascader`: 增加 `inputProps`, ` tagInputProps`, `tagProps` 属性 @pengYYYYY ([#1045](https://github.com/Tencent/tdesign-react/pull/1045))
+- `Dialog`: 修复打开对话框，出现滚动条([#1163](https://github.com/Tencent/tdesign-vue-next/issues/1163)) @pengYYYYY ([#1045](https://github.com/Tencent/tdesign-react/pull/1045))
+- `Form`: 支持 formList 初始化渲染initialData 数据 @HQ-Lin ([#1058](https://github.com/Tencent/tdesign-react/pull/1058))
+- `Drawer`: 新增`sizeDraggable` 支持通过拖拽改变抽屉宽度/高度 @uyarn ([#1059](https://github.com/Tencent/tdesign-react/pull/1059))
+- `TimePicker`: 支持毫秒场景使用 @uyarn ([#1069](https://github.com/Tencent/tdesign-react/pull/1069))
+
+### 🐞 Bug Fixes
+- `Table`: 可编辑功能，值为 `null` 时会导致页面报错，如清除 Select 数据，[issue#1043](https://github.com/Tencent/tdesign-react/issues/1043)，[dac72dfd](https://github.com/Tencent/tdesign-react/pull/1046/commits/dac72dfd58c47ec46cfa7d00e9ae13365c81edfa) @chaishi ([#1046](https://github.com/Tencent/tdesign-react/pull/1046))
+- `Dialog`: 修复 dialog 阻止冒泡导致 popup 无法正常关闭 @HQ-Lin ([#1057](https://github.com/Tencent/tdesign-react/pull/1057))
+- `Input`: 修复在 dialog 内中文输入导致光标定位错误问题 @HQ-Lin ([#1066](https://github.com/Tencent/tdesign-react/pull/1066))
+- `Button`: 修复渲染空字符串样式问题 @HQ-Lin ([#1063](https://github.com/Tencent/tdesign-react/pull/1063))
+- `Form`: 修复 getFieldsValue 类型定义 @zousandian ([#1020](https://github.com/Tencent/tdesign-react/pull/1020))
+
 ## 🌈 0.36.3 `2022-07-05` 
 
 ### 🚀 Features
