@@ -21,7 +21,7 @@ import { closestLookup } from '../../_common/js/time-picker/utils';
 
 import { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 
-const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second];
+const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 
 export interface SinglePanelProps
   extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onChange'> {
@@ -75,14 +75,15 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
   useEffect(() => {
     const match = format.match(TIME_FORMAT);
-    const [, startCol, hourCol, minuteCol, secondCol, endCol] = match;
-    const { meridiem, hour, minute, second } = EPickerCols;
+    const [, startCol, hourCol, minuteCol, secondCol, milliSecondCol, endCol] = match;
+    const { meridiem, hour, minute, second, milliSecond } = EPickerCols;
 
     const renderCol = [
       startCol && meridiem,
       hourCol && hour,
       minuteCol && minute,
       secondCol && second,
+      milliSecondCol && milliSecond,
       endCol && meridiem,
     ].filter((v) => !!v);
 
@@ -117,9 +118,11 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       if (timeArr.includes(col)) {
         // hour、minute and second columns
         const colIdx = timeArr.indexOf(col);
-        const colStep = steps[colIdx];
+        const colStep = steps[colIdx] || 1;
 
-        if (col === EPickerCols.hour) count = TWELVE_HOUR_FORMAT.test(format) ? 11 : 23;
+        if (col === EPickerCols.hour)
+          count = TWELVE_HOUR_FORMAT.test(format) ? 11 : 23; // 小时最大为23 12小时制最大为11
+        else if (col === EPickerCols.milliSecond) count = 999; // 毫秒最大为999
         else count = 59;
 
         const colList = range(0, count + 1, Number(colStep)).map((v) => padStart(String(v), 2, '0')) || [];
@@ -164,15 +167,16 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     if (timeArr.includes(col)) {
       // hour、minute and second columns
       let max = 59;
-      if (col === EPickerCols.hour) {
-        max = /[h]{1}/.test(format) ? 11 : 23;
-      }
+      if (col === EPickerCols.hour) max = /[h]{1}/.test(format) ? 11 : 23; // 小时最大为23 12小时制最大为11
+      else if (col === EPickerCols.milliSecond) max = 999; // 毫秒最大为999
+
       const colIdx = timeArr.indexOf(col);
-      const availableArr = range(0, max + 1, Number(steps[colIdx]));
+      const availableArr = range(0, max + 1, Number(steps[colIdx]) || 1);
+
       val = closestLookup(
         availableArr,
         Number(getColList(col)[Math.min(colStep - 1, max + 1, availableArr.length - 1)]),
-        Number(steps[colIdx]),
+        Number(steps[colIdx]) || 1,
       );
       if (Number.isNaN(val)) val = availableArr[availableArr.length - 1];
       if (col === EPickerCols.hour && cols.includes(EPickerCols.meridiem) && dayjsValue.hour() >= 12) {
