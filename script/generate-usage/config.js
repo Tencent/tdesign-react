@@ -991,15 +991,12 @@ module.exports = {
         { label: 'baseTable', value: 'baseTable', config: baseTableConfigProps },
       ];
 
-      const data = [];
-      const total = 30;
-      for (let i = 0; i < total; i++) {
-        data.push({
-          index: i,
-          platform: '公有',
-          description: '数据源',
-        });
-      }
+      const data = Array(30).fill(0).map((_, i) => ({
+        index: i,
+        platform: '公有',
+        description: '数据源',
+      }));
+
       const columns = [
         {colKey: 'index', title: 'index'},
         {colKey: 'platform', title: '平台'},
@@ -1010,7 +1007,7 @@ module.exports = {
         data,
         columns,
         maxHeight: 140,
-        pagination: { total, defaultPageSize: 10 },
+        pagination: { total: 30, defaultPageSize: 10 },
       };
 
       const panelMap = {
