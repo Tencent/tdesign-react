@@ -12,8 +12,6 @@ import jsxToString from "react-element-to-jsx-string";
 
 import baseTableConfigProps from "./base-table-props.json";
 
-import primaryTableConfigProps from "./primary-table-props.json";
-
 import { Table } from "tdesign-react";
 
 export default function Usage() {
@@ -23,11 +21,6 @@ export default function Usage() {
 
   const panelList = [
     { label: "baseTable", value: "baseTable", config: baseTableConfigProps },
-    {
-      label: "primaryTable",
-      value: "primaryTable",
-      config: primaryTableConfigProps,
-    },
   ];
 
   const data = [];
@@ -54,17 +47,11 @@ export default function Usage() {
 
   const panelMap = {
     baseTable: <Table {...defaultProps} {...changedProps} />,
-    primaryTable: <Table {...defaultProps} {...changedProps} />,
   };
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
-
-  useEffect(() => {
-    const config = panelList.find((item) => item.value === panel).config;
-    setConfigList(config);
-  }, [panel]);
 
   useEffect(() => {
     setRenderComp(panelMap[panel]);

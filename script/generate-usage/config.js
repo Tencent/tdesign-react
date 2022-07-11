@@ -982,7 +982,6 @@ module.exports = {
   table: {
     importStr: `
       import baseTableConfigProps from './base-table-props.json';\n
-      import primaryTableConfigProps from './primary-table-props.json';\n
       import { Table } from 'tdesign-react';\n`,
     configStr: `
       const [configList, setConfigList] = useState(baseTableConfigProps);
@@ -990,7 +989,6 @@ module.exports = {
     panelStr: `
       const panelList = [
         { label: 'baseTable', value: 'baseTable', config: baseTableConfigProps },
-        { label: 'primaryTable', value: 'primaryTable', config: primaryTableConfigProps },
       ];
 
       const data = [];
@@ -1017,17 +1015,9 @@ module.exports = {
 
       const panelMap = {
         baseTable: <Table {...defaultProps} {...changedProps} />,
-        primaryTable: (
-          <Table {...defaultProps} {...changedProps}/>
-        ),
       };
     `,
     usageStr: `
-      useEffect(() => {
-        const config = panelList.find(item => item.value === panel).config;
-        setConfigList(config);
-      }, [panel]);
-
       useEffect(() => {
         setRenderComp(panelMap[panel]);
       }, [changedProps, panel]);
