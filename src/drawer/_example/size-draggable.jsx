@@ -14,10 +14,10 @@ export default function () {
   return (
     <Space>
       <Radio.Group value={placement} onChange={(value) => setPlacement(value)}>
-        <Radio.Button value="left">左侧</Radio.Button>
-        <Radio.Button value="right">右侧</Radio.Button>
-        <Radio.Button value="top">上方</Radio.Button>
-        <Radio.Button value="bottom">下方</Radio.Button>
+        <Radio.Button value="left">从左侧拖拽抽屉</Radio.Button>
+        <Radio.Button value="right">从右侧拖拽抽屉</Radio.Button>
+        <Radio.Button value="top">从上方拖拽抽屉</Radio.Button>
+        <Radio.Button value="bottom">从下方拖拽抽屉</Radio.Button>
       </Radio.Group>
 
       <div>
@@ -25,7 +25,7 @@ export default function () {
           打开抽屉
         </Button>
       </div>
-      <Drawer placement={placement} key={placement} visible={visible} onClose={handleClose}>
+      <Drawer placement={placement} key={placement} visible={visible} onClose={handleClose} sizeDraggable={true}>
         <p>抽屉的内容</p>
       </Drawer>
     </Space>

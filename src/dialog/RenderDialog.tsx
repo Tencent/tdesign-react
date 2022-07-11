@@ -56,8 +56,10 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     destroyOnClose,
     showInAttachedElement,
   } = props;
+
   const wrap = useRef<HTMLDivElement>();
   const dialog = useRef<HTMLDivElement>();
+  const dialogPosition = useRef<HTMLDivElement>();
   const maskRef = useRef<HTMLDivElement>();
   const portalRef = useRef<HTMLDivElement>();
   const bodyOverflow = useRef<string>();
@@ -152,8 +154,10 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
-      onOverlayClick({ e });
-      onClose({ e, trigger: 'overlay' });
+      if (e.target === dialogPosition.current) {
+        onOverlayClick({ e });
+        onClose({ e, trigger: 'overlay' });
+      }
     }
   };
 
@@ -254,13 +258,12 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     );
     const dialogElement = (
       <div className={isNormal ? '' : `${prefixCls}__wrap`}>
-        <div className={isNormal ? '' : positionClass} style={positionStyle}>
+        <div className={isNormal ? '' : positionClass} style={positionStyle} onClick={onMaskClick} ref={dialogPosition}>
           <div
             ref={dialog}
             style={style}
             className={classnames(`${prefixCls}`, `${prefixCls}--default`)}
             onMouseDown={onDialogMoveStart}
-            onClick={(e) => e.stopPropagation()}
           >
             {closer}
             {header}
@@ -329,14 +332,7 @@ const RenderDialog = forwardRef((props: RenderDialogProps, ref: React.Ref<HTMLDi
     );
     // 如果不是 modal 模式 默认没有 mask 也就没有相关点击 mask 事件
     const dialog = (
-      <div
-        ref={wrap}
-        className={wrapClass}
-        style={wrapStyle}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
-        onClick={onMaskClick}
-      >
+      <div ref={wrap} className={wrapClass} style={wrapStyle} onKeyDown={handleKeyDown} tabIndex={0}>
         {mode === 'modal' && renderMask()}
         {dialogBody}
       </div>
