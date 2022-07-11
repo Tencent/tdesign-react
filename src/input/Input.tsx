@@ -101,7 +101,7 @@ const Input = forwardRefWithStatics(
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
 
-    const [composingRefValue, setComposingValue] = useState<string>('');
+    const [composingValue, setComposingValue] = useState<string>('');
     const isShowClearIcon = ((clearable && value && !disabled) || showClearIconOnEmpty) && isHover;
 
     const prefixIconContent = renderIcon(classPrefix, 'prefix', prefixIcon);
@@ -138,7 +138,7 @@ const Input = forwardRefWithStatics(
         placeholder={placeholder}
         type={renderType}
         className={`${classPrefix}-input__inner`}
-        value={composingRef.current ? composingRefValue : value ?? ''}
+        value={composingRef.current ? composingValue : value ?? ''}
         readOnly={readonly}
         disabled={disabled}
         autoComplete={autocomplete ?? (local.autocomplete || undefined)}
@@ -245,7 +245,6 @@ const Input = forwardRefWithStatics(
         composingRef.current = false;
         handleChange(e);
       }
-      setComposingValue('');
       onCompositionend?.(value, { e });
     }
 
