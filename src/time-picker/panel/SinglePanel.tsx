@@ -201,7 +201,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       const scrollCtrl = colsRef.current[cols.indexOf(col)];
       if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance) return;
 
-      scrollCtrl.scrollTo({
+      scrollCtrl.scrollTo?.({
         top: distance,
         behavior: 'smooth',
       });
@@ -214,7 +214,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
       const scrollCtrl = colsRef.current[idx];
       if (!distance || !scrollCtrl || scrollCtrl.scrollTop === distance || !timeItemCanUsed(col, time)) return;
 
-      scrollCtrl.scrollTo({
+      scrollCtrl.scrollTo?.({
         top: distance,
         behavior,
       });
