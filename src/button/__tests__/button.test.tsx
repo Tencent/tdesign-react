@@ -22,7 +22,7 @@ describe('Button 组件测试', () => {
   });
   test('children & content', async () => {
     const { queryByText } = render(<Button content={ButtonText}>foo</Button>);
-    expect(queryByText('foo')).toBeInTheDocument();
+    expect(queryByText('按钮组件')).toBeInTheDocument();
   });
   test('theme', async () => {
     const { container } = render(<Button theme="success" />);
