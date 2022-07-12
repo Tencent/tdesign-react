@@ -76,8 +76,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
-  const shouldValidate = useRef(null);
-  const isMounted = useRef(false);
+  const shouldValidate = useRef(false);
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -252,10 +251,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
-    // 防止触发校验
-    if (resetValue !== formValue) {
-      shouldValidate.current = false;
-    }
+    // reset 不校验
+    shouldValidate.current = false;
     setFormValue(resetValue);
 
     if (resetValidating) {
@@ -274,15 +271,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
   function setField(field: { value?: string; status?: ValidateStatus }) {
     const { value, status } = field;
-    // 手动设置 status 则不需要校验 交给用户判断
     if (typeof status !== 'undefined') {
-      shouldValidate.current = false;
       setErrorList([]);
       setSuccessList([]);
       setNeedResetField(false);
       setVerifyStatus(status);
     }
     if (typeof value !== 'undefined') {
+      // 手动设置 status 则不需要校验 交给用户判断
+      shouldValidate.current = typeof status === 'undefined' ? true : false;
       setFormValue(value);
     }
   }
@@ -299,12 +296,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   useEffect(() => {
-    // 首次渲染不触发校验 后续判断是否检验也通过此字段控制
-    if (!shouldValidate.current || !isMounted.current) {
-      isMounted.current = true;
-      shouldValidate.current = true;
-      return;
-    }
+    // 控制是否需要校验
+    if (!shouldValidate.current) return;
 
     // value change event
     if (typeof name !== 'undefined') {
@@ -406,6 +399,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
                   onChangeFromProps.call(null, value, ...args);
+                  shouldValidate.current = true;
                   setFormValue(value);
                 },
                 onBlur: (value: any, ...args: any[]) => {
