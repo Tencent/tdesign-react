@@ -17,7 +17,7 @@ function getMapValue(
 }
 
 // 通过对象数据类型获取 map 引用
-function travalMapFromObject(
+function travelMapFromObject(
   obj: Record<any, any>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
   callback: Function,
@@ -143,7 +143,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
     if (!name) return null;
 
     const formItemRef = getMapValue(name, formMapRef);
-    return formItemRef?.current?.value;
+    return formItemRef.current.getValue?.();
   }
 
   // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
@@ -154,10 +154,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
       for (const [name, formItemRef] of formMapRef.current.entries()) {
         // 支持数组嵌套
         if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.value);
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.getValue?.());
           merge(fieldsValue, fieldValue);
         } else {
-          fieldsValue[name] = formItemRef.current.value;
+          fieldsValue[name] = formItemRef.current.getValue?.();
         }
       }
     } else {
@@ -167,10 +167,10 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
         const formItemRef = getMapValue(name, formMapRef);
         // 支持数组嵌套
         if (Array.isArray(name)) {
-          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.value);
+          const fieldValue = name.reduceRight((prev, curr) => ({ [curr]: prev }), formItemRef.current.getValue?.());
           merge(fieldsValue, fieldValue);
         } else {
-          formItemRef && (fieldsValue[name] = formItemRef?.current?.value);
+          formItemRef && (fieldsValue[name] = formItemRef.current.getValue?.());
         }
       });
     }
@@ -179,7 +179,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置对应 formItem 的值
   function setFieldsValue(fields = {}) {
-    travalMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
+    travelMapFromObject(fields, formMapRef, (formItemRef, fieldValue) => {
       formItemRef?.current?.setValue?.(fieldValue);
     });
   }
@@ -232,7 +232,7 @@ export default function useInstance(props: TdFormProps, formRef, formMapRef: Rea
 
   // 对外方法，设置 formItem 的错误信息
   function setValidateMessage(message: FormValidateMessage<FormData>) {
-    travalMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
+    travelMapFromObject(message, formMapRef, (formItemRef, fieldValue) => {
       formItemRef?.current?.setValidateMessage?.(fieldValue);
     });
   }
