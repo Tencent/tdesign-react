@@ -196,7 +196,7 @@ export interface TdFormListProps {
    */
   children?: (fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode;
   /**
-   * 设置子元素默认值，如果与 Form 的 initialData 冲突则以 Form 为准
+   * 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准
    * @default []
    */
   initialData?: Array<any>;
@@ -282,6 +282,10 @@ export interface FormRule {
    * 自定义校验规则，示例：`{ validator: (val) => val.length > 0, message: '请输入内容'}`
    */
   validator?: CustomValidator;
+  /**
+   * 内置校验方法，校验值是否为空格。示例：`{ whitespace: true, message: '值不能为空' }`
+   */
+  whitespace?: boolean;
 }
 
 export interface FormErrorMessage {
