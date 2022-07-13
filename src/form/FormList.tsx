@@ -117,20 +117,19 @@ const FormList = (props: TdFormListProps) => {
     formListRef,
     (): FormItemInstance => ({
       name,
-      // 动态计算所有子 item 的值
-      get value() {
+      getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
-          const { name, value } = formItemRef.current;
+          const { name, getValue } = formItemRef.current;
           if (Array.isArray(name)) {
             const [index, itemKey] = name;
             if (!formListValue[index]) {
-              formListValue[index] = { [itemKey]: value };
+              formListValue[index] = { [itemKey]: getValue() };
             } else {
-              formListValue[index][itemKey] = value;
+              formListValue[index][itemKey] = getValue();
             }
           } else {
-            formListValue[name] = value;
+            formListValue[name] = getValue();
           }
         });
         return formListValue;
