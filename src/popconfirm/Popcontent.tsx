@@ -66,7 +66,8 @@ const Popcontent = (props: PopconfirmProps & { onClose?: (context: PopconfirmVis
     return (
       <Button
         size="small"
-        variant="outline"
+        theme="default"
+        variant="base"
         onClick={(e) => {
           onClose({ e, trigger: 'cancel' });
           onCancel({ e });
