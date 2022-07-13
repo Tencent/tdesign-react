@@ -15,7 +15,7 @@ content | TNode | - | 卡片内容。TS 类型：`string | TNode`。[通用类�
 cover | TNode | - | 卡片封面图。值类型为字符串，会自动使用 `img` 标签输出封面图；也可以完全最定义封面图。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 description | TNode | - | 卡片描述文案。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 footer | TNode | - | 卡片底部内容，可完全自定义。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-header | TNode | - | 卡片顶部内容，优先级高于其他所有元素。TS 类型：`string | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
+header | TNode | - | 卡片顶部内容，优先级高于其他所有元素。可完全自定义，自定义时，title、subtitle、status、avatar内容将失效。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
 headerBordered | Boolean | false | 头部是否带分割线，仅在有header时有效 | N
 hoverShadow | Boolean | false | hover时是否有阴影 | N
 loading | TNode | false | 加载状态，值为 true 会根据不同的布局显示不同的加载状态，值为 false 则表示非加载状态。也可以使用 Sketon 组件完全自定义加载态呈现内容。TS 类型：`boolean | TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N

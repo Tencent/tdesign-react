@@ -100,16 +100,22 @@ const Card = forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
 
   const renderHeader = showHeader && (
     <div className={headerClass}>
-      <div className={`${classPrefix}-card__header-wrapper`}>
-        {renderAvatar}
-        <div>
-          {renderTitle}
-          {renderSubtitle}
-          {renderDescription}
-        </div>
-      </div>
-      {renderActions}
-      {renderStatus}
+      {typeof header === 'boolean' ? (
+        <>
+          <div className={`${classPrefix}-card__header-wrapper`}>
+            {renderAvatar}
+            <div>
+              {renderTitle}
+              {renderSubtitle}
+              {renderDescription}
+            </div>
+          </div>
+          {renderActions}
+          {renderStatus}
+        </>
+      ) : (
+        header
+      )}
     </div>
   );
 
