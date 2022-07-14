@@ -122,22 +122,15 @@ export const ImageViewerUtils = ({
   return (
     <div className={`${classPrefix}-image-viewer-utils`}>
       <div className={`${classPrefix}-image-viewer-utils__content`}>
-        <ImageModelIcon size="1.8em" name="history" onClick={() => onRotate(-ROTATE_COUNT)} />
-        <ImageModelIcon size="1.8em" name="history" onClick={onMirror} />
-        <ImageModelIcon
-          size="1.5em"
-          name="image"
-          onClick={() => {
-            onReset();
-          }}
-        />
-        <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
+        <ImageModelIcon size="1.8em" name="rotation" onClick={() => onRotate(-ROTATE_COUNT)} />
+        <ImageModelIcon size="1.8em" name="mirror" onClick={onMirror} />
+        <ImageModelIcon size="1.5em" name="zoom-out" onClick={onZoomOut} />
         <ImageModelIcon
           className={`${classPrefix}-image-viewer__utils--scale`}
           size="1.5em"
           label={`${scale * 100}%`}
         />
-        <ImageModelIcon size="1.5em" name="zoom-out" onClick={onZoomOut} />
+        <ImageModelIcon size="1.5em" name="zoom-in" onClick={onZoom} />
         <ImageModelIcon
           size="1.5em"
           name="image"
@@ -156,6 +149,59 @@ export const ImageViewerUtils = ({
         )}
       </div>
       {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
+    </div>
+  );
+};
+
+type ImageViewerHeaderProps = {
+  onImgClick: (index: number) => void;
+  images: ImageInfo[];
+  currentIndex: number;
+};
+
+const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
+  const { classPrefix } = useConfig();
+  const { images, currentIndex, onImgClick } = props;
+
+  const [isExpand, setIsExpand] = useState(false);
+
+  const transStyle = { transform: `translateX(-${currentIndex * 80}px)` };
+
+  return (
+    <div
+      className={classNames(`${classPrefix}-image-viewer-modal-header`, {
+        [`${classPrefix}-is-show`]: isExpand,
+      })}
+    >
+      <ImageModelIcon
+        size="1.5em"
+        name="chevron-down"
+        className={`${classPrefix}-image-viewer__header--pre__bt`}
+        onClick={() => setIsExpand(!isExpand)}
+      />
+      {
+        <div className={`${classPrefix}-image-viewer__header--prev`}>
+          <div className={`${classPrefix}-image-viewer__bokeh--left`} />
+          <div className={`${classPrefix}-image-viewer__bokeh--right`} />
+          <div className={`${classPrefix}-image-viewer__header--trans`} style={transStyle}>
+            {images.map((image, index) => (
+              <div
+                key={image.thumbnail || image.mainImage}
+                className={classNames(`${classPrefix}-image-viewer__header--box`, {
+                  [`${classPrefix}-is-active`]: index === currentIndex,
+                })}
+              >
+                <img
+                  alt=""
+                  src={image.thumbnail || image.mainImage}
+                  className={`${classPrefix}-image-viewer__header--img`}
+                  onClick={() => onImgClick(index)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      }
     </div>
   );
 };
@@ -196,7 +242,6 @@ export const ImageModal = (props: ImageModalProps) => {
   const { rotateZ, onResetRotate, onRotate } = useRotate();
   const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale);
   const { mirror, onResetMirror, onMirror } = useMirror();
-  const [isExpand, setIsExpand] = useState(false);
 
   const onReset = useCallback(() => {
     onResetScale();
@@ -287,36 +332,7 @@ export const ImageModal = (props: ImageModalProps) => {
       <div className={`${classPrefix}-image-viewer__modal--mask`} onClick={() => closeOnOverlay && onClose?.()} />
       {images.length > 1 && (
         <>
-          {/* Header */}
-          <div
-            className={classNames(`${classPrefix}-image-viewer-modal-header`, {
-              [`${classPrefix}-is-show`]: isExpand,
-            })}
-          >
-            <ImageModelIcon
-              size="1.5em"
-              name="chevron-down"
-              className={`${classPrefix}-image-viewer-header-pre__bt`}
-              onClick={() => {
-                setIsExpand(!isExpand);
-              }}
-            />
-            {
-              <div className={`${classPrefix}-image-viewer-header__prev`}>
-                {images.map((image, index) => (
-                  <img
-                    key={image.thumbnail || image.mainImage}
-                    alt=""
-                    src={image.thumbnail || image.mainImage}
-                    className={classNames(`${classPrefix}-image-viewer-header__img`, {
-                      [`${classPrefix}-is-active`]: image === currentImage,
-                    })}
-                    onClick={() => setIndex(index)}
-                  />
-                ))}
-              </div>
-            }
-          </div>
+          <ImageViewerHeader images={images} currentIndex={index} onImgClick={setIndex} />
           <div className={`${classPrefix}-image-viewer__modal--index`}>{`${index + 1}/${images.length}`}</div>
           <ImageModelIcon
             size="2.5em"
