@@ -21,6 +21,7 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 export interface FormItemInstance {
   name?: string | number | Array<string | number>;
   value?: any;
+  getValue?: Function;
   setValue?: Function;
   setField?: Function;
   validate?: Function;
@@ -77,6 +78,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const currentFormItemRef = useRef<FormItemInstance>(); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldValidate = useRef(false);
+  const valueRef = useRef(formValue);
 
   const errorMessages = useMemo(() => errorMessage ?? globalFormConfig.errorMessage, [errorMessage, globalFormConfig]);
 
@@ -104,6 +106,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
       showErrorMessage,
       innerRules,
     });
+
+  // 更新 form 表单字段
+  const updateFormValue = (newVal: any, validate = true) => {
+    shouldValidate.current = validate;
+    valueRef.current = newVal;
+    setFormValue(newVal);
+  };
 
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules) {
@@ -252,8 +261,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
     // reset 不校验
-    shouldValidate.current = false;
-    setFormValue(resetValue);
+    updateFormValue(resetValue, false);
 
     if (resetValidating) {
       setNeedResetField(true);
@@ -279,8 +287,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     }
     if (typeof value !== 'undefined') {
       // 手动设置 status 则不需要校验 交给用户判断
-      shouldValidate.current = typeof status === 'undefined' ? true : false;
-      setFormValue(value);
+      updateFormValue(value, typeof status === 'undefined' ? true : false);
     }
   }
 
@@ -349,7 +356,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const instance: FormItemInstance = {
     name,
     value: formValue,
-    setValue: setFormValue,
+    getValue: () => valueRef.current,
+    setValue: (newVal: any) => updateFormValue(newVal),
     setField,
     validate,
     validateOnly,
@@ -399,8 +407,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
                   onChangeFromProps.call(null, value, ...args);
-                  shouldValidate.current = true;
-                  setFormValue(value);
+                  updateFormValue(value);
                 },
                 onBlur: (value: any, ...args: any[]) => {
                   onBlurFromProps.call(null, value, ...args);
