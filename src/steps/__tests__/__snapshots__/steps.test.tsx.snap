@@ -870,13 +870,13 @@ exports[`status.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-steps-item"
+          class="t-steps-item t-steps-item--wait"
         >
           <div
             class="t-steps-item__inner t-steps-item--clickable"
           >
             <div
-              class="t-steps-item__icon t-steps-item-wait"
+              class="t-steps-item__icon t-steps-item-default"
             >
               <span
                 class="t-steps-item__icon--number"
@@ -901,13 +901,13 @@ exports[`status.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-steps-item"
+          class="t-steps-item t-steps-item--wait"
         >
           <div
             class="t-steps-item__inner t-steps-item--clickable"
           >
             <div
-              class="t-steps-item__icon t-steps-item-wait"
+              class="t-steps-item__icon t-steps-item-default"
             >
               <span
                 class="t-steps-item__icon--number"
@@ -1057,13 +1057,13 @@ exports[`status.jsx 1`] = `
           </div>
         </div>
         <div
-          class="t-steps-item"
+          class="t-steps-item t-steps-item--wait"
         >
           <div
             class="t-steps-item__inner t-steps-item--clickable"
           >
             <div
-              class="t-steps-item__icon t-steps-item-wait"
+              class="t-steps-item__icon t-steps-item-default"
             >
               <span
                 class="t-steps-item__icon--number"
