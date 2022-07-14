@@ -267,7 +267,7 @@ export default function TableTree() {
     MessagePlugin.success('树形结构获取成功，请打开控制台查看');
   };
 
-  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronDownIcon /> : <ChevronRightIcon />);
+  const renderTreeExpandAndFoldIcon = ({ type }) => (type === 'expand' ? <ChevronRightIcon /> : <ChevronDownIcon />);
 
   const onPageChange = (pageInfo) => {
     setPagination({ ...pagination, ...pageInfo });
