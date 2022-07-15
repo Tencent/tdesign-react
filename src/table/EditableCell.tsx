@@ -126,6 +126,7 @@ const EditableCell = (props: EditableCellProps) => {
       // 此处必须在事件执行完成后异步销毁编辑组件，否则会导致事件清除不及时引起的其他问题
       const timer = setTimeout(() => {
         setIsEdit(false);
+        setErrorList([]);
         clearTimeout(timer);
       }, 0);
     });
