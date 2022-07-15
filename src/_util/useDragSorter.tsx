@@ -104,7 +104,7 @@ function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
   }
   function onDragEnd() {
     if (!isDropped) {
-      // 取消排序，待扩展api，输出dragStartData
+      // 取消排序，待扩展 api，输出 dragStartData
     }
     setIsDropped(false);
     setDraggingIndex(-1);

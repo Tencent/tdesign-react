@@ -1466,36 +1466,47 @@ exports[`disabled.jsx 1`] = `
               class="t-form__controls-content"
             >
               <div
-                class="t-popup__reference t-cascader__popup"
+                class="t-popup__reference t-cascader t-select-input"
               >
-                <span
-                  class="t-trigger"
+                <div
+                  class="t-input__wrap"
+                  value="上海"
                 >
                   <div
-                    class="t-cascader t-is-disabled t-size-m"
+                    class="t-input t-is-readonly t-is-disabled t-size-m t-align-left t-is-default t-input--prefix t-input--suffix"
                   >
+                    <div
+                      class="t-input__prefix"
+                    />
+                    <input
+                      class="t-input__inner"
+                      disabled=""
+                      placeholder="请选择"
+                      readonly=""
+                      type="text"
+                      value="上海"
+                    />
                     <span
-                      class="t-cascader__content"
+                      class="t-input__suffix t-input__suffix-icon"
                     >
-                      上海
+                      <svg
+                        class="t-fake-arrow t-cascader__icon t-is-disabled"
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+                          stroke="black"
+                          stroke-opacity="0.9"
+                          stroke-width="1.3"
+                        />
+                      </svg>
                     </span>
-                    <svg
-                      class="t-fake-arrow t-cascader__icon t-is-disabled"
-                      fill="none"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-                        stroke="black"
-                        stroke-opacity="0.9"
-                        stroke-width="1.3"
-                      />
-                    </svg>
                   </div>
-                </span>
+                </div>
               </div>
             </div>
           </div>
@@ -1874,31 +1885,6 @@ exports[`disabled.jsx 1`] = `
                             />
                             <path
                               d="M1.12 8.23A7.72 7.72 0 008 12.5c2.9 0 5.54-1.63 6.88-4.27L15 8l-.12-.23A7.73 7.73 0 008 3.5a7.74 7.74 0 00-6.88 4.27L1 8l.12.23zM8 11.5A6.73 6.73 0 012.11 8 6.73 6.73 0 0113.9 8 6.74 6.74 0 018 11.5z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                          </svg>
-                        </span>
-                        <span
-                          class="t-upload__card-mask-item-divider"
-                        />
-                        <span
-                          class="t-upload__card-mask-item"
-                        >
-                          <svg
-                            class="t-icon t-icon-delete"
-                            fill="none"
-                            height="1em"
-                            viewBox="0 0 16 16"
-                            width="1em"
-                          >
-                            <path
-                              d="M6 12V6h1v6H6zM9 6v6h1V6H9z"
-                              fill="currentColor"
-                              fill-opacity="0.9"
-                            />
-                            <path
-                              d="M10.5 3H14v1h-1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V4H2V3h3.5V1.8c0-.44.36-.8.8-.8h3.4c.44 0 .8.36.8.8V3zm-4 0h3V2h-3v1zM4 4v10h8V4H4z"
                               fill="currentColor"
                               fill-opacity="0.9"
                             />

@@ -15,6 +15,7 @@ export interface SinglePanelProps extends TdDatePickerProps, StyledProps {
   year?: number;
   month?: number;
   time?: string;
+  popupVisible?: boolean;
   onPanelClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellMouseEnter?: (date: Date) => void;
@@ -52,13 +53,17 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) =>
     enableTimePicker: props.enableTimePicker,
   });
 
+  // 兼容数据格式不标准场景 YYYY-MM-D
+  const formatDate = (newDate, format) =>
+    dayjs(newDate).isValid() ? dayjs(newDate).toDate() : dayjs(newDate, format).toDate();
+
   const disableDateOptions = useDisableDate({ disableDate: props.disableDate, mode: props.mode, format });
 
   const tableData = useTableData({
     year,
     month,
     mode,
-    start: value ? dayjs(value, format).toDate() : undefined,
+    start: value ? formatDate(value, format) : undefined,
     firstDayOfWeek,
     ...disableDateOptions,
   });
@@ -70,6 +75,7 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((props, ref) =>
     format,
     firstDayOfWeek,
     tableData,
+    popupVisible: props.popupVisible,
 
     time: props.time,
     timePickerProps: props.timePickerProps,

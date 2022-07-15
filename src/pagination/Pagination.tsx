@@ -91,7 +91,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     });
   };
 
-  // 处理改变pageSize的逻辑
+  // 处理改变 pageSize 的逻辑
   const changePageSize = (nextPageSize: number) => {
     const nextCurrent = Math.min(current, Math.ceil(total / nextPageSize));
     const pageInfo = {
@@ -101,7 +101,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     };
     setPageSize(nextPageSize, pageInfo);
 
-    // 改变分页大小也需要触发onChange回调 如果改变分页大小会改变currentPage 则由changeCurrent内去触发onChange 否则需要自己触发
+    // 改变分页大小也需要触发 onChange 回调 如果改变分页大小会改变 currentPage 则由 changeCurrent 内去触发 onChange 否则需要自己触发
     if (current !== nextCurrent) {
       changeCurrent(nextCurrent, nextPageSize);
     } else {
@@ -109,7 +109,7 @@ const Pagination = forwardRef((props: PaginationProps, ref: React.Ref<HTMLDivEle
     }
   };
 
-  // 处理极简版的当前页ga的逻辑
+  // 处理极简版的当前页 ga 的逻辑
   const onSimpleCurrentChange = (nextCurrent: number) => {
     if (disabled || pageCount < nextCurrent || nextCurrent < min) return;
     setCurrent(nextCurrent, { current: nextCurrent, previous: current, pageSize });

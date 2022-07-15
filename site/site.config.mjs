@@ -37,6 +37,12 @@ export default {
       type: 'doc', // 组件文档
       children: [
         {
+          title: '全局特性配置',
+          name: 'config',
+          path: '/react/config',
+          component: () => import('tdesign-react/config-provider/config-provider.md'),
+        },
+        {
           title: '自定义主题',
           name: 'custom-theme',
           path: '/react/custom-theme',

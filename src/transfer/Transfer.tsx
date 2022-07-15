@@ -96,7 +96,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     let newTarget = [...target, ...sourceCheckeds];
     let newTargetValue = newTarget.map((t) => t.value);
 
-    // 树结构处理source/target节点数据
+    // 树结构处理 source/target 节点数据
     if (tree) {
       newSource = filterCheckedTreeNodes(source, checkeds.source);
       newTarget = getTargetNodes(newSource, data);
@@ -119,7 +119,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     let newTarget = difference(target, targetCheckeds);
     let newTargetValue = newTarget.map((t) => t.value);
 
-    // 树结构处理source/target节点数据
+    // 树结构处理 source/target 节点数据
     if (tree) {
       newTarget = filterCheckedTreeNodes(target, checkeds.target);
       newSource = getTargetNodes(newTarget, data);
@@ -180,7 +180,7 @@ const Transfer: React.FunctionComponent<TransferProps> = (props) => {
     if (isTargetControlled && Array.isArray(value)) {
       let newTarget = data.filter((item) => value.includes(item.value));
       let newSource = difference(data, newTarget);
-      // 树结构处理source/target节点数据
+      // 树结构处理 source/target 节点数据
       if (tree) {
         newSource = filterCheckedTreeNodes(data, value);
         newTarget = getTargetNodes(newSource, data);

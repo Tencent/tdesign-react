@@ -31,6 +31,11 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   const checkedColumn = useMemo(() => columns.find((col) => col.colKey === 'row-select'), [columns]);
 
+  const uniqueKeys = useMemo(
+    () => store?.getAllUniqueKeys(data, rowDataKeys)?.join() || '',
+    [data, rowDataKeys, store],
+  );
+
   useEffect(() => {
     if (!store || !checkedColumn) return;
     // 第一次，不需要执行 updateDisabledState
@@ -56,7 +61,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       setDataSource(newVal);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data],
+    [uniqueKeys],
   );
 
   useEffect(
@@ -70,11 +75,9 @@ export default function useTreeData(props: TdEnhancedTableProps) {
 
   function getTreeNodeStyle(level: number) {
     if (level === undefined) return;
-    const indent = props.tree?.indent || 24;
+    const indent = props.tree?.indent === undefined ? 24 : props.tree?.indent;
     // 默认 1px 是为了临界省略
-    return {
-      paddingLeft: `${level * indent || 1}px`,
-    };
+    return indent ? { paddingLeft: `${level * indent || 1}px` } : {};
   }
 
   /**
@@ -117,15 +120,15 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       const colStyle = getTreeNodeStyle(currentState?.level);
       const classes = { [tableTreeClasses.inlineCol]: !!col.ellipsis };
       const childrenNodes = get(p.row, rowDataKeys.childrenKey);
-      if (childrenNodes && childrenNodes instanceof Array) {
+      if ((childrenNodes && childrenNodes instanceof Array) || childrenNodes === true) {
         const expanded = store.treeDataMap.get(get(p.row, rowDataKeys.rowKey))?.expanded;
-        const type = expanded ? 'expand' : 'fold';
+        const type = expanded ? 'fold' : 'expand';
         const defaultIconNode =
           t(locale.treeExpandAndFoldIcon, { type }) || (expanded ? <MinusRectangleIcon /> : <AddRectangleIcon />);
-        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type }) : defaultIconNode;
+        const iconNode = treeExpandAndFoldIcon ? treeExpandAndFoldIcon({ type, ...p }) : defaultIconNode;
         return (
           <div className={classNames([tableTreeClasses.col, classes])} style={colStyle}>
-            {!!childrenNodes.length && (
+            {!!(childrenNodes.length || childrenNodes === true) && (
               <span className={tableTreeClasses.icon} onClick={() => toggleExpandData({ ...p, trigger: 'inner' })}>
                 {iconNode}
               </span>
@@ -183,7 +186,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    * @param key 当前节点唯一标识
    * @param newData 待添加的新节点
    */
-  function appendTo<T>(key: TableRowValue, newData: T) {
+  function appendTo<T>(key: TableRowValue, newData: T | T[]) {
     if (!key) {
       setDataSource([...store.appendToRoot(newData, dataSource, rowDataKeys)]);
       return;

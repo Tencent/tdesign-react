@@ -54,7 +54,7 @@ const ColorSlider = (props: TdColorSliderProps) => {
 
   useDrag(panelRef, {
     start: (coordinate: Coordinate) => {
-      // pop模式下由于是隐藏显示，这个宽度让其每次点击的时候重新计算
+      // pop 模式下由于是隐藏显示，这个宽度让其每次点击的时候重新计算
       panelRectRef.current.width = panelRef.current.offsetWidth;
       isMovedRef.current = false;
       handleDrag(coordinate);

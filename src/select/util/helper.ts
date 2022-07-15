@@ -23,11 +23,11 @@ function setValueToOptionFormOptionDom(dom, valueToOption: ValueToOption, keys: 
   }
 }
 
-// 获取value => option，用于快速基于value找到对应的option
+// 获取 value => option，用于快速基于 value 找到对应的 option
 export const getValueToOption = (children, options: TdOptionProps[], keys: SelectKeysType): ValueToOption => {
   const valueToOption = {};
 
-  // options优先级高于children
+  // options 优先级高于 children
   if (Array.isArray(options)) {
     options.forEach((option) => {
       valueToOption[get(option, keys?.value || 'value')] = option;
@@ -73,7 +73,7 @@ export const getValueToOption = (children, options: TdOptionProps[], keys: Selec
   return valueToOption;
 };
 
-// 获取单选的label
+// 获取单选的 label
 export const getLabel = (
   children,
   value: SelectValue<TdOptionProps>,

@@ -17,6 +17,7 @@ import {
 } from '../../const';
 import { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import { ColorPickerChangeTrigger, TdColorPickerProps } from '../../type';
+import { colorPickerDefaultProps } from '../../defaultProps';
 import LinearGradient from './linear-gradient';
 import SaturationPanel from './saturation';
 import HUESlider from './hue';
@@ -113,6 +114,9 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     props,
     'recentColors',
     onRecentColorsChange,
+    {
+      defaultRecentColors: colorPickerDefaultProps.recentColors,
+    },
   );
 
   const baseProps = {
@@ -130,7 +134,6 @@ const Panel = forwardRef((props: ColorPickerProps, ref: MutableRefObject<HTMLDiv
     }
     colorInstanceRef.current = new Color(rgba);
   };
-
   // 最近使用颜色变更时触发
   const handleRecentlyUsedColorsChange = (colors: string[]) => {
     setRecentlyUsedColors(colors);

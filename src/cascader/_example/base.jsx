@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Cascader } from 'tdesign-react';
 
 export default function Example() {
-  const [value, setValue] = useState('1.1');
+  const [value, setValue] = useState([]);
   const [options] = useState([
     {
       label: '选项一',
@@ -42,13 +42,9 @@ export default function Example() {
     setValue(value);
   };
 
-  const itemStyle = {
-    marginTop: '16px',
-  };
-
   return (
-    <div className="tdesign-demo-block-column">
-      <Cascader style={itemStyle} options={options} onChange={onChange} value={value} size="medium" clearable />
+    <div>
+      <Cascader options={options} onChange={onChange} value={value} size="medium" clearable />
     </div>
   );
 }

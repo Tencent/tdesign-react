@@ -93,7 +93,7 @@ export default function TableFixedColumn() {
   );
 
   return (
-    <Space direction="vertical" size="large">
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <RadioGroup value={tableLayout} variant="default-filled" onChange={setTableLayout}>
         <RadioButton value="fixed">table-layout: fixed</RadioButton>
         <RadioButton value="auto">table-layout: auto</RadioButton>

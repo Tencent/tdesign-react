@@ -7,8 +7,8 @@ export default function usePageNumber(props) {
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-pagination`;
 
-  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理left ellipsis展示逻辑
-  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理right ellipsis展示逻辑
+  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理 left ellipsis 展示逻辑
+  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理 right ellipsis 展示逻辑
 
   const {
     showPageNumber,
@@ -40,7 +40,6 @@ export default function usePageNumber(props) {
         const foldedEnd = isMidEllipsis ? pageCount - 1 : pageCount;
         start = isPrevMoreShow ? pageCount - foldedMaxPageBtn + 1 : foldedStart;
         end = isPrevMoreShow ? foldedEnd : foldedMaxPageBtn;
-        console.log(end);
       }
     } else {
       start = 1;

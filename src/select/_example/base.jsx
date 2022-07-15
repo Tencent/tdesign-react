@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { Select } from 'tdesign-react';
 
-const { Option } = Select;
-
 export default function SingleSelect() {
-  const [value, setValue] = useState('apple');
+  const [value, setValue] = useState('');
   const onChange = (value) => {
     setValue(value);
   };
 
   return (
-    <Select value={value} onChange={onChange} style={{ width: '40%' }} clearable>
-      <Option key="apple" label="Apple" value="apple" />
-      <Option key="orange" value="orange">
-        Orange
-      </Option>
-      <Option key="banana" label="Banana" value="banana" />
-    </Select>
+    <Select
+      value={value}
+      onChange={onChange}
+      style={{ width: '40%' }}
+      clearable
+      options={[
+        { label: '架构云', value: '1' },
+        { label: '大数据', value: '2' },
+        { label: '区块链', value: '3' },
+        { label: '物联网', value: '4', disabled: true },
+        { label: '人工智能', value: '5' },
+      ]}
+    ></Select>
   );
 }

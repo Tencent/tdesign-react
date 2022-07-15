@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { EnhancedTable, Radio, Space } from 'tdesign-react';
 import cloneDeep from 'lodash/cloneDeep';
+import get from 'lodash/get';
+
+const CHILDREN_KEY = 'childrenList';
 
 const initData = [];
 for (let i = 0; i < 5; i++) {
@@ -19,7 +22,7 @@ for (let i = 0; i < 5; i++) {
       key: secondIndex,
       instance: `JQTest${secondIndex}`,
     };
-    secondObj.childrenList = new Array(5).fill(null).map((m, n) => {
+    secondObj.childrenList = new Array(3).fill(null).map((m, n) => {
       const thirdIndex = secondIndex * 1000 + 100 * m + (n + 1) * 10;
       return {
         ...obj,
@@ -42,7 +45,7 @@ const columns = [
 
     // 禁用行选中方式二：使用 checkProps 禁用行（示例代码有效，勿删）
     // 这种方式禁用行选中，行文本不会变灰
-    checkProps: ({ row }) => ({ disabled: row.status !== 0 }),
+    checkProps: ({ row }) => ({ disabled: !get(row, CHILDREN_KEY) && row.status === 0 }),
     // 自由调整宽度，如果发现元素看不见，请加大宽度
     width: 20,
   },
@@ -66,6 +69,12 @@ export default function TableSingleSort() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [checkStrictly, setCheckStrictly] = useState(true);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
+  const treeTableRef = useRef();
+
+  useEffect(() => {
+    // 包含 treeDataMap 及各类树形操作方法
+    console.log(treeTableRef.current);
+  }, []);
 
   useEffect(
     () => {
@@ -76,6 +85,7 @@ export default function TableSingleSort() {
     [checkStrictly.value],
   );
 
+  // 可使用 treeTableRef.current.treeDataMap 判断是否为叶子结点，或任意结点的层级
   function onSelectChange(value, selectOptions) {
     console.log('onSelectChange', value, selectOptions);
     setSelectedRowKeys(value);
@@ -93,12 +103,14 @@ export default function TableSingleSort() {
       </Radio.Group>
 
       <EnhancedTable
+        ref={treeTableRef}
         rowKey="key"
         data={data}
         columns={columns}
+        // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
-        tree={{ checkStrictly, childrenKey: 'childrenList' }}
+        tree={{ checkStrictly, childrenKey: CHILDREN_KEY }}
         expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
         expandedRowKeys={expandedRowKeys}
         onExpandChange={onExpandChange}

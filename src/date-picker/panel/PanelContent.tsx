@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
+import React from 'react';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
-import TimePickerPanel from '../../time-picker/panel/TimePickerPanel';
+import { TimePickerPanel } from '../../time-picker';
 import type { SinglePanelProps } from './SinglePanel';
 import type { RangePanelProps } from './RangePanel';
 import useConfig from '../../_util/useConfig';
@@ -19,6 +18,7 @@ export interface PanelContentProps {
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
   time: SinglePanelProps['time'];
 
+  popupVisible?: boolean;
   tableData: any[];
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
   onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
@@ -43,7 +43,7 @@ export default function PanelContent(props: PanelContentProps) {
     firstDayOfWeek,
 
     partial = 'start',
-    time = dayjs().format('HH:mm:ss'),
+    time,
     tableData,
     onMonthChange,
     onYearChange,
@@ -56,8 +56,7 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
-  // eslint-disable-next-line
-  const defaultTime = useMemo(() => dayjs().format(timeFormat), [time]);
+  const defaultTime = '00:00:00';
 
   return (
     <div className={`${panelName}--content`}>
@@ -85,7 +84,14 @@ export default function PanelContent(props: PanelContentProps) {
       {enableTimePicker && (
         <div className={`${panelName}--time`}>
           <div className={`${panelName}--time-viewer`}>{time || defaultTime}</div>
-          <TimePickerPanel format={timeFormat} value={time} onChange={onTimePickerChange} {...timePickerProps} />
+          <TimePickerPanel
+            key={partial}
+            format={timeFormat}
+            value={time || defaultTime}
+            onChange={onTimePickerChange}
+            isShowPanel={props.popupVisible}
+            {...timePickerProps}
+          />
         </div>
       )}
     </div>

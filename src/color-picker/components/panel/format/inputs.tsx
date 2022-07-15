@@ -39,7 +39,7 @@ const FormatInputs = (props) => {
     };
   };
 
-  // 更新modelValue
+  // 更新 modelValue
   const updateModelValue = () => {
     const values: any = getFormatColorMap('encode')[format];
     values.a = Math.round(color.alpha * 100);
