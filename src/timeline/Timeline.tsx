@@ -11,9 +11,9 @@ export interface TimelineProps extends TdTimeLineProps, StyledProps {
   children?: React.ReactNode;
 }
 
-const TimeLine = forwardRefWithStatics(
+const Timeline = forwardRefWithStatics(
   (props: TimelineProps, ref: React.Ref<HTMLUListElement>) => {
-    const { theme = 'default', align, children, className, style, reverse, layout = 'vertical' } = props;
+    const { theme = 'default', align, children, className, style, reverse = false, layout = 'vertical' } = props;
     const { classPrefix } = useConfig();
 
     const timelineClassName = classNames(
@@ -28,6 +28,8 @@ const TimeLine = forwardRefWithStatics(
     const timelineItems = React.Children.toArray(children).filter(
       (child: JSX.Element) => child.type.displayName === TimelineItem.displayName,
     );
+    // 获取所有子节点类型
+    const itemsStatus = React.Children.map(timelineItems, (child: JSX.Element) => child.props.status || 'default');
 
     if (reverse) {
       timelineItems.reverse();
@@ -49,18 +51,17 @@ const TimeLine = forwardRefWithStatics(
       return '';
     };
 
-    // 一些固定的class样式名
-    const lastItemClassName = `${classPrefix}-timeline-item--last`;
-
     return (
-      <TimelineContext.Provider value={{ theme }}>
+      <TimelineContext.Provider value={{ theme, reverse, itemsStatus }}>
         <ul className={timelineClassName} style={style} ref={ref}>
-          {React.Children.map(timelineItems, (ele: React.ReactElement<any>, index) => {
-            const readyClass = index === itemsCounts - 1 ? lastItemClassName : '';
-            return React.cloneElement(ele, {
-              className: classNames([ele.props.className, readyClass, getPositionClassName(index)]),
-            });
-          })}
+          {React.Children.map(timelineItems, (ele: JSX.Element, index) =>
+            React.cloneElement(ele, {
+              index,
+              className: classNames([ele.props.className, getPositionClassName(index)], {
+                [`${classPrefix}-timeline-item--last`]: index === itemsCounts - 1,
+              }),
+            }),
+          )}
         </ul>
       </TimelineContext.Provider>
     );
@@ -70,6 +71,6 @@ const TimeLine = forwardRefWithStatics(
   },
 );
 
-TimeLine.displayName = 'TimeLine';
+Timeline.displayName = 'Timeline';
 
-export default TimeLine;
+export default Timeline;

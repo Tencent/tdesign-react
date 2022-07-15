@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TElement } from '../common';
+import { TNode, TElement } from '../common';
 
 export interface TdTimeLineProps {
   /**
@@ -35,10 +35,18 @@ export interface TdTimeLineItemProps {
    */
   align?: 'left' | 'right';
   /**
+   * 描述内容，同 content
+   */
+  children?: TNode;
+  /**
    * 时间轴颜色
    * @default ''
    */
   color?: string;
+  /**
+   * 描述内容
+   */
+  content?: TNode;
   /**
    * 用于自定义时间轴节点元素
    */
@@ -47,4 +55,8 @@ export interface TdTimeLineItemProps {
    * 当前步骤状态：默认状态（未开始）、进行中状态、完成状态
    */
   status?: 'default' | 'process' | 'finish';
+  /**
+   * 时间，可完全自定义
+   */
+  time?: TNode;
 }

@@ -9,12 +9,15 @@ import Loading from '../loading';
 
 export interface TimeLineItemProps extends TdTimeLineItemProps, StyledProps {
   children?: React.ReactNode;
+  index?: number;
 }
 
 const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
-  const { className, style = {}, color, dot, children, status = 'default', label } = props;
-  const { theme } = useContext(TimelineContext);
+  const { className, style = {}, color, dot, children, index, status = 'default', time } = props;
+  const { theme, reverse, itemsStatus } = useContext(TimelineContext);
   const { classPrefix } = useConfig();
+
+  const dotElement = useMemo(() => renderTNode(dot), [dot]);
 
   // 节点类名
   const itemClassName = classNames(
@@ -28,21 +31,19 @@ const TimelineItem: React.FC<TimeLineItemProps> = (props) => {
   const tailClassName = classNames({
     [`${classPrefix}-timeline-item__tail`]: true,
     [`${classPrefix}-timeline-item__tail--theme-${theme}`]: true,
-    [`${classPrefix}-timeline-item__tail--status-${status}`]: true,
+    [`${classPrefix}-timeline-item__tail--status-${reverse ? itemsStatus[index] : status}`]: true,
   });
 
   // 圆圈类名
   const dotClassName = classNames({
     [`${classPrefix}-timeline-item__dot`]: true,
-    [`${classPrefix}-timeline-item__dot--custom`]: !!dot,
+    [`${classPrefix}-timeline-item__dot--custom`]: !!dotElement,
     [`${classPrefix}-timeline-item__dot--${status}`]: true,
   });
 
-  const dotElement = useMemo(() => renderTNode(dot), [dot]);
-
   return (
     <li className={itemClassName} style={style}>
-      {label && <div className={`${classPrefix}-timeline-item__label`}>{label}</div>}
+      {time && <div className={`${classPrefix}-timeline-item__time`}>{time}</div>}
       <div className={tailClassName} />
       <div className={dotClassName} style={{ borderColor: color }}>
         {!dotElement && status === 'process' && <Loading size="13px" />}
